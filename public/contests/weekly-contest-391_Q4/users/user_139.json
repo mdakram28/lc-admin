@@ -1,4 +1,0 @@
-{
-    "username": "meet05",
-    "submission": "class Solution {\n    #define INF 2e18\npublic:\n    int minimumDistance(vector<vector<int>>& points) {\n        multiset<long long> sum, diff;\n        \n        for (auto x : points)\n        {\n            sum.insert(x[0] + x[1]);\n            diff.insert(x[0] - x[1]);\n        }\n        \n        long long ans = INF;\n        \n        for (auto x : points)\n        {\n            sum.erase(sum.lower_bound(x[0] + x[1]));\n            diff.erase(diff.lower_bound(x[0] - x[1]));\n            \n            long long temp = max(*sum.rbegin() - *sum.begin(), *diff.rbegin() - *diff.begin());\n            ans = min(ans, temp);\n            \n            sum.insert(x[0] + x[1]);\n            diff.insert(x[0] - x[1]);\n        }\n        \n        return ans;\n    }\n};"
-}

@@ -1,4 +1,0 @@
-{
-    "username": "AlexShch",
-    "submission": "from sortedcontainers import SortedList\nclass Solution:\n    def minimumDistance(self, points: List[List[int]]) -> int:\n        N = len(points)\n\n        SUMS = [0] * N\n        DIFFS = [0] * N\n\n        for i in range(N):\n            SUMS[i] = points[i][0] + points[i][1]\n            DIFFS[i] = points[i][0] - points[i][1]\n            \n        SUMS = SortedList(SUMS)\n        DIFFS = SortedList(DIFFS)\n        \n        RES = float('inf')\n        \n        \n        for x, y in points:\n            s = x + y\n            d = x - y\n            SUMS.remove(s)\n            DIFFS.remove(d)\n            cur_res = max(SUMS[-1] - SUMS[0], DIFFS[-1] - DIFFS[0])\n            SUMS.add(s)\n            DIFFS.add(d)\n            RES = min(RES, cur_res)\n\n        return RES\n"
-}

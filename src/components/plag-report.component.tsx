@@ -27,6 +27,7 @@ const fetchGroups = async (baseDir: string, similarity: number) => {
         groups[user.groupId].push(user);
     }
 
+    console.log(groups)
     const groupsList = Object.values(groups);
     groupsList.sort((a, b) => b.length - a.length);
     groupsList.forEach(group => group.sort((a, b) => a.subm_ts - b.subm_ts));

@@ -1,4 +1,0 @@
-{
-    "username": "datn2107",
-    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& points) { \n        if (points.size() == 2) return 0; \n        \n        sort(points.begin(), points.end());\n        multiset<int> d0, d1;\n        for (auto &p : points) {\n            d0.insert(p[0] + p[1]);\n            d1.insert(p[0] - p[1]);\n        }\n        \n        int ans = 1e9+1; \n        for (auto p : points) {\n            int tmp0 = p[0] + p[1];\n            int tmp1 = p[0] - p[1]; \n            \n            d0.erase(d0.find(tmp0)); d1.erase(d1.find(tmp1)); \n            ans = min(ans, max(*(d0.rbegin()) - *(d0.begin()), *(d1.rbegin()) - *(d1.begin())));\n            d0.insert(tmp0); d1.insert(tmp1); \n        }\n        \n        return ans;\n    }\n};"
-}

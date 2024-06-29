@@ -1,4 +1,0 @@
-{
-    "username": "raghu30",
-    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& points) {\n        int n = points.size();\n        multiset<pair<int, int>> sums, diff;\n        \n        for(int i=0; i<n; i++) {\n            sums.insert({points[i][0]+points[i][1], i});\n            diff.insert({points[i][0]-points[i][1], i});\n        }\n        \n        int ans = 2e9;\n        \n        for(int i=0; i<n; i++) {\n            sums.erase(sums.find({points[i][0]+points[i][1], i}));\n            diff.erase(diff.find({points[i][0]-points[i][1], i}));\n            \n            int curAns = max(sums.rbegin()->first - sums.begin()->first, diff.rbegin()->first - diff.begin()->first);\n            ans = min(ans, curAns);\n            \n            sums.insert({points[i][0]+points[i][1], i});\n            diff.insert({points[i][0]-points[i][1], i});\n        }\n        \n        return ans;\n    }\n};"
-}

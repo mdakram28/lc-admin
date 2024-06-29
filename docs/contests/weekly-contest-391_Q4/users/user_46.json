@@ -1,4 +1,0 @@
-{
-    "username": "Ujimatsu_Chiya",
-    "submission": "from typing import List\n\n\nclass Solution:\n    def minimumDistance(self, points: List[List[int]]) -> int:\n        d = [[] for _ in range(4)]\n        for i, p in enumerate(points):\n            x, y = p\n            d[0].append((x + y, i))\n            d[1].append((x - y, i))\n            d[2].append((-x + y, i))\n            d[3].append((-x - y, i))\n        inf = 10 ** 10\n        ans = inf\n        for i in range(4):\n            d[i].sort()\n        n = len(points)\n        for j in range(n):\n            val = 0\n            for i in range(4):\n                l, r = 0, n - 1\n                if d[i][l][1] == j:\n                    l += 1\n                if d[i][r][1] == j:\n                    r -= 1\n                val = max(val, d[i][r][0] - d[i][l][0])\n            ans = min(ans, val)\n        return ans\n"
-}

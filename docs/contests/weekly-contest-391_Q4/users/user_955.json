@@ -1,4 +1,0 @@
-{
-    "username": "pranjal_trvd",
-    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& points) {\n        multiset<int> V, V1;\n\n        for (const auto& p : points) {\n            V.insert(p[0] + p[1]);\n            V1.insert(p[0] - p[1]);\n        }\n\n        int maxDist = max(*prev(V.end()) - *V.begin(), *prev(V1.end()) - *V1.begin());\n\n        for (const auto& p : points) {\n            V.erase(V.find(p[0] + p[1]));\n            V1.erase(V1.find(p[0] - p[1]));\n\n            int maxDistAfterRemoval = max(*prev(V.end()) - *V.begin(), *prev(V1.end()) - *V1.begin());\n\n            maxDist = min(maxDist, maxDistAfterRemoval);\n\n            V.insert(p[0] + p[1]);\n            V1.insert(p[0] - p[1]);\n        }\n\n        return maxDist;\n    }\n};"
-}

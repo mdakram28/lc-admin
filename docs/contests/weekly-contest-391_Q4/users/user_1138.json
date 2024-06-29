@@ -1,4 +1,0 @@
-{
-    "username": "lee_218",
-    "submission": "class Solution:\n    def minimumDistance(self, points: List[List[int]]) -> int:\n        \n        n = len(points)\n\n        res=[]\n        for p, q in [[1, 1], [1, -1], [-1, 1], [-1, -1]]:\n            res+=[[]]\n\n            for i in range(n):\n                res[-1]+=[ (p * points[i][0] + q * points[i][1],i) ]\n\n            res[-1] =sorted(res[-1])\n\n\n        stack=set()\n        for i in res:\n\n            stack|={i[0][1],i[-1][1]}\n\n\n        ans=float('inf')\n        for remove in stack:\n                cur=0\n                for i in range(4):\n\n                    x=[res[i][0],res[i][1],res[i][-1],res[i][-2]]\n                    x=sorted([i for i in x if remove !=i[1]])\n                    cur=max(cur,x[-1][0]-x[0][0])\n                ans=min(ans,cur)\n        return ans"
-}

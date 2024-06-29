@@ -1,14 +1,13 @@
-import os
-import sys
-from common import *
 import csv
 import json
 from pathlib import Path
 from typing import List, Tuple, Dict, TypedDict
 from collections import defaultdict
-from os.path import join, basename, exists
+from os.path import join, basename
 from functools import cache
 from dataclasses import dataclass
+
+csv.field_size_limit(100_000_000)
 
 class DisjSet: 
     def __init__(self): 
@@ -55,7 +54,6 @@ class DolosFile:
     id: str
     path: str
     content: str
-    subm_ts: float
 
     # Computed fields
     def get_username(self):
@@ -70,13 +68,10 @@ class DolosFile:
         assert rank.isnumeric(), "Invalid rank"
         return rank
 
+
 class ReportProcessor:
-    def __init__(self, contest_name, ques_num) -> None:
-        self.contest_name = contest_name
-        self.ques_num = ques_num
-        self.report_name = f"{contest_name}_Q{ques_num}"
-        self.base_dir = join(OUT_PATH, self.report_name)
-        self.report_dir = join(self.base_dir, "dolos-report")
+    def __init__(self, report_dir) -> None:
+        self.report_dir = report_dir
 
     @cache
     def get_pairs(self) -> List[DolosPair]:
@@ -92,26 +87,18 @@ class ReportProcessor:
 
     @cache
     def get_files(self) -> Dict[str, DolosFile]:
-        dolos_info_path = join(self.base_dir, "info.csv")
-        subm_time = {}
-        with open(dolos_info_path) as f:
-            csv_reader = csv.DictReader(f)
-            for row in csv_reader:
-                if csv_reader.line_num == 0:
-                    continue
-                subm_time[row["filename"]] = float(row["subm_ts"])
-
         files_path = join(self.report_dir, "files.csv")
         ret = {}
-        with open(files_path, 'r', encoding='utf-8') as f:
-            csv_reader = csv.DictReader(f)
+        with open(files_path) as files_csv:
+            csv_reader = csv.DictReader(files_csv)
             for row in csv_reader:
                 if csv_reader.line_num == 0:
                     continue
-                ret[row["id"]] = DolosFile(row["id"], row["path"], row["content"], subm_time[row["path"]])
+                ret[row["id"]] = DolosFile(row["id"], row["path"], row["content"])
         return ret
 
-    def get_groups(self, sim_thres: int):
+    def write_group(self, sim_thres: int):
+        files = self.get_files()
         pairs = self.get_pairs()
 
         groups = DisjSet()
@@ -120,26 +107,20 @@ class ReportProcessor:
                 continue
             groups.union(pair.leftFileId, pair.rightFileId)
         
-        return groups.get_groups()
-
-    def write_group(self, sim_thres: int):
-        files = self.get_files()
-        groups = self.get_groups(sim_thres)
-        
-        out_dir = join(self.base_dir, "groups")
+        out_dir = join(self.report_dir, "groups")
         Path(out_dir).mkdir(exist_ok=True)
-        with open(join(out_dir, f"group_{sim_thres}.csv"), "w", newline='', encoding='utf-8') as f:
+        with open(join(out_dir, f"group_{sim_thres}.csv"), "w") as f:
             writer = csv.writer(f)
-            writer.writerow(["groupId", "fileId", "username", "rank", "subm_ts"])
-            for groupId, fileIds in enumerate(groups):
+            writer.writerow(["groupId", "fileId", "username", "rank"])
+            for groupId, fileIds in enumerate(groups.get_groups()):
                 writer.writerows([
-                    [groupId, fileId, files[fileId].get_username(), files[fileId].get_rank(), files[fileId].subm_ts]
+                    [groupId, fileId, files[fileId].get_username(), files[fileId].get_rank()]
                     for fileId in fileIds
                 ])
 
     def write_users(self):
         files = self.get_files()
-        out_dir = join(self.base_dir, "users")
+        out_dir = join(self.report_dir, "users")
         Path(out_dir).mkdir(exist_ok=True)
 
         for file in files.values():
@@ -147,44 +128,18 @@ class ReportProcessor:
             with open(user_file, 'w') as f:
                 json.dump({
                     "username": file.get_username(),
-                    "submission": file.content,
-                    "submit_ts": file.subm_ts
+                    "submission": file.content
                 }, f, indent=4)
 
-    def write_contest_info(self):
-        info_path = join(OUT_PATH, "contest-info.json")
-        info = {
-            "reports": {}
-        }
-        if exists(info_path):
-            with open(info_path) as f:
-                info = json.load(f)
-
-        sim80 = self.get_groups(80)
-
-        info["reports"][self.report_name] = {
-            "name": self.report_name,
-            "contest": self.contest_name,
-            "ques_num": self.ques_num,
-            "url": f"/contests/{self.report_name}",
-            "numsubm": len(self.get_files()),
-            "sim80_numgroups": len(sim80),
-            "sim80_numsubm": sum(len(g) for g in sim80),
-        }
-
-        with open(info_path, 'w') as f:
-            json.dump(info, f, indent=4)
-
 def main():
-    SIMILARITY_PERCENTAGES = list(range(70, 101, 2))
+    REPORT_PATH = "./public/dolos-report"
+    SIMILARITY_PERCENTAGES = list(range(50, 101, 2))
 
-    report = ReportProcessor(sys.argv[1], int(sys.argv[2]))
+    report = ReportProcessor(REPORT_PATH)
     for similarity in SIMILARITY_PERCENTAGES:
         print(f"Writing group with {similarity=}")
         report.write_group(similarity)
 
     report.write_users()
-    report.write_contest_info()
-
 if __name__ == "__main__":
     main()

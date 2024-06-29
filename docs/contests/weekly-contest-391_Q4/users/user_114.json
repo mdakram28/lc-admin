@@ -1,4 +1,0 @@
-{
-    "username": "defier",
-    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& a) {\n        int n = a.size();\n        vector<int> sum(n), diff(n);\n        multiset<int> sums, diffs;\n        for(int i=0;i<n;++i){\n            sum[i] = a[i][0] + a[i][1];\n            diff[i] = a[i][0] - a[i][1];\n            sums.insert(sum[i]);\n            diffs.insert(diff[i]);\n        }\n        int ans = INT_MAX;\n        for(int i=0;i<n;++i){\n            sums.erase(sums.find(sum[i]));\n            diffs.erase(diffs.find(diff[i]));\n            \n            int mnSum = *sums.begin(), mxSum = *sums.rbegin();\n            int mnDiff = *diffs.begin(), mxDiff = *diffs.rbegin();\n            \n            int dist = max(mxSum -mnSum, mxDiff - mnDiff);\n            ans = min(ans , dist);\n            \n            sums.insert(sum[i]);\n            diffs.insert(diff[i]);\n        }\n        return ans;\n    }\n};"
-}

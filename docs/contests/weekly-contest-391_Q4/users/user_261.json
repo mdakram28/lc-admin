@@ -1,4 +1,0 @@
-{
-    "username": "RadecX1",
-    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& points) {\n        multiset<long long>plus,minus;\n        for(auto it:points){\n            plus.insert(it[0]+it[1]);\n            minus.insert(it[0]-it[1]);\n        }\n        long long maximum=LONG_MAX;\n        for(int i=0;i<points.size();i++){\n            \n            int sum = points[i][0]+points[i][1];\n            int diff = points[i][0]-points[i][1];\n            plus.erase(plus.lower_bound(sum));\n            minus.erase(minus.lower_bound(diff));\n            \n            maximum = min(maximum,max((*plus.rbegin()-*plus.begin()),(*minus.rbegin()-*minus.begin())));\n            plus.insert(sum);\n            minus.insert(diff);\n        }\n        return maximum;\n    }\n};"
-}

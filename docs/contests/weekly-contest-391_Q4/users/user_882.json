@@ -1,4 +1,0 @@
-{
-    "username": "timelyrain1212",
-    "submission": "class Solution:\n    def minimumDistance(self, points: list[list[int]]) -> int:\n        INF = 0x3f3f3f3f\n        n = len(points)\n        p = [[i for i in range(n)] for _ in range(4)]\n        func = [\n            lambda i: points[i][0] + points[i][1],\n            lambda i: points[i][0] - points[i][1],\n            lambda i: -points[i][0] + points[i][1],\n            lambda i: -points[i][0] - points[i][1],\n        ]\n        for i, f in enumerate(func):\n            p[i].sort(key=f)\n        ans = INF\n        for i in range(n):\n            cur = 0\n            for j, f in enumerate(func):\n                l = p[j][0] if p[j][0] != i else p[j][1]\n                r = p[j][-1] if p[j][-1] != i else p[j][-2]\n                cur = max(cur, f(r) - f(l))\n            ans = min(ans, cur)\n        return ans"
-}

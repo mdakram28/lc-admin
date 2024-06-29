@@ -1,4 +1,0 @@
-{
-    "username": "dinskid",
-    "submission": "class Solution {\n    public:\n    int minimumDistance(vector<vector<int>>& A) {\n        int N = (int)A.size();\n        multiset<int> V, V1;\n\n        vector<pair<int, int>> v(N);\n        for (int i = 0; i < N; i++) {\n            int p = A[i][0] + A[i][1], q = A[i][0] - A[i][1];\n            V.insert(p);\n            V1.insert(q);\n            v[i] = {p, q};\n        }\n\n        int ans = max(*V.rbegin() - *V.begin(), *V1.rbegin() - *V1.begin());\n        for (int i = 0; i < N; i++) {\n            auto [p, q] = v[i];\n            V.erase(V.find(p));\n            V1.erase(V1.find(q));\n            int maximum = max(*V.rbegin() - *V.begin(), *V1.rbegin() - *V1.begin());\n            ans = min(ans, maximum);\n            V.insert(p);\n            V1.insert(q);\n        }\n        \n        return ans;\n    }\n};"
-}

@@ -1,7 +1,3 @@
-import os
-import sys
-from common import *
-
 from datetime import datetime
 import itertools
 import json
@@ -12,8 +8,6 @@ import math
 from os.path import join, exists, getsize
 import hashlib
 import csv
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 
 OUT_PATH = join("public", "contests")
 
@@ -31,38 +25,29 @@ LANG_EXT = {
     "golang": "go",
     "typescript": "ts",
     "scala": 'sc',
-    "dart": "dart",
-    "php": "php",
-    "ruby": "rb"
+    "dart": "dart"
 }
 
 REQUEST_HEADERS = {
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-    'Accept-Encoding': 'gzip, deflate, br, zstd',
-    'Accept-Language': 'en-US,en;q=0.9',
-    'Priority': 'u=0, i',
-    'Sec-Ch-Ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-    'Sec-Ch-Ua-Mobile': '?0',
-    'Sec-Ch-Ua-Platform': '"Windows"',
-    'Sec-Fetch-Dest': 'document',
-    'Sec-Fetch-Mode': 'navigate',
-    'Sec-Fetch-Site': 'none',
-    'Sec-Fetch-User': '?1',
-    'Upgrade-Insecure-Requests': '1',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "Priority": "u=0, i",
+    "Sec-Ch-Ua-Mobile": '?0',
+    "Sec-Ch-Ua-Platform": "macOS",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-User": "?1",
+    "Upgrade-Insecure-Requests": "1",
 }
 
 class LcClient:
-    def __init__(self, contest: str, ques_num: int) -> None:
-        self.ques_num = ques_num
-        self.out_path = join(OUT_PATH, f"{contest}_Q{ques_num}")
+    def __init__(self, contest: str) -> None:
+        self.out_path = join(OUT_PATH, contest)
         self.api_base = f"https://leetcode.com/contest/api"
         self.api_base_base = {
             "US": f"https://leetcode.com/api",
             "CN": f"https://leetcode.cn/api"
         }
         self.contest_base = f"{self.api_base}/ranking/{contest}"
-        self.driver = webdriver.Chrome()
 
         Path(self.out_path).mkdir(exist_ok=True, parents=True)
 
@@ -77,48 +62,44 @@ class LcClient:
         delay = 0.5
         for attempt in itertools.count(1):
             print("Fetching url:", url)
-
-            self.driver.get(url)
-            content = self.driver.find_element(By.TAG_NAME, 'pre').text
-            resp = json.loads(content)
-            break
-            # resp = requests.get(url, headers=REQUEST_HEADERS)
-            # if resp.status_code == 200:
-            #     break
+            resp = requests.get(url, headers=REQUEST_HEADERS)
+            if resp.status_code == 200:
+                break
 
             print(f"Unexpected status code: {resp.status_code}. Waiting {delay}s")
             time.sleep(delay)
             delay *= 2
             
 
+        resp = resp.json()
         time.sleep(0.1)
         with open(cache_file, 'w') as f:
             json.dump(resp, f, indent=4)
         
         return resp
 
-    def fetch_submissions(self, pages: list[int]):
-        Path(join(self.out_path, "submissions")).mkdir(exist_ok=True)
+    def fetch_submissions(self, pages: list[int], ques_num: int):
+        out_dir = join(f"{self.out_path}", f"Q_{ques_num}")
+        Path(out_dir).mkdir(exist_ok=True)
+        Path(join(out_dir, "submissions")).mkdir(exist_ok=True)
 
-        info_path = join(f"{self.out_path}", "info.csv")
-        info_file = open(info_path, 'w', newline='', encoding='utf-8')
+        info_path = join(f"{self.out_path}", f"Q_{ques_num}", "info.csv")
+        info_file = open(info_path, 'w')
         writer = csv.writer(info_file)
-        writer.writerow(["filename", "created_at", "subm_ts"])
+        writer.writerow(["filename", "created_at"])
 
         for page in pages:
             data = self.json_request(f"{self.contest_base}/?pagination={page}&region=global")
             
-            question_id = str(data["questions"][self.ques_num-1]["question_id"])
+            question_id = data["questions"][ques_num-1]["question_id"]
 
             for user, submissions in zip(data["total_rank"], data["submissions"]):
-                if question_id not in submissions:
-                    continue
-                cont_subm = submissions[question_id]
-                api_base = self.api_base_base.get(cont_subm['data_region'], self.api_base_base['US'])
+                cont_subm = submissions[str(question_id)]
+                api_base = self.api_base_base[cont_subm['data_region']]
                 submission = self.json_request(f"{api_base}/submissions/{cont_subm['submission_id']}/")
                 
-                filename = f"{user['rank']}____{user['username']}.{LANG_EXT[submission['lang']]}"
-                subm_path = join(self.out_path, "submissions", filename)
+                rel_code_path = join("submissions", f"{user['rank']}____{user['username']}.{LANG_EXT[submission['lang']]}")
+                subm_path = join(out_dir, rel_code_path)
                 content = submission['code'].encode('utf-8')
                 if not exists(subm_path) or getsize(subm_path) != len(content):
                     with open(subm_path, "wb") as f:
@@ -126,14 +107,15 @@ class LcClient:
                         
                 subm_time = datetime.fromtimestamp(cont_subm['date'])
                 subm_time = subm_time.strftime("%Y-%m-%d %H:%M:%S") + " -0400"
-                writer.writerow([f"submissions/{filename}", subm_time, cont_subm['date']])
+                writer.writerow([rel_code_path, subm_time])
                 info_file.flush()
         
         info_file.close()
 
+
 def main():
-    client = LcClient(sys.argv[1], int(sys.argv[2]))
-    client.fetch_submissions(range(1, 50))
+    client = LcClient("weekly-contest-391")
+    client.fetch_submissions(range(1, 50), 4)
 
 if __name__ == "__main__":
     main()
