@@ -1,4 +1,0 @@
-{
-    "username": "zhuan-ye-hu-u",
-    "submission": "class Solution:\n    def minimumDistance(self, points: List[List[int]]) -> int:\n        n=len(points)\n        a=[[]for _ in range(2)]\n        for i,[x,y] in enumerate(points):\n            a[0].append([x+y,i])\n            a[1].append([x-y,i])\n        for i in range(2):\n            a[i].sort()\n        \n        # print(a)\n        [a00,i00]=a[0][0]\n        [a01,i01]=a[0][-1]\n        [a10,i10]=a[1][0]\n        [a11,i11]=a[1][-1]\n        def f(k):\n            xx=0\n            i,j=0,n-1\n            if a[0][i][1]==k:\n                i+=1\n            if a[0][j][1]==k:\n                j-=1\n            xx=max(xx,a[0][j][0]-a[0][i][0])\n            i,j=0,n-1\n            if a[1][i][1]==k:\n                i+=1\n            if a[1][j][1]==k:\n                j-=1\n            xx=max(xx,a[1][j][0]-a[1][i][0])\n            return xx\n        return min(f(i) for i in [i00,i01,i10,i11])"
-}
