@@ -1,56 +1,63 @@
-import { useEffect, useState } from "react";
+import "../styles/prettyprint-style.css";
+import { useEffect, useRef, useState } from "react";
 import Papa from 'papaparse';
-import { DolosFile, DolosPairs } from "../types/dolos.types";
+import { DolosFile, DolosPairs, GroupUser, SubmissionUser } from "../types/dolos.types";
 import { DisjSet } from "../util/disj-set";
-import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+import { Panel, PanelGroup, PanelResizeHandle, assert } from "react-resizable-panels";
 import { TreeView, TreeItem } from '@mui/x-tree-view';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Accordion, AccordionDetails, AccordionSummary, Button, IconButton, Slider } from "@mui/material";
 
-const cluster = (pairs: DolosPairs[], similarity: number) => {
-    const ds = new DisjSet();
-    for (const pair of pairs) {
-        if (pair.similarity >= similarity) {
-            ds.union(pair.leftFileId, pair.rightFileId);
+declare var PR: any;
+
+const fetchGroups = async (reportUrl: string, similarity: number) => {
+    let groupsText = await (await fetch(`${reportUrl}/groups/group_${similarity}.csv`)).text();
+    const parsedFiles = Papa.parse<GroupUser>(groupsText.trim(), {
+        header: true,
+        dynamicTyping: true
+    });
+    const groups: Record<string, GroupUser[]> = {};
+    for (const user of parsedFiles.data) {
+        if (groups[user.groupId] === undefined) {
+            groups[user.groupId] = [];
         }
+        groups[user.groupId].push(user);
     }
-    const groups = ds.groups();
-    groups.sort((a, b) => b.length - a.length);
-    return groups;
+
+    // console.log(groups)
+    const groupsList = Object.values(groups);
+    groupsList.sort((a, b) => b.length - a.length);
+    groupsList.forEach(group => group.sort((a, b) => a.rank - b.rank));
+
+
+    return groupsList;
+};
+
+const CACHE_USERS: Record<string, SubmissionUser> = {};
+
+const fetchUser = async (reportUrl: string, userFileId: string) => {
+    const url = `${reportUrl}/users/user_${userFileId}.json`;
+    if (url in CACHE_USERS) {
+        return CACHE_USERS[url];
+    }
+
+    const user: SubmissionUser = JSON.parse(await (await fetch(url)).text());
+    CACHE_USERS[reportUrl] = user;
+
+    return user;
 }
 
 export function PlagReportComponent({ }: {}) {
     const [reportPath, setReportPath] = useState("/dolos-report");
-    const [similarity, setSimilarity] = useState(0.99);
-    const [pairs, setPairs] = useState<DolosPairs[]>([]);
-    const [files, setFiles] = useState<Record<string, DolosFile>>({});
-    const [groups, setGroups] = useState<string[][]>([]);
-    const [selected, setSelected] = useState<string | undefined>();
+    const [similarity, setSimilarity] = useState(90);
+    
+    const [groups, setGroups] = useState<GroupUser[][]>([]);
+    const [selectedFileId, setSelectedFileId] = useState<string | undefined>();
+    const [selectedUser, setSelectedUser] = useState<SubmissionUser | undefined>();
+
     const [hideBlankLines, setHideBlankLines] = useState(true);
-
-    const load = async (reportUrl: string) => {
-        const filesText = await (await fetch(`${reportUrl}/files.csv`)).text();
-        const parsedFiles = Papa.parse<DolosFile>(filesText, {
-            header: true,
-            dynamicTyping: true
-        });
-        const filesMap: Record<string, DolosFile> = {};
-        for (const row of parsedFiles.data)
-            filesMap[row.id] = {
-                id: row.id,
-                path: row.path,
-                content: row.content
-            };
-        setFiles(filesMap);
-
-        const pairsText = await (await fetch(`${reportUrl}/pairs.csv`)).text();
-        const parsedPairs = Papa.parse<DolosPairs>(pairsText, {
-            header: true,
-            dynamicTyping: true
-        });
-
-        setPairs(parsedPairs.data);
-    };
+    const codePreRef = useRef<HTMLPreElement>(null);
 
     const formatCode = (code: string) => {
         let lines = code.split("\n");
@@ -60,21 +67,76 @@ export function PlagReportComponent({ }: {}) {
         return lines.join("\n");
     }
 
+    const reload = () => {
+        fetchGroups(reportPath, similarity)
+            .then(groups => setGroups(groups));
+    }
+
     useEffect(() => {
-        load(reportPath);
+        reload();
     }, [reportPath]);
 
     useEffect(() => {
-        setGroups(cluster(pairs, similarity));
-    }, [pairs, similarity])
+        if (selectedFileId === undefined) return;
+
+        fetchUser(reportPath, selectedFileId)
+            .then(user => {
+                setSelectedUser(user);
+                setTimeout(() => {
+                    codePreRef.current!.innerHTML = formatCode(user.submission);
+                    codePreRef.current!.className = "prettyprint linenums lang-cpp";
+                    PR.prettyPrint();
+                }, 1);
+            });
+    }, [selectedFileId]);
+
+    // useEffect(() => {
+    //     if (PR !== undefined) ;
+    // });
 
     return <>
         <PanelGroup autoSaveId="example" direction="horizontal">
             <Panel defaultSize={50} className="panel">
                 <div style={{overflow: "auto"}}>
-                    Similarity &gt;= <input type="number" value={similarity} /> <br/>
-                    Total similar groups: {groups.length} <br/>
-                    Total similar submissions: {groups.reduce((a,b) => a+b.length, 0)}
+                    <Accordion defaultExpanded>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1-content"
+                            id="panel1-header"
+                        >
+                            Settings
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            Similarity &gt;= {similarity}
+                            <Slider
+                                aria-label="Similarity"
+                                defaultValue={similarity}
+                                getAriaValueText={(perc) => `${perc}%`}
+                                valueLabelDisplay="auto"
+                                shiftStep={2}
+                                step={2}
+                                marks
+                                min={70}
+                                max={100}
+                                onChange={(ev, value) => setSimilarity(value as number)}
+                            />
+                            <Button variant="outlined" onClick={ev => reload()}>Save</Button>
+                        </AccordionDetails>
+                    </Accordion>
+
+                    <Accordion defaultExpanded>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel2-content"
+                            id="panel2-header"
+                        >
+                            Stats
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            Total similar groups: {groups.length} <br/>
+                            Total similar submissions: {groups.reduce((a,b) => a+b.length, 0)}
+                        </AccordionDetails>
+                    </Accordion>
 
                     <br/>
                     <br/>
@@ -83,14 +145,14 @@ export function PlagReportComponent({ }: {}) {
                         defaultCollapseIcon={<ExpandMoreIcon />}
                         defaultExpandIcon={<ChevronRightIcon />}
                         // sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
-                        onNodeSelect={(ev, selected) => setSelected(selected)}
+                        onNodeSelect={(ev, selected) => setSelectedFileId(selected)}
                         >
                     {groups.map((group, groupId) => <>
                         <TreeItem nodeId={`g${groupId.toString()}`} label={`Group ${groupId} (${group.length})`}>
-                            {group.map(fileId => <>
+                            {group.map(user => <>
                                 <TreeItem
-                                    nodeId={fileId} 
-                                    label={files[fileId].path}
+                                    nodeId={user.fileId.toString()} 
+                                    label={<><span style={{width: 100, display: "inline-block"}}>{user.rank}</span>{user.username}</>}
                                     />
                             </>)}
                         </TreeItem>
@@ -109,9 +171,13 @@ export function PlagReportComponent({ }: {}) {
                     id="codeHideBlankLines" 
                 />
                 <label htmlFor="codeHideBlankLines">Hide blank lines</label>
-                {selected && files[selected] && <>
-                    <h3>{files[selected].path}</h3>
-                    <pre>{formatCode(files[selected].content)}</pre>
+                {selectedUser && <>
+                    <h3><a href={`https://leetcode.com/u/${selectedUser.username}/`}target="blank">
+                        {selectedUser.username}&nbsp;<i className="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a></h3>
+                    <pre 
+                        ref={codePreRef}
+                        style={{color: "auto"}}></pre>
                 </>}
                 </div>
             </Panel>

@@ -23,11 +23,14 @@ export interface DolosPairs {
     rightCovered: number
 }
 
-export interface ClusterMember {
-    user: string,
-    code: string
+export interface GroupUser {
+    groupId: string
+    fileId: string
+    username: string
+    rank: number
 }
 
-export interface Cluster {
-    members: ClusterMember[]
+export interface SubmissionUser {
+    username: string,
+    submission: string
 }

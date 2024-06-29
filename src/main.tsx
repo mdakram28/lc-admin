@@ -5,6 +5,7 @@ import { ThemeProvider } from '@emotion/react';
 import App from './App';
 import theme from './theme';
 import { HashRouter } from 'react-router-dom';
+import { Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material";
 
 // @ts-ignore
 Number.prototype.mod = function (n) {
@@ -16,7 +17,9 @@ Number.prototype.mod = function (n) {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <>
     <HashRouter>
-      <App />
+      <CssVarsProvider>
+        <App />
+      </CssVarsProvider>
     </HashRouter>
   </>,
 );
