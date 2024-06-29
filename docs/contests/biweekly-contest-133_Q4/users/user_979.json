@@ -1,0 +1,5 @@
+{
+    "username": "Lokesh-18",
+    "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>&r) {\n        const int MOD = 1000000007;\n        const int MAX = 400;\n        unordered_map<int,int>mp;\n        for(auto& it : r)mp[it[0]+1] =it[1];\n        vector<vector<long long>>dp(n+1,vector<long long>(MAX+1,0));\n        dp[0][0] =1;\n        for(int i=1;i<=n;i++){\n            for(int j=0;j<=MAX;j++){\n                for(int k=0;k<i;k++){\n                    if(j-k>=0){\n                        dp[i][j]=(dp[i][j]+dp[i-1][j-k])%MOD;\n                    }\n                }\n            }\n            if(mp.find(i)!=mp.end()){\n                int inv=mp[i];\n                for(int j=0;j<=MAX;j++){\n                    if(j!=inv)dp[i][j] =0;\n                }\n            }\n        }\n        long long res =0;\n        for(long long cnt : dp[n])res = (res+cnt)%MOD;\n        return res;\n    }\n};\n",
+    "submit_ts": 1719071708.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "_Ashu1729",
+    "submission": "class Solution {\npublic:\nconst int MOD = 1000000007;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int maxi = 0;\n    unordered_map<int, int>mp;\n    \n    for (auto& x: requirements) {\n        maxi = max(maxi, x[1]);\n        mp[x[0]] = x[1];\n    }\n    \n    vector<vector<int>> dp(n + 1, vector<int>(maxi+ 1, 0));\n    dp[0][0] = 1;\n    \n    for (int k = 1; k <= n; ++k) {\n        for (int j = 0; j<= maxi; ++j) {\n            dp[k][j] = 0;\n            for (int l = 0; l < k; ++l) {\n                if (j-l >= 0) {\n                    dp[k][j] += dp[k-1][j-l];\n                    dp[k][j] %= MOD;\n                }\n            }\n        }\n        \n        if (mp.find(k-1) != mp.end()) {\n            int v= mp[k-1];\n            for (int i = 0; i <= maxi; ++i) {\n                if (i!= v) {\n                    dp[k][i] = 0;\n                }\n            }\n        }\n    }\n    \n    return dp[n][mp[n-1]];\n    }\n};",
+    "submit_ts": 1719067974.0
+}

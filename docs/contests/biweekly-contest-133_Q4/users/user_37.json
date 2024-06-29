@@ -1,0 +1,5 @@
+{
+    "username": "NinjaSatish",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    #define mod 1000000007\n    #define mx 405\n    \n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n        vector<vector<ll>> dp(n + 1, vector<ll>(mx, 0));\n        sort(r.begin(), r.end());\n        dp[0][0] = 1 ;\n        \n        for(int i = 1, j = 0; i <= n; i ++){\n            \n            for(int v = 0 ; v < mx; v ++){\n                for(int p = max(0, v - i + 1); p <= v; p ++){\n                    dp[i][v] = (dp[i][v] + dp[i - 1][p]) % mod;\n                }\n            }\n            \n            if(j < r.size() and r[j][0] == i - 1){\n                for(int v = 0 ; v < mx; v ++){\n                    if(v == r[j][1]) continue;\n                    dp[i][v] = 0 ;\n                }\n                j ++ ;\n            }\n        }\n        \n        ll ans = 0 ;\n        for(int i = 0 ; i < mx; i ++) ans = (ans + dp[n][i]) % mod;\n        \n        return (int) ans ;\n    }\n};",
+    "submit_ts": 1719067615.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "ritik_369",
+    "submission": "#define int long long\n\nint m ; \nint mod = 1e9 + 7 ; \nint dp[301][401] ; \nint f(int id , int inv , vector < int > & vec)\n{\n   if(inv < 0)return 0 ; \n   int n = id ; \n   if(n == 0)return (inv == 0) ; \n   int  & res = dp[id][inv] ;\n   if(res != -1)return res ; \n   res = 0 ; \n   if(vec[id] != -1)\n      if(inv != vec[id])\n         return 0 ; \n   for(int i = 1 ; i <= n ; i += 1)\n   { \n      res = (res + f(id - 1 , inv - (n - i) , vec)) % mod ; \n   }\n   return res ; \n}\n#undef int\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) \n    {\n\n      #define int long long\n      memset(dp , -1 , sizeof(dp)) ; \n       m = n ; \n       for(auto  &v : requirements)\n          v[0] += 1 ; \n       sort(requirements.begin() , requirements.end()) ; \n       vector < int > vec(n + 1 , -1) ; \n       for(auto  & v : requirements)\n         vec[v[0]] = v[1] ;\n      int res = f(n , requirements.back()[1] , vec) ; \n      #undef int\n       return res ; \n    }\n};",
+    "submit_ts": 1719068801.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "spyde_1",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    int dynamin[401][401];\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        memset(dynamin,0,sizeof(dynamin));\n        vector<int>ans(n,-1);\n        dynamin[0][0]=1;\n        for(auto i:requirements){\n            ans[i[0]]=i[1];\n        }\n        for(int i=0;i<n;i++){\n            for(int j=0;j<=400;j++){\n                if(dynamin[i][j]!=0){\n                    for(int k=0;k<=i;k++){\n                        int m=j+k;\n                        if(m>400)break;\n                        dynamin[i+1][m]=(dynamin[i+1][m]+dynamin[i][j])%mod;\n                    }\n                }\n            }\n            if(ans[i]!=-1){\n                for(int j=0;j<=400;j++){\n                    if(j!=ans[i])dynamin[i+1][j]=0;\n                }\n            }\n        }\n        int res=0;\n        for(int j=0;j<=400;j++)res=(res+dynamin[n][j])%mod;\n        return res;\n    }\n};",
+    "submit_ts": 1719070461.0
+}

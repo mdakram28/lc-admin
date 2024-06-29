@@ -1,0 +1,5 @@
+{
+    "username": "sky1429",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        req = defaultdict(int)\n        mod = 10**9 + 7\n        for e, c in requirements:\n            req[e] = c\n            \n        @cache\n        def rec(le, numInv):\n            if le == 0:\n                if numInv == 0:\n                    return 1\n                return 0\n            if numInv < 0:\n                return 0\n            if le - 1 in req:\n                if numInv != req[le - 1]:\n                    return 0\n            ans = 0\n            for i in range(le):\n                ans += rec(le - 1, numInv - le + 1 + i)\n            return ans % mod\n        \n        return rec(n, req[n - 1])",
+    "submit_ts": 1719068684.0
+}

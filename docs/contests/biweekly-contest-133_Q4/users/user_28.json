@@ -1,0 +1,5 @@
+{
+    "username": "kartikdevsharmaa",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD = 10**9 + 7\n        \n        \n        requirements.sort()\n        \n       \n        dp = [[0] * (401) for _ in range(n + 1)]\n        dp[0][0] = 1\n        \n        for length in range(1, n + 1):\n            for inversions in range(401):\n                if dp[length - 1][inversions] == 0:\n                    continue\n                for pos in range(length):\n                    if inversions + pos <= 400:\n                        dp[length][inversions + pos] = (dp[length][inversions + pos] + dp[length - 1][inversions]) % MOD\n        \n            \n            for endi, cnti in requirements:\n                if endi + 1 == length:\n                    for inv in range(401):\n                        if inv != cnti:\n                            dp[length][inv] = 0\n        \n        return sum(dp[n]) % MOD\n\n",
+    "submit_ts": 1719067871.0
+}

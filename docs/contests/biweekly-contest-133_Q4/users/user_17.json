@@ -1,0 +1,5 @@
+{
+    "username": "Rainingcity",
+    "submission": "const int imp = 2e9;\nconst int MOD = 1e9+7;\nclass Solution {\nprivate:\n    int rec(int i, int cur, vector<vector<int>>& dp, vector<int>& invs) {\n        if (i == -1) return cur == 0;\n        if (invs[i] != -1 && cur != invs[i]) {\n            return (dp[i][cur] = 0);\n        }\n        if (dp[i][cur] != imp) return dp[i][cur];\n        dp[i][cur] = 0;\n        for(int j = 0; j <= i && j <= cur; j++) {\n            dp[i][cur] = (dp[i][cur] + rec(i-1, cur - j, dp, invs)) % MOD;\n        }\n        return dp[i][cur];\n    }\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int m = requirements.size();\n        vector<vector<int>> dp(n, vector<int>(500, imp));\n        vector<int> invs(n, -1);\n        for(vector<int>& x: requirements) {\n            invs[x[0]] = x[1];\n        }\n        rec(n - 1, invs[n - 1], dp, invs);\n        return dp[n-1][invs[n-1]];\n    }\n};",
+    "submit_ts": 1719067729.0
+}

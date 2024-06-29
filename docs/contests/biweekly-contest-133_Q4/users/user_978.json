@@ -1,0 +1,5 @@
+{
+    "username": "prin100603",
+    "submission": "class Solution {\n    int mod = 1e9 + 7;\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        unordered_map<int, int> unique;\n        for (auto &it : requirements)\n            unique[it[0] + 1] = it[1];\n\n        vector<vector<long long>> cnt(n + 1, vector<long long>(401, 0));\n        cnt[0][0] = 1;\n\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= 400; j++) {\n                for (int k = 0; k < i && k <= j; k++)\n                    cnt[i][j] = (cnt[i][j] + cnt[i - 1][j - k]) % mod;\n            }\n\n            if (unique.count(i)) {\n                for (int j = 0; j <= 400; j++) {\n                    if (j == unique[i])\n                        continue;\n                    else\n                        cnt[i][j] = 0;\n                }\n            }\n        }\n\n        int ans = 0;\n        for (int i = 0; i < 401; i++)\n            ans = (1LL * ans + cnt[n][i]) % mod;\n\n        return ans;\n    }\n};",
+    "submit_ts": 1719071712.0
+}

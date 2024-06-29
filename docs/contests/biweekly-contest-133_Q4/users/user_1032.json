@@ -1,0 +1,5 @@
+{
+    "username": "apurvdwivedi518",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD=10**9+7\n        reqList=[-1]*(n+1)\n        for req in requirements:\n            reqList[req[0]+1]=req[1]\n            \n        maxInversions=max(reqList)\n        \n        @cache\n        def dp(i,k):\n            if k<0:\n                return 0\n            if i==0:\n                if k==0:\n                    return 1\n                return 0\n            if reqList[i]!=-1 and k!=reqList[i]:\n                return 0\n\n            res=0\n            for j in range(i):\n                res=(res+dp(i-1,k-j))%MOD\n            return res\n\n        res=0\n        for inversion in range(maxInversions+1):\n            res=(res+dp(n,inversion))%MOD\n\n        return res",
+    "submit_ts": 1719071242.0
+}

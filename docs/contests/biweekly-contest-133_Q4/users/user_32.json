@@ -1,0 +1,5 @@
+{
+    "username": "Ammar1510",
+    "submission": "class Solution {\npublic:\n    static const int N=400;\n     int mark[N+1];\n    static const int mod=1e9+7;\n    int dp[N+1][N+1];\n    \n    int numberOfPermutations(int n, vector<vector<int>>& v) {\n        for(int i=0;i<=N;i++)mark[i]=-1;\n        for(auto vv:v)\n            mark[vv[0]+1]=vv[1];\n        dp[0][0]=1;\n        int tot=mark[n];\n        for(int i=1;i<=n;i++){\n            for(int j=0;j<=tot;j++){\n                if(mark[i]!=-1 && j!=mark[i])continue;\n                for(int k=j;k>=0;k--){\n                    if(j-k>=i)break;\n                    (dp[i][j]+=dp[i-1][k])%=mod;\n                }\n            }\n        }\n//         for(int i=1;i<=n;i++){\n//             for(int j=0;j<=tot;j++)cout<<dp[i][j]<<\" \";\n            \n//         cout<<endl;\n        // }\n        \n        int ans=dp[n][tot];\n        return ans;\n    }\n};",
+    "submit_ts": 1719067894.0
+}

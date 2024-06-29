@@ -1,0 +1,5 @@
+{
+    "username": "lihaicoder",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        mod = int((1e9) + 7)\n        requirements = {e+1: c for e, c in requirements}\n        f = [[0]*((i*(i-1)//2)+3) for i in range(n+1)]\n        for i in range(1, n+1):\n            maxj = i*(i-1) // 2\n            if i == 1:\n                f[1][0] = 1\n            else:\n                cumsum = 0\n                prevmaxj = (i-1)*(i-2) // 2\n                for j in range(maxj + 1):\n                    if j <= prevmaxj:\n                        cumsum += f[i-1][j]\n                    if j >= i:\n                        cumsum -= f[i-1][j-i]\n                    cumsum %= mod\n                    f[i][j] = cumsum\n            if i in requirements:\n                for j in range(maxj + 1):\n                    if j != requirements[i]:\n                        f[i][j] = 0\n        return sum(f[n]) % mod",
+    "submit_ts": 1719068597.0
+}

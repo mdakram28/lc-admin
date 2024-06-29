@@ -1,0 +1,5 @@
+{
+    "username": "Chasey",
+    "submission": "#define ll long long\n#define REP(i,n)        FOR(i,0,n)\n#define SORT(v)         sort((v).begin(),(v).end())\n#define FOR(i,a,b)      for(ll i=(a);i<(b);i++)\n\nclass Solution {\npublic:\n    ll denom = 1e9+7;\n    ll n;\n    \n    ll count(ll idx, ll sum, vector<ll>& req, vector<vector<ll>>& dp) {\n        if (idx == n) return 1;\n        if (sum > 400) return 0;\n        if (dp[idx][sum] != -1) return dp[idx][sum];\n        if (req[idx] < sum) return 0;\n        \n        ll res = 0;\n        REP(i, idx+1) {\n            if (req[idx] != INT_MAX && req[idx] != i+sum) continue;\n            res += count(idx+1, i+sum, req, dp);\n            res %= denom;\n        }\n        return dp[idx][sum] = res;\n    }\n\n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n        this->n = n;\n        vector<ll> req(n, INT_MAX); for (auto& v : r) req[v[0]] = v[1];\n        vector<vector<ll>> dp(n, vector<ll>(401, -1));\n        return count(0, 0, req, dp);\n    }\n};",
+    "submit_ts": 1719068845.0
+}

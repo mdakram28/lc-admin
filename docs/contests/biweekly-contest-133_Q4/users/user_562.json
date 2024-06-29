@@ -1,0 +1,5 @@
+{
+    "username": "SomeshRaj09",
+    "submission": "from typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def numberOfPermutations(self, n: int, reqs: List[List[int]]) -> int:\n        MOD = 1_000_000_007\n        MAX_INV = 400\n\n        r = defaultdict(int)\n        for req in reqs:\n            r[req[0] + 1] = req[1]\n\n        pc = [[0] * (MAX_INV + 1) for _ in range(n + 1)]\n        pc[0][0] = 1\n\n        for len in range(1, n + 1):\n            for inv in range(MAX_INV + 1):\n                for pos in range(len):\n                    prevInv = inv - pos\n                    if prevInv >= 0:\n                        pc[len][inv] = (pc[len][inv] + pc[len - 1][prevInv]) % MOD\n\n            if len in r:\n                targetInv = r[len]\n                for inv in range(MAX_INV + 1):\n                    if inv != targetInv:\n                        pc[len][inv] = 0\n\n        res = sum(pc[n]) % MOD\n        return res",
+    "submit_ts": 1719070374.0
+}

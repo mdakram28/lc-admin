@@ -1,0 +1,5 @@
+{
+    "username": "nikhil_paul",
+    "submission": "class Solution:\n    def minimumSum(self, grid: List[List[int]]) -> int:\n        @cache\n        def dp(a, b, c, d, parts):\n            ans = inf\n            if parts == 1:\n                x, y = c, a\n                u, v = d, b\n                for i in range(a, c):\n                    for j in range(b, d):\n                        if grid[i][j]:\n                            x, y = min(x, i), max(y, i)\n                            u, v = min(u, j), max(v, j)\n                return (y-x+1)*(v-u+1)\n            else:\n                for i in range(a+1, c):\n                    ans = min(ans, dp(a, b, i, d, 1)+dp(i, b, c, d, parts-1), dp(a, b, i, d, parts-1)+dp(i, b, c, d, 1))\n                for j in range(b+1, d):\n                    ans = min(ans, dp(a, b, c, j, 1)+dp(a, j, c, d, parts-1), dp(a, b, c, j, parts-1)+dp(a, j, c, d, 1))\n            return ans\n        \n        n, m = len(grid), len(grid[0])\n        return dp(0, 0, n, m, 3)\n        ",
+    "submit_ts": 1719114063.0
+}

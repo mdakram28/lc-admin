@@ -1,0 +1,5 @@
+{
+    "username": "ethanrao",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n    int f[305][405], re[305];\n    inline int add(int x, int y){\n        return x + y >= mod ? x + y - mod : x + y;\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        for(int i = 1; i <= n; ++i) re[i] = -1;\n        for(int i = 0; i < requirements.size(); ++i) re[requirements[i][0] + 1] = requirements[i][1];\n        if(re[1] != -1 && re[1] != 0) return 0;\n        f[1][0] = 1;\n        for(int i = 2; i <= n; ++i){\n            for(int j = 0; j <= 400; ++j){\n                for(int k = 1; k <= i; ++k)\n                    if(j >= i - k)\n                        f[i][j] = add(f[i][j], f[i - 1][j - (i - k)]);\n            }\n            for(int j = 0; j <= 400; ++j)\n                if(re[i] != -1 && re[i] != j)\n                    f[i][j] = 0;\n        }\n        return f[n][re[n]];\n    }\n};",
+    "submit_ts": 1719067092.0
+}

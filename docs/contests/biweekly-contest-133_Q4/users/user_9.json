@@ -1,0 +1,5 @@
+{
+    "username": "jeroenodb",
+    "submission": "const int MOD = 1e9+7;\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        \n        vector<int> require(n,-1);\n        for(auto v : requirements) {\n            int need = v[1];\n            int where = v[0];\n            require[where]=need;\n        }\n        const int MX = require[n-1];\n        vector<int> dp(MX+1);\n        dp[0]=1;\n        for(int i=0;i<n;++i) {\n            // cout << i << endl;\n            vector<int> ndp(MX+1);\n            for(int at=0;at<=MX;++at) if(dp[at])\n            for(int num=0;num<=i;++num) {\n                if(at+num<=MX and (require[i]==-1 or at+num==require[i]) ) {\n                    ndp[at+num]+=dp[at];\n                    if(ndp[at+num]>=MOD) ndp[at+num]-=MOD;\n                }\n            }\n            swap(dp,ndp);\n        }\n        return dp[require[n-1]];\n    }\n};",
+    "submit_ts": 1719067257.0
+}

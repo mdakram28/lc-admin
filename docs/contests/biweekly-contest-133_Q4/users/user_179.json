@@ -1,0 +1,5 @@
+{
+    "username": "hkmaxi",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    int solve_dp(int ind,int rem,vector<int> &values_req,vector<vector<int> >&dp){\n        if(rem<0){\n            return 0;\n        }\n        if(ind<0){\n            return rem==0;\n        }\n        \n        if(dp[ind][rem]!=-1){\n            return dp[ind][rem];\n        }\n        \n        int x=values_req[ind];\n        int res=0;\n        if(x !=-1 and x!=rem){\n            return dp[ind][rem]=0;\n        }\n        for(int i=0;i<=ind;i++){\n            res=(res+solve_dp(ind-1,rem-i,values_req,dp))%mod;\n            \n        }\n        \n        return dp[ind][rem]=res;\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int m=requirements.size();\n        \n        vector<int> values_req(n,-1);\n        for(auto r:requirements){\n            values_req[r[0]]=r[1];\n        }\n        \n        vector<vector<int> > dp(n+1,vector<int> (505,-1));\n        \n        return solve_dp(n-1,values_req[n-1],values_req,dp);\n    }\n};",
+    "submit_ts": 1719069385.0
+}

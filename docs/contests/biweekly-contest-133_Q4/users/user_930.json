@@ -1,0 +1,5 @@
+{
+    "username": "Pratt007",
+    "submission": "from typing import List\n\nMOD = 1_000_000_007\nmx = 400\n\nclass Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        mp = {req[0] + 1: req[1] for req in requirements}\n        \n        anscount = [[0] * (mx + 1) for _ in range(n + 1)]\n        anscount[0][0] = 1\n        \n        for l in range(1, n + 1):\n            for inv in range(mx + 1):\n                for new_pos in range(l):\n                    prev_inv = inv - new_pos\n                    if prev_inv >= 0:\n                        anscount[l][inv] = (anscount[l][inv] + anscount[l - 1][prev_inv]) % MOD\n            \n            if l in mp:\n                ti = mp[l]\n                for inv in range(mx + 1):\n                    if inv != ti:\n                        anscount[l][inv] = 0\n        \n        result = 0\n        for count in anscount[n]:\n            result = (result + count) % MOD\n        \n        return result",
+    "submit_ts": 1719071575.0
+}

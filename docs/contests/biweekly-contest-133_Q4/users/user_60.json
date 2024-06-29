@@ -1,0 +1,5 @@
+{
+    "username": "switchblade20",
+    "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<vector<int>> dp(n + 5, vector<int>(500, 0));\n        dp[0][0] = 1;\n        vector<int> b(n + 5, -1);\n        for(int i = 0; i < requirements.size(); i++) {\n            b[requirements[i][0]] = requirements[i][1];\n        }\n        \n        if(b[0] != -1 && b[0] != 0) return 0;\n        for(int i = 1; i < n; i++) {\n            for(int j = 0; j <= 400; j++) {\n                for(int t = 0; t <= min(i, j); t++) {\n                    dp[i][j] += dp[i - 1][j - t];\n                    dp[i][j] %= 1000000007;\n                }\n            }\n            if(b[i] != -1) {\n                for(int j = 0; j <= 400; j++) {\n                    if(b[i] != j) dp[i][j] = 0;\n                }\n            }\n        }\n        int ans = 0;\n        for(int i = 0; i <= 400; i++) ans = ans + dp[n - 1][i];\n        return ans;\n    }\n};",
+    "submit_ts": 1719068232.0
+}

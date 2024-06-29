@@ -1,0 +1,5 @@
+{
+    "username": "sachinbarupal",
+    "submission": "class Solution {\npublic:\n    long long dp[301][401];\n    long long mod = 1e9 + 7;\n    long long f(int n, vector<int> &arr, int cnt){\n        // cout<<n<<\" \"<<cnt<<endl;\n        if(n < 0) return cnt == 0;\n        if(n*(n+1)/2 < arr[n]) return 0;\n        if(cnt < 0) return 0;\n        if(arr[n] != -1 && arr[n] != cnt) return 0;\n\n        if(dp[n][cnt] != -1) return dp[n][cnt];\n\n\n        long long ans = 0;\n        for(int i=0; i<=n; ++i){\n            ans += f(n-1, arr,cnt - n + i);\n            ans %= mod;\n        }\n\n        return dp[n][cnt] = ans;\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> arr(n, -1);\n        for(auto &it : requirements){\n            int i = it[0], c = it[1];\n            arr[i] = c;\n        }\n        memset(dp, -1, sizeof(dp));\n\n        // for(auto &it :  arr) cout<<it<<\" \";\n        // cout<<endl;\n\n        return (int)f(n-1, arr, arr[n-1]);\n    }\n};",
+    "submit_ts": 1719069149.0
+}

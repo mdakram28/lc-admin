@@ -1,0 +1,5 @@
+{
+    "username": "twitch_tv_qiqi_impact",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, r: List[List[int]]) -> int:\n        MOD = 10**9+7\n        mx = n * (n - 1) // 2\n        d = {}\n        for x, y in r:\n            d[x] = y\n            if x == 0 and y != 0:\n                return 0\n        dp = [[0 for _ in range(mx+1)] for _ in range(n)]\n        dp[0][0] = 1\n        for i in range(1, n):\n            t = 0\n            for j in range(mx+1):\n                t += dp[i-1][j]\n                t %= MOD\n                if j >= i+1:\n                    t -= dp[i-1][j-i-1]\n                    t %= MOD\n                dp[i][j] = t\n            if i in d:\n                for j in range(mx+1):\n                    if j != d[i]:\n                        dp[i][j] = 0\n        return sum(dp[n-1]) % MOD",
+    "submit_ts": 1719070101.0
+}

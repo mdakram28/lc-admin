@@ -1,0 +1,5 @@
+{
+    "username": "IanISam",
+    "submission": "class Solution {\npublic:\n    typedef long long ll;\n    ll mod = 1e9+7;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        sort(requirements.begin(), requirements.end());\n        int j = 0;\n        int cnt = 0;\n        int ans = 1;\n        for(auto& x: requirements){\n            vector<ll> dp(x[1]+1);\n            dp[cnt]=ans;\n            while(j<=x[0]){\n                vector<ll> dp2(x[1]+1);\n                for(int i=0; i<=j; i++){\n                    for(int z=0; z<=x[1]-i; z++){\n                        dp2[i+z]=(dp[z]+dp2[i+z])%mod;\n                    }\n                }\n                j++;\n                swap(dp, dp2);\n            }\n            cnt=x[1];\n            ans=dp[x[1]];\n        }\n        return(ans);\n    }\n};",
+    "submit_ts": 1719070102.0
+}

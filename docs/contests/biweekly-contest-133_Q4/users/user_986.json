@@ -1,0 +1,5 @@
+{
+    "username": "Harsh_Aakoliya",
+    "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& vv) {\n        map<int,int> mp;\n        int mod=1e9+7;\n        for(int i=0;i<vv.size();i++){\n            mp[vv[i][0]+1]=vv[i][1];\n        }\n        vector<vector<int>> dp(n+1,vector<int> (501));\n        dp[0][0]=1;\n        for(int i=1;i<=n;i++){\n            for(int j=0;j<=500;j++){\n                for(int k=0;k<i;k++){\n                    if(j>=k) dp[i][j]=(dp[i][j]%mod+dp[i-1][j-k]%mod)%mod;\n                }\n            }\n            auto fnd=mp.find(i);\n            if(fnd!=mp.end()){\n                for(int temp=0;temp<=500;temp++){\n                    if(temp!=fnd->second) dp[i][temp]=0;\n                }\n            }\n        }\n        long ans=0;\n        for(auto it:dp[n]) ans=(ans+it)%mod;\n        return ans;\n        \n    }\n};",
+    "submit_ts": 1719071441.0
+}

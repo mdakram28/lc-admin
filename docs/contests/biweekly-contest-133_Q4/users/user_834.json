@@ -1,0 +1,5 @@
+{
+    "username": "abhisheksanwal745",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        \n        dp = [[0] * (402 + 1) for _ in range(n + 1)]\n        dp[0][0] = 1\n\n        requirements.sort(key=lambda x:(x[0],x[1]))\n        mapp = defaultdict(int)\n        for req in requirements:\n            mapp[req[0] + 1] = req[1]\n\n        for size in range(1, n + 1):\n            for inv in range(402 + 1):\n                nev = 0\n                while nev < size:\n                    prev = inv - nev\n                    if prev >= 0:\n                        dp[size][inv] = (dp[size][inv] + dp[size - 1][prev]) % 1000000007\n                    nev += 1\n\n            if size in mapp:\n                needed = mapp[size]\n                for inv in range(402 + 1):\n                    if inv != needed:\n                        dp[size][inv] = 0\n\n        \n        return sum(dp[n][inv] for inv in range(402 + 1)) % 1000000007\n",
+    "submit_ts": 1719071341.0
+}

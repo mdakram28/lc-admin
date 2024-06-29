@@ -1,0 +1,5 @@
+{
+    "username": "visheshchaitanya",
+    "submission": "const int MOD = 1e9+7; \nint dp[301][401];\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        memset(dp,0,sizeof(dp));\n        dp[0][0] = 1 ; \n        for (int i = 1 ; i <= n ; i++) {\n            for (int j = 0; j <= 400 ; j++) {\n                for (int k = 0 ; k < i ; k++) {\n                    if (j-k >= 0) {\n                        dp[i][j] = (dp[i][j] + dp[i-1][j-k])%MOD; \n                    }\n                }\n            }\n\n            for (int l = 0 ; l < requirements.size() ; l++) {\n                if (requirements[l][0]+1 == i) {\n                    int target = requirements[l][1];\n                    for (int x = 0 ; x <= 400 ; x++) {\n                        if (x != target) {\n                            dp[i][x] = 0 ; \n                        }\n                    }\n                    break ;\n                }\n            }\n        }\n\n        long long ans = 0;\n        for (auto x : dp[n]) {\n            ans = (ans + x)%MOD;\n        }\n        return ans ; \n    }\n};",
+    "submit_ts": 1719071267.0
+}

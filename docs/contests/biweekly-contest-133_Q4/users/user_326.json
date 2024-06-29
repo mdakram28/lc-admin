@@ -1,0 +1,5 @@
+{
+    "username": "oiybhio",
+    "submission": "class Solution {\n    static const int mm = 1e9 + 7; \npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int m = requirements.size();\n        vector<pair<int, int>> a(m);\n        for (int i = 0; i < m; i++)\n            a[i] = make_pair(requirements[i][0] + 1, requirements[i][1]);\n        sort(a.begin(), a.end());\n\n        vector<vector<int>> f(n + 1, vector<int>(a[m - 1].second + 1));\n        f[0][0] = 1;\n        for (int i = 1, p = 0; i <= n; i++)\n            if (a[p].first != i)\n                for (int j = 0; j <= a[p].second; j++)\n                    for (int k = max(0, j - i + 1); k <= j; k++)\n                        f[i][j] = (f[i][j] + f[i - 1][k]) % mm;\n            else {\n                int j = a[p].second;\n                for (int k = max(0, j - i + 1); k <= j; k++)\n                    f[i][j] = (f[i][j] + f[i - 1][k]) % mm;\n                p++;\n            }\n        return f[n][a[m - 1].second];\n    }\n};",
+    "submit_ts": 1719070208.0
+}

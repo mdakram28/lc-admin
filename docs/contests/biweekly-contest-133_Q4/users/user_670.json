@@ -1,0 +1,5 @@
+{
+    "username": "being_sukham",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n#define MOD 1000000007\n\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& arr) {\n        map<int,int> ump;\n        for(auto& i:arr) ump[i[0] + 1] = i[1];\n        vector<vector<long long> > dp(n+1,vector<long long>(401,0));\n        dp[0][0] = 1;\n        for(int i=1;i<=n;i++){\n            for(int cnt=0;cnt<=400;cnt++){\n                for(int j=0;j<i;j++){\n                    if(cnt - j >= 0) dp[i][cnt] = (dp[i][cnt] + dp[i - 1][cnt - j])%MOD;\n                }\n            }\n            if(ump.count(i) > 0){\n                for(int cnt=0;cnt<=400;cnt++){\n                    if(cnt != ump[i]) dp[i][cnt] = 0;\n                }\n            }\n        }\n        long long Ans = 0;\n        for (auto& i:dp[n]) Ans = (Ans+i)%MOD;\n        return Ans;\n    }\n};\n",
+    "submit_ts": 1719070959.0
+}

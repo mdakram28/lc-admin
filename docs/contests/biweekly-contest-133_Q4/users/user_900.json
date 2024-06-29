@@ -1,0 +1,5 @@
+{
+    "username": "theeeeeeekhai",
+    "submission": "class Solution {\npublic:\n    \n    int mod = 1e9 + 7;\n    unordered_map<long long, int> dp;\n    \n    int solve(int i, int inv, map<int, int>& req, int n) {\n        if(i == n) return 1;\n        long long h = (1ll * inv << 1ll * 9) + i;\n        if(dp.find(h) != dp.end()) return dp[h];\n        int ninv = inv + i;\n        long long ans = 0;\n        if(req.find(i) != req.end()) {\n            if(ninv < req[i] || inv > req[i]) ans = 0;\n            else ans += solve(i + 1, req[i], req, n);\n        }\n        else {\n            auto it = req.lower_bound(i);\n            auto previt = prev(it);\n            int prev = previt -> second;\n            if(it != req.end()) ninv = min(ninv, it -> second);\n            while(ninv >= max(prev, inv)) ans += solve(i + 1, ninv--, req, n);\n        }\n        return dp[h] = ans % mod;\n    }\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        map<int, int> req;\n        req[0] = 0;\n        for(auto& v: requirements) req[v[0]] = v[1];\n        return solve(0, 0, req, n);\n    }\n};",
+    "submit_ts": 1719070600.0
+}

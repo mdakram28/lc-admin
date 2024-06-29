@@ -1,0 +1,5 @@
+{
+    "username": "mainak01234",
+    "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& reqs) {\n        int MOD=1e9+7, maxInv=400;\n        unordered_map<int,int> mp;\n        for(auto it : reqs) {\n            mp[it[0]+1] = it[1];\n        }\n\n        vector<vector<long int>> v(n+1,vector<long int>(maxInv+1,0));\n        v[0][0] = 1;\n\n        for(int i=1;i<=n;i++) {\n            for (int j=0;j<=maxInv;j++) {\n                for (int k=0;k<i;k++) {\n                    int prevInv = j-k;\n                    if (prevInv>=0) {\n                        v[i][j] = (v[i][j]+v[i-1][prevInv])%MOD;\n                    }\n                }\n            }\n\n            if (mp.find(i)!=mp.end()) {\n                int targetInv = mp[i];\n                for (int j=0;j<=maxInv;j++) {\n                    if (j!=targetInv) {\n                        v[i][j] = 0;\n                    }\n                }\n            }\n        }\n\n        long int ans = 0;\n        for (long int c : v[n]) {\n            ans = (ans+c)%MOD;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": 1719071360.0
+}

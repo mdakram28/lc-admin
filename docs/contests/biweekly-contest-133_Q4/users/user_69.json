@@ -1,0 +1,5 @@
+{
+    "username": "_CCY_",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    int numberOfPermutations(int N, vector<vector<int>>& q) {\n        const ll mod = 1e9 + 7;\n        int ptr = 0, qsz = q.size();\n        sort(q.begin(), q.end());\n        for (int i = 1; i < qsz; i++) if (q[i][1] < q[i - 1][1]) return 0;\n        if (q[0][0] == 0) {\n            if (q[0][1] != 0) return 0;\n            ptr++;\n        }\n        vector<ll> dp(500);\n        dp[0] = 1;\n        for (int i = 1; i <= N - 1; i++) {\n            vector<ll> ndp(500);\n            for (int j = 0; j < 500; j++) {\n                for (int k = 0; k <= i; k++) {\n                    if (j + k < 500) ndp[j + k] = (ndp[j + k] + dp[j]) % mod;\n                }\n            }\n            dp = ndp;\n            if (ptr < qsz && q[ptr][0] == i) {\n                for (int j = 0; j < 500; j++) if (j != q[ptr][1]) dp[j] = 0;\n                ptr++;\n            }\n        }\n        ll res = accumulate(dp.begin(), dp.end(), 0ll);\n        return res % mod;\n    }\n};",
+    "submit_ts": 1719068318.0
+}

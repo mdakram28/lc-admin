@@ -1,0 +1,5 @@
+{
+    "username": "shannukolli216",
+    "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n        int mod=1e9+7;\n        map<int,int>mp;\n        for(auto x:r){\n            mp[x[0]+1]=x[1];\n        }\n        vector<vector<int>>a(n+1,vector<int>(401));\n        a[0][0]=1;\n        for(int i=1;i<=n;i++){\n            for(int j=0;j<=400;j++){\n                for(int k=0;k<i;k++){\n                    int cnt=j-k;\n                    if(cnt>-1){\n                        a[i][j]+=(a[i-1][cnt]);\n                        a[i][j]%=mod;\n                    }\n                }\n            }\n            if(mp.find(i)==mp.end()) continue;\n            else{\n                int f=mp[i];\n                for(int sha=0;sha<=400;sha++){\n                    if(sha!=f){\n                        a[i][sha]=0;\n                    }\n                }\n            }\n        }\n        int ans=0;\n        for(auto x:a[n]){\n            ans+=x;\n            ans%=mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1719071700.0
+}

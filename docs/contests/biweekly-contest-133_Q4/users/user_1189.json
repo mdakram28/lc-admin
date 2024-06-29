@@ -1,0 +1,5 @@
+{
+    "username": "rishabh_ag17",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll dp[401][901];\n    const int mod = 1e9+7;\n    int rec(int idx,int n,ll inv,map<int,int>&mp){\n        if(idx==n){\n            return 1;\n        }\n        if(inv>401){\n            return 0;\n        }\n        if(dp[idx][inv]!=-1)return dp[idx][inv];\n        ll ans = 0;\n        if(mp.find(idx)!=mp.end()){\n            //i need mp[idx] inversions\n            if(mp[idx]<=inv+idx && mp[idx]>=inv){\n                ans += (rec(idx+1,n,mp[idx],mp)%mod);\n            }\n        }\n        else{\n            for(int i=0;i<=idx;i++){\n                ans += (rec(idx+1,n,inv+i,mp)%mod);\n            }\n        }\n        return dp[idx][inv] = ans%mod;\n        \n    }\n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        map<int,int>mp;\n        memset(dp,-1,sizeof(dp));\n        for(auto it:req){\n            mp[it[0]]=it[1];\n        }\n        return rec(0,n,0,mp)%mod;\n    }\n};",
+    "submit_ts": 1719070921.0
+}

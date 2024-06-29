@@ -1,0 +1,5 @@
+{
+    "username": "salilmotoe",
+    "submission": "class Solution {\npublic:\n    int MOD = 1e9 + 7;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int maxi = 400;\n        vector<vector<int>> dp(n + 1, vector<int>(maxi + 1, 0));\n        dp[0][0] = 1;\n        vector<int> reqInv(n, -1);\n        for (auto& req : requirements) {\n            reqInv[req[0]] = req[1];\n        }\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= maxi; j++) {\n                for (int k = 0; k < i; ++k) {\n                    if (j >= k) {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % MOD;\n                    }\n                }\n            }\n            if (reqInv[i - 1] != -1) {\n                int targetInv = reqInv[i - 1];\n                for (int j = 0; j <= maxi; j++) {\n                    if (j != targetInv) {\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n        return dp[n][reqInv[n - 1]];\n    }\n};",
+    "submit_ts": 1719070278.0
+}

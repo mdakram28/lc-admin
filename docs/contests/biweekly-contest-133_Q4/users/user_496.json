@@ -1,0 +1,5 @@
+{
+    "username": "Mohammed84Farouk",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9+7;\n    int add(int a, int b){\n        return (a+b)%MOD;\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        ios_base::sync_with_stdio(false);\n        cin.tie(0);\n        cout.tie(0);\n\n        map<int, int>req;\n        for(auto r:requirements) req[r[0]+1]=r[1];\n        vector<vector<int>>dp(n+1, vector<int>(409, 0));\n        dp[0][0]=1;\n        for(int i=1;i<=n;i++){\n            for(int inv=0;inv<409;inv++)\n                for(int j = 0;j<i;j++)\n                    if(inv>=j)\n                        dp[i][inv] = add(dp[i][inv], dp[i-1][inv-j]);\n            if(req.find(i)!=req.end())\n                for(int inv =0;inv<409;inv++)\n                    if(inv != req[i])\n                        dp[i][inv]=0;\n        }\n        int res=0;\n        for(int x:dp[n])\n            res=add(res, x);\n        return res; \n    }\n};",
+    "submit_ts": 1719070566.0
+}

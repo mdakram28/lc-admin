@@ -1,0 +1,5 @@
+{
+    "username": "i_am_aryanraj",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD = 1_000_000_007\n        MAX_INV = 400\n\n        restrictions = {}\n        for req in requirements:\n            restrictions[req[0] + 1] = req[1]\n\n        permCount = [[0] * (MAX_INV + 1) for _ in range(n + 1)]\n        permCount[0][0] = 1\n\n        for len in range(1, n + 1):\n            for inv in range(MAX_INV + 1):\n                for pos in range(len):\n                    prevInv = inv - pos\n                    if prevInv >= 0:\n                        permCount[len][inv] = (permCount[len][inv] + permCount[len - 1][prevInv]) % MOD\n\n            if len in restrictions:\n                targetInv = restrictions[len]\n                for inv in range(MAX_INV + 1):\n                    if inv != targetInv:\n                        permCount[len][inv] = 0\n\n        result = 0\n        for count in permCount[n]:\n            result = (result + count) % MOD\n\n        return result",
+    "submit_ts": 1719070642.0
+}

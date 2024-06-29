@@ -1,0 +1,5 @@
+{
+    "username": "CtrlC_CtrlV",
+    "submission": "\n#define ll long long int\nconst int MOD = 1e9+7;\nclass Solution {\nprivate:\n\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& reqs) {\n        unordered_map<int, int> mp;\n        for (auto it : reqs) mp[it[0] + 1] = it[1];\n        vector<vector<ll>> dp(n + 1, vector<ll>(400 + 1, 0));\n        dp[0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= 400; j++) {\n                for (int k = 0; k < i; k++) {;\n                    if (j - k >= 0) dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % MOD;\n                }\n            }\n            if (mp.count(i)) {\n                for (int c = 0; c <= 400; c++) {\n                    if (c != mp[i]) dp[i][c] = 0;\n                }\n            }\n        }\n        ll ans = 0;\n        for (ll it : dp[n]) {\n            ans = (ans + it) % MOD;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1719071500.0
+}

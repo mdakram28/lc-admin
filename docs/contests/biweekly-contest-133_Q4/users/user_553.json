@@ -1,0 +1,5 @@
+{
+    "username": "karaval",
+    "submission": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        unordered_map<int,int>mp;\n        int mx=500;\n        for(auto x:requirements){\n            mp[x[0]+1]=x[1];\n        }\n        vector<vector<long long>>dp(n+1,vector<long long>(mx+1));\n        dp[0][0]=1;\n        for(int i=1;i<=n;i++){\n            for(int j=0;j<=mx;j++){\n                for(int k=0;k<i;k++){\n                    int p=j-k;\n                    if(p>=0){\n                        dp[i][j]=(dp[i][j]+dp[i-1][p])%MOD;\n                    }\n                }\n            }\n            if(mp.count(i))\n            {\n                int no=mp[i];\n                for(int j=0;j<=mx;j++){\n                    if(j!=no){\n                        dp[i][j]=0;\n                    }\n                }\n            }\n        }\n        long long ans=0;\n        for(auto x:dp[n]){\n            ans+=x;\n            ans%=MOD;\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": 1719070654.0
+}

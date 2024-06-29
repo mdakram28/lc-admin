@@ -1,0 +1,5 @@
+{
+    "username": "hustler11",
+    "submission": "class Solution {\n    public:\n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        \n        int mod = 1000000007, mx = 400;\n        map<int, int> mp;\n        vector<vector<long long>> cnt(n+1, vector<long long>(mx + 1, 0));\n        for (vector<int> r : req)\n            mp[r[0] + 1] = r[1];\n        cnt[0][0] = 1;\n\n        for (int i=1; i<=n; i++){\n            for (int inv=0; inv<=mx; inv++){\n                for (int j=0; j<i; j++){\n                    if (inv >= j)\n                        cnt[i][inv] = (cnt[i][inv] + cnt[i-1][inv-j])%mod;\n                }\n            }\n\n            if (mp.find(i)!=mp.end()){\n                for (int inv=0; inv<=mx; inv++){\n                    if (inv != mp[i])\n                        cnt[i][inv] = 0;\n                }\n            }\n        }\n\n        long long ans = 0;\n        for (long long it:cnt[n])\n            ans = (ans + it)%mod;\n        return (int)ans;\n    }\n};",
+    "submit_ts": 1719071811.0
+}

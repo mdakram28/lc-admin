@@ -1,0 +1,5 @@
+{
+    "username": "22501A4460",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, reqs: List[List[int]]) -> int:\n        MAX_INV = 400\n        MOD = 1000000007\n        req_map = {req[0] + 1: req[1] for req in reqs}\n        dp = [[0] * (MAX_INV + 1) for _ in range(n + 1)]\n        dp[0][0] = 1\n        for l in range(1, n + 1):\n            for inv in range(MAX_INV + 1):\n                for pos in range(l):\n                    prev_inv = inv - pos\n                    if prev_inv >= 0:\n                        dp[l][inv] = (dp[l][inv] + dp[l - 1][prev_inv]) % MOD\n            if l in req_map:\n                tgt_inv = req_map[l]\n                for inv in range(MAX_INV + 1):\n                    if inv != tgt_inv:\n                        dp[l][inv] = 0\n        return sum(dp[n]) % MOD\n",
+    "submit_ts": 1719070699.0
+}

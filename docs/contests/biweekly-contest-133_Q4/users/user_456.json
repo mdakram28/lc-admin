@@ -1,0 +1,5 @@
+{
+    "username": "shrudex",
+    "submission": "class Solution:\n    MOD = 10**9 + 7\n    mxInv = 400\n\n    def numberOfPermutations(self, n: int, r: list[list[int]]) -> int:\n        d = {}\n        for req in r:\n            d[req[0] + 1] = req[1]\n\n        store = [[0] * (self.mxInv + 1) for _ in range(n + 1)]\n        store[0][0] = 1\n\n        l = 1\n        while l <= n:\n            cnt = 0\n            while cnt <= self.mxInv:\n                pos = 0\n                while pos < l:\n                    prev = cnt - pos\n                    if prev >= 0:\n                        store[l][cnt] = (store[l][cnt] + store[l - 1][prev]) % self.MOD\n                    pos += 1\n                cnt += 1\n            \n            if l in d:\n                req, cnt = d[l], 0\n                while cnt <= self.mxInv:\n                    store[l][cnt] = 0 if cnt != req else store[l][cnt]\n                    cnt += 1\n            l += 1\n\n        res, cnt = 0, 0\n        while cnt <= self.mxInv:\n            res = (res + store[n][cnt]) % self.MOD\n            cnt += 1\n\n        return int(res)\n",
+    "submit_ts": 1719070507.0
+}

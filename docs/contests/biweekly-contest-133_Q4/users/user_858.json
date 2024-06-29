@@ -1,0 +1,5 @@
+{
+    "username": "ghostrider22",
+    "submission": "class Solution {\npublic:\n    #define mod 1000000007\n    #define ll long long\n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n        unordered_map<ll, ll> mpp;\n        vector<vector<ll>>dp(n + 1, vector<ll>(400+10, 0));\n        dp[0][0] = 1;\n\n        for (auto& i : r) {\n            mpp[i[0]+1] = i[1];\n        }\n\n        for (int i=1; i<=n; i++) {\n            for (int j=0; j<=400; j++) {\n                for (int k=0; k<i; k++) {\n                    ll p = j-k;\n                    if (p>= 0) {\n                        dp[i][j] = (dp[i][j]+dp[i-1][p])%mod;\n                    }\n                }\n            }\n\n            if (mpp.count(i)) {\n                ll tt = mpp[i];\n                for (int j=0; j<=400; j++) {\n                    if (j!=tt) {\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n\n        ll ans = 0;\n        for (auto& tt : dp[n]) {\n            ans += tt;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": 1719070813.0
+}

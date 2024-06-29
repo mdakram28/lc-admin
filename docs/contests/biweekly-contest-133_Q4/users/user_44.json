@@ -1,0 +1,5 @@
+{
+    "username": "tonyli00000",
+    "submission": "class Solution {\npublic:\n    const long long MOD = 1e9 + 7;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int m = 401;\n        vector<vector<int>> dp(n, vector<int>(401, 0));\n        map<int,int>req;\n        for(auto& it:requirements)req[it[0]] = it[1];\n        \n        if(req[0] != 0)return 0;\n        dp[0][0] = 1;\n        for (int k = 1; k < n; k++) {\n            for (int inv = 0; inv < m; inv++) {\n                dp[k][inv] = 0;\n                for (int i = 0; i <= k; i++) {\n                    if (inv >= k - i) {\n                        dp[k][inv] = (1LL * dp[k][inv] + 1LL * dp[k-1][inv - (k - i)]) % MOD;\n                    }\n                }\n            }\n            if(req.count(k)){\n                for(int inv = 0; inv < m;inv++){\n                    if(inv != req[k])dp[k][inv] = 0;\n                }\n            }\n        }\n        return dp[n-1][req[n-1]];\n    }\n};",
+    "submit_ts": 1719068065.0
+}

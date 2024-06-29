@@ -1,0 +1,5 @@
+{
+    "username": "Atma_",
+    "submission": "class Solution {\npublic:\n    \n    int mod=1e9+7;\n    \n    int foo(int index, int inversions, vector<int>& vis, vector<vector<int>>& dp, map<int,int>& mp){\n        //cout<<index<<\" \"<<inversions<<endl;\n        if(index<0) return inversions==0;\n        if(mp.contains(index) && inversions!=mp[index]) return 0;\n        if(inversions<0) return 0;\n        if(dp[index][inversions]!=-1) return dp[index][inversions];\n        int ans=0,ct=0,n=vis.size();\n        for(int i=n-1;i>=0;--i){\n            if(vis[i]==1) continue;\n            vis[i]=1;\n            ans+=foo(index-1,inversions-ct,vis,dp,mp);\n            ans%=mod;\n            vis[i]=0;\n            ct++;\n        }\n        return dp[index][inversions]=ans;\n    }\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> vis(n,0);\n        map<int,int> mp;\n        for(auto& r:requirements){\n            mp[r[0]]=r[1];\n        }\n        vector<vector<int>> dp(n, vector<int>(mp[n-1]+1,-1));\n        return foo(n-1,mp[n-1],vis,dp,mp);\n    }\n};",
+    "submit_ts": 1719069088.0
+}

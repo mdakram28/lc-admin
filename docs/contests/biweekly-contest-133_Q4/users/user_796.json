@@ -1,0 +1,5 @@
+{
+    "username": "lthroy",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, R: List[List[int]]) -> int:\n        large = 10**9+7\n        R.sort()\n        cmax = 0\n        for e,c in R:\n            if c < cmax or c > (1+e)*e//2:\n                return 0\n            cmax = c\n        H = {e:c for e,c in R}\n        @functools.lru_cache(None)\n        def dp(i,last):\n            if i == n:\n                return 1\n            if i in H:\n                if H[i] - last >= 0 and H[i]-last <= i:\n                    return dp(i+1,H[i])\n                else:\n                    return 0\n            upp = max(H[k] for k in H if k >= i)\n            upp = min(upp,last+i)\n            res = 0\n            for nl in range(last,upp+1):\n                res += dp(i+1,nl)\n                res %= large\n            return res\n        return dp(1,0)\n                \n            \n            \n        \n        \n        ",
+    "submit_ts": 1719071260.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "jaysukh_409",
+    "submission": "class Solution {\npublic:\n    map<int, int> mp;\n    long long dp[301][501];\n    int M = 1e9 + 7; \n    int f(int i, int curr, int n)\n    {\n        if (curr >= 500) return 0;\n        if (mp.find(i - 1) != mp.end())\n        {\n            if (mp[i - 1] != curr) return 0;\n        }\n        if (i == n) return 1;\n        if (dp[i][curr] != -1) return dp[i][curr];\n        int ans = 0;\n        for (int j = 0; j <= i; j++)\n        {\n            ans += f(i + 1, curr + j, n);\n            ans %= M;\n        }\n        return dp[i][curr] = ans;\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) \n    {\n        memset(dp, -1, sizeof(dp));\n        for (auto i : requirements)\n        {\n            mp[i[0]] = i[1];\n        }\n        return f(0, 0, n);\n    }\n};",
+    "submit_ts": 1719071903.0
+}

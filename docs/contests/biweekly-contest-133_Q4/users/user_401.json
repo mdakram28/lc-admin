@@ -1,0 +1,5 @@
+{
+    "username": "ShikiNatsume",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD = int(1e9 + 7)\n        inv = 400\n        cnt = {}\n        for req in requirements:\n            cnt[req[0] + 1] = req[1]\n        \n        dp = [[0] * (inv + 1) for _ in range(n + 1)]\n        dp[0][0] = 1\n        i = 1\n        while i <= n:\n            j = 0\n            while j <= inv:\n                np = 0\n                while np < i:\n                    prev = j - np\n                    if prev >= 0:\n                        dp[i][j] = (dp[i][j] + dp[i - 1][prev]) % MOD\n                    np += 1\n                j += 1\n            \n            if i in cnt:\n                ri = cnt[i]\n                j = 0\n                while j <= inv:\n                    if j != ri:\n                        dp[i][j] = 0\n                    j += 1\n            i += 1\n        res = 0\n        j = 0\n        while j <= inv:\n            res = (res + dp[n][j]) % MOD\n            j += 1\n        \n        return res",
+    "submit_ts": 1719070426.0
+}

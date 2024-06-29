@@ -1,0 +1,5 @@
+{
+    "username": "GabPua",
+    "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& b) {\n        const long long int MOD = 1e9 + 7;\n        \n        vector<int> a(n, -1);\n        for (auto i: b) {\n            a[i[0]] = i[1];\n        }\n        \n        if (a[0] != -1 && a[0] != 0) return 0;\n        \n        int m = 405;\n        vector<vector<long long int>> dp(n, vector<long long int>(m, 0));\n        dp[0][0] = 1;\n        for (int i = 1; i < n; i++) {\n            for (int j = 0; j <= i; j++) {\n                for (int k = 0; k + j < m; k++) {\n                    dp[i][k + j] += dp[i - 1][k];\n                    dp[i][k + j] %= MOD;\n                }\n            }\n            if (a[i] == -1) continue;\n            \n            for (int j = 0; j < m; j++) {\n                if (a[i] != j) dp[i][j] = 0;\n            }\n        }\n        return dp[n - 1][a[n - 1]];\n    }\n};",
+    "submit_ts": 1719067771.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "tr1nity",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        M = 10 ** 9 + 7\n        mx_inv = [-1] * (n + 1)\n        for idx, cnt in requirements: mx_inv[idx + 1] = cnt\n        s = n * (n - 1) // 2 + 1\n        dp = [[0] * (s) for _ in range(n + 1)]\n        dp[0][0] = 1\n        for x in range(1, n + 1):\n            pref = [0] * s\n            for y in range(s):\n                pref[y] = (dp[x - 1][y] + (pref[y - 1] if y > 0 else 0)) % M\n            for y in range(s):\n                if y >= x: dp[x][y] = (pref[y] - pref[y - x] + M) % M\n                else: dp[x][y] = pref[y] % M\n            if mx_inv[x] != -1:\n                for y in range(s):\n                    if y != mx_inv[x]:\n                        dp[x][y] = 0\n        return sum(dp[n][y] for y in range(s) if y == mx_inv[n]) % M",
+    "submit_ts": 1719068815.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "BZH110",
+    "submission": "class Solution {\npublic:\n    using ll = long long;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int mod = 1e9 + 7, m = requirements.size();\n        sort(requirements.begin(), requirements.end());\n        int high = requirements.back()[1];\n        vector<vector<int>> dp(n + 1, vector<int>(high + 1, 0));\n        dp[1][0] = 1;\n        int t = 0;\n        if(requirements[t][0] == 0 && requirements[t][1] != 0)\n            dp[1][0] = 0;\n        for(int i=2;i<=n;i++){\n            int pre = 0;\n            while(t < m && requirements[t][0] + 1 < i)\n                t++;\n            for(int j=0;j<=min(high, i * (i - 1) / 2);j++){\n                pre += dp[i-1][j];\n                if(j >= i)\n                    pre -= dp[i-1][j-i];\n                pre = (pre % mod + mod) % mod;\n                if(t < m && requirements[t][0] + 1 == i && requirements[t][1] != j)\n                    dp[i][j] = 0;\n                else\n                    dp[i][j] = pre;\n            }\n        }\n        return dp[n][high];\n    }\n};",
+    "submit_ts": 1719068104.0
+}

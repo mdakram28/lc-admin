@@ -1,0 +1,5 @@
+{
+    "username": "sourav_suku",
+    "submission": "const long long int M=(int)1e9+7;\nclass Solution {\npublic:\n    long long calDp(int ind,int cnt,vector<int>& req,vector<vector<long long>>& dp){\n        if(req[ind]!=-1&&cnt!=req[ind])return 0;\n        else if(ind==0){\n            if(req[ind]>0 || cnt>0)return 0;\n            else return 1;\n        }else if(dp[ind][cnt]!=-1)return dp[ind][cnt];\n        else{\n            long long val=0;\n            for(int i=0;i<=min(ind,cnt);++i){\n                val+=calDp(ind-1,cnt-i,req,dp); if(val>=M)val-=M;\n            }\n            return (dp[ind][cnt]=val);\n        }\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> req(n,-1);\n        int maxi=0; for(auto &e:requirements){maxi=max(maxi,e[1]);  req[e[0]]=e[1];}\n        vector<vector<long long>> dp(n,vector<long long>(maxi+1,-1));\n        return calDp(n-1,req[n-1],req,dp);\n    }\n};",
+    "submit_ts": 1719069661.0
+}

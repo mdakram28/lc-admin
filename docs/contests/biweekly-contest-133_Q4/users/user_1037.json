@@ -1,0 +1,5 @@
+{
+    "username": "panpaliaram",
+    "submission": "#define MOD 1000000007\ntypedef long long ll;\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& rq) {\n        vector<vector<ll>> v(n + 1, vector<ll>(401, 0));\n        v[0][0] = 1;\n        map<int, int> mp;\n        int ans = 0;\n        for (int i = 0; i < rq.size(); i++) {\n            mp[rq[i][0] + 1] = rq[i][1];\n        }\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j < 401; j++) {\n                for (int k = 0; k < i; k++) {\n                    if (j >= k) {\n                        v[i][j] = (v[i][j] + v[i - 1][j - k]) % MOD;\n                    }\n                }\n            }\n            if (mp.count(i) > 0)\n                for (int j = 0; j < 401; j++)\n                    if (mp[i] != j) v[i][j] = 0;\n        }\n        for (int i = 0; i < v[n].size(); i++) {\n            ans = (ans + v[n][i]) % MOD;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1719071563.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "akshay_ak27",
+    "submission": "#define ll long long\n#define it(i, j, n) for (int i=j; i<n; i++)\nclass Solution {\npublic:\n    const ll M = 1e9+7 ;\n    const int mx = 400;\n    int numberOfPermutations(int n, vector<vector<int>>& a) {\n        ll ans = 0;\n        vector<vector<ll>> prm(n + 1, vector<ll>(mx + 1, 0));\n        map<ll, ll> mp;\n        prm[0][0] = 1;\n        for (auto& x : a) {\n            mp[x[0] + 1] = x[1];\n        }\n\n        it (i, 1, n+1) {\n            it (j, 0, mx+1) {\n                it (x, 0, i) {\n                    if (j >= x)    prm[i][j] = (prm[i - 1][j-x] + prm[i][j]) % M;\n                }\n            }\n\n            if (mp.find(i) != mp.end()) {\n                it (j, 0, mx+1) {\n                    if (j != mp[i])   prm[i][j] = 0;\n                }\n            }\n        }\n\n        for (auto &x : prm[n]) {\n            ans = (ans + x) % M;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": 1719071947.0
+}

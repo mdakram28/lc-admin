@@ -1,0 +1,5 @@
+{
+    "username": "unluckyNoob",
+    "submission": "package main\n\nimport \"fmt\"\n\nconst (\n\tMOD            = 1000000007\n\tMAX_INVERSIONS = 400\n)\n\nfunc numberOfPermutations(n int, req [][]int) int {\n\trm := make(map[int]int)\n\tfor _, req := range req {\n\t\trm[req[0]+1] = req[1]\n\t}\n\n\tpc := make([][]int64, n+1)\n\tfor i := range pc {\n\t\tpc[i] = make([]int64, MAX_INVERSIONS+1)\n\t}\n\tpc[0][0] = 1\n\n\tfor length := 1; length <= n; length++ {\n\t\tfor inv := 0; inv <= MAX_INVERSIONS; inv++ {\n\t\t\tfor newPos := 0; newPos < length; newPos++ {\n\t\t\t\tprevInv := inv - newPos\n\t\t\t\tif prevInv >= 0 {\n\t\t\t\t\tpc[length][inv] = (pc[length][inv] + pc[length-1][prevInv]) % MOD\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\tif targetInv, ok := rm[length]; ok {\n\t\t\tfor inv := 0; inv <= MAX_INVERSIONS; inv++ {\n\t\t\t\tif inv != targetInv {\n\t\t\t\t\tpc[length][inv] = 0\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\tre := int64(0)\n\tfor _, count := range pc[n] {\n\t\tre = (re + count) % MOD\n\t}\n\n\treturn int(re)\n}\n\n",
+    "submit_ts": 1719070504.0
+}

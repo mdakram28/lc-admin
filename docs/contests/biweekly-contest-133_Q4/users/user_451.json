@@ -1,0 +1,5 @@
+{
+    "username": "Lwenkai",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        mp = defaultdict(int)\n        for a,b in requirements:\n            mp[a+1] = b\n        \n        MI = 400\n        MOD = 10**9 + 7\n        \n        dp = [[0]*(MI+1) for _ in range(n+1)]\n        dp[0][0] = 1 \n        \n        for le in range(1,n+1):\n            for inv in range(MI+1):\n                for np in range(le):\n                    prev = inv-np\n                    if prev >= 0:\n                        dp[le][inv] = (dp[le][inv] + dp[le-1][prev]) % MOD\n        \n            if le in mp:\n                ti = mp[le]\n                for inv in range(MI+1):\n                    if inv != ti:\n                        dp[le][inv] = 0\n        \n        \n        res = 0\n        for c in dp[n]:\n            res += c\n            res %= MOD\n        \n        return res",
+    "submit_ts": 1719070200.0
+}

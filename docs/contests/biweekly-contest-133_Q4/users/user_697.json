@@ -1,0 +1,5 @@
+{
+    "username": "Rishabh_Sharma919319",
+    "submission": "class Solution {\npublic:\n  \n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n         int MOD = 1'000'000'007;\n         map<int, int> mp;\n        for (auto it : r)  mp[it[0] + 1] = it[1];\n        vector<vector<long long>> dp(n + 1, vector<long long>(401, 0));\n        dp[0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            for (int k = 0; k <= 400; k++) {\n                for (int j = 0; j < i; j++) {\n                    int val = k - j;\n                    if (val >= 0)\n                        dp[i][k] = (dp[i][k] % MOD + dp[i - 1][val] % MOD) % MOD;\n                }\n            }\n\n            if (mp.count(i)) {\n                int val = mp[i];\n                for (int k = 0; k <= 400; k++)\n                    if (k != val) dp[i][k] = 0;\n            }\n        }\n        long long ans = 0;\n        for (int i = 0; i <= 400; i++) \n            ans = (ans % MOD + dp[n][i] % MOD) % MOD;\n        return (int)(ans);\n    }\n};",
+    "submit_ts": 1719071010.0
+}

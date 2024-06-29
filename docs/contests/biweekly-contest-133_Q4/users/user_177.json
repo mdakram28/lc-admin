@@ -1,0 +1,5 @@
+{
+    "username": "zephyrr",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD = 10 ** 9 + 7\n        arr = sorted(requirements,reverse = True)\n        if arr[-1][0] != 0:\n            arr.append([0,0])\n        else:\n            if arr[-1][1] != 0:\n                return 0\n        \n        ans = 1\n        \n        @cache\n        def dp(start,end,val):\n            if val == 0:\n                return 1\n            if start == end:\n                return 1 if val <= start else 0\n            res = 0\n            for ind in range(min(val+1,start+1)):\n                res += dp(start+1,end,val-ind)\n            return res\n        \n        for i in range(len(arr)-1):\n            tmp = dp(arr[i+1][0]+1,arr[i][0],arr[i][1]-arr[i+1][1])\n            ans *= tmp\n            ans %= MOD\n        return ans\n        \n            \n        ",
+    "submit_ts": 1719069074.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "onkar_somani",
+    "submission": "class Solution {\npublic:\n    int maxi =0;\n    int endval = 0;\n    map<int,int>m;\n    int dp[302][402];\n    int mod = 1e9 +7;\n    int f(int ind , int val){\n        if(val > 400)return 0;\n        if(ind== maxi){\n            if(val == endval)return 1;\n            else return 0;\n        }\n        if(m.count(ind)){\n            if(m[ind]!= val)return 0;\n        }\n        if(dp[ind][val]!= -1)return dp[ind][val];\n        int ans =0;\n        for(int i=0 ;i<= ind ;i++){\n            ans += f(ind + 1 , val + i );\n            ans%=mod;\n        }\n        return dp[ind][val] = ans;\n    }\n    \n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        for(auto v: requirements){\n            m[v[0] + 1]= v[1];\n            if(v[0] + 1>maxi ){\n                maxi = v[0] + 1;\n                endval = v[1];\n            }\n        }\n        memset(dp , -1 ,sizeof(dp));\n        return f(0,0);\n    }\n};",
+    "submit_ts": 1719070541.0
+}

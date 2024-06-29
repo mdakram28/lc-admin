@@ -1,0 +1,5 @@
+{
+    "username": "Charu06",
+    "submission": "class Solution {\n    public int numberOfPermutations(int n, int[][] requirements) {\n        int max=400;\n        long[][] dp=new long[n+1][max+1];\n        dp[0][0]=1;\n        Map<Integer, Integer> map=new HashMap<>();\n        for(int[] a:requirements)\n            map.put(a[0]+1,a[1]);\n        for(int i=1;i<=n;i++){\n            for(int j=0;j<=max;j++){\n                for(int k=0;k<i;k++){\n                    if(j-k>=0)\n                        dp[i][j]=(dp[i][j]+dp[i-1][j-k])%1000000007;\n                }\n            }\n            if(map.containsKey(i)){\n                int x=map.get(i);\n                for(int j=0;j<=max;j++){\n                    if(j!=x)\n                        dp[i][j] = 0;\n                }\n            }\n        }\n        long res=0;\n        for(long c:dp[n])\n            res=(res+c)%1000000007;\n        return (int)res;\n    }\n}",
+    "submit_ts": 1719071910.0
+}

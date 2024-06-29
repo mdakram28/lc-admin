@@ -1,0 +1,5 @@
+{
+    "username": "akashSudan",
+    "submission": "int mod=1000000007;\nint fun(int n,vector<vector<int>> &dp,map<int,int> &mep,int k)\n{\n    if(n<0||k<0)\n        return 0;\n    if(n==1)\n        return k==0;\n    if(dp[n-1][k]!=-1)\n        return dp[n-1][k];\n    long long ans=0;\n    for(int i=0;i<n;i++)\n    {\n        int curr=n-1-i;\n        int idx=n-1;\n        if(mep.count(idx-1)==0)\n        {\n            ans+=fun(n-1,dp,mep,k-curr);\n            ans%=mod;\n            continue;\n        }\n        if(k-curr==mep[idx-1])\n        {\n            ans+=fun(n-1,dp,mep,mep[idx-1]);\n            ans%=mod;\n        }\n        \n    }\n    return dp[n-1][k]=ans;\n        \n}\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int ans=0;\n        map<int,int> mep;\n        for(auto v:requirements)\n            mep[v[0]]=v[1];\n        vector<vector<int>> dp(n+100,vector<int> (500,-1));\n        return fun(n,dp,mep,mep[n-1]);\n    }\n};",
+    "submit_ts": 1719071923.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "123GJWEQ2",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        hashmap = {}\n        \n        for r in requirements:\n            hashmap[r[0]] = r[1]\n            \n        \n        old_dp = [0 for x in range(403)]\n        old_dp[0] = 1\n        mod = 10 ** 9 + 7\n        \n        for i in range(n):\n            dp = [[0 for i in range(n + 1)] for x in range(403)]\n            for x in range(1, i + 2):\n                for inversion in range(x - 1, 401):\n                    dp[inversion][x] = old_dp[inversion - x + 1]\n                    \n            for inversion in range(401):\n                dp[inversion] = sum(dp[inversion])\n            \n            if i in hashmap:\n                for inversion in range(403):\n                    if inversion != hashmap[i]:\n                        dp[inversion] = 0\n            old_dp = dp\n            \n        return dp[hashmap[n - 1]] % mod",
+    "submit_ts": 1719070179.0
+}

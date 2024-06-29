@@ -1,0 +1,5 @@
+{
+    "username": "yashraj_prasad",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD = 1e9 + 7\n        mp = {i[0] + 1: i[1] for i in requirements}\n        v = []\n\n        co = [[0] * (400 + 1) for _ in range(n + 1)]\n        co[0][0] = 1\n        for i in range(1, n + 1):\n            for j in range(401):\n                for k in range(i):\n                    prev_j = j - k\n                    if prev_j >= 0:\n                        co[i][j] = (co[i][j] + co[i - 1][prev_j]) % MOD\n\n            if i in mp:\n                val = mp[i]\n                for j in range(400 + 1):\n                    if j != val:\n                        co[i][j] = 0\n        return int(sum(co[n]) % MOD)\n",
+    "submit_ts": 1719070375.0
+}

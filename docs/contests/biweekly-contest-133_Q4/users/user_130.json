@@ -1,0 +1,5 @@
+{
+    "username": "sumon_1212",
+    "submission": "class Solution {\npublic:\n    int dp[300][401],N,ar[300];\n    const int mod=1e9+7;\n    int ok(int i,int j)\n    {\n        if(i<0||j<0)\n        {\n            return j==0;\n        }\n        else if(ar[i]>=0&&j!=ar[i])\n        {\n            return 0;\n        }\n        else if(dp[i][j]!=-1)\n        {\n            return dp[i][j];\n        }\n        else\n        {\n            int ans=0;\n            for(int l=1;l<=i+1;l++)\n            {\n                ans=(ans+ok(i-1,j-(i+1-l)))%mod;\n            }\n            return dp[i][j]=ans;\n        }\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        N=n;\n        for(int i=0;i<n;i++)\n        {\n            ar[i]=-1;\n        }\n        for(auto a:requirements)\n        {\n            ar[a[0]]=a[1];\n        }\n        for(int i=0;i<n;i++)\n        {\n            for(int j=0;j<=ar[n-1];j++)\n            {\n                dp[i][j]=-1;\n            }\n        }\n        return ok(n-1,ar[n-1]);\n    }\n};",
+    "submit_ts": 1719068647.0
+}

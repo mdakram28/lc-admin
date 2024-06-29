@@ -1,0 +1,5 @@
+{
+    "username": "iwnRwfzapZ",
+    "submission": "@cache\ndef dp(N, K, tn, tk):\n    if (N == tn): return 0\n    if (K == tk): return 1\n    total = 0\n    for i in range(K + 1):\n        if (i <= N - 1):\n            total += dp(N - 1, K - i, tn, tk)\n    return total\n\n\nclass Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD = 10**9 + 7\n\n        requirements.sort()\n        prev_inversions = 0\n        prev_size = 0\n        ans = 1\n\n        for end, cnt in requirements:\n            curr = dp(end + 1, cnt, prev_size, prev_inversions)\n            ans *= curr\n            ans %= MOD\n\n            prev_size, prev_inversions = end , cnt\n\n        return ans",
+    "submit_ts": 1719071528.0
+}

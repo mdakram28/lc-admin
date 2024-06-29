@@ -1,0 +1,5 @@
+{
+    "username": "chuan-chih",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        requirements.sort()\n        mod = 10 ** 9 + 7\n        req = [None] * n\n        prev = 0\n        for i, c in requirements:\n            if prev > c:\n                return 0\n            if c > i * (i + 1) // 2:\n                return 0\n            prev = req[i] = c\n        hi = req[-1]\n        dp = [0] * (hi + 1)\n        dp[0] = 1\n        for i in range(n):\n            new = [0] * (hi + 1)\n            for j, x in enumerate(dp):\n                new[j] += x\n                if j + i + 1 <= hi:\n                    new[j + i + 1] -= x\n            new[:] = (x % mod for x in accumulate(new))\n            dp = new\n            if req[i] is not None:\n                dp[:] = (x if j == req[i] else 0 for j, x in enumerate(dp))\n        return dp[-1]\n                \n        \n        ",
+    "submit_ts": 1719069907.0
+}

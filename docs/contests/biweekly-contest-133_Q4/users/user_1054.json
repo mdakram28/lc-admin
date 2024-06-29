@@ -1,0 +1,5 @@
+{
+    "username": "Dev3214",
+    "submission": "\nclass Solution:\n    def numberOfPermutations(self, n: int, reqs: List[List[int]]) -> int:\n        req_map = {}\n        for req in reqs:\n            req_map[req[0] + 1] = req[1]\n            \n        M = 1_000_000_007\n        MAX = 400\n        \n        dp = [[0] * (MAX + 1) for _ in range(n + 1)]\n        dp[0][0] = 1\n\n        for length in range(1, n + 1):\n            for inv in range(MAX + 1):\n                dp[length][inv] = 0\n                for pos in range(length):\n                    prev_inv = inv - pos\n                    if prev_inv >= 0:\n                        dp[length][inv] = (dp[length][inv] + dp[length - 1][prev_inv]) % M\n\n            if length in req_map:\n                target_inv = req_map[length]\n                for i in range(MAX + 1):\n                    if i != target_inv:\n                        dp[length][i] = 0\n\n        result = 0\n        for count in dp[n]:\n            result = (result + count) % M\n\n        return result\n",
+    "submit_ts": 1719071301.0
+}

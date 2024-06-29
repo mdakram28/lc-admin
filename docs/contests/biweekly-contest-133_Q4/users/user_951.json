@@ -1,0 +1,5 @@
+{
+    "username": "vishh_all",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll MOD = 1e9+7;\n    ll f(int n, int S, int diff) {\n        vector<ll> dp(S + 1, 0);\n        vector<int>v(n+1,0);\n        for(int i=n;i>diff;i--){\n            v[i]=i;\n        }\n        dp[0] = 1;\n        for (int i=1;i<=n;i++) {\n            for (int j = S; j >= 0; j--) {\n                for (int k = 1; k <= v[i]; k++) {\n                    if (j - k >= 0) {\n                        dp[j] = (dp[j] + dp[j - k])%MOD;\n                    }\n                }\n            }\n        }\n        return dp[S];\n    }\n    \n    static bool comp(vector<int>&a, vector<int>&b){\n        return a[0]<b[0];\n    }\n\n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n        int m = r.size();\n        if(m>1)sort(r.begin(),r.end(),comp);\n        ll ans=1;\n        int prev=0;\n        int cnt=0;\n        for(int i=0;i<m;i++){\n            ll val=f(r[i][0],r[i][1]-prev,cnt);\n            ans = (ans*val)%MOD;\n            prev=r[i][1];\n            cnt=r[i][0];\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1719070150.0
+}

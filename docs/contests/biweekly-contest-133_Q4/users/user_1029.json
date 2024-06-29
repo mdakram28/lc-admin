@@ -1,0 +1,5 @@
+{
+    "username": "a29ok",
+    "submission": "#define MOD 1000000007\nclass Solution {\npublic:\n    vector<vector<int>> dp;\n    int numberOfPermutations(int n, vector<vector<int>>& arr) {\n        vector<int> arr1(405,-1);\n        for(auto it:arr){\n            arr1[it[0]+1]=it[1];\n        }\n        dp.resize(n+1,vector<int>(405,0));\n        dp[0][0]=1;\n        for(int i=0;i<n;i++){\n            for(int j=0;j<=400;j++){\n                for(int k=0;k<=min(i,j);k++){\n                        dp[i+1][j]=(dp[i+1][j]+dp[i][j-k])%MOD;\n                }\n            }\n            if(arr1[i+1]!=-1){\n                for(int j=0;j<arr1[i+1];j++){\n                     dp[i+1][j]=0;\n                }\n                for(int j=arr1[i+1]+1;j<=400;j++){\n                    dp[i+1][j]=0;\n                }\n            }\n        }\n        long long ans=0;\n        for(int i=0;i<=400;i++){\n            ans=(ans+dp[n][i])%MOD;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1719071823.0
+}

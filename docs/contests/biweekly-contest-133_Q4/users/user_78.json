@@ -1,0 +1,5 @@
+{
+    "username": "pulkit2401",
+    "submission": "class Solution {\npublic:\n    int MOD= 1e9+7;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n         vector<int> inv_count(n, -1);\n        for (auto req : requirements) {\n            inv_count[req[0]] = req[1];\n        }\n        vector<vector<long long>> dp(n + 1, vector<long long>(401, 0));\n        dp[0][0] = 1;\n        vector<long long> sum(401, 0);\n        for (int i = 1; i <= n; i++) {\n            sum[0] = dp[i-1][0];\n            for (int j = 1; j <= 400; j++) {\n                sum[j] = (sum[j-1] + dp[i-1][j]) % MOD;\n            }\n            \n            for (int j = 0; j <= 400; j++) {\n                int left = max(0, j - (i - 1));\n                dp[i][j] = (sum[j] - (left > 0 ? sum[left - 1] : 0) + MOD) % MOD;\n            }\n            \n            if (inv_count[i-1] != -1) {\n                long long temp = dp[i][inv_count[i-1]];\n                dp[i].assign(401, 0);\n                dp[i][inv_count[i-1]] = temp;\n            }\n        }\n        return dp[n][inv_count[n-1]];\n    }\n};",
+    "submit_ts": 1719068386.0
+}

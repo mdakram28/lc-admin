@@ -1,0 +1,5 @@
+{
+    "username": "arnvsnigi",
+    "submission": "class Solution {\n    final int mod = (int)1e9+7;\n    final int invm = 400;\n    public int find(long mat[][],int n){\n        long ans = 0;\n        for (long ele : mat[n]) {\n            ans = (ans+ele)%mod;\n        }\n        return (int)ans;\n    }\n    public int numberOfPermutations(int n, int[][] req) {\n        var mp=new HashMap<Integer,Integer>();\n        for (int ele[] : req) mp.put(ele[0]+1, ele[1]);\n        \n        \n        long mat[][] = new long[n + 1][invm + 1];\n        mat[0][0] = 1;\n        \n        for (var i=1;i<= n;i++) {\n            for (var j=0;j<=invm;j++) {\n                for (var k=0;k<i;k++)if (j>=k)mat[i][j]=(mat[i][j] + mat[i-1][j-k])%mod;\n                    \n            }\n            if (mp.containsKey(i))for (var j=0;j<= invm;j++)if(j!=mp.get(i))mat[i][j]=0;\n        }\n        return find(mat,n);\n        \n        \n    }\n\n}",
+    "submit_ts": 1719071683.0
+}

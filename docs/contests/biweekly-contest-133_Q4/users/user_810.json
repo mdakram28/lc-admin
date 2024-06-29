@@ -1,0 +1,5 @@
+{
+    "username": "qvSQVIEcRG",
+    "submission": "typedef long long ll;\n\nclass Solution {\npublic:\n    int numberOfPermutations(int inn, vector<vector<int>>& arr) {\n        const ll kmod = 1e9+7;\n        const ll iv = 400;\n        unordered_map<ll, ll> mpp;\n        for (auto it : arr) {\n            mpp[it[0] + 1] = it[1];\n        }\n        vector<vector<ll>> xv(inn + 1, vector<ll>(iv + 1, 0));\n        xv[0][0] = 1;\n        for (int ls = 1; ls <= inn; ls++) {\n            for (int vs = 0; vs <= iv; vs++) {\n                for (int p = 0; p < ls; p++) {\n                    int pi = vs - p;\n                    if (pi >= 0) \n                        xv[ls][vs] = (xv[ls][vs] + xv[ls - 1][pi]) % kmod;\n                }\n            }\n            if (mpp.find(ls) != mpp.end()) {\n                ll targetInv = mpp[ls];\n                for (int q = 0; q <= iv; q++) \n                    if (q != targetInv) \n                        xv[ls][q] = 0;\n            }\n        }\n        ll ans = 0;\n        for (ll it : xv[inn]) \n            ans = (ans + it) % kmod;\n        \n        return ans;\n    }\n};",
+    "submit_ts": 1719071289.0
+}

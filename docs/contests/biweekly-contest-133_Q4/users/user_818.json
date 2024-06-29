@@ -1,0 +1,5 @@
+{
+    "username": "alvinw",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        mod = 10**9 + 7\n\n        requirements.sort()\n\n        m = len(requirements)\n        kmax = requirements[m-1][1]\n\n        dp = [[0] * (kmax+1) for _ in range(n)]\n        dp[0][0] = 1\n\n        j = 0\n        if requirements[0][0] == 0:\n            if requirements[0][1] != 0:\n                return 0\n            j = 1\n\n        for i in range(1, n):\n            curr_sum = 0\n            for k in range(min(i * (i+1) // 2, kmax)+1):\n                curr_sum = (curr_sum + dp[i-1][k]) % mod\n                if k >= i + 1:\n                    curr_sum = (curr_sum - dp[i-1][k-(i+1)]) % mod\n                if requirements[j][0] != i or requirements[j][1] == k:\n                    dp[i][k] = curr_sum\n\n            if requirements[j][0] == i:\n                j += 1\n\n        for row in dp:\n            print(row)\n\n        return dp[n-1][kmax]\n",
+    "submit_ts": 1719071018.0
+}

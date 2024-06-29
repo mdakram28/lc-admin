@@ -1,0 +1,5 @@
+{
+    "username": "san_yon",
+    "submission": "mod = 1_000_000_007\n\nclass Solution:\n    def numberOfPermutations(self, n: int, requi: List[List[int]]) -> int:    \n        arr = {}\n        maxi_ans = 400   \n        dp = [[0] * (maxi_ans + 1) for _ in range(n + 1)]\n        dp[0][0] = 1     \n        for x in requi:\n            arr[x[0] + 1] = x[1]\n\n        for len in range(1, n + 1):\n            for curr in range(maxi_ans + 1):\n                for new in range(len):\n                    temp = curr - new\n                    if temp >= 0:\n                        dp[len][curr] = (dp[len][curr] + dp[len - 1][temp]) % mod\n\n            if len in arr:\n                ans = arr[len]\n                for curr in range(maxi_ans + 1):\n                    if curr != ans:\n                        dp[len][curr] = 0\n\n        total = sum(dp[n]) % mod\n        return total\n\n\n",
+    "submit_ts": 1719071809.0
+}

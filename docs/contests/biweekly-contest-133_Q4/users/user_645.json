@@ -1,0 +1,5 @@
+{
+    "username": "usaya",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD = 10**9 + 7\n        \n        mp = defaultdict(int)\n        for end, cnt in requirements:\n            mp[end] = cnt\n\n        dp = [[0] * 401 for _ in range(n+1)]\n        dp[0][0] = 1\n\n        for i in range(1, n+1):\n            for j in range(401):\n                for k in range(i):\n                    if j - k >= 0:\n                        dp[i][j] += dp[i-1][j-k]\n                        dp[i][j] %= MOD\n            if (i - 1) in mp:\n                cnt = mp[i - 1]\n                bak = dp[i][cnt]\n                dp[i] = [0] * 401\n                dp[i][cnt] = bak\n        \n        return sum(dp[n]) % MOD",
+    "submit_ts": 1719070602.0
+}

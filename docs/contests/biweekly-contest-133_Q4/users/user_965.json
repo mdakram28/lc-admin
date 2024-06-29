@@ -1,0 +1,5 @@
+{
+    "username": "srgupta03",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1000000007;\nconst int MXT = 404;\ntypedef long long ll;\n    int numberOfPermutations(int n, vector<vector<int>>& nums) {\n      unordered_map<ll, ll> mp;\n    ll ans = 0;\n    for ( auto& req : nums) \n        mp[req[0] + 1] = req[1];\n    \n    vector<vector<ll>> vec(n + 1,vector<ll>(MXT + 1, 0));\n    vec[0][0] = 1;\n\n    for (int it = 1; it <= n; ++it) {\n\n        for (int inv = 0; inv <= MXT; ++inv) {\n            for (int jt = 0; jt < it; ++jt) {\n                if (inv-jt>= 0) \n                    vec[it][inv] = (vec[it][inv] +vec[it - 1][inv - jt]) % MOD;\n            }\n        }\n\n        if (mp.find(it) != mp.end()) {\n            int targetInv = mp[it];\n            for (int inv = 0; inv <= MXT; ++inv) {\n                if (inv != targetInv) {\n                    vec[it][inv] = 0;\n                }\n            }\n        }\n    }\n\n    for(auto it:nums){\n        it[1]=it[0]%MOD;        \n    }\n\n    for (auto it : vec[n]) \n        ans = (ans + it) % MOD;\n\n    return (int)(ans);\n    }\n};",
+    "submit_ts": 1719071680.0
+}

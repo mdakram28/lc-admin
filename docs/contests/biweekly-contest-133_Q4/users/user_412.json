@@ -1,0 +1,5 @@
+{
+    "username": "Amaan_Akhtar",
+    "submission": "class Solution {\nprivate:\n    int mod = 1e9+7;\n    int max_k = 400;\n    #define ll long long\n    public:\n    int numberOfPermutations(int n, std::vector<std::vector<int>>& r) {\n        unordered_map<int, int> mp;\n        for (auto i:r)  mp[i[0]+1]=i[1];\n        vector<vector<ll>> dp(n+1,vector<ll>(max_k + 1, 0));\n        dp[0][0]=1;\n        for (int i=1;i<=n;i++) {\n            for (int k=0; k<=max_k; k++) {\n                for (int j=0;j<i;j++) {\n                    if (k>=j)  dp[i][k] = (dp[i][k] + dp[i - 1][k-j]) % mod;\n                }\n            }\n            if (mp.find(i)!=mp.end()) {\n                for (int k = 0; k <= max_k; k++) {\n                    if (k != mp[i])     dp[i][k] = 0;\n                }\n            }\n        }\n        ll ans = 0;\n        for (ll i:dp[n])   ans=(ans+i)%mod;\n        return ans;\n    }\n};\n\n",
+    "submit_ts": 1719070433.0
+}

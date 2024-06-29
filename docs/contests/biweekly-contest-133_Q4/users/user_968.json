@@ -1,0 +1,5 @@
+{
+    "username": "sanyamp10127",
+    "submission": "class Solution {\n    public int numberOfPermutations(int n, int[][] requirements) {\n        int mod=1000000007;\n        long[][] dp = new long[n+1][400+1];\n        dp[0][0]=1;\n        HashMap<Integer,Integer> h=new HashMap<>();\n        for (int i=0;i<requirements.length;i++) h.put(requirements[i][0]+1,requirements[i][1]);\n        for (int i=1;i<=n;i++) {\n            for (int j=0;j<i;j++) {\n                for (int k=0;k<=400;k++) if (k-j>=0) dp[i][k]=(dp[i][k]+dp[i-1][k-j])%mod;\n            }\n            if (h.containsKey(i)) for (int j=0;j<=400;j++) if(j != h.get(i)) dp[i][j]=0;\n        }\n        long ans=0;\n        for (long i:dp[n]) ans=(ans+i)% mod;\n        return (int)ans;\n    }\n    \n}",
+    "submit_ts": 1719071685.0
+}

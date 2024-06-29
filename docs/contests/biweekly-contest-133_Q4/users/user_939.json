@@ -1,0 +1,5 @@
+{
+    "username": "Amit_4552",
+    "submission": "\nclass Solution {\npublic:\n    int mod = 1e9 + 7;\n    std::vector<std::vector<int>> dp;\n\n    int f(int N, int K, std::map<int, int>& mp) {\n        if (K < 0) return 0;\n        if (N == 0) return K == 0 ? 1 : 0;\n\n        if (dp[N][K] != -1) return dp[N][K];\n\n        if (mp.find(N) != mp.end() && K != mp[N]) return dp[N][K] = 0;\n\n        long long sum = 0;\n        for (int i = 0; i <= std::min(N - 1, K); i++) {\n            sum = (sum + f(N - 1, K - i, mp)) % mod;\n        }\n\n        return dp[N][K] = sum;\n    }\n\n    int numberOfPermutations(int n, std::vector<std::vector<int>>& requirements) {\n        std::map<int, int> st;\n        for (auto& req : requirements) {\n            st[req[0] + 1] = req[1];\n        }\n\n        dp = std::vector<std::vector<int>>(n + 1, std::vector<int>(n * (n - 1) / 2 + 1, -1));\n\n        int k = st[n];\n        return f(n, k, st);\n    }\n};",
+    "submit_ts": 1719071589.0
+}

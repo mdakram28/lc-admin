@@ -1,0 +1,5 @@
+{
+    "username": "x____x",
+    "submission": "class Solution {\npublic:\n  int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n    const int Mod = 1000000007;\n    int m = 0;\n    for (int i = 0; i < requirements.size(); ++i) {\n      m = max(m, requirements[i][1]);\n    }\n    sort(requirements.begin(), requirements.end());\n    vector<vector<int>> a(n + 1, vector<int>(m + 4));\n    a[0][0] = 1;\n    int p = 0;\n    for (int i = 0; i < n; ++i) {\n      for (int j = 0; j <= m; ++j) if (a[i][j]) {\n        // cout << i << ' ' << j << ' ' << a[i][j] << endl;\n        for (int u = 0; u <= i; ++u) {\n          if (j + u > m) break;\n          (a[i + 1][j + u] += a[i][j]) %= Mod;\n        }\n      }\n      if (i == requirements[p][0]) {\n        for (int j = 0; j <= m; ++j) if (j != requirements[p][1]) a[i + 1][j] = 0;\n        ++p;\n      }\n    }\n    return a[n][requirements.back()[1]];\n  }\n};",
+    "submit_ts": 1719068217.0
+}

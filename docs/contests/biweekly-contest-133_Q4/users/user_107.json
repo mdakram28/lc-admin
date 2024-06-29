@@ -1,0 +1,5 @@
+{
+    "username": "JustinZhengBC",
+    "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        const int mod = 1e9 + 7;\n        vector<int> a(401, 0);\n        vector<int> b(401, 0);\n        map<int, int> r;\n        for (auto &p : requirements) {\n            r[p[0]+1] = p[1];\n        }\n        if (r[1] != 0) {\n            return 0;\n        }\n        a[0] = 1;\n        for (int i = 2; i <= n; ++i) {\n            fill(b.begin(), b.end(), 0);\n            for (int j = 0; j <= 400; ++j) {\n                for (int k = j; k <= min(400, j + i - 1); ++k) {\n                    b[k] += a[j];\n                    b[k] %= mod;\n                }\n            }\n            if (r.count(i)) {\n                for (int j = 0; j <= 400; ++j) {\n                    if (j != r[i]) {\n                        b[j] = 0;\n                    }\n                }\n            }\n            swap(a, b);\n        }\n        int res = 0;\n        for (int x : a) {\n            res += x;\n            res %= mod;\n        }\n        return res;\n    }\n};",
+    "submit_ts": 1719068694.0
+}

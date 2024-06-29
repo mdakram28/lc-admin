@@ -1,0 +1,5 @@
+{
+    "username": "ragson",
+    "submission": "class Solution {\npublic:\n    const int MOD=1e9+7;\n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n        unordered_map<int,int> mp;\n        for(auto x:r) mp[x[0]+1]=x[1];\n        vector<vector<int>> dp(n+1,vector<int>(401,0));\n        dp[0][0]=1;\n        long long ans=0;\n        for(int i=1;i<=n;i++){\n            for(int j=0;j<=400;j++){\n                for(int k=0;k<i;k++){\n                    int x=j-k;\n                    if(x>=0){\n                        dp[i][j]+=(dp[i-1][x]);\n                        dp[i][j]%=MOD;\n                    }\n                }\n            }\n            if(mp.find(i)!=mp.end()){\n                int t=mp[i];\n                for(int j=0;j<=400;j++){\n                    if(j!=t) dp[i][j]=0;\n                }\n            }\n        }\n        for(auto x:dp[n]) {\n            ans+=x;\n            ans%=MOD;\n        }\n        return ans%MOD;\n    }\n};",
+    "submit_ts": 1719070962.0
+}

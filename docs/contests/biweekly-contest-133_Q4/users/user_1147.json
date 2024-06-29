@@ -1,0 +1,5 @@
+{
+    "username": "imsubratpandey",
+    "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        long long mod = 1000000007;\n        unordered_map<long long,long long> r;\n        for (auto& req : requirements) {\n            r[req[0]+1] = req[1];\n        }\n        vector<vector<long long>> dp(n + 1, vector<long long>(401, 0));\n        dp[0][0] = 1;\n        for (long long i = 1; i <= n; i++) {\n            for (long long j = 0; j <= 400; j++)\n                for (long long k = 0; k <= i-1; k++)\n                    if(j - k>-1) dp[i][j]=(dp[i][j]+dp[i - 1][j - k]) % mod;\n            if (r.count(i)==true)\n                for (int j = 0; j <= 400; j++)\n                    if (j != r[i]) dp[i][j] = 0;\n        }\n        set<int> s;\n        int x=10;\n        while(x--){\n            s.insert(x);\n        }\n        long long ans = 0;\n         for(int y=0;y<dp[n].size();y++){\n            int xx=dp[n][y];\n            ans=(ans%mod+xx%mod)%mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1719071948.0
+}

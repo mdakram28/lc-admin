@@ -1,0 +1,5 @@
+{
+    "username": "angellim",
+    "submission": "using ll=long long;\nconst ll mod=1e9+7;\n\nll dp[303][404];\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& V) {\n        vector<vector<int>> req(n+1);\n        for (auto &p: V) {\n            int idx=p[0]+1;\n            int r=p[1];\n            req[idx].push_back(r);\n        }\n        \n        \n        memset(dp, 0, sizeof(dp));\n        dp[0][0]=1;\n        \n        for (int i=1; i<=n; i++) {\n            int iv=min(400, i*(i-1)/2);\n            for (int j=0; j<i; j++) {\n                for (int v=(req[i].size() ? req[i][0] : 0); v<=(req[i].size() ? req[i][0] : iv); v++) {\n                    if (v-j>=0) {\n                        dp[i][v] += dp[i-1][v-j];\n                        dp[i][v] %= mod;\n                    }\n                }\n            }\n        }\n        \n        \n        ll res=0;\n        for (int j=0; j<=min(400, n*(n-1)/2); j++) {\n            // cout<<j<<\": \"<<dp[n][j]<<endl;\n            res += dp[n][j];\n            res %= mod;\n        }\n        return res;\n\n    }\n};",
+    "submit_ts": 1719068563.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "Fremder",
+    "submission": "#define MOD 1000000007\nclass Solution {\npublic:\n    int dp[305][405];\n    int func(int n,int cnt,map<int,int> &mp){\n        if(cnt<0 or n<0) return 0;\n        if(n==0 and cnt==0) return 1;\n        if(n==0 and cnt>0) return 0;\n        if(dp[n][cnt] != -1) return dp[n][cnt];\n        if(mp.find(n-1) != mp.end() and cnt != mp[n-1]){\n            return dp[n][cnt] = 0;\n        }\n        long long ans = 0;\n        for(int i=0;i<n;i++){\n            ans += func(n-1,cnt-i,mp);\n            ans %= MOD;\n        }\n        return dp[n][cnt] = ans;\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& vec) {\n        memset(dp,-1,sizeof(dp));\n        map<int,int> mp;\n        for(auto &x:vec){\n            mp[x[0]] = x[1];\n        }\n        auto it = mp.end();it--;\n        auto x1 = (*(it)).first, k1 =(*(it)).second;\n        long long ans = func(x1+1,k1,mp);\n        for(int i=1;i<=(n-x1-1);i++){\n            ans *= i;\n            ans %= MOD;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1719070750.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "octaneal",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD = 10**9 + 7\n        size = 400\n        \n        t = {}\n        \n        for a, b in requirements:\n            t[a + 1] = b \n            \n        dp = [[0 for _ in range(size + 1)] for _ in range(n + 1)]\n        dp[0][0] = 1\n        \n        for i in range(1, n+1):\n            for j in range(size + 1):\n                for pos in range(i):\n                    last = j - pos\n                    if last >= 0:\n                        dp[i][j] = (dp[i][j] + dp[i - 1][last]) % MOD\n            \n            if i in t:\n                for j in range(size + 1):\n                    if j != t.get(i, None):\n                        dp[i][j] = 0\n        \n        res = 0\n        for i in dp[n]:\n            res += i\n            res %= MOD\n        \n        return res",
+    "submit_ts": 1719070806.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "kagotpush",
+    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        requirements.sort()\n        MOD=10**9+7\n        mxend=mxcnt=0\n        for end,cnt in requirements:\n            mxend=max(mxend,end)\n            mxcnt=max(mxcnt,cnt)\n        dp=[[0]*(mxcnt+1) for _ in range(mxend+1)]\n        dp[0][0]=1\n        i=0\n        # print(requirements,mxend,mxcnt)\n        for end,cnt in requirements:\n            # print('req',end,cnt)\n            while i<end:\n                s=0\n                for j in range(cnt+1):\n                    s=(s+dp[i][j])%MOD\n                    dp[i+1][j]=s\n                    if j>i:\n                        s=(s-dp[i][j-i-1])%MOD\n                i+=1\n            for j in range(cnt):\n                dp[i][j]=0\n        # for row in dp:\n        #     print(row)\n        return dp[mxend][mxcnt]",
+    "submit_ts": 1719069866.0
+}

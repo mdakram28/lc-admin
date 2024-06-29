@@ -1,0 +1,5 @@
+{
+    "username": "jarvis2704",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n    int maxi = 400;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        unordered_map<int,int>mpp;\n        for(auto itr: requirements){\n            mpp[itr[0]+1]=itr[1];\n        }\n        \n        vector<vector<int>>dp(n+1,vector<int>(maxi+1,0));\n        dp[0][0] = 1;\n        \n        for(int i=1;i<=n;i++){\n            for(int j=0;j<=maxi;j++){\n                for(int k=0;k<i;k++){\n                    int temp = j - k;\n                    if(temp >=0)\n                        dp[i][j] = (dp[i][j] + dp[i-1][temp])%mod;\n                }\n            }\n            \n            if(mpp.find(i) != mpp.end()){\n                int temp = mpp[i];\n                for(int j=0;j<=maxi;j++){\n                    if(j != temp)\n                        dp[i][j] = 0;\n                }\n            }\n        }\n        \n        long long ans = 0;\n        for(auto itr: dp[n]){\n            ans = (ans + itr)%mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1719070387.0
+}

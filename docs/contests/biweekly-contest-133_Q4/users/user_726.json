@@ -1,0 +1,5 @@
+{
+    "username": "Roshan_1229",
+    "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        map<int,int>mp;\n        for(auto it:requirements){\n            mp[it[0]+1] = it[1];\n        }\n        int MOD = 1e9 + 7;\n        vector<vector<long long>> dp(n + 1,vector<long long>(401,0));\n        dp[0][0] = 1;\n        for(int i = 1; i<=n; i++){\n            for(int j =0; j<=400; j++){\n                for(int k = 0; k<i; k++){\n                    int prev = j - k;\n                    if(prev >= 0){\n                        dp[i][j] = (dp[i][j] + dp[i -1][prev])%MOD;\n                    }\n                }\n            }\n            if(mp.find(i) != mp.end()){\n                int tar = mp[i];\n                for(int j = 0;j<=400; j++){\n                    if(j != tar){\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n        long long ans = 0;\n        for(auto it:dp[n]){\n            ans = (ans + it)%MOD;\n        }\n        return (int)ans ;\n    }\n};",
+    "submit_ts": 1719071093.0
+}

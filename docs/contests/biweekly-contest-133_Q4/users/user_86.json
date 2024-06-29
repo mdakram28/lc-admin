@@ -1,0 +1,5 @@
+{
+    "username": "mble6125",
+    "submission": "class Solution {\n    int m=1e9+7;\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n        sort(r.begin(), r.end());\n        \n        int temp=n*(n+1)/2;\n        \n        vector<vector<int>> dp(n+1, vector<int>(temp+1));\n        dp[0][0]=1;\n        \n        for (int i=1, j=0; i<=n; ++i) {\n            for (int k=0, cur=0; k<=temp; ++k) {\n                cur+=dp[i-1][k];\n                cur%=m;\n\n                if (k-i>=0) {\n                    cur-=dp[i-1][k-i];\n                    cur+=m;\n                    cur%=m;\n                }\n                dp[i][k]=cur;\n            }\n            \n            if (i==r[j][0]+1) {\n                for (int k=0; k<=temp; ++k) {\n                    if (k==r[j][1]) continue;\n                    dp[i][k]=0;\n                }\n                ++j;\n            }\n        }\n        \n        int res=0;\n        for (int i=0; i<=temp; ++i) {\n            res +=dp[n][i];\n            res%=m;\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": 1719068483.0
+}

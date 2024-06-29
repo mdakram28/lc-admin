@@ -1,0 +1,5 @@
+{
+    "username": "horiseun",
+    "submission": "class Solution {\npublic:\n  const int MOD = 1e9 + 7;\n  \n  int cache[305][405], requirement[305], mnidx;\n  bool seen[305][405];\n  \n  int dp(int idx, int cnt) {\n    if (!idx) {\n      return 0;\n    }\n    if (requirement[idx] != 2e9 && cnt != requirement[idx]) {\n      return 0;\n    }\n    if (idx <= mnidx && cnt == 0) {\n      return 1;\n    }\n    if (seen[idx][cnt]) {\n      return cache[idx][cnt];\n    }\n    seen[idx][cnt] = true;\n    for (int i = 0; i <= cnt; i++) {\n      if (i <= idx - 1) {\n        cache[idx][cnt] += dp(idx - 1, cnt - i);\n        cache[idx][cnt] %= MOD;\n      }\n    }\n    return cache[idx][cnt] % MOD;\n  }\n  \n  int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n    fill(requirement, requirement + 305, 2e9);\n    mnidx = 2e9;\n    for (auto v : requirements) {\n      mnidx = min(mnidx, v[0] + 1);\n      requirement[v[0] + 1] = v[1];\n    }\n    if (mnidx == 2e9 || mnidx == n) {\n      mnidx = 1;\n    }\n    return dp(n, requirement[n]);\n  }\n};",
+    "submit_ts": 1719069890.0
+}

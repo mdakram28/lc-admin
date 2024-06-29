@@ -1,0 +1,5 @@
+{
+    "username": "Abraxos",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    const ll MOD=1e9+7;\n    \n    ll dp[301][401];\n    map<int,int> limit;\n    \n    long long find(ll n,ll k){\n        \n        if (dp[n][k] != -1) return dp[n][k];\n        if(limit[n]!=-1 && limit[n]!=k) return dp[n][k]=0;\n        \n        if (n == 1 && k==0) return dp[n][k] = 1;\n        if(n==1) return dp[n][k]=0;\n        \n        ll j=0;\n        ll val=0;\n        for (j = 0; j < n && k-j >= 0; j++)\n           { \n            val += find(n-1, k-j);\n            val%=MOD;\n           }\n       \n        return dp[n][k] = val;\n    }\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        memset(dp,-1,sizeof(dp));\n        for(int i=1;i<=n;i++){\n            limit[i]=-1;\n        }\n        for(auto z:requirements){\n            limit[z[0]+1]=z[1];\n        }\n        return find(n,limit[n]);\n    }\n};",
+    "submit_ts": 1719070213.0
+}

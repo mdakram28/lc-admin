@@ -1,0 +1,5 @@
+{
+    "username": "Puneet7373",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    const ll int mod = 1e9+7;\n    int numberOfPermutations(int n, vector<vector<int>>& v) {\n        map<int,ll int> mp;\n        for(auto x:v){\n            mp[x[0]+1] = x[1];\n        }\n        vector<vector<ll int>> dp(n+1,vector<ll int>(401));\n        dp[0][0] = 1;\n        for(int i=1;i<=n;i++){\n            for(int j=0;j<401;j++){\n                for(int k=0;k<i;k++){\n                    if(j-k >= 0){\n                        dp[i][j] = (dp[i][j] + dp[i-1][j-k])%mod;\n                    }\n                }\n            }\n            if(mp.find(i)!=mp.end()){\n                for(int j=0;j<401;j++){\n                    if(mp[i] != j){\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n        ll int ans = 0;\n        for(auto x:dp[n]){\n            ans = (ans + x)%mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1719070422.0
+}

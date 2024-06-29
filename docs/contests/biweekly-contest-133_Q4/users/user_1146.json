@@ -1,0 +1,5 @@
+{
+    "username": "Akash_S29",
+    "submission": "class Solution {\npublic:\n    int dp[301][401], mod = 1e9 + 7;\n    \n    int numberOfPermutations(int n, vector<vector<int>>& queries) {\n        map<int, int> mp;\n        for (auto &e : queries) {\n            mp[e[0] + 1] = e[1];\n        }\n        \n        memset(dp, 0, sizeof(dp));\n        \n        // Base case: when N = 0, there is 1 way if K = 0, otherwise 0 ways\n        dp[0][0] = 1;\n        \n        // Fill the dp table iteratively\n        for (int N = 1; N <= n; N++) {\n            for (int K = 0; K <= 400; K++) {\n                if (mp.find(N) != mp.end() && mp[N] != K) {\n                    dp[N][K] = 0;\n                } else {\n                    dp[N][K] = 0;\n                    for (int i = 0; i <= K && i < N; i++) {\n                        dp[N][K] = (dp[N][K] + dp[N-1][K-i]) % mod;\n                    }\n                }\n            }\n        }\n        \n        // Return the result for the specific query related to n\n        return dp[n][mp[n]];\n    }\n};\n",
+    "submit_ts": 1719071945.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "neer393",
+    "submission": "#define MOD ((long long)(1e9+7))\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<vector<long long>> dp(n + 1, vector<long long>(401, 0));\n        dp[0][0] = 1;\n        long long int sum=0;\n        unordered_map<int, int> mp;\n        for (auto i : requirements)  mp[i[0] + 1] = i[1];\n        for (int i = 1; i <= n; i++) {\n            sum+=(i-1);\n            for (int j = 0; j <= min(400*1LL,sum); j++) {\n                for (int k = 0; k < i; k++){\n                    if (j >= k)     dp[i][j] = ((dp[i][j]%MOD) + (dp[i - 1][j-k]%MOD)) % MOD;\n                }\n            }\n            if (mp.find(i)!=mp.end()) {\n                for (int j = 0; j <= min(400*1LL,sum); j++) {\n                    if (j != mp[i])     dp[i][j] = 0;\n                }\n            }\n        }\n        long long ans = 0;\n        for (auto i : dp[n])    ans = ((ans%MOD)+(i%MOD))% MOD;\n        return ans;\n    }\n};",
+    "submit_ts": 1719071792.0
+}
