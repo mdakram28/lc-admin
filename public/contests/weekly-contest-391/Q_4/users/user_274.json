@@ -1,0 +1,4 @@
+{
+    "username": "votrubac",
+    "submission": "class Solution {\npublic:\narray<int, 3> maxDist(vector<vector<int>> &ps, int skip = -1)\n{\n    int n = ps.size();\n    vector<pair<int, int>> V, V1;\n \n    for (int i = 0; i < n; i++) {\n        if (i != skip) {\n            V.push_back({ps[i][0] + ps[i][1], i});\n            V1.push_back({ps[i][0] - ps[i][1], i});\n        }\n    }\n    sort(begin(V), end(V));\n    sort(begin(V1), end(V1));\n    int v_max = V.back().first - V.front().first;\n    int v1_max = V1.back().first - V1.front().first;\n    if (v_max < v1_max) {\n        return {v1_max, V1.back().second, V1.front().second};\n    }\n    return {v_max, V.back().second, V.front().second };\n}    \nint minimumDistance(vector<vector<int>>& points) {\n    auto [dist, i, j] = maxDist(points);\n    return min(maxDist(points, i)[0], maxDist(points, j)[0]);\n}\n};"
+}

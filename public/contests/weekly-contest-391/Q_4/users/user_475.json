@@ -1,0 +1,4 @@
+{
+    "username": "Nippon2021",
+    "submission": "class Solution:\n    def minimumDistance(self, px: List[List[int]]) -> int:\n        def md(a,b):\n            return abs(a[0]-b[0]) + abs(a[1]-b[1])\n        \n        py = deepcopy(px)\n        px.sort(key=lambda x: x[0]+x[1])\n        py.sort(key=lambda x: x[0]-x[1])\n        \n        candidates = [px[0], px[-1], py[0], py[-1]]\n        \n        res = float(\"inf\")\n        for c in candidates:\n            px.remove(c)\n            py.remove(c)\n            res = min(res, max(md(px[-1], px[0]) , md(py[-1], py[0])))\n            \n            bisect.insort(px, c, key=lambda x: x[0]+x[1])\n            bisect.insort(py, c, key=lambda x: x[0]-x[1])\n            \n        return res\n        "
+}

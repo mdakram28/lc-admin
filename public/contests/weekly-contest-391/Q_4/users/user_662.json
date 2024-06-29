@@ -1,0 +1,4 @@
+{
+    "username": "icherniukh",
+    "submission": "class Solution:\n    def minimumDistance(self, p) -> int:\n        (_, p1, p2) = self.mnDistance(p)\n        \n        x1, y1 = p[p1]\n        x2, y2 = p[p2]\n        \n        p[p1] = [x2, y2]\n        (d1, _, _) = self.mnDistance(p)\n        \n        p[p1] = [x1, y1]\n        p[p2] = [x1, y1]\n        (d2, _, _) = self.mnDistance(p)\n        \n        return min(d1, d2)\n        \n    def mnDistance(self, p):\n        sums = list(((p[i][0] + p[i][1]), i) for i in range(len(p)))\n        difs = list(((p[i][0] - p[i][1]), i) for i in range(len(p)))\n        sums.sort()\n        difs.sort()\n        \n        d = sums[-1][0] - sums[0][0]\n        p1, p2 = sums[-1][1], sums[0][1]\n        \n        d2 = difs[-1][0] - difs[0][0]\n        if d2 > d:\n            p1, p2 = difs[-1][1], difs[0][1]\n            d = d2\n        \n        return (d, p1, p2)"
+}

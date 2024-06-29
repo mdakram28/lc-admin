@@ -1,0 +1,4 @@
+{
+    "username": "xxgj",
+    "submission": "from sortedcontainers import *\n\n\nclass Solution:\n    def minimumDistance(self, points: List[List[int]]) -> int:\n        # max (\n        # (max(xi+yi)-min(xi+yi)),\n        # (max(xi-yi)-min(xi-yi))\n        # )\n        P = SortedList()\n        M = SortedList()\n        for x, y in points:\n            P.add(x + y)\n            M.add(x - y)\n\n        ans = inf\n        for x, y in points:\n            P.remove(x + y)\n            M.remove(x - y)\n            ans = min(ans, max(P[-1] - P[0], M[-1] - M[0]))\n            P.add(x + y)\n            M.add(x - y)\n\n        return ans\n"
+}

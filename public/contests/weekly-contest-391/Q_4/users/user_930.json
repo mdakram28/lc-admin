@@ -1,0 +1,4 @@
+{
+    "username": "Ashutosh_V",
+    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& A) {\n        int N = A.size();\n        multiset<int> V, W;\n\n        for (int i = 0; i < N; i++) {\n            V.insert(A[i][0] + A[i][1]);\n            W.insert(A[i][0] - A[i][1]);\n        }\n\n        int M = 1e9;\n\n        for (int i = 0; i < N; i++) {\n            V.erase(V.find(A[i][0] + A[i][1]));\n            W.erase(W.find(A[i][0] - A[i][1]));\n\n            int D = max(*(--V.end()) - *V.begin(), *(--W.end()) - *W.begin());\n\n            M = min(M, D);\n\n            V.insert(A[i][0] + A[i][1]);\n            W.insert(A[i][0] - A[i][1]);\n        }\n\n        return M;\n    }\n};\n"
+}

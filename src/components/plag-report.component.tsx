@@ -11,8 +11,8 @@ import { Accordion, AccordionDetails, AccordionSummary, Button, IconButton, Slid
 
 declare var PR: any;
 
-const fetchGroups = async (reportUrl: string, similarity: number) => {
-    let groupsText = await (await fetch(`${reportUrl}/groups/group_${similarity}.csv`)).text();
+const fetchGroups = async (baseDir: string, similarity: number) => {
+    let groupsText = await (await fetch(`${baseDir}/groups/group_${similarity}.csv`)).text();
     const parsedFiles = Papa.parse<GroupUser>(groupsText.trim(), {
         header: true,
         dynamicTyping: true
@@ -36,20 +36,20 @@ const fetchGroups = async (reportUrl: string, similarity: number) => {
 
 const CACHE_USERS: Record<string, SubmissionUser> = {};
 
-const fetchUser = async (reportUrl: string, userFileId: string) => {
-    const url = `${reportUrl}/users/user_${userFileId}.json`;
+const fetchUser = async (baseDir: string, userFileId: string) => {
+    const url = `${baseDir}/users/user_${userFileId}.json`;
     if (url in CACHE_USERS) {
         return CACHE_USERS[url];
     }
 
     const user: SubmissionUser = JSON.parse(await (await fetch(url)).text());
-    CACHE_USERS[reportUrl] = user;
+    CACHE_USERS[url] = user;
 
     return user;
 }
 
 export function PlagReportComponent({ }: {}) {
-    const [reportPath, setReportPath] = useState("/dolos-report");
+    const [baseDir, setBaseDir] = useState("/contests/weekly-contest-391/Q_4");
     const [similarity, setSimilarity] = useState(90);
     
     const [groups, setGroups] = useState<GroupUser[][]>([]);
@@ -68,18 +68,18 @@ export function PlagReportComponent({ }: {}) {
     }
 
     const reload = () => {
-        fetchGroups(reportPath, similarity)
+        fetchGroups(baseDir, similarity)
             .then(groups => setGroups(groups));
     }
 
     useEffect(() => {
         reload();
-    }, [reportPath]);
+    }, [baseDir]);
 
     useEffect(() => {
         if (selectedFileId === undefined) return;
 
-        fetchUser(reportPath, selectedFileId)
+        fetchUser(baseDir, selectedFileId)
             .then(user => {
                 setSelectedUser(user);
                 setTimeout(() => {

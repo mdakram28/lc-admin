@@ -1,0 +1,4 @@
+{
+    "username": "cuiaoxiang",
+    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& p) {\n        int n = p.size();\n        vector<array<int, 2>> a(n);\n        for (int i = 0; i < n; ++i) {\n            a[i][0] = p[i][0] + p[i][1];\n            a[i][1] = p[i][0] - p[i][1];\n        }\n        multiset<int> X, Y;\n        for (int i = 0; i < n; ++i) {\n            X.insert(a[i][0]);\n            Y.insert(a[i][1]);\n        }\n        int ret = 1e9;\n        for (int k = 0; k < n; ++k) {\n            X.extract(a[k][0]);\n            Y.extract(a[k][1]);\n            int cur = max(*X.rbegin() - *X.begin(), *Y.rbegin()- *Y.begin());\n            ret = min(ret, cur);\n            X.insert(a[k][0]);\n            Y.insert(a[k][1]);\n        }\n        return ret;\n    }\n};"
+}

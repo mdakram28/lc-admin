@@ -1,0 +1,4 @@
+{
+    "username": "whymihere",
+    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& a) {\n        const int n = (int)a.size();\n        multiset<int> x, y;\n        for (int i = 0; i < n; i++) {\n            x.insert(a[i][0] + a[i][1]);\n            y.insert(a[i][0] - a[i][1]);\n        }\n        int ans = 1e9;\n        for (int i = 0; i < n; i++) {\n            auto xv = x.lower_bound(a[i][0] + a[i][1]);\n            auto yv = y.lower_bound(a[i][0] - a[i][1]);\n            x.erase(xv);\n            y.erase(yv);\n            ans = min(\n                ans, \n                max(\n                     (*prev(x.end())) -(*x.begin()) , \n                     (*prev(y.end())) -(*y.begin())   \n                )\n            );\n            x.insert(a[i][0] + a[i][1]);\n            y.insert(a[i][0] - a[i][1]);\n        }\n        \n        return ans;\n    }\n};"
+}

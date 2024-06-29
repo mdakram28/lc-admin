@@ -1,0 +1,4 @@
+{
+    "username": "dryice",
+    "submission": "class Solution {\npublic:\n    array<int,3> maxx(vector<vector<int>>& v)\n    {\n        int n=v.size();\n        vector<array<int,2>> s(n), d(n);\n        for(int i=0;i<n;i++)\n        {\n            s[i]={v[i][0]+v[i][1],i};\n            d[i]={v[i][0]-v[i][1],i};\n        }\n        sort(s.begin(),s.end());\n        sort(d.begin(),d.end());\n        if(s[n-1][0]-s[0][0]>d[n-1][0]-d[0][0])\n            return {s[n-1][0]-s[0][0],s[n-1][1],s[0][1]};\n        return {d[n-1][0]-d[0][0],d[n-1][1],d[0][1]};\n    }\n    int minimumDistance(vector<vector<int>>& points) {\n        auto ini=maxx(points);\n        auto p1=points;\n        auto p2=points;\n        p1.erase(p1.begin()+ini[1]);\n        p2.erase(p2.begin()+ini[2]);\n        auto a1=maxx(p1);\n        auto a2=maxx(p2);\n        return min(a1[0],a2[0]);\n    }\n};"
+}

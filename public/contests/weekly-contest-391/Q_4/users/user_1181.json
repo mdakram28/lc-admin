@@ -1,0 +1,4 @@
+{
+    "username": "de_sync",
+    "submission": "class Solution \n{\npublic:\n    int minimumDistance(vector<vector<int>>& points) \n    {   \n        multiset<int> first, second;\n        for (auto i : points)\n        {\n            first.insert(i[0] + i[1]);\n            second.insert(i[0] - i[1]);\n        }\n        int minMax = INT_MAX, n = points.size();\n        for (int i = 0; i < n; i++)\n        {\n            first.erase(first.find(points[i][0] + points[i][1]));\n            second.erase(second.find(points[i][0] - points[i][1]));\n            minMax = min(minMax, max(*(first.rbegin()) - *(first.begin()), *(second.rbegin()) - *(second.begin())));\n            first.insert(points[i][0] + points[i][1]);\n            second.insert(points[i][0] - points[i][1]);\n        }\n\n        return minMax;    \n    }\n};"
+}

@@ -1,0 +1,4 @@
+{
+    "username": "chuka231",
+    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& p) {\n        multiset<int> diff;\n        multiset<int> sum;\n        \n        int n = p.size();\n        for (int i=0; i<n; i++) {\n            int s = p[i][0] + p[i][1];\n            int d = p[i][0] - p[i][1];\n            sum.insert(s);\n            diff.insert(d);\n        }\n        \n        long long ans = 1e10;\n        for (int i=0; i<n; i++) {\n            int s = p[i][0] + p[i][1];\n            int d = p[i][0] - p[i][1];\n            sum.erase(sum.find(s));\n            diff.erase(diff.find(d));\n            \n            int dist = max(*sum.rbegin() - *sum.begin(), *diff.rbegin() - *diff.begin());\n            ans = min(ans, (long long)dist);\n\n            sum.insert(s);\n            diff.insert(d);\n        }\n        \n        \n        return ans;       \n    }\n};"
+}

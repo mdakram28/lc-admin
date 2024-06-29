@@ -1,0 +1,4 @@
+{
+    "username": "xyzabcdef",
+    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& pts) {\n        multiset<int>sum, diff;\n        for(auto i: pts){\n            int x = i[0], y = i[1];\n            sum.insert(x+y);\n            diff.insert(x-y);\n        }\n        int ans = 1'000'000'008;\n        for(auto i: pts){\n            int x = i[0], y = i[1];\n            sum.erase(sum.lower_bound(x+y));\n            diff.erase(diff.lower_bound(x-y));\n            int mx1 = *sum.rbegin() - *sum.begin();\n            int mx2 = *diff.rbegin() - *diff.begin();\n            ans = min(ans, max(mx1, mx2));\n            sum.insert(x+y);\n            diff.insert(x-y);\n        }\n        return ans;\n    }\n};"
+}

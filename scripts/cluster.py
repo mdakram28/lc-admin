@@ -70,8 +70,9 @@ class DolosFile:
 
 
 class ReportProcessor:
-    def __init__(self, report_dir) -> None:
-        self.report_dir = report_dir
+    def __init__(self, base_dir) -> None:
+        self.base_dir = base_dir
+        self.report_dir = join(base_dir, "dolos-report")
 
     @cache
     def get_pairs(self) -> List[DolosPair]:
@@ -107,7 +108,7 @@ class ReportProcessor:
                 continue
             groups.union(pair.leftFileId, pair.rightFileId)
         
-        out_dir = join(self.report_dir, "groups")
+        out_dir = join(self.base_dir, "groups")
         Path(out_dir).mkdir(exist_ok=True)
         with open(join(out_dir, f"group_{sim_thres}.csv"), "w") as f:
             writer = csv.writer(f)
@@ -120,7 +121,7 @@ class ReportProcessor:
 
     def write_users(self):
         files = self.get_files()
-        out_dir = join(self.report_dir, "users")
+        out_dir = join(self.base_dir, "users")
         Path(out_dir).mkdir(exist_ok=True)
 
         for file in files.values():
@@ -132,10 +133,10 @@ class ReportProcessor:
                 }, f, indent=4)
 
 def main():
-    REPORT_PATH = "./public/dolos-report"
-    SIMILARITY_PERCENTAGES = list(range(50, 101, 2))
+    QUESTION_PATH = "./public/contests/weekly-contest-391/Q_4"
+    SIMILARITY_PERCENTAGES = list(range(70, 101, 2))
 
-    report = ReportProcessor(REPORT_PATH)
+    report = ReportProcessor(QUESTION_PATH)
     for similarity in SIMILARITY_PERCENTAGES:
         print(f"Writing group with {similarity=}")
         report.write_group(similarity)

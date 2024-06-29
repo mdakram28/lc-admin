@@ -1,0 +1,4 @@
+{
+    "username": "theeeeeeekhai",
+    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& points) {\n        unordered_map<int, pair<int, int>> m;\n        multiset<int> a, b;\n        int n = points.size();\n        for(int i = 0; i < n; i++) {\n            vector<int> p = points[i];\n            m[i] = {p[0] + p[1], p[0] - p[1]};\n            a.insert(p[0] + p[1]);\n            b.insert(p[0] - p[1]);\n        }\n        int ans = max(*prev(a.end()) - *a.begin(), *prev(b.end()) - *b.begin());\n        for(int i = 0; i < n; i++) {\n            int x = m[i].first, y = m[i].second;\n            a.erase(a.find(x));\n            b.erase(b.find(y));\n            ans = min(ans, max(*prev(a.end()) - *a.begin(), *prev(b.end()) - *b.begin()));\n            a.insert(x);\n            b.insert(y);\n        }\n        return ans;\n    }\n};"
+}

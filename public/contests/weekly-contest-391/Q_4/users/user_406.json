@@ -1,0 +1,4 @@
+{
+    "username": "math_pi",
+    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& points) {\n        \n        int res = 2e9;\n        \n        multiset<int> sum, diff;\n        \n        for(auto x: points) {\n            sum.insert(x[0] + x[1]);\n            diff.insert(x[0] - x[1]);\n        }\n        \n        \n        for(auto x: points) {\n            sum.erase(sum.lower_bound(x[0] + x[1]));\n            diff.erase(diff.lower_bound(x[0] - x[1]));\n            auto itr = sum.end(); --itr; \n            auto itr3 = sum.begin();\n            \n            int val = *itr - *itr3;\n            itr = diff.end(); --itr;\n            itr3 = diff.begin();\n            \n            val = max(val, *itr-*itr3);\n            \n            \n            res = min(res, val);\n            sum.insert(x[0] + x[1]);\n            diff.insert(x[0] - x[1]);\n        }\n        \n        \n        return res;\n    }\n};"
+}

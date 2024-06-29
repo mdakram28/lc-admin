@@ -1,0 +1,4 @@
+{
+    "username": "MayankSavaliya",
+    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& points) {\n        long long ans=1e9,n=points.size();\n        vector<pair<int,int>> v;\n        for(int i=0;i<n;i++){\n            v.push_back({points[i][0],points[i][1]});\n        }\n        multiset<long long> s1,s2;\n        for(int i=0;i<n;i++){\n            s1.insert(v[i].first+v[i].second);\n            s2.insert(v[i].first-v[i].second);\n        }\n        for(int i=0;i<n;i++){\n            s1.erase(s1.find(v[i].first+v[i].second));\n            s2.erase(s2.find(v[i].first-v[i].second));\n            long long mx=(*(--s1.end())- *s1.begin());\n            mx=max(mx,*(--s2.end())- *s2.begin());\n            s1.insert(v[i].first+v[i].second);\n            s2.insert(v[i].first-v[i].second);\n            ans=min(ans,mx);\n        }\n        return ans;\n    }\n};"
+}
