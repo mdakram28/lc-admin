@@ -79,11 +79,11 @@ class LcClient:
         return resp
 
     def fetch_submissions(self, pages: list[int], ques_num: int):
-        out_dir = join(f"{self.out_path}", f"Q_{ques_num}")
+        out_dir = join(f"{self.out_path}_Q{ques_num}")
         Path(out_dir).mkdir(exist_ok=True)
         Path(join(out_dir, "submissions")).mkdir(exist_ok=True)
 
-        info_path = join(f"{self.out_path}", f"Q_{ques_num}", "info.csv")
+        info_path = join(f"{self.out_path}_Q{ques_num}", "info.csv")
         info_file = open(info_path, 'w')
         writer = csv.writer(info_file)
         writer.writerow(["filename", "created_at"])
