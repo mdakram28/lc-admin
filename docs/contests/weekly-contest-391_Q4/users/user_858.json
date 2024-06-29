@@ -1,0 +1,4 @@
+{
+    "username": "tian-bu-sheng-wo-3",
+    "submission": "class Solution:\n    def minimumDistance(self, points: List[List[int]]) -> int:\n        ca = [[] for i in range(4)]\n        n = len(points)\n        dirs = [[1,1],[-1,1],[1,-1],[-1,-1]]\n        for x,y in points:\n            ca[0].append(x + y)\n            ca[1].append(- x + y)\n            ca[2].append(x - y)\n            ca[3].append( -x - y)\n        mx = 10**10\n        for i in range(4):\n            ca[i].sort()\n        for i in range(n):\n            t = 0\n            x,y = points[i]\n            for j in range(4):\n                res = ca[j][-1] - ca[j][0]\n                v = x * dirs[j][0] + y * dirs[j][1]\n                if v == ca[j][-1]:\n                    res = min(res,ca[j][-2] - ca[j][0])\n                if v == ca[j][0]:\n                    res = min(res,ca[j][-1] - ca[j][1])\n                t = max(t,res)\n            mx = min(mx,t)\n        return mx"
+}

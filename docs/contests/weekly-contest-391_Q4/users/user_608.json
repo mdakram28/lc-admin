@@ -1,0 +1,4 @@
+{
+    "username": "alreadyselfish",
+    "submission": "class Solution:\n    def max_dis_pts(self, points, exclusions):\n        sums = []\n        diffs = []\n        \n        for idx in range(len(points)):\n            if idx in exclusions:\n                continue\n            x,y = points[idx]\n            sums.append((x+y, idx))\n            diffs.append((x-y, idx))\n        \n        sums.sort(key=lambda w: w[0])\n        diffs.sort(key=lambda w: w[0])\n        \n        d1, d2 = sums[-1][0]-sums[0][0], diffs[-1][0]-diffs[0][0]\n        if d1 > d2:\n            return (sums[0][1], sums[-1][1], d1)\n        return (diffs[0][1], diffs[-1][1], d2)\n        \n    def minimumDistance(self, points: List[List[int]]) -> int:\n        p1, p2, d = self.max_dis_pts(points, set())\n        k, kk, exclude1 = self.max_dis_pts(points, [p1])\n        w, ww, exclude2 = self.max_dis_pts(points, [p2])\n        return min(exclude1, exclude2)\n        \n        \n        "
+}

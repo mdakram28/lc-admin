@@ -1,0 +1,4 @@
+{
+    "username": "ramcoba12",
+    "submission": "class Solution {\npublic:\n    vector<vector<int>> v1, v2;\n    int helper(int ind)\n    {\n        int ans = -1;\n        int l = 0, r = v1.size() - 1;\n        if(v1[0][1] == ind) l++;\n        if(v1[r][1] == ind) r--;\n        ans = v1[r][0] - v1[l][0];\n        l = 0; r = v1.size() - 1;\n        if(v2[0][1] == ind) l++;\n        if(v2[r][1] == ind) r--;\n        ans = max(ans, v2[r][0] - v2[l][0]);\n        return ans;\n    }\n    int minimumDistance(vector<vector<int>>& p) {\n        for(int i = 0; i < p.size(); i++)\n        {\n            v1.push_back({p[i][0] + p[i][1], i});\n            v2.push_back({p[i][0] - p[i][1], i});\n            \n        }\n        int ans = INT_MAX;\n        sort(v1.begin(), v1.end());\n        sort(v2.begin(), v2.end());\n        for(int i = 0; i < p.size(); i++)\n        {\n            ans = min(ans, helper(i));\n        }\n        return ans;\n    }\n};"
+}

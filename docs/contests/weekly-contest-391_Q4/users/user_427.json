@@ -1,0 +1,4 @@
+{
+    "username": "cheng-wei-hao",
+    "submission": "class Solution:\n    def minimumDistance(self, ps: List[List[int]]) -> int:\n        l1,l2,l3,l4 = [],[],[],[]\n        n = len(ps)\n        for i,(x,y) in enumerate(ps):\n            l1.append([x+y,i])\n            l2.append([x-y,i])\n            l3.append([-x+y,i])\n            l4.append([-x-y,i])\n        l1.sort()\n        l2.sort()\n        l3.sort()\n        l4.sort()\n        ans = inf\n        for i in range(n):\n            tmp = 0\n            for lst in [l1,l2,l3,l4]:\n                if lst[0][1] == i:\n                    tmp = max(tmp, lst[-1][0] - lst[1][0])\n                elif lst[-1][1] == i:\n                    tmp = max(tmp, lst[-2][0] - lst[0][0])\n                else:\n                    tmp = max(tmp, lst[-1][0] - lst[0][0])\n            ans = min(ans, tmp)\n        return ans"
+}

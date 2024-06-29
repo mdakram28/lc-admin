@@ -1,0 +1,4 @@
+{
+    "username": "osxyz",
+    "submission": "class Solution:\n    def minimumDistance(self, points: List[List[int]]) -> int:\n        N = len(points)\n        \n        def solve(pp):\n            V = [0 for i in range(len(pp))]\n            V1 = [0 for i in range(len(pp))]\n            for i in range(len(pp)):\n                V[i] = (pp[i][0] + pp[i][1], i)\n                V1[i] = (pp[i][0] - pp[i][1], i)\n\n            V.sort()\n            V1.sort()\n        \n            a, b = V1[-1][1], V1[0][1]\n            res = V1[-1][0] - V1[0][0]\n            if V[-1][0]-V[0][0] > res:\n                a, b = V[-1][1], V[0][1]\n                res = V[-1][0] - V[0][0]\n            \n            return res, a, b\n        \n        res, a, b = solve(points)\n        res1, _, _ = solve([p for i,p in enumerate(points) if i!=a])\n        res2, _, _ = solve([p for i,p in enumerate(points) if i!=b])\n        \n        return min(res1, res2)\n"
+}

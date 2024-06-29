@@ -1,0 +1,4 @@
+{
+    "username": "eason280711",
+    "submission": "class Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& A) {\n        int n = A.size();\n        vector<pair<int,int>> V(n), V1(n);\n        \n        for (int i = 0; i < n; i++) {\n            V[i] = {A[i][0] + A[i][1],i};\n            V1[i] = {A[i][0] - A[i][1],i};\n        }\n        \n        sort(V.begin(), V.end());\n        sort(V1.begin(), V1.end());\n        \n        int res = INT_MAX;\n        \n        for (int i = 0;i < A.size();i++) {\n            auto vb = V.back(),vs = V.front();\n            auto v1b = V1.back(),v1s = V1.front();\n            \n            if (vb.second == i) vb = V[n-2];\n            if (vs.second == i) vs = V[1];\n            if (v1b.second == i) v1b = V1[n-2];\n            if (v1s.second == i) v1s = V1[1];\n            int t = max(vb.first-vs.first,v1b.first-v1s.first);\n            res = min(res,t);\n        }\n        return res;\n        \n    }\n};"
+}

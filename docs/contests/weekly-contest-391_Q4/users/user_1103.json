@@ -1,0 +1,4 @@
+{
+    "username": "nguyenducloc",
+    "submission": "class Solution {\n   public:\n    int minimumDistance(vector<vector<int>>& points) {\n        map<int, int> mp1;\n        map<int, int> mp2;\n        for (auto& e : points) {\n            mp1[e[0] + e[1]]++;\n            mp2[e[0] - e[1]]++;\n        }\n        int ans = INT_MAX;\n        for (auto& e : points) {\n            int s1 = e[0] + e[1];\n            int s2 = e[0] - e[1];\n            if (!(--mp1[s1])) {\n                mp1.erase(s1);\n            }\n            if (!(--mp2[s2])) {\n                mp2.erase(s2);\n            }\n            ans = min(ans, max(mp1.rbegin()->first - mp1.begin()->first,\n                               mp2.rbegin()->first - mp2.begin()->first));\n            mp1[s1]++;\n            mp2[s2]++;\n        }\n        return ans;\n    }\n};"
+}

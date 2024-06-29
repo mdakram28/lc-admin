@@ -1,0 +1,4 @@
+{
+    "username": "pingchungchang",
+    "submission": "class Solution {\npublic:\n    #define pii pair<int,int>\n    #define fs first\n    #define sc second\n    int minimumDistance(vector<vector<int>>& points) {\n        vector<pii> v;\n        for(auto &i:points)v.push_back(pii(i[0]+i[1],i[0]-i[1]));\n        sort(v.begin(),v.end());\n        multiset<int> sx,sy;\n        for(auto &i:v){\n            sx.insert(i.fs);\n            sy.insert(i.sc);\n        }\n        int ans = 2e9;\n        for(auto &i:v){\n            sx.erase(sx.find(i.fs));\n            sy.erase(sy.find(i.sc));\n            ans = min(ans,max(*sy.rbegin()-*sy.begin(),*sx.rbegin()-*sx.begin()));\n            sx.insert(i.fs);\n            sy.insert(i.sc);\n        }\n        return ans;\n    }\n};"
+}

@@ -1,13 +1,15 @@
 import "../styles/prettyprint-style.css";
 import { useEffect, useRef, useState } from "react";
 import Papa from 'papaparse';
-import { DolosFile, DolosPairs, GroupUser, SubmissionUser } from "../types/dolos.types";
+import { ContestInfo, DolosFile, DolosPairs, GroupUser, SubmissionUser } from "../types/dolos.types";
 import { DisjSet } from "../util/disj-set";
 import { Panel, PanelGroup, PanelResizeHandle, assert } from "react-resizable-panels";
 import { TreeView, TreeItem } from '@mui/x-tree-view';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Accordion, AccordionDetails, AccordionSummary, Button, IconButton, Slider } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { fetchContestInfo } from "./report-list.component";
 
 declare var PR: any;
 
@@ -27,8 +29,7 @@ const fetchGroups = async (baseDir: string, similarity: number) => {
 
     const groupsList = Object.values(groups);
     groupsList.sort((a, b) => b.length - a.length);
-    groupsList.forEach(group => group.sort((a, b) => a.rank - b.rank));
-
+    groupsList.forEach(group => group.sort((a, b) => a.subm_ts - b.subm_ts));
 
     return groupsList;
 };
@@ -48,9 +49,10 @@ const fetchUser = async (baseDir: string, userFileId: string) => {
 }
 
 export function PlagReportComponent({ }: {}) {
-    const [baseDir, setBaseDir] = useState("/contests/weekly-contest-391/Q_4");
-    const [similarity, setSimilarity] = useState(90);
-    
+    const { reportName } = useParams();
+    const [baseDir, setBaseDir] = useState<string | undefined>();
+    const [similarity, setSimilarity] = useState(80);
+
     const [groups, setGroups] = useState<GroupUser[][]>([]);
     const [selectedFileId, setSelectedFileId] = useState<string | undefined>();
     const [selectedUser, setSelectedUser] = useState<SubmissionUser | undefined>();
@@ -66,7 +68,14 @@ export function PlagReportComponent({ }: {}) {
         return lines.join("\n");
     }
 
+    useEffect(() => {
+        if (!reportName) return;
+        fetchContestInfo()
+            .then(infos => setBaseDir(infos.reports[reportName].url));
+    }, [reportName])
+
     const reload = () => {
+        if (baseDir === undefined) return;
         fetchGroups(baseDir, similarity)
             .then(groups => setGroups(groups));
     }
@@ -76,28 +85,27 @@ export function PlagReportComponent({ }: {}) {
     }, [baseDir]);
 
     useEffect(() => {
-        if (selectedFileId === undefined) return;
+        if (selectedFileId === undefined || baseDir === undefined) return;
 
         fetchUser(baseDir, selectedFileId)
-            .then(user => {
-                setSelectedUser(user);
-                setTimeout(() => {
-                    codePreRef.current!.innerHTML = formatCode(user.submission);
-                    codePreRef.current!.className = "prettyprint linenums lang-cpp";
-                    PR.prettyPrint();
-                }, 1);
-            });
+            .then(user => setSelectedUser(user));
     }, [selectedFileId]);
 
-    // useEffect(() => {
-    //     if (PR !== undefined) ;
-    // });
+    useEffect(() => {
+        if (!selectedUser) return;
+
+        setTimeout(() => {
+            codePreRef.current!.innerHTML = formatCode(selectedUser.submission);
+            codePreRef.current!.className = "prettyprint linenums lang-cpp";
+            PR.prettyPrint();
+        }, 1);
+    }, [selectedUser, hideBlankLines]);
 
     return <>
         <PanelGroup autoSaveId="example" direction="horizontal">
             <Panel defaultSize={50} className="panel">
-                <div style={{overflow: "auto"}}>
-                    <Accordion defaultExpanded>
+                <div style={{ overflow: "auto" }}>
+                    <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1-content"
@@ -123,7 +131,7 @@ export function PlagReportComponent({ }: {}) {
                         </AccordionDetails>
                     </Accordion>
 
-                    <Accordion defaultExpanded>
+                    <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel2-content"
@@ -132,55 +140,62 @@ export function PlagReportComponent({ }: {}) {
                             Stats
                         </AccordionSummary>
                         <AccordionDetails>
-                            Total similar groups: {groups.length} <br/>
-                            Total similar submissions: {groups.reduce((a,b) => a+b.length, 0)}
+                            Total similar groups: {groups.length} <br />
+                            Total similar submissions: {groups.reduce((a, b) => a + b.length, 0)}
                         </AccordionDetails>
                     </Accordion>
 
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     <TreeView
                         aria-label="file system navigator"
                         defaultCollapseIcon={<ExpandMoreIcon />}
                         defaultExpandIcon={<ChevronRightIcon />}
                         // sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
                         onNodeSelect={(ev, selected) => setSelectedFileId(selected)}
-                        >
-                    {groups.map((group, groupId) => <>
-                        <TreeItem nodeId={`g${groupId.toString()}`} label={`Group ${groupId} (${group.length})`}>
-                            {group.map(user => <>
-                                <TreeItem
-                                    nodeId={user.fileId.toString()} 
-                                    label={<><span style={{width: 100, display: "inline-block"}}>{user.rank}</span>{user.username}</>}
+                    >
+                        {groups.map((group, groupId) => <>
+                            <TreeItem nodeId={`g${groupId.toString()}`} label={`Group ${groupId} (${group.length})`}>
+                                {group.map(user => <>
+                                    <TreeItem
+                                        nodeId={user.fileId.toString()}
+                                        label={<><span style={{ width: 100, display: "inline-block" }}>{user.rank}</span>{user.username}</>}
                                     />
-                            </>)}
-                        </TreeItem>
-                    </>)}
+                                </>)}
+                            </TreeItem>
+                        </>)}
                     </TreeView>
-                
+
                 </div>
             </Panel>
             <PanelResizeHandle className="resize-handle fa-solid fa-ellipsis-vertical" />
             <Panel className="panel">
-                <div style={{overflow: "auto"}}>
-                <input 
-                    type="checkbox" 
-                    checked={hideBlankLines} 
-                    onChange={ev => setHideBlankLines(ev.target.checked)} 
-                    id="codeHideBlankLines" 
-                />
-                <label htmlFor="codeHideBlankLines">Hide blank lines</label>
-                {selectedUser && <>
-                    <h3><a href={`https://leetcode.com/u/${selectedUser.username}/`}target="blank">
-                        {selectedUser.username}&nbsp;<i className="fa-solid fa-arrow-up-right-from-square"></i>
-                    </a></h3>
-                    <pre 
-                        ref={codePreRef}
-                        style={{color: "auto"}}></pre>
-                </>}
+                <div style={{ overflow: "auto" }}>
+                    
+                    {selectedUser && <>
+                        <div style={{display: "flex", margin: "10px 0"}}>
+                            <h3 style={{margin: 0}}>
+                                <a href={`https://leetcode.com/u/${selectedUser.username}/`} target="blank">
+                                {selectedUser.username}&nbsp;<i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </h3>
+                            <span style={{flexGrow: 1}}></span>
+                            <span>Submitted at: {new Date(selectedUser.submit_ts).toTimeString()}</span>
+                        </div>
+                        <input
+                            type="checkbox"
+                            checked={hideBlankLines}
+                            onChange={ev => setHideBlankLines(ev.target.checked)}
+                            id="codeHideBlankLines"
+                        />
+                        <label htmlFor="codeHideBlankLines">Hide blank lines</label>
+                        <pre
+                            ref={codePreRef}
+                            style={{ color: "auto" }}></pre>
+                    </>}
                 </div>
             </Panel>
         </PanelGroup>
-        
+
     </>
 }

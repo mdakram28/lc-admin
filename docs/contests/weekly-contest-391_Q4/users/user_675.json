@@ -1,0 +1,4 @@
+{
+    "username": "yz09",
+    "submission": "class Solution:\n    def minimumDistance(self, points):\n        n = len(points)\n        sum_ = [p[0] + p[1] for p in points]\n        diff = [p[0] - p[1] for p in points]\n        minSum, maxSum = min(sum_), max(sum_)\n        minDiff, maxDiff = min(diff), max(diff)\n        globalMax = max(maxSum - minSum, maxDiff - minDiff)\n        result = globalMax\n        for i in range(n):\n            if sum_[i] == minSum or sum_[i] == maxSum or diff[i] == minDiff or diff[i] == maxDiff:\n                sumTemp = sum_[:i] + sum_[i+1:]\n                diffTemp = diff[:i] + diff[i+1:]\n                localMinSum = min(sumTemp)\n                localMaxSum = max(sumTemp)\n                localMinDiff = min(diffTemp)\n                localMaxDiff = max(diffTemp)\n                localMax = max(localMaxSum - localMinSum, localMaxDiff - localMinDiff)\n                result = min(result, localMax)\n        return result\n"
+}

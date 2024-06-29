@@ -1,0 +1,4 @@
+{
+    "username": "wincss",
+    "submission": "class Solution:\n    def minimumDistance(self, points: List[List[int]]) -> int:\n        from sortedcontainers import SortedList\n        s = SortedList()\n        d = SortedList()\n        for i, (x, y) in enumerate(points):\n            s.add((x + y, i))\n            d.add((x - y, i))\n        dis = max(s[-1][0] - s[0][0], d[-1][0] - d[0][0])\n        mxs, mns, mxd, mnd = s[-1], s[0], d[-1], d[0]\n        for i, (x, y) in enumerate(points):\n            s1, s2, d1, d2 = mxs, mns, mxd, mnd\n            if i == s1[1]:\n                s1 = s[-2]\n            if i == s2[1]:\n                s2 = s[1]\n            if i == d1[1]:\n                d1 = d[-2]\n            if i == d2[1]:\n                d2 = d[1]\n            if (t := max(s1[0] - s2[0], d1[0] - d2[0])) < dis:\n                dis = t\n        return dis"
+}

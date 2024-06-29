@@ -5,14 +5,15 @@ import { Experimental_CssVarsProvider as CssVarsProvider, Switch, useColorScheme
 import { Link, NavLink, Route, Routes } from "react-router-dom";
 import GitHubButton from 'react-github-btn';
 import { PlagReportComponent } from "./components/plag-report.component";
+import { ReportListComponent } from "./components/report-list.component";
 
 export default function Dashboard() {
   const { mode, setMode } = useColorScheme();
   const [page, setPage] = React.useState("plag");
 
   const menuItems = [{
-    page: "plag",
-    title: "Plagarism Report"
+    page: "Contests",
+    title: "Contests"
   }]
 
   const setTheme = (theme: string) => {
@@ -25,6 +26,7 @@ export default function Dashboard() {
 
   React.useEffect(() => {
     document.body.classList.add("dark");
+    setMode("dark");
   }, []);
 
   return (
@@ -54,7 +56,8 @@ export default function Dashboard() {
         </div>
         <div className="content">
           <Routes>
-            <Route path="*" element={<PlagReportComponent />} />
+            <Route path="*" element={<ReportListComponent />} />
+            <Route path="/report/:reportName" element={<PlagReportComponent />} />
           </Routes>
         </div>
       </main>

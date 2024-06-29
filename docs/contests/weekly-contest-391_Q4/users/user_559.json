@@ -1,0 +1,4 @@
+{
+    "username": "sshang",
+    "submission": "class Solution:\n    def minimumDistance(self, points: List[List[int]]) -> int:\n        \n        n = len(points)\n        \n        add, sub = [], []\n        for i in range(n):\n            x, y = points[i]\n            add.append((x + y, i))\n            sub.append((x - y, i))\n            \n        add.sort()\n        sub.sort()\n        \n        cands = [add[-1][1], add[0][1], sub[-1][1], sub[0][1]]\n        \n        res = float('inf')\n        for cand in cands:\n            i, j = 0, n - 1\n            if add[0][1] == cand:\n                i += 1\n            if add[-1][1] == cand:\n                j -= 1\n                \n            a, b = 0, n - 1\n            if sub[0][1] == cand:\n                a += 1\n            if sub[-1][1] == cand:\n                b -= 1\n                \n            cur = max(add[j][0] - add[i][0], sub[b][0] - sub[a][0])\n            res = min(res, cur)\n        return res"
+}

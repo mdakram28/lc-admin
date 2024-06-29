@@ -1,0 +1,4 @@
+{
+    "username": "SamChen856",
+    "submission": "// https://www.geeksforgeeks.org/maximum-manhattan-distance-between-a-distinct-pair-from-n-coordinates/\n\nclass Solution {\npublic:\n    int minimumDistance(vector<vector<int>>& A) {\n        int n = A.size();\n        multiset<int> x, y;\n        for (int i = 0; i < n; i++) {\n            x.insert(A[i][0] + A[i][1]);\n            y.insert(A[i][0] - A[i][1]);\n        }\n        int res = INT_MAX;\n        for (int i = 0; i < n; i++) {\n            int sum = A[i][0] + A[i][1];\n            int diff = A[i][0] - A[i][1];\n            x.erase(x.find(sum));\n            y.erase(y.find(diff));\n            res = min(res, max(*x.rbegin() - *x.begin(), *y.rbegin() - *y.begin()));\n            x.insert(sum);\n            y.insert(diff);\n        }\n        return res;\n    }\n};"
+}
