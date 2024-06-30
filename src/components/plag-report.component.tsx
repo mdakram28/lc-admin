@@ -65,8 +65,10 @@ export function PlagReportComponent({ }: {}) {
         if (!selectedUser) return;
 
         setTimeout(() => {
-            codePreRef.current!.innerHTML = formatCode(selectedUser.submission);
+            codePreRef.current!.innerHTML = "";
+            codePreRef.current!.innerText = formatCode(selectedUser.submission);
             codePreRef.current!.className = "prettyprint linenums lang-cpp";
+            codePreRef.current!.innerHTML = codePreRef.current!.innerHTML.replaceAll("<br>", "\n");
             PR.prettyPrint();
         }, 1);
     }, [selectedUser, hideBlankLines]);
