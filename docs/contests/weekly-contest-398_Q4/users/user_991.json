@@ -1,0 +1,5 @@
+{
+    "username": "dakshmv14",
+    "submission": "class Solution {\npublic:\n    int solve(int jump,long long stairs,bool desc,int k,map<long long,map<int,map<bool,long long>>>&dp){\n        if(stairs>k+1) return 0; \n        if(dp.find(stairs)!=dp.end() && \n            dp[stairs].find(jump)!=dp[stairs].end() \n                && dp[stairs][jump].find(desc)!=dp[stairs][jump].end())\n                return dp[stairs][jump][desc];\n        if(stairs==k){\n            int t1=solve(jump+1,stairs+pow(2,jump),true,k,dp),t2=0;\n            if(desc){\n                t2=solve(jump,stairs-1,false,k,dp);\n            }\n            return dp[stairs][jump][desc]=1+t1+t2;\n        }\n        int ans1=solve(jump+1,stairs+pow(2,jump),true,k,dp),t2=0,ans2=0;\n        if(desc){\n            ans2=solve(jump,stairs-1,false,k,dp);\n        }\n        return dp[stairs][jump][desc]=ans1+ans2;\n    }\n    int waysToReachStair(int k) {\n        map<long long,map<int,map<bool,long long>>>dp;\n        return solve(0,1,true,k,dp);\n    }\n};",
+    "submit_ts": 1716089721.0
+}

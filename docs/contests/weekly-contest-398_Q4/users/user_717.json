@@ -1,0 +1,5 @@
+{
+    "username": "tinku_vishnu",
+    "submission": "class Solution {\n    long max; long pow[]=new long[50];\n    HashMap<String,Integer>dp=new HashMap<>();\n    public int waysToReachStair(int k) {\n        max=(1<<(k*1l));\n        return solve(1,k,0,0);\n    }\n    public int solve(long curr,int k,int go,int jump){\n        if(curr==k){\n            int ans=1+solve(curr+(1L<<jump),k,0,jump+1);\n            if(go!=1)ans+=solve(curr-1,k,1,jump);\n            return ans;\n        }\n        if(curr>Long.MAX_VALUE||curr<0)return 0;\n        String now=curr+\"-\"+go+\"-\"+jump;\n        if(dp.containsKey(now))return dp.get(now);\n        int ans=0;\n        if(go!=1)ans+=solve(curr-1,k,1,jump);\n        ans+=solve(curr+(1L<<jump),k,0,jump+1);\n        dp.put(now,ans);\n        return ans;\n        \n        \n    }\n}",
+    "submit_ts": 1716089073.0
+}

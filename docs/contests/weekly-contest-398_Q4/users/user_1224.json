@@ -1,0 +1,5 @@
+{
+    "username": "pppdmy",
+    "submission": "impl Solution {\n    pub fn ways_to_reach_stair(k: i32) -> i32 {\n        let mut ret = 0;\n        for back in 0.. {\n            if min_reach_for(back) > k { break; }\n            if k + back < 1 { continue; } // impossible jump negative\n            let jumps = k + back - 1;\n            if jumps & (jumps + 1) != 0 { continue; } // no consecutive power\n            // insert back bewteen jumps = pick up slots\n            let slot = (jumps + 1).checked_ilog2().unwrap() + 1;\n            let mut c = 1u64;\n            for i in 0..back { \n                c *= (slot - i as u32) as u64; \n                c /= (i as u64+ 1); \n            }\n            ret += c as i32;\n        }\n        ret\n    }\n}\n\n// back 4 => jump 3, => 1 + 2 + 4 + 1 - 4 => 2 ** (n_back - 1) - n_back\nfn min_reach_for(n_back: i32) -> i32 {\n    (1 << (n_back - 1)) - n_back\n}\n// k = 1 + jump - back",
+    "submit_ts": 1716090526.0
+}

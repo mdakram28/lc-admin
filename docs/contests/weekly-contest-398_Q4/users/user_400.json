@@ -1,0 +1,5 @@
+{
+    "username": "nipun753",
+    "submission": "class Solution {\n    Map < String , Integer > dp ;\n    \n    public int solve(int cur_step , int jump , int last_jump_type , int k){\n        int ans = 0;\n        if (cur_step > Integer.MAX_VALUE/2)\n            return 0;\n        if (cur_step==k)\n            ans = 1; \n        \n        String key  = cur_step + \"#\"+jump+\"#\" + last_jump_type+\"#\";\n        if (dp.containsKey(key))\n            return dp.get(key);\n        \n        \n        ans =ans +  solve((cur_step + (1<<jump)) , jump + 1 , 1 , k);\n        if (last_jump_type!=0 && cur_step!=0)\n            ans = ans + solve(cur_step - 1 , jump , 0 , k);\n        \n        dp.put(key , ans);\n        return ans;\n        \n        \n\n    }\n    public int waysToReachStair(int k) {\n        dp = new HashMap<>();\n        return solve(1 , 0 , -1 , k);\n        \n    }\n}",
+    "submit_ts": 1716088404.0
+}

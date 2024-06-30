@@ -1,0 +1,5 @@
+{
+    "username": "pankaj_777",
+    "submission": "#define ll long long int\nclass Solution {\npublic:\n    ll dp[65][65][3];\n    ll getIdx(ll pow, ll steps) {\n        return 1 + (1LL << pow) - 1 - (steps - pow);\n    }\n    \n    ll fun (int steps, int pow, int back, ll k) {\n        int idx = getIdx(pow, steps);\n        if (idx > k + 2 or idx < 0 or pow >= 60) {\n            return 0;\n        }\n        \n        if (dp[steps][pow][back] >= 0) return dp[steps][pow][back];\n\n        ll res = (idx == k) + fun (steps + 1, pow + 1, 0, k);\n        if (back < 1) {\n            res = (res + fun (steps + 1, pow, back + 1, k));\n        }\n        \n        return dp[steps][pow][back] = res;\n    }\n\n    int waysToReachStair(int k) {\n        memset(dp, -1, sizeof(dp));\n        return fun(0, 0, 0, k);\n    }\n};",
+    "submit_ts": 1716088502.0
+}

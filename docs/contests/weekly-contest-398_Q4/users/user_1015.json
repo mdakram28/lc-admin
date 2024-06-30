@@ -1,0 +1,5 @@
+{
+    "username": "20240604.phoenix_blaze",
+    "submission": "class Solution:\n    def __init__(self):\n        self.dp = {}\n    \n    \n    def solve(self, k, i, jup, flag):\n        if k + 5 <= i:\n            return 0\n        if jup > 31:\n            return 0\n\n        if i in self.dp and self.dp[i][jup][flag] != -1:\n            return self.dp[i][jup][flag]\n\n        res = 1 if k == i else 0\n\n        if flag:\n            res += self.solve(k, i - 1, jup, 0)\n        if i + (1 << jup) <= k + 1:\n            res += self.solve(k, i + (1 << jup), jup + 1, 1)\n\n        if i not in self.dp:\n            self.dp[i] = [[-1] * 2 for _ in range(32)]\n\n        self.dp[i][jup][flag] = res\n        return res\n\n    def waysToReachStair(self, k : int) -> int:\n        return self.solve(k, 1, 0, 1)\n        ",
+    "submit_ts": 1716090067.0
+}

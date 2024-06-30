@@ -1,0 +1,5 @@
+{
+    "username": "Ahmed_-_Hesham",
+    "submission": "class Solution {\npublic:\n    int cnt = 0;\n    map<vector<int>, int>dp;\n    int solve(int stair, int jump, int &k, bool last){\n        \n        if(stair - 1 > k)return 0;\n        if(dp.find({stair, jump, last}) != dp.end())return dp[{stair, jump, last}];\n        int &ret = dp[{stair, jump, last}];\n        ret = (stair == k);\n        if(jump < 30 && stair + (1 << jump) - 1 <= k){\n            ret += solve(stair + (1 << jump), jump + 1, k, 0);\n        }\n        if(!last && stair != 0){\n            ret += solve(stair - 1, jump, k, 1);\n        }\n        return ret;\n    }\n    \n    int waysToReachStair(int k) {\n        \n        return solve(1, 0, k, 0);\n        \n    }\n};",
+    "submit_ts": 1716089714.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "vivekvar_19",
+    "submission": "class Solution {\npublic:\n    long long int power(long long int x, long long int y) {\n        long long int res = 1LL;\n        while (y > 0) {\n            if (y % 2 == 1) res = (res * 1LL * x);\n            y = y >> 1;\n            x = (x * 1LL * x);\n        }\n        return res;\n    }\n    map<tuple<long long int, int, int>, long long int>mp;\n    long long int solve(long long int curr, int prevDown, int jump, int k) {\n        if (curr > k + 1) return 0;\n        if (mp.find({curr, prevDown, jump}) != mp.end()) return mp[{curr, prevDown, jump}];\n        long long int ans = 0;\n        if (curr == k) ans = 1;\n        if (prevDown == 0 && curr != 0) ans += solve(curr - 1, 1, jump, k);\n        long long int p = power(2LL, jump * 1LL);\n        ans += solve(curr + p, 0, jump + 1, k);\n        return mp[{curr, prevDown, jump}] = ans;\n    }\n    int waysToReachStair(int k) {\n        return solve(1LL, 0, 0, k);\n    }\n};",
+    "submit_ts": 1716088107.0
+}

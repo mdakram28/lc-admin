@@ -1,0 +1,5 @@
+{
+    "username": "Sixtycat",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        # exit if currlocation is larger than k + 1\n        visited = dict()\n        return self.dfs(k, 1, 0, visited)\n        \n        \n    def dfs(self, k, cur_idx, jump, visited):\n        if cur_idx > k + 1:\n            return 0\n        \n        if (cur_idx, jump) in visited:\n            return visited[(cur_idx, jump)]\n        \n        cur_cnt = 0\n        if cur_idx == k:\n            cur_cnt += 1\n            \n        # choice 1:\n        if cur_idx > 0:\n            if k == cur_idx - 1:\n                cur_cnt += 1\n            cur_cnt += self.dfs(k, cur_idx - 1 + 2**jump, jump + 1, visited)\n            \n        # choice 2:\n        cur_cnt += self.dfs(k, cur_idx + 2 ** jump, jump + 1, visited)\n        \n        visited[(cur_idx, jump)] = cur_cnt\n        \n        return cur_cnt\n        \n        \n        ",
+    "submit_ts": 1716088935.0
+}

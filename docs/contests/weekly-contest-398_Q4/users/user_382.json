@@ -1,0 +1,5 @@
+{
+    "username": "faheemulislam07",
+    "submission": "class Solution {\npublic:\n    map<pair<long long , pair<int , int>> , int > mp;\n    int f(long long ind , int state , int jump , int k)\n    {\n        if(ind > 1e9) return 0;\n        if(mp.count({ind , {state , jump}})) return mp[{ind , {state , jump}}];\n        int w1= 0 , w2 = 0 , w3 = 0;\n        if((state&1) && (ind > 0))\n        {\n            w1 = ((ind-1) == k) + f(ind-1 , 0 , jump , k);\n            w2 = ((ind + (1 << jump)) == k) + f(ind + (1 << jump) , 1 , jump+1 , k);\n        }\n        else\n        {\n            w3 = ((ind + (1 << jump)) == k) + f(ind+(1 << jump) , 1 , jump+1 , k);\n        }\n        return mp[{ind , {state , jump}}] = w1 + w2 + w3;\n    }\n    int waysToReachStair(int k) {\n        int ans = f(1LL , 1 , 0 , k);\n        return ans + (k == 1);\n    }\n};",
+    "submit_ts": 1716088621.0
+}

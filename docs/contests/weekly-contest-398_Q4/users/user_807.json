@@ -1,0 +1,5 @@
+{
+    "username": "chgliu",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @lru_cache\n        def solve(curr, jump, cons):\n            canGoDown = curr > 0 and not cons\n            if curr > k + 1:\n                return 0\n            if curr == k+1:\n                return solve(curr-1, jump, not cons) if canGoDown else 0\n            ans = 0\n            if curr == k:\n                ans = 1        \n            if canGoDown:\n                return ans + solve(curr-1, jump, not cons) + solve(curr + 2**jump, jump + 1, False)\n            return ans + solve(curr + 2**jump, jump + 1, False)\n        \n        return solve(1, 0, False)\n        \n        ",
+    "submit_ts": 1716089593.0
+}

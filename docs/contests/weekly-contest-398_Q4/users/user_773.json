@@ -1,0 +1,5 @@
+{
+    "username": "user0747oJ",
+    "submission": "class Solution {\n    fun waysToReachStair(k: Int): Int {\n        if (k == 0) return 2\n\n        val cache = mutableMapOf<Data, Int>()\n\n        fun s(v: Int, jump: Int, isMinusOne: Boolean): Int {\n            if (v < 0 || jump < 0) return 0\n            if (v == k) {\n                return when (jump) {\n                    0 -> 4\n                    1 -> 2\n                    else -> 1\n                }\n            }\n            if(jump > 1 && v > k + 1) return 0\n\n            val data = Data(v, jump, isMinusOne)\n            cache[data]?.let { return it }\n\n            return when {\n                isMinusOne -> s(v + (1 shl jump), jump + 1, false)\n                else -> s(v - 1, jump, true) + s(v + (1 shl jump), jump + 1, false)\n            }.also {\n                cache[data] = it\n            }\n        }\n\n        return s(1, 0, false)\n    }\n\n    private data class Data(val v: Int, val jump: Int, val isMinusOne: Boolean)\n}",
+    "submit_ts": 1716089819.0
+}

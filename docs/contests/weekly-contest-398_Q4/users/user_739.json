@@ -1,0 +1,5 @@
+{
+    "username": "user6140fa",
+    "submission": "func waysToReachStair(k int) int {\n    \n    \n    var dp func(curr int, decr bool, jump int) int\n    \n    \n    bk := make(map[bool]map[int]map[int]int)\n    \n    dp = func(curr int, decr bool, jump int) int {\n        \n        if _, ok := bk[decr]; !ok {\n            bk[decr] = make(map[int]map[int]int) \n        }\n        \n        if _, ok := bk[decr][curr]; !ok {\n            bk[decr][curr] = make(map[int]int) \n        }\n        \n        count := 0\n        if val, ok := bk[decr][curr][jump]; ok {\n            return val\n        }\n        \n        if curr < 0 || curr > k + 1 {\n            return 0\n        }\n        \n        \n        if curr == k {\n            count = 1\n        }\n        \n      \n        if decr {\n            count += dp(curr + (1 << jump), false, jump + 1)\n        } else {\n            count += dp(curr - 1, true, jump)\n            count += dp(curr + (1 << jump), false, jump + 1)\n        }\n        bk[decr][curr][jump] = count\n        return count\n    }\n    \n    return dp(1, false, 0)\n    \n}",
+    "submit_ts": 1716088832.0
+}

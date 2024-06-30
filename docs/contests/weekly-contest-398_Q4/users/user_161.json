@@ -1,0 +1,5 @@
+{
+    "username": "Belgutei0323",
+    "submission": "class Solution(object):\n    def comb(self, a, b):\n        # a! / (b! * (a-b)!)\n        ret = 1\n        x = b\n        y = (a - b)\n        if x > y:\n            x, y = y, x\n        # x <= y\n        # a! / (x! * y!)\n        for i in range(y + 1, a + 1):\n            ret *= i\n        for i in range(1, x + 1):\n            ret //= i\n        return ret\n    \n    def waysToReachStair(self, k):\n        \"\"\"\n        :type k: int\n        :rtype: int\n        \"\"\"\n        if k == 0:\n            return 2\n        tot = 1\n        ans = 0\n        if k == 1:\n            ans += 1\n        for i in range(31):\n            tot += 1 << i\n            if tot < k:\n                continue\n            if tot == k:\n                ans += 1\n                continue\n            # tot > k\n            diff = tot - k\n            if diff > i + 2:\n                continue\n            ans += self.comb(i + 2, diff)\n        return ans\n        ",
+    "submit_ts": 1716087447.0
+}

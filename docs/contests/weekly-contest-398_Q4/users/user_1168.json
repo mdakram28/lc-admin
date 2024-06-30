@@ -1,0 +1,5 @@
+{
+    "username": "Sayan_Ghorui",
+    "submission": "import java.util.*;\n\nclass Solution {\n    HashMap<Integer, ArrayList<ArrayList<Integer>>> dp = new HashMap<>();\n\n    int solve(int k, int i, int jump, int can) {\n        if (i > k + 5)\n            return 0;\n\n        if (jump > 31)\n            return 0;\n\n        if (dp.containsKey(i) && dp.get(i).get(jump).get(can) != -1)\n            return dp.get(i).get(jump).get(can);\n\n        int ans = (i == k) ? 1 : 0;\n        if (can == 1)\n            ans += solve(k, i - 1, jump, 0);\n        if (i + (1 << jump) <= k + 1)\n            ans += solve(k, i + (1 << jump), jump + 1, 1);\n\n        if (!dp.containsKey(i)) {\n            dp.put(i, new ArrayList<>());\n            for (int j = 0; j < 32; j++) {\n                dp.get(i).add(new ArrayList<>(Arrays.asList(-1, -1)));\n            }\n        }\n\n        dp.get(i).get(jump).set(can, ans);\n        return ans;\n    }\n\n    public int waysToReachStair(int k) {\n        return solve(k, 1, 0, 1);\n    }\n}\n",
+    "submit_ts": 1716090424.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "svyas",
+    "submission": "class Solution {\npublic:\n    int solve(int &k,bool x,int j,int p, unordered_map<string,int>&dp){\n        if(p-k>2) return 0;\n        int ans=0;\n        if(p==k) ans=1;\n        int w=pow(2,j);\n        string s=\"\";\n        if(x){\n            s.push_back(j+'0');\n           s+=\" \";\n             s.push_back(p+'0');\n            s+=\" \";\n            s.push_back('1');\n        }\n        else{\n               s.push_back(j+'0');\n           s+=\" \";\n             s.push_back(p+'0');\n            s+=\" \";\n            s.push_back('0');\n        }\n        if(dp.find(s)!=dp.end()) return dp[s];\n        if(x && p!=0){\n           ans+=(solve(k,false,j,p-1,dp)+solve(k,true,j+1,p+w,dp)); \n        }\n        else{\n            ans+=solve(k,true,j+1,p+w,dp);\n        }\n        return dp[s]=ans;\n    }\n    int waysToReachStair(int k) {\n        unordered_map<string,int>dp;\n        return solve(k,true,0,1,dp);\n    }\n};",
+    "submit_ts": 1716090190.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "Andwerp",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    int cnt = 0;\n    int solve(ll cur, ll jmp, ll can_back, ll k, map<vector<ll>, int>& dp) {\n        if(cur > k + 1){\n            return 0;\n        }\n        if(dp.find({cur, jmp, can_back}) != dp.end()) {\n            return dp[{cur, jmp, can_back}];\n        }\n        dp[{cur, jmp, can_back}] = 0;\n        cnt ++;\n        ll ans = 0;\n        if(cur == k){\n            ans = 1;\n        }\n        if(can_back == 1 && cur != 0){\n            ans += solve(cur - 1, jmp, 0, k, dp);\n        }\n        ans += solve(cur + jmp, jmp * 2, 1, k, dp);\n        dp[{cur, jmp, can_back}] = ans;\n        // cout << \"TEST : \" << cur << \" \" << jmp << \" \" << can_back << \" : \" << dp[{cur, jmp, can_back}] << \"\\n\";\n        return ans;\n    }\n    \n    int waysToReachStair(int k) {\n        map<vector<ll>, int> dp;\n        int ans = solve(1, 1, 1, k, dp);\n        cout << \"CNT : \" << cnt;\n        return ans;\n    }\n};",
+    "submit_ts": 1716087785.0
+}

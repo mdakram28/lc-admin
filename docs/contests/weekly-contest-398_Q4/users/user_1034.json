@@ -1,0 +1,5 @@
+{
+    "username": "beet_gaama_11",
+    "submission": "\nclass Solution {\nprivate:\n    std::unordered_map<int, std::unordered_map<int, std::unordered_map<bool, int>>> memo;\n\n    int stairWays(int k, int curr, int jumpSize, bool canJump) {\n        if (curr > k + 5) return 0;\n        if (jumpSize > 31) return 0;\n\n        if (memo[curr].count(jumpSize) && memo[curr][jumpSize].count(canJump) && memo[curr][jumpSize][canJump] != -1)\n            return memo[curr][jumpSize][canJump];\n\n        int ways = (curr == k);\n        if (canJump) ways += stairWays(k, curr - 1, jumpSize, false);\n        if (curr + (1 << jumpSize) <= k + 1) ways += stairWays(k, curr + (1 << jumpSize), jumpSize + 1, true);\n\n        memo[curr][jumpSize][canJump] = ways;\n        return ways;\n    }\n\npublic:\n    int waysToReachStair(int k) {\n        return stairWays(k, 1, 0, true);\n    } \n};",
+    "submit_ts": 1716090114.0
+}

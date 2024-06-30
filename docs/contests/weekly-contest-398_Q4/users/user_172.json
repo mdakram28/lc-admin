@@ -1,0 +1,5 @@
+{
+    "username": "itzRaghav",
+    "submission": "class Solution {\n    long long solve(int n, int m) {\n        vector dp(n + 1, vector(m + 1, vector<long long>(2, 0)));\n        dp[0][0][0] = 1;\n        for (int i = 0; i <= n; i++) {\n            for (int j = 0; j <= m; j++) {\n                for (int k = 0; k < 2; k++) {\n                    if (dp[i][j][k] == 0) continue;\n                    if (i < n) {\n                        dp[i + 1][j][0] += dp[i][j][k];\n                    }\n                    if (j < m && k == 0) {\n                        dp[i][j + 1][1] += dp[i][j][k];\n                    }\n                }\n            }\n        }\n        long long res = dp[n][m][0] + dp[n][m][1];\n        return res;\n    }\npublic:\n    int waysToReachStair(int k) {\n        long long ans = 0;\n        k--;\n        for (int i = 0; i < 30; i++) {\n            int steps = (1 << i) - 1;\n            if (steps < k) continue;\n            if (steps - k > (i + 1)) break;\n            ans += solve(i, steps - k);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1716087501.0
+}

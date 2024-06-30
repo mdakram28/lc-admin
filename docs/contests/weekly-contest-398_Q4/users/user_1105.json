@@ -1,0 +1,5 @@
+{
+    "username": "espr3ss0",
+    "submission": "/**\n * @param {number} k\n * @return {number}\n */\nvar waysToReachStair = function(k) {\n  \n  const f = memoize((i, jump, wentDown) => {\n  \n    let ways = 0;\n    if (i === k) ways += 1;\n    if (i - 1 > k) return ways;\n    \n    if (i > 0 && !wentDown) ways += f(i - 1, jump, true);\n    ways += f(i + 2 ** jump, jump + 1, false);\n    return ways;\n  });\n  \n  return f(1, 0, false);\n};\n\nconst memoize = (fn) => {\n  const memo = new Map();\n  \n  return (...args) => {\n    \n    const key = args.map(JSON.stringify).join(\",\");\n    if (memo.has(key)) return memo.get(key);\n\n    const result = fn(...args);\n    memo.set(key, result);\n\n    return result;\n  }\n}",
+    "submit_ts": 1716089943.0
+}

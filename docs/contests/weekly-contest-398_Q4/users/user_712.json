@@ -1,0 +1,5 @@
+{
+    "username": "jawaherul",
+    "submission": "class Solution {\n    public int waysToReachStair(int k) {\n        Map<Long, Integer> counts = new HashMap<>();\n        computeCounts(1, 0, k, counts, 1);\n        return counts.get(100L);\n    }\n    \n    private void computeCounts(int step, int jump, int k, Map<Long, Integer> counts, int flag) {\n        //System.out.println(prefix+\"step=\"+step+\", jump=\"+jump);\n        int count = step==k? 1: 0;\n        if(flag>0) {\n            if(!counts.containsKey(-1L*((step-1)*100L+jump))) {\n                computeCounts(step-1, jump, k, counts, -1);\n            }\n            count = count + counts.get(-1L*((step-1)*100L+jump));\n        }\n        if(step+(1<<jump)<k+2) {\n            if(!counts.containsKey((step+(1<<jump))*100L+jump+1)) {\n                computeCounts(step+(1<<jump), jump+1, k, counts, 1);\n            }\n            count = count + counts.get((step+(1<<jump))*100L+jump+1);\n        }\n        //System.out.println(prefix+\"count=\"+count);\n        counts.put(flag*(step*100L+jump), count);\n    }\n}",
+    "submit_ts": 1716089659.0
+}

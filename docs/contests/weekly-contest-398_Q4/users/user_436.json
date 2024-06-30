@@ -1,0 +1,5 @@
+{
+    "username": "dadboss",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll k;\n    map<pair<ll,pair<ll,ll>>,ll> m;\n    ll f(ll i,ll j,ll last)\n    {\n        // if(m.find({1,make_pair(1,1)})!=m.end())\n        //     return 1;\n        if(m.find({i,{j,last}})!=m.end())\n            return m[{i,{j,last}}];\n        // cout<<i<<\" \"<<j<<\" \"<<last<<\"\\n\";\n        if(i==k)\n        {\n            ll ans=1+f(i+(1<<j),j+1,0);\n            if(last==0)\n                ans+=f(i-1,j,1);\n            return m[{i,{j,last}}]=ans;\n        }\n        if(i==k+1)\n        {\n            if(last==1)\n                return 0;\n            return m[{i,{j,last}}]=f(i-1,j,1);\n        }\n        if(i>k+1||i==-1)\n            return 0;\n        ll ans=f(i+(1<<j),j+1,0);\n        if(last==0)\n            ans+=f(i-1,j,1);\n        return m[{i,{j,last}}]=ans;\n    }\n    int waysToReachStair(int K) {\n        k=K;\n        int ans=f(1,0,0);\n        // cout<<k<<\" \"<<ans<<\"\\n\";\n        return ans;\n    }\n};",
+    "submit_ts": 1716088219.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "jordan322",
+    "submission": "class Solution {\nprivate:\n    int dp(int val, int op1, int op2, bool use_op1, int k, vector<vector<vector<int>>> &mem){\n        if(val-1 > k || val < 0 || op2 > 35 || op1 > 35) return 0;\n        if(mem[op1][op2][use_op1] != -1) return mem[op1][op2][use_op1];\n        \n        int ans = 0;\n        if(!use_op1){\n            ans += dp(val-1,op1+1,op2,true,k,mem);\n            ans += dp(val+pow(2,op2),op1,op2+1,false,k,mem);\n        }else{\n            ans += dp(val+pow(2,op2),op1,op2+1,false,k,mem);\n        }\n        if(val == k) ans += 1;\n        // cout << val << ' ' << op1 << ' ' << op2 << ' ' << ans << endl;\n        return mem[op1][op2][use_op1] = ans;\n    }\npublic:\n    int waysToReachStair(int k) {\n        // target = k;\n        vector<vector<vector<int>>> mem(40, vector<vector<int>>(40, vector<int>(2,-1)));\n        return dp(1,0,0,false, k, mem);\n    }\n};",
+    "submit_ts": 1716088814.0
+}

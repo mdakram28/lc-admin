@@ -1,0 +1,5 @@
+{
+    "username": "bab8",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        // l = # jumps\n        // k = 2^l -(atmostl+1)\n        int num = 0;\n\n        for (int l = 0; ; l++) {\n            if (k <= (1 << l) && k >= ((1 << l) - (l + 1))) {\n                int numfalls = (1 << l) - k;\n                // compute using l and numfalls\n                // std::cout << l << ' ' << numfalls << std::endl;\n                num += calc(l, numfalls);\n            }\n            if (k <= (1 << l) && l > 3) {\n                return num;\n            }\n        }\n    }\n\n    int calc(int numjumps, int numfalls) {\n        if (numfalls > numjumps+1 || numfalls < 0) {\n            return 0;\n        }\n\n        long long x = 1;\n        long long c = numjumps+1-numfalls;\n        for (long long i = 1; i <= numfalls; i++) {\n            x *= (c+i);\n            x /= i;\n        }\n        // for (long long i = numfalls; i > 0; i--) {\n        //     x /= i;\n        // }\n        // numjumps+1 choose numfalls\n        // std::cout << x << std::endl;\n        return x;\n    }\n};",
+    "submit_ts": 1716089534.0
+}

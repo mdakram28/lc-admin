@@ -1,0 +1,5 @@
+{
+    "username": "tarunsingh",
+    "submission": "int func(int ind, int jump, int prev, int k, map<pair<int, pair<int,int>>, int> &mp){\n    if(jump > 30){\n        return 0;\n    }\n    if(ind > k + 10){\n        return 0;\n    }\n    if(mp.find({ind, {jump, prev}}) != mp.end()){\n        return mp[{ind, {jump, prev}}];\n    }\n    int ans = 0;\n    if(ind == k){\n        ans = 1;\n    }\n    if(prev == 0){\n        if(ind != 0){\n            ans = ans + func(ind-1,jump,1,k,mp);\n        }\n    }\n    ans = ans + func(ind+(1 << jump), jump+1,0,k,mp);\n    return mp[{ind, {jump, prev}}] = ans;\n}\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        map<pair<int, pair<int,int>>, int> mp;\n        return func(1,0,0,k,mp);\n    }\n};",
+    "submit_ts": 1716088613.0
+}

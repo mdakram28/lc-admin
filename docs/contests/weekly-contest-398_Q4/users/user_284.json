@@ -1,0 +1,5 @@
+{
+    "username": "Tyrande",
+    "submission": "class Solution {\n    unordered_map<long, unordered_map<int, unordered_map<int, int>>> cache;\npublic:\n    int waysToReachStair(int k) {\n        return dfs(1, 0, 0, k);\n    }\n    int dfs(long stair, int jump, int backed, int k) {\n        if (stair > k + 1)\n            return 0;\n        if (cache.count(stair) && cache[stair].count(jump) && cache[stair][jump].count(backed))\n            return cache[stair][jump][backed];\n        int way = 0;\n        if (stair == k)\n            way++;\n        long next_stair = stair + (1 << jump);\n        way += dfs(next_stair, jump + 1, 0, k);\n        if (backed == 0 && stair > 0) \n            way += dfs(stair - 1, jump, 1, k);\n        cache[stair][jump][backed] = way;\n        return way;\n    }\n};",
+    "submit_ts": 1716087964.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "jainshreyansh163",
+    "submission": "class Solution {\nprivate:\n    map<int, map<int, map<int, int>>> mp;\n    long long ways(int k, int p, long long num, bool turn) {\n        int ans = (num == k);;\n        if (p >= 32 && num > 2 * k) return 0;\n        if (mp.find(num) != mp.end()) {\n            if (mp[num].find(p) != mp[num].end()) {\n                if (mp[num][p].find(turn) != mp[num][p].end()) {\n                    return mp[num][p][turn];\n                }\n            }\n        }\n        if (turn && num > 0) ans += ways(k, p, num - 1, false);\n        if (k + 1 >= num + pow(2, p)) ans += ways(k, p + 1, num + power(2, p), true);\n        return mp[num][p][turn] = ans;\n    }\n    long long power(long long a, long long b) {\n        long long ans = 1;\n        while (b) {\n            if (b & 1) ans = ans * a;\n            a = a * a;\n            b >>= 1;\n        }\n        return ans;\n    }\npublic:\n    int waysToReachStair(int k) {\n        return ways(k, 0, 1, true);\n    }\n};",
+    "submit_ts": 1716089320.0
+}

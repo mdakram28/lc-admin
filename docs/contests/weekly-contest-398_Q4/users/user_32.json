@@ -1,0 +1,5 @@
+{
+    "username": "trantai",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        map<tuple<int,int,int>,int> cache;\n        auto calc=[&](auto calc, int cur, int jump, int back)->int{\n            if (cur>k+1){\n                return 0;\n            }\n            \n            tuple<int,int,int> tp=make_tuple(cur,jump,back);\n            if(cache.count(tp)){\n                return cache[tp];\n            }\n            \n            int res=(cur==k?1:0)+calc(calc, cur+(1<<jump),jump+1,1);\n            if (back>0&&cur>0){\n                res+=calc(calc,cur-1,jump,0);\n            }\n            return cache[tp]=res;\n        }; \n        \n        return calc(calc,1,0,1);\n    }\n};",
+    "submit_ts": 1716086450.0
+}

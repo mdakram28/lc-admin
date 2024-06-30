@@ -1,0 +1,5 @@
+{
+    "username": "mbakin",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        // memoize (stair #, last_jump)\n        map<vector<int>, int> cache;\n        return findWays(cache, 1, 0, 0, k);\n    }\n    \n    int findWays(map<vector<int>, int>& cache, int start, int jump, int last, int end) {\n        vector<int> key {start, jump, last};\n        if (cache.find(key) != cache.end())\n            return cache[key];\n        \n        int res = start == end ? 1 : 0;\n        \n        if (start > end + 1)\n            return 0;\n        \n        cache[key] = res + findWays(cache, start + pow(2, jump), jump + 1, 0, end);\n        if (last == 0)\n            cache[key] += findWays(cache, start - 1, jump, 1, end);\n        return cache[key];\n    }\n};",
+    "submit_ts": 1716087815.0
+}

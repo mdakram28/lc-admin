@@ -1,0 +1,5 @@
+{
+    "username": "lydiazhang233",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        unordered_map<int,unordered_map<int,unordered_map<int,int>>> memo;\n        \n        function<int(int,int,int)> dfs=[&](int step,int dir,int jump)->int{\n            //dir preoperations, non:0,down:1,up:2\n            if(memo.count(step)!=0&&memo[step].count(dir)!=0&&memo[step][dir].count(jump)!=0){\n                return memo[step][dir][jump];\n            }\n            \n            if(step>k+4){\n                memo[step][dir][jump]=0;\n                return 0;\n            }\n            \n            int res=0;\n            if(step==k){\n                res=1;\n            }\n            \n            res+=dfs(step+(1<<jump),2,jump+1);\n            \n            if(dir!=1){\n                res+=dfs(step-1,1,jump);\n            }\n            \n            memo[step][dir][jump]=res;\n            return res;\n            \n        };\n        \n        return dfs(1,0,0);\n        \n        \n    }\n};",
+    "submit_ts": 1716090073.0
+}

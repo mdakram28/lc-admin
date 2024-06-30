@@ -1,0 +1,5 @@
+{
+    "username": "Aman_G011",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        if(k == 0){\n            return 2;\n        }\n        if(k == 1){\n            return 4;\n        }\n        vector<ll> pre(31);\n        pre[0] = 1;\n        ll x = 1;\n        for(int i = 1 ; i < 31 ; i++){\n            pre[i] = pre[i-1];\n            pre[i] += (1<<x);\n            x++;\n        }\n        ll ind = upper_bound(pre.begin(), pre.end(), k-1) - pre.begin();\n        int ans = 0;\n        ll diff = pre[ind]-(k-1);\n        if(diff <= ind+2){\n            ll n = ind+2;\n            ll r = diff;\n            // cout<<n<<' '<<r;\n            double sum = 1;\n            for(int i = 1; i <= r; i++){\n                sum = sum * (n - r + i) / i;\n            }\n            ans += (int)(sum);\n        }\n        ind--;\n        if(ind >= 0){\n            if(pre[ind] == k-1) ans++;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1716089098.0
+}

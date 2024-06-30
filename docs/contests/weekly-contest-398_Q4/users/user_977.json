@@ -1,0 +1,5 @@
+{
+    "username": "_drifter",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n\n        vector<vector<unordered_map<long long, long long>>> dp(2, vector<unordered_map<long long, long long>>(31));\n\n        auto dfs = [&] (auto dfs, long long pos, int is_down, int bit_pos) -> long long {\n\n            if (pos < 0 || k + 1 < pos) {\n                return 0;\n            }\n\n            if (dp[is_down][bit_pos].contains(pos)) {\n                return dp[is_down][bit_pos][pos];\n            }\n\n            long long result = 0;\n            if (pos == k) {\n                ++result;\n            }\n\n            result += dfs(dfs, pos + (1LL << bit_pos), 0, bit_pos + 1);\n\n            if (is_down == 0) {\n                result += dfs(dfs, pos - 1, 1, bit_pos);\n            }\n\n            dp[is_down][bit_pos][pos] = result;\n\n            return result;\n        };\n\n\n        return dfs(dfs, 1, 0, 0);\n    }\n};",
+    "submit_ts": 1716089691.0
+}

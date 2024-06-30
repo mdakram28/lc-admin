@@ -1,0 +1,5 @@
+{
+    "username": "waakaaka",
+    "submission": "using ll = long long;\nll binom(int n, int k) {\n  if (k < 0 || k > n) return 0;\n  static vector<vector<ll>> C(1, {1});\n  while (C.size() <= n) {\n    int r = C.size();\n    C.push_back(vector<ll>(r + 1));\n    for (int i = 0; i <= r; ++i)\n      if (!i || i == r) C[r][i] = 1;\n      else C[r][i] = C[r - 1][i - 1] + C[r - 1][i];\n  }\n  return C[n][k];\n}\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n      long long jumps = 0;\n      long long ans = 0;\n        for (int j = 0; j < 31; ++j) {\n          long long v = 1 + jumps;\n          int maxDec = 1 + j;\n          if (v >= k && v - maxDec <= k) {\n            int pick = v - k;\n            ans += binom(maxDec, pick);\n          }\n          jumps += 1LL << j;\n        }\n      return ans;\n    }\n};",
+    "submit_ts": 1716086843.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "singhvaibhavkaran",
+    "submission": "class Solution {\npublic:\n    int solve(int s, int k, int jump, int prev, map<int, map<int,map<int,int>>> &mp)\n    {\n        if(s==k)\n            return 1;\n        \n        if(s>k)\n        {\n            if(s==k+1 && prev==0)\n                return 1;\n            \n            return 0;\n        }\n        \n        if(mp.find(s) != mp.end() && mp[s].find(jump) != mp[s].end() && mp[s][jump].find(prev) != mp[s][jump].end())\n            return mp[s][jump][prev];\n        \n        int res = 0;\n        \n        if(!prev && s>0)\n        {\n            res += solve(s-1, k, jump, 1, mp);\n        }\n        \n        res += solve(s+pow(2, jump), k, jump+1, 0, mp);\n        \n        return mp[s][jump][prev] = res;\n    }\n    int waysToReachStair(int k) \n    {\n        if(k==0)\n            return 2;\n        \n        if(k==1)\n            return 4;\n        \n        if(k==2)\n            return 4;\n        \n        map<int, map<int,map<int,int>>> mp;\n        \n        return solve(1,k,0,0, mp);\n    }\n};",
+    "submit_ts": 1716089687.0
+}

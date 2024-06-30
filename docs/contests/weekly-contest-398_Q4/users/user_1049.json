@@ -1,0 +1,5 @@
+{
+    "username": "y_aut",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        // 0001 -> 0010 -> 0100 -> 1000\n        vector<int> ary{2, 4, 4, 3, 2, 4};\n        if (k < ary.size()) return ary[k];\n        int left = 0;\n        for (int i = 1; i < k; left++) i <<= 1;\n        int dif = (1 << left) - k;\n        if (dif < 0 || left + 1 < dif) return 0;\n        long long ans = 1;\n        set<int> to_div;\n        for (int i = 2; i <= dif; i++) to_div.insert(i);\n        for (int i = left + 1, j = 0; j < dif; i--, j++) {\n            ans *= i;\n            vector<int> divided;\n            for (int d : to_div) {\n                if (ans % d == 0) {\n                    ans /= d;\n                    divided.push_back(d);\n                }\n            }\n            for (int d : divided) to_div.erase(d);\n        }\n        for (int d : to_div) ans /= d;\n        return ans;\n    }\n};",
+    "submit_ts": 1716089837.0
+}

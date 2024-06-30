@@ -1,0 +1,5 @@
+{
+    "username": "mytheus",
+    "submission": "#include <unordered_map>\n#include <vector>\nusing namespace std;\n\nclass Solution {\nprivate:\n    unordered_map<int, vector<vector<int>>> dp;\n\n    int solve(int target, int current, int jump, bool canJump) {\n        if (current > target + 5 || jump > 31) \n            return 0;\n        \n        if (dp.count(current) && dp[current][jump][canJump] != -1) \n            return dp[current][jump][canJump];\n        \n        int ways = (current == target) ? 1 : 0;\n        \n        if (canJump) \n            ways += solve(target, current - 1, jump, false);\n        \n        if (current + (1 << jump) <= target + 1) \n            ways += solve(target, current + (1 << jump), jump + 1, true);\n        \n        if (!dp.count(current)) \n            dp[current] = vector<vector<int>>(32, vector<int>(2, -1));\n        \n        return dp[current][jump][canJump] = ways;\n    }\n\npublic:\n    int waysToReachStair(int target) {\n        return solve(target, 1, 0, true);\n    } \n};\n",
+    "submit_ts": 1716089444.0
+}

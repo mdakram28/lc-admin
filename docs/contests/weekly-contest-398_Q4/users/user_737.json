@@ -1,0 +1,5 @@
+{
+    "username": "Rutvik_R",
+    "submission": "class Solution {\npublic:\n    \n    int waysToReachStair(int k) {\n       \n        \n        vector<vector<long long>> dp(65 , vector<long long> (66, 0));\n        \n        dp[0][0] = 1;\n        dp[1][0] = 1;\n        dp[1][1] = 1;\n        \n        for(int i=2 ; i < 65 ; i++){\n            dp[i][0] = 1;\n            for(int j=1 ; j<=i ; j++){\n                dp[i][j] = dp[i-1][j] + dp[i-1][j-1]; \n            }\n        }\n        \n        long long ans = 0;\n        \n        if(k < 2) ans = 1;\n        \n        \n        for(int jump=0 ; ; jump++){     \n            \n            long long tot = (1ll<<(jump+1));\n            int diff = tot - k;\n            \n            // cout<<tot<<\" \"<<diff<<\" \"<<jump+2<<endl;\n            \n            if(tot < k) continue;\n            if(diff > jump+2) break;\n            \n            // cout<<jump<<\" \"<<tot<<\" \"<<diff<<\" \"<<dp[jump+1][diff]<<endl;\n            \n            ans += dp[jump+2][diff];\n        }\n        // cout<<endl;\n        return ans;\n    }\n};",
+    "submit_ts": 1716089720.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "an1ket_62",
+    "submission": "using ll=long long;\nclass Solution {\npublic:\n    const ll mod = 1e9+7;\n \n    ll inv(ll i) {if (i == 1) return 1; return (mod - ((mod / i) * inv(mod % i)) % mod) % mod;}\n    ll mod_mul(ll a, ll b) {a = a % mod; b = b % mod; return (((a * b) % mod) + mod) % mod;}\n    ll ncr(ll n, ll r,vector<ll>&fact) {\n    if (n<r){\n        return 0;\n    }\n    ll ans=fact[n];\n    ans=mod_mul(ans,inv(fact[r]));\n    ans=mod_mul(ans,inv(fact[n-r]));\n    return ans;\n}\n    int waysToReachStair(int k) {\n        ll n=k;\n        ll ans=0;\n        vector<ll>fact(32,0);\n        fact[0]=1;\n        ll mod=1e9+7;\n        for (ll i=1;i<32;i++){\n            fact[i]=fact[i-1]*i;\n            fact[i]%=mod;\n            \n        }\n        for (int i=0;i<31;i++){\n            ll d=(1LL<<i);\n            if (d<n){\n                continue;\n            }\n            ll rem=d-n;\n            ll gaps=i+1;\n            ans+=ncr(gaps,rem,fact);\n            ans%=mod;\n            \n            \n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": 1716087408.0
+}

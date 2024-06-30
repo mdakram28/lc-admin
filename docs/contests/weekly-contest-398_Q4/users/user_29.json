@@ -1,0 +1,5 @@
+{
+    "username": "mbfibat",
+    "submission": "typedef pair<int, int> ii;\ntypedef pair<int, ii> iii;\n\nclass Solution {\nprivate:\n    map<iii, int> f;    \npublic:\n    int dp(int cur, int jump, bool pre, int k) {\n        if (cur >= k + 2)\n            return 0;\n        if (f.count(iii(cur, ii(jump ,pre))))\n            return f[iii(cur, ii(jump, pre))];\n        int ans = (cur == k);\n        if (!pre) ans += dp(cur - 1, jump, true, k);\n        ans += dp(cur + (1 << jump), jump + 1, false, k);\n            \n        return f[iii(cur, ii(jump, pre))] = ans;\n    }\n    int waysToReachStair(int k) {\n        return dp(1, 0, 0, k);\n    }\n};",
+    "submit_ts": 1716086889.0
+}

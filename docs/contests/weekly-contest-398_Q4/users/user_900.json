@@ -1,0 +1,5 @@
+{
+    "username": "Arucade",
+    "submission": "class Solution {\n    public int waysToReachStair(int k) {    \n        HashMap<Long, Integer> map = new HashMap<>();\n        int res = 0;\n        for (int i = 0; i < 31; i++) {\n            res += dfs(k, i, false, map);\n            // System.out.println(i + \"=\" + res);\n        }\n        return res;\n    }\n    \n    private int dfs(int k, int i, boolean b, Map<Long, Integer> map) {\n        // System.out.println(k + \",\" + i + \",\" + (b ? \"true\" : \"false\"));\n        long key = ((long)k) + ((long)i) * 10000000000l + (b ? 1000000000000000l : 0l);\n        if (!map.containsKey(key)) {\n            int res = 0;\n            if (k == 1 && i == 0) res++;\n            if (i > 0 && k >= (1 << (i - 1))) res += dfs(k - (1 << (i - 1)), i - 1, false, map);\n            if (!b) {\n                res += dfs(k + 1, i, true, map);\n            }\n            map.put(key, res);\n        }\n        // System.out.println(k + \",\" + i + \",\" + (b ? \"true\" : \"false\") + \"=\" + map.get(key));\n        return map.get(key);        \n    }\n}",
+    "submit_ts": 1716090150.0
+}

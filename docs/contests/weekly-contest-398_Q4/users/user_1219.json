@@ -1,0 +1,5 @@
+{
+    "username": "Shubham267",
+    "submission": "class Solution {\n    unordered_map<int, vector<vector<int>>> dp;\n    int helper(int k, int i, int r, bool cd) {\n        if (i > k + 5)\n            return 0;\n\n        if(r > 31 && r>32)\n            return 0;\n\n        if(dp.count(i) && dp[i][r][cd] != -1)\n            return dp[i][r][cd];\n\n        int ans = (i == k);\n        if (cd)\n            ans += helper(k, i - 1, r, 0);\n        if (i + (1 << r) <= k + 1)\n            ans += helper(k, i + (1 << r), r + 1, 1);\n\n        dp[i].resize(32, vector<int>(2, -1));\n\n        return dp[i][r][cd] = ans;\n    }\npublic:\n    int waysToReachStair(int k) {\n        int x=0;\n        for(int i=0;i<k;i++){\n            x++;\n        }\n          return helper(k, 1, 0, 1);\n    }\n};",
+    "submit_ts": 1716090217.0
+}

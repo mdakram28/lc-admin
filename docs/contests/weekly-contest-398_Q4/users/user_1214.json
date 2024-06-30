@@ -1,0 +1,5 @@
+{
+    "username": "dokenobuggy799",
+    "submission": "class Solution {\nprivate:\n    unordered_map<int, unordered_map<int, unordered_map<int, int>>> dp;\nint memoization(int stair, int jump, bool canUse, int k) {\n    if (stair > k + 20)\n        return 0;\n\n    if(jump > 31)\n        return 0;\n\n    if(dp.find(stair)  != dp.end() && dp[stair].find(jump) != dp[stair].end() && dp[stair][jump].find(canUse) != dp[stair][jump].end())\n        return dp[stair][jump][canUse];\n\n    int ans = (stair == k);\n    if (canUse)\n        ans += memoization(stair - 1, jump, 0, k);\n    if (stair + (1 << jump) <= k + 1)\n        ans += memoization(stair + (1 << jump), jump + 1, 1, k);\n\n    dp[stair].clear();\n\n    return dp[stair][jump][canUse] = ans;\n}\npublic:\n    int waysToReachStair(int k) {\n        return memoization(1, 0, 1, k);\n    } \n};",
+    "submit_ts": 1716090499.0
+}

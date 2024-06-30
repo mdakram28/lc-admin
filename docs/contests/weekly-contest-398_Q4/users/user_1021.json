@@ -1,0 +1,5 @@
+{
+    "username": "moradiya84",
+    "submission": "class Solution {\npublic:\n    map<int,int>idx;\n    int n;\n    vector<vector<int>>dp;\n    int ff(int ori,int node,int k){\n        if(dp[node][k]!=-1) return dp[node][k];\n        int ans=0;\n        if(ori==n) ans++;\n        if(ori-1==n) ans++;\n        if(ori-n>=2) return 0;\n        return dp[node][k]=ans+ff(ori+(1<<k)-1,idx[ori+(1<<k)-1],k+1)+ff(ori+(1<<k),idx[ori+(1<<k)],k+1);\n    }\n    int waysToReachStair(int k) {\n        if(k==0) return 2;\n        if(k==1) return 4;\n        int z=1;\n        int p=1;\n        n=k;\n        while(z<=1e9){\n            for(int j=z-30;j<=z+30;j++){\n                if(j<=0) continue;\n                if(idx.find(j)!=idx.end()) continue;\n                idx[j]=p++;\n            }\n            z+=z;\n        }\n        dp.resize(p+10,vector<int>(35,-1));\n        return ff(1,1,0);\n    }\n};",
+    "submit_ts": 1716088581.0
+}

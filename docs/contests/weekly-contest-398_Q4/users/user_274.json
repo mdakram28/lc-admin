@@ -1,0 +1,5 @@
+{
+    "username": "echen5503",
+    "submission": "class Solution:\n    \n    def waysToReachStair(self, k: int) -> int:\n      def getSum(jump, down):\n        return 2**(jump) - down\n      dp = defaultdict(int)\n      dp[(0, 0, False)] = 1\n          \n      for jump in range(40):\n        for down in range(40):\n          dp[(jump+1, down, False)] = dp[(jump, down, True)] + dp[(jump, down, False)]\n          if getSum(jump, down) != 0:\n            dp[(jump, down+1, True)] = dp[(jump, down, False)]\n      ans = 0\n      for jump, down, downBefore in dp:\n        if getSum(jump, down) == k:\n          #print(jump, down)\n          ans += dp[(jump, down, downBefore)]\n      return ans",
+    "submit_ts": 1716088226.0
+}

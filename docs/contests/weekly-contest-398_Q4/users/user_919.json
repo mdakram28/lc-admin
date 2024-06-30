@@ -1,0 +1,5 @@
+{
+    "username": "nirodha",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        res = 0\n        max_jump = 31\n        @cache\n        def dfs(i, cur_jump, is_pre_minus):\n            if cur_jump > 32 or i < 0:\n                return 0\n            if is_pre_minus:\n                if i != k:\n                    return dfs(i + 2 ** (cur_jump), cur_jump + 1, False)\n                else:\n                    return 1 + dfs(i + 2 ** (cur_jump), cur_jump + 1, False)\n            else:\n                if i != k:\n                    return dfs(i - 1, cur_jump, True) + dfs(i + 2 ** (cur_jump), cur_jump + 1, False)\n                else:\n                    return 1 + dfs(i - 1, cur_jump, True) + dfs(i + 2 ** (cur_jump), cur_jump + 1, False)\n        return dfs(1, 0, False)",
+    "submit_ts": 1716089882.0
+}

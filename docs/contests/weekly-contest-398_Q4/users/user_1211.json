@@ -1,0 +1,5 @@
+{
+    "username": "adarshj031",
+    "submission": "public class Solution {\n    public int waysToReachStair(int k) {\n        Map<String, Integer> dp = new HashMap<>();\n        return findWays(1, 0, false, k, dp);\n    }\n\n    private int findWays(int cpostion, int jumpLevel, boolean wasLastDecrement, int k, Map<String, Integer> memo) {\n        if (cpostion > k + 1 || (wasLastDecrement && cpostion >= k + 1)) {\n            return 0;\n        }\n\n        String key = cpostion + \"_\" + jumpLevel + \"_\" + wasLastDecrement;\n        if (memo.containsKey(key)) {\n            return memo.get(key);\n        }\n\n        int ways = 0;\n        if (cpostion == k) {\n            ways = 1;\n        }\n\n        int bstep = 0;\n        if (!wasLastDecrement) {\n            bstep = findWays(cpostion - 1, jumpLevel, true, k, memo);\n        }\n\n        int fstep = findWays(cpostion + (1 << jumpLevel), jumpLevel + 1, false, k, memo);\n\n        memo.put(key, ways + bstep + fstep);\n        return memo.get(key);\n    }\n}\n",
+    "submit_ts": 1716090186.0
+}

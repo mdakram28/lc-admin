@@ -1,0 +1,5 @@
+{
+    "username": "xyzabcdef",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        using ll = long long;\n        ll ans = 0;\n        vector<ll>p(35, 0LL);\n        p[0] = 1;\n        for(int i = 1; i < 34; i++){\n            p[i] = 1LL*p[i-1]*2;\n        }\n        map<int, map<int, map<int, int>>>mp;\n        auto ways = [&](ll x, int j, int f, auto &&ways) -> int{\n            ll ans = (x == k);\n            if(mp.find(x) != mp.end()){\n                if(mp[x].find(j) != mp[x].end()){\n                    if(mp[x][j].find(f) != mp[x][j].end()){\n                        return mp[x][j][f];\n                    }\n                }\n            }\n            if((x-1) > k){\n                return 0;\n            }\n            if(!f && (x != 0)){\n                ans += ways(x - 1, j, 1, ways);\n            }\n            ans += ways(x + p[j], j + 1, 0, ways);\n            return mp[x][j][f] = ans;\n        };\n        return ways(1, 0, 0, ways);\n    }\n};",
+    "submit_ts": 1716087537.0
+}

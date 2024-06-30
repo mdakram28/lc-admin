@@ -1,0 +1,5 @@
+{
+    "username": "vanshcodes583",
+    "submission": "class Solution {\npublic:\n    unordered_map<int,vector<vector<int>>>dp;\n    int f(int stair,int jumps,int flag,int k){\n        if(stair>k+2){\n            return 0;\n        }\n        if(jumps>=32) return 0;\n        if(dp.count(stair) && dp[stair][jumps][flag]!=-1) return dp[stair][jumps][flag];\n        int ans=0;\n        if(stair==k) ans++;\n        if(flag){\n            ans+=f(stair-1,jumps,0,k);\n        }\n        if(stair+(1<<jumps)<=k+1){\n            ans+=f(stair+(1<<jumps),jumps+1,1,k);\n        }\n        dp[stair].resize(32, vector<int>(2, -1));\n        return dp[stair][jumps][flag]=ans;\n    }\n    int waysToReachStair(int k) {\n        return f(1,0,1,k);\n    }\n};",
+    "submit_ts": 1716089757.0
+}

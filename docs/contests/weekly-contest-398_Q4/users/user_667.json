@@ -1,0 +1,5 @@
+{
+    "username": "hansman",
+    "submission": "class Solution {\npublic:\n    \n    int64_t getKey(int64_t i, int64_t goBack, int64_t jump) {\n        int64_t key = i | (goBack << 32);\n        return key | (jump << 33);\n    }\n    \n    unordered_map<int64_t, int> memo;\n    \n    int getWays(int i, bool canGoBack, int jump, int k) {\n        auto key = getKey(i, canGoBack, jump);\n        if (memo.count(key)) {\n            return memo[key];\n        }\n        \n        int ans = 0;\n        \n        if (i > (k + 1)) {\n            return 0;\n        }\n        if (i == k) {\n            ans++;\n        }\n        \n        if (canGoBack && i != 0) {\n            ans += getWays(i - 1, false, jump, k);\n        }\n        \n        ans += getWays(i + (1 << jump), true, jump + 1, k);\n        \n        return memo[key] = ans;\n    }\n    \n    \n    \n    int waysToReachStair(int k) {\n        return getWays(1, true, 0, k);\n    }\n};",
+    "submit_ts": 1716089242.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "xcoder69",
+    "submission": "class Solution {\npublic:\n    // int ans = 0;\n    \n    map<pair<pair<long long, int>, bool> , int> dp;\n    \n    int recurse(long long cur, int k, int jump, bool down){\n        if(cur > k+1)\n            return 0;\n        if(cur == k)\n            return 1;\n        \n        if(dp.find({{cur, jump}, down}) != dp.end()){\n            return dp[{{cur, jump}, down}];\n        }\n        int ans = 0;\n        ans += recurse(cur+pow(2, jump), k, jump+1, true);\n        if(down && cur)\n            ans += recurse(cur-1, k, jump, false);\n        return dp[{{cur, jump}, down}] = ans;\n        \n    }\n    \n    int waysToReachStair(int k) {\n        if(k == 0)\n            return 2;\n        if(k == 1)\n            return 4;\n        \n        if(k == 2)\n            return 4;\n        \n        return recurse(1, k, 0, true);\n        // return ans;\n    }\n};",
+    "submit_ts": 1716088414.0
+}

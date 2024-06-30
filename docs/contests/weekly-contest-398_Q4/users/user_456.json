@@ -1,0 +1,5 @@
+{
+    "username": "iit2020135",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    \n    map<pair<int,pair<int,int>>,int>mp;\n    \n    ll power(int a,int b)\n    {\n        if(b==0)return 1;\n        ll ans = power(a,b/2);\n        ans*=ans;\n        if(b%2)\n        ans=(ans*a);\n        return ans;\n    }\n    \n    int fun(int req, int k,bool f,int jump)\n    {\n        \n        if(k<0 || k>req+1)return 0;\n        int ans = 0;\n        if(k==req)ans++;\n        if(mp.count({k,{f,jump}}))return mp[{k,{f,jump}}];\n         \n            ll x = power(2,jump);\n           \n                int op = fun(req,k+x,false,jump+1);\n                ans=(ans+op);\n             \n        if(!f)\n        {\n            int op = fun(req,k-1,true,jump);\n            ans=(ans+op);\n        }\n        return mp[{k,{f,jump}}]=ans;\n    }\n    \n    int waysToReachStair(int k) {\n        mp.clear();\n        return fun(k,1,0,0);\n    }\n};",
+    "submit_ts": 1716088002.0
+}

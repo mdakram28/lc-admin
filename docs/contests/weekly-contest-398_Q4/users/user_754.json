@@ -1,0 +1,5 @@
+{
+    "username": "prkhr_gupta",
+    "submission": "class Solution {\npublic:\n    \n    int rec(int i, int k, int prev, int jump, map<int, map<int, map<int, int> > > &dp){\n        if(i == k){\n            int ans=1;\n            if(prev == 0 && jump == 0)  ans += 3;\n            else if(prev == 0 && jump == 1) ans += 1;\n            else if(prev == 1 && jump == 0) ans += 1;\n            return ans;\n        }\n        if(i > k+1) return 0;\n        if(dp.find(i) != dp.end()){\n            if(dp[i].find(jump) != dp[i].end()){\n                if(dp[i][jump].find(prev) != dp[i][jump].end()){\n                    return dp[i][jump][prev];\n                }\n            }\n        }\n        int j = i + (1<<jump);\n        int a = 0;\n        if(prev == 0) a = rec(i-1, k, 1, jump, dp);\n        int b = rec(j, k, 0, jump+1, dp);\n        return dp[i][jump][prev] = a + b;\n    }\n    \n    int waysToReachStair(int k) {\n        map<int, map<int, map<int, int> > > dp;\n        int ans = rec(1, k, 0, 0, dp);\n        return ans;\n    }\n};",
+    "submit_ts": 1716089775.0
+}

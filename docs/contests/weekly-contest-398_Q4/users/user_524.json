@@ -1,0 +1,5 @@
+{
+    "username": "m_vishuu",
+    "submission": "class Solution {\n    HashMap<Long, Integer[][]> map;\n    public int waysToReachStair(int k) {\n        map = new HashMap<>();\n        return helper(k, 1, 0, 1);\n    }\n    \n    public int helper(int k, long i, int jump, int canDescend) {\n        if(i > k + 1)\n            return 0;\n        \n        if(map.containsKey(i) && map.get(i)[jump][canDescend] != null)\n            return map.get(i)[jump][canDescend];\n        \n        int res = 0;\n        if(i == k)\n            res++;\n        \n        int ans1 = 0, ans2 = 0;\n        if(canDescend == 1 && i != 0)\n            ans1 = helper(k, i - 1, jump, 0);\n        ans2 = helper(k , (long)(i + Math.pow(2, jump)), jump + 1, 1);\n        \n        res += ans1 + ans2;\n        \n        map.putIfAbsent(i, new Integer[48][2]);\n        map.get(i)[jump][canDescend] = res;\n        return res;\n    }\n}",
+    "submit_ts": 1716088525.0
+}

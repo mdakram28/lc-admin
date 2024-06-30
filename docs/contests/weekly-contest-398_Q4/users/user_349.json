@@ -1,0 +1,5 @@
+{
+    "username": "Akash_S29",
+    "submission": "class Solution {\npublic:\n    int k;\n    long long binpow(long long a, long long b) {\n        long long res = 1;\n        while (b > 0) {\n            if (b & 1)\n                res = res * a;\n            a = a * a;\n            b >>= 1;\n        }\n        return res;\n    }\n    map<int, int> dp[40][2];\n    int f(int cur, int x, int ok) {\n        \n        if(dp[x][ok].find(cur) != dp[x][ok].end()) return dp[x][ok][cur];\n        \n        int ans = cur == k;\n        if(ok && cur > 0) ans += f(cur-1, x, 0);\n        if(cur + binpow(2, x) <= k+1) {\n            // cout << cur << \" \" << x << \" \" << ok << endl;\n            ans += f(cur + binpow(2, x), x+1, 1);\n        }\n        \n        // cout << cur << \" \" << x << \" \" << ok << \" \" << ans <<  \" \" << (cur + binpow(2, x) <= k+1) << endl;\n        return dp[x][ok][cur] = ans;\n    }\n    int waysToReachStair(int kk) {\n        k = kk;\n        \n        return f(1, 0, 1);\n        \n    }\n};",
+    "submit_ts": 1716088493.0
+}

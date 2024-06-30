@@ -1,0 +1,5 @@
+{
+    "username": "AtulKeshari",
+    "submission": "class Solution {\n    int atul(int i, int k, int jmp, bool ms,unordered_map<int, vector<vector<int>>>& dp) {\n        if(i > k + 5||jmp > 32)\n            return 0;\n        if(dp.count(i) && dp[i][jmp][ms] != -1)\n            return dp[i][jmp][ms];\n        int ans = 0;\n        if(k==i)ans++;\n        if (ms==1)\n            ans += atul(i-1, k, jmp, 0,dp);\n        if (i + (1 << jmp) <= k + 1)\n            ans += atul(i + (1 << jmp), k, jmp + 1, 1,dp);\n\n        dp[i].resize(33, vector<int>(2, -1));\n\n        return dp[i][jmp][ms] = ans;\n    }\npublic:\n    int waysToReachStair(int k) {\n        unordered_map<int, vector<vector<int>>> dp;\n        return atul(1,k,0,1,dp);\n    } \n};",
+    "submit_ts": 1716090243.0
+}

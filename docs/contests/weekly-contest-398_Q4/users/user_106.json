@@ -1,0 +1,5 @@
+{
+    "username": "l_returns",
+    "submission": "#define ll long long \n\nclass Solution {\n    \n    ll nck(int n, int k) {\n        if (k > n) return 0;\n        if (k == 0 || k == n) return 1;\n\n        k = min(k, n - k); \n        ll result = 1;\n\n        for (int i = 0; i < k; ++i) {\n            result *= (n - i);\n            result /= (i + 1);\n        }\n        return result;\n    }\n    \npublic:\n    int waysToReachStair(int k) {\n        ll cnt = 0;\n        ll sum = 0;\n        \n        ll ans = 0;\n        for(ll i=1;sum<=k;i+=i) {\n            sum+=i;\n            sum--;\n            cnt++;\n        }\n        \n        for(ll i=0;i<cnt;i++) {\n            sum = 1;\n            ll n = 1;\n            for(ll j=0;j<i;j++) {\n                sum+=n;\n                n+=n;\n            }\n            if(sum<k)\n                continue;\n            ll diff = sum-k;\n            ll ones = i+1;\n            ans += nck(ones,diff);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1716087472.0
+}

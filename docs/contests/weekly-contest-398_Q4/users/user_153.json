@@ -1,0 +1,5 @@
+{
+    "username": "bahoang3105",
+    "submission": "/**\n * @param {number} k\n * @return {number}\n */\nvar waysToReachStair = function(k) {\n    let res = 0;\n    \n    const mem = Array(32).fill().map(() => ({}));\n    \n    const dfs = (jump, cur) => {\n        if (mem[jump][cur] !== undefined) return mem[jump][cur];\n        mem[jump][cur] = 0;\n        if (cur === k || cur === k + 1) {\n            mem[jump][cur] = 1;\n        }\n        if (cur > k + 1) {\n            return 0;\n        }\n        mem[jump][cur] += dfs(jump+1, cur + Math.pow(2, jump));\n        if (cur > 0) {\n            mem[jump][cur] += dfs(jump+1, cur - 1 + Math.pow(2, jump));\n        }\n        return mem[jump][cur];\n    }\n    return dfs(0, 1);\n};",
+    "submit_ts": 1716087701.0
+}

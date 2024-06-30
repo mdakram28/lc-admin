@@ -1,0 +1,5 @@
+{
+    "username": "agjatin",
+    "submission": "class Solution {\n    unordered_map<int, vector<vector<int>>> dp;\n    \n    int hi(int k,int idx,int jumps,int fl) {\n        if(idx>k+1 || jumps>=32) return 0;\n        \n        if(dp.count(idx) && dp[idx][jumps][fl]!=-1) return dp[idx][jumps][fl];\n\n        int ans=0;\n        if(idx==k) ans=1;\n        \n        if(fl){\n            ans+=hi(k,idx-1,jumps,0);\n        }\n        \n        if (idx+(pow(2,jumps))<= k+1){\n            ans+=hi(k,idx+(pow(2,jumps)), jumps+1,1);\n        }\n        dp[idx].resize(32,vector<int>(2, -1));\n        return dp[idx][jumps][fl] = ans;\n    }\n    public:\n    int waysToReachStair(int k) {\n        return hi(k,1,0,1);\n    } \n};",
+    "submit_ts": 1716089879.0
+}

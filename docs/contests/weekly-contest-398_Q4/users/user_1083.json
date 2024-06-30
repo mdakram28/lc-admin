@@ -1,0 +1,5 @@
+{
+    "username": "PoeticIvy302543",
+    "submission": "class Solution {\n    var target = 0\n    var dp = HashMap<State, Int>()\n    \n    fun waysToReachStair(k: Int): Int {\n        target = k\n        return recursive(1, 0, false)\n    }\n\n    fun recursive(stair: Int, jump: Int, pJump: Boolean): Int {\n        var res = 0\n        if (stair==target) res++\n        if (stair>target+1) {\n            return 0\n        }\n        \n        var s = State(stair, jump, pJump)\n        if (dp.containsKey(s)) return dp[s]!!\n        \n        if (pJump==false) {\n            res += recursive(stair - 1, jump, true)\n        }\n        res += recursive(stair + Math.pow(2.0, jump.toDouble()).toInt(), jump + 1, false)\n        dp[s] = res\n        return dp[s]!!\n    }\n    \n    data class State(var stair: Int, var jump: Int, var pJump: Boolean)\n}",
+    "submit_ts": 1716089899.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "mahavira24",
+    "submission": "class Solution {\nprivate:\n    long long power(long long a, long long b) {\n        long long ans = 1;\n        while (b) {\n            if (b & 1) ans = ans * a;\n            a = a * a;\n            b >>= 1;\n        }\n        return ans;\n    }\n    unordered_map<long long, map<int, map<int, int>>> mp;\n    long long solve(int k, int p, long long num, bool turn) {\n        if (p >= 32 && num > 3 * k) return 0;\n        if (mp.find(num) != mp.end()) {\n            if (mp[num].find(p) != mp[num].end()) {\n                if (mp[num][p].find(turn) != mp[num][p].end()) {\n                    return mp[num][p][turn];\n                }\n            }\n        }\n        int ans = 0;\n        if (turn && num > 0) {\n            ans += solve(k, p, num - 1, false);\n        }\n        long long newNum = num + power(2, p);\n        if (k + 1 >= newNum) {\n            ans += solve(k, p + 1, newNum, true);\n        }\n        return mp[num][p][turn] = ans + (num == k);\n    }\npublic:\n    int waysToReachStair(int k) {\n        return solve(k, 0, 1, true);\n    }\n};",
+    "submit_ts": 1716089954.0
+}

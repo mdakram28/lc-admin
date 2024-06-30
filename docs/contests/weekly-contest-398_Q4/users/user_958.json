@@ -1,0 +1,5 @@
+{
+    "username": "aswinkumarravikumar",
+    "submission": "class Solution {\npublic:\n    int solve(int k, int jump, bool alt, map<pair<int, pair<int,bool>>, int> &dp){\n        if(k<0){\n            return 0;\n        }\n        if(dp.find({k,{jump,alt}}) != dp.end()){\n            return dp[{k,{jump,alt}}];\n        }\n        if(k==1 && jump > 1){\n            return 1;\n        }\n        int numWays = k == 1;\n        if(alt){\n           numWays += solve(k+1, jump, false, dp); \n        }\n        numWays += solve(k-(1<<jump), jump+1, true, dp);\n        return dp[{k, {jump, alt}}] = numWays;\n    }\n    int waysToReachStair(int k) {\n        map<pair<int, pair<int,bool>>, int> dp;\n        return solve(k, 0, true, dp);\n    }\n};",
+    "submit_ts": 1716089951.0
+}

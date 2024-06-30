@@ -1,0 +1,5 @@
+{
+    "username": "baby810321",
+    "submission": "class Solution {\npublic:\n    vector<unordered_map<int, unordered_map<int, int>>> dp;\n    int waysToReachStair(int k) {\n        dp.resize(2);\n        \n        return dfs(k, 1, 1, true);\n    }\n    \n    int dfs(int k, int cur, int up, bool down) {\n        if(!down && cur > k)\n            return 0;\n        \n        auto iter = dp[down][cur].find(up);\n        if(iter != dp[down][cur].end()) {\n            return iter->second;\n        }\n        \n        int res = 0;\n        if(down) {\n            res = dfs(k, cur-1, up, false);\n        }\n        \n        if(cur <= k) {\n            res += dfs(k, cur+up, up*2, true);\n        }\n        \n        if(k == cur) {\n            ++res;\n        }\n        \n        dp[down][cur][up] = res;\n        \n        return res;\n    }\n};",
+    "submit_ts": 1716089188.0
+}

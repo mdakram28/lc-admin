@@ -1,0 +1,5 @@
+{
+    "username": "mkliac",
+    "submission": "class Solution {\npublic:\n    unordered_map<string, int> m;\n    int waysToReachStair(int k, bool usedMethod1 = false, int curLevel = 1, int jump = 0) {\n        // go 1 level down if (prev != same oper) or i + 2^jump if (the sum is not k+2)\n        // res = method(1) + method(2) + k == cur ? 1 : 0;\n        string key = to_string(curLevel) + \" \" + to_string(jump) + (usedMethod1 ? \"1\" : \"0\");\n        if (m.find(key) != m.end())\n            return m[key];\n        int res = k == curLevel ? 1 : 0;\n        if (!usedMethod1) {\n            res += waysToReachStair(k, true, curLevel-1, jump);\n        }\n        int next = curLevel + int(pow(2, jump));\n        if (next <= k+1) {\n            res += waysToReachStair(k, false, next, jump + 1);\n        }\n        // cout << curLevel << \" \" << jump << endl;\n        m[key] = res;\n        return res;\n    }\n};",
+    "submit_ts": 1716088647.0
+}

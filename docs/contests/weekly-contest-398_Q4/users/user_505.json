@@ -1,0 +1,5 @@
+{
+    "username": "wwwap",
+    "submission": "/**\n * @param {number} k\n * @return {number}\n */\nvar waysToReachStair = function (k) {\n  const memo = new Map()\n\n  return dfs(1, 0, true)\n\n  function dfs(cur, jump, minus) {\n    const key = `${cur}-${jump}-${minus}`\n    if (memo.has(key)) return memo.get(key)\n\n    let ret = 0\n    if (cur - 2 > k) {\n      memo.set(key, ret)\n      return ret\n    }\n    if (cur === k) {\n      ret += 1\n    }\n    if (cur > 0 && minus) {\n      ret += dfs(cur - 1, jump, false)\n    }\n    ret += dfs(cur + 2 ** jump, jump + 1, true)\n\n    memo.set(key, ret)\n    return ret\n  }\n}\n",
+    "submit_ts": 1716089060.0
+}

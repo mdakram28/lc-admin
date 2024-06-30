@@ -1,0 +1,5 @@
+{
+    "username": "counter98",
+    "submission": "class Solution {\npublic:\n    int dfs(map<tuple<int, int, int>, int>& ma, int jump, int type, long long idx, int k) {\n        if (idx >= k+2) return 0;\n        if (ma.find({idx, type, jump}) != ma.end()) return ma[{idx, type, jump}];\n        int tmp = 0;\n        if (type == 1) {\n            if (idx == k) tmp += 1;\n            if (idx > 0) tmp += dfs(ma, jump, -type, idx-1, k);\n            tmp += dfs(ma, jump + 1, type, idx + ((long long)1<<jump), k);\n        }\n        else {\n            if (idx == k) tmp += 1;\n            tmp += dfs(ma, jump + 1, -type, idx + ((long long)1<<jump), k);\n        }\n        return ma[{idx, type, jump}] = tmp;\n    } \n    int waysToReachStair(int k) {\n        map<tuple<int, int, int>, int> ma;\n        dfs(ma, 0, 1, 1, k);\n        return ma[{1, 1, 0}];\n    }\n};",
+    "submit_ts": 1716088828.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "pennywise6003",
+    "submission": "class Solution {\npublic:\n    \n    int ans;\n    long long f(vector<vector<vector<long long>>>&dp, int jump, int time, int flag, long long num=1){\n        // cout<<num<<endl;\n        if (jump >= 30 || time >= 60 || num>=2*ans+2) return 0;\n        if (dp[jump][time][flag]!=-1) return dp[jump][time][flag];\n        long long temp=0;\n        if (num == ans) temp=1;\n        if (flag || num==0) return dp[jump][time][flag] = temp+f(dp,jump+1,time+1,0,num+(1<<jump));\n        return dp[jump][time][flag] = temp + f(dp,jump,time+1,1,num-1) + f(dp,jump+1,time+1,0,num+(1<<jump));\n        \n    }\n    int waysToReachStair(int k) {\n        vector<vector<vector<long long>>>dp(30,vector<vector<long long>>(60,vector<long long>(2,-1)));\n        ans=k;\n        return f(dp,0,0,0);\n    }\n};",
+    "submit_ts": 1716089166.0
+}

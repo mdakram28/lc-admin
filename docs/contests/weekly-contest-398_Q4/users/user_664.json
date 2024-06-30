@@ -1,0 +1,5 @@
+{
+    "username": "WTX1996",
+    "submission": "class Solution {\npublic:\n    using LL=long long;\n    map<int,map<int,int>> memo[35];\n    int res=0;\n    int waysToReachStair(int k) {\n        return dfs(k, 0, 1LL, 2);\n    }\n    \n    int dfs(int k, int jump, LL cur, int ways){\n        if(cur<0){return 0;}\n        if(cur>k+1){return 0;}\n        \n        if(memo[jump].find(cur)!=memo[jump].end()&&\n           memo[jump][cur].find(ways)!=memo[jump][cur].end()){\n            return memo[jump][cur][ways];\n        }\n        \n        int res=0;\n        if(cur==k){res++;}  \n        if(ways==2){\n            res+=dfs(k, jump, cur-1, 1);\n        }\n        res+=dfs(k, jump+1, cur+pow(2, jump), 2);\n        memo[jump][cur][ways] = res;\n        return res;\n    }\n};",
+    "submit_ts": 1716089226.0
+}

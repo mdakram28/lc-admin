@@ -1,0 +1,5 @@
+{
+    "username": "vragired",
+    "submission": "class Solution {\npublic:\n\n    int numWays(int k, int cur, int jump, bool canMoveDown, map<tuple<int, int, bool>, int>& memo) {\n        int ways = 0;   \n        if (cur < 0 or cur > k + 1) return 0;    \n        if (cur == k) {\n            ways++;\n        }\n\n        tuple<int, int, bool> key = make_tuple(cur, jump, canMoveDown);\n\n        \n        if (memo.find(key) != memo.end()) {\n            return memo[key];\n        }\n\n        \n        ways += numWays(k, cur + (1 << jump), jump + 1, true, memo);\n        if (canMoveDown and cur > 0) {\n            ways += numWays(k, cur - 1, jump, false, memo);\n        }\n\n        memo[key] = ways;\n        return ways;\n    }\n\n    int waysToReachStair(int k) {\n        if (k == 0) return 2;\n        map<tuple<int, int, bool>, int> memo;\n        return numWays(k, 1, 0, true, memo);\n    }\n};",
+    "submit_ts": 1716089499.0
+}

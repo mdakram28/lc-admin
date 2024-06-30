@@ -1,0 +1,5 @@
+{
+    "username": "3R1C_",
+    "submission": "class Solution {\npublic:\n    int k;\n    map<tuple<int, int, int>, int> dp;\n    int waysToReachStair(int k) {\n        this->k = k;\n        return dfs(1, 0, false);\n    }\n\n    int dfs(int idx, int jump, bool jumpForced) {\n        if (jump > 30) return 0;\n        if (idx > k + 1) return 0;\n        if (dp.find({idx, jump, jumpForced}) != dp.end()) return dp[{idx, jump, jumpForced}];\n        int res = 0;\n        if (idx == k) res++;\n        // choose to go do 1 step\n        if (!jumpForced) res += dfs(idx - 1, jump, true);\n        res += dfs(idx + pow(2, jump), jump + 1, false);\n        return dp[{idx, jump, jumpForced}] = res;\n    }\n};",
+    "submit_ts": 1716087368.0
+}

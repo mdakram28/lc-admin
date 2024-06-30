@@ -1,0 +1,5 @@
+{
+    "username": "shakil-",
+    "submission": "class Solution {\npublic:\n\n    map<tuple<long long, int, bool>, long long> dp;\n    long long dfs(long long stair, int jump, bool lwd, long long k) {\n        if (stair < 0) return 0;\n\n        auto key = make_tuple(stair, jump, lwd);\n        if (dp.find(key) != dp.end()) return dp[key];\n        long long ways = (stair == k ? 1 : 0);\n        if (stair > 0 && !lwd) ways += dfs(stair - 1, jump, true, k);\n        if (jump < 31) ways += dfs(stair + (1LL << jump), jump + 1, false, k);\n        return dp[key] = ways;\n    }\n    long long numWaysToReachK(long long k) {\n        if (k == 0) return 2;\n        dp.clear();\n        return dfs(1, 0, false, k);\n    }\n    int waysToReachStair(int k) {\n        return numWaysToReachK(k);\n    }\n};",
+    "submit_ts": 1716088967.0
+}

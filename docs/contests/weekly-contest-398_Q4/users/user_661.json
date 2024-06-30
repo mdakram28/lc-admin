@@ -1,0 +1,5 @@
+{
+    "username": "ht468",
+    "submission": "class Solution {\npublic:\n    long long C(long long n, long long k) {\n        if (n < k || n < 0 || k < 0) return 0;\n        if (k == 0) return 1;\n        if (k > n/2) k = n-k; // \u8b93 k \u5c0f\u65bc n/2\n        long long ret = 1;\n        for (long long i=1; i<=k; i++) {\n            ret *= n-(i-1);\n            ret /= i;\n        }\n        return ret;\n    }\n    \n    int waysToReachStair(int k) {\n        if (k == 0) return 2;\n        if (k == 1) return 4;\n        \n        int ret = 0;\n        int cur = 1;\n        int j = 0;\n        while (true) {\n            // printf(\"cur:%d j:%d | %d\\n\", cur, j, cur + (1<<j) - (j+2));\n            if (cur + (1<<j) - (j+2) > k) break;\n            if (cur + (1<<j) - (j+2) <= k && cur + (1<<j) >= k) {\n                // printf(\"+= C(%d, %d)\\n\", j+1, (cur+(1<<j))-k);\n                ret += C(j+2, (cur+(1<<j))-k);\n            }\n            cur += 1<<j;\n            j++;\n        }\n        return ret;\n    }\n};\n\n// 1\n//     1-1\n//     1+2-3",
+    "submit_ts": 1716089516.0
+}

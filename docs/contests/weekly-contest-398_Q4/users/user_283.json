@@ -1,0 +1,5 @@
+{
+    "username": "ocavue",
+    "submission": "from functools import cache\n\n\n@cache\ndef calc(\n    k: int,\n    from_back: bool,\n    jump: int,\n) -> int:\n    if k == 1 and not from_back and jump == 0:\n        return 1\n\n    if from_back:\n        return calc(k + 1, False, jump)\n\n    if jump > 0:\n        i = k - (2 ** (jump - 1))\n        if i >= 0:\n            return calc(i, True, jump - 1) + calc(i, False, jump - 1)\n\n    return 0\n\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        return sum(calc(k, from_back, jump) for jump in range(32) for from_back in [True, False])\n ",
+    "submit_ts": 1716088260.0
+}

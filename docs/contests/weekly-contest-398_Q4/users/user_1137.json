@@ -1,0 +1,5 @@
+{
+    "username": "soundboard",
+    "submission": "class Solution {\npublic:\n    \n    using ll = long long;\n    \n    unordered_map<int,vector<vector<int>>>dp;\n    \n    ll rec(ll i, ll jump, ll flg, ll k)\n    {\n        if(i>k+2 || jump>32) return 0ll;\n        \n        if(dp.find(i)!=dp.end() && dp[i][jump][flg]!=-1) return dp[i][jump][flg];\n        \n        ll ans = 0;\n        \n        \n        ans+=rec((i+(1ll<<jump)),jump+1, 0, k);\n        \n        if(flg==0)\n        {\n            ans+=rec((i-1),jump,1,k);\n        }\n        \n        dp[i].resize(50, vector<int>(3,-1)); \n        if(i==k) ans++;\n        return dp[i][jump][flg]=ans;\n        \n    }\n    \n    int waysToReachStair(int k) {\n       return rec(1,0,0,k);\n    }\n};",
+    "submit_ts": 1716090045.0
+}

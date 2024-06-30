@@ -1,0 +1,5 @@
+{
+    "username": "hungt1",
+    "submission": "class Solution {\npublic:\n\n    int waysToReachStair(int k) {\n        vector<vector<map<int, int>>> dp(31, vector<map<int, int>>(2, map<int, int>()));\n\n        function<int(int, int, bool)> solve = [&](int K, int jump, bool jumpBack) {\n            int res = (K == k);\n            \n            if (jump == 31 || K < 0) return res;\n            \n            if (dp[jump][jumpBack].find(K) != dp[jump][jumpBack].end()) {\n                return dp[jump][jumpBack][K];\n            }\n            \n            if (jump < 30)\n                res += solve(K + (1 << jump), jump + 1, false);\n            \n            if (!jumpBack) {\n                res += solve(K - 1, jump, true);\n            }\n        \n            return dp[jump][jumpBack][K] = res;\n        };\n\n        return solve(1, 0, false);\n    }\n};\n",
+    "submit_ts": 1716088189.0
+}

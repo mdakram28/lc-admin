@@ -1,0 +1,5 @@
+{
+    "username": "yahoo010206",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        def lcf(a, b):\n            if b==0:\n                return a\n            return lcf(b, a%b)\n        def solve(a, b):\n            values = list(range(a, a-b, -1))\n            for i in range(2, b+1):\n                while i!=1:\n                    for j in range(b):\n                        t = lcf(values[j], i)\n                        values[j]//=t\n                        i//=t\n            total = 1\n            for value in values:\n                total*=value\n            return total\n        res = 0\n        stair = 1\n        for i in range(1, 100):\n            if stair-i>k:\n                break\n            t = stair-k\n            if t>=0:\n                res += solve(i, t)\n            # print(stair, i, stair-k)\n            stair+=(1<<(i-1))\n\n\n        return res\n        ",
+    "submit_ts": 1716089354.0
+}

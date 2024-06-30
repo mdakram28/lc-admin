@@ -1,0 +1,5 @@
+{
+    "username": "xyz_xyz_xyz_xyz",
+    "submission": "class Solution {\npublic:\n    unordered_map<long long,int> dp;\n    int dfs(long long pos, int jump, int k, bool back){\n        if(pos>k+1e9)return 0;\n        if(((long long)1<< jump)>k+1e9)return 0;\n        long long state = pos + ((long long)jump<<40) + ((long long)back<<35);\n        if(dp.count(state))return dp[state];\n        int res = 0;\n        if(pos==k)res++;\n        if(pos!=0 && !back)res += dfs(pos-1,jump,k,true);\n        res += dfs(pos+((long long)1<<jump), jump+1,k,false);\n        // cout << pos << \" \" << jump << \" \" << back << \" \" << res << endl;\n        return dp[state] = res;\n    }\n    int waysToReachStair(int k) {\n        return dfs(1,0,k,false);\n    }\n};",
+    "submit_ts": 1716087668.0
+}

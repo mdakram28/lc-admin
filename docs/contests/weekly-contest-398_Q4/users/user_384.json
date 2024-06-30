@@ -1,0 +1,5 @@
+{
+    "username": "lu_1005_lu",
+    "submission": "class Solution {\npublic:\n    map<int, map<int, map<int, int> > > dp;\n    int waysToReachStair(int k) {\n        // start from 1\n        /* \n            At i\n            1. go down 1\n            2. +2^jump, jump++\n        */\n        return DFS(1, 0, 0, k);\n    }\n    int DFS(int cur, int jump, int prev, int& k){\n        if(dp[cur][jump].count(prev)) return dp[cur][jump][prev];\n        int res = 0;\n        if(cur > k+1) return 0;\n        if(cur == k) res++;\n        if(prev != 1 && cur > 0) res += DFS(cur-1, jump, 1, k);\n        res += DFS(cur+pow(2, jump), jump+1, 2, k);\n        dp[cur][jump][prev] = res;\n        return res;\n    }\n};",
+    "submit_ts": 1716088335.0
+}

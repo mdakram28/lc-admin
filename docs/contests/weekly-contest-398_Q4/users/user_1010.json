@@ -1,0 +1,5 @@
+{
+    "username": "shantanubhojak",
+    "submission": "class Solution {\npublic:\n    map<pair<int,pair<int,bool>>,int>mp;\n    int solve(int jumps, int stair , int k, bool prevUse)\n    {\n         if(jumps < 0)\n         {\n              return 0;\n         }\n         if(jumps >= k+2)\n         {\n              return 0;\n         }\n         if(mp.find({jumps,{stair,prevUse}}) !=  mp.end()) return mp[{jumps,{stair,prevUse}}];\n         int back =0,forward = 0;\n         // cout<<stair<<endl;\n         if(!prevUse)\n         {\n              back = solve(jumps,stair-1,k,true);\n         }\n         int val = pow(2,jumps);\n         if(stair  + val < k+2)\n         {\n              forward = solve(jumps+1,stair+val,k,false);\n         }\n         int ans = back+forward+(stair==k);\n        // cout<<stair<<\" \"<<jumps<<\" \"<<back<<\" \"<<forward<<\" \"<<ans<<endl;\n         return mp[{jumps,{stair,prevUse}}] = ans;\n    }\n    int waysToReachStair(int k) {\n        return solve(0,1,k,false);\n    }\n};",
+    "submit_ts": 1716089456.0
+}

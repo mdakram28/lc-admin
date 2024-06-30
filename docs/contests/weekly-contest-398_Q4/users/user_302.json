@@ -1,0 +1,5 @@
+{
+    "username": "puktt",
+    "submission": "class Solution {\npublic:\n    long long MTP = 1e9 + 10;\n    //         MTP * stair + jump -> ans\n    unordered_map <long long, int> um;\n    \n    // jump is 2**whatever\n    inline long long C(int &stair, int &jump) {\n        return MTP * stair + jump;\n    }\n    \n    int calc(int stair, int jump, int& k) {\n        if (jump > MTP) {\n            return stair == k;\n        }\n        long long c = C(stair, jump);\n        if (um.find(c) != um.end()) {\n            return um[c];\n        }\n        return um[c] = calc(stair + jump, jump + jump, k) + calc(stair + jump - 1, jump + jump, k) + (stair == k);                \n    }\n    \n    int waysToReachStair(int k) {\n        return calc(1, 1, k) + calc(0, 1, k);\n    }\n};",
+    "submit_ts": 1716088319.0
+}

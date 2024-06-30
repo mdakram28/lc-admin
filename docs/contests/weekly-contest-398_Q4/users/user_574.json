@@ -1,0 +1,5 @@
+{
+    "username": "amol_jindal",
+    "submission": "class Solution {\nprivate:\n    map<pair<int, pair<int, bool>>, int> map{};\n    int dfs(int k, int current, int jump, bool canComeDown) {\n        if((current > k) && !canComeDown)\n            return 0;\n        \n        if((current > k + 1) && canComeDown)\n            return 0;\n        \n        if(map.count({current, {jump, canComeDown}}))\n            return map[{current, {jump, canComeDown}}];\n        \n        int result{};\n        \n        if(current == k)\n            result++;\n        \n        if(canComeDown)\n            result += dfs(k, current - 1, jump, false);\n        \n        result += dfs(k, current + pow(2, jump), jump + 1, true);\n        \n        return map[{current, {jump, canComeDown}}] = result;\n    }\n    \npublic:\n    int waysToReachStair(int k) {\n        return dfs(k, 1, 0, true);\n    }\n};",
+    "submit_ts": 1716088672.0
+}

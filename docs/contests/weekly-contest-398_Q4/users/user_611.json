@@ -1,0 +1,5 @@
+{
+    "username": "2210080030",
+    "submission": "class Solution(object):\n    def __init__(self):\n        self.dp = {}\n\n    def solve(self, target, current, steps, can_jump):\n        if current > target + 5:\n            return 0\n\n        if steps > 31:\n            return 0\n\n        if (current, steps, can_jump) in self.dp:\n            return self.dp[(current, steps, can_jump)]\n\n        ans = (current == target)\n        if can_jump:\n            ans += self.solve(target, current - 1, steps, False)\n        if current + (1 << steps) <= target + 1:\n            ans += self.solve(target, current + (1 << steps), steps + 1, True)\n\n        self.dp[(current, steps, can_jump)] = ans\n        return ans\n\n    def waysToReachStair(self, target):\n        \"\"\"\n        :type target: int\n        :rtype: int\n        \"\"\"\n        return self.solve(target, 1, 0, True)\n",
+    "submit_ts": 1716089378.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "Phagun",
+    "submission": "\nclass Solution {\n    Map<Integer, Map<Integer, Map<Boolean, Integer>>> dp;\n\n    int solve(int k, int i, int jump, boolean can) {\n        if (i > k + 5)\n            return 0;\n        if (jump > 31)\n            return 0;\n        if (dp.containsKey(i) && dp.get(i).containsKey(jump) && dp.get(i).get(jump).containsKey(can))\n            return dp.get(i).get(jump).get(can);\n        int ans = i == k ? 1 : 0;\n        if (can)\n            ans += solve(k, i - 1, jump, false);\n        if (i + (1 << jump) <= k + 1)\n            ans += solve(k, i + (1 << jump), jump + 1, true);\n\n        dp.computeIfAbsent(i, x -> new HashMap<>())\n          .computeIfAbsent(jump, x -> new HashMap<>())\n          .put(can, ans);\n\n        return dp.get(i).get(jump).get(can);\n    }\n\n    public int waysToReachStair(int k) {\n        dp = new HashMap<>();\n        return solve(k, 1, 0, true);\n    }\n\n    public static void main(String[] args) {\n        Solution solution = new Solution();\n        System.out.println(solution.waysToReachStair(10));  // Example usage\n    }\n}\n",
+    "submit_ts": 1716089875.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "groawr",
+    "submission": "class Solution {\npublic:\n    vector<long long> p;\n    map<pair<int, pair<int, bool>>, int> dp;\n    \n    int solve(int x, int pwr, bool down, int k) {\n        if (x > 1000000001 || x < 0) {\n            return 0;\n        }\n        auto it = dp.find({x, {pwr, down}});\n        if (it != dp.end()) {\n            return it->second;\n        }\n        int ans = 0;\n        if (x == k) ans += 1;\n        if (!down) ans += solve(x-1, pwr, true, k);\n        ans += solve(x + p[pwr], pwr+1, false, k);\n        dp[{x, {pwr, down}}] = ans;\n        return ans;\n    }\n    \n    int waysToReachStair(int k) {\n        p.push_back(1);\n        for (int i = 1; i < 35; i++) {\n            p.push_back(p[i-1] * 2);\n        }\n        return solve(1, 0, 0, k);\n    }\n};",
+    "submit_ts": 1716088947.0
+}

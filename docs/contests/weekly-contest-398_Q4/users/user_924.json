@@ -1,0 +1,5 @@
+{
+    "username": "Ridh123",
+    "submission": "class Solution:\n    def __init__(self):\n        self.food_items = {}\n\n    def solve(self, num_items, current_item, bite_size, can_eat):\n        if current_item > num_items + 5:\n            return 0\n\n        if bite_size > 31:\n            return 0\n\n        if current_item in self.food_items and self.food_items[current_item][bite_size][can_eat] != -1:\n            return self.food_items[current_item][bite_size][can_eat]\n\n        ans = 1 if current_item == num_items else 0\n        if can_eat:\n            ans += self.solve(num_items, current_item - 1, bite_size, 0)\n        if current_item + (1 << bite_size) <= num_items + 1:\n            ans += self.solve(num_items, current_item + (1 << bite_size), bite_size + 1, 1)\n\n        if current_item not in self.food_items:\n            self.food_items[current_item] = [[-1 for _ in range(2)] for _ in range(32)]\n        self.food_items[current_item][bite_size][can_eat] = ans\n\n        return ans\n\n    def waysToReachStair(self, num_items: int) -> int:\n        return self.solve(num_items, 1, 0, 1)\n",
+    "submit_ts": 1716089583.0
+}

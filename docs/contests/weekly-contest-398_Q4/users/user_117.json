@@ -1,0 +1,5 @@
+{
+    "username": "kumarapoorv617",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n       int ans = 0;\n        map<vector<int>, int> memo;\n       auto dfs = [&](auto &&dfs, int step, int jump, int used) -> int {\n           if(step > k + 1) {\n               return 0;\n           }\n           if(memo.find(vector<int>{step, jump, used}) != memo.end()) {\n               return memo[vector<int>{step, jump, used}];\n           }\n           int here = (step == k);\n           if(used) {\n               here += dfs(dfs, step + (1 << jump), jump + 1, 0);\n           }\n           else {\n               here += dfs(dfs, step + (1 << jump), jump + 1, 0);\n               here += dfs(dfs, step - 1, jump, 1);\n           }\n           cerr << here << '\\n';\n           return memo[vector<int>{step, jump, used}] = here;\n       };\n        ans = dfs(dfs, 1, 0, 0);\n        return ans;\n    }\n};",
+    "submit_ts": 1716087211.0
+}

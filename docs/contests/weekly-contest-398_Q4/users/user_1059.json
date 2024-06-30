@@ -1,0 +1,5 @@
+{
+    "username": "Cocamo1337",
+    "submission": "public class Solution {\n    Dictionary<(long, int, bool), int> dpRes = new();\n    int K;\n    public int WaysToReachStair(int k) {\n        K = k;\n        return numWays(1, 0, true);\n    }\n    \n    private int numWays(long stair, int jump, bool canGoBack){\n        \n        (long, int, bool) key = (stair, jump, canGoBack);\n        if (dpRes.ContainsKey(key)) return dpRes[key];\n        \n        int totalWays = 0;\n        if (stair == K) totalWays++;\n        \n        if (Math.Pow(2, jump) + stair <= K + 1){\n            totalWays += numWays(stair + (long)Math.Pow(2, jump), jump + 1, true);\n        }\n        if (stair != 0 && canGoBack){\n            totalWays += numWays(stair - 1, jump, false);\n        }\n        \n        return dpRes[key] = totalWays;\n    }\n}",
+    "submit_ts": 1716089260.0
+}

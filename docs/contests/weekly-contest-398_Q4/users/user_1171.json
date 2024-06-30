@@ -1,0 +1,5 @@
+{
+    "username": "BlackMamba_12",
+    "submission": "class Solution {\npublic:\n    \n   \n  unordered_map<string, int> memo;\n\nint calculateWays(int currPosition, int jumpLevel, bool wasLastDecrement, int k) {\n    if (currPosition > k + 1 || (wasLastDecrement && currPosition >= k + 1)) {\n        return 0;\n    }\n    \n    string key = to_string(currPosition) + \"_\" + to_string(jumpLevel) + \"_\" + to_string(wasLastDecrement);\n    if (memo.find(key) != memo.end()) {\n        return memo[key];\n    }\n\n    int ways = 0;\n    if (currPosition == k) {\n        ways = 1;\n    }\n    \n    int backwardSteps = 0;\n    if (!wasLastDecrement) {\n        backwardSteps = calculateWays(currPosition - 1, jumpLevel, true, k);\n    }\n    \n    int forwardSteps = calculateWays(currPosition + (1 << jumpLevel), jumpLevel + 1, false, k);\n\n    memo[key] = ways + backwardSteps + forwardSteps;\n    return memo[key];\n}\n    \n    int waysToReachStair(int k) {\n        return calculateWays(1, 0, false, k);\n    }\n};",
+    "submit_ts": 1716089826.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "liuxiaolinfk",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        int ans = 0;\n        // no jump op\n        if (k == 1 or k == 0) ans++;\n        // jump's final values\n        for (int jump = 1; jump < 30; jump++){\n            int steps = k - (1 << jump);\n            if (steps > 0) continue;\n            if (steps == 0){\n                ans++;\n                continue;\n            }\n            steps = -steps;\n            if (jump + 1 < steps) continue;\n            else ans += choose(jump + 1, steps);\n        }\n\n        return ans;\n    }\n\n    int choose(int n, int k){\n        if (k > n) return 0;\n        if (2 * k > n) k = n-k;\n        if (k == 0) return 1;\n\n        unsigned long long result = n;\n        for( int i = 2; i <= k; i++) {\n            result *= (n-i+1);\n            result /= i;\n        }\n        return result;\n    }\n};",
+    "submit_ts": 1716088826.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "inversionpeter",
+    "submission": "long long combinations[32][32] = { { 1 }, { 1, 1 } };\n\nstatic const auto Initialize = []{\n    ios::sync_with_stdio(false); cin.tie(nullptr);\n    for (int i = 2; i < 32; ++i) {\n        combinations[i][0] = combinations[i][i] = 1;\n        for (int j = 1; j < i; ++j) {\n            combinations[i][j] = combinations[i - 1][j - 1] + combinations[i - 1][j];\n        }\n    }\n    return nullptr;\n}();\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        if (!k) {\n            return 2;\n        }\n        int counts = (k == 1);\n        for (int i = 0; i < 30; ++i) {\n            for (int j = 0; j <= i + 2; ++j) {\n                if (1 + (1 << (i + 1)) - 1 - j == k) {\n                    //cout << i + 2 << ' ' << j << '\\n';\n                    //cout << combinations[i + 2][j] << '\\n';\n                    counts += combinations[i + 2][j];\n                }\n            }\n        }\n        return counts;\n    }\n};",
+    "submit_ts": 1716088125.0
+}

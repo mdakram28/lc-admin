@@ -1,0 +1,5 @@
+{
+    "username": "ForgottenSemicolon",
+    "submission": "class Solution {\n    \n    Integer [][] memo;\n    Map<Long, Integer> map = new HashMap<>();\n    int p = 0;\n    \n    public int waysToReachStair(int k) {\n        memo = new Integer[1000][32];\n        return dfs(k, 1, 0)+dfs(k, 0, 0);\n    }\n    \n    public int dfs(int k, long curr, int jump){\n        if(curr>k)  return 0;\n        int compress = p;\n        if(map.containsKey(curr))   compress = map.get(curr);\n        else{\n            map.put(curr, p++);\n        }\n        if(memo[compress][jump]!=null)  return memo[compress][jump];\n        int ans = curr==k ? 1 : 0;\n        ans += dfs(k, curr+(1L<<jump), jump+1) + dfs(k, curr+(1L<<jump)-1, jump+1);\n        return memo[compress][jump] = ans;\n    }\n}",
+    "submit_ts": 1716089454.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "lam022",
+    "submission": "class Solution {\n    Integer[][] mCn;\n\n    public int nCr(int n, int r) {\n        if (r > n)\n            return 0;\n        if (r == 0 || r == n)\n            return 1;\n        // System.out.println(n+\" \"+r);\n        if (mCn[n][r] != null) return mCn[n][r];\n\n        mCn[n][r] = nCr(n - 1, r - 1) + nCr(n - 1, r);\n        return mCn[n][r];\n    }\n    \n    public int waysToReachStair(int k) {\n        if (k == 0) return 2;\n        if (k == 1) return 4;\n        mCn = new Integer[32][32];\n        int[] powerOf2 = new int[31];\n        powerOf2[0] = 1;\n        for (int i=1; i < powerOf2.length; i++) {\n            powerOf2[i] = powerOf2[i-1]*2;\n        }\n        int ans = 0;\n        int diff;\n        for (int i=0; i < powerOf2.length-1; i++) {\n            diff = powerOf2[i+1] - k;\n            if (diff >= 0 && diff <= i+2) {\n                ans += nCr(i+2, diff);\n            }\n\n        }\n        return ans;\n    }\n}",
+    "submit_ts": 1716089174.0
+}

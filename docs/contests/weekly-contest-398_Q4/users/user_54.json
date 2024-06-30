@@ -1,0 +1,5 @@
+{
+    "username": "brianlaw100",
+    "submission": "#include <unordered_map>\n#include <utility>\n\nclass Solution {\n\npublic:\n\n    auto waysToReachStair(int k) {\n\n        if (k == 0) {\n            return 2ll;\n        }\n\n        auto dp = std::unordered_map<long long, long long>();\n        auto tot_ways = 0ll;\n\n        dp[0] = 1;\n        dp[1] = 1;\n\n        tot_ways += dp[k];\n\n        for (auto i = 0; 1ll << i <= k * 2; ++i) {\n            auto new_dp = std::unordered_map<long long, long long>();\n            for (const auto& [step, ways] : dp) {\n                new_dp[step + (1 << i)] += ways;\n                new_dp[step + (1 << i) - 1] += ways;\n            }\n            dp = std::move(new_dp);\n            tot_ways += dp[k];\n        }\n\n        return tot_ways;\n\n    }\n\n};\n",
+    "submit_ts": 1716087079.0
+}

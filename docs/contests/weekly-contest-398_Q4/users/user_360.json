@@ -1,0 +1,5 @@
+{
+    "username": "chiranjeevsehgal",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        memo = {}\n        return int(self.dfs(1, 0, False, k, memo))\n\n    def dfs(self, current_step, jump_size, prev_descend, target_stair, memo):\n        if current_step > target_stair + 1:\n            return 0\n\n        key = (current_step, jump_size, prev_descend)\n\n        if key in memo:\n            return memo[key]\n\n        count = 0\n\n        if current_step == target_stair:\n            count += 1\n\n        if current_step > 0 and not prev_descend:\n            count += self.dfs(current_step - 1, jump_size, True, target_stair, memo)\n\n        count += self.dfs(current_step + (1 << jump_size), jump_size + 1, False, target_stair, memo)\n\n        memo[key] = count\n\n        return count",
+    "submit_ts": 1716088529.0
+}

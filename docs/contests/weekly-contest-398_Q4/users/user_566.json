@@ -1,0 +1,5 @@
+{
+    "username": "r32626",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        dp = defaultdict(int)\n        dp[(1, 0, True)] = 1\n        ret = 0\n        min_stair = 1\n        print(dp)\n        while min_stair <= k + 1:\n            tmp_dp = defaultdict(int)\n            min_stair = float(\"inf\")\n            for (cur_s, jump, flag), value in dp.items():\n                if cur_s == k:\n                    ret += value\n                if cur_s != 0 and flag:\n                    min_stair = min(cur_s-1, min_stair)\n                    tmp_dp[(cur_s-1, jump, False)] += value\n                next_jump = cur_s+pow(2, jump)\n                tmp_dp[(next_jump, jump+1, True)] += value\n                min_stair = min(next_jump, min_stair)\n            dp = tmp_dp\n            # print(dp)\n        for (cur_s, jump, _), value in dp.items():\n            if cur_s == k:\n                ret += value\n        return ret\n",
+    "submit_ts": 1716088349.0
+}

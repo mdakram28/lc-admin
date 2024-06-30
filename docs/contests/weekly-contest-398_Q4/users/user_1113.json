@@ -1,0 +1,5 @@
+{
+    "username": "phoenix6017",
+    "submission": "#define ll long long\nclass Solution {\n    map<ll,vector<vector<ll>>>dp;\n    ll help(int target,int start,int jump,int take){\n        if(start>target+1||jump>30)return 0;\n        if(dp.find(start)!=dp.end()&&dp[start][jump][take]!=-1){\n            return dp[start][jump][take];\n        }\n        dp[start].resize(32,vector<ll>(2,-1));\n        ll res=0;\n        if(start==target)res++;\n        if(start+(1<<jump)<=target+1)res+=help(target,start+(1<<jump),jump+1,1);\n        if(take){\n            res+=help(target,start-1,jump,0);\n        }\n        return dp[start][jump][take]=res;\n    }\n    \npublic:\n    int waysToReachStair(int k) {\n        return help(k,1,0,1);\n    } \n};\n",
+    "submit_ts": 1716090570.0
+}

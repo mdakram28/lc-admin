@@ -1,0 +1,5 @@
+{
+    "username": "RoadToIndiaNumber1",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        \n        map<tuple<long long, int, int>, int>dp;\n        \n        function<int(long long, int, int)>f = [&](long long currentStep, int lastIsBack, int stepSize) {\n            \n            if(currentStep > k + 1) return 0;\n            if(dp.count({currentStep, lastIsBack, stepSize})) return dp[{currentStep, lastIsBack, stepSize}];\n            \n            int answer = f(currentStep + (1ll << stepSize), 0, stepSize + 1) + (currentStep == k);\n            \n            if(!lastIsBack && currentStep != 0) answer += f(currentStep - 1, 1, stepSize);\n            \n            return dp[{currentStep, lastIsBack, stepSize}] = answer;\n        };\n        \n        return f(1, 0, 0);\n    }\n};",
+    "submit_ts": 1716087021.0
+}

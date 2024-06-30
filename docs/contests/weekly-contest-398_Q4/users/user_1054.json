@@ -1,0 +1,5 @@
+{
+    "username": "real_shubh",
+    "submission": "class Solution {\npublic:\n    \n    long long power(long long base, long long exp) {\n        long long result = 1;\n        while (exp > 0) {\n            if (exp % 2 == 1) {\n                result *= base;\n            }\n            base *= base;\n            exp /= 2;     \n        }\n        return result;\n    }\n    \n    int solve(int k ,int value,  int ind, int status, map<pair<pair<int,int>,int>,int>& dp){\n        if(dp[{{value,ind},status}]!=0)\n            return dp[{{value,ind},status}]-1;\n        if(value>(k+5) || ind>30)\n        return 0;\n        else if(value>(k) && status==1)\n        return 0;\n        int ans=0;\n        if(value==k){\n            ans++;\n        }\n        if(status==0){\n            ans+=solve(k,value-1,ind,1,dp);\n        }\n        ans+=solve(k,value+power(2,ind),ind+1,0,dp);\n        dp[{{value,ind},status}]=ans+1;\n        return ans;\n    }\n    \n    int waysToReachStair(int k) {\n        map<pair<pair<int,int>,int>,int>dp;\n        return solve(k,1,0,0,dp);\n    }\n};",
+    "submit_ts": 1716089544.0
+}

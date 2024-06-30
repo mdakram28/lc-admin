@@ -1,0 +1,5 @@
+{
+    "username": "tashhirul990",
+    "submission": "class Solution {\npublic:\n    int find(int k, int st, int jump, bool prv, map<std::tuple<int, int, int, bool>, int>& m) {\n        \n        \n        if (m.find({k, st, jump, prv}) != m.end()) {\n            return m[{k, st, jump, prv}];\n        }\n        \n       \n        \n        if (st > (k + 1)) {\n            return 0;\n        }\n        \n        int answer = 0;\n        if (st == k) {\n            answer++;\n        }\n        \n        if (prv) {\n            answer += find(k, st - 1, jump, false, m);\n        }\n        \n        answer += find(k, st + (1 << jump), jump + 1, true, m);\n        \n        m[{k, st, jump, prv}] = answer;\n        \n        return answer;\n    }\n    \n    int waysToReachStair(int k) {\n        if (k == 0) {\n            return 2;\n        }\n        \n        map<std::tuple<int, int, int, bool>, int> m;\n        return find(k, 1, 0, true, m);\n    }\n};",
+    "submit_ts": 1716090674.0
+}

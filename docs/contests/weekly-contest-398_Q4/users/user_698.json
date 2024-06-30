@@ -1,0 +1,5 @@
+{
+    "username": "23mt0387",
+    "submission": "class Solution {\npublic:\n    unordered_map<long long, int> memo;\n\nint solve(long long i, long long k, int last, int j) {\n    if (i < 0) {\n        return 0;\n    }\n\n    long long state = (i << 20) | (j << 10) | last;\n    if (memo.find(state) != memo.end()) {\n        return memo[state];\n    }\n\n    int ways = 0;\n    if (i == k) {\n        ways++;\n    }\n    if (k >= 1e9) {\n        return 0;\n    }\n    if (j >= 32) {\n        return 0;\n    }\n    if (last == 1) {\n        long long p = 1LL << j;\n        ways += solve(i + p, k, 1, j + 1);\n        ways += solve(i - 1, k, 0, j);\n    } else {\n        long long p = 1LL << j;\n        ways += solve(i + p, k, 1, j + 1);\n    }\n\n    memo[state] = ways;\n    return ways;\n}\n    int waysToReachStair(int k) {\n        return solve(1,k,1,0);\n    }\n};",
+    "submit_ts": 1716089025.0
+}

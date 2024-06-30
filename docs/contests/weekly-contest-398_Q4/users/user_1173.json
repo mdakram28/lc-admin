@@ -1,0 +1,5 @@
+{
+    "username": "IumoInfinium",
+    "submission": "class Solution {\npublic:\n    int k_;\n    unordered_map<string,int> mp;\n    \n    int dfs(int curr, int jump, bool minus){\n        int ans = curr == k_ ? 1 : 0;\n        \n        string key = to_string(curr) + '-' + to_string(jump) + '-' + to_string(minus);\n        \n        if(mp.count(key))\n            return mp[key];\n \n        if(curr > k_ + 1)\n                return 0;\n        \n        if(curr -1 >= 0 && minus)\n            ans += dfs(curr-1, jump, false);\n        \n        ans += dfs(curr+ pow(2, jump), jump+1, true);\n        return mp[key] = ans;\n    }\n    \n    int waysToReachStair(int k) {\n        k_ = k; \n        \n        int ans = dfs(1, 0, true);\n        return ans;\n    }\n};",
+    "submit_ts": 1716090429.0
+}

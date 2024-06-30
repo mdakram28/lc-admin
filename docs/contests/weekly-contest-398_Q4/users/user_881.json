@@ -1,0 +1,5 @@
+{
+    "username": "ntcie",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        mem = {}\n        def dfs(cur, jump, back):\n            if (cur, jump, back) in mem:\n                return mem[(cur, jump, back)]\n            ways = 0\n            if cur == k and (back == 1 or cur == 0) and jump == 1:\n                return 1\n            elif cur == k:\n                ways += 1\n            if cur < 0:\n                return 0\n            nxt = cur + (1 << jump)\n            if nxt <= k+1:\n                ways += dfs(nxt, jump+1, 0)\n            if cur > 0 and back == 0:\n                ways += dfs(cur-1, jump, 1)\n            mem[(cur, jump, back)] = ways\n            return ways\n        return dfs(1, 0, 0)",
+    "submit_ts": 1716089495.0
+}
