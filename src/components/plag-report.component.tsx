@@ -103,7 +103,7 @@ export function PlagReportComponent({ }: {}) {
                         </AccordionDetails>
                     </Accordion>
 
-                    <Accordion>
+                    {/* <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel2-content"
@@ -115,7 +115,7 @@ export function PlagReportComponent({ }: {}) {
                             Total similar groups: {groups.length} <br />
                             Total similar submissions: {groups.reduce((a, b) => a + b.length, 0)}
                         </AccordionDetails>
-                    </Accordion>
+                    </Accordion> */}
 
                     <br />
                     <br />

@@ -1,5 +1,5 @@
 
-export LC_CONTEST="biweekly-contest-131"
+export LC_CONTEST="weekly-contest-398"
 export LC_QUESNUM=4
 export REPORT="${LC_CONTEST}_Q${LC_QUESNUM}"
 

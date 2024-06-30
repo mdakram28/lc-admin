@@ -24,34 +24,34 @@ export function ReportListComponent({ }: {}) {
     }, []);
 
     return <div style={{height: "100%"}}>
-        <h2>Contests</h2>
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                <TableRow>
-                    <TableCell>Contest</TableCell>
-                    <TableCell>Question</TableCell>
-                    <TableCell>Similar count (&gt;= 80%)</TableCell>
-                    <TableCell>Checked Upto</TableCell>
-                    {/* <TableCell>Similar groups (&gt;= 80%)</TableCell> */}
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {infos && infos.map((info) => (
-                    <TableRow
+            <h2>Contests</h2>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                    <TableRow>
+                        <TableCell>Contest</TableCell>
+                        <TableCell>Question</TableCell>
+                        <TableCell>Similar count (&gt;= 80%)</TableCell>
+                        <TableCell>Checked Upto</TableCell>
+                        {/* <TableCell>Similar groups (&gt;= 80%)</TableCell> */}
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {infos && infos.map((info) => (
+                        <TableRow
                         key={info.name}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                        <TableCell component="th" scope="row">
-                            <Link to={`/report/${info.name}`}>{info.name}</Link>
-                        </TableCell>
-                        <TableCell>{info.question}</TableCell>
-                        <TableCell>{info.sim80_numsubm}</TableCell>
-                        <TableCell>{info.numsubm}</TableCell>
-                    </TableRow>
-                ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                        >
+                            <TableCell component="th" scope="row">
+                                <Link to={`/report/${info.name}`}>{info.name}</Link>
+                            </TableCell>
+                            <TableCell>{info.question}</TableCell>
+                            <TableCell>{info.sim80_numsubm}</TableCell>
+                            <TableCell>{info.numsubm}</TableCell>
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
     </div>
 }
