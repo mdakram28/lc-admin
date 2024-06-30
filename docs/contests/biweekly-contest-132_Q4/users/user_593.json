@@ -1,0 +1,5 @@
+{
+    "username": "Flawrence",
+    "submission": "class Solution {\npublic:\nint maximumLength(vector<int>& nums, int k) { \n        int n = nums.size(); \n        vector<vector<int>> dpTable(n, vector<int>(k + 1, 1)); \n        int maxLength = 1; \n        vector<int> maxLengths(k + 1, -1); \n        vector<map<int, int>> numMap(k + 1); \n        for (int i = 0; i < n; i++) { \n            for (int j = 0; j <= k; j++) { \n                for (int l = 0; l < j; l++) { \n                    dpTable[i][j] = max(dpTable[i][j], 1 + maxLengths[l]); \n                } \n                if (numMap[j].find(nums[i]) != numMap[j].end()) { \n                    dpTable[i][j] = max(dpTable[i][j], 1 + numMap[j][nums[i]]); \n                } \n                maxLength = max(maxLength, dpTable[i][j]); \n            } \n            for (int j = 0; j <= k; j++) { \n                maxLengths[j] = max(maxLengths[j], dpTable[i][j]); \n                numMap[j][nums[i]] = max(numMap[j][nums[i]], dpTable[i][j]); \n            } \n        } \n        return maxLength; \n    } \n};\n",
+    "submit_ts": 1717861682.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "SkinnySnakeLimb",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        \n        avs = [{} for _ in range(k + 1)]\n        maxes = [0] * (k + 1)\n        for i in range(n):\n            olds = {}\n            \n            for j in range(k):\n                olds[(j + 1, nums[i])] = avs[j + 1].get(nums[i], 0)\n                olds[(j + 1,)] = maxes[j + 1]\n                avs[j + 1][nums[i]] = max(avs[j + 1].get(nums[i], 0), (maxes[j] if (j,) not in olds else olds[(j,)]) + 1)\n                maxes[j + 1] = max(maxes[j + 1], avs[j + 1][nums[i]])\n                \n            for j in range(k + 1):\n                if nums[i] in avs[j]:\n                    avs[j][nums[i]] = max(avs[j][nums[i]], (avs[j][nums[i]] if (j, nums[i]) not in olds else olds[(j, nums[i])]) + 1)\n                    maxes[j] = max(maxes[j], avs[j][nums[i]])\n                    \n            if nums[i] not in avs[0]:\n                avs[0][nums[i]] = 1\n            maxes[0] = max(maxes[0], 1)\n            \n        return max(maxes)\n        \n        ",
+    "submit_ts": 1717860869.0
+}

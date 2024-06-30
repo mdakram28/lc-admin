@@ -1,0 +1,5 @@
+{
+    "username": "krunalpabari11_",
+    "submission": "<?php\n\nclass Solution {\n    function maximumLength($nums, $k) {\n        $n = count($nums);\n        $dp = array_fill(0, $n, array_fill(0, $k + 1, 1));\n        $ans = 1;\n        $vk = array_fill(0, $k + 1, -1);\n        $vkm = array_fill(0, $k + 1, []);\n\n        for ($i = 0; $i <= $k; $i++) {\n            $vkm[$i] = array();\n        }\n\n        for ($i = 0; $i < $n; $i++) {\n            for ($j = 0; $j <= $k; $j++) {\n                for ($l = 0; $l < $j; $l++) {\n                    $dp[$i][$j] = max($dp[$i][$j], 1 + $vk[$l]);\n                }\n\n                if (array_key_exists($nums[$i], $vkm[$j])) {\n                    $dp[$i][$j] = max($dp[$i][$j], 1 + $vkm[$j][$nums[$i]]);\n                }\n\n                $ans = max($ans, $dp[$i][$j]);\n            }\n\n            for ($j = 0; $j <= $k; $j++) {\n                $vk[$j] = max($vk[$j], $dp[$i][$j]);\n                $vkm[$j][$nums[$i]] = max(isset($vkm[$j][$nums[$i]]) ? $vkm[$j][$nums[$i]] : 0, $dp[$i][$j]);\n            }\n        }\n\n        return $ans;\n    }\n}\n\n?>\n",
+    "submit_ts": 1717862374.0
+}

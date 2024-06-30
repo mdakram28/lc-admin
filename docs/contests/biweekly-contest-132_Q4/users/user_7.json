@@ -1,0 +1,5 @@
+{
+    "username": "shadow923",
+    "submission": "template<class T> bool ckmax(T& a, const T& b) { return a < b ? a = b, 1 : 0; }\n\nclass Solution {\npublic:\n    int maximumLength(vector<int>& a, int X) {\n        int n = a.size();\n        \n        map<int,int> id;\n        \n        for(int &x : a){\n\t\t\tif(id.find(x) == id.end()){\n\t\t\t\tid[x] = id.size();\n\t\t\t}\n\t\t\tx = id[x];\n\t\t}\n        \n        vector<vector<int>> dp(id.size(),vector<int>(X+1));\n        vector<int> lar(X+1);\n        \n\n        for(int i = n-1;i >= 0;i--){\n\t\t\tfor(int k = 0;k <= X;k++){\n\t\t\t\tdp[a[i]][k]++;\n\t\t\t\tif(k != X){\n\t\t\t\t\tckmax(dp[a[i]][k+1],lar[k]);\n\t\t\t\t}\n\t\t\t}\n\t\t\tfor(int k = 0;k <= X;k++){\n\t\t\t\tckmax(lar[k],dp[a[i]][k]);\n\t\t\t}\n        }\n        \n        \n        int ans = 0;\n        for(auto p : dp){\n            for(auto y : p){\n                ans = max(ans,y);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717858312.0
+}

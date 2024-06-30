@@ -1,0 +1,5 @@
+{
+    "username": "krishnash1355",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n        int kitna = 1;\n        vector<int> maxForK(k + 1, -1);\n        vector<map<int, int>> maxForKMap(k + 1);\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j <= k; j++) {\n                for (int m = 0; m < j; m++)\n                    dp[i][j] = max(dp[i][j], 1 + maxForK[m]);\n                if (maxForKMap[j].find(nums[i]) != maxForKMap[j].end())\n                    dp[i][j] = max(dp[i][j], 1 + maxForKMap[j][nums[i]]);\n                kitna = max(kitna, dp[i][j]);\n            }\n            for (int j = 0; j <= k; j++) {\n                maxForK[j] = max(maxForK[j], dp[i][j]);\n                maxForKMap[j][nums[i]] = max(maxForKMap[j][nums[i]], dp[i][j]);\n            }\n        }\n        return kitna;\n    }\n};\n",
+    "submit_ts": 1717862167.0
+}

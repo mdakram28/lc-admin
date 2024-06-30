@@ -1,0 +1,5 @@
+{
+    "username": "ipadcoder",
+    "submission": "from collections import Counter\n\nclass Solution(object):\n    def maximumLength(self, arr, k):\n        dp = {i: [0, set(), Counter()] for i in range(k + 1)}\n\n        for i in arr:\n            prev = 0\n            for j in range(k + 1):\n                cur = max(prev + 1, (dp[j][0] + 1) * (i in dp[j][1]), dp[j][2][i] + 1)\n                prev, dp[j][2][i] = dp[j][0], cur\n\n                if dp[j][0] < cur:\n                    dp[j][:] = [cur, set(), dp[j][2]]\n\n                if cur == dp[j][0]:\n                    dp[j][1].add(i)\n\n        return dp[k][0]\n\n# Example usage\n",
+    "submit_ts": 1717859918.0
+}

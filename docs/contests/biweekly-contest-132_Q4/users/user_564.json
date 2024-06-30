@@ -1,0 +1,5 @@
+{
+    "username": "gdstw",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        if k == 0:\n            cnt = Counter(nums)\n            return max(cnt.values())\n        dp = [0 for _ in range(k+1)]\n        st = [set() for _ in range(k+1)]\n        cnt = [defaultdict(int) for _ in range(k+1)]\n\n        for x in nums:\n            prev = 0\n            for j in range(k+1):\n                cur = max(prev + 1, cnt[j][x] + 1)\n                if x in st[j]:\n                    cur = max(cur, (dp[j]+1))\n                prev, cnt[j][x] = dp[j], cur\n                if dp[j] < cur:\n                    dp[j] = cur\n                    st[j].clear()\n                if cur == dp[j]:\n                    st[j].add(x)\n        return dp[k]",
+    "submit_ts": 1717861575.0
+}

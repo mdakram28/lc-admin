@@ -1,0 +1,5 @@
+{
+    "username": "kartikeyMS",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        \n        int n = nums.size(),i,j;\n        //vector<vector<int>>dp(n,vector<int>(k+1,1));\n        \n        unordered_map<int,unordered_map<int,int>>m;\n        unordered_map<int,int>p;\n        \n        for(i=0;i<=k;i++)\n        {\n            m[nums[0]][i]=1;\n            p[i]=1;\n        }\n        int ans =1;\n        unordered_map<int,int>q;\n        unordered_map<int,int>r;\n        \n        for(i=1;i<n;i++)\n        {\n            int l = 1;\n            q.clear();\n            r.clear();\n            \n            for(j=0;j<=k;j++)\n            {\n                l = 1+max(p[j-1],m[nums[i]][j]);\n                ans = max(ans,1+max(m[nums[i]][j],p[j-1]));\n                q[j]=max(p[j],l);\n                r[j]=1+max(m[nums[i]][j],p[j-1]);\n            }\n            for(j=0;j<=k;j++)\n            {\n                p[j]=q[j];\n                m[nums[i]][j]=r[j];\n            }\n        }\n        \n        \n        return ans;\n        \n    }\n};",
+    "submit_ts": 1717861546.0
+}

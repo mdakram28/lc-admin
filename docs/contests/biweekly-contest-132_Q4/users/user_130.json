@@ -1,0 +1,5 @@
+{
+    "username": "philip2207",
+    "submission": "class Solution {\n    public int maximumLength(int[] nums, int k) {\n        int N = nums.length;\n        \n        int[][] dp = new int[k+1][N];\n        \n        Map<Integer, Integer> prev = new HashMap<>();\n        for (int i = N-1; i >= 0; i--) {\n            int num = nums[i];\n            prev.merge(num, 1, Integer::sum);\n            dp[0][i] = prev.get(num);\n        }\n        \n        // System.out.println(nums);\n        // System.out.println(Arrays.toString(dp[0]));\n        for (int j = 1; j <= k; j++) {\n            int maxFreq = 0;\n            prev.clear();\n            for (int i = N-1; i >= 0; i--) {\n                int num = nums[i];\n                dp[j][i] = Math.max(maxFreq + 1, prev.getOrDefault(num, 0) + 1);\n                prev.put(num, dp[j][i]);\n                \n                maxFreq = Math.max(maxFreq, dp[j-1][i]);\n            }\n            // System.out.println(Arrays.toString(dp[j]));\n        }\n        return Arrays.stream(dp[k]).max().getAsInt();\n    }\n}",
+    "submit_ts": 1717860294.0
+}

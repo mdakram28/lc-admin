@@ -1,0 +1,5 @@
+{
+    "username": "codemaster24",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n=nums.size();\n        int dp[n+1][k+1],an=1;\n        map<int,int> m;\n        for(int i=0;i<n+1;i++)\n        for(int j=0;j<k+1;j++) {\n            dp[i][j]=0;\n        }\n\n        vector<int> v(n,0);\n        int ma=0;\n        for(int i=0;i<n;i++) {\n            v[i]=ma;\n            m[nums[i]]++;\n            dp[i][0]=m[nums[i]];\n            an=max(an, dp[i][0]);\n            ma=max(dp[i][0],ma);\n        }\n\n        set<int> s;\n        for(int l=1;l<=k;l++) {\n            map<int,int> m2;\n            int ma=0;\n            for(int i=0;i<n;i++) {\n                dp[i][l] = max(m2[nums[i]]+1,v[i]+1);\n                v[i]=ma;\n                an=max(an, dp[i][l]);\n                m2[nums[i]]=dp[i][l];\n                ma=max(v[i],dp[i][l]);\n            }\n        }\n        return an;\n        \n    }\n};",
+    "submit_ts": 1717860670.0
+}

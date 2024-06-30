@@ -1,0 +1,5 @@
+{
+    "username": "mkawa222",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        enc={a:i for i,a in enumerate(sorted(set(nums)))}\n        nums=[enc[a] for a in nums]\n        n=len(nums)\n        mx=[0]*(k+2)\n        last=[-1]*n\n        dp=[[0]*(k+1) for _ in range(n+1)]\n        def chmax(i,j,val):\n            if val>dp[i][j]:dp[i][j]=val\n        for i,a in enumerate(nums):\n            for j in range(k+1)[::-1]:\n                chmax(i+1,j,mx[j-1]+1)\n                li=last[a]\n                if li!=-1:chmax(i+1,j,dp[li][j]+1)\n                mx[j]=max(mx[j],dp[i+1][j])\n            last[a]=i+1\n        return max(mx)\n",
+    "submit_ts": 1717859231.0
+}

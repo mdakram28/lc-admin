@@ -1,0 +1,5 @@
+{
+    "username": "dganguli1997",
+    "submission": "class Solution {\n    public int maximumLength(int[] nums, int k) {\n        Map<Integer, Map<Integer, Integer>> map1 = new HashMap<>();\n        Map<Integer, Integer> map2 = new HashMap<>();\n        int n = nums.length, i, j, result = 0;\n        int[][] dp = new int[n][k + 1];\n        for(i = 0; i < n; i += 1) {\n            Map<Integer, Integer> map3 = new HashMap<>(map2);\n            if(!map1.containsKey(nums[i]))\n                map1.put(nums[i], new HashMap<>());\n            for(j = 0; j <= k; j += 1) {   \n                dp[i][j] = map1.get(nums[i]).getOrDefault(j, 0) + 1;\n                if(j > 0)\n                    dp[i][j] = Math.max(dp[i][j], 1 + map3.getOrDefault(j - 1, 0));\n                map1.get(nums[i]).put(j, Math.max(map1.get(nums[i]).getOrDefault(j, 0), dp[i][j]));\n                map2.put(j, Math.max(map3.getOrDefault(j, 0), dp[i][j]));\n                result = Math.max(result, dp[i][j]);\n            }\n        }\n        return result;\n    }\n}",
+    "submit_ts": 1717861016.0
+}

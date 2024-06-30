@@ -1,0 +1,5 @@
+{
+    "username": "Amartya3",
+    "submission": "class Solution {\npublic:\n\n    #define ll long long\n    #define F(i, q, n) for(ll i=q; i<=n; i++)\n    #define f(i, n) for(ll i=0; i<n; i++)\n    #define vll vector<ll>\n    // ll func(ll i, ll n, vector<vector<ll>> &dp) {\n    // }\n    vll arr;\n    \n    int maximumLength(vector<int>& nums, int k) {\n        ll n = nums.size(); \n        ll ans = 1; \n        arr.assign(k+1,-1); \n        vector<vll> dp(n, vll(k + 1, 1)); \n        vector<map<ll, ll>> arrCnt(k + 1); \n        f(i, n){ \n            F(j, 0, k){ \n                f(l, j) dp[i][j] = max(dp[i][j], 1 + arr[l]); \n\n                if(arrCnt[j].count(nums[i])) dp[i][j]=max(dp[i][j],1+arrCnt[j][nums[i]]); \n                ans = max(ans, dp[i][j]); \n            } \n            F(j, 0, k){ \n                arr[j] = max(dp[i][j], arr[j]); \n                arrCnt[j][nums[i]] = max(dp[i][j], arrCnt[j][nums[i]]); \n            } \n        } \n        return ans; \n    }\n};",
+    "submit_ts": 1717861892.0
+}

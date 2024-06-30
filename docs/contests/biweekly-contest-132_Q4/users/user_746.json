@@ -1,0 +1,5 @@
+{
+    "username": "20240623.andersdb4",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        vector<int>best(k+1);\n        vector<unordered_map<int,int>>mp(k+1);\n        for(int i=0; i<nums.size(); i++)\n        {\n            for(int j=k;  j>=0; j--)\n            {\n                if(j<k)\n                {\n                    mp[j+1][nums[i]]=max(best[j]+1,mp[j+1][nums[i]]);\n                    best[j+1]=max(best[j+1],mp[j+1][nums[i]]);\n                }\n                \n                if(mp[j].find(nums[i])!=mp[j].end())\n                {\n                    mp[j][nums[i]]++;\n                    best[j]=max(best[j],mp[j][nums[i]]);\n                }\n            }\n            mp[0][nums[i]]=max(mp[0][nums[i]],1);\n            best[0]=max(1,best[0]);\n        }\n        int ans=1;\n        for(int i=0; i<=k; i++)\n        {\n            ans=max(best[i],ans);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717862310.0
+}

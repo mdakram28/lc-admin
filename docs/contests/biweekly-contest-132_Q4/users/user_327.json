@@ -1,0 +1,5 @@
+{
+    "username": "zombiemutant",
+    "submission": "class Solution:\n    def maximumLength(self, nums, k):\n        g = k+1\n\n        best_by_groups = [0]*g\n        num_to_index = dict()\n        memo = [[1]*g for _ in range(len(nums))]\n        result = 0\n\n        for index, num in enumerate(nums):\n            for groups in range(g):\n                value = 1\n                if groups>0: value = max(value, best_by_groups[groups-1]+1)\n                if num in num_to_index: value = max(value, memo[num_to_index[num]][groups]+1) \n                memo[index][groups] = value\n\n                result = max(result, value)\n            num_to_index[num] = index\n            for groups in range(g):\n                best_by_groups[groups] = max(best_by_groups[groups], memo[index][groups])\n\n        return result",
+    "submit_ts": 1717861736.0
+}

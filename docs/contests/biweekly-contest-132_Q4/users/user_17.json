@@ -1,0 +1,5 @@
+{
+    "username": "nafnil",
+    "submission": "class Solution {\n    public int maximumLength(int[] nums, int k) {\n        int n = nums.length;\n        int[][] dp = new int[n][k+1];\n        Map<Integer, int[]> end = new HashMap<>();\n        int[] max = new int[k+1];\n        for (int i = 0; i < n; i++) {\n            int[] pre = end.computeIfAbsent(nums[i], a -> new int[k + 1]);\n            for (int j = 0; j <= k; j++) {\n                pre[j]++;\n            }\n            dp[i] = pre.clone();\n            for (int j = k; j >= 0; j--) {\n                if(j>0)dp[i][j] = Math.max(dp[i][j], max[j-1] + 1);\n                max[j] = Math.max(max[j], dp[i][j]);\n            }\n            end.put(nums[i], dp[i]);\n            // System.out.println(i + \" \" + Arrays.toString(dp[i]));\n        }\n        return max[k];\n    }\n}",
+    "submit_ts": 1717858701.0
+}

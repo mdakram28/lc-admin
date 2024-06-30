@@ -1,0 +1,5 @@
+{
+    "username": "kartikey121",
+    "submission": "class Solution {\npublic:\n     int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n        int ans = 1;\n        vector<int> vk(k + 1, -1);\n        map<int, int> lastOccur;\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j <= k; ++j) {\n                for (int l = 0; l < j; ++l) {\n                    dp[i][j] = max(dp[i][j], 1 + vk[l]);\n                }\n                if (lastOccur.find(nums[i]) != lastOccur.end()) {\n                    dp[i][j] = max(dp[i][j], 1 + dp[lastOccur[nums[i]]][j]);\n                }\n                ans = max(ans, dp[i][j]);\n            }\n            for (int j = 0; j <= k; ++j) {\n                vk[j] = max(vk[j], dp[i][j]);\n                lastOccur[nums[i]] = i; // Update the last occurrence of nums[i]\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717861861.0
+}

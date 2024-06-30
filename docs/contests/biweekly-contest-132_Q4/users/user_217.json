@@ -1,0 +1,5 @@
+{
+    "username": "majhiswadhin64",
+    "submission": "class Solution {\n    int dp[5005][51];\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<map<int,int>>mp(k+1);\n        vector<vector<int>>om(n,vector<int>(k+1,0));\n        \n        for(int i=n-1;i>=0;i--)\n        {\n            \n            for(int j=0;j<=k;j++)\n            {\n                dp[i][j]=mp[j][nums[i]]+1;\n                if(j!=0 && i!=n-1)\n                dp[i][j]=max(dp[i][j],om[i+1][j-1]+1);\n                om[i][j]=max(om[i][j],dp[i][j]);\n                if(i!=n-1)om[i][j]=max(om[i+1][j],om[i][j]);\n                mp[j][nums[i]]=max(dp[i][j],mp[j][nums[i]]);\n            }\n        }\n        int ans=0;\n        for(int i=0;i<n;i++)ans=max(ans,dp[i][k]);\n        return ans;\n    }\n};",
+    "submit_ts": 1717861050.0
+}

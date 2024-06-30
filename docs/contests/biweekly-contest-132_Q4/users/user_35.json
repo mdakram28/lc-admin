@@ -1,0 +1,5 @@
+{
+    "username": "quocdatmc",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        int dp[n + 2][52], mx[52];\n        unordered_map<int, int> lastPos;\n        dp[0][0] = 1;\n        for(int i = 1; i <= k; i++) dp[0][i] = 0;\n        mx[0] = 1;\n        lastPos[nums[0]] = 0;\n        for(int i = 1; i <= k; i++) mx[i] = 0;\n        for(int i = 1; i < n; i++) {\n            for(int j = 0; j <= k; j++) {\n                dp[i][j] = 1;\n                if(j > 0) dp[i][j] = max(dp[i][j], mx[j - 1] + 1);\n                if(lastPos.find(nums[i]) != lastPos.end()) {\n                    int pos = lastPos[nums[i]];\n                    dp[i][j] = max(dp[i][j], dp[pos][j] + 1);\n                }\n            }\n            lastPos[nums[i]] = i;\n            for(int j = 0; j <= k; j++) mx[j] = max(mx[j], dp[i][j]);\n        }\n        \n        int ans = 0;\n        for(int i = 0; i <= k; i++) ans = max(ans, mx[i]);\n        return ans;\n    }\n};",
+    "submit_ts": 1717859169.0
+}

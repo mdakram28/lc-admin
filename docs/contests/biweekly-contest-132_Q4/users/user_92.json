@@ -1,0 +1,5 @@
+{
+    "username": "meowmeowme0w",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        indexes = defaultdict(list)\n        dp = [0]*n\n        ans = 0\n        for i in range(n):\n            indexes[nums[i]] += [i]\n            dp[i] = len(indexes[nums[i]])\n            ans = max(ans, dp[i])\n        \n        for _ in range(k):\n            dp2 = list(dp)\n            mx = -1\n            oi = defaultdict(int)\n            for i in range(n):\n                if i > 0:\n                    mx = max(mx, dp[i-1])\n                dp2[i] = max(dp2[i], mx + 1, oi[nums[i]] + 1)\n                oi[nums[i]] = max(oi[nums[i]], dp2[i])\n            dp = list(dp2)\n            ans = max(ans, max(dp))\n        return ans",
+    "submit_ts": 1717859331.0
+}

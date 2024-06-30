@@ -1,0 +1,5 @@
+{
+    "username": "sourav_suku",
+    "submission": "const int N=5e3+5;\nint dp[N][55];\nint dp2[N][55];\nclass Solution {\npublic:\n    \n    int maximumLength(vector<int>& nums, int k) {\n        unordered_map<int,int> index;\n        map<pair<int,int>,int> dict;\n        \n        int ans=0;\n        for(int i=0;i<nums.size();++i){\n            \n            index[nums[i]]++;\n            int ind1=index[nums[i]];\n            for(int j=k;j>=0;--j){\n                if(i==0)dp[i][j]=1;\n                else{\n                    dp[i][j]=1;\n                    if(j){\n                        dp[i][j]=max(dp[i][j],1+dp2[i-1][j-1]);\n                    }\n                    if(dict.find({nums[i],j})!=dict.end()){\n                        dp[i][j]=max(dp[i][j],index[nums[i]]+dict[{nums[i],j}]);\n                    }\n                }\n                dict[{nums[i],j}]=max(dict[{nums[i],j}],dp[i][j]-ind1);\n                if(j==k)ans=max(ans,dp[i][j]);\n                dp2[i][j]=dp[i][j];\n                if(i)dp2[i][j]=max(dp2[i-1][j],dp2[i][j]);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717861798.0
+}

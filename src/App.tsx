@@ -2,19 +2,19 @@ import "./app.scss";
 import "./common.scss";
 import * as React from 'react';
 import { Experimental_CssVarsProvider as CssVarsProvider, Switch, useColorScheme } from "@mui/material";
-import { Link, NavLink, Route, Routes } from "react-router-dom";
+import { Link, NavLink, Route, Routes, useParams } from "react-router-dom";
 import GitHubButton from 'react-github-btn';
-import { PlagReportComponent } from "./components/plag-report.component";
+import { PlagReportComponent, ReportTitleComponent } from "./components/plag-report.component";
 import { ReportListComponent } from "./components/report-list.component";
 
 export default function Dashboard() {
   const { mode, setMode } = useColorScheme();
   const [page, setPage] = React.useState("plag");
 
-  const menuItems = [{
-    page: "Contests",
-    title: "Contests"
-  }]
+  const menuItems: {
+    page: string,
+    title: string
+  }[] = [];
 
   const setTheme = (theme: string) => {
     const c = document.body.classList;
@@ -29,16 +29,24 @@ export default function Dashboard() {
     setMode("dark");
   }, []);
 
+
   return (
       <main>
         <div className="toolbar">
-          <div className="toolbar-item"><b>LeetCode Admin</b></div>
+          <div className="toolbar-item">
+            <NavLink to={"/"} style={{textDecoration: "none", color: "var(--font-colot)"}}>
+              <b>LeetCode Admin</b>
+            </NavLink>
+          </div>
           {menuItems.map((menu) =>
             <NavLink to={"/" + menu.page} key={menu.page}
               className={({ isActive }) => "toolbar-item " + (isActive && "active")}>
               {menu.title}
             </NavLink>
           )}
+            <Routes>
+              <Route path="/report/:reportName" element={<ReportTitleComponent />} />
+            </Routes>
           <span style={{ flex: 1 }}></span>
           <div className="toolbar-item gh">
             <GitHubButton

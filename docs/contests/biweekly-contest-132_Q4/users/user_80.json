@@ -1,0 +1,5 @@
+{
+    "username": "nemokwy",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        pr = {}\n        n = len(nums)\n        d = [[1] * (k+1) for _ in range(n)]\n        dk = [[] for _ in range(k+1)]\n        for i,c in enumerate(nums):\n            if c in pr:\n                for j in range(k+1):\n                    d[i][j] = max(d[i][j], d[pr[c]][j]+1)\n            # for t in range(i):\n            #     if nums[i] != nums[t]:\n            #         for j in range(1,k+1):\n            #             d[i][j] = max(d[i][j], d[t][j-1]+1)\n            for j in range(1,k+1):\n                for kv, kc in dk[j-1]:\n                    if kc != nums[i]:\n                        d[i][j] = max(d[i][j], kv + 1)\n            for j in range(k+1):\n                dk[j].append([d[i][j],nums[i]])\n                dk[j].sort()\n                if len(dk[j]) > 2:\n                    dk[j] = dk[j][-2:]\n            pr[c] = i\n        # print(d)\n        t = 0\n        for i in range(n):\n            t = max(t, d[i][k])\n        return t\n            ",
+    "submit_ts": 1717859784.0
+}

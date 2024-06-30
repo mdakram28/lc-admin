@@ -1,0 +1,5 @@
+{
+    "username": "anim_2403",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        dp = [[1] * (k + 1) for _ in range(n)]\n        maxi = 1\n        \n        v = [-1] * (k + 1)\n        mp = [{} for _ in range(k + 1)]\n        \n        for i in range(n):\n            for j in range(k + 1):\n                for choices in range(j):\n                    dp[i][j] = max(dp[i][j], 1 + v[choices])\n                if nums[i] in mp[j]:\n                    dp[i][j] = max(dp[i][j], 1 + mp[j][nums[i]])\n                maxi = max(maxi, dp[i][j])\n            \n            for j in range(k + 1):\n                v[j] = max(v[j], dp[i][j])\n                mp[j][nums[i]] = max(mp[j].get(nums[i], 0), dp[i][j])\n        \n        return maxi",
+    "submit_ts": 1717861551.0
+}

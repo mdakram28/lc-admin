@@ -1,0 +1,5 @@
+{
+    "username": "Dolfun",
+    "submission": "class Solution {\npublic:\nint maximumLength(vector<int>& a, int k) {\n  int n = a.size();\n  vector<vector<int>> dp(k + 1, vector<int>(n, 1));\n\n  for (int i = 1; i < n; ++i) {\n    for (int j = 0; j < i; ++j) {\n      if (a[j] == a[i]) dp[0][i] = max(dp[0][i], dp[0][j] + 1);\n    }\n  }\n\n  for (int x = 1; x <= k; ++x) {\n    map<int, int> mp;\n    mp[a[0]] = dp[x][0];\n\n    int m = dp[x - 1][0] + 1;\n    for (int i = 1; i < n; ++i) {      \n      dp[x][i] = max(dp[x][i], m);\n      m = max(m, dp[x - 1][i] + 1);\n      \n      dp[x][i] = mp[a[i]] = max(dp[x][i], mp[a[i]] + 1);\n      // for (int j = 0; j < i; ++j) {\n      //   if (a[j] == a[i]) dp[x][i] = max(dp[x][i], dp[x][j] + 1);\n      //   // else dp[x][i] = max(dp[x][i], dp[x - 1][j] + 1);\n      // }\n    }\n  }\n\n  int res = 1;\n  for (int x = 0; x <= k; ++x) {\n    for (int i = 0; i < n; ++i) {\n      res = max(res, dp[x][i]);\n    }\n  }\n\n  return res;\n}\n};",
+    "submit_ts": 1717862110.0
+}

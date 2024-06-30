@@ -1,0 +1,5 @@
+{
+    "username": "Code-O-Maniac",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        \n        vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n        vector<int> prev(k + 1, 0);\n        map<pair<int, int>, int> mp;\n        \n        int ans = 1;\n        for(int i = 0; i < n; i++) {\n            vector<int> curr(k + 1);\n            for(int j = 0; j <= k; j++) {\n                dp[i][j] = max(mp[{nums[i], j}], (j > 0 ? prev[j - 1] : 0)) + 1;\n                \n                mp[{nums[i], j}] = dp[i][j];\n                curr[j] = max(prev[j], dp[i][j]);\n                // dp[i][j] = (j > 0 ? dp[i][j - 1] : 1);\n                // for(int l = 0; l < i; l++) {\n                //     dp[i][j] = max(dp[i][j], (nums[i] == nums[l] ? dp[l][j] : (j > 0 ? dp[l][j - 1] : 0)) + 1);\n                // }\n            }\n            \n            prev = curr;\n            ans = max(ans, dp[i][k]);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": 1717861006.0
+}

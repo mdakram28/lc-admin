@@ -1,0 +1,5 @@
+{
+    "username": "tom1312004",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int dp[5000][60] = {};\n        int n = nums.size();\n        int ans = 0;\n        int maximo[60] = {};\n        map<int, int> best[60];\n        for (int i=0; i<n; i++){\n            for (int j=0; j<=k; j++){\n                dp[i][j] = 1;\n                if (j != 0) dp[i][j] = max(dp[i][j], maximo[j-1]+1);\n                dp[i][j] = max(dp[i][j], best[j][nums[i]]+1);\n                ans = max(ans, dp[i][j]);\n            }\n            for (int j=0; j<=k; j++){\n               maximo[j] = max(maximo[j], dp[i][j]);\n                best[j][nums[i]] = max(best[j][nums[i]], dp[i][j]);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717858594.0
+}

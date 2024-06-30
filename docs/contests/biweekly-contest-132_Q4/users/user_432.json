@@ -1,0 +1,5 @@
+{
+    "username": "yashraj_prasad",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        dp, res = [[1] * (k + 1) for _ in range(n)], 1\n        mp = [defaultdict(int) for _ in range(k + 1)]\n        a = [-1] * (k + 1)\n\n        for i in range(n):\n            for j in range(k + 1):\n                for l in range(j):\n                    dp[i][j] = max(dp[i][j], 1 + a[l])\n\n                if nums[i] in mp[j]:\n                    dp[i][j] = max(dp[i][j], 1 + mp[j][nums[i]])\n\n                res = max(res, dp[i][j])\n\n            for j in range(k + 1):\n                a[j] = max(a[j], dp[i][j])\n                mp[j][nums[i]] = max(mp[j][nums[i]], dp[i][j])\n\n        return res\n",
+    "submit_ts": 1717861925.0
+}

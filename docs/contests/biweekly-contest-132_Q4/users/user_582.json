@@ -1,0 +1,5 @@
+{
+    "username": "KareemHatem",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int> v, int k) {\n        int n = v.size();\n        vector<vector<int>>dp(k+1,vector<int>(n));\n        for(int i=0;i<n;i++)dp[0][i] = 0;\n        map<int,int>tmp;\n        int ans = 1;\n        for(int i = n-1;i>=0;i--){\n            dp[0][i] = max(dp[0][i], 1 + tmp[v[i]]);\n            tmp[v[i]] = max(tmp[v[i]], dp[0][i]);\n        }\n        for(int x=1;x<=k;x++){\n            for(int i=n-2;i>=0;i--){\n                dp[x-1][i] = max(dp[x-1][i],dp[x-1][i+1]);\n            }\n            map<int,int>mp;\n            for(int i=n-1;i>=0;i--){\n                if(i+1 <n)\n                    dp[x][i] = max(dp[x][i],1 + dp[x-1][i+1]);\n            }\n            for(int i=n-1;i>=0;i--){\n                dp[x][i] = max(dp[x][i],1 + mp[v[i]]);\n                mp[v[i]] = max(mp[v[i]],dp[x][i]);\n            }\n        }\n        for(int i=0;i<n;i++){\n            for(int x=0;x<=k;x++){\n                ans = max(ans,dp[x][i]);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717861655.0
+}

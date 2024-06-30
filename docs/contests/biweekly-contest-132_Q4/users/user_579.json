@@ -1,0 +1,5 @@
+{
+    "username": "kumar_Aman1",
+    "submission": "#define ll long long \nclass Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {   \n        ll n = nums.size();\n        if (n == 0) return 0;\n        vector<unordered_map<ll, ll>> temp1(k + 1);\n        vector<vector<ll>> dp(n,vector<ll>(k + 1, 1));\n        vector<ll> temp(k + 1, -1);\n        ll ans = 1;\n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j <= k; ++j) {\n                for (int l = 0; l < j; ++l) {\n                    dp[i][j] = max(dp[i][j], 1 + temp[l]);\n                }\n                if (temp1[j].find(nums[i]) != temp1[j].end()) \n                    dp[i][j] = max(dp[i][j], 1 + temp1[j][nums[i]]);\n                \n                ans = max(ans, dp[i][j]);\n            }\n            for (int j = 0; j <= k; ++j) {\n                temp[j] =max(temp[j], dp[i][j]);\n                temp1[j][nums[i]]=max(temp1[j][nums[i]], dp[i][j]);\n            }\n        }\n        \n        return ans;\n    }\n};\n",
+    "submit_ts": 1717862248.0
+}

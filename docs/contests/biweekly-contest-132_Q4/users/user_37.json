@@ -1,0 +1,5 @@
+{
+    "username": "hank55663",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int dp[5005][55];\n        int Max[55];\n        memset(dp,0,sizeof(dp));\n        map<int,int> m;\n        dp[0][0]=1;\n        m[nums[0]]=0;\n        memset(Max,0,sizeof(Max));\n        Max[0]=1;\n        int ans=1;\n        for(int i = 1;i<nums.size();i++){\n            if(m.find(nums[i])!=m.end()){\n                int x=m[nums[i]];\n                for(int j = 0;j<=k;j++)dp[i][j]=dp[x][j]+1;\n            }\n            m[nums[i]]=i;\n            dp[i][0]=max(dp[i][0],1);\n            for(int j = 0;j<k;j++){\n                dp[i][j+1]=max(dp[i][j+1],Max[j]+1);\n            }\n            for(int j = 0;j<=k;j++){\n                Max[j]=max(Max[j],dp[i][j]);\n                ans=max(ans,Max[j]);\n           //     printf(\"%d \",dp[i][j]);\n            }\n           // printf(\"\\n\");\n            \n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717857778.0
+}

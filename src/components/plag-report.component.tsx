@@ -13,6 +13,11 @@ import { fetchContestInfo, fetchGroups, fetchUser } from "../util/api";
 declare var PR: any;
 
 
+export function ReportTitleComponent() {
+    const { reportName } = useParams();
+    return <span style={{marginLeft: 10}}>{reportName}</span>;
+}
+
 export function PlagReportComponent({ }: {}) {
     const { reportName } = useParams();
     const [baseDir, setBaseDir] = useState<string | undefined>();

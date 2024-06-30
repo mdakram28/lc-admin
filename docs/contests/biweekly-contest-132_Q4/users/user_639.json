@@ -1,0 +1,5 @@
+{
+    "username": "priti_93",
+    "submission": "class Solution {\npublic:\n    \n    int maximumLength(std::vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n        int ress = 1;\n        vector<int> vec(k + 1, -1);\n        vector<map<int, int>> vec2(k + 1);\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j <= k; j++) {\n                for (int l = 0; l < j; l++) {\n                    dp[i][j] = max(dp[i][j], 1 + vec[l]);\n                }\n                if (vec2[j].find(nums[i]) != vec2[j].end()) {\n                    dp[i][j] = max(dp[i][j], 1 + vec2[j][nums[i]]);\n                }\n                ress = max(ress, dp[i][j]);\n            }\n            for (int j = 0; j <= k; j++) {\n                vec[j] = max(vec[j], dp[i][j]);\n                vec2[j][nums[i]] = max(vec2[j][nums[i]], dp[i][j]);\n            }\n        }\n        return ress;\n\n\n    }\n};\n",
+    "submit_ts": 1717861627.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "_global",
+    "submission": "class Solution {\n    public int maximumLength(int[] nums, int k) {\n        int n = nums.length;\n        int max = 0;\n        HashMap<Integer,int[]> map = new HashMap<>();\n        int prev[]=new int[k+1];\n        for(int i=0;i<n;i++){\n            int curr[]=new int[k+1];\n            int tmp[]=new int[k+1];\n            for(int j=0;j<=i && j<=k;j++){\n                curr[j]=1;\n                tmp[j]=1;\n                if(map.containsKey(nums[i])){\n                    int x[]=map.get(nums[i]);\n                    curr[j]=1+x[j];\n                    tmp[j]=1+x[j];\n                }\n                if(j!=0) {\n                    curr[j]=Math.max(curr[j],1+prev[j-1]);\n                    tmp[j]=curr[j];\n                }\n                max = Math.max(max,curr[j]);\n                curr[j]=Math.max(curr[j],prev[j]);\n            }\n            map.put(nums[i],tmp);\n            prev = curr;\n        }\n        return max;\n    }\n}",
+    "submit_ts": 1717860760.0
+}

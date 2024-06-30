@@ -1,0 +1,5 @@
+{
+    "username": "Andrew-Angrew",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        prev_index = {}\n        res = [[0] * (n + 1) for i in range(k + 1)]\n        largest_len = [0] * (k + 1)\n        for i, val in enumerate(nums):\n            for cnt in range(k + 1):\n                res[cnt][i] = max(res[cnt][i], res[cnt][prev_index.get(val, -1)] + 1)\n                if cnt > 0:\n                    res[cnt][i] = max(res[cnt][i], largest_len[cnt - 1] + 1)\n            \n            for cnt in range(k + 1):\n                largest_len[cnt] = max(largest_len[cnt], res[cnt][i])\n            prev_index[val] = i\n        return max(largest_len)\n",
+    "submit_ts": 1717858535.0
+}

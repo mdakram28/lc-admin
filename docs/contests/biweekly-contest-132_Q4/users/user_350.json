@@ -1,0 +1,5 @@
+{
+    "username": "stingspree",
+    "submission": "#define pb push_back\nclass Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<vector<int>> dp(n,vector<int>(k+1,1));\n        map<int,int> mp;\n        vector<int> v(k,0);\n        for(int i=0;i<n;i++)\n        {\n            if(mp.find(nums[i])!=mp.end())\n            {\n                for(int j=0;j<=k;j++)\n                {\n                    dp[i][j]=max(dp[i][j],dp[mp[nums[i]]][j]+1);\n                }\n            }\n            for(int j=0;j<k;j++) dp[i][j+1]=max(dp[i][j+1],v[j]+1);\n            for(int j=0;j<k;j++) v[j]=max(v[j],dp[i][j]);\n            mp[nums[i]]=i;\n        }\n        int maxi=0;\n        for(auto &vec:dp)\n        {\n            maxi=max(maxi,*max_element(vec.begin(),vec.end()));\n        }\n        return maxi;\n    }\n};",
+    "submit_ts": 1717860973.0
+}

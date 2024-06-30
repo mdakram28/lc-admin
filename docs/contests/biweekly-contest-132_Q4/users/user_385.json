@@ -1,0 +1,5 @@
+{
+    "username": "aaronyen",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        vals = nums\n        x2val = {}\n        idx = 0\n        for val, x in enumerate(vals):\n            if x in x2val:\n                continue\n            x2val[x] = idx\n            idx += 1\n        nums = [x2val[x] for x in nums]\n        \n        n = len(nums)\n        dp = [[0] * (k + 1) for i in range(idx)]\n        for j in range(k + 1):\n            dp[0][j] = 1\n\n        k2len = [1 for i in range(k + 1)] # k: len\n        for i in range(1, n):\n            val = nums[i]\n            # print(i, val)\n            for j in range(0, k + 1):\n                tlen = dp[val][j] + 1\n                if j < k:\n                    tlen = max(tlen, k2len[j + 1] + 1)\n                dp[val][j] = tlen\n                k2len[j] = max(k2len[j], tlen)\n            # for row in dp:\n            #     print(row)\n            # print()\n\n        # for row in dp:\n        #     print(row)\n        # print()\n        # print(k2len)\n        return max(k2len)",
+    "submit_ts": 1717861742.0
+}

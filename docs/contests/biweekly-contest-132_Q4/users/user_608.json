@@ -1,0 +1,5 @@
+{
+    "username": "sunnymaurya101",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int sz = nums.size();\n\n        vector<vector<int>> dp(sz, vector<int>(k + 1, 1));\n        int len = 1;  \n        vector<int> lk(k + 1, -1);\n        vector<unordered_map<int, int>> vec(k + 1);\n        \n        for (int i = 0; i < sz; ++i) {\n            for (int j = 0; j <= k; ++j) {\n                for (int l = 0; l < j; ++l) {\n                    dp[i][j] = max(dp[i][j], 1 + lk[l]);\n                }\n                \n                if (vec[j].count(nums[i])) {\n                    dp[i][j] = max(dp[i][j], 1 + vec[j][nums[i]]);\n                }\n                \n                len = max(len, dp[i][j]);\n            }\n            \n            for (int j = 0; j <= k; ++j) {\n                lk[j] = max(lk[j], dp[i][j]);\n                vec[j][nums[i]] = max(vec[j][nums[i]], dp[i][j]);\n            }\n        }\n        \n        return len;\n    }\n};",
+    "submit_ts": 1717862354.0
+}

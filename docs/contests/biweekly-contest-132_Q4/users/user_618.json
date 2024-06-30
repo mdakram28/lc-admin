@@ -1,0 +1,5 @@
+{
+    "username": "ajit_kumar-12345",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(k+1, 0));\n        for(int i=0; i<=k; i++) dp[0][i] = 1;\n        for(int i=0; i<=k; i++){\n            unordered_map<int,int> kth;\n            unordered_map<int,int> notkth;\n            int mx = 0;\n            if(i >= 1){\n                notkth[nums[0]] = 1;\n                mx = 1;\n            } \n            kth[nums[0]] = 1;\n            for(int j=1; j<n; j++){    \n                int maxi = mx;\n                maxi = max(maxi, kth[nums[j]]);\n                dp[j][i] = 1 + maxi;\n                kth[nums[j]] = max(kth[nums[j]], dp[j][i]);\n                if(i >= 1){\n                    notkth[nums[j]] = max(notkth[nums[j]], dp[j][i-1]);\n                    mx = max(mx, notkth[nums[j]]);\n                }  \n            }\n        }\n        int ans = 0;\n        for(int i=0; i<n; i++) ans = max(ans, dp[i][k]);\n        return ans;\n    }\n};",
+    "submit_ts": 1717862079.0
+}

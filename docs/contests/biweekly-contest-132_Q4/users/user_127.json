@@ -1,0 +1,5 @@
+{
+    "username": "cwallisch",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        allScore = {} # (digit, alternations) -> score\n        bestScore = {} # alternations -> score\n\n        for alt in range(k+1):\n            bestScore[alt] = 0\n            for num in nums:\n                allScore[(num, alt)] = 0\n\n        for num in nums:\n            bestScoreOld = bestScore.copy()\n            for alt in range(k+1):\n                allScore[(num, alt)] += 1\n                if alt > 0 and bestScoreOld[alt-1] >= allScore[(num, alt)]:\n                    allScore[(num, alt)] = bestScoreOld[alt-1] + 1\n                if allScore[(num, alt)] > bestScoreOld[alt]:\n                    bestScore[alt] = allScore[(num, alt)]\n            #print(num, bestScore)\n            #print(allScore)\n\n        return max(bestScore.values())            \n",
+    "submit_ts": 1717860587.0
+}

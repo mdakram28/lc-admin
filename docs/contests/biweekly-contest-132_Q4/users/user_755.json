@@ -1,0 +1,5 @@
+{
+    "username": "JustinZhengBC",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n    map<int, int> m[k + 1];\n    int mxs[k + 1];\n    memset(mxs, 0, sizeof(mxs));\n    for (int i = 0; i < n; ++i) {\n        for (int j = k; j >= 0; --j) {\n            if (m[j].count(nums[i])) {\n                ++m[j][nums[i]];\n            } else if (j == 0) {\n                m[j][nums[i]] = 1;\n            }\n            if (j)\n                m[j][nums[i]] = max(m[j][nums[i]], mxs[j - 1] + 1);\n            mxs[j] = max(mxs[j], m[j][nums[i]]);\n        }\n    }\n    int mx = 0;\n    for (int i = 0; i <= k; ++i) {\n        for (auto &e : m[i]) {\n            mx = max(e.second, mx);\n        }\n    }\n        return mx;\n    }\n};",
+    "submit_ts": 1717862349.0
+}

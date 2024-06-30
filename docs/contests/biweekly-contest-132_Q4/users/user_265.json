@@ -1,0 +1,5 @@
+{
+    "username": "AbdalrhmanEssam",
+    "submission": "class Solution {\npublic:\n    void comp(vector<int>&v){\n        vector<int> d = v;\n        sort(d.begin(), d.end());\n        d.resize(unique(d.begin(), d.end()) - d.begin());\n        for (int i = 0; i < v.size(); ++i)\n            v[i] = lower_bound(d.begin(), d.end(), v[i]) - d.begin();\n//    original value of v[i] can be obtained through d[v[i]]\n    }\n    int maximumLength(vector<int>& v, int k) {\n        comp(v);\n        int n=v.size();\n        vector<vector<int>>dp(n+1,vector<int>(n+1,-1e8));\n        vector<int>mn(n+1,1e8);\n        fill(dp[0].begin(),dp[0].end(),0);\n        mn[0]=0;\n        int best=0;\n        for (int i = 0; i <n ; ++i) {\n            for (int j = best+1; j ; --j) {\n                dp[j][v[i]] = mn[j-1]+  (dp[j-1][v[i]]!=mn[j-1]);\n                mn[j] = min(mn[j], dp[j][v[i]]);\n                if(dp[j][v[i]]<=k)\n                    best=max(best,j);\n            }\n        }\n        return best;\n    }\n};",
+    "submit_ts": 1717859903.0
+}

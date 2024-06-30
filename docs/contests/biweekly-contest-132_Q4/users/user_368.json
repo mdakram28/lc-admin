@@ -1,0 +1,5 @@
+{
+    "username": "virinci",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        recent = nums[0]\n        d = { nums[0]: [[1] * (k + 1), [1] * (k + 1)] }\n\n        ans = 1\n\n        for x in nums[1:]:\n            if x in d:\n                for i in range(k + 1):\n                    d[x][0][i] = max(d[x][0][i], d[x][1][i]) + 1\n                    ans = max(ans, d[x][0][i])\n            else:\n                d[x] = [[1] * (k + 1), [1] * (k + 1)]\n            if recent != x:\n                d[x][1][0] = 1\n                for i in range(1, k + 1):\n                    d[x][1][i] = max(d[recent][0][i - 1] + 1, d[recent][1][i - 1] + 1, d[recent][1][i], d[x][1][i - 1])\n                    ans = max(ans, d[x][1][i])\n            recent = x\n            # print(d)\n        return ans\n",
+    "submit_ts": 1717861051.0
+}

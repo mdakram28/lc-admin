@@ -1,0 +1,5 @@
+{
+    "username": "rounak_58",
+    "submission": "class Solution {\npublic:\n   // int dp[502][202];\n   \n    int maximumLength(vector<int>& a, int k) {\n\n   int n=a.size();\n\n       int maxi = *max_element(a.begin(), a.end()), ans = 0;\n    vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n    //vector<int> last_idx(maxi + 1, -1);\n        map<int,int> last_idx;\n    vector<int> mx_ans(k + 1); // maximum answer upto (i-1) th index with j bad indices\n    for (int i = 0; i < n; i++) {\n        for (int j = k; j >= 0; j--) {\n            if (j >= 1) {\n                dp[i][j] = mx_ans[j - 1] + 1;\n            }\n           // if (last_idx[a[i]] != -1)\n                if(last_idx.find(a[i])!=last_idx.end())\n            {\n                dp[i][j] = max(dp[i][j], dp[last_idx[a[i]]][j] + 1);\n            }\n            mx_ans[j] = max(mx_ans[j], dp[i][j]);\n            ans = max(ans, dp[i][j]);\n        }\n        last_idx[a[i]] = i;\n    }\n            \n        return ans;\n\n\n\n    }\n};",
+    "submit_ts": 1717862190.0
+}

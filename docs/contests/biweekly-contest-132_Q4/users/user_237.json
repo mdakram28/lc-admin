@@ -1,0 +1,5 @@
+{
+    "username": "Oleks_V",
+    "submission": "public class Solution {\n    public int MaximumLength(int[] nums, int k) {\n        return BottomUpDp(nums, k);\n    }\n    \n    private int BottomUpDp(int[] nums, int k) {\n        var dict = nums.Distinct().Select((x, i) => (x: x, i: i)).ToDictionary(t => t.x, t => t.i);\n        var prep = nums.Select(n => dict[n]).ToArray();\n        var dp = Enumerable.Range(0, k + 1).Select(x => new int[nums.Length]).ToArray();\n        var maxes = new int[k + 1];\n        for (var i = 0; i < prep.Length; i++) {\n            for (var j = k; j >= 0; j--) {\n                if (j == 0) {\n                    dp[j][prep[i]]++;\n                }\n                else {\n                    if (dp[j][prep[i]] > 0) dp[j][prep[i]]++;\n                    dp[j][prep[i]] = Math.Max(dp[j][prep[i]], maxes[j - 1] + 1);\n                }\n                maxes[j] = Math.Max(maxes[j], dp[j][prep[i]]);\n            }\n        }\n        return maxes.Max();\n    }\n}",
+    "submit_ts": 1717861118.0
+}

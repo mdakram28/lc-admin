@@ -1,0 +1,5 @@
+{
+    "username": "heisenberg_003",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& a, int k) {\n        int n=(int)a.size();\n        vector<vector<int>> dp(n,vector<int>(k+1,1));\n        map<pair<int,int>,int> mp;\n        vector<multiset<int>> v(k+1);\n        for(int i=0;i<n;i++){\n            for(int j=0;j<=k;j++){\n                if(mp.find({a[i],j})!=mp.end()){\n                    dp[i][j]=max(dp[i][j],mp[{a[i],j}]+1);\n                    v[j].erase(v[j].find(mp[{a[i],j}]));\n                }\n            }\n            for(int j=0;j<k;j++){\n                if((int)v[j].size()>0) dp[i][j+1]=max(dp[i][j+1],(*v[j].rbegin())+1);\n            }\n            for(int j=0;j<=k;j++){\n                mp[{a[i],j}]=dp[i][j];\n                v[j].insert(dp[i][j]);\n            }\n        }\n        int ans=0;\n        for(int i=0;i<n;i++){\n            for(int j=0;j<=k;j++) ans=max(ans,dp[i][j]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717861611.0
+}

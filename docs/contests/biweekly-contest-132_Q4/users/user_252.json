@@ -1,0 +1,5 @@
+{
+    "username": "__AKASH_SINGH___",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& v, int k) {\n        int n = v.size(), ans = 1;\n        \n        vector<int> pre(n+1, 1), curr(n+1, 1);\n        pre[0] = 0;\n        \n        for(int diff = 0; diff<=k; ++diff)\n        {\n            map<int, int> mp;\n            pre[0] = 0, curr[0] = 0  ;\n            for(int i = 1; i<=n; ++i)\n            {\n                mp[v[i-1]] = max(mp[v[i-1]], 1 + mp[v[i-1]]);\n                if(diff>0)\n                mp[v[i-1]] = max(mp[v[i-1]], 1 + pre[i-1]);\n                curr[i] = max(curr[i-1], mp[v[i-1]]);\n                ans = max(ans, curr[i]);\n            }\n            cout<<ans<<\" \";\n            pre = curr;\n            fill(curr.begin(), curr.end(), 1);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": 1717861256.0
+}

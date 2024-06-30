@@ -1,0 +1,5 @@
+{
+    "username": "dd2307",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        c = Counter(nums)\n        idxs = dict()\n        i = 0\n        v_max = 0\n        for k1, v in c.items():\n            v_max = max(v_max, v)\n            if v >= 2:\n                idxs[k1] = i\n                i += 1\n            else:\n                idxs[k1] = -1\n        if k == 0:\n            return v_max\n\n        m = len(idxs)\n        res1 = [[0] * m for _ in range(k+1)]\n        res2 = [0 for _ in range(k+1)]\n\n        for num in nums:\n            i = idxs[num]\n            for j in range(k, 0, -1):\n                if i != -1:\n                    if res1[j][i] != 0:\n                        res1[j][i] += 1\n                if res2[j-1] > 0:\n                    res1[j][i] = max(res1[j][i], res2[j-1] + 1)\n                    res2[j] = max(res2[j], res1[j][i])\n            res1[0][i] += 1\n            if i == -1:\n                res1[0][i] = 1\n            res2[0] = max(res2[0], res1[0][i])\n\n        return max(res2)\n",
+    "submit_ts": 1717859300.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "Dhairya_Vardhan_Chauhan",
+    "submission": "#include <vector>\n#include <map> // Added for map usage\n#include <algorithm>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    int maximumLength(vector<int>& v, int k) {\n        int n = v.size(); \n        int ans = 0;\n        vector<vector<int>> dp(n + 1, vector<int>(k + 1));\n        vector<int> pmax(k + 1, 0);\n        map<int, int> last;\n\n        for (int i = 1; i <= n; i++) {\n            for (int j = 1; j <= k; j++) {\n                dp[i][j] = pmax[j - 1] + 1;\n            }\n            int prev = last[v[i - 1]];\n            for (int j = 0; j <= k; j++) {\n                dp[i][j] = max(dp[i][j], dp[prev][j] + 1);\n                pmax[j] = max(pmax[j], dp[i][j]);\n                ans = max(ans, dp[i][j]);\n            }\n            last[v[i - 1]] = i;\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": 1717862375.0
+}

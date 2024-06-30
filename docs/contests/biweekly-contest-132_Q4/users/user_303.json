@@ -1,0 +1,5 @@
+{
+    "username": "nikatamliani1",
+    "submission": "class Solution {\n public:\n  int maximumLength(vector<int>& a, int k) {\n    int n = (int)a.size();\n    a.insert(a.begin(), 0);\n    vector<vector<int>> dp(n + 1, vector<int>(k + 1, -1e9));\n    dp[0][0] = 0;\n    vector<int> maxi(k + 1);\n    int ans = 1;\n    map<int, int> prev;\n    for (int i = 1; i <= n; ++i) {\n      dp[i][0] = 1;\n      int id = prev[a[i]];\n      for (int p = 0; p <= k; ++p) {\n        if (id) {\n          dp[i][p] = max(dp[id][p] + 1, dp[i][p]);\n        }\n\n        if (p > 0) {\n          dp[i][p] = max(maxi[p - 1] + 1, dp[i][p]);\n        }\n\n        ans = max(ans, dp[i][p]);\n      }\n\n      for (int p = 0; p <= k; ++p) {\n        maxi[p] = max(maxi[p], dp[i][p]);\n      }\n\n      prev[a[i]] = i;\n    }\n    return ans;\n  }\n};",
+    "submit_ts": 1717860080.0
+}

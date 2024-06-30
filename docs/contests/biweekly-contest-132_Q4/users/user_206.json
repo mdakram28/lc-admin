@@ -1,0 +1,5 @@
+{
+    "username": "sirubell",
+    "submission": "class Solution {\npublic:\n  int maximumLength(vector<int> &nums, int k) {\n    int dp[5001][51][2] = {0};\n    map<int, int> m;\n    dp[0][0][1] = 1;\n    m[nums[0]] = 0;\n\n    for (int i = 1; i < nums.size(); i++) {\n      if (m.count(nums[i])) {\n        int prev = m[nums[i]];\n        dp[i][0][1] = dp[prev][0][1] + 1;\n\n        for (int j = 1; j <= k; j++) {\n          dp[i][j][1] = max(dp[i - 1][j - 1][1], dp[prev][j][1]) + 1;\n          dp[i][j][1] = max(dp[i][j][1], dp[i - 1][j - 1][0] + 1);\n        }\n      } else {\n        dp[i][0][1] = 1;\n\n        for (int j = 1; j <= k; j++) {\n          dp[i][j][1] = dp[i - 1][j - 1][1] + 1;\n          dp[i][j][1] = max(dp[i][j][1], dp[i - 1][j - 1][0] + 1);\n        }\n      }\n\n      for (int j = 0; j <= k; j++) {\n        dp[i][j][0] = max(dp[i - 1][j][0], dp[i - 1][j][1]);\n      }\n\n      m[nums[i]] = i;\n    }\n\n    int res = 0;\n    for (int i = 0; i < nums.size(); i++) {\n      for (int j = 0; j <= k; j++) {\n        res = max(res, dp[i][j][1]);\n      }\n    }\n\n    return res;\n  }\n};",
+    "submit_ts": 1717860378.0
+}

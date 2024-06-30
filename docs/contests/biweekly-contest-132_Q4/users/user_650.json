@@ -1,0 +1,5 @@
+{
+    "username": "RedHeadphone",
+    "submission": "\nclass Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n\n        curr = [0]* (k+1)\n\n        dp = [\n            [0]*(k+1) for _ in range(n)\n        ]\n\n        for i in range(n):\n            dp[i][0] = 1\n\n        last_mapp = {}\n\n        for i in range(n):\n            \n            for j in range(k,-1,-1):\n                if nums[i] in last_mapp:\n                    dp[i][j] = dp[last_mapp[nums[i]]][j] + 1\n                \n                if j>0:\n                    dp[i][j] = max(dp[i][j], curr[j-1]+1)\n\n                curr[j] = max(curr[j], dp[i][j])\n\n            last_mapp[nums[i]] = i\n\n            # print(curr)\n        c = Counter(nums)\n        mm = max(c.values())\n\n        return max(mm,max(curr))",
+    "submit_ts": 1717862358.0
+}

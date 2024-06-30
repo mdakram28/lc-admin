@@ -1,0 +1,5 @@
+{
+    "username": "ayukumi",
+    "submission": "class Solution {\npublic:\nint maximumLength(vector<int>& nums, int k) {\n    int n = nums.size();\n    if (n == 0) return 0;\n\n    vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n    vector<int> maxLen(k + 1, -1);\n    vector<unordered_map<int, int>> maxLenMap(k + 1);\n    int maxLength = 1;\n\n    for (int i = 0; i < n; ++i) {\n        for (int t = 0; t <= k; ++t) {\n            for (int l = 0; l < t; ++l) {\n                dp[i][t] = max(dp[i][t], 1 + maxLen[l]);\n            }\n            if (maxLenMap[t].count(nums[i])) {\n                dp[i][t] = max(dp[i][t], 1 + maxLenMap[t][nums[i]]);\n            }\n            maxLength = max(maxLength, dp[i][t]);\n        }\n        for (int t = 0; t <= k; ++t) {\n            maxLen[t] = max(maxLen[t], dp[i][t]);\n            maxLenMap[t][nums[i]] = max(maxLenMap[t][nums[i]], dp[i][t]);\n        }\n    }\n\n    return maxLength;\n}\n\n};\n",
+    "submit_ts": 1717861937.0
+}

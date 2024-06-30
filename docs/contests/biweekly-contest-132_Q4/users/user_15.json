@@ -1,0 +1,5 @@
+{
+    "username": "medmdg",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    int maximumLength(vector<int>& a, int k) {\n        int n=a.size();\n        vector<vector<ll>> dp(n,vector<ll> (k+1,0));\n        map<ll,ll> las;\n        vector<ll> lo(k+1,0);\n        for(int i=0;i<n;i++){\n            int t=las[a[i]];\n            if(t){\n                t--;\n                for(int j=0;j<=k;j++){\n                    dp[i][j]=1+dp[t][j];\n                }\n            }\n            dp[i][0]=max(dp[i][0],1LL);\n            for(int j=0;j<=k;j++){\n                dp[i][j]=max(dp[i][j],lo[j]+1);\n            }\n            for(int j=0;j<k;j++){\n                //cout<<lo[j+1]<<\" \";\n                lo[j+1]=max(lo[j+1],dp[i][j]);\n            }\n            //cout<<endl;\n            las[a[i]]=i+1;\n        }\n       // cout<<\"||\"<<endl;\n        ll ans=0;\n        for(auto &i:dp){\n            for(auto &j:i){ //cout<<j<< \" \" ;\n            ans=max(ans,j);}\n            //cout<<endl;\n        }\n        return (int)ans;\n    }\n};",
+    "submit_ts": 1717858720.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "ArinGupta",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        int ans = 0;\n        vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n        unordered_map<int,int>mp;\n        vector<int> v(k + 1);\n        for (int i = 0; i < n; i++) {\n            for (int j = k; j >= 0; j--) {\n                if (j >= 1) {\n                    dp[i][j] = v[j - 1] + 1;\n                }\n                if (mp.find(nums[i])!=mp.end()) {\n                    dp[i][j] = max(dp[i][j], dp[mp[nums[i]]][j] + 1);\n                }\n                v[j] = max(v[j], dp[i][j]);\n                ans = max(ans, dp[i][j]);\n            }\n            mp[nums[i]] = i;\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": 1717861148.0
+}
