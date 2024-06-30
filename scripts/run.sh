@@ -14,3 +14,6 @@ mv ./public/contests/$REPORT/dolos-report-* ./public/contests/$REPORT/dolos-repo
 
 sleep 10
 python.exe scripts/post_plag.py ${LC_CONTEST} ${LC_QUESNUM}
+
+npm run build
+git add . && git comit -m "[auto_commit] generated ${REPORT}" && git push
