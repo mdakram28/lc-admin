@@ -1,7 +1,7 @@
 import "../styles/prettyprint-style.css";
 import { useEffect, useRef, useState } from "react";
 import Papa from 'papaparse';
-import { ContestInfo } from "../types/dolos.types";
+import { ContestInfo } from "../types/report.types";
 import { DisjSet } from "../util/disj-set";
 import { Panel, PanelGroup, PanelResizeHandle, assert } from "react-resizable-panels";
 import { TreeView, TreeItem } from '@mui/x-tree-view';

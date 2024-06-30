@@ -157,6 +157,10 @@ class ReportProcessor:
         files = self.get_files()
         out_dir = join(self.base_dir, "users")
         Path(out_dir).mkdir(exist_ok=True)
+        
+        users_file = open(join(self.base_dir, "users.csv"), "w", newline='', encoding='utf-8')            
+        writer = csv.writer(users_file)
+        writer.writerow(["fileId", "username", "rank", "submit_ts"])
 
         for file in files.values():
             user_file = join(out_dir, f"user_{file.id}.json")
@@ -166,6 +170,10 @@ class ReportProcessor:
                     "submission": file.content,
                     "submit_ts": file.subm_ts
                 }, f, indent=4)
+            
+            writer.writerow([file.id, file.get_username(), file.get_rank(), file.subm_ts])
+
+        users_file.close()
 
     def write_contest_info(self):
         info_path = join(OUT_PATH, "contest-info.json")

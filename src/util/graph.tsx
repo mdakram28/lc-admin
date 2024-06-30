@@ -1,4 +1,5 @@
-import { UserPair } from "../types/dolos.types";
+import { UserPair } from "../types/report.types";
+import { DisjSet } from "./disj-set";
 
 export class UserGraph {
     graph: Record<string, Record<string, UserPair>>
@@ -17,5 +18,17 @@ export class UserGraph {
         }
     }
 
+    makeGroups(simThres: number) {
+        const ds = new DisjSet();
+        for (const id1 in this.graph) {
+            const g = this.graph[id1];
+            for (const id2 in g) {
+                if (g[id2].similarity >= simThres) {
+                    ds.union(id1, id2);
+                }
+            }
+        }
 
+        return ds.groups();
+    }
 }

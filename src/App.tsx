@@ -6,6 +6,8 @@ import { Link, NavLink, Route, Routes, useParams } from "react-router-dom";
 import GitHubButton from 'react-github-btn';
 import { PlagReportComponent, ReportTitleComponent } from "./components/plag-report.component";
 import { ReportListComponent } from "./components/report-list.component";
+import { createContext } from "react";
+import { UserGraph } from "./util/graph";
 
 export default function Dashboard() {
   const { mode, setMode } = useColorScheme();
