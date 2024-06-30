@@ -45,4 +45,5 @@ export interface ContestInfo {
     numsubm: number
     sim80_numgroups: number
     sim80_numsubm: number
+    subm1_ts: number
 }

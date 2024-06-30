@@ -170,6 +170,7 @@ class ReportProcessor:
             "numsubm": len(self.get_files()),
             "sim80_numgroups": len(sim80),
             "sim80_numsubm": sum(len(g) for g in sim80),
+            "subm1_ts": min(file.subm_ts for file in self.get_files().values())
         }
 
         with open(info_path, 'w') as f:
@@ -179,11 +180,11 @@ def main():
     SIMILARITY_PERCENTAGES = list(range(70, 101, 2))
 
     report = ReportProcessor(sys.argv[1], int(sys.argv[2]))
-    for similarity in SIMILARITY_PERCENTAGES:
-        print(f"Writing group with {similarity=}")
-        report.write_group(similarity)
+    # for similarity in SIMILARITY_PERCENTAGES:
+    #     print(f"Writing group with {similarity=}")
+    #     report.write_group(similarity)
 
-    report.write_users()
+    # report.write_users()
     report.write_contest_info()
 
 if __name__ == "__main__":
