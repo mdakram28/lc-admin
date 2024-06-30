@@ -1,0 +1,5 @@
+{
+    "username": "Tinky1224",
+    "submission": "from sortedcontainers import SortedList\nclass Solution:\n    def countOfPeaks(self, nums: List[int], queries: List[List[int]]) -> List[int]:\n        n = len(nums)\n        sl = SortedList()\n        peak = [False]*n\n        res = []\n        for i in range(1, n-1):\n            if nums[i-1] < nums[i] and nums[i] > nums[i+1]:\n                sl.add(i)\n                peak[i] = True\n        for (t, a, b) in queries:\n            if t == 1:\n                res.append(max(0, sl.bisect_left(b) - sl.bisect_left(a+1)))\n            else:\n                nums[a] = b\n                for i in range(max(a-1, 1), min(a+2, n-1)):\n                    if nums[i-1] < nums[i] and nums[i+1] < nums[i]:\n                        if not peak[i]:\n                            sl.add(i)\n                            peak[i] = True\n                    elif peak[i]:\n                        sl.remove(i)\n                        peak[i] = False\n        return res",
+    "submit_ts": 1718507735.0
+}

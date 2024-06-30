@@ -1,0 +1,5 @@
+{
+    "username": "u77",
+    "submission": "class Solution:\n    def countOfPeaks(self, nums: List[int], queries: List[List[int]]) -> List[int]:\n        import sortedcontainers\n        sl = sortedcontainers.SortedSet()\n        \n        def is_peak(idx):\n            return idx > 0 and idx < len(nums)-1 and nums[idx-1] < nums[idx] and nums[idx] > nums[idx+1]\n        \n        def update(idx):\n            if is_peak(idx):\n                sl.add(idx)\n            else:\n                sl.discard(idx)\n        \n        for idx in range(len(nums)):\n            if is_peak(idx):\n                sl.add(idx)\n        \n        res = []\n        for t,*args in queries:\n            if t==1:\n                l,r = args\n                res.append(max(0,sl.bisect(r-1)-sl.bisect_left(l+1)))\n            else:\n                idx,val = args\n                nums[idx] = val\n                update(idx-1)\n                update(idx)\n                update(idx+1)\n        return res",
+    "submit_ts": 1718506733.0
+}
