@@ -1,0 +1,5 @@
+{
+    "username": "wwwap",
+    "submission": "class Solution {\n    fun minimumDifference(nums: IntArray, k: Int): Int {\n      val visited = HashSet<String>()\n      var res = Int.MAX_VALUE\n      val q: Queue<Pair<Int, Int>> = LinkedList<Pair<Int, Int>>()\n      for (i in nums.indices) {\n        q.offer(Pair(i, nums[i]))\n      }\n\n      while (q.isNotEmpty()) {\n        val size = q.size\n        for (i in 0 until size) {\n          val (idx, v) = q.poll()\n          val curV = v and nums[idx]\n          res = minOf(res, abs(curV - k))\n          res = minOf(res, abs(v - k))\n          if (curV == k) {\n            return 0\n          }\n          val k = \"${idx + 1}_$curV\"\n          if (idx + 1 in nums.indices && k !in visited) {\n            q.offer(Pair(idx + 1, curV))\n            visited.add(k)\n          }\n        }\n      }\n\n      return res \n    }\n}",
+    "submit_ts": 1717298956.0
+}

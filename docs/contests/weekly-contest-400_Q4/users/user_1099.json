@@ -1,0 +1,5 @@
+{
+    "username": "hychen11",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int target) {\n        int n = nums.size();\n        vector<pair<int, int>> ands;\n        set<int> st;\n\n        for (int i = n - 1; i >= 0; --i) {\n            int num = nums[i];\n            ands.push_back({num, i});\n            int k = 0;\n\n            for (int j = 0; j < ands.size(); ++j) {\n                ands[j].first &= num;\n                if (ands[k].first == ands[j].first) {\n                    ands[k].second = ands[j].second;\n                } else {\n                    ++k;\n                    ands[k] = ands[j];\n                }\n            }\n            ands.resize(k + 1);\n\n            for (const auto& el : ands) {\n                st.insert(abs(el.first - target));\n            }\n        }\n\n        return *st.begin();\n    }\n};",
+    "submit_ts": 1717299605.0
+}

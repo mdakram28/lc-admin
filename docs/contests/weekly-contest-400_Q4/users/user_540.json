@@ -1,0 +1,5 @@
+{
+    "username": "mananghetia",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        long long lim=31,n=nums.size(),ans=INT_MAX;\n        vector<vector<long long>> pre(lim,vector<long long>(n,0));\n        \n        for(long long i=0;i<n;i++)\n        {\n            set<int>pos;\n            pos.insert(1);pos.insert(i+1);\n            for(long long j=0;j<lim;j++)\n            {\n                if((1LL<<j)&nums[i]){\n                    pre[j][i]=1;\n                    if(i)\n                        pre[j][i]+=pre[j][i-1];\n                    pos.insert(pre[j][i]);\n                    pos.insert(min(pre[j][i]+1,i+1));\n                    pos.insert(max(pre[j][i]-1,1LL));\n                }\n            }\n            for(auto len:pos)\n            {\n                long long cur=0;\n                for(long long j=0;j<lim;j++)\n                {\n                    if(len<=pre[j][i])\n                        cur|=(1LL<<j);\n                }\n                ans=min(ans,abs(cur-k));\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717298789.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "Samuel3Shin",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int, int> activeSubarrayAnds; \n        int ans = INT_MAX;\n        \n        for (int i = 0; i < n; ++i) {\n            map<int, int> newSubarrayAnds;\n            int currentAnd = nums[i];\n            ans = min(ans, abs(currentAnd - k)); \n            \n            for (auto& [prevAnd, count] : activeSubarrayAnds) {\n                currentAnd = prevAnd & nums[i];\n                newSubarrayAnds[currentAnd] += count;\n                ans = min(ans, abs(currentAnd - k));\n            }\n\n            newSubarrayAnds[nums[i]]++;  \n            \n\n            // Swap maps\n            activeSubarrayAnds = std::move(newSubarrayAnds);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": 1717299394.0
+}

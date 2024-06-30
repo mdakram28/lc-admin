@@ -1,0 +1,5 @@
+{
+    "username": "bibhudattapanigrahi0",
+    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        ans = 10**10\n        \n        i,n = 0, len(nums)\n        f = Counter()\n        \n        def ad(x):\n            for i in range(32):\n                if (x&(1<<i)):\n                    f[i]+=1\n        def rem(x):\n            for i in range(32):\n                if (x&(1<<i)):\n                    f[i]-=1\n        def num(mx):\n            ans = 0\n            if mx ==0:\n                return 0\n            for i in range(32):\n                if f[i]==mx:\n                    ans+=1<<i\n            return ans\n        \n        for j,x in enumerate(nums):\n            ad(x)\n            while i<=j and num(j-i+1)<k:\n                ans = min(ans, k-num(j-i+1))\n                rem(nums[i])\n                i+=1\n            if i<=j:    \n                ans = min(ans, abs(num(j-i+1)-k))\n            \n            \n        return ans\n        ",
+    "submit_ts": 1717298719.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "justDummy",
+    "submission": "int pre[100005][30]={0};\nclass Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        for(int i=0;i<n;i++)\n            for(int j=0;j<30;j++){\n                pre[i+1][j]=pre[i][j];\n                if((nums[i]&(1<<j))) pre[i+1][j]++;\n            }\n        int ans=1e9;\n        for(int i=0;i<n;i++){\n            int l=i,r=n-1,diff=1e9;\n            while(l<=r){\n                int mid=(l+r)/2,val=0;\n                for(int j=0;j<30;j++) if(pre[mid+1][j]-pre[i][j]==mid-i+1) val+=(1<<j);\n                diff=min(diff,abs(k-val));\n                if(val>k) l=mid+1;\n                else r=mid-1;\n            }\n            ans=min(ans,diff);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717298064.0
+}

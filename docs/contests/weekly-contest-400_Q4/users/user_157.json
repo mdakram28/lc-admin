@@ -1,0 +1,5 @@
+{
+    "username": "leftshifted",
+    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        l = 0\n        ctr = Counter()\n        total = (1 << 32) - 1\n\n        res = float('inf')\n\n        for r in range(len(nums)):\n            num = nums[r]\n            for pos in range(32):\n                if not num & 1:\n                    if ctr[pos] == 0: total -= (1<<pos)\n                    ctr[pos] += 1\n                num >>= 1\n            \n            res = min(res, abs(k-total))\n            \n            while total < k:\n                num, pos = nums[l], 0\n                for pos in range(32):\n                    if not num & 1:\n                        if ctr[pos] == 1: total += (1<<pos)\n                        ctr[pos] -= 1\n                    num >>= 1\n                l += 1\n\n                res = min(res, abs(k-total))\n\n            \n        return res",
+    "submit_ts": 1717297896.0
+}

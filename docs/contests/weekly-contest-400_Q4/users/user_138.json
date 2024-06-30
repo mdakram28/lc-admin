@@ -1,0 +1,5 @@
+{
+    "username": "user2638Cd",
+    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        l, r = 0, 0\n        bits = [[0, 0] for _ in range(64)]\n        res = float(\"inf\")\n        while r < n:\n            for i in range(64):\n                bits[i][(nums[r] >> i) & 1] += 1\n            \n            curr = 0\n            for i in range(64):\n                if bits[i][0] == 0 and bits[i][1] > 0:\n                    curr += 1 << i\n            res = min(res, abs(k - curr))\n            \n            while curr <= k and l < r:\n                if k == curr:\n                    return 0\n                for i in range(64):\n                    bits[i][(nums[l] >> i) & 1] -= 1\n                curr = 0\n                for i in range(64):\n                    if bits[i][0] == 0 and bits[i][1] > 0:\n                        curr += 1 << i\n                res = min(res, abs(k - curr))\n                l += 1\n            r += 1\n        return res\n                \n                ",
+    "submit_ts": 1717297498.0
+}

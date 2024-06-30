@@ -1,0 +1,5 @@
+{
+    "username": "funsquared",
+    "submission": "B = 30\n\nclass Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        res = inf\n        l = 0\n        pref = [[0] for _ in range(B)]\n        for i in range(B):\n            for x in nums:\n                pref[i].append(pref[i][-1] + ((x >> i) & 1))\n        def and_(l, r):\n            res = 0\n            for i in range(B):\n                if pref[i][r + 1] - pref[i][l] == r - l + 1:\n                    res |= 1 << i\n            return res\n        for r in range(len(nums)):\n            while l + 1 <= r and and_(l + 1, r) < k:\n                l += 1\n            for cnd in and_(l, r), and_(l + 1, r):\n                res = min(res, abs(cnd - k))\n        return res\n",
+    "submit_ts": 1717297120.0
+}

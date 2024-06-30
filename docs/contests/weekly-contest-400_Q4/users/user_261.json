@@ -1,0 +1,5 @@
+{
+    "username": "uchiha_Shivam",
+    "submission": "class Solution {\npublic:\n    void ft(vector<int> &bt,int x)\n    {\n      for(int i=0;i<32;i++)\n      {\n        if((1<<i)&x)\n        bt[i]++;\n      }\n    }\n    int ft2(vector<int> &bt,int xx,int x,int y)\n    {\n      int ans=0;\n      for(int i=0;i<32;i++)\n      {\n        if((1<<i)&xx)\n        bt[i]--;\n        if(bt[i] == x-y)\n        ans+=(1<<i);\n      }\n      return ans;\n    }\n    int f(vector<int> &nums,int k)\n    {\n      vector<int> bt(32,0);\n      int x=-1;\n      int ans=INT_MAX;\n      int j=0;\n      for(int i=0;i<nums.size();i++)\n      {\n        ft(bt,nums[i]);\n        if(x == -1) x=nums[i];\n        else x&=nums[i];\n        ans=min(ans,abs(x-k));\n        while(j <= i && x < k)\n        {\n           x=ft2(bt,nums[j],i,j);\n           j++;\n           ans=min(ans,abs(x-k));\n        }\n      }\n      return ans;\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        int mx=*max_element(nums.begin(),nums.end());\n        if(k > mx) return k-mx;\n        int a=f(nums,k);\n        return a;\n    }\n};",
+    "submit_ts": 1717298341.0
+}

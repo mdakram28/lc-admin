@@ -1,0 +1,5 @@
+{
+    "username": "baby810321",
+    "submission": "class Solution {\npublic:\n    vector<unordered_map<int, int>> dp;\n\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n\n        dp.resize(n);\n\n        int res = INT_MAX;\n        for(int i = 0; i < n; ++i) {\n            res = min(res, dfs(nums, k, i, (1 << 30)-1));\n        }\n\n        return res;\n    }\n\n    int dfs(vector<int>& nums, int k, int cur, int preAnd) {\n        int n = nums.size();\n\n        if(cur == n)\n            return INT_MAX / 2;\n\n        auto iter = dp[cur].find(preAnd);\n        if(iter != dp[cur].end())\n            return iter->second;\n\n        int curAnd = preAnd & nums[cur];\n        int res = INT_MAX;\n        if(curAnd > k)\n            res = dfs(nums, k, cur+1, curAnd);\n\n        res = min(res, abs(k-curAnd));\n\n        dp[cur][preAnd] = res;\n\n        return res;\n    }\n};",
+    "submit_ts": 1717298997.0
+}

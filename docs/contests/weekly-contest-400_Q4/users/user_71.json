@@ -1,0 +1,5 @@
+{
+    "username": "ltf0501",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = int(nums.size());\n        const int kC = 18;\n        \n        vector v(kC, vector<int>(n));\n        for (int i = 0; i < n; i++) v[0][i] = nums[i];\n        \n        for (int j = 1; j < kC; j++) {\n            for (int i = 0; i < n; i++) {\n                if (i + (1 << (j - 1)) < n)\n                    v[j][i] = v[j - 1][i] & v[j - 1][i + (1 << (j - 1))];\n            }\n        }\n        \n        int ans = int(1e9) + 10;\n        \n        for (int i = 0; i < n; i++) {\n            int cur = (1LL << 31) - 1;\n            int now = i;\n            for (int j = kC - 1; j >= 0; j--) {\n                if (now + (1 << j) >= n) continue;\n                int val = cur & v[j][now];\n                if (val >= k) {\n                    now += 1 << j;\n                    cur = val;\n                }\n            }\n            ans = min(ans, abs(cur - k));\n            if (now < n) ans = min(ans, abs(k - (cur & nums[now])));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717297022.0
+}

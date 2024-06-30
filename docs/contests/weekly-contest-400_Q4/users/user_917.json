@@ -1,0 +1,5 @@
+{
+    "username": "ankangarai",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& v, int k) {\n        int tail = 0, head = 0, n = v.size(), curr = v[0], ans = abs(v[0]-k);\n        vector <int> pre(31); for(int i = 0; i<31; i++) pre[i] += ((v[0] >> i) & 1);\n        while(tail < n){\n            if(curr > k || head > tail){\n                tail++;\n                if(tail >= n) break;\n                for(int i = 0; i<31; i++) pre[i] += ((v[tail] >> i) & 1);\n            }\n            else{\n                for(int i = 0; i<31; i++) pre[i] -= ((v[head] >> i) & 1);\n                head++;\n            }\n            curr = 0;\n            for(int i = 0; i<31; i++) if(pre[i] == tail-head+1) curr += (1 << i);\n            if(head <= tail) ans = min(ans, abs(curr-k));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717300299.0
+}

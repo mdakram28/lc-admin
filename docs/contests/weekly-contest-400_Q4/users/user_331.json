@@ -1,0 +1,5 @@
+{
+    "username": "muntasir_120",
+    "submission": "def bitPositions(n):\n  ret = []\n  idx = 0\n  while n:\n    if n&1:\n      ret.append(idx)\n    idx += 1\n    n >>= 1\n  return ret\n\ndef getAnd(counts, size):\n  ans = 0\n  for k,v in counts.items():\n    if v == size:\n      ans += 1 << k\n  return ans\n    \n      \nclass Solution:\n  def minimumDifference(self, nums: List[int], k: int) -> int:\n    cur = nums[0]\n    ans = abs(cur - k)\n    \n    counts = Counter(bitPositions(cur))\n    left, right = 0, 0\n    while right < len(nums):\n    \n      if cur > k or left > right:\n        right += 1\n        if right >= len(nums):\n          break\n        counts += Counter(bitPositions(nums[right]))\n      else:\n        counts -= Counter(bitPositions(nums[left]))  \n        left += 1\n      window_size = right - left + 1  \n      cur = getAnd(counts, window_size)\n      \n      if left <= right:\n        ans = min(ans, abs(cur - k))\n        \n    return ans\n        ",
+    "submit_ts": 1717298694.0
+}

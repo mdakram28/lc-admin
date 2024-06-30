@@ -1,0 +1,5 @@
+{
+    "username": "ace_Coder121",
+    "submission": "class Solution {\npublic:\n    vector<int> b;\n    int val(int r){\n        int ans = 0;\n        for(int i=0;i<32;i++){\n            if(b[i]==r)ans = ans | (1<<i);\n        }\n        return ans;\n    }\n    void put(int x){\n        for(int i=0;i<32;i++){\n            if(x&(1<<i)){\n                b[i]++;\n            }\n        }\n    }\n    \n    void del(int x){\n        for(int i=0;i<32;i++){\n            if(x&(1<<i)){\n                b[i]--;\n            }\n        }\n    }\n    \n    int minimumDifference(vector<int>& a, int k) {\n        b.resize(32,0);\n        int n = a.size();\n        \n        int i=0,j=0,ans=1e9;\n        while(j<n){\n            put(a[j]);\n            // cout<<\"IN OUTER\"<<i<<\" \"<<j<<val(j-i+1)<<endl;\n            ans = min(ans,abs(val(j-i+1)-k));\n            while(i<j && val(j-i+1)<k){\n                del(a[i]);\n                // cout<<\"IN INNER\"<<i<<\" \"<<j<<\" \"<<val(j-i)<<endl;\n                ans = min(ans,abs(val(j-i)- k));\n                i++;\n            }\n            j++;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717298757.0
+}

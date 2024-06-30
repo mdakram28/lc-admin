@@ -1,0 +1,5 @@
+{
+    "username": "akg7227",
+    "submission": "class Solution {\npublic:\n    int update(int bits[], int x, int d, int e){\n        int bitAnd = 0;\n        for(int i = 0; i < 32; i++){\n            if((x >> i)&1){\n                bits[i] += d;\n            }\n            if(bits[i] == e and e)bitAnd |= (1<<i);\n        }\n        return bitAnd;\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        int bits[32]{};\n        int min_diff = INT_MAX;\n        int bit_and = nums[0];\n        for(int l = 0, r = 0; r < n; r++){\n            int newAnd = update(bits, nums[r], 1, r-l+1);\n            // cout << newAnd << endl;\n            int diff = abs(k - newAnd);\n            min_diff = min(diff, min_diff);\n            while(l <= r and newAnd < k){\n                newAnd = update(bits, nums[l], -1, r-l);\n                diff = abs(k - newAnd);\n                min_diff = min(min_diff, diff);\n                l++;\n            }\n            \n        }\n        return min_diff;\n\n    }\n};\n\n/*\n001\n110\n101\n*/\n",
+    "submit_ts": 1717297396.0
+}

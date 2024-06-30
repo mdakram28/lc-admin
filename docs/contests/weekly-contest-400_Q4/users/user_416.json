@@ -1,0 +1,5 @@
+{
+    "username": "MdAbedin",
+    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        inds = defaultdict(list)\n        \n        for i,num in enumerate(nums):\n            for i2 in range(30):\n                if not num&(1<<i2):\n                    inds[i2].append(i)\n                    \n        ans = inf\n        \n        for i,num in enumerate(nums):\n            AND = num\n            ans = min(ans,abs(AND-k))\n            \n            while AND > k and i < len(nums):\n                AND &= nums[i]\n                ans = min(ans,abs(AND-k))\n                i2 = len(nums)\n                \n                for i3 in range(30):\n                    if not AND&(1<<i3): continue\n                    i4 = bisect_right(inds[i3],i)\n                    if i4 < len(inds[i3]): i2 = min(i2,inds[i3][i4])\n                        \n                i = i2\n            \n        return ans",
+    "submit_ts": 1717298983.0
+}

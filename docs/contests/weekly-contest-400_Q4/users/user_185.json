@@ -1,0 +1,5 @@
+{
+    "username": "feibonaqixu",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<pair<int, int>> ands; // AND result + corresponding subarray right end index\n        int res = INT_MAX;\n        \n        for (int i = n - 1; i >= 0; --i) {\n            ands.emplace_back(nums[i], i);\n            ands[0].first &= nums[i]; // AND the first item with nums[i]\n            int len = 0;\n            for (int j = 1; j < ands.size(); ++j) {\n                ands[j].first &= nums[i];\n                if (ands[len].first == ands[j].first)\n                    ands[len].second = ands[j].second; // Merge same values, keep the smallest index\n                else ands[++len] = ands[j];\n            }\n            ands.resize(len + 1);\n            for (int j = 0; j <= len; ++j) {\n                res = min(res, abs(k - ands[j].first));\n            }\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": 1717298008.0
+}

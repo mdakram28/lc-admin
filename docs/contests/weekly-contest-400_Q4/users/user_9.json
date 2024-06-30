@@ -1,0 +1,5 @@
+{
+    "username": "waakaaka",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n      int n = nums.size();\n      int best = INT_MAX;\n      vector<pair<int, int>> G; // (and, left endpoint), left endpoint increasing.\n      for (int i = 0; i < n; ++i) {\n        G.push_back({nums[i], i});\n        for (auto& g : G) g.first = nums[i] & g.first;\n        G.erase(unique(G.begin(), G.end(), [](const pair<int, int>& g1, const pair<int, int>& g2) {\n          return g1.first == g2.first;\n        }), G.end());\n        for (int j = 0; j < G.size(); ++j) {\n          int s = G[j].second, e = (j + 1 == G.size() ? i : G[j + 1].second - 1);\n          // Any k in [s,e] have same and(A[k..i]) = G[j].first.\n          int v = G[j].first;\n          int diff = abs(v - k);\n          best = min(best, diff);\n        }\n      }\n      return best;\n    }\n};",
+    "submit_ts": 1717295948.0
+}

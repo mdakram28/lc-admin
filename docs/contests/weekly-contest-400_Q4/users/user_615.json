@@ -1,0 +1,5 @@
+{
+    "username": "rupaparasmit",
+    "submission": "class Solution {\npublic:\n    int findand(int i,int j,vector<vector<int>> &spt){\n        int andd=spt[0][i];\n        for(int k=24;k>=0;k--){\n            if((1<<k)<=(j-i+1)){\n                andd=andd & (spt[k][i]);\n                i+=(1<<k);\n            }\n        }\n        return andd;\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<vector<int>> spt(25);\n\n        for(int i=0;i<n;i++){\n            spt[0].push_back(nums[i]);\n        }\n\n        for(int i=1;i<25;i++){\n            for(int j=0;j+(1<<i)<=n;j++){\n                spt[i].push_back(spt[i-1][j] & spt[i-1][j+(1<<(i-1))]);\n            }\n        }\n\n        int ans=INT_MAX;\n        int i=0,j=0,cur=nums[0];\n        while(j<n){\n            cur=findand(i,j,spt);\n            ans=min(ans,abs(cur-k));\n            if(cur==k)return 0;\n            if(cur<k){\n                i++;\n                if(i>j)j=i;\n            }\n            else{\n                j++;\n            }\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": 1717299027.0
+}

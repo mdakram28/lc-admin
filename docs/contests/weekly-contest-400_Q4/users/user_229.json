@@ -1,0 +1,5 @@
+{
+    "username": "hicoder",
+    "submission": "\nclass Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        def set_bits(x: int) -> List[int]:\n            return [i for i, x in enumerate(reversed(bin(x)[2:])) if x == '1']\n        curr = nums[0]\n        ret = abs(curr - k)\n        cnt = Counter(set_bits(nums[0]))\n        l, r = 0, 0\n        while r < len(nums):\n            if curr > k or l > r:\n                r += 1\n                if r >= len(nums): break\n                cnt += Counter(set_bits(nums[r]))\n            else:\n                cnt -= Counter(set_bits(nums[l]))\n                l += 1\n            curr = sum((1 << key) for key, count in cnt.items() if count == r-l+1)\n            if l <= r:\n                ret = min(ret, abs(curr - k))\n\n        return ret\n",
+    "submit_ts": 1717297909.0
+}

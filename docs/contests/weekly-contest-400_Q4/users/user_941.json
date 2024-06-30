@@ -1,0 +1,5 @@
+{
+    "username": "NirbhayPaliwal",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n =nums.size();\n        vector<vector<int>> v(n+1,vector<int>(32,n));\n        for(int i=n-1;i>=0;i--)\n        {\n            for(int j=0;j<31;j++)\n            {\n                int mask = 1ll<<j;\n                if((mask&nums[i])==0)v[i][j]=i;\n                else v[i][j]=v[i+1][j];\n            }\n        }   \n        set<int> s;\n        int ha=nums[0];\n        for(int i=0;i<n;i++)\n        {\n            ha=ha&nums[i];\n            for(int j=0;j<31;j++)\n            {\n                if((nums[i]&(1ll<<j))==0)continue;\n                int curr = nums[i];\n                for(int k=0;k<31;k++)\n                {                    \n                    if(v[i][k]<v[i][j] && v[i][k]>i) curr-=(1ll<<k);\n                }\n                s.insert(curr);\n            }\n        }\n        s.insert(ha);\n        int ans = 1e9;\n        for(auto el :s) \n        {\n            ans=min(ans,abs(el-k));\n        }\n        return ans;\n\n    }\n};",
+    "submit_ts": 1717300083.0
+}

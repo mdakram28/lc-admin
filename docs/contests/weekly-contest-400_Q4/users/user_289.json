@@ -1,0 +1,5 @@
+{
+    "username": "yahoo010206",
+    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        bits = Counter()\n        res = float(\"inf\")\n        pre_idx, cnt = 0, 0\n        for i, num in enumerate(nums):\n            # print(num, bin(num)[2:], bin(num)[:1:-1])\n            bits.update(i for i, b in enumerate(bin(num)[:1:-1]) if b=='1')\n            cnt += 1\n            while cnt>0:\n                value = sum(1<<i for i in range(31) if bits[i]==cnt)\n                # print(pre_idx, i, value)\n                res = min(abs(k-value), res)\n                if value==k:\n                    return 0\n                elif value<k:\n                    bits.subtract(i for i, b in enumerate(bin(nums[pre_idx])[:1:-1]) if b=='1')\n                    pre_idx+=1\n                    cnt -= 1\n                else:\n                    break\n\n            \n        return res",
+    "submit_ts": 1717298516.0
+}

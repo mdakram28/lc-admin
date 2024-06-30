@@ -1,0 +1,5 @@
+{
+    "username": "counter98",
+    "submission": "class Solution {\npublic:\n    vector<int> convert(int a) {\n        vector<int> v(30);\n        for (int i = 0; i < 30; i++) {\n            if (a & (1<<i)) v[i] = 1;\n        }\n        return v;\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        int ans = INT_MAX;\n        int be = 0;\n        vector<int> t(30);\n        for (int i = 0; i < n; i++) {\n            vector<int> v = convert(nums[i]);\n            int x = 0;\n            for (int j = 0; j < 30; j++) {\n                t[j] += v[j];\n                if (t[j] == (i-be+1)) x += (1<<j);\n            }\n            ans = min(ans, abs(x-k));\n            while (be <= i && x < k) {\n                x = 0;\n                vector<int> v = convert(nums[be]);\n                for (int j = 0; j < 30; j++) {\n                    t[j] -= v[j];\n                    if (t[j] == (i-be)) x += (1<<j);\n                }\n                ans = min(ans, abs(x-k));\n                be++;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717299986.0
+}

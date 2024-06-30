@@ -1,0 +1,5 @@
+{
+    "username": "Turkhuu",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& a, int k) {\n        int n = a.size();\n        vector f(30, vector<int>(n + 1));\n        for (int i = 0; i < 30; i++) {\n            for (int j = 0; j < n; j++) {\n                f[i][j + 1] = f[i][j] + (a[j] >> i & 1);\n            }\n        }\n        auto get = [&](int l, int r) {\n            int s = 0;\n            for (int i = 0; i < 30; i++) {\n                if (r - l == f[i][r] - f[i][l]) {\n                    s += 1 << i;\n                }\n            }\n            return s;\n        };\n        int ans = 1e9;\n        for (int i = 0; i < n; i++) {\n            int lo = i, hi = n;\n            while (lo < hi) {\n                int mi = (lo + hi) / 2;\n                get(i, mi + 1) < k ? hi = mi : lo = mi + 1;\n            }\n            if (lo > i) ans = min(ans, get(i, lo) - k);\n            if (lo < n) ans = min(ans, k - get(i, lo + 1));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717296751.0
+}

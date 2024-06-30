@@ -1,0 +1,5 @@
+{
+    "username": "krisWuCHYC",
+    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        result = inf\n        window = -1\n\n        n = len(nums)\n        i, j = 0, 0\n        count = Counter()\n        \n        while j < n:\n            num = nums[j]\n            window &= num\n\n            for idx in range(30):\n                bit = (num >> idx) & 1\n                if bit:\n                    count[idx] += 1\n            result = min(result, abs(k - window))\n            \n            while window < k:\n                lNum = nums[i]\n                for idx in range(30):\n                    bit = (lNum >> idx) & 1\n                    if bit:\n                        count[idx] -= 1\n                    if count[idx] == j - i:\n                        window |= (1 << idx)\n                result = min(result, abs(k - window))\n                i += 1\n            result = min(result, abs(k - window))\n            j += 1\n        \n        return result",
+    "submit_ts": 1717297176.0
+}

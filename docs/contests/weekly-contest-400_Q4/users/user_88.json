@@ -1,0 +1,5 @@
+{
+    "username": "amank13",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        vector<int> count(30,0);\n        int curr = (1<<30)-1;\n        int idx = 0;\n        int ans = abs(nums[0] - k);\n        for(int i=0;i<nums.size();i++) {\n            while(idx < nums.size() && curr > k) {\n                for(int j=0;j<30;j++) {\n                    if(!(nums[idx]&(1<<j))) {\n                        if(count[j] == 0) {\n                            curr-= (1<<j);\n                        }\n                        count[j]++;\n                    }\n                }\n                ans = min(ans, abs(curr-k));\n                idx++;\n            }\n            for(int j=0;j<30;j++) {\n                if(!(nums[i]&(1<<j))) {\n                    count[j]--;\n                    if(count[j] == 0) {\n                        curr+= (1<<j);\n                    }\n                }\n            }\n            ans = min(ans, abs(curr-k));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717297459.0
+}

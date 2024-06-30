@@ -1,0 +1,5 @@
+{
+    "username": "ankushkhanna1998",
+    "submission": "class Solution {\n\npublic:\n\n  inline int minimumDifference(const vector<int> &a, const int k) const {\n    int result = numeric_limits<int>::max();\n    vector<int> bits(30);\n    for (int l = 0, r = 0, mask = 0; r < (int) a.size(); r++) {\n      for (int b = 0; b < 30; b++) {\n        if (((a[r] >> b) & 1) == 1) {\n          bits[b]++;\n        }\n        if (bits[b] == (r - l + 1)) {\n          mask |= (1 << b);\n        } else {\n          mask &= (mask ^ (1 << b));\n        }\n      }\n      result = min(result, abs(k - mask));\n      while (l < r && mask < k) {\n        for (int b = 0; b < 30; b++) {\n          if (((a[l] >> b) & 1) == 0) {\n            if (bits[b] == (r - l)) {\n              mask |= (1 << b);\n            }\n          } else {\n            bits[b]--;\n          }\n        }\n        l++;\n        result = min(result, abs(k - mask));\n      }\n    }\n    return result;\n  }\n};\n",
+    "submit_ts": 1717299248.0
+}

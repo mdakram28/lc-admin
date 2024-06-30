@@ -1,0 +1,5 @@
+{
+    "username": "aditya712001",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& a, int k) {\n        int ans=1e9,n=a.size();\n        vector<vector<int>> b(n,vector<int>(31,n));\n        for(int i=0;i<=30;i++)\n        {\n            stack<int> st;\n            for(int j=0;j<n;j++)\n            {\n                while(!st.empty() && !(a[j]&(1<<i)))\n                {\n                    b[st.top()][i]=j;\n                    st.pop();\n                }\n                st.push(j);\n            }\n        }\n        set<int> s;\n        for(int i=0;i<n;i++)\n        {\n            sort(b[i].begin(),b[i].end());\n            int subans=a[i];\n            s.insert(subans);\n            for(auto x:b[i])\n            {\n                if(x==n)\n                break;\n                subans&=a[x];\n                s.insert(subans);\n            }\n        }\n        for(auto x:s)\n        ans=min(ans,abs(k-x));\n        return ans;\n    }\n};",
+    "submit_ts": 1717297295.0
+}

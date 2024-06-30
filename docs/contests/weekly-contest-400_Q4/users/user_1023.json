@@ -1,0 +1,5 @@
+{
+    "username": "hanbro0112",
+    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        res = inf\n        cnt = [0] * 31\n        i = 0\n        for j, num in enumerate(nums):\n            value = 0\n            for d in range(31):\n                cnt[d] += (num >> d) & 1\n                if cnt[d] == j - i + 1:\n                    value |= (1 << d)\n            \n            res = min(res, abs(k - value))\n            while i < j and value < k:\n                value = 0\n                for d in range(31):\n                    cnt[d] -= (nums[i] >> d) & 1\n                    if cnt[d] == j - i:\n                        value |= (1 << d)\n                \n                res = min(res, abs(k - value))\n                i += 1\n        \n        return res",
+    "submit_ts": 1717299732.0
+}

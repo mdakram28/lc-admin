@@ -1,0 +1,5 @@
+{
+    "username": "yumichael",
+    "submission": "bits = 32\n\ndef init():\n    return [0] * bits\n\n# window tracks number of 0s in each bit location inside the sliding window of numbers\n\ndef add(window, num):\n    for b in range(bits):\n        window[b] += 1 & ~(num >> b)\n\ndef remove(window, num):\n    for b in range(bits):\n        window[b] -= 1 & ~(num >> b)\n    \ndef value(window):\n    return sum(1 << b for b in range(bits) if window[b] == 0)\n\nclass Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        window = init()\n        best_difference = inf\n        i = 0\n        for j in range(n):\n            add(window, nums[j])\n            while value(window) < k:\n                best_difference = min(best_difference, abs(value(window) - k))\n                remove(window, nums[i])\n                i += 1\n            best_difference = min(best_difference, abs(value(window) - k))\n        return best_difference",
+    "submit_ts": 1717299673.0
+}

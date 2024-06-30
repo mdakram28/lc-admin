@@ -1,0 +1,5 @@
+{
+    "username": "Yu-Ting-Lee",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        vector<int> count(32, 0);\n        int i = 0, j = 0;\n        int res = INT_MAX, cur = INT_MAX;\n        while (j < nums.size()) {\n            cur &= nums[j];\n\n            int temp = nums[j];\n            for (int a = 0; a < 32; a++) {\n                count[a] += (temp & 1);\n                temp >>= 1;\n            }\n            res = min(res, abs(cur - k));\n\n            while (cur < k && i < j) {\n                int temp = nums[i];\n                for (int a = 0; a < 32; a++) {\n                    count[a] -= (temp & 1);\n                    temp >>= 1;\n                }\n                cur = 0;\n                for (int a = 0; a < 32; a++) {\n                    if (count[a] == j - i) {\n                        cur |= (1 << a);\n                    }\n                }\n                res = min(res, abs(cur - k));\n                i++;\n            }\n            j++;\n        }\n        return res;\n    }\n};",
+    "submit_ts": 1717299644.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "ronitnanwani",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        long long n = nums.size();\n        vector<map<long long,long long>> mp(n);\n        mp[n-1][nums[n-1]]++;\n        map<long long,long long> mp2;\n        mp2[nums[n-1]]++;\n        for(int i=n-2;i>=0;i--){\n            mp[i][nums[i]]++;\n            for(auto j : mp[i+1]){\n                mp[i][(j.first)&nums[i]]+=j.second;\n            }\n            for(auto j : mp[i]){\n                mp2[j.first]+=j.second;\n            }\n        }\n            \n        long long mini = 1e9+7;\n        for(auto [val,_] : mp2){\n            mini=min(mini,abs(k-val));\n        }\n        \n        return (int)mini;\n        \n        \n        \n    }\n};",
+    "submit_ts": 1717298294.0
+}

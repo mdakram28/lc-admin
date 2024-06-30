@@ -1,0 +1,5 @@
+{
+    "username": "Hritik__k",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        vector<int>bits(32);\n        int start=0;\n        int n=nums.size();\n        int curr=INT_MAX;\n        int ans=INT_MAX;\n        for(int i=0;i<n;i++){\n            \n            curr&=nums[i];\n            for(int b=0;b<32;b++){\n                bits[b]+=(nums[i]>>b)&1;\n            }\n            ans=min(ans,abs(k-curr));\n            while(start<i && curr<k){\n                for(int b=0;b<32;b++){\n                    bits[b]-=(nums[start]>>b)&1;\n                }\n                for(int b=0;b<32;b++){\n                    if(bits[b]==i-start) curr|=1<<b;\n                }\n                start++;\n                ans=min(ans,abs(k-curr));\n            }\n            ans=min(ans,abs(k-curr));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717299548.0
+}

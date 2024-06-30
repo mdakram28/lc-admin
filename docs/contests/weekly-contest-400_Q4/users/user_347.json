@@ -1,0 +1,5 @@
+{
+    "username": "twitch_tv_qiqi_impact",
+    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        f = nums[0]\n        for x in nums:\n            f &= x\n        ret = abs(f - k)\n        d = {}\n        for j, x in enumerate(nums):\n            ks = set()\n            ps = set()\n            for i in range(32):\n                if not (x & 1 << i):\n                    ks.add(i)\n                else:\n                    ps.add(i)\n            for q in d:\n                for t in ks:\n                    d[q].discard(t)\n            for q in list(d.keys()):\n                if not d[q]:\n                    del d[q]\n                else:\n                    for t in d[q]:\n                        ps.discard(t)\n            d[j] = ps\n            b = 0\n            for q in sorted(d.keys()):\n                for t in d[q]:\n                    b |= 1 << t\n                ret = min(ret, abs(k - b))\n        return ret",
+    "submit_ts": 1717298152.0
+}

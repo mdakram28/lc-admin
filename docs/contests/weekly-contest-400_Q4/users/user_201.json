@@ -1,0 +1,5 @@
+{
+    "username": "REED_W",
+    "submission": "class Solution {\n    public int minimumDifference(int[] nums, int k) {\n        return sln1(nums, k);\n    }\n\n    private int sln1(int[] nums, int k){\n        int n = nums.length;\n        TreeSet<Integer>[] set = new TreeSet[n+1];\n        for(int i= 0;i<=n;i++)  set[i] = new TreeSet<>();\n        int res = Math.abs(k-nums[0]);\n        for(int i= 0;i<n;i++){\n            for(int j: set[i]){\n                set[i+1].add(j&nums[i]);\n            }\n            set[i+1].add(nums[i]);\n            Integer ceiling = set[i+1].ceiling(k);\n            Integer floor = set[i+1].floor(k);\n            if(ceiling!=null){\n                res = Math.min(res, Math.abs(k-ceiling));\n            }\n            if(floor!=null){\n                res = Math.min(res, Math.abs(k-floor));\n            }\n        }\n        return res;\n    }\n}",
+    "submit_ts": 1717298111.0
+}

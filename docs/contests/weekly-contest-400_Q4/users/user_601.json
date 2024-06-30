@@ -1,0 +1,5 @@
+{
+    "username": "Qba101",
+    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        b = [0] * 32\n        \n        def get_val(bits, dup):\n            return sum(1 << i for i, c in enumerate(bits) if c == dup)\n        \n        def add_num(bits, num, flag = 1):\n            for i in range(32):\n                val = (1 << i) & num\n                bits[i] += flag * (val > 0) \n            return bits\n        \n        i = 0\n        ans = float('inf')\n        for j, num in enumerate(nums):\n            b = add_num(b, num)\n            val = get_val(b, j - i + 1)\n            while val < k and i < j:\n                ans = min(ans, k - val)\n                b = add_num(b, nums[i], -1)\n                i += 1\n                val = get_val(b, j - i + 1)\n                \n            ans = min(ans, abs(k - val))\n            # print(f'{i=}, {j=}, {val=}, {b=}')\n            if val == k:\n                return 0\n        return ans\n                ",
+    "submit_ts": 1717299568.0
+}
