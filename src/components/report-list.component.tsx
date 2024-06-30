@@ -18,7 +18,7 @@ export function ReportListComponent({ }: {}) {
         fetchContestInfo()
             .then(infos => {
                 const reports = Object.values(infos.reports);
-                reports.sort((r1, r2) => r1.subm1_ts - r2.subm1_ts);
+                reports.sort((r1, r2) => r2.subm1_ts - r1.subm1_ts);
                 setInfos(reports);
             });
     }, []);
