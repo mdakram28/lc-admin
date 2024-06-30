@@ -145,7 +145,7 @@ export function PlagReportComponent({ }: {}) {
                                 </a>
                             </h3>
                             <span style={{flexGrow: 1}}></span>
-                            <span>Submitted at: {new Date(selectedUser.submit_ts).toTimeString()}</span>
+                            <span>Submitted at: {new Date(selectedUser.submit_ts * 1000).toTimeString()}</span>
                         </div>
                         <input
                             type="checkbox"
