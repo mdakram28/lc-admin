@@ -1,5 +1,6 @@
 {
     "username": "cai_lw",
     "submission": "class Solution {\n    struct FenwickTree{\n        vector<int> a;\n        FenwickTree(int n):a(n+1){}\n        void add(int i,int x){\n            i++;\n            while(i<a.size()){\n                a[i]+=x;\n                i+=i&-i;\n            }\n        }\n        int psum(int i){\n            int ret=0;\n            while(i>0){\n                ret+=a[i];\n                i-=i&-i;\n            }\n            return ret;\n        }\n    };\npublic:\n    vector<int> countOfPeaks(vector<int>& a, vector<vector<int>>& queries) {\n        int n=a.size();\n        FenwickTree fwt(n);\n        auto peak=[&](int i){\n            return i>0&&i<n-1&&a[i]>a[i-1]&&a[i]>a[i+1];\n        };\n        for(int i=0;i<n;i++)\n            if(peak(i))\n                fwt.add(i,1);\n        vector<int> ans;\n        for(auto &q:queries){\n            int typ=q[0];\n            if(typ==1){\n                ans.push_back(q[2]-q[1]<2?0:fwt.psum(q[2])-fwt.psum(q[1]+1));\n            }else{\n                for(int j=q[1]-1;j<=q[1]+1;j++)\n                    if(peak(j))\n                        fwt.add(j,-1);\n                a[q[1]]=q[2];\n                for(int j=q[1]-1;j<=q[1]+1;j++)\n                    if(peak(j))\n                        fwt.add(j,1);\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1718505904.0
+    "submit_ts": "1718505904",
+    "subm_id": "1289599542"
 }

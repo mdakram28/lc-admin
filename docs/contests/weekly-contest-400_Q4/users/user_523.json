@@ -1,5 +1,6 @@
 {
     "username": "kotharirahil9",
     "submission": "class Solution {\npublic:\n    \n    int minimumDifference(vector<int>& nums, int k) {\n        vector<int> bits(35);\n        \n        long long int n = nums.size();\n        long long int ans = 1e9+5;\n        long long int curr = 0;\n        long long int sz = 0;\n        long long int l = 0; int r = 0;\n        while(l != n)\n        {\n            // cout << l << r << endl;\n            if((curr > k || sz == 0)&& r!=n)\n            {\n                long long int x = nums[r];\n                r++;\n                sz++;\n                for(int i = 0; i < 33; i++)\n                {\n                    if((x & (1ll << i)) > 0)bits[i]++;\n                }\n                curr = 0;\n                for(int i = 0; i < 33; i++)if(bits[i] == sz)curr += (1ll << i);\n            }\n            else\n            {\n                long long int x = nums[l];\n                l++;\n                sz--;\n                for(int i = 0; i < 33; i++)\n                {\n                    if((x & (1ll << i)) > 0)bits[i]--;\n                }\n                curr = 0;\n                for(int i = 0; i < 33; i++)if(bits[i] == sz)curr += (1ll << i);\n            }\n            if(sz != 0)ans = min(ans, abs(k-curr));\n            if(ans == 0)return 0;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717298433.0
+    "submit_ts": "1717298433",
+    "subm_id": "1274778826"
 }

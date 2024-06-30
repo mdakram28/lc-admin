@@ -1,5 +1,6 @@
 {
     "username": "LouisCheng",
     "submission": "from collections import deque\nclass Solution:\n    def convert(self, edges, size):\n        paths = [[] for _ in range(size)]\n        for x in edges:\n            paths[x[0]].append(x[1])\n            paths[x[1]].append(x[0])\n        return paths\n        \n    def farthest(self, paths, start, size):\n        queue = deque([[start, 0]])\n        distances = [-1] * size\n        top = [0, 0]\n        while queue:\n            top = queue.popleft()\n            if distances[top[0]] != -1: continue\n            distances[top[0]] = top[1]\n            for x in paths[top[0]]: queue.append([x, top[1] + 1])\n        return top\n            \n    def diameter(self, paths, size): return self.farthest(paths, self.farthest(paths, 0, size)[0], size)[1]\n    \n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        n = len(edges1) + 1\n        m = len(edges2) + 1\n        paths1 = self.convert(edges1, n)\n        paths2 = self.convert(edges2, m)\n        dia1 = self.diameter(paths1, n)\n        dia2 = self.diameter(paths2, m)\n        return max(dia1, dia2, (dia1 + 1)//2 + (dia2 + 1)//2 + 1)\n        ",
-    "submit_ts": 1719717560.0
+    "submit_ts": "1719717560",
+    "subm_id": "1304394782"
 }

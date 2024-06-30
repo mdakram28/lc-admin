@@ -1,5 +1,6 @@
 {
     "username": "mbeceanu",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, req: List[List[int]]) -> int:\n        req.sort()\n        l=len(req)\n        for i in range(l-1):\n            if req[i][1]>req[i+1][1]:\n                return 0\n        @cache\n        def cnt(n):\n            if n==1:\n                return {0:1}\n            tmp=cnt(n-1)\n            ans=defaultdict(int)\n            for inv, ct in tmp.items():\n                for i in range(n):\n                    ans[inv+i]+=ct\n            return ans\n        p=10**9+7\n        i0, rq0=req[0]\n        if rq0 in cnt(i0+1):\n            ans=cnt(i0+1)[rq0]\n        else:\n            ans=0\n        def cnt2(i0, rq0, i1, rq1, start):\n            dct={rq0: start}\n            for i in range(i0+2, i1+2):\n                tmp=defaultdict(int)\n                for inv, ct in dct.items():\n                    for j in range(i):\n                        if inv+j<=400:\n                            tmp[inv+j]+=ct\n                dct=tmp\n            return dct[rq1]%p\n        pind, prq=i0, rq0\n        for ind, rq in req[1:]:\n            if ans==0:\n                return 0\n            ans=cnt2(pind, prq, ind, rq, ans)\n            pind, prq=ind, rq\n        return ans\n        ",
-    "submit_ts": 1719069347.0
+    "submit_ts": "1719069347",
+    "subm_id": "1296793988"
 }

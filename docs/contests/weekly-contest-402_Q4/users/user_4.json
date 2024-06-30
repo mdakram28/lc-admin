@@ -1,5 +1,6 @@
 {
     "username": "endlesscheng",
     "submission": "package main\n\n// https://space.bilibili.com/206214\nconst fenwickInitVal = 0 // -1e18\n\ntype fenwick []int\n\nfunc newFenwickTree(n int) fenwick {\n\tt := make(fenwick, n+1)\n\tfor i := range t {\n\t\tt[i] = fenwickInitVal\n\t}\n\treturn t\n}\n\nfunc (fenwick) op(a, b int) int {\n\treturn a + b\n}\n\nfunc (f fenwick) update(i int, val int) {\n\tfor ; i < len(f); i += i & -i {\n\t\tf[i] = f.op(f[i], val)\n\t}\n}\n\n// [1,i]\nfunc (f fenwick) pre(i int) int {\n\tres := fenwickInitVal\n\tfor ; i > 0; i &= i - 1 {\n\t\tres = f.op(res, f[i])\n\t}\n\treturn res\n}\n\n// [l,r]\nfunc (f fenwick) query(l, r int) int {\n\tif r < l {\n\t\treturn 0\n\t}\n\treturn f.pre(r) - f.pre(l-1)\n}\n\nfunc countOfPeaks(a []int, qs [][]int) (ans []int) {\n\tn := len(a)\n\tf := newFenwickTree(n)\n\tfor i := 1; i < n-1; i++ {\n\t\tif a[i] > a[i-1] && a[i] > a[i+1] {\n\t\t\tf.update(i, 1)\n\t\t}\n\t}\n\t\n\tfor _, q := range qs {\n\t\tif q[0] == 1 {\n\t\t\tl, r := q[1], q[2]\n\t\t\tres := f.query(l+1, r-1)\n\t\t\tans = append(ans, res)\n\t\t} else {\n\t\t\ti, x := q[1], q[2]\n\t\t\tfor j := max(i - 1, 1); j <= min(i+1, n-2); j++ {\n\t\t\t\tif a[j] > a[j-1] && a[j] > a[j+1] {\n\t\t\t\t\tf.update(j, -1)\n\t\t\t\t}\n\t\t\t}\n\t\t\ta[i] = x\n\t\t\tfor j := max(i - 1, 1); j <= min(i+1, n-2); j++ {\n\t\t\t\tif a[j] > a[j-1] && a[j] > a[j+1] {\n\t\t\t\t\tf.update(j, 1)\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\treturn\n}\n",
-    "submit_ts": 1718505662.0
+    "submit_ts": "1718505662",
+    "subm_id": "539769685"
 }

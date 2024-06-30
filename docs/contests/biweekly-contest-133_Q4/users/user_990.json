@@ -1,5 +1,6 @@
 {
     "username": "realstar",
     "submission": "class Solution {\n    public int numberOfPermutations(int n, int[][] requirements) {\n        int max = 1000000007;\n        Arrays.sort(requirements, Comparator.comparingInt(i -> i[0]));\n        int maxCount = 0;\n        for (int[] r : requirements)\n        \tmaxCount = Math.max(r[1], maxCount);\n        int[][] dp = new int[n][maxCount + 1];\n        dp[0][0] = 1;\n        if (requirements[0][0] == 0 && requirements[0][1] != 0)\n        \treturn 0;\n        int index = requirements[0][0] == 0 ? 1 : 0;\n        for (int i = 1; i < n; i++) {\n        \tfor (int j = 0; j <= maxCount; j++) {\n        \t\tfor (int k = Math.max(0,  j - i); k <= j; k++)\n        \t\t\tdp[i][j] = (dp[i - 1][k] + dp[i][j]) % max;\n        \t}\n        \tif (index < requirements.length && requirements[index][0] == i) {\n        \t\tint save = dp[i][requirements[index][1]];\n        \t\tdp[i] = new int[maxCount + 1];\n        \t\tdp[i][requirements[index][1]] = save;\n        \t\tindex++;\n        \t}\n        }\n        return dp[n - 1][requirements[requirements.length - 1][1]];\n    }\n}",
-    "submit_ts": 1719071145.0
+    "submit_ts": "1719071145",
+    "subm_id": "1296840081"
 }

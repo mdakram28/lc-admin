@@ -1,5 +1,6 @@
 {
     "username": "Hogwartsss",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        pre = [[0 for i in range(31)] for j in range(n + 1)]\n        for i, n in enumerate(nums):\n            for j in range(31):\n                pre[i+1][j] = pre[i][j] + ((n >> j) & 1)\n                \n        def cal(i, j):\n            res = 0\n            for x in range(31):\n                res |= (1 << x) if (pre[j+1][x] - pre[i][x] == j - i + 1) else 0\n            # print(i, j, res)\n            return res\n        \n        left = 0\n        ans = 0x3f3f3f3f\n        for i, n in enumerate(nums):\n            res = cal(left, i)\n            while left < i and res < k:\n                left += 1\n                res = cal(left, i)\n            ans = min(ans, abs(res - k))\n            if left:\n                ans = min(ans, k - cal(left - 1, i))\n        return ans",
-    "submit_ts": 1717298942.0
+    "submit_ts": "1717298942",
+    "subm_id": "1274796580"
 }

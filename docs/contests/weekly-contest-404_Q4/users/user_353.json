@@ -1,5 +1,6 @@
 {
     "username": "jessenwilliam87",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(\n        self, edges1: List[List[int]], edges2: List[List[int]]\n    ) -> int:\n\n        n = len(edges1)\n        m = len(edges2)\n\n        AL1 = [[] for i in range(n + 1)]\n        AL2 = [[] for i in range(m + 1)]\n\n        for i in edges1:\n            AL1[i[0]].append(i[1])\n            AL1[i[1]].append(i[0])\n\n        for i in edges2:\n            AL2[i[0]].append(i[1])\n            AL2[i[1]].append(i[0])\n\n        def get_diam(al):\n            vis = [False for i in range(len(al))]\n            ans = -1\n            deep = -1\n\n            def dfs(al, node, d):\n                nonlocal ans, deep\n                vis[node] = 1\n                if d > ans:\n                    ans = d\n                    deep = node\n\n                for i in al[node]:\n                    if vis[i] == 0:\n                        dfs(al, i, d + 1)\n\n            dfs(al, 0, 1)\n            vis = [False for i in range(len(al))]\n            ans = -1\n            dfs(al, deep, 1)\n            return ans\n\n        x = get_diam(AL1) - 1\n        y = get_diam(AL2) - 1\n        #   print(x,y)\n        return max(ceil(x / 2) + ceil(y / 2) + 1, x , y)\n",
-    "submit_ts": 1719717420.0
+    "submit_ts": "1719717420",
+    "subm_id": "1304391078"
 }

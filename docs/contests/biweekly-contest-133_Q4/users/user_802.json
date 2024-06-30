@@ -1,5 +1,6 @@
 {
     "username": "kenichisutan",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD = 10**9 + 7\n        max_inversions = 400\n\n        requirements.sort()\n        \n        req_len = len(requirements)\n        req_pos = [r[0] for r in requirements]\n        req_inv = [r[1] for r in requirements]\n        \n        dp = [[[0] * (req_len + 1) for _ in range(max_inversions + 1)] for _ in range(n + 1)]\n        dp[0][0][0] = 1\n\n        for length in range(1, n + 1):\n            for inv in range(max_inversions + 1):\n                for req_idx in range(req_len + 1):\n                    if dp[length - 1][inv][req_idx] == 0:\n                        continue\n                    for pos in range(length):\n                        new_inv = inv + pos\n                        if new_inv > max_inversions:\n                            break\n                        next_req_idx = req_idx\n                        if req_idx < req_len and req_pos[req_idx] == length - 1:\n                            if new_inv == req_inv[req_idx]:\n                                next_req_idx += 1\n                            else:\n                                continue\n                        dp[length][new_inv][next_req_idx] += dp[length - 1][inv][req_idx]\n                        dp[length][new_inv][next_req_idx] %= MOD\n\n        return dp[n][req_inv[-1]][req_len]",
-    "submit_ts": 1719070075.0
+    "submit_ts": "1719070075",
+    "subm_id": "1296813865"
 }

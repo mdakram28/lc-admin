@@ -1,5 +1,6 @@
 {
     "username": "callmepandey",
     "submission": "\nclass Solution {\npublic:\n    int numberOfPermutations(int N, vector<vector<int>>& requirements) {\n        map < int , int > frq;\n        for(auto &a:  requirements) {\n            frq[a[0] + 1] = a[1];\n        }\n        int limit = frq[N];\n        const int mod = 1e9 + 7;\n        vector<vector<int>> dp(N + 2, vector<int>(limit + 2, 0));\n        dp[0][0] = 1;\n        for (int n = 1; n <= N; ++n) {\n            for (int k = 0; k <= limit; ++k) {\n                dp[n][k] = 0;\n                \n                for (int i = 0; i <= min(k, n - 1); ++i) {\n                    if(frq.count(n - 1) && frq[n - 1] != k - i) \n                        continue;\n                    \n                    dp[n][k] = (dp[n][k] + dp[n-1][k-i]) % mod;\n                }\n            }\n        }\n        \n        return dp[N][limit];\n    }\n};",
-    "submit_ts": 1719068027.0
+    "submit_ts": "1719068027",
+    "subm_id": "1296750144"
 }

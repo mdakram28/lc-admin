@@ -1,5 +1,6 @@
 {
     "username": "Algoh9",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        const int n = nums.size();\n        \n        vector<vector<int> > dp (n+1, vector<int>(k+1,0));\n        unordered_map<int,int> maxi;\n        vector<int> maxj(k+1,0);\n        \n        int maxval = 0;\n        \n        for (int ii = 1; ii <= n; ++ii) {\n            int x = nums[ii-1];\n            dp[ii][0] = 1;\n            for (int jj = k; jj >= 0; --jj) {                \n                if (jj > 0) {\n                    dp[ii][jj] = max(dp[ii][jj], maxj[jj-1]+1);\n                }\n                \n                if (maxi.count(x)) {\n                    dp[ii][jj] = max(dp[ii][jj], dp[maxi[x]][jj]+1);\n                }\n                \n                maxj[jj] = max(maxj[jj], dp[ii][jj]);\n                maxval = max(maxval, dp[ii][jj]);\n            }\n            maxi[x] = ii;\n        }\n        return maxval;\n    }\n};",
-    "submit_ts": 1717859732.0
+    "submit_ts": "1717859732",
+    "subm_id": "1281732983"
 }

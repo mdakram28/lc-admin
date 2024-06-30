@@ -1,5 +1,6 @@
 {
     "username": "Sorrow321",
     "submission": "class Solution:\n\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n            requirements = sorted(requirements)\n            print(requirements)\n            requirements = [(x+1, y) for (x, y) in requirements]\n            print(requirements)\n            \n            dp = [[0 for _ in range(requirements[-1][1] + 1)] for _ in range(n + 1)]\n            dp[0][0] = 1\n            \n            tar_req = requirements[0]\n            for i in range(1, tar_req[0] + 1):\n                for j in range(tar_req[1] + 1):\n                    dp[i][j] = 0\n                    for p in range(min(j, i - 1) + 1):\n                        dp[i][j] += dp[i - 1][j - p]\n            print(dp)\n            \n            last_req = tar_req\n            for tar_req in requirements[1:]:\n                for i in range(last_req[0] + 1, tar_req[0] + 1):\n                    for j in range(last_req[1], tar_req[1] + 1):\n                        dp[i][j] = 0\n                        for p in range(min(j, i - 1) + 1):\n                            if p > j - last_req[1]:\n                                break\n                            dp[i][j] += dp[i - 1][j - p]\n                last_req = tar_req\n            print(dp)\n            return dp[-1][-1] % int(10 ** 9 +7)",
-    "submit_ts": 1719070576.0
+    "submit_ts": "1719070576",
+    "subm_id": "1296826450"
 }

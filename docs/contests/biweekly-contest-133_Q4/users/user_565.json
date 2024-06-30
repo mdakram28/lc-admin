@@ -1,5 +1,6 @@
 {
     "username": "fenwick-tree",
     "submission": "#define ll long long\nclass Solution {\npublic:\n    const int MOD = 1000000007;\n    const int N = 401;\n    int numberOfPermutations(int n, vector<vector<int>>& A) {\n        map<int, int> mp;\n        for (auto& it : A) {\n            mp[it[0] + 1] = it[1];\n        }\n\n        vector<vector<ll>> dp(n + 1, vector<ll>(N + 1, 0));\n        dp[0][0] = 1;\n\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= N; j++) {\n                for (int k = 0; k < i; k++) {\n                    int prevInv = j - k;\n                    if (prevInv >= 0) {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][prevInv]) % MOD;\n                    }\n                }\n            }\n\n            if (mp.count(i)) {\n                int targetInv = mp[i];\n                for (int j = 0; j <= N; j++) {\n                    if (j != targetInv) {\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n\n        long long ans = 0;\n        for (auto it : dp[n]) {\n            ans = (ans + it) % MOD;\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": 1719070672.0
+    "submit_ts": "1719070672",
+    "subm_id": "1296828886"
 }

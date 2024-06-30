@@ -1,5 +1,6 @@
 {
     "username": "Supress257",
     "submission": "class Solution\n{\npublic:\n    int maximumLength(vector<int> &nums, int k)\n    {\n          int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n        int maxLength = 1;\n        vector<int> maxLengthForK(k + 1, -1);\n        vector<map<int, int>> lastPos(k + 1);\n\n        for (int i = 0; i < n; i++)\n        {\n            for (int j = 0; j <= k; j++)\n            {\n                for (int l = 0; l < j; l++)\n                {\n                    dp[i][j] = max(dp[i][j], 1 + maxLengthForK[l]);\n                }\n                if (lastPos[j].count(nums[i]))\n                {\n                    dp[i][j] = max(dp[i][j], 1 + lastPos[j][nums[i]]);\n                }\n                maxLength = max(maxLength, dp[i][j]);\n            }\n            for (int j = 0; j <= k; j++)\n            {\n                maxLengthForK[j] = max(maxLengthForK[j], dp[i][j]);\n                lastPos[j][nums[i]] = max(lastPos[j][nums[i]], dp[i][j]);\n            }\n        }\n        return maxLength;\n\n    }\n};\n",
-    "submit_ts": 1717861965.0
+    "submit_ts": "1717861965",
+    "subm_id": "1281807602"
 }

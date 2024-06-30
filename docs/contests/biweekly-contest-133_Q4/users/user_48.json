@@ -1,5 +1,6 @@
 {
     "username": "nicholasfoocl",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        sort(requirements.begin(), requirements.end());\n        vector<long long> cnts(402, 0);\n        int reqPos = 0;\n        const long long MOD = 1e9+7;\n        cnts[0] = 1;\n        if(reqPos < requirements.size() && requirements[reqPos][0] == 0) {\n            if(requirements[reqPos][1]!=0) return 0;\n            reqPos++;\n        }\n        for(int i=1; i<n; i++){\n            vector<long long> nextCnts(402, 0);\n            for(int j=0; j<=400; j++){\n                for(int k=0; j+k<=400 && k<=i; k++){\n                    nextCnts[j+k] += cnts[j];\n                    nextCnts[j+k] %= MOD;\n                }\n            }\n            if(reqPos < requirements.size() && requirements[reqPos][0]==i){\n                for(int j=0; j<=400; j++){\n                    if(requirements[reqPos][1]!=j) nextCnts[j] = 0;\n                }\n                reqPos++;\n            }\n           //  for(int i=0; i<30; i++){\n           //      int x = nextCnts[i];\n           //      cout << x << ' '; \n           // }cout << '\\n';\n        cnts = nextCnts;\n        }\n        long long ans = 0;\n        for(auto&x:cnts){\n            ans += x;\n            ans %= MOD;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1719068136.0
+    "submit_ts": "1719068136",
+    "subm_id": "1296754288"
 }

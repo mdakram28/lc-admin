@@ -1,5 +1,6 @@
 {
     "username": "Three_Wayne",
     "submission": "class Solution(object):\n    def minimumDifference(self, nums, k):\n        \"\"\"\n        :type nums: List[int]\n        :type k: int\n        :rtype: int\n        \"\"\"\n        n = len(nums)\n        arr = [0] * 30\n        j = 0\n        res = float('inf')\n        for i in range(n):\n            res = min(res, abs(nums[i] - k))\n            if i == j:\n                if nums[i] < k:\n                    j += 1\n                    continue\n                else:\n                    self.insert(arr, nums[j])\n                    j += 1\n            while j < n and self.getValue(arr, j-i) >= k:\n                res = min(res, abs(k - self.getValue(arr, j-i)))\n                self.insert(arr, nums[j])\n                j += 1\n            res = min(res, abs(k - self.getValue(arr, j-i)))\n            self.remove(arr, nums[i])\n        return res\n    def getValue(self, arr, count):\n        val = 0\n        for i in range(30):\n            if arr[i] == count:\n                val |= (1<<i)\n        return val\n    def insert(self, arr, val):\n        i = 0\n        while val > 0:\n            if (val & 1) > 0:\n                arr[i] += 1\n            i += 1\n            val >>= 1\n    def remove(self, arr, val):\n        i = 0\n        while val > 0:\n            if (val & 1) > 0:\n                arr[i] -= 1\n            i += 1\n            val >>= 1",
-    "submit_ts": 1717296128.0
+    "submit_ts": "1717296128",
+    "subm_id": "1274691383"
 }

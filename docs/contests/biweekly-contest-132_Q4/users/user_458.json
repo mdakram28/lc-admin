@@ -1,5 +1,6 @@
 {
     "username": "Rishita_maheshwari",
     "submission": "class Solution {\npublic:\n    struct DPState {\n    int count; // the current max count\n    unordered_set<int> elements; // set of elements\n    unordered_map<int, int> counter; // count of each element\n};\n    int maximumLength(vector<int>& arr, int k) {\n        vector<DPState> dp(k + 1); // Initialize dp with k+1 states\n\n    for (int i = 0; i < arr.size(); ++i) {\n        int num = arr[i];\n        int prev = 0;\n        for (int j = 0; j <= k; ++j) {\n            int cur = max({prev + 1, (dp[j].count + 1) * (dp[j].elements.count(num) > 0), dp[j].counter[num] + 1});\n            prev = dp[j].count;\n            dp[j].counter[num] = cur;\n\n            if (dp[j].count < cur) {\n                dp[j].count = cur;\n                dp[j].elements.clear();\n                dp[j].elements.insert(num);\n            }\n\n            if (cur == dp[j].count) {\n                dp[j].elements.insert(num);\n            }\n        }\n    }\n\n    return dp[k].count;\n    }\n};",
-    "submit_ts": 1717861640.0
+    "submit_ts": "1717861640",
+    "subm_id": "1281797631"
 }

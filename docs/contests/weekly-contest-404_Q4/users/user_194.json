@@ -1,5 +1,6 @@
 {
     "username": "leetcodefan",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        \n        def tree_diameter(n, edges):\n            def bfs(start):\n                dist = [-1] * n\n                dist[start] = 0\n                q = deque([start])\n                farthest_node = start\n                while q:\n                    node = q.popleft()\n                    for neighbor in adj[node]:\n                        if dist[neighbor] == -1:\n                            dist[neighbor] = dist[node] + 1\n                            q.append(neighbor)\n                            farthest_node = neighbor\n                return farthest_node, dist[farthest_node]\n\n            adj = defaultdict(list)\n            for u, v in edges:\n                adj[u].append(v)\n                adj[v].append(u)\n\n            farthest_node, _ = bfs(0)\n            farthest_node, diameter = bfs(farthest_node)\n            return diameter\n        \n        n = len(edges1) + 1\n        m = len(edges2) + 1\n\n        diameter1 = tree_diameter(n, edges1)\n        diameter2 = tree_diameter(m, edges2)\n\n        return max(diameter1, diameter2, (diameter1 + 1) // 2 + (diameter2 + 1) // 2 + 1)",
-    "submit_ts": 1719717800.0
+    "submit_ts": "1719717800",
+    "subm_id": "1304401069"
 }

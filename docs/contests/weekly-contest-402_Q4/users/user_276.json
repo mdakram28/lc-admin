@@ -1,5 +1,6 @@
 {
     "username": "silvertint10",
     "submission": "class Fenwick:\n    def __init__(self, n):\n        self.tree = [0] * (n + 1)\n        self.n = n\n\n    def update(self, x, val):\n        while x <= self.n:\n            self.tree[x] += val\n            x += x & -x\n\n    def query(self, x):\n        ans = 0\n        while x:\n            ans += self.tree[x]\n            x -= x & -x\n        return ans\n\nclass Solution:\n    def countOfPeaks(self, nums: List[int], queries: List[List[int]]) -> List[int]:\n        ans = []\n        n = len(nums)\n        bit = Fenwick(n)\n        for i in range(1, n - 1):\n            if nums[i - 1] < nums[i] > nums[i + 1]:\n                bit.update(i + 1, 1)\n        for a, b, c in queries:\n            if a == 2:\n                diff = defaultdict(int)\n                for i in range(b - 1, b + 2):\n                    if 0 < i < n - 1 and nums[i - 1] < nums[i] > nums[i + 1]:\n                        diff[i] -= 1\n                nums[b] = c\n                for i in range(b - 1, b + 2):\n                    if 0 < i < n - 1 and nums[i - 1] < nums[i] > nums[i + 1]:\n                        diff[i] += 1\n                    if 0 <= i < n and diff:\n                        bit.update(i + 1, diff[i])\n            else:\n                if c - b >= 2:\n                    ans.append(bit.query(c) - bit.query(b + 1))\n                else:\n                    ans.append(0)\n        return ans",
-    "submit_ts": 1718507026.0
+    "submit_ts": "1718507026",
+    "subm_id": "539778771"
 }

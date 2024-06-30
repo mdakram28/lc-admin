@@ -1,5 +1,6 @@
 {
     "username": "garyjhu",
     "submission": "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n    public int waysToReachStair(int k) {\n        int res = k <= 1 ? 1 : 0;\n        for (int jump = 0; jump <= 30; jump++) {\n            int down = (1 << (jump + 1)) - k;\n            if (0 <= down && down <= jump + 2) {\n                int c = jump + 1 - (down - 1);\n                res += (int) (getFac(down + c, false) * getFac(down, true) % MOD * getFac(c, true) % MOD);\n            }\n        }\n        return res;\n    }\n\n    static final int MOD = 1_000_000_007;\n    private long inv(long n) {\n        return exp(n, MOD - 2);\n    }\n\n    private long exp(long n, int k) {\n        long res = 1;\n        for (int i = k; i > 0; i >>= 1) {\n            if ((i & 1) == 1) res = (res * n) % MOD;\n            n = (n * n) % MOD;\n        }\n        return res;\n    }\n\n    static List<Long> fac = new ArrayList<>();\n    static List<Long> ifac = new ArrayList<>();\n\n    private long getFac(int n, boolean inv) {\n        if (fac.size() == 0) {\n            fac.add(1L);\n            ifac.add(1L);\n        }\n        while (fac.size() <= n) {\n            fac.add(fac.get(fac.size() - 1) * fac.size() % MOD);\n            ifac.add(ifac.get(ifac.size() - 1) * inv(ifac.size()) % MOD);\n        }\n        return inv ? ifac.get(n) : fac.get(n);\n    }\n}\n",
-    "submit_ts": 1716087684.0
+    "submit_ts": "1716087684",
+    "subm_id": "1261791205"
 }

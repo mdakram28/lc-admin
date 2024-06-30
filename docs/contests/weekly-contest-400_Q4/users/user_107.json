@@ -1,5 +1,6 @@
 {
     "username": "Akatsuki_",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> arr(31);\n        for(int i = 0; i < n; i++) {\n            for(int j = 0; j < 31; j++) {\n                if(!(nums[i]>>j&1)) {\n                    arr[j].push_back(i);\n                }\n            }\n        }\n        int ans = INT_MAX;\n        for(int i = 0; i < n; i++) {\n            int pos = i, v = nums[i];\n            ans = min(ans, abs(v-k));\n            while(pos < n && v != 0) {\n                int nxt = n;\n                for(int j = 0; j < 31; j++) {\n                    if(v>>j&1) {\n                        int id = upper_bound(begin(arr[j]), end(arr[j]), pos)-begin(arr[j]);\n                        if(id != arr[j].size()) {\n                            nxt = min(nxt, arr[j][id]);\n                        }\n                    }\n                }\n                if(nxt != n) {\n                    pos = nxt;\n                    v &= nums[nxt];\n                    ans = min(ans, abs(v-k));\n                } else {\n                    break;\n                }\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717297275.0
+    "submit_ts": "1717297275",
+    "subm_id": "1274736536"
 }

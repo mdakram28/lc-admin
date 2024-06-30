@@ -1,5 +1,6 @@
 {
     "username": "hank55663",
     "submission": "class Solution {\npublic:\n    int S[100005];\n    void add(int x,int k){\n        x++;\n        for(int i = x;i<100005;i+=i&-i){\n            S[i]+=k;\n        }\n    }\n    int query(int x){\n        x++;\n        int res=0;\n        for(int i = x;i>0;i-=i&-i){\n            res+=S[i];\n        }\n        return res;\n    }\n    vector<int> countOfPeaks(vector<int>& nums, vector<vector<int>>& queries) {\n        fill(S,S+100005,0);\n        for(int i = 1;i+1<nums.size();i++){\n            if(nums[i]>nums[i-1]&&nums[i]>nums[i+1])add(i,1);\n        }\n        vector<int> res;\n        for(auto it:queries){\n            if(it[0]==1){\n                if(it[2]-it[1]<2)res.push_back(0);\n                else\n                res.push_back(query(it[2]-1)-query(it[1]));\n            }\n            else{\n                for(int i = max(it[1]-1,1);i<=min(it[1]+1,(int)nums.size()-2);i++){\n                     if(nums[i]>nums[i-1]&&nums[i]>nums[i+1])add(i,-1);\n                }\n                nums[it[1]]=it[2];\n                for(int i = max(it[1]-1,1);i<=min(it[1]+1,(int)nums.size()-2);i++){\n                     if(nums[i]>nums[i-1]&&nums[i]>nums[i+1])add(i,1);\n                }\n            }\n        }\n        return res;\n    }\n};",
-    "submit_ts": 1718505646.0
+    "submit_ts": "1718505646",
+    "subm_id": "1289589081"
 }

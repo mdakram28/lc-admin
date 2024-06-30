@@ -1,5 +1,6 @@
 {
     "username": "hocln",
     "submission": "const long long MOD = 1e9 + 7;\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& a) {\n\t\tlong long dp[n+1][404];\n\t\tvector<int>pos(n,-1);\n\t\tfor(auto& i : a) pos[i[0]]=i[1];\n\t\tdp[0][0]=1;\n\t\tfor(int i = 1;i <= n;i++) {\n\t\t\tfor(int j = 0;j <= pos[n-1];j++) {\n\t\t\t\tdp[i][j] = (j ? dp[i][j-1] : 0) + dp[i-1][j] + (j >= i ? -dp[i-1][j-i] : 0);\n\t\t\t\tdp[i][j] = (dp[i][j] % MOD + MOD) % MOD;\n\t\t\t}\n\t\t\tif(~pos[i-1]) {\n\t\t\t\tfor(int j = 0;j < 404;j++) {\n\t\t\t\t\tif(j == pos[i-1]) continue;\n\t\t\t\t\tdp[i][j]=0;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tif(pos[n-1]) {\n\t\t\tdp[n][pos[n-1]] -= dp[n][pos[n-1]-1];\n\t\t}\n        return (dp[n][pos[n-1]] % MOD + MOD) % MOD;\n    }\n};",
-    "submit_ts": 1719069125.0
+    "submit_ts": "1719069125",
+    "subm_id": "1296787302"
 }

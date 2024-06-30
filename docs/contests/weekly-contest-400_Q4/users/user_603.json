@@ -1,5 +1,6 @@
 {
     "username": "Govind_Singh_2003",
     "submission": "class Solution {\npublic:\n    int v[100001][32];\n    int get(int l, int r)\n    {\n        int x = 0;\n        for(int bit = 0; bit < 32; bit++)\n            if(v[r][bit] - v[l - 1][bit] == r - (l - 1))\n                x |= (1 << bit);\n        return x;\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size(), ans = 1e9;\n        memset(v, 0, sizeof(v));\n        for(int i = 0; i < n; i++)\n        {\n            for(int bit = 0; bit < 32; bit++)\n                v[i + 1][bit] = v[i][bit] + (nums[i] >> bit & 1);\n        }\n        for(int i = 1; i <= n; i++)\n        {\n            \n            int lo = i, hi = n, res = -1;\n            while(lo <= hi)\n            {\n                int mid = (lo + hi) >> 1;\n                if(get(i, mid) >= k)\n                {\n                    res = mid;\n                    lo = mid + 1;\n                }\n                else hi = mid - 1;\n            }\n            if(res == -1)\n                ans = min(ans, k - nums[i - 1]);\n            else\n            {\n                ans = min(ans, get(i, res) - k);\n                if(res + 1 <= n) ans = min(ans, k - get(i, res + 1));\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717299258.0
+    "submit_ts": "1717299258",
+    "subm_id": "1274806637"
 }

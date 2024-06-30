@@ -1,5 +1,6 @@
 {
     "username": "elioyyds",
     "submission": "class Solution {\npublic:\n    bool a[30][30];\n    int calc(int nl,int nr,int ml,int mr)\n    {\n        int xl=nr;    int yl=mr;\n        int xr=nl;    int yr=ml;\n        for(int i=nl;i<=nr;++i)\n            for(int j=ml;j<=mr;++j)\n            {\n                if(a[i][j]==0)  continue;\n                xr=max(xr,i+1);\n                yr=max(yr,j+1);\n                xl=min(xl,i);\n                yl=min(yl,j);\n            }\n        return max((xr-xl)*(yr-yl),1);\n    }\n    int solve(int nl,int nr,int ml,int mr,int s)\n    {\n        if(s==1)    return calc(nl,nr,ml,mr);\n        int ans=100000;\n        for(int i=nl;i<nr;++i)\n        {\n            ans=min(ans,solve(nl,i,ml,mr,1)+solve(i+1,nr,ml,mr,s-1));\n            if(s==3)\n                ans=min(ans,solve(nl,i,ml,mr,s-1)+solve(i+1,nr,ml,mr,1));\n        }\n        for(int i=ml;i<mr;++i)\n        {\n            ans=min(ans,solve(nl,nr,ml,i,1)+solve(nl,nr,i+1,mr,s-1));\n            if(s==3)\n            ans=min(ans,solve(nl,nr,ml,i,s-1)+solve(nl,nr,i+1,mr,1));\n        }\n        return ans;\n    }\n    int minimumSum(vector<vector<int>>& g) {\n        int n=g.size();\n        int m=g[0].size();\n        for(int i=0;i<n;++i)\n            for(int j=0;j<m;++j)\n                a[i][j]=g[i][j];\n        return solve(0,n-1,0,m-1,3);\n    }\n};",
-    "submit_ts": 1719111221.0
+    "submit_ts": "1719111221",
+    "subm_id": "541385746"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Charu_Aggarwal108",
     "submission": "const (\n\tMOD           = 1000000007\n\tMAX_INVERSIONS = 400\n)\n\nfunc numberOfPermutations(n int, requirements [][]int) int {\n\tendIdxToInversionCnt := make(map[int]int)\n\tfor _, req := range requirements {\n\t\tendIdxToInversionCnt[req[0] + 1] = req[1]\n\t}\n\n\t// Initialize DP table\n\tdp := make([][]int, n+1)\n\tfor i := range dp {\n\t\tdp[i] = make([]int, MAX_INVERSIONS+1)\n\t}\n\n\tdp[0][0] = 1\n\n\t// Compute DP table\n\tfor length := 1; length <= n; length++ {\n\t\tfor currentInversions := 0; currentInversions <= MAX_INVERSIONS; currentInversions++ {\n\t\t\tfor newPosition := 0; newPosition < length; newPosition++ {\n\t\t\t\tpreviousInversions := currentInversions - newPosition\n\t\t\t\tif previousInversions >= 0 {\n\t\t\t\t\tdp[length][currentInversions] = (dp[length][currentInversions] + dp[length-1][previousInversions]) % MOD\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\tif val, ok := endIdxToInversionCnt[length]; ok {\n\t\t\trequiredInversions := val\n\t\t\tfor currentInversions := 0; currentInversions <= MAX_INVERSIONS; currentInversions++ {\n\t\t\t\tif currentInversions != requiredInversions {\n\t\t\t\t\tdp[length][currentInversions] = 0\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t// Calculate the result\n\tresult := 0\n\tfor currentInversions := 0; currentInversions <= MAX_INVERSIONS; currentInversions++ {\n\t\tresult = (result + dp[n][currentInversions]) % MOD\n\t}\n\n\treturn result\n}",
-    "submit_ts": 1719070714.0
+    "submit_ts": "1719070714",
+    "subm_id": "1296829961"
 }

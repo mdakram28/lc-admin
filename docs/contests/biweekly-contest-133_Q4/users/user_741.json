@@ -1,5 +1,6 @@
 {
     "username": "kapilchihla",
     "submission": "class Solution {\npublic:\n    \nconst int mod = 1e9+7;\nconst int inv = 400;\nint f(int n,unordered_map<int,int>& mp) {\n    vector<vector<long long>> dp(n + 1, vector<long long>(inv + 1, 0));\ndp[0][0] = 1;\n\nfor (int i = 1; i <= n; i++) {\n    for (int j = 0; j <= inv; j++) {\nfor (int k = 0; k < i; k++) {\nint prev = j - k;\nif (prev >= 0) {\ndp[i][j] = (dp[i][j] + dp[i - 1][prev]) % mod;\n}\n}\n}\n\nif (mp.count(i) > 0) {\nint target = mp[i];\nfor (int j = 0; j <= inv; j++) {\nif (j!= target) {\ndp[i][j] = 0;\n}\n}\n}\n}\n    long long res = 0;\nfor (int j = 0; j<= inv; j++) {\nres = (res + dp[n][j]) % mod;\n}\nreturn (int)res;\n}\nint numberOfPermutations(int n, vector<vector<int>>& requirements) {\nunordered_map<int, int> mp;\nfor (auto i : requirements) {\nmp[i[0] + 1] = i[1];\n}\n\nreturn f(n,mp);\n\n\n  }\n};",
-    "submit_ts": 1719071128.0
+    "submit_ts": "1719071128",
+    "subm_id": "1296839712"
 }

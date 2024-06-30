@@ -1,5 +1,6 @@
 {
     "username": "sergey-tihon",
     "submission": "public class Solution {\n    \n    public int MaximumLength(int[] nums, int k) {\n        int n = nums.Length;\n        var f = new int[n + 1][];\n        for (int i = 0; i <= n; i++) {\n            f[i] = new int[k + 1];\n        }\n        var indexes = new Dictionary<int,int>();\n\n        var mm = new int[k+1];\n        var mm2 = new int[k+1];\n  \n        int res = 0;\n        for (int i = 1; i <= nums.Length; i++) {\n            if (!indexes.TryGetValue(nums[i-1], out var previousIndex))\n                previousIndex = -1;\n  \n            for (int j = 0; j <= k; j++) {\n                if (j == 0) {\n                    f[i][j] = 1;\n                } else \n                    f[i][j] = mm[j-1]+1;\n\n                if (previousIndex != -1) {\n                    f[i][j] = Math.Max(\n                        f[i][j],\n                        1 + f[previousIndex][j]\n                    );\n                }\n\n                mm2[j] = Math.Max(mm[j], f[i][j]);\n            }\n            (mm, mm2) = (mm2, mm);\n            indexes[nums[i - 1]] = i;\n  \n            res = Math.Max(res, f[i][k]);\n        }\n  \n        return res;\n    }\n    \n}",
-    "submit_ts": 1717862125.0
+    "submit_ts": "1717862125",
+    "subm_id": "1281812957"
 }

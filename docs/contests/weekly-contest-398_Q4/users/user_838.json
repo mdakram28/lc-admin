@@ -1,5 +1,6 @@
 {
     "username": "yuvaprakash",
     "submission": "class Solution {\n    public Map<Integer, Map<Integer, Map<Boolean, Integer>>> hm = new HashMap<>();\n    public int yuvi(int k, int i, int jump, boolean can) {\n        if (i > k + 5)\n            return 0;\n\n        if (jump > 31)\n            return 0;\n\n        if (hm.containsKey(i) && hm.get(i).containsKey(jump) && hm.get(i).get(jump).containsKey(can))\n            return hm.get(i).get(jump).get(can);\n\n        int yans = (i == k) ? 1 : 0;\n        if (can)\n            yans += yuvi(k, i - 1, jump, false);\n        if (i + (1 << jump) <= k + 1)\n            yans += yuvi(k, i + (1 << jump), jump + 1, true);\n\n        if (!hm.containsKey(i))\n            hm.put(i, new HashMap<>());\n        if (!hm.get(i).containsKey(jump))\n            hm.get(i).put(jump, new HashMap<>());\n        hm.get(i).get(jump).put(can, yans);\n        return yans;\n    }\n\n    public int waysToReachStair(int k) {\n        return yuvi(k, 1, 0, true);\n    }\n}",
-    "submit_ts": 1716089405.0
+    "submit_ts": "1716089405",
+    "subm_id": "1261841388"
 }

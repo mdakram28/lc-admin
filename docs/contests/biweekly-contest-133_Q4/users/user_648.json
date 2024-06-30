@@ -1,5 +1,6 @@
 {
     "username": "ritikraj6120",
     "submission": "class Solution {\npublic:\n\tint MOD = 1e9+7, MAX_INVERSIONS = 400;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n    \tvector<vector<long long>> ans(n + 1, vector<long long>(MAX_INVERSIONS + 1, 0));\n\t\tunordered_map<int, int> mp;\n        for (const auto& req : requirements) {\n            mp[req[0] + 1] = req[1];\n        }\n        ans[0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= MAX_INVERSIONS; j++) {\n                for (int newPos = 0; newPos < i; newPos++) {\n                    int prevInv = j - newPos;\n                    if (prevInv >= 0) {\n                        ans[i][j] = (ans[i][j] + ans[i - 1][prevInv]) % MOD;\n                    }\n                }\n            }\n\n            if (mp.count(i)) {\n                for (int j = 0; j <= MAX_INVERSIONS; j++) {\n                    if (j != mp[i]) {\n                        ans[i][j] = 0;\n                    }\n                }\n            }\n        }\n\n        long long count = 0;\n        for (long long i : ans[n]) {\n            count = (count + i) % MOD;\n        }\n\n        return count;\n    }\n};\n",
-    "submit_ts": 1719070912.0
+    "submit_ts": "1719070912",
+    "subm_id": "1296834710"
 }

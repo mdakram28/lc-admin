@@ -1,5 +1,6 @@
 {
     "username": "MakarenkoStepan",
     "submission": "import heapq\n\nclass Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        heapq.heapify(requirements)\n        mod = 1000000000 + 7\n        \n        dp = [[0] * 401 for _ in range(301)] # 120000\n        # for i in range(301):\n        #     dp[i][0] = 1\n        dp[0][0] = 1\n        \n        \n        for i in range(1, n+1):\n            if requirements[0][0] + 1 == i:\n                take_ind = requirements[0][1]\n                heapq.heappop(requirements)\n            else:\n                take_ind = None\n            \n            # print(i, take_ind)\n            for j in range(0, 401):\n                for k in range(0, i):\n                    if j < k:\n                        continue\n                    dp[i][j] = (dp[i][j] + dp[i-1][j-k]) % mod\n                \n                if take_ind is not None:\n                    if j != take_ind:\n                        dp[i][j] = 0\n        \n        # for j in range(4):\n        #     s = \"\"\n        #     for i in range(4):\n        #         s += str(dp[i][j]) + \" \"\n        #     print(s)\n        return dp[n][take_ind]\n                \n                \n                    \n        \n        ",
-    "submit_ts": 1719071358.0
+    "submit_ts": "1719071358",
+    "subm_id": "1296844966"
 }

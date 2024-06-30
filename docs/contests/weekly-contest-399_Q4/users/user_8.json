@@ -1,5 +1,6 @@
 {
     "username": "Kinon",
     "submission": "class Solution {\npublic:\n    const int maxn = (1<<16);\n    long long segtree[(1<<17)][4];\n    void build(){\n        for(int i=0; i<(1<<17); i++){\n            for(int j=0; j<4; j++) segtree[i][j] = 0;\n        }\n    }\n    void update(int idx, int val){\n        idx += maxn;\n        segtree[idx][0] = max(val, 0);\n        idx /= 2;\n        while(idx > 0){\n            segtree[idx][0] = max(\n                segtree[idx*2][0]+segtree[idx*2+1][1], segtree[idx*2][2]+segtree[idx*2+1][0]\n            );\n            segtree[idx][1] = max(\n                segtree[idx*2][1]+segtree[idx*2+1][1], segtree[idx*2][3]+segtree[idx*2+1][0]\n            );\n            segtree[idx][2] = max(\n                segtree[idx*2][0]+segtree[idx*2+1][3], segtree[idx*2][2]+segtree[idx*2+1][2]\n            );\n            segtree[idx][3] = max(\n                segtree[idx*2][1]+segtree[idx*2+1][3], segtree[idx*2][3]+segtree[idx*2+1][2]\n            );\n            idx /= 2;\n        }\n    }\n\n    int maximumSumSubsequence(vector<int>& nums, vector<vector<int>>& queries) {\n        build();\n        for(int i=0; i<nums.size(); i++) update(i, nums[i]);\n        long long ans = 0, mod = 1e9+7;\n        for(int i=0; i<queries.size(); i++){\n            update(queries[i][0], queries[i][1]);\n            ans += segtree[1][0];\n            ans %= mod;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716691998.0
+    "submit_ts": "1716691998",
+    "subm_id": "1268040049"
 }

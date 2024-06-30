@@ -1,5 +1,6 @@
 {
     "username": "SamyajitDas",
     "submission": "class Solution {\n    int result = 0;\n\n    int MOD = 1000000007;\n    public int numberOfPermutations(int n, int[][] requirements) {\n        HashMap<Integer, Integer> hm = new HashMap<>();\n        for (int i[] : requirements) {\n            hm.put(i[0]+1, i[1]);\n        }\n        int dp[][] = new int[n + 100][500];\n        \n        dp[0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j < 500; j++) {\n                for (int l = 0; l < i; l++) {\n                    int prevInv = j - l;\n                    if (prevInv >= 0) {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][prevInv]) % MOD;\n                    }\n                }\n            }\n\n            if (hm.containsKey(i)) {\n                int ty = hm.get(i);\n                for (int j = 0; j < 500; j++) {\n                    if (j != ty) {\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n\n       \n        return counter(dp,n);\n    }\n    int counter(int dp[][],int n) {\n        for (int countc : dp[n]) {\n            result = (result + (countc % MOD)) % MOD;\n        }\n        return result;\n    }\n}",
-    "submit_ts": 1719071989.0
+    "submit_ts": "1719071989",
+    "subm_id": "1296858722"
 }

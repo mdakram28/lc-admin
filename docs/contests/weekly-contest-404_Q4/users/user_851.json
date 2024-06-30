@@ -1,5 +1,6 @@
 {
     "username": "shivamshekhar010",
     "submission": "class Solution {\n    vector<int> dp,par;\n    int ans=0;\npublic:\n    void dfs(vector<vector<int>> &v, int i){\n        if(v[i].size()==1 && i!=1){\n            dp[i]=0;\n            return ;\n        }\n        for(auto j : v[i]){\n            if(!par[j]){\n                par[j]=i;\n                dfs(v,j);\n                ans=max(ans,dp[j]+dp[i]+1);\n                dp[i]=max(dp[i],dp[j]+1);\n            }\n        }\n    }\n \n \n    int solve(vector<vector<int>>& edges){\n        dp.clear();\n        par.clear();\n        ans = 0;\n        int n = edges.size() + 1;\n        if(n == 1) return 0;\n        vector<vector<int>> adj(n+1);\n        dp.resize(n+1);\n        par.resize(n+1);\n        for(int i=1;i<=n;i++){\n            dp[i]=0;\n            par[i]=0;\n        }\n        for(int i=0;i<n-1;i++){\n            adj[edges[i][0]+1].push_back(edges[i][1]+1);\n            adj[edges[i][1]+1].push_back(edges[i][0]+1);\n        }\n        par[1]=1;\n        dfs(adj,1);\n        return ans;\n    }\n\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int d1 = solve(edges1);\n        int d2 = solve(edges2);\n        int ans = max(d1, d2);\n        cout<<d1<<d2<<'\\n';\n        ans = max(ans, (d1 + 1)/2 + (d2 + 1)/2 + 1);\n        return ans;\n    }\n};",
-    "submit_ts": 1719719797.0
+    "submit_ts": "1719719797",
+    "subm_id": "1304450803"
 }

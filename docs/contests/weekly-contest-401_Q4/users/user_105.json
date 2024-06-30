@@ -1,5 +1,6 @@
 {
     "username": "pyjuan91",
     "submission": "class Solution {\n public:\n  int maxTotalReward(vector<int>& rewardValues) {\n    sort(rewardValues.begin(), rewardValues.end());\n    rewardValues.erase(unique(rewardValues.begin(), rewardValues.end()),\n                       rewardValues.end());\n    int n = rewardValues.size();\n    bitset<50001> dp, mask;\n    dp[0] = 1;\n    for (int i = 0; i < n - 1; i++) {\n      // clear all bits greater than rewardValues[i]\n      for (int j = (i ? rewardValues[i - 1] : 0); j < rewardValues[i]; j++) {\n        mask[j] = 1;\n      }\n      dp |= (dp & mask) << rewardValues[i];\n    }\n    for (int i = rewardValues.back() - 1; i >= 0; i--) {\n      if (dp[i]) return i + rewardValues.back();\n    }\n    return 0;\n  }\n};",
-    "submit_ts": 1717902951.0
+    "submit_ts": "1717902951",
+    "subm_id": "1282320160"
 }

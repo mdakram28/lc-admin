@@ -1,5 +1,6 @@
 {
     "username": "pahadixpanda",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int mod=1e9 + 7;\n        int maxi=400;\n        vector<vector<int>>t(n+1,vector<int>(maxi+1, 0));\n        t[0][0] = 1;\n\n        vector<int> req(n, -1);\n        for (auto x : requirements) {\n            req[x[0]]=x[1];\n        }\n        for (int h = 1;h <= n;++h) {\n            for (int s=0;s<=400;++s) {\n                for (int k = 0; k < h; ++k) {\n                    if (s >= k) {\n                        t[h][s] = (t[h][s] + t[h- 1][s - k])%mod;\n                    }\n                }\n            }\n            if (req[h - 1] != -1) {\n                int lgaya = req[h - 1];\n                for (int s = 0; s <=400; ++s) {\n                    if (s != lgaya) {\n                        t[h][s] = 0;\n                    }\n                }\n            }\n        }\n        return t[n][req[n - 1]];\n\n    }\n};",
-    "submit_ts": 1719070529.0
+    "submit_ts": "1719070529",
+    "subm_id": "1296825311"
 }

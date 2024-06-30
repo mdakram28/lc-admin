@@ -1,5 +1,6 @@
 {
     "username": "watashi",
     "submission": "class Solution {\npublic:\n  template<typename T = int>\n  using Graph = vector<vector<pair<int, T>>>;\n\n  template<bool WEIGHTED = false>\n  static Graph<int> fromEdgeList(int n, const vector<vector<int>>& edges) {\n    if (!WEIGHTED && !edges.empty() && edges.front().size() > 2) {\n      return fromEdgeList<!WEIGHTED>(n, edges);\n    }\n    Graph<int> g(n);\n    for (const auto& e : edges) {\n      int a = e[0], b = e[1], c = WEIGHTED ? e[2] : 1;\n      g[a].emplace_back(b, c);\n      g[b].emplace_back(a, c);\n    }\n    return g;\n  }\n\n  static void dfs(const Graph<int>& g, vector<int>& d, int v) {\n    for (const auto& w : g[v]) {\n      if (d[w.first] == -1) {\n        d[w.first] = d[v] + 1;\n        dfs(g, d, w.first);\n      }\n    }\n  }\n\n  static int longestPath(const vector<vector<int>>& edges) {\n    const int n = (int)edges.size() + 1;\n    const auto g = fromEdgeList(n, edges);\n    vector<int> d(n, -1);\n    d[0] = 0;\n    dfs(g, d, 0);\n    int v = max_element(d.begin(), d.end()) - d.begin();\n    d = vector<int>(n, -1);\n    d[v] = 0;\n    dfs(g, d, v);\n    return *max_element(d.begin(), d.end());\n  }\n\n  int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n    int d1 = longestPath(edges1), d2 = longestPath(edges2);\n    return max({ d1, d2, (d1 + 1) / 2 + (d2 + 1) / 2 + 1 });\n  }\n};",
-    "submit_ts": 1719716192.0
+    "submit_ts": "1719716192",
+    "subm_id": "1304357555"
 }

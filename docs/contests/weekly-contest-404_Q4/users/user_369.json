@@ -1,5 +1,6 @@
 {
     "username": "ivan-2727",
     "submission": "class Solution {\nprivate:\n    pair<int,int> bfs(const vector<vector<int>>& G, int s) {\n        deque<int> q = {s};\n        vector<int> dist(G.size(), -1);\n        dist[s] = 0;\n        int res = 0;\n        int last = -1;\n        while (!q.empty()) {\n            int v = q[0];\n            last = v;\n            q.pop_front();\n            for (int u : G[v]) {\n                if (dist[u] == -1) {\n                    dist[u] = dist[v]+1;\n                    res = dist[u];\n                    q.push_back(u);\n                }\n            }\n        }\n        return {res, last};\n    }\n    int diam(const vector<vector<int>>& G) {\n        return bfs(G, bfs(G, 0).second).first;\n    }\n    vector<vector<int>> fromEdges(vector<vector<int>>& edges) {\n        vector<vector<int>> G(edges.size()+1);\n        for (auto& edge : edges) {\n            G[edge[0]].push_back(edge[1]);\n            G[edge[1]].push_back(edge[0]);\n        }\n        return G;\n    }\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int d1 = diam(fromEdges(edges1));\n        int d2 = diam(fromEdges(edges2));\n        return max({(1 + d1/2 + d2/2 + d1%2 + d2%2), d1, d2}); \n    }\n};",
-    "submit_ts": 1719717386.0
+    "submit_ts": "1719717386",
+    "subm_id": "1304390168"
 }

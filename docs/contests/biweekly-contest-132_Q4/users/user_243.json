@@ -1,5 +1,6 @@
 {
     "username": "z123k3",
     "submission": "class Solution {\n    public int maximumLength(int[] nums, int k) {\n        int out = 0;\n        \n        Map<Integer, int[]> prev = new HashMap<>();\n        \n        int[][] prevz = new int[k+1][2];\n        \n        for(int i = 0; i < nums.length; i++) {\n            int num = nums[i];\n            \n            int[] curr = prev.computeIfAbsent(num, a -> new int[k+1]);\n                        \n            for(int j = 0; j <= k; j++) {\n                curr[j]++;\n                out = Math.max(out, curr[j]);\n                \n                if(prevz[j][0] < curr[j]) {\n                    prevz[j][0] = curr[j];\n                    prevz[j][1] = num;\n                }\n            }\n            \n            for(int p = 1; p <= k; p++) {\n                if(prevz[p][1] != num) {\n                    curr[p-1] = Math.max(curr[p-1], prevz[p][0] + 1);\n                    out = Math.max(out, curr[p-1]);\n                    \n                    if(prevz[p-1][0] < curr[p-1]) {\n                        prevz[p-1][0] = curr[p-1];\n                        prevz[p-1][1] = num;\n                    }\n                }\n            }\n        }\n        \n        return out;\n    }\n}",
-    "submit_ts": 1717861178.0
+    "submit_ts": "1717861178",
+    "subm_id": "1281782386"
 }

@@ -1,5 +1,6 @@
 {
     "username": "zio-z",
     "submission": "class Solution:\n    def minimumSum(self, grid: List[List[int]]) -> int:\n        m, n = len(grid), len(grid[0])\n        @cache\n        def memo(i1, i2, j1, j2, k):\n            if i1 > i2 or j1 > j2:\n                return 10 ** 18\n            \n            if k == 1:\n                x1, x2 = m - 1, 0\n                y1, y2 = n - 1, 0\n                for i in range(i1, i2 + 1):\n                    for j in range(j1, j2 + 1):\n                        # print(i, j)\n                        if grid[i][j] == 1:\n                            x1 = min(x1, i)\n                            x2 = max(x2, i)\n                            y1 = min(y1, j)\n                            y2 = max(y2, j)\n                w = y2 - y1 + 1\n                h = x2 - x1 + 1\n                # print(i1, i2, j1, j2, w * h)\n                return w * h if w > 0 and h > 0 else 10 ** 18\n            ans = 10 ** 18\n            for p in range(i1, i2):\n                ans = min(ans, memo(i1, p, j1, j2, k - 1) + memo(p + 1, i2, j1, j2, 1), memo(i1, p, j1, j2, 1) + memo(p + 1, i2, j1, j2,  k - 1))\n            for p in range(j1, j2):\n                ans = min(ans, memo(i1, i2, j1, p, k - 1) + memo(i1, i2, p + 1, j2, 1), memo(i1, i2, j1, p, 1) + memo(i1, i2, p + 1, j2, k - 1))\n            return ans\n        return memo(0, m - 1, 0, n - 1, 3)",
-    "submit_ts": 1719111403.0
+    "submit_ts": "1719111403",
+    "subm_id": "541386779"
 }

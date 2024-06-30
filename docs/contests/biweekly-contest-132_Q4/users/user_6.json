@@ -1,5 +1,6 @@
 {
     "username": "XAXAEBATb",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int a=nums.size();\n        map <int,int> zamena;\n        vector <int> cur = nums;\n        sort(cur.begin(),cur.end());\n        for (int i=0;i<a;i++) zamena[cur[i]]=i;\n        for (auto& c:nums) c=zamena[c];\n        // for (auto& c:nums) cout<<c; cout<<\"\\n\"; // 0 - a-1\n        vector <vector<int>> ans(a, vector <int>(k+1));\n        vector <pair<int,int>> max1(k+1);\n        vector <pair<int,int>> max2(k+1);\n        int answer=0;\n        for (int i=0;i<a;i++) {\n            ans[nums[i]][0] = ans[nums[i]][0] + 1;\n            for (int u=1;u<=k;u++) {\n                ans[nums[i]][u] = ans[nums[i]][u] + 1;\n                int anot = (max1[u-1].first == nums[i] ? max2[u-1].second : max1[u-1].second);\n                ans[nums[i]][u]=max(ans[nums[i]][u], anot + 1);\n            }\n            for (int u=0;u<=k;u++) {\n                answer = max(answer, ans[nums[i]][u]);\n                if (ans[nums[i]][u] >= max1[u].second) {\n                    max2[u] = max1[u]; max1[u] = {nums[i], ans[nums[i]][u]};\n                } else if (ans[nums[i]][u] >= max2[u].second) {\n                     max2[u] = {nums[i], ans[nums[i]][u]};\n                }\n            }\n        }\n        return answer;\n    }\n};",
-    "submit_ts": 1717858272.0
+    "submit_ts": "1717858272",
+    "subm_id": "1281681126"
 }

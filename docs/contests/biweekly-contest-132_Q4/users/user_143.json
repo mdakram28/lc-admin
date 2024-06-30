@@ -1,5 +1,6 @@
 {
     "username": "vrintle",
     "submission": "const int N = 1e4, K = 69;\nint dp[N][K], mx[N][K];\n\nclass Solution {\npublic:\n    int maximumLength(vector<int>& a, int k) {\n        int n = a.size();\n        vector<int> same(n, -1), diff(n, -1);\n        for(int i = 0; i < n; i++) {\n            for(int j = i - 1; j >= 0; j--) {\n                if(a[i] == a[j]) same[i] = max(same[i], j);\n                else diff[i] = max(diff[i], j);\n            }\n        }\n        for(int i = 0; i < N; i++) {\n            for(int j = 0; j < K; j++) {\n                dp[i][j] = mx[i][j] = 0;\n            }\n        }\n        dp[0][0] = 1;\n        mx[0][0] = 1;\n        int ans = 1;\n        for(int i = 1; i < n; i++) {\n            dp[i][0] = 1;\n            for(int j = 0; j <= k; j++) {\n                int si = same[i];\n                if(si != -1) dp[i][j] = max(dp[i][j], dp[si][j] + 1);\n                if(j) dp[i][j] = max(dp[i][j], mx[i - 1][j - 1] + 1);\n                ans = max(ans, dp[i][j]);\n            }\n            for(int j = 0; j <= k; j++) {\n                mx[i][j] = max(mx[i - 1][j], dp[i][j]);\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717859012.0
+    "submit_ts": "1717859012",
+    "subm_id": "1281707900"
 }

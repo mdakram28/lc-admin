@@ -1,5 +1,6 @@
 {
     "username": "vedant_rawale",
     "submission": "#include <vector>\n#include <map>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(k + 1, vector<int>(2, 0)));\n        map<int, int> nextIndex;\n        \n        // Precompute the next occurrence of each number\n        vector<int> next(n, -1);\n        for (int i = n - 1; i >= 0; --i) {\n            if (nextIndex.count(nums[i])) {\n                next[i] = nextIndex[nums[i]];\n            }\n            nextIndex[nums[i]] = i;\n        }\n\n        int maxLen = 1;\n        for(int j = 0;j<=k;j++) {\n            dp[n-1][j][1] = 1;\n        }\n\n        for (int i = n - 2; i >= 0; --i) {\n            for (int j = 0; j <= k; ++j) {\n        \n                dp[i][j][0] = max(dp[i][j][0],max(dp[i + 1][j][0],dp[i+1][j][1]));\n                \n                dp[i][j][1] = 1;\n                if(j>0) dp[i][j][1] = max(dp[i][j][1],1+dp[i+1][j-1][0]);\n                if(nums[i+1]!=nums[i] && j>0) dp[i][j][1] = max(dp[i][j][1],1+dp[i+1][j-1][1]);\n                if (next[i] != -1) dp[i][j][1] = max(dp[i][j][1], 1 + dp[next[i]][j][1]);\n                maxLen = max(maxLen, dp[i][j][1]);\n            }\n        }\n\n        return maxLen;\n    }\n};\n",
-    "submit_ts": 1717861959.0
+    "submit_ts": "1717861959",
+    "subm_id": "1281807429"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Astitva1508",
     "submission": "class Solution {\n    int solve(int node,int parent,vector<vector<int>>&adj,int&maxAns){\n        int bestAns1 = 0;\n        int bestAns2 = 0;\n        for(auto it:adj[node]){\n            if(it!=parent){\n                int childAns = solve(it,node,adj,maxAns)+1;\n                if(childAns>bestAns1){\n                    bestAns2 = bestAns1;\n                    bestAns1 = childAns;\n                }else if(childAns>bestAns2){\n                    bestAns2 = childAns;\n                }\n            }\n        }\n        maxAns = max(maxAns,bestAns1+bestAns2);\n        return max(bestAns1,bestAns2);\n    }\n\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n1 = edges1.size()+1;\n        int n2 = edges2.size()+1;\n        vector<vector<int>>adj1(n1);\n        vector<vector<int>>adj2(n2);\n        for(auto it:edges1){\n            adj1[it[0]].push_back(it[1]);\n            adj1[it[1]].push_back(it[0]);\n        }\n        for(auto it:edges2){\n            adj2[it[0]].push_back(it[1]);\n            adj2[it[1]].push_back(it[0]);\n        }\n        int dm1 = 0,dm2 = 0;\n        solve(0,-1,adj1,dm1);\n        solve(0,-1,adj2,dm2);\n        int l1 = dm1/2+(dm1&1);\n        int l2 = dm2/2+(dm2&1);\n        cout<<dm1<<\" \"<<dm2<<'\\n';\n        return max({(l1+l2+1),dm1,dm2});\n    }\n};",
-    "submit_ts": 1719718047.0
+    "submit_ts": "1719718047",
+    "subm_id": "1304407424"
 }

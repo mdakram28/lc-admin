@@ -1,5 +1,6 @@
 {
     "username": "Rad0miR",
     "submission": "public class Solution {\n    public int MaximumLength(int[] nums, int k) \n    {\n        Dictionary<int, List<int>> dict = nums\n            .Select((x, i) => (x, i))\n            .GroupBy(p => p.x)\n            .ToDictionary(g => g.Key, g => g.Select(p => p.i).ToList());\n        \n        int[][] dp = Enumerable.Range(0, k + 2).Select(i => new int[nums.Length]).ToArray();\n        \n        for (int i = 1; i <= k + 1; ++i) \n        {\n            dp[i][0] = 1;\n            int max = dp[i - 1][0];\n            for (int j = 1; j < nums.Length; ++j) \n            {\n                var list = dict[nums[j]];\n                int indInList = list.BinarySearch(j);\n                \n                //dp[i][j] = dp[i][j - 1];\n                \n                if (indInList > 0) \n                {\n                    dp[i][j] = Math.Max(dp[i][j], dp[i][list[indInList - 1]] + 1);\n                }\n                dp[i][j] = Math.Max(dp[i][j], max + 1);\n                max = Math.Max(max, dp[i - 1][j]);\n            }\n        }\n        \n        //Console.WriteLine(String.Join('\\n', dp.Select(row => String.Join(' ', row))));\n        //Console.WriteLine();\n        return dp.Max(row => row.Max());\n    }\n}",
-    "submit_ts": 1717859668.0
+    "submit_ts": "1717859668",
+    "subm_id": "1281730725"
 }

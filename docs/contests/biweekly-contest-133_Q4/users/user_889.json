@@ -1,5 +1,6 @@
 {
     "username": "chiragrajput245",
     "submission": "typedef long long ll;\n\nclass Solution {\n    int MOD = 1e9+7;\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& A) {\n\n        unordered_map<int,int> mp;\n        for(int i=0;i<A.size();i++) {\n            mp[A[i][0]+1] = A[i][1];\n        }\n        \n        ll dp[n+1][401]; // no of perm[0...i-1] with x invs\n        memset(dp,0,sizeof(dp));\n        \n        dp[0][0] = 1;\n        \n        // agr [0..i] me x inv chahiye then [0..i-1] should have had x or x-1 invs\n        // brutely iter\n        \n        for(int i=1;i<=n;i++) {\n            for(int invs=0;invs<401;invs++) {\n                for(int prev=0;prev<i;prev++) {\n                    if(invs-prev >= 0) {\n                        dp[i][invs] += dp[i-1][invs-prev];\n                        dp[i][invs] %= MOD;\n                    }\n                }\n            }\n            \n            if(mp.count(i)) {\n                int cnt = mp[i];\n                for(int invs=0;invs<401;invs++) {\n                    if(invs == cnt) continue;\n                    else dp[i][invs] = 0;\n                }\n            }\n        }\n        \n        ll ans = 0;\n        for(int i=0;i<401;i++) {\n            ans += dp[n][i];\n            ans %= MOD;\n        }\n        \n        return int(ans%MOD);\n    }\n};",
-    "submit_ts": 1719071474.0
+    "submit_ts": "1719071474",
+    "subm_id": "1296847552"
 }

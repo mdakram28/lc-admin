@@ -1,5 +1,6 @@
 {
     "username": "anujdhillxn",
     "submission": "class Solution {\npublic:\n    \n    pair<vector<int>, map<int, int>> compress_coordinates(const set<int> &keypoints)\n{\n    vector<int> stb;\n    map<int, int> bts;\n    for (int x : keypoints)\n    {\n        stb.push_back(x);\n    }\n    for (int i = 0; i < (int)stb.size(); i++)\n        bts[stb[i]] = i;\n    return {stb, bts}; // small to big, big to small\n}\n    \n    int maximumLength(vector<int>& a, int kk) {\n        int nn = a.size();\n        set<int> keyp;\n        for(int x: a) keyp.insert(x);\n        auto [stb, bts] = compress_coordinates(keyp);\n        for(int &x: a) x = bts[x];\n        const int m = keyp.size();\n        const int n = nn, k = kk;\n        vector<vector<int>> dp(n+1, vector<int>(k + 1));\n        vector<vector<int>> pre(n+1, vector<int>(k +1));\n        vector<int> last(m);\n        int ans = 0;\n        for(int i=1;i<=n;i++) {\n            for(int j=0;j<=k;j++) {\n                dp[i][j] = dp[last[a[i-1]]][j] + 1;\n                if(j) dp[i][j] = max(dp[i][j], pre[i-1][j-1] + 1);\n                pre[i][j] = max(pre[i-1][j], dp[i][j]);\n                ans = max(ans, dp[i][j]);\n            }\n            last[a[i-1]] = i;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717860887.0
+    "submit_ts": "1717860887",
+    "subm_id": "1281772720"
 }

@@ -1,5 +1,6 @@
 {
     "username": "cheng-liang-yu",
     "submission": "from sortedcontainers import SortedList\nimport numpy as np\n\nclass Solution:\n    def getResults(self, queries: List[List[int]]) -> List[bool]:\n        MX = min(50000, len(queries) * 3)\n        a = np.zeros(MX, np.int32)\n        res = []\n        sl = SortedList([0])\n        for t in queries:\n            if t[0] == 1:\n                x = t[1]\n                i = sl.bisect_left(x)\n                left = sl[i - 1]\n                a[left:x] = x - left\n                if i < len(sl):\n                    right = sl[i]\n                    a[x:right] = right - x\n                sl.add(x)\n            else:\n                x, sz = t[1], t[2]\n                i = sl.bisect_right(x)\n                left = sl[i - 1]\n                mx = 0\n                if left > 0: mx = max(mx, a[:left].max())\n                if x > left: mx = max(mx, x - left)\n                res.append(bool(mx >= sz))\n        return res",
-    "submit_ts": 1716650523.0
+    "submit_ts": "1716650523",
+    "subm_id": "534771369"
 }

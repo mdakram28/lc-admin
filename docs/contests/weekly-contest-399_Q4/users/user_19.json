@@ -1,5 +1,6 @@
 {
     "username": "anil9717",
     "submission": "using ll = long long;\nll s[300001][2][2]; // 0 not allowed\nvoid combine(int n)\n{\n    \n    for(int i=0;i<2;i++)\n        for(int j=0;j<2;j++)\n        {\n            s[n][i][j]=0;\n            for(int k=0;k<2;k++)\n                for(int l=0;l<2;l++)\n                    if(k==0||l==0)\n                        s[n][i][j]=max(s[n][i][j],s[2*n][i][k]+s[2*n+1][l][j]);\n        }\n}\nvoid build(int n,int l,int r,vector<int>& a)\n{\n    if(l==r)\n    {\n        s[n][1][1]=max(0,a[l]);\n        s[n][0][1]=s[n][1][0]=s[n][0][0]=0;\n        return;\n    }\n    int m=(l+r)/2;\n    build(2*n,l,m,a);build(2*n+1,m+1,r,a);\n    combine(n);\n}\nvoid update(int n,int l,int r,int p,int v)\n{\n    if(p<l||p>r)return;\n    if(l==r)\n    {\n        s[n][1][1]=max(0,v);\n        s[n][0][1]=s[n][1][0]=s[n][0][0]=0;\n        return;        \n    }\n    int m=(l+r)/2;\n    update(2*n,l,m,p,v);update(2*n+1,m+1,r,p,v);\n    combine(n);\n}\nclass Solution {\npublic:\n    int maximumSumSubsequence(vector<int>& a, vector<vector<int>>& queries) {\n        int n =a.size();\n        ll ans = 0;\n        build(1,0,n-1,a);\n        const ll mod = 1e9+7;\n        for(auto v : queries)\n        {\n            update(1,0,n-1,v[0],v[1]);\n            ans = (ans + s[1][1][1])%mod;\n        }\n        return (int)ans;\n    }\n};",
-    "submit_ts": 1716692003.0
+    "submit_ts": "1716692003",
+    "subm_id": "1268040173"
 }

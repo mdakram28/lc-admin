@@ -1,5 +1,6 @@
 {
     "username": "Time-limit-exceed",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        dia1 = self.treeDiameter(edges1)\n        dia2 = self.treeDiameter(edges2)\n        # if dia1 %2 == 0  and dia2 % 2 == 0:\n        # print(dia1, dia2)\n        return max(dia2, max(dia1, (dia1+1)//2 + (dia2+1)//2 + 1))\n    \n    def treeDiameter(self, edges: List[List[int]]) -> int:\n        if len(edges) == 0:\n            return 0\n        def dfs(u, t):\n            nonlocal ans, vis, d, next\n            if vis[u]:\n                return\n            vis[u] = True\n            for v in d[u]:\n                dfs(v, t + 1)\n            if ans < t:\n                ans = t\n                next = u\n\n        d = defaultdict(set)\n        vis = [False] * (len(edges) + 1)\n        for u, v in edges:\n            d[u].add(v)\n            d[v].add(u)\n        ans = 0\n        next = 0\n        dfs(edges[0][0], 0)\n        vis = [False] * (len(edges) + 1)\n        dfs(next, 0)\n        return ans",
-    "submit_ts": 1719716917.0
+    "submit_ts": "1719716917",
+    "subm_id": "1304377492"
 }

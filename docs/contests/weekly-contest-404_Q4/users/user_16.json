@@ -1,5 +1,6 @@
 {
     "username": "pingchungchang",
     "submission": "class Solution {\npublic:\n    vector<int> dist;\n    vector<vector<int>> tree;\n    void dfs(int now,int par){\n        for(auto nxt:tree[now]){\n            if(nxt == par)continue;\n            dist[nxt] = dist[now]+1;\n            dfs(nxt,now);\n        }\n        return;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n = edges1.size(),m = edges2.size();\n        n++,m++;\n        vector<vector<int>> tree1(n),tree2(m);\n        for(auto &i:edges1){\n            tree1[i[0]].push_back(i[1]);\n            tree1[i[1]].push_back(i[0]);\n        }\n        for(auto &i:edges2){\n            tree2[i[0]].push_back(i[1]);\n            tree2[i[1]].push_back(i[0]);\n        }\n        dist = vector<int>(n,0);\n        tree = tree1;\n        dfs(0,0);\n        int p = max_element(dist.begin(),dist.end())-dist.begin();\n        dist = vector<int>(n,0);\n        dfs(p,p);\n        int d1 = *max_element(dist.begin(),dist.end());\n        \n        dist = vector<int>(m,0);\n        tree = tree2;\n        dfs(0,0);\n        p = max_element(dist.begin(),dist.end())-dist.begin();\n        dist = vector<int>(m,0);\n        dfs(p,p);\n        int d2 = *max_element(dist.begin(),dist.end());\n        return max({d1,d2,(d1+1)/2+(d2+1)/2+1});\n    }\n};",
-    "submit_ts": 1719715562.0
+    "submit_ts": "1719715562",
+    "subm_id": "1304340150"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Akash_Ktr",
     "submission": "class Solution {\nconst int M = 1e9+7;\nconst int MAX = 400;\npublic:\nint numberOfPermutations(int n, vector<vector<int>>& reqs) {\n    vector<vector<long long>> p(n + 1, vector<long long>(500 + 1, 0));\n    map<int, int> r;\n    for (auto& req : reqs) {\n        auto k = req[0]+1;\n        r[k] = req[1];\n    }\n\n    \n    p[0][0] = 3;\n    priority_queue<long long,vector<long long>> pq;\n    p[0][0]-=2;\n    for (int l = 1; l <= n; l++) {\n        for (int i = 0; i <= 400; i++) {\n            for (int j = 0; j < l; j++) {\n                int prev = i - j;\n                if (prev < 0) {\n                    continue;\n                } else {\n                    p[l][i] = (p[l][i] + p[l - 1][prev]) % M;\n                }\n            }\n        }\n\n        if (r.count(l)) {\n            int t = r[l];\n            for (int i = 0; i <= 400; i++) {\n                if (i == t) {\n                    if(pq.empty()){\n                        \n                    } else {\n                        \n                    }\n                } else {\n                    p[l][i] = 1;\n                    p[l][i]--;\n                }\n            }\n        }\n    }\n    vector<long long> ans;\n    long long res = 0;\n    for (int i = 0; i <= 400; i++) {\n        res = (res + p[n][i]) % M;\n        pq.push(res);\n        pq.pop();\n    }\n    ans.push_back(res+0);\n    return static_cast<int>(ans[0]-0);\n}\n};",
-    "submit_ts": 1719070422.0
+    "submit_ts": "1719070422",
+    "subm_id": "1296822636"
 }

@@ -1,5 +1,6 @@
 {
     "username": "jojayoh",
     "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        \n        if(k == 0) return 2;\n        int ans = (k == 1);\n        for(int i = 0; i < 33; i++)\n        {\n            int cur = check(k+i-1);\n            if(cur)\n            {\n                ans += ways(i,cur);\n            }\n        }\n        \n        return ans;\n        \n        \n    }\n    \n    int ways(int i, int ones)\n    {\n        if(i == 0) return 1;\n        //cout << i << \", \" << ones << endl;\n        if(i > ones+1) return 0;\n        vector<vector<vector<long long>>> dp(i+ones+1,vector<vector<long long>>(i+1,vector<long long>(2)));\n        dp[1][0][0] = 1;\n        dp[1][1][1] = 1;\n        for(int j = 2; j < i+ones+1; j++)\n        {\n            for(int k = 0; k < i+1; k++)\n            {\n                dp[j][k][0] = dp[j-1][k][1]+dp[j-1][k][0];\n                if(k) dp[j][k][1] = dp[j-1][k-1][0];\n                //cout << j << \", \" << k << \"; \" << dp[j][k][0] << \", \" << dp[j][k][1] << \" : \";\n            }\n            //cout << endl;\n        }\n        \n        return dp[i+ones][i][0]+dp[i+ones][i][1];\n    }\n    \n    int check(int x)\n    {\n        for(int i = 1; i < 31; i++)\n        {\n            if((1<<i)-1 == x) return i;\n        }\n        \n        return 0;\n    }\n};",
-    "submit_ts": 1716088629.0
+    "submit_ts": "1716088629",
+    "subm_id": "1261819514"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Ashu_2204",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& v, int k) {\n        vector<int> bit(31, 0);\n    \n        int n = v.size();\n        int ans = (1 << 30) - 1, ad = ans;\n        int j = 0;\n        \n        for(int i = 0; i < n; i++) {\n            // cout << j << ' ' << i << ' ' << ad << endl; \n            while(ad < k and j < i) {\n                for(int bt = 0; bt < 30; bt++)\n                    if(!(v[j] & (1 << bt))) bit[bt]--;\n                j++;\n                for(int bt = 0; bt < 30; bt++)\n                    if(!bit[bt]) ad |= (1 << bt);\n                \n                ans = min(ans, abs(k - ad));\n            }\n            \n             \n            // cout << j << ' ' << i << ' ' << ad << endl;\n            ad &= v[i];\n            for(int bt = 0; bt < 30; bt++)\n                    if(!(v[i] & (1 << bt))) bit[bt]++;\n            ans = min(ans, abs(k - ad));\n        }\n        \n        \n        while(ad < k and j < n) {\n            for(int bt = 0; bt < 30; bt++)\n                if(!(v[j] & (1 << bt))) bit[bt]--;\n            j++;\n\n            for(int bt = 0; bt < 30; bt++)\n                if(!bit[bt]) ad |= (1 << bt);\n            // cout << j << ' ' << ad << endl;\n            ans = min(ans, abs(k - ad));\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717298677.0
+    "submit_ts": "1717298677",
+    "subm_id": "1274787422"
 }

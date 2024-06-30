@@ -1,5 +1,6 @@
 {
     "username": "cchao",
     "submission": "const int mod = 1e9 + 7;\nusing LL = long long;\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> req(n, -1);\n        for (auto &r : requirements) req[r[0]] = r[1];\n        vector<array<LL, 401>> dp(n);\n        if (req[0] > 0) return 0;\n        int mx = -1;\n        for (int x : req) if (x >= 0) {\n            if (x < mx) return 0;\n            mx = x;\n        }\n        dp[0][0] = 1;\n        array<LL, 401> s;\n        fill(s.begin(), s.end(), 1);\n        for (int i = 1; i < n; ++i) {\n            for (int j = 0; j <= 400; ++j) {\n                if (req[i] == -1 || j == req[i]) {\n                    LL a = s[j];\n                    LL b = j - i - 1 >= 0 ? s[j - i - 1] : 0;\n                    LL t = (a - b) % mod;\n                    if (t < 0) t += mod;\n                    dp[i][j] = t;\n                }\n            }\n            s[0] = dp[i][0];\n            for (int j = 1; j <= 400; ++j) {\n                s[j] = (s[j - 1] + dp[i][j]) % mod;\n            }\n            // cout << i << \": \";\n            // for (int j = 0; j <= n; ++j) {\n            //     cout << dp[i][j] << \" \\n\"[j==n];\n            // }\n        }\n        return dp[n-1][req[n-1]];\n    }\n};",
-    "submit_ts": 1719068202.0
+    "submit_ts": "1719068202",
+    "subm_id": "1296756782"
 }

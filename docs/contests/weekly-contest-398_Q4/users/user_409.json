@@ -1,5 +1,6 @@
 {
     "username": "LLIEPJIOK",
     "submission": "class Solution {\npublic:\n    struct Item {\n        long long stair;\n        bool can_go_down;\n        long long jump;\n\n        Item(int _stair, bool _can_go_down, int _jump) {\n            stair = _stair;\n            can_go_down = _can_go_down;\n            jump = _jump;\n        }\n        \n        friend bool operator < (const Item& a, const Item& b) {\n            if (a.stair != b.stair) {\n                return a.stair < b.stair;\n            }\n            if (a.jump != b.jump) {\n                return a.jump < b.jump;\n            }\n            return a.can_go_down < b.can_go_down;\n        }\n    };\n    \n    map<Item, int> mp;\n    \n    int recursiveWays(long long k, long long cur, bool can_go_down, long long jump) {\n        if (mp.count(Item(cur, can_go_down, jump))) {\n            return mp[Item(cur, can_go_down, jump)];\n        }\n        \n        if (cur - can_go_down > k) {\n            return 0;\n        }\n        \n        int ans = 0;\n        if (cur == k) {\n            ++ans;\n        }\n        \n        if (can_go_down) {\n            ans += recursiveWays(k, cur - 1, false, jump);\n        }\n        ans += recursiveWays(k, cur + jump, true, 2 * jump);\n        return mp[Item(cur, can_go_down, jump)] = ans;\n    }\n    \n    int waysToReachStair(int k) {\n        return recursiveWays(k, 1, true, 1);\n    }\n};",
-    "submit_ts": 1716087828.0
+    "submit_ts": "1716087828",
+    "subm_id": "1261795673"
 }

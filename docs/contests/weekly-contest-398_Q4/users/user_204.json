@@ -1,5 +1,6 @@
 {
     "username": "fsyun",
     "submission": "class Solution {\n    long e(long pos, long pow, long down) {\n        return pos * 1000 + pow * 10 + down;\n    }\n    long[] d(long x) {\n        return new long[]{x / 1000, x % 1000 / 10, x % 10};\n    }\n    public int waysToReachStair(int k) {\n        long ans = 0;\n        HashMap<Long, Long> h = new HashMap<>();\n        h.put(e(1, 0, 0), 1L);\n        while (!h.isEmpty()) {\n            HashMap<Long, Long> h2 = new HashMap<>();\n            for (long x : h.keySet()) {\n                long[] pr = d(x);\n                long pos = pr[0], pow = pr[1], down = pr[2], cnt = h.get(x), key = -1;\n                //System.out.printf(\"pos = %d, pow = %d, down = %d, cnt = %d\\n\", pos, pow, down, cnt);\n                if (pos == k)\n                    ans += cnt;\n                if (pos > 0 && down == 0) {\n                    key = e(pos - 1, pow, 1);\n                    h2.putIfAbsent(key, 0L);\n                    h2.put(key, h2.get(key) + cnt);\n                }\n                if (pos + (1 << pow) < k + 10) {\n                    key = e(pos + (1L << pow), pow + 1, 0);\n                    h2.putIfAbsent(key, 0L);\n                    h2.put(key, h2.get(key) + cnt);\n                }\n            }\n            h = h2;\n            //System.out.println(\"======\");\n        }\n        return (int)ans;\n    }\n}",
-    "submit_ts": 1716087940.0
+    "submit_ts": "1716087940",
+    "subm_id": "1261799090"
 }

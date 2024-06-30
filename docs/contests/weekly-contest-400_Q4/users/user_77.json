@@ -1,5 +1,6 @@
 {
     "username": "pingchungchang",
     "submission": "class Solution {\npublic:\n    struct SPARSE{\n        vector<vector<int>> dp;\n        void init(vector<int> v){\n            int n = v.size();\n            dp.resize(__lg(n)+1);\n            for(auto &i:dp)i.resize(n);\n            for(int i = 0;i<n;i++){\n                dp[0][i] = v[i];\n            }\n            for(int i = 1;i<=__lg(n);i++){\n                for(int j = 0;j+(1<<i)-1<n;j++){\n                    dp[i][j] = dp[i-1][j]&dp[i-1][j+(1<<(i-1))];\n                }\n            }\n            return;\n        }\n        int getval(int s,int e){\n            int d = __lg(e-s+1);\n            return dp[d][s]&dp[d][e-(1<<d)+1];\n        }\n    };\n    int minimumDifference(vector<int>& nums, int k) {\n        SPARSE sp;\n        sp.init(nums);\n        int ans = 1e9;\n        int n = nums.size();\n        for(int i = 0;i<n;i++){\n            int pre = i;\n            ans = min(ans,abs(nums[i]-k));\n            while(pre>0){\n                int l = 0,r = pre-1;\n                while(l != r){\n                    int mid = (l+r+1)>>1;\n                    if(sp.getval(mid,i) == sp.getval(pre,i))r = mid-1;\n                    else l = mid;\n                }\n                if(sp.getval(l,i) == sp.getval(pre,i))break;\n                ans = min(ans,abs(sp.getval(l,i)-k));\n                pre = l;\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717297356.0
+    "submit_ts": "1717297356",
+    "subm_id": "1274739475"
 }

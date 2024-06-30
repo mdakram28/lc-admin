@@ -1,5 +1,6 @@
 {
     "username": "sanori",
     "submission": "/**\n * @param {number} k\n * @return {number}\n */\nvar waysToReachStair = function(k) {\n  const memo = {};\n  const dp = (i, jump, prev) => {\n    if (i == 1 && jump == 0 && prev == 0) {\n      return 1;\n    }\n    if (i < 0 || jump < 0) {\n      return 0;\n    }\n    const idx = `${i},${jump},${prev}`;\n    if (memo[idx] !== undefined) {\n      return memo[idx];\n    }\n    let res = 0;\n    if (prev) {\n      res = dp(i + 1, jump, 0);\n    } else {\n      res = dp(i - 2 ** (jump-1), jump-1, 0) + dp(i - 2 ** (jump-1), jump-1, 1);\n    }\n    memo[idx] = res;\n    return res;\n  }\n  \n  let res = 0;\n  for (let j = Math.ceil(Math.log2(k+1)) + 2; j >= 0; --j) {\n    let r = dp (k, j, 0) + dp(k, j, 1);\n    res += r;\n  }\n  // console.log({k, memo})\n  return res;\n};",
-    "submit_ts": 1716090414.0
+    "submit_ts": "1716090414",
+    "subm_id": "1261866670"
 }

@@ -1,5 +1,6 @@
 {
     "username": "harsh32200216",
     "submission": "class Solution {\npublic:\nvector<int> t;\nint n;\nvoid build(vector<int> &v){\n    for(int i = 0; i < n; i++){\n        t[n+i] = v[i];\n    }\n    for(int i = n-1; i > 0; i--){\n        t[i] = t[2*i] & t[2*i + 1];\n    }\n}\n\nint query(int l, int r){\n    l += n;\n    r += n;\n    int x = t[l];\n    while(l <= r){\n        if(l%2){\n            x &= t[l];\n            l++;\n        }\n        if(!(r%2)){\n            x &= t[r];\n            r--;\n        }\n        l /= 2;\n        r /= 2;\n    }\n    return x;\n}\n\n    int minimumDifference(vector<int>& nums, int k) {\n        n = nums.size();\n        t.resize(2*n);\n        build(nums);\n        int m = INT_MAX;\n        for(int i = 0; i < n; i++){\n            int l = i, h = n-1;\n            while(l <= h){\n                int mid = (l + h) / 2, a = query(i, mid), c = abs(k - a);\n                m = min(c, m);\n                if(a < k){\n                    h = mid - 1;\n                }\n                else{\n                    l = mid + 1;\n                }\n            }\n        }\n        return m;\n    }\n};",
-    "submit_ts": 1717299557.0
+    "submit_ts": "1717299557",
+    "subm_id": "1274816504"
 }

@@ -1,5 +1,6 @@
 {
     "username": "mohitpapa69",
     "submission": "const MOD = 1_000_000_007;\nconst MAX_INV = 400;\nvar numberOfPermutations = function(n, requirements) {\n    let reqMap = new Map();\n    for (let req of requirements) {\n        reqMap.set(req[0] + 1, req[1]);\n    }\n    let permCnts = new Array(n + 1);\n    for (let i = 0; i <= n; i++) {\n        permCnts[i] = new Array(MAX_INV + 1).fill(0);\n    }\n    permCnts[0][0] = 1;\n    let computePermutations = (len) => {\n        for (let inv = 0; inv <= MAX_INV; inv++) {\n            for (let newPos = 0; newPos < len; newPos++) {\n                let prevInv = inv - newPos;\n                if (prevInv >= 0) {\n                    permCnts[len][inv] = (permCnts[len][inv] + permCnts[len - 1][prevInv]) % MOD;\n                }\n            }\n        }\n        if (reqMap.has(len)) {\n            let tgtInv = reqMap.get(len);\n            for (let inv = 0; inv <= MAX_INV; inv++) {\n                if (inv !== tgtInv) {\n                    permCnts[len][inv] = 0;\n                }\n            }\n        }\n    };\n    for (let len = 1; len <= n; len++) {\n        computePermutations(len);\n    }\n    return calcResult(permCnts, n);\n};\nconst calcResult = (permCnts, n) => {\n    let res = 0;\n    for (let cnt of permCnts[n]) {\n        res = (res + cnt) % MOD;\n    }\n    return res;\n};",
-    "submit_ts": 1719070821.0
+    "submit_ts": "1719070821",
+    "subm_id": "1296832548"
 }

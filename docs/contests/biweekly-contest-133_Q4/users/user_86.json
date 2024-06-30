@@ -1,5 +1,6 @@
 {
     "username": "jamshedmd1111",
     "submission": "#define ll long long int\n\nconst ll mod = 1e9 + 7;\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n    \n        vector<ll> a (n + 1, -1);\n\n        for(ll i = 0; i<r.size(); i++){\n            a[r[i][0]] = r[i][1];\n        }\n\n        ll N = a[n - 1];\n\n        vector<vector<ll>> dp (n + 1, vector<ll> (N + 5));\n\n        dp[0][0] = 1;\n        dp[0][1] = -1;\n\n        for(ll i = 0; i<=n - 1; i++){\n\n            for(ll j = 1; j<=N; j++){\n                dp[i][j] += dp[i][j - 1];\n                dp[i][j] %= mod;\n                dp[i][j] += 2 * mod;\n                dp[i][j] %= mod;\n            }\n\n            if(a[i] != -1){\n                for(ll j = a[i]; j<a[i] + 1; j++){\n                    dp[i + 1][j] += dp[i][j];\n                    dp[i + 1][min(N + 1, j + i + 2)] -= dp[i][j];\n                }\n            }\n            else{\n                for(ll j = 0; j<=N; j++){\n                    dp[i + 1][j] += dp[i][j];\n                    dp[i + 1][min(N + 1, j + i + 2)] -= dp[i][j];\n                }\n            }\n        }\n\n        return dp[n - 1][N];\n    }\n};",
-    "submit_ts": 1719068499.0
+    "submit_ts": "1719068499",
+    "subm_id": "1296767442"
 }

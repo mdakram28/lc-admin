@@ -1,5 +1,6 @@
 {
     "username": "manimaran_s",
     "submission": "class Solution {\n    private int k;\n    private Map<Long, Integer> cache;\n    public int waysToReachStair(int k) {\n        this.k = k;\n        this.cache = new HashMap<>();\n        return dfs(1, 0, true);\n    }\n\n    private int dfs(int i, int j, boolean canGoBack) {\n        if (i < 0 || i > k+1) {\n            return 0;\n        }\n\n        long key = (((i * 100L) + j) * 10) + (canGoBack ? 1 : 0);\n        if (cache.containsKey(key)) {\n            return cache.get(key);\n        }\n\n        int next = (int) Math.pow(2, j) + i;\n        int output = dfs(next, j+1, true);\n        if (canGoBack) {\n            output += dfs(i-1, j, false);\n        }\n        if (i == k) {\n            output++;\n        }\n\n        cache.put(key, output);\n        return output;\n    }\n}",
-    "submit_ts": 1716089925.0
+    "submit_ts": "1716089925",
+    "subm_id": "1261854777"
 }

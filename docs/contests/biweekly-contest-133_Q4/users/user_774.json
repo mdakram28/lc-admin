@@ -1,5 +1,6 @@
 {
     "username": "riju1",
     "submission": "class Solution {\n    private static final int mod = 1000000007;\n\n    public int numberOfPermutations(int n, int[][] requirements) {\n        Map<Integer, Integer> count = new HashMap<>();\n        for (int[] it : requirements) {\n            count.put(it[0] + 1, it[1]);\n        }\n\n        long[][] arr = new long[n + 1][1001];\n\n        arr[0][0] = 1;\n\n        for (int length = 1; length <= n; length++) {\n            update(arr, length, count);\n        }\n\n        long ans = 0;\n        for (int temp = 0; temp <= 1000; temp++) {\n            ans = (ans + arr[n][temp]) % mod;\n        }\n\n        return (int) ans;\n    }\n\n    private void update(long[][] arr, int length, Map<Integer, Integer> count) {\n        long[] temp = new long[1001];\n\n        for (int curr = 0; curr <= 1000; curr++) {\n            temp[curr] = 0;\n            for (int after = 0; after < length; after++) {\n                int prev = curr - after;\n                if (prev >= 0) {\n                    temp[curr] = (temp[curr] + arr[length - 1][prev]) % mod;\n                }\n            }\n        }\n\n        if (count.containsKey(length)) {\n            int need = count.get(length);\n            Arrays.fill(arr[length], 0);\n            arr[length][need] = temp[need];\n        } else {\n            System.arraycopy(temp, 0, arr[length], 0, 1001);\n        }\n    }\n}\n",
-    "submit_ts": 1719071202.0
+    "submit_ts": "1719071202",
+    "subm_id": "1296841390"
 }

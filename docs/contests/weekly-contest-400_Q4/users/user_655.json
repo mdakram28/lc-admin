@@ -1,5 +1,6 @@
 {
     "username": "beta-blue",
     "submission": "class Solution {\npublic:\n    int andV(vector<int>& bits, int b, int n) {\n        int res = 0;\n        int i = 0;\n\n        while (b) {\n            if (b & 1)\n            {\n                if (++bits[i] == n)\n                    res |= 1 << i;\n            }\n\n            b >>= 1;\n            i++;\n        }\n\n        return res;\n    }\n\n    int removeAnd(vector<int>& bits, int b, int n) {\n        int res = 0;\n\n        for (int i=0; i<bits.size(); ++i) {\n            if (b & 1) {\n                bits[i]--;\n            }\n\n            if (n != 0 && bits[i] == n)\n                res |= 1 << i;\n\n            b >>= 1;\n        }\n\n        return res;\n    }\n\n    int minimumDifference(vector<int>& nums, int k) {\n        const int N = 32;\n        int res = INT_MAX;\n\n        int l = 0;\n        vector<int> bits(N, 0);\n\n        for (int r=0; r<nums.size(); ++r) {\n            int n = r - l + 1;\n            int num = andV(bits, nums[r], n);\n            \n            // cout << r << \": \" << nums[r] << \" -> \" << num << endl;\n\n            while (num < k && l <= r) {\n                res = min(res, k - num);\n                num = removeAnd(bits, nums[l++], --n);\n                // cout << l << \": \" << nums[l-1] << \" -> \" << num << endl;\n            }\n\n            if (l <= r)\n                res = min(res, abs(k - num));\n        }\n\n        return res;\n    }\n};",
-    "submit_ts": 1717299192.0
+    "submit_ts": "1717299192",
+    "subm_id": "1274804475"
 }

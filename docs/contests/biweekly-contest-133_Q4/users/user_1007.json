@@ -1,5 +1,6 @@
 {
     "username": "aman__singh2001",
     "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        unordered_map<int, int> temp;\n        for (int i=0; i<requirements.size(); i++) {\n            temp[requirements[i][0] + 1] = requirements[i][1];\n        }\n        vector<vector<long>> dp(n+1, vector<long>(401, 0));\n        dp[0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= 400; j++) {\n                for (int k = 0; k < i; k++) {\n                    int prev = j - k;\n                    if (prev >= 0) {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][prev]) % mod;\n                    }\n                }\n            }\n            if (temp.count(i)) {\n                int targetInv = temp[i];\n                for (int j = 0; j <= 400; j++) {\n                    if (j != targetInv) {\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n        long ans = 0;\n        for (long count : dp[n]) {\n            ans = (ans + count) % mod;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1719071185.0
+    "submit_ts": "1719071185",
+    "subm_id": "1296841032"
 }

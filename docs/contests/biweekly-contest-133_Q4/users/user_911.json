@@ -1,5 +1,6 @@
 {
     "username": "Amartya3",
     "submission": "class Solution {\nconst long long mod = 1e9 + 7;\nconst int N = 400;\n#define F(i, a, n) for(int i=a; i<=n; i++)\n#define ll long long\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        unordered_map<int, int> reqMap;\n        for (auto& req : req) {\n            reqMap[req[0] + 1] = req[1];\n        }\n        ll ans = 0;\n        vector<vector<ll>> permCounts(n + 1, vector<ll>(N + 1, 0));\n        permCounts[0][0] = 1;\n\n        for (int p = 1; p <= n; p++) {\n            for (int tt = 0; tt <= N; tt++) {\n                for (int y = 0; y < p; y++) {\n                    int w = tt - y;\n                    if (w >= 0) {\n                        permCounts[p][tt] = (permCounts[p][tt] + permCounts[p - 1][w]) % mod;\n                    }\n                }\n            }\n\n            if (reqMap.count(p) > 0) {\n                int ip = reqMap[p];\n                for (int tt = 0; tt <= N; tt++) {\n                    if (tt != ip) permCounts[p][tt] = 0;\n                }\n            }\n        }\n\n        \n        F(i, 0, N){\n            ans = (ans + permCounts[n][i]) % mod;\n        }\n\n        return (int)ans;\n    }\n};\n",
-    "submit_ts": 1719070930.0
+    "submit_ts": "1719070930",
+    "subm_id": "1296835149"
 }

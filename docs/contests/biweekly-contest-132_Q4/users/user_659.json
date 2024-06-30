@@ -1,5 +1,6 @@
 {
     "username": "Sahaj_Gupta",
     "submission": "from collections import defaultdict\n\nclass Solution:\n    def maximumLength(self, nums, k):\n        size = len(nums)\n        lengths = [[1] * (k + 1) for _ in range(size)]\n        max_length = 1\n        max_lengths = [-1] * (k + 1)\n        num_to_lengths_map = [defaultdict(int) for _ in range(k + 1)]\n\n        for i in range(size):\n            for j in range(k + 1):\n                for l in range(j):\n                    lengths[i][j] = max(lengths[i][j], 1 + max_lengths[l])\n                if nums[i] in num_to_lengths_map[j]:\n                    lengths[i][j] = max(lengths[i][j], 1 + num_to_lengths_map[j][nums[i]])\n                max_length = max(max_length, lengths[i][j])\n            \n            for j in range(k + 1):\n                max_lengths[j] = max(max_lengths[j], lengths[i][j])\n                num_to_lengths_map[j][nums[i]] = max(num_to_lengths_map[j][nums[i]], lengths[i][j])\n        \n        return max_length\n",
-    "submit_ts": 1717862378.0
+    "submit_ts": "1717862378",
+    "subm_id": "1281821724"
 }

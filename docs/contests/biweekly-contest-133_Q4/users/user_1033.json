@@ -1,5 +1,6 @@
 {
     "username": "nixs",
     "submission": "class Solution {\npublic:\n    int MOD = 1e9 + 7;\n    int maxInv = 400;\n\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<vector<int>> dp(n + 1, vector<int>(maxInv + 1, 0));\n        unordered_map<int, int> mp;\n        \n        for (auto& it : requirements) {\n            mp[it[0] + 1] = it[1];\n        }\n\n        dp[0][0] = 1;\n\n        for (int i = 1; i <= n; ++i) {\n            for (int j = 0; j <= maxInv; ++j) {\n                for (int k = 0; k < i; ++k) {\n                    if (j >= k) {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % MOD;\n                    }\n                }\n            }\n\n            if (mp.count(i)) {\n               // int need = mp[i];\n                for (int inv = 0; inv <= maxInv; ++inv) {\n                    if (inv != mp[i]) {\n                        dp[i][inv] = 0;\n                    }\n                }\n            }\n        }\n\n        int ans = 0;\n        for (int inv = 0; inv <= maxInv; ++inv) {\n            ans = (ans + dp[n][inv]) % MOD;\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": 1719071828.0
+    "submit_ts": "1719071828",
+    "subm_id": "1296855065"
 }

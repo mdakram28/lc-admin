@@ -1,5 +1,6 @@
 {
     "username": "singsatyam548",
     "submission": "#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    int solve(int k, int jump, int prev, int start, unordered_map<long long, int>& mp) {\n        if (start >= k + 100 || start < 0) {\n            return 0;\n        }\n        \n        long long key = (long long)jump * 1e12 + (long long)prev * 1e9 + start;\n        if (mp.find(key) != mp.end()) {\n            return mp[key];\n        }\n      \n        int ans1 = 0;\n        if (prev == 0) {\n            int x = 0;\n            if (start - 1 == k) {\n                x = 1;\n            }\n            ans1 = x + solve(k, jump, 1, start - 1, mp);\n        }\n        \n        int y = 0;\n        if (start + (1LL << jump) == k) {\n            y = 1;\n        }\n      \n        int ans2 = y + solve(k, jump + 1, 0, start + (1LL << jump), mp);\n        \n        return mp[key] = ans1 + ans2;\n    }\n    \n    int waysToReachStair(int k) {\n        unordered_map<long long, int> mp;\n        int ans = solve(k, 0, 0, 1, mp);\n        if (k == 1) {\n            ans += 1;\n        }\n        return ans;\n    }\n};\n",
-    "submit_ts": 1716088597.0
+    "submit_ts": "1716088597",
+    "subm_id": "1261818640"
 }

@@ -1,5 +1,6 @@
 {
     "username": "sahilkesarwani",
     "submission": "class Solution {\npublic:\n    int solve(int ind, int k, int f, int n, vector<int> &a, map<int, int> &m, vector<vector<vector<int>>> &dp) {\n        if(ind == n) return 0;\n        if(dp[ind][k][f] != -1) return dp[ind][k][f];\n        int ans = 0;\n        if(f) {\n            ans = solve(ind+1, k, 1, n, a, m, dp);\n            ans = max(ans, solve(ind+1, k, 0, n, a, m, dp) + 1);\n        }\n        if(k > 0) {\n            ans = max(ans, solve(ind+1, k-1, 1, n, a, m, dp) + f);\n        }\n        if(m.count(ind)) {\n            if(m[ind] == n) {\n                ans = max(ans, solve(m[ind], k, 0, n, a, m, dp) + 1);\n            } else {\n                ans = max(ans, solve(m[ind], k, 0, n, a, m, dp) + 1 + f);\n            }\n        }\n        return dp[ind][k][f] = ans;\n    }\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int, vector<int>> m;\n        for(int i = 0; i < n; ++i) {\n            m[nums[i]].push_back(i);\n        }\n        map<int, int> m1;\n        for(auto &it: m) {\n            vector<int> v = it.second;\n            for(int i = 0; i < v.size() - 1; ++i) {\n                m1[v[i]] = v[i+1];\n            }\n        }\n        vector<vector<vector<int>>> dp(n, vector<vector<int>> (k+1, vector<int> (2, -1)));\n        int ans = solve(0, k, 1, n, nums, m1, dp);\n        return ans;\n    }\n};",
-    "submit_ts": 1717862202.0
+    "submit_ts": "1717862202",
+    "subm_id": "1281815547"
 }

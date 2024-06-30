@@ -1,5 +1,6 @@
 {
     "username": "nijval21",
     "submission": "/**\n * @param {number} n\n * @param {number[][]} requirements\n * @return {number}\n */\nvar numberOfPermutations = function(n, requirements) {\n    const MOD = 1_000_000_007;\n    const MAX_INV = 400;\n\n    const reqMap = new Map();\n    for (let [position, inv] of requirements) {\n        reqMap.set(position + 1, inv);\n    }\n\n    const dp = Array.from({ length: n + 1 }, () => Array(MAX_INV + 1).fill(0));\n    dp[0][0] = 1;\n\n    for (let i = 1; i <= n; i++) {\n        for (let j = 0; j <= MAX_INV; j++) {\n            for (let k = 0; k < i; k++) {\n                const prevInv = j - k;\n                if (prevInv >= 0) {\n                    dp[i][j] = (dp[i][j] + dp[i - 1][prevInv]) % MOD;\n                }\n            }\n        }\n\n        if (reqMap.has(i)) {\n            const targetInv = reqMap.get(i);\n            for (let j = 0; j <= MAX_INV; j++) {\n                if (j !== targetInv) {\n                    dp[i][j] = 0;\n                }\n            }\n        }\n    }\n\n    let result = 0;\n    for (let j = 0; j <= MAX_INV; j++) {\n        result = (result + dp[n][j]) % MOD;\n    }\n\n    return result;\n};\n",
-    "submit_ts": 1719070893.0
+    "submit_ts": "1719070893",
+    "subm_id": "1296834264"
 }

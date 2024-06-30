@@ -1,5 +1,6 @@
 {
     "username": "Superultra",
     "submission": "#include <bits/stdc++.h>\nusing namespace std;\n\n#define FOR(i, x, y) for (int i = x; i < y; i++)\n#define ll long long \n#define pii pair<int, int>\n#define pll pair<ll, ll>\n\nll choose[35][35];\nbool done = false;\n\nvoid genChoose(int n){\n    if (done)\n        return;\n\n    for (int i = 0; i < n and (choose[i][0] = 1); i++)\n        for (int j = 1; j <= i; j++)\n            choose[i][j] = (choose[i - 1][j] + choose[i - 1][j - 1]);\n    \n    done = true;\n}\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        genChoose(34);\n\n        ll ans = 0;\n\n        for (int jmp = 0; jmp <= 30; jmp++){\n            ll land = (1 << (jmp));\n            ll back = land - k;\n\n            if (back < 0)\n                continue;\n            \n            ll spots = jmp + 1;\n            \n            if (back <= spots){\n                ans += choose[spots][back];\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716086524.0
+    "submit_ts": "1716086524",
+    "subm_id": "1261754896"
 }

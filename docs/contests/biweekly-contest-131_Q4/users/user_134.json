@@ -1,5 +1,6 @@
 {
     "username": "nicolaSaporetti",
     "submission": "class Solution {\npublic:\n    vector<bool> getResults(vector<vector<int>>& queries) {\n        w.insert(0);\n        w.insert(INT_MAX/2);\n        m[INT_MAX/2].insert(0);\n        for(auto e : queries)\n        {\n            if(e[0]==1) insertWall(e[1]);\n            else r.push_back(checkSize(e[1],e[2]));\n            //for(auto e : w) cout<<e<<\" \";\n            //cout<<endl;\n            //for(auto [k,v] : m)\n            //{\n            //    cout<<\"WS: \"<<k<<\" : \";\n            //    for(auto e : v) cout<<e<<\" \";\n            //    cout<<endl;\n            //}\n            //cout<<endl;\n        }\n        return r;\n    }\nprivate:\n    void insertWall(int wallP)\n    {\n        w.insert(wallP);\n        auto it = w.find(wallP);\n        int pw = *prev(it);\n        if(next(it)!=w.end())\n        {\n            cout<<\"SPlit\"<<endl;\n            int nw = *next(it);\n            m[nw-pw].erase(pw);\n            if(m[nw-pw].empty()) m.erase(nw-pw);\n            m[nw-wallP].insert(wallP);\n        }\n        m[wallP-pw].insert(pw);\n    }\n    bool checkSize(int end, int sz)\n    {\n        for(auto it = m.lower_bound(sz);it!=m.end();it++)\n        {\n            int s = *it->second.begin();\n            if(s+sz<=end) return true;\n        }\n        return false;\n    }\n    map<int,set<int>> m;\n    set<int> w;\n    vector<bool> r;\n};",
-    "submit_ts": 1716649755.0
+    "submit_ts": "1716649755",
+    "subm_id": "1267596919"
 }

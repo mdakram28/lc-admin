@@ -1,5 +1,6 @@
 {
     "username": "JedLam",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        rs = sorted(requirements)\n        m = rs[-1][1]\n        dp = [[0] * (m + 1) for _ in range(n)]\n        dp[0][0] = 1\n        M = 10 ** 9 + 7\n        i, j = 1, 0\n        if rs[0][0] == 0:\n            if rs[0][1] > 0:\n                return 0\n            else:\n                j = 1\n        while i < n:\n            if j < len(rs) and rs[j][0] == i:\n                a = rs[j][1]\n                for b in range(min(i+1, a+1)):\n                    dp[i][a] += dp[i-1][a - b]\n                    dp[i][a] %= M\n                j += 1\n            else:\n                for a in range(min(len(dp[0]), i * (i + 1) // 2 + 1)):\n                    for b in range(min(i+1, a+1)):\n                        dp[i][a] += dp[i-1][a - b]\n                        dp[i][a] %= M\n            i += 1\n        return dp[n-1][m]",
-    "submit_ts": 1719070913.0
+    "submit_ts": "1719070913",
+    "subm_id": "1296834729"
 }

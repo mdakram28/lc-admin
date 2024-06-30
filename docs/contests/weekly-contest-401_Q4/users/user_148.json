@@ -1,5 +1,6 @@
 {
     "username": "yc-li",
     "submission": "class Solution:\n    def maxTotalReward(self, a: List[int]) -> int:\n        a = list(set(a))\n        n = len(a)\n        a.sort()\n        \n        @cache\n        def d(i, mm):\n            if i == -1:\n                return 0\n            if mm == 0:\n                return 0\n            if a[i] == mm:\n                return mm\n        \n            ans = 0\n            \n            lim = min(a[i] - 1, mm - a[i])\n            j = bisect_right(a, lim) - 1\n            ans = max(ans, d(j,  lim) + a[i] )\n            \n            if ans == mm:\n                return ans\n            \n            if ans == 2 * a[i] - 1:\n                return ans\n            \n            \n            ans = max(ans, d(i - 1, mm))\n            \n            return ans\n        \n        ans = d(n - 1, inf)\n        #print(d.cache_info())\n        d.cache_clear()\n        \n        return ans",
-    "submit_ts": 1717904464.0
+    "submit_ts": "1717904464",
+    "subm_id": "1282362482"
 }

@@ -1,5 +1,6 @@
 {
     "username": "fmota",
     "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        using ll = long long;\n        using T = tuple<ll, ll, ll, ll>;\n        map<T, ll> mp;\n        function<ll(ll,ll,ll,ll)> dfs = [&](ll at, ll jump, ll last, ll cnt){\n            if(jump < 0) return 0ll;\n            T key = T(at, jump, last, cnt);\n            if(mp.count(key)) return mp[key];\n            cnt += at >= k;\n            ll res = 0;\n            if(!last){\n                res += dfs(at - 1, jump, 1, cnt);\n            }\n            if(at == k){\n                res += 1;\n            }\n            if(cnt > 4){\n                return mp[key] = res;\n            }\n            res += dfs(at + (1ll<<jump), jump + 1, 0, cnt);\n            return mp[key] = res;\n        };\n        return dfs(1, 0, 0, 0);\n    }\n};",
-    "submit_ts": 1716086577.0
+    "submit_ts": "1716086577",
+    "subm_id": "1261756608"
 }

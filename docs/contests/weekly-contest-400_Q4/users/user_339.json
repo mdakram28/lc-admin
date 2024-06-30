@@ -1,5 +1,6 @@
 {
     "username": "Code-O-Maniac",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int ans = INT_MAX, count = 0, i = 0, j = 0, n = nums.size();\n        \n        vector<int> freq(31);\n        while(i < n) {\n            count += 1;\n            \n            int curr = 0;\n            for(int l = 0; l < 31; l++) {\n                if(nums[i] & (1 << l)) freq[l] += 1;\n                \n                if(freq[l] == count) curr += (1 << l);\n            }\n            \n            ans = min(ans, abs(curr - k));\n            \n            while(curr <= k && j <= i) {\n                count -= 1;\n                \n                int newcurr = 0;\n                for(int l = 0; l < 31; l++) {\n                    if(nums[j] & (1 << l)) freq[l] -= 1;\n\n                    if(count > 0 && freq[l] == count) newcurr += (1 << l);\n                }\n                \n                if(count > 0) {\n                    curr = newcurr;\n                    ans = min(ans, abs(curr - k));\n                }\n                j++;\n            }\n            \n            i++;\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717298707.0
+    "submit_ts": "1717298707",
+    "subm_id": "1274788557"
 }

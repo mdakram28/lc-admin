@@ -1,5 +1,6 @@
 {
     "username": "mastoori1234",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& arr, int k) {\n\n        int n = arr.size();\n        const int N = 30;\n\n        vector<int> ns( N, -1);\n\n        int ans = INT_MAX;\n\n        for( int i=n-1; i>=0; i--) {\n            string s = bitset<N>(arr[i]).to_string();\n            reverse( s.begin(), s.end());\n            for( int j=0; j<N; j++) {\n                if(s[j]=='1') {\n                    continue;\n                }\n                ns[j] = i;\n            }\n            map<int,int> mp;\n            for( int j=0; j<N; j++) {\n                if(ns[j]==-1) {\n                    continue;\n                }\n                mp[ns[j]] = mp[ns[j]]|(1<<j);\n            }\n            int curr = arr[i];\n            ans = min( ans, abs(curr-k));\n            for( auto p: mp) {\n                curr = curr & (curr^p.second);\n                ans = min( ans, abs(curr-k));\n            }\n        }\n\n        return ans;\n        \n    }\n};",
-    "submit_ts": 1717297013.0
+    "submit_ts": "1717297013",
+    "subm_id": "1274727150"
 }

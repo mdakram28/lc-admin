@@ -1,5 +1,6 @@
 {
     "username": "Sumit1008",
     "submission": "class Solution {\npublic:\n    int MOD = 1e9+7;\n    vector<vector<int>> dp,v;\n    int n;\n    int rec(int i, int f) {\n        //base\n        if (i == 0) {\n            return f == 0 ? 1 : 0;\n        }\n        if (f < 0) return 0;\n        //cache\n        if (dp[i][f] != -1) {\n            return dp[i][f];\n        }\n        //transition\n        int ans = 0;\n        for (int k = 0; k < i; ++k) {\n            ans = (ans + rec(i - 1, f - k)) % MOD;\n        }\n\n        for (auto& a : v) {\n            int end = a[0], cnt = a[1];\n            if (end + 1 == i) {\n                if (f == cnt) {\n                    dp[i][f] = ans;\n                    return ans;\n                } else {\n                    dp[i][f] = 0;\n                    return 0;\n                }\n            }\n        }\n        //save and return\n        dp[i][f] = ans;\n        return ans;\n    }\n\n    int numberOfPermutations(int N, vector<vector<int>>& requirements) {\n        v=requirements;\n        sort(v.begin(), v.end());\n\n        n=N;\n        dp = vector<vector<int>>(n + 1, vector<int>(n * (n - 1) / 2 + 1, -1));\n        \n        return rec(n, v.back()[1]);\n    }\n};\n",
-    "submit_ts": 1719069064.0
+    "submit_ts": "1719069064",
+    "subm_id": "1296785487"
 }

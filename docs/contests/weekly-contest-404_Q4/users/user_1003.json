@@ -1,5 +1,6 @@
 {
     "username": "adityagarg0911",
     "submission": "class Solution {\n    \n    // {dis, node}\n    pair<int, int> bfs(int src, vector<vector<int>> &adj, int n){\n        queue<pair<int, int>> q;\n        q.push({0, src});\n        vector<bool> vis(n, false);\n        pair<int, int> ans;\n        while(!q.empty()){\n            ans = q.front();\n            q.pop();\n            vis[ans.second] = true;\n            for(auto it : adj[ans.second]){\n                if(!vis[it]){\n                    q.push({ans.first+1, it});\n                }\n            }\n        }\n        return ans;\n    }\n    \n    int findDiameterLen(vector<vector<int>>& edges){\n        int n = edges.size() + 1;\n        vector<vector<int>> adj(n, vector<int>());\n        for(auto it: edges){\n            adj[it[0]].push_back(it[1]);\n            adj[it[1]].push_back(it[0]);\n        }\n        \n        auto it = bfs(0, adj, n);\n        auto it2 = bfs(it.second, adj, n);\n        return it2.first;\n    }\n    \npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int len1 = findDiameterLen(edges1);\n        int len2 = findDiameterLen(edges2);\n        int len3 = (len1+1)/2 + (len2+1)/2 + 1;\n        return max(len3, max(len1, len2));\n    }\n};",
-    "submit_ts": 1719718438.0
+    "submit_ts": "1719718438",
+    "subm_id": "1304417221"
 }

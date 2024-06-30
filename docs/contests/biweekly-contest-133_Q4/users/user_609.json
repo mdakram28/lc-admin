@@ -1,5 +1,6 @@
 {
     "username": "yashsachan",
     "submission": "class Solution {\npublic:\n    long long mod=1e9+7;\n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        unordered_map<long long ,long long> mp;\n        long long ans=0;\n        vector<vector<long long>> dp(n+5,vector<long long>(410,0));dp[0][0]=1;\n        for(auto r:req){\n            mp[r[0]]=r[1];\n        }\n        for(int i=1;i<=n;i++)\n        {\n            for(int inversion=0;inversion<=401;inversion++)\n            {\n                for(int j=0;j<min(i,inversion+1);j++)\n                {\n                    \n                        dp[i][inversion]=(dp[i][inversion]%mod+dp[i-1][inversion-j]%mod)%mod;\n                    \n                }\n            }\n            if(mp.find(i-1)!=mp.end())\n            {\n                for(int inversion=0;inversion<=401;inversion++)\n                {\n                    if(inversion!=mp[i-1])dp[i][inversion]=0;\n                }\n            }\n        }\n        ans=dp[n][mp[n-1]];\n        return ans;\n    }\n};",
-    "submit_ts": 1719070490.0
+    "submit_ts": "1719070490",
+    "subm_id": "1296824363"
 }

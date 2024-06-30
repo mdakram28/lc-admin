@@ -1,5 +1,6 @@
 {
     "username": "yixian2",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        C = Counter()\n        \n        a, b = 0, 0\n        cc = []\n        \n        def push(x):\n            z = 1\n            while z <= x:\n                if z & x:\n                    C[z] += 1\n                z <<= 1\n        \n        def pop(x):\n            z = 1\n            while z <= x:\n                if z & x:\n                    C[z] -= 1\n                z <<= 1\n        \n        def val(a, b):\n            g = [k for k, v in C.items() if v == (b-a)]\n            # print(C, g)\n            return sum(g) if g else 0\n        \n        while True:\n            v = val(a, b)\n            if b > a:\n                if k == v:\n                    return 0\n                cc.append(abs(k-v))\n            if k < v or a == b:\n                if b == len(nums):\n                    break\n                push(nums[b])\n                b += 1\n            elif a < b:\n                pop(nums[a])\n                a += 1\n            \n        \n        return min(cc)\n        ",
-    "submit_ts": 1717299898.0
+    "submit_ts": "1717299898",
+    "subm_id": "1274827391"
 }

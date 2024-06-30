@@ -1,5 +1,6 @@
 {
     "username": "tranhan0795",
     "submission": "function numberOfPermutations(n: number, requirements: number[][]): number {\n  const aa = Array.from({ length: n + 1 }, () => Array(401).fill(0));\n  aa[0][0] = 1;\n  const cache = new Map();\n  requirements.map((a) => {\n    cache.set(a[0] + 1, a[1]);\n  });\n\n  for (let i = 1; i <= n; i++) {\n    for (let k = 0; k <= 400; k++) {\n      for (let j = 0; j < i; j++) {\n        const l = k - j;\n        if (l >= 0) {\n          aa[i][k] = (aa[i][k] + aa[i - 1][l]) % 1000000007;\n        }\n      }\n    }\n\n    if (cache.has(i)) {\n      const bb = cache.get(i)!;\n      for (let k = 0; k <= 400; k++) {\n        if (k !== bb) {\n          aa[i][k] = 0;\n        }\n      }\n    }\n  }\n\n  return aa[n].reduce((acc, c) => (acc + c) % 1000000007, 0);\n};",
-    "submit_ts": 1719071199.0
+    "submit_ts": "1719071199",
+    "subm_id": "1296841302"
 }

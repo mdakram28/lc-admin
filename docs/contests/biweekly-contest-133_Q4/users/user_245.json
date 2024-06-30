@@ -1,5 +1,6 @@
 {
     "username": "viniciustht",
     "submission": "const int mod = int(1e9) + 7;\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        sort(requirements.begin(), requirements.end());\n        int m = requirements.size();\n        for(int i=0;i<m-1;i++) {\n            if(requirements[i][1] > requirements[i+1][1]) return 0;\n        }\n\n        int l = n * (n + 1) / 2;\n        vector<int> dp(l + 1);\n        vector<int> p(l + 1);\n        int k = 0;\n        dp[0] = 1;\n        p[0] = 1;\n        for(int i=0;i<n;i++) {\n            for(int w=l;w>0;w--) {\n                int lo = max(w-i, 0);\n                dp[w] += p[w-1] - (lo == 0 ? 0 : p[lo-1]);\n                if(dp[w] >= mod) dp[w] -= mod;\n                if(dp[w] < 0) dp[w] += mod;\n            }\n            \n            if(requirements[k][0] == i) {\n                for(int w=0;w<=l;w++) {\n                    if(w != requirements[k][1]) dp[w] = 0;\n                }\n                k++;\n            }\n            \n            p[0] = dp[0];\n            for(int w=1;w<=l;w++) {\n                p[w] = p[w-1] + dp[w];\n                if(p[w] >= mod) p[w] -= mod;\n            }\n        }\n        return dp[requirements.back()[1]];\n    }\n};",
-    "submit_ts": 1719069276.0
+    "submit_ts": "1719069276",
+    "subm_id": "1296791880"
 }

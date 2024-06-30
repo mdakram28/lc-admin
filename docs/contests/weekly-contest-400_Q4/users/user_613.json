@@ -1,5 +1,6 @@
 {
     "username": "PeterChenX",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> dp(32, 0);\n        int left = 0, right = 0; //[left, right]\n        int res = INT_MAX;\n        for(; right < n; right++){\n            int cur = nums[right];\n            for(int i = 0; i < 32; i++){\n                dp[i] += (cur & 1);\n                cur >>= 1;\n            }\n            int len = right - left + 1;\n            int cur_bit_and = 0;\n            for(int i = 0; i < 32; i++){\n                if(dp[i] == len)\n                    cur_bit_and |= (1 << i);\n            }\n            res = min(res, abs(cur_bit_and - k));\n            while(left <= right && cur_bit_and < k){\n                cur = nums[left];\n                for(int i = 0; i < 32; i++){\n                    dp[i] -= (cur & 1);\n                    cur >>= 1;\n                }\n                left++;\n                len = right - left + 1;\n                cur_bit_and = 0;\n                for(int i = 0; i < 32; i++){\n                    if(dp[i] == len)\n                        cur_bit_and |= (1 << i);\n                }\n                res = min(res, abs(cur_bit_and - k));\n            }\n        }\n        return res;\n    }\n};",
-    "submit_ts": 1717299022.0
+    "submit_ts": "1717299022",
+    "subm_id": "1274799200"
 }

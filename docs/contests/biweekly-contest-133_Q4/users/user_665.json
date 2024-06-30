@@ -1,5 +1,6 @@
 {
     "username": "Samriddhi1212",
     "submission": "class Solution {\n     static const int MOD = 1'000'000'007;\n    static const int MAX_INVERSIONS = 400;\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n         unordered_map<int, int> rMap;\n        for (const auto& req : requirements) {\n            rMap[req[0] + 1] = req[1];\n        }\n        \n        long res = 0;\n\n        std::vector<std::vector<long>> p(n + 1, std::vector<long>(MAX_INVERSIONS + 1, 0));\n        p[0][0] = 1;\n\n        for (int length = 1; length <= n; ++length) {\n            \n            \n            \n            for (int inv = 0; inv <= MAX_INVERSIONS; ++inv) {\n                for (int newPos = 0; newPos < length; ++newPos) {\n       int prevInv = inv - newPos;\n                    if (prevInv >= 0) {\n                        p[length][inv] = (p[length][inv] + p[length - 1][prevInv]) % MOD;\n                    }\n                }\n            }\n\n            if (rMap.find(length) != rMap.end()) {\n                int targetInv = rMap[length];\n                for (int inv = 0; inv <= MAX_INVERSIONS; ++inv) {\n                    if (inv != targetInv) {\n                        p[length][inv] = 0;\n                    }\n                }}}\n            \n        \n\n        for (long count : p[n]) {\n            res = (res+ count) % MOD;\n        }\n\n        return static_cast<int>(res);\n    }\n};",
-    "submit_ts": 1719070642.0
+    "submit_ts": "1719070642",
+    "subm_id": "1296828148"
 }

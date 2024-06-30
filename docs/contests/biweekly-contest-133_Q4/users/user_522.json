@@ -1,5 +1,6 @@
 {
     "username": "Saransh6772",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n        long long mod=1e9+7,ans=0;\n        unordered_map<int,int> m;\n        for(auto& i:r)m[i[0]+1]=i[1];\n        vector<vector<long>> dp(n+1,vector<long>(401,0));\n        dp[0][0]=1;\n        for(int len=1;len<=n;len++){\n            for(int inv=0;inv<=400;inv++){\n                for(int pos=0;pos<len;pos++){\n                    if(inv>=pos)dp[len][inv]=(dp[len][inv]+dp[len-1][inv-pos])%mod;\n                }\n            }\n            if(m.count(len)){\n                for(int inv=0;inv<=400;inv++){\n                    if(inv!=m[len])dp[len][inv]=0;\n                }\n            }\n        }\n        for(long i:dp[n])ans=(ans+i)%mod;\n        return ans;\n    }\n};",
-    "submit_ts": 1719070600.0
+    "submit_ts": "1719070600",
+    "subm_id": "1296827095"
 }

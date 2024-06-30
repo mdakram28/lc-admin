@@ -1,5 +1,6 @@
 {
     "username": "architagrawal2000",
     "submission": "class Solution {\n    vector<vector<int>> getGraph(vector<vector<int>> &edges) {\n        int n = edges.size() + 1;\n        vector<vector<int>> g(n);\n        for(vector<int> e: edges) {\n            g[e[0]].push_back(e[1]);\n            g[e[1]].push_back(e[0]);\n        }\n        return g;\n    }\n    \n    int getDiameter(int x, vector<bool> &v, vector<vector<int>> &g, int &ans) {\n        v[x] = true;\n        int d1 = 0, d2 = 0;\n        for(int y: g[x]) {\n            if(v[y]) {\n                continue;\n            }\n            int temp = getDiameter(y, v, g, ans);\n            if(temp > d1) {\n                d2 = d1;\n                d1 = temp;\n            } else if(temp > d2) {\n                d2 = temp;\n            }\n        }\n        ans = max(ans, 1 + d1 + d2);\n        return 1 + d1;\n    }\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        vector<vector<int>> g1 = getGraph(edges1), g2 = getGraph(edges2);\n        vector<bool> v1(edges1.size() + 1), v2(edges2.size() + 1);\n        int ans1 = 0, ans2 = 0;\n        getDiameter(0, v1, g1, ans1);\n        getDiameter(0, v2, g2, ans2);\n        cout<<ans1<<\" \"<<ans2<<\"\\n\";\n        int ans = ans1 / 2 + ans2 / 2 + 1;\n        return max(ans, max(ans1, ans2) - 1);\n    }\n};",
-    "submit_ts": 1719716780.0
+    "submit_ts": "1719716780",
+    "subm_id": "1304373842"
 }

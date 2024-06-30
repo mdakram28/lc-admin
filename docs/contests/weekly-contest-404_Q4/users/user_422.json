@@ -1,5 +1,6 @@
 {
     "username": "sobols",
     "submission": "using TGraph = vector<vector<int>>;\n\nTGraph Build(const vector<vector<int>>& edges) {\n    int n = edges.size() + 1;\n    TGraph g(n);\n    for (const auto& e : edges) {\n        int u = e[0], v = e[1];\n        g[u].push_back(v);\n        g[v].push_back(u);\n    }\n    return g;\n}\n\nvector<int> LongestPath(const TGraph& g, int st) {\n    int n = g.size();\n    vector<int> prev(n, -1);\n    queue<int> q;\n    q.push(st);\n    int last = st;\n    while (!q.empty()) {\n        int v = q.front(); q.pop();\n        last = v;\n        for (int u : g[v]) {\n            if (prev[u] == -1 && u != st) {\n                prev[u] = v;\n                q.push(u);\n            }\n        }\n    }\n    \n    vector<int> pt;\n    while (last != st) {\n        pt.push_back(last);\n        last = prev[last];\n    }\n    pt.push_back(st);\n    reverse(pt.begin(), pt.end());\n    return pt;\n}\n\nint Diam(const TGraph& g) {\n    auto p1 = LongestPath(g, 0);\n    int v1 = p1.back();\n    auto p2 = LongestPath(g, v1);\n    return p2.size() - 1;\n}\n\nint Div2(int x) {\n    return (x+1) / 2;\n}\n\nclass Solution {\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        const auto t1 = Build(edges1);\n        const auto t2 = Build(edges2);\n        int d1 = Diam(t1);\n        int d2 = Diam(t2);\n        return max(max(d1, d2), Div2(d1) + Div2(d2) + 1);\n    }\n};",
-    "submit_ts": 1719718888.0
+    "submit_ts": "1719718888",
+    "subm_id": "1304428565"
 }

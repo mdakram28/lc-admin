@@ -1,5 +1,6 @@
 {
     "username": "yash_raj_29",
     "submission": "class Solution {\npublic:\n    const int mod=1e9+7;\n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        int mx=0;\n        unordered_map<int,int> mp;\n        for (auto& it:req) {\n            mp[it[0]+1]=it[1];\n            mx=max(mx,it[1]);\n        }\n        vector<vector<long>>count(n+1,vector<long>(mx+1,0));\n        count[0][0]=1;\n        for (int i=1;i<=n;i++) {\n            for (int j=0;j<=mx;j++) {\n                for (int k=0;k<i;k++) {\n                    int prev=j-k;\n                    if (prev>=0) {\n                        count[i][j]=(count[i][j]+count[i-1][prev])%mod;\n                    }\n                }\n            }\n            if(mp.find(i)!=mp.end()){\n                int k=mp[i];\n                for(int j=0;j<=mx;j++) {\n                    if(j!=k){\n                        count[i][j]=0;\n                    }\n                }\n            }\n        }\n        for(int i=0;i<n+1;i++){\n            for(int j=0;j<mx+1;j++){\n                cout<<count[i][j]<<\" \";\n            }\n            cout<<endl;\n        }\n        cout<<endl;\n        int ans=0;\n        for (int it:count[n]) {\n            ans=(ans+it)%mod;\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": 1719071851.0
+    "submit_ts": "1719071851",
+    "subm_id": "1296855563"
 }

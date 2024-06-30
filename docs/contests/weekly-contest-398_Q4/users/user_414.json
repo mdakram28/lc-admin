@@ -1,5 +1,6 @@
 {
     "username": "bttsv",
     "submission": "class Solution {\npublic:\n    long long encode(const long long a, const long long b, const long long c) {\n        return a * 80 + b * 2 + c;\n    }\n    vector<long long> decode(const long long x) {\n        vector<long long> v;\n        v.push_back(x / 80);\n        v.push_back(x % 80 / 2);\n        v.push_back(x % 2);\n        return v;\n    }\n    int waysToReachStair(int k) {\n        long long res = 0;\n        unordered_map<long long, long long> h;\n        h[encode(1, 0, 0)] = 1;\n        while (h.size() != 0) {\n            unordered_map<long long, long long> h2;\n            for (auto x : h) {\n                vector<long long> v = decode(x.first);\n                long long a = v[0], b = v[1], c = v[2], cnt = x.second, key;\n                if (a == k)\n                    res += cnt;\n                if (a > 0 && c == 0) {\n                    key = encode(a - 1, b, 1);\n                    h2[key] += cnt;\n                }\n                if (a + (1 << b) < k + 10) {\n                    key = encode(a + (1L << b), b + 1, 0);\n                    h2[key] += cnt;\n                }\n            }\n            h = h2;\n        }\n        return (int)res;\n    }\n};",
-    "submit_ts": 1716088474.0
+    "submit_ts": "1716088474",
+    "subm_id": "1261815046"
 }

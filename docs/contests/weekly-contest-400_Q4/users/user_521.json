@@ -1,5 +1,6 @@
 {
     "username": "randytanpty",
     "submission": "class Solution {\n    public int minimumDifference(int[] nums, int k) {\n        int ans = Math.abs(nums[0] - k);\n        for (int num : nums) ans = Math.min(Math.abs(num - k), ans);\n        int[] b = new int[32];\n        for (int i = 0, j = 0; j < nums.length; ++j) {\n            adjust(b, nums[j], 1);\n            int me = helper(b, j - i + 1);\n            ans = Math.min(Math.abs(me - k), ans);\n            while (me < k && i < j) {\n                adjust(b, nums[i], -1);\n                i++;\n                me = helper(b, j - i + 1);\n                ans = Math.min(Math.abs(me - k), ans);\n                if (me == k) return 0;\n                if (me > k) {\n                    i--;\n                    adjust(b, nums[i], +1);\n                }\n            }\n        }\n        \n        return ans;\n    }\n    \n    private void adjust(int[] b, int num, int offset) {\n        for (int i = 0; i < 32; ++i) {\n            if ((num >> i) % 2 == 1) b[i] += offset;\n        }\n    }\n    \n    private int helper(int[] b, int len) {\n        int ans = 0;\n        for (int i = 0; i < 32; ++i) {\n            if (b[i] == len) ans += 1 << i;\n        }\n        return ans;\n    }\n}",
-    "submit_ts": 1717299314.0
+    "submit_ts": "1717299314",
+    "subm_id": "1274808597"
 }

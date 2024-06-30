@@ -1,5 +1,6 @@
 {
     "username": "coder161",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<vector<int> > dp(n,vector<int>(k+1,0));\n        \n        for(int i=0;i<n;i++){\n            dp[i][0]=1;\n        }\n        \n        for(int i=0;i<n;i++){\n            for(int j=i+1;j<n;j++){\n                if(nums[i]==nums[j]){\n                    dp[j][0]=max(dp[i][0]+1,dp[j][0]);\n                }\n            }\n        }\n        \n        \n        \n        \n        for(int l=1;l<=k;l++){\n            \n            map<int, int> mp;\n            int mx=0;\n            \n            dp[0][l]=1;\n            \n            for(int i=0;i<n;i++){\n                if(mp.find(nums[i])!=mp.end()){\n                    int x=mp[nums[i]];\n                    dp[i][l]=max(dp[i][l],x+1);\n                }\n                dp[i][l]=max(dp[i][l],mx+1);\n                mx=max(mx,dp[i][l-1]);\n                mp[nums[i]]=dp[i][l];\n                // cout<<mx<<\" \";\n            }\n            // cout<<endl;\n        }\n        \n        \n        \n        \n        \n        int ans=1;\n        for(int i=0;i<n;i++){\n            for(int j=0;j<=k;j++){\n                ans=max(ans,dp[i][j]);\n                \n                // cout<<dp[i][j]<<\" \";\n            }\n            // cout<<endl;\n            \n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717861479.0
+    "submit_ts": "1717861479",
+    "subm_id": "1281792393"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Awes19",
     "submission": "class Solution {\n    public int numberOfPermutations(int n, int[][] requirements) {\n        int mod = 1_000_000_007;\n        int max = 400;\n        Map<Integer, Integer> map = new HashMap<>();\n        for (int[] arr : requirements) {\n            map.put(arr[0] + 1, arr[1]);\n        }\n        long[][] dp = new long[n + 1][max + 1];\n        dp[0][0] = 1;\n        for(int i=1; i<=n; i++){\n            for(int j=0; j<=max; j++){\n                for(int k=0; k<i; k++){\n                    int a = j-k;\n                    if(a >= 0){\n                        dp[i][j] = (dp[i][j] + dp[i - 1][a]) % mod;\n                    }\n                }\n            }\n            if(map.containsKey(i)){\n                int k = map.get(i);\n                for(int j=0; j<=max; j++){\n                    if(j != k){\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n        long res = 0;\n        for(long cnt : dp[n]){\n            res = (res + cnt)%mod;\n        }\n        return (int)res;\n    }\n}",
-    "submit_ts": 1719070577.0
+    "submit_ts": "1719070577",
+    "subm_id": "1296826488"
 }

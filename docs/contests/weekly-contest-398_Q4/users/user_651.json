@@ -1,5 +1,6 @@
 {
     "username": "2210030378",
     "submission": "class Solution:\n    def __init__(self):\n        self.memo = {}\n\n    def count_ways(self, k, current_stair, current_jump, can_jump):\n        if current_stair > k + 5:\n            return 0\n\n        if current_jump > 31:\n            return 0\n\n        if current_stair in self.memo and self.memo[current_stair][current_jump][can_jump] != -1:\n            return self.memo[current_stair][current_jump][can_jump]\n\n        ways = (current_stair == k)\n        if can_jump:\n            ways += self.count_ways(k, current_stair - 1, current_jump, 0)\n        if current_stair + (1 << current_jump) <= k + 1:\n            ways += self.count_ways(k, current_stair + (1 << current_jump), current_jump + 1, 1)\n\n        if current_stair not in self.memo:\n            self.memo[current_stair] = [[-1] * 2 for _ in range(32)]\n        self.memo[current_stair][current_jump][can_jump] = ways\n        return ways\n\n    def waysToReachStair(self, k):\n        return self.count_ways(k, 1, 0, 1)\n\n# Example usage:\nsolution = Solution()\nprint(solution.waysToReachStair(5))  # Output: 8\n",
-    "submit_ts": 1716089503.0
+    "submit_ts": "1716089503",
+    "subm_id": "1261843940"
 }

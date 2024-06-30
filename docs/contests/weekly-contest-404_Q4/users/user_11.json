@@ -1,5 +1,6 @@
 {
     "username": "xymabinogi",
     "submission": "class Solution {\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& e1, vector<vector<int>>& e2) {\n        auto diameter = [&](vector<vector<int>> &e) -> int {\n            int n = e.size() + 1;\n            vector<vector<int>> edges(n);\n            for (int i = 0; i < n - 1; i++){\n                edges[e[i][0]].push_back(e[i][1]);\n                edges[e[i][1]].push_back(e[i][0]);\n            }\n            int last = -1, d = 0;\n\n            auto bfs = [&](int i) -> void{\n                queue<int> q;\n                vector<int> dist(n, -1);\n                dist[i] = 0;\n                q.push(i);\n                int step = 0;\n                while(!q.empty()){\n                    int sz = q.size();\n                    while(sz--){\n                        auto cur = q.front(); q.pop();\n                        last = cur, d = step;\n                        for (auto &nxt : edges[cur]){\n                            if (dist[nxt] != -1) continue;\n                            dist[nxt] = dist[cur] + 1;\n                            q.push(nxt);\n                        }\n                    }\n                    step++;\n                }\n            };\n            bfs(0);\n            bfs(last);\n            return d;\n        };\n        int a = diameter(e1), b = diameter(e2);\n        return max({a, b, (a + 1) / 2 + (b + 1) / 2 + 1});\n    }\n};",
-    "submit_ts": 1719715944.0
+    "submit_ts": "1719715944",
+    "subm_id": "1304350681"
 }

@@ -1,5 +1,6 @@
 {
     "username": "DylanSmith",
     "submission": "\ntypedef long long ll;\n\n#define pb push_back\n#define sz(x) (int)x.size()\n#define all(x) begin(x),end(x)\n#define lb(x,y) lower_bound(all(x),y)-begin(x)\nint mod = 1000000007;\n    ll exGCD(ll a, ll b, ll &x, ll &y) {\n    if (a == 0) { x = 0; y = 1; return b; }\n    ll g = exGCD(b % a, a, x, y);\n    ll t = x; x = y - b / a * x; y = t;\n    return g;\n}\n\nint mInv(int n) {\n    ll x, y, g = exGCD(n, mod, x, y);\n    if (g != 1) return 0;\n    return (x % mod + mod) % mod;\n}\n\nvector<int> factArr = {1}, factInvArr = {1};\nint fact(int n) {\n    while (sz(factArr) <= n)\n        factArr.pb((int)((ll)factArr[sz(factArr) - 1] * sz(factArr) % mod));\n    return factArr[n];\n}\n\nint factInv(int n) {\n    fact(n);\n    while (sz(factInvArr) <= n)\n        factInvArr.pb(mInv(factArr[sz(factInvArr)]));\n    return factInvArr[n];\n}\n\nint choose(int n, int k) {\n    if (k < 0 || k > n) return 0;\n    return (int)((ll)fact(n) * factInv(k) % mod * factInv(n - k) % mod);\n}\nclass Solution {\npublic:\n    \n    int waysToReachStair(int k) {\n        ll sum = 1;\n        ll res = 0;\n        for (int i = 0; i <= 29; i++) {\n            if (sum >= k) {\n                int d = sum - k, o = i + 1;\n                res += choose(o, d);\n            }\n            sum += 1 << i;\n        }\n        return res;\n    }\n};",
-    "submit_ts": 1716086766.0
+    "submit_ts": "1716086766",
+    "subm_id": "1261762539"
 }

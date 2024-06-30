@@ -1,5 +1,6 @@
 {
     "username": "Vaibhav_Bhatia",
     "submission": "#include <unordered_map>\n#include <vector>\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        // Memoization table\n        std::unordered_map<int, std::unordered_map<int, std::unordered_map<bool, long long>>> memo;\n        return dfs(1, 0, k, true, memo);\n    }\n    \nprivate:\n    long long dfs(int currentStair, int jump, int target, bool canGoDown, std::unordered_map<int, std::unordered_map<int, std::unordered_map<bool, long long>>>& memo) {\n        if (currentStair == target) {\n            long long ways = 1; \n            ways += dfs(currentStair + (1 << jump), jump + 1, target, true, memo); // Move up\n            if (currentStair > 0 && canGoDown) {\n                ways += dfs(currentStair - 1, jump, target, false, memo); // Move down\n            }\n            return ways;\n        }\n        if (currentStair > target + 1) {\n            return 0;\n        }\n\n        if (memo[currentStair][jump].find(canGoDown) != memo[currentStair][jump].end()) {\n            return memo[currentStair][jump][canGoDown];\n        }\n\n        long long ways = 0;\n        \n        if (canGoDown && currentStair > 0) {\n            ways += dfs(currentStair - 1, jump, target, false, memo);\n        }\n\n        ways += dfs(currentStair + (1 << jump), jump + 1, target, true, memo);\n\n        memo[currentStair][jump][canGoDown] = ways;\n\n        return ways;\n    }\n};\n",
-    "submit_ts": 1716090052.0
+    "submit_ts": "1716090052",
+    "subm_id": "1261857963"
 }

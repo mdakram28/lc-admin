@@ -1,5 +1,6 @@
 {
     "username": "williamliu6",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        nums += [2**32-1 for _ in range((1<<(len(nums)-1).bit_length())-len(nums))]\n        n = len(nums)\n        tree = [None for _ in range(n)] + nums\n        \n        for i in range(n-1, 0, -1):\n            tree[i] = tree[2*i]&tree[2*i+1]\n        \n        def query(a, b):\n            a += n\n            b += n\n            ret = 2**32-1\n            \n            while a <= b:\n                if a%2 == 1:\n                    ret &= tree[a]\n                    a += 1\n                if b%2 == 0:\n                    ret &= tree[b]\n                    b -= 1\n                \n                a //= 2\n                b //= 2\n            \n            return ret\n        \n        l, r = 0, 0\n        ret = inf\n        \n        while r < n:\n            cur = query(l, r)\n            #print(l, r, cur, ret)\n            \n            if k < cur:\n                ret = min(ret, cur-k)\n                r += 1\n            else:\n                ret = min(ret, k-cur)\n                \n                if l < r:\n                    l += 1\n                else:\n                    r += 1\n                    \n        return ret\n        ",
-    "submit_ts": 1717298186.0
+    "submit_ts": "1717298186",
+    "subm_id": "1274770308"
 }

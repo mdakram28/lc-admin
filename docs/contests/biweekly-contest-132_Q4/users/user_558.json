@@ -1,5 +1,6 @@
 {
     "username": "bahoang3105",
     "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar maximumLength = function(nums, k) {\n    const l = nums.length;\n    const dp = Array(51).fill().map(() => Array(l));\n    \n    const map = {};\n    \n    const pos = Array(l);\n    \n    let max = Array(k+1).fill().map(() => Array(l));\n    \n    for (let i = 0; i < l; i++) {\n        if (map[nums[i]] !== undefined) {\n            pos[i] = map[nums[i]]; \n        } else {\n            pos[i] = -1;\n        }\n        map[nums[i]] = i;\n    }\n    \n    let res = 0;\n    \n    for (let i = 0; i < l; i++) {\n        if (pos[i] === -1) {\n            dp[0][i] = 1;\n        } else {\n            dp[0][i] = 1 + dp[0][pos[i]];\n        }\n        max[0][i] = Math.max(max[0][i-1] || 0, dp[0][i]);\n        res = Math.max(res, dp[0][i]);\n    }\n    \n    \n    for (let i = 1; i <= k; i++) {\n        for (let j = 0; j < l; j++) {\n            if (pos[j] === -1) {\n                dp[i][j] = (max[i-1][j-1] || 0) + 1;\n            } else {\n                dp[i][j] = Math.max((max[i-1][j-1] || 0) + 1, dp[i][pos[j]] + 1);\n            }\n            max[i][j] = Math.max(max[i][j-1] || 0, dp[i][j]);\n            res = Math.max(res, dp[i][j]);\n        }\n    }\n    return res;\n};",
-    "submit_ts": 1717861495.0
+    "submit_ts": "1717861495",
+    "subm_id": "1281792968"
 }

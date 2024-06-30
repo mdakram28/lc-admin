@@ -1,5 +1,6 @@
 {
     "username": "mkawa222",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def maketo(uv):\n            n=len(uv)+1\n            to=[[] for _ in range(n)]\n            for u,v in uv:\n                to[u].append(v)\n                to[v].append(u)\n            return to\n\n        def dia(edges):\n            def dfs(root=0):\n                uu = [root]\n                stack = [(v, root) for v in to[root]]\n                while stack:\n                    u, p = stack.pop()\n                    if parent[u] != -1: continue\n                    uu.append(u)\n                    parent[u] = p\n                    depth[u] = depth[p]+1\n                    for v in to[u]:\n                        if parent[v] != -1 or v == root: continue\n                        stack.append((v, u))\n                return uu\n\n            to=maketo(edges)\n            n=len(edges)+1\n            parent, depth = [-1]*n, [0]*n\n            dfs()\n            root=max(range(n),key=lambda u:depth[u])\n            parent, depth = [-1]*n, [0]*n\n            dfs(root)\n            return max(depth)\n\n        d=dia(edges1)\n        e=dia(edges2)\n        return max((d+1)//2+(e+1)//2+1,d,e)\n    ",
-    "submit_ts": 1719716589.0
+    "submit_ts": "1719716589",
+    "subm_id": "1304368627"
 }

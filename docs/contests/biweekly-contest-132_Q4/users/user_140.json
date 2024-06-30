@@ -1,5 +1,6 @@
 {
     "username": "shadymansour19",
     "submission": "class Solution {\n    public int maximumLength(int[] nums, int k) {\n        int n = nums.length;\n        \n        int[] nextIdx = new int[n];\n        Map<Integer, Integer> mapIdx = new HashMap<>();\n        for (int i = n - 1; i >= 0; i--) {\n            nextIdx[i] = -1;\n            if (mapIdx.containsKey(nums[i])) {\n                nextIdx[i] = mapIdx.get(nums[i]);\n            }\n            mapIdx.put(nums[i], i);\n        }\n        \n        int[] currDp  = new int[n];\n        int[] prevMaxDp = new int[n + 1];\n        \n        for (int kk = 0; kk <= k; kk++) {\n            for (int i = n - 1; i >= 0; i--) {\n                currDp[i] = 1;\n                \n                int next = nextIdx[i];\n                if (next != -1) {\n                    currDp[i] = 1 + currDp[next];\n                }\n                \n                currDp[i] = Math.max(currDp[i], 1 + prevMaxDp[i + 1]);\n            }\n            \n            for (int i = n - 1; i >= 0; i--) {\n                prevMaxDp[i] = Math.max(prevMaxDp[i + 1], currDp[i]);\n            }\n        }\n        \n        int res = 0;\n        for (int i = 0; i < n; i++) {\n            res = Math.max(res, currDp[i]);\n        }\n        \n        return res;\n    }\n}",
-    "submit_ts": 1717860169.0
+    "submit_ts": "1717860169",
+    "subm_id": "1281748200"
 }

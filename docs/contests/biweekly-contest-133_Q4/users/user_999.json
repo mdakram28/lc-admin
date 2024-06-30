@@ -1,5 +1,6 @@
 {
     "username": "chintu_99",
     "submission": "class Solution {\n\npublic:\n    int mod = 1000000007;\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int maxi = 400;\n        map<int, int> mp;\n        vector<vector<int>> perm(n + 1, vector<int>(maxi + 1, 0));\n        perm[0][0] = 1;\n        for (auto it:requirements) {\n            mp[++it[0]] = it[1];\n        }\n\n        for (int i=1; i <= n; i++) {\n            for (int j = 0; j <= maxi; j++) {\n                for (int k=0; k<i; k++) {\n                    int prev = j - k;\n                    if(prev<0)continue;\n                    perm[i][j] = (perm[i][j] + perm[i - 1][prev]) % mod;    \n                    perm[i][j]=perm[i][j]%mod;\n                }\n            }\n\n            if (mp.count(i)) {\n                int target = mp[i];\n                for (int j =0; j<= maxi; j++) {\n                    if (j!=target) {\n                        perm[i][j] = 0;\n                    }\n                }\n            }\n        }\n\n        int result = 0;\n        for (auto it:perm[n]) {\n            result =(result + it)%mod;\n        }\n        return (result);\n    }\n};",
-    "submit_ts": 1719071775.0
+    "submit_ts": "1719071775",
+    "subm_id": "1296853865"
 }

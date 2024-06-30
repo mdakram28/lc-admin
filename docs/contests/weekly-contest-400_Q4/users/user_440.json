@@ -1,5 +1,6 @@
 {
     "username": "sazzysaturn",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int curr = -1;\n        int n = nums.size();\n        int ans = INT_MAX;\n        int start = 0, end=0;\n        vector<vector<int>> temp(n,vector<int>(32));\n        vector<int> temp2(32,0);\n        while(end<n){\n            if(curr==-1){\n                curr = nums[end];\n            }\n            else{\n                curr =(curr&nums[end]);\n            }\n\n            for(int i=0;i<32;i++){\n                int f = 1<<i;\n                if(f&nums[end]){\n                    temp[end][i] = 1;\n                    temp2[i]++;\n                }\n            }\n\n            if(curr!=-1) ans = min(ans,abs(curr-k));\n\n            while(start<=end && curr<k){\n                for(int i=0;i<32;i++){\n                    if(temp[start][i]){\n                        temp2[i]--;\n                        if(temp2[i]<end-start && (curr&(1<<i))) curr -= 1<<i;\n                    }\n                    else{\n                        if(temp2[i]==end-start && !(curr&(1<<i))) curr += 1<<i;\n                    }\n                }\n                if(curr!=0) ans = min(ans,abs(curr-k));\n                start++;\n            }\n            if(curr==0) curr==-1;\n            if(curr!=-1) ans = min(ans,abs(curr-k));\n            end++;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717298467.0
+    "submit_ts": "1717298467",
+    "subm_id": "1274780070"
 }

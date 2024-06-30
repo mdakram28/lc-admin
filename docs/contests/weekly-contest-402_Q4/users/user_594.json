@@ -1,5 +1,6 @@
 {
     "username": "gauravsingh_",
     "submission": "template <typename T>\nclass fenwick {\n  public:\n  vector<T> fenw;\n  int n, dir;\n  fenwick(int _n, int _dir) : n(_n), dir(_dir) {\n    fenw.resize(n);\n  }\n  void update(int x, T v) {\n    while (0 < x && x < n) {\n      fenw[x] += v;\n      x += dir * (x & -x);\n    }\n  }\n  T query(int x) {\n    T v{};\n    while (0 < x && x < n) {\n      v += fenw[x];\n      x -= dir * (x & -x);\n    }\n    return v;\n  }\n};\nclass Solution {\npublic:\n  bool isPeak(int i, vector<int> &a) {\n    if (i <= 0 || i >= a.size() - 1) return false;\n    return a[i - 1] < a[i] && a[i] > a[i + 1];\n  }\n  vector<int> countOfPeaks(vector<int>& a, vector<vector<int>>& qs) {\n    int n = a.size();\n    fenwick<int> fw(n + 1, 1);\n    for (int i = 1; i < n - 1; i++) {\n      if (isPeak(i, a)) {\n        fw.update(i + 1, 1);//1-based idx\n      }\n    }\n    vector<int> res;\n    for (auto &q: qs) {\n      if (q[0] == 2) {\n        int id = q[1], val = q[2];\n        for (int i = id - 1; i <= id + 1; i++) {\n          if (isPeak(i, a)) fw.update(i + 1, -1);\n        }\n        a[id] = val;\n        for (int i = id - 1; i <= id + 1; i++) {\n          if (isPeak(i, a)) fw.update(i + 1, 1);\n        }\n      } else {\n        int l = q[1] + 1, r = q[2] + 1;\n        res.push_back(max(0, fw.query(r - 1) - fw.query(l)));\n      }\n    }\n    return res;\n  }\n};",
-    "submit_ts": 1718507708.0
+    "submit_ts": "1718507708",
+    "subm_id": "1289660028"
 }

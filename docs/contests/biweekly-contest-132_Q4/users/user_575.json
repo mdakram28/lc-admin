@@ -1,5 +1,6 @@
 {
     "username": "rahulmittall",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> dp(n+1,vector<int>(k+1,0));\n        for(int i=0;i<=k;i++) dp[0][i]=1;\n        vector<int> global(k+1,0);\n\n        map<int,int> freq;\n        for(int i=0;i<n;i++) freq[nums[i]]++;\n        vector<int> v;\n        // for(int i=0)\n        int ans = 0;\n        map<pair<int,int>,int> best_so_far;\n        \n        for(int i=0;i<n;i++){\n            vector<int> curr = global;\n            for(int j=0;j<k+1;j++){\n                \n                dp[i][j] = 1 + best_so_far[{nums[i],j}];\n                if(j>=1) dp[i][j] = max(dp[i][j], 1 + curr[j-1]);\n                global[j] = max(curr[j],dp[i][j]);\n                ans = max(dp[i][j],ans);\n                best_so_far[{nums[i],j}] = max(best_so_far[{nums[i],j}],dp[i][j]);               \n            }\n            freq[nums[i]]--;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717861930.0
+    "submit_ts": "1717861930",
+    "subm_id": "1281806450"
 }

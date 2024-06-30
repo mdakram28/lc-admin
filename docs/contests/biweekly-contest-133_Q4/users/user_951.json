@@ -1,5 +1,6 @@
 {
     "username": "dhameliyayagnik28",
     "submission": "class Solution {\npublic:\n    const int M = 1e9 + 7;\n    int numberOfPermutations(int n, vector<vector<int>>& a) {\n        int m = a.size();\n        map<int, int> mp;\n        for(auto &v : a) mp[v[0] + 1] = v[1];\n        vector<vector<int>> dp(n + 1, vector<int> (405));\n        dp[0][0] = 1;\n        for(int i = 1; i <= n; i++)\n        {\n            for(int j = 0; j <= 401; j++)\n            {\n                for(int k = 0; k < i; k++)\n                {\n                    if(j < k) continue;\n                    dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % M;\n                }\n            }\n            if(mp.find(i) == mp.end()) continue;\n            for(int j = 0; j <= 401; j++) \n            {\n                if(j == mp[i]) continue;\n                dp[i][j] = 0;\n            }\n        }\n        int ans = 0;\n        for(int j = 0; j <= 401; j++) ans = (ans + dp[n][j]) % M;\n        return ans;\n    }\n};",
-    "submit_ts": 1719071047.0
+    "submit_ts": "1719071047",
+    "subm_id": "1296837899"
 }

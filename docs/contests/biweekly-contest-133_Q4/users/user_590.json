@@ -1,5 +1,6 @@
 {
     "username": "kishanvaghamashi2001",
     "submission": "#define ll long long\nclass Solution\n{\npublic:\n    int MOD = 1e9 + 7;\n    int MAX_INVERSIONS = 400;\n\n    int numberOfPermutations(int n, vector<vector<int>> &reqs)\n    {\n        unordered_map<int, int> reqMpp;\n        for (auto &req : reqs)\n        {\n            reqMpp[req[0] + 1] = req[1];\n        }\n\n        vector<vector<ll>> dp(n + 1, vector<ll>(MAX_INVERSIONS + 1, 0));\n\n        dp[0][0] = 1;\n        for (int i = 1; i <= n; ++i)\n        {\n            for (int inv = 0; inv <= MAX_INVERSIONS; inv++)\n            {\n                for (int newPos = 0; newPos < i; newPos++)\n                {\n                    int prevInv = inv - newPos;\n                    if (prevInv >= 0)\n                    {\n                        dp[i][inv] = (ll)(dp[i][inv] + dp[i - 1][prevInv]) % MOD;\n                    }\n                }\n            }\n\n            if (reqMpp.find(i) != reqMpp.end())\n            {\n                int targetInv = reqMpp[i];\n                for (int inv = 0; inv <= MAX_INVERSIONS; ++inv)\n                    if (inv != targetInv)\n                        dp[i][inv] = 0;\n            }\n        }\n        for(int i = 0; i < 100; i++){\n            // trying to change the dp table\n        }\n        ll ans = 0;\n        for (ll &it : dp[n])\n            ans = (ans + it) % MOD;\n\n        return (int)(ans);\n    }\n};",
-    "submit_ts": 1719070739.0
+    "submit_ts": "1719070739",
+    "subm_id": "1296830550"
 }

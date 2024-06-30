@@ -1,5 +1,6 @@
 {
     "username": "deepshikha_1202",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& reqs) {\n           const int MOD = 1'000'000'007;\n        const int MAX_INV = 400;\n\n        std::unordered_map<int, int> restrictions;\n        for (auto& req : reqs) {\n            restrictions[req[0] + 1] = req[1];\n        }\n\n        std::vector<std::vector<long>> permCount(n + 1, std::vector<long>(MAX_INV + 1, 0));\n        permCount[0][0] = 1;\n\n        for (int len = 1; len <= n; len++) {\n            for (int inv = 0; inv <= MAX_INV; inv++) {\n                for (int pos = 0; pos < len; pos++) {\n                    int prevInv = inv - pos;\n                    if (prevInv >= 0) {\n                        permCount[len][inv] = (permCount[len][inv] + permCount[len - 1][prevInv]) % MOD;\n                    }\n                }\n            }\n\n            if (restrictions.count(len)) {\n                int targetInv = restrictions[len];\n                for (int inv = 0; inv <= MAX_INV; inv++) {\n                    if (inv != targetInv) {\n                        permCount[len][inv] = 0;\n                    }\n                }\n            }\n        }\n\n        long result = 0;\n        for (long count : permCount[n]) {\n            result = (result + count) % MOD;\n        }\n\n        return result;\n    \n        \n    }\n};",
-    "submit_ts": 1719070345.0
+    "submit_ts": "1719070345",
+    "subm_id": "1296820733"
 }

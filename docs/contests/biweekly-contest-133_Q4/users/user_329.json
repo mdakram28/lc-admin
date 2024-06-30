@@ -1,5 +1,6 @@
 {
     "username": "BhavyaGupta315",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& v) {\n        map<int, int> mpp;\n        for (auto& itr : v) {\n            mpp[itr[0] + 1] = itr[1];\n        }\n        long long M = 1e9+7;\n        long long maxi = 400;\n        vector<vector<long long>> chut(n + 1, vector<long long>(maxi + 1, 0));\n        chut[0][0] = 1;\n\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= maxi; j++) {\n                for (int k = 0; k < i; k++) {\n                    int prevInv = j - k;\n                    if (prevInv >= 0) {\n                        chut[i][j] = ((chut[i][j])%M + (chut[i - 1][prevInv])%M) % M;\n                    }\n                }\n            }\n\n            if (mpp.find(i) != mpp.end()) {\n                int temp = mpp[i];\n                for (int j = 0; j <= maxi; j++) {\n                    if (j != temp) {\n                        chut[i][j] = 0;\n                    }\n                }\n            }\n        }\n\n        long long result = 0;\n        for (long count : chut[n]) {\n            result = (result%M + count%M) % M;\n        }\n\n        return (int) result;\n    }\n};\n",
-    "submit_ts": 1719070220.0
+    "submit_ts": "1719070220",
+    "subm_id": "1296817627"
 }

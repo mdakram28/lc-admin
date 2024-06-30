@@ -1,5 +1,6 @@
 {
     "username": "pppdmy",
     "submission": "impl Solution {\n  pub fn minimum_diameter_after_merge(edges1: Vec<Vec<i32>>, edges2: Vec<Vec<i32>>) -> i32 {\n    let g1 = graph(edges1);\n    let g2 = graph(edges2);\n    let mut max = 0;\n    let s1 = find_span(g1, &mut max);\n    let s2 = find_span(g2, &mut max);\n    (s1 + s2 + 1).max(max) as i32\n  }\n}\n\nuse std::collections::{HashSet, VecDeque};\nfn graph(edges: Vec<Vec<i32>>) -> Vec<HashSet<usize>> {\n  let mut g = vec![HashSet::new(); edges.len() + 1];\n  for edge in edges {\n    let i = edge[0] as usize;\n    let j = edge[1] as usize;\n    g[i].insert(j);\n    g[j].insert(i);\n  }\n  g\n}\n\nfn find_span(mut g: Vec<HashSet<usize>>, span: &mut usize) -> usize {\n  let mut dis = vec![0; g.len()];\n  let mut leaves = {\n    let mut frontier = VecDeque::new();\n    for i in 0..g.len() {\n      if g[i].len() == 1 {\n        frontier.push_back(i);\n      }\n    }\n    frontier\n  };\n  while let Some(leaf) = leaves.pop_front() {\n    let Some(other) = g[leaf].drain().next() else { break; };\n    g[other].remove(&leaf);\n    let max = dis[other] + dis[leaf] + 1;\n    *span = max.max(*span);\n    dis[other] = dis[other].max(dis[leaf] + 1);\n    if g[other].len() == 1 {\n      leaves.push_back(other);\n    }\n  }\n  dis.into_iter().max().unwrap()\n}\n\n//.   6\n//.   |\n/// 9-3-5-4-8-7\n//    |  \n//    2-0-1",
-    "submit_ts": 1719719549.0
+    "submit_ts": "1719719549",
+    "subm_id": "1304444701"
 }

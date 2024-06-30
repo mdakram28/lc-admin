@@ -1,5 +1,6 @@
 {
     "username": "yrclamb",
     "submission": "class Solution {\n    public int maximumLength(int[] nums, int k) {\n        int[] dp = new int[nums.length];\n        dp[0] = 1;\n        Map<Integer, Integer> cnt = new HashMap<>();\n        cnt.put(nums[0], 1);\n        for(int i = 1; i < nums.length; i++){\n            dp[i] = cnt.getOrDefault(nums[i], 0) + 1;\n            \n            cnt.put(nums[i], cnt.getOrDefault(nums[i], 0) + 1);\n        }\n        \n        for(int q = 1; q <= k; q++){\n            int[] newdp = new int[nums.length];\n            newdp[0] = 1;\n            Map<Integer, Integer> newMap = new HashMap<>();\n            newMap.put(nums[0], newdp[0]);\n            int oldMax = dp[0];\n            \n            for(int i = 1; i < nums.length; i++){    \n                newdp[i] = 1;\n                \n                newdp[i] = Math.max(newdp[i], oldMax + 1);\n                newdp[i] = Math.max(newdp[i], newMap.getOrDefault(nums[i], 0) + 1);\n                \n                newMap.put(nums[i], Math.max(newMap.getOrDefault(nums[i], 0), newdp[i]));\n                oldMax = Math.max(oldMax, dp[i]);\n            }\n            dp = newdp;\n        }\n        \n        int max = 0;\n        for(int d : dp) max = Math.max(max, d);\n        \n        return max;\n        \n    }\n}",
-    "submit_ts": 1717860235.0
+    "submit_ts": "1717860235",
+    "subm_id": "1281750491"
 }

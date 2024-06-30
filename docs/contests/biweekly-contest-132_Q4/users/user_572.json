@@ -1,5 +1,6 @@
 {
     "username": "realstar",
     "submission": "class Solution {\n    public int maximumLength(int[] nums, int k) {\n        int n = nums.length;\n        Map<Integer, int[]> map = new HashMap();\n        int[] count = new int[k + 1];\n        count[0] = 1;\n        map.put(nums[0], count);\n        int[] max = count.clone();\n        int result = 1;\n        for (int i = 1; i < n; i++) {\n        \tint now = nums[i];\n        \tmap.put(now, calc(map, now, k, max));\n        \tfor (int val : map.get(now))\n        \t\tresult = Math.max(result, val);\n        }\n        return result;\n    }\n\t\n\tprivate static int[] calc(Map<Integer, int[]> map, int now, int k, int[] max) {\n\t\tint[] count = new int[k + 1];\n        count[0] = 1;\n\t\tif (map.containsKey(now)) {\n\t\t\tcount = map.get(now).clone();\n\t\t\tfor (int i = 0; i <= k; i++)\n\t\t\t\tcount[i]++;\n\t\t}\n\t\tfor (int i = 0 ; i < k; i++)\n\t\t\tcount[i + 1] = Math.max(count[i + 1], max[i] + 1);\n\t\tfor (int i = 0; i <= k; i++)\n\t\t\tmax[i] = Math.max(max[i], count[i]);\n\t\treturn count;\n    }\n}",
-    "submit_ts": 1717861923.0
+    "submit_ts": "1717861923",
+    "subm_id": "1281806202"
 }

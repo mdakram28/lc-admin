@@ -1,5 +1,6 @@
 {
     "username": "omhari",
     "submission": "class Solution {\npublic:\n    int n, m;\n    int d, nd;\n    void dfs(int node, int dis, int par, vector<vector<int>> &g)\n    {\n        if(dis>=d)\n        {\n            nd=node;\n            d=dis;\n        }\n        \n        for(auto it:g[node])\n        {\n            if(it!=par)\n            {\n                dfs(it, dis+1, node, g);\n            }\n        }\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        n=edges1.size()+1;\n        m=edges2.size()+1;\n        \n        vector<vector<int>> g1(n);\n        vector<vector<int>> g2(m);\n        \n        for(auto it:edges1)\n        {\n            g1[it[0]].push_back(it[1]);\n            g1[it[1]].push_back(it[0]);\n        }\n        \n        for(auto it:edges2)\n        {\n            g2[it[0]].push_back(it[1]);\n            g2[it[1]].push_back(it[0]);\n        }\n        \n        d=0;\n        dfs(0, 0, -1, g1);\n        int s1=nd;\n        \n        d=0;\n        dfs(s1, 0, -1, g1);\n        int e1=nd;\n        int dd1=d;\n        \n        \n        d=0;\n        dfs(0, 0, -1, g2);\n        int s2=nd;\n        \n        d=0;\n        dfs(s2, 0, -1, g2);\n        int e2=nd;\n        int dd2=d;\n        // cout<<s1<<\" \"<<e1<<\" \"<<dd1<<endl;\n        // cout<<s2<<\" \"<<e2<<\" \"<<dd2<<endl;\n        return max({dd1, dd2, (dd1+1)/2+(dd2+1)/2+1});\n    }\n};",
-    "submit_ts": 1719716386.0
+    "submit_ts": "1719716386",
+    "subm_id": "1304363049"
 }

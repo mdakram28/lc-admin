@@ -1,5 +1,6 @@
 {
     "username": "ctnya_8135",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> nxt(n, vector<int>(30, -1));\n        for (int i = n - 1; i >= 0; i--) {\n            if (i != n - 1)\n                nxt[i] = nxt[i + 1];\n            for (int j = 0; j < 30; j++)\n                if (!(nums[i] & (1 << j)))\n                    nxt[i][j] = i;\n        }\n        int ans = abs(k - nums[0]);\n        for (int i = 0; i < n; i++) {\n            vector<pair<int, int>> rm_nxt;\n            for (int j = 0; j < 30; j++)\n                if (nxt[i][j] != -1)\n                    rm_nxt.push_back({nxt[i][j], j});\n            sort(rm_nxt.begin(), rm_nxt.end());\n            int cur = nums[i];\n            ans = min(ans, abs(k - cur));\n            for (int j = 0, k1; j < rm_nxt.size(); j = k1) {\n                for (k1 = j; k1 < rm_nxt.size() && rm_nxt[k1].first == rm_nxt[j].first; k1++)\n                    cur &= ~(1 << (rm_nxt[k1].second));\n                ans = min(ans, abs(k - cur));\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717298584.0
+    "submit_ts": "1717298584",
+    "subm_id": "1274784159"
 }

@@ -1,5 +1,6 @@
 {
     "username": "dhruvpatidar35",
     "submission": "class Solution {\n    \n    HashMap<String,Integer> hash = new HashMap<>();\n    \n    public int waysToReachStair(int k) {\n        \n        return solve(k,0,false,1);\n    }\n    \n    int solve(int k , int jump , boolean first , long index) {\n        if(index < 0) {\n            return 0;\n        }\n        if(index > k + 1) {\n            return 0;\n        }\n        \n        if(index == k) {\n            int c =  1 + solve(k,jump + 1,false,index + (long)Math.pow(2,jump));\n            if(!first) {\n                c += solve(k,jump,true,index - 1);\n            }\n            return c;\n        }\n        \n        if(index == k + 1) {\n            int c =  solve(k,jump + 1,false,index + (long)Math.pow(2,jump));\n            if(!first) {\n                c += solve(k,jump,true,index - 1);\n            }\n            return c;\n        }\n        \n        String key = jump + \"-\" + first + \"=\" + index;\n        if(hash.containsKey(key)) {\n            return hash.get(key);\n        }\n        \n        int fOP = 0;\n        if(!first) {\n            fOP = solve(k,jump,true,index - 1);\n        }\n        int sOP = solve(k,jump + 1,false,index + (int)Math.pow(2,jump));\n        \n        int val = fOP + sOP;\n        hash.put(key,val);\n        \n        return val;\n        \n    }\n}",
-    "submit_ts": 1716088270.0
+    "submit_ts": "1716088270",
+    "subm_id": "1261809084"
 }

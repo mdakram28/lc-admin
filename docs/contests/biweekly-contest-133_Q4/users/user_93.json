@@ -1,5 +1,6 @@
 {
     "username": "CoderQ1234",
     "submission": "class Solution {\npublic:\n    #define ll long long\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<vector<ll>> f(n, vector<ll>(402, 0));\n        f[0][0] = 1;\n        int iter = 0;\n        sort(requirements.begin(), requirements.end());\n        const int MOD = 1000000007;\n        for(int i = 0; i < n; i++) {\n            for(int j = 0; j <= 400; j++) {\n                for(int x = 0; x <= i; x++) {\n                    if(i > 0 && x <= j) {\n                        f[i][j] = (f[i][j] + f[i - 1][j - x]) % MOD;\n                    }\n                }\n            }\n            if(iter < requirements.size() && requirements[iter][0] == i) {\n                for(int j = 0; j <= 400; j++) {\n                    if(j != requirements[iter][1]) f[i][j] = 0;\n                }\n                iter++;\n            }\n        }\n        \n        for(int i = 0; i <= 400; i++) if(f[n - 1][i] != 0) return f[n - 1][i];\n        return 0;\n    }\n};",
-    "submit_ts": 1719068554.0
+    "submit_ts": "1719068554",
+    "subm_id": "1296769319"
 }

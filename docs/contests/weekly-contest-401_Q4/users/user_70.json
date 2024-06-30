@@ -1,5 +1,6 @@
 {
     "username": "junruiw",
     "submission": "class Solution {\n    unordered_map<int, bool> mp;\n    bool check(vector<int>& rewardValues, int x) {\n        if (mp.find(x) != mp.end()) return mp[x];\n        int n = rewardValues.size();\n        int start = upper_bound(rewardValues.begin(), rewardValues.end(), x/2) - rewardValues.begin();\n        int end = upper_bound(rewardValues.begin(), rewardValues.end(), x) - rewardValues.begin();\n        // cout<<x<<\" \"<<start<<\" \"<<end<<endl;\n        for(int i = start; i < end; i++) {\n            if (check(rewardValues, x - rewardValues[i])) {\n                mp[x] = true;\n                return true;\n            }\n        }\n        mp[x] = false;\n        return false;\n    }\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        int n = rewardValues.size();\n        mp[0] = true;\n        sort(rewardValues.begin(), rewardValues.end());\n        for(int i = rewardValues[n-1]*2; i>=rewardValues[n-1]; i--) {\n            if(check(rewardValues, i))\n                return i;\n        }\n        return -1;\n    }\n};",
-    "submit_ts": 1717903318.0
+    "submit_ts": "1717903318",
+    "subm_id": "1282330283"
 }

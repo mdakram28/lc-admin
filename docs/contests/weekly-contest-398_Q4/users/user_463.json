@@ -1,5 +1,6 @@
 {
     "username": "kyuukyuusha",
     "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        /*\n        can go up 1, 2, 4, 8,... 2^k\n        but no consecutive usage?\n        maybe you can use dp since you can only go down w\n        after going up 2^w\n        you go up wayy too fast, like 2^30 ~ 1e9\n        */\n        \n        std::map<int, int> dp;\n        dp[1] = 1;\n        \n        int ans = 0;\n        \n        std::map<int, int> ndp;\n        for (int i = 0; i < 32; ++i) {\n            ndp.clear();\n            const int w = 1 << i;\n            for (auto [x, v] : dp) {\n                if (x > k + 30) continue;\n                if (x == k) ans += v;\n                ndp[x + w] += v;\n                if (x > 0) {\n                    // go down then up\n                    if (x - 1 == k) ans += v;\n                    ndp[x - 1 + w] += v; \n                }\n            }\n            std::swap(dp, ndp);\n        }\n        return dp[k] + ans;\n    }\n};",
-    "submit_ts": 1716088940.0
+    "submit_ts": "1716088940",
+    "subm_id": "1261828439"
 }

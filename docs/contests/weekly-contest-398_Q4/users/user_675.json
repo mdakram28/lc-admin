@@ -1,5 +1,6 @@
 {
     "username": "mukeshreddy2624",
     "submission": "using System;\nusing System.Collections.Generic;\n\npublic class Solution {\n    private Dictionary<(int, int, bool), int> dp = new Dictionary<(int, int, bool), int>();\n\n    private int Solve(int k, int i, int jump, bool can) {\n        if (i > k + 5) return 0;\n        if (jump > 31) return 0;\n\n        var key = (i, jump, can);\n        if (dp.ContainsKey(key)) return dp[key];\n\n        int ans = (i == k) ? 1 : 0;\n        if (can) ans += Solve(k, i - 1, jump, false);\n        if (i + (1 << jump) <= k + 1) ans += Solve(k, i + (1 << jump), jump + 1, true);\n\n        dp[key] = ans;\n        return ans;\n    }\n\n    public int WaysToReachStair(int k) {\n        return Solve(k, 1, 0, true);\n    }\n}\n",
-    "submit_ts": 1716089270.0
+    "submit_ts": "1716089270",
+    "subm_id": "1261837780"
 }

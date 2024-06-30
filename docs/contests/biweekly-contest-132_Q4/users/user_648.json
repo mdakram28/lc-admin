@@ -1,5 +1,6 @@
 {
     "username": "user3460wU",
     "submission": "class Solution {\n    public int maximumLength(int[] nums, int k) {\n        int n=nums.length;\n        int ans=1;\n        int[][] dp=new int[nums.length][k + 1];\n        int[] vk = new int[k + 1];\n        Map<Integer, Integer>[] vkm = new HashMap[k + 1];\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j <= k; j++) {\n                dp[i][j] = 1;\n            }\n        }\n        for (int i = 0; i <= k; i++) {\n            vk[i] = -1;\n            vkm[i] = new HashMap<>();\n        }\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j <= k; j++) {\n                for (int l = 0; l < j; l++) {\n                    dp[i][j] = Math.max(dp[i][j], 1 + vk[l]);\n                }\n                if (vkm[j].containsKey(nums[i])) {\n                    dp[i][j] = Math.max(dp[i][j], 1 + vkm[j].get(nums[i]));\n                }\n                ans = Math.max(ans, dp[i][j]);\n            }\n            for (int j = 0; j <= k; j++) {\n                vk[j] = Math.max(vk[j], dp[i][j]);\n                vkm[j].put(nums[i], Math.max(vkm[j].getOrDefault(nums[i], 0), dp[i][j]));\n            }\n        }\n        // for(int i=0;i<nums.length;i++){\n        //     for(int m=0;m<=k;m++){\n        //     }\n        // }\n        return ans;\n    }\n}",
-    "submit_ts": 1717862312.0
+    "submit_ts": "1717862312",
+    "subm_id": "1281819084"
 }

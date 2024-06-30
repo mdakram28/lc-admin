@@ -1,5 +1,6 @@
 {
     "username": "abhey8623",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int i,j,n=nums.size(),l,ans=1;\n        vector<vector<int>> dp(n, vector<int> (k+1, 1)), maxi(n, vector<int> (k+1, 1));\n        vector<int> prev(n, -1);\n        for(i=0;i<n;++i)\n        {\n            for(j=i-1;j>=0;--j)\n            {\n                if(nums[i]==nums[j])\n                {\n                    prev[i]=j;\n                    break;\n                }\n            }\n        }\n        for(j=0;j<=k;++j)\n        {\n            for(i=1;i<n;++i)\n            {\n                l=prev[i];\n                if(l>=0) dp[i][j]=max(dp[i][j], 1+dp[l][j]);\n                if(j>0) dp[i][j]=max(dp[i][j], 1+maxi[i-1][j-1]);\n                maxi[i][j]=max(max(maxi[i][j], dp[i][j]), maxi[i-1][j]);\n                ans = max(ans, dp[i][j]);\n            }\n        }\n        \n        /*for(i=1;i<n;++i)\n        {\n            for(j=0;j<=k;++j)\n            {\n                //calculate dp[i][j] = max over 1+dp[l][j] if nums[l]==nums[i] else 1+dp[l][j-1]\n                for(l=0;l<i;++l)\n                {\n                    if(nums[l]==nums[i]) dp[i][j]=max(dp[i][j],1+dp[l][j]);\n                    else if(j>0) dp[i][j]=max(dp[i][j],1+dp[l][j-1]);\n                }\n                ans = max(ans, dp[i][j]);\n            }\n        }*/\n        return ans;\n    }\n};",
-    "submit_ts": 1717862287.0
+    "submit_ts": "1717862287",
+    "subm_id": "1281818239"
 }

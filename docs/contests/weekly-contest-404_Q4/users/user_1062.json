@@ -1,5 +1,6 @@
 {
     "username": "kedarghadage",
     "submission": "const int maxN = 1e5 + 10;\nclass Solution {\npublic:\n    \n    int N, a, b, last, dist[maxN];\n    vector<int> G[maxN];\n    \n    int diameter(vector<vector<int>> edges) {\n        N = edges.size() + 1;\n        for (int i = 0; i < maxN; i++) {\n            G[i].clear();\n            dist[i] = 0;\n        }\n        \n        for(int i = 0; i < N - 1; i++){\n            a = edges[i][0], b = edges[i][1];\n            G[a].push_back(b);\n            G[b].push_back(a);\n        }\n        \n        dfs(0);\n        for(int i = 0; i < N; i++)\n            if(dist[i] > dist[last])\n                last = i;\n        dist[last] = 0;\n        dfs(last);\n        for(int i = 0; i < N; i++)\n            if(dist[i] > dist[last])\n                last = i;\n        \n        return dist[last];\n    }\n    \n    void dfs(int u, int p = -1){\n        for(int v : G[u]){\n            if(v != p){\n                dist[v] = dist[u]+1;\n                dfs(v, u);\n            }\n        }\n    }\n    \n    \n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int res1 = diameter(edges1); int res2 = diameter(edges2);\n        int ans = ((res1+1)/2)+((res2+1)/2)+1;\n        return max(res1,max(res2,ans));\n        \n    }\n};",
-    "submit_ts": 1719719502.0
+    "submit_ts": "1719719502",
+    "subm_id": "1304443505"
 }

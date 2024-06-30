@@ -1,5 +1,6 @@
 {
     "username": "bigflow_drs",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(k + 1, 0));\n        \n        int c = 1;\n        dp[0][0] = 1;\n        \n        \n        for(int i = 0; i <= k; i++){\n            dp[0][i] = 1;\n        }\n        \n        unordered_map<int,int> ump;\n        vector<int> mxx(n);\n        ump[nums[0]]++;\n        mxx[0] = 1;\n        for (int i = 1; i < n; i++) {\n            ump[nums[i]]++;            \n            dp[i][0] = ump[nums[i]];\n            \n            mxx[i] = max(mxx[i-1], dp[i][0]);\n        }\n        // for(int &i : mxx) cout<<i<<\" \";\n        // cout<<endl;\n        \n        \n        vector<int> mxx2(n);\n        \n        for(int i = 1; i <= k; i++){\n            ump.clear();\n            ump[nums[0]] = 1;\n            mxx2[0] = 1;\n            for(int j = 1; j < n; j++){\n                if(ump.count(nums[j]) != 0) dp[j][i] = max(mxx[j-1] + 1, ump[nums[j]] + 1);\n                else dp[j][i] = mxx[j-1] + 1;\n                \n                mxx2[j] = max(mxx2[j-1], dp[j][i]);\n                \n                ump[nums[j]] = dp[j][i];\n            }\n            mxx = mxx2;\n        }\n        \n        \n        \n        int ans = 1;\n        for(int i = 0; i < n; i++){\n            ans = max(ans, dp[i][k]);\n        }\n        \n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717862318.0
+    "submit_ts": "1717862318",
+    "subm_id": "1281819297"
 }

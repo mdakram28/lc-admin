@@ -1,5 +1,6 @@
 {
     "username": "aaryadeep21122003",
     "submission": "class Solution {\n  public:\n   int maximumLength(vector<int>& nums, int k) {\n      int n = nums.size();\n      vector<pair<int,int>> a;\n      for(int i=0;i<n;) {\n         int j=i;\n         while(j<n && nums[j]==nums[i]) j++;\n         a.push_back({nums[i],(j-i)});\n         i=j;\n      }\n      n = a.size();\n      vector<int> dp(k+2,0);\n      map<int,vector<int>> mp;\n      for(int i=0;i<n;i++) {\n         int x = a[i].first, val = a[i].second;\n         vector<int> cur = dp, pt(k+2);\n         for(int j=0;j<=k;j++) {\n            cur[j+1] = max(cur[j+1],dp[j]+val);\n             pt[j+1] = dp[j]+val;\n         }\n         if(mp.find(x) != mp.end()) {\n            int j=0;\n                for(auto c: mp[x]) {\n                    if(j>0) cur[j] = max(cur[j],c+val),pt[j]=max(pt[j],c+val);\n                    j++;\n                }\n            \n         }\n         mp[x]=pt;\n         dp = cur;\n          //for(auto it: dp) cout<<it<<' ';\n          //cout<<\"\\n\";\n      }\n       //for(auto [x,y]: a) cout<<x<<' '<<y<<'\\n'; \n       //for(auto it: dp) cout<<it<<' ';\n       //cout<<'\\n';\n      return *max_element(dp.begin(),dp.end()); \n   }\n};",
-    "submit_ts": 1717861035.0
+    "submit_ts": "1717861035",
+    "subm_id": "1281777553"
 }

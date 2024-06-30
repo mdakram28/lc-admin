@@ -1,5 +1,6 @@
 {
     "username": "Dengxj",
     "submission": "class Solution {\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        n = edges1.size() + 1;\n        m = edges2.size() + 1;\n        vector<vector<int>> A(n);\n        for (const auto& e: edges1) {\n            int a = e[0], b = e[1];\n            A[a].push_back(b);\n            A[b].push_back(a);\n        }\n        vector<vector<int>> B(m);\n        for (const auto& e: edges2) {\n            int a = e[0], b = e[1];\n            B[a].push_back(b);\n            B[b].push_back(a);\n        }\n        int da = helper(A);\n        int db = helper(B);\n        return max(da, max(db, (da + 1) / 2 + 1 + (db + 1) / 2));\n    }\nprivate:\n    int n, m;\n    int helper(vector<vector<int>>& E) {\n        pair<int, int> pr;\n        dfs(E, 0, -1, 0, pr);\n        pair<int, int> pr2 {0, pr.second};\n        dfs(E, pr.second, -1, 0, pr2);\n        return pr2.first;\n    }\n    void dfs(vector<vector<int>>& E, int u, int fa, int depth, pair<int, int>& pr) {\n        if (depth > pr.first) {\n            pr.first = depth;\n            pr.second = u;\n        }\n        for (auto v: E[u]) if (v != fa) {\n            dfs(E, v, u, depth + 1, pr);\n        }\n    }\n};",
-    "submit_ts": 1719717452.0
+    "submit_ts": "1719717452",
+    "subm_id": "1304391916"
 }

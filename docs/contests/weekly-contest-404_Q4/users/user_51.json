@@ -1,5 +1,6 @@
 {
     "username": "tenshi0x0",
     "submission": "class Solution {\npublic:\n    #define N 100010\n\n    vector<int> g1[N], g2[N];\n    int d[N];\n\n    void dfs(int u, int fa, vector<int> g[]){\n        for(int go: g[u]) if(go!=fa){\n            d[go]=d[u]+1;\n            dfs(go, u, g);\n        }\n    }\n\n    int getD(vector<int> *g, int n){\n        dfs(0, -1, g);\n        int u=-1, dis=-1;\n        for(int i=0; i<n; i++) if(d[i]>dis) dis=d[i], u=i;\n        d[u]=0;\n        dfs(u, -1, g);\n        dis=-1;\n        for(int i=0; i<n; i++) dis=max(dis, d[i]);\n        return dis;\n    }\n    \n    int get(int x){\n        return x+1>>1;\n    }\n\n    int minimumDiameterAfterMerge(vector<vector<int>>& e1, vector<vector<int>>& e2) {\n        for(auto &e: e1){\n            int u=e[0], v=e[1];\n            g1[u].push_back(v);\n            g1[v].push_back(u);\n        }\n        for(auto &e: e2){\n            int u=e[0], v=e[1];\n            g2[u].push_back(v);\n            g2[v].push_back(u);\n        }\n        int n=e1.size()+1, m=e2.size()+1;\n        int fir=getD(g1, n);\n        int sec=getD(g2, m);\n        return max({fir, sec, get(fir)+get(sec)+1});\n    }\n};",
-    "submit_ts": 1719716504.0
+    "submit_ts": "1719716504",
+    "subm_id": "1304366361"
 }

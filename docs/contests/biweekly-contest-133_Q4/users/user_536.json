@@ -1,5 +1,6 @@
 {
     "username": "Arrrrrpit",
     "submission": "class Solution\n{\nprivate:\n    const int MOD = 1000000007;\n\npublic:\n    int numberOfPermutations(int n, vector<vector<int>> &requirements)\n    {\n        long long ans = 0;\n        unordered_map<int, int> freq;\n        for (auto x : requirements)\n            freq[x[0] + 1] = x[1];\n        \n        vector<vector<long>> cache(n + 1, vector<long>(403, 0));\n        cache[0][0] = 1;\n        for (int i = 1; i <= n; ++i)\n        {\n            for (int j = 0; j <= 402; ++j)\n            {\n                for (int k = 0; k < i; ++k)\n                {\n                    int prevj = j - k;\n                    if (prevj >= 0)\n                        cache[i][j] = (cache[i][j] + cache[i - 1][prevj]) % MOD;\n                                }\n            }\n\n            if (freq.find(i) != freq.end())\n            {\n                int targetj = freq[i];\n                for (int j = 0; j <= 402; ++j)\n                {\n                    if (j != targetj)\n                    {\n                        cache[i][j] = 0;\n                    }\n                }\n            }\n        }\n        for (auto x : cache[n])\n            ans = (ans + x) % MOD;\n        return ans;\n    }\n};",
-    "submit_ts": 1719070625.0
+    "submit_ts": "1719070625",
+    "subm_id": "1296827728"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Dhruvin_Savla",
     "submission": "class Solution {\n    public int waysToReachStair(int k) {\n        TreeMap<Long,TreeMap<Long,TreeMap<Integer,Integer>>> map = new TreeMap<>();\n        return ansdo(k,1,false,1l,map);\n    }\n\n    int ansdo(int k,long curr,boolean minus,long t,TreeMap<Long,TreeMap<Long,TreeMap<Integer,Integer>>> map){\n//        System.out.println(curr+\" \"+t);\n        int val = minus?1:0,ways=0;\n        if(map.containsKey(curr) && map.get(curr).containsKey(t) && map.get(curr).get(t).containsKey(val)){\n            return map.get(curr).get(t).get(val);\n        }\n        if(curr>k){\n            if(minus) ways= 0;\n            else ways= ansdo(k,curr-1,true,t,map);\n        }\n        else{\n            if(curr==k) ways++;\n            ways+= ansdo(k,curr+t,false,t*2,map) + ((curr!=0 && !minus)?ansdo(k,curr-1,true,t,map):0);\n        }\n        map.putIfAbsent(curr,new TreeMap<>());\n        map.get(curr).putIfAbsent(t,new TreeMap<>());\n        map.get(curr).get(t).put(val,ways);\n        return ways;\n    }\n}",
-    "submit_ts": 1716088899.0
+    "submit_ts": "1716088899",
+    "subm_id": "1261827230"
 }

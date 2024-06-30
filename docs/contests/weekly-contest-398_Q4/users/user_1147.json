@@ -1,5 +1,6 @@
 {
     "username": "pgl7",
     "submission": "\n\n#define ll long long\nll p= 1e9+7;\nint N=40;\nvector<ll> facto(N+1);\nvoid constrpmio()\n{\n   \n    facto[0]=1;\n    for(ll i=1;i<=N;i++)\n    facto[i]=facto[i-1]*i%p;\n    //first multiply then  modulo\n}\n\n //without mod\nll binpow(ll x,ll y)\n{\n    ll res=1,power=x;\n    \n    while(y>0)\n    {\n        if(y%2==1) {res=(res*power)%p;}\n        \n        power=(power*power)%p;\n        y=y/2;\n    }\n    \n    return res;\n}\n\n//modular inverse wrt (n,p)--coprime\nll inv(ll n)\n{\n    \n    return binpow(n,p-2)%p;\n}\n \n \n//nCr\nll nCr(ll n,ll r)\n{\n    \n    if(n<r || n<0 || r<0) return 0;\n    return ((facto[n]*inv(facto[r]))%p*(inv(facto[n-r])%p))%p;\n}\n\nclass Solution {\n    \n   \npublic:\n    int waysToReachStair(int k) {\n        int ans = 0;\n        int v= 1 ;\n        \n        \n        constrpmio();\n        \n         if( v - k >=0 && v-k <=1 ) ans = ans + nCr(1,v-k) ;\n       \n        \n        for(int i=0;i<=29;i++)\n        {\n            v = v + (1<<i) ;\n            \n            if( v - k >=0 && v-k <=(i+2) ) ans = ans + nCr(i+2,v-k) ;\n        }\n        \n        // cout<<v<<endl;\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1716089759.0
+    "submit_ts": "1716089759",
+    "subm_id": "1261850547"
 }

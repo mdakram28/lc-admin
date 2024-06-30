@@ -1,5 +1,6 @@
 {
     "username": "YUFENGWANG",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def compute_diameter(adj_list):\n            def dfs(node, depth):\n                visited.add(node)\n                depths[node] = depth\n                for neighbor in adj_list[node]:\n                    if neighbor not in visited:\n                        dfs(neighbor, depth + 1)\n            n = len(adj_list)\n            visited = set()\n            depths = [0] * n\n            dfs(0, 0)\n            farthest_node = depths.index(max(depths))\n            visited = set()\n            depths = [0] * n\n            dfs(farthest_node, 0)\n            return max(depths)\n        n1, n2 = len(edges1) + 1, len(edges2) + 1\n        adj_list1 = [set() for _ in range(n1)]\n        adj_list2 = [set() for _ in range(n2)]\n        \n        for u, v in edges1:\n            adj_list1[u].add(v)\n            adj_list1[v].add(u)\n        for u, v in edges2:\n            adj_list2[u].add(v)\n            adj_list2[v].add(u)\n        \n        diam1 = compute_diameter(adj_list1)\n        diam2 = compute_diameter(adj_list2)\n        \n        max_diameter = max(diam1, diam2, (diam1 + 1) // 2 + (diam2 + 1) // 2 + 1)\n        \n        return max_diameter\n",
-    "submit_ts": 1719719277.0
+    "submit_ts": "1719719277",
+    "subm_id": "1304438014"
 }

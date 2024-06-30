@@ -1,5 +1,6 @@
 {
     "username": "prithivirajc09",
     "submission": "#define ll long long\nclass Solution {\npublic:\n    int mod =1e9+7;\n    int numberOfPermutations(int n, vector<vector<int>>& constraints) {\n        unordered_map<int, int> mp;\n        vector<vector<ll>> dp(n+1, vector<ll>(400 + 1, 0));\n        for (const auto& constraint : constraints)  mp[constraint[0] + 1] = constraint[1];\n        dp[0][0] = 1;\n        for (int i=1; i<=n; i++) {\n            for (int inv=0; inv<=400; inv++) {\n                for (int pos = 0; pos < i; pos++) {\n                    int p = inv - pos;\n                    if (p >= 0)  dp[i][inv] = (dp[i][inv]+dp[i - 1][p]) % mod;\n                }\n            }\n            if (mp.find(i) != mp.end()) {\n                int requiredInv = mp[i];\n                for (int inv = 0; inv <= 400; inv++)\n                    if (inv != requiredInv)    dp[i][inv] = 0;\n            }\n        }\n        ll ans = 0;\n        for (auto i : dp[n])    ans=(ans+i) % mod;\n        return ans;\n    }\n};\n\n",
-    "submit_ts": 1719070738.0
+    "submit_ts": "1719070738",
+    "subm_id": "1296830525"
 }

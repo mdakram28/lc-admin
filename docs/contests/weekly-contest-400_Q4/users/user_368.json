@@ -1,5 +1,6 @@
 {
     "username": "Navodayan",
     "submission": "class Solution {\npublic:\n\n    int t[400050];\n\n\n    void build(vector<int>&a, int v, int tl, int tr) {\n        if (tl == tr) {\n            t[v] = a[tl];\n        } else {\n            int tm = (tl + tr) / 2;\n            build(a, v*2, tl, tm);\n            build(a, v*2+1, tm+1, tr);\n            t[v] = t[v*2] & t[v*2+1];\n        }\n    }\n\n    int get_max(int v, int tl, int tr, int l, int r) {\n        if (l > r)\n            return ((1<<30) - 1);\n        if (l == tl && r == tr)\n            return t[v];\n        int tm = (tl + tr) / 2;\n        int a = get_max(v*2, tl, tm, l, min(r, tm));\n        int b = get_max(v*2+1, tm+1, tr, max(l, tm+1), r);\n        return a&b;\n    }\n\n    \n    int minimumDifference(vector<int>& v, int k) {\n\n        int n = v.size();\n        build(v,1,0,n-1);\n        int ans = 1e9;\n        for(int i=0;i<n;i++){\n            int lo = i;\n            int hi = n-1;\n            while(lo<=hi){\n                int mid = (lo+hi)/2;\n\n                int x = get_max(1,0,n-1,i,mid);\n                if(x == k){\n                    return 0;\n                }\n                ans = min(ans,abs(k-x));\n                if(x>k){\n                    lo = mid+1;\n                }else{\n                    hi = mid-1;\n                }\n            }\n\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": 1717298509.0
+    "submit_ts": "1717298509",
+    "subm_id": "1274781567"
 }

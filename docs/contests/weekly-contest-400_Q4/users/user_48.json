@@ -1,5 +1,6 @@
 {
     "username": "jwseph",
     "submission": "template<class T>\nstruct Tree {\n    T def = INT_MAX;\n    T f(T a, T b) { return a&b; }\n    vector<T> t; int n;\n    Tree(int n): t(2*n, def), n(n) {}\n    void update(int i, T v) {\n        for (t[i += n] = v; i /= 2;) t[i] = f(t[i*2], t[i*2+1]);\n    }\n    T query(int l, int r) {\n        T al = def, ar = def;\n        for (l += n, r += n; l < r; l /= 2, r /= 2) {\n            if (l&1) al = f(al, t[l++]);\n            if (r&1) ar = f(t[--r], ar);\n        }\n        return f(al, ar);\n    }\n};\n\nclass Solution {\nprivate:\n    int n, k;\npublic:\n    int minimumDifference(vector<int>& ar, int k) {\n        n = ar.size();\n        this->k = k;\n        Tree<int> tr(n);\n        for (int i = 0; i < n; ++i) tr.update(i, ar[i]);\n        \n        int res = INT_MAX;\n        for (int i = 0; i < n; ++i) {\n            int l = i+1, r = n;\n            while (l < r) {\n                int h = (l+r+1)/2;\n                if (tr.query(i, h) >= k) l = h;\n                else r = h-1;\n            }\n            int j = l;\n            res = min(res, abs(tr.query(i, j)-k));\n            if (j < n) res = min(res, abs(tr.query(i, j+1)-k));\n        }\n        return res;\n    }\n};",
-    "submit_ts": 1717296304.0
+    "submit_ts": "1717296304",
+    "subm_id": "1274698229"
 }

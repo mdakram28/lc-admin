@@ -1,5 +1,6 @@
 {
     "username": "roshan_kumar_verma",
     "submission": "class Solution {\npublic:\n    int bitWiseAND( int l, int r, vector<vector<int>> &pre){\n        int ans = 0;\n        for( int i = 0 ; i < 31 ; i++ ){\n            if( pre[r][i] - pre[l-1][i] == r - l + 1 ) ans |= 1<<i;\n        }\n        return ans;\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> pre(n+1, vector<int> (31,0));\n        for( int i = 1 ; i <= n ; i++ ){\n            for( int j = 0 ; j < 31 ; j++ ){\n                if( nums[i-1]&(1<<j) ) pre[i][j] = pre[i-1][j] + 1;\n                else pre[i][j] = pre[i-1][j];\n            }\n        }\n        int ans = INT_MAX;\n        for( int i = 1 ; i <= n ; i++ ){\n            int l = 1, h = n - i + 1;\n            while( l <= h ){\n                int mid = l + (h - l)/2;\n                int x = bitWiseAND(i,i+mid-1,pre);\n                // cout << x << \" \" << i << \" \" << i+mid << endl;\n                ans = min(ans, abs(k - x));\n                if( k > x ) h = mid - 1;\n                else l = mid + 1;\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717299069.0
+    "submit_ts": "1717299069",
+    "subm_id": "1274800760"
 }

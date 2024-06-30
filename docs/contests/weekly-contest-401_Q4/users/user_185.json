@@ -1,5 +1,6 @@
 {
     "username": "Joanguitar",
     "submission": "import bisect\n\nclass Solution:\n    def maxTotalReward(self, rewardValues: list[int]) -> int:\n        rewardValues = list(set(rewardValues))\n        rewardValues.sort()\n        if len(rewardValues) == 1:\n            return rewardValues[0]\n        max_val = max(rewardValues)\n        rewardValues.remove(max_val)\n        look_for = set(max_val - 1 - val for val in rewardValues if max_val - 1 < 2 * val)\n        if 0 in look_for:\n            return 2 * max_val - 1\n        for val in rewardValues.copy():\n            for rval in rewardValues.copy():\n                new_val = val + rval\n                if val > rval and new_val < max_val:\n                    if new_val in look_for:\n                        return 2 * max_val - 1\n                    ii = bisect.bisect_left(rewardValues, val + rval)\n                    if ii < len(rewardValues) and rewardValues[ii] == new_val:\n                        pass\n                    else:\n                        bisect.insort(rewardValues, new_val)\n                else:\n                    break\n        return max_val + max(rewardValues)",
-    "submit_ts": 1717905423.0
+    "submit_ts": "1717905423",
+    "subm_id": "1282389099"
 }

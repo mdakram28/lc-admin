@@ -1,5 +1,6 @@
 {
     "username": "RustyKitten",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        def get_and(bits, size):\n            res = \"\"\n            for count in bits:\n                if count == size:\n                    res += \"1\"\n                else:\n                    res += \"0\"\n            return int(res, 2)\n        res = float(\"inf\")\n        bits = [0]*32\n        left = 0\n        for i, num in enumerate(nums):\n            binary = bin(num)[2:].zfill(32)\n            for j in range(32):\n                bits[j] += int(binary[j])\n            res = min(res, abs(k-get_and(bits, i-left+1)))\n            while left<i and get_and(bits, i-left+1)<k:\n                binary = bin(nums[left])[2:].zfill(32)\n                for j in range(32):\n                    bits[j] -= int(binary[j])\n                left += 1\n                res = min(res, abs(k-get_and(bits, i-left+1)))\n        return res",
-    "submit_ts": 1717298336.0
+    "submit_ts": "1717298336",
+    "subm_id": "1274775437"
 }

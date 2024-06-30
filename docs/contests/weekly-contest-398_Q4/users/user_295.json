@@ -1,5 +1,6 @@
 {
     "username": "_Fake4Fun",
     "submission": "const int N = 31;\nconst long long oo = 2e9;\nclass Solution {\npublic:\n    int dp[N][N][2];\n    int waysToReachStair(int k) {\n        int ans = 0;\n        dp[0][0][0] = 1;\n        for (int j = 1; j < N; j++) {\n            long long e = dp[0][j - 1][0];\n            dp[0][j][0] = min(e, oo);\n            int tem = (1 << j);\n            if (tem == k) ans += dp[0][j][0];\n        }\n        if (k == 1) ans += 1;\n        for (int i = 1; i < N; i++) {\n            for (int j = i - 1; j < N; j++) {\n                dp[i][j][1] = dp[i - 1][j][0];\n                if (j != i - 1) {\n                    long long e = dp[i][j - 1][0] + dp[i][j - 1][1];\n                    dp[i][j][0] = min(e, oo);\n                }\n                int tem = (1 << j) - i;\n                if (tem == k) ans += dp[i][j][0] + dp[i][j][1];\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716088003.0
+    "submit_ts": "1716088003",
+    "subm_id": "1261800974"
 }

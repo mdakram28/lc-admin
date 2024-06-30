@@ -1,5 +1,6 @@
 {
     "username": "Surabhi_Pranav",
     "submission": "class Solution {\n    const int MOD = 1e9 + 7;\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> invCount(n, -1);\n        for (const auto& req : requirements) {\n            invCount[req[0]] = req[1];\n        }\n        \n        vector<vector<int>> dp(n + 1, vector<int>(n * (n - 1) / 2 + 1, 0));\n        dp[0][0] = 1;\n        \n        vector<int> prefixSum(n * (n - 1) / 2 + 1);\n        \n        for (int i = 1; i <= n; i++) {\n            fill(prefixSum.begin(), prefixSum.end(), 0);\n            for (int j = 0; j < prefixSum.size(); j++) {\n                prefixSum[j] = j == 0 ? dp[i-1][j] : (prefixSum[j-1] + dp[i-1][j]) % MOD;\n            }\n            \n            for (int j = 0; j <= i * (i - 1) / 2; j++) {\n                int l = max(0, j - i + 1);\n                int r = j;\n                dp[i][j] = (prefixSum[r] - (l > 0 ? prefixSum[l-1] : 0) + MOD) % MOD;\n            }\n            \n            if (invCount[i-1] != -1) {\n                vector<int> newRow(n * (n - 1) / 2 + 1, 0);\n                newRow[invCount[i-1]] = dp[i][invCount[i-1]];\n                dp[i] = newRow;\n            }\n        }\n        \n        int result = 0;\n        for (int j = 0; j <= n * (n - 1) / 2; j++) {\n            result = (result + dp[n][j]) % MOD;\n        }\n        \n        return result;\n    }\n};",
-    "submit_ts": 1719070138.0
+    "submit_ts": "1719070138",
+    "subm_id": "1296815470"
 }

@@ -1,5 +1,6 @@
 {
     "username": "ranitmukherjee",
     "submission": "class Solution {\n    public int maximumLength(int[] nums, int k) {\n        int n = nums.length;\n        int[][] dp = new int[n][k + 1]; \n        for (int i = 0; i < n; i++) {\n            Arrays.fill(dp[i], 1); \n        }\n\n        int m = 1; \n        int[] v = new int[k + 1]; \n        Arrays.fill(v, -1);\n        Map<Integer, Integer>[] w = new HashMap[k + 1]; \n        for (int i = 0; i <= k; i++) {\n            w[i] = new HashMap<>();\n        }\n\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j <= k; j++) {\n                for (int l = 0; l < j; l++) {\n                    dp[i][j] = Math.max(dp[i][j], 1 + v[l]); \n                }\n\n                if (w[j].containsKey(nums[i])) {\n                    dp[i][j] = Math.max(dp[i][j], 1 + w[j].get(nums[i]));\n                }\n\n                m = Math.max(m, dp[i][j]); \n            }\n\n            for (int j = 0; j <= k; j++) {\n                v[j] = Math.max(v[j], dp[i][j]);\n                w[j].put(nums[i], Math.max(w[j].getOrDefault(nums[i], 0), dp[i][j]));\n            }\n        }\n\n        return m;\n    }\n}",
-    "submit_ts": 1717862093.0
+    "submit_ts": "1717862093",
+    "subm_id": "1281811845"
 }

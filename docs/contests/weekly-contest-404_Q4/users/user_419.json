@@ -1,5 +1,6 @@
 {
     "username": "Sparker_7242",
     "submission": "class Solution {\npublic:\n    void buildGraph(const vector<vector<int>>& edges, vector<vector<int>>& graph) {\n        for (const auto &x: edges)graph[x[0]].push_back(x[1]),graph[x[1]].push_back(x[0]);\n    }\n    void dfs(const vector<vector<int>>& graph, vector<int>& cmp, int node, int d, int &tillnow) {\n        cmp[node] = d;\n        if (d > cmp[tillnow]) tillnow = node;\n        for (int it : graph[node]) {\n            if (cmp[it] == -1) dfs(graph, cmp, it, d + 1, tillnow);\n        }\n    }\n    int findFarthestNode(const vector<vector<int>>& graph, int start, int& tillnow) {\n        int n = graph.size();\n        vector<int> cmp(n, -1);\n        tillnow = start;\n        dfs(graph, cmp, start, 0, tillnow);\n        return cmp[tillnow];\n    }\n    int fn(const vector<vector<int>>& graph) {\n        int tillnow = 0;\n        findFarthestNode(graph, 0, tillnow);\n        return findFarthestNode(graph, tillnow, tillnow);\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& e1, vector<vector<int>>& e2) {\n        int n = e1.size()+1,m = e2.size()+1;\n        vector<vector<int>> g1(n), g2(m);\n        buildGraph(e1, g1); buildGraph(e2, g2);\n        int d1 = fn(g1), d2 = fn(g2);\n        int ans = max(d1, d2);\n        ans = max(ans, (d1 + 1) / 2 + (d2 + 1) / 2 + 1);\n\n        return ans;\n    }\n\n};",
-    "submit_ts": 1719717634.0
+    "submit_ts": "1719717634",
+    "subm_id": "1304396816"
 }

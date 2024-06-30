@@ -1,5 +1,6 @@
 {
     "username": "qdd1999",
     "submission": "template <class T>\nstruct fenwick {\n  int n;\n  vector<T> t;\n  fenwick(int n) : n(n), t(n) {}\n  void add(int p, T x) {\n    for (; p < n; p |= p + 1) t[p] += x;\n  }\n  void set(int p, T x) { add(p, x - range_sum(p, p)); }\n  T sum(int p) {\n    T ans = 0;\n    for (; p >= 0; p = (p & (p + 1)) - 1) ans += t[p];\n    return ans;\n  }\n  T range_sum(int l, int r) {\n    if (l > r) return 0;\n    return sum(r) - sum(l - 1);\n  }\n};\n\nclass Solution {\npublic:\n  vector<int> countOfPeaks(vector<int>& a, vector<vector<int>>& q) {\n    int n = a.size();\n    fenwick<int> f(n);\n    auto check = [&](int p) {\n      if (p <= 0 || p >= n - 1) return;\n      if (a[p] > a[p - 1] && a[p] > a[p + 1]) {\n        f.set(p, 1);\n      } else {\n        f.set(p, 0);\n      }\n    };\n    for (int i = 0; i < n; ++i) {\n      check(i);\n    }\n    vector<int> ans;\n    for (auto& qq : q) {\n      if (qq[0] == 1) {\n        int l = qq[1], r = qq[2];\n        ans.push_back(f.range_sum(l + 1, r - 1));\n      } else {\n        int p = qq[1], x = qq[2];\n        a[p] = x;\n        check(p - 1);\n        check(p);\n        check(p + 1);\n      }\n    }\n    return ans;\n  }\n};",
-    "submit_ts": 1718507259.0
+    "submit_ts": "1718507259",
+    "subm_id": "1289646049"
 }

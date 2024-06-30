@@ -1,5 +1,6 @@
 {
     "username": "ethanrao",
     "submission": "class Solution {\npublic:\n    int n, m, d1, d2, dep[100005], mdep;\n    std::vector <int> vc[100005];\n    void dfs(int x, int fa){\n        mdep = std::max(mdep, dep[x]);\n        for(auto v: vc[x]){\n            if(v == fa) continue;\n            dep[v] = dep[x] + 1;\n            dfs(v, x);\n        }\n        return ;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& e1, vector<vector<int>>& e2) {\n        n = e1.size() + 1, m = e2.size() + 1;\n        for(int i = 1; i <= n; ++i) vc[i].clear();\n        for(int i = 0; i < n - 1; ++i){\n            int x = e1[i][0] + 1, y = e1[i][1] + 1;\n            vc[x].push_back(y);\n            vc[y].push_back(x);\n        }\n        mdep = 0;\n        dep[1] = 0;\n        dfs(1, 0);\n        int s;\n        for(int i = 1; i <= n; ++i) if(dep[i] == mdep) s = i;\n        mdep = 0;\n        dep[s] = 0;\n        dfs(s, 0);\n        d1 = mdep;\n        \n        for(int i = 1; i <= m; ++i) vc[i].clear();\n        for(int i = 0; i < m - 1; ++i){\n            int x = e2[i][0] + 1, y = e2[i][1] + 1;\n            vc[x].push_back(y);\n            vc[y].push_back(x);\n        }\n        mdep = 0;\n        dep[1] = 0;\n        dfs(1, 0);\n        for(int i = 1; i <= m; ++i) if(dep[i] == mdep) s = i;\n        mdep = 0;\n        dep[s] = 0;\n        dfs(s, 0);\n        d2 = mdep;\n        return std::max((d1 + 1) / 2 + (d2 + 1) / 2 + 1, std::max(d1, d2));\n    }\n};",
-    "submit_ts": 1719715201.0
+    "submit_ts": "1719715201",
+    "subm_id": "1304330628"
 }

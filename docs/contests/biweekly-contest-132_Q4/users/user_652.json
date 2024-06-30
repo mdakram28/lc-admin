@@ -1,5 +1,6 @@
 {
     "username": "kedarghadage",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        if(nums.size()==0) return 0;\n        int maxChanges=k;\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(maxChanges + 1, 1)); \n        int maxLength = 1; \n        vector<int> maxWithChanges(maxChanges + 1, -1); \n        vector<unordered_map<int, int>> lastSeen(maxChanges + 1); \n\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j <= maxChanges; ++j) {\n                for (int prevChanges = 0; prevChanges < j; ++prevChanges) {\n                    dp[i][j] = max(dp[i][j], 1 + maxWithChanges[prevChanges]);\n                }\n                if (lastSeen[j].find(nums[i]) != lastSeen[j].end()) {\n                    dp[i][j] = max(dp[i][j], 1 + lastSeen[j][nums[i]]);\n                }\n                maxLength = max(maxLength, dp[i][j]);\n            }\n            for (int j = 0; j <= maxChanges; ++j) {\n                maxWithChanges[j] = max(maxWithChanges[j], dp[i][j]);\n                lastSeen[j][nums[i]] = max(lastSeen[j][nums[i]], dp[i][j]);\n            }\n        }\n        return maxLength;\n    }\n};",
-    "submit_ts": 1717862064.0
+    "submit_ts": "1717862064",
+    "subm_id": "1281810872"
 }

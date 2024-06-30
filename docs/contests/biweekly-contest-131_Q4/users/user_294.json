@@ -1,5 +1,6 @@
 {
     "username": "Shruthik_Ravula",
     "submission": "class Solution:\n    def getResults(self, queries: List[List[int]]) -> List[bool]:\n        obs =[0]\n        larb = [0]\n        ans = []\n        for i in range(len(queries)):\n            if len(queries[i]) == 2:\n                x = queries[i][1]\n                ind = bisect_left(obs, x)\n                prev_best = larb[ind - 1]\n                prev_best2 = -1\n                if ind < len(obs):\n                    prev_best2 = larb[ind]\n                \n                prev_diff = x - obs[ind - 1]\n                next_diff = 0\n                if ind < len(obs):\n                    next_diff = obs[ind] - x\n                obs.insert(ind, x)\n                larb.insert(ind, 0)\n                larb[ind] = max(prev_diff, larb[ind - 1])\n                if prev_best2 != -1  and prev_best2 > prev_best:\n                    for i in range(ind + 1, len(larb)):\n                        larb[i] = max(larb[i - 1], obs[i] - obs[i - 1])\n            else:\n                q, x, sz = queries[i]\n                ind = bisect_left(obs, x)\n                diff = max(larb[ind - 1], x - obs[ind - 1])\n                ans.append(diff >= sz)\n        return ans",
-    "submit_ts": 1716651585.0
+    "submit_ts": "1716651585",
+    "subm_id": "1267643823"
 }

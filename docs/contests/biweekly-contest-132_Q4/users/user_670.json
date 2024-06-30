@@ -1,5 +1,6 @@
 {
     "username": "divyanshsaxena2010",
     "submission": "class Solution(object):\n    def solve(self, n, nums, k, dp):\n        i = 0\n        while i < n:\n            num = nums[i]\n            previous_max = 0\n            for j in range(k + 1):\n                max_len, unique_elements, element_counts = dp[j]\n\n                current_max = max(\n                    previous_max + 1,\n                    (max_len + 1) * (num in unique_elements),\n                    element_counts.get(num, 0) + 1\n                )\n\n                previous_max = max_len\n                element_counts[num] = current_max\n\n                if max_len < current_max:\n                    dp[j] = (current_max, {num}, element_counts)\n\n                if current_max == max_len:\n                    unique_elements.add(num)\n\n            i += 1\n\n    def maximumLength(self, nums, k):\n        \"\"\"\n        :type nums: List[int]\n        :type k: int\n        :rtype: int\n        \"\"\"\n        n = len(nums)\n        dp = [(0, set(), {}) for _ in range(k + 1)]\n        \n        self.solve(n, nums, k, dp)\n\n        return dp[k][0]\n",
-    "submit_ts": 1717861916.0
+    "submit_ts": "1717861916",
+    "subm_id": "1281805948"
 }

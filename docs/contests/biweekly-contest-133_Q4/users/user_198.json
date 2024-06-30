@@ -1,5 +1,6 @@
 {
     "username": "hello_motto",
     "submission": "#define ll long long\n#define mod 1000000007\nclass Solution {\npublic:\n    int dp[305][410];\n     ll f(int idx,int inv,map<int,int>&mp, int n){\n         if(idx == n){\n             return 1;   \n         }\n         \n         if(inv >= 405) return 0;\n         \n         ll ans = 0;\n         // if(dp.find({idx,inv})!=dp.end()) return dp[{idx,inv}];\n         if(dp[idx][inv]!=-1) return dp[idx][inv];\n         if(mp.find(idx)!=mp.end()){\n             for(int i=0;i<=idx; i++){\n                 int newInv = inv+(idx-i);\n                 if(newInv == mp[idx]){\n                     ans+= f(idx+1,newInv,mp,n);\n                     ans%=mod;\n                 }\n             }\n         }\n         else{\n             for(int i=0;i<=idx; i++){\n                 ans+= f(idx+1,inv+(idx-i),mp,n);\n                 ans%=mod;\n             }\n         }\n         return dp[idx][inv] = ans;\n     }\n    \n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        memset(dp,-1,sizeof(dp));\n        map<int,int>mp;\n        for(auto x: req){\n            mp[x[0]] = x[1];\n        }\n        return f(0,0,mp,n);\n        \n    }\n};",
-    "submit_ts": 1719069208.0
+    "submit_ts": "1719069208",
+    "subm_id": "1296789838"
 }

@@ -1,5 +1,6 @@
 {
     "username": "justDummy",
     "submission": "vector<int> a[100005];\nint deg[100005],ans=0;\n\nclass Solution {\npublic:\n    int maxDistance(vector<vector<int>>& edges){\n        int n=edges.size()+1;\n        for(int i=0;i<n;i++){\n            deg[i]=0;\n            a[i].clear();\n        }\n        for(int i=0;i<n-1;i++){\n            deg[edges[i][0]]++;\n            deg[edges[i][1]]++;\n            a[edges[i][0]].push_back(edges[i][1]);\n            a[edges[i][1]].push_back(edges[i][0]);\n        }\n        vector<int> leaves;\n        vector<int> vis(n,0);\n        int count=0;\n        for(int i=0;i<n;i++) if(deg[i]==1) leaves.push_back(i);\n        while(leaves.size()>1){\n            vector<int> newLeaves;\n            for(int leaf: leaves){\n                for(int j: a[leaf]){\n                    deg[j]--;\n                    if(deg[j]==1) newLeaves.push_back(j);\n                }\n            }\n            leaves=newLeaves;\n            count++;\n        }\n        if(leaves.size()==0) ans=max(ans,2*count-1);\n        else ans=max(ans,2*count);\n        return count;\n    }\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        ans=0;\n        int c1=maxDistance(edges1),c2=maxDistance(edges2);\n        return max(ans,c1+c2+1);\n    }\n};",
-    "submit_ts": 1719717574.0
+    "submit_ts": "1719717574",
+    "subm_id": "1304395179"
 }

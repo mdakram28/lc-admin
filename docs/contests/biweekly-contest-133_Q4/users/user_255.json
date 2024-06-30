@@ -1,5 +1,6 @@
 {
     "username": "dganguli1997",
     "submission": "class Solution {\n    private Integer[][] dp;\n    \n    private final int MOD = 1_000_000_007;\n    \n    private int inversions(Map<Integer, Integer> map, int n, int k) {\n        if (dp[n][k] != null) \n            return dp[n][k];\n        if(map.containsKey(n - 1) && map.get(n - 1) != k)\n            return dp[n][k] = 0;\n        if (n == 0) \n            return dp[n][k] = (k == 0 ? 1 : 0);\n        int j = 0, val = 0;\n        for (j = 0; j < n && k-j >= 0; j++)\n            val = (val + inversions(map, n-1, k-j))%MOD;\n        return dp[n][k] = val;\n    }\n    \n    public int numberOfPermutations(int n, int[][] requirements) {\n        Map<Integer, Integer> map = new HashMap<>();\n        for(int[] r: requirements)\n            map.put(r[0], r[1]);\n        dp = new Integer[n + 1][map.get(n - 1) + 1];\n        return inversions(map, n, map.get(n - 1));\n    }\n}",
-    "submit_ts": 1719069620.0
+    "submit_ts": "1719069620",
+    "subm_id": "1296801790"
 }

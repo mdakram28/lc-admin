@@ -1,5 +1,6 @@
 {
     "username": "nvladgw",
     "submission": "class Solution {\n    val MOD = 1000000007\n\nfun numberOfPermutations(n: Int, requirements: Array<IntArray>): Int {\n    requirements.sortBy { it[0] }\n    var result = 1L\n    if (requirements[0][0] == 0 && requirements[0][1] > 0) return 0\n    val start = if (requirements[0][0] == 0) 1 else 0\n    var prevIndex = 0\n    var prevInversions = 0\n    for (i in start until requirements.size) {\n        val indexDelta = requirements[i][0] - prevIndex\n        val delta = requirements[i][1] - prevInversions\n        val mult = startDp(prevIndex + 1, indexDelta, delta)\n        result *= mult\n        result %= MOD\n        prevIndex = requirements[i][0]\n        prevInversions = requirements[i][1]\n    }\n    return result.toInt()\n}\n\nfun startDp(start: Int, indexNum: Int, sum: Int): Int{\n    val results = Array<IntArray>(indexNum){ IntArray(sum + 1) {-1} }\n    return dp(0, sum, start, indexNum, results)\n}\n\nfun dp(index: Int, sum: Int, start: Int, indexNum: Int, results: Array<IntArray>): Int{\n    if (sum < 0 || (index == indexNum && sum > 0)) return 0\n    if (sum == 0) return 1\n    if (results[index][sum] != -1) return results[index][sum]\n    var res = 0L\n    val num = start + index\n    for (i in 0 until num + 1){\n        res += dp(index + 1, sum - i, start, indexNum, results)\n    }\n    res %= MOD\n    results[index][sum] = res.toInt()\n    return res.toInt()\n}\n\n}",
-    "submit_ts": 1719070212.0
+    "submit_ts": "1719070212",
+    "subm_id": "1296817420"
 }

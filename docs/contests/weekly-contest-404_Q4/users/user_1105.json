@@ -1,5 +1,6 @@
 {
     "username": "SoniaDSilva",
     "submission": "class Solution {\npublic:\n    vector<vector<int>> graph;\n    \n    pair<int, int> dfs(int node, int parent) {\n        int maxDist = 0, maxNode = node;\n        for (int neighbor : graph[node]) {\n            if (neighbor != parent) {\n                auto [dist, farthestNode] = dfs(neighbor, node);\n                if (dist + 1 > maxDist) {\n                    maxDist = dist + 1;\n                    maxNode = farthestNode;\n                }\n            }\n        }\n        return {maxDist, maxNode};\n    }\n    \n    int treeDiameter(const vector<vector<int>>& edges) {\n        int n = edges.size() + 1;\n        graph.resize(n);\n        for (const auto& edge : edges) {\n            graph[edge[0]].push_back(edge[1]);\n            graph[edge[1]].push_back(edge[0]);\n        }\n        \n        auto [_, farthestNode] = dfs(0, -1);\n        auto [diameter, __] = dfs(farthestNode, -1);\n        \n        return diameter;\n    }\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int diameter1 = treeDiameter(edges1);\n        graph.clear();\n        int diameter2 = treeDiameter(edges2);\n        \n        int radius1 = (diameter1 + 1) / 2;\n        int radius2 = (diameter2 + 1) / 2;\n        \n        return max({diameter1, diameter2, radius1 + radius2 + 1});\n    }\n};",
-    "submit_ts": 1719719770.0
+    "submit_ts": "1719719770",
+    "subm_id": "1304450133"
 }

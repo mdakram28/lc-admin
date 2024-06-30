@@ -1,5 +1,6 @@
 {
     "username": "suraj0718",
     "submission": "int dp[5005][52][2];\nint fun(int i,int k,int t,vector<int>& a,map<int,vector<int>> &m){\n    int n=a.size();\n    if(i>=n) return 0;\n    if(dp[i][k][t]!=-1) return dp[i][k][t];\n    \n    int ans=1;\n    auto it=upper_bound(m[a[i]].begin(),m[a[i]].end(),i);\n    \n    if(t){\n        ans=max(ans,fun(i+1,k,t,a,m));\n        if(it!=m[a[i]].end()) ans=max(ans,1+fun((*it),k,0,a,m));\n        if(k>0) ans=max(ans,1+fun(i+1,k-1,1,a,m));\n    }\n    else{\n        if(it!=m[a[i]].end()) ans=max(ans,1+fun((*it),k,0,a,m));\n        if(k>0) ans=max(ans,1+fun(i+1,k-1,1,a,m));\n    }\n    \n    return dp[i][k][t]=ans;\n}\n\nclass Solution {\npublic:\n    int maximumLength(vector<int>& a, int k) {\n        map<int,vector<int>> m;\n        int n=a.size();\n        for(int i=0;i<n;i++){\n            m[a[i]].push_back(i);\n        }\n        \n        memset(dp,-1,sizeof(dp));\n        int ans=fun(0,k,1,a,m);\n        ans=max(ans,1);\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717860982.0
+    "submit_ts": "1717860982",
+    "subm_id": "1281775783"
 }

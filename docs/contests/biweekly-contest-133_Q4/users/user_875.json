@@ -1,5 +1,6 @@
 {
     "username": "krishwave66",
     "submission": "class Solution {\n    const int MOD = 1e9 + 7;\n    const int maxi = 400;\n\n    void modAdd(long long& a, long long b) {\n        a = (a + b) % MOD;\n    }\n\n    void resetInv(vector<vector<long long>>& pc, int len, int tarInv) {\n        for (int inv = 0; inv <= maxi; inv++) {\n            if (inv != tarInv) {\n                pc[len][inv] = 0;\n            }\n        }\n    }\n\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& reqs) {\n        unordered_map<int, int> reqMap;\n        for (auto r : reqs) {\n            reqMap[r[0] + 1] = r[1];\n        }\n        bool tmp = false;\n        vector<vector<long long>> pc(n + 1, vector<long long>(maxi + 1, 0));\n        pc[0][0] = 1;\n\n        for (int len = 1; len <= n; len++) {\n            for (int inv = 0; inv <= maxi; inv++) {\n                for (int newPos = 0; newPos < len; newPos++) {\n                    if ((inv - newPos) >= 0) {\n                        modAdd(pc[len][inv], pc[len - 1][(inv - newPos)]);\n                        tmp = true;\n                    }\n                }\n            }\n\n            if (reqMap.count(len)) {\n                resetInv(pc, len, reqMap[len]);\n            }\n        }\n\n        long long res = 0;\n        for (long long cnt : pc[n]) {\n            modAdd(res, cnt);\n            tmp = true;\n        }\n\n        return tmp ? static_cast<int>(res) : 0;\n    }\n};\n",
-    "submit_ts": 1719071136.0
+    "submit_ts": "1719071136",
+    "subm_id": "1296839880"
 }

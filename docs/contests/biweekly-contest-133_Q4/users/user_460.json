@@ -1,5 +1,6 @@
 {
     "username": "mnkodali",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& reqs) {\n        const int MOD = 1'000'000'007;\n        const int MAX_INV = 400;\n\n        unordered_map<int, int> r;\n        for (auto& req : reqs) {\n            r[req[0] + 1] = req[1];\n        }\n\n        vector<vector<long>> pc(n + 1, vector<long>(MAX_INV + 1, 0));\n        pc[0][0] = 1;\n\n        for (int len = 1; len <= n; len++) {\n            for (int inv = 0; inv <= MAX_INV; inv++) {\n                for (int pos = 0; pos < len; pos++) {\n                    int prevInv = inv - pos;\n                    if (prevInv >= 0) {\n                        pc[len][inv] = (pc[len][inv] + pc[len - 1][prevInv]) % MOD;\n                    }\n                }\n            }\n\n            if (r.count(len)) {\n                int targetInv = r[len];\n                for (int inv = 0; inv <= MAX_INV; inv++) {\n                    if (inv != targetInv) {\n                        pc[len][inv] = 0;\n                    }\n                }\n            }\n        }\n\n        long res = 0;\n        for (long count : pc[n]) {\n            res = (res + count) % MOD;\n        }\n\n        return res;\n    }\n};",
-    "submit_ts": 1719070212.0
+    "submit_ts": "1719070212",
+    "subm_id": "1296817431"
 }

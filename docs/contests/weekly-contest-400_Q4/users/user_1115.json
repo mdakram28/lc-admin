@@ -1,5 +1,6 @@
 {
     "username": "Mrinal_2005",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<vector<int>> arr(n,vector<int>(26,0));\n        vector<int> v(32,0);\n        for(int i=0;i<n;i++){\n            for(int j=0;j<31;j++){\n                int mask=1<<j;\n                if(mask&nums[i]) v[j]++;\n            }\n            arr[i]=v;\n        }\n        int ans=INT_MAX;\n        for(int i=0;i<n;i++){\n            int l=i,h=n-1;\n            while(l<=h){\n                int m=l+(h-l)/2;\n                int val=0;\n                for(int j=0;j<31;j++){\n                    int x=arr[m][j];\n                    if(i>0) x-=arr[i-1][j];\n                    if(x==m-i+1) val|=1<<j;\n                }                \n                ans=min(ans,abs(val-k));\n                if(val>=k){\n                    l=m+1;\n                }\n                else{\n                    h=m-1;\n                }\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717300582.0
+    "submit_ts": "1717300582",
+    "subm_id": "1274848545"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Algoh9",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        const int n = nums.size();\n        \n        int best = 1e9;\n        vector<int> freq(32,0);\n        auto update = [&freq](int x) {\n            for (int ii = 0; ii < 32; ++ii) {\n                if (!(x&1)) freq[ii]++;\n                x >>= 1;\n            }\n        };\n        \n        auto dec = [&freq] (int x) {\n            for (int ii = 0; ii < 32; ++ii) {\n                if (!(x&1)) freq[ii]--;\n                x >>= 1;\n            }\n        };\n        \n        \n        auto get = [&freq]() {\n            int x = 0;\n            for (int ii = 31; ii >= 0; --ii) {\n                x <<= 1;\n                // printf(\"%d \", freq[ii]);\n                if (freq[ii] == 0) x |= 1;\n            }\n            // printf(\"\\n\");\n            return x;\n        };\n        \n        for (int l = 0, r = 0; r < n; ++r) {\n            update(nums[r]);\n            \n            int x = get();\n            // printf(\"%d %d: %d %d\\n\", l, r, x, k);\n            best = min(best, abs(k-x));\n            while (x < k && l < r) {\n                dec(nums[l]);\n                l++;\n                x = get();\n                best = min(best, abs(k-x));\n            }\n            // printf(\"%d %d: %d %d\\n\", l, r, x, k);\n            best = min(best, abs(k-x));\n        }\n        return best;\n    }\n};",
-    "submit_ts": 1717300182.0
+    "submit_ts": "1717300182",
+    "subm_id": "1274836321"
 }

@@ -1,5 +1,6 @@
 {
     "username": "zzjjbb",
     "submission": "class Solution:\n    def maxTotalReward(self, rewardValues: List[int]) -> int:\n        def smmax(x):\n            if mem[x] is not None:\n                return mem[x]\n            p = bisect_left(val, x) - 1\n            if p < 0:\n                mem[x] = 0\n                return 0\n            ans = -1\n            while p >= 0 and (vp:=val[p]) > x // 2:\n                ans = max(ans, vp + smmax(x - vp))\n                p -= 1\n                if ans == x - 1:\n                    break\n            # print(x, ans)\n            if p >= 0 and (vp:=val[p]) <= x // 2:\n                ans = max(ans, vp + smmax(vp))\n            mem[x] = ans\n            return ans\n        tg = max(rewardValues)\n        # tg = 50_000\n        val = []\n        pos = [0] * (tg + 1)\n        mem = [None] * (tg + 1)\n        for i in rewardValues:\n            pos[i] = 1\n        for i in range(tg + 1):\n            if pos[i]:\n                val.append(i)\n        # print(val, pos)\n        # smmax(tg)\n        # print(mem)\n        return tg + smmax(tg)\n",
-    "submit_ts": 1717904672.0
+    "submit_ts": "1717904672",
+    "subm_id": "1282368634"
 }

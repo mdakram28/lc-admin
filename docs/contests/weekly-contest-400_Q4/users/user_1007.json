@@ -1,5 +1,6 @@
 {
     "username": "nayanjain207",
     "submission": "class Solution {\n    public int minimumDifference(int[] nums, int k) {\n        int n = nums.length;\n        int[][] prefix = new int[n + 1][32];\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= 31; j++) {\n                int delta = (nums[i - 1] & (1 << j)) > 0 ? 1 : 0;\n                prefix[i][j] = prefix[i - 1][j] + delta;\n            }\n        }\n        int ans = Integer.MAX_VALUE;\n        for (int i = 1; i <= n; i++) {\n            int curBound = binarySearch(prefix, i, k, n);\n            ans = Math.min(ans, curBound);\n        }\n        return ans;\n    }\n\n    public int binarySearch(int[][] prefix, int start, int k, int n) {\n        int lo = start;\n        int hi = n;\n        int minDiff = Integer.MAX_VALUE;\n        while (lo <= hi) {\n            int mid = (lo + hi) /2;\n            int and = bitwiseAnd(prefix,start, mid);\n            minDiff = Math.min(minDiff, Math.abs(k - and));\n            if (and >= k) {\n                lo = mid + 1;\n            } else {\n                hi = mid - 1;\n            }\n        }\n        return minDiff;\n    }\n\n    private int bitwiseAnd(int[][] prefix, int start, int mid) {\n        int ans = 0;\n        for (int j = 0; j <= 31; j++) {\n            if (prefix[mid][j] - prefix[start -1][j] == (mid - start + 1)) {\n                ans = ans | (1 << j);\n            }\n        }\n        return ans;\n    }\n}",
-    "submit_ts": 1717300594.0
+    "submit_ts": "1717300594",
+    "subm_id": "1274848978"
 }

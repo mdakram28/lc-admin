@@ -1,5 +1,6 @@
 {
     "username": "dustMa",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        \n        def getHeight(edges):\n            if not edges:\n                return 0, 0\n\n            n = len(edges) + 1\n            adj = [[] for i in range(n)]\n            degree = [0 for i in range(n)]\n            for x, y in edges:\n                adj[x].append(y)\n                adj[y].append(x)\n                degree[x] += 1\n                degree[y] += 1\n\n            q = []\n            for i in range(n):\n                if degree[i] == 1:\n                    q.append(i)\n            t = 0\n            while q:\n                nq = []\n                for x in q:\n                    for y in adj[x]:\n                        degree[y] -= 1\n                        if degree[y] == 1:\n                            nq.append(y)\n                \n                t += 1\n                if len(nq) == 1:\n                    return t, 2 * t\n                elif not nq:\n                    return t, 2 * t - 1 \n                else:\n                    q = nq\n\n        height1, dia1 = getHeight(edges1)\n        height2, dia2 = getHeight(edges2)\n        # return getHeight(edges1) + getHeight(edges2) + 1\n        return max(dia1, dia2, height1 + height2 + 1)",
-    "submit_ts": 1719719294.0
+    "submit_ts": "1719719294",
+    "subm_id": "1304438443"
 }

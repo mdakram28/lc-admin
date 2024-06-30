@@ -27,8 +27,8 @@ for LC_CONTEST in contests:
 
     print(f"Processing : {REPORT}")
 
-    # client = LcClient(LC_CONTEST, LC_QUESNUM)
-    # client.fetch_submissions(range(1, 50))
+    client = LcClient(LC_CONTEST, LC_QUESNUM)
+    client.fetch_submissions(range(1, 50))
 
     # system(f"""
     # docker run --init --network host -v "{abspath(REPORT_DIR)}:/dolos" ghcr.io/dodona-edu/dolos-cli -k 15 -f csv -l cpp info.csv
@@ -47,6 +47,6 @@ for LC_CONTEST in contests:
     #     report.write_group(similarity)
     #     report.write_pairs(similarity)
 
-    report.write_pairs(70)
+    # report.write_pairs(70)
     report.write_users()
     # report.write_contest_info()

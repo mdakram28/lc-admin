@@ -1,5 +1,6 @@
 {
     "username": "salyu",
     "submission": "using ll = long long;\nconstexpr ll mod = 1e9 + 7;\n\nclass Solution {\npublic:\n    \n    int numberOfPermutations(int n, vector<vector<int>>& reqs) {\n        \n        auto memo = vector(n + 1, vector(n + 1, vector<ll>(400, -1)));\n        function<ll(int, int, int)> search = [&](int prv, int m, int v) {\n            if (memo[prv][m][v] >= 0) {\n                return memo[prv][m][v];\n            }\n            if (m == 1) {\n                return v <= prv ? 1LL : 0LL;\n            }\n            ll res = 0;\n            for (int i = 0; i <= min(prv, v); ++i) {\n                res += search(prv + 1, m - 1, v - i);\n            }\n            return memo[prv][m][v] = res % mod;\n        };\n        \n        sort(reqs.begin(), reqs.end(), [](auto& a, auto& b) {\n            return a[0] < b[0];\n        });\n        ll prv = -1, res = 1, invs = 0;\n        for (auto & req : reqs) {\n            int j = req[0], inc = req[1] - invs;\n            res = (res * search(prv + 1, j - prv, inc)) % mod;\n            int t = search(prv + 1, j - prv, inc);\n            prv = j;\n            invs += inc;\n        }\n        while (prv + 1 < n) {\n            res = res * (prv + 1) % mod;\n            ++prv;\n        }\n        return res;\n    }\n};",
-    "submit_ts": 1719069863.0
+    "submit_ts": "1719069863",
+    "subm_id": "1296808380"
 }

@@ -1,5 +1,6 @@
 {
     "username": "ritwik97bhattacharya",
     "submission": "class Solution {\n    \n    void dfs(int cur, int par, vector<vector<int>> &gr, int cnt, int &x, int &maxCnt) {\n        if(cnt >= maxCnt) {\n            x = cur;\n            maxCnt = cnt;\n        }\n        \n        for(auto nb: gr[cur]) {\n            if(nb == par) continue;\n            dfs(nb, cur, gr, cnt+1, x, maxCnt);\n        }\n    }\n    \n    int findDiameter(vector<vector<int>> &gr) {\n        int cnt = 0;\n        int maxCnt = 0;\n        int farthest = 0;\n        dfs(0, -1, gr, cnt, farthest, maxCnt);\n        \n        int secondFarthest = 0;\n        cnt = 0;\n        maxCnt = 0;\n        \n        dfs(farthest, -1, gr, cnt, secondFarthest, maxCnt);\n        \n        return maxCnt;\n    }\n    \npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        vector<vector<int>> gr1, gr2;\n        \n        int m1 = edges1.size();\n        int m2 = edges2.size();\n        \n        gr1.resize(m1+1);\n        gr2.resize(m2+1);\n        \n        for(auto e: edges1) {\n            gr1[e[0]].push_back(e[1]);\n            gr1[e[1]].push_back(e[0]);\n        }\n        \n        for(auto e: edges2) {\n            gr2[e[0]].push_back(e[1]);\n            gr2[e[1]].push_back(e[0]);\n        }\n        \n        int d1 = findDiameter(gr1);\n        int d2 = findDiameter(gr2);\n        return max({d1, d2, (d1+1)/2 + (d2+1)/2 + 1});\n    }\n};",
-    "submit_ts": 1719718950.0
+    "submit_ts": "1719718950",
+    "subm_id": "1304430050"
 }

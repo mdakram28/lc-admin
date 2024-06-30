@@ -1,5 +1,6 @@
 {
     "username": "games_of_code",
     "submission": "class Solution {\npublic:\n    int sum(int i, vector<int>& v)\n    {\n        int s = 0,r;\n        while (i> 0) {\n            s += v[i];\n            r = (i & (-i));\n            i -= r;\n        }\n        return s;\n    }\n    void add(int i, int val, vector<int>& v)\n    {\n        while (i < v.size()) {\n            v[i] += val;\n            int r = (i & (-i));\n            i += r;\n        }\n    }\n    vector<int> countOfPeaks(vector<int>& nums, vector<vector<int>>& queries) {\n        int n=nums.size();\n        vector<int> v(n+1,0);\n        for(int i=1;i<n-1;i++) \n        if(nums[i]>nums[i-1]&&nums[i]>nums[i+1]) \n        add(i,1,v);\n        vector<int> ans;\n        vector<int> v1=nums;\n        for(auto &a:queries){\n            if(a[0]==1){\n                if(a[2]-a[1]<2) ans.push_back(0);\n                else ans.push_back(sum(a[2]-1,v)-sum(a[1],v));\n            }\n            else {\n                int d=a[1];\n                int val=a[2];\n                v1[d]=val;\n                for(int i=max(d-1,1);i<min(d+2,n-1);i++) {\n                    if(nums[i]>nums[i-1]&&nums[i]>nums[i+1]) {\n                        add(i,-1,v);\n                    }\n                    if(v1[i]>v1[i-1]&&v1[i]>v1[i+1]) {\n                        add(i,1,v);\n                    }\n                }\n                nums[d]=val;\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1718507548.0
+    "submit_ts": "1718507548",
+    "subm_id": "1289655042"
 }

@@ -1,5 +1,6 @@
 {
     "username": "tungghun22",
     "submission": "class Solution {\n    #define ALL(x) x.begin(),x.end()\n    #define DBG(x) cout << #x \" = \" << x << endl;\n    typedef long long ll;\n    typedef vector<ll> vl;\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        const ll mod = 1e9 + 7;\n        const ll inf = 2e18;\n        vl req(n,inf);\n        const int maxc = 405;\n        vector<vl> dp(n,vl(maxc+1,0));\n        for(auto it:requirements){\n            req[it[0]] = it[1];\n        }\n        auto add = [&] (ll &x,ll y){\n            x = (x+y >= mod) ? (x+y-mod) : x+y;\n            if(x<0) x += mod;\n        };\n        for(int i = 0;i<n;i++){\n            for(int j = 0;j<=maxc;j++){\n                if(i){\n                    for(int k = 0;k<=min(i,j);k++){\n                        add(dp[i][j],dp[i-1][j-k]);\n                    }\n                }\n                else{\n                    dp[i][j] = (j==0);\n                }\n            }\n            if(req[i] != inf){\n                for(int j = 0;j<=maxc;j++){\n                    if(j != req[i]){\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n        \n        ll res = dp[n-1][req[n-1]];\n        return (int)res;\n    }\n};",
-    "submit_ts": 1719071816.0
+    "submit_ts": "1719071816",
+    "subm_id": "1296854801"
 }

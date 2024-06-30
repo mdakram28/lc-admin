@@ -1,5 +1,6 @@
 {
     "username": "Mayawan",
     "submission": "#define ll long long\n#define ull unsigned ll\n#define vs vector<string>\n#define dd int\n#define ii pair<dd, dd>\n#define vi vector<dd>\n#define vii vector<ii>\n#define vvi vector<vi>\n#define vvii vector<vii>\n#define umap unordered_map\n#define uset unordered_set\n\nclass Solution {\npublic:\n    vvi m;\n    int query(int l, int r) {\n        int len = r - l + 1;\n        int k = __lg(len);\n        \n        return m[l][k] & m[r-(1<<k)+1][k];\n    }\n    \n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        int LOG = __lg(n) + 1;\n        m = vvi(n, vi(LOG));\n\n        for (int i = 0; i < n; i++) {\n            m[i][0] = nums[i];\n        }\n\n        for (int k = 1; k < LOG; k++) {\n            for (int i = 0; i + (1 << k) - 1< n; i++) {\n                m[i][k] = m[i][k - 1] & m[i+(1<<(k-1))][k - 1];\n            }\n        }\n        \n        int j = 0;\n        int ans = 1000000000;\n        for (int i = 0; i < n; i++) {\n            if (i > j) j = i;\n            while (j < n && query(i, j) > k) {\n                ans = min(ans, abs(k - query(i, j)));\n                j++;\n            }\n            if (j < n) ans = min(ans, abs(k - query(i, j)));\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717300095.0
+    "submit_ts": "1717300095",
+    "subm_id": "1274833511"
 }

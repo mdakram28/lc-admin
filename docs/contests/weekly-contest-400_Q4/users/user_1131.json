@@ -1,5 +1,6 @@
 {
     "username": "ekeshwar2407",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        // vector<int>a(n,nums[0]);\n        // for(int i=1;i<n;i++)\n        //     a[i]=a[i-1] & nums[i];\n        unordered_map<int,vector<int>>m;\n        for(int i=0;i<n;i++)\n        {\n            int x=nums[i];\n            for(int j=0;j<=31;j++)\n            {\n                if((x & 1<<j) == 0) m[j].push_back(i);\n            }\n        }\n        int ans=INT_MAX;\n        for(int i=0;i<n;i++)\n        {\n            int x=nums[i];\n            int andi=x;\n            ans=min(ans,abs(k-andi));\n            map<int,int>temp;\n            for(int j=0;j<=31;j++)\n            {\n                if((x & 1<<j) !=0 )\n                {\n                    auto it = upper_bound(m[j].begin(),m[j].end(),i);\n                    if(it==m[j].end()) continue;\n                    temp[*(it)]+=(int)(pow(2,j));\n                }\n            }\n            for(auto x : temp)\n            {\n                andi=andi-x.second;\n                ans=min(ans,abs(k-andi));\n\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717299742.0
+    "submit_ts": "1717299742",
+    "subm_id": "1274822398"
 }

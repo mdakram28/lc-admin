@@ -1,5 +1,6 @@
 {
     "username": "Baluga",
     "submission": "using System;\nusing System.Collections.Generic;\n\npublic class Solution {\n    public int NumberOfPermutations(int n, IList<IList<int>> reqs) {\n        const int MOD = 1_000_000_007;\n        const int MAX_INV = 400;\n        Dictionary<int, int> r = new Dictionary<int, int>();\n        foreach (var req in reqs) {\n            r[req[0] + 1] = req[1];\n        }\n        long[,] pc = new long[n + 1, MAX_INV + 1];\n        pc[0, 0] = 1;\n        for (int len = 1; len <= n; len++) {\n            for (int inv = 0; inv <= MAX_INV; inv++) {\n                for (int pos = 0; pos < len; pos++) {\n                    int prevInv = inv - pos;\n                    if (prevInv >= 0) {\n                        pc[len, inv] = (pc[len, inv] + pc[len - 1, prevInv]) % MOD;\n                    }\n                }\n            }\n            if (r.ContainsKey(len)) {\n                int targetInv = r[len];\n                for (int inv = 0; inv <= MAX_INV; inv++) {\n                    if (inv != targetInv) {\n                        pc[len, inv] = 0;\n                    }\n                }\n            }\n        }\n        long res = 0;\n        for (int inv = 0; inv <= MAX_INV; inv++) {\n            res = (res + pc[n, inv]) % MOD;\n        }\n        return (int)res;\n    }\n}\n\n",
-    "submit_ts": 1719070951.0
+    "submit_ts": "1719070951",
+    "subm_id": "1296835636"
 }

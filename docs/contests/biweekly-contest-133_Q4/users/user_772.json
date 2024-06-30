@@ -1,5 +1,6 @@
 {
     "username": "_ysahil",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& v) {\n        int mod = 1e9 + 7;\n        map<long long int,long long int>m;\n        int k = 0;\n        for(auto i : v){\n            k = max(k,i[1]);\n            m[i[0] + 1] = i[1];\n            \n        }\n        int ct=0;\n        vector<vector<long long int>>dp(n+2,vector<long long int>(k+2,0));\n        dp[0][0] = 1;\n        for(int i = 0 ; i < n ; i++){\n            for(int j = 0 ; j < k+1 ; j++){\n                dp[i+1][j] = dp[i][j];\n                for(int l = 1  ; l < i+1 ; l++){\n                    if(j - l >= 0 && j - l >= -1){\n                        dp[i+1][j] = (dp[i+1][j]%mod + dp[i][j-l]%mod)%mod;\n                        dp[i+1][j] %= mod;\n                    }\n                }\n            }\n            if(i+1==0)ct++;\n            if(m.find(i+1)!=m.end()){\n                for(int j = 0 ; j < k+1 ; j++){\n                    if(j!=m[i+1]){\n                        dp[i+1][j] = 0;\n                    }\n                }\n            }\n        }\n        // cout<<ct<<endl;\n        long long res = 0;\n        for(int i = 1 ; i < k+2 ; i++){\n            res = dp[n][i-1]%mod + res%mod;\n            res =res% mod;\n        }\n        return res;\n    }\n};",
-    "submit_ts": 1719071194.0
+    "submit_ts": "1719071194",
+    "subm_id": "1296841206"
 }

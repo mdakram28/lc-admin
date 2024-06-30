@@ -1,5 +1,6 @@
 {
     "username": "aryan_pundir",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        int ans=2e9;\n        int prefnums[31][n];\n\n    for (int i = 0; i < 31; i++) {\n\n        prefnums[i][0] = ((nums[0] >> i) & 1);\n        for (int j = 1; j < n; j++) {\n            prefnums[i][j] = ((nums[j] >> i) & 1);\n            prefnums[i][j] += prefnums[i][j - 1];\n        }\n    }\n    auto rangeand=[&](int l, int r)->int\n{\n \n    // To store the answer\n    int ans = 0;\n    for (int i = 0; i < 31; i++) {\n        // To store the number of variables\n        // with ith bit set\n        int x;\n        if (l == 0)\n            x = prefnums[i][r];\n        else\n            x = prefnums[i][r]\n                - prefnums[i][l - 1];\n \n        // Condition for ith bit\n        // of answer to be set\n        if (x == r - l + 1)\n            ans = (ans | (1 << i));\n    }\n \n    return ans;\n};\n        for(int i=0;i<n;i++){\n            int l=i,r=n-1;\n            int mindiff=2e9;\n            while(l<=r){\n                int mid=(l+r)>>1;\n                int rand=rangeand(i,mid);\n                mindiff=min(mindiff,abs(rand-k));\n                if(rand>=k){\n                    l=mid+1;\n                }else{\n                    r=mid-1;\n                }\n                \n            }\n            ans=min(ans,mindiff);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717298828.0
+    "submit_ts": "1717298828",
+    "subm_id": "1274792594"
 }

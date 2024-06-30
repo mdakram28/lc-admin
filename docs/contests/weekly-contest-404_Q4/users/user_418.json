@@ -1,5 +1,6 @@
 {
     "username": "efor",
     "submission": "class Solution:\n\n\n    def minimumDiameterAfterMerge(\n        self, edges1: List[List[int]], edges2: List[List[int]]\n    ) -> int:\n        def edge2adj(edges: List[List[int]]) -> DefaultDict[int, List[int]]:\n            adj = defaultdict(list)\n            for a, b in edges:\n                adj[a].append(b)\n                adj[b].append(a)\n            return adj\n\n        def dfs(\n            u: int,\n            adj: DefaultDict[int, List[int]],\n            prev: int,\n            height: int,\n            res: List[int],\n        ):\n            if height > res[0]:\n                res[0] = height\n                res[1] = u\n            for x in adj[u]:\n                if x == prev:\n                    continue\n                dfs(x, adj, u, height + 1, res)\n\n        def diameter(edges: List[List[int]]) -> int:\n            adj = edge2adj(edges)\n            res = [0, 0]\n            dfs(0, adj, -1, 0, res)\n            start = res[1]\n            res = [0, 0]\n            dfs(start, adj, -1, 0, res)\n            return res[0]\n\n        d1 = diameter(edges1)\n        d2 = diameter(edges2)\n        connect =  math.ceil(d1 / 2) + math.ceil(d2 / 2) + 1\n        return max(d1,d2,connect)\n\n",
-    "submit_ts": 1719718867.0
+    "submit_ts": "1719718867",
+    "subm_id": "1304428049"
 }

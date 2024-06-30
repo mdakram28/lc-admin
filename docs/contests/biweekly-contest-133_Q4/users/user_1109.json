@@ -1,5 +1,6 @@
 {
     "username": "toxic_the_great",
     "submission": "class Solution {\npublic:\n \n  int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n   int mod = 1e9 + 7;\nmap<int, int> e_to_i;  // endIdxToInversionCnt\nfor (vector<int>& it : requirements) {\n  e_to_i[it[0] + 1] = it[1];\n}\n\nlong long dp[n + 1][410];\nmemset(dp, 0, sizeof(dp));\ndp[0][0] = 1;\n\nlong long l = 1;  // length\nwhile (l <= n) {\n  long long c = 0, p = 0;  // currentInversions, newPosition\n  while (c <= 405) {\n    p = 0;\n    while (p < l) {\n      long long prev_c = c - p;  // previousInversions\n      if (prev_c >= 0) {\n        dp[l][c] = (dp[l][c] + (dp[l - 1][prev_c] % mod) % mod) % mod;\n      }\n      ++p;\n    }\n    ++c;\n  }\n\n  if (e_to_i.count(l) > 0) {\n    long long r = e_to_i[l];  // requiredInversions\n    long long c = 0;  // currentInversions\n    while (c <= 405) {\n      if (c != r) {\n        dp[l][c] = 0;\n      }\n      ++c;\n    }\n  }\n\n  ++l;\n}\n\nlong long ans = 0;\nlong long c = 0;  // currentInversions\nwhile (c <= 405) {\n  ans = (ans + dp[n][c++]) % mod;\n}\n\nreturn (ans);\n  }\n};",
-    "submit_ts": 1719071774.0
+    "submit_ts": "1719071774",
+    "subm_id": "1296853853"
 }

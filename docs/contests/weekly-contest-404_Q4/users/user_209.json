@@ -1,5 +1,6 @@
 {
     "username": "qu1ck",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        G1 = defaultdict(list)\n        for a, b in edges1:\n            G1[a].append(b)\n            G1[b].append(a)\n        G2 = defaultdict(list)\n        for a, b in edges2:\n            G2[a].append(b)\n            G2[b].append(a)\n            \n        def dfs(a, p, G):\n            mx, mxp = 0, a\n            for b in G[a]:\n                if b != p:\n                    d, dn = dfs(b, a, G)\n                    if d+1>mx:\n                        mx = d+1\n                        mxp = dn\n            return mx, mxp\n        \n        def diameter(G):\n            d, dn = dfs(0, -1, G)\n            d, dn = dfs(dn, -1, G)\n            return d\n        d1 = diameter(G1)\n        d2 = diameter(G2)\n        print(d1, d2)\n        return max(d1, d2, (d1+1)//2 + (d2+1)//2 + 1)",
-    "submit_ts": 1719717232.0
+    "submit_ts": "1719717232",
+    "subm_id": "1304385990"
 }

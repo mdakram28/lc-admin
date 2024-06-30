@@ -1,5 +1,6 @@
 {
     "username": "arj05",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& req) \n    {   \n        vector<long long> arr(n + 1, -1);\n        for (auto it : req) {\n            long long first = it[0];\n            long long second = it[1];\n            arr[first + 1] = second;\n        }\n\n        vector<long long> p(401, 0);\n        p[0] = 1;\n        int MOD = 1e9+7;\n\n        for (int i = 1; i <= n; i++) {\n            vector<long long> curr(401, 0);\n            \n            for (int j = 0; j <= 400; j++) {\n                long long sum = 0;\n                for (int pos = 0; pos < i && pos <= j; pos++) sum = (sum + p[j - pos]) % MOD;\n                curr[j] = sum;\n            }\n\n            if (arr[i] != -1) {\n                for (int j = 0; j <= 400; j++) {\n                    if (j != arr[i]) curr[j] = 0;\n                }\n            }          \n            p = curr;\n        }\n        long long ans = 0;\n        for (auto count : p) ans = (ans + count) % MOD;\n        return ans;\n    }\n};\n\n",
-    "submit_ts": 1719071980.0
+    "submit_ts": "1719071980",
+    "subm_id": "1296858489"
 }

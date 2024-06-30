@@ -1,5 +1,6 @@
 {
     "username": "varunkakathiya1220",
     "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar maximumLength = function(nums, k) {\n    let n = nums.length;\n    if (n === 0) return 0;\n\n    let dp = Array.from({ length: n }, () => Array(k + 1).fill(1));\n    let ans = 1;\n    let vk = Array(k + 1).fill(-1);\n    let vkm = Array.from({ length: k + 1 }, () => ({}));\n\n    for (let i = 0; i < n; i++) {\n        for (let j = 0; j <= k; j++) {\n            for (let l = 0; l < j; l++) {\n                dp[i][j] = Math.max(dp[i][j], 1 + vk[l]);\n            }\n            if (vkm[j][nums[i]] !== undefined) {\n                dp[i][j] = Math.max(dp[i][j], 1 + vkm[j][nums[i]]);\n            }\n            ans = Math.max(ans, dp[i][j]);\n        }\n        for (let j = 0; j <= k; j++) {\n            vk[j] = Math.max(vk[j], dp[i][j]);\n            vkm[j][nums[i]] = Math.max(vkm[j][nums[i]] || -1, dp[i][j]);\n        }\n    }\n\n    return ans;\n};\n\n\n",
-    "submit_ts": 1717862194.0
+    "submit_ts": "1717862194",
+    "subm_id": "1281815289"
 }

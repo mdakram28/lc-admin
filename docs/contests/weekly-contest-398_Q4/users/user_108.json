@@ -1,5 +1,6 @@
 {
     "username": "yangxm",
     "submission": "using Ti3 = tuple<int, int, int>;\n\nmap<Ti3, int> dp;\n\nint DFS(int x, int y, int d) {\n  if (x == 0 && d == 0) {\n    return 0;\n  }\n  if (x == 1 && y == 0 && d == 0) {\n    return 1;\n  }\n  if (auto it = dp.find(make_tuple(x, y, d)); it != dp.end()) {\n    return it->second;\n  } \n  int ret = 0;\n  if (d == 0) {\n    if (y > 0 && x >= (1 << (y - 1))) {\n      int w = x - (1 << (y - 1));\n      ret += DFS(w, y - 1, 0) + DFS(w, y - 1, 1);\n    }\n  } else {\n    ret += DFS(x + 1, y, 0);\n  }\n  dp.emplace(make_tuple(x, y, d), ret);\n  return ret;\n}\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n      dp.clear();\n      int ret = 0;\n      for (int i = 0; i < 30; ++i) {\n        ret += DFS(k, i, 0) + DFS(k, i, 1);\n      }\n      return ret;\n    }\n};",
-    "submit_ts": 1716087447.0
+    "submit_ts": "1716087447",
+    "subm_id": "1261783909"
 }

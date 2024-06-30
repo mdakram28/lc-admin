@@ -1,5 +1,6 @@
 {
     "username": "ameysh2511",
     "submission": "class Solution {\npublic:\n    int calc(int num,vector<int> &bit,int left,int right){\n        int n1=num;\n        int ind=0;\n        while(n1){\n            if(n1%2==1){\n                bit[ind]++;\n            }\n            ind++;\n            n1>>=1;\n        }\n        int ans=0;\n        for(int i=0;i<32;i++){\n            if(bit[i]==(right-left+1)){\n                ans+=(1<<i);\n            }\n        }\n        return ans;\n    }\n    void remove(int num,vector<int> &bit,int left,int right){\n        int n1=num;\n        int ind=0;\n        while(n1){\n            if(n1%2==1){\n                bit[ind]--;\n            }\n            ind++;\n            n1>>=1;\n        }\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        int left=0;\n        int ans=INT_MAX;\n        int x=0;\n        vector<int> bit(32,0);\n        for(int right=0;right<n;right++){\n            x=calc(nums[right],bit,left,right);\n            \n            ans=min(ans,abs(x-k));\n            if(x<k){\n                while(left<right && x<k){\n                    left++;\n                    remove(nums[left-1],bit,left,right);\n                    x=calc(0,bit,left,right);\n                    ans=min(ans,abs(x-k));\n                }\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717299008.0
+    "submit_ts": "1717299008",
+    "subm_id": "1274798753"
 }

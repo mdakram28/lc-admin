@@ -1,5 +1,6 @@
 {
     "username": "rkrohit123",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        int dp[n+1][31];\n        memset(dp,0,sizeof(dp));\n        for(int i=1;i<=n;i++){\n            for(int j=30;j>=0;j--){\n                dp[i][j]=dp[i-1][j];\n                if(nums[i-1]&(1<<j))dp[i][j]++;\n            }\n        }\n        int ans=abs(nums[0]-k);\n        for(int i=1;i<=n;i++){\n            if(ans==0)return 0;\n            int l=1,r=i;\n            while(r-l>1){\n                int m=(l+r)/2;\n                int temp=0;\n                for(int j=30;j>=0;j--){\n                    if((dp[i][j]-dp[m-1][j])==(i-m+1))temp+=(1<<j);\n                }\n                if(temp>k){\n                    r=m;\n                }\n                else l=m;\n            }\n            int temp=0;\n            for(int j=30;j>=0;j--){\n                if((dp[i][j]-dp[l-1][j])==(i-l+1))temp+=(1<<j);\n            }\n            ans=min(ans,abs(temp-k));\n            temp=0;\n            for(int j=30;j>=0;j--){\n                if((dp[i][j]-dp[r-1][j])==(i-r+1))temp+=(1<<j);\n            }\n            ans=min(ans,abs(temp-k));\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717299858.0
+    "submit_ts": "1717299858",
+    "subm_id": "1274826100"
 }

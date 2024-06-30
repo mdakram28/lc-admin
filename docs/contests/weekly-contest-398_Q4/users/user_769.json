@@ -1,5 +1,6 @@
 {
     "username": "Sad_Bus",
     "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        int dp[31][40][2];\n\n        memset(dp, 0, sizeof(dp));\n\n        dp[0][0][0] = 1;\n        dp[0][1][1] = 1;\n\n        // curr jump\n        for(int i = 1; i < 31; i++){\n            // number of times went down\n            dp[i][0][0] += dp[i-1][0][0];\n\n            for(int j = 1; j < 40; j++){\n                // 0 = didn't go down, 1 = went down\n                dp[i][j][0] += dp[i-1][j][0];\n                dp[i][j][0] += dp[i-1][j][1];\n\n                dp[i][j][1] += dp[i][j-1][0];\n            }\n        }\n\n        int ans = 0, jumpSum = 0;\n\n        if(jumpSum >= (k - 1)){\n            ans += dp[0][jumpSum - (k - 1)][0] + dp[0][jumpSum - (k - 1)][1];\n        }\n\n        // how many jumps made\n        for(int i = 1; i <= 30; i++){\n            int x = (1 << (i-1));\n            jumpSum += x;\n\n            if(jumpSum >= (k - 1) && jumpSum - (k - 1) < 40){\n                // cout << i << \" \" << jumpSum << \" \" << jumpSum - (k - 1) << '\\n';\n                ans += dp[i][jumpSum - (k - 1)][0] + dp[i][jumpSum - (k - 1)][1];\n            }\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": 1716089199.0
+    "submit_ts": "1716089199",
+    "subm_id": "1261835833"
 }

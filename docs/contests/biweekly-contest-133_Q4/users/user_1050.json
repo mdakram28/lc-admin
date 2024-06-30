@@ -1,5 +1,6 @@
 {
     "username": "YuvrajVarshney21",
     "submission": "class Solution {\npublic:\n    #define mod 1000000007\n    #define maxi 400\n    #define ll long long\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n            unordered_map<int, int>mp;\n            for (auto it:requirements)mp[it[0]+1] =it[1];\n            vector<vector<ll>>dp(n + 1, vector<ll>(maxi + 1, 0));\n            dp[0][0] = 1;\n        \n           for(int i=0;i<n;i++)dp[i][0]++;\n             vector<int>tmp(n,0);\n             for(int i=0;i<n;i++)dp[i][0]--;        \n            for (int i = 1; i<= n; i++) {\n                  for(int i=0;i<n;i++)tmp[i]++;\n            for (int j = 0; j <= maxi; j++) {\n                for (int x = 0; x<i;x++) {\n                    int pre = j -x;\n                    if (pre>= 0) {\n                        dp[i][j] = (dp[i][j]+dp[i-1][pre])%mod;\n                    }\n                }\n            }\n            \n            if (mp.find(i) != mp.end()) {\n                int cnt = mp[i];\n                for (int j = 0; j <= maxi; j++) {\n                    if (j != cnt) {\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n       for(int i=0;i<n;i++)tmp[i]++;\n        ll ans = 0;\n        for (auto it:dp[n]) {\n            ans = (ans+it)%mod;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1719071594.0
+    "submit_ts": "1719071594",
+    "subm_id": "1296850095"
 }

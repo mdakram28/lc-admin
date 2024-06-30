@@ -1,5 +1,6 @@
 {
     "username": "ac130h",
     "submission": "class Solution {\n    int C(int n, int k) {\n        if (k == 0)\n            return 1;\n        return 1LL * C(n, k - 1) * (n - k + 1) / k;\n    }\n    \n    int solve(int k) {\n        vector<int> init {2, 4, 4, 3, 2};\n        if (k < init.size())\n            return init[k];\n        long long base = 1;\n        int i = 0;\n        while (base < k) {\n            base <<= 1;\n            i++;\n        }\n        if (k < base - i - 1)\n            return 0;\n        int j = k - (base - i - 1);\n        return C(i + 1, j);\n    }\n    \n    void dfs(int cur, int k, int prev_op, int jump, int &cnt) {\n        if (cur == k) {\n            cnt++;\n        }\n        if (prev_op != 0 && cur > 0) {\n            dfs(cur - 1, k, 0, jump, cnt);\n        }\n        if (cur <= k + 10000) {\n            dfs(cur + (1 << jump), k, 1, jump + 1, cnt);\n        }\n    }\n    \npublic:\n    int waysToReachStair(int k) {\n        return solve(k);\n    }\n};",
-    "submit_ts": 1716087751.0
+    "submit_ts": "1716087751",
+    "subm_id": "1261793328"
 }

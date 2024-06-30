@@ -1,5 +1,6 @@
 {
     "username": "bigD-Deepak",
     "submission": "\n\nclass Solution {\npublic:\n    int fn(vector<int>& v, int ci) {\n        return upper_bound(v.begin(), v.end(), ci) - v.begin();\n    }\n\n    int f(vector<int>& nums, int i, int k,bool strict, map<int, vector<int>>& mp, vector<vector<vector<int>>>& memo) {\n        if (i >= nums.size()) return 0;\n        if (k < 0) return 0;\n        if (memo[i][k][strict] != -1) return memo[i][k][strict];\n\n        int val = 0;\n        int nextIndex = fn(mp[nums[i]], i);\n        if (nextIndex < mp[nums[i]].size()) {\n            val = max(val, 1 + f(nums, mp[nums[i]][nextIndex], k,1, mp, memo));\n        }else{\n            val = max(val, 1 + f(nums, nums.size(), k,1, mp, memo));\n        }\n        if(k)\n            val = max(val, 1 + f(nums, i + 1, k - 1, 0,mp, memo));\n        if(!strict)\n            val = max(val,f(nums,i+1,k,0,mp,memo));\n        \n        return memo[i][k][strict] = val;\n    }\n\n    int maximumLength(vector<int>& nums, int k) {\n        map<int, vector<int>> mp;\n        for (int i = 0; i < nums.size(); i++) {\n            mp[nums[i]].push_back(i);\n        }\n        \n        vector<vector<vector<int>>> memo(nums.size(), vector<vector<int>>(k + 1, vector<int>(2,-1)));\n        return f(nums, 0, k,0, mp, memo);\n    }\n};\n",
-    "submit_ts": 1717860339.0
+    "submit_ts": "1717860339",
+    "subm_id": "1281754177"
 }

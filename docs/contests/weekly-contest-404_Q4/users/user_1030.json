@@ -1,5 +1,6 @@
 {
     "username": "prince_3844",
     "submission": "class Solution {\npublic:\n    void dfs(int node, int par, vector<int> &dis, vector<int> adj[]){\n        if(par != -1){\n            dis[node] = 1 + dis[par];\n        }  \n        for(auto x: adj[node]){\n            if(x != par){\n                dfs(x, node, dis, adj);\n            }\n        }\n        return;\n    }\n    int get_dia(vector<vector<int>> &edge){\n        int n = edge.size() + 1;\n        if(n == 1){\n            return 0;\n        }\n        vector<int> dis(n+1, 0);\n        vector<int> adj[n+1];\n        for(auto x:edge){\n            adj[x[0]].push_back(x[1]);\n            adj[x[1]].push_back(x[0]);\n        }\n        dfs(0, -1, dis, adj);\n        int one_end = -1;\n        int one_dis = 0;\n        for(int i=0;i<n;i++){\n            if(dis[i] > one_dis){\n                one_end = i;\n                one_dis = dis[i];\n            }\n            dis[i] = 0;\n        }\n        dfs(one_end, -1, dis, adj);\n        int diameter = 0;\n        for(int i=0;i<n;i++){\n            diameter = max(diameter, dis[i]);\n        }\n        return diameter;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int dia1 = get_dia(edges1);\n        int dia2 = get_dia(edges2);\n        // cout<<dia1<<\" \"<<dia2<<endl;\n        return max({dia1, dia2, dia1/2 + dia1%2 + dia2/2 + dia2%2 + 1});\n    }\n};",
-    "submit_ts": 1719718386.0
+    "submit_ts": "1719718386",
+    "subm_id": "1304415957"
 }

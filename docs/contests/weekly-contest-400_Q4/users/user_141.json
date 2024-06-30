@@ -1,5 +1,6 @@
 {
     "username": "_Fake4Fun",
     "submission": "class Solution {\npublic:\n    deque<int> d;\n    int cnt[30], val;\n    \n    void calVal() {\n        val = 0;\n        for (int i = 0; i < 30; i++) {\n            if (cnt[i] == d.size()) val |= 1 << i;\n        }\n    }\n    \n    void add(int x) {\n        d.push_back(x);\n        for (int i = 0; i < 30; i++) {\n            if ((x >> i) & 1) ++ cnt[i];\n        }\n        calVal();\n    }\n    \n    void rem() {\n        int x = d.front();\n        d.pop_front();\n        for (int i = 0; i < 30; i++) {\n            if ((x >> i) & 1) -- cnt[i];\n        }\n        calVal();\n    }\n    \n    int minimumDifference(vector<int>& nums, int k) {\n        val = 1e9 + 10;\n        for (int i = 0; i < 30; i++) cnt[i] = 0;\n        d.clear();\n        \n        int n = nums.size();\n        int ri = 0, ans = 1e9 + 10;\n        for (int i = 0; i < n; i++) {\n            while (ri < n && val > k) {\n                add(nums[ri++]);\n                ans = min(ans, abs(k - val));\n            }\n            rem();\n            if (!d.empty()) ans = min(ans, abs(k - val));\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717297200.0
+    "submit_ts": "1717297200",
+    "subm_id": "1274734327"
 }

@@ -1,5 +1,6 @@
 {
     "username": "kunalavghade",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& R) {\n        int per = 400;\n        vector<vector<long long>> dp(n + 1, vector<long long>(per + 1, 0));\n        dp[0][0] = 1;\n        \n        unordered_map<int, int> mp;\n        for(auto x: R) \n            mp[x[0]] = x[1];\n        \n        for (int i = 1; i <= n; i++) {\n            for (int k = 0; k <= per; k++)\n                for (int j = 0; j < i; ++j) \n                    if (k >= j) \n                        dp[i][k] = (dp[i][k] + dp[i - 1][k - j])  % (int)(1e9 +7);\n            \n            if(mp.count(i-1)) {\n                 for (int k = 0; k <= per; k++)\n                     if(k != mp[i-1]) dp[i][k] = 0;\n            }\n        }\n        int ans = 0;\n        for(int  x: dp[n]) \n            ans = (ans+x) % (int)(1e9 +7);\n        \n        return ans;\n                \n    }\n};",
-    "submit_ts": 1719071010.0
+    "submit_ts": "1719071010",
+    "subm_id": "1296836997"
 }

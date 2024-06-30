@@ -1,5 +1,6 @@
 {
     "username": "zokumyoin",
     "submission": "import java.util.Arrays;\nimport java.util.TreeMap;\nimport java.util.TreeSet;\n\nclass Solution {\n    public int maxTotalReward(int[] rew) {\n        // 1 2 3 4 6\n        // ^     ^ ^\n        TreeSet<Integer> set = new TreeSet<>();\n        for (int v : rew) {\n            set.add(v);\n        }\n        TreeMap<Integer, Integer> map = new TreeMap<>();\n        int p = 0;\n        int[] arr = new int[set.size()];\n        for (int v : set) {\n            map.put(v, p);\n            arr[p++] = v;\n        }\n        int max = arr[arr.length - 1];\n        int[] memo = new int[max + 1];\n        Arrays.fill(memo, -1);\n        return max + findMaxLt(arr, memo, max, map);\n    }\n\n    private int findMaxLt(int[] arr, int[] memo, int k, TreeMap<Integer, Integer> map) {\n        if (memo[k] >= 0) {\n            return memo[k];\n        }\n        int max = 0;\n        if (arr[0] >= k) {\n            return 0;\n        }\n        var next = map.ceilingEntry(k);\n        int nextIdx = next == null ? arr.length : next.getValue();\n        // System.out.printf(\">>> k=%d nexIdx=%d\\n\", k, nextIdx);\n        for (int i = 0; i < nextIdx; i++) {\n            max = Math.max(max, arr[i] + findMaxLt(arr, memo,Math.min(arr[i], k - arr[i]), map));\n        }\n        memo[k] = max;\n        return max;\n\n\n    }\n\n}",
-    "submit_ts": 1717901912.0
+    "submit_ts": "1717901912",
+    "subm_id": "1282290421"
 }

@@ -1,5 +1,6 @@
 {
     "username": "udits0999",
     "submission": "using ll = long long;\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int mod = 1e9+7;\n        unordered_map<int, int> req;\n        for (auto& r : requirements) req[r[0] + 1] = r[1];\n            \n        vector<vector<ll>> cnt(n + 1, vector<ll>(4001, 0));\n        cnt[0][0] = 1;\n        \n        for (int len = 1; len <= n; len++) {\n                for (int inv = 0; inv < 401; inv++) {\n                        for (int i = 0; i < len; i++) {\n                                int prevInv = inv - i;\n                                if(prevInv>=0) cnt[len][inv] = (cnt[len][inv] + cnt[len-1][prevInv])%mod;\n                        }\n                }\n                if (req.find(len) != req.end()) {\n                        int target = req[len];\n                        for (int inv = 0; inv < 401; inv++) {\n                                if(inv!=target) {\n                                        cnt[len][inv] = 0;\n                                }\n                        }\n                }\n        }\n        int res = 0;\n        for(auto val : cnt[n]) res = (res + val)%mod; \n        return res;\n            \n    }\n};",
-    "submit_ts": 1719071639.0
+    "submit_ts": "1719071639",
+    "subm_id": "1296851044"
 }

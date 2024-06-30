@@ -1,5 +1,6 @@
 {
     "username": "ataturhan",
     "submission": "from typing import List, Dict\nfrom collections import Counter\n\nclass Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        def get_set_bits(x: int) -> List[int]:\n            return [i for i, bit in enumerate(reversed(bin(x)[2:])) if bit == '1']\n\n        def counts_to_bitwise_and(window_length: int, bit_counts: Dict[int, int]) -> int:\n            return sum((1 << key) for key, count in bit_counts.items() if count == window_length)\n\n        current_AND_value = nums[0]\n        best_diff = abs(current_AND_value - k)\n\n        window_bit_counts = Counter(get_set_bits(nums[0]))\n\n        left_idx = right_idx = 0\n        while right_idx < len(nums):\n            if current_AND_value > k or left_idx > right_idx:\n                right_idx += 1\n                if right_idx >= len(nums):\n                    break\n                window_bit_counts += Counter(get_set_bits(nums[right_idx]))\n\n            else:\n                window_bit_counts -= Counter(get_set_bits(nums[left_idx]))\n                left_idx += 1\n\n            current_AND_value = counts_to_bitwise_and(right_idx - left_idx + 1, window_bit_counts)\n\n            if left_idx <= right_idx:\n                best_diff = min(best_diff, abs(current_AND_value - k))\n\n        return best_diff\n",
-    "submit_ts": 1717298762.0
+    "submit_ts": "1717298762",
+    "subm_id": "1274790328"
 }

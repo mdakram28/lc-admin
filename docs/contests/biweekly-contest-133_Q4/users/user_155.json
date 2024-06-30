@@ -1,5 +1,6 @@
 {
     "username": "vishalp65",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        const int MOD = 1e9 + 7;\n        const int MAX_INV = 400;\n\n        // Initialize DP table\n        std::vector<std::vector<int>> dp(n + 1, std::vector<int>(MAX_INV + 1, 0));\n        dp[0][0] = 1;\n\n        // Process requirements\n        std::vector<int> reqInv(n, -1);\n        for (const auto& req : requirements) {\n            reqInv[req[0]] = req[1];\n        }\n\n        // Fill DP table\n        for (int len = 1; len <= n; ++len) {\n            for (int inv = 0; inv <= MAX_INV; ++inv) {\n                for (int k = 0; k < len; ++k) {\n                    if (inv >= k) {\n                        dp[len][inv] = (dp[len][inv] + dp[len - 1][inv - k]) % MOD;\n                    }\n                }\n            }\n\n            // Apply inversion requirements\n            if (reqInv[len - 1] != -1) {\n                int requiredInv = reqInv[len - 1];\n                for (int inv = 0; inv <= MAX_INV; ++inv) {\n                    if (inv != requiredInv) {\n                        dp[len][inv] = 0;\n                    }\n                }\n            }\n        }\n\n        // The final result is the number of permutations of length n with required inversions\n        return dp[n][reqInv[n - 1]];\n    }\n};",
-    "submit_ts": 1719069123.0
+    "submit_ts": "1719069123",
+    "subm_id": "1296787231"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Sahu1402",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& arr, int k) {\n        int n = arr.size();\n        int sparse[n][30];\n        \n        for(int i=0;i<n;i++) sparse[i][0] = arr[i];\n        \n        for(int bit = 1;bit<30;bit++)\n        {\n            for(int i=0;i+(1<<bit)-1<n;i++)\n            {\n                sparse[i][bit] = sparse[i][bit-1] & sparse[i+(1<<(bit-1))][bit-1];\n            }\n        }\n        \n        int ans = INT_MAX;\n        \n        for(int i=0;i<n;i++)\n        {\n            int l = i;\n            int r = n-1;\n            \n            while(l<=r)\n            {\n                int mid = (l+r)/2;\n                \n                int len = r - l + 1;\n                \n                int bit = 0;\n                \n                while(i + (1<<(bit+1)) <= mid) bit++;\n                \n                int temp = sparse[i][bit] & sparse[mid - (1<<bit) + 1][bit];\n                \n                ans = min(ans,abs(temp-k));\n                \n                if(temp > k)\n                {\n                    l = mid + 1;\n                }\n                else r = mid - 1;\n            }\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717298631.0
+    "submit_ts": "1717298631",
+    "subm_id": "1274785831"
 }

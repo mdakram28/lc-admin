@@ -1,5 +1,6 @@
 {
     "username": "Namakian",
     "submission": "class Solution {\npublic:\n    \n    unordered_map<int, unordered_map<int, unordered_map<int, int>>> dp;\n    \n    \n    bool is_exists(int s, int j, bool prev) {\n        auto it = dp.find(s);\n        if(it == dp.end()) return false;\n        \n        auto it1 = it->second.find(j);\n        if(it1 == it->second.end()) return false;\n        \n        auto it2 = it1->second.find(prev);\n        return it2 != it1->second.end();\n    }\n    \n    int numWays(int s, int j, bool prev, int k) {\n        \n        if(is_exists(s,j,prev)) {\n            return dp[s][j][prev];\n        }\n        \n        \n        if(s>k+10) return 0;\n        int ans = 0;\n        if(s == k) ans = 1;\n        \n        \n        ans += numWays(s + (1<<j), j+1, false, k);\n        \n        if(!prev && s) {\n            ans+= numWays(s-1, j, true, k);\n        }\n        \n        dp[s][j][prev] = ans;\n        \n        return ans;\n        \n    }\n    \n    int waysToReachStair(int k) {\n        return numWays(1, 0, false,k);\n    }\n};",
-    "submit_ts": 1716088683.0
+    "submit_ts": "1716088683",
+    "subm_id": "1261821009"
 }

@@ -1,5 +1,6 @@
 {
     "username": "liuliugit",
     "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        # we want to reach `K`\n        \"\"\"\n        i = 1\n        j = 0\n        # we can do 2 options:\n        \n        1. i - 1, cannot do consecutively\n        2. i + 2^j, j+1\n        \"\"\"\n        memoization = defaultdict(int)\n        return self.dfs(1, 0, False, memoization, k)\n        \n    def dfs(self, current: int, jump: int, downstair: bool, memoization, k: int) -> int:\n        if current + 2**jump > k + 1 and (not downstair and current - 1 > k):\n            return 0\n        \n        key = (current, jump, downstair)\n        if key in memoization:\n            return memoization[key]\n\n        result = 0\n        if current == k:\n            result += 1\n            \n        result += self.dfs(current+2**jump, jump+1, False, memoization, k)\n        if not downstair:\n            result += self.dfs(current-1, jump, True, memoization, k)\n            \n        memoization[key] = result\n        return result",
-    "submit_ts": 1716089039.0
+    "submit_ts": "1716089039",
+    "subm_id": "1261831313"
 }

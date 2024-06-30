@@ -1,5 +1,6 @@
 {
     "username": "mufti",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int> (k + 1, -1e9)), dp2 = dp;\n        unordered_map<int, int> prev;\n        int ans = 0;\n        for (int i = 0; i < n; i++) {\n            dp[i][0] = max(dp[i][0], 1);\n            if (prev.count(nums[i])) {\n                dp[i][0] = max(dp[i][0], 2);\n                int p = prev[nums[i]];\n                if (p != 0) for (int j = 0; j <= k; j++) {\n                    dp[i][j] = max(dp[i][j], dp2[p][j] + 1);\n                }\n            }\n            prev[nums[i]] = i;\n            if (i != 0) for (int j = 1; j <= k; j++) {\n                dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + 1);\n            }\n            dp2[i] = dp[i];\n            if (i != 0) {\n                for (int j = 0; j <= k; j++) dp[i][j] = max(dp[i][j], dp[i - 1][j]);\n            }\n        }\n        return *max_element(dp[n - 1].begin(), dp[n - 1].end());\n    }\n};\nauto nothing = [] () {\n    ios_base::sync_with_stdio(0);\n    cin.tie(0);\n    cout.tie(0);\n    return 0;\n};",
-    "submit_ts": 1717860946.0
+    "submit_ts": "1717860946",
+    "subm_id": "1281774526"
 }

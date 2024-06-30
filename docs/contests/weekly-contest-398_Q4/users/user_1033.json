@@ -1,5 +1,6 @@
 {
     "username": "FighterNanReborn",
     "submission": "class Solution {\npublic:\n  \n  // curr, jump\n  unordered_map<int, unordered_map<int, int>> alg;\n  \n  bool Impossible(int curr, int jump) {\n    if (curr - 1 > k && jump > 3) {\n      return true;\n    }\n    return false;\n  }\n  \n  int Dfs(int curr, int jump) {\n    if (Impossible(curr, jump)) {\n      return 0;\n    }\n    // cout << curr << \",\" << jump << endl;\n    if (alg.count(curr) && alg[curr].count(jump)) {\n      return alg[curr][jump];\n    }\n    alg[curr][jump] = curr == k;\n    alg[curr][jump] += Dfs(curr + (1LL << jump), jump + 1);\n    if (curr > 0) {\n      alg[curr][jump] += Dfs(curr + (1LL << jump) - 1, jump + 1) + ((curr - 1) == k);\n    }\n    return alg[curr][jump];\n  }\n  \n  int k;\n  int waysToReachStair(int k) {\n    this->k = k;\n    return Dfs(1, 0);\n  }\n};",
-    "submit_ts": 1716089509.0
+    "submit_ts": "1716089509",
+    "subm_id": "1261844096"
 }

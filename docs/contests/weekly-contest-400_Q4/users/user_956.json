@@ -1,5 +1,6 @@
 {
     "username": "KaivinC",
     "submission": "class Solution {\npublic:\n    class Container {\n        public:\n        vector<int> rec;\n        int cnt;\n        Container(): rec(31, 0), cnt(0) {};\n    \n        int val() {\n            int ans = 0;\n            for(int i=0;i<31;i++) {\n                if(rec[i] == cnt) {\n                    ans += (1<<i);\n                }\n            }\n            \n            return ans;\n        }\n        \n        void add(int val) {\n            for(int i=0;i<31;i++) {\n                if((val & (1<<i))) {\n                    rec[i]++;\n                }\n            }\n            cnt++;\n        }\n\n        void del(int val) {\n            for(int i=0;i<31;i++) {\n                if((val & (1<<i))) {\n                    rec[i]--;\n                }\n            }\n            cnt--;\n        }\n    };\n\n    int minimumDifference(vector<int>& nums, int k) {\n        Container rec;\n        int n = nums.size();\n        int ans = 1e9;\n        int cur = 1e9;\n        for(int l=0,r=0;r<n;r++) {\n            rec.add(nums[r]);\n            while(l < r && rec.val() < k) {\n                ans = min(abs(rec.val()-k), ans);\n                rec.del(nums[l]);\n                l++;\n            }\n            //cout << l << \" \"<<r<<\" \"<<rec.val()<<endl;\n            ans = min(abs(rec.val()-k), ans);\n        }\n        //cout << endl;\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717299222.0
+    "submit_ts": "1717299222",
+    "subm_id": "1274805399"
 }

@@ -1,5 +1,6 @@
 {
     "username": "sveng101",
     "submission": "from sortedcontainers import SortedSet\nclass Solution:\n    def maxTotalReward(self, rewardValues: List[int]) -> int:\n        rewardValues = sorted(set(rewardValues))\n        mx = rewardValues[-1]\n        if len(rewardValues) == 1: return mx\n        elif rewardValues[-2] == mx - 1: return 2 * mx - 1\n\n        poss = SortedSet([0])\n        res = 0\n        for num in rewardValues:\n            i = poss.bisect_left(num) - 1\n            if i >= 0:\n                res = max(res, num + poss[i])\n            add_lst = []\n            for num2 in poss:\n                if num2 >= num or num + num2 >= mx: break\n                if num + num2 == mx - 1:\n                    return 2 * mx - 1\n                add_lst.append(num + num2)\n            for num2 in add_lst:\n                poss.add(num2)\n        return res",
-    "submit_ts": 1717903028.0
+    "submit_ts": "1717903028",
+    "subm_id": "1282322457"
 }

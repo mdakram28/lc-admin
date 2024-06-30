@@ -1,5 +1,6 @@
 {
     "username": "jogarao_",
     "submission": "class Solution {\npublic:\n    \n    int a[100005];\n    int n;\n    vector<int> b[34];\n\n    \n    int minimumDifference(vector<int>& nums, int k) {\n        \n        n=nums.size();\n        \n        for(int i=0;i<nums.size();i++)\n            a[i+1]=nums[i];\n        \n        \n        for(int j=0;j<=30;j++)\n        b[j].push_back(n+1);\n\n    for(int i=n;i>=1;i--){\n\n        for(int j=30;j>=0;j--){\n            if((a[i]&(1<<j)) ==0)\n                b[j].push_back(i);\n        }\n    }\n\n    // cout<<\"hlo\\n\";\n    // for(int i=0;i<=4;i++)\n    // {\n    //     cout<<\"i is \"<<i<<\" :\";\n    //     for(auto x:b[i])\n    //         cout<<x<<\" \";\n    //     cout<<'\\n';\n    // }\n\n    long long ans=1e9;\n\n    for(int i=1;i<=n;i++){\n        map<int,long long> mp;\n        long long cur=0;\n        for(int j=0;j<=30;j++)\n        {    while(b[j].back()<i)\n                b[j].pop_back();\n            \n            mp[b[j].back()]=mp[b[j].back()] | (1<<j);\n                \n            cur|=(1<<j);\n        }\n\n        for(auto [x,y]:mp){\n            if(x<=n){\n            cur^=y;\n\n            ans=min(ans,abs(cur-k));}\n            \n        }\n\n    }        \nreturn ans;    }\n};",
-    "submit_ts": 1717298827.0
+    "submit_ts": "1717298827",
+    "subm_id": "1274792529"
 }

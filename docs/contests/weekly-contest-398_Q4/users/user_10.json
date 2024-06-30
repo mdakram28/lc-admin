@@ -1,5 +1,6 @@
 {
     "username": "plasmatic",
     "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        LIM = 40\n        f = [1]\n        for i in range(LIM):\n            f.append(f[-1] * (i+1))\n        \n        def c(n, k):\n            return f[n] // f[k] // f[n-k]\n    \n        # print(f'BEGIN {k=}')\n        \n        ans = 0\n        for i in range(-1, LIM):\n            # using jumps 2**0, 2**1, ..., 2**i\n            # can use up to i+2 '-1' jumps\n            init_target = 1 + (2**(i+1) - 1)\n            # print(f'{i=} {init_target=}')\n            if init_target >= k and init_target - k <= i + 2:\n                minus_jumps = init_target - k\n                # total (i+1) power of 2 jumps, (minus_jumps) minus jumps\n                # (i+2) places to choose the minus jumps\n                ans += c(i+2, minus_jumps)\n                # print(f'{minus_jumps=} {c(i+2, minus_jumps)=}')\n        \n        return ans",
-    "submit_ts": 1716086720.0
+    "submit_ts": "1716086720",
+    "subm_id": "1261761098"
 }

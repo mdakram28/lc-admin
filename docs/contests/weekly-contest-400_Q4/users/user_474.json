@@ -1,5 +1,6 @@
 {
     "username": "yuvraj_k",
     "submission": "class Solution {\npublic:\n    \n    int getVal(vector<int>& val){\n        int ans=0;\n        for(int i=0;i<val.size();i++){\n            if(val[i]==0){\n                ans+=(1<<i);\n            }\n        }\n        return ans;\n    }\n    \n    void getAnd(int curr, vector<int>& val){\n        for(int i=0;i<val.size();i++){\n            val[i]+=(curr%2==0);  \n            curr/=2;\n        }\n    }\n    \n    void undoAnd(int curr, vector<int>& val){\n        for(int i=0;i<val.size();i++){\n            val[i]-=(curr%2==0);  \n            curr/=2;\n        }\n    }\n    \n    int minimumDifference(vector<int>& nums, int k) {\n        int i=0, ans=INT_MAX;\n        vector<int> val(31, 0);\n        for(int a=0;a<nums.size();a++){\n            getAnd(nums[a], val);\n            // cout<<i<<\" \"<<a<<\" \"<<getVal(val)<<endl;\n            while(i<=a){\n                int temp=getVal(val);\n                // cout<<i<<\" \"<<temp<<endl;\n                if(temp>k){\n                    break;\n                }\n                ans=min(ans, k-temp);\n                undoAnd(nums[i], val);\n                i++;\n            }\n            if(i<=a){\n                ans=min(ans, getVal(val)-k);\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717298601.0
+    "submit_ts": "1717298601",
+    "subm_id": "1274784744"
 }

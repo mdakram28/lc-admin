@@ -1,5 +1,6 @@
 {
     "username": "anshulagarwal3131",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> dp(n+1,vector<int> (k+1));\n        map<int,vector<int>> ind;\n        for(int i = 0;i<n;i++)\n            ind[nums[i]].push_back(i);\n        map<int,map<int,int>> prefix;\n        int ans = 0;\n        for(int i = n-1;i>=0;i--){\n            for(int j = 0;j<=k;j++){\n                int u = lower_bound(ind[nums[i]].begin(),ind[nums[i]].end(),i)-ind[nums[i]].begin();\n                if(!j){\n                    dp[i][j] = int(ind[nums[i]].size())-u;\n                }\n                else{\n                    prefix[nums[i]][j] = max(prefix[nums[i]][j]+1,1+dp[i+1][j-1]);\n                    dp[i][j] = prefix[nums[i]][j];\n                   \n                }\n                dp[i][j] = max(dp[i][j],dp[i+1][j]);\n                ans = max(ans,dp[i][j]);\n                \n            }\n            // cout<<endl;\n          \n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717862151.0
+    "submit_ts": "1717862151",
+    "subm_id": "1281813895"
 }

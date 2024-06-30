@@ -1,5 +1,6 @@
 {
     "username": "vikasss",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& a, int k) {\n        int n=a.size();\n        k++;\n        vector<int> dp(n + 1), nxt(n+1);\n        unordered_map<int,int> cur;\n        for(auto it:a) cur[it]=n;\n        for(int i = n-1; i>=0; i--)\n            nxt[i] = cur[a[i]], cur[a[i]] = i;\n\n        while(k--) {\n            for(int i = n; i>0; i--)\n                if(dp[i-1]+1>dp[i]) dp[i]=dp[i-1]+1;\n            for(int i = 0; i < n; i++) {\n                if(nxt[i] < n){\n                    if(dp[i+1]+1>dp[nxt[i]+1]) dp[nxt[i]+1]=dp[i+1]+1;\n                }\n                if(dp[i]>dp[i+1]) dp[i+1]=dp[i];\n            }\n        }\n\n        return *max_element(dp.begin(),dp.end());\n    }\n};",
-    "submit_ts": 1717861913.0
+    "submit_ts": "1717861913",
+    "subm_id": "1281805844"
 }

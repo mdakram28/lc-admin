@@ -1,5 +1,6 @@
 {
     "username": "soumiksaha",
     "submission": "class Solution {\npublic:\n    const int MOD = 1e9+7;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        const int MaxInv = 500;\n        unordered_map<long, long> mp;\n        vector<vector<long>> perCnt(n+1, vector<long>(MaxInv+1, 0));\n        \n        for(int i=0; i<requirements.size(); i++) {\n            mp[1+requirements[i][0]] = requirements[i][1];\n        }\n        \n        perCnt[0][0]=1;\n        \n        for(int sz=1; sz<=n; sz++) {\n            for(int inv=0; inv<=MaxInv; inv++) {\n                for(int pos=0; pos<sz; pos++) {\n                    perCnt[sz][inv] = ((inv - pos)>=0) ? (perCnt[sz-1][(inv - pos)] + perCnt[sz][inv]) % MOD : perCnt[sz][inv];\n                }\n            }\n            if(mp.find(sz)!=mp.end()) {\n                for(int inv=0; inv<=MaxInv; inv++) {\n                    perCnt[sz][inv] = (inv==mp[sz]) ? perCnt[sz][inv] : 0;\n                }\n            }\n        }\n        \n        int ans = 0;\n        for(int i=0; i<MaxInv; i++) {\n            ans = (perCnt[n][i] + ans) % MOD;\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1719071976.0
+    "submit_ts": "1719071976",
+    "subm_id": "1296858394"
 }

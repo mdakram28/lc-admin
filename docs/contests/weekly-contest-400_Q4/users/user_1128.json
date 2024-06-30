@@ -1,5 +1,6 @@
 {
     "username": "Wzsssss",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        vector<int> cnt(31);\n        \n        auto get = [&] (int num) {\n            int ans = 0;\n            for (int i = 0; i < 31; i++) {\n                if (cnt[i] == num) {\n                    ans += (1 << i);\n                }\n            }\n            \n            return ans;\n        };\n        \n        int i = 0;\n        int ans = abs(k - nums[0]);\n        for (int j = 0; j < nums.size(); j++) {\n            for (int x = 0; x < 31; x++) {\n                if (nums[j] & (1 << x)) {\n                    cnt[x]++;\n                }\n            }\n            // if (i == 1 && j == 2) cout << get(j - i + 1) << endl;\n            int cur = get(j - i + 1);\n            ans = min(ans, abs(k - cur));\n            while (i < j && cur < k) {\n                for (int x = 0; x < 31; x++) {\n                    if (nums[i] & (1 << x)) {\n                        cnt[x]--;\n                    }\n                }\n                i++;\n                cout << i << ' ' << j << endl;\n                cur = get(j - i + 1);\n                ans = min(ans, abs(k - cur));\n            };\n            cur = get(j - i + 1);\n            ans = min(ans, abs(k - cur));\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717300633.0
+    "submit_ts": "1717300633",
+    "subm_id": "1274850109"
 }

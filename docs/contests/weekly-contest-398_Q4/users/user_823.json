@@ -1,5 +1,6 @@
 {
     "username": "SamChen856",
     "submission": "class Solution:\n    # dfs + memo, time O(logk), space O(logk)\n    def waysToReachStair(self, k: int) -> int:\n        if k == 0:\n            return 2\n        if k == 1:\n            return 4\n\n        @cache\n        def dfs(i, jump, came_down):\n            if i == k:\n                # print(jump, came_down)\n                ways = 1\n                # Go down\n                if i > 0 and not came_down:\n                    ways += dfs(i - 1, jump, True)\n                # Go up\n                ways += dfs(i + (1 << jump), jump + 1, False)\n                return ways\n            \n            if i > 2 * 10**9 + 10:\n                return 0\n\n            ways = 0\n\n            # Go down\n            if i > 0 and not came_down:\n                ways += dfs(i - 1, jump, True)\n\n            # Go up\n            ways += dfs(i + (1 << jump), jump + 1, False)\n\n            return ways\n\n        return dfs(1, 0, False)# + dfs(1, 1, True)\n",
-    "submit_ts": 1716089044.0
+    "submit_ts": "1716089044",
+    "subm_id": "1261831441"
 }

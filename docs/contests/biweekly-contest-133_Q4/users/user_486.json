@@ -1,5 +1,6 @@
 {
     "username": "Fibonacci_lc",
     "submission": "class Solution {\npublic:\n    long long MOD = 1e9+7;\n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        unordered_map<int, int> mp;\n        for (auto r : req) {\n            mp[r[0] + 1] = r[1];\n        }\n\n        vector<vector<long long>> dp(n + 1, vector<long long>(400 + 1, 0));\n        dp[0][0] = 1;\n\n        for (int idx = 1; idx <= n; idx++) {\n            for (int inv = 0; inv <= 400 ;inv++) {\n                for (int nxt = 0; nxt < idx; ++nxt) {\n                    int prevInv = inv - nxt;\n                    if (prevInv >= 0) {\n                        dp[idx][inv] = (dp[idx][inv] + dp[idx - 1][prevInv]) % MOD;\n                    }\n                }\n            }\n\n            if (mp.count(idx)) {\n                int nxtInv = mp[idx];\n                for (int inv = 0; inv <= 400; ++inv) {\n                    if (inv != nxtInv) {\n                        dp[idx][inv] = 0;\n                    }\n                }\n            }\n        }\n\n        long long res = 0;\n        for (auto cnt : dp[n]) {\n            res = (res + cnt) % MOD;\n        }\n\n        return res;\n    }\n};",
-    "submit_ts": 1719070544.0
+    "submit_ts": "1719070544",
+    "subm_id": "1296825693"
 }

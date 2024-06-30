@@ -1,5 +1,6 @@
 {
     "username": "shubham6762",
     "submission": "class Solution\n{\n    vector<int> bfs(int start, vector<vector<int>> &adj)\n    {\n        int n = adj.size();\n        queue<int> q;\n        vector<int> dist(n, -1);\n        dist[start] = 0;\n        int far = start;\n        q.push(start);\n\n        while (!q.empty())\n        {\n            int front = q.front();\n            q.pop();\n            for (int &it : adj[front])\n            {\n                if (dist[it] != -1)\n                    continue;\n\n                dist[it] = 1 + dist[front];\n                q.push(it);\n                if (dist[it] > dist[far])\n                    far = it;\n            }\n        }\n        return {far, dist[far]};\n    }\n\n    int diameter(vector<vector<int>> &e)\n    {\n        int n = e.size() + 1;\n        vector<vector<int>> adj(n);\n        \n        for (auto &edge : e)\n        {\n            adj[edge[0]].push_back(edge[1]);\n            adj[edge[1]].push_back(edge[0]);\n        }\n\n        vector<int> trav1 = bfs(0, adj);\n        vector<int> trav2 = bfs(trav1[0], adj);\n\n        return trav2[1];\n    }\n\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>> &e1, vector<vector<int>> &e2)\n    {\n        int d1 = diameter(e1);\n        int d2 = diameter(e2);\n\n        return max({d1, d2, ((d1 + 1) / 2) + ((d2 + 1) / 2) + 1});\n    }\n};\n",
-    "submit_ts": 1719718772.0
+    "submit_ts": "1719718772",
+    "subm_id": "1304425687"
 }

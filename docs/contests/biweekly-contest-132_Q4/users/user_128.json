@@ -1,5 +1,6 @@
 {
     "username": "Pras28",
     "submission": "from collections import defaultdict\nimport math\nclass Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        track = {}\n        dp = [[1] * (k+1) for _ in range(len(nums))]\n        dp[0][0] = 1\n        for i in range(len(nums)):\n            for j in range(k + 1):\n                if j > 0 and i > 0:\n                    dp[i][j] = max(dp[i][j], dp[i-1][j-1] + 1)\n                if (nums[i], j) in track:\n                    dp[i][j] = max(dp[i][j], track[(nums[i], j)] + 1)\n                    track[(nums[i], j)] = max(track[(nums[i], j)], dp[i][j])\n                else:\n                    track[(nums[i], j)] = dp[i][j]\n                if i > 0:\n                    dp[i][j] = max(dp[i][j], dp[i-1][j])\n        \n        return max(max(dp, key = lambda x: max(x)))",
-    "submit_ts": 1717859698.0
+    "submit_ts": "1717859698",
+    "subm_id": "1281731802"
 }

@@ -1,5 +1,6 @@
 {
     "username": "21691A37002",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        requirements.sort()\n        MOD = 10**9 + 7\n        # Initialize the DP table\n        dp = [[0] * 401 for _ in range(n + 1)]\n        dp[0][0] = 1\n\n        # Initialize the next DP table to apply requirements\n        next_dp = [[0] * 401 for _ in range(n + 1)]\n\n        for length in range(1, n + 1):\n            for inv in range(401):\n                dp[length][inv] = 0\n                for k in range(length):\n                    if inv - k >= 0:\n                        dp[length][inv] = (dp[length][inv] + dp[length - 1][inv - k]) % MOD\n\n            # Apply requirements after filling dp for current length\n            for endi, cnti in requirements:\n                if endi == length - 1:\n                    for inv in range(401):\n                        next_dp[length][inv] = 0\n                    if cnti < 401:\n                        next_dp[length][cnti] = dp[length][cnti]\n                    dp[length] = next_dp[length][:]\n\n        # Result is the number of valid permutations for the entire array\n        return dp[n][requirements[-1][1]]",
-    "submit_ts": 1719068906.0
+    "submit_ts": "1719068906",
+    "subm_id": "1296780628"
 }

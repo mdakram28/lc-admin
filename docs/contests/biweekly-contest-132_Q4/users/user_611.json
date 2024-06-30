@@ -1,5 +1,6 @@
 {
     "username": "Dare2Solve",
     "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar maximumLength = function (nums, k) {\n  const n = nums.length;\n  if (n === 0) return 0;\n  const dp = Array.from({ length: n }, () => Array(k + 1).fill(0));\n  for (let i = 0; i < n; ++i) dp[i][0] = 1;\n\n  let res = 1;\n  for (let j = 0; j <= k; ++j) {\n    var max1 = 1;\n    var map = new Map();\n    map.set(nums[0], 0);\n    for (let i = 1; i < n; ++i) {\n      dp[i][j] = 1;\n      if (i > 0 && j > 0) max1 = Math.max(max1, dp[i - 1][j - 1] + 1);\n      dp[i][j] = Math.max(dp[i][j], max1);\n      if (map.has(nums[i])) {\n        dp[i][j] = Math.max(dp[i][j], dp[map.get(nums[i])][j] + 1);\n      }\n      map.set(nums[i], i);\n      res = Math.max(res, dp[i][j]);\n    }\n  }\n\n  return res;\n};",
-    "submit_ts": 1717862359.0
+    "submit_ts": "1717862359",
+    "subm_id": "1281820903"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Scyther_07",
     "submission": "#define ll long long \nclass Solution {\npublic:\n    int minimumDifference(vector<int>& v, int k) {\n        int n = v.size();\n        vector<vector<int>> pf(n, vector<int>(32));\n        \n        for(int i = 0; i < n; ++i){\n            for(int bit = 0; bit < 32; ++bit){\n                if((v[i] >> bit) & 1) pf[i][bit] = 1;\n                if(i) pf[i][bit] += pf[i - 1][bit];\n            }\n        }\n        \n        auto f = [&](int l, int r) -> ll{\n            if(l < 0) return -1e18;\n            ll ans = 0;\n            for(int i = 0; i < 32; ++i){\n                int cnt = pf[r][i];\n                if(l) cnt -= pf[l - 1][i];\n                if(cnt == r - l + 1) ans |= (1ll << i);\n            }\n            return ans;\n        };\n        \n        ll ans = 1e18; \n        \n        for(int i = 0; i < n; ++i){\n            ll lo = 0, hi = i, mid, temp = i;\n            \n            while(lo <= hi){\n                mid = (lo + hi) / 2;\n                \n                if(f(mid, i) >= k){\n                    hi = mid - 1;\n                    temp = mid;\n                }else{\n                    lo = mid + 1;\n                }\n            }\n            \n            ans = min(ans, abs(k - f(temp, i)));\n            ans = min(ans, abs(k - f(temp - 1, i)));\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717297819.0
+    "submit_ts": "1717297819",
+    "subm_id": "1274756979"
 }

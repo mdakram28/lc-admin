@@ -1,5 +1,6 @@
 {
     "username": "chenreddy0207",
     "submission": "class Solution {\n    \n    int dfs(vector<vector<int>>& Adj, int idx, int parent, int& diameter)\n    {\n        int max_diameter_rooted_here=0;\n        int max_depth=0;\n        \n        for(auto&x:Adj[idx])\n        {\n            if(x==parent)   continue;\n            int val=dfs(Adj, x, idx, diameter);\n            max_diameter_rooted_here=max(max_diameter_rooted_here,val+max_depth);\n            max_depth=max(val,max_depth);\n        }\n        diameter=max(diameter,max_diameter_rooted_here);\n        return max_depth+1;\n    }\n    \n    int findDiameter(vector<vector<int>>& edges)\n    {\n        int n=edges.size()+1;\n        vector<vector<int>> Adj(n);\n        for(auto&e:edges)\n        {\n            int a=e[0];\n            int b=e[1];\n            Adj[a].push_back(b);\n            Adj[b].push_back(a);\n        }\n        \n        int diameter=0;\n        dfs(Adj, 0, -1, diameter);\n        return diameter;\n    }\n    \npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        \n        int a=findDiameter(edges1);\n        int b=findDiameter(edges2);\n        \n        int c=(a+1)/2+(b+1)/2+1;\n        \n        c=max(a,c);\n        c=max(b,c);\n        \n        return c;\n    }\n};",
-    "submit_ts": 1719718108.0
+    "submit_ts": "1719718108",
+    "subm_id": "1304408985"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Assassin003",
     "submission": "class Solution {\npublic:\n    void dfsVisit(vector<vector<int>>& dp, vector<int>& v, int node, int d, int& x, int& ans) {\n        v[node] = d;\n        if (d > ans) {\n            ans = d;\n            x = node;\n        }\n        for (int neighbor : dp[node]) {\n            if (v[neighbor] == -1) {\n                dfsVisit(dp, v, neighbor, d + 1, x, ans);\n            }\n        }\n    }\n    int solve(vector<vector<int>>& dp) {\n        int x = 0;\n        int ans = 0;\n        vector<int> v(dp.size(), -1);\n        dfsVisit(dp, v, 0, 0, x, ans);\n        v.assign(dp.size(), -1);\n        ans = 0;\n        dfsVisit(dp, v, x, 0, x, ans);\n        return ans;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        vector<vector<int>>dp1(edges1.size()+1), dp2(edges2.size()+1);\n        for(int i = 0; i<edges1.size(); i++){\n            dp1[edges1[i][0]].push_back(edges1[i][1]);\n            dp1[edges1[i][1]].push_back(edges1[i][0]);\n        }\n        for(int i = 0; i<edges2.size(); i++){\n            dp2[edges2[i][0]].push_back(edges2[i][1]);\n            dp2[edges2[i][1]].push_back(edges2[i][0]);\n        }\n        return max({solve(dp1), solve(dp2), (1+(solve(dp2)+1)/2 + (solve(dp1)+1)/2)});\n        \n    }\n};",
-    "submit_ts": 1719719382.0
+    "submit_ts": "1719719382",
+    "subm_id": "1304440623"
 }

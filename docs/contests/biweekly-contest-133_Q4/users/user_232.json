@@ -1,5 +1,6 @@
 {
     "username": "ashutosh75",
     "submission": "class Solution {\n    private static final int M = 1_000_000_007;\n\n    public int numberOfPermutations(int n, int[][] r) {\n        Arrays.sort(r, (a, b) -> a[0] - b[0]);\n        long[][] d = new long[n + 1][401];\n        d[0][0] = 1;\n        int x = 0;\n        \n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= 400; j++) {\n                for (int k = 0; k < i; k++) {\n                    int p = j - k;\n                    if (p >= 0 && p <= 400) {\n                        d[i][j] = (d[i][j] + d[i-1][p]) % M;\n                    }\n                }\n            }\n            \n            if (x < r.length && r[x][0] == i - 1) {\n                int y = r[x][1];\n                for (int j = 0; j <= 400; j++) {\n                    if (j != y) {\n                        d[i][j] = 0;\n                    }\n                }\n                x++;\n            }\n        }\n        \n        return (int) d[n][r[r.length - 1][1]];\n    }\n}",
-    "submit_ts": 1719069228.0
+    "submit_ts": "1719069228",
+    "subm_id": "1296790480"
 }

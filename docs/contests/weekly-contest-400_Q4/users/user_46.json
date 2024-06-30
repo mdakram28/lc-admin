@@ -1,5 +1,6 @@
 {
     "username": "jacobj2",
     "submission": "struct SparseTable{\n    vector<vector<int>> table;\n    SparseTable(vector<int> nums){\n        table.resize(nums.size(),vector<int> (20));\n        for (int i = 0; i < nums.size(); i++){\n            table[i][0]=nums[i];\n        }\n        for (int j = 1; j < 20; j++){\n            for (int i = 0; i+(1<<j)<=nums.size();i++){\n                table[i][j]=table[i][j-1]&table[i+(1<<(j-1))][j-1];\n            }\n        }\n    }\n    int query(int left, int right){\n        int length = right-left+1;\n        int bit = 31-__builtin_clz(length);\n        return table[left][bit]&table[right-(1<<bit)+1][bit];\n    }\n};\nclass Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        SparseTable st(nums);\n        int minDiff = INT_MAX;\n        for (int i = 0; i < nums.size(); i++){\n            int lp = i; int rp = nums.size()-1;\n            int ans = INT_MAX;\n            while (lp<=rp){\n                int mid = (lp+rp)>>1;\n                int r = st.query(i,mid);\n                ans = min(ans,abs(k-r));\n                if (r>=k){\n                    lp=mid+1;\n                }\n                else{\n                    rp=mid-1;\n                }\n            }\n            minDiff=min(minDiff,ans);\n        }\n        return minDiff;\n    }\n};",
-    "submit_ts": 1717296165.0
+    "submit_ts": "1717296165",
+    "subm_id": "1274692946"
 }

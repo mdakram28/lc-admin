@@ -1,5 +1,6 @@
 {
     "username": "nemokwy",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        self.maxCount = 0\n        self.x = 0\n        \n        def dfs(v,g,node, c):\n            v[node] = 1\n            if c > self.maxCount:\n                self.maxCount = c\n                self.x = node\n            for i in g[node]:\n                if (v[i] == 0):\n                    dfs(v,g,i, c+1)\n\n        def fe(e):\n            self.maxCount = 0\n            self.x = 0\n            if len(e) == 0:\n                return 0\n            if len(e) == 1:\n                return 1\n            n = len(e) + 1\n            g = defaultdict(list)\n            for u,v in e:\n                g[u].append(v)\n                g[v].append(u)\n            \n            v = [0] * n\n            dfs(v,g, 0, 0)\n            t = self.x\n            # print(t)\n            v = [0] * n\n            self.maxCount = 0\n            dfs(v,g,t, 0)\n            return self.maxCount\n        \n        p,q = fe(edges1) , fe(edges2)\n        a = (p + 1) // 2\n        b = p - a\n        c = (q + 1) // 2\n        d = q - c\n        # print(p,q,a,b,c,d)\n        return max(a+max(b,c+1),c+max(d,a+1))\n            ",
-    "submit_ts": 1719718393.0
+    "submit_ts": "1719718393",
+    "subm_id": "1304416117"
 }

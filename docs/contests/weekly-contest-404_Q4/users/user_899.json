@@ -1,5 +1,6 @@
 {
     "username": "em_priyank",
     "submission": "class Solution {\npublic:\n    int gett(int start, const vector<vector<int>>& adj, int& maxi) {\n\n        int n=adj.size();\n        vector<int> dist(n, -1);\n        queue<int> q;\n        q.push(start);\n        dist[start]=0;\n        int farthest=start;\n\n        while (!q.empty()) {\n            int node=q.front();\n            q.pop();\n            for (auto h:adj[node]) {\n                if (dist[h]==-1) {\n                    dist[h]=dist[node]+1;\n                    q.push(h);\n                    if (dist[h]>maxi) {\n                        maxi=dist[h];\n                        farthest=h;\n                    }\n                }\n            }\n        }\n        return farthest;\n    }\n\n    pair<int, int> geti(const vector<vector<int>>& edges, int n) {\n\n        vector<vector<int>> adj(n);\n        for (auto h:edges) {\n            adj[h[0]].push_back(h[1]);\n            adj[h[1]].push_back(h[0]);\n        }\n\n        int maxi=0;\n        int farthest=gett(0, adj, maxi);\n        maxi=0;\n        int diameter=gett(farthest, adj, maxi);\n        \n        return {maxi,farthest};\n\n    }\n\n    int minimumDiameterAfterMerge(vector<vector<int>>& A, vector<vector<int>>& B) {\n        int n=A.size()+1;\n        int m=B.size()+1;\n\n        auto [a,c1]=geti(A, n);\n        auto [b,c2]=geti(B, m);\n\n        return max((a+1)/2+(b+1)/2+1,max(a, b));\n    }\n};",
-    "submit_ts": 1719718539.0
+    "submit_ts": "1719718539",
+    "subm_id": "1304419775"
 }

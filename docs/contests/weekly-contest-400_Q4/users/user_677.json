@@ -1,5 +1,6 @@
 {
     "username": "anon_11",
     "submission": "class Solution {\n    int make(vector<int>& a, int l, int r, vector<vector<int>>& pref){\n        int n = a.size();\n        int res = 0;\n        for(int j = 0; j < 31; j++){\n            if(pref[r+1][j]-pref[l][j]==r-l+1) res+=(1<<j);\n        }\n        return res;\n    }\npublic:\n    int minimumDifference(vector<int>& a, int k) {\n        int n = a.size();\n        vector<vector<int>> pref(n+1, vector<int>(32, 0));\n        for(int i = 0; i < n; i++){\n            for(int j = 0; j < 31; j++){\n                pref[i+1][j] = pref[i][j]+((a[i]>>j)&1);\n            }\n        }\n        int ans = abs(a[0]-k);\n        for(int i = 0; i < n; i++){\n            int lo = i, hi = n-1, mn = a[i];\n            while(lo<=hi){\n                int mid = (lo+hi)/2;\n                int val = make(a, i, mid, pref);\n                if(val<k) {\n                    hi = mid-1;\n                    ans=min(ans, k-val);\n                } else {\n                    lo = mid+1;\n                    ans=min(ans, val-k);\n                } \n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717298961.0
+    "submit_ts": "1717298961",
+    "subm_id": "1274797190"
 }

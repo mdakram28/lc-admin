@@ -1,5 +1,6 @@
 {
     "username": "_amitk_0091",
     "submission": "#include <iostream>\n#include <unordered_map>\n#include <cmath>\n#include <utility>\n\nusing namespace std;\n\n// Define a hash function for pair<int, pair<int, int>>\nstruct hashFunction {\n    size_t operator()(const pair<int, pair<int, int>> &x) const {\n        return hash<int>()(x.first) ^ hash<int>()(x.second.first) ^ hash<int>()(x.second.second);\n    }\n};\n\nclass Solution {\npublic:\n    unordered_map<pair<int, pair<int, int>>, int, hashFunction> mp;\n    \n    int help(int i, int jump, int pre, int k) {\n        if (i > k + 1) return 0;\n        if (mp.find({i, {jump, pre}}) != mp.end()) return mp[{i, {jump, pre}}];\n        \n        int cnt = 0;\n        if (i == k) cnt++;\n        if (!pre && i != 0) {\n            cnt += help(i - 1, jump, 1, k);\n        }\n        cnt += help(i + (1 << jump), jump + 1, 0, k);\n        \n        return mp[{i, {jump, pre}}] = cnt;\n    }\n    \n    int waysToReachStair(int k) {\n        return help(1, 0, 0, k);\n    }\n};\n\n",
-    "submit_ts": 1716089135.0
+    "submit_ts": "1716089135",
+    "subm_id": "1261834024"
 }

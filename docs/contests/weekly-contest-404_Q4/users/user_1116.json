@@ -1,5 +1,6 @@
 {
     "username": "trentinitaco",
     "submission": "class Solution {\npublic:\n    pair<int,int> dfs(int cur, int prev, vector<vector<int>>& adj){\n        int best = 0; int end = cur;\n        for(int x: adj[cur])\n        {\n            if(x == prev)\n                continue;\n            pair<int, int> p = dfs(x, cur, adj);\n            int len = p.first, curEnd = p.second;\n            if(1+len > best){\n                end = curEnd;\n                best = 1+len;\n            }\n        }\n        return {best, end};\n    }\n    \n    int diam(vector<vector<int>>& edges){\n        vector<vector<int>> adj(edges.size()+1);\n        for(auto& e: edges){\n            adj[e[0]].push_back(e[1]);\n            adj[e[1]].push_back(e[0]);\n        }\n        \n        int c = dfs(0, -1, adj).second;\n        return dfs(c, -1, adj).first;\n        \n    }\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        // connect center of both diameters.\n        int a = diam(edges1);\n        int b = diam(edges2);\n       // cout << a << \" \" << b;\n        return max(max(a, (a+1)/2 + 1 + (b+1)/2), max(b, (b+1)/2 + 1 + (a+1)/2));\n        \n    }\n};",
-    "submit_ts": 1719719642.0
+    "submit_ts": "1719719642",
+    "subm_id": "1304446977"
 }

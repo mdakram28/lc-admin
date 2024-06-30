@@ -1,5 +1,6 @@
 {
     "username": "jtsuited",
     "submission": "from sortedcontainers import SortedList\n\nclass Solution:\n    def countOfPeaks(self, nums: List[int], queries: List[List[int]]) -> List[int]:\n        n = len(nums)\n        peaks = SortedList()\n        \n        for i in range(1, n-1):\n            if nums[i-1] < nums[i] and nums[i] > nums[i+1]:\n                peaks.add(i)\n                \n        def isPeak(i):\n            if i == 0 or i > n-2:\n                return False\n            return nums[i-1] < nums[i] and nums[i] > nums[i+1]\n        \n        def get(i, j):\n            lo = peaks.bisect_left(i+1)\n            hi = peaks.bisect_right(j-1)\n            return max(0, hi-lo)\n                \n        ans = []\n        for t, first, sec in queries:\n            # print((t, first, sec), peaks)\n            if t == 1:\n                # print(first, sec, peaks, get(first, sec))\n                ans.append(get(first, sec))\n            else:\n                i, val = first, sec\n                prev = nums[i]\n                nums[i] = val\n                for idx in (i, i-1, i+1):\n                    if isPeak(idx):\n                        if idx not in peaks:\n                            peaks.add(idx)\n                    elif idx in peaks:\n                        peaks.remove(idx)                                                    \n        return ans\n                ",
-    "submit_ts": 1718508096.0
+    "submit_ts": "1718508096",
+    "subm_id": "1289671562"
 }

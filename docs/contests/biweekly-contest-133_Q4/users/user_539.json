@@ -1,5 +1,6 @@
 {
     "username": "bansAlgos03",
     "submission": "class Solution {\n    static int mod;\n    static int maxi;\n    static Map<Integer, Integer> map;\n    static long[][] perm;\n\n    static void solve(int n){\n        perm[0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= maxi; j++) {\n                for (int temp = 0; temp < i; temp++) {\n                    int prev = j - temp;\n                    if (prev >= 0) {\n                        perm[i][j] = (perm[i][j] + perm[i - 1][prev]) % mod;\n                    }\n                }\n            }\n            if (map.containsKey(i)) {\n                int tar = map.get(i);\n                for (int j = 0; j <= maxi; j++) {\n                    if (j != tar) {\n                        perm[i][j] = 0;\n                    }\n                }\n            }\n        }\n    }\n    public int numberOfPermutations(int n, int[][] nums) {\n        mod=1000000007;\n        maxi=400;\n        map = new HashMap<>();\n        perm = new long[n + 1][maxi + 1];\n        for (int[] arr : nums) map.put(arr[0] + 1, arr[1]);\n        solve(n);\n        long res = 0;\n        for (long i : perm[n]) {\n            res = (res + i) % mod;\n        }\n        return (int) res;\n    }\n}",
-    "submit_ts": 1719070631.0
+    "submit_ts": "1719070631",
+    "subm_id": "1296827880"
 }

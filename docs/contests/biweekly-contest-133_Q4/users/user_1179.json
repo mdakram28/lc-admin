@@ -1,5 +1,6 @@
 {
     "username": "Ashmit-Srivastava",
     "submission": "class Solution {\npublic:\n    static const int MOD = 1e9+7;\n    static const int MAX_INV = 400;\n\n    void setZeroExcept(vector<long long>& arr, int index, int size) {\n        for (int i = 0; i < size; ++i) {\n            if (i != index) {\n                arr[i] = 0;\n            }\n        }\n    }\n\n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n        unordered_map<int, int> m;\n        for (auto& teja : r)\n            m[teja[0] + 1] = teja[1];\n\n        vector<vector<long long>> p(n + 1, vector<long long>(MAX_INV + 1, 0));\n        p[0][0] = 1;\n\n        int l = 1;\n        while (l <= n) {\n            int i = 0;\n            while (i <= MAX_INV) {\n                int j = 0;\n                while (j < l) {\n                    int prevInv = i - j;\n                    if (prevInv >= 0)\n                        p[l][i] = (p[l][i] + p[l - 1][prevInv]) % MOD;\n                    j++;\n                }\n                i++;\n            }\n\n            if (m.count(l)) {\n                int t = m[l];\n                setZeroExcept(p[l], t, MAX_INV + 1);\n            }\n            l++;\n        }\n\n        long long result = 0;\n        for (long long count : p[n])\n            result = (result + count) % MOD;\n\n        return static_cast<int>(result);\n    }\n};",
-    "submit_ts": 1719071941.0
+    "submit_ts": "1719071941",
+    "subm_id": "1296857571"
 }

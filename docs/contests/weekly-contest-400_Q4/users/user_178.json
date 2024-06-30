@@ -1,5 +1,6 @@
 {
     "username": "hrithik_248",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<vector<int>> tp(n,vector<int>(32));\n        int ans=1e9;\n        for(int i=0;i<n;i++){\n            for(int j=0;j<32;j++){\n                if((nums[i]>>j)&1){\n                    tp[i][j]++;\n                }\n                if(i>0){\n                    tp[i][j]+=tp[i-1][j];\n                }\n            }\n            int l=0,h=i;\n            while(l<=h){\n                int mid=(l+h)/2;;\n                int crv=0;\n                for(int j=0;j<32;j++){\n                    int pf=mid==0?0:tp[mid-1][j];\n                    if(tp[i][j]-pf==i-mid+1){\n                        crv|=(1<<j);\n                    }\n                }\n                ans=min(ans,abs(crv-k));\n                if(crv>k){\n                    h=mid-1;\n                }\n                else{\n                    l=mid+1;\n                }\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717297998.0
+    "submit_ts": "1717297998",
+    "subm_id": "1274763641"
 }

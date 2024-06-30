@@ -1,5 +1,6 @@
 {
     "username": "Armaan48",
     "submission": "class Solution {\npublic:\n    int n ;\n    vector<int> rq;\n    static const int mod = 1000000007;\n    vector<vector<long long>>  dp;\n    int solve(int i, int j){\n        if ( i == n ){\n            return 1;\n        }\n        long long &ans = dp[i][j];\n        if (ans  != -1)\n            return ans;\n        ans = 0;\n        if (rq[i] != -1){\n            if (j<=rq[i] and rq[i] - j <= i)\n                ans = solve(i + 1 , rq[i]);\n            return ans;\n            \n        }\n        int rm = 400;\n\n        for (int tv = 0; tv <= min( i ,(rm - j)) ; tv++ )\n            ans = (ans + 1ll*solve( i + 1 , j + tv))%mod;\n        return ans;\n        \n    }\n    int numberOfPermutations(int N, vector<vector<int>>& rqs) {\n        n = N;\n        rq = vector<int> ( n , -1 );\n        dp = vector<vector<long long>>  ( n ,vector<long long>  ( 401, -1));\n        for (auto v: rqs)\n            rq[v[0]] = v[1];\n        return solve(0 , 0);\n        \n    }\n};",
-    "submit_ts": 1719070579.0
+    "submit_ts": "1719070579",
+    "subm_id": "1296826543"
 }

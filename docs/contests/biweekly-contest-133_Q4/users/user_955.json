@@ -1,5 +1,6 @@
 {
     "username": "votrubac",
     "submission": "class Solution {\npublic:\nint dp[301][401] = {};\nint dfs(int i, int j, int inv, vector<vector<int>>& reqs) {\n    if (i < 0)\n        return inv == 0;\n    if (j >= 0 && reqs[j][0] == i) {\n        if (reqs[j][1] != inv)\n            return 0;\n        --j;\n    }\n    if (dp[i][inv] == 0) {\n        int res = 0;\n        for (int k = 0; k <= min(i, inv); ++k) {\n            res = (res + dfs(i - 1, j, inv - k, reqs)) % 1000000007;\n        }\n        dp[i][inv] = res + 1;\n    }\n\n    return dp[i][inv] - 1;\n    \n}\nint numberOfPermutations(int n, vector<vector<int>>& reqs) {\n    sort(begin(reqs), end(reqs));\n    return dfs(n - 1, reqs.size() - 1, reqs.back()[1], reqs);\n}\n};",
-    "submit_ts": 1719071652.0
+    "submit_ts": "1719071652",
+    "subm_id": "1296851316"
 }

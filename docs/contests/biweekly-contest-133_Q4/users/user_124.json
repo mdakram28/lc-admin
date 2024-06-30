@@ -1,5 +1,6 @@
 {
     "username": "prathik8794",
     "submission": "using ll = long long;\nclass Solution {\npublic:\n    map<int, int> mp;\n    const ll mod = 1e9 + 7;\n    ll dp[301][401];\n    ll sm = 0;\n    int f(int i, int K, int n) {\n        if(K > sm) {\n            return 0;\n        }\n      if(i >= n) {\n        return K == sm;\n      }\n        if(dp[i][K] != -1) {\n            return dp[i][K];\n        }\n\n      if(mp.find(i) != mp.end()) {\n        ll need = mp[i] - K;\n        if(need < 0 || need > i) {\n            return dp[i][K] = 0;\n        }\n        return dp[i][K] = f(i + 1, K + need, n);\n      }\n\n\n      ll ans = 0;\n      for(int j = 0; j <= i; ++j) {\n          ans = (ans + f(i + 1, K + j, n)) % mod;\n      }\n      return dp[i][K] = ans;\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        for(auto r : requirements) {\n          mp[r[0]] = r[1];\n          sm = max(sm, (ll)r[1]);\n        }\n        memset(dp, -1, sizeof(dp));\n        return f(0, 0, n);\n    }\n};",
-    "submit_ts": 1719068581.0
+    "submit_ts": "1719068581",
+    "subm_id": "1296770221"
 }

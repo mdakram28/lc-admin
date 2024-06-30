@@ -1,5 +1,6 @@
 {
     "username": "TejasChalke",
     "submission": "class Solution {\n    Map<Integer, Integer>[][] dp;\n    public int waysToReachStair(int k) {\n        dp = new HashMap[35][2];\n        for(int i=0; i<35; i++)\n            for(int j=0; j<2; j++) dp[i][j] = new HashMap<>();\n        \n        return solve(1, k, true, 0);\n    }\n    \n    int solve(int curr, int k, boolean canBack, int step) {\n        if(curr > k + 1) return 0;\n        if(dp[step][canBack ? 1 : 0].containsKey(curr)) return dp[step][canBack ? 1 : 0].get(curr);\n        \n        int ans = curr == k ? 1 : 0;\n        ans += canBack && curr > 0 ? solve(curr - 1, k, false, step) : 0;\n        ans += (1L << step) <= k + 1 ? solve(curr + (1 << step), k, true, step + 1) : 0;\n        \n        dp[step][canBack ? 1 : 0].put(curr, ans);\n        return ans;\n    }\n}",
-    "submit_ts": 1716088139.0
+    "submit_ts": "1716088139",
+    "subm_id": "1261805142"
 }

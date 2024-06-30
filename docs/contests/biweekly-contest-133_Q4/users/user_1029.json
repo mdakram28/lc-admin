@@ -1,5 +1,6 @@
 {
     "username": "mn7k5hk",
     "submission": "class Solution {\npublic:\n    long long int mod = 1e9 + 7;\n    \n    void fill_req(unordered_map<int,int>& dict,vector<vector<int>>& requirements){\n        for(auto cur : requirements){\n            dict[cur[0] + 1] = cur[1];\n        }\n    }\n    \n    long long get_ans(long long count[][401],int n){\n        long long ans = 0;\n        for(int inv=0;inv<=400;inv++){\n            ans = (ans + count[n][inv]) % mod;\n        }\n        return ans;\n    }\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        unordered_map<int,int> dict;\n        fill_req(dict,requirements);\n        \n        long long count[n+1][401]; \n        memset(count, 0, sizeof(count));\n        count[0][0] = 1;\n        \n        for(int len=1;len<=n;len++){\n            for(int inv = 0;inv<=400;inv++){\n                for(int pos=0;pos<len;pos++){\n                    int prev = inv - pos;\n                    if(prev>=0){\n                        count[len][inv] = (count[len][inv] + count[len-1][prev]) % mod;\n                    }\n                }\n            }\n            \n            if(dict.find(len)!= dict.end()){\n                for(int inv=0;inv<=400;inv++){\n                    if(inv!= dict[len]) count[len][inv] = 0;\n                }\n            }\n        }\n        \n        long long ans = 0;\n        ans = get_ans(count,n);\n        return ans;\n    }\n};",
-    "submit_ts": 1719071528.0
+    "submit_ts": "1719071528",
+    "subm_id": "1296848705"
 }

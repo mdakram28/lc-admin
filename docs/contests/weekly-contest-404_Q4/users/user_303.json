@@ -1,5 +1,6 @@
 {
     "username": "mble6125",
     "submission": "class Solution {\n    \npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        vector<vector<int>> next1(edges1.size()+1), next2(edges2.size()+1);\n        for (auto& e : edges1) {\n            next1[e[0]].push_back(e[1]);\n            next1[e[1]].push_back(e[0]);\n        }\n        for (auto& e : edges2) {\n            next2[e[0]].push_back(e[1]);\n            next2[e[1]].push_back(e[0]);\n        }\n        auto a=find(0, next1, 0, -1);\n        auto b=find(0, next2, 0, -1);\n        auto c=find(a.second, next1, 0, -1);\n        auto d=find(b.second, next2, 0, -1);\n        \n        int res=((c.first+1)/2) + ((d.first+1)/2) + 1;\n        \n        return max(res, max(c.first, d.first));\n    }\n    \n    pair<int,int> find(int cur, vector<vector<int>>& next, int d, int pre) {\n        pair<int,int> res={d, cur};\n        for (int x : next[cur]) {\n            if (x==pre) continue;\n            res=max(res, find(x, next, d+1, cur));\n        }\n        return res;\n    }\n};",
-    "submit_ts": 1719718405.0
+    "submit_ts": "1719718405",
+    "subm_id": "1304416399"
 }

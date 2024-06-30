@@ -1,5 +1,6 @@
 {
     "username": "danzhi",
     "submission": "class Solution {\n  public static int waysToReachStair(int k) {\n    // last step is either -1 or +2^jump\n    if (k == 0) {\n      return 2;\n    } else if (k == 1) {\n      return 4;\n    }\n    int ans = 0;\n    Map<Integer, Integer>[] memo = new HashMap[30];\n    for (int i = 0; i < 30; i++) {\n      memo[i] = new HashMap<>();\n    }\n    for (int v = k; v <= k+1; v++) {\n      int H = 32 - Integer.numberOfLeadingZeros(v);\n      // System.out.format(\"  v:%d %s H:%d\\n\", v, Utils.traceBinaryLow(v, H), H);\n      for (int h = H-1; h >= 0; h--) {\n        ans += func(v, h, memo);\n      }\n    }\n    return ans;\n  }\n\n  // Get number of ways to reach k with the last op being plus 2^h\n  public static int func(int k, int h, Map<Integer, Integer>[] memo) {\n    if (k == 0) {\n      return 0;\n    } else if (k == 1) {\n      return h == 0 || h == -1 ? 1 : 0;\n    }\n    int x = k - (1 << h);\n    if (x < 0) {\n      return 0;\n    }\n    // System.out.format(\"  func %3d %d\\n\", k, h);\n    if (memo[h].containsKey(k)) {\n      return memo[h].get(k);\n    }\n    int ans = func(x+1, h-1, memo) + func(x, h-1, memo);\n    memo[h].put(k,  ans);\n    return ans;\n  }\n}",
-    "submit_ts": 1716090147.0
+    "submit_ts": "1716090147",
+    "subm_id": "1261860251"
 }

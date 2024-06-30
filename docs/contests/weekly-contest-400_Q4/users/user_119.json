@@ -1,5 +1,6 @@
 {
     "username": "sshang",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        \n        n = len(nums)\n        d = defaultdict(int)\n        \n        i = 0\n        cur = nums[0]\n        res = abs(k - cur)\n        if res == 0:\n            return 0\n        \n        for bit in range(30):\n            if (nums[0] >> bit) & 1:\n                d[bit] += 1\n        \n        for j in range(1, n):\n            num = nums[j]\n            cur &= num\n            res = min(res, abs(k - cur))\n            if res == 0:\n                return 0\n            \n            for bit in range(30):\n                if (num >> bit) & 1:\n                    d[bit] += 1\n            \n            while cur < k and i < j:\n                cur = 0\n                for bit in range(30):\n                    if (nums[i] >> bit) & 1:\n                        d[bit] -= 1\n                        \n                    if d[bit] == j - i:\n                        cur += 1 << bit\n                        \n                res = min(res, abs(k - cur))\n                if res == 0:\n                    return 0\n                        \n                i += 1\n        return res",
-    "submit_ts": 1717297364.0
+    "submit_ts": "1717297364",
+    "subm_id": "1274739761"
 }

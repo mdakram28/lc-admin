@@ -1,5 +1,6 @@
 {
     "username": "Ankush9140",
     "submission": "class Solution {\n    int mod = (int)(1e9 +7);\n    int max = 400;\n    public int numberOfPermutations(int n, int[][] requirements) {\n        HashMap<Integer,Integer> mpp = new HashMap<>();\n        for(int arr[]:requirements){\n            mpp.put(arr[0]+1,arr[1]);\n        }\n        long dp[][] = new long[n+1][max+1];\n        dp[0][0] = 1;\n        setter(dp,n,mpp);\n        \n        long ans = 0;\n        for(long cnt:dp[n]){\n            ans = (ans+cnt)%mod;\n        }\n        return (int)(ans);\n    }\n    public void setter(long dp[][],int n,HashMap<Integer,Integer> mpp){\n        for(int i =1;i<=n;i++){\n            for(int j=0;j<=max;j++){\n                for(int k=0;k<i;k++){\n                    int prev = j-k;\n                    if(prev>=0){\n                        dp[i][j] = (dp[i][j]+dp[i-1][prev])%mod;\n                    }\n                }\n            }\n            if(mpp.containsKey(i)){\n                int tar = mpp.get(i);\n                for(int j=0;j<=max;j++){\n                    if(j!=tar){\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n    }\n}",
-    "submit_ts": 1719071861.0
+    "submit_ts": "1719071861",
+    "subm_id": "1296855792"
 }

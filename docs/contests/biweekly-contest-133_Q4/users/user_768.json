@@ -1,5 +1,6 @@
 {
     "username": "drstrange_1410",
     "submission": "class Solution {\npublic:\n    long long mod = 1e9 + 7;\n\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        map<int, int> m;\n    for(int i = 0; i < requirements.size();i++){\n        long long a = requirements[i][0] + 1;\n        m[a] = requirements[i][1];\n    }\n        long long sum = 0;\n        for(int i = 0; i < n;i++){\n            sum += i;\n        }\n    \n\n    vector<vector<long long>> v(n + 1, vector<long long>(401, 0));\n    v[0][0] = 1;\n\n    for (int l = 1; l <= n; ++l) {\n        for (int c = 0; c <= 400; ++c) {\n            for (int nP = 0; nP < l; ++nP) {\n                int p = c - nP;\n                if (p >= 0) {\n                    v[l][c] = (v[l][c] + v[l - 1][p]) % mod;\n                }\n            }\n        }\n\n        if (m.count(l)) {\n            int t = m[l];\n            for (int c = 0; c <= 400; ++c) {\n                if (c != t) {\n                    v[l][c] = 0;\n                }\n            }\n        }\n    }\n\n    long long ans = 0;\n    for (long long t : v[n]) {\n        ans = (ans + t) % mod;\n    }\n\n    return ans;\n    }\n};",
-    "submit_ts": 1719071178.0
+    "submit_ts": "1719071178",
+    "subm_id": "1296840864"
 }

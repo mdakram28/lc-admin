@@ -1,5 +1,6 @@
 {
     "username": "Parv__12__",
     "submission": "class Solution {\nprivate:\n    pair<int,int> dfs(int node, vector<bool> &vis, vector<vector<int>> &adj){\n        vis[node] = 1;\n        int dis = 0;\n        int last = node;\n        for(auto it:adj[node]){\n            if(vis[it]) continue;\n            auto p = dfs(it,vis,adj);\n            if(p.second>dis){\n                last = p.first;\n                dis = p.second; \n            }\n        }\n        return {last,dis+1};\n    }\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n = edges1.size()+1;\n        int m = edges2.size()+1;\n        vector<vector<int>> adj1(n),adj2(m);\n        for(auto it:edges1){\n            adj1[it[0]].push_back(it[1]);\n            adj1[it[1]].push_back(it[0]);\n        }\n        for(auto it:edges2){\n            adj2[it[0]].push_back(it[1]);\n            adj2[it[1]].push_back(it[0]);\n        }\n        vector<bool> vis(n,0),vis2(n,0);\n        auto f1 = dfs(0,vis,adj1);\n        auto ans1 = dfs(f1.first,vis2,adj1);\n        \n        vector<bool> vis3(m,0),vis4(m,0);\n        auto f2 = dfs(0,vis3,adj2);\n        auto ans2 = dfs(f2.first,vis4,adj2);\n        //cout<<ans1.second <<\" \"<<ans2.second<<endl;\n        return max((ans1.second/2)+(ans2.second/2)+1,max(ans1.second-1,ans2.second-1));\n    }\n};",
-    "submit_ts": 1719718410.0
+    "submit_ts": "1719718410",
+    "subm_id": "1304416497"
 }

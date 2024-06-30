@@ -1,5 +1,6 @@
 {
     "username": "xhcqup",
     "submission": "struct FT{\n    int n;\n    vector<int> v;\n    FT(int sz):n(sz),v(sz+1){}\n    void add(int p, int x){\n        while(p<=n){\n            v[p]+=x;\n            p+=p&-p;\n        }\n    }\n    int qry(int p){\n        int r=0;\n        while(p){\n            r+=v[p];\n            p-=p&-p;\n        }\n        return r;\n    }\n    int qry(int l, int r){\n        if(r-l<=1) return 0;\n        return qry(r-1)-qry(l);\n    }\n};\nclass Solution {\npublic:\n    vector<int> countOfPeaks(vector<int>& nums, vector<vector<int>>& queries) {\n        vector<int> ans;\n        int n=nums.size();\n        FT ft(n);\n        for(int i=1;i<n-1;i++){\n            if(nums[i]>nums[i-1]&&nums[i]>nums[i+1]) ft.add(i+1,1);\n        }\n        auto ck=[&](int i)->int{\n            if (i>0&&i<n-1&&nums[i]>nums[i-1]&&nums[i]>nums[i+1]) return 1;\n            return 0;\n        };\n        for(auto &v:queries){\n            if(v[0]==1) ans.push_back(ft.qry(v[1]+1,v[2]+1));\n            else {\n                int i=v[1],x=v[2],y[3];\n                for(int j=-1;j<=1;j++) y[j+1]=ck(i+j);\n                nums[i]=x;\n                for(int j=-1;j<=1;j++){\n                    int d=ck(i+j)-y[j+1];\n                    if(d!=0) ft.add(i+j+1, d);\n                }\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1718507244.0
+    "submit_ts": "1718507244",
+    "subm_id": "539780138"
 }

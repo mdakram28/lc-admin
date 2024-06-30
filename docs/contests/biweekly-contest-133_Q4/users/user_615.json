@@ -1,5 +1,6 @@
 {
     "username": "khaledlabeb552",
     "submission": "class Solution {\npublic:\n   \n    int numberOfPermutations(int n, vector<vector<int>>& re) {\n       const int MOD = 1e9 + 7;\n        const int MAX_INV  = 400;\n        map<int,int>mp;\n        for(auto &val:re)mp[val[0] + 1] = val[1];\n        vector<vector<long long>>dp(n + 1, vector<long long>(MAX_INV + 1));\n        dp[0][0] = 1;\n        for(int i = 1 ;i <= n;i++){\n            for(int j = 0;j<=MAX_INV;j++){\n                for(int pos = 0;pos<i;pos++){\n                    int prevInv = j - pos;\n                    if(prevInv >= 0){\n                        dp[i][j] = (dp[i][j] + dp[i - 1][prevInv]) % MOD;\n                    }\n                }\n            }\n            if(mp.count(i)){\n                for(int inv = 0;inv <= MAX_INV;inv++){\n                    if(inv != mp[i]){\n                        dp[i][inv] = 0;\n                    }\n                }\n            }\n        }\n        long long res = 0;\n        for(auto &val:dp[n])res = (res + val) % MOD;\n        return res;\n    }\n};",
-    "submit_ts": 1719070500.0
+    "submit_ts": "1719070500",
+    "subm_id": "1296824603"
 }

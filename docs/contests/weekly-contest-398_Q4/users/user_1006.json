@@ -1,5 +1,6 @@
 {
     "username": "s0oraj",
     "submission": "class Solution {\n    HashMap<Integer, HashMap<Integer, HashMap<Integer, Integer>>> memo;\n\n    int calculateWays(int destination, int currentPosition, int stepSize, int canDescend) {\n        if (currentPosition > destination + 5)\n            return 0;\n\n        if (stepSize > 31)\n            return 0;\n\n        if (memo.containsKey(currentPosition) && memo.get(currentPosition).containsKey(stepSize) && memo.get(currentPosition).get(stepSize).containsKey(canDescend))\n            return memo.get(currentPosition).get(stepSize).get(canDescend);\n\n        int result = (currentPosition == destination) ? 1 : 0;\n        if (canDescend == 1)\n            result += calculateWays(destination, currentPosition - 1, stepSize, 0);\n        if (currentPosition + (1 << stepSize) <= destination + 1)\n            result += calculateWays(destination, currentPosition + (1 << stepSize), stepSize + 1, 1);\n\n        memo.putIfAbsent(currentPosition, new HashMap<>());\n        memo.get(currentPosition).putIfAbsent(stepSize, new HashMap<>());\n        memo.get(currentPosition).get(stepSize).put(canDescend, result);\n\n        return result;\n    }\n\n    public int waysToReachStair(int destination) {\n        memo = new HashMap<>();\n        return calculateWays(destination, 1, 0, 1);\n    }\n}\n",
-    "submit_ts": 1716089738.0
+    "submit_ts": "1716089738",
+    "subm_id": "1261850048"
 }

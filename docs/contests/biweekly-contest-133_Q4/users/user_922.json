@@ -1,5 +1,6 @@
 {
     "username": "Satyavrat_07",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        const long long  mod=1e9+7;\n        long long dp[n+2][405];\n        memset(dp,0,sizeof(dp));\n        dp[0][0]=1;\n        \n        \n        map<int,int>mp;\n        for(auto it:req){\n            mp[it[0]+1]=it[1];\n        }\n        for(int i=1;i<=n;i++)\n        {\n            for(int j=0;j<=400;j++)\n            {\n                for(int k=0;k<i;k++)\n                {\n                    int xx=j-k;\n                    if(xx>=0)\n                    {\n                        dp[i][j]=(dp[i][j]+dp[i-1][xx])%mod;\n                    }\n                }\n            }\n            if(mp.count(i)){\n                int xx=mp[i];\n                for(int j=0;j<=400;j++)\n                {\n                    if(j!=xx)dp[i][j]=0;\n                }\n            }\n        }\n        \n        int ans=0;\n        for(int j=0;j<=400;j++){\n            ans+=dp[n][j];\n            ans%=mod;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1719070656.0
+    "submit_ts": "1719070656",
+    "subm_id": "1296828476"
 }

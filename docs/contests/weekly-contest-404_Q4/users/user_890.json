@@ -1,5 +1,6 @@
 {
     "username": "Keetode",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        res = 0\n        def calc(edges):\n            nonlocal res\n            nodes = len(edges) + 1\n            path = [set() for _ in range(nodes)]\n            for l, r in edges:\n                path[l].add(r)\n                path[r].add(l)\n\n            lvl = 0\n\n\n            q = deque()\n            for i in range(len(edges) + 1):\n                if len(path[i]) == 1:\n                    q.append(i)\n                    \n            while nodes > 2 and q:\n                amount = len(q)\n                for i in range(amount):\n                    pos = q.popleft()\n\n                    for nb in path[pos]:\n                        path[nb].remove(pos)\n                        if len(path[nb]) == 1:\n                            q.append(nb)\n                    path[pos].clear()\n\n\n                nodes -= amount\n                lvl += 1\n\n            res = max(res, lvl*2 + nodes//2)\n\n            return lvl if nodes == 1 else lvl+1\n\n        v1 = calc(edges1)\n        v2 = calc(edges2)\n        return max(res, v1+1+v2)",
-    "submit_ts": 1719719023.0
+    "submit_ts": "1719719023",
+    "subm_id": "1304431863"
 }

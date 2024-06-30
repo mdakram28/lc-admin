@@ -1,5 +1,6 @@
 {
     "username": "thesycat",
     "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        last = defaultdict(int)\n        next_same = [None for i in range(len(nums))]\n        for i in reversed(range(len(nums))):\n            if nums[i] in last:\n                next_same[i] = last[nums[i]]\n            last[nums[i]] = i\n            \n        last = defaultdict(int)\n        prev_same = [None for i in range(len(nums))]\n        for i in range(len(nums)):\n            if nums[i] in last:\n                prev_same[i] = last[nums[i]]\n            last[nums[i]] = i\n            \n        best_for_transitions = [0 for i in range(k+1)]\n        dp = [[1 for i in range(k+1)] for j in range(len(nums))]\n        for i in reversed(range(len(nums))):\n            #TRANSITION\n            for j in range(k):\n                dp[i][j+1] = max(dp[i][j+1], best_for_transitions[j]+1)\n            #NOTRANSITION\n            if next_same[i] is not None:\n                ns = next_same[i]\n                for j in range(k+1):\n                    dp[i][j] = max(dp[i][j], 1+dp[ns][j])\n            for j in range(k+1):\n                best_for_transitions[j] = max(best_for_transitions[j], dp[i][j])\n        \n        return max(best_for_transitions)\n    \n            ",
-    "submit_ts": 1717859363.0
+    "submit_ts": "1717859363",
+    "subm_id": "1281719725"
 }

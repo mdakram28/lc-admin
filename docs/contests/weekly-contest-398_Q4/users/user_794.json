@@ -1,5 +1,6 @@
 {
     "username": "Nelson84",
     "submission": "class Solution {\n    int k;\n    int MAX_JUMP;\n    unordered_map<int, unordered_map<int, unordered_map<int, int>>> memo;\npublic:\n    int waysToReachStair(int k) {\n        this->k = k;\n        for(int i=0; i<=30; i++){\n            long long max_back = -(i+1) + (1<<(i)) - 1;\n            if(1+max_back<=k) MAX_JUMP = i;\n            else break;\n        }\n        //printf(\"k:%d jump:%d\\n\", k, MAX_JUMP);\n        return helper(1, 0, false);\n    }\n    int helper(int pos, int jump, bool prev_go_back){\n        if(jump>MAX_JUMP) return 0;\n        if(memo.find(pos)!=memo.end() && memo[pos].find(jump)!=memo[pos].end() && memo[pos][jump].find(prev_go_back)!=memo[pos][jump].end()){\n            return memo[pos][jump][prev_go_back];\n        }\n        int cnt = (pos==k);\n        if(pos==0 || prev_go_back){\n            cnt += helper(pos+(1<<jump), jump+1, false);\n        }\n        else{\n            cnt += helper(pos+(1<<jump), jump+1, false);\n            cnt += helper(pos-1, jump, true);\n        }\n        memo[pos][jump][prev_go_back] = cnt;\n        return cnt;\n    }\n};",
-    "submit_ts": 1716088651.0
+    "submit_ts": "1716088651",
+    "subm_id": "1261820125"
 }

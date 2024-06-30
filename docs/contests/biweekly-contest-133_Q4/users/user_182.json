@@ -1,5 +1,6 @@
 {
     "username": "kasinathansj",
     "submission": "class Solution {\n    int mod = (int)1e9+7;\n    public int numberOfPermutations(int n, int[][] re) {\n        int arr[] = new int[n];\n        Arrays.fill(arr,-1);\n        for(int i = 0 ; i < re.length ; i++){\n            arr[re[i][0]] = re[i][1];\n        }\n        int dp[][] = new int[n][arr[n-1]+1];\n        for(int a[] : dp)Arrays.fill(a,-1);\n        return rec(arr[n-1],n-1,arr,dp);\n    }\n    private int rec(int req , int i , int arr[] , int dp[][]){\n        if(i==-1){   \n            if(req==0)return 1;\n            else return 0;\n        }\n        if(dp[i][req]!=-1)return dp[i][req];\n        int no = i+1;\n        int ans = 0;\n        if(arr[i]==-1){\n            for(int e = 0 ; e < Math.min(req+1 , no) ; e++){\n                ans += rec(req-e,i-1,arr,dp);\n                ans %= mod;\n            }\n        }else{\n            if(req<arr[i])return 0;\n            if(req>arr[i])return 0;\n            for(int e = 0 ; e < Math.min(req+1 , no) ; e++){\n                ans += rec(req-e,i-1,arr,dp);\n                ans %= mod;\n            }\n        }\n        return dp[i][req] = ans;\n    }\n}",
-    "submit_ts": 1719069404.0
+    "submit_ts": "1719069404",
+    "subm_id": "1296795611"
 }

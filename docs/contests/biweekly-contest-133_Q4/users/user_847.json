@@ -1,5 +1,6 @@
 {
     "username": "alphaviking",
     "submission": "// class Solution {\n// public:\n//     int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n      // import java.util.*;\n\nclass Solution {\n    public:\n   const int md = 1e9+7;\nconst int maxi = 400;\n\nint numberOfPermutations(int n, vector<vector<int>>& req) {\n    map<int, int> mp;\n    vector<vector<long long>> dp(n + 1, vector<long long>(maxi + 6, 0));\n    dp[0][0] = 1;\n    for ( auto x : req) {\n        mp[x[0] + 1] = x[1];\n    }\n    int sum=0;\nfor (int i = 1; i<= n; ++i) {\n        for (int cnt = 0; cnt <= maxi; ++cnt) {\n             sum =0;\n            for (int Pos = 0; Pos < i; ++Pos) {\n                // int ind = s;\n                sum+= cnt - Pos;\n                if (cnt - Pos >= 0) {\n                    dp[i][cnt] = (dp[i][cnt] + dp[i - 1][cnt - Pos]) % md;\n                }\n            }\n        }\n    \n\n    \n\n        if (mp.count(i)) {\n            int val = mp[i];\n            for (int inv = 0; inv <= maxi; ++inv) {\n                if (inv != val) {\n                    dp[i][inv] = 0;\n                }\n            }\n        }\n    }\nif(sum){\n    // do nothing\n}\n    long long val = 0;\n    for (long long cnt : dp[n]) {\n        val = (val + cnt) % md;\n    }\n\n    return static_cast<int>(val);\n}\n};",
-    "submit_ts": 1719071369.0
+    "submit_ts": "1719071369",
+    "subm_id": "1296845200"
 }

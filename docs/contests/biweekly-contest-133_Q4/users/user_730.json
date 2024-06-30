@@ -1,5 +1,6 @@
 {
     "username": "Rahul_Me_Gupta",
     "submission": "class Solution {\n\npublic:\n\nconst int mod = (int)1e9+7;\n\n const int m = 400;\n\n    int numberOfPermutations(int n, vector<vector<int>>& pp) {\n\n        \n\n        map<int, int>map;\n\n        for (auto& a : pp) {\n\n            map[a[0] + 1] = a[1];\n\n        }\n\n        vector<vector<long long int>> pq(n + 1, vector<long long int>( m + 1, 0));\n\n        pq[0][0] = 1;\n\n        for (int l = 1; l <= n; l++) {\n\n            for (int i = 0; i <= m; i++) {\n\n                for (int p = 0; p < l; p++) {\n\n                    int pi = i - p;\n\n                    if (pi >= 0) {\n\n                        pq[l][i] = (pq[l][i] + pq[l - 1][pi]) %mod;\n\n                    }\n\n                }\n\n            }\n\n            if (map.count(l)) {\n\n                int ti = map[l];\n\n                for (int i= 0; i <= m; i++) {\n\n                    if (i != ti) {\n\n                        pq[l][i] = 0;\n\n                    }\n\n                }\n\n            }\n\n        }\n\n        long long int ans = 0;\n\n        for (auto lm: pq[n]) {\n\n            ans = (ans + lm) % mod;\n\n        }\n\n        return ans*1LL;\n\n    }\n\n};\n\n\n        \n\n",
-    "submit_ts": 1719071100.0
+    "submit_ts": "1719071100",
+    "subm_id": "1296839085"
 }

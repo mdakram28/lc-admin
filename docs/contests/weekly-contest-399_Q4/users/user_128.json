@@ -1,5 +1,6 @@
 {
     "username": "funsquared",
     "submission": "MOD = 10 ** 9 + 7\n\nclass SegmentTree:\n    def __init__(self, a):\n        self.base = 1\n        while self.base < len(a):\n            self.base *= 2\n        self.tree = [[[0] * 2 for _ in range(2)] for _ in range(self.base * 2)]\n        for i, x in enumerate(a):\n            self.tree[self.base + i][0][0] = x\n        for i in range(self.base - 1, 0, -1):\n            self._update(i)\n\n    def set(self, i, x):\n        i += self.base\n        self.tree[i][0][0] = x\n        i //= 2\n        while i >= 1:\n            self._update(i)\n            i //= 2\n            \n    def _update(self, i):\n        for r in range(2):\n            for l in range(2):\n                self.tree[i][l][r] = max(\n                    self.tree[2 * i][l][1]+self.tree[2 * i + 1][1][r],\n                    self.tree[2 * i][l][0]+self.tree[2 * i + 1][1][r],\n                    self.tree[2 * i][l][1]+self.tree[2 * i + 1][0][r])\n\n\nclass Solution:\n    def maximumSumSubsequence(self, nums: List[int], queries: List[List[int]]) -> int:\n        nums = SegmentTree([max(0, x) for x in nums])\n        res = 0\n        for pos, x in queries:\n            nums.set(pos, max(0, x))\n            res += max(nums.tree[1][l][r] for l in range(2) for r in range(2))\n            res %= MOD\n        return res\n        ",
-    "submit_ts": 1716694612.0
+    "submit_ts": "1716694612",
+    "subm_id": "1268120378"
 }

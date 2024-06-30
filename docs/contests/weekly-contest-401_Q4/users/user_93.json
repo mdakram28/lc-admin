@@ -1,5 +1,6 @@
 {
     "username": "shchen527",
     "submission": "class Solution {\npublic:\n    bool find(int ulim, vector<int>& r, unordered_map<int, bool>& visited) {\n        if (ulim == 0)\n            return true;\n\n        if (visited.count(ulim))\n            return visited[ulim];\n\n        if (binary_search(r.begin(), r.end(), ulim)) {\n            visited[ulim] = true;\n            return true;\n        }\n\n        auto rit = upper_bound(r.begin(), r.end(), ulim);\n        auto lit = lower_bound(r.begin(), r.end(), ulim / 2 + 1);\n\n        for (auto it = lit; it != rit; ++it) {\n            if (find(ulim - *it, r, visited)) {\n                visited[ulim] = true;\n                return true;\n            }\n        }\n\n        visited[ulim] = false;\n        return false;\n    }\n\n    int maxTotalReward(vector<int>& rewardValues) {\n        int n = rewardValues.size();\n\n        sort(rewardValues.begin(), rewardValues.end());\n        int ans = rewardValues[n - 1];\n\n        unordered_map<int, bool> visited;\n        for (int ulim = rewardValues[n - 1] - 1; ulim > 0; --ulim) {\n            if (find(ulim, rewardValues, visited)) {\n                return ans + ulim;\n            }\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": 1717903527.0
+    "submit_ts": "1717903527",
+    "subm_id": "1282336412"
 }

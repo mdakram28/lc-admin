@@ -1,5 +1,6 @@
 {
     "username": "mble6125",
     "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& r) {\n        sort(r.begin(), r.end());\n        vector<int> r2={r[0]};\n        \n        for (int i=1; i<r.size(); ++i) {\n            if (r[i]==r[i-1]) continue;\n            r2.emplace_back(r[i]);\n        }\n        \n        swap(r, r2);\n        \n        int n=r.size(), res=0;\n        vector<bool> temp(r.back()*2+1);\n        temp[0]=true;\n        \n        for (int i=1; i<=temp.size(); ++i) {\n            int l=0, t=n-1;\n            int j=(i>>1);\n            while(l<=t) {\n                int mid=(l+t)>>1;\n                if (r[mid]<=j) l=mid+1;\n                else t=mid-1;\n            }\n            if (l==r.size()) break;\n            \n            for (int k=l; k<n; ++k) {\n                if (r[k]>i) break;\n                if (temp[i-r[k]]==true) {\n                    temp[i]=true;\n                    res=i;\n                    break;\n                }\n            }\n            \n        }\n        \n        return res;\n    }\n};\n",
-    "submit_ts": 1717904363.0
+    "submit_ts": "1717904363",
+    "subm_id": "1282359675"
 }

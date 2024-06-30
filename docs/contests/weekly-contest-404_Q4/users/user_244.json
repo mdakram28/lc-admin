@@ -1,5 +1,6 @@
 {
     "username": "skyinde2",
     "submission": "\n\ndef get_min_radius(edges: List[List[int]]) -> (int, int):\n    n = len(edges) + 1\n    neighbor = [[] for _ in range(n)]\n    for edge in edges:\n        neighbor[edge[0]].append(edge[1])\n        neighbor[edge[1]].append(edge[0])\n\n    visited = [False] * n\n    depth = [0] * n\n\n    def search(i: int):\n        visited[i] = True\n        for j in neighbor[i]:\n            if not visited[j]:\n                search(j)\n                depth[i] = max(depth[i], depth[j] + 1)\n\n    search(0)\n\n    visited = [False] * n\n\n    def dfs(i: int, dist: int) -> (int, int):\n        visited[i] = True\n        max_d = 0\n        max_j = -1\n\n        for j in neighbor[i]:\n            if not visited[j]:\n                if depth[j] + 1 > max_d:\n                    max_d = depth[j] + 1\n                    max_j = j\n\n        if dist + 1 >= max_d:\n            return max(dist, max_d), dist + max_d\n\n        for j in neighbor[i]:\n            if not visited[j] and j != max_j:\n                dist = max(dist, depth[j] + 1)\n\n        if dist + 1 >= max_d:\n            return max(dist, max_d), dist + max_d\n\n        return dfs(max_j, dist + 1)\n\n    return dfs(0, 0)\n\n\nclass Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        r1, d1 = get_min_radius(edges1)\n        r2, d2 = get_min_radius(edges2)\n        return max(d1, d2, r1 + r2 + 1)\n",
-    "submit_ts": 1719718053.0
+    "submit_ts": "1719718053",
+    "subm_id": "1304407577"
 }

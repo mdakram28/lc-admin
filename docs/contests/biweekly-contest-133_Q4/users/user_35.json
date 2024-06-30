@@ -1,5 +1,6 @@
 {
     "username": "qqwrv",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n        constexpr static int kMod = 1e9 + 7;\n\n        std::vector<int> c_at(n, -1);\n        int final_cnt;\n        for (auto v: r) {\n            int e = v[0];\n            int c = v[1];\n\n            c_at[e] = c;\n        }\n\n        constexpr static int kMaxInv = 400;\n        std::vector<std::vector<int>> dp(n, std::vector<int>(kMaxInv + 1, 0));\n        dp[0][0] = 1;\n\n        for (int i = 1; i < n; ++i) {\n            for (int j = 0; j <= kMaxInv; ++j) {\n                if (c_at[i - 1] != -1 && c_at[i - 1] != j)\n                    continue;\n\n                for (int add = 0; add <= i ; ++add) {\n                    if (j + add <= kMaxInv && (c_at[i] == -1 || c_at[i] == j + add)) {\n                        dp[i][j + add] += dp[i - 1][j];\n                        dp[i][j + add] %= kMod;\n                    }\n                }\n            }\n        }\n\n        return dp[n - 1][c_at[n - 1]];\n    }\n};",
-    "submit_ts": 1719067655.0
+    "submit_ts": "1719067655",
+    "subm_id": "1296734699"
 }

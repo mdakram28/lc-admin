@@ -1,5 +1,6 @@
 {
     "username": "ishaansjpr",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int m = 1000000007;\n        int maxy = 400;\n        unordered_map<int, int> mappy;\n        for (auto& i : requirements) {\n            mappy[i[0] + 1] = i[1]; \n        }\n\n        vector<vector<long long>> permCounts(n + 1, vector<long long>(maxy + 1, 0));\n        permCounts[0][0] = 1;\n        long long res = 0;\n        for (int i = 1; i <= n; i++) {\n            for (int inv = 0; inv <= i * (i - 1) / 2 && inv <= maxy; inv++) {\n                for (int newPos = 0; newPos < i; newPos++) {\n                    int prevInv = inv - newPos;\n                    if (prevInv >= 0) {\n                        permCounts[i][inv] = (permCounts[i][inv] + permCounts[i - 1][prevInv]) % m;\n                    }\n                }\n            }\n            if (mappy.find(i) != mappy.end()) {\n                int targetInv = mappy[i];\n                for (int inv = 0; inv <= i * (i - 1) / 2 && inv <= maxy; inv++) {\n                    if (inv != targetInv) {\n                        permCounts[i][inv] = 0;\n                    }\n                }\n            }\n        }\n        for (int inv = 0; inv <= maxy; inv++) {\n            res = (res + permCounts[n][inv]) % m;\n        }\n        int finally = (int) res;\n        return finally;\n    }\n};",
-    "submit_ts": 1719071950.0
+    "submit_ts": "1719071950",
+    "subm_id": "1296857788"
 }

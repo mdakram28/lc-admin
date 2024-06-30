@@ -1,5 +1,6 @@
 {
     "username": "sudhanshu1182",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int res = 1;\n        vector<int> vec(k + 1, -1);\n        vector<map<int, int>> mp(k + 1);      \n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j <= k; j++) {\n                for (int p = 0; p < j; p++) {\n                    dp[i][j] = max(dp[i][j], 1 + vec[p]);\n                }\n\n                if (mp[j].find(nums[i]) != mp[j].end()) {\n                    dp[i][j] = max(dp[i][j], 1 + mp[j][nums[i]]);\n                }\n\n                res = max(res, dp[i][j]);\n            }\n\n            for (int j = 0; j <= k; j++) {\n                vec[j] = max(vec[j], dp[i][j]);\n                mp[j][nums[i]] = max(mp[j][nums[i]], dp[i][j]);\n            }\n        }\n\n        return res;\n    }\n};",
-    "submit_ts": 1717861681.0
+    "submit_ts": "1717861681",
+    "subm_id": "1281798821"
 }

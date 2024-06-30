@@ -1,5 +1,6 @@
 {
     "username": "saurabhsingh742003",
     "submission": "class Solution {\n    \npublic:\n    void solve(){\n        \n    }\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        const int M = 1000000007;\n        const int inver= 400;\n        map<int, int> mp;\n        for (auto& v : requirements) {\n            mp[v[0] + 1] = v[1];\n        }\n        int k = 0;\n        vector<vector<long>> arr(n + 1, vector<long>(inver + 1, 0));\n        arr[0][0] = 1;\n        for (int len = 1; len <= n; len++) {\n            for (int inv = 0; inv <= inver; inv++) {\n                for (int pos = 0; pos < len; pos++) {\n                    int prevInv = inv - pos;\n                    if (prevInv >= 0) {\n                        arr[len][inv] = (arr[len][inv] + arr[len - 1][prevInv]) % M;\n                    }\n                    else continue;\n                }\n            }\n            if (mp.count(len)) {\n                int goal = mp[len];\n                for (int i = 0; i <= inver; i++) {\n                    if (i != goal) {\n                        arr[len][i] = 0;\n                    }\n                }\n            }\n        }\n        solve();\n        long long ans = 0;\n        for (long i : arr[n]) {\n            ans = (ans + i) % M;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1719070852.0
+    "submit_ts": "1719070852",
+    "subm_id": "1296833279"
 }

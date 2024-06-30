@@ -1,5 +1,6 @@
 {
     "username": "dekail",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        res = inf\n        current = -1\n\n        n = len(nums)\n        left = 0\n        count = Counter()\n        \n        for right in range(n):\n\n            current &= nums[right]\n\n            for idx in range(30):\n                b = (nums[right] >> idx) & 1\n                if b:\n                    count[idx] += 1\n                    \n            res = min(res, abs(k - current))\n            \n            while current < k:\n                for idx in range(30):\n                    b = (nums[left] >> idx) & 1\n                    if b:\n                        count[idx] -= 1\n                        \n                    if count[idx] == right - left:\n                        current |= (1 << idx)\n                res = min(res, abs(k - current))\n                left += 1\n                \n        \n        return res",
-    "submit_ts": 1717297569.0
+    "submit_ts": "1717297569",
+    "subm_id": "1274747583"
 }

@@ -1,5 +1,6 @@
 {
     "username": "rohinth076",
     "submission": "class Solution {\n    int process(int[] a,int val,int x,int size,int n){\n        int sum = 0;\n        for(int i=0;i<size;i++){\n            if((val&(1<<i)) != 0){\n                a[i] += x;\n            }\n            if(a[i] == n){\n                sum |= (1<<i);\n            }\n        }\n        return sum;\n    }\n    public int minimumDifference(int[] nums, int k) {\n        int bitSize = 30;\n        int[] bit = new int[bitSize];\n        int ans = Integer.MAX_VALUE;\n        int n = nums.length;\n        int cur = process(bit,nums[0],1,bitSize,1);\n        ans = Math.abs(cur-k);\n        for(int i=1,j=0;i<n;i++){\n            cur = process(bit,nums[i],1,bitSize,i-j + 1);\n            ans = Math.min(ans,Math.abs(k-cur));\n            while(i != j && cur < k){\n                cur = process(bit,nums[j],-1,bitSize,i-j);\n                ans = Math.min(ans,Math.abs(k-cur));\n                j++;\n            }\n        }\n        return ans;\n    }\n}",
-    "submit_ts": 1717297381.0
+    "submit_ts": "1717297381",
+    "subm_id": "1274740420"
 }

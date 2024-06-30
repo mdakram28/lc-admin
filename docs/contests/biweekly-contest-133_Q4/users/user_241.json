@@ -1,5 +1,6 @@
 {
     "username": "Cmes",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        const int MOD = 1e9 + 7;\n        vector<int> req(n, -1);\n        for (const auto& r : requirements) {\n            req[r[0]] = r[1];\n        }\n        \n        vector<vector<long long>> dp(n + 1, vector<long long>(n * (n - 1) / 2 + 1, 0));\n        dp[0][0] = 1;\n        \n        vector<long long> prefixSum(n * (n - 1) / 2 + 1, 0);\n        \n        for (int i = 1; i <= n; i++) {\n            prefixSum[0] = dp[i-1][0];\n            for (int j = 1; j <= i * (i - 1) / 2; j++) {\n                prefixSum[j] = (prefixSum[j-1] + dp[i-1][j]) % MOD;\n            }\n            \n            for (int j = 0; j <= i * (i - 1) / 2; j++) {\n                int left = max(0, j - (i - 1));\n                dp[i][j] = (prefixSum[j] - (left > 0 ? prefixSum[left-1] : 0) + MOD) % MOD;\n                \n                if (req[i-1] != -1 && j != req[i-1]) {\n                    dp[i][j] = 0;\n                }\n            }\n        }\n        \n        return dp[n][req[n-1]];\n    }\n};",
-    "submit_ts": 1719069566.0
+    "submit_ts": "1719069566",
+    "subm_id": "1296800290"
 }

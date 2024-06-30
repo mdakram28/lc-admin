@@ -1,5 +1,6 @@
 {
     "username": "Balakrishna_Prasad",
     "submission": "from collections import defaultdict\n\nclass Tree:\n    def __init__(self):\n        self.best = 0\n        self.node = 0\n\n    def dfs(self, v, visited, graph, c=0):\n        visited[v] = True\n        ans = 0\n        for i in graph[v]:\n            if not visited[i]:\n                ans = max(ans, self.dfs(i, visited, graph, c+1))\n        if c > self.best:\n            self.best = c\n            self.node = v\n        visited[v] = False\n        return max(c, ans)\n\n    def treeDiameter(self, e):\n        n = len(e)\n        graph = defaultdict(list)\n        for i in range(n):\n            graph[e[i][0]].append(e[i][1])\n            graph[e[i][1]].append(e[i][0])\n        visited = [False] * (n + 1)\n        self.best = 0\n        self.node = 0\n        self.dfs(0, visited, graph)\n        visited2 = [False] * (n + 1)\n        return self.dfs(self.node, visited2, graph)\n\nclass Solution:\n    def minimumDiameterAfterMerge(self, edges1, edges2):\n        ob1, ob2 = Tree(), Tree()\n        d1 = ob1.treeDiameter(edges1)\n        d2 = ob2.treeDiameter(edges2)\n        ans = max(d1, d2)\n        return max(ans, ((d1 + 1) // 2) + ((d2 + 1) // 2) + 1)",
-    "submit_ts": 1719719555.0
+    "submit_ts": "1719719555",
+    "subm_id": "1304444832"
 }

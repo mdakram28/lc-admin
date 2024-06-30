@@ -1,5 +1,6 @@
 {
     "username": "harttle",
     "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar minimumDifference = function(nums, K) {\n    const N = nums.length\n    const zeroPositions = Array(31).fill(-1)\n    let ans = Infinity\n    for (let i = 0; i < N; i++) {\n        let num = nums[i]\n        check(num)\n        while (num) {\n            const j = findNextZero(num)\n            if (j === -1) break\n            num &= nums[j]\n            check(num)\n        }\n        for (let j = 0, bit = 1; j < 31; j++, bit <<= 1) {\n            if (!(nums[i] & bit)) zeroPositions[j] = i\n        }\n    }\n    return ans\n    function findNextZero(num) {\n        let pos = -1\n        for (let i = 0, bit = 1; i < 31; i++, bit <<= 1) {\n            if ((num & bit) && zeroPositions[i] !== -1) {\n                pos = Math.max(pos, zeroPositions[i])\n            }\n        }\n        return pos\n    }\n    function check(num) {\n        ans = Math.min(ans, Math.abs(K - num))\n    }\n};",
-    "submit_ts": 1717298148.0
+    "submit_ts": "1717298148",
+    "subm_id": "1274769097"
 }

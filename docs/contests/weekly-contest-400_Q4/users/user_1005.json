@@ -1,5 +1,6 @@
 {
     "username": "whuang369",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector <long long> lst(32);\n        for (int i = 0; i < 32; i ++)\n            lst[i] = -1;\n        long long ans = max (k - nums[0], nums[0] - k);\n        for (int i = n - 1; i >= 0; i --) {\n            long long x = nums[i];\n            vector <pair <int, int> > v;\n            for (int j = 0; j < 32; j ++)\n                if (!(x & (1ll << j)))\n                    lst[j] = i;\n            for (int j = 0; j < 32; j ++)\n                if (lst[j] != -1) {\n                    v.push_back(make_pair(lst[j], j));\n                }\n            sort (v.begin(), v.end());\n            for (int j = 0; j < v.size(); j ++) {\n                long long pos = v[j].second;\n                x = min (x, (x ^ (1ll << pos)));\n                if (j != v.size() - 1 && v[j].first == v[j + 1].first)\n                    continue;\n                ans = min (ans, max (k - x, x - k));\n            }\n        }\n        return (int)ans;\n    }\n};",
-    "submit_ts": 1717299380.0
+    "submit_ts": "1717299380",
+    "subm_id": "1274810836"
 }

@@ -1,5 +1,6 @@
 {
     "username": "mbakin",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        vector<vector<int>> dp (nums.size(), vector<int> (k + 1));\n        for (int i = 0; i < nums.size(); i++) {\n            dp[i][0] = 1;\n            for (int j = 0; j < i; j++)\n                if (nums[i] == nums[j])\n                    dp[i][0] = max(dp[i][0], dp[j][0] + 1);\n        }\n        \n        // idea! for previous row, maintain max. For current row, map each value to it's max subsequence size\n        for (int i = 1; i <= k; i++) {\n            int prev_row_max = 0;\n            map<int, int> max_sub_size;\n            for (int j = 0; j < nums.size(); j++) {\n                dp[j][i] = max(dp[j][i], max_sub_size[nums[j]] + 1);\n                dp[j][i] = max(dp[j][i], prev_row_max + 1);\n                \n                max_sub_size[nums[j]] = dp[j][i];\n                prev_row_max = max(prev_row_max, dp[j][i - 1]);\n            }\n        }\n        \n        int res = 0;\n        for (int i = 0; i <= k; i++)\n            for (int j = 0; j < nums.size(); j++)\n                res = max(res, dp[j][i]);\n        return res;\n    }\n};",
-    "submit_ts": 1717859905.0
+    "submit_ts": "1717859905",
+    "subm_id": "1281739167"
 }

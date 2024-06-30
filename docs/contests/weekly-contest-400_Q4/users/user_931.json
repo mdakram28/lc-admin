@@ -1,5 +1,6 @@
 {
     "username": "darkdip2",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        zeros = [0] * 32\n\n        def a(x):\n            for i in range(32):\n                if ((x >> i) & 1) == 0:zeros[i] += 1\n        def b(x):\n            for i in range(32):\n                if ((x >> i) & 1) == 0:zeros[i] -= 1\n        def c():\n            res = 0\n            for i in range(32):\n                if zeros[i] == 0:res ^= (1 << i)\n            return res\n\n        left,n,ans = 0,len(nums),float('inf')\n\n        for right in range(n):\n            a(nums[right])\n            x = c()\n            ans = min(ans, abs(x - k))\n            while left < right and x < k:\n                b(nums[left])\n                left += 1\n                x = c()\n                ans = min(ans, abs(x - k))\n\n        return ans\n        ",
-    "submit_ts": 1717300034.0
+    "submit_ts": "1717300034",
+    "subm_id": "1274831810"
 }

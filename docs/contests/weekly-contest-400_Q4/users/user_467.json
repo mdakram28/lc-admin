@@ -1,5 +1,6 @@
 {
     "username": "jmyanxiang",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        d = [0] * 30  # 1e9 = max 30 bits\n        num_incl = 0\n        \n        def include_num(num):\n            nonlocal num_incl\n            num_incl += 1\n            for i in range(30):\n                if num & (1 << i):\n                    d[i] += 1\n        \n        def exclude_num(num):\n            nonlocal num_incl\n            num_incl -= 1\n            for i in range(30):\n                if num & (1 << i):\n                    d[i] = max(0, d[i] - 1)\n        \n        def get_and_val():\n            nonlocal num_incl\n            val = 0\n            if sum(d) == 0:\n                return 0\n            for i in range(30):\n                if d[i] == num_incl:\n                    val |= (1 << i)\n            return val\n        \n        res = inf\n        left = 0\n        for right in range(n):\n            include_num(nums[right])\n            val = get_and_val()\n            while left <= right and val < k:\n                res = min(res, k - val)\n                exclude_num(nums[left])\n                left += 1\n                val = get_and_val()\n            if left <= right:\n                res = min(res, val - k)\n            \n        return res\n        ",
-    "submit_ts": 1717298564.0
+    "submit_ts": "1717298564",
+    "subm_id": "1274783460"
 }

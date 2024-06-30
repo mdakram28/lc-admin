@@ -1,5 +1,6 @@
 {
     "username": "patidarmanoj2001",
     "submission": "#include <vector>\n#include <unordered_map>\n#include <cstring>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    int MOD = 1e9+7;\n    int maxi = 400;\n    vector<vector<int>> dp;\n    unordered_map<int, int> mp;\n\n    int solve(int n, int inv) {\n        if (inv < 0) return 0; \n        if (n == 0) \n        {\n            if(inv == 0){\n                return 1;\n            }\n            else{\n                return 0;\n            }\n        }\n\n        if (dp[n][inv] != -1) return dp[n][inv];\n\n        long long result = 0;\n        for (int j = 0; j < n; j++) {\n            result = (result + solve(n - 1, inv - j)) % MOD;\n        }\n\n        if (mp.find(n) != mp.end()) {\n            int target = mp[n];\n            if (inv != target) {\n                result = 0;\n            }\n        }\n\n        return dp[n][inv] = result;\n    }\n\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        mp.clear();\n        for (const auto& req : requirements) {\n            mp[req[0] + 1] = req[1];\n        }\n\n        dp = vector<vector<int>>(n + 1, vector<int>(maxi + 1, -1));\n\n        long long result = 0;\n        for (int i = 0; i <= maxi; i++) {\n            result = (result + solve(n, i)) % MOD;\n        }\n\n        return result;\n    }\n};",
-    "submit_ts": 1719071924.0
+    "submit_ts": "1719071924",
+    "subm_id": "1296857126"
 }

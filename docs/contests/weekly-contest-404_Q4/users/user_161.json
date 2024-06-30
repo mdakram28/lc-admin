@@ -1,5 +1,6 @@
 {
     "username": "Decision",
     "submission": "class Solution {\n    public int minimumDiameterAfterMerge(int[][] edges1, int[][] edges2) {\n        final int n = edges1.length + 1, m = edges2.length + 1;\n        ArrayList<Integer>[] als = new ArrayList[n];\n        for(int i=0;i<n;++i){\n            als[i] = new ArrayList<Integer>();\n        }\n        for(int[] e : edges1){\n            als[e[0]].add(e[1]);\n            als[e[1]].add(e[0]);\n        }\n        final int[] d1 = new int[]{0}, d2 = new int[]{0};\n        get(als, d1, 0, -1);\n        als = new ArrayList[m];\n        for(int i=0;i<m;++i){\n            als[i] = new ArrayList<Integer>();\n        }\n        for(int[] e : edges2){\n            als[e[0]].add(e[1]);\n            als[e[1]].add(e[0]);\n        }\n        get(als, d2, 0, -1);\n        return Math.max(d1[0] / 2 + d2[0] / 2 + 1, Math.max(d1[0]-1, d2[0]-1));\n    }\n    \n    private int get(final ArrayList<Integer>[] als, final int[] result, final int idx, final int pre){\n        int res = 1;\n        for(int a : als[idx]){\n            if(a != pre){\n                int v = get(als, result, a, idx);\n                result[0] = Math.max(result[0], res + v);\n                res = Math.max(res, v + 1);\n            }\n        }\n        return res;\n    }\n}",
-    "submit_ts": 1719717553.0
+    "submit_ts": "1719717553",
+    "subm_id": "1304394622"
 }

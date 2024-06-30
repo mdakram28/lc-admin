@@ -1,5 +1,6 @@
 {
     "username": "saty_yad",
     "submission": "class Solution {\npublic:\n\n    const int MOD=1e9+7;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int m=n*(n-1)/2;\n        vector<vector<int>>dp(n+1,vector<int>(m+1,0));\n        vector<int>invReq(n,-1);\n        for(auto& req:requirements) {\n            invReq[req[0]]=req[1];\n        }\n        dp[0][0] = 1;\n        for(int i=1;i<=n;++i) {\n            vector<int>prefix_sum(m+1,0);\n            for(int j=0;j<=m;++j) {\n                prefix_sum[j]=(j==0?dp[i-1][j]:(prefix_sum[j-1]+dp[i-1][j])%MOD);\n            }\n            for(int j=0;j<=m;++j){\n                if(j<i){\n                    dp[i][j]=prefix_sum[j];\n                }else{\n                    dp[i][j]=(prefix_sum[j]-prefix_sum[j-i]+MOD)%MOD;\n                }\n            }\n            if(invReq[i-1]!=-1){\n                for(int j=0;j<=m;++j){\n                    if(j!=invReq[i-1]){\n                        dp[i][j]=0;\n                    }\n                }\n            }\n        }\n        int ans=0;\n        for(int j=0;j<=m;++j) {\n            ans=(ans+dp[n][j])%MOD;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1719069903.0
+    "submit_ts": "1719069903",
+    "subm_id": "1296809387"
 }

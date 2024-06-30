@@ -1,5 +1,6 @@
 {
     "username": "hhhyh",
     "submission": "class Solution {\npublic:\n    vector<int> countOfPeaks(vector<int>& nums, vector<vector<int>>& queries) {\n        int n=nums.size();\n        vector<int>c(n+1);\n        auto add=[&](int x,int d){\n            if(d==0)return ;\n            for(int i=x;i<c.size();i+=i&-i)c[i]+=d;\n        };\n        auto ask=[&](int x){\n            int res=0;\n            for(int i=x;i;i-=i&-i)res+=c[i];\n            return res;\n        };\n        auto query=[&](int l,int r){\n            if(l+1>r-1)return 0;\n            return ask(r-1)-ask(l);  \n        };\n        auto calc=[&](int i){\n            if(i-1<0||i+1>=n)return 0;\n            if(nums[i]>nums[i-1]&&nums[i]>nums[i+1])return 1;\n            return 0;\n        };\n        for(int i=0;i<n;i++){\n            add(i,calc(i));\n        }\n        vector<int>ans;\n        for(auto x:queries){\n            int op=x[0],l=x[1],r=x[2];\n            if(op==1)ans.push_back(query(l,r));\n            else {\n                for(int j=-1;j<=1;j++){\n                    add(l+j,-calc(l+j));\n                }\n                nums[l]=r;\n                for(int j=-1;j<=1;j++){\n                    add(l+j,calc(l+j));\n                }\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1718506099.0
+    "submit_ts": "1718506099",
+    "subm_id": "539772762"
 }

@@ -1,5 +1,6 @@
 {
     "username": "jainshreyansh163",
     "submission": "class Solution {\nprivate:\n    const int mod = 1e9 + 7;\n    vector<vector<long long>> dp;\n    unordered_map<int, int> mp;\n    int N;\n    void fill() {\n        for (int i = 1; i <= N; i++) {\n            for (int j = 0; j <= 400; j++) {\n                for (int k = i - 1; k >= 0; k--) {\n                    if (j >= k) {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % mod;\n                    }\n                }\n            }\n            if (mp.find(i) == mp.end()) continue;\n            for (int j = 400; j >= 0; j--) {\n                if (j != mp[i]) dp[i][j] = 0;\n            }\n        }\n    }\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        for (auto &it : requirements) mp[it[0] + 1] = it[1];\n        dp.resize(n + 1, vector<long long> (401, 0));\n        dp[0][0] = 1;\n        N = n;\n        fill();\n        int ans = 0;\n        for (auto &it : dp[n]) ans = (ans + it) % mod;\n        return ans;\n    }\n};",
-    "submit_ts": 1719070590.0
+    "submit_ts": "1719070590",
+    "subm_id": "1296826820"
 }

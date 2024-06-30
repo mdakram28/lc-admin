@@ -1,5 +1,6 @@
 {
     "username": "Tutul_dhar",
     "submission": "class Solution {\npublic:\n    int a[100010][35];\n    int cal(int i, int mid,int len) {\n        int e = 0;\n        for(int j = 30; j >= 0; j--) {\n                    int p = a[mid][j];\n                    if(i) p -= a[i-1][j];\n                    if(p == len) e += (1<<j);\n        }\n        return e;\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size(),ans = INT_MAX;\n        \n        for(int i = 0; i < n; i++) {\n            int e = nums[i];\n            for(int j = 0; j < 31; j++) {\n                int bit = ((e>>j)&1);\n                a[i][j] = bit;\n                if(i) a[i][j] += a[i-1][j];\n            }\n        }\n        \n        for(int i = 0; i < n; i++) {\n            int l = i,r = n-1,in = i;\n            while(l <= r) {\n                int mid = (l+r)/2;\n                int e= 0,len = mid-i+1;\n                e = cal(i,mid,len);\n                if(e <= k) {\n                    r = mid-1;\n                    in = mid;\n                }\n                else l = mid+1;\n            }\n            l = max(in-3,i),r = min(in+3,n);\n            for(int j = l; j < r; j++) {\n                int e = cal(i,j,j-i+1);\n                ans = min(ans,abs(k-e));\n            }\n            \n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717299476.0
+    "submit_ts": "1717299476",
+    "subm_id": "1274814056"
 }

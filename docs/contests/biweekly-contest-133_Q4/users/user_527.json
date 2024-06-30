@@ -1,5 +1,6 @@
 {
     "username": "kodingcaro",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        const int MOD = 1e9 + 7;\n        const int MAX_INV = 400;\n        \n        unordered_map<int, int> req;\n        for (auto& r : requirements) {\n            req[r[0] + 1] = r[1]; // Using r[0] + 1 because requirements are 1-indexed\n        }\n        \n        vector<vector<long long>> dp(n + 1, vector<long long>(MAX_INV + 1, 0));\n        dp[0][0] = 1;\n        \n        for (int len = 1; len <= n; ++len) {\n            for (int inv = 0; inv <= MAX_INV; ++inv) {\n                for (int new_pos = 0; new_pos < len; ++new_pos) {\n                    int prev_inv = inv - new_pos;\n                    if (prev_inv >= 0) {\n                        dp[len][inv] = (dp[len][inv] + dp[len - 1][prev_inv]) % MOD;\n                    }\n                }\n            }\n            \n            if (req.count(len)) {\n                int target_inv = req[len];\n                for (int inv = 0; inv <= MAX_INV; ++inv) {\n                    if (inv != target_inv) {\n                        dp[len][inv] = 0;\n                    }\n                }\n            }\n        }\n        \n        long long result = 0;\n        for (int inv = 0; inv <= MAX_INV; ++inv) {\n            result = (result + dp[n][inv]) % MOD;\n        }\n        \n        return static_cast<int>(result);\n    }\n};",
-    "submit_ts": 1719070610.0
+    "submit_ts": "1719070610",
+    "subm_id": "1296827347"
 }

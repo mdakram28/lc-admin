@@ -1,5 +1,6 @@
 {
     "username": "ntcie",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def bfs(adjl, s):\n            dis = [-1] * len(adjl)\n            dis[s] = 0\n            q = deque([s])\n            far = s\n            while q:\n                y = q.popleft()\n                for n in adjl[y]:\n                    if dis[n] == -1:\n                        dis[n] = dis[y] + 1\n                        q.append(n)\n                        far = n\n            return far, dis[far]\n        N = max(max(e) for e in edges1)+1 if len(edges1) != 0 else 1\n        M = max(max(e) for e in edges2)+1 if len(edges2) != 0 else 1\n        adjl1 = [[] for _ in range(N)]\n        adjl2 = [[] for _ in range(M)]\n        for a, b in edges1:\n            adjl1[a].append(b)\n            adjl1[b].append(a)\n        for a, b in edges2:\n            adjl2[a].append(b)\n            adjl2[b].append(a)\n        far, _ = bfs(adjl1, 0)\n        far, dia1 = bfs(adjl1, far)\n        far, _ = bfs(adjl2, 0)\n        far, dia2 = bfs(adjl2, far)\n        ans = (dia1+1)//2+(dia2+1)//2+1\n        return max(ans, dia1, dia2)\n    \n        \n        ",
-    "submit_ts": 1719719037.0
+    "submit_ts": "1719719037",
+    "subm_id": "1304432244"
 }

@@ -1,5 +1,6 @@
 {
     "username": "dinusX",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        best = abs(k - nums[0])\n        last = [-1]*32\n        for i, num in enumerate(nums):\n            cumm = num\n            while cumm > 0 and cumm > (k-best):\n                best = min(best, abs(k-cumm))\n                bit = 1\n                pos = 0\n                smallest = -2\n                ncumm = cumm\n                while bit <= cumm:\n                    if bit & cumm > 0:\n                        if last[pos] > smallest:\n                            ncumm = cumm ^ bit\n                            smallest = last[pos]\n                        elif last[pos] == smallest:\n                            ncumm = ncumm ^ bit\n                    pos += 1\n                    bit <<= 1\n                cumm = ncumm\n                if cumm == 0 and smallest >= 0:\n                    best = min(best, abs(k-cumm))\n            bit = 1\n            for pos in range(32):\n                if bit & num == 0:\n                    last[pos] = i\n                bit <<= 1\n            # print(i, num, best)\n        \n        return best\n            \n                \n        \n        ",
-    "submit_ts": 1717298352.0
+    "submit_ts": "1717298352",
+    "subm_id": "1274775953"
 }

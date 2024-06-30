@@ -1,5 +1,6 @@
 {
     "username": "kHarsh3715",
     "submission": "class Solution {\npublic:\n\n    map<array<long long,2>,long long> mp;\n\n    long long solve (long long k, long long j) {\n        if (k == 1 && j == 0) {\n            return 1;\n        }\n        if (k == 1 && j == 1) {\n            return 1;\n        }\n        if (k < 1 || j <= 0) {\n            return 0;\n        } \n\n        if (mp.find({k,j}) != mp.end()) return mp[{k,j}];\n\n        long long prev = k - (1ll<<(j-1));\n\n        if (prev >= 0) {\n            long long ans = solve(prev,j-1) + solve(prev+1,j-1);\n            mp[{k,j}] = ans;\n        }\n        else {\n            mp[{k,j}] = 0;\n        }\n\n        return mp[{k,j}];\n\n    }\n\n    int waysToReachStair(int k) {\n        int ans = 0;\n        for (long long j = 0; j < 32; j++) {\n            ans += solve(k,j);\n            ans += solve(k+1,j);\n        }\n        // cout << solve(2,1) << endl;\n        return ans;\n    }\n};",
-    "submit_ts": 1716089039.0
+    "submit_ts": "1716089039",
+    "subm_id": "1261831317"
 }

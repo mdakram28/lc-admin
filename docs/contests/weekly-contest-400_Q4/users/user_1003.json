@@ -1,5 +1,6 @@
 {
     "username": "Cobalt_3902",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        # binary search for minimal reachable difference\n        # sliding window?\n        n=len(nums)\n        lo=0\n        res=abs(nums[0]-k)\n        bitdict=[0]*31\n        def addnum(a):\n            if a<0:\n                a=-a\n                bit=0\n                while a>0:\n                    if a&1:\n                        bitdict[bit]-=1\n                    bit+=1\n                    a>>=1\n            else:\n                bit=0\n                while a>0:\n                    if a&1:\n                        bitdict[bit]+=1\n                    bit+=1\n                    a>>=1\n        def cur(hi,lo):\n            cur=0\n            for i,e in enumerate(bitdict):\n                if e==hi-lo+1:\n                    cur+=1<<i\n            return cur\n        for hi in range(n):\n            addnum(nums[hi])\n            res=min(res,abs(cur(hi,lo)-k))\n            # print(cur(hi,lo),lo,hi)\n            while lo<hi and cur(hi,lo)<k:\n                addnum(-nums[lo])\n                lo+=1\n                res=min(res,abs(cur(hi,lo)-k))\n            # print(cur(hi,lo),lo,hi)\n            # if hi!=lo: res=min(res,abs(cur(hi,lo)-k))\n        return res\n            \n                \n                \n            ",
-    "submit_ts": 1717298470.0
+    "submit_ts": "1717298470",
+    "subm_id": "1274780166"
 }

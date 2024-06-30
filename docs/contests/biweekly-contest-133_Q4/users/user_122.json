@@ -1,5 +1,6 @@
 {
     "username": "hdeutsch",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD = 10 ** 9 + 7\n        \n        # max_inversions = [0] * 401\n        req_dict = {end + 1: cnt for end, cnt in requirements}\n        # for i in range(2, len(max_inversions)):\n        #     max_inversions[i] = max_inversions[i - 1]\n        #     if i in req_dict: max_inversions = max(max_inversions, req_dict[i])\n            \n        \n        # number of ways to continue given arr of size leng\n        @cache\n        def dp(leng, inv_cnt):\n            # base case\n            if leng in req_dict:\n                if inv_cnt != req_dict[leng]: return 0\n            if leng == n: return 1\n            \n            # recurse\n            ans = 0\n            # print('call', leng, inv_cnt)\n            for curr_inv in range(inv_cnt, min(inv_cnt + leng + 1, 401)):\n                # print('curr_inv', curr_inv)\n                ans += dp(leng + 1, curr_inv)\n            # print(leng, inv_cnt, 'returning', ans)\n            return ans % MOD\n        return dp(0, 0)",
-    "submit_ts": 1719068908.0
+    "submit_ts": "1719068908",
+    "subm_id": "1296780693"
 }

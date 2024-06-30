@@ -1,5 +1,6 @@
 {
     "username": "joylintp",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> req(n, -1);\n        for (vector<int> &v : requirements)\n            req[v[0]] = v[1];\n        \n        int MOD = 1000000007;\n        vector<vector<int>> dp(n, vector<int>(401));\n        for (int i = 0; i < n; i++)\n        {\n            if (i == 0)\n                dp[i][0] = 1;\n            else\n                for (int j = 0; j <= 400; j++)\n                    for (int k = 0; k <= min(i, j); k++)\n                        dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % MOD;\n            \n            if (req[i] != -1)\n                for (int j = 0; j <= 400; j++)\n                    if (j != req[i])\n                        dp[i][j] = 0;\n        }\n        return dp[n - 1][req[n - 1]];\n    }\n};",
-    "submit_ts": 1719068088.0
+    "submit_ts": "1719068088",
+    "subm_id": "1296752468"
 }

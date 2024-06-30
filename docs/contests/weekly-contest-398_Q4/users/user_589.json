@@ -1,5 +1,6 @@
 {
     "username": "Scyther_07",
     "submission": "\n#define ll long long\nconst ll mod = 1000000007;\n\nll bin_exp(ll a, ll b=1000000005, ll mod=1000000007){\n    ll ans = 1;\n    while (b){\n        if(b % 2) ans = (ans * a) % mod;\n        a = (a * a) % mod; b /= 2;\n    }\n    return ans;\n}\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        ll ans = 0, L = 0;\n        if(k <= 1) ans = 1;\n        // debug(ans);\n        for(int i = 1;; ++i){\n            // done i jump operation\n            L += (1ll << (i - 1));\n            if(1 + L < k) continue;\n            else if(L + 1 > (k + i + 1)) break;\n            else{\n                ll rr = L + 1 - k;\n                ll nn = i + 1;\n                ll f_n = 1, f_r = 1, f_nr = 1;\n                for(int m = 1; m <= nn; ++m) f_n *= m, f_n %= mod; \n                for(int m = 1; m <= rr; ++m) f_r *= m, f_r %= mod; \n                for(int m = 1; m <= nn - rr; ++m) f_nr *= m, f_nr %= mod; \n                \n                ll temp = ((f_n * bin_exp(f_r) % mod) * bin_exp(f_nr)) % mod;\n                // debug(L, i, nn, rr, temp);\n                // debug(f_n, f_r, f_nr);\n                ans += temp;\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716088422.0
+    "submit_ts": "1716088422",
+    "subm_id": "1261813502"
 }

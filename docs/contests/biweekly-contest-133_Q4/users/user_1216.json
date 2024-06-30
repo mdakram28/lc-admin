@@ -1,5 +1,6 @@
 {
     "username": "vinodbaste",
     "submission": "class Solution:\n    def numberOfPermutations(self, n, reqs):\n        MOD = 1000000007\n        MAX_INV = 400\n        \n        r = {}\n        for req in reqs:\n            r[req[0] + 1] = req[1]\n        \n        pc = [[0] * (MAX_INV + 1) for _ in range(n + 1)]\n        pc[0][0] = 1\n        \n        for length in range(1, n + 1):\n            for inv in range(MAX_INV + 1):\n                for pos in range(length):\n                    prev_inv = inv - pos\n                    if prev_inv >= 0:\n                        pc[length][inv] = (pc[length][inv] + pc[length - 1][prev_inv]) % MOD\n            \n            if length in r:\n                target_inv = r[length]\n                for inv in range(MAX_INV + 1):\n                    if inv != target_inv:\n                        pc[length][inv] = 0\n        \n        res = sum(pc[n]) % MOD\n        return res\n",
-    "submit_ts": 1719071844.0
+    "submit_ts": "1719071844",
+    "subm_id": "1296855417"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Divanshi_Jain",
     "submission": "class Solution {\n    private static final int MOD = 1_000_000_007;\n    private static final int MAX_INV = 400;\n    \n    public int numberOfPermutations(int n, int[][] reqs) {\n        Map<Integer, Integer> reqMap = new HashMap<>();\n        for (int[] req : reqs) {\n            reqMap.put(req[0] + 1, req[1]);\n        }\n\n        long[][] dp = new long[n + 1][MAX_INV + 1];\n        dp[0][0] = 1;\n\n        for (int len = 1; len <= n; len++) {\n            for (int inv = 0; inv <= MAX_INV; inv++) {\n                for (int pos = 0; pos < len; pos++) {\n                    int prevInv = inv - pos;\n                    if (prevInv >= 0) {\n                        dp[len][inv] = (dp[len][inv] + dp[len - 1][prevInv]) % MOD;\n                    }\n                }\n            }\n\n            if (reqMap.containsKey(len)) {\n                int targetInv = reqMap.get(len);\n                for (int inv = 0; inv <= MAX_INV; inv++) {\n                    if (inv != targetInv) {\n                        dp[len][inv] = 0;\n                    }\n                }\n            }\n        }\n\n        long res = 0;\n        for (long count : dp[n]) {\n            res = (res + count) % MOD;\n        }\n        return (int) res;\n    }\n}\n",
-    "submit_ts": 1719070448.0
+    "submit_ts": "1719070448",
+    "subm_id": "1296823279"
 }

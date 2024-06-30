@@ -1,5 +1,6 @@
 {
     "username": "prodipdatta7",
     "submission": "class Solution {\npublic:\n    vector < vector < int > > adj ;\n    int dfs(int s, int &diameter, int p = -1) {\n        int _one = 0, _two = 0 ;\n        for (int i : adj[s]) {\n            if (i == p) continue ;\n            int len = 1 + dfs(i, diameter, s) ;\n            if (len > _one) {\n                swap(_one, _two) ;\n                _one = len ;\n            }\n            else _two = max(_two, len) ;\n        }\n        diameter = max(diameter, _one + _two) ;\n        return _one ;\n    }\n    int solve(vector<vector<int>>& edges) {\n        int n = edges.size() + 1 ;\n        adj.assign(n, vector < int > ()) ;\n        for (auto edge : edges) {\n            adj[edge[0]].push_back(edge[1]) ;\n            adj[edge[1]].push_back(edge[0]) ;\n        }\n        int diameter = 0 ;\n        dfs(0, diameter) ;\n        return diameter ;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int d1 = solve(edges1) ;\n        int d2 = solve(edges2) ;\n        int m = (d1 + 1) / 2 + (d2 + 1) / 2 + 1 ;\n        \n        return max({d1, d2, m}) ;\n    }\n};",
-    "submit_ts": 1719717602.0
+    "submit_ts": "1719717602",
+    "subm_id": "1304395971"
 }

@@ -1,5 +1,6 @@
 {
     "username": "siddhesh_o4",
     "submission": "class Solution {\npublic:\n    void dfs(vector<vector<int>> &adj, int cur, int par, int dis, int &mdis, int &fnode) {\n        if(dis > mdis) {\n            mdis = dis;\n            fnode = cur;\n        }\n        for(auto i : adj[cur]) {\n            if(i != par) {\n                dfs(adj, i, cur, dis + 1, mdis, fnode);\n            }\n        }\n    }\n\n    int dia(vector<vector<int>> &adj) {\n        int fnode1 = 0, fnode2 = 0, mdis = 0;\n        dfs(adj, 0, -1, 0, mdis, fnode1);\n        mdis = 0;\n        dfs(adj, fnode1, -1, 0, mdis, fnode2);\n        return mdis;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n = edges1.size(), m = edges2.size();\n        vector<vector<int>> adj1(n+1),adj2(m+1);\n        for(auto i : edges1){\n            adj1[i[0]].push_back(i[1]);\n            adj1[i[1]].push_back(i[0]);\n        }\n        for(auto i : edges2){\n            adj2[i[0]].push_back(i[1]);\n            adj2[i[1]].push_back(i[0]);\n        }\n        int d1 = dia(adj1),d2 = dia(adj2);\n        return max(d1,max(d2,(d1+1)/2 + (d2+1)/2 + 1));\n    }\n};",
-    "submit_ts": 1719718838.0
+    "submit_ts": "1719718838",
+    "subm_id": "1304427320"
 }

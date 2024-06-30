@@ -1,5 +1,6 @@
 {
     "username": "lord_rajat",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        const int MOD=1000000007;\n        map<int,int> m;\n        vector<int> v;\n        for (auto& i : requirements) {\n            v.push_back(i[0]+1);\n            m[i[0]+1]=i[1];\n        }\n        vector<vector<long long>> dp(n + 1, vector<long long>(401, 0));\n        dp[0][0] = 1;\n        for (int i = 1;  i<=n; i++) {\n            for (int j = 0; j<=400; j++) {\n                for (int k = 0; k < i; k++) {\n                    if (j-k>= 0) {\n                        dp[i][j] = (dp[i][j] + dp[i-1][j-k]) % MOD;\n                    }\n                }\n            }\n            // auto it=find(v.begin(),v.end())\n            if (find(v.begin(),v.end(),i)!=v.end()) {\n                int ti = m[i];\n                for (int j = 0; j <=400; j++) {\n                    if (j != ti) {\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n\n        long long res = 0;\n        for (int j=0; j<=400; j++) {\n            res = (res + dp[n][j]) % MOD;\n        }\n\n        return res;\n    }\n};",
-    "submit_ts": 1719071434.0
+    "submit_ts": "1719071434",
+    "subm_id": "1296846662"
 }

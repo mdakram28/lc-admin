@@ -1,5 +1,6 @@
 {
     "username": "Wolfester",
     "submission": "class Solution {\npublic:\n    int mod = 1e9+7;\n    int dp[305][405];\n    \n    int numberOfPermWithKInversion(int N, int K){\n        if (dp[N][K] != -1) return dp[N][K];\n        \n        if (N == 0) return 0;\n        if(N==1 and K==0) return 1;\n        if (K < 0) return 0;\n        if (K > (N*(N-1))/2) return 0;\n\n\n        \n\n        int sum = 0;\n        for (int i = 0; i <= K; i++){\n            if (i <= N - 1) sum += numberOfPermWithKInversion(N - 1, K - i);\n            sum %= mod;\n            \n        }\n\n        \n        return dp[N][K] = sum;\n    }\n    \n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        sort(req.begin(), req.end());\n        memset(dp, -1, sizeof(dp));\n        \n        for(auto x : req){\n            for(int j=0;j<405;j++){\n                if(x[1]!=j) dp[x[0]+1][j] = 0;\n            }\n        }\n        \n        int ans = 0;\n        ans = numberOfPermWithKInversion(n, req.back()[1]);\n        \n//         for(int i=1;i<=n;i++){\n//             for(int j=0;j<=7;j++) cout<<dp[i][j]<<\" \"; cout<<endl;\n//         }\n        \n//         cout<<endl<<endl;;\n        \n        return ans;\n        \n        \n    }\n};",
-    "submit_ts": 1719070936.0
+    "submit_ts": "1719070936",
+    "subm_id": "1296835291"
 }

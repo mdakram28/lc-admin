@@ -1,5 +1,6 @@
 {
     "username": "djzzwx",
     "submission": "\nfunc countOfPeaks(nums []int, queries [][]int) []int {\n\tn := len(nums)\n\tfw := newFenwick(n + 1)\n\tfor i := 1; i < n-1; i++ {\n\t\tif nums[i] > nums[i-1] && nums[i] > nums[i+1] {\n\t\t\tfw.update(i+1, 1)\n\t\t}\n\t}\n\tf := func(id, add int) {\n\t\tif id > 0 && id < n-1 {\n\t\t\tif nums[id] > nums[id-1] && nums[id] > nums[id+1] {\n\t\t\t\tfw.update(id+1, add)\n\t\t\t}\n\t\t}\n\t}\n\tans := []int{}\n\tfor _, q := range queries {\n\t\tif q[0] == 1 {\n            // fmt.Println(nums)\n            // fmt.Println(fw)\n\t\t\tans = append(ans, max(fw.sumRange(q[1]+2, q[2]), 0))\n\t\t} else {\n\t\t\ti, v := q[1], q[2]\n\t\t\tj1, j2 := i-1, i+1\n\t\t\tf(i, -1)\n\t\t\tf(j1, -1)\n\t\t\tf(j2, -1)\n\t\t\tnums[i] = v\n\t\t\tf(i, 1)\n\t\t\tf(j1, 1)\n\t\t\tf(j2, 1)\n\t\t}\n\t}\n\treturn ans\n}\n\ntype Fenwick []int\n\nfunc newFenwick(n int) Fenwick {\n\treturn make(Fenwick, n) // n+1\n}\n\n// 1<=i<=n\nfunc (f Fenwick) update(i, val int) {\n\tfor ; i < len(f); i += i & -i {\n\t\tf[i] += val\n\t}\n}\n\n// 1<=i<=n\nfunc (f Fenwick) query(i int) (res int) {\n\tfor ; i > 0; i &= i - 1 {\n\t\tres += f[i]\n\t}\n\treturn res\n}\n\n// 1<=l<=r<=n\nfunc (f Fenwick) sumRange(l, r int) int {\n\treturn f.query(r) - f.query(l-1)\n}\n",
-    "submit_ts": 1718508209.0
+    "submit_ts": "1718508209",
+    "subm_id": "539786038"
 }

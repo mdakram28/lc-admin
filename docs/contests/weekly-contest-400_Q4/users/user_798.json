@@ -1,5 +1,6 @@
 {
     "username": "wweijia",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        l = 0\n        count0 = [0] * 30\n        cur = ['1'] * 30\n        ans = float(\"inf\")\n        for r in range(len(nums)):\n            num = str(bin(nums[r]))[2:]\n            offset = 30 - len(num)\n\n            for i in range(30):\n                if i < offset or num[i - offset] == '0':\n                    count0[i] += 1\n                    cur[i] = '0'\n\n            cur_int = int(\"\".join(cur), 2)\n            while l < r and cur_int < k:\n                ans = min(ans, abs(cur_int - k))\n                num = str(bin(nums[l]))[2:]\n                offset = 30 - len(num)\n\n                for i in range(30):\n                    if i < offset or num[i - offset] == '0':\n                        count0[i] -= 1\n                        if count0[i] == 0:\n                            cur[i] = '1'\n                cur_int = int(\"\".join(cur), 2)\n                l += 1\n            ans = min(ans, abs(cur_int - k))\n\n        return ans",
-    "submit_ts": 1717299674.0
+    "submit_ts": "1717299674",
+    "subm_id": "1274820163"
 }

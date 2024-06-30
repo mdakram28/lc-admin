@@ -1,5 +1,6 @@
 {
     "username": "amirshim",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def half_girth(edges):\n            con = defaultdict(list)\n            for a,b in edges:\n                con[a].append(b)\n                con[b].append(a)\n            \n            def rec(n, v): # d, p\n                if n in v:\n                    return None, None\n                v.add(n)\n                best = -1\n                bp = None\n                for x in con[n]:\n                    b, a = rec(x, v)\n                    if a is None:\n                        continue\n                    if b > best:\n                        best = b\n                        bp = a\n                v.remove(n)\n                if bp is None:\n                    return 0, [n]\n                bp.append(n)\n                return best+1, bp\n                \n            _, pp = rec(0, set())\n            gg, _ = rec(pp[0], set())\n\n            return ((gg + 1) // 2, gg)\n\n        a,b = half_girth(edges1)\n        c,d = half_girth(edges2)\n\n        return max(a + 1 + c, b, d)\n                    \n                \n                \n\n        ",
-    "submit_ts": 1719718482.0
+    "submit_ts": "1719718482",
+    "subm_id": "1304418327"
 }

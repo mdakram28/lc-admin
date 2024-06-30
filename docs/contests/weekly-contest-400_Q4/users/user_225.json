@@ -1,5 +1,6 @@
 {
     "username": "fsshakkhor",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int ans = 2e9;\n        int lastzero[30];\n        memset(lastzero,-1,sizeof lastzero);\n        \n        for(int i = 0;i < nums.size();i++){\n            int val = nums[i];\n            ans = min(ans,abs(val - k));\n            \n            vector<int>vec;\n            for(int j = 0;j < 30;j++){\n                if((val & (1 << j)))vec.push_back(1);\n                else vec.push_back(0);\n            }\n            \n            do{\n                int nxt = -1;\n                int newval = 0;\n                for(int j = 0;j < 30;j++){\n                    if(vec[j] == 1){\n                        nxt = max(nxt,lastzero[j]);\n                    }\n                }\n                if(nxt == -1)break;\n                \n                for(int j = 0;j < 30;j++){\n                    if(nxt == lastzero[j])vec[j] = 0;\n                    if(vec[j])newval = newval | (1 << j);\n                }                \n                ans = min(ans,abs(newval - k));\n                \n            }while(1);\n            \n            // post processing\n            for(int j = 0;j < 30;j++){\n                if(!(val & (1 << j)))lastzero[j] = i;\n            }\n            \n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717297898.0
+    "submit_ts": "1717297898",
+    "subm_id": "1274759891"
 }

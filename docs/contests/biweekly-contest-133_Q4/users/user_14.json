@@ -1,5 +1,6 @@
 {
     "username": "warner1129",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& cond) {\n        vector<vector<int>> need(n);\n        for (auto v : cond) {\n            need[v[0]].push_back(v[1]);\n        }\n        for (int i = 0; i < n; i++) {\n            auto &v = need[i];\n            sort(v.begin(), v.end());\n            v.erase(unique(v.begin(), v.end()), v.end());\n            if (v.size() >= 2) {\n                return 0;\n            }\n        }\n        const int mod = 1e9 + 7;\n        vector<long long> dp(405);\n        dp[0] = 1;\n        for (int i = 0; i < n; i++) {\n            vector<long long> ndp(405);\n            for (int j = 0; j <= 400; j++) {\n                for (int k = 0; k <= i and j + k <= 400; k++) {\n                    (ndp[j + k] += dp[j]) %= mod;\n                }\n            }\n            dp.swap(ndp);\n            if (need[i].size()) {\n                int p = need[i][0];\n                for (int j = 0; j <= 400; j++) if (j != p) {\n                    dp[j] = 0;\n                }\n            }\n        }\n        return reduce(dp.begin(), dp.end(), 0LL) % mod;\n    }\n};",
-    "submit_ts": 1719067455.0
+    "submit_ts": "1719067455",
+    "subm_id": "1296725885"
 }

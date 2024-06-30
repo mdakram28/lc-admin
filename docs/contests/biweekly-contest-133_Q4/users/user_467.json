@@ -1,5 +1,6 @@
 {
     "username": "ankangarai",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector <vector<int>> dp(n+1, vector<int>(410, 0)), a; dp[0][0] = 1;\n        int mod = 1e9+7;\n        for(int i = 1; i<=n; i++){\n            for(int j = 0; j<=400; j++){\n                for(int k = 0; k<i; k++) if(j >= k) dp[i][j] = (dp[i][j] + dp[i-1][j-k]) % mod;\n            }\n            for(auto temp : requirements){\n                int idx = temp[0]+1, cnt = temp[1];\n                if(idx == i){\n                    for(int j = 0; j<=400; j++){\n                        if(j != cnt) dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n        int ans = 0; for(auto i : dp[n]) ans = (ans + i) % mod;\n        return ans;\n    }\n};",
-    "submit_ts": 1719070516.0
+    "submit_ts": "1719070516",
+    "subm_id": "1296825017"
 }

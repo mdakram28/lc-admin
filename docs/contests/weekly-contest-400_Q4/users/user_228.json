@@ -1,5 +1,6 @@
 {
     "username": "whattttttttt",
     "submission": "class Solution {\npublic:\n    vector<int> tree;\n    int build(int node , int low , int high , vector<int> &nums){\n        if(low == high) return tree[node] = nums[low];\n        int mid = (low + high) >> 1;\n        return tree[node] = build(node << 1 , low , mid , nums) & build(node << 1 | 1 , mid + 1 , high , nums);\n    }\n    int bitwiseAnd(int node , int low , int high , int ql , int qr){\n        if(high < ql || low > qr) return (1LL << 31) - 1;\n        if(low >= ql && high <= qr) return tree[node];\n        int mid = (low + high) >> 1;\n        return bitwiseAnd(node << 1 , low , mid , ql , qr) & bitwiseAnd(node << 1 | 1 , mid + 1 , high , ql , qr);\n        \n    }\n    int minimumDifference(vector<int>& nums, int k){\n        int n = nums.size() , minDiff = 1e9;\n        tree.resize(n<<2|1);\n        build(1 ,0 , n-1 , nums);\n        for(int from = 0 ; from < n ; from++){\n            if(nums[from] <= k) minDiff = min(minDiff , k - nums[from]);\n            else{\n                int low = from , high = n - 1;\n                while(low <= high){\n                    int to = (low + high)/2;\n                    int curr = bitwiseAnd(1 , 0 , n - 1 , from , to);\n                    minDiff = min(minDiff , abs(k - curr));\n                    if(curr <= k) high = to - 1;\n                    else low = to + 1;\n                }\n            }\n        }\n        return minDiff;\n    }\n};",
-    "submit_ts": 1717297047.0
+    "submit_ts": "1717297047",
+    "subm_id": "1274728495"
 }

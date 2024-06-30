@@ -1,5 +1,6 @@
 {
     "username": "_neelytandel_",
     "submission": "class Solution {\npublic:\n#define ll long long int\nll MOD=1e9+7;\nconst ll MAX_INVERSIONS = 400;\n    int numberOfPermutations(int n, vector<vector<int>>& vp) {\n    unordered_map<ll, ll> reqMap;\n    for (auto& req : vp) {\n        reqMap[req[0] + 1] = req[1];\n    }\n    ll ans=0;\n    vector<vector<long long>> permCounts(n + 1, vector<long long>(MAX_INVERSIONS + 1, 0));\n    permCounts[0][0] = 1;\n    ll yyy=MAX_INVERSIONS;\n    for (ll length = 1; length <= n; length++) {\n        for (ll inv = 0; inv <= yyy; inv++) {\n            for (ll i = 0; i < length; i++) {\n                ll y = inv - i;\n                if (!(y<0)) {\n                    permCounts[length][inv] = (permCounts[length][inv] + permCounts[length - 1][y]) % MOD;\n                }\n            }\n        }\n        ll yyy=MAX_INVERSIONS;\n        if (reqMap.count(length) > 0) {\n            ll x = reqMap[length];\n            for (int j = 0; j <= yyy; j++) {\n                if (j-x) {\n                    permCounts[length][j] = 0;\n                }\n            }\n        }\n    }\n    for (auto it : permCounts[n]) {\n        ans = (ans + it) % MOD;\n    }\n    sort(vp.begin(),vp.end());\n    return ans;\n}\n};",
-    "submit_ts": 1719071962.0
+    "submit_ts": "1719071962",
+    "subm_id": "1296858079"
 }

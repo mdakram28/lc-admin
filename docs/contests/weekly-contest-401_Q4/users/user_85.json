@@ -1,5 +1,6 @@
 {
     "username": "XKTZ",
     "submission": "typedef long long ll;\n\nconstexpr ll MAXN = 5e4 + 5;\n\nll getto(ll v) {\n    return v | 63;\n}\n\nll getfrom(ll v) {\n    return v & (~ll(63));\n}\n\nll N;\nll rrs[MAXN];\n\ntemplate<ll SZ>\nll calc(ll M) {\n    if constexpr(SZ > 2 * 65536){\n        return -1;\n    } else {\n        if (SZ < M + 1) {\n            return calc<SZ * 2>(M);\n        }\n        using BS = bitset<SZ>;\n\n        BS now;\n        now[0] = 1;\n        // cout << SZ << '\\n';\n        // cout << now << '\\n';\n\n        for (ll i = 1; i <= N; i ++) {\n            ll r = rrs[i];\n            now |= (now << (SZ - r)) >> (SZ - 2 * r);\n            // cout << r << '\\n';\n            // cout << ((now << (SZ - r)) >> (SZ - 2 * r)) << '\\n';\n            // cout << now << '\\n';\n        }\n        \n        for (ll i = SZ - 1; i >= 0; i --) {\n            if (now[i]) {\n                return i;\n            }\n        }\n        return 0ll;\n    }\n}\n\nclass Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        N = rewardValues.size();\n        sort(rewardValues.begin(), rewardValues.end());\n        \n        for (ll i = 1; i <= N; i ++) {\n            rrs[i] = rewardValues[i - 1];\n        }\n        \n        return calc<1>((*max_element(rewardValues.begin(), rewardValues.end())) * 2 - 1);\n    }\n};",
-    "submit_ts": 1717903410.0
+    "submit_ts": "1717903410",
+    "subm_id": "1282332823"
 }

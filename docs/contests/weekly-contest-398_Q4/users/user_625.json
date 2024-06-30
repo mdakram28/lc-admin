@@ -1,5 +1,6 @@
 {
     "username": "aadi_01",
     "submission": "class Solution {\npublic:\n    constexpr static int MAX_STAIR_DIFF = 5;\n    constexpr static int MAX_JUMP_SIZE = 31;\n\n    unordered_map<int, vector<vector<int>>> memo;\n    \n    int helper(int targetStair, int currentStair, int jumpSize, bool canJump) {\n        if (currentStair > targetStair + MAX_STAIR_DIFF) return 0;\n        if (jumpSize > MAX_JUMP_SIZE) return 0;\n        if (memo.count(currentStair) && memo[currentStair][jumpSize][canJump] != -1) return memo[currentStair][jumpSize][canJump];\n\n        int ways = (currentStair == targetStair);\n        if (canJump)\n            ways += helper(targetStair, currentStair - 1, jumpSize, false);\n        if (currentStair + (1 << jumpSize) <= targetStair + 1)\n            ways += helper(targetStair, currentStair + (1 << jumpSize), jumpSize + 1, true);\n\n        memo[currentStair].resize(MAX_JUMP_SIZE + 1, vector<int>(2, -1));\n        return memo[currentStair][jumpSize][canJump] = ways;\n    }\n\n    int waysToReachStair(int k) {\n        return helper(k, 1, 0, true);\n    }\n};\n",
-    "submit_ts": 1716089426.0
+    "submit_ts": "1716089426",
+    "subm_id": "1261841899"
 }

@@ -1,5 +1,6 @@
 {
     "username": "raja_",
     "submission": "class Solution {\npublic:\n    int maxi=0,node1=0;\n    void dfs(int node, int par, vector<vector<int>>&g, int cur){\n        if(cur>maxi){\n            maxi=cur;\n            node1=node;\n        }\n        for(auto neb: g[node]){\n            if(neb!=par){\n                dfs(neb,node,g,cur+1);\n            }\n        }\n    }\n    int dfs2(int node, int par, vector<vector<int>>&g){\n       int cur=0;\n        int maxx=0;\n        for(auto neb: g[node]){\n            if(neb!=par){\n                maxx=max(dfs2(neb,node,g),maxx);\n            }\n        }\n        return maxx+1;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n=edges1.size()+1,m=edges2.size()+1;\n        vector<vector<int>>g1(n),g2(m);\n        for(auto each: edges1){\n            g1[each[0]].push_back(each[1]);\n            g1[each[1]].push_back(each[0]);\n        }\n        for(auto each: edges2){\n            g2[each[0]].push_back(each[1]);\n            g2[each[1]].push_back(each[0]);\n        }\n        dfs(0,-1,g1,1);\n        int len1=dfs2(node1,-1,g1)-1;\n        maxi=0,node1=0;\n        dfs(0,-1,g2,1);\n        int len2=dfs2(node1,-1,g2)-1;\n        // cout<<len1<<\" \"<<len2<<endl;\n        int ans=1+ceil((len1*1.0)/2)+ceil((len2*1.0)/2);\n        return max({ans,len1,len2});\n        // return 0;\n        \n        \n    }\n};",
-    "submit_ts": 1719717272.0
+    "submit_ts": "1719717272",
+    "subm_id": "1304387146"
 }

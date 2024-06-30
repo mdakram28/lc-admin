@@ -1,5 +1,6 @@
 {
     "username": "AIHDCwQSo3",
     "submission": "class Solution {\npublic:\n    int m1 = 1e9+7;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> marked(n+1,-1);\nint mx=0;\nfor(int i=0;i<requirements.size();i++){\n    vector<int> temp=requirements[i];\n    marked[temp[0]+1]=temp[1];\n    mx=max(mx,temp[1]);\n}\nvector<vector<int>> dp(n+1,vector<int>(mx+1));\nfor(int i=0;i<=mx;i++){\n  if(i==0) dp[0][i]=1;\n  else dp[0][i]=0;\n}\nfor(int i=1;i<=n;i++){\n  if(marked[i]==-1){\n     for(int j=0;j<=mx;j++){\n       dp[i][j]=0;\n       for(int k=0;k<=min(j,i-1);k++){\n        dp[i][j]=(dp[i][j]+dp[i-1][j-k])%m1;\n       }\n     }\n  }else{\n    int j=marked[i];\n       dp[i][j]=0;\n       for(int k=0;k<=min(j,i-1);k++){\n        dp[i][j]=(dp[i][j]+dp[i-1][j-k])%m1;\n       }     \n  }\n}\nreturn dp[n][marked[n]];\n    }\n};",
-    "submit_ts": 1719071098.0
+    "submit_ts": "1719071098",
+    "subm_id": "1296839028"
 }

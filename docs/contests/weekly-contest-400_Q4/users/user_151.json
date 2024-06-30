@@ -1,5 +1,6 @@
 {
     "username": "ForgottenSemicolon",
     "submission": "class Solution {\n    public int minimumDifference(int[] nums, int k) {\n        int n = nums.length;\n        int [] bit = new int[32];\n        int ans = Integer.MAX_VALUE;\n        int left = 0, right = 0;\n        while(right<n){\n            for(int j = 0; j<=30; j++){\n                if((nums[right]&(1<<j))==0) bit[j]++;\n            }\n            int curr = 0;\n            for(int j = 0; j<=30; j++){\n                if(bit[j]>0) continue;\n                curr = curr | (1<<j);\n            }\n            ans = Math.min(ans, Math.abs(curr-k));\n            while(left<=right && curr<=k){\n                for(int j = 0; j<=30; j++){\n                    if((nums[left]&(1<<j))==0) bit[j]--;\n                }\n                curr = 0;\n                for(int j = 0; j<=30; j++){\n                    if(bit[j]>0) continue;\n                    curr = curr | (1<<j);\n                }\n                left++;\n                ans = Math.min(ans, Math.abs(curr-k));\n            }\n            right++;\n        }\n        return ans;\n    }\n}",
-    "submit_ts": 1717297257.0
+    "submit_ts": "1717297257",
+    "subm_id": "1274735936"
 }

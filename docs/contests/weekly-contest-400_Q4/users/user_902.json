@@ -1,5 +1,6 @@
 {
     "username": "krishiiitp",
     "submission": "class Solution {\npublic:\n    void buildSegTree(vector<int>& seg,vector<int>& nums,int i,int p,int q){\n        if(p==q) {\n            seg[i]=nums[p];\n            return;\n        }\n        int mid=(p+q)/2;\n        buildSegTree(seg,nums,2*i + 1,p,mid);\n        buildSegTree(seg,nums,2*i + 2,mid+1,q);\n        seg[i]=seg[2*i+1]&seg[2*i+2];\n    }\n    int findAns(vector<int>& seg,int i,int p,int q,int l,int r){\n        if(r<p || q<l){\n            return INT32_MAX;\n        }\n        if(l<=p && q<=r){\n            return seg[i];\n        }\n        int mid=(p+q)/2;\n        int ans1=findAns(seg,2*i+1,p,mid,l,r);\n        int ans2=findAns(seg,2*i+2,mid+1,q,l,r);\n        int ans=ans1&ans2;\n        return ans;\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<int> seg(4*n);\n        buildSegTree(seg,nums,0,0,n-1);\n        int ans=INT32_MAX;\n        for(int i=0;i<n;i++){\n            int l=i-1,r=n-1,mid;\n            while(r-l>1){\n                mid=(l+r)/2;\n                if(findAns(seg,0,0,n-1,i,mid)>=k){\n                    l=mid;\n                }else{\n                    r=mid;\n                }\n            }\n            if(l!=(i-1)){\n                ans=min(ans,abs(findAns(seg,0,0,n-1,i,l)-k));\n            }\n            ans=min(ans,abs(findAns(seg,0,0,n-1,i,r)-k));\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717300269.0
+    "submit_ts": "1717300269",
+    "subm_id": "1274838967"
 }

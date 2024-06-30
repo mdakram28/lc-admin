@@ -1,5 +1,6 @@
 {
     "username": "PrasHanT766",
     "submission": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    unordered_map<string, long long> m_p;\n\n    long long calculateWays(int currindex, int jmp, bool lasti, int k ) {\n        if ((currindex > k + 1) || (lasti && currindex >= k + 1)) {\n            return 0;\n        }\n\n        string key = to_string(currindex) + \"_\" + to_string(jmp) + \"_\" + to_string(lasti);\n        if (m_p.find(key) != m_p.end()) {\n            return m_p[key];\n        }\n\n        long long turn = 0;\n        if (currindex == k) {\n            turn = 1;\n        }\n\n        long long ans = 0;\n        if (!lasti && currindex > 0) {\n            ans = calculateWays(currindex - 1, jmp, true, k);\n        }\n\n        long long ans1 = calculateWays(currindex + (1LL << jmp), jmp + 1, false, k);\n\n        m_p[key] = turn + ans + ans1;\n        return m_p[key];\n    }\n\n    int waysToReachStair(int k) {\n         queue<pair<long long int, pair<long long int, long long int>>>q;\n        q.push({1, {0, 0}});\n         vector<int>two(32);\n        for(int i=0; i<32; i++){\n            two[i]=(1<<i);\n        }\n        return calculateWays(1, 0, false, k);\n    }\n};\n",
-    "submit_ts": 1716090515.0
+    "submit_ts": "1716090515",
+    "subm_id": "1261869019"
 }

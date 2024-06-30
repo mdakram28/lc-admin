@@ -102,13 +102,18 @@ function UserDetailComponent() {
             <span style={{ flexGrow: 1 }}></span>
             <span>Submitted at: {new Date(selectedSubmission.submit_ts * 1000).toTimeString()}</span>
         </div>
-        <input
-            type="checkbox"
-            checked={hideBlankLines}
-            onChange={ev => setHideBlankLines(ev.target.checked)}
-            id="codeHideBlankLines"
-        />
-        <label htmlFor="codeHideBlankLines">Hide blank lines</label>
+        <a href={`https://leetcode.com/submissions/detail/${selectedSubmission.subm_id}/`} target="blank">
+            Code&nbsp;<i className="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+        <div>
+            <input
+                type="checkbox"
+                checked={hideBlankLines}
+                onChange={ev => setHideBlankLines(ev.target.checked)}
+                id="codeHideBlankLines"
+            />
+            <label htmlFor="codeHideBlankLines">Hide blank lines</label>
+        </div>
         <pre
             ref={codePreRef}
             style={{ color: "auto" }}></pre>
@@ -138,7 +143,7 @@ export function PlagReportComponent({ }: {}) {
         if (!pairs) return;
         const graph = new UserGraph(pairs.filter(p => p.similarity >= similarity));
         setGraph(graph);
-    },[pairs, similarity]);
+    }, [pairs, similarity]);
 
     useEffect(() => {
         if (!reportName) return;
@@ -147,11 +152,11 @@ export function PlagReportComponent({ }: {}) {
 
     const reload = () => {
         if (baseDir === undefined) return;
-        
+
         // Fetch pairs with lowest similarity threshold
         fetchPairs(baseDir, 70)
             .then(setPairs);
-        
+
         fetchUsers(baseDir).then(setUsers);
     }
 
@@ -172,21 +177,21 @@ export function PlagReportComponent({ }: {}) {
             reload,
             graph,
             groups,
-            selectedFileId, 
+            selectedFileId,
             setSelectedFileId,
             selectedSubmission,
             similarity,
             setSimilarity,
-            }} >
-        <PanelGroup autoSaveId="example" direction="horizontal">
-            <Panel defaultSize={50} className="panel">
-                <GroupsPanelComponent />
-            </Panel>
-            <PanelResizeHandle className="resize-handle fa-solid fa-ellipsis-vertical" />
-            <Panel className="panel">
-                <UserDetailComponent />
-            </Panel>
-        </PanelGroup>
+        }} >
+            <PanelGroup autoSaveId="example" direction="horizontal">
+                <Panel defaultSize={50} className="panel">
+                    <GroupsPanelComponent />
+                </Panel>
+                <PanelResizeHandle className="resize-handle fa-solid fa-ellipsis-vertical" />
+                <Panel className="panel">
+                    <UserDetailComponent />
+                </Panel>
+            </PanelGroup>
         </ReportContext.Provider>
     </>
 }

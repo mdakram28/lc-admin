@@ -1,5 +1,6 @@
 {
     "username": "longvatrong111",
     "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& arr) {\n        int n = arr.size();\n        std::sort(arr.begin(), arr.end());\n        vector<int> nums;\n        for (int i = 0; i < n; ++i) {\n            if (i != 0 && arr[i] == arr[i - 1]) continue;\n            nums.push_back(arr[i]);\n        }\n        \n        n = nums.size();\n        //cout << n << endl;\n        bitset<50001> bs;\n        bs[0] = 1;\n        for (int i = 0; i < n; ++i) {\n            int mo = 50001 - nums[i];\n            bs |= ((bs << mo) >> mo) << nums[i];\n        }\n        \n        int ans = 0;\n        for (int i = nums[n - 1] - 1; i >= 0; --i) {\n            //if (bs[i]) cout << \"i: \" << i << endl;\n            if (bs[i] && i != nums[n - 1]) {\n                ans = std::max(ans,nums[n - 1] + i);\n                break;\n            }\n        }\n        return ans != 0 ? ans : nums[n - 1];\n    }\n};",
-    "submit_ts": 1717903219.0
+    "submit_ts": "1717903219",
+    "subm_id": "1282327601"
 }

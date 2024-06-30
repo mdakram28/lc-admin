@@ -1,5 +1,6 @@
 {
     "username": "jerksundertaker",
     "submission": "class Solution {\npublic:\n    int comb(int n, int k){\n        long long ans = 1;\n        for(int i = 1; i <= k; i++){\n            ans *= (n - k + i);\n            ans /= i;\n        }\n        return ans;\n    }\n    int waysToReachStair(int k) {\n        // x downward step, with x - 1 to infinite upward step\n        // 1 + 2^1 + ... + 2^x = 2^(x + 1) - 1\n        // -1, +1, -1, +2, ..., +, +, +   == insert -1 into +2 power\n        int ans = 0;\n        if(k == 0 || k == 1) ans++;\n        for(int i = 0; i < 31; i++){\n            long long one_cnt = 1 + (1LL << (i + 1)) - 1 - k; // start at stair 1\n            if(one_cnt > i + 2 || one_cnt < 0) continue;\n            int two_power_cnt = i + 1;\n            ans += comb(two_power_cnt + 1, one_cnt);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716089713.0
+    "submit_ts": "1716089713",
+    "subm_id": "1261849411"
 }

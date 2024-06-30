@@ -1,5 +1,6 @@
 {
     "username": "shasdow",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int K) {\n       int N = (int)nums.size();\n\n  vector<vector<int>> dp(N + 1, vector<int>(K + 1, 1));\n  map<int, int> mp;\n\n  for (int i = 1; i <= N; i++) {\n    mp[nums[i - 1]]++;\n    dp[i][0] = mp[nums[i - 1]];\n  }\n\n  for (int j = 1; j <= K; j++) {\n    map<int, int> mpp;\n    multiset<int> s;\n    for (int i = 1; i <= N; i++) {\n      if (mpp.find(nums[i - 1]) != mpp.end())\n        dp[i][j] = max(dp[i][j], mpp[nums[i - 1]] + 1);\n\n      bool ok = 0;\n      if (s.find(dp[i][j - 1] - 1) != s.end())\n        ok = 1;\n\n      if (ok)\n        s.erase(s.lower_bound(dp[i][j - 1] - 1));\n\n      if (!s.empty())\n        dp[i][j] = max(dp[i][j], *s.rbegin() + 1);\n\n      if (ok)\n        s.insert(dp[i][j - 1] - 1);\n\n      // for (int z = i - 1; z >= 1; z--) {\n      //   if (nums[i - 1] == nums[z - 1])\n      //     dp[i][j] = max(dp[i][j], dp[z][j] + 1);\n      //   else\n      //     dp[i][j] = max(dp[i][j], dp[z][j - 1] + 1);\n      // }\n      mpp[nums[i - 1]] = dp[i][j];\n      s.insert(dp[i][j - 1]);\n    }\n  }\n\n  // cout << \"DP array\\n\";\n  // for (int j = 0; j <= K; j++) {\n  //   for (int i = 0; i <= N; i++)\n  //     cout << dp[i][j] << \" \";\n  //   cout << endl;\n  // }\n\n  int ans = 0;\n  for (int i = 0; i <= N; i++)\n    for (int j = 0; j <= K; j++)\n      ans = max(ans, dp[i][j]);\n  return ans;\n    }\n};",
-    "submit_ts": 1717862369.0
+    "submit_ts": "1717862369",
+    "subm_id": "1281821305"
 }

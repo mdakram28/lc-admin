@@ -1,5 +1,6 @@
 {
     "username": "shivang_verma_4193",
     "submission": "class Solution {\n    private static final int MOD = 1000000007;\n    public int numberOfPermutations(int n, int[][] requirements) {\n        Arrays.sort(requirements, Comparator.comparingInt(a -> a[0]));\n        long[][] dp = new long[n + 1][401]; \n        dp[0][0] = 1; \n\n        for (int i = 1; i <= n; i++) {\n            long[][] x = new long[n + 1][401]; \n            for (int f = 0; f < i; f++) {\n                for (int m = 0; m <= 400; m++) {\n                    if (dp[f][m] > 0) {\n                        for (int k = 0; k <= f; k++) {\n                            int l = m + (f - k);\n                            if (l <= 400) {\n                                x[f + 1][l] = (x[f + 1][l] + dp[f][m]) % MOD;\n                            }\n                        }\n                    }\n                }\n            }\n            dp = x;\n\n            for (int[] vary : requirements) {\n                if (vary[0] == i - 1) {\n                    long[][] res = new long[n + 1][401];\n                    for (int j = 0; j <= i; j++) {\n                        res[j][vary[1]] = dp[j][vary[1]];\n                    }\n                    dp = res;\n                }\n            }\n        }\n\n        return (int) dp[n][requirements[requirements.length - 1][1]];\n    \n    }\n}",
-    "submit_ts": 1719068710.0
+    "submit_ts": "1719068710",
+    "subm_id": "1296774384"
 }

@@ -1,5 +1,6 @@
 {
     "username": "delphih",
     "submission": "MX = (10**9).bit_length()\n\nclass Solution:\n    def minimumDifference(self, A: List[int], k: int) -> int:\n        n = len(A)\n        cur, q = 0, 0\n        cnts = [Counter(), Counter()]\n        mn = inf\n        for p, x in enumerate(A):\n            while q < n and (q <= p or (cur & A[q]) >= k):\n                for i in range(MX):\n                    cnts[(A[q]>>i)&1][i] += 1\n                cur = A[q] if q <= p else (cur & A[q])\n                q += 1\n            mn = min(mn, abs(k - cur))\n            if cur >= k and q < n:\n                mn = min(mn, abs(k - (cur & A[q])))\n            for i in range(MX):\n                b = (x>>i) & 1\n                cnts[b][i] -= 1\n                if b == 0 and cnts[0][i] == 0 and cnts[1][i] > 0: cur |= 1<<i\n                if b == 1 and cnts[1][i] == 0: cur &= ~(1<<i)\n        return mn",
-    "submit_ts": 1717298085.0
+    "submit_ts": "1717298085",
+    "subm_id": "1274766810"
 }

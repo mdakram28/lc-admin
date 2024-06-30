@@ -1,5 +1,6 @@
 {
     "username": "mocowcow",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        M = max(nums).bit_length()\n        cnt = [0] * M\n        \n        def calc(sz):\n            res = 0 \n            for i in range(M):\n                if cnt[i] == sz:\n                    res |= (1 << i)\n            return res\n        \n        def add(x, inc):\n            for i in range(M):\n                if x & (1 << i):\n                    cnt[i] += inc\n        \n        ans = inf\n        left = 0\n        for right, x in enumerate(nums):\n            add(x, 1)\n            while left < right and calc(right-left+1) < k:\n                ans = min(ans, abs(calc(right-left+1) - k))\n                add(nums[left], -1)\n                left += 1\n            ans = min(ans, abs(calc(right-left+1) - k))\n        \n        return ans",
-    "submit_ts": 1717297785.0
+    "submit_ts": "1717297785",
+    "subm_id": "1274755836"
 }

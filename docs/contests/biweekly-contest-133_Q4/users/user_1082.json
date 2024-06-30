@@ -1,5 +1,6 @@
 {
     "username": "nikhil91_97",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& reqs) {\n        const int mod = 1e9+7;\n        const int inversions_maximum = 400;\n\n        \n        vector<vector<long long>> vect(n + 1, vector<long long>(inversions_maximum + 1, 0));\n        vect[0][0] = 1;\n        \n        \n        map<int, int> mp;\n        for (auto& it : reqs) {\n            mp[it[0] + 1] = it[1];\n        }\n\n\n        for (int length = 1; length <= n; length++) {\n            for (int inv = 0; inv <= inversions_maximum; inv++) {\n                for (int pos = 0; pos < length; pos++) {\n                    int prevInv = inv - pos;\n                    if (prevInv >= 0) {\n                        vect[length][inv] = (vect[length][inv] + vect[length - 1][prevInv]) % mod;\n                    }\n                }\n            }\n\n            if (mp.count(length)) {\n                int target = mp[length];\n                for (int inv = 0; inv <= inversions_maximum; inv++) {\n                    if (inv != target) {\n                        vect[length][inv] = 0;\n                    }\n                }\n            }\n        }\n\n        long ret = 0;\n        for (long it : vect[n]) {\n            ret = (ret + it) % mod;\n        }\n\n        return ret;\n    }\n};",
-    "submit_ts": 1719071668.0
+    "submit_ts": "1719071668",
+    "subm_id": "1296851641"
 }

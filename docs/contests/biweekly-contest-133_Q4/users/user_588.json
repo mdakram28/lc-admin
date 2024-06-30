@@ -1,5 +1,6 @@
 {
     "username": "SamarthAroraa",
     "submission": "\nconst int MOD = 1e9 + 7;\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n       std::sort(requirements.begin(), requirements.end());\n\n    std::vector<std::vector<int>> dp(n + 1, std::vector<int>(401, 0));\n    dp[0][0] = 1;\n\n    for (int len = 1; len <= n; ++len) {\n        for (int inv = 0; inv <= 400; ++inv) {\n            for (int k = 0; k < len; ++k) {\n                if (inv >= k) {\n                    dp[len][inv] = (dp[len][inv] + dp[len - 1][inv - k]) % MOD;\n                }\n            }\n        }\n\n        for (const auto& req : requirements) {\n            int endi = req[0] + 1;  \n            int cnti = req[1];\n            if (endi == len) {\n                for (int inv = 0; inv <= 400; ++inv) {\n                    if (inv != cnti) {\n                        dp[len][inv] = 0;\n                    }\n                }\n            }\n        }\n    }\n\n    int result = 0;\n    for (int inv = 0; inv <= 400; ++inv) {\n        result = (result + dp[n][inv]) % MOD;\n    }\n\n    return result;\n    }\n};",
-    "submit_ts": 1719069830.0
+    "submit_ts": "1719069830",
+    "subm_id": "1296807495"
 }

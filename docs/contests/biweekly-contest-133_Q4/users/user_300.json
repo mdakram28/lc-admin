@@ -1,5 +1,6 @@
 {
     "username": "cursed_archer",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        const int mod = 1000000007;\n        \n        auto adder = [&](int &a, int b) {\n            a = (a + b) % mod;\n        };\n        \n        int mx = n * (n - 1) / 2;\n        vector<int> req(n, -1);\n        for (auto &i : requirements) {\n            req[i[0]] = i[1];\n        }\n        \n        vector<int> dp(mx + 1, 0);\n        dp[0] = 1;\n        \n        for (int i = 1; i <= n; ++i) {\n            vector<int> dp2(mx + 1, 0);\n            vector<int> pref(mx + 2, 0); \n            \n            for (int inv = 0; inv <= mx; ++inv) {\n                pref[inv + 1] = (pref[inv] + dp[inv]) % mod;\n            }\n            \n            for (int inv = 0; inv <= mx; ++inv) {\n                int l = max(0, inv - (i - 1));\n                int r = inv;\n                int range = (pref[r + 1] - pref[l] + mod) % mod;\n                \n                if (req[i - 1] == -1 || req[i - 1] == inv) {\n                    dp2[inv] = range;\n                }\n            }\n            \n            dp = dp2;\n        }\n        \n        int ans = 0;\n        for (int inv = 0; inv <= mx; ++inv) {\n            adder(ans, dp[inv]);\n        }\n        \n        return ans;\n    }\n};\n",
-    "submit_ts": 1719069809.0
+    "submit_ts": "1719069809",
+    "subm_id": "1296806950"
 }

@@ -1,5 +1,6 @@
 {
     "username": "aksharye",
     "submission": "class Solution {\npublic:\n    static const int MN = 40;\n    long long dp [MN][MN];\n    \n    void calcDP() {\n        dp[0][0] = 1;\n        for (int i = 1; i < 40; i++) {\n            dp[0][i] = 0;\n            dp[i][0] = 1;\n        }\n        \n        for (int i = 1; i < 40; i++) {\n            for (int j = 1; j < 40; j++) {\n                dp[i][j] = dp[i-1][j] + dp[i-1][j-1];  \n            }\n        }\n    }\n    \n    int waysToReachStair(int k) {\n        long long curr = 0;\n        long long steps = 1;\n        long long diff = 1-k;\n        long long sum = 1;\n        int ans = 0;\n        calcDP();\n        while (sum <= 2 * (k+1)) {\n            if (diff >= 0 && diff <= steps) {\n                ans += dp[steps][diff];\n\n                steps++;\n                if (curr == 0) {\n                    curr = 1;\n                } else {\n                    curr *= 2;\n                }\n\n                sum += curr;\n                diff = sum - k;\n            } else if (diff < 0) {\n                steps++;\n                if (curr == 0) {\n                    curr = 1;\n                } else {\n                    curr *= 2;\n                }\n\n                sum += curr;\n                diff = sum - k;\n            } else {\n                break;\n            }\n\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1716088475.0
+    "submit_ts": "1716088475",
+    "subm_id": "1261815078"
 }

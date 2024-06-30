@@ -1,5 +1,6 @@
 {
     "username": "devvrat_07",
     "submission": "class Solution {\npublic:\n    \n    int minimumDifference(vector<int>& nums, int k) {\n        int ans = 1e9;\n        int l=0,r=0;\n        int ch= (1<<30) - 1;\n        vector<int> freq(32,0);\n        while(r<nums.size()){\n            ch &= nums[r];\n            for(int i=0;i<32;i++){\n                int c = 1<<i;\n                if(c<=nums[r] && nums[r]&c){\n                    freq[i]++;\n                }\n            }\n            if(ch<k){\n                ans = min(ans,abs(ch-k));\n                while(ch<k && r>l){\n                    for(int i=0;i<32;i++){\n                        int c = 1<<i;\n                        if(c<=nums[l] && nums[l]&c){\n                            freq[i]--;\n                        }\n                    }\n                    int t = 0;\n                    for(int i=0;i<32;i++){\n                        if(freq[i]==(r-l)) {\n                            t += (1<<i);\n                        }\n                    }\n                    ans = min(ans,abs(t-k));\n                    ch = t;\n                    l++;\n                }\n                \n            }\n            r++;\n            ans = min(ans,(abs(ch-k)));\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717300421.0
+    "submit_ts": "1717300421",
+    "subm_id": "1274843641"
 }

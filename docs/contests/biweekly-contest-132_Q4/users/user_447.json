@@ -1,5 +1,6 @@
 {
     "username": "Siddharth_Joshi",
     "submission": "#define f first\n#define s second\n#define pb push_back\n#define all(x) x.begin(),x.end()\n#define sz(x) (long long)(x).size()\n#define pii pair<long long,long long>\n\nclass Solution {\npublic:\n    int maximumLength(vector<int> nums, int k) {\n        int n=sz(nums);\n        vector<vector<int>> dp(n,vector<int>(k+1,0));\n        vector<int> max_yet(k+1,0);\n        map<int,array<int,51>> mp;\n        dp[0][0]=1;\n        max_yet[0]=1;\n        mp[nums[0]][0]=1;\n        for(int i=1;i<n;i++){\n            dp[i][0]=1;\n        // debug(max_yet);\n        // debug(mp);\n        // debug(dp);\n            // for(int j=0;j<i;j++){\n                for(int l=0;l<k;l++){\n                        dp[i][l+1]=max(dp[i][l+1],1+max_yet[l]);\n                    }\n                // }\n                for(int l=0;l<=k;l++){\n                    dp[i][l]=max(dp[i][l],1+mp[nums[i]][l]);\n                    mp[nums[i]][l]=max(mp[nums[i]][l],dp[i][l]);\n                }\n                    for(int l=0;l<=k;l++){\n                        max_yet[l]=max(max_yet[l],dp[i][l]);\n                    }\n                // }\n            // }\n        }\n        int ans=0;\n        for(int i=0;i<n;i++){\n            for(int j=0;j<=k;j++){\n                ans=max(ans,dp[i][j]);\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717861668.0
+    "submit_ts": "1717861668",
+    "subm_id": "1281798380"
 }

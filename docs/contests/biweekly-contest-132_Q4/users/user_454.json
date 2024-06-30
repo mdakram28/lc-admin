@@ -1,5 +1,6 @@
 {
     "username": "prabhatsingh2700",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        map<int,int>mp;\n        int n=nums.size();\n        int dp[n+1][k+2];\n        memset(dp,0,sizeof(dp));\n        for(int i=0;i<=k;i++){\n            dp[0][i]=1;\n        }\n        vector<int>res(k+2,1);\n        res[k+1]=0;\n        \n        mp[nums[0]]=0;\n        for(int i=1;i<n;i++){\n            if(mp.find(nums[i])!=mp.end()){\n                int ind=mp[nums[i]];\n                for(int j=0;j<=k;j++){\n                    dp[i][j]=1+dp[ind][j];\n                }\n            }\n            \n            for(int j=0;j<=k;j++){\n                dp[i][j]=max(dp[i][j],1+res[j+1]);\n            }\n            \n           for(int j=0;j<k+2;j++){\n               res[j]=max(res[j],dp[i][j]);\n           }\n            mp[nums[i]]=i;\n        }\n        \n        int ans=0;\n        for(int i=0;i<n;i++){\n            for(int j=0;j<=k;j++){\n                // cout<<dp[i][j]<<\" \";\n                ans=max(ans,dp[i][j]);\n            }\n            // cout<<endl;\n        }\n        \n        return ans;\n        \n        \n        \n    \n        \n    }\n};",
-    "submit_ts": 1717862297.0
+    "submit_ts": "1717862297",
+    "subm_id": "1281818571"
 }

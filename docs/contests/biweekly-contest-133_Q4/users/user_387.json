@@ -1,5 +1,6 @@
 {
     "username": "user7573Xt",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        mod = 10**9 + 7\n        max_inv = min((n*(n + 1) // 2), 400)\n        req_map = {req[0] + 1: req[1] for req in requirements}\n\n        dp = [[0] * (max_inv + 1) for _ in range(n + 1)]\n        dp[0][0] = 1\n        \n        for length in range(1, n + 1):\n            for inv in range(max_inv + 1):\n                for new_pos in range(length):\n                    prev_inv = inv - new_pos\n                    if prev_inv >= 0:\n                        dp[length][inv] = (dp[length][inv] + dp[length - 1][prev_inv]) % mod\n\n            if length in req_map:\n                target_inv = req_map[length]\n                for inv in range(max_inv + 1):\n                    if inv != target_inv:\n                        dp[length][inv] = 0\n\n        result = sum(dp[n]) % mod\n        return result\n",
-    "submit_ts": 1719070398.0
+    "submit_ts": "1719070398",
+    "subm_id": "1296822015"
 }

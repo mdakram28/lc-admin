@@ -1,5 +1,6 @@
 {
     "username": "czjnbb",
     "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        \n        leng = len(nums)\n        \n        tot = defaultdict(int)\n        \n        tot[0] = 1\n        \n        dp = defaultdict(int)\n        dp[nums[0]] = defaultdict(int)\n        dp[nums[0]][0] = 1\n        \n        \n        for n in nums[1:]:                \n            \n            ### update same lastn\n            if n in dp:\n                for k2 in dp[n]:\n                    dp[n][k2] += 1\n            else:\n                dp[n] = defaultdict(int)\n                dp[n][0] = 1\n            \n            ### undate diff lastn\n            for k2 in sorted(tot.keys(), reverse = True):\n                v = tot[k2]\n                if k2 in dp[n]:\n                    tot[k2] = max(tot[k2], dp[n][k2])\n                if k2 < k:\n                    dp[n][k2 + 1] = max(dp[n][k2 + 1], v + 1)\n                    tot[k2 + 1] = max(tot[k2 + 1], dp[n][k2 + 1])\n            \n            # print(n)\n            # print(dp)\n        \n        return max(tot.values())\n        \n        \n            \n            \n        ",
-    "submit_ts": 1717861002.0
+    "submit_ts": "1717861002",
+    "subm_id": "1281776428"
 }

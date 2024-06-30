@@ -1,5 +1,6 @@
 {
     "username": "NatapongS",
     "submission": "using vvi = vector<vector<int>>;\nstruct Tree {\n    int n;\n    vvi tree;\n    int dia;\n    vector<int> len;\n    Tree(int n, vvi &edge) : n(n) {\n        tree.resize(n), len.resize(n), dia = 0;\n        for (auto &v: edge) {\n            int x = v[0], y = v[1];\n            tree[x].push_back(y);\n            tree[y].push_back(x);\n        }\n    }\n    int dfs_dia(int node, int par) {\n        int ma[2] = {0, 0};\n        for (auto it: tree[node]) {\n            if (it == par) continue;\n            int cand = dfs_dia(it, node);\n            if (cand > ma[1]) ma[1] = cand;\n            if (ma[1] > ma[0]) swap(ma[0], ma[1]);\n        }\n        dia = max(dia, ma[0] + ma[1]);\n        // cout << \"dia: \"<< dia << \"\\n\";\n        return ma[0] + 1;\n    }\n    \n};\n\nclass Solution {\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        Tree t1(edges1.size() + 1, edges1), t2(edges2.size() + 1, edges2);\n        t1.dfs_dia(0, -1), t2.dfs_dia(0, -1);\n        int d1 = t1.dia, d2 = t2.dia;\n        // cout <<d1 << \" \"<<d2 <<\"\\n\";\n        return max({d1, d2, (d1 + 1)/ 2 + (d2 + 1)/ 2 + 1});\n    }\n};",
-    "submit_ts": 1719716627.0
+    "submit_ts": "1719716627",
+    "subm_id": "1304369696"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Atma_",
     "submission": "class Solution {\npublic:\n    \n    void dfs(int node, int depth, vector<int>& vis, vector<vector<int>>& graph){\n        vis[node]=depth;\n        for(auto& g:graph[node]){\n            if(vis[g]==-1){\n                dfs(g,depth+1,vis,graph);\n            }\n        }\n    }\n    \n    int longestPath(vector<vector<int>>& graph){\n        int n=graph.size();\n        vector<int> vis(n,-1);\n        int depth=0;\n        dfs(0,depth,vis,graph);\n        int maxi=0,ind=0;\n        for(int i=0;i<n;++i){\n            if(vis[i]>maxi){\n                maxi=vis[i];\n                ind=i;\n            }\n            vis[i]=-1;\n        }\n        depth=0;\n        dfs(ind,depth,vis,graph);\n        return *max_element(vis.begin(),vis.end());\n    }\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n=edges1.size()+1,m=edges2.size()+1;\n        vector<vector<int>> graph(n),graphh(m);\n        for(auto& e:edges1){\n            graph[e[0]].push_back(e[1]);\n            graph[e[1]].push_back(e[0]);\n        }\n        for(auto& e:edges2){\n            graphh[e[0]].push_back(e[1]);\n            graphh[e[1]].push_back(e[0]);\n        }\n        int x=longestPath(graph),y=longestPath(graphh);\n        //cout<<x<<\" \"<<y<<endl;\n        return max(x,max(y,(x+1)/2+(y+1)/2+1));\n    }\n};",
-    "submit_ts": 1719718347.0
+    "submit_ts": "1719718347",
+    "subm_id": "1304414939"
 }

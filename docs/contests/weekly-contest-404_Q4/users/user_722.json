@@ -1,5 +1,6 @@
 {
     "username": "divakar_p_s",
     "submission": "class Solution {\npublic:\n    \n    void dfs(int n,int p,vector<int>adj[],int h,vector<int>&height){\n        height[n] = h;\n        for(auto x:adj[n]){\n            if(x==p)\n                continue;\n            dfs(x,n,adj,h+1,height);\n        }\n    }\n    \n    int findDia(vector<vector<int> >e){\n        int n =e.size()+1;\n        vector<int>adj[n];\n        for(auto x:e){\n            adj[x[0]].push_back(x[1]);\n            adj[x[1]].push_back(x[0]);\n        }\n        vector<int>height(n,0);\n        int node = 0;\n        dfs(0,-1,adj,0,height);\n        for(int i=0;i<n;i++)\n            if(height[i] > height[node])\n                node = i;\n        height.assign(n,0);\n        dfs(node,-1,adj,0,height);\n        int ans=0;\n        for(auto x:height)\n            ans = max(ans,x);\n        return ans;\n    }\n    \n    int ce(int x,int y){\n        return x%y == 0? x/y:x/y+1;\n    }\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int dia1 = findDia(edges1);\n        int dia2 = findDia(edges2);\n        \n        // cout<<dia1<<\" \"<<dia2<<\"\\n\";\n        int ans = max(dia1,dia2);\n        ans = max(ans, ce(dia1,2)+ce(dia2,2)+1);\n        return ans;\n    }\n};",
-    "submit_ts": 1719719368.0
+    "submit_ts": "1719719368",
+    "subm_id": "1304440246"
 }

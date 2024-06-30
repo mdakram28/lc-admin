@@ -1,5 +1,6 @@
 {
     "username": "NatapongS",
     "submission": "const int MOD = 1e9 + 7;\nint add(int x, int y) {\n    return (x += y) >= MOD ? x - MOD : (x < 0 ? x + MOD : x);\n}\nint mult(int x, int y) {return 1ll * x * y % MOD;}\nint dp[301][402];\nint req[301], tar;\nint rec(int id, int cnt) {\n    if (cnt > 400 || (req[id] != -1 && req[id] != cnt)) {\n        return 0;\n    }\n    if (dp[id][cnt] != -1) return dp[id][cnt];\n    if (id == tar) return dp[id][cnt] = 1;\n    dp[id][cnt] = 0;\n    for (int i = 0; i <= id; ++i) {\n        dp[id][cnt] = add(dp[id][cnt], rec(id + 1, cnt + i));\n    }\n    return dp[id][cnt];\n}\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        tar = n;\n        memset(req, -1, sizeof req);\n        for (auto &it: requirements) {\n            req[it[0] +1] = it[1];\n        }\n        memset(dp, -1, sizeof dp);\n        return rec(0, 0);        \n    }\n};",
-    "submit_ts": 1719067670.0
+    "submit_ts": "1719067670",
+    "subm_id": "1296735379"
 }

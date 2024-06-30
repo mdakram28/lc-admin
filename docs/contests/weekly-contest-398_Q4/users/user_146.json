@@ -1,5 +1,6 @@
 {
     "username": "homeless_man",
     "submission": "class Solution {\npublic:\n    \n    int k;\n    \n    unordered_map<long long,int> dp[33][2];\n    \n    int dfs(long long jump,long long i,bool last){\n        //in one move you can set the jumpth bit\n        //and jump increases by one\n        //this is the only way you can iuncrease\n        //another observation\n        //when subtracting one\n        //you find the smallest active bit\n        //unset it\n        //and all bits behind are set to 1\n        //would this create an issue?\n        \n        //once you exceed k + 1,return 0\n        //jump is bound by 32\n        //i is also bound by 32?\n        if(dp[jump][last].count(i))\n            return dp[jump][last][i];\n        \n        if(i > k + 1)\n            return 0;\n        \n        int res = dfs(jump+1,i + pow(2,jump),0) + (k == i);\n        //decrease\n        if(i != 0 && !last){\n            res += dfs(jump,i-1,1);\n        }\n        return dp[jump][last][i] = res;\n    }\n    \n    int waysToReachStair(int k1) {\n        k = k1;\n        return dfs(0,1,0);\n    }\n};",
-    "submit_ts": 1716087658.0
+    "submit_ts": "1716087658",
+    "subm_id": "1261790417"
 }

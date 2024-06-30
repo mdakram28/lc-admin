@@ -1,5 +1,6 @@
 {
     "username": "ayush73nigam",
     "submission": "class Solution {\npublic:\n    \n    int M = (int)(1e9 + 7);\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        \n        int vers= 400;\n        \n        unordered_map <int,int> mpp;\n        \n        for(auto x: requirements){\n            mpp[x[0]+1] = x[1];\n        }\n        \n        vector<vector<int>> dp(n + 1, vector<int>(vers + 1, 0));\n        dp[0][0] = 1;\n\n        for (int i = 1; i < n+1; i++) {\n            for (int j = 0; j < vers+1; j++) {\n                for (int q = 0; q < i; q++) {\n\n                    if (j-q >= 0) {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][j-q]) % M;\n                    }\n                }\n            }\n\n            if (mpp.find(i) != mpp.end()) {\n                int tar = mpp[i];\n                for (int j = 0; j <= vers; j++) {\n                    if (j != tar) {\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n\n        int ans = 0;\n        for (int it : dp[n]) {\n            ans = (ans + it) % M;\n        }\n\n        return (ans);\n    }\n};",
-    "submit_ts": 1719071954.0
+    "submit_ts": "1719071954",
+    "subm_id": "1296857877"
 }

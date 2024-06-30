@@ -1,5 +1,6 @@
 {
     "username": "vivekvar_19",
     "submission": "class Solution {\npublic:\n    int findAnd(vector<vector<int>>& v, int l, int r) {\n        int p, ans = 0;\n        for (int i = 0; i < 32; i++) {\n            if (l == 0) p = v[i][r];\n            else p = v[i][r] - v[i][l - 1];\n            if (p == r - l + 1) ans += (1 << i);\n        }\n        return ans;\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        vector<vector<int>>v(32, vector<int>(nums.size(), 0));\n        for (int i = 0; i < nums.size(); i++) {\n            for (int j = 0; j < 32; j++) {\n                if (nums[i] & (1 << j)) v[j][i] = 1;\n            }\n        }\n        for (int i = 0; i < 32; i++) {\n            for (int j = 1; j < nums.size(); j++) v[i][j] += v[i][j - 1];\n        }\n        int res = 1e9 + 7;\n        for (int i = 0; i < nums.size(); i++) {\n            int l = i, r = nums.size() - 1, ans = 1e9 + 7;\n            while (l <= r) {\n                int mid = l + (r - l)/2;\n                int x = findAnd(v, i, mid);\n                if (x >= k) l = mid + 1;\n                else r = mid - 1;\n                ans = min(ans, abs(x - k));\n            }\n            res = min(res, ans);\n        }\n        return res;\n    }\n};",
-    "submit_ts": 1717298320.0
+    "submit_ts": "1717298320",
+    "subm_id": "1274774848"
 }

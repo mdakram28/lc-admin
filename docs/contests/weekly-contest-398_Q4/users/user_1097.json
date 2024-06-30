@@ -1,5 +1,6 @@
 {
     "username": "rohan-v8rma",
     "submission": "class Solution {\n    int pow(int a, int b) {\n        if(b == 0) return 1;\n        \n        int temp = pow(a, b / 2);\n        temp *= temp;\n        \n        if(b % 2 != 0) temp *= a;\n        \n        return temp;\n    }\n    \n    long getKey(long current, int target, int x) {\n        target = (target << 1) + x;\n        current = (current << 6) + target;\n        \n        return current;\n    }\n    \n    int getWays(long current, int target, int jump, boolean decPossible) {        \n        long key = getKey(current, jump, decPossible ? 1 : 0);\n        if(dp.containsKey(key)) return dp.get(key);\n        \n        int result = 0;\n        \n        if(current == target) {\n            result = 1;\n        }\n        \n        if(!decPossible && current > target) return 0;\n        \n        if(decPossible) {\n            result += getWays(current - 1, target, jump, false);\n        }\n        \n        if(current <= target) {\n            result += getWays(current + pow(2, jump), target, jump + 1, true);    \n        }\n        \n        dp.put(key, result);\n        return result;\n    }\n    \n    HashMap<Long, Integer> dp;\n    \n    public int waysToReachStair(int k) {\n        dp = new HashMap<>();\n        return getWays(1, k, 0, true);\n    }\n}",
-    "submit_ts": 1716089320.0
+    "submit_ts": "1716089320",
+    "subm_id": "1261839122"
 }

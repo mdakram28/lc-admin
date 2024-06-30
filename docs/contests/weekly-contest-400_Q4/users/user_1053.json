@@ -1,5 +1,6 @@
 {
     "username": "saogetxdy",
     "submission": "class Solution {\npublic:\n    long n, t[4*100000];\n\n    void build(vector<int>&a, int v, int tl, int tr) {\n        if (tl == tr) {\n            t[v] = a[tl];\n        } else {\n            int tm = (tl + tr) / 2;\n            build(a, v*2, tl, tm);\n            build(a, v*2+1, tm+1, tr);\n            t[v] = t[v*2] & t[v*2+1];\n        }\n    }\n\n    int bitWiseAnd(int v, int tl, int tr, int l, int r) {\n      if (l > r) \n          return INT_MAX;\n      if (l == tl && r == tr) {\n          return t[v];\n      }\n      int tm = (tl + tr) / 2;\n      int kl = bitWiseAnd(v*2, tl, tm, l, min(r, tm)) ;\n      int kr = bitWiseAnd(v*2+1, tm+1, tr, max(l, tm+1), r);\n      return kl&kr;\n    }\n\n    int minimumDifference(vector<int>& nums, int k) {\n      n = nums.size();\n      int l = 0,r = 0, mn =INT_MAX;\n      int cur =nums[0];\n      build(nums,1,0,n-1);\n\n      while(l<=r && r<n){\n        mn = min(mn,abs(k- bitWiseAnd(1,0,n-1, l,r)));\n        if(l==r){\n          ++r;\n          continue;\n        }\n        if(r==n-1){\n          ++l;\n          continue;\n        }\n\n        int ls = abs(k- bitWiseAnd(1,0,n-1, l+1,r));\n        int rs = abs(k- bitWiseAnd(1,0,n-1, l,r+1));\n\n        if(ls<=rs){\n          ++l;\n        }\n        else{\n          ++r;\n        }\n      }\n\n      return mn;\n    }\n};",
-    "submit_ts": 1717300102.0
+    "submit_ts": "1717300102",
+    "subm_id": "1274833739"
 }

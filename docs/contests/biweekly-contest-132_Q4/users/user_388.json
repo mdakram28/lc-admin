@@ -1,5 +1,6 @@
 {
     "username": "urviljivani007",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size(), ans = 0;\n        vector<vector<int>> dp(k+1, vector<int> (n, 0));\n        unordered_map<int, int> umap2;\n        for(int j = 0 ; j < n ; j++ ) {\n            dp[0][j] = umap2[nums[j]]+1;\n            ans = max(ans, dp[0][j]);\n            umap2[nums[j]]++;\n        }\n        for(int i = 1 ; i <= k ; i++ ) {\n            unordered_map<int, int> umap, umap1;\n            multiset<int> st1;\n            for(int j = 0 ; j < n ; j++ ) {\n                if(st1.find(umap1[nums[j]]) != st1.end()) {\n                    st1.erase(st1.find(umap1[nums[j]]));\n                }\n                dp[i][j] = umap[nums[j]]+1;\n                if(st1.size())\n                    dp[i][j] = max(dp[i][j], *st1.rbegin()+1);\n                umap[nums[j]] = dp[i][j];\n                ans = max(ans, dp[i][j]);\n                if(st1.find(umap1[nums[j]]) != st1.end()) {\n                    st1.erase(st1.find(umap1[nums[j]]));\n                }\n                umap1[nums[j]] = dp[i-1][j];\n                st1.insert(dp[i-1][j]);\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717862294.0
+    "submit_ts": "1717862294",
+    "subm_id": "1281818454"
 }

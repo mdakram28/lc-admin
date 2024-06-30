@@ -1,5 +1,6 @@
 {
     "username": "tanmay_jain312",
     "submission": "class Solution {\n    private Map<Integer, Map<Integer, Map<Boolean, Integer>>> cache = new HashMap<>();\n\n    private int countWays(int target, int current, int jump, boolean canJump) {\n        if (current > target + 5)\n            return 0;\n\n        if (jump > 31)\n            return 0;\n\n        if (cache.containsKey(current) && cache.get(current).containsKey(jump) && cache.get(current).get(jump).containsKey(canJump))\n            return cache.get(current).get(jump).get(canJump);\n\n        int ways = (current == target) ? 1 : 0;\n        if (canJump)\n            ways += countWays(target, current - 1, jump, false);\n        if (current + (1 << jump) <= target + 1)\n            ways += countWays(target, current + (1 << jump), jump + 1, true);\n\n        if (!cache.containsKey(current))\n            cache.put(current, new HashMap<>());\n        if (!cache.get(current).containsKey(jump))\n            cache.get(current).put(jump, new HashMap<>());\n        cache.get(current).get(jump).put(canJump, ways);\n\n        return ways;\n    }\n\n    public int waysToReachStair(int target) {\n        return countWays(target, 1, 0, true);\n    }\n}\n",
-    "submit_ts": 1716089394.0
+    "submit_ts": "1716089394",
+    "subm_id": "1261841076"
 }

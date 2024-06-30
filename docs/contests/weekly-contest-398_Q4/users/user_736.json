@@ -1,5 +1,6 @@
 {
     "username": "6w4xCRwQBO",
     "submission": "#include <iostream>\n#include <vector>\n#include <cmath>\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        int total = 0;\n        for (int i = 0; i < 32; ++i) {\n            int n = i + 1;\n            long long diff = (1LL << i) - k; // Use long long to prevent overflow\n\n            if (diff < 0 || diff > n) {\n                continue;\n            }\n            total += comb(n, diff);\n        }\n        return total;\n    }\n\nprivate:\n    // Function to calculate combination C(n, k)\n    int comb(int n, int k) {\n        if (k > n) return 0;\n        if (k == 0 || k == n) return 1;\n        std::vector<std::vector<int>> C(n + 1, std::vector<int>(k + 1, 0));\n        for (int i = 0; i <= n; ++i) {\n            for (int j = 0; j <= std::min(i, k); ++j) {\n                if (j == 0 || j == i) {\n                    C[i][j] = 1;\n                } else {\n                    C[i][j] = C[i - 1][j - 1] + C[i - 1][j];\n                }\n            }\n        }\n        return C[n][k];\n    }\n};\n\n// int main() {\n//     int K;\n//     std::cin >> K;\n//     Solution solution;\n//     std::cout << solution.waysToReachStair(K) << std::endl;\n//     return 0;\n// }\n",
-    "submit_ts": 1716088526.0
+    "submit_ts": "1716088526",
+    "subm_id": "1261816560"
 }

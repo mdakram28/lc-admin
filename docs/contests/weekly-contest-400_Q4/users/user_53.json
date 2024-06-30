@@ -1,5 +1,6 @@
 {
     "username": "dhru2602",
     "submission": "struct segTree{\n    int CONST = -1;\n    int op(int a,int b){ return (a & b); }\n\n    int n; vector<int> tree;\n    segTree(int n) : n(n), tree(2*n,CONST) {}\n    segTree(vector<int> &a,int n) : segTree(n) { for(int i = 0;i < n;i++) update(i,a[i]); }\n\n    void update(int p, int x){\n        for(tree[p+=n]=x; p; p>>=1) tree[p>>1] = op(tree[p], tree[p^1]);\n    }\n    \n    int query(int l, int r){\n        int res = CONST;\n        for(l+=n, r+=n+1; l<r; l>>=1, r>>=1){\n            if(l&1) res = op(res, tree[l++]);\n            if(r&1) res = op(res, tree[--r]);\n        }\n        return res;\n    }\n};\n\nclass Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size(), ans = INT_MAX;\n        segTree st(nums, n);\n        for(int i = 0;i < n;i++){\n            int s = i, e = n - 1,res = i;\n            while(s <= e){\n                int mid = s + (e - s)/2;\n                if(st.query(i, mid) >= k){\n                    res = mid;\n                    s = mid + 1;\n                }\n                else e = mid - 1;\n            }\n            if(res < n) ans = min(ans, abs(st.query(i, res) - k));\n            if(res + 1 < n) ans = min(ans, abs(st.query(i, res + 1) - k));\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717296852.0
+    "submit_ts": "1717296852",
+    "subm_id": "1274720642"
 }

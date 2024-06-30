@@ -1,5 +1,6 @@
 {
     "username": "vavdiya_tushar",
     "submission": "import java.util.*;\n\nclass Solution {\n    private static final int MOD = 1_000_000_007;\n    \n    public int numberOfPermutations(int n, int[][] requirements) {\n        // Sort requirements by end index\n        Arrays.sort(requirements, (a, b) -> a[0] - b[0]);\n        \n        // Initialize DP array\n        long[] dp = new long[401];\n        dp[0] = 1;\n        \n        int reqIndex = 0;\n        for (int i = 0; i < n; i++) {\n            long[] newDp = new long[401];\n            \n            for (int j = 0; j <= 400; j++) {\n                for (int k = 0; k <= i; k++) {\n                    int newInv = j + i - k;\n                    if (newInv <= 400) {\n                        newDp[newInv] = (newDp[newInv] + dp[j]) % MOD;\n                    }\n                }\n            }\n            \n            // Check if current index matches any requirement\n            if (reqIndex < requirements.length && requirements[reqIndex][0] == i) {\n                int reqInv = requirements[reqIndex][1];\n                Arrays.fill(dp, 0);\n                dp[reqInv] = newDp[reqInv];\n                reqIndex++;\n            } else {\n                dp = newDp;\n            }\n        }\n        \n        return (int) dp[requirements[requirements.length - 1][1]];\n    }\n}",
-    "submit_ts": 1719068382.0
+    "submit_ts": "1719068382",
+    "subm_id": "1296763380"
 }

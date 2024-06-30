@@ -1,5 +1,6 @@
 {
     "username": "szp14",
     "submission": "\nconst int maxn = 1e5 + 5;\nint R[maxn][32];\nclass Solution {\npublic:\n    int FindRight(int p, int x)\n{\n    int ans = maxn;\n    for(int j = 0; j < 32; j++) if((x >> j) & 1)\n        ans = min(ans, R[p][j]);\n    return ans;\n}\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = (int)nums.size();\n    for(int j = 0; j < 31; j++)\n    {\n        R[n][j] = n;\n        for(int i = n - 1; i >= 0; i--)\n            R[i][j] = (nums[i] >> j) & 1 ? R[i + 1][j] : i;\n    }\n    int ans = abs(nums[0] - k);\n    for(int i = 0; i < n; i++)\n    {\n        int cur = nums[i], curP = i;\n        while(curP < n)\n        {\n            cur &= nums[curP];\n            ans = min(ans, abs(cur - k));\n            curP = FindRight(curP, cur);\n        }\n    }\n    return ans;\n    }\n};",
-    "submit_ts": 1717297970.0
+    "submit_ts": "1717297970",
+    "subm_id": "1274762537"
 }

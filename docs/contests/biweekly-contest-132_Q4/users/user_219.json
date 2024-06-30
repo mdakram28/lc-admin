@@ -1,5 +1,6 @@
 {
     "username": "kartheekvajrala",
     "submission": "class Solution {\npublic:\n    int dp[5001][51];\n    int maximumLength(vector<int>& arr, int k) {\n                int n = arr.size();\n        if(n==1)return 1;\n        for(int i=0;i<5001;i++){\n            for(int j=0;j<51;j++){\n                dp[i][j] = 1;\n            }\n        }\n        map<int,int> mp;\n        mp[arr[0]] = 0;\n        vector<int> mm(k+1,1);\n        for(int i=1;i<n;i++){\n            if(mp.find(arr[i])!=mp.end()){\n                for(int z=0;z<=k;z++){\n                    dp[i][z] = max(dp[i][z],dp[mp[arr[i]]][z]+1);\n                }\n            }\n            for(int z=1;z<=k;z++){\n                dp[i][z] = max(dp[i][z],mm[z-1]+1);\n            }\n            mp[arr[i]] = i;\n            for(int z=0;z<=k;z++){\n                mm[z] = max(mm[z],dp[i][z]);\n            }\n        }\n        // for(int i=0;i<n;i++){\n        //     for(int j=0;j<=k;j++){\n        //         cout << dp[i][j] << \" \";\n        //     }cout << endl;\n        // }\n        int ans = 0;\n        for(int i=0;i<n;i++){\n            ans = max(ans,dp[i][k]);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717860456.0
+    "submit_ts": "1717860456",
+    "subm_id": "1281758254"
 }

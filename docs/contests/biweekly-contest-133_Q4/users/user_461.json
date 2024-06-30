@@ -1,5 +1,6 @@
 {
     "username": "kumark6769704",
     "submission": "package main\n\nimport (\n\t\"fmt\"\n)\n\nconst (\n\tMOD           = 1_000_000_007\n\tMAX_INVERSIONS = 400\n)\n\nfunc numberOfPermutations(n int, requirements [][]int) int {\n\treqMap := make(map[int]int)\n\n\t// Populate reqMap with requirements\n\tfor _, req := range requirements {\n\t\treqMap[req[0]+1] = req[1]\n\t}\n\n\t// Initialize 2D array for permutation counts\n\tpermCounts := make([][]int, n+1)\n\tfor i := range permCounts {\n\t\tpermCounts[i] = make([]int, MAX_INVERSIONS+1)\n\t}\n\n\tpermCounts[0][0] = 1\n\n\t// Fill permCounts using dynamic programming\n\tfor length := 1; length <= n; length++ {\n\t\tfor inv := 0; inv <= MAX_INVERSIONS; inv++ {\n\t\t\tfor newPos := 0; newPos < length; newPos++ {\n\t\t\t\tprevInv := inv - newPos\n\t\t\t\tif prevInv >= 0 {\n\t\t\t\t\tpermCounts[length][inv] = (permCounts[length][inv] + permCounts[length-1][prevInv]) % MOD\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\t// Apply requirements constraints\n\t\tif targetInv, ok := reqMap[length]; ok {\n\t\t\tfor inv := 0; inv <= MAX_INVERSIONS; inv++ {\n\t\t\t\tif inv != targetInv {\n\t\t\t\t\tpermCounts[length][inv] = 0\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\t// Calculate final result\n\tresult := 0\n\tfor _, count := range permCounts[n] {\n\t\tresult = (result + count) % MOD\n\t}\n\n\treturn result\n}\n\n\n",
-    "submit_ts": 1719070501.0
+    "submit_ts": "1719070501",
+    "subm_id": "1296824618"
 }

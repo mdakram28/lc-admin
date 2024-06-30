@@ -1,5 +1,6 @@
 {
     "username": "sykobeli",
     "submission": "from collections import defaultdict\n\nclass Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        ans = float('inf')\n        l, r = 0, 0\n        count = defaultdict(int)\n        while r < len(nums):\n            for i in range(32):\n                if (nums[r] >> i) & 1:\n                    count[i] += 1\n            andval = 0\n            for i in range(32):\n                if count[i] == r - l + 1:\n                    andval += (1 << i)\n            ans = min(ans, abs(andval - k))\n            while andval < k:\n                ans = min(ans, abs(andval - k))\n                for i in range(32):\n                    if (nums[l] >> i) & 1:\n                        count[i] -= 1\n                l += 1\n                andval = 0\n                for i in range(32):\n                    if count[i] == r - l + 1:\n                        andval += (1 << i)\n                ans = min(ans, abs(andval - k))\n            r += 1\n        return ans\n                            ",
-    "submit_ts": 1717296922.0
+    "submit_ts": "1717296922",
+    "subm_id": "1274723448"
 }

@@ -1,5 +1,6 @@
 {
     "username": "gjenus",
     "submission": "class Solution {\n    int getAnd(vector<vector<int>>&v, int i, int j){\n        if(j<i) return INT_MAX;\n        int ans = 0;\n        for(int x=0;x<32;x++){\n            int a = j-i+1;\n            int b = v[x][j];\n            if(i>0) b-= v[x][i-1];\n            if(a==b) ans|= (1<<x);\n        }\n        return ans;\n    }\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> v(32,vector<int>(n,0));\n        for(int x=0;x<32;x++){\n            int mask = 1<<x;\n            for(int i=0;i<n;i++){\n                if(i>0) v[x][i] = v[x][i-1];\n                v[x][i] += (nums[i]&mask)!=0;\n            }\n        }\n        int ans = INT_MAX;\n        for(int i=0;i<n;i++){\n            ans = min(ans,abs(k-nums[i]));\n            int low = i;\n            int high = n-1;\n            while(low<high){\n                int mid = low + ((high-low)/2);\n                int andvalue = getAnd(v,i,mid);\n                ans = min(ans,abs(k-andvalue));\n                if(andvalue>k) low=mid+1;\n                else if(andvalue<k) high=mid-1;\n                else break;\n            }\n            ans = min(ans,abs(k-getAnd(v,i,high)));\n            ans = min(ans,abs(k-getAnd(v,i,low)));\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717299139.0
+    "submit_ts": "1717299139",
+    "subm_id": "1274802895"
 }

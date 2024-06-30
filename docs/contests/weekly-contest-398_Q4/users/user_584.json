@@ -1,5 +1,6 @@
 {
     "username": "Sloth_junkie",
     "submission": "class Solution {\npublic:\n    int binexp(int a, int b, int mod)\n    {\n        int prod = 1;\n        while (b > 0)\n        {\n            if (b & 1)\n            {\n                prod = (prod * 1LL * a) % mod;\n            }\n            b = b >> 1;\n            a = (a * 1LL * a) % mod;\n        }\n        return prod;\n    }\n    long long fun(long long n, long long r, vector<long long> &fact, long long mod)\n    {\n        long long c1 = fact[n];\n        long long c2 = fact[r];\n        long long c3 = fact[n-r];\n        \n        c2 *= c3;\n        c2 %= mod;\n        c2 = binexp(c2,mod-2,mod);\n        c1 *= c2;\n        c1 %= mod;\n        return c1;\n    }\n    int waysToReachStair(int k) {\n        long long ans = 0;\n        long long mod = 1e9+7;\n        vector<long long> fact(50);\n        fact[0] = 1;\n        for(int i = 1; i<50; i++)\n        {\n            fact[i] = fact[i-1];\n            fact[i] *= i;\n            fact[i] %= mod;\n        }\n        for(int i = 0; i<30; i++)\n        {\n            long long s1 = pow(2,i);\n            s1 -= 1;\n            long long diff = s1+1-k;\n            if(diff >= 0 && diff <= i+1)\n            {\n                ans += fun(i+1,diff,fact,mod);\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716088392.0
+    "submit_ts": "1716088392",
+    "subm_id": "1261812633"
 }

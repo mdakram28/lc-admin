@@ -1,5 +1,6 @@
 {
     "username": "isheoran",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>>pre(30, vector<int>(n+1));\n\n        for(int i=1;i<=n;i++) {\n            for(int j=0;j<30;j++) {\n                if(nums[i-1]&(1<<j)) {\n                    pre[j][i] = pre[j][i-1]+1;\n                }\n                else pre[j][i] = pre[j][i-1];\n            }\n        }\n\n        int ans = (int)(1e9);\n\n        auto AND = [&](int l,int r) {\n            int res = 0;\n\n            for(int i=0;i<30;i++) {\n                if(pre[i][r] - pre[i][l-1] == r-l+1) res |= 1<<i;\n            }\n\n            return res;\n        };\n\n        for(int i=1;i<=n;i++) {\n            int l = 1, r = i+1;\n            while(r-l>1) {\n                int mid = (l+r)/2;\n                \n                int cur = AND(mid, i);\n                ans = min(ans, abs(cur-k));\n\n                if(cur > k) r = mid;\n                else l = mid;\n            }\n\n            ans = min(ans, abs(k-AND(l,i)));\n            if(r <= i) ans = min(ans, abs(k-AND(r, i)));\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": 1717298850.0
+    "submit_ts": "1717298850",
+    "subm_id": "1274793359"
 }

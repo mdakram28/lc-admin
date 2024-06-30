@@ -1,5 +1,6 @@
 {
     "username": "prat_ten",
     "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> reqInversions(n, -1);\n        int maxInv = 0;\n        for (const auto& req : requirements) {\n            if (req[0] < n) {\n                reqInversions[req[0]] = req[1];\n                maxInv = max(maxInv, req[1]);\n            }\n        }\n        \n        maxInv = min(maxInv, n * (n - 1) / 2);\n        vector<vector<int>> dp(n + 1, vector<int>(maxInv + 1, 0));\n        dp[0][0] = 1;\n        \n        for (int i = 1; i <= n; ++i) {\n            vector<int> prefixSum(maxInv + 1, 0);\n            for (int j = 0; j <= maxInv; ++j) {\n                prefixSum[j] = (j > 0 ? prefixSum[j-1] : 0) + dp[i-1][j];\n                if (prefixSum[j] >= MOD) prefixSum[j] -= MOD;\n            }\n            \n            for (int j = 0; j <= min(maxInv, i * (i - 1) / 2); ++j) {\n                if (reqInversions[i-1] != -1 && j != reqInversions[i-1]) continue;\n                \n                int left = max(0, j - (i - 1));\n                int right = j;\n                dp[i][j] = (prefixSum[right] - (left > 0 ? prefixSum[left-1] : 0) + MOD) % MOD;\n            }\n        }\n        \n        int totalInv = reqInversions[n-1] != -1 ? reqInversions[n-1] : maxInv;\n        return dp[n][totalInv];\n    }\n};",
-    "submit_ts": 1719069011.0
+    "submit_ts": "1719069011",
+    "subm_id": "1296783898"
 }

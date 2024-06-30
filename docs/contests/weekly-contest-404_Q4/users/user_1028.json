@@ -1,5 +1,6 @@
 {
     "username": "Ar_2000",
     "submission": "class Solution {\npublic:\n    int cd(vector<vector<int>>& tree, int node, int p, vector<int>& h) {\n        if (tree[node].size() == 0) return 0;\n        int ans = 0;\n        int mh = 0, smh = 0;\n        for (int nbr : tree[node]) {\n            if (nbr == p) continue;\n            ans = max(cd(tree, nbr, node, h), ans);\n            if (h[nbr]+1 >= mh) smh = mh, mh = h[nbr]+1;\n            else if (h[nbr]+1 > smh) smh = h[nbr]+1;\n        }\n        ans = max(ans, mh+smh);\n        h[node] = mh;\n        return ans;\n    }\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& e1, vector<vector<int>>& e2) {\n        int n = e1.size()+1;\n        int m = e2.size()+1;\n        \n        vector<int> h1(n, 0);\n        vector<int> h2(m, 0);\n        \n        vector<vector<int>> tree1(n), tree2(m);\n        for (vector<int>& e : e1) {\n            tree1[e[0]].push_back(e[1]);\n            tree1[e[1]].push_back(e[0]);\n        }\n        for (vector<int>& e : e2) {\n            tree2[e[0]].push_back(e[1]);\n            tree2[e[1]].push_back(e[0]);\n        }\n        int d1 = cd(tree1, 0, -1, h1);\n        int d2 = cd(tree2, 0, -1, h2);\n       // cout << d1 << \" \" << d2 << endl;\n        return max(max(d1, d2) , (d1+1)/2 + (d2+1)/2 + 1);\n    }\n};",
-    "submit_ts": 1719718977.0
+    "submit_ts": "1719718977",
+    "subm_id": "1304430699"
 }

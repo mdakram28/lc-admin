@@ -1,5 +1,6 @@
 {
     "username": "its_akshayyyy",
     "submission": "class Solution {\nprivate:\n    int MOD = 1000000007;\n    int MAX_INVERSIONS = 400;\n\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        unordered_map<int, int> mpp;\n        for (auto& r : req) {\n            mpp[r[0] + 1] = r[1];\n        }\n\n        vector<vector<long long>> pcnt(n + 1, vector<long long>(MAX_INVERSIONS + 1, 0));\n        pcnt[0][0] = 1;\n\n        int l = 1;\n        while (l <= n) {\n            int inv = 0;\n            while (inv <= MAX_INVERSIONS) {\n                int npos = 0;\n                while (npos < l) {\n                    int prevInv = inv - npos;\n                    if (prevInv >= 0) {\n                        pcnt[l][inv] = (pcnt[l][inv] + pcnt[l - 1][prevInv]) % MOD;\n                    }\n                    npos++;\n                }\n                inv++;\n            }\n\n            if (mpp.count(l)) {\n                int tgtInv = mpp[l];\n                int inv = 0;\n                while (inv <= MAX_INVERSIONS) {\n                    if (inv != tgtInv) {\n                        pcnt[l][inv] = 0;\n                    }\n                    inv++;\n                }\n            }\n            l++;\n        }\n\n        long long ans = 0;\n        for (long long cnt : pcnt[n]) {\n            ans = (ans + cnt) % MOD;\n        }\n\n        return (int)ans;\n    }\n};\n",
-    "submit_ts": 1719070139.0
+    "submit_ts": "1719070139",
+    "subm_id": "1296815514"
 }

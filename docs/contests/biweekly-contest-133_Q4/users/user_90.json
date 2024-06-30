@@ -1,5 +1,6 @@
 {
     "username": "sohamslc5",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& r) {\n        int MOD = 1e9 + 7;\n        sort(r.begin(), r.end());\n        vector<vector<int>> dp(n + 1, vector<int>(401, 0));\n        dp[0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            vector<int> prefix(402, 0);\n            for (int j = 0; j <= 400; j++) {\n                prefix[j + 1] = (prefix[j] + dp[i - 1][j]) % MOD;\n            }\n            for (int j = 0; j < i; j++) {\n                for (int k = 0; k <= 400; k++) {\n                    int newInv = k + i - 1 - j;\n                    if (newInv <= 400) {\n                        dp[i][newInv] = (dp[i][newInv] + dp[i - 1][k]) % MOD;\n                    }\n                }\n            }\n            for (const auto& req : r) {\n                if (req[0] == i - 1) {\n                    for (int j = 0; j <= 400; j++) {\n                        if (j != req[1]) dp[i][j] = 0;\n                    }\n                    break;\n                }\n            }\n        }\n        return dp[n][r.back()[1]];\n    }\n};",
-    "submit_ts": 1719068518.0
+    "submit_ts": "1719068518",
+    "subm_id": "1296768104"
 }

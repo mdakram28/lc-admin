@@ -1,5 +1,6 @@
 {
     "username": "yinboshi13",
     "submission": "from collections import defaultdict\n\n# grid contains all accessible #s\ngrid = [[-1]*30 for _ in range(30)]\ngrid[0] = [1<<j for j in range(30)]\nfor row in range(1,30):\n    for j in range(row-1, 30):\n        grid[row][j] = grid[row-1][j]-1\n\n# ctr counts # of ways to reach that spot (subj to constraint)\n# (# ways to reach from left, # ways to reach from above)\nctr = [[(0,0) for _ in range(30)] for a in range(30)]\nctr[0] = [(1,0) for _ in range(30)]\nctr[1][0] = (0,1)\nfor j in range(1,30):\n    left = sum(ctr[1][j-1])\n    top = ctr[0][j][0]\n    ctr[1][j] = (left, top)\nfor row in range(2,30):\n    for j in range(row-1,30):\n        left = sum(ctr[row][j-1])\n        top = ctr[row-1][j][0]\n        ctr[row][j] = (left, top)\n\ndic = defaultdict(int)\nfor j in range(30):\n    dic[1<<j] = 1\nfor row in range(1,30):\n    for j in range(row-1,30):\n        dic[grid[row][j]] += sum(ctr[row][j])\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        if k in dic:\n            return dic[k]\n        return 0",
-    "submit_ts": 1716090415.0
+    "submit_ts": "1716090415",
+    "subm_id": "1261866674"
 }

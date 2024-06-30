@@ -1,5 +1,6 @@
 {
     "username": "motchutngotngao",
     "submission": "class Solution {\npublic:\n    map<vector<long long >,long long > mp;\n    long long dfs(long long curr_pos, long long jump_val , long long pre, long long k){\n        if(curr_pos == k) {\n            return 1;\n        }\n        if(curr_pos > k) {\n            //cout << curr_pos << endl;\n            //cout << curr_pos << endl;\n            if(curr_pos == k+1 && pre == 0) return 1;\n            else return 0;\n        }\n        vector<long long> v;\n        v.push_back(curr_pos);\n        v.push_back(jump_val);\n        v.push_back(pre);\n        if(mp.count(v)) return mp[v];\n        //long long option1 \n        if(pre == 1){\n            return mp[v] = dfs(curr_pos + pow(2,jump_val),jump_val+1,0,k);\n        }\n        else {\n            long long op1 ;\n            if(curr_pos == 0) op1 = dfs(curr_pos,jump_val,1,k);\n            else op1 = dfs(curr_pos-1,jump_val,1,k);\n            long long op2 ;\n            op2 = dfs(curr_pos + pow(2,jump_val),jump_val+1,0,k);\n            return mp[v] = op1 + op2;\n        }\n    }\n    int waysToReachStair(int k) {\n       // memset(dp,-1,sizeof(dp));\n        if(k== 0) return 2;\n        else if(k == 1 ) return 4;\n        else if(k == 2 ) return 4;\n        return dfs(1,0,0,k);\n    }\n};",
-    "submit_ts": 1716089081.0
+    "submit_ts": "1716089081",
+    "subm_id": "1261832513"
 }

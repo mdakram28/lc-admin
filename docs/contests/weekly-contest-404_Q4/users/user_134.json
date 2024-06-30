@@ -1,5 +1,6 @@
 {
     "username": "Ruthvik2835",
     "submission": "class Solution {\npublic:\nint x;\nvoid rrr2(int treeNode, int count, bool visited[],\n                   int& mx, vector<vector<int>>&g)\n{\n    visited[treeNode] = true;\n    count++;\n    for (auto &i:g[treeNode]) {\n        if (!visited[i]) {\n            if (count >= mx) {\n                mx = count;\n                x = i;\n            }\n            rrr2(i, count, visited, mx, g);\n        }\n    }\n}\n \n\nvoid dfs(int treeNode, int n, vector<vector<int>>&g, int& mx)\n{\n    bool visited[n + 1];\n    int count = 0;\n \n\n    for (int i = 0; i <= n; ++i)\n        visited[i] = false;\n \n    rrr2(treeNode, count + 1, visited, mx, g);\n}\n\nint diameter(vector<vector<int>>&e)\n{\n    int n=e.size()+1;\n    if(n==1)return 0;\n\n    vector<vector<int>>g(n);\n\n    for(auto &x:e){\n        g[x[0]].push_back(x[1]);\n        g[x[1]].push_back(x[0]);\n    }\n\n    int mx = INT_MIN;\n    dfs(1, n, g, mx);\n\n    dfs(x, n, g, mx);\n \n\n    return mx-1;\n}\n    int minimumDiameterAfterMerge(vector<vector<int>>& e1, vector<vector<int>>& e2) {\n        int d1=diameter(e1);\n        int d2=diameter(e2);\n        int m1=(d1+1)/2;\n        int m2=(d2+1)/2;\n        // cout<<d1<<\" \"<<d2<<endl;\n        // cout<<m1<<\" \"<<m2<<endl;\n        return max({d1,d2,1+m1+m2});\n    }\n};",
-    "submit_ts": 1719717313.0
+    "submit_ts": "1719717313",
+    "subm_id": "1304388285"
 }

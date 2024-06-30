@@ -1,5 +1,6 @@
 {
     "username": "0xFFFFFFFF",
     "submission": "class Solution {\npublic:\n  int minimumDifference(const vector<int>& nums, int k) {\n    vector<int> bit(31, 0);\n    auto get = [&]() {\n      int res = 0;\n      for (int i = 0; i < (int)bit.size(); ++i) {\n        res += ((bit[i] ? 0 : 1) << i);\n      }\n      // cout << \"G \" << res << endl;\n      return res;\n    };\n\n    auto add = [&](int v) {\n      for (int i = 0; i < (int)bit.size(); ++i) {\n        if ((v & 1) == 0) {\n          ++bit[i];\n        }\n        v >>= 1;\n      }\n    };\n\n    auto remove = [&](int v) {\n      for (int i = 0; i < (int)bit.size(); ++i) {\n        if ((v & 1) == 0) {\n          --bit[i];\n        }\n        v >>= 1;\n      }\n    };\n\n    int n = nums.size();\n    int res = numeric_limits<int>::max();\n    int l = 0;\n    for (int r = 0; r < n; ++r) {\n      while (get() <= k) {\n        res = min(res, abs(k - get()));\n        remove(nums[l++]);\n        res = min(res, abs(k - get()));\n      }\n      res = min(res, abs(k - get()));\n      add(nums[r]);\n      res = min(res, abs(k - get()));\n    }\n    while (get() <= k) {\n      res = min(res, abs(k - get()));\n      remove(nums[l++]);\n      res = min(res, abs(k - get()));\n    }\n    return res;\n  }\n};",
-    "submit_ts": 1717299442.0
+    "submit_ts": "1717299442",
+    "subm_id": "1274812905"
 }

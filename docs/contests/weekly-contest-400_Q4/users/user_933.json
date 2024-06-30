@@ -1,5 +1,6 @@
 {
     "username": "sagarkumar43",
     "submission": "class Solution {\npublic:\n    void build(int node,int start,int end,vector<int>&a,vector<int>&tree){\n        if(start==end){\n            tree[node]=a[start];\n            return;\n        }\n        int mid=start+(end-start)/2;\n        build(2*node,start,mid,a,tree);\n        build(2*node+1,mid+1,end,a,tree);\n        tree[node]=tree[2*node]&tree[2*node+1];\n    }\n//Query Processing\nint query(int node,int start,int end,int l,int r,vector<int>&tree){\n    if(start>r||end<l)return INT_MAX;\n    if(start>=l&&end<=r)return tree[node];\n    int mid=start+(end-start)/2;\n    int q1=query(2*node,start,mid,l,r,tree);\n    int q2=query(2*node+1,mid+1,end,l,r,tree);\n    return q1&q2;\n}\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<int>tree(4*n);\n        build(1,0,n-1,nums,tree);\n        int ans=INT_MAX;\n        for (int i=0;i<n;i++){\n         int mid;\n         int l=i-1,r=n-1;\n        while(r-l>1){\n            mid=(l+r)>>1;\n            if (query(1,0,n-1,i,mid,tree)>=k)l=mid;\n            else r=mid;\n        }\n        if (l!=i-1)ans=min(ans,abs(query(1,0,n-1,i,l,tree)-k));\n         ans=min(ans,abs(k-query(1,0,n-1,i,r,tree)));\n    }\n    return ans;\n    }\n};",
-    "submit_ts": 1717300650.0
+    "submit_ts": "1717300650",
+    "subm_id": "1274850666"
 }

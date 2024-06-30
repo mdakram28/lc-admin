@@ -1,5 +1,6 @@
 {
     "username": "snamy520",
     "submission": "impl Solution {\n        pub fn ways_to_reach_stair(k: i32) -> i32 {\n            if k == 0 {\n                return 2;\n            }\n            let k = k as i64 - 1;\n            const UB: usize = 31;\n            let c = C::new(UB);\n            let mut res = 0;\n            for i in 0..UB {\n                let s = (1 << i) - 1;\n                if k <= s {\n                    let d = (s - k) as usize;\n                    if d <= i + 1 {\n                        // println!(\"[{i}] {s} {d}: C[{},{d}]{}\", i + 1, c.get(i + 1, d));\n                        res += c.get(i + 1, d);\n                    }\n                }\n            }\n            res as i32\n        }\n}\n#[derive(Debug)]\npub struct C {\n    c: Vec<Vec<u64>>,\n}\n\nimpl C {\n    pub fn new(n: usize) -> Self {\n        let mut c = Vec::with_capacity(n + 1);\n        let mut p = vec![1, 0];\n        for i in 1..n + 1 {\n            let mut q = vec![0; i + 2];\n            q[0] = 1;\n            for j in 1..i + 1 {\n                q[j] = p[j - 1] + p[j];\n            }\n            c.push(p);\n            p = q;\n        }\n        c.push(p);\n        Self { c }\n    }\n\n    pub fn get(&self, n: usize, m: usize) -> u64 {\n        if n < m {\n            0\n        } else {\n            self.c[n][m]\n        }\n    }\n}",
-    "submit_ts": 1716088074.0
+    "submit_ts": "1716088074",
+    "subm_id": "1261803135"
 }

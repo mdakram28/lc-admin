@@ -1,5 +1,6 @@
 {
     "username": "aayush05012002",
     "submission": "#include <vector>\n#include <unordered_map>\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, std::vector<std::vector<int>>& requirements) {\n        const int MOD = 1000000007; // 10^9 + 7\n        std::unordered_map<int, int> require;\n        for (const auto& el : requirements) {\n            int a = el[0], b = el[1];\n            require[a + 1] = b;\n        }\n\n        int maxK = require[n] + 4;\n        std::vector<std::vector<int>> memo(n + 1, std::vector<int>(maxK, -1));\n\n        std::function<int(int, int)> numberOfPermWithKInversion = [&](int N, int K) {\n            if (require.find(N) != require.end() && require[N] != K) {\n                return 0;\n            }\n            if (N == 0) {\n                return K != 0 ? 0 : 1;\n            }\n            if (memo[N][K] != -1) {\n                return memo[N][K];\n            }\n            int sum = 0;\n            for (int i = 0; i <= K; ++i) {\n                if (i <= N - 1) {\n                    sum = (sum + numberOfPermWithKInversion(N - 1, K - i)) % MOD;\n                }\n            }\n            memo[N][K] = sum;\n            return sum;\n        };\n\n        return numberOfPermWithKInversion(n, require[n]);\n    }\n};\n",
-    "submit_ts": 1719069080.0
+    "submit_ts": "1719069080",
+    "subm_id": "1296785928"
 }

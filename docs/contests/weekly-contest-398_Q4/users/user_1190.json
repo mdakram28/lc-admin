@@ -1,5 +1,6 @@
 {
     "username": "Angry_bird_01",
     "submission": "#include <unordered_map>\n#include <vector>\n\nclass Solution {\npublic:\nusing VectorInt = std::vector<int>;\nusing VectorVectorInt = std::vector<VectorInt>;\nstd::unordered_map<int, VectorVectorInt> memoization;\n\nint countWays(int targetStair, int currentStair, int jumpLevel, bool canMoveBack) {\nif (currentStair > targetStair + 5) {return 0;}\nif (jumpLevel > 31) {return 0;}\n\nif (memoization.count(currentStair) && memoization[currentStair][jumpLevel][canMoveBack] != -1) {return memoization[currentStair][jumpLevel][canMoveBack];}\n\nint ways = (currentStair == targetStair);\nif (canMoveBack) ways += countWays(targetStair, currentStair - 1, jumpLevel, false);\nif (currentStair + (1 << jumpLevel) <= targetStair + 1) \nways += countWays(targetStair, currentStair + (1 << jumpLevel), jumpLevel + 1, true);\n\nif (!memoization.count(currentStair)) {\nmemoization[currentStair] = VectorVectorInt(32, VectorInt(2, -1));\n}\n\nreturn memoization[currentStair][jumpLevel][canMoveBack] = ways;\n}\n\nint waysToReachStair(int targetStair) {\nmemoization.clear();\nreturn countWays(targetStair, 1, 0, true);\n}\n};\n",
-    "submit_ts": 1716089552.0
+    "submit_ts": "1716089552",
+    "subm_id": "1261845273"
 }

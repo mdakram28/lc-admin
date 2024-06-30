@@ -1,5 +1,6 @@
 {
     "username": "joy32812",
     "submission": "class Solution {\nfun numberOfPermutations(n: Int, requirements: Array<IntArray>): Int {\n    val MOD = 1_000_000_007\n\n    val dp = Array(n + 1) { IntArray(401) }\n    dp[0][0] = 1\n\n    for (len in 1..n) {\n        for (inv in 0..400) {\n            if (dp[len - 1][inv] > 0) {\n                for (k in 0 until len) {\n                    val newInv = inv + k\n                    if (newInv <= 400) {\n                        dp[len][newInv] = (dp[len][newInv] + dp[len - 1][inv]) % MOD\n                    }\n                }\n            }\n        }\n    }\n\n    val required = IntArray(n) { -1 }\n    for (req in requirements) {\n        val (endi, cnti) = req\n        required[endi] = cnti\n    }\n\n    val validDp = Array(n + 1) { IntArray(401) }\n    validDp[0][0] = 1\n\n    for (len in 1..n) {\n        for (inv in 0..400) {\n            if (dp[len - 1][inv] > 0) {\n                for (k in 0 until len) {\n                    val newInv = inv + k\n                    if (newInv <= 400) {\n                        val isValid = required[len - 1] == -1 || required[len - 1] == newInv\n                        if (isValid) {\n                            validDp[len][newInv] = (validDp[len][newInv] + validDp[len - 1][inv]) % MOD\n                        }\n                    }\n                }\n            }\n        }\n    }\n\n    return validDp[n][required[n - 1]]\n}\n\n\n}",
-    "submit_ts": 1719071633.0
+    "submit_ts": "1719071633",
+    "subm_id": "1296850909"
 }

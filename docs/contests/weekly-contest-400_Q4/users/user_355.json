@@ -1,5 +1,6 @@
 {
     "username": "andrewgopher",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> bitsToLack(32);\n        for (int i = 0;i<n;i++) {\n            for (int b =0;b<32;b++) {\n                if ((nums[i]&(1<<b))==0) {\n                    bitsToLack[b].push_back(i);\n                }\n            }\n        }\n        int best=INT_MAX;\n        for (int i = 0;i<n;i++) {\n            // cout << \"rightend \" << i << \": \" << nums[i] << endl;\n            map<int,vector<int>> bitRem;\n            for (int b = 0;b<32;b++) {\n                if (nums[i]&(1<<b)) {\n                    auto it = lower_bound(bitsToLack[b].begin(),bitsToLack[b].end(), i);\n                    if (distance(bitsToLack[b].begin(), it)>0) {\n                        it--;\n                        bitRem[-(*it)].push_back(b);\n                    }\n                }\n            }\n            \n            int cur = nums[i];\n            best = min(best,abs(cur-k));\n            for (auto& b : bitRem) {\n                for (auto x : b.second) {\n                cur -= (1<<x);\n                }\n                // cout << \"removed bit \" << b.second << \": \" <<cur << endl;\n                best = min(best,abs(cur-k));\n            }\n        }\n        return best;\n    }\n};",
-    "submit_ts": 1717298162.0
+    "submit_ts": "1717298162",
+    "subm_id": "1274769624"
 }

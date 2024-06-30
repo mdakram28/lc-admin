@@ -1,5 +1,6 @@
 {
     "username": "mpn",
     "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        power2 = [1]*31\n        for i in range(1, 31):\n            power2[i] = power2[i-1]*2\n        # Now we need to count uCv where 0 <= v <= u <= 31\n        C = [[0]*32 for _ in range(32)]\n        for u in range(32):\n            C[u][0] = 1\n            for v in range(1, 32):\n                C[u][v] = C[u-1][v] + C[u-1][v-1]\n                \n        cnt = collections.defaultdict(int)\n        for d in range(30):\n            for i in range(d+2):\n                cnt[power2[d]-i] += C[d+1][i]\n        if k in cnt:\n            return cnt[k]\n        else:\n            return 0\n        ",
-    "submit_ts": 1716090184.0
+    "submit_ts": "1716090184",
+    "subm_id": "1261861129"
 }

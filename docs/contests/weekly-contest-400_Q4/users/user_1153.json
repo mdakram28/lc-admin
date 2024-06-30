@@ -1,5 +1,6 @@
 {
     "username": "iamattri0001",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> bits(n + 1, vector<int>(31));\n        int ans = 1e9;\n        for (int i = 0; i < n; i++) {\n            ans = min(ans, abs(nums[i] - k));\n            for (int j = 0; j < 31; j++) {\n                bits[i + 1][j] = bits[i][j];\n                if (nums[i] & (1 << j))\n                    bits[i + 1][j]++;\n            }\n        }\n\n        auto find = [&](int from, int to) -> int {\n            int AND = 0;\n            for (int i = 0; i < 31; i++)\n                if (bits[to + 1][i] - bits[from][i] == to - from + 1)\n                    AND |= (1 << i);\n            return AND;\n        };\n\n        for (int i = 0; i < n; i++)\n            if (nums[i] > k) {\n                int low = i + 1, high = n - 1;\n                while (low <= high) {\n                    int mid = (low + high) / 2;\n                    int x = find(i, mid);\n                    ans = min(ans, abs(k - x));\n                    if (x < k) {\n                        high = mid - 1;\n                    } else {\n                        low = mid + 1;\n                    }\n                }\n            }\n\n        return ans;\n    }\n};",
-    "submit_ts": 1717299798.0
+    "submit_ts": "1717299798",
+    "subm_id": "1274824203"
 }

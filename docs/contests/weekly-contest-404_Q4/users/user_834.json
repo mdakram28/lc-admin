@@ -1,5 +1,6 @@
 {
     "username": "lazyleeds1",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def diameter(edges):\n            adj = defaultdict(list)\n            for fr, to in edges:\n                adj[fr].append(to)\n                adj[to].append(fr)\n\n            seen = set()\n            minheap = []\n\n            def dfs(node, n):\n                seen.add(node)\n                heapq.heappush(minheap, (-n, node))\n\n                for nei in adj[node]:\n                    if nei in seen:\n                        continue\n                    dfs(nei, n+1)\n\n            dfs(0, 0)\n\n            dist, far_node = heapq.heappop(minheap)\n            \n\n            minheap = []\n            seen = set()\n\n            dfs(far_node, 0)\n\n            dist, far_node = heapq.heappop(minheap)\n\n            return -dist\n\n        # return diameter(edges1)\n\n        d1, d2 = diameter(edges1), diameter(edges2)\n\n        d1half = d1//2 + d1%2\n        d2half = d2//2 + d2%2\n        # print(d1, d2)\n\n        return max(d1, d2, 1 + d1half + d2half)\n\n\n\n            \n\n\n\n\n\n\n",
-    "submit_ts": 1719718430.0
+    "submit_ts": "1719718430",
+    "subm_id": "1304417014"
 }

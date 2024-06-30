@@ -1,5 +1,6 @@
 {
     "username": "aishik2002a",
     "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        memory = {}\n\n        def recursive_solver(target, current_position, jump_size, can_jump):\n            if current_position > target + 5:\n                return 0\n            \n            if jump_size > 31:\n                return 0\n            \n            if current_position in memory and memory[current_position][jump_size][can_jump] != -1:\n                return memory[current_position][jump_size][can_jump]\n            \n            result = 1 if current_position == target else 0\n            \n            if can_jump:\n                result += recursive_solver(target, current_position - 1, jump_size, False)\n            \n            if current_position + (1 << jump_size) <= target + 1:\n                result += recursive_solver(target, current_position + (1 << jump_size), jump_size + 1, True)\n            \n            if current_position not in memory:\n                memory[current_position] = [[-1] * 2 for _ in range(32)]\n            memory[current_position][jump_size][can_jump] = result\n            return result\n        \n        return recursive_solver(k, 1, 0, 1)\n",
-    "submit_ts": 1716089873.0
+    "submit_ts": "1716089873",
+    "subm_id": "1261853452"
 }

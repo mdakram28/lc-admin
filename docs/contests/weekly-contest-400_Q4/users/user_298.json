@@ -1,5 +1,6 @@
 {
     "username": "adityagarg0911",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        vector<int> bits(32);\n        int n = nums.size();\n        int ans = INT_MAX;\n        int i = 0, j = 0;\n        int temp = nums[i];\n        while(i < n){\n            for(int t=0; t<31; t++){\n                if(nums[i] & (1 << t)) bits[t]++;\n            }\n            temp = temp & nums[i];\n            ans = min(ans, abs(temp-k));\n            while(temp < k && j <= i){\n                int nval = 0;\n                for(int t=0; t<31; t++){\n                    if(nums[j] & (1 << t)) bits[t]--;\n                    if(bits[t] == (i-j)) nval = nval | (1<<t);\n                }\n                temp = nval;\n                ans = min(ans, abs(temp-k));\n                j++;\n            }\n            i++;\n            \n        }\n        // for(int i=0; i<n; i++){\n        //     int andd = nums[j];\n        //     for(int j=i; j<n; j++){\n        //         andd = andd & nums[j];\n        //         if(andd == 32 || andd == 54){\n        //             cout << i << \" \" << j << \" \" << andd << endl;\n        //         }\n        //     }\n        // }\n        return ans;\n    }\n};",
-    "submit_ts": 1717298243.0
+    "submit_ts": "1717298243",
+    "subm_id": "1274772053"
 }

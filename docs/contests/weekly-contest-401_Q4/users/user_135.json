@@ -1,5 +1,6 @@
 {
     "username": "lydxlx",
     "submission": "import bisect\nfrom typing import *\nfrom functools import *\nfrom collections import namedtuple\nfrom sortedcontainers import SortedList, SortedDict\nfrom collections import Counter\nfrom math import inf\nfrom math import gcd\nimport string\nimport random\nimport itertools\nimport random\n\n\nclass Solution:\n    def maxTotalReward(self, rewardValues: List[int]) -> int:\n        rewardValues = sorted(set(rewardValues))\n\n        @cache\n        def f(total):\n            if total <= 0:\n                return 0\n            idx = bisect.bisect_right(rewardValues, total) - 1\n            ans = 0\n            sz = 20\n            if idx >= 0:\n                for i in range(idx - sz, idx + 1):\n                    if 0 <= i <= idx:\n                        ans = max(ans, rewardValues[i] + f(min(rewardValues[i] - 1, total - rewardValues[i])))\n\n            return ans\n\n        n = len(rewardValues)\n        ans = rewardValues[n - 1] + f(rewardValues[n - 1] - 1)\n        return ans\n\n\nsolution = Solution()\n# print(solution.maxTotalReward(rewardValues=[1, 1, 3, 3]))\n# print(solution.maxTotalReward(rewardValues=[1, 6, 4, 3, 2]))\nprint(solution.maxTotalReward(rewardValues=[13, 2, 5, 4]))\n",
-    "submit_ts": 1717903344.0
+    "submit_ts": "1717903344",
+    "subm_id": "1282330976"
 }

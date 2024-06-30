@@ -1,5 +1,6 @@
 {
     "username": "maybk",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& a, int k) {\n        int n=a.size();\n        vector<vector<int>>dp(n,vector<int>(k+1));\n        vector<int>mx(k+1);\n        map<int,int>best[k+1];\n        int ans=1;\n        for(int i=0;i<n;i++){\n            for(int j=k;j>=1;j--){\n                //from different\n                int can=mx[j-1];\n                dp[i][j]=can+1;\n                //from same\n                can=best[j][a[i]];\n                dp[i][j]=max(dp[i][j],can+1);\n                mx[j]=max(mx[j],dp[i][j]);\n                best[j][a[i]]=max(best[j][a[i]],dp[i][j]);\n                ans=max(ans,dp[i][j]);\n            }\n            //from same\n            dp[i][0]=1;\n            dp[i][0]=max(dp[i][0],best[0][a[i]]+1);\n            mx[0]=max(mx[0],dp[i][0]);\n            best[0][a[i]]=max(best[0][a[i]],dp[i][0]);\n            ans=max(ans,dp[i][0]);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717860556.0
+    "submit_ts": "1717860556",
+    "subm_id": "1281761615"
 }

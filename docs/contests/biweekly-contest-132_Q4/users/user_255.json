@@ -1,5 +1,6 @@
 {
     "username": "Astatine08",
     "submission": "from typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        dp = [[1] * (k + 1) for _ in range(n)]\n        res = 1\n        mx = [-1] * (k + 1)\n        mxd = [defaultdict(int) for _ in range(k + 1)]\n        \n        for i in range(n):\n            for j in range(k + 1):\n                for l in range(j):\n                    dp[i][j] = max(dp[i][j], 1 + mx[l])\n                if nums[i] in mxd[j]:\n                    dp[i][j] = max(dp[i][j], 1 + mxd[j][nums[i]])\n                res = max(res, dp[i][j])\n                \n            for j in range(k + 1):\n                mx[j] = max(mx[j], dp[i][j])\n                mxd[j][nums[i]] = max(mxd[j][nums[i]], dp[i][j])\n                \n        return res",
-    "submit_ts": 1717861518.0
+    "submit_ts": "1717861518",
+    "subm_id": "1281793718"
 }

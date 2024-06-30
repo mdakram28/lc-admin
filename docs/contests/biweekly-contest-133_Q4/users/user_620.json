@@ -1,5 +1,6 @@
 {
     "username": "dokenobuggy799",
     "submission": "class Solution {\n    const int MOD = 1e9 + 7;\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& reqs) {\n        int m = reqs.size();\n        int limit = 400;\n        long long ans = 0;\n        unordered_map<int, int> temp;\n        vector<vector<long>> dp(n + 1, vector<long>(limit + 1, 0));\n        dp[0][0] = 1;\n        \n        for(int idx = 0; idx < m; idx++){\n            temp[reqs[idx][0] + 1] = reqs[idx][1];\n        }\n        \n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= limit; j++) {\n                for (int k = 0; k < i; k++) {\n                    if (j - k >= 0) {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % MOD;\n                    }\n                }\n            }\n            if (temp.count(i)) {\n                for (int j = 0; j <= limit; j++) {\n                    if (j != temp[i]) {\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n\n        for (long count : dp[n]) {\n            ans = (ans + count) % MOD;\n        }\n\n        return ans;\n    }\n};\n",
-    "submit_ts": 1719070776.0
+    "submit_ts": "1719070776",
+    "subm_id": "1296831474"
 }

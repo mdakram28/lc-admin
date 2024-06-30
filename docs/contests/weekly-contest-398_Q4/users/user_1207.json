@@ -1,5 +1,6 @@
 {
     "username": "soufrabi",
     "submission": "typedef long long int ll;\n\nclass Solution {\n    ll rec1(ll ind, bool lastBack, ll jump, auto &dp,  ll k){\n        // cout << \"(\" << ind << \",\" << boolalpha << lastBack << \",\" << jump << \")\" << endl;\n        if( ind >= k+2 ){\n            return 0;\n        }\n        \n        if( ind == 0 and jump>32){\n            return 0;\n        }\n        \n        auto qq = dp[jump][lastBack].find(ind);\n        if( qq != dp[jump][lastBack].end() ){\n            return qq->second;\n        }\n        \n        // if( ind == k) {\n        //     return 1;\n        // }\n        \n        ll ways = 0ll;\n\n        // move back\n        if(!lastBack && ind-1ll >= 0){\n            ll x1 = rec1(ind-1ll, true, jump,dp, k);\n            ways += x1;\n        }\n        \n        ll x2 = rec1(ind + (1ll<<jump) ,false, jump+1,dp, k);\n        ways += x2;\n        \n        if(ind == k){\n            ways ++;\n        }\n        \n        dp[jump][lastBack][ind] = ways;\n        return ways;\n    }\n    \n    ll rec1F(ll k){\n        vector<vector<unordered_map<ll,ll>>> dp( 33, vector<unordered_map<ll,ll>>(2,( unordered_map<ll,ll>() ))) ;\n        return rec1(1,false,0,dp,k);\n    }\npublic:\n    int waysToReachStair(int k) {\n        return rec1F(k);\n    }\n};",
-    "submit_ts": 1716090485.0
+    "submit_ts": "1716090485",
+    "subm_id": "1261868331"
 }

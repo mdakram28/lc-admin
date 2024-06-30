@@ -1,5 +1,6 @@
 {
     "username": "delphih",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def dfs(g, node):\n            cur = deque([(node, None)])\n            depth, last = 0, node\n            while cur:\n                depth += 1\n                last = cur[0][0]\n                for _ in range(len(cur)):\n                    p, pa = cur.popleft()\n                    for q in g[p]:\n                        if q != pa: cur.append((q, p))\n            # print(depth, node, last)\n            return depth - 1, last\n        def dia(g):\n            _, p = dfs(g, 0)\n            return dfs(g, p)[0]\n        def buildg(E):\n            n = len(E) + 1\n            g = [[] for _ in range(n)]\n            for u, v in E:\n                g[u].append(v)\n                g[v].append(u)\n            return g\n        g1, g2 = buildg(edges1), buildg(edges2)\n        # print(g1); print(g2)\n        d1, d2 = dia(g1), dia(g2)\n        # print(d1, d2)\n        return max(d1, d2, (d1 + 1) // 2 + (d2 + 1) // 2 + 1)",
-    "submit_ts": 1719717427.0
+    "submit_ts": "1719717427",
+    "subm_id": "1304391263"
 }

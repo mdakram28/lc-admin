@@ -1,5 +1,6 @@
 {
     "username": "test_th",
     "submission": "MOD = 1_000_000_007\nN = 400\nclass Solution:\n    def numberOfPermutations(self, n: int, R: List[List[int]]) -> int:\n        \n        \n        dp = {req[0] + 1: req[1] for req in R}\n        mp = [[0] * (N + 1) for _ in range(n + 1)]\n        mp[0][0] = 1\n        \n        for x in range(1, n + 1):\n            for inv in range(N + 1):\n                for new_pos in range(x):\n                    prev = inv - new_pos\n                    if prev >= 0:\n                        mp[x][inv] = (mp[x][inv] + mp[x - 1][prev]) % MOD\n            \n            if x in dp:\n                t = dp[x]\n                for y in range(N + 1):\n                    if y != t:\n                        mp[x][y] = 0\n        \n        tot = 0\n        for x in mp[n]:\n            tot = (tot + x) % MOD\n        \n        return tot % MOD",
-    "submit_ts": 1719070162.0
+    "submit_ts": "1719070162",
+    "subm_id": "1296816129"
 }

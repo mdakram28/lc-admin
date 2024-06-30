@@ -1,5 +1,6 @@
 {
     "username": "ToTea",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int minDiff = INT_MAX;\n        vector<int> zeroCounts(32);\n        int cur = ~0;\n        int l = 0;\n        int r = 0;\n        while (r < nums.size()) {\n            int num = nums[r];\n            r += 1;\n            for (int i = 0; i < 32; ++i) {\n                int lastBit = (num & 1);\n                zeroCounts[i] += (lastBit == 0);\n                if (zeroCounts[i] == 1) cur &= (~(1 << i));\n                num >>= 1;\n            }\n            minDiff = min(minDiff, abs(k - cur));\n            while (cur < k && l < r) {\n                int num = nums[l];\n                l += 1;\n                for (int i = 0; i < 32; ++i) {\n                    int lastBit = (num & 1);\n                    zeroCounts[i] -= (lastBit == 0);\n                    if (zeroCounts[i] == 0) cur |= (1 << i);\n                    num >>= 1;\n                }\n                if (l < r) minDiff = min(minDiff, abs(k - cur));\n            }\n        }\n        return minDiff;\n    }\n};",
-    "submit_ts": 1717298179.0
+    "submit_ts": "1717298179",
+    "subm_id": "1274770149"
 }

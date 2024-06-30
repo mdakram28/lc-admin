@@ -1,5 +1,6 @@
 {
     "username": "revanthpershad",
     "submission": "class Solution {\n    unordered_map<int, int> mp;\n    vector<vector<int>> dp;\n    const int MOD = 1e9 + 7;\n\npublic:\n    int helper(int ind, int inv) {\n        if (ind == 0) {\n            return inv == 0 ? 1 : 0;\n        }\n        if (dp[ind][inv] != -1) {\n            return dp[ind][inv];\n        }\n\n        int ans = 0;\n        for (int pos = 0; pos < ind; pos++) {\n            if (inv >= pos) {\n                ans = (ans + helper(ind - 1, inv - pos)) % MOD;\n            }\n        }\n\n        if (mp.count(ind)) {\n            int requiredInv = mp[ind];\n            if (inv != requiredInv) {\n                return dp[ind][inv] = 0;\n            }\n        }\n\n        return dp[ind][inv] = ans;\n    }\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        mp.clear();\n        for (const auto& req : requirements) {\n            mp[req[0] + 1] = req[1];\n        }\n\n        int maxInversions = 400;\n        dp.resize(n + 1, vector<int>(maxInversions + 1, -1));\n        \n        int result = 0;\n        if (mp.count(n)) {\n            result = helper(n, mp[n]);\n        } else {\n            for (int inv = 0; inv <= maxInversions; inv++) {\n                result = (result + helper(n, inv)) % MOD;\n            }\n        }\n\n        return result;\n    }\n};\n",
-    "submit_ts": 1719071035.0
+    "submit_ts": "1719071035",
+    "subm_id": "1296837622"
 }

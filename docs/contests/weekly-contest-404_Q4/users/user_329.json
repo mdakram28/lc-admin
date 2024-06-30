@@ -1,5 +1,6 @@
 {
     "username": "harshit_jain52",
     "submission": "class Solution {\nprivate:\n    void dfs(int v, int par, int d, vector<int>&dist,vector<vector<int>>&g){\n        dist[v]=d;\n        for(int ch: g[v]) if(ch!=par) dfs(ch,v,d+1,dist,g);\n    }\n    \n    pair<int,int> findDiam(vector<vector<int>>& edges){\n        int n = edges.size()+1;\n        vector<vector<int>>g(n);\n        for(int i=0;i<n-1;i++){\n            int u=edges[i][0],v=edges[i][1];\n            g[u].push_back(v);\n            g[v].push_back(u);\n        }\n        \n        vector<int>dist(n);\n        dfs(0,-1,0,dist,g);\n        int maxv=0;\n        for(int i=0;i<n;i++) if(dist[i]>dist[maxv]) maxv=i;\n        \n        dfs(maxv,-1,0,dist,g);\n        int diam = *max_element(dist.begin(),dist.end());\n        vector<int>dist1 = dist;\n        \n        maxv=0;\n        for(int i=0;i<n;i++) if(dist[i]>dist[maxv]) maxv=i;\n        \n        dfs(maxv,-1,0,dist,g);\n        vector<int>dist2 = dist;\n        \n        int ans = n;\n        for(int i=0;i<n;i++) ans=min(ans,max(dist1[i],dist2[i]));\n        return {diam,ans};\n    }\n    \npublic:\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        auto d1 = findDiam(edges1);\n        auto d2 = findDiam(edges2);\n        \n        return max({d1.first,d2.first,d1.second+d2.second+1});\n    }\n};",
-    "submit_ts": 1719717886.0
+    "submit_ts": "1719717886",
+    "subm_id": "1304403241"
 }

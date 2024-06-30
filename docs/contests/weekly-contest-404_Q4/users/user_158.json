@@ -1,5 +1,6 @@
 {
     "username": "shankarlalb",
     "submission": "class Solution {\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        auto dia = [&](vector<vector<int>>&adj,int n)->int{\n            int dep = 0,nd = 0;\n            auto dfs = [&](int node,int par,int d,auto&&dfs)->void{\n                if(dep<d){\n                    dep = d;\n                    nd = node;\n                }\n                for(auto it : adj[node]){\n                    if(it!=par){\n                        dfs(it,node,d+1,dfs);\n                    }\n                }\n            };\n            dfs(0,-1,0,dfs);\n            dep = 0;\n            dfs(nd,-1,0,dfs);\n            return dep;\n        };\n        auto give =[&](vector<vector<int>>edges)->int{\n            int n = edges.size()+1;\n            vector<vector<int>>adj(n);\n            for(auto it : edges){\n                adj[it[0]].push_back(it[1]);\n                adj[it[1]].push_back(it[0]);\n            }\n            return dia(adj,n);\n        };\n        int d1 = give(edges1);\n        int d2 = give(edges2);\n        int ans = max(d1,d2);\n        d1 = (d1+1)/2;\n        d2 = (d2+1)/2;\n        ans = max(d1+d2+1,ans);\n        return ans;\n    }\n};",
-    "submit_ts": 1719717246.0
+    "submit_ts": "1719717246",
+    "subm_id": "1304386388"
 }

@@ -1,5 +1,6 @@
 {
     "username": "hcpv5",
     "submission": "class Solution {\n    int k;\n    long long mod = 1e9 + 7;\n    unordered_map<long long, unordered_map<long long, long long>> memo;\npublic:\n    int waysToReachStair(int k) {\n        this->k = k;\n        return backtracking(1, 0) + backtracking(0, 0);\n    }\n    \nprivate:\n    int backtracking(long long i, long long jump) {\n        if (i > (long long)k)    return 0;\n        if (i == (long long)k)    return 1 + (jump == 0 ? 1 : 0);\n        if (memo.count(i) > 0 && memo[i].count(jump) > 0)    return memo[i][jump];\n        \n        int res = 0;\n        // Jump\n        res += backtracking(i + qpow(2, jump), jump + 1);\n        \n        // Jump + down\n        res += backtracking(i + qpow(2, jump) - 1, jump + 1);\n        \n        return memo[i][jump] = res;\n    }\n    \n    long long qpow(long long x, long long n) {\n        if (n == 0)    return 1;\n\n        long long res = 0;\n        if (n % 2 == 0) {\n            long long temp = qpow(x, n / 2);\n            res = (temp * temp) % mod;\n        } else {\n            long long temp = qpow(x, n / 2);\n            res = (temp * temp * x) % mod;\n        }\n\n        return res;\n    }\n};",
-    "submit_ts": 1716087568.0
+    "submit_ts": "1716087568",
+    "subm_id": "1261787716"
 }

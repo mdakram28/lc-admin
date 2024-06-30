@@ -1,5 +1,6 @@
 {
     "username": "KESHAVAGARWAL123",
     "submission": "class Solution {\npublic:\n    const int max_inversions=400;\n    const int mod=1000000007;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int m=requirements.size();\n        map<int,int>mp;\n        for(int i=0;i<m;i++){\n        mp[requirements[i][0]+1]=requirements[i][1];\n        }\n       vector<vector<long long>>permcounts(n+1,vector<long long>(max_inversions+1));\n        permcounts[0][0]=1;\n        for(int i=0;i<=n;i++){\n            for(int j=0;j<=max_inversions;j++){\n                for(int k=0;k<i;k++){\n                    int prevj=j-k;\n                    if(prevj>=0){\n                        permcounts[i][j]=(permcounts[i][j]+permcounts[i-1][prevj])%mod;\n                    }\n                }\n            }\n            if(mp.find(i)!=mp.end()){\n                int targetinv=mp[i];\n                for(int inv=0;inv<=max_inversions;inv++){\n                    if(inv!=targetinv){\n                        permcounts[i][inv]=0;\n                    }\n                }\n            }\n        }\n        long res=0;\n        for(long count:permcounts[n]){\n            res=(res+count)%mod;\n        }\n        return (int)res;\n    }\n};",
-    "submit_ts": 1719071310.0
+    "submit_ts": "1719071310",
+    "subm_id": "1296843879"
 }

@@ -1,5 +1,6 @@
 {
     "username": "CAEL0",
     "submission": "#include <bits/stdc++.h>\n#define sz size()\n#define bk back()\n#define fi first\n#define se second\n\nusing namespace std;\ntypedef long long ll;\ntypedef pair<int, int> pii;\n\nconst int MOD = 1e9 + 7;\n\nclass Solution {\n\n  public:\n    int numberOfPermutations(int n, vector<vector<int>> &v) {\n        unordered_map<int, int> mp;\n        for (int i = 0; i < v.sz; i++)\n            mp[v[i][0]] = v[i][1];\n\n        if (mp.count(0) && mp[0] != 0)\n            return 0;\n\n        vector<vector<ll>> dp(n, vector<ll>(401, -1));\n        dp[0][0] = 1;\n\n        for (int i = 0; i < n - 1; i++) {\n            for (int j = 0; j <= 400; j++) {\n                if (dp[i][j] == -1)\n                    continue;\n\n                if (mp.count(i) && mp[i] != j)\n                    continue;\n\n                for (int k = j; k <= min(400, j + i + 1); k++) {\n                    if (dp[i + 1][k] == -1)\n                        dp[i + 1][k] = 0;\n\n                    dp[i + 1][k] = (dp[i + 1][k] + dp[i][j]) % MOD;\n                }\n            }\n        }\n\n        return dp[n - 1][mp[n - 1]];\n    }\n};",
-    "submit_ts": 1719068172.0
+    "submit_ts": "1719068172",
+    "subm_id": "1296755684"
 }

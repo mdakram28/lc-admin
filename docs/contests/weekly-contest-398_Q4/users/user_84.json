@@ -1,5 +1,6 @@
 {
     "username": "VIBE09",
     "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        \n        \n        \n        \n        auto fastpow=[&](long long int a,long long int b)->int{\n            long long int res=1;\n            while(b){\n                if(b&1) res*=a;\n                a=a*a;\n                b/=2;\n            }\n            return res;\n        };\n        \n        map<vector<long long int>,int> dp;\n        \n        function<int(long long int,long long int,long long int)> go=[&](long long int step,long long int jump,long long int cons)->int{\n            \n            if(dp.find({step,jump,cons})!=dp.end()) return dp[{step,jump,cons}];\n            \n            int ways=(step==k);\n            \n            \n            \n            //go backward\n            \n            if(cons==0 and step) ways+=go(step-1,jump,1);\n            \n            // front jump\n            \n            if(step+fastpow(2,jump)<=k+1) ways+=go(step+fastpow(2,jump),jump+1,0);\n            \n            return dp[{step,jump,cons}]=ways;\n            \n        };\n        \n        \n        \n        return go(1,0,0);\n        \n        \n        \n        \n        \n        \n    }\n};",
-    "submit_ts": 1716087344.0
+    "submit_ts": "1716087344",
+    "subm_id": "1261780768"
 }

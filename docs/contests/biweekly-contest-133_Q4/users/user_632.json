@@ -1,5 +1,6 @@
 {
     "username": "guptamanan24",
     "submission": "class Solution {\n        int M = 1e9 + 7;\n        int X = 400;\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& reqs) {\n        unordered_map<int, int> v;\n        for (auto& q : reqs) \n        {\n            v[q[0] + 1] = q[1];\n        }\n        \n        vector<vector<long>> p(n + 1, vector<long>(X + 1, 0));\n        p[0][0] = 1;\n        for (int a = 1; a <= n; a++) {\n        for (int b = 0; b <= X; b++) {\n        for (int c = 0; c < a; c++) {\n            int d = b - c;\n            if (d >= 0) {\n            p[a][b] = p[a][b] + p[a - 1][d];\n            p[a][b] = p[a][b]%M;\n                }\n            }\n            }\n\n            if (v.find(a)!=v.end()) {\n            int value = v[a];\n            for (int f = 0; f <= X; f++) {\n            if (f != value) {\n            p[a][f] = 0;\n                }\n               }\n            }\n        }\n\n        long g = 0;\n        for (long h : p[n]) {\n            g = (g + h) % M;\n        }\n\n        return g;\n    }\n};",
-    "submit_ts": 1719070846.0
+    "submit_ts": "1719070846",
+    "subm_id": "1296833130"
 }

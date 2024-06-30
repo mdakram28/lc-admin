@@ -1,5 +1,6 @@
 {
     "username": "Ma_Lin",
     "submission": "class Solution {\npublic:\n    int r[100005][30];\n    int minimumDifference(vector<int>& a, int T) {\n        int zd = 0, n = a.size(), i, j, k, you, now, res = 2000000000, M = 30;\n        for (j = 0; j < M; ++j) r[n][j] = n;\n        for (i = n - 1; i >= 0; --i)\n            for (j = 0; j < M; ++j)\n                if (!(a[i] & (1<<j))) r[i][j] = i;\n                else r[i][j] = r[i + 1][j];\n        \n        for (i = 0; i < n; ++i){\n            now = a[i];\n            res = min(res, (int)labs(now - T));\n            j = i;\n            while (j + 1 < n && now != 0){\n                you = n;\n                for (k = 0; k < M; ++k)\n                    if (now & (1<<k))\n                        you = min(you, r[j + 1][k]);\n                j = you;\n                if (j == n) break;\n                now &= a[j];\n                res = min(res, (int)labs(now - T));\n            }\n        }\n        \n        return res;\n    }\n};",
-    "submit_ts": 1717296316.0
+    "submit_ts": "1717296316",
+    "subm_id": "1274698704"
 }

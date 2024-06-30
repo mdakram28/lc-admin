@@ -1,5 +1,6 @@
 {
     "username": "zheruilin",
     "submission": "class Solution {\n    public int waysToReachStair(int k) {\n        k = k - 1;\n        int n = 0;\n        while (Math.pow(2, n) - n - 2 <= k) {\n            n++;\n        }\n        Map<Integer, Integer>[] freqs = new Map[n + 1];\n        for (int i = 0; i <= n; i++) {\n            freqs[i] = new HashMap<>();\n        }\n        freqs[0].put(0, 1);\n        freqs[0].put(-1, 1);\n        int res = (k == 0 || k == -1) ? 1 : 0;\n        for (int i = 1; i <= n; i++) {\n            for (int key : freqs[i - 1].keySet()) {\n                int newKey = key + (int) Math.pow(2, i - 1);\n                freqs[i].put(newKey, freqs[i].getOrDefault(newKey, 0) + freqs[i - 1].get(key));\n                freqs[i].put(newKey - 1, freqs[i].getOrDefault(newKey - 1, 0) + freqs[i - 1].get(key));\n            }\n            res += freqs[i].getOrDefault(k, 0);\n        }\n        return res;\n    }\n}",
-    "submit_ts": 1716089503.0
+    "submit_ts": "1716089503",
+    "subm_id": "1261843933"
 }

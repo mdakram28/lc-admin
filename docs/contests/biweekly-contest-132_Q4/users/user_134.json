@@ -1,5 +1,6 @@
 {
     "username": "CoderQ1234",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int len = nums.size();\n        map<int, int> index;\n        int cnt = 0;\n        for(int i = 0; i < len; i++) {\n            int x = nums[i];\n            if(!index[x]) index[x] = cnt++;\n        }\n\n        vector<vector<int>> f(len + 5, vector<int>(k + 5, 0));\n        f[0][0] = 1;\n        vector<vector<int>> largest(len + 5, vector<int>(k + 5, -1000000));\n        largest[index[nums[0]]][0] = 1;\n        vector<int> p(k + 5, index[nums[0]]);\n\n        for(int i = 1; i < len; i++) {\n            for(int j = k; j >= 0; j--) {\n                int pos = index[nums[i]];\n                f[i][j] = max(1, largest[pos][j] + 1);\n                if(j) f[i][j] = max(f[i][j], largest[p[j - 1]][j - 1] + 1);\n                largest[pos][j] = max(largest[pos][j], f[i][j]);\n                if(largest[pos][j] > largest[p[j]][j]) p[j] = pos;\n            }\n        }\n        int kq = 0;\n        for(int i = 0; i <= len; i++) {\n            for(int j = 0; j <= k; j++) kq = max(kq, f[i][j]);\n        }\n        return kq;\n    }\n};",
-    "submit_ts": 1717860297.0
+    "submit_ts": "1717860297",
+    "subm_id": "1281752707"
 }

@@ -1,5 +1,6 @@
 {
     "username": "aroratanmay1403",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<vector<long>> dp(n + 1, vector<long>(401 + 1, 0));\n        dp[0][0] = 1;\n        unordered_map<int, int> mp;\n        for (const auto& it : requirements) {\n            mp[it[0] + 1] = it[1];\n        }\n        for (int i = 1; i <= n; i++) {\n            vector<long> p(402, 0);\n            for (int inv = 0; inv <= 401; inv++) {\n                p[inv] = dp[i - 1][inv] + (inv > 0 ? p[inv - 1] : 0);\n                p[inv] %= 1000000007;\n            }\n            for (int inv = 0; inv <= 401; inv++) {\n                if (inv >= i) {\n                    dp[i][inv] = (p[inv] - p[inv - i] + 1000000007) % 1000000007;\n                } else {\n                    dp[i][inv] = p[inv];\n                }\n            }\n            if (mp.find(i) != mp.end()) {\n                for (int inv = 0; inv <= 401; inv++) {\n                    if (inv != mp[i]) {\n                        dp[i][inv] = 0;\n                    }\n                }\n            }\n        }\n        long res = 0;\n        for (long it : dp[n]) {\n            res = (res + it) % 1000000007;\n        }\n\n        return (int) res;\n    }\n};",
-    "submit_ts": 1719070856.0
+    "submit_ts": "1719070856",
+    "subm_id": "1296833366"
 }

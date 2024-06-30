@@ -1,5 +1,6 @@
 {
     "username": "VILLANOVA_ECON",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        modulo = 10**9 + 7\n        \n        ### help from chatgpt\n        def solve(n, requirements):\n            requirements_set = {}\n            for x,y in requirements:\n                requirements_set[x] = y\n                \n            max_inversions = min(n * (n - 1) // 2,405)\n\n\n            dp = [[0] * (max_inversions + 1) for _ in range(n + 1)]\n            dp[0][0] = 1  \n\n            for length in range(1, n + 1):\n                for inv_count in range(max_inversions + 1):\n                    dp[length][inv_count] = 0\n                    for pos in range(length):    \n                        if inv_count >= pos:\n                            dp[length][inv_count] += dp[length - 1][inv_count - pos]\n                            dp[length][inv_count] %= modulo\n                if length-1 in requirements_set:\n                    target = requirements_set[length-1]\n                    for i in range(len(dp[length])):\n                        if i != target:\n                            dp[length][i] = 0\n            z = requirements_set[n-1]\n            return dp[n][z]%modulo\n        return solve(n,requirements)\n",
-    "submit_ts": 1719069810.0
+    "submit_ts": "1719069810",
+    "subm_id": "1296806984"
 }

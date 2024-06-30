@@ -1,5 +1,6 @@
 {
     "username": "trantai",
     "submission": "int f[100000][17]; \n\nvoid build(vector<int>&nums){\n    int n = nums.size();\n    for (int i = 0; i < n; i++){\n        f[i][0] = nums[i];\n    }\n    for (int lg = 1; lg < 17; lg++){\n        for (int i = 0; i < n; i++){\n            if (i + (1 << lg) <= n){\n                f[i][lg] = f[i][lg-1] & f[i + (1<<(lg-1))][lg-1];\n            }   \n        }\n    }\n}\n\nint get(int l, int r){\n    int lg = (int)log2(r - l + 1);\n    return f[l][lg] & f[r - (1 << lg) + 1][lg];\n}\n\nclass Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size(); \n        build(nums);\n        int ans = 1e9;\n        for (int i = 0; i < n; i++){\n            int lo = i;\n            int hi = n-1;\n            while (lo < hi){\n                int m = (lo + hi + 1) >> 1;\n                int v = get(i, m);\n                if (v < k){\n                    hi = m - 1; \n                }\n                else{\n                    lo = m; \n                }\n            }\n            \n            int v = get(i, lo);\n            ans = min(ans, abs(k - v));\n            if (v >= k && lo + 1 < n){\n                ans = min(ans, abs(k - get(i, lo + 1))); \n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717296138.0
+    "submit_ts": "1717296138",
+    "subm_id": "1274691806"
 }

@@ -1,5 +1,6 @@
 {
     "username": "ppramod02",
     "submission": "class Solution {\npublic:\n    \n    void dfs(int node, int parent, int depth, const unordered_map<int, vector<int>>& tree, int& farthestNode, int& maxDepth) {\n        if (depth > maxDepth) {\n            maxDepth = depth;\n            farthestNode = node;\n        }\n        for (int neighbor : tree.at(node)) {\n            if (neighbor != parent) {\n                dfs(neighbor, node, depth + 1, tree, farthestNode, maxDepth);\n            }\n        }\n    }\n\n    int longest(const vector<vector<int>>& edges) {\n        if (edges.empty()) return 0;\n\n        unordered_map<int, vector<int>> tree;\n        for (const auto& edge : edges) {\n            tree[edge[0]].push_back(edge[1]);\n            tree[edge[1]].push_back(edge[0]);\n        }\n\n        int farthestNode = 0;\n        int maxDepth = -1;\n        dfs(0, -1, 0, tree, farthestNode, maxDepth);\n\n        maxDepth = -1;\n        dfs(farthestNode, -1, 0, tree, farthestNode, maxDepth);\n\n        return maxDepth;\n    }\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int a = longest(edges1), b = longest(edges2);\n        return max((a + 1) / 2 + (b + 1) / 2 + 1, max(a, b));\n    }\n};",
-    "submit_ts": 1719718139.0
+    "submit_ts": "1719718139",
+    "subm_id": "1304409730"
 }

@@ -1,5 +1,6 @@
 {
     "username": "windi",
     "submission": "class Solution(object):\n    def numberOfPermutations(self, n, requirements):\n        \"\"\"\n        :type n: int\n        :type requirements: List[List[int]]\n        :rtype: int\n        \"\"\"\n        MOD = 10**9 + 7\n        MAX_INV = n * (n - 1) // 2\n        requirements.sort(key=lambda x: x[0])\n        \n        dp = [[0] * (MAX_INV + 1) for _ in range(n + 1)]\n        dp[0][0] = 1\n        \n        req_dict = {end: count for end, count in requirements}\n        \n        for i in range(1, n + 1):\n            new_dp = [0] * (MAX_INV + 1)\n            window_sum = 0\n            \n            for j in range(MAX_INV + 1):\n                if j - i >= 0:\n                    window_sum = (window_sum - dp[i-1][j-i]) % MOD\n                window_sum = (window_sum + dp[i-1][j]) % MOD\n                new_dp[j] = window_sum\n            \n            if i - 1 in req_dict:\n                req_count = req_dict[i-1]\n                if req_count > MAX_INV:\n                    return 0\n                enforce_dp = [0] * (MAX_INV + 1)\n                enforce_dp[req_count] = new_dp[req_count]\n                new_dp = enforce_dp\n            \n            dp[i] = new_dp\n        \n        for end, count in requirements:\n            if count > MAX_INV or dp[end + 1][count] == 0:\n                return 0\n        \n        return dp[n][req_dict[n-1]] % MOD\n\n",
-    "submit_ts": 1719069798.0
+    "submit_ts": "1719069798",
+    "subm_id": "1296806668"
 }

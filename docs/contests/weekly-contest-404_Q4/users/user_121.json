@@ -1,5 +1,6 @@
 {
     "username": "GoldenShadow5",
     "submission": "class Solution {\n    private static ArrayList<Integer>[] adjacencyList;\n    private static int[] dfs(int root, int parent, int distance) {\n        int[] ans = {root, distance};\n        for(int i: adjacencyList[root]) {\n            if(i != parent) {\n                int[] temp = dfs(i, root, distance+1);\n                if(temp[1] > ans[1]) {\n                    ans = temp;\n                }\n            }\n        }\n        return ans;\n    }\n    private static int getDiameter() {\n        return dfs(dfs(0, -1, 0)[0], -1, 0)[1];\n    }\n    public int minimumDiameterAfterMerge(int[][] edges1, int[][] edges2) {\n        adjacencyList = new ArrayList[edges1.length+1];\n        for(int i = 0; i < adjacencyList.length; i++) {\n            adjacencyList[i] = new ArrayList<>();\n        }\n        for(int[] i: edges1) {\n            adjacencyList[i[0]].add(i[1]);\n            adjacencyList[i[1]].add(i[0]);\n        }\n        int a = getDiameter();\n        adjacencyList = new ArrayList[edges2.length+1];\n        for(int i = 0; i < adjacencyList.length; i++) {\n            adjacencyList[i] = new ArrayList<>();\n        }\n        for(int[] i: edges2) {\n            adjacencyList[i[0]].add(i[1]);\n            adjacencyList[i[1]].add(i[0]);\n        }\n        int b = getDiameter();\n        return Math.max((a+1)/2+(b+1)/2+1, Math.max(a, b));\n    }\n}",
-    "submit_ts": 1719716970.0
+    "submit_ts": "1719716970",
+    "subm_id": "1304378957"
 }

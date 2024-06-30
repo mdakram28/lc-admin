@@ -1,5 +1,6 @@
 {
     "username": "Adityasharma156",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& reqs) {\n        const int MOD = 1e9 + 7;\n\n        unordered_map<int, int> mp;\n        for (auto& it : reqs) {\n            mp[it[0] + 1] = it[1];\n        }\n\n        const int grid = 400;\n        vector<vector<long>> dp(n + 1, vector<long>(grid + 1, 0));\n        dp[0][0] = 1;\n\n        int i = 1;\n        while (i <= n) {\n            int j = 0;\n            while (j <= grid) {\n                int z = 0;\n                while (z < i) {\n                    int prevj = j - z;\n                    if (prevj >= 0) {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][prevj]) % MOD;\n                    }\n                    z++;\n                }\n                j++;\n            }\n\n            if (mp.count(i)) {\n                int targetj = mp[i];\n                j = 0;\n                while (j <= grid) {\n                    if (j != targetj) {\n                        dp[i][j] = 0;\n                    }\n                    j++;\n                }\n            }\n            i++;\n        }\n\n        long cnt = 0;\n        for (long it : dp[n]) {\n            cnt = (cnt + it) % MOD;\n        }\n\n        return cnt;\n    }\n};\n",
-    "submit_ts": 1719070688.0
+    "submit_ts": "1719070688",
+    "subm_id": "1296829287"
 }

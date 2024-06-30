@@ -1,5 +1,6 @@
 {
     "username": "uf21-2",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        n1, n2 = len(edges1) + 1, len(edges2) + 1\n        \n        graph1, graph2 = [[] for _ in range(n1)], [[] for _ in range(n2)]\n        \n        for u, v in edges1:\n            graph1[u].append(v)\n            graph1[v].append(u)\n        for u, v in edges2:\n            graph2[u].append(v)\n            graph2[v].append(u)\n\n        def dfs(graph, start):\n            distance = [-1] * len(graph)\n            furthest = start\n            \n            def dfs_visit(node, dist):\n                nonlocal furthest\n                distance[node] = dist\n                if dist > distance[furthest]:\n                    furthest = node\n                for neighbor in graph[node]:\n                    if distance[neighbor] == -1:\n                        dfs_visit(neighbor, dist + 1)\n            \n            dfs_visit(start, 0)\n            return distance[furthest], furthest\n        \n        _, node1 = dfs(graph1, 0)\n        diameter1, _ = dfs(graph1, node1)\n        \n        _, node2 = dfs(graph2, 0)\n        diameter2, _ = dfs(graph2, node2)\n\n        min_diameter = max(diameter1, diameter2)\n        half1, half2 = (diameter1 + 1) // 2, (diameter2 + 1) // 2\n        min_diameter = max(min_diameter, half1 + half2 + 1)\n\n        return min_diameter",
-    "submit_ts": 1719719593.0
+    "submit_ts": "1719719593",
+    "subm_id": "1304445744"
 }

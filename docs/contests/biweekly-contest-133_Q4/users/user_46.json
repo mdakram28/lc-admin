@@ -1,5 +1,6 @@
 {
     "username": "pasricha_dhruv",
     "submission": "int mod = 1e9 + 7;\n\nint dp[310][410];\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> req(n, -1);\n        for(auto it : requirements)\n        {\n            req[it[0]] = it[1];\n        }\n        \n        function<int(int, int)> f = [&](int num, int inv) -> int\n        {\n            \n             if(inv < 0)\n             {\n                return 0;\n             }\n            \n             if(num == 0)\n             {\n                 return inv == 0;\n             }\n            \n             if(req[num - 1] != -1 and req[num - 1] != inv)\n             {\n                 return 0;\n             }\n            \n             int &ans = dp[num][inv]; if(ans != -1) return ans;\n        \n             ans = 0;\n             for(int i = 1; i <= num; ++i)\n             {\n                 ans += f(num - 1, inv - (num - i));\n                 ans %= mod;\n             }\n            \n             return ans;\n        };\n        \n        \n        memset(dp, -1, sizeof dp);\n        return f(n, req[n - 1]);\n    }\n    \n};",
-    "submit_ts": 1719067755.0
+    "submit_ts": "1719067755",
+    "subm_id": "1296739073"
 }

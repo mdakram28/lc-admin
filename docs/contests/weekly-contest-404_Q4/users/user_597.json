@@ -1,5 +1,6 @@
 {
     "username": "HIRE_ME_GOOGLE",
     "submission": "class Solution {\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n = edges1.size()+1, m = edges2.size()+1;\n        vector<vector<int>> adj1(n), adj2(m);\n        \n        for (auto &x: edges1) {\n            adj1[x[0]].push_back(x[1]);\n            adj1[x[1]].push_back(x[0]);\n        }\n        \n        for (auto &x: edges2) {\n            adj2[x[0]].push_back(x[1]);\n            adj2[x[1]].push_back(x[0]);\n        }\n        \n        int a = 0;\n        int b = 0;\n            \n        dfs(adj1, 0, -1, a);\n        dfs(adj2, 0, -1, b);\n        \n        --a, --b;\n\n        int ans = max({a, b});\n        ans = max(ans, (a+1)/2+(b+1)/2+1);\n        //cout << a << \" \" << b << endl;\n        return ans;\n    }\nprivate:\n    int dfs(vector<vector<int>> &adj, int p, int pp, int &ans) {\n        int ret = 1, c1 = 0, c2 = 0;\n        for (int x: adj[p]) {\n            if (x != pp) {\n                int d = dfs(adj, x, p, ans);\n                if (d > c1) {\n                    c2 = c1;\n                    c1 = d;\n                } else if (d > c2) {\n                    c2 = d;\n                }\n            }\n        }\n        \n        ans = max(ans, c1+c2+1);\n        \n        return max(c1, c2) + 1;\n    }\n};",
-    "submit_ts": 1719718929.0
+    "submit_ts": "1719718929",
+    "subm_id": "1304429568"
 }

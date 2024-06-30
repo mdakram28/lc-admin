@@ -1,5 +1,6 @@
 {
     "username": "sobols",
     "submission": "constexpr int MOD = 1'000'000'007;\n\nvoid Add(int& x, int y) {\n    x += y;\n    if (x >= MOD) {x -= MOD;}\n}\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> req(n, -1);\n        int maxCnt = 0;\n        for (const auto& v : requirements) {\n            req[v[0]] = v[1];\n            maxCnt = max(maxCnt, v[1]);\n        }\n\n        vector<vector<int>> f(n + 1, vector<int>(maxCnt + 1));\n        f[1][0] = 1;\n        if (req[0] != -1 && req[0] != 0) {\n            return 0;\n        }\n\n        for (int i = 2; i <= n; ++i) {\n            for (int last = 1; last <= i; ++last) {\n                int inv = i - last;\n                for (int k = 0; k <= maxCnt; ++k) {\n                    if (k >= inv) {\n                        Add(f[i][k], f[i - 1][k - inv]);\n                    }\n                }\n            }\n\n            if (req[i - 1] != -1) {\n                for (int k = 0; k <= maxCnt; ++k) {\n                    if (k != req[i - 1]) { f[i][k] = 0; }\n                }\n            }\n        }\n\n        return f[n][req[n - 1]];\n    }\n};",
-    "submit_ts": 1719070592.0
+    "submit_ts": "1719070592",
+    "subm_id": "1296826895"
 }

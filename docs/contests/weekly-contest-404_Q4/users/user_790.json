@@ -1,5 +1,6 @@
 {
     "username": "virinci",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(\n        self, edges1: List[List[int]], edges2: List[List[int]]\n    ) -> int:\n        n, m = len(edges1) + 1, len(edges2) + 1\n        adj1 = [[] for _ in range(n)]\n        adj2 = [[] for _ in range(m)]\n        for u, v in edges1:\n            adj1[u].append(v)\n            adj1[v].append(u)\n        for u, v in edges2:\n            adj2[u].append(v)\n            adj2[v].append(u)\n\n        def diameter(adj):\n            def dfs(u, v, dist):\n                for w in adj[v]:\n                    if w == u:\n                        continue\n                    dist[w] = dist[v] + 1\n                    dfs(v, w, dist)\n\n            n = len(adj)\n\n            dist1 = [0] * n\n            dfs(-1, 0, dist1)\n            a = max(range(n), key=lambda i: dist1[i])\n\n            dist1 = [0] * n\n            dfs(-1, a, dist1)\n            b = max(range(n), key=lambda i: dist1[i])\n            d = max(dist1)\n\n            dist2 = [0] * n\n            dfs(-1, b, dist2)\n            return d, min(max(dist1[i], dist2[i]) for i in range(n))\n\n        d1, md1 = diameter(adj1)\n        d2, md2 = diameter(adj2)\n        return max(d1, d2, md1 + md2 + 1)\n",
-    "submit_ts": 1719718520.0
+    "submit_ts": "1719718520",
+    "subm_id": "1304419277"
 }

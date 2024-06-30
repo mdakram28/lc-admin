@@ -1,5 +1,6 @@
 {
     "username": "u_noob_i",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& a) {\n        sort(a.begin(),a.end());\n        for(int i=1;i<a.size();i++) if(a[i][1]<a[i-1][1]) return 0;\n        if(a.back()[1]==0) return 1;\n        if(a.back()[1]>n*(n-1)/2) return 0;\n        long long M=1e9+7,k=a.back()[1];\n        vector<vector<long long>> dp(n+1,vector<long long>(k+1,0));\n        dp[0][0]=1;\n        for(int i=1,t=0;i<=n;i++){\n            if(!t||!a[t-1][1]) dp[i][0]=1;\n            for(int j=1;j<=k;j++){\n                dp[i][j]=(dp[i][j-1]+dp[i-1][j])%M;\n                if(j>=i) dp[i][j]=(dp[i][j]-dp[i-1][j-i]+M)%M;\n            }\n            if(t<a.size()&&a[t][0]==i-1){\n                for(int j=0;j<=k;j++) if(j!=a[t][1]) dp[i][j]=0;\n                t++;\n            }\n        }\n        return dp[n][k];\n    }\n};",
-    "submit_ts": 1719068674.0
+    "submit_ts": "1719068674",
+    "subm_id": "1296773204"
 }

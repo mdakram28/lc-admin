@@ -1,5 +1,6 @@
 {
     "username": "vaibhavgelle",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int arr[nums.size()][k+1];\n        int i,j,ans=1;\n        deque<int>st;\n        int maxer[k+1];\n        map<int,int>mp;\n        for(i=0;i<=k;i++){\n            arr[0][i]=1;\n            maxer[i]=1;\n        }\n        mp[nums[0]]=0;\n        st.push_back(0);\n        for(i=1;i<nums.size();i++){\n            for(j=0;j<=k;j++){\n                if(j>0){\n                    arr[i][j]=arr[i][j-1];\n                }else{\n                    arr[i][j]=1;\n                }\n                if(mp.find(nums[i])!=mp.end()){\n                    arr[i][j]=arr[mp[nums[i]]][j]+1;\n                }\n                while(!st.empty()){\n                    if(nums[st.back()]!=nums[i]){\n                        break;\n                    }\n                    st.pop_back();\n                }\n                if(!st.empty()&&j>0){\n                    arr[i][j]=max(arr[i][j],maxer[j-1]+1);\n                }\n                ans=max(ans,arr[i][j]);\n            }\n            st.push_back(i);\n            mp[nums[i]]=i;\n            for(j=0;j<=k;j++){\n                maxer[j]=max(maxer[j],arr[i][j]);\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717861842.0
+    "submit_ts": "1717861842",
+    "subm_id": "1281803820"
 }

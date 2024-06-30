@@ -1,5 +1,6 @@
 {
     "username": "HnBx4Kh21T",
     "submission": "from typing import List\nfrom math import comb\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        dp = [[0] * (401) for _ in range(n+1)]\n        dp[0][0] = 1 \n        \n        for length in range(1, n+1):\n            for inv_count in range(401):\n                dp[length][inv_count] = 0\n                for i in range(min(length, inv_count + 1)):\n                    dp[length][inv_count] += dp[length-1][inv_count-i]\n                    dp[length][inv_count] %= MOD\n            \n  \n            for endi, cnti in requirements:\n                if endi == length-1:\n                    for k in range(401):\n                        if k != cnti:\n                            dp[length][k] = 0\n        \n        final_inversions = next(cnti for endi, cnti in requirements if endi == n-1)\n        return dp[n][final_inversions]\n\n\n",
-    "submit_ts": 1719067416.0
+    "submit_ts": "1719067416",
+    "subm_id": "1296724098"
 }

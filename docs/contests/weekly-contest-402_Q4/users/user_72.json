@@ -1,5 +1,6 @@
 {
     "username": "goto_1600",
     "submission": "class Solution:\n    def countOfPeaks(self, nums: List[int], queries: List[List[int]]) -> List[int]:\n        def lowbit(x):\n            return x&-x\n        N=200010\n        tr=[0]*N\n        def add(x,d):\n            i=x\n            while i<N:\n                tr[i]+=d\n                i+=lowbit(i) \n        def query(x):\n            i=x\n            res=0\n            while i>0:\n                res+=tr[i]\n                i-=lowbit(i)\n            return res\n        for i in range(1,len(nums)-1):\n            if nums[i]>nums[i-1] and nums[i]>nums[i+1]:\n                add(i,1)\n        ans=[]\n        n=len(nums)\n        for op,x,y in queries:\n            if op==1:\n                def get(x):\n                    if x<0:\n                        return 0\n                    return query(x)\n                # print(get(y-1),get(x))\n                ans.append(max(0,get(y-1)-get(x))   )\n            else:\n                def mdf(x,d):\n                    # print(x,d)\n                    if x-1>=0 and x+1<n and nums[x]>nums[x-1] and nums[x]>nums[x+1]:\n                        # print(x,d)\n                        add(x,d)\n                mdf(x-1,-1)\n                mdf(x,-1)\n                mdf(x+1,-1)\n                nums[x]=y\n                # print(x,y)\n                mdf(x-1,1)\n                mdf(x,1)\n                mdf(x+1,1)\n        return ans\n\n",
-    "submit_ts": 1718505857.0
+    "submit_ts": "1718505857",
+    "subm_id": "539771065"
 }

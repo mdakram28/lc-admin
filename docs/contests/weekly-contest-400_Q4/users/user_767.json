@@ -1,5 +1,6 @@
 {
     "username": "dhananjaymadhukarrathod2003",
     "submission": "class Solution {\npublic:\n    void build(int ind, int low, int high,int seg[],vector<int> &a)\n    {\n        if (low == high)\n        {\n            seg[ind] = a[low];\n            return;\n        }\n\n        int mid = (low + high) / 2;\n        build(2 * ind + 1, low, mid,seg,a);\n        build(2 * ind + 2, mid + 1, high,seg,a);\n        seg[ind] = (seg[2 * ind + 1] & seg[2 * ind + 2]);\n    }\n    int query(int ind, int low, int high, int l, int r,int seg[])\n    {\n        if (low >= l && high <= r)\n        {\n            return seg[ind];\n        }\n        if (high < l || low > r)\n            return pow(2,31)-1;\n        int mid = (low + high) / 2;\n        int left = query(2 * ind + 1, low, mid, l, r,seg);\n        int right = query(2 * ind + 2, mid + 1, high, l, r,seg);\n        return (left&right);\n    }\n\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        int seg[4 * n];\n        build(0,0,n-1,seg,nums);\n        int l=0;\n        int r=0;\n        int ans=INT_MAX;\n        while(l<n && r<n){\n            int ret=query(0,0,n-1,l,r,seg);\n            // cout<<l<<\" \"<<r<<\" \"<<ret<<'\\n';\n            ans=min(ans,abs(ret-k));\n            if(ret>k || r==l){\n                r++;\n            }\n            else{\n                l++;\n            }\n        }\n        return ans;\n        \n    }\n};",
-    "submit_ts": 1717299903.0
+    "submit_ts": "1717299903",
+    "subm_id": "1274827578"
 }

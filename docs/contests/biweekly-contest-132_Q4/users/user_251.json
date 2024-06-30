@@ -1,5 +1,6 @@
 {
     "username": "suyasho786",
     "submission": "class Solution {\npublic:\n    \n    int maximumLength(vector<int>& arr, int k) {\n        struct DPItem {\n        int max_val;\n        std::unordered_set<int> set;\n        std::unordered_map<int, int> counter;\n    };\n\n    std::vector<DPItem> dp(k + 1);\n\n    for (int i : arr) {\n        int prev = 0;\n        for (int j = 0; j <= k; ++j) {\n            int cur = std::max({prev + 1, \n                                (dp[j].max_val + 1) * (dp[j].set.count(i) > 0), \n                                dp[j].counter[i] + 1});\n\n            prev = dp[j].max_val;\n            dp[j].counter[i] = cur;\n\n            if (dp[j].max_val < cur) {\n                dp[j].max_val = cur;\n                dp[j].set.clear();\n            }\n\n            if (cur == dp[j].max_val) {\n                dp[j].set.insert(i);\n            }\n        }\n    }\n\n    return dp[k].max_val;\n        \n    }\n};",
-    "submit_ts": 1717860957.0
+    "submit_ts": "1717860957",
+    "subm_id": "1281774908"
 }

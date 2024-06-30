@@ -1,5 +1,6 @@
 {
     "username": "indra_2003",
     "submission": "class Solution {\npublic:\n    void add(int a, vector<int> &bits){\n        for(int i=0;i<32;i++){\n            if((1<<i) & a) bits[i]++;\n        }\n    }\n    \n    void rem(int a, vector<int> &bits){\n        for(int i=0;i<32;i++){\n            if((1<<i) & a) bits[i]--;\n        }\n    }\n    \n    int cal(int size, vector<int> &bits){\n        int ans = 0;\n        for(int i=0;i<32;i++){\n            if(bits[i] == size) ans+=(1<<i);\n        }\n        return ans;\n    }\n        \n    int minimumDifference(vector<int>& a, int k) {\n        int ans = INT_MAX, n = a.size();\n        if(n==1) return abs(a[0] - k);\n        int i=0, j=0;\n        vector<int> bits(32, 0);\n        while(j<n){\n            add(a[j], bits);\n            while(i<=j && (cal(j-i+1, bits) <= k)){\n                ans = min(ans, abs(k - cal(j-i+1, bits)));\n                rem(a[i], bits);\n                i++;\n            }\n            ans = min(ans, abs(cal(j-i+1, bits) - k));\n            j++;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717300094.0
+    "submit_ts": "1717300094",
+    "subm_id": "1274833455"
 }

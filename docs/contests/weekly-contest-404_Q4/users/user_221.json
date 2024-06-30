@@ -1,5 +1,6 @@
 {
     "username": "Himanshu0104",
     "submission": "func m(x, y, z int) int {\n\tif x > y {\n\t\tif x > z {\n\t\t\treturn x\n\t\t}\n\t\treturn z\n\t}\n\tif y > z {\n\t\treturn y\n\t}\n\treturn z\n}\n\nfunc minimumDiameterAfterMerge(edges1 [][]int, edges2 [][]int) int {\n\td := func(e [][]int) int {\n\t\tn := len(e) + 1\n\t\ta := make([][]int, n)\n\t\tfor _, p := range e {\n\t\t\ta[p[0]] = append(a[p[0]], p[1])\n\t\t\ta[p[1]] = append(a[p[1]], p[0])\n\t\t}\n\n\t\tb := func(s int) (int, int) {\n\t\t\td := make([]int, n)\n\t\t\tfor i := range d {\n\t\t\t\td[i] = -1\n\t\t\t}\n\t\t\tq := list.New()\n\t\t\tq.PushBack(s)\n\t\t\td[s] = 0\n\t\t\tf := s\n\n\t\t\tfor q.Len() > 0 {\n\t\t\t\tv := q.Remove(q.Front()).(int)\n\t\t\t\tfor _, u := range a[v] {\n\t\t\t\t\tif d[u] == -1 {\n\t\t\t\t\t\td[u] = d[v] + 1\n\t\t\t\t\t\tq.PushBack(u)\n\t\t\t\t\t\tif d[u] > d[f] {\n\t\t\t\t\t\t\tf = u\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn f, d[f]\n\t\t}\n\n\t\tu, _ := b(0)\n\t\t_, dia := b(u)\n\t\treturn dia\n\t}\n\n\td1 := d(edges1)\n\td2 := d(edges2)\n\n\treturn m(d1, d2, (d1+1)/2+(d2+1)/2+1)\n}\n",
-    "submit_ts": 1719716478.0
+    "submit_ts": "1719716478",
+    "subm_id": "1304365572"
 }

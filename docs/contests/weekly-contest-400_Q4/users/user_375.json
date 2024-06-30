@@ -1,5 +1,6 @@
 {
     "username": "rukt",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        highest = max(nums)\n        for MAX_BIT in range(32):\n            if highest < (1 << MAX_BIT):\n                break\n        MAX_BIT += 1\n        curr = [0] * MAX_BIT\n        bits = [curr.copy()]\n        \n        for i in nums:\n            for j in range(MAX_BIT):\n                if (1 << j) & i:\n                    curr[j] += 1\n            bits.append(curr.copy())\n        \n        @cache\n        def find_and(left, right):\n            if left == right:\n                return inf\n            total = [b - a for a, b in zip(bits[left], bits[right])]\n            res = 0\n            for i in range(MAX_BIT):\n                if total[i] == right - left:\n                    res += (1 << i)\n            return res\n        \n        l = 0\n        res = inf\n        \n        for r in range(n):\n            while l < n and find_and(l, r) > k:\n                res = min(res, abs(k - find_and(l, r)))\n                l += 1\n            res = min(res, abs(k - find_and(l, r)))\n\n        return res\n            ",
-    "submit_ts": 1717297639.0
+    "submit_ts": "1717297639",
+    "subm_id": "1274750298"
 }

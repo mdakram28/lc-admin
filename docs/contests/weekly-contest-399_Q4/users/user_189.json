@@ -1,5 +1,6 @@
 {
     "username": "pppdmy",
     "submission": "const M: i64 = 1_000_000_007;\nimpl Solution {\n    pub fn maximum_sum_subsequence(mut nums: Vec<i32>, queries: Vec<Vec<i32>>) -> i32 {\n      let mut ret = 0;\n      let (mut take, mut no_take) = sub_seq(&nums);\n      for query in queries {\n        let pos = query[0] as usize;\n        nums[pos] = query[1];\n        ret += update(&mut take, &mut no_take, pos, &nums);\n        ret %= M;\n      }\n      ret as i32\n    }\n}\n\nfn sub_seq(nums: &[i32]) -> (Vec<i64>, Vec<i64>) {\n  let mut take = vec![0; nums.len() + 1];\n  let mut no_take = vec![0; nums.len() + 1];\n  for i in 0..nums.len() {\n    let num = nums[i] as i64;\n    take[i + 1] = take[i].max(no_take[i] + num);\n    no_take[i + 1] = take[i].max(no_take[i]);\n  }\n  (take, no_take)\n}\n\nfn update(take: &mut Vec<i64>, no_take: &mut Vec<i64>, pos: usize, nums: &[i32]) -> i64 {\n  let len = nums.len();\n  for i in pos..nums.len() {\n    let num = nums[i] as i64;\n    let new_take = take[i].max(no_take[i] + num);\n    let new_no_take = take[i].max(no_take[i]);\n    if new_take == take[i + 1] && new_no_take == no_take[i + 1] {\n      break;\n    }\n    take[i + 1] = new_take;\n    no_take[i + 1] = new_no_take;\n  }\n  take[len].max(no_take[len])\n}\n\n",
-    "submit_ts": 1716695428.0
+    "submit_ts": "1716695428",
+    "subm_id": "1268141474"
 }

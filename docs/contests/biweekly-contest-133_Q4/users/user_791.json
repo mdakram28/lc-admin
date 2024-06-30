@@ -1,5 +1,6 @@
 {
     "username": "iitp_rakesh",
     "submission": "class Solution {\npublic:\n    int mod = 1000000007;\n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        // vector<int>inv(n+1, -1);\n        map<int,int>inv;\n        for(auto it : req) {\n            inv[it[0]+1]=it[1];\n        }\n        vector<vector<long long>>dp(n+1, vector<long long>(401));\n        dp[0][0]=1;\n        for(int i =1;i<=n;i++){\n            for(int j = 0; j < 401;j++){\n                for(int k = 0; k <i;k++){\n                    int prev = j - k;\n                    if(prev>=0){\n                        dp[i][j]+= (dp[i-1][prev] % mod);\n                    }\n                }\n            }\n            if(inv.count(i)){\n                int tar = inv[i];\n                for(int l = 0; l < 401;l++){\n                    if(l != tar){\n                        dp[i][l]=0;\n                    }\n                }\n            }\n        }\n        long long ans = 0;\n        for(auto it : dp[n]){\n            ans += it*1LL;\n            ans %= mod;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1719071237.0
+    "submit_ts": "1719071237",
+    "subm_id": "1296842199"
 }

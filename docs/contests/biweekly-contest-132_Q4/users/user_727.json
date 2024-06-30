@@ -1,5 +1,6 @@
 {
     "username": "2000rating",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& a, int k) {\n        int n = a.size();\n        for (int i = 0; i < n; i++) {\n            a[i]--;\n        }\n        int maxi = *max_element(a.begin(), a.end()), ans = 0;\n        vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n        map<int, int> last_idx;\n        vector<int> mx_ans(k + 1);\n        for (int i = 0; i < n; i++) {\n            for (int j = k; j >= 0; j--) {\n                if (j >= 1) {\n                    dp[i][j] = mx_ans[j - 1] + 1;\n                }\n                if(last_idx.count(a[i])){\n                    dp[i][j] = max(dp[i][j], dp[last_idx[a[i]]][j] + 1);\n                }\n                mx_ans[j] = max(mx_ans[j], dp[i][j]);\n                ans = max(ans, dp[i][j]);\n            }\n            last_idx[a[i]] = i;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717860614.0
+    "submit_ts": "1717860614",
+    "subm_id": "1281763565"
 }

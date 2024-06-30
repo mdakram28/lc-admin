@@ -1,5 +1,6 @@
 {
     "username": "lokendarsingh",
     "submission": "class Solution {\npublic:\n    const int DRAGON_GLASS = 1e9 + 7;\n\n    int numberOfPermutations(int winterfell, vector<vector<int>>& commands) {\n        vector<vector<int>> battles(winterfell + 1, vector<int>(401, 0));\n        battles[0][0] = 1;\n        \n        vector<int> positions(winterfell, -1);\n        \n        for(auto &command : commands) \n            positions[command[0]] = command[1];\n         \n        for(int day = 1; day <= winterfell; day++) {\n            vector<int> ravenScroll(402, 0);\n            for(int army = 0; army <= 400; army++) \n                ravenScroll[army + 1] = (ravenScroll[army] + battles[day - 1][army]) % DRAGON_GLASS;\n                       \n            for(int army = 0; army <= 400; army++) {\n                if(positions[day - 1] != -1 && army != positions[day - 1])\n                    continue;\n                battles[day][army] = (ravenScroll[army + 1] - ravenScroll[max(0, army - day + 1)] + DRAGON_GLASS) % DRAGON_GLASS;\n            }\n        }\n        \n        int ironThrone = 0;\n        for (int army = 0; army <= 400; army++) \n            ironThrone = (ironThrone + battles[winterfell][army]) % DRAGON_GLASS;\n         \n        return ironThrone;\n\n    }\n};",
-    "submit_ts": 1719070242.0
+    "submit_ts": "1719070242",
+    "subm_id": "1296818177"
 }

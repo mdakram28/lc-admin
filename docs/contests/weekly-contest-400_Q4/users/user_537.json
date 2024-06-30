@@ -1,5 +1,6 @@
 {
     "username": "impiry",
     "submission": "public class Solution {\n    public int MinimumDifference(int[] nums, int k)\n    {\n        var queue = new Queue<(int, int)>();\n\n        var set = new HashSet<(int, int)>();\n\n        for (int i = 0; i < nums.Length; i++)\n        {\n            queue.Enqueue((nums[i], i));\n            set.Add((nums[i], i));\n        }\n\n        var result = int.MaxValue;\n\n        while (queue.Any())\n        {\n            var size = queue.Count;\n\n            for (int i = 0; i < size; i++)\n            {\n                var (current, index) = queue.Dequeue();\n\n                result = Math.Min(result, Math.Abs(current - k));\n\n                if (result == 0)\n                {\n                    return 0;\n                }\n\n                if (current > k && index + 1 < nums.Length && !set.Contains((current & nums[index + 1], index + 1)))\n                {\n                    queue.Enqueue((current & nums[index + 1], index + 1));\n                    set.Add((current & nums[index + 1], index + 1));\n                }\n            }\n        }\n\n        return result;\n    }\n}",
-    "submit_ts": 1717299079.0
+    "submit_ts": "1717299079",
+    "subm_id": "1274801098"
 }

@@ -1,5 +1,6 @@
 {
     "username": "agjatin",
     "submission": "long long binpower(long long base, long long exp) {\n    long long result = 1;\n    while (exp > 0) {\n        if (exp & 1) {  \n            result *= base;\n        }\n        base *= base;  \n        exp >>= 1;     \n    }\n    return result;\n}\n\n\nclass Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n          int n=nums.size(); \n          vector<vector<int>>dp(n+1,vector<int>(k+1,1));  \n          vector<map<int,int>>v1(k+1); \n          vector<int>v2(k+1,-1);\n          vector<int>v3;\n        \n        for(int i=0;i<n;i++){ \n            for(int j=0;j<=k;j++){ \n                for(int l=0;l<j;l++){ \n                    dp[i][j]=max(1+v2[l],dp[i][j]); \n                } \n                if(v1[j].find(nums[i])!=v1[j].end()){ \n                    dp[i][j]=max(dp[i][j],1+v1[j][nums[i]]); \n                } \n                v3.push_back(dp[i][j]); \n            } \n            for(int j=0;j<=k;j++){ \n                v1[j][nums[i]]=max(dp[i][j],v1[j][nums[i]]); \n                v2[j]=max(v2[j],dp[i][j]); \n            } \n        } \n         int ans=1;\n        for(auto it:v3){\n            ans=max(ans,it);\n        }\n        return (int)ans; \n    }\n};",
-    "submit_ts": 1717861795.0
+    "submit_ts": "1717861795",
+    "subm_id": "1281802451"
 }

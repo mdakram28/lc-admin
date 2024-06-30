@@ -1,5 +1,6 @@
 {
     "username": "GG_back",
     "submission": "#define ll long long\n#define lp(i,m,n)   for(int i=m;i<=n;i++)\n#define lpp(i,m,n)   for(int i=m;i<n;i++)\n\nclass Solution {\npublic:\n    int m = 1e9+7;\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<vector<ll>> dp(n + 1, vector<ll>(501, 0));\n        dp[0][0] = 1;\n\n        unordered_map<int, int> um;\n        for (auto req : requirements)   um[req[0] + 1] = req[1];\n\n        lp(i,1,n){\n            lp(j,0,500){\n                lpp(k,0,i){\n                    if (j - k < 0)  continue;\n                    dp[i][j] = (dp[i][j] + dp[i - 1][j-k]) % m;\n                }\n            }\n\n            if (um.find(i) == um.end()) continue;\n\n            int tmp = um[i];\n            lp(j,0,500){\n                if (j == tmp)   continue;\n                dp[i][j] = 0;\n            }\n        }\n\n        ll ans = 0;\n        for (auto it : dp[n])   ans = (ans + it) % m;\n\n        return ans;\n    }\n};",
-    "submit_ts": 1719071029.0
+    "submit_ts": "1719071029",
+    "subm_id": "1296837453"
 }

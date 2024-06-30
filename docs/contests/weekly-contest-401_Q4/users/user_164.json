@@ -1,5 +1,6 @@
 {
     "username": "miscsb",
     "submission": "class Solution {\n    public int maxTotalReward(int[] rewardValues) {\n        rewardValues = Arrays.stream(rewardValues).distinct().sorted().toArray();\n        \n        boolean[] possible = new boolean[50_001];\n        possible[0] = possible[rewardValues[0]] = true;\n        \n        PriorityQueue<Integer> next = new PriorityQueue<>();\n        next.offer(rewardValues[0]);\n        \n        int max = rewardValues[0];\n        int m = 0;\n        for (int i = 1; i < rewardValues.length; i++) {\n            while (!next.isEmpty() && next.peek() < rewardValues[i]) {\n                m = next.poll();\n            }\n            if (m + rewardValues[i] > max) max = m + rewardValues[i];\n            \n            for (int s = Math.min(50_000 - rewardValues[i], rewardValues[i] - 1); s >= 0; s--) {\n                if (possible[s]) {\n                    if (!possible[s + rewardValues[i]]) next.offer(s + rewardValues[i]);\n                    possible[s + rewardValues[i]] = true;\n                }\n            }\n        }\n        return max;\n    }\n}",
-    "submit_ts": 1717904761.0
+    "submit_ts": "1717904761",
+    "subm_id": "1282371051"
 }

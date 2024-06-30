@@ -1,5 +1,6 @@
 {
     "username": "amitnehra060",
     "submission": "class Solution {\npublic:\n    int n, inf = INT32_MAX;\n    vector<int> seg;\n    void build(int s, int e, int node, vector<int>& nums){\n        if(s==e){\n            seg[node] = nums[s]; return;\n        }\n        int mid = (s+e)/2;\n        build(s, mid, 2*node, nums); build(mid+1, e, 2*node+1, nums);\n        seg[node] = seg[2*node]&seg[2*node+1];\n    }\n    int query(int s, int e, int node, int l, int r){\n        if (r < s || e < l) return inf;\n        if (l <= s && e <= r) return seg[node];\n        int mid = (s+e)/2;\n        return query(s, mid, 2*node, l, r)&query(mid+1, e, 2*node+1, l, r);\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        n = nums.size();\n        if(n==1) return abs(k-nums[0]);\n        seg.resize(4*n);\n        build(0, n-1, 1, nums);\n        int ans = inf;\n        for(int i=0; i<n; i++){\n            int l = i, r = n-1;\n            while(l<=r){\n                int mid = (l+r)/2;\n                int q = query(0, n-1, 1, i, mid);\n                if(q >= k){\n                    l = mid+1;\n                }else{\n                    r = mid-1;\n                }\n                ans = min(ans, abs(k-q));\n                if(l!=i-1) ans = min(ans, abs(query(0, n-1, 1, i, l)-k));\n                ans = min(ans, abs(query(0, n-1, 1, i, r)-k));\n            }\n        }\n        return ans;        \n    }\n};",
-    "submit_ts": 1717298184.0
+    "submit_ts": "1717298184",
+    "subm_id": "1274770265"
 }

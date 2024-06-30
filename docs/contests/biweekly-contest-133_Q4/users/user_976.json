@@ -1,5 +1,6 @@
 {
     "username": "tysonjain",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        M = 10**9+7\n        maxi = 400\n        mapi={}\n        for i in requirements:\n            mapi[i[0]+1]=i[1]\n        dp=[[0]*(maxi+1) for _ in range(n+1)]\n        dp[0][0]=1\n        for i in range(1,n+1):\n            for cnt in range(maxi+1):\n                for j in range(i):\n                    if cnt-j>=0:\n                        dp[i][cnt]=(dp[i][cnt]+dp[i-1][cnt-j])%M\n            if i in mapi:\n                t = mapi[i]\n                for cnt in range(maxi+1):\n                    if cnt!=t:\n                        dp[i][cnt]=0\n        res = 0\n        for cnt in dp[n]:\n            res=(res+cnt)%M\n        return res\n",
-    "submit_ts": 1719071710.0
+    "submit_ts": "1719071710",
+    "subm_id": "1296852489"
 }

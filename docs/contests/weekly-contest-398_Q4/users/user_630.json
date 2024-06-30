@@ -1,5 +1,6 @@
 {
     "username": "anna-hcj",
     "submission": "/**\n * @param {number} k\n * @return {number}\n */\n\n// Find combinations of doing jumps first, then decrement operations.\n// Decrement operations at most 1 more than jumps.\n\n// Find sums of powers of 2 up to k - 1, with buffer of k - 1 + current pow.\n\n// n choose r number of orderings, \n\nvar waysToReachStair = function(k) {\n  let jump = 0, stair = 1, ways = k <= 1 ? 1 : 0;\n  while (true) {\n    let nextStair = stair + (2 ** jump);\n    jump++;\n    if (nextStair >= k) {\n      let decrements = nextStair - k;\n      let positions = jump + 1;\n      if (decrements > positions) break;\n      let combinations = nCr(positions, decrements);\n      ways += combinations;\n    }\n    stair = nextStair;\n  }\n  return ways;\n};\n\nfunction nCr(n, r) {\n  return factorial(n) / (factorial(n - r) * factorial(r));\n}\n\nfunction factorial(n) {\n  let ans = 1;\n  while (n > 1) {\n    ans *= n;\n    n--;\n  }\n  return ans;\n}",
-    "submit_ts": 1716089130.0
+    "submit_ts": "1716089130",
+    "subm_id": "1261833913"
 }

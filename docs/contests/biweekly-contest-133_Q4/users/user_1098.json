@@ -1,5 +1,6 @@
 {
     "username": "SCP5514_Dragonslayer",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n           vector<vector<long long int>> dp(n + 1, vector<long long int>(401 , 0));\n           long long int mod = 1e9 + 7;\n           vector<int> pr(n + 1,0);\n           vector<int> pr2(n + 1,0);\n           for(int i = 0; i < requirements.size(); i++){\n               pr[requirements[i][0]] = 1;\n               pr2[requirements[i][0]] = requirements[i][1];\n           }\n           dp[0][0] = 1;\n           for(int i = 0; i < n; i++){\n               if(pr[i]){\n                   for(int j = 0; j <= 400; j++) {\n                       if(pr2[i] - j > i || pr2[i] < j)\n                           continue;\n                       dp[i + 1][pr2[i]] += dp[i][j];\n                       dp[i + 1][pr2[i]] %= mod;\n                   }\n               }\n               else {\n                   for(int j = 0; j <= 400; j++) {\n                       for(int k = 0; k <= 400; k++){\n                           if(k - j > i || k < j)\n                               continue;\n                           dp[i + 1][k] += dp[i][j];\n                           dp[i + 1][k] %= mod;\n                       }\n                   }\n               }\n           }\n        cout << dp[2][1];\n            int ans = dp[n][pr2[n - 1]];\n           return ans;    \n    }\n};",
-    "submit_ts": 1719071424.0
+    "submit_ts": "1719071424",
+    "subm_id": "1296846437"
 }

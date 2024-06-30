@@ -1,5 +1,6 @@
 {
     "username": "kumarapoorv617",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& A, int k) {\n        int N = A.size();\n        int M = 30;\n        vector<vector<int>> B(N + 1, vector<int>(30));\n        for(int i = 0 ; i < N ; ++i) {\n            B[i + 1] = B[i];\n            for(int bit = 29 ; bit >= 0 ; --bit) if(A[i] >> bit & 1)\n                B[i + 1][bit] += 1;\n        }\n\n        auto get = [&](int l, int r) {\n            int ans = 0;\n            for(int i = 0 ; i < 30 ; ++i) if(B[r][i] - r == B[l][i] - l) {\n                ans ^= 1 << i;\n            }\n            return ans;\n        };\n        int l = 0;\n        int ans = abs(A[0] - k);\n        for(int i = 0 ; i < N ; ++i) {\n            while(l < i && get(l, i + 1) < k) {\n                ans = min(ans, abs(get(l, i + 1) - k));\n                ++l;\n            }\n            ans = min(ans, abs(get(l, i + 1) - k));\n        }\n        // cout << ans << '\\n';\n        return ans;\n    }\n};",
-    "submit_ts": 1717296034.0
+    "submit_ts": "1717296034",
+    "subm_id": "1274687593"
 }

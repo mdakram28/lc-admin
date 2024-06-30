@@ -1,5 +1,6 @@
 {
     "username": "Murugan_K",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        \n        vector<vector<int>> dp(k + 1, vector<int>(n));\n        \n\n        map<int, int> freq;\n        for(int i: nums) freq[i]++;\n        \n        for(int i = n - 1; i >= 0; i--){\n            dp[0][i] = freq[nums[i]];\n            freq[nums[i]]--;\n        }\n        \n        for(int i = 1; i < n; i++){\n            dp[0][i] = max(dp[0][i], dp[0][i - 1]);\n        }\n        \n\n        for(int i = 1; i <= k; i++){\n            int maxi = dp[i - 1][0];\n            \n            unordered_map<int, int> mp;\n            mp[nums[0]] = 1;\n            \n            dp[i][0] = maxi;\n            for(int j = 1; j < n; j++){\n                dp[i][j] = max(maxi + 1, mp[nums[j]] + 1);\n                maxi = max(maxi, dp[i - 1][j]);\n                \n                mp[nums[j]] = dp[i][j];\n            }\n        }\n        \n        int ans = 0;\n        for(int i = 0; i <= k; i++){\n            for(int j = 0; j < n; j++){\n                ans = max(ans, dp[i][j]);\n            }    \n        }\n        \n        // for(int i = 0; i <= k; i++){\n        //     for(int j = 0; j < n; j++){\n        //         cout << dp[i][j] << \" \";\n        //     }    \n        //     cout << endl;\n        // }\n        return ans;\n    }\n};",
-    "submit_ts": 1717860829.0
+    "submit_ts": "1717860829",
+    "subm_id": "1281770756"
 }

@@ -1,5 +1,6 @@
 {
     "username": "smallfatcute",
     "submission": "class Solution {\npublic:\n    using Memo = std::unordered_map<int, std::unordered_map<int, int>>;\n    \n    int waysToReachStair(int k) {\n        int already = k == 1 ? 1 : 0;\n        Memo memo;\n        \n        return already + dfs(memo, 1, 0, k);\n    }\n    \n    int dfs(Memo &memo, int curr, int j, int k) {\n        if (memo[curr].count(j)) return memo[curr][j];\n        \n        int ret = 0;\n\n        int o1 = curr - 1;\n        if (o1 == k) ret += 1;\n        o1 += (1 << j);\n        if (o1 == k) ret += 1;\n\n        if (o1 <= k + 1) ret += dfs(memo, o1, j + 1, k);\n\n\n        int o2 = curr + (1 << j);\n        if (o2 == k) ret += 1;\n\n        if (o2 <= k + 1) ret += dfs(memo, o2, j + 1, k);\n        \n        return memo[curr][j] = ret;\n    }\n};",
-    "submit_ts": 1716088399.0
+    "submit_ts": "1716088399",
+    "subm_id": "1261812835"
 }

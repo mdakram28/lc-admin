@@ -1,5 +1,6 @@
 {
     "username": "icherniukh",
     "submission": "class Solution:\n    def minimumDifference(self, a: List[int], k: int) -> int:\n        n = len(a)\n        maxn = max(max(a), k)\n        bitn = 1\n        while (1 << bitn) < maxn:\n            bitn += 1\n        \n        bitn += 1\n        \n        dist = [-1] * bitn\n        ans = abs(k - a[0])\n        \n        for i, x in enumerate(a):\n            pos = defaultdict(int)\n            for bit in range(bitn):\n                if (1 << bit) & x:\n                    if dist[bit] != -1:\n                        pos[dist[bit]] |= (1 << bit)\n                else:\n                    dist[bit] = i\n            ans = min(ans, abs(k - x))\n            xmod = x\n            for key in sorted(pos.keys(), reverse=True):\n                mask = pos[key]\n                xmod &= (~mask)\n                ans = min(ans, abs(k - xmod))\n                \n        return ans",
-    "submit_ts": 1717298608.0
+    "submit_ts": "1717298608",
+    "subm_id": "1274785023"
 }

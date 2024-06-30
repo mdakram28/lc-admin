@@ -1,5 +1,6 @@
 {
     "username": "syamantak05",
     "submission": "class Solution {\n    void dfs(int node, int count, vector <bool> &vis,  int &maxCount, vector<vector<int>>&adj, int &x){\n        vis[node] = 1;\n        count++;\n        for (auto it: adj[node]) {\n            if (!vis[it]) {\n                if(count>=maxCount){\n                    maxCount = count;\n                    x = it;\n                }\n            dfs(it, count, vis, maxCount, adj, x);\n            }\n        }\n    }\n    int diameter(vector<vector<int>>&adj){\n        int n = adj.size(), x, mx = 1;\n        vector <bool> vis1(n, false);\n        int count1 = 0;\n        dfs(0, count1+1, vis1, mx, adj, x);\n        vector <bool> vis2(n, false);\n        int count2 = 0;\n        dfs(x, count2+1, vis2, mx, adj, x);\n        return mx;\n    }\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n = edges1.size(), m = edges2.size();\n        vector <vector<int>> adj1(n+1), adj2(m+1);\n        for(auto &it: edges1){\n            adj1[it[0]].emplace_back(it[1]);\n            adj1[it[1]].emplace_back(it[0]);\n        }\n        for(auto &it: edges2){\n            adj2[it[0]].emplace_back(it[1]);\n            adj2[it[1]].emplace_back(it[0]);\n        }\n        int d1 = diameter(adj1), d2 = diameter(adj2);\n        d1--, d2--;\n        // cout<<d1<<\" \"<<d2<<endl;\n        return max(max(d1, d2), ((d1+1)/2+(d2+1)/2+1));\n    }\n};",
-    "submit_ts": 1719719449.0
+    "submit_ts": "1719719449",
+    "subm_id": "1304442243"
 }

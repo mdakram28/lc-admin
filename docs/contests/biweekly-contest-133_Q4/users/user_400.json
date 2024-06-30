@@ -1,5 +1,6 @@
 {
     "username": "saulmaldonado",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        \n        int mod = 1000000007;\n\n        // possible inversions from cnt constraint\n        int m = 400;\n\n        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));\n        // dp[idx][inversions]\n        dp[0][0] = 1;\n\n        for (int i = 1; i < n + 1; i++) {\n            for (int j = 0; j < m + 1; j++) {\n                for (int k = 0; k < i; k++) {\n                    if (j - k >= 0)  {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % mod;\n                    }\n                }\n            }\n\n            for (auto& req : requirements) {\n                int idx = req[0];\n                int count = req[1];\n                if (idx + 1 != i) {\n                    continue;\n                }\n\n                for (int j = 0; j < m + 1; j++) {\n                    if (j != count) {\n                        dp[idx + 1][j] = 0;\n                    }\n                }\n            }\n        }\n\n\n        int res = 0;\n\n        for (int i = 0; i < m + 1; i++) {\n            res = (res + dp[n][i]) % mod;\n        }\n        \n        return res;\n        \n    }\n};",
-    "submit_ts": 1719070413.0
+    "submit_ts": "1719070413",
+    "subm_id": "1296822424"
 }

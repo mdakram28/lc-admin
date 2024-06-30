@@ -1,5 +1,6 @@
 {
     "username": "Mikaalm",
     "submission": "class Solution {\npublic:\n    \n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        typedef long long ll;\n        vector<vector<long long>> dp(n + 1, vector<ll> (401, 0));\n        unordered_map<int, ll> record;\n        long long ans = 0, M = 1e9 + 7;\n        \n\n        \n        for (auto &r : requirements) {\n            record[r[0] + 1] = r[1];\n        }\n        for (int j = 0; j <= 400; ++j) dp[0][j] = 1;\n        for (int i = 1; i <= n; ++i) {\n            for (int j = 0; j <= min(400, i * (i - 1) / 2); ++j) {\n                if (record.count(i)) {\n                    if (record[i] != j) {\n                        dp[i][j] = 0;\n                        continue;\n                    }\n                }\n                for (int k = 0; k <= min(j, i - 1); ++k) {\n                    dp[i][j] += dp[i - 1][j - k];// * Comb(i - 1, k);\n                    dp[i][j] %= M;\n                    // if (i == 3) {\n                    //     // ans = (ans + dp[i][j]) % M;\n                    //     // cout << i << ' ' << j << ' ' << k << '_' << dp[i][j] << endl;\n                    // }\n                }\n                \n                if (i == n) {\n                    ans = (ans + dp[i][j]) % M;\n                    // cout << i << ' ' << j << ' ' << dp[i][j] << endl;\n                }\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1719069727.0
+    "submit_ts": "1719069727",
+    "subm_id": "1296804676"
 }

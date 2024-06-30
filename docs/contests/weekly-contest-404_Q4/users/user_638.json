@@ -1,5 +1,6 @@
 {
     "username": "zlwang",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        p1, total1 = self.get(edges1)\n        p2, total2 = self.get(edges2)\n        return max(p1 + p2 + 1, total1, total2)\n        \n        \n    def get(self, es):\n        g = {}\n        for s, e in es:\n            if s not in g:\n                g[s] = set()\n            if e not in g:\n                g[e] = set()\n                \n            g[s].add(e)\n            g[e].add(s)\n            \n        to_del = [node for node in g if len(g[node]) == 1]\n        res = 0\n        odd = True\n        while len(to_del) > 0:\n            # print(to_del,g)\n            new_to_del = []\n            deleted = False \n            for t in to_del:\n                if len(g[t]) == 0:\n                    del g[t]\n                    continue\n                for nxt in g[t]:\n                    g[nxt].remove(t)\n                    if len(g[nxt]) == 1:\n                        new_to_del.append(nxt)\n                del g[t]\n                deleted = True\n            to_del = new_to_del\n            \n            if len(g) == 1:\n                # print(g)\n                odd = False\n            if deleted:\n                res += 1\n            \n        # print(res, odd)\n            \n        return res, res + res - 1 if odd else res + res",
-    "submit_ts": 1719719078.0
+    "submit_ts": "1719719078",
+    "subm_id": "1304433209"
 }

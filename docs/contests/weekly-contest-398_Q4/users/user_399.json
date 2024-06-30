@@ -1,5 +1,6 @@
 {
     "username": "Albert_Zhang",
     "submission": "\"\"\" === Method 1. consider the number of up and down and their order\n(1) Since we cannot -1 consecutively, we can assume n ups and m downs,\n    and m, n >= 0, and m <= n + 1.\n    And we have:\n    1 - m + 2^0 + 2^1 + ... + 2^(n - 1) = k\n    => 2^n - m = k\n    => k <= 2^n = k + m <= k + n + 1.\n    We can solve the left first, and get right.\n(2) For each (n, m) pair, let's consider how many permutation they have?\n    Since m can't be consecutive, we can put n first.\n    Then we have n + 1 slots, and we can put m into these n + 1 arbitrarily.\n    So we have C_(n + 1)^m ways to do that.\n    Then we just need to sum it up.\nO(log(k)) time | O(1) space\n\"\"\"\nimport math\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        if k == 0:\n            return 2\n        # if k == 1:\n        #     return 4\n        totalWay = 0\n        n = self.getSmallestN(k)\n        while k <= pow(2, n) <= k + n + 1:\n            totalWay += self.getCurrentWay(k, n)\n            n += 1\n        return totalWay\n              \n        \n    def getSmallestN(self,k):\n        possibleValue = math.floor(math.log2(k))\n        if pow(2, possibleValue) < k:\n            return possibleValue + 1\n        return possibleValue\n    \n    def getCurrentWay(self, k, n):\n        m = pow(2, n) - k\n        return math.comb(n + 1, m)\n        \n        ",
-    "submit_ts": 1716088390.0
+    "submit_ts": "1716088390",
+    "subm_id": "1261812549"
 }

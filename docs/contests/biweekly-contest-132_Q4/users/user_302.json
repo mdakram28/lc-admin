@@ -1,5 +1,6 @@
 {
     "username": "IanISam",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> dp(k+1, vector(n, 0));\n        int ans = 1;\n        map<int, int> u[k+1];\n        multiset<int> s[k+1];\n        for(int i=0; i<=k; i++){\n            s[i].insert(1);\n            u[i][nums[0]]=1;\n        }\n        for(int i=1; i<n; i++){\n            dp[0][i]=1;\n            for(int j=0; j<=k; j++){\n                bool found = 0;\n                if(u[j].count(nums[i])){\n                    if(s[j].count(u[j][nums[i]])){\n                        s[j].erase(s[j].find(u[j][nums[i]]));\n                        found=1;\n                    }\n                    dp[j][i]=max(u[j][nums[i]]+1, dp[j][i]);\n                }\n                if(s[j].size()&&j<k)dp[j+1][i]=max(dp[j+1][i], *s[j].rbegin()+1);\n                if(found)s[j].insert(u[j][nums[i]]);\n            }\n            for(int j=0; j<=k; j++){\n                ans=max(ans, dp[j][i]);\n                if(u[j].count(nums[i])&&s[j].count(u[j][nums[i]]))s[j].erase(s[j].find(u[j][nums[i]]));\n                u[j][nums[i]]=max(dp[j][i], u[j][nums[i]]);\n                s[j].insert(u[j][nums[i]]);\n                while((int)s[j].size()>2)s[j].erase(s[j].find(*s[j].begin()));\n            }\n        }\n        return(ans);\n    }\n};",
-    "submit_ts": 1717859774.0
+    "submit_ts": "1717859774",
+    "subm_id": "1281734511"
 }

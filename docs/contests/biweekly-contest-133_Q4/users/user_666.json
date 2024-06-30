@@ -1,5 +1,6 @@
 {
     "username": "Nitz44",
     "submission": "class Solution {\n    public int numberOfPermutations(int n, int[][] requirements) {\n        int mod = 1000000007;\n        int invs = 400;\n        long dp[][] = new long[n + 1][401];\n        // storing count and end index in map for fetching the results \n        Map<Integer,Integer> treeMap = new TreeMap<Integer,Integer>();\n        for(int arr[]:requirements){\n            treeMap.put(arr[0] + 1,arr[1]);\n        }\n        dp[0][0] = 1;\n        int prePos = 0;\n        for(int ind = 1;ind<=n;ind++){\n            for(int nind = 0;nind<=invs;nind++){\n                for(int k = 0;k<ind;k++){\n                     prePos = nind - k;\n                    if(prePos >= 0){\n                        dp[ind][nind] = (dp[ind-1][prePos] + dp[ind][nind] )%mod;\n                        }\n                }\n            }\n                    if(treeMap.containsKey(ind)){\n                        int reqd = treeMap.get(ind);\n                        for(int nind = 0;nind<=invs;nind++){\n                            if(nind != reqd){\n                                dp[ind][nind] = 0;\n                            }\n                        }\n                    }\n        }\n                    long ans= 0;\n                    for(long ele:dp[n]){\n                        ans = (ans + ele)%mod;\n                    }\n                    return (int) ans;\n    }\n}",
-    "submit_ts": 1719070943.0
+    "submit_ts": "1719070943",
+    "subm_id": "1296835462"
 }

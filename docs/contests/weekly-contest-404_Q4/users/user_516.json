@@ -1,5 +1,6 @@
 {
     "username": "jithin420",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        graph1=defaultdict(list)\n        graph2=defaultdict(list)\n        \n        def maxd(graph):\n            q = [0]\n            visited={0}\n            last=0\n            while q:\n                x = q.pop(0)\n                last=x\n                for c in graph[x]:\n                    if c not in visited:\n                        q.append(c)\n                        visited.add(c)\n            \n            # print(\"last=\", last)\n            q=[(last, 0)]\n            diam=0\n            visited={last}\n            while q:\n                x,d = q.pop(0)\n                diam=max(diam, d)\n                for c in graph[x]:\n                    if c not in visited:\n                        q.append((c, d+1))\n                        visited.add(c)\n            \n            if diam%2:\n                return diam, (diam+1)//2\n            return diam, diam//2\n\n        for a,b in edges1:\n            graph1[a].append(b)\n            graph1[b].append(a)\n        \n        for a,b in edges2:\n            graph2[a].append(b)\n            graph2[b].append(a)\n        # print(graph2)\n        d1, m1=maxd(graph1)\n        d2, m2=maxd(graph2)\n        # print(d1, m1, d2, m2)\n        return max(d1, d2, m1+m2+1)",
-    "submit_ts": 1719718347.0
+    "submit_ts": "1719718347",
+    "subm_id": "1304414961"
 }

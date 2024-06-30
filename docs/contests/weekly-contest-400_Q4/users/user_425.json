@@ -1,5 +1,6 @@
 {
     "username": "hetvikgoel2021",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        tillNow = nums[0]\n        n = len(nums)\n        \n        j =0 \n        i =0\n        ans = sys.maxsize\n        seg = SG(n)\n        seg.build(0,0,n-1, nums)\n        while j<n:\n            tillNow &=nums[j]\n            ans = min(ans, abs(k-tillNow))\n            while i<=j and tillNow<=k:\n                i+=1\n                tillNow= seg.query(0,0,n-1, i,j)\n                ans = min(ans, abs(k-tillNow))\n            j+=1\n        return ans\n            \nclass SG:\n    def __init__(self, n):\n        self.seg = [0] * (4 * n)\n\n    def build(self, ind, low, high, arr):\n        if low == high:\n            self.seg[ind] = arr[low]\n            return\n        mid = (low + high) // 2\n        self.build(2 * ind + 1, low, mid, arr)\n        self.build(2 * ind + 2, mid + 1, high, arr)\n        self.seg[ind] = (self.seg[2 * ind + 1] & self.seg[2 * ind + 2])\n\n    def query(self, ind, low, high, l, r):\n        if r < low or l > high:\n            return sys.maxsize\n        if low >= l and r >= high:\n            return self.seg[ind]\n        mid = (low + high) // 2\n        left = self.query(2 * ind + 1, low, mid, l, r)\n        right = self.query(2 * ind + 2, mid + 1, high, l, r)\n        return (left & right)",
-    "submit_ts": 1717299004.0
+    "submit_ts": "1717299004",
+    "subm_id": "1274798618"
 }

@@ -1,5 +1,6 @@
 {
     "username": "pranay219",
     "submission": "class Solution {\n    long long mod = 1e9+7;\n    int ans = 0;\nprivate:\n    int hlper(long long i, int flag, int jump, int& k, unordered_map<string, long long>& mp) {\n        if(i > k+1) return 0;\n        if(i == k) return 1 + (flag==0?hlper(i-1, 1, jump, k, mp): 0)+ hlper(i+(1LL<<jump), 0, jump+1, k, mp);\n        \n        // cout << i << \" \" << flag << \" \" << jump << \" \" << k << endl;\n        string hash = to_string(i) +\"_\"+ to_string(flag) + \"_\" + to_string(jump);\n        if(mp.find(hash) != mp.end()) return mp[hash];\n        \n        long long a = 0;\n        if(flag == 0 && i>0) {\n            a += hlper(i-1, 1, jump, k, mp);\n            a %= mod;\n        }\n        a += hlper(i+(1LL<<jump), 0, jump+1, k, mp);\n        a %= mod;\n        return mp[hash] = a;\n    }\npublic:\n    int waysToReachStair(int k) {\n        unordered_map<string, long long> mp;\n        return hlper(1, 0, 0, k, mp);\n    }\n};",
-    "submit_ts": 1716089640.0
+    "submit_ts": "1716089640",
+    "subm_id": "1261847597"
 }

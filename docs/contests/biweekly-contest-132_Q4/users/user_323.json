@@ -1,5 +1,6 @@
 {
     "username": "Jupiter3",
     "submission": "class Solution {\npublic:\n    int dp[2][2][52][5005], n;\n    unordered_map<int, set<int>> m;\n\n    int f(int first, int flag, int k, int idx, vector<int>& nums){\n        if(k < 0) return -1e3;\n        if(idx == n) return 0;\n        if(dp[first][flag][k][idx] != -1) return dp[first][flag][k][idx];\n\n        int pick = 0, npick = 0;\n        if(!flag) npick = f(first, 0, k, idx+1, nums);\n        \n        auto it = m[nums[idx]].upper_bound(idx);\n        \n        if(first == 1 || flag == 1){\n            //pick = 1 + f( , k, )\n            pick = 1 + f(0, 0, k, idx+1, nums);\n            if(it != m[nums[idx]].end()){\n                pick = max(pick, 1 + f(0, 1, k, *it, nums));\n            }\n        }\n        else{\n            pick = 1 + f(0, 0, k-1, idx+1, nums);\n            if(it != m[nums[idx]].end()){\n                pick = max(pick, 1 + f(0, 1, k-1, *it, nums));\n            }\n        }\n\n        return dp[first][flag][k][idx] = max(pick, npick);\n    }\n\n    int maximumLength(vector<int>& nums, int k) {\n        memset(dp, -1, sizeof dp);\n        n = nums.size();\n        for(int i = 0; i < n; i++){\n            m[nums[i]].insert(i);\n        }\n        return f(1, 0, k, 0, nums);\n    }\n};",
-    "submit_ts": 1717861113.0
+    "submit_ts": "1717861113",
+    "subm_id": "1281780113"
 }

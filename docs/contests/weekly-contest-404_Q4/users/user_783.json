@@ -1,5 +1,6 @@
 {
     "username": "VeXe1199",
     "submission": "class Solution {\nprivate:\n    int dfs(int node, int parent, vector<vector<int>>& adj, int& dia) {\n\n        int path1 = 0, path2= 0;\n        for (auto child : adj[node]) {\n            if (child != parent) {\n                int ans = 1 + dfs(child, node, adj, dia);\n                if (ans> path1) {\n                    path2 = path1;\n                    path1 = ans;\n                } else if (ans >path2) {\n                    path2 = ans;\n                }\n            }\n        }\n        dia = max(dia, path1+ path2);\n        return path1;\n    }\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n = edges1.size() + 1;\n        int m = edges2.size() + 1;\n\n        vector<vector<int>> adj1(n), adj2(m);\n        for (auto& edge : edges1) {\n            adj1[edge[0]].push_back(edge[1]);\n            adj1[edge[1]].push_back(edge[0]);\n        }\n        for (auto& edge : edges2) {\n            adj2[edge[0]].push_back(edge[1]);\n            adj2[edge[1]].push_back(edge[0]);\n        }\n\n        int diameter1 = 0, diameter2 = 0;\n        dfs(0, -1, adj1, diameter1);\n        dfs(0, -1, adj2, diameter2);\n\n        return max({diameter1, diameter2, (diameter1 + 1) / 2 + (diameter2 + 1) / 2 + 1});\n    }\n};\n",
-    "submit_ts": 1719719964.0
+    "submit_ts": "1719719964",
+    "subm_id": "1304455321"
 }

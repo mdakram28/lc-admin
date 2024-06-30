@@ -1,5 +1,6 @@
 {
     "username": "YashHatwar22",
     "submission": "     const int MOD = 1e9 + 7;\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& nums) {\n   \n       \n        long long tot = 0;\n        bool ans=true;\n        map<int, int> mp;\n        for (int i = 0; i < nums.size(); ++i) {\n            mp[nums[i][0] + 1] = nums[i][1];\n        }\n\n        vector<vector<long long>> mem(n + 1, vector<long long>(401, 0));\n        mem[0][0] = 1;\n\n        for (int len = 1; len < n+1; len++) {\n            for (int i = 0; i <= 400; i++) {\n                for (int pos = 0; pos < len; ++pos) {\n                    int j = i - pos;\n                    if (j >= 0) {\n                        mem[len][i] = (mem[len][i] + mem[len - 1][j]) % MOD;\n                    }\n                }\n            }\n\n            if (mp.count(len) > 0) {\n                int req = mp[len];\n                for (int i = 0; i <= 400; i++) {\n                    if (i != req) {\n                        ans=true;\n                        mem[len][i] = 0;\n                    }\n                }\n            }\n        }\n\n        for (int i = 0; i <= 400; i++) {\n            tot = (tot + mem[n][i]) % MOD;\n        }\n\n        return static_cast<int>(tot%MOD);\n    }\n};",
-    "submit_ts": 1719070978.0
+    "submit_ts": "1719070978",
+    "subm_id": "1296836224"
 }

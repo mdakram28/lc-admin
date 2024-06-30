@@ -1,5 +1,6 @@
 {
     "username": "fmota",
     "submission": "class Solution {\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& a, vector<vector<int>>& b) {\n        auto calc_diam = [&](vector<vector<int>> e){\n            int n = e.size() + 1;\n            vector<vector<int>> adj(n);\n            for(auto p : e){\n                adj[p[0]].push_back(p[1]);\n                adj[p[1]].push_back(p[0]);\n            }\n            vector<int> dep(n, 0);\n            function<void(int,int)> dfs = [&](int u, int p){\n                for(int v : adj[u]){\n                    if(v == p) continue;\n                    dep[v] = dep[u] + 1;\n                    dfs(v, u);\n                }\n            };\n            dfs(0, -1);\n            int root = max_element(dep.begin(), dep.end()) - dep.begin();\n            fill(dep.begin(), dep.end(), 0);\n            dfs(root, -1);\n            int diam = *max_element(dep.begin(), dep.end());\n            return diam;\n        };\n        int da = calc_diam(a), db = calc_diam(b);\n        int res = max({da, db, (da + 1) / 2 + (db + 1) / 2 + 1});\n        return res;\n    }\n};",
-    "submit_ts": 1719715222.0
+    "submit_ts": "1719715222",
+    "subm_id": "1304331153"
 }

@@ -1,5 +1,6 @@
 {
     "username": "Zerocks_",
     "submission": "class Solution {\npublic:\nconst int MOD = 1e9+7;\nconst int m = 400;\nusing ll = long long;\nunordered_map<int, int> mpp;\nint numberOfPermutations(int n, vector<vector<int>>& requirements) {\n    mpp.clear();\n    for (const auto& i : requirements) {\n        mpp[i[0] + 1] = i[1];\n    }\n    vector<vector<ll>> a(n + 1, vector<ll>(m + 1, 0));\n    a[0][0] = 1;\n    for (int i = 1; i <= n; ++i) {\n        for (int j = 0; j <= m && i<=n; ++j) {\n            for (int t = 0; t < i && i<=n; ++t) {\n                if (!((j-t+j-j)<0)) {\n                    a[i][j]+=(a[i - 1][j-t+(t-t)]) % MOD;\n                    a[i][j]%=MOD;\n                }\n            }\n        }\n        if (mpp.find(i) != mpp.end()) {\n            for (int j = 0; j <= m; ++j) {\n                if (mpp[i]!=j) {\n                    a[i][j] = 0;\n                }\n            }\n        }\n    }\n    ll ans = 0;\n    for (ll count : a[n]) {\n        ans+=(count)% MOD;\n        ans%=MOD;\n    }\n    return (int)ans;\n}\n};",
-    "submit_ts": 1719070621.0
+    "submit_ts": "1719070621",
+    "subm_id": "1296827643"
 }

@@ -1,5 +1,6 @@
 {
     "username": "shreyd01",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        \n        int n = nums.size();\n        vector<int> v(32,0);\n        \n        int start = 0, end = 0;\n        int ans = INT_MAX;\n        \n        while(end<n){\n            \n            int val = nums[end];\n            int len = end-start+1;\n            int currAnd = 0;\n            \n            for(int i=0;i<32;i++){\n                \n                v[i]+=(val%2);\n                val/=2;\n                if(len == v[i])\n                    currAnd+=(1<<i);\n                    \n            }\n            ans = min(ans,abs(k-currAnd));\n            while(currAnd<k and start<end){\n                \n                int newCurr = 0;\n                len = end-start;\n                val = nums[start];\n                \n                for(int i=0;i<32;i++){\n                    \n                    v[i]-=(val%2);\n                    val/=2;\n                    if(len == v[i]){\n                        newCurr+=(1<<i);\n                    }\n                    \n                }\n                currAnd = newCurr;\n                ans = min(ans,abs(k-currAnd));\n                start++;\n                \n            }\n            end++;\n            \n        }\n        \n        return ans;\n        \n    }\n};",
-    "submit_ts": 1717297914.0
+    "submit_ts": "1717297914",
+    "subm_id": "1274760492"
 }

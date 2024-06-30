@@ -1,5 +1,6 @@
 {
     "username": "rranaut76",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        int sz = ceil(log2(n));\n        vector<vector<int>> sparse(n, vector<int>(sz + 1));\n        for (int i = 0; i < n; i++) {\n            sparse[i][0] = nums[i];\n        }\n        \n        for (int j = 1; (1 << j) <= n; j++) {\n            int i = 0;\n            while((i + (1 << j) - 1) < n) {\n                \n                sparse[i][j] = sparse[i][j - 1] & sparse[i + (1<<(j - 1))][j - 1];\n                i++;\n                \n            }\n        }\n\n        int ans = INT_MAX;\n        int i = 0;\n        while(i < n){\n            if (k >= nums[i]) {\n                ans = min(ans, abs(nums[i] - k));\n                i++;\n                continue;\n            }\n\n            int j = i;\n            int tempAnd = nums[i];\n            int l = (int)log2(n);\n            while(l >= 0) {\n                if ((j + (1<<l) - 1) < n && (tempAnd & sparse[j][l]) >= k) {\n                    tempAnd &= sparse[j][l];\n                    j += (1<<l);\n                }\n                l--;\n            }\n\n            ans = min(ans, abs(tempAnd - k));\n\n            if (j < n) {\n                tempAnd &= nums[j];\n                ans = min(ans, abs(tempAnd - k));\n            }\n            i++;\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": 1717299859.0
+    "submit_ts": "1717299859",
+    "subm_id": "1274826153"
 }

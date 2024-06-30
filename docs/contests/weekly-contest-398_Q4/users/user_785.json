@@ -1,5 +1,6 @@
 {
     "username": "Mithunajha",
     "submission": "class Solution {\n    private Map<Integer, int[][]> dp = new HashMap<>();\n    private int solve(int k, int i, int jump, boolean can) {\n        if (i > k + 5) {\n            return 0;\n        }\n        if (jump > 31) {\n            return 0;\n        }\n        int canIndex = can ? 1 : 0;\n        if (dp.containsKey(i) && dp.get(i)[jump][canIndex] != -1) {\n            return dp.get(i)[jump][canIndex];\n        }\n        int ans = (i == k) ? 1 : 0;\n        if (can) {\n            ans += solve(k, i - 1, jump, false);\n        }\n        if (i + (1 << jump) <= k + 1) {\n            ans += solve(k, i + (1 << jump), jump + 1, true);\n        }\n        if (!dp.containsKey(i)) {\n            dp.put(i, new int[32][2]);\n            for (int[] arr : dp.get(i)) {\n                Arrays.fill(arr, -1);\n            }\n        }\n        dp.get(i)[jump][canIndex] = ans;\n        return ans;\n    }\n    public int waysToReachStair(int k) {\n        return solve(k, 1, 0, true);\n    }\n}",
-    "submit_ts": 1716089532.0
+    "submit_ts": "1716089532",
+    "subm_id": "1261844722"
 }

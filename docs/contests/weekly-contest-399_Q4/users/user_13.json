@@ -1,5 +1,6 @@
 {
     "username": "flashmt",
     "submission": "struct SegmentTree\n{\n  int low, mid, high;\n  long long f, fl, fr, flr;\n  SegmentTree *l, *r;\n\n  SegmentTree(int low, int high): low(low), high(high)\n  {\n    mid = (low + high) / 2;\n    f = fl = fr = flr = 0;\n    if (low == high) l = r = NULL;\n    else\n    {\n      l = new SegmentTree(low, mid);\n      r = new SegmentTree(mid + 1, high);\n    }\n  }\n\n  void update(int x, int v)\n  {\n    if (low == high)\n    {\n      f = max(v, 0);\n      return;\n    }\n    if (x <= mid) l->update(x, v);\n    else r->update(x, v);\n    f = max(l->f + r->fl, l->fr + r->f);\n    fl = max(l->fl + r->fl, l->flr + r->f);\n    fr = max(r->fr + l->fr, r->flr + l->f);\n    flr = max(l->flr + r->fr, l->fl + r->flr);\n  }\n};\n\nconst int BASE = 1e9 + 7;\n\nclass Solution {\npublic:\n  int maximumSumSubsequence(vector<int>& a, vector<vector<int>>& queries) {\n    int n = size(a);\n    SegmentTree *tree = new SegmentTree(0, n - 1);\n    for (int i = 0; i < n; i++)\n      tree->update(i, a[i]);\n\n    long long ans = 0;\n    for (auto u : queries)\n    {\n      tree->update(u[0], u[1]);\n      ans = (ans + tree->f) % BASE;\n    }\n\n    return int(ans);\n  }\n};",
-    "submit_ts": 1716691798.0
+    "submit_ts": "1716691798",
+    "subm_id": "1268033386"
 }

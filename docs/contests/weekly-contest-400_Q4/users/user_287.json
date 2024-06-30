@@ -1,5 +1,6 @@
 {
     "username": "tanakat01",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], K: int) -> int:\n        pres = [[0] * 32]\n        for x in nums:\n            pres.append(pres[-1][:])\n            for i in range(32):\n                if x & (1 << i) != 0:\n                    pres[-1][i] += 1\n        j = 0\n        ans = float('inf')\n        for i in range(len(nums)):\n            j = max(i + 1, j)\n            while j < len(nums) and sum((1 << k) for k in range(32) if pres[j][k] - pres[i][k] == j - i) > K:\n                j += 1\n            #print(f'i={i}, j={j}, ans={ans}')\n            ans = min(ans, abs(K - sum((1 << k) for k in range(32) if pres[j][k] - pres[i][k] == j - i)))\n            ans = min(ans, abs(K - sum((1 << k) for k in range(32) if pres[j - 1][k] - pres[i][k] == j - 1 - i)))\n        return ans            \n                    ",
-    "submit_ts": 1717297903.0
+    "submit_ts": "1717297903",
+    "subm_id": "1274760076"
 }

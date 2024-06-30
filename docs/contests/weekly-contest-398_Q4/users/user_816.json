@@ -1,5 +1,6 @@
 {
     "username": "kg1910",
     "submission": "class Solution {\npublic:\n    map<long long , long long> f;\n    void count(long long k , long long jump , long long can , long long cur) {\n        f[cur] += 1;\n        if(can && cur > 0) {\n            count(k , jump , can ^ 1 , cur - 1);\n        }\n        if((1LL << jump) + cur <= max(1LL , k)) {\n            count(k , jump + 1 , 1 , cur + (1LL << jump));\n        }\n    }\n    int waysToReachStair(int k) {\n        count(16 , 0 , 1 , 1);\n        vector< int > cur = {1 , 5 , 10 , 10 , 5 , 1};\n        \n        for(long long i = 5; i <= 30; i += 1) {\n            long long num = (1LL << i);\n            f[num] += 1;\n            vector< int > curNow;\n            int j = 0;\n            curNow.push_back(1);\n            while(j + 1 < cur.size()) {\n                f[num - 1] = cur[j] + cur[j + 1];\n                curNow.push_back(cur[j] + cur[j + 1]);\n                num -= 1;\n                j += 1;\n            }\n            f[num - 1] = 1;\n            curNow.push_back(1);\n            cur = curNow;\n        }\n        \n        return f[k];\n    }\n};",
-    "submit_ts": 1716089924.0
+    "submit_ts": "1716089924",
+    "subm_id": "1261854758"
 }

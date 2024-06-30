@@ -1,5 +1,6 @@
 {
     "username": "ShriramB1291",
     "submission": "\nclass Solution {\n\n\npublic:\n     vector<vector<int>> adj;\n    int diameter, far;\n\n    void dfs(int n, int p, int d) {\n        if (d > diameter) {\n            diameter = d;\n            far = n;\n        }\n        for (int child : adj[n]) {\n            if (child != p) {\n                dfs(child, n, d + 1);\n            }\n        }\n    }\n\n    pair<int, int> sol(vector<vector<int>>& edges, int n) {\n        adj.clear();\n        adj.resize(n);\n        for (const auto& edge : edges) {\n            adj[edge[0]].push_back(edge[1]);\n            adj[edge[1]].push_back(edge[0]);\n        }\n\n        diameter = 0;\n        dfs(0, -1, 0);\n        int e1 = far;\n        \n        diameter = 0;\n        dfs(e1, -1, 0);\n\n        int r = (diameter + 1) / 2;\n        return {diameter, r};\n    }\n    int minD(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n = edges1.size() + 1;\n        int m = edges2.size() + 1;\n\n        auto [d1, r1] = sol(edges1, n);\n        auto [d2, r2] = sol(edges2, m);\n\n        int ans = max({d1, d2, r1 + r2 + 1});\n        return ans;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        \n        return minD(edges1,edges2);\n    }\n};",
-    "submit_ts": 1719717882.0
+    "submit_ts": "1719717882",
+    "subm_id": "1304403151"
 }

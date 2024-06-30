@@ -1,5 +1,6 @@
 {
     "username": "Sajal2212",
     "submission": "/**\n * @param {number[]} nums - The array of integers\n * @param {number} k - The non-negative integer k\n * @return {number} - The maximum possible length of a good subsequence\n */\nvar maximumLength = function(nums, k) {\n    const length = nums.length;\n    const dp = Array.from({ length: length }, () => Array(k + 1).fill(1));\n    let ans = 1;\n    const max_length_k = new Array(k + 1).fill(-1);\n    const max_length_map_k = new Array(k + 1).fill(null).map(() => ({}));\n\n    for (let i = 0; i < length; i++) {\n        for (let j = 0; j <= k; j++) {\n            for (let l = 0; l < j; l++) {\n                dp[i][j] = Math.max(dp[i][j], 1 + max_length_k[l]);\n            }\n\n            if (max_length_map_k[j][nums[i]] !== undefined) {\n                dp[i][j] = Math.max(dp[i][j], 1 + max_length_map_k[j][nums[i]]);\n            }\n\n            ans = Math.max(ans, dp[i][j]);\n        }\n\n        for (let j = 0; j <= k; j++) {\n            max_length_k[j] = Math.max(max_length_k[j], dp[i][j]);\n            max_length_map_k[j][nums[i]] = Math.max(max_length_map_k[j][nums[i]] || 0, dp[i][j]);\n        }\n    }\n\n    return ans;\n};\n",
-    "submit_ts": 1717861666.0
+    "submit_ts": "1717861666",
+    "subm_id": "1281798324"
 }

@@ -1,5 +1,6 @@
 {
     "username": "mjmanas54",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& v, int k) {\n        int n= v.size();\n        vector<vector<int>>dp(n,vector<int>(k+1,0));\n        vector<pair<int,unordered_map<int,int>>> a(k+1);\n        for(int i=0;i<=k;i++){\n            a[i].first = 1;\n            a[i].second[v[n-1]] = 1;\n            dp[n-1][i] = 1;\n        }\n        for(int i=n-2;i>=0;i--){\n            for(int j=k;j>=0;j--){\n                if(j == 0)dp[i][j] = 1;\n                else dp[i][j] = 1+a[j-1].first;\n                dp[i][j] = max(dp[i][j],1+a[j].second[v[i]]);\n                a[j].first = max(a[j].first,dp[i][j]);\n                a[j].second[v[i]] = max(a[j].second[v[i]],dp[i][j]);\n            }\n        }\n        int mx = 1;\n        for(int i=0;i<n;i++){\n            mx = max(mx,dp[i][k]);\n        }\n        return mx;\n    }\n};",
-    "submit_ts": 1717861478.0
+    "submit_ts": "1717861478",
+    "subm_id": "1281792360"
 }

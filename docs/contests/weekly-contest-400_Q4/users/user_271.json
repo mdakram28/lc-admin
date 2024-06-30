@@ -1,5 +1,6 @@
 {
     "username": "Satj",
     "submission": "class Solution {\npublic:\n    vector <int> tree;\n    int n;\n    int query(int l, int r) {\n        l += n;\n        r += n + 1;\n        int ret = tree[l];\n        while (l < r) {\n            if (l % 2 == 1) {\n                ret &= tree[l];\n                l++;\n            }\n            if (r % 2 == 1) {\n                r--;\n                ret &= tree[r];\n            }\n            l /= 2, r /= 2;\n        }\n        return ret;\n    }\n    \n    int minimumDifference(vector<int>& a, int k) {\n        n = a.size();\n        tree.resize(n * 2, 0);\n        for (int i = 0; i < n; i++)\n            tree[i + n] = a[i];\n        for (int i = n - 1; i > 0; i--)\n            tree[i] = tree[i * 2] & tree[i * 2 + 1];\n        int l = 0, r = 0;\n        int ret = INT_MAX;\n        while (r < n) {\n            int cur = query(l, r);\n            ret = min(ret, abs(cur - k));\n            if (cur >= k)\n                r++;\n            else {\n                if (l < r) \n                    l++;\n                else l++, r++;\n            }\n        }\n        \n        return ret;\n    }\n};",
-    "submit_ts": 1717297527.0
+    "submit_ts": "1717297527",
+    "subm_id": "1274745916"
 }

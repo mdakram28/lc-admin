@@ -1,5 +1,6 @@
 {
     "username": "biz1110",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        minDiff = float(\"inf\")\n        start = end=0\n        bitCounts = [0]*32\n        currVal = float(\"inf\")\n        while start<len(nums):\n            while end<len(nums) and currVal >=k:\n                nxt = nums[end]\n                currVal=0\n                for i in range(32):\n                    bitCounts[i]+=1 if (1 << i & nxt) else 0\n\n                    if bitCounts[i] == end-start+1:\n                        currVal+=1 << i\n                    # if i<5:print(f\"{bitCounts[i]=} {end-start+1=} {currVal=}\")\n                minDiff = min(minDiff, abs(k-currVal))\n                end+=1\n                # print(f\"A: {start=} {end=} {currVal=} {bitCounts[:8]=}\")\n                if currVal < k:break\n                \n            toRem = nums[start]\n            currVal=0\n            for i in range(32):\n                bitCounts[i]-=1 if (1 << i & toRem) else 0\n                if bitCounts[i] == end-start-1:\n                    currVal+=1 << i\n            if any(bitCounts)and end-start-1:minDiff = min(minDiff, abs(k-currVal))\n            start+=1\n        #     print(f\"{start=} {end=} {currVal=} {bitCounts[:8]=}\")\n        # print(\"\\n\\n\")\n        return minDiff",
-    "submit_ts": 1717299274.0
+    "submit_ts": "1717299274",
+    "subm_id": "1274807178"
 }

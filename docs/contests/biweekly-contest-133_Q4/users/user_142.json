@@ -1,5 +1,6 @@
 {
     "username": "8symbols",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        modulo = 10 ** 9 + 7\n        requirements = sorted(requirements)\n\n        for i in range(1, len(requirements)):\n            if requirements[i - 1][1] > requirements[i][1]:\n                return 0\n\n        @cache\n        def dp(n, k, i):\n            if i >= 0:\n                end, count = requirements[i]\n                if end + 1 == n:\n                    if k != count:\n                        return 0\n                    i -= 1\n                if count > k:\n                    return 0\n\n            if k == 0:\n                return 1\n            if n == 0:\n                return 0\n            result = 0\n\n            for j in range(min(n, k + 1)):\n                result += dp(n - 1, k - j, i)\n\n            return result % modulo\n\n        return dp(n, requirements[-1][1], len(requirements) - 2)",
-    "submit_ts": 1719069076.0
+    "submit_ts": "1719069076",
+    "subm_id": "1296785849"
 }

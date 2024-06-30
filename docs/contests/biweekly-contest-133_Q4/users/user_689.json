@@ -1,5 +1,6 @@
 {
     "username": "jose_5056",
     "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    unordered_map<int, int> mp, vis;\n    int dp[403][403];\n\n    int rec(int level, int inv) \n    {\n        if (level == 0) \n        {\n            if (inv == 0)\n                return 1;\n            \n            else\n                return 0;\n        }\n        if (dp[level][inv] != -1) \n        {\n            return dp[level][inv];\n        }\n\n        long long ans = 0;\n        for (int i = 0; i < level; i++) \n        {\n            if (inv >= i) \n            {\n                ans = (ans + rec(level - 1, inv - i));\n                ans %= MOD;\n            }\n        }\n\n        if (vis[level] == 1) \n        {\n            \n            if (inv != mp[level]) \n            {\n                ans = 0;\n            }\n        }\n\n        return dp[level][inv] = ans;\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        for (auto v : requirements) \n        {\n            mp[v[0] + 1] = v[1];\n            vis[v[0] + 1] = 1;\n        }\n\n        memset(dp, -1, sizeof(dp));\n\n        long long ans = 0;\n        for (int inv = 0; inv <= 402; ++inv) {\n            ans = (ans + rec(n, inv));\n            ans %= MOD;\n        }\n\n        int ans2 = ans;\n        \n        return ans2;\n        \n    }\n};",
-    "submit_ts": 1719071001.0
+    "submit_ts": "1719071001",
+    "subm_id": "1296836793"
 }

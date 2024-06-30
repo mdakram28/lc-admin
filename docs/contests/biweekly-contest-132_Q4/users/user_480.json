@@ -1,5 +1,6 @@
 {
     "username": "rkm786forchess",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        vector<vector<int>> dp(k + 1, vector<int>(2, 0));\n        \n        vector<unordered_map<int, int>> count(k + 1);\n        \n        vector<unordered_set<int>> elements(k + 1);\n\n        for (auto i : nums) {\n            int prev = 0;\n            for (int j = 0; j <= k; ++j) {\n                int cur = max({prev + 1, (dp[j][0] + 1) * (elements[j].count(i) > 0), count[j][i] + 1});\n\n                prev = dp[j][0];\n                dp[j][1] = cur;\n\n                if (dp[j][0] < cur) {\n                    dp[j][0] = cur;\n                    elements[j].clear();\n                }\n\n                if (cur == dp[j][0]) {\n                    elements[j].insert(i);\n                }\n\n                count[j][i] = cur;\n            }\n        }\n\n        return dp[k][0];\n    }\n};",
-    "submit_ts": 1717859305.0
+    "submit_ts": "1717859305",
+    "subm_id": "1281717729"
 }

@@ -1,5 +1,6 @@
 {
     "username": "adityaps7196",
     "submission": "class Solution {\npublic:\nint farthest = 0;\nint max_depth = 0;\nvoid dfs(vector<vector<int>>&Tree,int pre,int i, int depth)\n{\n    if(depth > max_depth){\n    farthest = i;\n    max_depth = depth;\n    }\n    for(auto k : Tree[i])\n    {\n        if(k != pre)\n        dfs(Tree,i,k,depth + 1);\n    }\n}\nint solve(vector<vector<int>>& edges1,vector<vector<int>>& edges2) {\n    int n = edges1.size();\n    vector<vector<int>>Tree1(1e5+10);\n    for(int i = 0; i < n; ++i)\n    {\n        int a = edges1[i][0];\n\t\tint b = edges1[i][1];\n\t\t++a;++b;\n        Tree1[b].push_back(a);\n        Tree1[a].push_back(b);\n    }\n    dfs(Tree1,-1,1,0);\n    dfs(Tree1,-1,farthest,0);\n    int t1d = max_depth;\n    int res = (max_depth+1)/2;\n    max_depth = 0;\n    farthest = 0;\n    n = edges2.size();\n    vector<vector<int>>Tree2(1e5+10);\n    for(int i = 0; i < n; ++i)\n    {\n        int a = edges2[i][0];\n\t\tint b = edges2[i][1];\n\t\t++a;++b;\n        Tree2[b].push_back(a);\n        Tree2[a].push_back(b);\n    }\n    dfs(Tree2,-1,1,0);\n    dfs(Tree2,-1,farthest,0);\n    int t2d = max_depth;\n    res += (max_depth+1)/2;\n    return max({t1d,t2d,res + 1});\n}\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        return solve(edges1,edges2);\n    }\n};",
-    "submit_ts": 1719716259.0
+    "submit_ts": "1719716259",
+    "subm_id": "1304359459"
 }

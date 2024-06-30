@@ -1,5 +1,6 @@
 {
     "username": "groupbuilder",
     "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        def C(m, n):\n            res = 1\n            for i in range(n):\n                res = res * (m - i) // (i + 1)\n            return res\n        \n        if k > 512:\n            m = 1\n            c = 0\n            while m < k:\n                m <<= 1\n                c += 1\n            #print(m, m - k, c)\n            if m - k <= c + 1:\n                return C(c + 1, m - k)\n            return 0\n        \n        s = (1, 1, 0)\n        Q = deque([s])\n        res = 0\n        \n        while Q:\n            i, pre, jump = Q.popleft()\n            if i == k:\n                res += 1\n            if i > k + 1:\n                continue\n            \n            Q.append((i + pow(2, jump), 1, jump+1))\n            if pre:\n                Q.append((i - 1, 0, jump))\n        return res",
-    "submit_ts": 1716089882.0
+    "submit_ts": "1716089882",
+    "subm_id": "1261853694"
 }

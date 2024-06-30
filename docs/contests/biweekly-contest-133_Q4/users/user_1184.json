@@ -1,5 +1,6 @@
 {
     "username": "nemokwy",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        MOD = 10 ** 9 + 7\n        requirements.sort(key = lambda x: (-x[0]))\n        if requirements[-1][0] == 0 and requirements[-1][1] != 0:\n            return 0\n        dp = Counter()\n        ri = 0\n        pr = requirements[0][1]\n        dp[(requirements[0][0],pr)] = 1\n        ri += 1\n        for i in range(n-2,-1,-1):\n            if ri < len(requirements) and i == requirements[ri][0]:\n                for j in range(requirements[ri][1],requirements[ri][1]+i+2):\n                    dp[(i,requirements[ri][1])] += dp[(i+1,j)]\n                dp[(i,requirements[ri][1])] %= MOD\n                pr = requirements[ri][1]\n                ri += 1\n            else:\n                for j in range(pr+1):\n                    for t in range(j,min(pr+1,j+i+2)):\n                        dp[(i,j)] += dp[(i+1,t)]\n                    dp[(i,j)] %= MOD\n        # print(dp)\n        return dp[(0,0)]",
-    "submit_ts": 1719071488.0
+    "submit_ts": "1719071488",
+    "subm_id": "1296847880"
 }

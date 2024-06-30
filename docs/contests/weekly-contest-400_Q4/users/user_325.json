@@ -1,5 +1,6 @@
 {
     "username": "C0DET1GER",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        vector<int> cur(31);\n        int l = 0;\n        int mi = INT_MAX;\n        for (int i = 0; i < nums.size(); i++){\n            for (int j = 0; j <= 30; j++){\n                cur[j] += ((nums[i] & (1 << j)) > 0);\n            }\n            int x = 0;\n            for (int j = 0; j <= 30; j++){\n                if (cur[j] == (i - l + 1)){\n                    x += (1 << j);\n                }\n            }\n            mi = min(mi, abs(x - k));\n            while (x < k){\n                for (int j = 0; j <= 30; j++){\n                    cur[j] -= ((nums[l] & (1 << j)) > 0);\n                }\n                l++;\n                x = 0;\n                for (int j = 0; j <= 30; j++){\n                    if (cur[j] == (i - l + 1)){\n                        x += (1 << j);\n                    }\n                }\n                mi = min(mi, abs(x - k));\n            }\n            if (x == k){\n                return 0;\n            }\n        }\n        return mi;\n    }\n};",
-    "submit_ts": 1717298074.0
+    "submit_ts": "1717298074",
+    "subm_id": "1274766439"
 }

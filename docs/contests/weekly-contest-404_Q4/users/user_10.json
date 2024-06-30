@@ -1,5 +1,6 @@
 {
     "username": "_Fake4Fun",
     "submission": "const int N = 1e5 + 5;\nclass Solution {\npublic:\n    int n, m;\n    vector<int> adj[2][N];\n    int h[N];\n    void DFS(int id, int u, int pre = -1) {\n        for (int v : adj[id][u]) {\n            if (v != pre) {\n                h[v] = h[u] + 1;\n                DFS(id, v, u);\n            }\n        }\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        n = edges1.size() + 1;\n        for (auto p : edges1) {\n            adj[0][p[0]].push_back(p[1]);\n            adj[0][p[1]].push_back(p[0]);\n        }\n        DFS(0, 0);\n        int id = 0;\n        for (int i = 1; i < n; i++)\n            if (h[i] > h[id]) id = i;\n        fill(h, h + n, 0);\n        DFS(0, id);\n        int m1 = *max_element(h, h + n);\n        \n        fill(h, h + n, 0);\n        m = edges2.size() + 1;\n        for (auto p : edges2) {\n            adj[1][p[0]].push_back(p[1]);\n            adj[1][p[1]].push_back(p[0]);\n        }\n        DFS(1, 0);\n        id = 0;\n        for (int i = 1; i < m; i++)\n            if (h[i] > h[id]) id = i;\n        fill(h, h + m, 0);\n        DFS(1, id);\n        int m2 = *max_element(h, h + m);\n        \n        return max({m1, m2, (m1 + 1) / 2 + 1 + (m2 + 1) / 2});\n    }\n};",
-    "submit_ts": 1719715648.0
+    "submit_ts": "1719715648",
+    "subm_id": "1304342464"
 }

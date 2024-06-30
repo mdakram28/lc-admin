@@ -1,5 +1,6 @@
 {
     "username": "noobiiitian",
     "submission": "class Solution {\npublic:\n#define ll long long\n\nint dp[300][450];\n\n    int mod = 1e9+7;\nmap<int, int> mp;\nint dfs(int ind, int conversionrequired)\n{\n    if (conversionrequired < 0)\n        return 0;\n    if (ind < 0)\n    {\n        if (conversionrequired == 0)\n            return 1;\n        return 0;\n    }\n    if (mp.find(ind) != mp.end())\n    {\n        if (mp[ind] != conversionrequired)\n            return 0;\n    }\n    if (dp[ind][conversionrequired] != -1)\n        return dp[ind][conversionrequired];\n    long long ans = 0;\n    for (int i = 0; i <= ind; i++)\n    {\n        ans += (0LL +dfs(ind - 1, conversionrequired - i));\n    }\n    return dp[ind][conversionrequired] = ans%mod;\n}\n\nint numberOfPermutations(int n, vector<vector<int>> &requirements)\n{\n    memset(dp, -1, sizeof(dp));\n    sort(requirements.begin(), requirements.end());\n    int val = 0;\n    int ind = 0;\n    for (auto &x : requirements)\n    {\n        if (mp.find(x[0]) != mp.end())\n        {\n            if (mp[x[0]] != x[1])\n                return 0;\n        }\n        if(val>x[1]) return 0;\n        val = max(val, x[1]);\n        mp[x[0]] = x[1];\n    }\n    int ans = 0;\n    for (int i = 0; i <= (n * (n + 1)) / 2; i++)\n    {\n        ans += dfs(n - 1, i);\n    }\n    return ans;\n}\n};",
-    "submit_ts": 1719069258.0
+    "submit_ts": "1719069258",
+    "subm_id": "1296791376"
 }

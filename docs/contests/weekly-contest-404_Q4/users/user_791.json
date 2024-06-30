@@ -1,5 +1,6 @@
 {
     "username": "slowtyp3",
     "submission": "class Solution {\n    void dfs(int n,int p,vector<vector<int>>&g,vector<int>&depth,int d) {\n        depth[n]=d++;\n        for(int &i:g[n]) {\n            if(i==p) continue;\n            dfs(i,n,g,depth,d);\n        }\n    }\n    int foo(int n,vector<vector<int>>&g) {\n        \n        vector<int>depth(n);\n        dfs(0,-1,g,depth,0);\n        int ind=-1,m=-1;\n        for(int i=0;i<n;i++) {\n            if(m<depth[i]) {\n                m=depth[i];\n                ind=i;\n            }\n        }\n        dfs(ind,-1,g,depth,0);\n        m=-1;\n        for(int &i:depth) m=max(m,i);\n        return m;\n    }\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n=edges1.size()+1;\n        int m=edges2.size()+1;\n        vector<vector<int>>g1(n),g2(m);\n        for(auto &i:edges1) {\n            g1[i[0]].push_back(i[1]);\n            g1[i[1]].push_back(i[0]);\n        }\n        for(auto &i:edges2) {\n            g2[i[0]].push_back(i[1]);\n            g2[i[1]].push_back(i[0]);\n        }\n        int e1=foo(n,g1);\n        int e2=foo(m,g2);\n        int e3=(e1/2+e1%2)+(e2/2+e2%2)+1;\n        return max(e1,max(e2,e3));\n    }\n};",
-    "submit_ts": 1719719028.0
+    "submit_ts": "1719719028",
+    "subm_id": "1304431990"
 }

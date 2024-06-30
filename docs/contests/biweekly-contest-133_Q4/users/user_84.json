@@ -1,5 +1,6 @@
 {
     "username": "txingml",
     "submission": "const int MAXN = 405;\ntypedef long long LL;\nconst int mod = 1e9 + 7;\nLL dp[MAXN][MAXN];\nLL req[MAXN];\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        memset(req, -1, sizeof(req));\n        memset(dp, 0, sizeof(dp));\n        for (const auto& q : requirements) {\n            req[q[0]] = q[1];\n        }\n        int ma = req[n-1];\n        if (req[0] != -1 && req[0] != 0) return 0;\n        dp[0][0] = 1;\n        for (int i = 1; i < n; i++) {\n            for (int j = 0; j <= ma; j++) {\n                if (dp[i-1][j] == 0) continue;\n                for (int k = 0; k <= i && k+j <= ma; k++) {\n                    dp[i][k+j] = (dp[i][k+j] + dp[i-1][j]) % mod;\n                    \n                }\n            }\n            if (req[i] != -1) {\n                for (int j = 0; j <= ma; j++) {\n                    if (req[i] == j) continue;\n                    dp[i][j] = 0;\n                }\n            }\n        }\n        return dp[n-1][ma];\n        \n        \n    }\n};",
-    "submit_ts": 1719068413.0
+    "submit_ts": "1719068413",
+    "subm_id": "1296764497"
 }

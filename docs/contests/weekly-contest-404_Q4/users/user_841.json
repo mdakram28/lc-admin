@@ -1,5 +1,6 @@
 {
     "username": "Harshitbro498",
     "submission": "class Solution {\npublic:\n  pair<int,int> bfs(int st,vector<vector<int>>&g)\n  {\n    queue<int>q;\n    q.push(st);\n    vector<int>dist(g.size(),-1);\n    dist[st]=0;\n    int mx=0,ans=st;\n    while(!q.empty())\n    {\n        int node=q.front();\n        q.pop();\n        for(auto it:g[node])\n        {\n            if(dist[it]==-1)\n            {\n                dist[it]=dist[node]+1;\n                if(dist[it]>mx)\n                {\n                    mx=dist[it];\n                    ans=it;\n                }\n                \n                q.push(it);\n            }\n        }\n    }\n    return {mx,ans};\n  }\n  int find(vector<vector<int>>&g)\n  {\n    auto [temp,u]=bfs(0,g);\n    auto [ans,v]=bfs(u,g);\n    return ans;\n  }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n=edges1.size()+1;\n        int m=edges2.size()+1;\n        vector<vector<int>>g1(n),g2(m);\n        for(auto it:edges1)\n        {\n          g1[it[0]].push_back(it[1]);\n          g1[it[1]].push_back(it[0]);\n        }\n        for(auto it:edges2)\n        {\n          g2[it[0]].push_back(it[1]);\n          g2[it[1]].push_back(it[0]);\n        }\n        int d1=find(g1);\n        int d2=find(g2);\n        int temp=max(d1,d2);\n        int ans=max(temp,(d1+1)/2+(d2+1)/2+1);\n        return ans;\n    }\n};",
-    "submit_ts": 1719718774.0
+    "submit_ts": "1719718774",
+    "subm_id": "1304425733"
 }

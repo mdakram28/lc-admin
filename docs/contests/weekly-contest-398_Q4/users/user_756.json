@@ -1,5 +1,6 @@
 {
     "username": "kirya2604",
     "submission": "class Solution {\npublic:\n    \n        vector< vector< long long > > dp;\n    \n    int getDp(int a, int b)\n    {\n        if (a < 0 || b < 0) return 0;\n        if (a > b + 1) return 0;\n        if (a + b <= 1) return 1;\n        if (dp[a][b] > 0) return dp[a][b];\n\n        int ans = 0;\n        if (b > 0)\n            ans += getDp(a, b - 1);\n        \n        if (a > 0 && b > 0)\n            ans += getDp(a - 1, b - 1);\n        \n        return dp[a][b] = ans;\n    }\n    \n    int waysToReachStair(int k) {\n        long long ans = 0;\n        \n        dp.assign(39, vector<long long> (39, 0));\n        \n        int a = -k + 1;\n        if (a >= 0 && a <= 1)\n            ans += getDp(a, 0);\n        \n        for (int b = 1; b <= 31; b ++)\n        {\n            long long a = (1ll << b) - k ;\n            if (a < 0 || a > b + 1) continue;\n            \n            int t = getDp(a, b);\n            //cout << a << \" \" << b << \" \" << t<< endl;\n            \n            ans += t;\n            \n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1716089779.0
+    "submit_ts": "1716089779",
+    "subm_id": "1261851043"
 }

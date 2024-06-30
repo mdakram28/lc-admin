@@ -1,5 +1,6 @@
 {
     "username": "mintujupally",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size();\n        \n        vector<vector<int>> fq(n+1, vector<int> (31, 0));\n        \n        for(int i=0; i<n; i++)\n        {\n            for(int j=0; j<31; j++)\n            {\n                if(nums[i]&(1<<j)) fq[i+1][j]=fq[i][j]+1;\n            }\n        }\n        \n        int ans=INT_MAX;\n        \n        for(int i=0; i<n; i++)\n        {\n            int l=i, r=n-1;\n            while(l<=r)\n            {\n                int m=l+(r-l)/2;\n                int val=0;\n                for(int j=0; j<31; j++)\n                {\n                    int count=fq[m+1][j]-fq[i][j];\n                    if(count==m+1-i) val|=(1<<j);\n                }\n                \n                ans=min(ans, abs(val-k));\n                \n                if(val>k) l=m+1;\n                else if(val<k) r=m-1;\n                else return 0;\n            }\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717300215.0
+    "submit_ts": "1717300215",
+    "subm_id": "1274837388"
 }

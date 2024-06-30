@@ -1,5 +1,6 @@
 {
     "username": "snowflower421",
     "submission": "from sortedcontainers import SortedSet\n\nclass Solution:\n    def countOfPeaks(self, nums: List[int], queries: List[List[int]]) -> List[int]:\n        n = len(nums)\n        peaks = SortedSet()\n        \n        def is_peak(i: int) -> bool:\n            if i <= 0 or i >= n - 1:\n                return False\n            return nums[i] > nums[i - 1] and nums[i] > nums[i + 1]\n        \n        def recheck(indices: List[int]) -> None:\n            for i in indices:\n                if is_peak(i) and i not in peaks:\n                    peaks.add(i)\n                elif not is_peak(i) and i in peaks:\n                    peaks.remove(i)\n        \n        for i in range(n):\n            if is_peak(i):\n                peaks.add(i)\n        \n        ans = []\n        for t, *variables in queries:\n            if t == 1:\n                left, right = variables\n                start = peaks.bisect_left(left + 1)\n                end = peaks.bisect_right(right - 1)\n                ans.append(max(end - start, 0))\n            elif t == 2:\n                i, value = variables\n                nums[i] = value\n                recheck([i - 1, i, i + 1])\n                    \n        return ans\n            ",
-    "submit_ts": 1718508385.0
+    "submit_ts": "1718508385",
+    "subm_id": "1289679748"
 }

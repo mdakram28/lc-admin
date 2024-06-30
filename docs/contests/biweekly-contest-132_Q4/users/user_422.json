@@ -1,5 +1,6 @@
 {
     "username": "jasonreed7",
     "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n\n        bestByUniquesAndEndNum = defaultdict(int)\n        bestByUniques = [0] * (k + 2)\n\n        dp = [[0 for _ in range(k + 2)] for _ in range(n)]\n        best = 0\n\n        for endIndex in range(0, n):\n            num = nums[endIndex]\n            for uniques in range(k + 1, 0, -1):\n                other = 1 + bestByUniquesAndEndNum[(uniques, num)]\n                other = max(other, 1 + bestByUniques[uniques - 1])\n                dp[endIndex][uniques] = other\n                bestByUniquesAndEndNum[(uniques, num)] = max(bestByUniquesAndEndNum[(uniques, num)], other)\n                bestByUniques[uniques] = max(bestByUniques[uniques], other)\n                best = max(best, other)\n\n        return best",
-    "submit_ts": 1717861890.0
+    "submit_ts": "1717861890",
+    "subm_id": "1281805056"
 }

@@ -1,5 +1,6 @@
 {
     "username": "ujjwalsharma9671",
     "submission": "class Solution {\n    int[][][] memo;\n    \n    public int waysToReachStair(int k) {\n        \n        int sz = 4 * (int)(Math.log(2 + k) / Math.log(2));\n        \n        memo = new int[sz + 1][sz + 1][2];\n        \n        for(int[][] arr: memo){\n            for(int[] arr1: arr){\n                Arrays.fill(arr1, -1);\n            }\n        }\n        \n        return dp(0, 0, 0, k);\n        \n    }\n    \n    private int dp(int up, int down, int isLastDown, int k){\n        \n        if(memo[up][down][isLastDown] == -1){\n            \n            int curr = 1 + (int) (Math.pow(2, up) - 1) - down;\n            int ans = 0;\n            if(curr == k) ans = 1;\n            \n            if(curr <= k + 1){\n                if(isLastDown == 0 && curr > 0){\n                    ans += dp(up, down + 1, 1, k);\n                }\n                \n                ans += dp(up + 1, down, 0, k);\n            }\n            \n           memo[up][down][isLastDown] = ans;\n            \n        }\n        \n        return memo[up][down][isLastDown];\n    }\n}",
-    "submit_ts": 1716089336.0
+    "submit_ts": "1716089336",
+    "subm_id": "1261839502"
 }

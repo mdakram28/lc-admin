@@ -1,5 +1,6 @@
 {
     "username": "SkylerTsai",
     "submission": "class Solution(object):\n    def numberOfPermutations(self, n, requirements):\n        \n        mod = 10 ** 9 + 7\n        x, state = 0, []\n        for i in range(n):\n            x += i\n            state.append(x)\n        rmap = {}\n        for e, c in requirements:\n            rmap[e] = c\n            \n        dp = {}\n        def parse(idx, cnt):\n            if idx in rmap and cnt != rmap[idx]: return 0\n            if idx == 0:\n                if cnt == 0: return 1\n                else: return 0\n            \n            if cnt > state[idx]: return 0\n            if (idx, cnt) in dp: return dp[(idx, cnt)]\n            ret = 0\n            for i in range(max(cnt - idx, 0), cnt + 1):\n                ret += parse(idx - 1, i)\n            dp[(idx, cnt)] = ret\n            return dp[(idx, cnt)]\n        ret = parse(n - 1, rmap[n - 1])\n        #print(dp)\n        return ret % mod\n        ",
-    "submit_ts": 1719070932.0
+    "submit_ts": "1719070932",
+    "subm_id": "1296835206"
 }

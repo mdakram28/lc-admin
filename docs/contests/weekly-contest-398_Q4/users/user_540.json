@@ -1,5 +1,6 @@
 {
     "username": "prathamesh__45",
     "submission": "class Solution\n{\npublic:\n  using DP = tuple<int, int, int>;\n\n  struct HashFunction\n  {\n    size_t operator()(const DP &state) const\n    {\n      auto [i, jump, status] = state;\n      return hash<int>()(i) ^ hash<int>()(jump) ^ hash<int>()(status);\n    }\n  };\n\n  int solve(int i, int jump, int status, int k, unordered_map<DP, int, HashFunction> &dp)\n  {\n\n    if (i > k + 1)\n    {\n      // return if i>k+1\n      return 0;\n    }\n\n    DP state = {i, jump, status};\n    if (dp.find(state) != dp.end())\n    {\n      return dp[state];\n    }\n\n    int ans = 0;\n\n    if (i == k)\n    {\n      ans += 1;\n    }\n\n    ans += solve(i + (1 << jump), jump + 1, 1, k, dp);\n\n    if (status == 1 && i > 0)\n    {\n      ans += solve(i - 1, jump, 0, k, dp);\n    }\n\n    dp[state] = ans;\n    return ans;\n  }\n\n  int waysToReachStair(int k)\n  {\n    unordered_map<DP, int, HashFunction> dp;\n    int i=1,jump=0,status=1;\n    return solve(i, jump, status, k, dp);\n  }\n};",
-    "submit_ts": 1716088573.0
+    "submit_ts": "1716088573",
+    "subm_id": "1261817920"
 }

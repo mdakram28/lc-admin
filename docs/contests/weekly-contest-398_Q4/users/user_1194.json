@@ -1,5 +1,6 @@
 {
     "username": "huntermarchi17_03",
     "submission": "class Solution {\n    val dp = hashMapOf<Int, MutableList<MutableList<Int>>>()\n    \n    fun solve(k: Int, i: Int, jump: Int, can: Boolean): Int {\n        if (i > k + 5) return 0\n        if (jump > 31) return 0\n        if (dp.containsKey(i) && dp[i]!![jump][if (can) 1 else 0] != -1) return dp[i]!![jump][if (can) 1 else 0]\n        \n        var ans = if (i == k) 1 else 0\n        if (can)\n            ans += solve(k, i - 1, jump, false)\n        if (i + (1 shl jump) <= k + 1)\n            ans += solve(k, i + (1 shl jump), jump + 1, true)\n        \n        if (!dp.containsKey(i)) {\n            dp[i] = MutableList(32) { MutableList(2) { -1 } }\n        }\n        dp[i]!![jump][if (can) 1 else 0] = ans\n        \n        return ans\n    }\n    \n    fun waysToReachStair(k: Int): Int {\n        return solve(k, 1, 0, true)\n    }\n}\n",
-    "submit_ts": 1716089908.0
+    "submit_ts": "1716089908",
+    "subm_id": "1261854366"
 }

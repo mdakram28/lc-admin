@@ -1,5 +1,6 @@
 {
     "username": "dongzhi0",
     "submission": "class Solution {\npublic:\n    void add(int *c, int n) {\n        int i = 0;\n        while (n) {\n            c[i++] += n&1;\n            n >>= 1;\n        }\n    }\n    \n    void sub(int *c, int n) {\n        int i = 0;\n        while (n) {\n            c[i++] -= n&1;\n            n >>= 1;\n        }\n    }\n    \n    int get_and(int *c, int m) {\n        int ans = 0;\n        for (int i = 30; i >= 0; i--) {\n            ans <<= 1;\n            if (c[i] == m) ans++;\n        }\n        return ans;\n    }\n    \n    int minimumDifference(vector<int>& nums, int k) {\n        int c[31] = {0};\n        int ans = INT_MAX;\n        for (int i = 0, j = 0; j < nums.size(); j++) {\n            add(c, nums[j]);\n            int t = get_and(c, j-i+1);\n            ans = min(ans, abs(t - k));\n            while (i <= j && t < k) {\n                sub(c, nums[i++]);\n                t = get_and(c, j-i+1);\n                ans = min(ans, abs(t - k));\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717298671.0
+    "submit_ts": "1717298671",
+    "subm_id": "1274787217"
 }

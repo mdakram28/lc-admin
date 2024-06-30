@@ -1,5 +1,6 @@
 {
     "username": "warner1129",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& A, int k) {\n        const int n = A.size();\n        \n        vector dp(n, vector<int>(k + 1));\n        map<int, int> lst;\n        vector<int> ma(k + 1);\n        \n        int ans = 0;\n        for (int i = 0; i < n; i++) {\n            dp[i][0] = 1;\n            \n            if (lst.count(A[i])) {\n                int l = lst[A[i]];\n                for (int j = 0; j <= k; j++) {\n                    dp[i][j] = max(dp[i][j], dp[l][j] + 1);\n                }\n            }\n            int t = i;\n            while (t >= 0 and A[t] == A[i]) {\n                t--;\n            }\n            if (t >= 0) {\n                for (int a = 0; a + 1 <= k; a++) {\n                    dp[i][a + 1] = max(ma[a] + 1, dp[i][a + 1]);\n                }\n            }    \n            lst[A[i]] = i;\n            for (int j = 0; j <= k; j++) {\n                ans = max(ans, dp[i][j]);\n                ma[j] = max(ma[j], dp[i][j]);\n            }\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717858977.0
+    "submit_ts": "1717858977",
+    "subm_id": "1281706728"
 }

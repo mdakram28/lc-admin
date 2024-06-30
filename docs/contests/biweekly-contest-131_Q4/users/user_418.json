@@ -1,5 +1,6 @@
 {
     "username": "JustinZhengBC",
     "submission": "class Solution {\npublic:\n    map<int, int> mx;\n    set<pair<int, int>> szs;\n    vector<bool> res;\n    vector<bool> getResults(vector<vector<int>>& queries) {\n        mx[0] = 0;\n        mx[100000] = 100000;\n        szs.insert({0, 0});\n        szs.insert({100000, 100000});\n        for (auto &q : queries) {\n            int x = q[1];\n            if (q[0] == 1) {\n                update(x);\n            } else {\n                int sz = q[2];\n                res.push_back(query(x, sz));\n            }\n        }\n        return res;\n    }\n    void update(int x) {\n        auto it = mx.lower_bound(x);\n        auto [px, psz] = *it;\n        mx.erase(px);\n        mx[px] = px - x;\n        mx[x] = psz - (px - x);\n        szs.erase({psz, px});\n        szs.insert({px - x, px});\n        szs.insert({psz - (px - x), x});\n    }\n    bool query(int x, int sz) {\n        auto it = szs.lower_bound({sz, 0});\n        while (it != szs.end()) {\n            if (x - sz >= it->second - it->first) {\n                // cout << it->first << \" \" << it->second << endl;\n                return true;\n            }\n            it = szs.lower_bound({it->first + 1, 0});\n        }\n        return false;\n    }\n};",
-    "submit_ts": 1716652277.0
+    "submit_ts": "1716652277",
+    "subm_id": "1267660030"
 }

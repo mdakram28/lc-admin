@@ -1,5 +1,6 @@
 {
     "username": "agakishy",
     "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        dp = [[Counter(), 0, set()] for _ in range(k+2)]\n        for i, x in enumerate(nums):\n            for j in range(k, -1, -1):\n                c, best, best_set = dp[j]\n                if best + 1 > dp[j+1][0][x]:\n                    dp[j+1][0][x] = best + 1\n                    if best + 1 > dp[j+1][1]:\n                        dp[j+1][1] = best + 1\n                        dp[j+1][2] = {x}\n                    elif best + 1 == dp[j+1][1]:\n                        dp[j+1][2].add(x)\n\n                c[x] += 1\n                if c[x] == best:\n                    best_set.add(x)\n                if c[x] > best:\n                    dp[j][1] = c[x]\n                    dp[j][2] = {x}\n            # print(x, dp)\n        ans = -1\n        for i in range(k+1):\n            ans = max(ans, dp[i][1])\n        return ans\n                ",
-    "submit_ts": 1717861751.0
+    "submit_ts": "1717861751",
+    "subm_id": "1281801022"
 }

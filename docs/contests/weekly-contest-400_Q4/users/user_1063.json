@@ -1,5 +1,6 @@
 {
     "username": "prayoffer",
     "submission": "from collections import defaultdict\nclass Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        result = float('inf')\n        def calculate_and(d, threshold):\n            if threshold == 0:\n                return 0\n            result = ['0' for _ in range(30)]\n            for index in d:\n                if d[index] >= threshold:\n                    result[index] = '1'\n            return int(''.join(result), 2)\n        d = defaultdict(int)\n        a = nums[0]\n        l = 0\n        for index, num in enumerate(nums):\n            if l == index:\n                a = num\n            else:\n                a=a&num\n            for i2, char in enumerate(format(num, f'0{30}b')):\n                if char == '1':\n                    d[i2] += 1\n            result = min(result, abs(a-k))\n            while a < k and l <= index:\n                for i2, char in enumerate(format(nums[l], f'0{30}b')):\n                    if char == '1':\n                        d[i2] -= 1\n                a = calculate_and(d, index-l)\n                l += 1\n                result = min(result, abs(a-k))\n        return result\n                \n                \n                \n                ",
-    "submit_ts": 1717299834.0
+    "submit_ts": "1717299834",
+    "subm_id": "1274825375"
 }

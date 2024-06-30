@@ -1,5 +1,6 @@
 {
     "username": "TheFuturoma",
     "submission": "import collections\nimport heapq\n\nclass Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        hp = [[] for i in range(k + 1)]\n        d = collections.defaultdict(int)\n        for el in nums:\n            for i in range(k + 1):\n                if not len(hp[i]):\n                    continue\n\n                p = d[(i, el)]\n                lg, num = hp[i][0]\n                lg = -lg\n                pt = True\n                nw = 0\n                if num == el:\n                    heapq.heappush(hp[i], (-(lg + 1), el))\n                    d[(i, el)] = max(d[(i, el)], lg + 1)\n                    nw = lg + 1\n                    pt = False\n                elif i > 0:\n                    heapq.heappush(hp[i - 1], (-(lg + 1), el))\n                    d[(i - 1, el)] = max(d[(i - 1, el)], lg + 1)\n                d[(i, el)] = max(d[(i, el)], p + 1)\n                heapq.heappush(hp[i], (-(p + 1), el))\n            heapq.heappush(hp[k], (-1, el))\n            d[(k, el)] = max(d[(k, el)], 1)\n        res = 0\n        for i in range(k + 1):\n            if len(hp[i]):\n                res = max(res, -hp[i][0][0])\n        return res",
-    "submit_ts": 1717861244.0
+    "submit_ts": "1717861244",
+    "subm_id": "1281784562"
 }

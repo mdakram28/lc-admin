@@ -1,5 +1,6 @@
 {
     "username": "devansh789",
     "submission": "class Solution {\npublic:\n    void dfs(int node, int par, vector<vector<int>> &tree, vector<int> &dist) {\n        for(auto &ch: tree[node]) {\n            if(ch==par) continue;\n            dist[ch] = dist[node]+1;\n            dfs(ch,node,tree,dist);\n        }\n    }\n     \n    int findDia(vector<vector<int>> &edges) {\n        int n = edges.size()+1;\n        vector<vector<int>> tree(n+1);\n        for(int i = 0; i < n-1; i++) {\n            tree[edges[i][0]].push_back(edges[i][1]);\n            tree[edges[i][1]].push_back(edges[i][0]);\n        }\n        vector<int> dist(n+1);\n        dfs(0,n,tree,dist);\n        int maxi = 0, nd = 0;\n        for(int i = 0; i < n; i++) {\n            if(dist[i]>maxi) {\n                maxi = dist[i];\n                nd = i;\n                dist[i] = 0;\n            }\n        }\n        dfs(nd,n,tree,dist);\n        int ans = 0;\n        for(int i = 0; i < n; i++) {\n            ans = max(ans,dist[i]);\n        }\n        return ans;\n    }\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int d1 = findDia(edges1), d2 = findDia(edges2);\n        int ans = max(max(d1,d2),((d1+1)/2)+((d2+1)/2)+1);\n        return ans;\n    }\n};",
-    "submit_ts": 1719716619.0
+    "submit_ts": "1719716619",
+    "subm_id": "1304369471"
 }

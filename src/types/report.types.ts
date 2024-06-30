@@ -18,6 +18,7 @@ export interface Submission {
     username: string
     submission: string
     submit_ts: number
+    subm_id: string
 }
 
 export interface ContestInfo {

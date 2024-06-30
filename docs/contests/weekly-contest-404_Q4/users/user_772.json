@@ -1,5 +1,6 @@
 {
     "username": "dhameliyayagnik28",
     "submission": "class Solution {\npublic:\n    int f(int s, int &main, vector<int> adj[], int n)\n    {\n        vector<int> dist(n, -1);\n        function<void(int, int, int)> dfs = [&](int node, int par, int d)\n        {\n            dist[node] = d;\n            if(dist[main] < d) main = node;\n            for(auto it : adj[node])\n            {\n                if(dist[it] != -1) continue;\n                dfs(it, node, d + 1);\n            }\n        };\n        main = s;\n        dfs(s, -1, 0);\n        return dist[main];\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& e1, vector<vector<int>>& e2) {\n        int n = e1.size() + 1, m = e2.size() + 1;\n        vector<int> adj1[n], adj2[m];\n        for(auto &v : e1)\n        {\n            adj1[v[0]].push_back(v[1]);\n            adj1[v[1]].push_back(v[0]);\n        }\n        for(auto &v : e2)\n        {\n            adj2[v[0]].push_back(v[1]);\n            adj2[v[1]].push_back(v[0]);\n        }\n        int n1 = 0, n2 = 0;\n        f(0, n1, adj1, n);\n        f(0, n2, adj2, m);\n        int d1 = f(n1, n1, adj1, n);\n        int d2 = f(n2, n2, adj2, m);\n        return max({d1, d2, (d1 + 1) / 2 + (d2 + 1) / 2 + 1});\n    }\n};",
-    "submit_ts": 1719719865.0
+    "submit_ts": "1719719865",
+    "subm_id": "1304452564"
 }

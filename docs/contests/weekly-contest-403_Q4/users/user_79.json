@@ -1,5 +1,6 @@
 {
     "username": "LeetCoach",
     "submission": "class Solution:\n    def minimumSum(self, grid: List[List[int]]) -> int:\n        R, C = len(grid), len(grid[0])\n        res = inf\n        for _ in range(2):\n            for r in range(1, R):\n                def cover1(r1, r2, c1, c2):\n                    mn_r = mn_c = inf\n                    mx_r = mx_c = -inf\n                    for r in range(r1, r2):\n                        for c in range(c1, c2):\n                            if grid[r][c]:\n                                mn_r = min(mn_r, r)\n                                mx_r = max(mx_r, r)\n                                mn_c = min(mn_c, c)\n                                mx_c = max(mx_c, c)\n                    return (mx_r - mn_r + 1) * (mx_c - mn_c + 1)\n                def cover2(r1, r2):\n                    res = inf\n                    for r3 in range(r1 + 1, r2):\n                        res = min(res, cover1(r1, r3, 0, C) + cover1(r3, r2, 0, C))\n                    for c in range(1, C):\n                        res = min(res, cover1(r1, r2, 0, c) + cover1(r1, r2, c, C))\n                    return res\n                res = min(res, cover1(0, r, 0, C) + cover2(r, R))\n                res = min(res, cover2(0, r) + cover1(r, R, 0, C))\n            R, C, grid = C, R, [[grid[r][c] for r in range(R)] for c in range(C)]\n        return res",
-    "submit_ts": 1719112279.0
+    "submit_ts": "1719112279",
+    "subm_id": "1297295568"
 }

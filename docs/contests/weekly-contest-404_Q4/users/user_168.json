@@ -1,5 +1,6 @@
 {
     "username": "yahoo010206",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        mapping1 = defaultdict(list)\n        mapping2 = defaultdict(list)\n\n        for a, b in edges1:\n            mapping1[a].append(b)\n            mapping1[b].append(a)\n        for a, b in edges2:\n            mapping2[a].append(b)\n            mapping2[b].append(a)\n\n        max1, max2 = [0], [0]\n        def solve(mapping, node, max_value, used):\n            m1, m2 = 0, 0\n            used.add(node)\n            for _node in mapping[node]:\n                if _node not in used: \n                    t = solve(mapping, _node, max_value, used)\n                    if t>m1:\n                        m1, m2 = t, m1\n                    elif t>m2:\n                        m2 = t\n            if m1+m2>max_value[0]:\n                max_value[0]=m1+m2\n            elif m1>max_value[0]:\n                max_value[0]=m1\n            # print(node, m1+1)\n            return m1+1\n        \n        solve(mapping1, 0, max1, set())\n        solve(mapping2, 0, max2, set())\n        # print(max1, max2)\n        return max(((max1[0]+1)>>1)+((max2[0]+1)>>1)+1, max1[0], max2[0])\n\n\n",
-    "submit_ts": 1719717266.0
+    "submit_ts": "1719717266",
+    "subm_id": "1304386976"
 }

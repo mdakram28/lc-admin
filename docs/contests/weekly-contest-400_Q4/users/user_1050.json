@@ -1,5 +1,6 @@
 {
     "username": "Shang1224",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n      int left = 0;\n      int right = 1;\n      vector<int> bitCount(32, 0);\n      int curr = nums[0];\n      int minimal = abs(k-nums[0]);\n      insertOrRemoveNum(bitCount, nums[0], true);\n      while(right<nums.size()) {\n        \n        insertOrRemoveNum(bitCount, nums[right], true);\n        int curr = count(bitCount, right-left+1);\n        minimal = min(abs(k-curr), minimal);\n        \n        while(left<=right && curr<k) {\n          insertOrRemoveNum(bitCount, nums[left], false);\n          curr = count(bitCount, right-left);\n          minimal = min(abs(k-curr), minimal);\n          left++;\n        }\n        right++;\n      }\n      return minimal;\n    }\nprivate:\n    int count(vector<int>& bitCount, int target) {\n      int total = 0;\n      int test = 1;\n      for(int i=0; i<32; i++) {\n        if(bitCount[i]==target) total+=test;\n        test<<=1;\n      }\n      return total;\n    }\n    void insertOrRemoveNum(vector<int>& bitCount, int num, bool isInsert) {\n      int test = 1;\n      if(isInsert) {\n        for(int i=0; i<32; i++) {\n          if(num&test) {\n            bitCount[i]++;\n          }\n          test<<=1;\n        }\n      } else {\n        for(int i=0; i<32; i++) {\n          if(num&test) {\n            bitCount[i]--;\n          }\n          test<<=1;\n        }\n      }\n    }\n};",
-    "submit_ts": 1717299789.0
+    "submit_ts": "1717299789",
+    "subm_id": "1274823928"
 }

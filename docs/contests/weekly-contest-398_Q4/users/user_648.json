@@ -1,5 +1,6 @@
 {
     "username": "Pras28",
     "submission": "from collections import deque\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        memo = {(0,0): 1, (1,0): 1}\n        q = deque([(0, 0), (1, 0)])\n        seen = set()\n        while len(q) > 0:\n            num, jumps = q.popleft()\n            if (num,jumps) in seen:\n                continue\n            seen.add((num, jumps))\n            x1 = num + 2**jumps\n            x2 = num + 2**(jumps) - 1\n            if x1 > 4 * (k+2) or x2 > 4 * (k+2):\n                break\n            if (x1, jumps + 1) in memo:\n                memo[(x1, jumps + 1)] += memo[(num, jumps)]\n            else:\n                memo[(x1, jumps + 1)] = memo[(num, jumps)]\n            if (x2, jumps + 1) in memo:\n                memo[(x2, jumps + 1)] += memo[(num, jumps)]\n            else:\n                memo[(x2, jumps + 1)] = memo[(num, jumps)]\n            q.append((x1, jumps + 1))\n            q.append((x2, jumps + 1))\n        tot = 0\n        for x in memo:\n            if k == x[0]:\n                tot += memo[x]\n        return tot",
-    "submit_ts": 1716089190.0
+    "submit_ts": "1716089190",
+    "subm_id": "1261835576"
 }

@@ -1,5 +1,6 @@
 {
     "username": "x____x",
     "submission": "class Solution {\npublic:\n  int maximumLength(vector<int>& nums, int k) {\n    int n = nums.size();\n    vector<multiset<long long>> keys(k + 2);\n    vector<map<int, int>> vals(k + 2);\n    \n    auto key = [](int x, int y) -> long long{\n      return ((long long)y << 32) + x;\n    };\n    \n    int ret = 0;\n    vector<int> a(k + 2);\n    for (int x : nums) {\n      for (int y = 0; y <= k; ++y) {\n        int v = y ? 0 : 1;\n        auto it = vals[y].find(x);\n        if (it != vals[y].end()) {\n          v = max(v, it->second + 1);\n        }\n        if (y > 0 && !keys[y - 1].empty()) {\n          auto it = prev(keys[y - 1].end());\n          if ((*it & 0x7fffffff) == x) {\n            if (it != keys[y - 1].begin()) {\n              it = prev(it);\n              v = max(v, (int)(*it >> 32) + 1);\n            }\n          } else {\n            v = max(v, (int)(*it >> 32) + 1);\n          }\n        }\n        a[y] = v;\n        ret = max(ret, v);\n      }\n      for (int y = 0; y <= k; ++y) {\n        int v = a[y];\n        if (v < 1) continue;\n        auto it = vals[y].find(x);\n        if (it == vals[y].end() || it->second < v) {\n          if (it != vals[y].end()) {\n            auto t = key(x, it->second);\n            keys[y].erase(keys[y].lower_bound(t));\n          }\n          keys[y].insert(key(x, v));\n          vals[y][x] = v;\n        }\n      }\n    }\n    return ret;\n  }\n};",
-    "submit_ts": 1717860886.0
+    "submit_ts": "1717860886",
+    "subm_id": "1281772701"
 }

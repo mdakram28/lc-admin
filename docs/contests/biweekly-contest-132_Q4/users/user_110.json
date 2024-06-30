@@ -1,5 +1,6 @@
 {
     "username": "markdownjeweler",
     "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        last_location = {}\n        prev_occurance = [-1] * n\n        for i, num in enumerate(nums):\n            if num not in last_location:\n                prev_occurance[i] = -1\n            else:\n                prev_occurance[i] = last_location[num]\n                \n            last_location[num] = i\n            \n        dp = [[1 for j in range(k + 1)] for i in range(n)]\n        taken = [[1 for j in range(k + 1)] for i in range(n)]\n        \n        for i in range(1, n):\n            for j in range(k + 1):\n                taken[i][j] = max(\n                    (dp[i - 1][j - 1] if j > 0 else 0) + 1,\n                    (taken[prev_occurance[i]][j] if prev_occurance[i] >= 0 else 0) + 1\n                )\n                dp[i][j] = max(\n                    dp[i - 1][j],\n                    taken[i][j]\n                )\n                \n        return dp[n - 1][k]\n",
-    "submit_ts": 1717860436.0
+    "submit_ts": "1717860436",
+    "subm_id": "1281757566"
 }

@@ -1,5 +1,6 @@
 {
     "username": "john801205",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        // dp[k][i] means the maximum good subsequence up to index i with k\n        // = max(dp[k-1][j])+1 if nums[i] != nums[j]\n        // = max(dp[k][j]) + 1 if nums[i] == nums[j]\n        \n        int n = nums.size();\n        vector<int> dp(n, 0);\n        \n        for (; k >= 0; k--)\n        {\n            int prevMax = 0;\n            unordered_map<int, int> counts;\n            \n            for (int i = 0; i < n; i++)\n            {\n                int temp = dp[i];\n                \n                dp[i] = max(prevMax, counts[nums[i]])+1;\n                prevMax = max(prevMax, temp);\n                counts[nums[i]] = max(counts[nums[i]], dp[i]);\n            }\n        }\n        \n        int res = 0;\n        for (const auto& num: dp)\n            res = max(res, num);\n        return res;\n    }\n};",
-    "submit_ts": 1717861870.0
+    "submit_ts": "1717861870",
+    "subm_id": "1281804544"
 }

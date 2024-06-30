@@ -1,5 +1,6 @@
 {
     "username": "ayoaditya",
     "submission": "\nclass Solution {\npublic:\n    int mod = 1000000007;\n    int e = 400;    \n    int numberOfPermutations(int num, vector<vector<int>>& qtn) {\n        int ans = 0;\n        long long temp_ans = 0;\n        vector<vector<long long>> dp(num + 1, vector<long long>(e + 1, 0)); dp[0][0] = 1;\n        unordered_map<int, int> mp;\n\n        for (auto a : qtn) \n        {\n            mp[a[0]+1]=a[1];\n        }\n\n        for (int g = 1; g < num+1; g++) \n        {\n            for (int h = 0; h < e+1; h++) \n            {\n                for (int i = 0; i < g; i++) \n                {\n                    int j = h - i;\n                    if (j >= 0) \n                    {\n                        dp[g][h] = (dp[g - 1][j]+dp[g][h]) % mod;\n                    }\n                }\n            }\n\n            if (mp.count(g)>0) \n            {\n                int t = mp[g];\n                for (int h = 0; h < e+1; h++) \n                {\n                    if (h != t) \n                    {\n                        dp[g][h] = 0;\n                    }\n                }\n            }\n        }\n\n        for (auto a : dp[num]) {\n            temp_ans = (temp_ans + a) % mod;\n        }\n        ans = int(temp_ans);\n        \n        return ans;\n    }\n};\n",
-    "submit_ts": 1719070726.0
+    "submit_ts": "1719070726",
+    "subm_id": "1296830241"
 }

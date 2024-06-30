@@ -1,5 +1,6 @@
 {
     "username": "krishnash1355",
     "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n    const int kitna = 405;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> values(n + 1, -1);\n        for (auto i : requirements) values[i[0] + 1] = i[1];\n        vector<vector<long long>> dp(n + 1, vector<long long>(kitna + 1, 0));\n        dp[0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= kitna; j++)\n                for (int k = 0; k < i; k++)\n                    if (j - k >= 0) (dp[i][j] += dp[i - 1][j - k]) %= mod;\n            if (values[i] >= 0) {\n                int kon = values[i];\n                for (int x = 0; x <= kitna; x++) if (x != values[i]) dp[i][x] = 0;\n            }\n        }\n        long long ans = 0;\n        for (int i = 0; i <= kitna; i++) (ans += dp[n][i]) %= mod;\n        return ans;\n    }\n};",
-    "submit_ts": 1719071488.0
+    "submit_ts": "1719071488",
+    "subm_id": "1296847876"
 }

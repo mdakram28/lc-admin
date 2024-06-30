@@ -1,5 +1,6 @@
 {
     "username": "Keshav_3003",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int> &nums, int k) \n    {\n        unordered_map<int, int> umap;\n        int num = nums[0],val = nums[0],ans = abs(val - k);\n        for (int j = 0; j < 32; j++) \n        {\n            if (num & (1 << j)) \n                umap[j]++;\n        }\n\n        int Lidx = 0, Ridx = 0;\n        while (Ridx < nums.size()) \n        {\n            if (val > k || Lidx > Ridx)\n            {\n                Ridx++;\n                if (Ridx >= nums.size()) \n                    break;\n                int num = nums[Ridx];\n                for (int j = 0; j < 32; j++) \n                {\n                    if (num & (1 << j))\n                        umap[j]++;\n                }\n            } \n            else \n            {\n                int num = nums[Lidx];\n                for (int j = 0; j < 32; j++) \n                {\n                    if (num & (1 << j)) \n                        umap[j]--;\n                }\n                Lidx++;\n            }\n\n            val = 0;\n            for (auto it = umap.begin(); it != umap.end(); it++) \n            {\n                if (it->second == Ridx - Lidx + 1) \n                    val += (1 << it->first);\n            }\n\n            if (Lidx <= Ridx)\n                ans = min(ans, abs(val - k));\n        }\n\n        return ans;\n}\n\n};",
-    "submit_ts": 1717299864.0
+    "submit_ts": "1717299864",
+    "subm_id": "1274826283"
 }

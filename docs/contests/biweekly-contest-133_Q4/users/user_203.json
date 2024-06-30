@@ -1,5 +1,6 @@
 {
     "username": "braindroid",
     "submission": "class Solution {\npublic:\n    int dp[305][406];\n    vector<int>pref;\n    int n;\n    const int M = (int)1e9+7;\n    \n    int solve(int i , int inv) {\n        if(inv > pref[n-1]) {\n            return 0;\n        }\n        if(i == n) {\n           return 1;\n        }\n        if(dp[i][inv] != -1) return dp[i][inv];\n        int ans = 0;\n        int choices = i;\n        for(int j = 0 ; j <= choices ; j++) {\n            if(pref[i] == -1) {\n             ans += solve(i+1,inv+j);\n             ans %= M;\n            } else {\n             if((inv + j) == pref[i]) {\n              ans += solve(i+1,inv+j);\n              ans %= M;\n             }\n            }\n            ans %= M;\n        }\n        ans %= M;\n        return dp[i][inv] = ans;\n    }\n    \n    int numberOfPermutations(int N, vector<vector<int>>& requirements) {\n        n = N;\n        pref.resize(n,-1);\n        for(auto &x : requirements) {\n            pref[x[0]] = x[1];\n        }\n        memset(dp,-1,sizeof(dp));\n        return solve(0,0);\n        \n    }\n};",
-    "submit_ts": 1719069225.0
+    "submit_ts": "1719069225",
+    "subm_id": "1296790372"
 }

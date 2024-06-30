@@ -1,5 +1,6 @@
 {
     "username": "lympanda",
     "submission": "vector<int> a[110000];\nint d[110000];\nint p[110000];\nint ans;\n\nvoid doit(int x)\n{\n    int i,y;\n    vector<int> ll;\n    d[x]=0;\n    ll.clear();\n    for (i=0;i<a[x].size();i++)\n    {\n        y=a[x][i];\n        if (y==p[x]) continue;\n        p[y]=x;\n        doit(y);\n        ll.push_back(d[y]+1);\n        d[x]=max(d[x],d[y]+1);\n    }\n    sort(ll.rbegin(),ll.rend());\n    ans=max(ans,d[x]);\n    if (ll.size()>=2)\n    {\n        ans=max(ans,ll[0]+ll[1]);\n    }\n}\n\nint doit(vector<vector<int>>& e)\n{\n    int i,j,k,n,x,y;\n    vector<int> aa;\n    vector<int> aa1;\n    n=e.size()+1;\n    for (i=0;i<n;i++)\n    {\n        a[i].clear();\n        p[i]=-1;\n    }\n    for (i=0;i<e.size();i++)\n    {\n        x=e[i][0];\n        y=e[i][1];\n        a[x].push_back(y);\n        a[y].push_back(x);\n    }\n    ans=0;\n    doit(0);\n    return ans;\n}\n\nclass Solution {\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int v1,v2;\n        v1=doit(edges1);\n        v2=doit(edges2);\n        //cout<<\"v1,v2:\"<<v1<<\" \"<<v2<<endl;\n        return max(max(v1,v2),(v1+1)/2+(v2+1)/2+1);\n    }\n};",
-    "submit_ts": 1719716176.0
+    "submit_ts": "1719716176",
+    "subm_id": "1304357137"
 }

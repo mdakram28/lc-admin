@@ -1,5 +1,6 @@
 {
     "username": "sumon_1212",
     "submission": "class Solution {\npublic:\n    int ck[100002][30];\n    int minimumDifference(vector<int>& nums, int k) {\n        int i,j;\n        for(i=0;i<30;i++)\n        {\n            ck[nums.size()][i]=nums.size();\n        }\n        for(i=nums.size()-1;i>=0;i--)\n        {\n            for(j=0;j<30;j++)\n            {\n                if((1LL<<j)&nums[i])\n                {\n                    ck[i][j]=ck[i+1][j];\n                }\n                else\n                {\n                    ck[i][j]=i;\n                }\n            }\n        }\n        int ans=INT_MAX;\n        for(i=0;i<nums.size();i++)\n        {\n            int a=nums[i];\n            ans=min(ans,abs(a-k));\n            j=i;\n            while(a>=k&&j<nums.size()-1)\n            {\n                int mn=nums.size();\n                for(int l=0;l<30;l++)\n                {\n                    if((1LL<<l)&a)\n                    {\n                        mn=min(mn,ck[j][l]);\n                    }\n                }\n                if(mn<nums.size())\n                {\n                    a&=nums[mn];\n                    ans=min(ans,abs(a-k));\n                    j=mn;\n                }\n                else\n                {\n                    break;\n                }\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717296907.0
+    "submit_ts": "1717296907",
+    "subm_id": "1274722882"
 }

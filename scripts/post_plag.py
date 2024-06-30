@@ -56,6 +56,7 @@ class DolosFile:
     path: str
     content: str
     subm_ts: float
+    subm_id: float
 
     # Computed fields
     def get_username(self):
@@ -93,13 +94,13 @@ class ReportProcessor:
     @cache
     def get_files(self) -> Dict[str, DolosFile]:
         dolos_info_path = join(self.base_dir, "info.csv")
-        subm_time = {}
+        subm_info = {}
         with open(dolos_info_path) as f:
             csv_reader = csv.DictReader(f)
             for row in csv_reader:
                 if csv_reader.line_num == 0:
                     continue
-                subm_time[row["filename"]] = float(row["subm_ts"])
+                subm_info[row["filename"]] = row
 
         files_path = join(self.report_dir, "files.csv")
         ret = {}
@@ -108,7 +109,13 @@ class ReportProcessor:
             for row in csv_reader:
                 if csv_reader.line_num == 0:
                     continue
-                ret[row["id"]] = DolosFile(row["id"], row["path"], row["content"], subm_time[row["path"]])
+                ret[row["id"]] = DolosFile(
+                    row["id"], 
+                    row["path"], 
+                    row["content"], 
+                    subm_info[row["path"]]["subm_ts"],
+                    subm_info[row["path"]]["subm_id"],
+                )
         return ret
 
     def get_groups(self, sim_thres: int):
@@ -160,7 +167,7 @@ class ReportProcessor:
         
         users_file = open(join(self.base_dir, "users.csv"), "w", newline='', encoding='utf-8')            
         writer = csv.writer(users_file)
-        writer.writerow(["fileId", "username", "rank", "submit_ts"])
+        writer.writerow(["fileId", "username", "rank", "submit_ts", "subm_id"])
 
         for file in files.values():
             user_file = join(out_dir, f"user_{file.id}.json")
@@ -168,10 +175,11 @@ class ReportProcessor:
                 json.dump({
                     "username": file.get_username(),
                     "submission": file.content,
-                    "submit_ts": file.subm_ts
+                    "submit_ts": file.subm_ts,
+                    "subm_id": file.subm_id
                 }, f, indent=4)
             
-            writer.writerow([file.id, file.get_username(), file.get_rank(), file.subm_ts])
+            writer.writerow([file.id, file.get_username(), file.get_rank(), file.subm_ts, file.subm_id])
 
         users_file.close()
 

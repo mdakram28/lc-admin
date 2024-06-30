@@ -1,5 +1,6 @@
 {
     "username": "ciphercraft",
     "submission": "class Solution\n{\npublic:\n  int bfs(vector<vector<int>> &adj, int s, int &d)\n  {\n    vector<int> dist(size(adj), INT_MIN); deque<int> bfsq;\n    bfsq.push_back(s); dist[s] = 0; d = s;\n    while (size(bfsq))\n    {\n      int node = bfsq.front(); bfsq.pop_front();\n      for (int &neighbor : adj[node])\n      {\n        if (dist[neighbor] == INT_MIN)\n        {\n          dist[neighbor] = dist[node] + 1; bfsq.push_back(neighbor);\n          if (dist[neighbor] <= dist[d]) continue;\n          else d = neighbor;\n        }\n      }\n    }\n    return dist[d];\n  }\n\n  int minimumDiameterAfterMerge(vector<vector<int>> &e1, vector<vector<int>> &e2)\n  {\n    int n = size(e1) + 1, m = size(e2) + 1, f1 = 0, f2 = 0, d1, d2, res;\n    vector<vector<int>> adj1(n), adj2(m);\n    for (auto &e : e1)\n    {\n      adj1[e[0]].push_back(e[1]);\n      adj1[e[1]].push_back(e[0]);\n    }\n    for (auto &e : e2)\n    {\n      adj2[e[0]].push_back(e[1]);\n      adj2[e[1]].push_back(e[0]);\n    }\n    bfs(adj1, 0, f1); d1 = bfs(adj1, f1, f1); bfs(adj2, 0, f2);\n    d2 = bfs(adj2, f2, f2); res = max(d1, d2);\n    res = max(res, ((d1 + 1) / 2) + ((d2 + 1) / 2) + 1);\n    return res;\n  }\n};\n",
-    "submit_ts": 1719719934.0
+    "submit_ts": "1719719934",
+    "subm_id": "1304454422"
 }

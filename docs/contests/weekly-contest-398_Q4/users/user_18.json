@@ -1,5 +1,6 @@
 {
     "username": "thomas-li",
     "submission": "#include <bits/stdc++.h>\nusing namespace std;\n#define rep(i, a, b) for(int i = a; i < (b); ++i)\n#define all(x) begin(x), end(x)\n#define sz(x) (int)(x).size()\n#define PB push_back\n#define FS first\n#define SD second\n#define cmx(x,y) x = max(x,y)\n#define cmn(x,y) x = min(x,y)\n#define ary(k) array<int,k>\ntypedef pair<int, int> pii;\ntypedef vector<int> vi;\ntypedef long long ll;\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        const int MX = 32;\n        vector<vector<int64_t>> b(MX,vector<int64_t>(MX));\n        b[0][0] = 1;\n        for(int i = 1; i < MX; i++){\n            for(int j = 0; j <= i; j++){\n                b[i][j] = b[i-1][j];\n                if(j) b[i][j] += b[i-1][j-1];\n            }\n        }\n        ll sum = 1,ans = 0;\n        for(int mx = 0; mx <= 30; mx++){\n            ll d = k-sum;   \n            if(d <= 0){\n                d = -d;\n                // place -1s around\n                ll gaps = mx+1;         \n                // ans = c(gaps,d)\n                if(gaps >= d){\n                    //cerr << gaps << \" \" << d << \"\\n\";\n                    ans += b[gaps][d];\n                }\n            }\n            sum += 1<<mx;\n        } \n        return ans;\n    }\n};\n\n",
-    "submit_ts": 1716086742.0
+    "submit_ts": "1716086742",
+    "subm_id": "1261761799"
 }

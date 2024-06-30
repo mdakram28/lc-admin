@@ -1,5 +1,6 @@
 {
     "username": "gonglinyuan",
     "submission": "import numpy as np\n\nM = 1000000007\n\ng = np.full((301, 301, 401), fill_value=-1, dtype=np.int32)\n\ndef calc_g(i, j, k):\n    if i == 0 or j == 0:\n        if k == 0:\n            return 1\n        else:\n            return 0\n    if k - i >= 0:\n        return (get_g(i - 1, j, k) + get_g(i, j - 1, k - i)) % M\n    else:\n        return get_g(i - 1, j, k)\n\ndef get_g(i, j, k):\n    if g[i, j, k] != -1:\n        return int(g[i, j, k])\n    v = calc_g(i, j, k)\n    g[i, j, k] = v\n    return v\n\n\nf = {}\n\ndef calc_f(i, j):\n    if j == 0:\n        return 1\n    s = 0\n    for k in range(i):\n        if k <= j:\n            s = (s + get_f(i - 1, j - k)) % M\n    return s\n\ndef get_f(i, j):\n    if (i, j) in f:\n        return f[(i, j)]\n    v = calc_f(i, j)\n    f[(i, j)] = v\n    return v\n\n\n\nclass Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        last_end = 0\n        last_cnt = 0\n        ans = 1\n        for end, cnt in sorted(requirements):\n            end += 1\n            tmp = 0\n            for k in range(cnt - last_cnt + 1):\n                tmp = (tmp + get_f(end - last_end, k) * get_g(last_end, end - last_end, cnt - last_cnt - k)) % M\n            # print(tmp)\n            ans = ans * tmp % M\n            last_end = end\n            last_cnt = cnt\n        return ans",
-    "submit_ts": 1719070314.0
+    "submit_ts": "1719070314",
+    "subm_id": "1296819935"
 }

@@ -1,5 +1,6 @@
 {
     "username": "G00010100",
     "submission": "class Solution {\nprivate:\npublic:\n    pair<int,int> furthest(vector<vector<int>> &adjc, int u, int p) {\n        pair<int,int> ret {0, u};\n        for (int v : adjc[u]) {\n            if (v == p)\n                continue;\n            pair<int,int> branch = furthest(adjc, v, u);\n            branch.first++;\n            ret = max(ret, branch);\n        }\n        return ret;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        vector<vector<int>> adjc1(edges1.size()+1);\n        vector<vector<int>> adjc2(edges2.size()+1);\n        for (vector<int> &edge : edges1) {\n            adjc1[edge[0]].push_back(edge[1]);\n            adjc1[edge[1]].push_back(edge[0]);\n        }\n        for (vector<int> &edge : edges2) {\n            adjc2[edge[0]].push_back(edge[1]);\n            adjc2[edge[1]].push_back(edge[0]);\n        }\n        auto [_, term1] = furthest(adjc1, 0, -1);\n        auto [diam1, __] = furthest(adjc1, term1, -1);\n        auto [___, term2] = furthest(adjc2, 0, -1);\n        auto [diam2, _____] = furthest(adjc2, term2, -1);\n        return max(diam1, max(diam2, (diam1+1)/2 + (diam2+1)/2 + 1));\n    }\n};",
-    "submit_ts": 1719717511.0
+    "submit_ts": "1719717511",
+    "subm_id": "1304393505"
 }

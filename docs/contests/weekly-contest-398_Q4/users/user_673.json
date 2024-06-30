@@ -1,5 +1,6 @@
 {
     "username": "bluesky999",
     "submission": "import java.util.*;\n\nclass Solution {\n\n    Map<Long, Integer> m;\n    public int waysToReachStair(int k) {\n        m = new HashMap<>();\n        int ans = waysToReachStair(1, 0, false, k);\n        return ans;\n    }\n\n    private int waysToReachStair(long cur, int jump, boolean prevBack, long target) {\n        tr(cur, jump,prevBack, target);\n        if (jump > 50 || cur > (1L << 50))\n            return 0;\n        long k = (cur<<8)+ (jump)*2 + (prevBack?1:0);\n        if (!m.containsKey(k)) {\n            int ans = 0;\n            if (cur == target)\n                ans++;\n            ans += waysToReachStair(cur + (1L << jump), jump + 1, false, target);\n            if (cur > 0 && !prevBack)\n                ans += waysToReachStair(cur - 1, jump, true, target);\n            m.put(k, ans);\n        }\n        tr(\">\", cur, jump,prevBack, target, m.get(k));\n        return m.get(k);\n    }\n\n\n    static void tr(Object... o) {\n//        System.out.println(Arrays.deepToString(o));\n    }\n}",
-    "submit_ts": 1716089246.0
+    "submit_ts": "1716089246",
+    "subm_id": "1261837118"
 }

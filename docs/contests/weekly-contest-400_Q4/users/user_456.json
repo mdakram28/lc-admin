@@ -1,5 +1,6 @@
 {
     "username": "VarunR",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int ret = (int)1e9 + 10;\n        int n = (int)nums.size();\n        vector<vector<int>> nxt(n + 1, vector<int>(31, n));\n        for(int i = n - 1; i >= 0; i--) {\n            for(int j = 0; j < 31; j++) {\n                if(nums[i] & (1 << j)) {\n                    nxt[i][j] = nxt[i + 1][j];\n                }\n                else nxt[i][j] = i;\n            }\n        }\n        for(int i = 0; i < n; i++) {\n            int cur = nums[i];\n            map<int, vector<int>> mp;\n            for(int j = 0; j < 31; j++) {\n                if(nums[i] & (1 << j) == 0) continue;\n                int vl = nxt[i][j];\n                if(vl == i or vl == n) continue;\n                mp[vl].push_back(j);\n            }\n            // cout << \"start \" << cur << '\\n';\n            ret = min(ret, abs(k - cur));\n            for(auto& x: mp) {\n                if(x.first == n) continue;\n                for(auto& xx: x.second) {\n                    cur ^= (1 << xx);\n                }\n                // cout << x.first << \" \" << cur << '\\n';\n                ret = min(ret, abs(k - cur));\n            }\n        }\n        // cout << '\\n';\n        return ret;\n    }\n};  ",
-    "submit_ts": 1717297615.0
+    "submit_ts": "1717297615",
+    "subm_id": "1274749444"
 }

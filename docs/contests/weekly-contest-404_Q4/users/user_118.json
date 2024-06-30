@@ -1,5 +1,6 @@
 {
     "username": "newbie_noob",
     "submission": "class Solution {\npublic:\n    void dfs(int u,int curr,int &dist,int &node,int par,vector<int>g[])\n    {\n        if(curr>dist)\n        {\n            dist=curr;\n            node=u;\n        }\n        for(auto v:g[u])\n        {\n            if(v==par)continue;\n            dfs(v,curr+1,dist,node,u,g);\n        }\n    }\n    int find(vector<int>g[])\n    {\n        int u=0;\n        int dist=0;\n        dfs(0,0,dist,u,-1,g);\n        int dia=0;\n        int v=u;\n        dfs(u,0,dia,v,-1,g);\n        return dia;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n=edges1.size()+1;        \n        int m=edges2.size()+1;\n        vector<int>g1[n+2];        \n        vector<int>g2[m+2];\n        for(auto it:edges1)\n        {\n            g1[it[0]].push_back(it[1]);\n            g1[it[1]].push_back(it[0]);\n        }\n        for(auto it:edges2)\n        {\n            g2[it[0]].push_back(it[1]);\n            g2[it[1]].push_back(it[0]);\n        }\n        int d1=find(g1);\n        int d2=find(g2);\n        return max({d1,d2,(d1+1)/2+(d2+1)/2 + 1});\n    }\n};",
-    "submit_ts": 1719717513.0
+    "submit_ts": "1719717513",
+    "subm_id": "1304393563"
 }

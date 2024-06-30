@@ -1,5 +1,6 @@
 {
     "username": "SouvikG2003",
     "submission": "class Solution {\nprivate:\n    static const int mudy = 1'000'000'007;\n    static const int inver = 400;\n\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        unordered_map<int, int> endIdxToInversionCnt;\n        for (auto& j : requirements) {\n            endIdxToInversionCnt[j[0] + 1] = j[1]; \n        }\n\n        vector<vector<long long>> NP(n + 1, vector<long long>(inver + 1, 0));\n        NP[0][0] = 1;\n\n        int m = 1;\n        while (m <= n) {\n            int CURR = 0;\n            while (CURR <= inver) {\n                int NWEW = 0;\n                while (NWEW < m) {int PREV = CURR - NWEW;\n                    if (PREV >= 0)    NP[m][CURR] = (NP[m][CURR] + NP[m - 1][PREV]) % mudy;\n                    ++NWEW;\n                }\n                ++CURR;\n            }\n            if (endIdxToInversionCnt.count(m) > 0) {\n                int REQ = endIdxToInversionCnt[m],CURR2 = 0;\n                while (CURR2 <= inver) {\n                    if (CURR2 != REQ)    NP[m][CURR2] = 0;\n                    ++CURR2;  }\n            }\n\n            ++m;\n        }\n        long long ANSSS = 0;\n        int INBG = 0;\n        while (INBG <= inver) {\n            ANSSS = (ANSSS + NP[n][INBG]) % mudy;\n            ++INBG;\n        } return static_cast<int>(ANSSS);\n    }\n}; ",
-    "submit_ts": 1719070531.0
+    "submit_ts": "1719070531",
+    "subm_id": "1296825354"
 }

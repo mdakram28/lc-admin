@@ -1,5 +1,6 @@
 {
     "username": "ryanwong0127",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, ed1: List[List[int]], ed2: List[List[int]]) -> int:\n        n1 = len(ed1) + 1\n        n2 = len(ed2) + 1\n        d1 = self.getDiameter(n1, ed1)\n        d2 = self.getDiameter(n2, ed2)\n        res = max(d1, d2)\n        res = max(res, (d1 + 1) // 2 + (d2 + 1) // 2 + 1)\n        return res\n\n    def getDiameter(self, n: int, ed: List[List[int]]) -> int:\n        g = self.drawGraph(n, ed)\n        _, target = self.helper(0, g)\n        d, _ = self.helper(target, g)\n        return d\n\n    def helper(self, start: int, g: List[List[int]]) -> Tuple[int, int]:\n        nn = len(g)\n        dd = [-10000] * nn\n        dd[start] = 0\n        q = deque([start])\n        endpoint = start\n\n        while q:\n            u = q.popleft()\n            for v in g[u]:\n                if dd[v] != -10000:\n                    continue\n                dd[v] = 1 + dd[u]\n                q.append(v)\n                if dd[v] <= dd[endpoint]:\n                    continue\n                endpoint = v\n        distance = dd[endpoint]\n        return distance, endpoint\n\n    def drawGraph(self, n: int, ed: List[List[int]]) -> List[List[int]]:\n        g = [[] for x in range(n)]\n        for u, v in ed:\n            g[u].append(v)\n            g[v].append(u)\n        return g",
-    "submit_ts": 1719717929.0
+    "submit_ts": "1719717929",
+    "subm_id": "1304404368"
 }

@@ -1,5 +1,6 @@
 {
     "username": "anshul_darediya",
     "submission": "class Solution {\npublic:\nvoid dfs(int node, int par,vector<int> g[],vector<int> &h) {\n        for(auto ch : g[node]) {\n            if(ch !=par) {\n                h[ch] = 1 + h[node];\n                dfs(ch, node, g, h);\n            }\n        }\n    }\n    int f(vector<int> g[],int n) {\n        vector<int> h(n,0);\n        dfs(0, -1, g, h);\n        int idx = 0;\n        for(int i=0;i<n;i++) {\n            if(h[idx]<h[i]) {\n                idx=i;\n            }\n        }\n        vector<int> H(n,0);\n        dfs(idx, -1, g, H);\n        int idx1 = 0;\n        for(int i=0;i<n;i++) {\n            if(H[idx1] < H[i]) {\n                idx1 = i;\n            }\n        }\n        return H[idx1];\n    }\n\n    int minimumDiameterAfterMerge(vector<vector<int>>& ar1, vector<vector<int>>& ar2) {\n        int n = ar1.size()+1;\n        int m = ar2.size()+1;\n        vector<int> g1[n], g2[m];\n        for(auto i : ar1) {\n            g1[i[0]].push_back(i[1]);            \n            g1[i[1]].push_back(i[0]);\n        }\n        for(auto i : ar2) {\n            g2[i[0]].push_back(i[1]);            \n            g2[i[1]].push_back(i[0]);\n        }\n        int res1 = f(g1,n);\n        int res2 = f(g2,m);\n        int mx = max(res1, res2);\n        mx = max(mx,(res1 + 1)/2 + (res2 + 1)/2 + 1);\n        return mx;\n    }\n    \n    \n};",
-    "submit_ts": 1719718165.0
+    "submit_ts": "1719718165",
+    "subm_id": "1304410361"
 }

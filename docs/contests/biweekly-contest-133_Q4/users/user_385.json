@@ -1,5 +1,6 @@
 {
     "username": "smalukav",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        sort(requirements.begin(), requirements.end());\n        assert(!requirements.empty());\n        assert(requirements.back()[0] + 1 == n);\n\n        array<int, 401> d{};\n        d[0] = 1;\n        array<int, 401> db;\n        size_t ri = 0;\n        for (int l = 0; l < n; ++l) {\n            db = d;\n            for (int c = 0; c <= 400; ++c) {\n                for (int a = 1; a <= l; ++a) {\n                    if (c + a > 400)\n                        break;\n                    d[c + a] = (d[c + a] + db[c]) % M;\n                }\n            }\n            while (ri < requirements.size() && requirements[ri][0] < l)\n                ++ri;\n            if (ri < requirements.size() && requirements[ri][0] == l) {\n                for (int c = 0; c <= 400; ++c) {\n                    if (c != requirements[ri][1])\n                        d[c] = 0;\n                }\n            }\n        }\n        return d[requirements.back()[1]];\n    }\n\nprivate:\n    static constexpr int M = 1000000007;\n};",
-    "submit_ts": 1719070389.0
+    "submit_ts": "1719070389",
+    "subm_id": "1296821813"
 }

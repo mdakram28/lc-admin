@@ -1,5 +1,6 @@
 {
     "username": "Silken",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& arr, int k) {\n        int best = INT_MAX;\n        int n =arr.size();\n        vector<int> bits(32);\n        int bitAnd = -1, start = 0;\n\n        int i;\n        auto change = [&](int ind, int count) {\n            int num = arr[ind];\n            bitAnd = 0;\n            for (int j = 0; j < 32; j++) {\n                bits[j] += (num & (1 << j)) ? count : 0;\n                if (bits[j] == i - start + 1) bitAnd |= (1 << j);\n            }\n\n            // debug(num, ind, count);\n        };\n\n        for (i = 0; i < n; i++) {\n            change(i, 1);\n            best = min(best, abs(bitAnd - k));\n            // debug(i, bitAnd, best);\n\n\n            while (bitAnd < k && start <= i) {\n                start++;\n                change(start - 1, -1);\n\n                if (start <= i) {\n                    best = min(best, abs(bitAnd - k));\n                }\n            }\n            // debug(i, bitAnd, best);\n        }\n        \n        return abs(best);\n    }\n};",
-    "submit_ts": 1717297738.0
+    "submit_ts": "1717297738",
+    "subm_id": "1274754059"
 }

@@ -1,5 +1,6 @@
 {
     "username": "skyinde2",
     "submission": "\nclass Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        pos = {nums[0]: 0}\n        dp = [1] * n\n        prev = [-1] * n\n\n        for i in range(1, n):\n            if nums[i] in pos:\n                prev[i] = pos[nums[i]]\n            pos[nums[i]] = i\n\n            if prev[i] >= 0:\n                dp[i] = dp[prev[i]] + 1\n\n        ret = max(dp)\n        heap = []\n\n        for w in range(k):\n            heap.clear()\n            heapq.heappush(heap, -dp[0])\n\n            for i in range(1, n):\n                save = dp[i]\n\n                dp[i] = -heap[0] + 1\n                if prev[i] >= 0:\n                    dp[i] = max(dp[i], dp[prev[i]] + 1)\n\n                heapq.heappush(heap, -save)\n\n            ret = max(ret, max(dp))\n        \n        return ret",
-    "submit_ts": 1717858931.0
+    "submit_ts": "1717858931",
+    "subm_id": "1281705128"
 }

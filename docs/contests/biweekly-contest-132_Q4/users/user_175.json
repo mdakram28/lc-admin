@@ -1,5 +1,6 @@
 {
     "username": "bruhmoment2000",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        \n        unordered_map<int, int> prev_index;\n        unordered_map<int, int> max_value;\n        vector<vector<int>> dp(n, vector<int> (k + 1, 0));\n        for(int i = 0; i <= k; i++) {\n            dp[0][i] = 1;\n            max_value[i] = 1;\n        }\n        prev_index[nums[0]] = 0;\n        \n        for(int i = 1; i < n; i++) {\n            int num = nums[i];\n            for(int j = 0; j <= k; j++) {\n                dp[i][j] = 1;\n                if(j > 0) {\n                    dp[i][j] = max(dp[i][j], 1 + max_value[j - 1]);\n                }\n                if(prev_index.find(num) != prev_index.end()) {\n                    dp[i][j] = max(dp[i][j], 1 + dp[prev_index[num]][j]);\n                }\n            }\n            \n            for(int j = 0; j <= k; j++) {\n                max_value[j] = max(max_value[j], dp[i][j]);\n            }\n            prev_index[num] = i;\n        }\n        \n        // for(int i = 0; i < n; i++) {\n        //     for(int j = 0; j <= k; j++) {\n        //         cout << dp[i][j] << ' ';\n        //     }\n        //     cout << '\\n';\n        // }\n        \n        int ans = 1;\n        for(int i = 0; i < n; i++) {\n            ans = max(ans, dp[i][k]);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717860696.0
+    "submit_ts": "1717860696",
+    "subm_id": "1281766336"
 }

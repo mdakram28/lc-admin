@@ -1,5 +1,6 @@
 {
     "username": "srichakradevarakonda5",
     "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        \n        size = len(nums)\n        lengths = [[1] * (k + 1) for _ in range(size)]\n        mx = 1\n        mx_lengths = [-1] * (k + 1)\n        num_to_lengths_map = [{} for _ in range(k + 1)]\n        \n        for i in range(size):\n            for j in range(k + 1):\n                for l in range(j):\n                    lengths[i][j] = max(lengths[i][j], 1 + mx_lengths[l])\n                \n                if nums[i] in num_to_lengths_map[j]:\n                    lengths[i][j] = max(lengths[i][j], 1 + num_to_lengths_map[j][nums[i]])\n                \n                mx = max(mx, lengths[i][j])\n            \n            for j in range(k + 1):\n                mx_lengths[j] = max(mx_lengths[j], lengths[i][j])\n                num_to_lengths_map[j][nums[i]] = max(num_to_lengths_map[j].get(nums[i], -1), lengths[i][j])\n        \n        return mx",
-    "submit_ts": 1717862363.0
+    "submit_ts": "1717862363",
+    "subm_id": "1281821075"
 }

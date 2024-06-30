@@ -1,5 +1,6 @@
 {
     "username": "kaq",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n        vector<int> dpMax(k + 1);\n        map<int, int> prevIndex;\n        int ans = 1;\n        for (int i = 0; i < n; i++) {\n            if (prevIndex.contains(nums[i])) {\n                int index = prevIndex[nums[i]];\n                for (int j = 0; j <= k; j++) {\n                    dp[i][j] = dp[index][j] + 1;\n                }\n            }\n            prevIndex[nums[i]] = i;\n            for (int j = 0; j < k; j++) {\n                dp[i][j + 1] = max(dp[i][j + 1], dpMax[j] + 1);\n            }\n            for (int j = 0; j <= k; j++) {\n                dpMax[j] = max(dpMax[j], dp[i][j]);\n            }\n        }\n        return *max_element(dpMax.begin(), dpMax.end());\n    }\n};",
-    "submit_ts": 1717857734.0
+    "submit_ts": "1717857734",
+    "subm_id": "1281661377"
 }

@@ -1,5 +1,6 @@
 {
     "username": "tungduong150105",
     "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        int ans = 0;\n        std::map<std::vector<int64_t>, int> mp;\n        std::function<int(int, int, int)> dfs = [&](int64_t cur, int jmp, int st) {\n            if (st == 0) {\n                return (cur == k ? 1 : 0);\n            }\n            std::vector<int64_t> f;\n            f.push_back(cur);\n            f.push_back(jmp);\n            f.push_back(st);\n            if (mp.count(f)) {\n                return mp[f];\n            }\n            int res = 0;\n            res += dfs(cur + (1 << jmp), jmp + 1, st - 1);\n            res += dfs(cur + (1 << jmp) - 1, jmp + 1, st - 1);\n            return mp[f] = res;\n        };\n        int tot = 0;\n        for (int i = 0; i <= 30; ++i) {\n            ans += dfs(1, 0, i);\n            ans += dfs(0, 0, i);\n            tot += (1 << i);\n            if (1 + tot - k > i + 2) {\n                break;\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716088771.0
+    "submit_ts": "1716088771",
+    "subm_id": "1261823570"
 }

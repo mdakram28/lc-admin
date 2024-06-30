@@ -1,5 +1,6 @@
 {
     "username": "r32626",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        def get_bit(num):\n            j = 0\n            tmp = [0]*32\n            while num:\n                if num & 1 != 0:\n                    tmp[j] = 1\n                j += 1\n                num >>= 1\n            return tmp\n        def get_value(bit_list, size):\n            v = 0\n            base = 1\n            for j in range(32):\n                if bit_list[j] == size:\n                    v += base\n                base <<= 1\n            return v\n        \n        bit_list = [0]*32\n        left = 0\n        ret = float(\"inf\")\n        for right, num in enumerate(nums):\n            tmp = get_bit(num)\n            for j in range(32):\n                bit_list[j] += tmp[j]\n            ret = min(abs(get_value(bit_list, right-left+1)-k), ret)\n            if ret == 0:\n                return ret\n            while left<=right and get_value(bit_list, right-left+1) < k:\n                tmp = get_bit(nums[left])\n                for j in range(32):\n                    bit_list[j] -= tmp[j]\n                left += 1\n                ret = min(abs(get_value(bit_list, right-left+1)-k), ret)            \n        return ret",
-    "submit_ts": 1717297368.0
+    "submit_ts": "1717297368",
+    "subm_id": "1274739918"
 }

@@ -1,5 +1,6 @@
 {
     "username": "boriswilliams",
     "submission": "class Solution:\n    def getResults(self, queries: List[List[int]]) -> List[bool]:\n        w = [[0, 0]]\n        r = []\n        for q in queries:\n            i = 0\n            j = len(w) - 1\n            while i < j:\n                k = math.ceil((i+j)/2)\n                if w[k][0] >= q[1]:\n                    j = k - 1\n                else:\n                    i = k\n            match q[0]:\n                case 1:\n                    w.insert(i + 1, [q[1], 0])\n                    w[i+1][1] = max(w[i][1], w[i+1][0] - w[i][0])\n                    i += 1\n                    if i + 1 < len(w):\n                        w[i+1][1] = max(w[i][1], w[i+1][0] - w[i][0])\n                        i += 1\n                    while i+1 < len(w) and w[i][1] < w[i+1][1] and w[i+1][0] - w[i][0] < w[i+1][1]:\n                        w[i+1][1] = max(w[i][1], w[i+1][0] - w[i][0])\n                        i += 1\n                    #print(w, q[1])\n                case 2:\n                    #print(w, i, q)\n                    d = max(q[1] - w[i][0], w[i][1])\n                    r.append(d >= q[2])\n            \"\"\"if len(r) == 12:\n                break\"\"\"\n        #print(w)\n        return r",
-    "submit_ts": 1716652581.0
+    "submit_ts": "1716652581",
+    "subm_id": "1267666841"
 }

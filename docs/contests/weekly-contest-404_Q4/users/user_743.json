@@ -1,5 +1,6 @@
 {
     "username": "happypotter",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def diameter(edges):\n            nbr = defaultdict(set)\n            for u, v in edges:\n                nbr[u].add(v)\n                nbr[v].add(u)\n            vis = [0]*(len(edges)+1)\n            def dfs(i):\n                vis[i] = 1\n                child_depths = (0, 0)\n                max_diameter, max_depth = 0, 0\n                for j in nbr[i]:\n                    if vis[j]: continue\n                    vis[j] = 1\n                    depth, diameter = dfs(j)\n                    depth += 1\n                    if depth > child_depths[0]:\n                        child_depths = (depth, child_depths[0])\n                    elif depth > child_depths[1]:\n                        child_depths = (child_depths[0], depth)\n                    max_diameter = max(max_diameter, diameter)\n                    max_depth = max(max_depth, depth)\n                #print(i, max(max_diameter, sum(child_depths)))\n                return max_depth, max(max_diameter, sum(child_depths))\n\n            _, d = dfs(0)\n            return d\n\n        d1, d2 = diameter(edges1), diameter(edges2) \n\n        return max(d1, d2, (d1+1)//2 + (d2+1)//2 + 1)\n\n\n",
-    "submit_ts": 1719717314.0
+    "submit_ts": "1719717314",
+    "subm_id": "1304388319"
 }

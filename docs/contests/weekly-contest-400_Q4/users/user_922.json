@@ -1,5 +1,6 @@
 {
     "username": "sujal_prakash15",
     "submission": "class Solution {\npublic:\n    int calc(int l,int r,vector<vector<int>> &pref)\n    {\n        int val=0;\n        for(int i=0;i<32;i++)\n        {\n            int len=pref[r][i]-pref[l-1][i];\n            if(len==(r-l+1))\n            {\n                val+=(1<<i);\n            }\n        }\n        return val;\n    }\n    int minimumDifference(vector<int>& a, int k) {\n        int n=a.size();\n        vector<vector<int>> pref(n+1,vector<int> (32,0));\n        for(int i=1;i<=n;i++)\n        {\n            for(int j=0;j<32;j++)\n            {\n                pref[i][j]+=pref[i-1][j];\n                if((a[i-1]>>j)&1)\n                {\n                    pref[i][j]++;\n                }\n            }\n        }\n        int ans=1e9;\n        for(int i=1;i<=n;i++)\n        {\n            int ele=a[i-1];\n            int low=i,high=n;\n            while(low<=high)\n            {\n                int mid=(high-low)/2+low;\n                if(calc(i,mid,pref)>=k){low=mid+1;}\n                else{high=mid-1;}\n            }\n            if(high<i)\n            {\n                ans=min(ans,abs(k-ele));\n            }\n            else\n            {\n                int prev=calc(i,high,pref);\n                int next=calc(i,min(n,high+1),pref);\n                ans=min({ans,abs(k-prev),abs(k-next)});\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717300616.0
+    "submit_ts": "1717300616",
+    "subm_id": "1274849654"
 }

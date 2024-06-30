@@ -1,5 +1,6 @@
 {
     "username": "charankumarudayagiri",
     "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        queue = deque([(1, 0, False)])\n        ways = defaultdict(int)\n        ways[(1, 0, False)] = 1\n\n        while queue:\n            stair, jump, last_was_down = queue.popleft()\n            current_ways = ways[(stair, jump, last_was_down)]\n\n            next_stair_up = stair + (1 << jump)\n            if next_stair_up <= k + 1:  \n                if (next_stair_up, jump + 1, False) not in ways:\n                    queue.append((next_stair_up, jump + 1, False))\n                ways[(next_stair_up, jump + 1, False)] += current_ways\n\n            if stair > 0 and not last_was_down:\n                if (stair - 1, jump, True) not in ways:\n                    queue.append((stair - 1, jump, True))\n                ways[(stair - 1, jump, True)] += current_ways\n\n        result = 0\n        for (s, j, lwd), count in ways.items():\n            if s == k:\n                result += count\n\n        return result\n\n",
-    "submit_ts": 1716087682.0
+    "submit_ts": "1716087682",
+    "subm_id": "1261791141"
 }

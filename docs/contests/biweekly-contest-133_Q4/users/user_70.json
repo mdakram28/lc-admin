@@ -1,5 +1,6 @@
 {
     "username": "yangxm",
     "submission": "constexpr int MAX = 512;\nconstexpr int MOD = 1000000007;\n\nint dp[2][MAX], cnt[MAX];\n\nint Add(int a, int b, int p = MOD) {\n  int c = a + b;\n  return c < p ? c : c - p;\n}\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n      int m = 0;\n      memset(cnt, -1, sizeof(cnt));\n      for (const auto& it : requirements) {\n        int x = it[0], y = it[1];\n        cnt[x] = y;\n        m = max(m, y);\n      }\n      memset(dp, 0, sizeof(dp));\n      int x = 0;\n      dp[0][0] = 1;\n      for (int i = 0; i < n; ++i) {\n        x ^= 1;\n        memset(dp[x], 0, sizeof(dp[x]));\n        for (int j = 0; j <= m; ++j) {\n          for (int k = max(j - i, 0); k <= j; ++k) {\n            dp[x][j] = Add(dp[x][j], dp[x ^ 1][k]);\n          }\n        }\n        if (cnt[i] != -1) {\n          for (int j = 0; j <= m; ++j) {\n            dp[x][j] = (j == cnt[i]) ? dp[x][j] : 0;\n          }\n        }\n      }\n      return dp[x][cnt[n - 1]];\n    }\n};",
-    "submit_ts": 1719068315.0
+    "submit_ts": "1719068315",
+    "subm_id": "1296760918"
 }

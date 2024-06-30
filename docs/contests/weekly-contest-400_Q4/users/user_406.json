@@ -1,5 +1,6 @@
 {
     "username": "penguinhacker",
     "submission": "template<class T> struct RMQ {\n\tint n;\n\tvector<vector<T>> st;\n\tT cmb(T a, T b) { return a & b; }\n\tvoid init(vector<T> a) {\n\t\tn=a.size(), st={a};\n\t\tfor (int i=1; (1<<i)<=n; ++i) {\n\t\t\tst.push_back(vector<T>(n-(1<<i)+1));\n\t\t\tfor (int j=0; j+(1<<i)-1<n; ++j)\n\t\t\t\tst[i][j]=cmb(st[i-1][j], st[i-1][j+(1<<i-1)]);\n\t\t}\n\t}\n\tT qry(int l, int r) {\n\t\tint k = 31 - __builtin_clz(r-l+1);\n\t\treturn cmb(st[k][l], st[k][r - (1 << k) + 1]);\n\t}\n};\n\nclass Solution {\npublic:\n    int minimumDifference(vector<int>& a, int k) {\n        RMQ<int> rq;\n        rq.init(a);\n        int ans=1e9;\n        for (int i=0; i<a.size(); ++i) {\n            if (a[i]<=k) {\n                ans=min(ans, k-a[i]);\n                continue;\n            }\n            int l=i;\n            int r=a.size()-1;\n            while(l<r) {\n                int mid=(l+r+1)/2;\n                if (rq.qry(i, mid)>=k)\n                    l=mid;\n                else\n                    r=mid-1;\n            }\n            ans=min(ans, rq.qry(i, l)-k);\n            if (l+1<a.size())\n                ans=min(ans, k-rq.qry(i, l+1));\n            cout << i << \" \" << ans << endl;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717297950.0
+    "submit_ts": "1717297950",
+    "subm_id": "1274761772"
 }

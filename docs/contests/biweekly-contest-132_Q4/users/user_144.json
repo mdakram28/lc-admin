@@ -1,5 +1,6 @@
 {
     "username": "WhatElseIsThere",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& a, int k) {\n        int n = a.size();\n        vector<unordered_map<int, int>> dp1(k + 2);\n        vector<set<pair<int, int>>> dp2(k + 2);\n        for (int i = 0; i < n; i++) {\n            for (int j = k; j >= 0; j--) {\n                if (dp2[j].empty()) {\n                    continue;\n                }\n                auto it = dp2[j].begin();\n                auto [len, x] = *it;\n                if (x != a[i]) {\n                    dp1[j + 1][a[i]] = max(dp1[j + 1][a[i]], -len + 1);\n                    dp2[j + 1].insert({len - 1, a[i]});\n                }\n                if (!dp1[j].contains(a[i])) {\n                    continue;\n                }\n                len = dp1[j][a[i]];\n                dp1[j][a[i]] = len + 1;\n                dp2[j].insert({-len - 1, a[i]});\n            }\n            if (!dp1[0].contains(a[i])) {\n                dp1[0][a[i]] = 1;\n                dp2[0].insert({-1, a[i]});\n            }\n        }\n        \n        int ans = 0;\n        for (int i = 0; i <= k; i++) {\n            if (dp2[i].empty()) {\n                continue;\n            }\n            auto it = dp2[i].begin();\n            ans = max(ans, -(it->first));\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717860446.0
+    "submit_ts": "1717860446",
+    "subm_id": "1281757899"
 }

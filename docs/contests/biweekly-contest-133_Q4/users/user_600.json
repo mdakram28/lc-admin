@@ -1,5 +1,6 @@
 {
     "username": "pulitkgp",
     "submission": "import scala.collection.mutable\n\nobject Solution {\n  private val MOD = 1_000_000_007\n  private val MAX_INVERSIONS = 400\n\n  def numberOfPermutations(n: Int, requirements: Array[Array[Int]]): Int = {\n    val reqMap = mutable.Map[Int, Int]()\n    for (req <- requirements) {\n      reqMap.put(req(0) + 1, req(1))\n    }\n\n    val permCounts = Array.ofDim[Long](n + 1, MAX_INVERSIONS + 1)\n    permCounts(0)(0) = 1\n\n    for (length <- 1 to n) {\n      for (inv <- 0 to MAX_INVERSIONS) {\n        for (newPos <- 0 until length) {\n          val prevInv = inv - newPos\n          if (prevInv >= 0) {\n            permCounts(length)(inv) = (permCounts(length)(inv) + permCounts(length - 1)(prevInv)) % MOD\n          }\n        }\n      }\n\n      if (reqMap.contains(length)) {\n        val targetInv = reqMap(length)\n        for (inv <- 0 to MAX_INVERSIONS) {\n          if (inv != targetInv) {\n            permCounts(length)(inv) = 0\n          }\n        }\n      }\n    }\n\n    var result = 0L\n    for (count <- permCounts(n)) {\n      result = (result + count) % MOD\n    }\n\n    result.toInt\n  }\n}\n",
-    "submit_ts": 1719070443.0
+    "submit_ts": "1719070443",
+    "subm_id": "1296823149"
 }

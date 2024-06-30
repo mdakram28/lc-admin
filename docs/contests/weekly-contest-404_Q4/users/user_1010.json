@@ -1,5 +1,6 @@
 {
     "username": "nobitanobi_123",
     "submission": "class Solution {\npublic:\n    int bfs(int st, vector<vector<int>>& gp, vector<int>& res) {\n        queue<int> q;\n        q.push(st);\n        res[st] = 0;\n        int fnod = st;\n\n        while (!q.empty()) {\n            int node = q.front();\n            q.pop();\n\n            for (int n : gp[node]) {\n                if (res[n] == -1) {\n                    res[n] = res[node] + 1;\n                    q.push(n);\n                    if (res[n] > res[fnod]) {\n                        fnod= n;\n                    }\n                }\n            }\n        }\n        return fnod;\n    }\n\n    int td(vector<vector<int>>& edges) {\n        int n = edges.size() + 1;\n        vector<vector<int> >gp(n);\n        for (const auto& edge : edges) {\n            gp[edge[0]].push_back(edge[1]);\n            gp[edge[1]].push_back(edge[0]);\n        }\n\n        vector<int>res(n, -1);\n        int nod= bfs(0, gp,res);\n\n       for(int i=0;i<n;i++)\n           res[i]=-1;\n        int on = bfs(nod, gp,res);\n\n        return res[on];\n    }\n\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int d1 = td(edges1);\n        int d2 = td(edges2);\n        int p=0;\n        int maxi1=max(p,(d1 + 1) / 2 + (d2 + 1) / 2 + 1);\n        int ans=max(d1, d2);\n        ans=max(ans,maxi1);\n        return ans;\n    }\n};\n",
-    "submit_ts": 1719718379.0
+    "submit_ts": "1719718379",
+    "subm_id": "1304415757"
 }

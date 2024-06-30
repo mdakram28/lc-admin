@@ -1,5 +1,6 @@
 {
     "username": "yuyu03582",
     "submission": "#include <vector>\n#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        const int MOD = 1000000007;\n        unordered_map<int, int> mp;\n        for (auto& val : requirements) {\n            mp[val[0] + 1] = val[1];\n        }\n        long long mx = 500LL;\n        vector<vector<long long>> dp(n + 1, vector<long long>(mx + 1, 0));\n        dp[0][0] = 1;\n        for (int a = 1; a <= n; ++a) {\n            vector<long long> pre(mx + 1, 0);\n            pre[0] = dp[a - 1][0];\n            for (int i = 1; i <= mx; ++i) {\n                pre[i] = (pre[i - 1] + dp[a - 1][i]) % MOD;\n            }\n            for (int b = 0; b <= mx; ++b) {\n                int start = max(0, b - (a - 1));\n                dp[a][b] = (pre[b] - (start > 0 ? pre[start - 1] : 0) + MOD) % MOD;\n                if (mp.find(a)!=mp.end() && b != mp[a]) {\n                    dp[a][b] = 0;\n                }\n            }\n        }\n\n        \n        long long ans = 0;\n        for (int b = 0; b <= mx; ++b) {\n            ans = (ans + dp[n][b]) % MOD;\n        }\n\n        return ans;\n    }\n};\n",
-    "submit_ts": 1719071564.0
+    "submit_ts": "1719071564",
+    "subm_id": "1296849460"
 }

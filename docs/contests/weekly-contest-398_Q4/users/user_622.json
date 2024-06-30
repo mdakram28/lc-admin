@@ -1,5 +1,6 @@
 {
     "username": "Farhan20",
     "submission": "class Solution {\npublic:\n    #define ll long long\n    ll tw[35];\n    int waysToReachStair(int k) {\n        if(k == 0) return 2;\n        if(k <= 2) return 4;\n        if(k == 3) return 3;\n        \n        tw[0] = 1;\n        for(ll i = 1; i < 35; i++) tw[i] = tw[i - 1] * 2;\n        \n        map<array<ll, 3>, ll> dp;\n        ll ans = rec(1, 0, 1, dp, k);\n        return ans;\n    }\n    \n    ll rec(ll val, ll bt, ll f, map<array<ll, 3>, ll>& dp, ll k) {\n        if(val >= k + 2) return 0;\n        \n        if(val == k) return 1;\n        \n        if(dp.count({val, bt, f})) return dp[{val, bt, f}];\n        \n        ll tot = 0;\n        // if(val == k) tot++;\n        if(f == 1) {\n            tot += rec(val + tw[bt], bt + 1, 1, dp, k);\n            tot += rec(val - 1, bt, 0, dp, k);\n        } else {\n            tot += rec(val + tw[bt], bt + 1, 1, dp, k);\n        }\n        \n        return dp[{val, bt, f}] = tot;\n    }\n};",
-    "submit_ts": 1716089112.0
+    "submit_ts": "1716089112",
+    "subm_id": "1261833371"
 }

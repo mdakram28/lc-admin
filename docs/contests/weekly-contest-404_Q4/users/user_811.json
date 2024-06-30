@@ -1,5 +1,6 @@
 {
     "username": "hacch141",
     "submission": "class Solution {\npublic:\n\n    int getDiameter(vector<vector<int>>& edges) {\n        int n = edges.size() + 1;\n        vector<vector<int>> tree(n);\n        for(auto i : edges) {\n            tree[i[0]].push_back(i[1]);\n            tree[i[1]].push_back(i[0]);\n        }\n        \n        vector<int> prev(n), dist(n, 0);\n        function<void(int,int)> dfs = [&](int u, int p) {\n            prev[u] = p;\n            for(auto v : tree[u]) {\n                if(v == p) continue;\n                dist[v] = 1 + dist[u];\n                dfs(v, u);\n            }\n        };\n                    \n        dfs(0, 0);\n        int x = max_element(dist.begin(), dist.end()) - dist.begin();\n        dist[x] = 0;\n                    \n        dfs(x, x);\n        int y = max_element(dist.begin(), dist.end()) - dist.begin();\n        \n        vector<int> path;\n        path.push_back(y);\n        while(y != prev[y]) {\n            y = prev[y];\n            path.push_back(y);\n        }\n        return path.size() - 1;\n    }\n\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int d1 = getDiameter(edges1);\n        int d2 = getDiameter(edges2);\n        int ans = max(d1, d2);\n        ans = max(ans, 1 + (d1 / 2) + (d2 / 2) + (d1 % 2) + (d2 % 2));\n        return ans;\n    }\n};",
-    "submit_ts": 1719719857.0
+    "submit_ts": "1719719857",
+    "subm_id": "1304452341"
 }

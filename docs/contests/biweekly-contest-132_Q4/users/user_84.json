@@ -1,5 +1,6 @@
 {
     "username": "OkamiWang",
     "submission": "class Solution {\n public:\n  int maximumLength(vector<int>& nums, int k) {\n    const int n = nums.size();\n    map<int, int> previousNumPosition;\n    vector<int> previousSameNumPosition(n, -1);\n    for (int i = 0; i < n; i++) {\n      if (previousNumPosition.count(nums[i]) != 0) {\n        previousSameNumPosition[i] = previousNumPosition[nums[i]];\n      }\n      previousNumPosition[nums[i]] = i;\n    }\n\n    vector<vector<int>> f(n, vector<int>(k + 1, 1));\n    map<int, int> maxFBefore;\n    for (int i = 0; i < n; i++) {\n      for (int l = 0; l <= k; l++) {\n        f[i][l] = max(f[i][l], maxFBefore[l - 1] + 1);\n        if (previousSameNumPosition[i] != -1) {\n          f[i][l] = max(f[i][l], f[previousSameNumPosition[i]][l] + 1);\n        }\n      }\n      for (int l = 0; l <= k; l++) {\n        maxFBefore[l] = max(maxFBefore[l], f[i][l]);\n      }\n    }\n\n    int ans = 0;\n    for (int i = 0; i < n; i++)\n      for (int l = 0; l <= k; l++)\n        ans = max(ans, f[i][l]);\n    return ans;\n  }\n};\n",
-    "submit_ts": 1717859519.0
+    "submit_ts": "1717859519",
+    "subm_id": "1281725393"
 }

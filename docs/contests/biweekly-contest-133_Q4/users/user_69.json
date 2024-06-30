@@ -1,5 +1,6 @@
 {
     "username": "MofanLi",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        requirements.sort()\n        cur = 1\n        cur_cnt = 0\n        cur_len = 1\n        \n        @lru_cache(405000)\n        def find_comb(cur_len, extend, cnt):\n            # print(cur_len, extend, cnt)\n            if cnt < 0 or extend < 0:\n                return 0\n            if extend == 1:\n                if cnt > cur_len:\n                    return 0\n                return 1\n            return sum(find_comb(cur_len + 1, extend - 1, cnt - i) for i in range(cur_len +1))\n        \n        for end, cnt in requirements:\n            if end == 0:\n                if cnt:\n                    return 0\n                continue\n            extend = end + 1 - cur_len\n            incre_cnt = cnt - cur_cnt\n            cur = (cur * find_comb(cur_len, extend, incre_cnt)) % (10 ** 9 + 7)\n            cur_len = end +1\n            cur_cnt = cnt\n        return cur\n        \n            \n            ",
-    "submit_ts": 1719068287.0
+    "submit_ts": "1719068287",
+    "subm_id": "1296759884"
 }

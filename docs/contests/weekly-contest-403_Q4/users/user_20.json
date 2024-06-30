@@ -1,5 +1,6 @@
 {
     "username": "laughing-parepvg",
     "submission": "class Solution:\n    def minimumSum(self, g: List[List[int]]) -> int:\n        m,n=len(g),len(g[0])\n        def cal(x1,y1,x2,y2):\n            minx=inf\n            maxx=-inf\n            miny=inf\n            maxy=-inf\n            for i in range(x1,x2+1):\n                for j in range(y1,y2+1):\n                    if g[i][j]==1:\n                        minx=min(minx,i)\n                        maxx=max(maxx,i)\n                        miny=min(miny,j)\n                        maxy=max(maxy,j)\n            dx=maxx-minx+1\n            dy=maxy-miny+1\n            return max(1,dx*dy)\n        res=inf\n        for y1 in range(0,n-1):\n            for y2 in range(y1+1,n-1):\n                res=min(res,cal(0,0,m-1,y1)+cal(0,y1+1,m-1,y2)+cal(0,y2+1,m-1,n-1))\n        for x1 in range(0,m-1):\n            for x2 in range(x1+1,m-1):\n                res=min(res,cal(0,0,x1,n-1)+cal(x1+1,0,x2,n-1)+cal(x2+1,0,m-1,n-1))\n        for x in range(0,m-1):\n            for y in range(0,n-1):\n                res=min(res,cal(0,0,x,y)+cal(0,y+1,x,n-1)+cal(x+1,0,m-1,n-1))\n                res=min(res,cal(0,0,x,n-1)+cal(x+1,0,m-1,y)+cal(x+1,y+1,m-1,n-1))\n        for y in range(0,n-1):\n            for x in range(0,m-1):\n                res=min(res,cal(0,0,x,y)+cal(0,y+1,m-1,n-1)+cal(x+1,0,m-1,y))\n                res=min(res,cal(0,0,m-1,y)+cal(0,y+1,x,n-1)+cal(x+1,y+1,m-1,n-1))\n        return res",
-    "submit_ts": 1719111446.0
+    "submit_ts": "1719111446",
+    "subm_id": "541387020"
 }

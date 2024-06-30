@@ -1,5 +1,6 @@
 {
     "username": "ahyangyi",
     "submission": "const int modulo = 1000000007;\nconst int N = 300;\nconst int M = 401;\nint dp[N][M + 1];\n\nclass Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<int> prefices(n, -1);\n        for (const auto& p : requirements) {\n            prefices[p[0]] = p[1];\n        }\n        \n        if (prefices[0] > 0) {\n            return 0;\n        }\n        \n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j <= M; ++j) {\n                dp[i][j] = 0;\n            }\n        }\n        dp[0][0] = 1;\n\n        for (int i = 0; i + 1 < n; ++i) {\n            for (int j = 0; j <= M; ++j) {\n                for (int k = 0; k <= i + 1; ++k) {\n                    int l = std::min(j + k, M);\n                    if (prefices[i + 1] == -1 || l == prefices[i + 1])\n                    {\n                        dp[i + 1][l] = (dp[i][j] + dp[i + 1][l]) % modulo;\n                    }\n                }\n            }\n        }\n        \n        int ret = 0;\n        for (int j = 0; j <= M; ++j) {\n            ret = (ret + dp[n - 1][j]) % modulo;\n        }\n        \n        return ret;\n    }\n};",
-    "submit_ts": 1719067561.0
+    "submit_ts": "1719067561",
+    "subm_id": "1296730593"
 }

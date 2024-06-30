@@ -1,5 +1,6 @@
 {
     "username": "Ankush_balse",
     "submission": "class Solution {\n    int memo(int i,int jump,bool canGoDown,int k,unordered_map<int,vector<vector<int>>> &dp){\n        int ans = 0;\n        if(i==k) ans = 1;\n        else if(i<0 || i-k>1 || jump>=30) return 0;\n        if(dp.find(i)!=dp.end()){\n            if(dp[i][jump][canGoDown]!=-1)\n                if(i!=k) return dp[i][jump][canGoDown];\n        }\n        else\n            dp[i] = vector<vector<int>> (30,vector<int> (2,-1));\n        if(canGoDown)\n            ans += memo(i-1,jump,false,k,dp);\n        ans += memo(i+(1<<jump),jump+1,true,k,dp);\n        // cout << i << \", \" << jump << \", \" << canGoDown << \" : \" << ans << endl;\n        return dp[i][jump][canGoDown]=ans;\n    }\n    int recur(int i,int jump,bool canGoDown,int k){\n        int ans = 0;\n        if(i==k) ans = 1;\n        else if(i<0 || i-k>1 || jump>=30) return 0;\n        if(canGoDown)\n            ans += recur(i-1,jump,false,k);\n        ans += recur(i+(1<<jump),jump+1,true,k);\n        return ans;\n    }\npublic:\n    int waysToReachStair(int k) {\n        unordered_map<int,vector<vector<int>>> dp;\n        int ans = memo(1,0,true,k,dp);\n        // int ans = recur(1,0,true,k);\n        return ans;\n    }\n};",
-    "submit_ts": 1716090060.0
+    "submit_ts": "1716090060",
+    "subm_id": "1261858161"
 }

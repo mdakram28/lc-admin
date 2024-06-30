@@ -1,5 +1,6 @@
 {
     "username": "Naman_Sharma_",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int a, vector<vector<int>>& b) {\n        using ll = long long;\n        \n        \n        const int MOD = 1e9 + 7;\n        \n        \n        const int MAXI_MAX = 400;\n        \n        \n        map<int, int> c;\n        sort(begin(b), end(b));\n        for (auto& d : b) {\n            c[d[0] + 1] = d[1];\n        }\n        vector<vector<long>> e(a + 1, vector<long>(MAXI_MAX + 1, 0));\n        e[0][0] = 1;\n        \n        for (int f = 1; f <= a; f++) {\n            for (int g = 0; g <= MAXI_MAX; g++) {\n                for (int h = 0; h < f; h++) {\n                    int i = g - h;\n                    if (i >= 0) {\n                        e[f][g] = (e[f][g] + e[f - 1][i]) % MOD;\n                    }\n                }\n            }\n            \n            \n            if (c.count(f)) {\n                int j = c[f];\n                for (int g = 0; g <= MAXI_MAX; g++) {\n                    if (g != j) {\n                        e[f][g] = 0;\n                    }\n                }\n            }\n        }\n        long k = 0;\n        for (long l : e[a]) {\n            k = (k + l) % MOD;\n        }\n        return k;\n    }\n};\n",
-    "submit_ts": 1719071731.0
+    "submit_ts": "1719071731",
+    "subm_id": "1296852917"
 }

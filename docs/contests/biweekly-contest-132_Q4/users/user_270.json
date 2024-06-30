@@ -1,5 +1,6 @@
 {
     "username": "priyanshu_p28",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        k++;\n        int n = nums.size();\n        map<int,int> dp, curr, nxt;\n        for(int i = 0; i < n; i++){\n            curr[i] = n;\n        }\n        for(auto it:nums){\n            curr[it] = n;\n        }\n        for(int i = n - 1; ~i; i--){\n             nxt[i] = curr[nums[i]], curr[nums[i]] = i;\n        }\n        \n        while(k--){\n            for(int i = n; i; i--){\n                dp[i] = max(dp[i], dp[i - 1] + 1);\n            }\n            for(int i = 0; i < n; i++){\n                if(nxt[i] < n){\n                    dp[nxt[i] + 1] = max(dp[nxt[i] + 1], dp[i + 1] + 1);\n                }\n                dp[i + 1] = max(dp[i + 1], dp[i]);\n            }\n        }\n        int ans = 0;\n        for(auto it:dp){\n            ans = max(ans, it.second);\n        }\n        return ans;\n    }   \n};",
-    "submit_ts": 1717860114.0
+    "submit_ts": "1717860114",
+    "subm_id": "1281746182"
 }

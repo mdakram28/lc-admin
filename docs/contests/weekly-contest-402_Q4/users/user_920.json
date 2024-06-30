@@ -1,5 +1,6 @@
 {
     "username": "miniDust",
     "submission": "from sortedcontainers import SortedSet as SS\n\nclass Solution:\n    def countOfPeaks(self, nums: List[int], queries: List[List[int]]) -> List[int]:\n        ss = SS()\n        n = len(nums)\n\n        def f(i):\n            return i > 0 and i < n - 1 and nums[i] > max(nums[i - 1], nums[i + 1])\n\n        for i, x in enumerate(nums):\n            if f(i):\n                ss.add(i)\n        ans = []\n        for flag, left, right in queries:\n            # print(nums)\n            # print(ss)\n            if flag == 1:\n\n                a = ss.bisect_left(left + 1)\n                b = ss.bisect_right(right - 1)\n                ans.append(max(0, b - a))\n                # print('\u67e5\u8be2\uff1a', left, right, ans[-1])\n            else:\n                nums[left] = right\n                for i in range(left - 1, left + 2):\n                    # print(f'\u8c03\u6574\uff1a{i}')\n                    if f(i):\n                        ss.add(i)\n                    else:\n                        ss.discard(i)\n            #     print(f'\u4fee\u6539\uff1a{left}:{right}')\n            #     print(nums)\n            #     print(ss)\n            # print()\n\n        return ans",
-    "submit_ts": 1718508194.0
+    "submit_ts": "1718508194",
+    "subm_id": "539785948"
 }

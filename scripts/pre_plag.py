@@ -91,7 +91,7 @@ class LcClient:
         info_path = join(f"{self.out_path}", "info.csv")
         info_file = open(info_path, 'w', newline='', encoding='utf-8')
         writer = csv.writer(info_file)
-        writer.writerow(["filename", "created_at", "subm_ts"])
+        writer.writerow(["filename", "created_at", "subm_ts", "subm_id"])
 
         for page in pages:
             data = self.json_request(f"{self.contest_base}/?pagination={page}&region=global")
@@ -114,7 +114,7 @@ class LcClient:
                         
                 subm_time = datetime.fromtimestamp(cont_subm['date'])
                 subm_time = subm_time.strftime("%Y-%m-%d %H:%M:%S") + " -0400"
-                writer.writerow([f"submissions/{filename}", subm_time, cont_subm['date']])
+                writer.writerow([f"submissions/{filename}", subm_time, cont_subm['date'], cont_subm['submission_id']])
                 info_file.flush()
         
         info_file.close()

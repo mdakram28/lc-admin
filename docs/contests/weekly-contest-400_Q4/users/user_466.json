@@ -1,5 +1,6 @@
 {
     "username": "Abhijith8",
     "submission": "class Solution {\npublic:\n    static const int N=2e5+5;\n    int mn[N][20],lg[N];\n    int find(int x ,int y){\n        int len=lg[y-x+1];\n\t\tint ans=mn[x][len]&mn[y-(1<<len)+1][len];\n        return ans;\n    }\n    int minimumDifference(vector<int>& a, int k) {\n        int n=a.size();\n        for(int i=1;i<=n;i++){\n\t\tlg[i]=(int)log2(i);\n\t}\n\tfor(int i=0;i<n;i++){\n\t\tmn[i][0]=a[i];\n\t}\n\tfor(int j=1;j<20;j++){\n\t\tfor(int i=0;i<n;i++){\n\t\t\tif((1<<(j-1))+i>n-1)continue;\n\t\t\tmn[i][j]=(mn[i][j-1]&mn[i+(1<<(j-1))][j-1]);\n\t\t}\n\t}\n\t    int ans=1e9+2;\n        for(int i=0;i<n;i++){\n            int low=i,high=n-1,ind=n-1;\n            while(low<=high){\n                int mid=(low+high)/2;\n                int p=find(i,mid);\n                if(p>=k){\n                    low=mid+1;\n                    ind=mid;\n                }\n                else high=mid-1;\n            }\n            ans=min(ans,abs(find(i,ind)-k));\n            low=i,high=n-1;\n                int ind1=n-1;\n            while(low<=high){\n                int mid=(low+high)/2;\n                int p=find(i,mid);\n                if(p<=k){\n                    high=mid-1;\n                    ind1=mid;\n                }\n                else low=mid+1;\n            }\n            // cout<<ind<<\" \"<<ind1<<endl;\n            ans=min(ans,abs(find(i,ind1)-k));\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717298570.0
+    "submit_ts": "1717298570",
+    "subm_id": "1274783687"
 }

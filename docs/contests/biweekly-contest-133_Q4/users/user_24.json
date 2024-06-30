@@ -1,5 +1,6 @@
 {
     "username": "vassu118",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& a) {\n        map<int,int> mp;\n        for(auto it : a) {\n            mp[it[0]] = it[1];\n        }\n        int mod = 1e9 + 7;\n        vector<vector<int>> dp(n, vector<int> (401, -1));\n        function<int(int,int)> dfs = [&](int x, int y) {\n            if(x == 0) { \n                if(mp[x] != 0) return 0;\n                return (y == 0 ? 1 : 0);\n            }\n            int &ans = dp[x][y];\n            if(ans != -1) return ans;\n            ans = 0;\n            bool has = (mp.find(x - 1) != mp.end());\n            for(int i=0;i<=x;i++) {\n                int rem = x - i;\n                if(rem > y) continue;\n                if(has) {\n                    if(mp[x - 1] == y - rem) {\n                        ans = (ans + dfs(x - 1, y - rem)) % mod;\n                    }\n                }\n                else {\n                    ans = (ans + dfs(x - 1, y - rem)) % mod;\n                }\n            }\n            // cout << x << ' ' << y << ' '<< ans << '\\n';\n            return ans;\n        };\n        return dfs(n - 1, mp[n - 1]);\n    }\n};",
-    "submit_ts": 1719067857.0
+    "submit_ts": "1719067857",
+    "subm_id": "1296743395"
 }

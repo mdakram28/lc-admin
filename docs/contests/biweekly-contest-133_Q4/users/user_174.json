@@ -1,5 +1,6 @@
 {
     "username": "rupa6",
     "submission": "class Solution {\npublic:\nstatic const int N=100010;\nstatic const int mod=1e9+7;\n\nint add(int x,int y){int res=(x+y)%mod;return res<0?res+mod:res;}\nint mul(int x,int y){int res=(x*1LL*y)%mod;return res<0?res+mod:res;}\n    \n    map<int,int> need;\n    \n    int dp[301][500];\n    int n;\n    \n    #define dpp dp[id][sum]\n    int solve(int id, int sum) {\n        if(sum > 450) return 0;\n        if(id==n) return 1;\n        if(dpp!=-1) return dpp;\n        if(need.contains(id)) {\n            if(sum > need[id]) return 0;\n            if(need[id]-sum > id) return 0;\n            return solve(id+1, need[id]);\n        }\n        dpp=0;\n        for(int i=0;i<=id;i++) {\n            dpp=add(dpp, solve(id+1, sum+i));\n        }\n        return dpp;\n    }\n    \n    int numberOfPermutations(int m, vector<vector<int>>& requirements) {\n        for(const auto& v: requirements) need[v[0]]=v[1];\n        n=m;\n        memset(dp, -1, sizeof dp);\n        return solve(0,0);\n    }\n};\n// 0 1 2 3 4",
-    "submit_ts": 1719068767.0
+    "submit_ts": "1719068767",
+    "subm_id": "1296776209"
 }

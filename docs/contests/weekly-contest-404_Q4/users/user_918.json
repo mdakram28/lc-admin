@@ -1,5 +1,6 @@
 {
     "username": "sgn00",
     "submission": "class Solution {\npublic:\n    \n    int max_dist = 0;\n    int farthest_node = -1;\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int a = calc_furthest(edges1);\n        int b = calc_furthest(edges2);\n        int prob_max = (a + 1) / 2 + (b + 1) / 2 + 1;\n        return max({a, b, prob_max});\n    }\n    \n    int calc_furthest(vector<vector<int>>& edges) {\n        if (edges.size() == 0) {\n            return 0;\n        }\n        max_dist = 0;\n        farthest_node = -1;\n        vector<vector<int>> graph(edges.size() + 1);\n        for (auto& e : edges) {\n            graph[e[0]].push_back(e[1]);\n            graph[e[1]].push_back(e[0]);\n        }\n        \n        dfs(graph, -1, 0, 0);\n        \n        max_dist = 0;\n        dfs(graph, -1, farthest_node, 0);\n        return max_dist;\n    }\n    \n    void dfs(vector<vector<int>>& graph, int parent, int curr, int distance) {\n        if (distance > max_dist) {\n            max_dist = distance;\n            farthest_node = curr;\n        }\n        for (int nei : graph[curr]) {\n            if (nei != parent) {\n                dfs(graph, curr, nei, distance + 1);\n            }\n        }\n    }\n    \n};",
-    "submit_ts": 1719718777.0
+    "submit_ts": "1719718777",
+    "subm_id": "1304425803"
 }

@@ -1,5 +1,6 @@
 {
     "username": "coderS_108",
     "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    typedef long long ll;\n    int numberOfPermutations(int n, vector<vector<int>>& reqs) {\n        ll ans=0;\n        ll dp[n+1][401];\n        memset(dp,0,sizeof(dp));\n        dp[0][0]=1;\n        map<int, int>mp;\n        for(auto& i:reqs)mp[i[0]+1]=i[1];\n        ll i=1;\n        while(i<=n){\n            ll j=0;\n            while(j<=400){\n                for (int k=0;k<i;k++)if((j-k)>= 0)dp[i][j]=(dp[i][j]+dp[i-1][j-k])%mod;\n                j++;\n            }\n            if (mp.find(i)!=mp.end()) {\n               ll val=mp[i];\n                for (int j=0;j<=400;j++) {\n                    if (j!=val)dp[i][j]=0;\n                }\n            }\n            if(i==n)for(ll x:dp[n])ans=(ans+x)%mod;\n            i++;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1719071981.0
+    "submit_ts": "1719071981",
+    "subm_id": "1296858514"
 }

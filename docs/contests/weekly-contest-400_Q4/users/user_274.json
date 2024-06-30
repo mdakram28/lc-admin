@@ -1,5 +1,6 @@
 {
     "username": "rahulmittall",
     "submission": "class Solution {\npublic:\n    const int N =1e5+4;\n    int st[400004];\n    \n    void build(int si,int ss,int se,vector<int>&arr){\n        if(ss==se){\n            st[si]=arr[ss-1];\n        }\n        else{\n            int sm = (ss+se)>>1;\n            build(2*si,ss,sm,arr);\n            build(2*si+1,sm+1,se,arr);\n            st[si]=st[2*si]&st[2*si+1];\n        }\n    }\n    \n    int query(int si,int ss,int se,int l,int r){\n        if(ss>r  || se<l) return INT_MAX;\n        if(ss>=l && se<=r) return st[si];\n        int sm = (ss+se)>>1;\n        return query(2*si,ss,sm,l,r) & query(2*si+1,sm+1,se,l,r);\n    }\n    \n    \n    \n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        int ans = 1e9;\n        build(1,1,n,nums);\n        for(int i=0;i<n;i++){\n            int hi = n,lo=i+1;\n            while(lo<=hi){\n                int mid = lo + (hi-lo)/2;\n                int qa = query(1,1,n,i+1,mid);\n                if(qa<=k) ans = min(ans,k-qa),hi=mid-1;\n                else lo=mid+1;\n            }\n            hi=n,lo=i+1;\n            while(lo<=hi){\n                int mid = lo+(hi-lo)/2;\n                int qa = query(1,1,n,i+1,mid);\n                if(qa>k){\n                    ans = min(ans,qa-k);\n                    lo=mid+1;\n                }\n                else hi = mid-1;\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717296881.0
+    "submit_ts": "1717296881",
+    "subm_id": "1274721782"
 }

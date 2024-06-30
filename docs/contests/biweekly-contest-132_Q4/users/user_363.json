@@ -1,5 +1,6 @@
 {
     "username": "ppwani",
     "submission": "class Solution {\n    public int maximumLength(int[] v, int k) {\n        int n=v.length;\n        int dp[][] = new int[n+1][k+1];\n        int ans=0;\n        int suff[] = new int[k+2];\n        int nexti[] = new int[n];\n        HashMap<Integer,Integer>mp = new HashMap<>();\n        for(int i=n-1;i>=0;i--){\n            if(mp.get(v[i])==null){\n                nexti[i]=-1;\n            }\n            else nexti[i]=mp.get(v[i]);\n            mp.put(v[i],i);\n        }\n        for(int i=n-1;i>=0;i--){\n            for(int p=0;p<=k;p++){\n                dp[i][p] = suff[p+1]+1;\n                if(nexti[i]!=-1)dp[i][p] = Math.max(dp[i][p], 1+dp[nexti[i]][p]);\n                suff[p] = Math.max(suff[p], dp[i][p]);\n                // for(int j=i+1;j<=n;j++){\n                //     if(j==n){\n                //         dp[i][p] = Math.max(1, dp[i][p]);\n                //         continue;\n                //     }\n                //     int diff = v[j] == v[i] ? 0 : 1;\n                //     if(diff==0){\n                //         dp[i][p] = Math.max(1+dp[j][p+diff], dp[i][p]);\n                //         break;\n                //     }\n                //     if(p+diff>k)continue;\n                //     dp[i][p] = Math.max(1+dp[j][p+diff], dp[i][p]);\n                // }\n                ans=Math.max(ans,dp[i][p]);\n            }\n        }\n        return ans;\n    }\n}",
-    "submit_ts": 1717861920.0
+    "submit_ts": "1717861920",
+    "subm_id": "1281806088"
 }

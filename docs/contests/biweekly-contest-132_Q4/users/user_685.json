@@ -1,5 +1,6 @@
 {
     "username": "kunj_patel2003",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& n, int k) {\n          int s = n.size();\n    vector<vector<int>> dp(s, vector<int>(k + 1, 1));\n    int maxL = 1;\n    vector<int> maxLs(k + 1, -1);\n    vector<unordered_map<int, int>> nToLMap(k + 1);\n    \n    for (int i = 0; i < s; ++i) {\n        for (int j = 0; j <= k; ++j) {\n            for (int l = 0; l < j; ++l) {\n                dp[i][j] = max(dp[i][j], 1 + maxLs[l]);\n            }\n            \n            if (nToLMap[j].count(n[i])) {\n                dp[i][j] = max(dp[i][j], 1 + nToLMap[j][n[i]]);\n            }\n            \n            maxL = max(maxL, dp[i][j]);\n        }\n        \n        for (int j = 0; j <= k; ++j) {\n            maxLs[j] = max(maxLs[j], dp[i][j]);\n            nToLMap[j][n[i]] = max(nToLMap[j][n[i]], dp[i][j]);\n        }\n    }\n    \n    return maxL;\n    }\n};",
-    "submit_ts": 1717862377.0
+    "submit_ts": "1717862377",
+    "subm_id": "1281821691"
 }

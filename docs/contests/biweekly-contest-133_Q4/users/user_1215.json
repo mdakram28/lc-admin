@@ -1,5 +1,6 @@
 {
     "username": "gautam1124bihar",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        #define ll long long\n        const ll mod = 1e9 + 7;\n        ll dp[n+1][500];\n        memset(dp,0,sizeof(dp));\n        dp[0][0] = 1;\n        sort(req.begin(),req.end());\n        int ind = 0;\n        if(req[0][0] == 0){\n            ind++;\n            if(req[0][1] != 0)return 0;\n        }\n        \n        for(int i=1;i<n;i++){\n            for(int j=0;j<=405;j++){\n                dp[i][j] =0;\n                for(int k=0;k<=i;k++){\n                    if(k>j)break;\n                    dp[i][j] = (dp[i][j] +  1LL*dp[i-1][j-k])%mod;\n                    dp[i][j] %= mod;\n                }\n            // cout<<i<<\" \"<<j<<\n            }\n            if(i!= n-1 && req[ind][0] == i){\n                map<int,int> mark;\n                while(req[ind][0] == i){\n                    mark[req[ind][1]] = 1;\n                    ind++;\n                }\n                for(int j=0;j<=400;j++){\n                    if(mark.find(j) == mark.end())dp[i][j] =0 ;\n                }\n                // ind++;\n            }\n        }\n        ll ans =0 ;\n        for(int i=ind;i<req.size();i++){\n            ans += dp[n-1][req[i][1]];\n            ans %= mod;\n        }\n\n        return ans;\n\n\n        \n    }\n};",
-    "submit_ts": 1719071483.0
+    "submit_ts": "1719071483",
+    "subm_id": "1296847764"
 }

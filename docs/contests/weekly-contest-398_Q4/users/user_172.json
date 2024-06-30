@@ -1,5 +1,6 @@
 {
     "username": "pengtsen",
     "submission": "class Solution {\n    vector<uint> two_powers;\n    int k;\n    \n    unordered_map<long long, int> cache;\n    int f(int at, int jump, bool down_allowed) {\n        if (at > k + 1 || jump > 30) return 0;\n        long long key = ((long long)at) << 32 | (jump << 1) | down_allowed;\n        if (cache.find(key) != cache.end()) return cache[key];\n        int res = 0;\n        if (at == k) res += 1;\n        if (down_allowed && at != 0) {\n            res += f(at - 1, jump, false);\n        }\n        res += f(at + two_powers[jump], jump + 1, true);\n        //cout << \"f(\" << at << \", \" << jump << \", \" << down_allowed << \")=\" << res << endl;\n        cache[key] = res;\n        return res;\n    }\npublic:\n    int waysToReachStair(int k) {\n        this->k = k;\n        two_powers.resize(32);\n        two_powers[0] = 1;\n        for (int i = 1; i < two_powers.size(); i++) {\n            two_powers[i] = two_powers[i-1] * 2;\n        }\n        return f(1, 0, true);\n    }\n};",
-    "submit_ts": 1716087506.0
+    "submit_ts": "1716087506",
+    "subm_id": "1261785783"
 }

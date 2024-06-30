@@ -1,5 +1,6 @@
 {
     "username": "hcseo",
     "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        dp = [0 for _ in range(n)]\n        pos = defaultdict(list)\n        for i, num in enumerate(nums):\n            dp[i] = 1\n            if pos[num]:\n                dp[i] = dp[pos[num][-1]]+1\n            pos[num].append(i)\n        ans = max(dp)\n        for _ in range(1, k+1):\n            dp_next = [0 for _ in range(n)]\n            pos = defaultdict(list)\n            prev_max_last_num = set()\n            prev_max = 0\n            for i, num in enumerate(nums):\n                if pos[num]:\n                    dp_next[i] = dp_next[pos[num][-1]]+1\n                pos[num].append(i)\n\n                if (num not in prev_max_last_num) or (len(prev_max_last_num) > 1):\n                    dp_next[i] = max(dp_next[i], prev_max+1)\n\n                if dp[i] > prev_max:\n                    prev_max_last_num = {nums[i]}\n                    prev_max = dp[i]\n                elif dp[i] ==prev_max:\n                    prev_max_last_num.add(nums[i])\n            ans = max(ans, max(dp_next))\n            dp = dp_next\n        return ans\n",
-    "submit_ts": 1717860585.0
+    "submit_ts": "1717860585",
+    "subm_id": "1281762573"
 }

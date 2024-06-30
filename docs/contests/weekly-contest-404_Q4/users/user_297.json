@@ -1,5 +1,6 @@
 {
     "username": "krishna12543",
     "submission": "class Solution {\npublic:\n    int dim(vector<vector<int>> &adj,int n){\n        vector<int> vis(n,0);\n\n        vector<int> height(n,0);\n        int ans=0;\n\n        find(adj,vis,height,0,ans);\n        cout<<ans<<' ';\n        return ans;\n\n    }\n    int find(vector<vector<int>> &adj, vector<int> &vis,vector<int> &height, int root,int &ans){\n        int m1=0,m2=0;\n        vis[root]=1;\n        int count = 0;\n\n        for(auto x:adj[root]){\n            if(!vis[x]){\n                count++;\n\n                int t=find(adj,vis,height,x,ans);\n                \n                if(t>=m1){\n                    m2=m1;\n                    m1=t;\n                }\n                else if(t>=m2){\n                    m2=t;\n                }\n            }\n        }\n        ans=max(ans,m1+m2+1);\n        return m1+1;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        vector<vector<int>> adj1(edges1.size()+1);\n        vector<vector<int>> adj2(edges2.size()+1);\n\n        for(auto x:edges1){\n            adj1[x[0]].push_back(x[1]);\n            adj1[x[1]].push_back(x[0]);\n        }\n        for(auto x:edges2){\n            adj2[x[0]].push_back(x[1]);\n            adj2[x[1]].push_back(x[0]);\n        }\n        int a=dim(adj1,adj1.size()),b=dim(adj2,adj2.size());\n        return max({a,b,(a+2)/2 + (b+2)/2}) - 1;\n    }\n};",
-    "submit_ts": 1719716175.0
+    "submit_ts": "1719716175",
+    "subm_id": "1304357092"
 }

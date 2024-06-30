@@ -1,5 +1,6 @@
 {
     "username": "zhongyh",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        cur = [0] * 32\n        start = 0\n        cnt = 0\n        n = len(nums)\n        ans = 99999999999\n        for i in range(n):\n            now = 0\n            cnt +=1\n            for j in range(32):\n                if (nums[i] & (1 << j)) > 0:\n                    cur[j] += 1\n                if cur[j] == cnt:\n                    now = now | (1 << j)\n            if now == k:\n                return 0\n            if abs(k - now) < ans:\n                ans = abs(now - k)\n            if now < k:\n                while start <= i:\n                    now = 0\n                    cnt -= 1\n                    for j in range(32):\n                        if (nums[start] & (1 << j)) > 0:\n                            cur[j] -= 1\n                        if cur[j] == cnt:\n                            now = now | (1 << j)\n                    start += 1\n                    if abs(k - now) < ans:\n                        ans = abs(k - now)\n                    if now == k:\n                        return 0\n                    if now > k:\n                        break\n        return ans",
-    "submit_ts": 1717298446.0
+    "submit_ts": "1717298446",
+    "subm_id": "1274779321"
 }

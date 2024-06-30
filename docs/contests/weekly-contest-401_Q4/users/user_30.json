@@ -1,5 +1,6 @@
 {
     "username": "nor_",
     "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        auto a = rewardValues;\n        sort(begin(a), end(a));\n        a.resize(unique(begin(a), end(a)) - begin(a));\n        int mx = *max_element(begin(a), end(a));\n        int n = a.size();\n        constexpr int N = 2 * (5e4 + 1) + 1;\n        bitset<N> dp;\n        dp[0] = true;\n        for (int i = 0; i < n; ++i) {\n            bitset<N> mask;\n            mask.set();\n            mask ^= (mask << a[i]);\n            dp |= (dp & mask) << a[i];\n        }\n        for (int r = 2 * mx; r >= 0; --r) {\n            if (dp[r]) return r;\n        }\n        return 0;\n    }\n};",
-    "submit_ts": 1717901761.0
+    "submit_ts": "1717901761",
+    "subm_id": "1282285496"
 }

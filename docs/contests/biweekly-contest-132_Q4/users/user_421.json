@@ -1,5 +1,6 @@
 {
     "username": "Lambert360",
     "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar maximumLength = function(nums, k) {\n     const n = nums.length;\n        const dp = Array.from({ length: n }, () => Array(k + 1).fill(1));\n        let ans = 1;\n        const vk = Array(k + 1).fill(-1);\n        const vkm = Array.from({ length: k + 1 }, () => ({}));\n\n        for (let i = 0; i < n; i++) {\n            for (let j = 0; j <= k; j++) {\n                for (let l = 0; l < j; l++) {\n                    dp[i][j] = Math.max(dp[i][j], 1 + vk[l]);\n                }\n                if (nums[i] in vkm[j]) {\n                    dp[i][j] = Math.max(dp[i][j], 1 + vkm[j][nums[i]]);\n                }\n                ans = Math.max(ans, dp[i][j]);\n            }\n            for (let j = 0; j <= k; j++) {\n                vk[j] = Math.max(vk[j], dp[i][j]);\n                if (!(nums[i] in vkm[j])) {\n                    vkm[j][nums[i]] = dp[i][j];\n                } else {\n                    vkm[j][nums[i]] = Math.max(vkm[j][nums[i]], dp[i][j]);\n                }\n            }\n        }\n        return ans;\n};",
-    "submit_ts": 1717861555.0
+    "submit_ts": "1717861555",
+    "subm_id": "1281794885"
 }

@@ -1,5 +1,6 @@
 {
     "username": "envyaims",
     "submission": "class Solution {\npublic:\n    \n    // {diameter dist, endpoint 1, endpoint 2}\n    array<int, 3> find_diameter(vector<vector<int>>& g){\n        int n = g.size();\n        vector<int> d(n);\n        auto dfs = [&](auto self, int node, int p) -> void{\n            for(int i: g[node]){\n                if(i == p) continue;\n                d[i] = d[node] + 1;\n                self(self, i, node);\n            }\n        };\n        dfs(dfs, n - 1, n - 1);\n        int far = max_element(d.begin(), d.end()) - d.begin();\n        fill(d.begin(), d.end(), 0);\n        dfs(dfs, far, far);\n        auto it = max_element(d.begin(), d.end());\n        return {*it, far, (int)(it - d.begin())};\n    }\n\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& e1, vector<vector<int>>& e2) {\n        int n = e1.size() + 1, m = e2.size() + 1;\n        vector<vector<int>> g(n), g2(m);\n        for(auto v: e1){\n            g[v[0]].push_back(v[1]);\n            g[v[1]].push_back(v[0]);\n        }\n        for(auto v: e2){\n            g2[v[0]].push_back(v[1]);\n            g2[v[1]].push_back(v[0]);\n        }\n        auto d1 = find_diameter(g), d2 = find_diameter(g2);\n        int val = d1[0], val2 = d2[0];\n         return max({val, val2, (val + 1) / 2 + (val2 + 1) / 2 + 1});\n    }\n};",
-    "submit_ts": 1719714799.0
+    "submit_ts": "1719714799",
+    "subm_id": "1304322364"
 }

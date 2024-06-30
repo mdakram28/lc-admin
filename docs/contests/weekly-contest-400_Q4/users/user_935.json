@@ -1,5 +1,6 @@
 {
     "username": "AdityaAlugani_",
     "submission": "class Solution {\npublic:\n    \n    void figuring(int n,vector<int> &bits)\n    {\n        for(int i=0;i<32;i++)\n        {\n            int set=((1<<i) & n) > 0 ? 1 : 0;\n            bits[i]+=set;\n        }\n    }\n    void removing(int n,vector<int> &bits)\n    {\n        for(int i=0;i<32;i++)\n        {\n            int set=((1<<i) & n) > 0 ? 1 : 0;\n            bits[i]-=set;\n        }\n    }\n    int minimumDifference(vector<int>& vec, int n) {\n        int slide=0;\n        int c=INT_MAX;\n        int i=0;\n        int j=0;\n        vector<int> bits(32,0);\n        while(i<vec.size())\n        {\n            figuring(vec[i],bits);\n            slide=0;\n            for(int g=0;g<32;g++)\n            {\n                int set=bits[g]==(i-j+1);\n                slide+=pow(2,g)*set;\n            }\n            //cout<<slide<<\"\\n\";\n            c=min(c,abs(n-slide));\n            while(j<=i && slide<n)\n            {\n                removing(vec[j],bits);\n                j++;\n                slide=0;\n                for(int g=0;g<32;g++)\n                {\n                    int set=bits[g]==(i-j+1);\n                    slide+=(long long)pow(2,g)*set;\n                }\n                //cout<<\"--\"<<slide<<\"\\n\";\n                c=min(c,abs(n-slide));\n            }\n            i++;\n        }\n        return c;\n    }\n};",
-    "submit_ts": 1717300063.0
+    "submit_ts": "1717300063",
+    "subm_id": "1274832690"
 }

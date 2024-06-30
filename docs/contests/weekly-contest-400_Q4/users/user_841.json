@@ -1,5 +1,6 @@
 {
     "username": "JedLam",
     "submission": "class Solution:\n    def calc(self, arr, count):\n        return sum([0 if x < count else 2 ** i for i, x in enumerate(arr)])\n    \n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        tmp, last, ans = [0] * 31, 0, abs(k - nums[0])\n        for i, n in enumerate(nums):\n            if n == k:\n                return 0\n            elif n < k:\n                ans = min(ans, k - n)\n                tmp = [0] * 31\n                last = i + 1\n                continue\n            for j, d in enumerate(bin(n)[:1:-1]):\n                if d != '0':\n                    tmp[j] += 1\n            v = self.calc(tmp, i - last + 1)\n            ans = min(ans, abs(v - k))\n            while v < k:\n                for j, d in enumerate(bin(nums[last])[:1:-1]):\n                    if d != '0':\n                        tmp[j] -= 1\n                last += 1\n                v = self.calc(tmp, i - last + 1)\n                ans = min(ans, abs(v - k))\n        return ans",
-    "submit_ts": 1717299519.0
+    "submit_ts": "1717299519",
+    "subm_id": "1274815396"
 }

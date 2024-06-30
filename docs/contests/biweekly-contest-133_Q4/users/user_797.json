@@ -1,5 +1,6 @@
 {
     "username": "miscsb",
     "submission": "class Solution {\n    public int numberOfPermutations(int n, int[][] requirements) {\n        Arrays.sort(requirements, Comparator.comparingInt((int[] arr) -> arr[0]));\n        int[] req = new int[n];\n        for (int i = 0; i < req.length; i++) req[i] = -1;\n        for (int[] requirement : requirements) req[requirement[0]] = requirement[1];\n        if (req[0] > 0) return 0;\n        \n        long[][] dp = new long[Math.max(n+1, 2)][401];\n        dp[0][0] = dp[1][0] = 1;\n        for (int i = 2; i <= n; i++) {\n            for (int j = 0; j <= 400; j++) {\n                for (int k = 0; k < i; k++) {\n                    if (j - k >= 0) dp[i][j] += dp[i-1][j-k];\n                    dp[i][j] %= 1_000_000_007;\n                }\n            }\n            if (req[i-1] < 0) continue;\n            for (int j = 0; j <= 400; j++) {\n                if (j == req[i-1]) continue;\n                dp[i][j] = 0;\n            }\n        }\n        return (int) dp[n][req[n - 1]];\n    }\n}",
-    "submit_ts": 1719071243.0
+    "submit_ts": "1719071243",
+    "subm_id": "1296842328"
 }

@@ -1,5 +1,6 @@
 {
     "username": "pritijohnes30",
     "submission": "class Solution {\n    public:\n    int mod=1e9+7;\n    long long dp[303][405];\n    int numberOfPermutations(int n, vector<vector<int>>& queries) {\n        map<int,int> mp;\n        for(auto x:queries){\n            mp[x[0]+1]=x[1];\n        }\n        memset(dp,0,sizeof(dp));\n        dp[0][0]=1;\n        int i=1;\n        while(i<=n){\n            int curr=0;\n            while(curr<=400){\n                int j=0;\n                while(j<i){\n                    int prev=curr-j;\n                    if(prev>=0){\n                        dp[i][curr]=(dp[i][curr]+dp[i-1][prev])%mod;\n                    }\n                    j++;\n                }\n                curr++;\n            }\n            if(mp.count(i)>0){\n                int req=mp[i];\n                int cnt=0;\n                while(cnt<=400){\n                    if(cnt!=req)dp[i][cnt]=0;\n                    cnt++;\n                }\n            }\n            i++;\n        }\n        long long ans=0;\n        int curr=0;\n        while(curr<=400){\n            ans=(ans+dp[n][curr])%mod;\n            curr++;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1719070685.0
+    "submit_ts": "1719070685",
+    "subm_id": "1296829195"
 }

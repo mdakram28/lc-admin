@@ -1,5 +1,6 @@
 {
     "username": "saurabh600",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        \n        vector<int> bit(31);\n        auto add_bit = [&](int x, int t) {\n            for (int i=0; i<31; i++) {\n                if (!(x&(1<<i))) bit[i] += t;\n            }\n        };\n        \n        auto get_bit = [&]() {\n            int res = 0;\n            for (int i=0; i<31; i++) {\n                if (!bit[i]) res |= 1<<i;\n            }\n            return res;\n        };\n        \n        \n        int ans = 2e9 + 10;\n        for (int i=0, j=0; i<n; i++) {\n            add_bit(nums[i], 1);\n            \n            ans = min(ans, abs(k - get_bit()));\n            \n            \n            while (j <= i && get_bit() <= k) {\n                add_bit(nums[j++], -1);\n                if (j <= i)\n                ans = min(ans, abs(k - get_bit()));\n            }\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717298024.0
+    "submit_ts": "1717298024",
+    "subm_id": "1274764560"
 }

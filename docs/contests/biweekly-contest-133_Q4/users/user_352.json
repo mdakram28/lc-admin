@@ -1,5 +1,6 @@
 {
     "username": "TigProg",
     "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        d = {}\n        prev = -1\n        for e, c in sorted(requirements):\n            if prev > c:\n                return 0\n            prev = c\n            d[e] = c\n        \n        if d.get(0, 0) != 0:\n            return 0\n        d[0] = 0\n        \n        modulo = 1_000_000_007\n        \n        @cache\n        def dp(e, c):\n            if e == 0 and c == 0:\n                return 1\n            if e in d and c != d[e]:\n                return 0\n            # if c == 0:\n            #     return 1\n            \n            result = 0\n            for current_c in range(0, min(c, e) + 1):\n                prev_c = c - current_c\n                current = dp(e - 1, prev_c)\n                result += current\n            # print(e, c, result)\n            return result % modulo\n        # print()\n        return dp(n - 1, d[n - 1])\n",
-    "submit_ts": 1719070007.0
+    "submit_ts": "1719070007",
+    "subm_id": "1296812114"
 }

@@ -1,5 +1,6 @@
 {
     "username": "dapu81000",
     "submission": "class Solution {\npublic:\n    vector<int> G[100001];\n    int max_dep, pos;\n    bool visit[100001] = {};\n    void dfs(int cur, int dep){\n        visit[cur] = true;\n        for(int nxt:G[cur]){\n            if(visit[nxt]) continue;\n            dfs(nxt,dep+1);\n        }\n        if(max_dep < dep){\n            max_dep = dep;\n            pos = cur;\n        }\n    }\n    int solve(vector<vector<int>> &edges){\n        int n = edges.size()+1;\n        for(int i=0;i<n;i++) G[i].clear(), visit[i] = false;\n        for(vector<int> &e:edges){\n            G[e[0]].push_back(e[1]);\n            G[e[1]].push_back(e[0]);\n        }\n        max_dep = -1;\n        dfs(0,0);\n        max_dep = -1;\n        for(int i=0;i<n;i++) visit[i] = false;\n        dfs(pos,0);\n        return max_dep;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int r1 = solve(edges1), r2 = solve(edges2);\n        int res = (r1+1)/2 + (r2+1)/2 + 1;\n        return max(res,max(r1,r2));\n    }\n};",
-    "submit_ts": 1719717236.0
+    "submit_ts": "1719717236",
+    "subm_id": "1304386104"
 }

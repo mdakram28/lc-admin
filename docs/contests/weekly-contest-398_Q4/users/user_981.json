@@ -1,5 +1,6 @@
 {
     "username": "dhruv_g",
     "submission": "# class Solution:\n#     def waysToReachStair(self, k: int) -> int:\nclass Solution:\n    def __init__(self):\n        self.cache = {}\n\n    def count_ways(self, target_step, current_step, jump_size, allow_jump):\n        # Base conditions\n        if current_step > target_step + 5:\n            return 0\n        if jump_size > 31:\n            return 0\n\n        # Check if the result is already in the cache\n        if (current_step, jump_size, allow_jump) in self.cache:\n            return self.cache[(current_step, jump_size, allow_jump)]\n\n        # Initialize the number of ways to 1 if current_step equals target_step\n        num_ways = 1 if current_step == target_step else 0\n\n        # Recursive exploration of the next steps\n        if allow_jump:\n            num_ways += self.count_ways(target_step, current_step - 1, jump_size, False)\n        if current_step + (1 << jump_size) <= target_step + 1:\n            num_ways += self.count_ways(target_step, current_step + (1 << jump_size), jump_size + 1, True)\n\n        # Store the result in the cache and return\n        self.cache[(current_step, jump_size, allow_jump)] = num_ways\n        return num_ways\n\n    def waysToReachStair(self, target_step):\n        return self.count_ways(target_step, 1, 0, True)\n\n",
-    "submit_ts": 1716090303.0
+    "submit_ts": "1716090303",
+    "subm_id": "1261864083"
 }

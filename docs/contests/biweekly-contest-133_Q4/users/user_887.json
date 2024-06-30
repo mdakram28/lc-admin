@@ -1,5 +1,6 @@
 {
     "username": "aman_2005",
     "submission": "#define ll long long \n#define mod 1000000007\nclass Solution {\npublic:\n    ll add(ll a,ll b){\n        return (a%mod + b%mod) % mod;\n    }\n    \n    ll dp[301][401];\n    ll help(ll ind,ll k,vector<int>& cnt){\n        if(cnt[ind]!=-1 && (cnt[ind]>k || cnt[ind]<k)){\n            return 0;\n        }\n        if(ind==0){\n            return (k==0);\n        }\n        if(dp[ind][k]!=-1){\n            return dp[ind][k];\n        }\n        ll ans=0;\n        for(ll i=0;i<=k;i++){\n            if(i<=ind)\n            ans=add(ans,help(ind-1,k-i,cnt));\n        }\n        return dp[ind][k]=ans;\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& req) {\n        sort(req.begin(),req.end());\n        for(int i=1;i<req.size();i++){\n            if(req[i][1]<req[i-1][1]){\n                return 0;\n            }\n        }\n        vector<int> cnt(n,-1);\n        for(int i=0;i<req.size();i++){\n            cnt[req[i][0]]=req[i][1];\n        }\n        // for(int i=0;i<n;i++){\n        //     cout<<cnt[i]<<\" \";\n        // }\n        memset(dp,-1,sizeof(dp));\n        ll ans=help(n-1,cnt[n-1],cnt);\n        return ans;\n    }\n};",
-    "submit_ts": 1719071472.0
+    "submit_ts": "1719071472",
+    "subm_id": "1296847520"
 }

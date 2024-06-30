@@ -1,5 +1,6 @@
 {
     "username": "timetoai",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        ret = min(abs(k - num) for num in nums)\n        bits = [0] * 32\n        cnt = 0\n        def add(num):\n            nonlocal cnt\n            cnt += 1\n            i = 0 \n            while num > 0:\n                bits[i] += int(num & 1 > 0)\n                num >>= 1\n                i += 1\n        def sub(num):\n            nonlocal cnt\n            cnt -= 1\n            i = 0 \n            while num > 0:\n                bits[i] -= int(num & 1 > 0)\n                num >>= 1\n                i += 1\n        def get():\n            nonlocal cnt\n            res = 0\n            for i in range(len(bits)):\n                if bits[i] == cnt:\n                    res += 1 << i\n            return res\n\n        i = j = 0\n        cur = 0\n        while j < len(nums):\n            add(nums[j])\n            cur = get()\n            ret = min(ret, abs(k - cur))\n            while i < j and cur < k:\n                sub(nums[i])\n                i += 1\n                cur = get()\n                ret = min(ret, abs(k - cur))\n            j += 1\n            # print(i, j, cur, bits, cnt)\n        return ret\n        ",
-    "submit_ts": 1717298751.0
+    "submit_ts": "1717298751",
+    "subm_id": "1274789962"
 }

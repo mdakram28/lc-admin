@@ -1,5 +1,6 @@
 {
     "username": "kirya2604",
     "submission": "class Solution {\nprivate:\n    map<pair<int, int>, int> dp;\npublic:\n    int f(vector<int> &a, int k, int X)\n    {\n        if (k < 0) return 0;\n        \n        if (dp.contains(make_pair(k, X)))\n            return dp[{k, X}];\n        \n        if (a[k] == X)\n            return dp[{k, X}] = X;\n        if (k == 0)\n        {\n            if (a[k] <= X)\n                return dp[{k, X}] = a[k];\n            else\n                return dp[{k, X}] = 0;\n        }\n\n        if (a[k] > X)\n        {\n            int id1 = lower_bound(a.begin(), a.end(), X + 1) - a.begin() - 1;\n            return dp[{k, X}] = f(a, min(k - 1, id1), X);\n        }\n\n        int id2 = lower_bound(a.begin(), a.end(), 1 + min(X - a[k], a[k] - 1)) - a.begin() - 1;\n        return dp[{k, X}] = max(\n            f(a, k - 1, X),\n            f(a, min(k - 1, id2), min(X - a[k], a[k] - 1)) + a[k]\n        );\n    }\n\n    int maxTotalReward(vector<int>& a) {\n        sort(a.begin(), a.end());\n        int n = a.size();\n        int X = a[n - 1] - 1;\n        int id1 = lower_bound(a.begin(), a.end(), X + 1) - a.begin() - 1;\n        return f(a, id1, X) + a[n - 1];\n    }\n};",
-    "submit_ts": 1717904253.0
+    "submit_ts": "1717904253",
+    "subm_id": "1282356734"
 }

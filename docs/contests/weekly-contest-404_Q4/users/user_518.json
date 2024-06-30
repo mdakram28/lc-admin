@@ -1,5 +1,6 @@
 {
     "username": "azhan0222",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        adj1 = defaultdict(list)\n        adj2 = defaultdict(list)\n        for a, b in edges1:\n            adj1[a].append(b)\n            adj1[b].append(a)\n        for a, b in edges2:\n            adj2[a].append(b)\n            adj2[b].append(a)\n        \n        def dfs(i, adj):\n            seen = {i}\n            q = [(i, 0)]\n            farthest, fd = -1, 0\n            while q:\n                cur, d = q.pop()\n                if d > fd:\n                    farthest, fd = cur, d\n                for j in adj[cur]:\n                    if j not in seen:\n                        q.append((j, d + 1))\n                        seen.add(j)\n            return farthest, fd\n        \n        f, _ = dfs(0, adj1)\n        f, fd = dfs(f, adj1)\n        \n        g, _ = dfs(0, adj2)\n        g, gd = dfs(g, adj2)\n        \n        return max(ceil(fd / 2) + ceil(gd / 2) + 1, fd, gd)\n        ",
-    "submit_ts": 1719717409.0
+    "submit_ts": "1719717409",
+    "subm_id": "1304390789"
 }

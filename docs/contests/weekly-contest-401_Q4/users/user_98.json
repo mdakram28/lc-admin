@@ -1,5 +1,6 @@
 {
     "username": "binomanjesh",
     "submission": "class Solution {\n\n    static constexpr int MASK_LEN = 10 * 1e4;\n    using mask_t = bitset<MASK_LEN>;\n\n  public:\n    int maxTotalReward(vector<int> &rewardValues) {\n        sort(rewardValues.begin(), rewardValues.end());\n        int n = rewardValues.size();\n        mask_t dp;\n        dp[0] = true;\n        for (int i = 0; i < n; ++i) {\n            int rem = MASK_LEN - rewardValues[i];\n            mask_t next = dp << rem;\n            next >>= rem;\n            next <<= rewardValues[i];\n            dp |= next;\n        }\n        for (int i = MASK_LEN - 1; i >= 0; --i) {\n            if (dp[i]) {\n                return i;\n            }\n        }\n        return -1;\n    }\n};",
-    "submit_ts": 1717903628.0
+    "submit_ts": "1717903628",
+    "subm_id": "1282339232"
 }

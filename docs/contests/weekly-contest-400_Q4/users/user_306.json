@@ -1,5 +1,6 @@
 {
     "username": "ahimawan",
     "submission": "class Solution {\npublic:\n    int cur;\n    int zero[32];\n    void add(int x) {\n        for (int i = 0; i < 31; i++) {\n            if (!(x & (1<<i))) {\n                zero[i]++;\n                if (zero[i] == 1) {\n                    cur &= ~(1<<i);\n                }\n            }\n        }   \n    }\n    void remove(int x) {\n        for (int i = 0; i < 31; i++) {\n            if (!(x & (1<<i))) {\n                zero[i]--;\n                if (zero[i] == 0) {\n                    cur |= (1<<i);\n                }\n            }\n        }\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        memset(zero, 0, sizeof(zero));\n        cur = (1<<30) - 1;\n        int lef = 0;\n        int ret = abs(k - nums[0]);\n        int n = nums.size();\n        for (int rig = 0; rig < n; rig++) {\n            add(nums[rig]);\n            //printf(\"rig %d cur %d\\n\", rig, cur);\n            ret = min(ret, abs(k - cur));\n            while (cur < k && lef < rig) {\n                remove(nums[lef]);\n                ret = min(ret, abs(k - cur));\n                lef++;\n                //printf(\"lef %d cur %d\\n\", lef, cur);\n            }\n        }\n        return ret;\n    }\n};",
-    "submit_ts": 1717298602.0
+    "submit_ts": "1717298602",
+    "subm_id": "1274784803"
 }

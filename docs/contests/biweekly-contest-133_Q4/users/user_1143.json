@@ -1,5 +1,6 @@
 {
     "username": "r_icks",
     "submission": "class Solution {\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        vector<vector<long long>> count(n + 1, vector<long long>(401, 0));\n        count[0][0]=1;\n        unordered_map<int, int> rq;\n        for(int i=0; i<requirements.size(); i++){\n            rq[requirements[i][0]+1] = requirements[i][1];\n        }\n        for(int i=0; i<n; i++){\n            for(int j=0; j<=400; j++){\n                for(int y=0; y<(i+1); y++){\n                    int prev = j-y;\n                    if(prev>=0){\n                        count[i+1][j]=(count[i+1][j]+count[i][prev])%(long long)(1e9+7);\n                    }\n                }\n            }\n            if(rq.find(i+1)!=rq.end()){\n                int x = rq[i+1];\n                for(int j=0; j<=400; j++){\n                    if(j!=x){\n                        count[i+1][j]=0;\n                    }\n                }\n            }\n        }\n        long long ans = 0;\n        for(long long i: count[n]){\n            ans = (ans+i)%(long long)(1e9+7);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1719071943.0
+    "submit_ts": "1719071943",
+    "subm_id": "1296857618"
 }

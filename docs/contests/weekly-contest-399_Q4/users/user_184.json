@@ -1,5 +1,6 @@
 {
     "username": "user3517H",
     "submission": "class Node:\n  def __init__(self, lo, hi):\n    self.lo = lo\n    self.hi = hi\n    self.val = [0, 0, 0, 0]\n    if lo + 1 < hi:\n      mi = (lo + hi) // 2\n      self.left = Node(lo, mi)\n      self.right = Node(mi, hi)\n    else:\n      self.left = self.right = None\n  \n  def update(self, pos, x):\n    if self.lo <= pos < self.hi:\n      if self.left is None:\n        self.val = [0, 0, 0, max(x, 0)]\n      else:\n        ll, lr, la, lv = self.left.update(pos, x)\n        rl, rr, ra, rv = self.right.update(pos, x)\n        l = max(ll + rl, la + rv)\n        r = max(lr + rr, lv + ra)\n        a = max(ll + ra, la + rr)\n        v = max(lv + rl, lr + rv)\n        self.val = [l, r, a, v]\n    return self.val\n\nclass Solution:\n  def maximumSumSubsequence(self, nums: List[int], queries: List[List[int]]) -> int:\n    mod = 10 ** 9 + 7\n    root = Node(0, len(nums))\n    for pos, x in enumerate(nums):\n      root.update(pos, x)\n    res = 0\n    for pos, x in queries:\n      res = (res + root.update(pos, x)[3]) % mod\n    return res\n",
-    "submit_ts": 1716694645.0
+    "submit_ts": "1716694645",
+    "subm_id": "1268121264"
 }

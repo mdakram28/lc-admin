@@ -1,5 +1,6 @@
 {
     "username": "ekeshwar2407",
     "submission": "class Solution {\npublic:\n    \n    int f(int node, int par, vector<vector<int>>&adj, int &ans)\n    {\n        priority_queue<int>q;\n        for(auto x : adj[node])\n        {\n            if(x==par) continue;\n            q.push(f(x,node,adj,ans));\n        }\n        if(q.size()==0)\n        {\n            ans=max(ans,1);\n            return 1;\n        }\n        if(q.size()==1)\n        {\n            int h=q.top();\n            q.pop();\n            ans=max(ans,h+1);\n            return (h+1);\n        }\n        int h1=q.top();\n        q.pop();\n        int h2=q.top();\n        q.pop();\n        int h=max(h1,h2);\n        ans=max(ans,h1+h2+1);\n        return h+1;\n    }\n    \n    int maxDiam(vector<vector<int>>&edges)\n    {\n        int n=edges.size()+1;\n        vector<vector<int>>adj(n);\n        for(auto x : edges)\n        {\n            int u=x[0];\n            int v=x[1];\n            adj[u].push_back(v);\n            adj[v].push_back(u);\n        }\n        \n        int ans=0;\n        f(0,-1,adj,ans);\n        \n        return ans;\n    }\n    \n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int d1=maxDiam(edges1);\n        int d2=maxDiam(edges2);\n        d1--;\n        d2--;\n        cout<<d1<<\" \"<<d2<<endl;\n        int d=max(d1,d2);\n        return max(d,d1/2+d1%2+d2/2+d2%2+1);\n    }\n};",
-    "submit_ts": 1719718106.0
+    "submit_ts": "1719718106",
+    "subm_id": "1304408934"
 }

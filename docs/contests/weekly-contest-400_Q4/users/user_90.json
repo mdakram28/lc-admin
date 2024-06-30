@@ -1,5 +1,6 @@
 {
     "username": "psb0623",
     "submission": "#include<bits/stdc++.h>\nusing namespace std;\n\nstruct ST {\n    int s, e, val;\n    ST *l, *r;\n    ST(int S, int E, vector<int>& a):s(S),e(E) {\n        if(s == e) val = a[s];\n        else {\n            int m = (s+e)/2;\n            l = new ST(s, m, a);\n            r = new ST(m+1, e, a);\n            val = l->val & r->val;\n        }\n    }\n    int get(int S, int E) {\n        if(E<s||e<S||E<S) return -1;\n        else if(S<=s&&e<=E) return val;\n        else return l->get(S,E) & r->get(S,E);\n    }\n};\n\nclass Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long mn = 1e18;\n        ST* st = new ST(0, n-1, nums);\n        for(int i=0;i<n;i++) {\n            int s = i, e = n-1;\n            while(s<e) {\n                int mid = i + (s-i + e-i)/ 2;\n                if(st->get(i, mid) <= k) e = mid;\n                else s = mid + 1;\n            }\n            long long res = st->get(i, e);\n            if(mn > abs(res - k)) {\n                mn = abs(res - k);\n            }\n            if(e-1 >= i) {\n                res = st->get(i, e-1);\n                mn = min(mn, abs(res - k));\n            }\n        }\n        return mn;\n    }\n};",
-    "submit_ts": 1717297471.0
+    "submit_ts": "1717297471",
+    "subm_id": "1274743726"
 }

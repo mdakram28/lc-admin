@@ -1,5 +1,6 @@
 {
     "username": "fuwutu",
     "submission": "from sortedcontainers import SortedList\n\n\nclass Solution:\n    def getResults(self, queries: List[List[int]]) -> List[bool]:\n        res = []\n        m = 0\n        for q in queries:\n            if q[0] == 1:\n                m = max(m, q[1])\n        v = [0] * (m + 1)\n        sl = SortedList([0])\n        for q in queries:\n            if q[0] == 1:\n                x = q[1]\n                sl.add(x)\n                i = sl.index(x)\n                v[x] = max(v[sl[i-1]], x - sl[i-1])\n                for k in range(i+1, len(sl)):\n                    if v[sl[k]] == v[sl[k-1]]:\n                        break\n                    d = sl[k] - sl[k-1]\n                    if d < v[sl[k]]:\n                        v[sl[k]] = max(v[sl[k-1]], d)\n                    else:\n                        break\n            else:\n                x, sz = q[1], q[2]\n                j = sl.bisect_left(x)\n                if v[sl[j-1]] >= sz or x - sl[j-1] >= sz:\n                    res.append(True)\n                else:\n                    res.append(False)\n        return res",
-    "submit_ts": 1716651774.0
+    "submit_ts": "1716651774",
+    "subm_id": "534776388"
 }

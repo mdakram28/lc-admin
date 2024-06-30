@@ -1,5 +1,6 @@
 {
     "username": "panu_10",
     "submission": "import java.util.HashMap\n\nclass Solution {\n    fun waysToReachStair(destination: Int): Int {\n        val memoizationMap: MutableMap<Int, Array<IntArray>> = HashMap()\n\n        fun calculateWays(destination: Int, currentStep: Int, jumpSize: Int, canJump: Boolean): Int {\n            if (currentStep > destination + 5)\n                return 0\n\n            if (jumpSize > 31)\n                return 0\n\n            if (memoizationMap.containsKey(currentStep) && memoizationMap[currentStep]!![jumpSize][if (canJump) 1 else 0] != -1)\n                return memoizationMap[currentStep]!![jumpSize][if (canJump) 1 else 0]\n\n            var ways = if (currentStep == destination) 1 else 0\n            if (canJump)\n                ways += calculateWays(destination, currentStep - 1, jumpSize, false)\n            if (currentStep + (1 shl jumpSize) <= destination + 1)\n                ways += calculateWays(destination, currentStep + (1 shl jumpSize), jumpSize + 1, true)\n\n            if (!memoizationMap.containsKey(currentStep)) {\n                memoizationMap[currentStep] = Array(32) { IntArray(2) { -1 } }\n            }\n\n            memoizationMap[currentStep]!![jumpSize][if (canJump) 1 else 0] = ways\n            return ways\n        }\n\n        return calculateWays(destination, 1, 0, true)\n    }\n}",
-    "submit_ts": 1716089379.0
+    "submit_ts": "1716089379",
+    "subm_id": "1261840647"
 }

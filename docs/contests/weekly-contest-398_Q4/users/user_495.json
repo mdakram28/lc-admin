@@ -1,5 +1,6 @@
 {
     "username": "Satj",
     "submission": "class Solution {\npublic:\n    void dfs(int i, int j, int p, vector <int> &ret) { \n        ret[i]++;\n        if (p == 0 && i > 0) \n            dfs(i - 1, j, 1, ret);\n        if (i + (1 << j) < ret.size())\n            dfs(i + (1 << j), j + 1, 0, ret);\n    }\n    int waysToReachStair(int k) {\n        vector <int> ret(50, 0);\n        dfs(1, 0, 0, ret);\n        // for (int i = 0; i < ret.size(); i++) cout << ret[i] << \" \" << i << endl; cout << endl;\n        if (k < 50) return ret[k];\n        long p = ceil(log2(k)) + 1;\n        // cout << p << endl;\n        vector <vector <long>> a(33, vector <long>(34));\n        a[0][0] = 1;\n        for (int i = 1; i < 33; i++) {\n            for (int j = 0; j <= i; j++) {\n                if (j == 0 || j == i) a[i][j] = 1;\n                else a[i][j] = a[i - 1][j] + a[i - 1][j - 1];\n            }\n        }\n        \n        // for (int i = 0; i < 33; i++) {\n        // p == 1 << p\n        // cout << k << endl;\n        // cout << (1L << (p - 1)) - k << \" \" << p + 1 << endl;\n        if ((1L << (p-1)) - k > p + 1)\n            return 0;\n        int diff = (1L << (p-1)) - k;\n        \n        // for (int j = 0; j < 34; j++)\n        //     cout << a[p][j] << \" \"; cout << endl;\n        // }\n        return a[p][diff];\n    }\n};",
-    "submit_ts": 1716088087.0
+    "submit_ts": "1716088087",
+    "subm_id": "1261803560"
 }

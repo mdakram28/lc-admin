@@ -1,5 +1,6 @@
 {
     "username": "cflee",
     "submission": "import kotlin.math.pow\n\nclass Solution {\n    fun waysToReachStair(k: Int): Int {\n        data class Rec(val i: Int, val jump: Int, val hasDescended: Boolean)\n        val memo = mutableMapOf<Rec, Int>()\n        fun recurse(i: Int, jump: Int, hasDescended: Boolean): Int {\n            return memo.getOrPut(Rec(i, jump, hasDescended)) {\n//                println(\"i $i jump $jump hasDescended $hasDescended\")\n                if (i > k + 1) {\n                    return@getOrPut 0\n                }\n                var result = if (i == k) 1 else 0\n                result += recurse(i + (2.0).pow(jump).toInt(), jump + 1, false)\n                if (!hasDescended && i - 1 >= 0) {\n                    result += recurse(i - 1, jump, true)\n                }\n                return@getOrPut result\n            }\n        }\n        return recurse(1, 0, false)\n    }\n}",
-    "submit_ts": 1716088833.0
+    "submit_ts": "1716088833",
+    "subm_id": "1261825306"
 }

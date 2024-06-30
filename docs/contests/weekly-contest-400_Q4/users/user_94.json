@@ -1,5 +1,6 @@
 {
     "username": "txingml",
     "submission": "int get_mask(const vector<int>& cnt, int d) {\n    if (d == 0) return 0;\n    int mask = 0;\n    for (int i = 0; i < 32; i++) {\n        if (cnt[i] == d) mask |= 1<<i;\n    }\n    return mask;\n}\n\nvoid update(int val, int d, vector<int>& cnt) {\n    for (int i = 0; i < 32; i++) {\n        if (val & (1<<i)) cnt[i] += d;\n    }\n}\n\nclass Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        int ret = INT_MAX;\n        vector<int> cnt(32);\n        int j = 0;\n        for (int i = 0; i < n; i++) {\n            if (j <= i) {\n                j = i+1;\n                update(nums[i], 1, cnt);\n            }\n            int cur = get_mask(cnt, j-i);\n            ret = min(ret, abs(k-cur));\n            while (j < n && cur > k) {\n                int val = nums[j];\n                cur &= val;\n                update(val, 1, cnt);\n                j++;\n                ret = min(ret, abs(k-cur));\n            }\n            update(nums[i], -1, cnt);\n            if (i+1 < j) {\n                update(nums[j-1], -1, cnt);\n                j--;\n            }\n        }\n        return ret;\n        \n    }\n};",
-    "submit_ts": 1717297485.0
+    "submit_ts": "1717297485",
+    "subm_id": "1274744261"
 }

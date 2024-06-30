@@ -1,5 +1,6 @@
 {
     "username": "sagar180304",
     "submission": "\nclass Solution {\npublic:\n    int maximumLength(std::vector<int>& nums, int k) {\n        int n = nums.size(), maxi = 1;\n        vector<vector<int>> len(n, vector<int>(k + 1, 1));\n        vector<int> maxLens(k + 1, -1);\n        vector<unordered_map<int, int>> numToLen(k + 1);\n        \n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j <= k; ++j) {\n                for (int l = 0; l < j; ++l)\n                    len[i][j] = max(len[i][j], 1 + maxLens[l]);\n                \n                if (numToLen[j].count(nums[i]))\n                    len[i][j] = max(len[i][j], 1 + numToLen[j][nums[i]]);\n                \n                maxi = max(maxi, len[i][j]);\n            }\n            \n            for (int j = 0; j <= k; ++j) {\n                maxLens[j] = max(maxLens[j], len[i][j]);\n                numToLen[j][nums[i]] = max(numToLen[j][nums[i]], len[i][j]);\n            }\n        }\n        \n        return maxi;\n    }\n};\n",
-    "submit_ts": 1717862380.0
+    "submit_ts": "1717862380",
+    "subm_id": "1281821847"
 }

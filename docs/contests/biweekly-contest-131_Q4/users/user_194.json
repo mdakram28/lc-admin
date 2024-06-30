@@ -1,5 +1,6 @@
 {
     "username": "superwesly123",
     "submission": "class Solution:\n    def getResults(self, queries: List[List[int]]) -> List[bool]:\n        blocks = [0]\n        max_dis = [0]\n        ans = []\n        for q in queries:\n            if q[0] == 1:\n                i = bisect.bisect(blocks, q[1])\n                if i == len(blocks):\n                    max_dis.append(max(max_dis[-1], q[1] - blocks[-1]))\n                    blocks.append(q[1])\n                else:\n                    blocks.insert(i, q[1])\n                    cur_max = max(max_dis[i-1], q[1] - blocks[i-1])\n                    max_dis.insert(i, cur_max)\n                    cur = i+1\n                    while cur < len(max_dis) and max_dis[cur] > cur_max:\n                        cur_max = max(cur_max, blocks[cur] - blocks[cur-1])\n                        max_dis[cur] = cur_max\n                        cur += 1\n            else:\n                i = bisect.bisect(blocks, q[1])\n                ans.append(max(max_dis[i-1], q[1] - blocks[i-1]) >= q[2])\n        return ans",
-    "submit_ts": 1716650400.0
+    "submit_ts": "1716650400",
+    "subm_id": "1267614527"
 }

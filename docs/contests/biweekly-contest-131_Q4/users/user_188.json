@@ -1,5 +1,6 @@
 {
     "username": "yomaesakura",
     "submission": "class Solution:\n    def getResults(self, queries: List[List[int]]) -> List[bool]:\n        dic = {}\n        dic[0] = 0\n        ans = []\n        banner = [0]\n        for query in queries:\n            if query[0] == 2:\n                if len(dic) == 0:\n                    ans.append(query[1]>=query[2])\n                else:\n                    pos = bisect.bisect_left(banner,query[1])\n                    if query[2] > query[1] - banner[pos-1] and query[2] > dic[banner[pos-1]]:\n                        ans.append(False)\n                    else:\n                        ans.append(True)\n            if query[0] == 1:\n                index = bisect.bisect_left(banner,query[1])\n                banner.insert(index,query[1])\n                dic[query[1]] = max(dic[banner[index-1]],query[1]-banner[index-1])\n                for i in range(index + 1,len(banner)):\n                    temp = dic[banner[i]]\n                    dic[banner[i]] = max(dic[banner[i-1]],banner[i]-banner[i-1])\n                    if dic[banner[i]] == temp:\n                        break\n        return ans\n\n\n        \n",
-    "submit_ts": 1716650662.0
+    "submit_ts": "1716650662",
+    "subm_id": "534771915"
 }

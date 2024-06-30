@@ -1,5 +1,6 @@
 {
     "username": "mrhga_777",
     "submission": "class Solution {\n    void dfs(vector<int> &dis,vector<vector<int>> &adj,int u,int par){\n        for(auto &v:adj[u]){\n            if(v == par) continue;\n            dis[v] = 1+dis[u];\n            dfs(dis,adj,v,u);\n        }\n    }\n    int find_dia(vector<vector<int>> &edges){\n        int n = edges.size()+1;\n        vector<vector<int>> adj(n);\n        for(auto &i:edges){\n            adj[i[0]].push_back(i[1]);\n            adj[i[1]].push_back(i[0]);\n        }\n        vector<int> dis(n,0);\n        dfs(dis,adj,0,-1);\n        int root = 0;\n        int maxi = 0;\n        for(int i=0;i<n;i++){\n        if(dis[i]>=maxi) {maxi = dis[i]; root=i;}\n        }\n        vector<int> dis1(n,0);\n        dfs(dis1,adj,root,-1);\n        return *max_element(dis1.begin(),dis1.end());\n    }\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int d1 = find_dia(edges1);\n        int d2 = find_dia(edges2);\n        return max({(d1+1)/2 + (d2+1)/2 + 1, d1,d2}); \n    }\n};",
-    "submit_ts": 1719719315.0
+    "submit_ts": "1719719315",
+    "subm_id": "1304438908"
 }

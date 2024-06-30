@@ -1,5 +1,6 @@
 {
     "username": "Maruzensky",
     "submission": "from collections import deque\n\nclass Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        missing = [deque([]) for _ in range(30)]\n        \n        for i, x in enumerate(nums):\n            for j in range(30):\n                if (1 << j) & x == 0:\n                    missing[j].append(i)\n                \n        answer = abs(k - nums[0])\n        \n        for i, x in enumerate(nums):\n            answer = min(answer, abs(k - x))\n            cand = []\n            for j in range(30):\n                if not missing[j]:\n                    continue\n                elif missing[j][0] == i:\n                    missing[j].popleft()\n                else:\n                    idx = missing[j][0]\n                    cand.append(idx)\n                    \n            cand.sort()\n            for idx in cand:\n                x &= nums[idx]\n                answer = min(answer, abs(k - x))\n                \n        return answer",
-    "submit_ts": 1717297444.0
+    "submit_ts": "1717297444",
+    "subm_id": "1274742758"
 }

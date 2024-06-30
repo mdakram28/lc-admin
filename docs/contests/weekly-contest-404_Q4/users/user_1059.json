@@ -1,5 +1,6 @@
 {
     "username": "gouthampokes",
     "submission": "class Solution {\npublic:\n    int helper(int node,int p,vector<vector<int>> &edges,int &ans){\n        int h=0,h1=0;\n        for(auto it:edges[node]){\n            if(it!=p){\n                int r=helper(it,node,edges,ans);\n                if(r>=h){\n                    h1=h;\n                    h=r;\n                }\n                else if(r>=h1){\n                    h1=r;\n                }\n            }\n        }\n        ans=max(ans,h1+h);\n        return max(h1,h)+1;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n=edges1.size()+1;\n        int m=edges2.size()+1;\n        vector<vector<int>> ed1(n),ed2(m);\n        for(int i=0;i<n-1;i++){\n            ed1[edges1[i][0]].push_back(edges1[i][1]);\n            ed1[edges1[i][1]].push_back(edges1[i][0]);\n        }\n        for(int i=0;i<m-1;i++){\n            ed2[edges2[i][0]].push_back(edges2[i][1]);\n            ed2[edges2[i][1]].push_back(edges2[i][0]);\n        }\n        int ans=0;\n        helper(0,-1,ed1,ans);\n        int ans1=0;\n        helper(0,-1,ed2,ans1);\n        int res=max(ans,ans1);\n        res=max(res,(ans+1)/2+(ans1+1)/2+1);\n        return res;\n        // cout<<ans<<\" \"<<ans1<<endl;\n        // return max{(ans+1)/2+(ans1+1)/2+1,ans,ans1};\n        \n    }\n};",
-    "submit_ts": 1719718570.0
+    "submit_ts": "1719718570",
+    "subm_id": "1304420594"
 }

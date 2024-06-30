@@ -1,5 +1,6 @@
 {
     "username": "Gol-D-Roger",
     "submission": "MOD = 1_000_000_007\nMAX_INVERSIONS = 400\n\nclass Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        reqMap = {req[0] + 1: req[1] for req in requirements}\n    \n        permCounts = [[0] * (MAX_INVERSIONS + 1) for _ in range(n + 1)]\n        permCounts[0][0] = 1\n\n        for length in range(1, n + 1):\n            for inv in range(MAX_INVERSIONS + 1):\n                for newPos in range(length):\n                    prevInv = inv - newPos\n                    if prevInv >= 0:\n                        permCounts[length][inv] = (permCounts[length][inv] + permCounts[length - 1][prevInv]) % MOD\n\n            if length in reqMap:\n                targetInv = reqMap[length]\n                for inv in range(MAX_INVERSIONS + 1):\n                    if inv != targetInv:\n                        permCounts[length][inv] = 0\n\n        result = 0\n        for count in permCounts[n]:\n            result = (result + count) % MOD\n\n        return result",
-    "submit_ts": 1719071568.0
+    "submit_ts": "1719071568",
+    "subm_id": "1296849545"
 }

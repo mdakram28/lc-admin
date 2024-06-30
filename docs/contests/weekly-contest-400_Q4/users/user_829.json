@@ -1,5 +1,6 @@
 {
     "username": "demon_33",
     "submission": "from typing import List\n\nclass Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        zero_pos = [-1] * 32\n        current_and = nums[0]\n        min_diff = float('inf')\n        n = len(nums)\n        left = 0\n        \n        for right in range(n):\n            current_and &= nums[right]\n            \n            # Update the positions in zero_pos\n            for bit in range(32):\n                if not ((nums[right] >> bit) & 1):\n                    zero_pos[bit] = right\n            \n            min_diff = min(min_diff, abs(current_and - k))\n            \n            # Adjust the window to ensure current_and >= k\n            while current_and < k and left <= right:\n                if left == right:\n                    if (right + 1) < n:\n                        current_and = nums[right + 1]\n                    else:\n                        current_and = 0\n                else:\n                    for bit in range(32):\n                        if zero_pos[bit] == left:\n                            current_and |= (1 << bit)\n                \n                min_diff = min(min_diff, abs(current_and - k))\n                left += 1\n\n            min_diff = min(min_diff, abs(current_and - k))\n\n        return min_diff\n\n        ",
-    "submit_ts": 1717300061.0
+    "submit_ts": "1717300061",
+    "subm_id": "1274832609"
 }

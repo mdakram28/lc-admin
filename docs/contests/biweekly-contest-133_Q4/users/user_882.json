@@ -1,5 +1,6 @@
 {
     "username": "abhisheksingh33338",
     "submission": "class Solution {\npublic:\n      int r = 1000000007;\n      int ans = 400;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n\n        map<int, int>m1;\n        for (int i=0;i<requirements.size();i++) {\n            m1[requirements[i][0] + 1] = requirements[i][1];\n        }\n        vector<vector<long long>>dp(n + 1, vector<long long>(ans + 1, 0));\n        dp[0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j <= ans; j++) {\n                for (int np = 0; np < i; np++) {\n                    int prev = j - np;\n                    if (prev >= 0) {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][prev]) % r;\n                    }\n                }\n            }\n            if (m1.find(i) != m1.end()) {\n                int target = m1[i];\n                for (int k = 0; k <= ans; k++) {\n                    if (k != target) {\n                        dp[i][k] = 0;\n                    }\n                }\n            }\n        }\n        long long res = 0;\n        for (long long i=0;i<dp[n].size();i++) {\n            res = (res + dp[n][i]) %r;\n        }\n\n        return static_cast<int>(res);\n    }\n};\n    \n    \n    \n    \n    \n    \n   ",
-    "submit_ts": 1719071156.0
+    "submit_ts": "1719071156",
+    "subm_id": "1296840335"
 }

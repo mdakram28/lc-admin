@@ -1,5 +1,6 @@
 {
     "username": "ritikjainrj18",
     "submission": "class Solution {\npublic:\n    vector<vector<int>>count;\n    int get(int s,int end){\n        end++;\n        long long cur=0,power=1;\n        for(int i=31;i>=0;i--){\n            if(count[end][i]-count[s][i]==end-s) cur+=power;\n            power*=2;\n        }\n        return cur;\n    }\n    int minimumDifference(vector<int>& nums, int k) {\n        vector<int>cur(32,0);\n        count.push_back(cur);\n        for(auto i:nums){\n            int j=31;\n            while(i){\n                cur[j--]+=(i%2);\n                i/=2;\n            }\n            count.push_back(cur);\n        }\n        int ans=INT_MAX;\n        // cout<<get(0,nums.size()-1)<<endl;\n        for(int i=0;i<nums.size();i++){\n            int l=0,h=i;\n            while(l<=h){\n                int m=(l+h)/2;\n                int mod=get(m,i);\n                // cout<<mod<<endl;\n                if(mod==k) return 0;\n                if(mod>k) h=m-1;\n                else l=m+1;\n                ans=min(ans,abs(k-mod));\n                // break;\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717298220.0
+    "submit_ts": "1717298220",
+    "subm_id": "1274771237"
 }

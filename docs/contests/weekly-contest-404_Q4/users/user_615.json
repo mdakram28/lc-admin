@@ -1,5 +1,6 @@
 {
     "username": "Tinky1224",
     "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def dfs(u, pre, d, adj):\n            res = (u, d)\n            for v in adj[u]:\n                if v == pre:\n                    continue\n                mxu, mxd = dfs(v, u, d+1, adj)\n                if mxd > res[1]:\n                    res = (mxu, mxd)\n            return res\n        def helper(edges):\n            n = len(edges) + 1\n            adj = [[] for _ in range(n)]\n            for a, b in edges:\n                adj[a].append(b)\n                adj[b].append(a)\n            u, _ = dfs(0, -1, 1, adj)            \n            _, d = dfs(u, -1, 1, adj)\n            return d\n        a, b = helper(edges1), helper(edges2)\n        return max((a >> 1) + (b >> 1) + 1, a-1, b-1)",
-    "submit_ts": 1719718997.0
+    "submit_ts": "1719718997",
+    "subm_id": "1304431215"
 }

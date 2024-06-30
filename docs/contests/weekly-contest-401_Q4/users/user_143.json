@@ -1,5 +1,6 @@
 {
     "username": "arujbansal",
     "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        sort(rewardValues.begin(), rewardValues.end());\n        rewardValues.resize(unique(rewardValues.begin(), rewardValues.end()) - rewardValues.begin());\n\n        int n = (int) rewardValues.size();\n\n        bitset<100000> dp, good;\n        dp.set(0);\n        good.set(0);\n        int last = 0;\n\n        for (int i = 1; i <= n; i++) {\n            // cout << i << \" \" << dp[1] << \" \" << rewardValues[i - 1] << \"\\n\";\n            // int num = (2 * rewardValues[i - 1]) - 1;\n            // dp &= bitset<\n            for (int j = last; j <= 2 * rewardValues[i - 1] - 1; j++)\n                good.set(j);\n\n            last = 2 * rewardValues[i - 1] - 1;\n\n            dp |= dp << rewardValues[i - 1];\n            dp &= good;\n        }\n\n        for (int j = 100000; j >= 0; j--)\n            if (dp[j] == 1) return j;\n\n        return 0;\n    }\n};",
-    "submit_ts": 1717904968.0
+    "submit_ts": "1717904968",
+    "subm_id": "1282377174"
 }

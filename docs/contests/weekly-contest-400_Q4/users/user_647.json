@@ -1,5 +1,6 @@
 {
     "username": "zsq007",
     "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        h = max(nums).bit_length()\n        q, ands = deque([(-1,i) for i in range(h)]), set()\n        for i,num in enumerate(nums):\n            newQ = deque()\n            ands.add(num)\n            for _ in range(h):\n                prev, j = q.popleft()\n                if num&1<<j:\n                    if prev >= 0:\n                        num ^= 1<<j\n                    newQ.append((prev,j))\n                else:\n                    newQ.appendleft((i,j))\n                \n                if not q or prev != q[0][0]:\n                    ands.add(num)\n            q = newQ\n\n        return min(abs(num-k) for num in ands)",
-    "submit_ts": 1717298281.0
+    "submit_ts": "1717298281",
+    "subm_id": "1274773461"
 }

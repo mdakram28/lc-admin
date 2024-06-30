@@ -1,5 +1,6 @@
 {
     "username": "ahtoh_",
     "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar maximumLength = function(nums, k) {\n    const map = {};\n    for (let i = 0; i < nums.length; i += 1) {\n        if (map[nums[i]] === undefined) {\n            map[nums[i]] = [i];\n        } else {\n            map[nums[i]].push(i);\n        }\n    }\n\n    const dp = Array(k + 1).fill(0).map(() => Array(nums.length).fill(0));\n    const map1 = {};\n    for (let i = 0; i < nums.length; i += 1) {\n        if (map1[nums[i]] === undefined) {\n            dp[0][i] = 1;\n        } else {\n            dp[0][i] = dp[0][map1[nums[i]]] + 1;\n        }\n        map1[nums[i]] = i;\n    }\n    for (let j = 1; j <= k; j += 1) {\n        dp[j][0] = 1;\n        const map = {};\n        let res = 1;\n        for (let i = 1; i < nums.length; i += 1) {\n            if (map[nums[i]] === undefined) {\n                dp[j][i] = (res + 1);\n            } else {\n                dp[j][i] = Math.max((dp[j][map[nums[i]]] + 1), (res + 1));\n            }\n            map[nums[i]] = i;\n            res = Math.max(res, (dp[j - 1]?.[i] ?? 0));\n        }\n    }\n    return dp.at(-1).reduce((acc, curr) => Math.max(acc, curr), -Infinity);\n};",
-    "submit_ts": 1717861348.0
+    "submit_ts": "1717861348",
+    "subm_id": "1281788051"
 }

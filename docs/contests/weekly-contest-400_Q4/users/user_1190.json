@@ -1,5 +1,6 @@
 {
     "username": "mble6125",
     "submission": "class Solution {\n    vector<vector<int>> M;\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n=nums.size(), res=INT_MAX;\n        M.resize(32);\n        \n        for (int i=0; i<n; ++i) {\n            for (int j=0; j<32; ++j) {\n                if ((nums[i] & (1<<j)) == 0) {\n                    M[j].push_back(i);\n                }\n            }\n            \n            int j=i+1, cur=0x7fffffff;\n            while(j!=-1) {\n                findNext(cur, j, nums);\n                if (j!=-1) {\n                    res=min(res, abs(k-cur));\n                }\n            }\n        }\n        \n        return res;\n    }\n    \n    void findNext(int& cur, int& index, vector<int>& nums) {\n        int target=-1;\n        for (int i=0; i<32; ++i) {\n            if ((cur & (1<<i))) {\n                auto& temp=M[i];\n                int l=0, r=M[i].size()-1;\n                while(l<=r) {\n                    int mid=(l+r)>>1;\n                    if (temp[mid]>=index) r=mid-1;\n                    else l=mid+1;\n                }\n                if (r!=-1) {\n                    target=max(target, M[i][r]);\n                }\n            }\n        }\n        \n        index=target;\n        if (target!=-1) cur= cur & nums[target];\n    }\n};\n",
-    "submit_ts": 1717300562.0
+    "submit_ts": "1717300562",
+    "subm_id": "1274847969"
 }

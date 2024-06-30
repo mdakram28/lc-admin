@@ -1,5 +1,6 @@
 {
     "username": "2499370956",
     "submission": "class Solution {\n    public int maxTotalReward(int[] rewardValues) {\n        TreeSet<Integer> set = new TreeSet<>();\n        HashMap<Integer, Integer> cache = new HashMap<>();\n        for (int i : rewardValues) {\n            if (set.add(i)) {\n                cache.put(i + 1, i);\n            }\n        }\n        return maxTotalRewardLimit(set, set.first(), Integer.MAX_VALUE, cache);\n    }\n\n    private int maxTotalRewardLimit(TreeSet<Integer> set, int min, int limit, HashMap<Integer, Integer> cache) {\n        if (limit <= min) {\n            return 0;\n        }\n        if (cache.containsKey(limit)) {\n            return cache.get(limit);\n        }\n        Integer max = set.lower(limit);\n        Integer current = max;\n        int out = max + maxTotalRewardLimit(set, min, Math.min(max, limit - max), cache);\n        while (true) {\n            Integer next = set.lower(current);\n            if (next == null || next * 2 - 1 <= out) {\n                break;\n            }\n            out = Math.max(out, next + maxTotalRewardLimit(set, min, Math.min(next, limit - next), cache));\n            current = next;\n        }\n        cache.put(limit, out);\n        return out;\n    }\n}",
-    "submit_ts": 1717903151.0
+    "submit_ts": "1717903151",
+    "subm_id": "1282325666"
 }

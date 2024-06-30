@@ -1,5 +1,6 @@
 {
     "username": "shiv40",
     "submission": "class Solution {\nprivate:\n    unordered_map<int, vector<vector<int>>> ump; //dp for memoization\n    int solve(bool flag, int ind, int k, int jump) {\n        if(ind-1 > k or jump > 31) //base case\n            return 0;\n\n        if(ump.find(ind) != ump.end() && ump[ind][jump][flag] != -1) //already calculated\n            return ump[ind][jump][flag];\n\n        int val = 0;\n        if(ind == k)\n            val = 1;\n        \n        if(ind + (1 << jump) - 1 <= k)\n            val += solve(1, ind + (1 << jump), k, jump + 1);\n        \n        if(flag) // can take a jump\n            val += solve(0, ind - 1, k, jump);\n                \n\n        ump[ind].resize(32, vector<int>(2, -1)); //resize the 2d array for next computations\n\n        return ump[ind][jump][flag] = val;\n    }\npublic:\n    int waysToReachStair(int k) {\n        return solve(1, 1, k, 0);\n    }\n};",
-    "submit_ts": 1716090207.0
+    "submit_ts": "1716090207",
+    "subm_id": "1261861681"
 }

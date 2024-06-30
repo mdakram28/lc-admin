@@ -1,5 +1,6 @@
 {
     "username": "salyu",
     "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        auto memo = vector(2, vector(32, unordered_map<int, int>{}));\n        function<int(int, int, bool)> search = [&](int v, int j, bool back) {\n            if (auto iter = memo[back][j].find(v); iter != memo[back][j].end()) {\n                return iter->second;\n            }\n\n            int r = 0;\n            if (back) {\n                r += search(v - 1, j, false);\n            }\n            if (v == k) {\n                ++r;\n            }\n            if ((1 << j) <= k + 1 - v) {\n                r += search(v + (1 << j), j + 1, true);\n            }\n            \n            memo[back][j].insert({v, r});\n            return r;\n        };\n        return search(1, 0, true);\n    }\n};",
-    "submit_ts": 1716087347.0
+    "submit_ts": "1716087347",
+    "subm_id": "1261780880"
 }

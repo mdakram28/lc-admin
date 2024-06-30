@@ -1,5 +1,6 @@
 {
     "username": "LarryNY",
     "submission": "import java.util.Arrays;\n\npublic class Solution {\n    private static final int MOD = 1000000007;\n    private long[][] memo;\n    private int[] lookup;\n\n    public int numberOfPermutations(int N, int[][] requirements) {\n        lookup = new int[N];\n        Arrays.fill(lookup, -1);\n        for (int[] req : requirements) {\n            lookup[req[0]] = req[1];\n        }\n        memo = new long[N][lookup[N - 1] + 1];\n        for (long[] row : memo) {\n            Arrays.fill(row, -1);\n        }\n        return (int) (go(N - 1, lookup[N - 1]) % MOD);\n    }\n\n    private long go(int index, int left) {\n        if (index == 0) {\n            if (lookup[index] <= 0 && left == 0) {\n                return 1;\n            }\n            return 0;\n        }\n\n        if (lookup[index] != -1 && left != lookup[index]) {\n            return 0;\n        }\n\n        if (memo[index][left] != -1) {\n            return memo[index][left];\n        }\n\n        long total = 0;\n        for (int i = 0; i <= Math.min(left, index); i++) {\n            total = (total + go(index - 1, left - i)) % MOD;\n        }\n\n        return memo[index][left] = total;\n    }\n}\n",
-    "submit_ts": 1719068990.0
+    "submit_ts": "1719068990",
+    "subm_id": "1296783288"
 }

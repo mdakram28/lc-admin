@@ -1,5 +1,6 @@
 {
     "username": "hab_ee_b",
     "submission": "class Solution {\npublic:\n    int dp[5001][51][2];\n    int n;\n    unordered_map<int,vector<int>>m;\n    vector<int> nums;\n    int f(int i,int k,int t){\n        if(i==n)return 0;\n        \n        if(dp[i][k][t]!=-1)return dp[i][k][t];\n        \n        dp[i][k][t] = 1;\n        if(t)\n          dp[i][k][t]=max(1,f(i+1,k,t));\n\n        if(k)\n            dp[i][k][t]=max(dp[i][k][t],1+f(i+1,k-1,1));                \n        \n        int u =nums[i];\n        int x = upper_bound(m[u].begin(),m[u].end(),i)-m[u].begin();\n        if(x<m[u].size()){\n            int vx = f(m[u][x],k,0);\n            dp[i][k][t]=max(dp[i][k][t],1+vx);                \n        }\n        \n        // cout<<i<<\" \"<<k<<\" \"<<dp[i][k][t]<<\"}; {\";\n        return dp[i][k][t];\n    }\n    int maximumLength(vector<int>& num, int k) {\n        nums=num;\n        n=nums.size();\n        for(int i=0;i<n;i++){\n            m[nums[i]].push_back(i);\n        }\n        memset(dp,-1,sizeof dp);\n        int ans=0;\n        for(int i=0;i<n;i++)ans=max(ans,f(i,k,0));\n        return ans;\n    }\n};",
-    "submit_ts": 1717862105.0
+    "submit_ts": "1717862105",
+    "subm_id": "1281812251"
 }

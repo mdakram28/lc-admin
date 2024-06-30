@@ -1,5 +1,6 @@
 {
     "username": "EUqr2c2cjD8nuX5K",
     "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        auto get_key = [&](long a, long b, bool c) {\n            return (a << 32) + (b << 8) + c;\n        };\n        \n        unordered_map<long, int> mem;\n\n        auto f = [&](auto& self, int cur, int jump, bool can_step_back) -> int {\n            if (cur > k + 1)\n                return 0;\n            \n            auto [it, inserted] = mem.emplace(get_key(cur, jump, can_step_back), 0);\n            if (!inserted) return it->second;\n            \n            int& res = it->second;;\n            \n            res = 0;\n            if (cur == k) res = 1;\n            if (can_step_back && cur > 0) {\n                res += self(self, cur - 1, jump, false);\n            }\n            if (jump < 30) {\n                res += self(self, cur + (1 << jump), jump + 1, true);\n            }\n            return res;\n        };\n        return f(f, 1, 0, true);\n    }\n};",
-    "submit_ts": 1716088419.0
+    "submit_ts": "1716088419",
+    "subm_id": "1261813411"
 }

@@ -1,5 +1,6 @@
 {
     "username": "KyouMoKawaii",
     "submission": "def bfs(root, getAdj):\n    bfsOrder = [root]\n    parent = {root: -1}\n    for node in bfsOrder:\n        for child in getAdj(node):\n            if child not in parent:\n                bfsOrder.append(child)\n                parent[child] = node\n    return bfsOrder, parent\n\n\n\ndef getPathToRoot(node, parent):\n    path = [node]\n    while parent[path[-1]] != -1:\n        path.append(parent[path[-1]])\n    return path\n\n\ndef treeDiameter(graph):\n\n    def getAdj(node):\n        return graph[node]\n\n    bfsOrder, parent = bfs(0, getAdj)\n    farthestNode = bfsOrder[-1]\n    bfsOrder, parent = bfs(farthestNode, getAdj)\n    farthestNode = bfsOrder[-1]\n    return getPathToRoot(farthestNode, parent)[::-1]\n\n\n\nclass Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        \n        n = len(edges1) + 1\n        m = len(edges2) + 1\n        graph1 = [[] for i in range(n)]\n        graph2 = [[] for i in range(m)]\n        for u, v in edges1:\n            graph1[u].append(v)\n            graph1[v].append(u)\n        for u, v in edges2:\n            graph2[u].append(v)\n            graph2[v].append(u)\n            \n        d1 = len(treeDiameter(graph1)) - 1\n        d2 = len(treeDiameter(graph2)) - 1\n        return max(d1, d2, ((d1 + 1) // 2) + ((d2 + 1) // 2) + 1)\n        ",
-    "submit_ts": 1719716695.0
+    "submit_ts": "1719716695",
+    "subm_id": "1304371517"
 }

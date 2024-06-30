@@ -1,5 +1,6 @@
 {
     "username": "snehasish_01",
     "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        \n    // Initialize the dp vector with (length, unique_set, counter_map)\n    vector<tuple<int, unordered_set<int>, unordered_map<int, int>>> dp(k + 1, {0, unordered_set<int>(), unordered_map<int, int>()});\n    \n    for (int i : nums) {\n        int prev = 0;\n        for (int j = 0; j <= k; ++j) {\n            auto& [dp_val, dp_set, dp_counter] = dp[j];\n            \n            int cur = max({prev + 1, (dp_val + 1) * (dp_set.find(i) != dp_set.end()), dp_counter.count(i) ? dp_counter[i] + 1 : 1});\n            \n            prev = dp_val;\n            dp_counter[i] = cur;\n\n            if (dp_val < cur) {\n                dp_val = cur;\n                dp_set = {i};\n            }\n\n            if (cur == dp_val) {\n                dp_set.insert(i);\n            }\n        }\n    }\n    \n    return get<0>(dp[k]);\n\n    }\n};",
-    "submit_ts": 1717862251.0
+    "submit_ts": "1717862251",
+    "subm_id": "1281817075"
 }

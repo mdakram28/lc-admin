@@ -1,5 +1,6 @@
 {
     "username": "gurmeharsingh1313",
     "submission": "class Solution {\npublic:\n    \n    void dfs(int node,int d,int &maxnode,int &maxd,vector<int> adj[],vector<int>& vis){\n        vis[node]=1;\n        if(d>maxd){\n            maxd=d;\n            maxnode = node;\n        }\n        for(auto it:adj[node]){\n            if(vis[it]==0){\n                dfs(it,d+1,maxnode,maxd,adj,vis);\n            }\n        }\n    }\n    \n    int finddiameter(vector<int> adj[],vector<int>& vis,int n){\n        int maxd=-1,maxnode=-1;\n        dfs(0,1,maxnode,maxd,adj,vis);\n        maxd=-1;\n        for(int i=0;i<n;i++) vis[i]=0;\n        dfs(maxnode,1,maxnode,maxd,adj,vis);\n        return maxd;\n    }\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n = edges1.size()+1;\n        int m = edges2.size()+1;\n        vector<int> adj1[n];\n        vector<int> adj2[m];\n        vector<int> vis1(n,0);\n        vector<int> vis2(m,0);\n        for(auto it:edges1){\n            adj1[it[0]].push_back(it[1]);\n            adj1[it[1]].push_back(it[0]);\n        }\n        for(auto it:edges2){\n            adj2[it[0]].push_back(it[1]);\n            adj2[it[1]].push_back(it[0]);\n        }\n        int dia1 = finddiameter(adj1,vis1,n);\n        int dia2 = finddiameter(adj2,vis2,m);\n        int a = (dia1/2)+1;\n        int b = (dia2/2)+1;\n        return max({dia1-1,dia2-1,a+b-1});\n    }\n};",
-    "submit_ts": 1719719890.0
+    "submit_ts": "1719719890",
+    "subm_id": "1304453223"
 }

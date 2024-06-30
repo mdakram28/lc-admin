@@ -1,5 +1,6 @@
 {
     "username": "thunder_strike",
     "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n\n    int numberOfPermutations(int n, vector<vector<int>>& a) {\n        unordered_map<int, int> mp;\n        for (int i = 0; i < a.size(); i++) {\n            mp[a[i][0] + 1] = a[i][1];\n        }\n        \n        int mx = (n * (n - 1)) / 2;\n        vector<vector<int>> dp(n + 1, vector<int>(mx + 1, 0));\n        dp[0][0] = 1;\n\n        for (int i = 1; i <= n; i++) {\n            vector<int> prefix(mx + 1, 0);\n            prefix[0] = dp[i - 1][0];\n            for (int j = 1; j <= mx; j++) {\n                prefix[j] = (prefix[j - 1] + dp[i - 1][j]) % mod;\n            }\n\n            for (int j = 0; j <= mx; j++) {\n                int start = max(0, j - (i - 1));\n                int end = j;\n                dp[i][j] = (prefix[end] - (start > 0 ? prefix[start - 1] : 0) + mod) % mod;\n            }\n\n            if (mp.count(i)) {\n                int targetSum = mp[i];\n                for (int j = 0; j <= mx; j++) {\n                    if (j != targetSum) {\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n\n        int ans = 0;\n        for (int i = 0; i <= mx; i++) {\n            ans = (ans + dp[n][i]) % mod;\n        }\n\n        return ans;\n    }\n};\n",
-    "submit_ts": 1719071567.0
+    "submit_ts": "1719071567",
+    "subm_id": "1296849531"
 }

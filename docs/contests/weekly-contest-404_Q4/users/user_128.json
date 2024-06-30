@@ -1,5 +1,6 @@
 {
     "username": "dhru2602",
     "submission": "class Solution {\n    int diameter(vector<vector<int>>& edges){\n        int n = 0;\n        for(auto &edge : edges) n = max({n, edge[0], edge[1]});\n\n        vector<int> adj[n + 1];\n        for(auto &edge : edges){\n            int u = edge[0];\n            int v = edge[1];\n            // cout << u << ' ' << v << '\\n';\n            adj[u].push_back(v);\n            adj[v].push_back(u);\n        }\n\n        int res = 0;\n\n        function<int(int,int)> dfs = [&](int u,int p){\n            vector<int> len;\n            for(auto &c : adj[u]){\n                if(c == p) continue;\n                len.push_back(dfs(c,u));\n            }\n            int k = len.size();\n            sort(len.rbegin(), len.rend());\n            if(k == 0) return 0;\n            if(k > 0) res = max(res, len[0] + 1);\n            if(k > 1) res = max(res, len[0] + len[1] + 2);\n            return len[0] + 1;\n        };\n\n        dfs(0,-1);\n        // cout << res << '\\n';\n        return res;\n    }\n\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int d1 = diameter(edges1);\n        int d2 = diameter(edges2);\n        // cout << d1 << ' ' << d2 << '\\n';\n        return max({d1,d2,1 + (d1 + 1)/2 + (d2 + 1)/2});\n    }\n};",
-    "submit_ts": 1719716996.0
+    "submit_ts": "1719716996",
+    "subm_id": "1304379643"
 }

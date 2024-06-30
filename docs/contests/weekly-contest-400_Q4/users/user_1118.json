@@ -1,5 +1,6 @@
 {
     "username": "20240628.harshshukla14",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        vector<int> ones(32, 0);\n\n        auto dec = [&](int x) {\n            for (int i = 0; i < 32; ++i) {\n                if (((x >> i) & 1) == 0) {\n                    ones[i] -= 1;\n                }\n            }\n        };\n\n        auto inc = [&](int x) {\n            for (int i = 0; i < 32; ++i) {\n                if (((x >> i) & 1) == 0) {\n                    ones[i] += 1;\n                }\n            }\n        };\n\n        auto calc = [&]() {\n            int res = 0;\n            for (int i = 0; i < 32; ++i) {\n                if (ones[i] == 0) {\n                    res ^= (1 << i);\n                }\n            }\n            return res;\n        };\n\n        int i = 0;\n        int n = nums.size();\n        int result = INT_MAX;\n\n        for (int j = 0; j < n; ++j) {\n            inc(nums[j]);\n            int x = calc();\n            result = min(result, abs(x - k));\n            while (i < j && x < k) {\n                dec(nums[i]);\n                ++i;\n                x = calc();\n                result = min(result, abs(x - k));\n            }\n        }\n\n        return result;\n    }\n};\n",
-    "submit_ts": 1717299978.0
+    "submit_ts": "1717299978",
+    "subm_id": "1274829993"
 }

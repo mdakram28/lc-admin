@@ -1,5 +1,6 @@
 {
     "username": "Airths",
     "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int jk = 0;\n        while ((1<<jk)<=nums.size()){\n            jk++;\n        }\n        int n = nums.size();\n        vector <vector <int>> ss(jk+1, vector <int>(n+1));\n        ss[0]=nums;\n        for(int len=1; len<jk+1; len++){\n            for (int i=0; i+(1<<(len-1))<n; i++){\n                ss[len][i]=ss[len-1][i]&ss[len-1][i+(1<<(len-1))];\n            }\n        }\n        auto que=[&](int l, int r)->int{\n            r++;\n            auto ji = 31-__builtin_clz(r-l);\n            return (ss[ji][l]&ss[ji][r-(1<<(ji))]);\n        };\n        vector <int> ans;\n        for (int i=0; i<n; i++){\n            int cur = nums[i], r = i;\n            while (r<n){\n                ans.push_back(cur);\n                for (int d = 20; d>=0; d--){\n                    if ((1<<d)+r<n && que(i, r+(1<<d))==cur){\n                        r+=1<<d;\n                    }\n                }\n                if (r+1<n){\n                    cur = que(i, r+1);\n                }\n                r++;\n            }\n            ans.push_back(cur);\n        }\n        int tot = 1e9;\n        for (auto x:ans){\n            tot = min(tot, abs(k-x));\n        }\n        return tot;\n    }\n};",
-    "submit_ts": 1717297277.0
+    "submit_ts": "1717297277",
+    "subm_id": "1274736612"
 }

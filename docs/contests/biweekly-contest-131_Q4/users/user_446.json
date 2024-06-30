@@ -1,5 +1,6 @@
 {
     "username": "5_Apm",
     "submission": "class Solution:\n    def getResults(self, queries: List[List[int]]) -> List[bool]:\n        b = [1e7]\n        cnt = {1e7: 1e7}\n\n        ans = []\n        for q in queries:\n            if q[0] == 1:\n                i = bisect.bisect_left(b, q[1])\n                bisect.insort_left(b, q[1])\n                if i == 0:\n                    cnt[b[i]] = b[i]\n                    cnt[b[i + 1]] = max(b[i + 1] - b[i], cnt[b[i]])\n                else:\n                    cnt[b[i]] = max(cnt[b[i - 1]], q[1] - b[i - 1])\n                    cnt[b[i + 1]] = max(b[i + 1] - b[i], cnt[b[i]])\n                for j in range(i + 2, len(b)):\n                    if cnt[b[j]] <= cnt[b[j - 1]]:\n                        break\n                    cnt[b[j]] = max(b[j] - b[j - 1], cnt[b[j - 1]])\n\n            else:\n                _, x, z = q\n                i = bisect.bisect_left(b, x)\n                if i == 0:\n                    ans.append(z <= x)\n                elif b[i] == x:\n                    ans.append(z <= cnt[b[i]])\n                else:\n                    ans.append(z <= max(x - b[i - 1], cnt[b[i - 1]]))\n                # if z <= max(b[i + 1] - )\n            # print(b, cnt)\n        return ans",
-    "submit_ts": 1716651354.0
+    "submit_ts": "1716651354",
+    "subm_id": "534774714"
 }
