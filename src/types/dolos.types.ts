@@ -23,6 +23,12 @@ export interface DolosPairs {
     rightCovered: number
 }
 
+export interface UserPair {
+    fileId1: string
+    fileId2: string
+    similarity: number
+}
+
 export interface GroupUser {
     groupId: string
     fileId: string

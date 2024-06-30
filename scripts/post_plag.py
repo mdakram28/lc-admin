@@ -137,6 +137,22 @@ class ReportProcessor:
                     for fileId in fileIds
                 ])
 
+    def write_pairs(self, sim_thres: int):
+        pairs = self.get_pairs()
+        out_dir = join(self.base_dir, "pairs")
+        Path(out_dir).mkdir(exist_ok=True)
+
+        pairs_file = open(join(out_dir, f"pairs_{sim_thres}.csv"), "w", newline='', encoding='utf-8')            
+        writer = csv.writer(pairs_file)
+        writer.writerow(["fileId1", "fileId2", "similarity"])
+
+        for pair in pairs:
+            if pair.similarity < sim_thres/100:
+                continue
+            writer.writerow([pair.rightFileId, pair.rightFileId, pair.similarity*100])
+        
+        pairs_file.close()
+
     def write_users(self):
         files = self.get_files()
         out_dir = join(self.base_dir, "users")
@@ -182,10 +198,11 @@ def main():
     report = ReportProcessor(sys.argv[1], int(sys.argv[2]))
     for similarity in SIMILARITY_PERCENTAGES:
         print(f"Writing group with {similarity=}")
-        report.write_group(similarity)
+        # report.write_group(similarity)
+        report.write_pairs(similarity)
 
-    report.write_users()
-    report.write_contest_info()
+    # report.write_users()
+    # report.write_contest_info()
 
 if __name__ == "__main__":
     main()

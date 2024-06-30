@@ -1,0 +1,5 @@
+{
+    "username": "Gardenia",
+    "submission": "from sortedcontainers import SortedList\nclass Solution:\n    def getResults(self, queries: List[List[int]]) -> List[bool]:\n        s = SortedList()\n        d = defaultdict(int)\n        s.add(0)\n        ans = []\n        for i, q in enumerate(queries):\n            x = q[1]\n            if q[0] == 1:\n                idx = bisect_left(s, x)\n                d[x] = max(d[s[idx-1]], x-s[idx-1]) \n                s.add(x)\n                idx += 1\n                while idx <= len(s) - 1:\n                    zhiqian = d[s[idx]]\n                    zhihou = max(d[s[idx-1]], s[idx]-s[idx-1])\n                    if zhihou < zhiqian:\n                        d[s[idx]] = zhihou\n                    else:\n                        break\n                    idx += 1\n            else:\n                sz = q[2]\n                idx = bisect_left(s, x)\n                if d[s[idx-1]] >= sz or (x-s[idx-1]) >= sz:\n                    ans.append(True)\n                else:\n                    ans.append(False)\n        print(d)\n        return ans",
+    "submit_ts": 1716649170.0
+}

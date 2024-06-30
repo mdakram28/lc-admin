@@ -1,9 +1,9 @@
 
-export LC_CONTEST="weekly-contest-399"
+export LC_CONTEST="biweekly-contest-131"
 export LC_QUESNUM=4
 export REPORT="${LC_CONTEST}_Q${LC_QUESNUM}"
 
-# set -e
+set -e
 
 python.exe scripts/pre_plag.py ${LC_CONTEST} ${LC_QUESNUM}
 
@@ -12,4 +12,5 @@ docker run --init --network host \
 
 mv ./public/contests/$REPORT/dolos-report-* ./public/contests/$REPORT/dolos-report
 
+sleep 10
 python.exe scripts/post_plag.py ${LC_CONTEST} ${LC_QUESNUM}

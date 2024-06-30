@@ -1,4 +1,4 @@
-import { ContestInfo, GroupUser, SubmissionUser } from "../types/dolos.types";
+import { ContestInfo, GroupUser, SubmissionUser, UserPair } from "../types/dolos.types";
 import Papa from 'papaparse';
 
 const APP_BASE = import.meta.env.PROD ? "/lc-admin/" : "";
@@ -13,6 +13,17 @@ export const fetchContestInfo = async () => {
     return contestInfo;
 }
 
+export const fetchPairs = async (baseDir: string, similarity: number) => {
+    const url = `${APP_BASE}${baseDir}/pairs/pairs_${similarity}.csv`;
+    console.log(url);
+    let pairsText = await (await fetch(url)).text();
+    const parsedFiles = Papa.parse<UserPair>(pairsText.trim(), {
+        header: true,
+        dynamicTyping: true
+    });
+    
+    return parsedFiles.data;
+};
 
 export const fetchGroups = async (baseDir: string, similarity: number) => {
     const url = `${APP_BASE}${baseDir}/groups/group_${similarity}.csv`;

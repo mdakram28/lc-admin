@@ -1,0 +1,5 @@
+{
+    "username": "thecoolboy",
+    "submission": "class Solution {\n    public List<Boolean> getResults(int[][] queries) {\n        List<Boolean> res=new ArrayList<>();\n        TreeMap<Integer,Integer> map=new TreeMap<>();\n        map.put(0,0);\n        for (int[] nums : queries) {\n            if(nums[0]==1){\n                Integer t1=map.lowerKey(nums[1]);\n                map.put(nums[1],Math.max(map.get(t1),nums[1]-t1));\n                if(map.higherKey(nums[1])==null||map.higherEntry(nums[1]).getValue()<=map.get(nums[1]))\n                    continue;\n                int p=nums[1];\n                while(map.higherKey(p)!=null&&map.higherEntry(p).getValue()>map.get(p)){\n                    Integer t2=map.higherKey(p);\n                    map.put(t2,Math.max(map.get(p),t2-p));\n                    p=t2;\n                }\n            }else {\n                res.add(map.lowerEntry(nums[1]).getValue()>=nums[2]||nums[1]-map.lowerKey(nums[1])>=nums[2]);\n            }\n        }\n\n        return res;\n    }\n}",
+    "submit_ts": 1716650276.0
+}
