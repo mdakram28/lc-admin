@@ -1,5 +1,5 @@
 {
-    "username": "Anshul__Singh",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        dp = {}\n        def solve(idx, jump, back):\n            if idx > k and not back:\n                return 0\n            if idx==k:\n                if back and idx!=0:\n                    return 1 + solve(idx-1, jump, 0)\n                return 1\n            \n            if (idx, jump, back) in dp:\n                return dp[(idx, jump, back)]\n            nottake = 0\n            if back and idx!=0:\n                nottake = solve(idx-1, jump, 0)\n            take = 0\n            if idx < k+2:\n                take = solve(idx+2**jump, jump+1, 1)\n            \n            dp[(idx, jump, back)] = nottake+take\n            \n            return nottake+take\n        ans = solve(1, 0, 1)\n        if k==0 or k==1:\n            return ans+1\n        return ans\n        ",
-    "submit_ts": 1716090183.0
+    "username": "szoro",
+    "submission": "class Solution {\npublic:\n            map<int,map<int,map<int,int>>> mp;\n\n    int waysToReachStair(int k) {\n        mp.clear();\n        return get(k,0,1,0);\n    }\n    int get(int k,int j,int cl,int ln){\n        \n        int ans = 0;\n        if(cl>k+1)return 0;\n        if(cl>k&&ln)return 0;\n        \n        if(mp.count(j)&&mp[j].count(cl)&&mp[j][cl].count(ln))return mp[j][cl][ln];\n        if(cl==k)ans = 1;\n        ans +=  get(k,j+1,cl+(1L<<j),0);\n\n        if(ln||cl==0){\n            // no neg step\n            return mp[j][cl][ln]= ans;\n        }\n        else{\n            ans+= get(k,j,cl-1,1);\n        }\n        return mp[j][cl][ln] = ans;\n    }\n};",
+    "submit_ts": 1716089279.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "exception73",
-    "submission": "class Solution {\npublic:\n    \n    int solve(int k, int stair, int jump, int used,  map<tuple<long long, long long, long long, int>, int > &dp ){\n        \n        if(k+2 < stair) return 0;\n        if(dp.count( make_tuple(k, stair, jump, used))) return  dp[make_tuple(k, stair, jump, used)] ;\n        int op1 = 0, op2 = 0;\n        \n        if(used && stair) op1 +=  solve(k, stair -1, jump, 0, dp);\n        op2 +=   solve(k,  stair + pow(2, jump), jump+1, 1, dp);\n        \n        \n        \n        return dp[make_tuple(k, stair, jump, used)] = op1 + op2 + (stair == k);\n        \n    }\n    \n    int waysToReachStair(int k) {\n        map<tuple<long long, long long, long long, int>, int > dp;\n        return solve(k, 1, 0, 1, dp);\n    }\n};",
-    "submit_ts": 1716089813.0
+    "username": "stellarhuman09",
+    "submission": "class Solution {\npublic:\n    int func(int curr,int k,int dec,int exp,map<vector<int>,int> &dp){\n        vector<int> state = {curr,dec,exp};\n        if(dp.find(state)!=dp.end()){\n            return dp[{curr,dec,exp}];\n        }\n        int tot = 0;\n        if(k==curr){\n            tot++;\n        }\n        if((curr-1)>k){\n            return dp[{curr,dec,exp}] = 0;\n        }\n        int ncurr = curr + pow(2,exp);\n        tot += func(ncurr,k,1,exp+1,dp);\n        if(dec>0 && curr>0){\n            tot += func(curr-1,k,0,exp,dp);\n        }\n        return dp[{curr,dec,exp}] = tot;\n    }\n    int waysToReachStair(int k) {\n        map<vector<int>,int> dp;\n        return func(1,k,1,0,dp);\n    }\n};",
+    "submit_ts": 1716090111.0
 }

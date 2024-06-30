@@ -1,5 +1,5 @@
 {
-    "username": "anupam_ghosh",
-    "submission": "map<int,int> mp[31][2];\nint f(long long n,int jump,int k,bool can){\n    if(n-k>2)return 0;\n    if(mp[jump][can].count(n))return mp[jump][can][n];\n    int res=(n==k);\n    if(can && n!=0){\n        res+=f(n-1,jump,k,0);\n    }\n    res+=f(n+((1LL<<jump)),jump+1,k,1);\n    return mp[jump][can][n]=res;\n}\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        map<int,int> dp;\n        for(int i=0;i<31;i++){\n            mp[i][0]=dp;\n            mp[i][1]=dp;\n        }\n        return f(1,0,k,1);\n    }\n};",
-    "submit_ts": 1716087961.0
+    "username": "Aviral__Gupta",
+    "submission": "class Solution {\npublic:\n    map<pair<int,pair<int,pair<int,int>>>,int> dp;\n    int func(int ind,int state,int op,int jump,int &k){\n        if(jump >= 30) return 0;\n        if(dp.find({state,{op,{jump,ind}}}) != dp.end()) return dp[{state,{op,{jump,ind}}}];\n        \n        int total = (ind == k);\n        if(ind != 0 && state != 1){\n            total += func(ind-1,1,1,jump,k);\n        }\n        total += func(ind+(1<<jump),0,2,jump+1,k);\n        return dp[{state,{op,{jump,ind}}}] = total;\n    }\n    int waysToReachStair(int k) {\n        dp.clear();\n        return func(1,0,0,0,k);\n    }\n};",
+    "submit_ts": 1716087658.0
 }

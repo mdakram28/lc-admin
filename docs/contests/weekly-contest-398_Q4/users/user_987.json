@@ -1,5 +1,5 @@
 {
-    "username": "gnawcy",
-    "submission": "class Solution {\npublic:\n  long long C(int a, int b) {\n    long long res = 1;\n    for (int i = 1, j = a - b + 1; i <= b; ++i, ++j) {\n      res = res * j / i;\n    }\n    return res;\n  }\n  \n  int waysToReachStair(int k) {\n    int t = 0;\n    int cur = 1;\n    int gap = 1;\n    int res = 0;\n    while (true) {\n      if (cur - gap > k) break;\n      int y = cur - k;\n      //cout << cur << \", \" << gap << endl;\n      if (cur >= k) res += C(gap, y);\n      ++gap;\n      cur += (1 << t);\n     \n      ++t;\n    }\n    return res;\n  }\n};",
-    "submit_ts": 1716090009.0
+    "username": "yoasobi",
+    "submission": "class Solution {\npublic:\n    unordered_map<long long, unordered_map<int, unordered_map<bool, int>>>cnt;\n    int dfs(long long cur, bool down, int k, int jump){\n        if(cnt.find(cur)!=cnt.end()&&cnt[cur].find(jump)!=cnt[cur].end()&&cnt[cur][jump].find(down)!=cnt[cur][jump].end()){\n            return cnt[cur][jump][down];\n        }\n        int ret=0;\n        if(cur==k) ret++;\n        // cnt[cur]++;\n        \n        if(!down&&cur>0){\n            ret+=dfs(cur-1, true, k, jump);\n        }\n        long long up=cur+(1ll<<jump);\n        if(up-1<=k){\n            ret+=dfs(up, false, k, jump+1);\n        }\n        return cnt[cur][jump][down]=ret;\n        \n    }\n    int waysToReachStair(int k) {\n        cnt.clear();\n        // int ans=0;\n        return dfs(1, false, k, 0);\n        // return cnt[k];\n        // return ans;\n    }\n};",
+    "submit_ts": 1716089106.0
 }

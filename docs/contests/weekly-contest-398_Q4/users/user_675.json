@@ -1,5 +1,5 @@
 {
-    "username": "AlthafHussain",
-    "submission": "class Solution {\n    int dp[][][];\n    int f(int j, int cnt, int flag, int k){\n        if(1+((1<<j)-1)-cnt  > k+1) return 0;\n        int cost = (1+((1<<j)-1)-cnt == k) ? 1 : 0;\n        if(dp[j][cnt][flag] != -1) return dp[j][cnt][flag];\n        int count = f(j+1, cnt, 0, k);\n        if(flag == 0)\n        count += f(j, cnt+1, 1, k);\n        return dp[j][cnt][flag] = cost+count;\n    }\n    public int waysToReachStair(int k) {\n        dp = new int[32][32][2];\n        for(int i[][] : dp){\n            for(int j[] : i){\n                Arrays.fill(j, -1);\n            }\n        }\n        return f(0, 0, 0, k);\n    }\n}",
-    "submit_ts": 1716089267.0
+    "username": "mukeshreddy2624",
+    "submission": "using System;\nusing System.Collections.Generic;\n\npublic class Solution {\n    private Dictionary<(int, int, bool), int> dp = new Dictionary<(int, int, bool), int>();\n\n    private int Solve(int k, int i, int jump, bool can) {\n        if (i > k + 5) return 0;\n        if (jump > 31) return 0;\n\n        var key = (i, jump, can);\n        if (dp.ContainsKey(key)) return dp[key];\n\n        int ans = (i == k) ? 1 : 0;\n        if (can) ans += Solve(k, i - 1, jump, false);\n        if (i + (1 << jump) <= k + 1) ans += Solve(k, i + (1 << jump), jump + 1, true);\n\n        dp[key] = ans;\n        return ans;\n    }\n\n    public int WaysToReachStair(int k) {\n        return Solve(k, 1, 0, true);\n    }\n}\n",
+    "submit_ts": 1716089270.0
 }

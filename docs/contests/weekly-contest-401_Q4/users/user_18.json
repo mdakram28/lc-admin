@@ -1,5 +1,5 @@
 {
-    "username": "hank55663",
-    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        sort(rewardValues.begin(),rewardValues.end());\n        rewardValues.resize(unique(rewardValues.begin(),rewardValues.end())-rewardValues.begin());\n        bitset<100005> b(0), ans(0);\n        ///ans[100005];\n        //fill(ans,ans+100005,0);\n        ans[0]=1;\n        b[0]=1;\n        int now=0; \n        for(auto it:rewardValues){\n            while(now<it){\n                if(ans[now])\n                b[now]=1;\n                now++;\n            }\n            ans|=b<<it;\n        }\n        for(int i = 100000;i>=0;i--){\n            if(ans[i])return i;\n        }\n        return 0;\n    }\n};",
-    "submit_ts": 1717901291.0
+    "username": "ernestlu",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        constexpr int B = 1e5 + 69, K = 20;\n        bitset<B> dp;\n        dp[0] = 1;\n        vector a = rewardValues;\n        sort(a.begin(), a.end());\n        for (auto u : a) {\n            bitset<B> new_dp = dp;\n            \n            new_dp |= ((dp << (B - u)) >> (B - u)) << u;\n            \n            swap(dp, new_dp);\n        }\n        for (int i = B - 1; i >= 0; i--) {\n            if (dp[i])\n                return i;\n        }\n        assert(false);\n        return -1;\n    }\n};",
+    "submit_ts": 1717901308.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "pein531",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @lru_cache(None)\n        def dfs(cur: int, pre: int, jump: int) -> int:\n            if cur > k + 1:\n                return 0\n            cnt = 0\n            if cur == k:\n                cnt += 1\n            if pre == 0 and cur > 0:\n                # \u524d\u9762\u6ca1\u6709\u5411\u4e0b\u8d70\u8fc7\uff0c\u5e76\u4e14\u53ef\u4ee5\u5411\u4e0b\u8d70\n                cnt += dfs(cur - 1, 1, jump)\n            cnt += dfs(cur + (1<<jump), 0, jump + 1)\n            return cnt\n        ans = dfs(1, 0, 0)\n        dfs.cache_clear()\n        return ans",
-    "submit_ts": 1716087981.0
+    "username": "n3_",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        \n        @lru_cache(None)\n        def f(s, c1, jmp):\n            # print(s, c1, jmp)\n            if s >= k+2:\n                return 0\n            \n            ret = 1 if (s == k) else 0\n            \n            if c1 and s != 0:\n                ret += f(s-1, False, jmp)\n            \n            ret += f(s + (1<<jmp), True, jmp+1)\n            \n            \n            return ret\n            \n        return f(1, True, 0)",
+    "submit_ts": 1716087692.0
 }

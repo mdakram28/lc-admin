@@ -1,5 +1,5 @@
 {
-    "username": "Ma_Lin",
-    "submission": "class Solution {\npublic:\n    int waysToReachStair(int n) {\n        int i, j, T, res = 0, f[31][31], x;\n        if (n == 0 || n == 1) ++res;\n        for (i = 0; i <= 30; ++i){\n            f[i][0] = f[i][i] = 1;\n            for (j = 1; j < i; ++j)\n                f[i][j] = (f[i - 1][j - 1] + f[i - 1][j]);\n        }\n        \n        for (T = 0; T <= 29; ++T){\n            x = (1<<(T + 1));\n            // cout<<x<<\" \"<<T + 2<<\" \"<<x - n<<endl;\n            if (x >= n && x - n <= T + 2) res += f[T + 2][x - n];\n        }\n        \n        return res;\n    }\n};",
-    "submit_ts": 1716086839.0
+    "username": "Andycipation",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @functools.cache\n        def solve(x: int, c: int) -> int:\n            ret = 0\n            if x == k:\n                # stop\n                ret += 1\n            if x == k + 1:\n                # -1, stop\n                ret += 1\n            if x >= 1 and x - 1 + (1 << c) <= k + 1:\n                # -1, 2^c, ...\n                ret += solve(x - 1 + (1 << c), c + 1)\n            if x + (1 << c) <= k + 1:\n                # 2^c, ...\n                ret += solve(x + (1 << c), c + 1)\n            return ret\n        \n        return solve(1, 0)\n            ",
+    "submit_ts": 1716086802.0
 }

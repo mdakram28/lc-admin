@@ -1,5 +1,5 @@
 {
-    "username": "wangdh15",
-    "submission": "class Solution {\npublic:\n    long long cc[35][35];\n\n    int waysToReachStair(int k) {\n\n        for (int i = 1; i < 32; ++i) {\n            cc[i][0] = cc[i][i] = 1;\n            for (int j = 1; j < i; ++j) {\n                cc[i][j] = cc[i-1][j-1] + cc[i-1][j]; \n            }\n        }\n\n        int ans = 0;\n        for (int i = 0; i < 32; ++i) {\n            long long tmp = 1;\n            for (int j = 0; j < i; ++j) tmp += 1LL << j;\n            for (int j = 0; j <= i + 1; ++j) {\n                if (tmp - j == k) {\n                    ans += cc[i+1][j];\n                    // cout << i << ' ' << j << endl;\n                    break;\n                }\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716088673.0
+    "username": "being_hooman",
+    "submission": "class Solution {\npublic:\n    int target;\n    unordered_map<int,unordered_map<int,unordered_map<int,int>>>mp;\n    int getcount(int pos,int jump,int last){\n        if(pos>target+1) return 0;\n        if(mp.find(pos)!=mp.end() && mp[pos].find(jump)!=mp[pos].end() && mp[pos][jump].find(last)!=mp[pos][jump].end()){\n            return mp[pos][jump][last];\n        }\n        int count=0;\n        if(pos==target) count++;\n        if(pos!=0 && last!=0){\n            count+=getcount(pos-1,jump,0);\n        }\n        count+=getcount(pos+pow(2,jump),jump+1,1);\n        return mp[pos][jump][last]=count;\n    }\n    int waysToReachStair(int k) {\n        target=k;\n        return getcount(1,0,1);\n    }\n};",
+    "submit_ts": 1716088361.0
 }

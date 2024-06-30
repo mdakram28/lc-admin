@@ -1,0 +1,5 @@
+{
+    "username": "xs_pg",
+    "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def td(es):\n            n = len(es) + 1\n            if n == 1:\n                return 0\n            nei = defaultdict(list)\n            for x, y in es:\n                nei[x].append(y)\n                nei[y].append(x)\n            d = [0] * n\n            def dfs(x, f):\n                for y in nei[x]:\n                    if f == y:\n                        continue\n                    d[y] = d[x] + 1\n                    dfs(y, x)\n            dfs(0, -1)\n            md = max(d)\n            index = 0\n            for i in range(n):\n                if d[i] == md:\n                    index = i\n                    break\n            d[index] = 0\n            dfs(index, -1)\n            # print(d)\n            return max(d)\n        d1 = td(edges1)\n        d2 = td(edges2)\n        print(d1, d2)\n        return max(d1, d2, 1 + (d1 + 1) // 2 + (d2 + 1) // 2)\n                \n        ",
+    "submit_ts": 1719716401.0
+}

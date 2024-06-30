@@ -1,0 +1,5 @@
+{
+    "username": "fjzzq2002",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\ntypedef long long ll;\ntypedef unsigned long long ull;\n#define SZ 666666\n#define pb push_back\n#define fi first\n#define se second\n#define mp make_pair\nvector<vector<int>> s;\ntypedef pair<int,int> pii;\npii md(-1,-1);\nvoid dfs(int x,int fa=-1,int d=0) {\n    md=max(md,mp(d,x));\n    for(auto y:s[x]) if(y!=fa) dfs(y,x,d+1);\n}\nint dia(vector<vector<int>> edg) {\n    s.clear();\n    int n=edg.size()+1;\n    s.resize(n);\n    for(auto p:edg) {\n        int x=p[0],y=p[1];\n        s[x].pb(y);\n        s[y].pb(x);\n    }\n    md=mp(-1,-1);\n    dfs(0);\n    int x=md.se;\n    md=mp(-1,-1);\n    dfs(x);\n    return md.fi;\n}\nclass Solution {\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int d1=dia(edges1),d2=dia(edges2);\n        return max(d1,max(d2,(d1+1)/2+(d2+1)/2+1));\n    }\n};",
+    "submit_ts": 1719714975.0
+}

@@ -1,5 +1,5 @@
 {
-    "username": "gr455",
-    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        unordered_map<long long, long long> dp[33][2];\n        \n        return f(k, 1, 0, false, dp);\n    }\n    \n    int f(int k , long long i, int jmp, int dropused, unordered_map<long long, long long> dp[][2]) {\n        if (jmp > (k == 0 ? 2: log2(k) + 2)) return 0;\n        if (i < 0) return 0;\n        \n        if (dp[jmp][dropused].find(i) != dp[jmp][dropused].end()) return dp[jmp][dropused][i];\n        \n        if (i == k) dp[jmp][dropused][i] = 1;\n        \n        dp[jmp][dropused][i] += f(k, i + (1ll << jmp), jmp + 1, false, dp);\n        if (!dropused) dp[jmp][dropused][i] += f(k, i - 1, jmp, true, dp);\n        \n        return dp[jmp][dropused][i];\n    }\n};",
-    "submit_ts": 1716089217.0
+    "username": "jaikritsanandiya",
+    "submission": "#define ll long long\n\nclass Solution {\npublic:\n    ll solve(ll k, ll ind, ll jump, ll f,map<ll,vector<vector<ll>>> &dp) {\n        if (ind-5>k)\n            return 0;\n        if(jump>31)\n            return 0;\n        if((dp.find(ind)!=dp.end()) && dp[ind][jump][f] != -1)\n            return dp[ind][jump][f];\n\n        ll ans=(ind==k);\n        if (f)\n            ans += solve(k, ind-1, jump, 0,dp);\n        if (ind+pow(2,jump)<=(k+1))\n            ans += solve(k, ind+pow(2,jump), jump + 1, 1,dp);\n\n        dp[ind].resize(32, vector<ll>(2, -1));\n        return dp[ind][jump][f] = ans;\n    }\n    int waysToReachStair(int k) {\n        map<ll, vector<vector<ll>>> dp;\n        return solve(k, 1, 0, 1,dp);\n    } \n};",
+    "submit_ts": 1716090117.0
 }

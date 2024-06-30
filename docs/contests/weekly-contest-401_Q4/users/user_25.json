@@ -1,5 +1,5 @@
 {
-    "username": "tepamid",
-    "submission": "\n#define fo(i, n) for (int i = 0; i < n; ++i)\n#define foback(i, n) for (int i = n - 1; i >= 0; --i)\n#define fo1(i, n) for (int i = 1; i <= n; ++i)\n\n#define all(x) x.begin(), x.end()\n#define rall(x) x.rbegin(), x.rend()\n#define makeunique(x) sort(all(x)), (x).resize(unique(all(x)) - (x).begin())\n\ntypedef long long ll;\n\n\nclass Solution {\npublic:\n    int maxTotalReward(vector<int>& a) {\n        int n = a.size();\n        sort(all(a));\n        \n        bitset<100100> msk;\n        int j=0;\n        \n        bitset<100100> bs;\n        bs[0]=1;\n        \n        for(int i=0; i<n; i++) { // 50'000\n            for(;j<a[i]; j++) {\n                msk.set(j);\n            }\n            bs = bs | ((bs & msk) << a[i]); // 50'000 / 64 = 1000\n        }\n        \n        \n        for(int i=100100-1; i>=0; i--) {\n            if (bs[i]) return i;\n        }\n        return 0;\n        \n    }\n};",
-    "submit_ts": 1717901345.0
+    "username": "milind0110",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& a) {\n        const int N = 1e5;\n        bitset<N> bs,mask;\n        int n = (int)a.size();\n        sort(a.begin(),a.end());\n        int j = 0;\n        bs[0] = 1;\n        for(int i = 0; i < n; i++){\n            while(j < a[i]){\n                mask[j] = 1;\n                j++;\n            }\n            bs = (bs | ((bs & mask) << a[i]));\n        }\n        for(int i = N - 1; i >= 0; i--){\n            if(bs[i] == 1) return i;\n        }\n        return 0;\n        \n    }\n};",
+    "submit_ts": 1717901632.0
 }

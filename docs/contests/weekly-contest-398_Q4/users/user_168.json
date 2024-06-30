@@ -1,5 +1,5 @@
 {
-    "username": "Hexadecimal",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @functools.lru_cache(maxsize=None)\n        def f(c, step, dec):\n            if c > k + 10:\n                return 0\n            ret = 1 if c == k else 0\n            if c + 2 ** step <= k + 10:\n                ret += f(c + 2 ** step, step + 1, 1)\n            if dec == 1:\n                ret += f(c - 1, step, 0)\n            return ret\n                \n        return f(1, 0, 1)",
-    "submit_ts": 1716087787.0
+    "username": "iyerke",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dp(stair, jump, prev_dec):\n            res = bool(stair == k)\n            op1 = stair - 1\n            op2 = stair + 2 ** jump\n            if not prev_dec and op1 >= 0:\n                res += dp(op1, jump, True)\n            if jump < 1 or op2 - 1 <= k:\n                res += dp(op2, jump + 1, False)\n            return res\n        return dp(1, 0, False)\n",
+    "submit_ts": 1716087488.0
 }

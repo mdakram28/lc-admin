@@ -1,5 +1,5 @@
 {
-    "username": "stupidRR",
-    "submission": "class Solution:\n    def poss(self, a, b):\n        val = 1\n        deno = 1\n        num = 1\n        i = a\n        j = a - b\n        while i > b:\n            num *= i\n            deno *= j\n            if num % deno == 0:\n                val *= (num // deno)\n                num = 1\n                deno = 1\n            i -= 1\n            j -= 1\n        return val\n    def waysToReachStair(self, k: int) -> int:\n        if k == 0:\n            return 2\n        if k == 1:\n            return 4\n\n        ans = 0\n        for negSteps in range(41):\n            for jmps in range(max(0, negSteps - 1), 41):\n                rep = (1 << jmps)\n                if rep - negSteps == k:\n                    ans += self.poss(jmps + 1, negSteps)\n        return ans\n        ",
-    "submit_ts": 1716087197.0
+    "username": "BraveBLC",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def rec(stair, down, jump):\n            if stair > k+1:\n                return 0\n            if down == True and stair != 0:\n                a = rec(stair-1, False, jump)\n            else:\n                a = 0\n            b = rec(stair + 2**jump, True, jump+1)\n            if stair == k:\n                c = 1\n            else:\n                c = 0\n            return a + b + c\n        \n        return rec(1, True, 0)",
+    "submit_ts": 1716087493.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "alco_rythm",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def f(cur, jump):\n            if cur > (k + 1):\n                return 0\n            \n            p = int(cur == k)\n            \n            x = cur + (1 << jump)\n            if x <= (k + 1):\n                p += f(x, jump + 1)\n            \n            if cur > 0:\n                p += int((cur - 1) == k) + f(cur - 1 + (1 << jump), jump + 1)\n            \n            return p\n    \n        return f(1, 0)\n            ",
-    "submit_ts": 1716087901.0
+    "username": "ddoudle",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        def comb(n, k):\n            return factorial(n) // (factorial(k) * factorial(n-k))\n        \n        if k == 0:\n            return 2\n        res = 0\n        for f in range(35):\n            fsteps = 2 ** f - 1\n            bsteps = 1 + fsteps - k\n            # print(f, fsteps, bsteps)\n            if bsteps < 0:\n                continue\n            elif bsteps == 0:\n                res += 1\n            else:\n                if bsteps > f + 1:\n                    break\n                if bsteps == f + 1:\n                    res += 1\n                else:\n                    res += comb(f+1, bsteps)\n                    # print(comb(f+1, bsteps))\n        return res",
+    "submit_ts": 1716088213.0
 }

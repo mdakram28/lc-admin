@@ -1,0 +1,5 @@
+{
+    "username": "zpzpzzp2020",
+    "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        d1, d2 = self.treeDiameter(edges1), self.treeDiameter(edges2)\n        return max(d1, d2, (d1 + 1) // 2 + (d2 + 1) // 2 + 1)\n        \n    def treeDiameter(self, edges: List[List[int]]) -> int:\n        graph = defaultdict(list)\n        for u, v in edges:\n            graph[u].append(v)\n            graph[v].append(u)\n        visited = set()\n        self.res = 0\n        self.dfs(graph, 0, visited)\n        return self.res\n    \n    def dfs(self, graph, node, visited):\n        depth = 1\n        visited.add(node)\n        longest = []\n        for nb in graph[node]:\n            if nb in visited:\n                continue\n            d = self.dfs(graph, nb, visited)\n            depth = max(depth, d + 1)\n            longest.append(d)\n            longest.sort()\n            if len(longest) > 2:\n                longest.pop(0)\n        self.res = max(self.res, sum(longest))\n        return depth",
+    "submit_ts": 1719717510.0
+}

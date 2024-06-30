@@ -1,5 +1,5 @@
 {
-    "username": "WillTsai",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def helper(i, j, d=False):\n            if i > k+1 or i < 0:\n                return 0\n            res = 0\n            if i == k:\n                res += 1\n            if not d:\n                res += helper(i-1, j, True)\n            res += helper(i+2**j, j+1, False)\n            # print(i, j, d, res)\n            return res\n        # print()\n        res = helper(1, 0)\n        return helper(1, 0)\n        ",
-    "submit_ts": 1716089348.0
+    "username": "jqodiriy",
+    "submission": "class Solution {\npublic:\n    #define ll long long \n\n    long long dp[40][40];\n\n    ll get(ll a, ll b){\n        if(dp[a][b] !=0) return dp[a][b];\n        if(b == 0 || a == b) return 1;\n        dp[a][b] = get(a-1, b-1) + get(a-1, b);\n        return dp[a][b];\n    }\n\n\n   int waysToReachStair(int k) {\n    map <ll, ll> mp;\n\n    long long fct[20];\n\n    for(int i=0; i < 31; i ++){\n        for(int j=0; j <= i + 1; j ++) {\n            int x = (1 << i) - 1;\n            x -= j;\n            if (mp.count(x) > 0)\n                mp[x] += get(i+1, j);\n            else {\n                mp[x] = get(i+1, j);\n            }\n        }\n    }\n    return mp[k-1];\n\n}\n};",
+    "submit_ts": 1716089049.0
 }

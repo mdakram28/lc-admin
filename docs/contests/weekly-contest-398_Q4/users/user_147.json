@@ -1,5 +1,5 @@
 {
-    "username": "mark_contest",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def dfs(n, jump, prev_down):\n            if n - 1 > k: return 0\n            \n            cnt = 1 if n == k else 0\n            if prev_down is False:\n                cnt += dfs(n-1, jump, True)\n            cnt += dfs(n + 2 ** jump, jump+1,  False)\n            # print(n, jump, prev_down, cnt)            \n            return cnt\n        \n        return dfs(1, 0, False)\n                \n            ",
-    "submit_ts": 1716087661.0
+    "username": "_otto",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def dfs(curr, lastdown, use):\n            #print(curr, lastdown, use)\n            if curr == k: \n                ans = 1\n            else:\n                ans = 0\n            step = pow(2, use)\n            if curr > k + 1:\n                return 0\n            if curr >= 1 and not lastdown:\n                ans += dfs(curr - 1, True, use)\n            ans += dfs(curr + step, False, use + 1)\n            return ans\n\n        ans = dfs(1, False, 0)\n        return ans",
+    "submit_ts": 1716087662.0
 }

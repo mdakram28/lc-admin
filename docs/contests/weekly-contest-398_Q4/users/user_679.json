@@ -1,5 +1,5 @@
 {
-    "username": "Suryansh_Singh",
-    "submission": "class Solution {\nprivate:\n    int ncr(int n, int r){\n        long ans=1;\n        for(int i=1; i<=r; i++){\n            ans*=(n-r+i);\n            ans/=i;\n        }\n        return (int)ans;\n    }\npublic:\n    int waysToReachStair(int k) {\n        int ans=0;\n        for(int i=0; i<30; i++){\n            if((1<<i) < k) continue;\n            if((1<<i)-(i+1) > k) break;\n            \n            ans+=ncr(i+1, (1<<i)-k);\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1716088988.0
+    "username": "itsyeshu",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dfs(i:int, jump:int = 0, isPrevUsed:bool = False):            \n            res = 0\n            \n            if i > k+1:\n                return 0\n            elif i == k:\n                res += 1\n\n            res += dfs(i+(1 << jump), jump+1, False) + (0 if (isPrevUsed or i == 0) else dfs(i-1, jump, True))\n            return res\n        \n        return dfs(1)",
+    "submit_ts": 1716089582.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "betsymp",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        J, jump, res = 64, 1, 0\n        \n        if k == 0 or k == 1:\n            res = 1\n        \n        for j in range(J):\n            jump += 1 << j\n            if jump < k:\n                continue\n            slack = jump - k\n            if slack > j + 2:\n                continue\n            res += math.comb(j + 2, slack)\n            \n        return res",
-    "submit_ts": 1716087265.0
+    "username": "g129512",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def dfs(canDec,i,n):\n            res=0\n            if n==k:\n                res+=1\n            if canDec:\n                res+=dfs(False,i,n-1)\n            if n+2**i<=k+10:\n                res+=dfs(True,i+1,n+2**i)\n            return res\n        return dfs(True,0,1)",
+    "submit_ts": 1716087257.0
 }

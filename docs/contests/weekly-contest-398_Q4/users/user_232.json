@@ -1,5 +1,5 @@
 {
-    "username": "Scoopsicus",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @lru_cache(maxsize=None)\n        def backtrack(idx, justDidThing, jump):\n            beginningSum = 0\n            if idx == k:\n                # return 1\n                beginningSum = 1\n            if idx > k+2:\n                return 0\n\n            # optionA\n            optionA = 0\n            if idx > 0 and not justDidThing:\n                optionA = backtrack(idx-1, True, jump)\n            # optionB\n            optionB = backtrack(idx+(1<<jump), False, jump+1)\n            \n            return optionA+optionB+beginningSum\n\n        return backtrack(1, False, 0)",
-    "submit_ts": 1716088078.0
+    "username": "a7174812",
+    "submission": "class Solution {\npublic:\n    long long C[32][32];\n    long long mod = 1e18;\n    int waysToReachStair(int k) {\n        if(k == 0)\n            return 2;\n        if(k == 1)\n            return 4;\n        int ans = 0;\n        helper();\n        for(int i = 1; ; ++i){\n            int mx = pow(2, i);\n            int mn = mx - i -1;\n            \n            if(k <= mx && k >= mn){\n                int neg = mx - k;\n                ans += C[i+1][neg];\n                // printf(\"%d %d\\n\", i+1, neg);\n            }\n            if(mn > k)\n                break;\n        }\n        \n        \n        return ans;\n    }\n    \n    void helper(){\n        for(int i = 0; i < 32; ++i){\n            C[0][i] = 0;\n            C[i][0] = 1;\n        }\n        \n        for(int i = 1; i < 32; ++i){\n            for(int j = 1; j < 32; ++j)\n                C[i][j] = (C[i-1][j] + C[i-1][j-1]) % mod;\n        }\n            \n    }\n};",
+    "submit_ts": 1716088055.0
 }

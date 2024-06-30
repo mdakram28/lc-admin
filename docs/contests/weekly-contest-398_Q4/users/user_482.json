@@ -1,5 +1,5 @@
 {
-    "username": "user8510t",
-    "submission": "class Solution {\npublic:\n    int choose(int n, int k){\n        if(k==0)return 1;\n        if(k+k>n) return choose(n, n-k);\n        long long answer = 1;\n        for(int i = n-k+1;i<=n;i++){\n            answer*=i;\n            answer/=(i-(n-k));\n        }\n        return answer;\n    }\n    int waysToReachStair(int k) {\n        int curr=1;\n        int answer =0;\n        for(int i=0;curr<=i+k+1;i++){\n            if(curr>=k) answer+=choose(i+1, curr-k);\n            curr+=pow(2, i);\n            \n        }\n        return answer;\n    }\n};",
-    "submit_ts": 1716088396.0
+    "username": "AggarwalShivam",
+    "submission": "class Solution {\npublic:\n\n    long long ways(long long current, int& k, long long jump, bool canBack, map<pair<pair<long long, long long>, bool>, long long>& mp) {\n        if (current > k + 50) return 0;\n\n        if (mp.find({{current, jump}, canBack}) != mp.end()) return mp[{{current, jump}, canBack}];\n\n        long long ans = (current == k) ? 1 : 0;\n        if (canBack && current != 0) ans += ways(current - 1, k, jump, false, mp);\n\n        ans += ways(current + jump, k, jump * 2, true, mp);\n        return mp[{{current, jump}, canBack}] = ans;\n    }\n\n    int waysToReachStair(int k) {\n        if (k == 0) return 2;\n\n        map<pair<pair<long long, long long>, bool>, long long> dp;\n        return ways(1, k, 1, true, dp);\n    }\n};",
+    "submit_ts": 1716088998.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "ocavue",
-    "submission": "from functools import cache\n\n\n@cache\ndef calc(\n    k: int,\n    from_back: bool,\n    jump: int,\n) -> int:\n    if k == 1 and not from_back and jump == 0:\n        return 1\n\n    if from_back:\n        return calc(k + 1, False, jump)\n\n    if jump > 0:\n        i = k - (2 ** (jump - 1))\n        if i >= 0:\n            return calc(i, True, jump - 1) + calc(i, False, jump - 1)\n\n    return 0\n\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        return sum(calc(k, from_back, jump) for jump in range(32) for from_back in [True, False])\n ",
-    "submit_ts": 1716088260.0
+    "username": "anjkk01",
+    "submission": "class Solution {\npublic:\n    map<vector<int> ,int> dp;\n    int chk(int pos,int k,int jmp,int flag){\n        if(pos>k+1)return 0;\n        if(dp.find({pos,jmp,flag})!=dp.end())return dp[{pos,jmp,flag}];\n        if(flag){\n            if(pos==k)\n                return dp[{pos,jmp,flag}] = 1 + chk(pos+ (1<<jmp) , k ,jmp+1,0);\n            else\n                return dp[{pos,jmp,flag}] = chk(pos+ (1<<jmp) , k ,jmp+1,0);\n        }\n        else{\n            if(pos==k)\n                return dp[{pos,jmp,flag}] = 1 + chk(pos+ (1<<jmp) , k ,jmp+1,0) + chk(pos-1 , k ,jmp,1);\n            else\n                return dp[{pos,jmp,flag}] = chk(pos+ (1<<jmp) , k ,jmp+1,0) + chk(pos-1 , k ,jmp,1);\n        }\n    }\n    int waysToReachStair(int k) {\n        return chk(1,k,0,0);\n    }\n};",
+    "submit_ts": 1716087208.0
 }

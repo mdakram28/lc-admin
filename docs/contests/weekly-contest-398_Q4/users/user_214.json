@@ -1,5 +1,5 @@
 {
-    "username": "dhruv_gupta123",
-    "submission": "class Solution {\npublic:\n    long long int dp[50][50][32][2]={-1};\n    int f(int p,int offset,int jump,bool chk,int k)\n    {\n        int i=(1ll<<p)-offset;\n       // cout<<i<<endl;\n        if(i>(k+1)) return 0;\n        if(dp[p][offset][jump][chk]!=-1) return dp[p][offset][jump][chk];\n        long long int sum=0;\n        if(i==k) sum=1;\n        if(chk) sum+=f(p,offset+1,jump,false,k);\n        sum+=f(p+1,offset,jump+1,true,k);\n        return dp[p][offset][jump][chk]=sum;\n    }\n    int waysToReachStair(int k) {\n        memset(dp, -1, sizeof(dp));\n        return f(0,0,0,true,k);\n    }\n};",
-    "submit_ts": 1716087981.0
+    "username": "adhishkancharla",
+    "submission": "using ll = long long;\nmap<pair<ll,ll>,int>dp;\nclass Solution {\npublic:\n    int solve(ll i,ll j,ll k){\n        if (dp.count({i,j}))return dp[{i,j}];\n        if (i - k > 1)return dp[{i,j}] = 0;\n        dp[{i,j}] = (i - k == 1 or i - k == 0 ? 1 : 0) + (i == 0 ? 0 : solve(i - 1 + (1ll<<j),j + 1,k)) + solve(i + (1ll<<j),j + 1,k);\n        return dp[{i,j}];\n    }\n    int waysToReachStair(ll k) {\n        dp.clear();\n        return solve(1,0,k);\n    }\n};",
+    "submit_ts": 1716087369.0
 }

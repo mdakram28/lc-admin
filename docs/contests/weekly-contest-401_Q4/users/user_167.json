@@ -1,5 +1,5 @@
 {
-    "username": "Abraxos",
-    "submission": "class Solution {\npublic:\n    int n;\n    vector<int> z;\n    vector<int> dp;\n    int possible(int x){\n        if(dp[x]!=-1)return dp[x];\n        int ind=upper_bound(z.begin(),z.end(),x)-z.begin();\n        if(ind==0)return dp[x]=0;\n        ind--;\n        dp[x]=0;\n        for(int j=ind;j>=0;j--){\n            int ans=z[j];\n            int rem=x-z[j];\n            ans+=possible(min(rem,z[j]-1));\n            dp[x]=max(dp[x],ans);\n            if(dp[x]==x)break;\n        }\n        return dp[x];\n    }\n    int maxTotalReward(vector<int>& rewardValues) {\n        \n        set<int> y;\n        for(int x:rewardValues)y.insert(x);\n        \n        for(int x:y)z.push_back(x);\n        n=z.size();\n        dp=vector<int>(z[n-1],-1);\n        int ans=z[n-1];\n        ans+=possible(z[n-1]-1);\n        \n        \n        return ans;\n    }\n};",
-    "submit_ts": 1717905419.0
+    "username": "Tarique_Abid",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        bitset<50001> bs(1);\n        bitset<50001> bss(1);\n        int n=rewardValues.size();\n        int last=0;\n        sort(rewardValues.begin(),rewardValues.end());\n        for(int i=0;i<n-1;i++){\n            for(int j=last+1;j<rewardValues[i];j++){\n                bss[j]=1;\n            }\n            last=rewardValues[i]-1;\n            bs|=((bs&bss)<<rewardValues[i]);\n        }\n        for(int i=rewardValues[n-1]-1;i>=0;i--){\n            if(bs[i]){\n                return rewardValues[n-1]+i;\n            }\n        }\n        return 5;\n    }\n};",
+    "submit_ts": 1717905239.0
 }

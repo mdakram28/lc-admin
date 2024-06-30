@@ -1,5 +1,5 @@
 {
-    "username": "hritikagarwal96",
-    "submission": "class Solution {\npublic:\n    #define ll long long\n    ll solve(ll i,ll jump,bool flag,ll k,map<string,int>&dp){\n        if(i>k && flag==1) return 0 ;\n        if(i==k){\n            ll ans1 = 0;\n            if(flag==0) ans1 = solve(i-1,jump,1,k,dp) ;\n            ll ans2=0 ;\n            if(jump<30) ans2 = solve(i+pow(2,jump),jump+1,0,k,dp) ;\n            return ans1+ans2+1 ;\n        }\n        string s = to_string(i)+\" \"+to_string(jump)+\" \"+to_string(flag) ;\n        if(dp.find(s)!=dp.end()) return dp[s] ; \n        ll ans1=0 ;\n        if(flag==0) ans1 = solve(i-1,jump,1,k,dp) ;\n        ll ans2=0 ;\n        if(jump<30) ans2 = solve(i+pow(2,jump),jump+1,0,k,dp) ;\n        return dp[s] = ans1+ans2 ;\n    }\n\n\n    int waysToReachStair(int k) {\n        map<string,int>dp ;\n        ll ans = solve(1,0,0,k,dp) ;\n        return ans ;\n    }\n};",
-    "submit_ts": 1716089194.0
+    "username": "hychen11",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        max_jump = floor(log2(k + 1)) + 1\n        print(max_jump)\n        @cache\n        def dfs(i: int, jump: int, flag: bool) -> int:\n            if jump > max_jump:\n                return 0\n            ways = 0\n            if i == k:\n                ways= 1\n            next_pos = i + (1 << jump)\n            if next_pos <= k+1:\n                ways += dfs(next_pos, jump + 1, False)\n\n            if not flag and i > 0:\n                ways += dfs(i - 1, jump, True)\n\n            return ways\n\n        return dfs(1,0,False)\n",
+    "submit_ts": 1716089495.0
 }

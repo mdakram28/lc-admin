@@ -1,5 +1,5 @@
 {
-    "username": "tr1nity",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @lru_cache(None)\n        def dfs(f, now, jump):\n            ok = 0\n            # print(f, now, jump)\n            if now == k: ok += 1\n            if now > k + 2: return 0\n            # if now > k: \n            #     return now - k\n            up = dfs(True, now + (1 << jump), jump + 1)\n            down = dfs(False, now - 1, jump) if now >= 1 and f is True else 0\n            return ok + up + down\n        return dfs(True, 1, 0)",
-    "submit_ts": 1716088714.0
+    "username": "amanjoshi149",
+    "submission": "class Solution {\npublic:\n    unordered_map<string,int> mp;\n    int traverse(long long i, long long power, long long k,int prev)\n    {\n        string s =  to_string(i)+ \"#\" + to_string(power)+ \"#\" + to_string(prev);\n        if(mp.find(s) != mp.end())\n            return mp[s];\n        \n        int ans= 0;\n        if(i==k){\n            ans = 1;\n        } \n        if(i==0){\n            if(i+pow(2,power)-1 <= k)        \n                ans +=  traverse(i+pow(2,power), power+1,k,1);\n        }\n        else{\n            if(prev == 0)\n            {\n                if(i+pow(2,power)-1 <= k)    \n                    ans += traverse(i + pow(2,power), power+1,k,1);\n            }\n            else{\n                ans += traverse(i-1, power,k, 0);\n                if(i+pow(2,power)-1 <= k)    \n                    ans += traverse(i + pow(2,power),power+1,k,1);\n            }\n        }\n        return mp[s] = ans;\n    }\n    int waysToReachStair(int k) {\n        int i =1;\n        int power =0;\n        return traverse(i,power,k,1);\n    }\n};",
+    "submit_ts": 1716089007.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "_srihari_",
-    "submission": "class Solution {\npublic:\n    using ll = long long;\n    int waysToReachStair(int k) {\n        map<pair<ll,ll>,ll> dp;\n        auto DFS = [&](auto&& dfs, ll curr, ll j)->ll{\n            auto p = make_pair(curr,j);\n            if(dp.find(p)!=dp.end())return dp[p];\n            ll ret = curr==k;\n            ll nxt = curr;\n            ll tmp =  powl(2,j);\n            if(nxt+tmp<=(k+1000)){\n                nxt+=tmp;\n                ret += dfs(dfs, nxt, j+1);\n            }\n            if(curr>0){\n                ret+=(curr-1)==k;\n                curr--;\n                nxt = curr;\n                if(nxt+tmp<=(1000+k)){\n                    nxt+=tmp;\n                    ret += dfs(dfs, nxt, j+1);\n                }\n            }\n            dp[p]=ret;\n            return ret;\n        };\n        return DFS(DFS, 1, 0);\n    }\n};",
-    "submit_ts": 1716087642.0
+    "username": "is2ac",
+    "submission": "class Solution {\n    public int waysToReachStair(int k) {\n        Integer[][][] dp = new Integer[100][100][2];\n                                           \n        return recur(1,0,1,0,0,k,dp);\n    }\n    public int recur(int cur, int jump, int prev, int donem, int donej, int k, Integer[][][] dp) {\n        if (cur-1>k) return 0;\n        if (dp[donem][donej][prev]!=null) return dp[donem][donej][prev];\n        int res = 0;\n        if (cur==k) res ++;\n        if (prev!=0) {\n            res += recur(cur-1,jump,0,donem+1,donej,k,dp);\n        }\n        res += recur(cur+(int)Math.pow(2,jump),jump+1,1,donem,donej+1,k,dp);\n        return dp[donem][donej][prev] = res;\n        \n    }\n}",
+    "submit_ts": 1716087353.0
 }

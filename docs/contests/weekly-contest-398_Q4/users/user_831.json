@@ -1,5 +1,5 @@
 {
-    "username": "Amit_4552",
-    "submission": "class Solution {\npublic:\n    map<tuple<bool,int,int>,int>mp;\n    int f(int k,bool used,int ind,long long jump){\n        if((ind>k && (!used)) ||(ind<0)) return 0;\n        \n        if(mp.count({used,ind,jump})) return mp[{used,ind,jump}];\n        long long x=(1LL<<jump);\n        int way1=0;\n        if(x+ind<=k+1ll){\n        way1=f(k,true,ind+x,jump+1ll);\n        }\n        int way2=0;\n        if(used){\n            way2=f(k,false,ind-1ll,jump);\n        }\n        int res=way1+way2;\n        if(ind==k) res++;\n        return mp[{used,ind,jump}]=(res);\n    }\n    int waysToReachStair(int k) {\n        int ans=f(k,true,1,0ll);\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1716089983.0
+    "username": "sobols",
+    "submission": "long long Calc(long long k) {\n    long long ans = 0;\n    vector<long long> prv = { 1 };\n    for (int p = 0; p <= 32; ++p) {\n        vector<long long> nxt;\n        nxt.push_back(1);\n        for (int i = 0; i + 1 < prv.size(); ++i) {\n            nxt.push_back(prv[i] + prv[i + 1]);\n        }\n        nxt.push_back(1);\n        \n        const auto& arr = nxt;\n        long long pw = 1LL << p;\n        long long idx = pw - k;\n        if (0 <= idx && idx < (long long)arr.size()) {\n            ans += arr[idx];\n        }\n        \n        prv.swap(nxt);\n    }\n    return ans;\n}\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        return Calc(k);\n    }\n};",
+    "submit_ts": 1716089982.0
 }

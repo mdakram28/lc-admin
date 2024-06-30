@@ -1,5 +1,5 @@
 {
-    "username": "jayxps",
-    "submission": "from math import comb\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        ways = 0\n        if k == 0 or k == 1:\n            ways += 1\n        jCnt = 1\n        jStairs = 0\n        jump = 0\n        while True:\n            jStairs += 2**jump\n            maxDec = jCnt + 1\n            if jStairs + 1 - maxDec > k:\n                break\n            if jStairs + 1 < k:\n                jCnt += 1\n                jump += 1\n                continue\n            decCnt = jStairs + 1 - k\n            #print(str(jStairs) + ' ' + str(jCnt) + ' ' + str(decCnt))\n            ways += comb(jCnt + 1, decCnt)\n            jCnt += 1\n            jump += 1\n        return ways",
-    "submit_ts": 1716089289.0
+    "username": "shantanushanto",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        \n        @cache\n        def rec(stair, jump, type_):\n            if stair < 0:\n                return 0\n            \n            if stair > int(5*1e9):\n                return 0\n\n            ans = 0\n\n            if stair == k:\n                ans = 1\n\n            if type_ == 0:\n                ans += rec(stair-1, jump, 1)\n\n            stair_next = stair + int(pow(2, jump))\n            ans += rec(stair_next, jump+1, 0)\n\n            return ans\n\n        ans = rec(1, 0, 0)\n        return ans\n            \n\n\n        ",
+    "submit_ts": 1716086904.0
 }

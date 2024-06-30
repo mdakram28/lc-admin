@@ -1,5 +1,5 @@
 {
-    "username": "fmota",
-    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& a, int K) {\n        int n = a.size();\n        vector<int> b(30, -1);\n        int res = 1<<30;\n        for(int i = 0; i < n; i++){\n            for(int j = 0; j < 30; j++){\n                if((a[i]>>j)&1){\n                    \n                } else {\n                    b[j] = i;\n                }\n            }\n            using pii = pair<int,int>;\n            vector<pii> cur;\n            for(int j = 0; j < 30; j++){\n                cur.emplace_back(b[j], j);\n            }\n            sort(cur.rbegin(), cur.rend());\n            int msk = (1<<30) - 1;\n            for(int j = 0, k = 0; j < 30; j = k){\n                while(k < 30 && cur[j].first == cur[k].first){\n                    msk ^= 1<<cur[k].second;\n                    k++;\n                }\n                if(cur[j].first >= 0){\n                    res = min(res, abs(K - msk));\n                }\n            }\n        }\n        return res;\n    }\n};",
-    "submit_ts": 1717295970.0
+    "username": "urimaj",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<unordered_set<int>> v(n);\n\n        v[n - 1] = { nums.back() };\n\n        for (int i = n - 2; i >= 0; i--) {\n            v[i].insert(nums[i]);\n            for (int x : v[i + 1]) {\n                v[i].insert(nums[i] & x);\n            }\n        }\n\n        int ans = 2e9;\n        for (auto& s : v) {\n            for (int x : s) ans = min(ans, abs(k - x));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717296535.0
 }

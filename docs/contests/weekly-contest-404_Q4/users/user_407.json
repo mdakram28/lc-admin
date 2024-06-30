@@ -1,0 +1,5 @@
+{
+    "username": "AmenPark",
+    "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def maxdepth(conn, i,N):\n            v=[0]*N\n            s=[i]\n            v[i]=1\n            d=-1\n            while True:\n                d+=1\n                ns=[]\n                for nows in s:\n                    for x in conn[nows]:\n                        if v[x]==0:\n                            v[x]=1\n                            ns.append(x)\n                if not ns:\n                    break\n                s=ns\n            return d,s[0]\n            \n        def gch(edges):\n            E=len(edges)\n            conn=[[] for i in range(E+1)]\n            for x,y in edges:\n                conn[x].append(y)\n                conn[y].append(x)\n            _,pt=maxdepth(conn,0,E+1)\n            d,_=maxdepth(conn,pt,E+1)\n            return d\n        d1=gch(edges1)\n        d2=gch(edges2)\n        return max((d1+1)//2+(d2+1)//2+1, d1,d2)",
+    "submit_ts": 1719717909.0
+}

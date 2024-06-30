@@ -1,5 +1,5 @@
 {
-    "username": "swapnesh-khemariya",
-    "submission": "#define ll long long int\nclass Solution {\npublic:\n    map<string, ll>dp;\n    int waysToReachStair(int k) {\n        ll x = 1;\n        int j = 0;\n        bool flag = false;\n        \n        if(k==0)\n            return 2;\n        return solve(x, j, flag, k);\n    }\n    \n    int solve(ll x, int j, bool flag, int &k){\n        string key = to_string(x) + \"_\" + to_string(j) + \"_\" + to_string(flag);\n        if(dp.find(key)!=dp.end())\n            return dp[key];\n        if(x>2*k)\n            return 0;\n        int Ans = 0;\n        if(x==k)\n            Ans++;\n        Ans += solve(x + (1<<j), j+1, false, k);\n        if(!flag && x>0){\n            Ans += solve(x-1, j, true, k);\n        }\n        return dp[key] = Ans;\n    }\n};",
-    "submit_ts": 1716088741.0
+    "username": "gwdyxxzl",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        dp = {}\n        def dfs(i, j, pre):\n            if (i, j, pre) in dp:\n                return dp[(i, j, pre)]\n            if i >= k + 2:\n                return 0\n            if i == k + 1 and pre == 0:\n                return 0\n            if i == 0 or pre == 0:\n                dp[(i, j, pre)] = (i == k) + dfs(i + 2 ** j, j + 1, 1)\n                return dp[(i, j, pre)]\n            dp[(i, j, pre)] = (i == k) + dfs(i - 1, j, 0) + dfs(i + 2 ** j, j + 1, 1)\n            return dp[(i, j, pre)]\n        \n        return dfs(1, 0, -1)",
+    "submit_ts": 1716088446.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "penguinhacker",
-    "submission": "#define ll long long\nconst int MOD = 1e9 + 7;\nint binPow(ll b, int p = MOD - 2) {\n\tll res = 1;\n\twhile(p > 0) {\n\t\tif (p & 1) res = res*b%MOD;\n\t\tb = b * b % MOD;\n\t\tp >>= 1;\n\t}\n\treturn res;\n}\n\nvector<ll> f = {1}, iF = {1};\nll C(int a, int b) {\n\tif (a < 0 || b < 0 || b > a) return 0;\n\tassert(a <= (int)5e6);\n\twhile(f.size() <= a) {\n\t\tint x = f.size();\n\t\tf.push_back(f.back() * x % MOD);\n\t\tiF.push_back(iF.back() * binPow(x) % MOD);\n\t}\n\treturn f[a] * iF[b] % MOD * iF[a-b] % MOD;\n}\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        if (k==0)\n            return 2;\n        if (k==1)\n            return 4;\n        int ans=0;\n        for (int i=1; i<=30; ++i) {\n            int j=(1<<i);\n            if (j<k)\n                continue;\n            if (j-(i+1)>k)\n                continue;\n            int d=j-k;\n            // i bars and d things\n            ans+=C(i+1, d);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716086461.0
+    "username": "AkameOuO",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dfs(cur=1, jump=0, typ=2):\n            if cur - k > 1:\n                return 0\n            res = 0\n            if cur == k:\n                res += 1\n            if typ == 2 and cur != 0:\n                res +=dfs(cur-1, jump, 1)\n                \n            res += dfs(cur + 2**jump, jump+1, 2)\n            return res\n        return dfs()",
+    "submit_ts": 1716086784.0
 }

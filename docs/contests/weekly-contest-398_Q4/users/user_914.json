@@ -1,5 +1,5 @@
 {
-    "username": "rushi_mungse",
-    "submission": "class Solution {\n    unordered_map<string, int> dp;\npublic:\n    int waysToReachStair(int k) {\n        return fn(1, 0, 0, k);\n    }\n    \n    int fn(int i, int j, int f, int &k) {\n        if(i > k + 1 || (f && i >= k + 1)) return 0;\n        \n        string key = to_string(i) + \"$\" + to_string(j) + \"$\" + to_string(f);\n        if(dp.find(key) != dp.end()) return dp[key];\n        \n        int ans = 0;\n        if(i == k) ans = 1;\n        \n        if(!f) ans += fn(i - 1, j, 1, k);\n        ans += fn(i + (1 << j), j + 1, 0, k);\n        return dp[key] = ans;\n    }\n};\n\n\n\n",
-    "submit_ts": 1716090173.0
+    "username": "josephshih13",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        if k>100:\n            j =1\n            while 2**j < k: \n                j+=1\n            dt = 2**j - k\n            if dt > j+1 :\n                return 0\n            return math.comb(j+1,dt)\n        \n        \n        co = Counter()\n        def dfs(now,inc,canDown):\n            if now > 1000:\n                return\n            co[now] += 1\n            # co[now-1] += 1\n            dfs(now+inc,inc*2,True)\n            if canDown:\n                dfs(now-1,inc,False)\n            \n        dfs(1,1,True)\n        \n        if k <= 100:\n            return co[k]\n        # print(len(co))\n        return 0\n            ",
+    "submit_ts": 1716089871.0
 }

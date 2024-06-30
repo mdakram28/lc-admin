@@ -1,5 +1,5 @@
 {
-    "username": "bogdansharpy",
-    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        if k == 0:\n            cnt = Counter(nums)\n            return cnt.most_common(1)[0][1]\n        hmap, ans, buf = {}, 1, [0 for _ in range(k + 1)]\n        for num in nums:\n            if num not in hmap:\n                hmap[num] = [0] * (k + 1)\n            li = hmap[num]\n            li[0] += 1\n            for i in range(1, k + 1):\n                li[i] = 1 + max(li[i], buf[i - 1])\n            for i in range(k + 1):\n                if li[i] > buf[i]:\n                    buf[i] = li[i]\n                    ans = max(ans, li[i])\n        return ans",
-    "submit_ts": 1717861740.0
+    "username": "agakishy",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        dp = [[Counter(), 0, set()] for _ in range(k+2)]\n        for i, x in enumerate(nums):\n            for j in range(k, -1, -1):\n                c, best, best_set = dp[j]\n                if best + 1 > dp[j+1][0][x]:\n                    dp[j+1][0][x] = best + 1\n                    if best + 1 > dp[j+1][1]:\n                        dp[j+1][1] = best + 1\n                        dp[j+1][2] = {x}\n                    elif best + 1 == dp[j+1][1]:\n                        dp[j+1][2].add(x)\n\n                c[x] += 1\n                if c[x] == best:\n                    best_set.add(x)\n                if c[x] > best:\n                    dp[j][1] = c[x]\n                    dp[j][2] = {x}\n            # print(x, dp)\n        ans = -1\n        for i in range(k+1):\n            ans = max(ans, dp[i][1])\n        return ans\n                ",
+    "submit_ts": 1717861751.0
 }

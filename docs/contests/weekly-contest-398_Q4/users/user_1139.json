@@ -1,5 +1,5 @@
 {
-    "username": "superadirockz",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        d = {}\n        def abc(c,j, flag):\n            if c>k+1:\n                return 0\n            try:\n                return d[c,j,flag]\n            except:\n                pass\n            m = 0\n            if c==k:\n                m+=1\n            \n            if flag:\n                m+= abc(c-1, j, flag^1)\n            m+= abc(c+j, 2*j, 1)\n            d[c,j,flag] = m\n            return m\n        \n        return abc(1, 1, 1)\n        \n        ",
-    "submit_ts": 1716090656.0
+    "username": "subzero_isnoob",
+    "submission": "class Solution {\npublic:\n    \n    int solve(vector <vector <vector <int>>>& dp,int i,int j,int prev,int count){\n        if(i==1){\n            if(prev==1){\n                return 1+solve(dp,i-pow(2,j),j+1,0,count);\n            }\n            return 1+solve(dp,i+1,j,1,count+1)+solve(dp,i-pow(2,j),j+1,0,count);\n        }\n        if(i<0){\n            return 0;\n        }\n        if(dp[j][prev][count]!=-1){\n            return dp[j][prev][count];\n        }\n        int ans=0;\n        if(prev!=1){\n            ans+=solve(dp,i+1,j,1,count+1);\n        }\n        ans+=solve(dp,i-pow(2,j),j+1,0,count);\n        return dp[j][prev][count]=ans;\n    }\n    \n    int waysToReachStair(int k) {\n        vector <vector <vector <int>>> dp(100,(vector <vector <int>> (2, (vector <int> (100,-1)))));\n        return solve(dp,k,0,0,0);\n    }\n};",
+    "submit_ts": 1716090056.0
 }

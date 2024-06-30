@@ -1,5 +1,5 @@
 {
-    "username": "WTX1996",
-    "submission": "class Solution {\npublic:\n    using LL=long long;\n    map<int,map<int,int>> memo[35];\n    int res=0;\n    int waysToReachStair(int k) {\n        return dfs(k, 0, 1LL, 2);\n    }\n    \n    int dfs(int k, int jump, LL cur, int ways){\n        if(cur<0){return 0;}\n        if(cur>k+1){return 0;}\n        \n        if(memo[jump].find(cur)!=memo[jump].end()&&\n           memo[jump][cur].find(ways)!=memo[jump][cur].end()){\n            return memo[jump][cur][ways];\n        }\n        \n        int res=0;\n        if(cur==k){res++;}  \n        if(ways==2){\n            res+=dfs(k, jump, cur-1, 1);\n        }\n        res+=dfs(k, jump+1, cur+pow(2, jump), 2);\n        memo[jump][cur][ways] = res;\n        return res;\n    }\n};",
-    "submit_ts": 1716089226.0
+    "username": "arvganesh",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        def nCk(n, k):\n            return math.comb(n, k)\n        \n        diff = k - 1\n        \n        answer = 0\n        jumpTotal = 0\n        numBackwards = 1\n        \n        while jumpTotal - numBackwards <= diff:\n            numBackNeeded = jumpTotal - diff\n            \n            if numBackNeeded >= 0:\n                answer += nCk(numBackwards, numBackNeeded)\n            \n            jumpTotal <<= 1\n            jumpTotal |= 1\n            numBackwards += 1\n        \n        return answer",
+    "submit_ts": 1716089231.0
 }

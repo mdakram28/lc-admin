@@ -1,5 +1,5 @@
 {
-    "username": "_maityamit",
-    "submission": "class Solution {\npublic:\n    //int ans = 0;\n    map<int,map<int,map<bool,int>>> dp;\n    int helper(int curr,int k,int jump,bool used){\n        \n        if(curr-k>1) return 0;\n        \n        if(dp.count(curr) && dp[curr].count(jump) && dp[curr][jump].count(used)) return dp[curr][jump][used];\n        \n        int ans = 0;\n        if(curr==k) ans+=1;\n        if(used==false && curr!=0) ans+=helper(curr-1,k,jump,true);\n        ans+=helper(curr+pow(2,jump),k,jump+1,false);\n        return dp[curr][jump][used]=ans;\n    }\n    int waysToReachStair(int k) {\n        return helper(1,k,0,false);\n    }\n};",
-    "submit_ts": 1716088961.0
+    "username": "noobcoderr",
+    "submission": "class Solution {\npublic:\n    map<vector<int>, int> dp;\n    int K;\n    int dfs(int index, int jump, bool down){\n        vector<int> key = {index, jump, down};\n        if(dp.count(key)) return dp[key];\n        if(index==K) return 1;\n        if(index<0 || index>K+1) return 0;\n        int res=dfs(index+(int)pow(2, jump), jump+1, false);\n        if(!down){\n            res += dfs(index-1, jump, true);\n        }\n        dp[key] = res;\n        return dp[key];\n    }\n    int waysToReachStair(int k) {\n        if(k==0){\n            return 2;\n        }\n        if(k==1){\n            return 4;\n        }\n        if(k==2){\n            return 4;\n        }\n        if(k==3){\n            \n        }\n        K=k;\n        return dfs(1, 0, false);\n    }\n};",
+    "submit_ts": 1716088660.0
 }

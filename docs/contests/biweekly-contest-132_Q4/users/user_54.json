@@ -1,5 +1,5 @@
 {
-    "username": "chromate00",
-    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        vector<int>mlen(k+2);\n        map<int,map<int,int>>DP;\n        for(int i:nums)\n        {\n            map<int,map<int,int>>DP1;\n            for(auto[a,b]:DP[i])\n            {\n                DP1[i][a]=max(DP1[i][a],b+1);\n            }\n            for(int j=0;j<=k;j++)DP1[i][j+1]=max(DP1[i][j+1],mlen[j]+1);\n            for(auto[a,b]:DP1[i])\n            {\n                mlen[a]=max(mlen[a],b);\n            }\n            for(auto[a,b]:DP1[i])\n            {\n                DP[i][a]=max(DP[i][a],b);\n            }\n        }\n        int ans=0;\n        for(auto&[a,b]:DP)for(auto[c,d]:b)ans=max(ans,d);\n        return ans;\n    }\n};",
-    "submit_ts": 1717859177.0
+    "username": "Arch_of_Triumph",
+    "submission": "#include <bits/stdc++.h>\n\n#define pb push_back\n#define all(x) x.begin(), x.end()\n#define sz(x) (int)x.size()\n#define ll long long\n\nclass Solution {\npublic:\n    int maximumLength(vector<int>& a, int k) {\n        int n = sz(a);\n        map<int, int> pre;\n        vector<vector<int>> dp(n + 5, vector<int>(k + 5));\n        vector<int> mx(n + 5);\n        int ans = 0;\n        for (int i = 1; i <= n; i++) {\n            int last = pre[a[i - 1]];\n            pre[a[i - 1]] = i;\n            for (int j = 1; j <= k + 1; j++) {\n                dp[i][j] = max(mx[j - 1] + 1, dp[last][j] + 1);\n                ans = max(ans, dp[i][j]);\n            }\n            for (int j = 1; j <= k + 1; j++) {\n                mx[j] = max(mx[j], dp[i][j]);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717858586.0
 }

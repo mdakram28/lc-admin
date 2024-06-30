@@ -1,5 +1,5 @@
 {
-    "username": "panwu5588",
-    "submission": "class Solution {\n    public int maxTotalReward(int[] rewardValues) {\n        int max = 0;\n        for(int num:rewardValues)\n            max =Math.max(max,num);\n        int[] arr = new int[max*2];\n        int[] visited = new int[max*2];\n        Arrays.sort(rewardValues);\n        for(int num:rewardValues){\n            if(visited[num]>0)\n                continue;\n            visited[num]++;\n            for(int i=num-1;i>0;i--){\n                if(arr[i]>0 && i+num<arr.length)\n                    arr[i+num]++;\n            }\n            arr[num]++;\n            //System.out.println(num+\" \"+ Arrays.toString(arr));\n        }\n        //System.out.println(Arrays.toString(arr));\n        for(int i=arr.length-1;i>0;i--){\n            if(arr[i]>0)\n                return i;\n        }\n        return -1;\n    }\n}",
-    "submit_ts": 1717904685.0
+    "username": "hornedfoe",
+    "submission": "class Solution{\n    int[] nums;\n    Integer[] dp;\n    public int maxTotalReward(int[] nums){\n        Arrays.sort(nums);\n        this.nums = nums;\n        int n = nums.length;\n        dp = new Integer[100001];\n        return finder(nums[n - 1] - 1) + nums[n - 1]; \n    }\n    private int finder(int x){\n        if(x <= 0) return 0;\n        if(dp[x] != null) return dp[x];\n        int v = Arrays.binarySearch(nums , x) , ret = 0;\n        if(v < 0) v = ~ v;\n        else v += 1;\n        // System.out.println(x + \" \" + v);\n        for(int i = 0 ; i < v ; i++){\n            ret = Math.max(ret , nums[i] + finder(Math.min(x - nums[i] , nums[i] - 1)));\n        }\n        // System.out.println(ret);\n        return dp[x] = ret;\n    }\n}",
+    "submit_ts": 1717904756.0
 }

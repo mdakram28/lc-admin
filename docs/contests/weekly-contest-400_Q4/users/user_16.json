@@ -1,5 +1,5 @@
 {
-    "username": "urimaj",
-    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<unordered_set<int>> v(n);\n\n        v[n - 1] = { nums.back() };\n\n        for (int i = n - 2; i >= 0; i--) {\n            v[i].insert(nums[i]);\n            for (int x : v[i + 1]) {\n                v[i].insert(nums[i] & x);\n            }\n        }\n\n        int ans = 2e9;\n        for (auto& s : v) {\n            for (int x : s) ans = min(ans, abs(k - x));\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717296535.0
+    "username": "arignote",
+    "submission": "class Solution {\n\n    public int minimumDifference(int[] nums, int k) {\n        int min = Integer.MAX_VALUE;\n        HashSet<Integer> set = new HashSet<>();\n        for (int num : nums) {\n            HashSet<Integer> curr = new HashSet<>(Set.of(num));\n            min = Math.min(min, Math.abs(k - num));\n            for (int i : set) {\n                curr.add(num & i);\n                min = Math.min(min, Math.abs(k - (num & i)));\n            }\n            set = curr;\n        }\n        return min;\n    }\n}",
+    "submit_ts": 1717296244.0
 }

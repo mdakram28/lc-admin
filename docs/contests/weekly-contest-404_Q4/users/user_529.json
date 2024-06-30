@@ -1,0 +1,5 @@
+{
+    "username": "objectkuan",
+    "submission": "class Solution {\n   public:\n    int diameterOfTree(vector<vector<int>>& edges) {\n        int n = edges.size() + 1;\n        vector<vector<int>> g(n);\n        for (auto& e : edges) {\n            g[e[0]].push_back(e[1]);\n            g[e[1]].push_back(e[0]);\n        }\n        vector<int> dist(n, 0);\n        function<void(int, int)> dfs = [&](int u, int p) {\n            for (int v : g[u]) {\n                if (v == p) continue;\n                dist[v] = dist[u] + 1;\n                dfs(v, u);\n            }\n        };\n        dfs(0, -1);\n        int farthest = max_element(dist.begin(), dist.end()) - dist.begin();\n        fill(dist.begin(), dist.end(), 0);\n        dfs(farthest, -1);\n        return *max_element(dist.begin(), dist.end());\n    }\n\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1,\n                                  vector<vector<int>>& edges2) {\n        const int d1 = diameterOfTree(edges1);\n        const int d2 = diameterOfTree(edges2);\n        return max(max(d1, d2), (d1 + 1) / 2 + (d2 + 1) / 2 + 1);\n    }\n};",
+    "submit_ts": 1719716716.0
+}

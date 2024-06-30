@@ -1,5 +1,5 @@
 {
-    "username": "JJZin",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def recourse(n, power, detract):\n            ans = 0\n            \n            if n > k + 1:\n                return 0\n            if n == k:\n                ans += 1\n            if not detract and n != 0:\n                ans += recourse(n - 1, power, True)\n            ans += recourse(n + 2**power, power + 1, False)\n            return ans\n        return recourse(1, 0, False)\n            \n        \n        ",
-    "submit_ts": 1716088680.0
+    "username": "Namakian",
+    "submission": "class Solution {\npublic:\n    \n    unordered_map<int, unordered_map<int, unordered_map<int, int>>> dp;\n    \n    \n    bool is_exists(int s, int j, bool prev) {\n        auto it = dp.find(s);\n        if(it == dp.end()) return false;\n        \n        auto it1 = it->second.find(j);\n        if(it1 == it->second.end()) return false;\n        \n        auto it2 = it1->second.find(prev);\n        return it2 != it1->second.end();\n    }\n    \n    int numWays(int s, int j, bool prev, int k) {\n        \n        if(is_exists(s,j,prev)) {\n            return dp[s][j][prev];\n        }\n        \n        \n        if(s>k+10) return 0;\n        int ans = 0;\n        if(s == k) ans = 1;\n        \n        \n        ans += numWays(s + (1<<j), j+1, false, k);\n        \n        if(!prev && s) {\n            ans+= numWays(s-1, j, true, k);\n        }\n        \n        dp[s][j][prev] = ans;\n        \n        return ans;\n        \n    }\n    \n    int waysToReachStair(int k) {\n        return numWays(1, 0, false,k);\n    }\n};",
+    "submit_ts": 1716088683.0
 }

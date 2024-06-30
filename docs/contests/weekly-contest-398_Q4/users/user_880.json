@@ -1,5 +1,5 @@
 {
-    "username": "nitin629",
-    "submission": "class Solution:\n    def __init__(self):\n        self.mp = {}\n\n    def helper(self, k, curr_pos, jump, last):\n        if curr_pos > k + 1 or curr_pos < 0:\n            return 0\n        if last == 1 and (curr_pos - k) == 1:\n            return 1\n\n        key = f\"{curr_pos} {jump} {last}\"\n        if key in self.mp:\n            return self.mp[key]\n\n        ans = 0\n        if curr_pos == k:\n            ans += 1\n        if last != 0:\n            ans += self.helper(k, curr_pos - 1, jump, 0)\n        ans += self.helper(k, curr_pos + 2 ** jump, jump + 1, 1)\n\n        self.mp[key] = ans\n        return ans\n\n    def waysToReachStair(self, k):\n        self.mp.clear()\n        return self.helper(k, 1, 0, -1)\n",
-    "submit_ts": 1716090096.0
+    "username": "Jay_1729",
+    "submission": "class Solution:\n    LOGMAX = 31\n    \n    def waysToReachStair(self, k: int) -> int:\n        ans = 0\n        for j in range(self.LOGMAX):\n            diff = (1 << j) - k\n            # Uncomment the following line for debug output\n            # print(j, (1 << j), diff)\n            if diff > j + 1:\n                break\n            if diff < 0:\n                continue\n            p = int(diff)\n            q = j - p + 1\n            if p > q:\n                p, q = q, p\n            cur = 1\n            for i in range(q + 1, p + q + 1):\n                cur *= i\n            for i in range(2, p + 1):\n                cur //= i\n            # Uncomment the following lines for debug output\n            # print(j, diff)\n            # print(p, q)\n            # print(cur)\n            ans += cur\n        return int(ans)",
+    "submit_ts": 1716088595.0
 }

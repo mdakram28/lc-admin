@@ -1,5 +1,5 @@
 {
-    "username": "shivrajbhosale1412",
-    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& arr, int k) {\n        vector<pair<int, set<int>>> dp(k + 1, {0, set<int>()});\n        vector<unordered_map<int, int>> countMaps(k + 1);\n\n        for (const int& i : arr) {\n            int prev = 0;\n            for (int j = 0; j <= k; ++j) {\n                int cur = max({prev + 1, (dp[j].first + 1) * (dp[j].second.count(i) > 0), countMaps[j][i] + 1});\n\n                prev = dp[j].first;\n                countMaps[j][i] = cur;\n\n                if (dp[j].first < cur) {\n                    dp[j] = {cur, set<int>()};\n                }\n\n                if (cur == dp[j].first) {\n                    dp[j].second.insert(i);\n                }\n            }\n        }\n\n        return dp[k].first;\n\n    }\n};",
-    "submit_ts": 1717861842.0
+    "username": "hetvikgoel2021",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        dp = [[1] * (k + 1) for _ in range(n)]\n        max_len = 1\n        max_ch = [-1] * (k + 1)\n        max_val = [{} for _ in range(k + 1)]\n\n        for i in range(n):\n            for ch in range(k + 1):\n                for pch in range(ch):\n                    dp[i][ch] = max(dp[i][ch], 1 + max_ch[pch])\n                if nums[i] in max_val[ch]:\n                    dp[i][ch] = max(dp[i][ch], 1 + max_val[ch][nums[i]])\n                max_len = max(max_len, dp[i][ch])\n            for ch in range(k + 1):\n                max_ch[ch] = max(max_ch[ch], dp[i][ch])\n                max_val[ch][nums[i]] = max(max_val[ch].get(nums[i], 0), dp[i][ch])\n\n        return max_len",
+    "submit_ts": 1717862139.0
 }

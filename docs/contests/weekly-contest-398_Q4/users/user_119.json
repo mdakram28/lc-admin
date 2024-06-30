@@ -1,5 +1,5 @@
 {
-    "username": "RustyKitten",
-    "submission": "from functools import lru_cache\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @lru_cache\n        def helper(cur, jump, used):\n            res = 0\n            if cur == k:\n                res += 1\n            if cur > k+1:\n                return 0\n            if not used and cur>0:\n                res += helper(cur-1, jump, True)\n            return res + helper(cur+2**jump, jump+1, False)\n        return helper(1, 0, False)",
-    "submit_ts": 1716087532.0
+    "username": "SohamKanji",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    unordered_map<ll, unordered_map<ll, unordered_map<ll, ll>>> dp;\n    ll solve(ll i, ll j, ll flag, ll k) {\n        \n        if(dp.find(i)!=dp.end() && dp[i].find(j)!=dp[i].end() && dp[i][j].find(flag)!=dp[i][j].end()) {\n            return dp[i][j][flag];\n        }\n        \n        if(j == 32) {\n            return dp[i][j][flag] = 0;\n        }\n        \n        ll ans = (i==k);\n        \n        if(flag == 0 && i!=0) ans += solve(i-1, j, 1, k);\n        \n        ans += solve(i + (ll)pow(2ll, j), j+1, 0, k);\n        \n        return dp[i][j][flag] = ans;\n    }\n    int waysToReachStair(int k) {\n        return solve(1, 0, 0, k);\n    }\n};",
+    "submit_ts": 1716087492.0
 }

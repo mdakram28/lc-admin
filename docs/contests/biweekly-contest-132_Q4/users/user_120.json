@@ -1,5 +1,5 @@
 {
-    "username": "Mohil09",
-    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& v, int k) \n    {\n        int n = v.size();\n        vector<int> dp(k+1);\n        vector<vector<int>> w(n,vector<int>(k+1));\n        map<int,int> mp;\n        \n        for(int i = 0; i < n; i++)\n        {\n            w[i][0] = 1;\n            \n            for(int j = 0; j < k; j++) w[i][j+1] = dp[j]+1;\n            \n            if(mp.find(v[i])!=mp.end())\n            {\n                for(int j = 0; j <= k; j++)\n                    w[i][j] = max(w[i][j],w[mp[v[i]]][j]+1);\n            }\n            \n            for(int j = 0; j <= k; j++) dp[j] = max(dp[j],w[i][j]);\n            \n            // for(int j = 0; j <= k; j++) cout << dp[j] << ' ';\n            // cout << endl;\n            \n            mp[v[i]] = i;\n        }\n        \n        return *max_element(dp.begin(),dp.end());\n    }\n};",
-    "submit_ts": 1717859936.0
+    "username": "Stealthbreed",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        dp = [[1] * (k+1) for i in range(n)]\n        lastSeen = {}\n        lastSeenMax = [0] * (k+1)\n        for i in range(n):\n            for m in range(k+1):\n                if m > 0:\n                    dp[i][m] = max(dp[i][m],lastSeenMax[m-1] + 1)\n                if nums[i] in lastSeen:\n                    dp[i][m] = max(dp[i][m],dp[lastSeen[nums[i]]][m]+1)\n            for m in range(k+1):\n                if dp[i][m] > lastSeenMax[m]:\n                    lastSeenMax[m] = dp[i][m]\n            lastSeen[nums[i]] = i\n        return max(dp[i][k] for i in range(n))",
+    "submit_ts": 1717860540.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "aww__run",
-    "submission": "class Solution {\npublic:\n    \n    int nCr(int n, int r) {\n    if (r > n || r < 0) return 0;\n    if (r == 0 || r == n) return 1;\n    r = min(r, n - r); // Use the smaller of r and n-r\n    long long res = 1;\n    for (int i = 0; i < r; ++i) {\n        res = res * (n - i) / (i + 1);\n        if (res > INT_MAX) return 0; // Prevent overflow\n    }\n    return (int)res;\n}\n    int waysToReachStair(int k) {\n        if (k == 0) return 2;  // Special case for k=0\n    if (k == 1) return 4;  // Special case for k=1\n\n    int ways = 0;\n    for (int i = 0; i <= 31; ++i) {\n        int twoPowI = 1 << i;\n        if (twoPowI >= k) {\n            ways += nCr(i + 1, twoPowI - k);\n        }\n    }\n    return ways;\n    }\n};",
-    "submit_ts": 1716089826.0
+    "username": "dekail",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n\n        @lru_cache(None)\n        def dp(s, j, r):\n            \n            if s - 1 > k or j >= 31:\n                return 0\n            \n            if s == k:\n                result = 1\n            else:\n                result = 0\n\n            if r == False and s != 0:\n                result += dp(s - 1, j, True)\n\n            result += dp(s + (1 << j), j + 1, False)\n\n            return result\n        \n        return dp(1, 0, False)",
+    "submit_ts": 1716089493.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "LOLwuliao",
-    "submission": "func minimumDifference(nums []int, k int) int {\n    res := math.MaxInt\n    and := []int{}\n    for _, v := range nums {\n        and = append(and, v)\n        and[0] &= v\n        j := 0\n        for _, x := range and[1:] {\n            x &= v\n            if and[j]==x {\n               \n            } else {\n                j++\n                and[j] = x\n            }\n        }\n        and = and[:j+1]\n        for _, v := range and {\n        res = min(res, abs(v-k))\n    }\n    }\n   \n    \n    return res\n}\n\nfunc abs(x int) int {\n    if x < 0 {\n        return -x\n    }\n    return x\n}\n",
-    "submit_ts": 1717299151.0
+    "username": "harshit_jain52",
+    "submission": "class Solution {\npublic:\n    \n    int invert(int num){\n        int ans = 0 ;\n        for(int bit=0;bit<30;bit++){\n            if(!((num>>bit)&1)) ans += (1<<bit);\n        }\n        return ans;\n    }\n    \n    int minimumDifference(vector<int>& nums, int k) {\n        int n = nums.size();\n        int a[n];\n        for(int i=0;i<n;i++) a[i]=invert(nums[i]);\n        \n        set<int>all;\n        set<int>prev;\n        for(int i=0;i<n;i++){\n            set<int>next;\n            for(int x: prev){\n                int OR = a[i]|x;\n                next.insert(OR);\n            }\n            next.insert(a[i]);\n            for(int x: next) all.insert(x);\n            prev=next;\n        }\n        \n        int diff = INT_MAX;\n        for(int x: all){\n            diff = min(diff,abs(k-invert(x)));\n        }\n        \n        return diff;\n    }\n};",
+    "submit_ts": 1717299152.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "PurpleCrayon",
-    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        k--;\n        \n        const int K = 43;\n        long long dp[K][K];\n        memset(dp, 0, sizeof(dp));\n        for (int i = 0; i < K; i++) {\n            for (int j = 0; j < K; j++) {\n                if (j > i + 1) break;\n                if (i == 0) dp[i][j] = 1;\n                else if (j == 0) dp[i][j] = 1;\n                else dp[i][j] += dp[i-1][j] + dp[i-1][j-1];\n            }\n        }\n        \n        long long ans = 0;\n        for (int j = 0; j <= 40; j++) {\n            long long cur = (1LL << j) - 1;\n            long long extra = cur - k;\n            if (extra < 0 || extra > j + 1) continue;\n            ans += dp[j][extra];\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716086393.0
+    "username": "Yawn_Sean",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        # 2 ^ 0 + 2 ^ 1 + ... + 2 ^ j - v\n        # v <= j + 1\n        k -= 1\n        ans = 0\n        for j in range(35):\n            tot = (1 << j) - 1\n            if tot - j - 1 <= k <= tot:\n                ans += math.comb(j + 1, tot - k)\n        return ans",
+    "submit_ts": 1716086326.0
 }

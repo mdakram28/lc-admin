@@ -1,5 +1,5 @@
 {
-    "username": "devbabbar7",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @lru_cache(None)\n        def dfs(i = 1, jump = 0, jumped = False):\n            if i<0:\n                return 0\n            if i>k+1:\n                return 0\n            curr = 1 if i==k else 0\n            if jumped == False:\n                return curr + dfs(i-1, jump, True) + dfs(i+(2**jump), jump+1, False)\n            else: # jumped = true\n                return curr + dfs(i+(2**jump), jump+1, False)\n        return dfs()",
-    "submit_ts": 1716089256.0
+    "username": "harshit_08",
+    "submission": "class Solution {\npublic:\n    int helper(int k,long long i,int a,long long jump,map<vector<long long>,int> &dp){\n        int f = i-k;\n        if(f>2){\n            return 0;\n        }\n        int b = 0;\n        if(i==k){\n            b = 1;\n        }\n        if(dp.count({i,jump,a})>0){\n            return dp[{i,jump,a}];\n        }\n        \n        if(a==0 && i!=0){\n            b+=helper(k,i-1,1,jump,dp);\n            b+=helper(k,i+(1ll<<jump),0,jump+1,dp);\n        }\n        else{\n            b+=helper(k,i+(1ll<<jump),0,jump+1,dp);\n        }\n        return dp[{i,jump,a}] = b;\n    }\n    \n    \n    int waysToReachStair(int k) {\n        map<vector<long long>,int> dp;\n        return helper(k,1,0,0,dp);\n    }\n};",
+    "submit_ts": 1716088958.0
 }

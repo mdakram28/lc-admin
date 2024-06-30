@@ -1,5 +1,5 @@
 {
-    "username": "yc-li",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        N = 40\n        C = [[0 for j in range(N)] for i in range(N)]\n        for i in range(N):\n            C[i][0] = 1\n            C[i][i] = 1\n            for j in range(1, i):\n                C[i][j] = C[i - 1][j] + C[i - 1][j - 1]\n        \n        ans = 0\n        for i in range(0, N):\n            u = 1 << i\n            v = u - (i + 1)\n            if v <= k <= u:\n                ans += C[i + 1][u - k]\n            \n        return ans",
-    "submit_ts": 1716087632.0
+    "username": "echen5503",
+    "submission": "class Solution:\n    \n    def waysToReachStair(self, k: int) -> int:\n      def getSum(jump, down):\n        return 2**(jump) - down\n      dp = defaultdict(int)\n      dp[(0, 0, False)] = 1\n          \n      for jump in range(40):\n        for down in range(40):\n          dp[(jump+1, down, False)] = dp[(jump, down, True)] + dp[(jump, down, False)]\n          if getSum(jump, down) != 0:\n            dp[(jump, down+1, True)] = dp[(jump, down, False)]\n      ans = 0\n      for jump, down, downBefore in dp:\n        if getSum(jump, down) == k:\n          #print(jump, down)\n          ans += dp[(jump, down, downBefore)]\n      return ans",
+    "submit_ts": 1716088226.0
 }

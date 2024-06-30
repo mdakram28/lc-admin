@@ -1,5 +1,5 @@
 {
-    "username": "Ashwini_Tiwari",
-    "submission": "class Solution {\npublic:\n    map<string,int> mp;\n    int help(int n,int j,bool m,int k){\n        if(n>=(k+2) || n<0){\n            return 0;\n        }\n        string s=to_string(n)+\"_\"+to_string(j)+\"_\"+to_string(m);\n        if(mp.count(s)){\n            return mp[s];\n        }\n        int ans=(n==k) + help(n+j,j*2,1,k);\n        if(m!=0){\n            ans+=help(n-1,j,0,k);\n        }\n        return mp[s]=ans;\n    }\n    int waysToReachStair(int k) {\n        return help(1,1,1,k);\n    }\n};",
-    "submit_ts": 1716089558.0
+    "username": "_maityamit",
+    "submission": "class Solution {\npublic:\n    //int ans = 0;\n    map<int,map<int,map<bool,int>>> dp;\n    int helper(int curr,int k,int jump,bool used){\n        \n        if(curr-k>1) return 0;\n        \n        if(dp.count(curr) && dp[curr].count(jump) && dp[curr][jump].count(used)) return dp[curr][jump][used];\n        \n        int ans = 0;\n        if(curr==k) ans+=1;\n        if(used==false && curr!=0) ans+=helper(curr-1,k,jump,true);\n        ans+=helper(curr+pow(2,jump),k,jump+1,false);\n        return dp[curr][jump][used]=ans;\n    }\n    int waysToReachStair(int k) {\n        return helper(1,k,0,false);\n    }\n};",
+    "submit_ts": 1716088961.0
 }

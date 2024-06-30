@@ -1,5 +1,5 @@
 {
-    "username": "PuppetMaster800",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        memo = {}\n        def solve(i, j, can):\n            if (i, j, can) in memo:\n                return memo[(i, j, can)]\n            if i > k + 5:\n                return 0\n            if j > 31:\n                return 0\n            res = (i == k) \n            if can:\n                res += solve(i - 1, j, 0)\n            if (i + (1 << j) <= k + 1):\n                res += solve(i + (1 << j), j + 1, 1)\n            \n            memo[(i, j, can)] = res\n            return memo[(i, j, can)]\n            \n        \n        return solve(1, 0, 1)\n        ",
-    "submit_ts": 1716090113.0
+    "username": "beet_gaama_11",
+    "submission": "\nclass Solution {\nprivate:\n    std::unordered_map<int, std::unordered_map<int, std::unordered_map<bool, int>>> memo;\n\n    int stairWays(int k, int curr, int jumpSize, bool canJump) {\n        if (curr > k + 5) return 0;\n        if (jumpSize > 31) return 0;\n\n        if (memo[curr].count(jumpSize) && memo[curr][jumpSize].count(canJump) && memo[curr][jumpSize][canJump] != -1)\n            return memo[curr][jumpSize][canJump];\n\n        int ways = (curr == k);\n        if (canJump) ways += stairWays(k, curr - 1, jumpSize, false);\n        if (curr + (1 << jumpSize) <= k + 1) ways += stairWays(k, curr + (1 << jumpSize), jumpSize + 1, true);\n\n        memo[curr][jumpSize][canJump] = ways;\n        return ways;\n    }\n\npublic:\n    int waysToReachStair(int k) {\n        return stairWays(k, 1, 0, true);\n    } \n};",
+    "submit_ts": 1716090114.0
 }

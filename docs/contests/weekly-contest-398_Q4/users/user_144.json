@@ -1,5 +1,5 @@
 {
-    "username": "yuhsiangliuz",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        if k==0: return 2\n        state = {(1,0,0): 1} # (i,jump,down)\n        done = False\n        result = 0\n        while state:\n            done = True\n            new_state = collections.defaultdict(int)\n            for i,jump,down in state:\n                if i==k: result += state[i,jump,down]\n                if not down:\n                    new_state[i-1,jump,1] += state[i,jump,down]\n                j = i + 2**jump\n                if j<=k+1:\n                    new_state[j,jump+1,0] += state[i,jump,down]\n            state = new_state\n            #print(result, state)\n        return result\n            ",
-    "submit_ts": 1716087345.0
+    "username": "mark_contest",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def dfs(n, jump, prev_down):\n            if n - 1 > k: return 0\n            \n            cnt = 1 if n == k else 0\n            if prev_down is False:\n                cnt += dfs(n-1, jump, True)\n            cnt += dfs(n + 2 ** jump, jump+1,  False)\n            # print(n, jump, prev_down, cnt)            \n            return cnt\n        \n        return dfs(1, 0, False)\n                \n            ",
+    "submit_ts": 1716087661.0
 }

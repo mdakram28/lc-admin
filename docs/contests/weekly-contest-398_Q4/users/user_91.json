@@ -1,5 +1,5 @@
 {
-    "username": "bool3",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dp(step, jump, fall):\n            ans = 0\n            if step == k: ans += 1\n            if step > k + 1: return 0\n            if fall and step: ans += dp(step - 1, jump, 0)\n            ans += dp(step + (1 << jump), jump+1, 1)\n            return ans\n        return dp(1, 0, 1)",
-    "submit_ts": 1716087385.0
+    "username": "MvKaio",
+    "submission": "class Solution {\npublic:\n    int _k;\n    using ll = long long;\n    map<tuple<ll, ll, ll>, ll> memo; \n    ll solve(bool t, ll i, ll s) {\n        if (i > _k + 20) return 0;\n        if (memo.count({t, i, s})) return memo[{t, i, s}];\n        ll ans = i == _k;\n        if (t == 0 && i != 0) ans += solve(true, i - 1, s);\n        ans += solve(false, i + s, s * 2);\n        \n        memo[{t, i, s}] = ans;\n        return ans;\n    }\n    int waysToReachStair(int k) {\n        memo.clear();\n        _k = k;\n        return solve(0, 1, 1);\n    }\n};",
+    "submit_ts": 1716086797.0
 }

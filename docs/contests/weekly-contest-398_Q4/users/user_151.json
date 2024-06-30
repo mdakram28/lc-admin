@@ -1,5 +1,5 @@
 {
-    "username": "perry304",
-    "submission": "import math\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        ans = 0\n        p = 0\n        while True:\n            op1 = (2 ** p) - k\n            if op1 < 0:\n                p += 1\n                continue\n            if op1 <= p + 1:\n                ans += math.comb(p+1, op1)\n                # print(op1, p)\n            else:\n                break\n            p += 1\n        # print()\n        return ans",
-    "submit_ts": 1716087715.0
+    "username": "Jy_Tan",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @lru_cache(None)\n        def count(i, jump, back):\n            res = 1 if i == k else 0\n            if not back:\n                res += count(i - 1, jump, True)\n            if i + jump - k <= 1:\n                res += count(i + jump, jump * 2, False)\n            return res\n        return count(1, 1, False)",
+    "submit_ts": 1716087403.0
 }

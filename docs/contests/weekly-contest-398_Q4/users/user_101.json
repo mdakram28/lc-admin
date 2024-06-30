@@ -1,5 +1,5 @@
 {
-    "username": "chuan-chih",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        curr = 1\n        jump = 1\n        down = 1\n        ans = 0\n        while curr - down <= k:\n            # print(curr, jump, down)\n            if curr >= k >= curr - down:\n                diff = k - (curr - down)\n                ans += math.comb(down, diff)\n            curr += jump\n            jump <<= 1\n            down += 1\n        return ans\n            ",
-    "submit_ts": 1716087424.0
+    "username": "aaronyen",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        self.k = k\n        return self.dfs(1, 0, True)\n        \n        \n    @lru_cache(None)\n    def dfs(self, idx, jump, can_down):\n        if idx - can_down > self.k + 1:\n            return 0\n        if idx < 0:\n            return 0\n        res = 0\n        if idx == self.k:\n            res = 1\n        if can_down:\n            res += self.dfs(idx - 1, jump, False)\n        res += self.dfs(idx + pow(2, jump), jump + 1, True)\n        # print(idx, jump, can_down, res)\n        return res\n        ",
+    "submit_ts": 1716087433.0
 }

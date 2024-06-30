@@ -1,5 +1,5 @@
 {
-    "username": "piscesayush",
-    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        \n        int pos = 1, jumps = 0, diff = pos-k;\n        long long ans = 0;\n        while(diff <= jumps+1){\n            if(pos >= k){\n                ans += ncr(jumps+1, diff);\n            }\n            pos = pos<<1;\n            jumps++;\n            diff = pos-k;\n        }\n        return ans;\n        \n    }\n    \n    long long ncr(int n, int r) {\n        if(r > n - r) r = n - r;\n        long long ans = 1;\n        int i;\n\n        for(i = 1; i <= r; i++) {\n            ans *= n - r + i;\n            ans /= i;\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": 1716088867.0
+    "username": "prateekg603",
+    "submission": "#define LIM 30\n\nbool preComputed = false;\nint dp[LIM + 10][LIM + 10];\n\nclass Solution {\npublic:\n    void preCompute() {\n        if ( preComputed ) return;\n        preComputed = true;\n        for ( int i = 0; i <= LIM; i++ ) {\n            for ( int j = 0; j <= i; j++ ) {\n                if ( i == j || j == 0 ) dp[i][j] = 1;\n                else dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1];\n            }\n        }\n        return;\n    }   \n    \n    int waysToReachStair(int k) {\n        preCompute();\n        int ans = 0;\n        for ( int i = 0;; i++ ) {\n            int jumpVal = (1 << i);\n            if ( jumpVal < k ) continue;\n            if ( jumpVal - i - 1 > k ) break;\n            jumpVal = jumpVal - k;\n            ans += dp[i + 1][jumpVal];\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1716089772.0
 }

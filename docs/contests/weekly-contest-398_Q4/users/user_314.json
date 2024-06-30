@@ -1,5 +1,5 @@
 {
-    "username": "nikhil_paul",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dp(prev, i, jump):\n            ans = 0\n            if i > k+1: return ans\n            if i == k: ans += 1\n            ans += dp(0, i+(1<<jump), jump+1)\n            if not prev: ans += dp(1, i-1, jump)\n            return ans\n        return dp(0, 1, 0)",
-    "submit_ts": 1716088357.0
+    "username": "onnhyd",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    map<vector<ll>, int>mp;\n    int k;\n    int CountWays(ll cur, int jump, int jumped)\n    {\n        vector<ll>state = {cur, jump, jumped};\n        if(mp.find(state) != mp.end())return mp[state];\n        if(jump > 32)return 0;\n        \n        int ans = 0;\n        if(cur == k)ans++;\n        if(cur != 0 && jumped == false)\n        {\n            ans += CountWays(cur - 1, jump, 1);\n        }\n        ans += CountWays(cur + (1L<<jump), jump + 1, 0);\n        return mp[state] = ans;\n\n    }\n    int waysToReachStair(int _k) {\n        k = _k;\n        int jumped = 0;\n        int jump = 0;\n        ll cur = 1;\n        int answer = CountWays(cur, jump, jumped);\n        return answer;\n    }\n};",
+    "submit_ts": 1716088373.0
 }

@@ -1,3 +1,4 @@
+from functools import cached_property
 import os
 import sys
 from common import *
@@ -46,9 +47,12 @@ class LcClient:
             "CN": f"https://leetcode.cn/api"
         }
         self.contest_base = f"{self.api_base}/ranking/{contest}"
-        self.driver = webdriver.Chrome()
 
         Path(self.out_path).mkdir(exist_ok=True, parents=True)
+
+    @cached_property
+    def driver():
+        return webdriver.Chrome()
 
     def json_request(self, url):
         cache_dir = join("tmp", "cache")

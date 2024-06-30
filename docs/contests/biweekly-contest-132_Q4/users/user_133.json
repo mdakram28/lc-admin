@@ -1,5 +1,5 @@
 {
-    "username": "H3PMo12O40",
-    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        temp=[]\n        Hash={}\n        kmax=[0]*(k+1)\n        cnt=0\n        for i in nums:\n            if i not in Hash:\n                Hash[i]=cnt\n                cnt+=1\n                temp.append([1])\n                for j in kmax[0:k]:\n                    temp[-1].append(j+1)\n                for j in range(k+1):\n                    kmax[j]=max(kmax[j],temp[-1][j])\n            else:\n                index=Hash[i]\n                temp[index][0]+=1\n                for j in range(k):\n                    temp[index][j+1]=max(temp[index][j+1]+1,kmax[j]+1)\n                for j in range(k+1):\n                    kmax[j]=max(kmax[j],temp[index][j])\n        return max(kmax)",
-    "submit_ts": 1717860043.0
+    "username": "calmestleader9",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], K: int) -> int:\n        best = defaultdict(int)\n        heap = defaultdict(lambda : -inf)\n        heap[K] = 0\n        for i in range(len(nums) - 1, -1, -1):\n            for k in range(K + 1):\n                best[nums[i], k] = max(1 + best[nums[i], k], 1 + heap[k + 1])\n                heap[k] = max(best[nums[i], k], heap[k])\n        return max(heap.values())\n                \n        ",
+    "submit_ts": 1717859768.0
 }

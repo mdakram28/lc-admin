@@ -1,5 +1,5 @@
 {
-    "username": "jgorton500",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def recur(wentDown, jump, stair):\n            res = 0\n            if stair > k+1: return res\n            if stair == k: res += 1\n            if not wentDown: res += recur(True, jump, stair-1)\n            res += recur(False, jump+1, stair+2**jump)\n            return res\n        \n        return recur(False, 0, 1)",
-    "submit_ts": 1716087795.0
+    "username": "leetcode_3604",
+    "submission": "class Solution {\npublic:\n    map<int, int> dp[40][2];\n    int target;\n    int dfs(int cur, int jump, bool con) {\n        int res = 0;\n        \n        if(cur < 0) return 0;\n        if(cur > target + 2) return 0;\n        if(dp[jump][con].find(cur) != dp[jump][con].end()) return dp[jump][con][cur];\n        if(cur == target) res = 1;\n        if(!con) res += dfs(cur-1, jump, true);\n        res += dfs(cur + (1<<jump), jump + 1, false);\n        return dp[jump][con][cur] = res;\n    }\n    \n    int waysToReachStair(int k) {\n        target = k;\n        for(int i = 0; i < 40; ++i) for(int j =0; j < 2; ++j) dp[i][j].clear();\n        return dfs(1, 0, false);\n    }\n};",
+    "submit_ts": 1716087037.0
 }

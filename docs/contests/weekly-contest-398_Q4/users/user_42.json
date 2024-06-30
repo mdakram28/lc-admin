@@ -1,5 +1,5 @@
 {
-    "username": "Abhi_Srivastava",
-    "submission": "class Solution {\npublic:\n    map<vector<int>, int> dp;\n    long long ways(long long curr, int k, bool lastused, int jump) {\n        vector<int> vec = {(int)curr, (int)lastused, jump};\n        if (dp.find(vec) != dp.end())\n            return dp[vec];\n        if (curr - k > 3)\n            return 0;\n        long long res = (curr == k);\n        if ((!lastused) && curr)\n            res += ways(curr - 1, k, 1, jump);\n        res += ways(curr + (1ll << jump), k, 0, jump + 1);\n        return dp[vec] = res;\n    }\n    int waysToReachStair(int k) {\n        return ways(1, k, 0, 0);        \n    }\n};",
-    "submit_ts": 1716086989.0
+    "username": "friedall",
+    "submission": "#include <iostream>\n#define ll long long\n\nusing namespace std;\n\nclass Solution {\npublic:\n    ll ncr(ll n, ll r) {\n        __int128 ret = 1;\n        ll x = max(r, n-r);\n        ll y = min(r, n-r);\n        for (__int128 i=x+1; i<=n; ++i) {\n            ret *= i;\n        }\n        for (__int128 i=1; i<=y; ++i) {\n            ret /= i;\n        }\n        return (ll)ret;\n    }\n    int waysToReachStair(int k) {\n        ll f = 0, s = 1, z;\n        if (k == 1 || k == 0) ++f;\n        for (int i=0; i<=30; ++i) {\n            s += (1LL<<i);\n            if (s >= k) {\n                z = s - k;\n                if (i+2 >= z) f += ncr(i+2, z);\n            }\n        }\n        return f;\n    }\n};",
+    "submit_ts": 1716086679.0
 }

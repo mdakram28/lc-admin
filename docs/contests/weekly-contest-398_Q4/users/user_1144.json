@@ -1,5 +1,5 @@
 {
-    "username": "Mouceant",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        jump = 0\n        curr = 1\n        while curr <= k:\n            jump += 1\n            curr += 2 ** jump - jump + 1\n        ans = 0\n        pos = 1\n        if k == 0 or k == 1:\n            ans = 1\n        for j in range(jump + 1):\n            pos += 2 ** j\n            op1 = j + 2\n            step = pos - k\n            if step <= op1 and step >= 0:\n                ans += factorial(op1) // (factorial(op1 - step) * factorial(step))\n            \n        return ans",
-    "submit_ts": 1716090363.0
+    "username": "PritikaPriya",
+    "submission": "class Solution:\n    def __init__(self):\n        self.dp = {}\n\n    def solve(self, k, i, jump, can):\n        if i > k + 5:\n            return 0\n        \n        if jump > 31:\n            return 0\n        \n        if (i, jump, can) in self.dp:\n            return self.dp[(i, jump, can)]\n        \n        ans = 1 if i == k else 0\n        \n        if can:\n            ans += self.solve(k, i - 1, jump, False)\n        \n        if i + (1 << jump) <= k + 1:\n            ans += self.solve(k, i + (1 << jump), jump + 1, True)\n        \n        self.dp[(i, jump, can)] = ans\n        \n        return ans\n\n    def waysToReachStair(self, k: int) -> int:\n        \n        return self.solve(k, 1, 0, True)\n\nsolution = Solution()\nresult = solution.waysToReachStair(10)\nprint(result)\n        ",
+    "submit_ts": 1716090366.0
 }

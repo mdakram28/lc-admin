@@ -1,5 +1,5 @@
 {
-    "username": "saurabh600",
-    "submission": "class Solution {\n    unordered_map<int, vector<vector<int>>> mp;\npublic:\n    int waysToReachStair(int k) {\n        return solve(1, 0, 0, k);\n    }\n    \n    int solve(int i, int j, int t, int k) {\n        if (mp.count(i) && mp[i][j][t] != -1) return mp[i][j][t];\n        \n        if (i > k+1) return 0;\n        \n        int ans = 0;\n        if (i == k) ans = 1;\n        ans += solve(i + (1<<j), j+1, 0, k);\n        \n        if (t == 0 && i > 0) ans += solve(i-1, j, 1, k); \n        \n        mp[i] = vector(32, vector(2, -1));\n        mp[i][j][t] = ans;\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1716088022.0
+    "username": "roc301",
+    "submission": "from functools import lru_cache\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        self.target = k\n        return self.dp(1, 0, False)\n    \n    @lru_cache\n    def dp(self, position, jump, used_back):\n        if position > self.target + 1:\n            return 0\n        \n        num_ways = 0\n        if position == self.target:\n            num_ways += 1\n            \n        if position > 0 and not used_back:\n            # go back\n            num_ways += self.dp(position - 1, jump, True)\n        \n        # jump\n        num_ways += self.dp(position + 2 ** jump, jump + 1, False)\n        \n        return num_ways\n            \n        \n            \n        ",
+    "submit_ts": 1716088015.0
 }

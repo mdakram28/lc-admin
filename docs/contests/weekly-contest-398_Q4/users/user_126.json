@@ -1,5 +1,5 @@
 {
-    "username": "Silken",
-    "submission": "class Solution {\npublic:\n    \n    map<pair<int, int>, int> memo;\n    \n    int solve(int k, int jump) {\n        pair<int, int> key = {k, jump};\n        if(memo.count(key))\n            return memo[key];\n        if(k < -1)\n            return 0;\n        // if(k == -1)\n        //     return 1 + solve(k-(1<<jump), jump+1);\n        memo[key] = (k == 0 || k == -1) + solve(k+1-(1<<jump), jump+1) + solve(k-(1<<jump), jump+1);\n        cout<<\"solve for k = \"<<k<<\", jump = \"<<jump<<\" gives \"<<memo[key]<<endl; \n        return memo[key];\n    }\n    int waysToReachStair(int k) {\n        return solve(k-1, 0);\n    }\n};",
-    "submit_ts": 1716087568.0
+    "username": "lihaicoder",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        maxjump = 35\n        f = [defaultdict(int) for _ in range(2)]\n        f[1][1] = 1\n        ans = 0\n        for jump in range(maxjump):\n            newf = [defaultdict(int) for _ in range(2)]\n            for fb in [1, 0]:\n                for step, cur in f[fb].items():\n                    if step == k:\n                        ans += cur\n                    if fb == 1:\n                        if step - 1 >= 0:\n                            f[0][step-1] += cur\n                        if step + (1<<jump) < k+10:\n                            newf[1][step + (1<<jump)] += cur\n                    else:\n                        if step + (1<<jump) < k+10:\n                            newf[1][step + (1<<jump)] += cur\n            # print(jump)\n            # print(ans)\n            # print(f)\n            # print(newf)\n            \n            f = newf\n        return ans\n                ",
+    "submit_ts": 1716087575.0
 }

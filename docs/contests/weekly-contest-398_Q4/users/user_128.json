@@ -1,5 +1,5 @@
 {
-    "username": "bnlvv",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def fn(x, j, f): \n            \"\"\"Return \"\"\"\n            ans = 0 \n            if x == k: ans += 1\n            if x > k+1: return 0\n            ans += fn(x+pow(2, j), j+1, 0)\n            if f == 0 and x: ans += fn(x-1, j, 1)\n            return ans \n        \n        return fn(1, 0, 0)",
-    "submit_ts": 1716087562.0
+    "username": "_global",
+    "submission": "class Solution {\n    int power[];\n    HashMap<Long,Integer[][]> dp;\n    public int waysToReachStair(int k) {\n        dp = new HashMap<>();\n        power = new int[31];\n        power[0]=1;\n        for(int i=1;i<=30;i++) power[i]=power[i-1]*2;\n        return find(1,0,0,k);\n                \n        \n    }\n    public int find(long pos,int t,int jump,long k){\n        if(pos-1>k) return 0;\n        if(dp.containsKey(pos)){\n            Integer tab[][]=dp.get(pos);\n            if(tab[t][jump] != null) return tab[t][jump];\n        }\n        int  ans = (pos==k ? 1 : 0);\n        if(t==0 && pos != 0) ans += find(pos-1,1,jump,k);\n        if(jump<=30) ans += find(pos+power[jump],0,jump+1,k);\n        dp.putIfAbsent(pos,new Integer[2][31]);\n        Integer tab[][]=dp.get(pos);\n        tab[t][jump]=ans;\n        return ans;\n        \n    }\n}",
+    "submit_ts": 1716087265.0
 }

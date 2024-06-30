@@ -1,5 +1,5 @@
 {
-    "username": "user0353Co",
-    "submission": "class Solution \n{\nprivate:\n    map<vector<int>, int> mp;\npublic:\n    int waysToReachStair(int k, int idx = 1, int jump = 0, bool flag = true)\n    {\n        if(mp.count({idx, jump, flag}))\n            return mp[{idx, jump, flag}];\n        int ans = 0;\n        if(idx == k)\n            ans++;\n        if(flag && idx != 0)\n            ans += waysToReachStair(k, idx-1, jump, false);\n        if((idx+(1<<jump)-1 <= k))\n            ans += waysToReachStair(k, idx+(1<<jump), jump+1, true);\n        return mp[{idx, jump, flag}] = ans;\n    }\n};",
-    "submit_ts": 1716089041.0
+    "username": "pandasumm",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        if k ==0:\n            return 2\n        if k == 1:\n            return 4\n        \n        p = 1\n        jump = 0\n        \n        r = []\n        while 2**jump - jump -1 <= k:\n            r.append(2**jump)\n            jump += 1\n            \n        res = 0\n        print(r)\n        \n        t = 0\n        for i, j in enumerate(r):\n            t += j\n            p = 1\n            if t - i - 2 <= k-1 and t >= k-1:\n                to_be_minus = t-(k-1)\n                all_minus = i+2\n                \n                for k in range(0, to_be_minus):\n                    p *= all_minus\n                    p //= (k+1)\n                    all_minus -= 1\n                \n                res += p\n                \n        return res\n            ",
+    "submit_ts": 1716089341.0
 }

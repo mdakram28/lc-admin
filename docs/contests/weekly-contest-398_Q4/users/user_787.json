@@ -1,5 +1,5 @@
 {
-    "username": "Narakanti_Mahesh",
-    "submission": "class Solution {\n      private Map<String, Long> memo = new HashMap<>();\n    public int waysToReachStair(int k) {\n        if(k==0)\n            return 2;\n        if(k==1 || k==2)\n            return 4;\n        \n        return (int)countWays(1, 0, false, k);\n    }\n     private long countWays(int currentStair, int jump, boolean lastMoveWasDown, int target) {\n        if (currentStair == target) {\n            return 1;\n        }\n         if(currentStair>target)\n         {\n             if(currentStair-1==target && !lastMoveWasDown)\n                 return 1;\n             return 0;\n         }\n        \n        String key = currentStair + \",\" + jump + \",\" + lastMoveWasDown;\n        if (memo.containsKey(key)) {\n            return memo.get(key);\n        }\n\n        long ways = 0;\n        if (!lastMoveWasDown && currentStair > 0) {\n            ways += countWays(currentStair - 1, jump, true, target);\n        }\n        \n        // Option 2: Move up\n        ways += countWays(currentStair + (1 << jump), jump + 1, false, target);\n        \n        memo.put(key, ways);\n        return ways;\n}\n}",
-    "submit_ts": 1716088944.0
+    "username": "jtsuited",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def ways(i, lastBack=False, j=0):\n            if i > k + 1:\n                return 0\n            count = 0\n            if i == k:\n                count += 1\n            if not lastBack:\n                count += ways(i-1, True, j)\n            count += ways(i + 2**j, False, j+1)               \n            return count\n            \n        return ways(1, False, 0)",
+    "submit_ts": 1716089546.0
 }

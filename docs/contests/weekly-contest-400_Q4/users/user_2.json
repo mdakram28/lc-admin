@@ -1,5 +1,5 @@
 {
-    "username": "Ma_Lin",
-    "submission": "class Solution {\npublic:\n    int r[100005][30];\n    int minimumDifference(vector<int>& a, int T) {\n        int zd = 0, n = a.size(), i, j, k, you, now, res = 2000000000, M = 30;\n        for (j = 0; j < M; ++j) r[n][j] = n;\n        for (i = n - 1; i >= 0; --i)\n            for (j = 0; j < M; ++j)\n                if (!(a[i] & (1<<j))) r[i][j] = i;\n                else r[i][j] = r[i + 1][j];\n        \n        for (i = 0; i < n; ++i){\n            now = a[i];\n            res = min(res, (int)labs(now - T));\n            j = i;\n            while (j + 1 < n && now != 0){\n                you = n;\n                for (k = 0; k < M; ++k)\n                    if (now & (1<<k))\n                        you = min(you, r[j + 1][k]);\n                j = you;\n                if (j == n) break;\n                now &= a[j];\n                res = min(res, (int)labs(now - T));\n            }\n        }\n        \n        return res;\n    }\n};",
-    "submit_ts": 1717296316.0
+    "username": "uwi",
+    "submission": "\tclass Solution {\n\t\tpublic int minimumDifference(int[] nums, int k) {\n\t\t\tint n = nums.length;\n\t\t\tint[] a = {};\n\t\t\tint min = Integer.MAX_VALUE;\n\t\t\tfor(int i = 0;i < n;i++){\n\t\t\t\tint v = nums[i];\n\t\t\t\tint[] na = new int[a.length+1];\n\t\t\t\tint p = 0;\n\t\t\t\tna[p++] = v;\n\t\t\t\tmin = Math.min(min, Math.abs(v-k));\n\t\t\t\tfor(int j = 0;j < a.length;j++){\n\t\t\t\t\tint w = a[j] & v;\n\t\t\t\t\tif(na[p-1] != w){\n\t\t\t\t\t\tna[p++] = w;\n\t\t\t\t\t\tmin = Math.min(min, Math.abs(w-k));\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\ta = Arrays.copyOf(na, p);\n\t\t\t}\n\t\t\treturn min;\n\t\t}\n\t}\n",
+    "submit_ts": 1717296050.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "Manan04",
-    "submission": "class Solution:\n    def maxTotalReward(self, a: List[int]) -> int:\n        bit = 1\n        mx = max(a)\n        present = set(a)\n        till_now = 1\n        ans = 0\n        for i in range(1, 2 * mx + 1):\n            if(i in present):\n                nbit = (till_now << i)\n                bit |= nbit\n                ans = i\n            if(bit & (1 << i)):\n                till_now |= (1 << i)\n                ans = i\n        return ans",
-    "submit_ts": 1717904860.0
+    "username": "louisfghbvc",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        // goal: find the maximum rewardValues\n        // idea: order is no matter\n        // we can sort the array\n        // each position we can add value or not\n        // dp[i][x]: maximum so far in the index i, current value x\n        \n        sort(rewardValues.begin(), rewardValues.end());\n        rewardValues.erase(unique(rewardValues.begin(), rewardValues.end()), rewardValues.end());\n        \n        int n = rewardValues.size();\n        int mx = *max_element(rewardValues.begin(), rewardValues.end());\n        \n        bitset<50000> dp;\n        dp[0] = 1;\n        for (int x: rewardValues) {\n            dp |= (dp<<(50000-x)>>(50000-x)) << x;\n        }\n        \n        set<int> poss; // possible sum\n        for (int j = 0; j <= 50000; ++j)\n            if (dp[j])\n                poss.insert(j);\n        \n        int res = 0;\n        for (int x: rewardValues) {\n            auto it = prev(poss.lower_bound(x));\n            res = max(res, x + *it);\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": 1717905247.0
 }

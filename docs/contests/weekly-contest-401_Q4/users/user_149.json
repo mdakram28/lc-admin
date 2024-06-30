@@ -1,5 +1,5 @@
 {
-    "username": "derkach",
-    "submission": "class Solution {\npublic:\n    \n    bool used[100000] = {false};\n    \n    int maxTotalReward(vector<int>& b) {\n        sort(b.begin(),b.end());\n        vector<int> a;\n        a.push_back(b[0]);\n        for(int i = 1; i < b.size(); ++i){\n            if(b[i] != a[(int)a.size() - 1]){\n                a.push_back(b[i]);\n            }\n        }\n        used[0] = true;\n        int mx = 0;\n        int ans = 0;\n        int mx2 = 0;\n        for(int i = 0; i < a.size(); ++i){\n            for(int j = a[i] - 1; j >= 0; --j){\n                if(used[j]){\n                    ans = max(ans, j + a[i]);\n                    break;\n                }\n            }\n            mx2 = mx;\n            for(int j = min(50000 - a[i],a[i] - 1); j >= 0; --j){\n                if(used[j] && j + a[i] <= 50000){\n                    mx2 = max(mx2, j + a[i]);\n                    used[j + a[i]] = 1;\n                }\n            }\n            mx = mx2;\n        }\n        \n        return ans;\n        \n    }\n};",
-    "submit_ts": 1717902978.0
+    "username": "sky1429",
+    "submission": "class Solution:\n    def maxTotalReward(self, nums: List[int]) -> int:\n        nums = list(set(nums))\n        n = len(nums)\n        nums.sort()\n        se = set(nums)\n        \n        @cache\n        def closestLE(num):\n            if num in se or num == 0:\n                return num\n            ind = bisect_left(nums, num)\n            ans = 0\n            for i in range(ind):\n                ans = max(ans, nums[i] + closestLE(min(nums[i] - 1, num - nums[i])))\n            return ans\n        return nums[-1] + closestLE(nums[-1] - 1)",
+    "submit_ts": 1717905080.0
 }

@@ -1,0 +1,5 @@
+{
+    "username": "math_pi",
+    "submission": "class Solution {\npublic:\n    pair<int, int> dfs(const vector<vector<int>> &tree, int node = 0,\n                   int previous = -1, int length = 0) {\n    pair<int, int> max_path = {node, length};\n    for (const int &i : tree[node]) {\n        if (i == previous) { continue; }\n        pair<int, int> other = dfs(tree, i, node, length + 1);\n        if (other.second > max_path.second) { max_path = other; }\n    }\n    return max_path;\n}\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n = edges1.size()+1, m = edges2.size()+1;\n        vector<vector<int>> g(n), gg(m);\n        \n        for(auto x: edges1) {\n            g[x[0]].push_back(x[1]);            g[x[1]].push_back(x[0]);\n\n        }\n        for(auto x: edges2) {\n            gg[x[0]].push_back(x[1]);            gg[x[1]].push_back(x[0]);\n\n        }\n        \n        int s1 = dfs(g).first, s2 = dfs(gg).first;\n        int x1 = dfs(g, s1).second, x2 =dfs(gg, s2).second;\n        return max({x1, x2, (x1+1)/2+(x2+1)/2+1});\n        \n        \n    }\n};",
+    "submit_ts": 1719715588.0
+}

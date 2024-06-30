@@ -1,5 +1,5 @@
 {
-    "username": "_kevinyang",
-    "submission": "class Solution {\npublic:\n    long long choose(int n, int k) {\n        if (k > n) return 0;\n        if (k == 0 || k == n) return 1;\n\n        if (k > n - k) {\n            k = n - k;\n        }\n\n        long long result = 1;\n        for (int i = 0; i < k; ++i) {\n            result *= (n - i);\n            result /= (i + 1);\n        }\n\n        return result;\n    }\n    int waysToReachStair(int k) {\n        int ans = 0;\n        for(int j = 0; j<=30; j++){\n            if(__builtin_popcount(k+j) == 1){\n                int pw = 0;\n                int v = k+j;\n                while(v>1){\n                    v/=2;\n                    pw++;\n                }\n                ans+=(int)choose(pw+1,j);\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716086639.0
+    "username": "cai_lw",
+    "submission": "class Solution {\n    int binom(int n,int m){\n        long long ret=1;\n        for(int i=1;i<=m;i++){\n            ret*=n-i+1;\n            ret/=i;\n        }\n        return ret;\n    }\npublic:\n    int waysToReachStair(int k) {\n        int ans=0;\n        for(int j=0;j<=30;j++){\n            int mx=(1<<j)-1;\n            int mn=mx-(j+1);\n            if(k-1<mn||k-1>mx)\n                continue;\n            ans+=binom(j+1,mx-(k-1));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1716086615.0
 }

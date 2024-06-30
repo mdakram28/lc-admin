@@ -1,0 +1,5 @@
+{
+    "username": "swiperthefox",
+    "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def radius(edgs):\n            graph = {i: set() for i in range(len(edgs)+1)}\n            for a, b in edgs:\n                graph[a].add(b)\n                graph[b].add(a)\n                \n            d = 0\n            leafs = [i for i in graph if len(graph[i]) == 1]\n            while len(graph) > 2:\n                d += 1\n                new_leafs = []\n                for l in leafs:\n                    for neighbor in graph[l]:\n                        graph[neighbor].remove(l)\n                        if len(graph[neighbor]) == 1:\n                            new_leafs.append(neighbor)\n                    graph.pop(l)\n                leafs = new_leafs\n            return d + len(graph) - 1, 2*d + len(graph) - 1\n        r1, d1 = radius(edges1)\n        r2, d2 = radius(edges2)\n        return max(r1+r2 + 1, d1, d2)\n                    ",
+    "submit_ts": 1719719036.0
+}

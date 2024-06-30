@@ -1,0 +1,5 @@
+{
+    "username": "bofeng07",
+    "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def diameter(edges):\n            dicti, ans = {}, 0\n            for a, b in edges:\n                dicti.setdefault(a, set()).add(b)\n                dicti.setdefault(b, set()).add(a)\n            pool = {d for d in dicti if len(dicti[d]) == 1}\n            while pool:\n                ans += 1\n                temp = set()\n                for p in pool.copy():\n                    for new in dicti[p]:\n                        if new not in pool:\n                            dicti[new].remove(p)\n                            if len(dicti[new]) == 1:\n                                temp.add(new)\n                    del dicti[p]\n                pool = {node for node in temp if len(dicti[node]) == 1}\n            return [ans, ans * 2] if dicti else [ans, ans * 2 - 1]\n        \n        res = diameter(edges1) + diameter(edges2)\n        return max(res[0] + res[2] + 1, res[1], res[3])",
+    "submit_ts": 1719718356.0
+}

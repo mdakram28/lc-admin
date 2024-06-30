@@ -1,0 +1,5 @@
+{
+    "username": "sagsango",
+    "submission": "class Solution {\n    int ans;\n    int dfs(int u, int p, vector<vector<int>>&g) {\n        int d = 0;\n        for (auto v:g[u]) {\n            if (v !=p ){\n                int c = dfs(v, u, g);\n                ans = max(ans, d + 1 + c);\n                d = max(d, 1 +c );\n            }\n        }\n        return d;\n        \n    }\n    int solve(vector<vector<int>>&edg) {\n        int n = edg.size() + 1;\n        vector<vector<int>> g(n);\n        for (auto it: edg) {\n            int u = it[0];\n            int v = it[1];\n            g[u].push_back(v);\n            g[v].push_back(u);\n        }\n        ans = 0;\n        dfs(0, -1, g);\n        return ans;\n    }\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int d1 = solve(edges1);\n        int d2 = solve(edges2);\n        int d3 = (d1+1)/2 + 1 + (d2+1)/2;\n        return max({d1, d2, d3});\n        \n    }\n};",
+    "submit_ts": 1719717064.0
+}

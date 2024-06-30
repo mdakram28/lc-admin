@@ -1,5 +1,5 @@
 {
-    "username": "txingml",
-    "submission": "typedef pair<int, int> pii;\nclass Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        vector<int> cur(k+1);\n        map<pii, int> dp;\n        for (int num : nums) {\n            for (int i = 0; i <= k; i++) {\n                int& value = dp[make_pair(i, num)];\n                value++;\n                if (i-1 >= 0) {\n                    value = max(value, cur[i-1]+1);\n                }\n            }\n            for (int i = 0; i <= k; i++) {\n                cur[i] = max(cur[i], dp[make_pair(i, num)]);\n            }\n        }\n        return *std::max_element(cur.begin(), cur.end());\n        \n    }\n};",
-    "submit_ts": 1717858194.0
+    "username": "kaq",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(k + 1, 1));\n        vector<int> dpMax(k + 1);\n        map<int, int> prevIndex;\n        int ans = 1;\n        for (int i = 0; i < n; i++) {\n            if (prevIndex.contains(nums[i])) {\n                int index = prevIndex[nums[i]];\n                for (int j = 0; j <= k; j++) {\n                    dp[i][j] = dp[index][j] + 1;\n                }\n            }\n            prevIndex[nums[i]] = i;\n            for (int j = 0; j < k; j++) {\n                dp[i][j + 1] = max(dp[i][j + 1], dpMax[j] + 1);\n            }\n            for (int j = 0; j <= k; j++) {\n                dpMax[j] = max(dpMax[j], dp[i][j]);\n            }\n        }\n        return *max_element(dpMax.begin(), dpMax.end());\n    }\n};",
+    "submit_ts": 1717857734.0
 }

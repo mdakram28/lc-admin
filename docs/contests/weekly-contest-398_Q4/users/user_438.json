@@ -1,5 +1,5 @@
 {
-    "username": "hungt1",
-    "submission": "class Solution {\npublic:\n\n    int waysToReachStair(int k) {\n        vector<vector<map<int, int>>> dp(31, vector<map<int, int>>(2, map<int, int>()));\n\n        function<int(int, int, bool)> solve = [&](int K, int jump, bool jumpBack) {\n            int res = (K == k);\n            \n            if (jump == 31 || K < 0) return res;\n            \n            if (dp[jump][jumpBack].find(K) != dp[jump][jumpBack].end()) {\n                return dp[jump][jumpBack][K];\n            }\n            \n            if (jump < 30)\n                res += solve(K + (1 << jump), jump + 1, false);\n            \n            if (!jumpBack) {\n                res += solve(K - 1, jump, true);\n            }\n        \n            return dp[jump][jumpBack][K] = res;\n        };\n\n        return solve(1, 0, false);\n    }\n};\n",
-    "submit_ts": 1716088189.0
+    "username": "no_pain_more_gain",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        if k == 0:\n            return 2\n        if k == 1:\n            return 4\n        if k == 2:\n            return 4\n        \n        @cache\n        def howMany(i, j, canBack):\n            if i == k:\n                return 1\n            if i - 1 == k:\n                if canBack:\n                    return 1\n                else:\n                    return 0\n            if i > k:\n                return 0\n            \n            res = howMany(i + 2 ** j , j + 1, True)\n            if canBack:\n                res += howMany(i - 1, j, False)\n            return res\n            \n            \n            \n        \n        return howMany(1, 0, True)",
+    "submit_ts": 1716088534.0
 }

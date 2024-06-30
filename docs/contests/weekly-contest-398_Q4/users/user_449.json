@@ -1,5 +1,5 @@
 {
-    "username": "williamliu6",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        if k == 0:\n            return 2\n        if k == 1:\n            return 4\n        #print('target: ', k)\n        ret = 0\n        \n        for j in range(65):\n            i = (1<<(j+1))-k\n            \n            if 0 <= i <= j+2:\n                #print(i, j)\n                ret += comb(j+2, i)\n        #print()\n        return ret",
-    "submit_ts": 1716088581.0
+    "username": "parmarabhimanyu95",
+    "submission": "class Solution {\n    HashMap<List<Long>,Integer> dp;\n    public int waysToReachStair(int k) {\n        long jump = 1L; // multiply each time after we take a jump\n        dp = new HashMap<>();\n        \n        return  rec(1L,1L,-1,k);\n    }\n    public int rec(long i, long jump, long type, int k) { //int type = 0(forward jump), 1(i-1 jump) previously\n        if(i>k+1) return 0; //as 2 back jumps ni mar skte \n    \n        List<Long> curr = new ArrayList<>(Arrays.asList(i,jump,type));\n        if(dp.containsKey(curr)) return dp.get(curr);\n        \n        \n        int res = 0;\n        if(i == k) res+= 1;\n        //Try to make both kinds of jumps\n        if(type != 1 && i !=0) {\n            //Make a back jump\n            res += rec(i-1,jump, 1, k);\n        }\n        \n        //make Forward jump\n        res += rec(i+jump, jump*2L, 0, k);\n        \n        dp.put(curr, res);\n        return res;\n    }\n}",
+    "submit_ts": 1716088593.0
 }

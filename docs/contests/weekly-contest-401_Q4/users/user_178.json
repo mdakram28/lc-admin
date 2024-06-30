@@ -1,5 +1,5 @@
 {
-    "username": "megurine",
-    "submission": "int solve(vector<int> &a, int m) {\n    bitset<50000> f;\n    f[0] = 1;\n    bitset<50000> mask;\n    int i = 0;\n    for (int x: a) {\n        while (i < x && i < f.size()) mask[i] = 1, i++;\n        f |= (f & mask) << x;\n    }\n    for (int j = m - 1; j >= 0; --j) {\n        if (f[j]) {\n            return j;\n        }\n    }\n    return 0;\n}\n\nclass Solution {\npublic:\n    int maxTotalReward(vector<int> &a) {\n        ranges::sort(a);\n        a.erase(unique(a.begin(), a.end()), a.end());\n        int m = a.back();\n        a.pop_back();\n        return solve(a, m) + m;\n    }\n};",
-    "submit_ts": 1717905542.0
+    "username": "StanleyDodds",
+    "submission": "public class Solution {\n    public int MaxTotalReward(int[] rewardValues) {\n        Array.Sort(rewardValues);\n        int n = rewardValues.Length;\n        int lastReward = rewardValues[n - 1];\n        int max = 0;\n        bool[] totals = new bool[lastReward];\n        totals[0] = true;\n        for (int i = 0; i < n - 1; i++) {\n            int reward = rewardValues[i];\n            for (int x = 0; x < Math.Min(reward, lastReward - reward); x++) {\n                if (totals[x]) {\n                    totals[x + reward] = true;\n                    max = Math.Max(max, x + reward);\n                }\n            }\n        }\n        return max + lastReward;\n    }\n}",
+    "submit_ts": 1717904475.0
 }

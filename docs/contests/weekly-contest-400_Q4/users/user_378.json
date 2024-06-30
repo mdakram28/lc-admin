@@ -1,5 +1,5 @@
 {
-    "username": "Googlehsiehh",
-    "submission": "class Solution {\n    int[] nums;\n    int k;\n    Map<String, Integer> dp;\n    public int minimumDifference(int[] nums, int k) {\n        this.nums = nums;\n        this.k = k;\n        dp = new HashMap<>();\n        int res = dfs(Integer.MAX_VALUE, 0);\n        return res;\n    }\n\n    private int dfs(int prev, int index) {\n        String key = prev + \":\" + index;\n        Integer v = dp.get(key);\n        if (v != null) {\n            return v;\n        }\n        int m = nums.length;\n\n        int sum = prev & nums[index];\n        int diff1 = Math.abs(sum - k);\n        int res = diff1;\n        if (sum > k && index < m - 1) {\n            int next = dfs(sum, index + 1);\n            res = Math.min(res, next);\n        }\n\n        int diff2 = Math.abs(nums[index] - k);\n        res = Math.min(res, diff2);\n        if (nums[index] > k && index < m - 1) {\n            int next = dfs(nums[index], index + 1);\n            res = Math.min(res, next);\n        }\n\n        if (index < m - 1) {\n            int next = dfs(Integer.MAX_VALUE, index + 1);\n            res = Math.min(res, next);\n        }\n        dp.put(key, res);\n        return res;\n    }\n}",
-    "submit_ts": 1717298834.0
+    "username": "echen5503",
+    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        s = set()\n        s.add((1<<40) - 1)\n        ans = 1e9\n        for x in nums:  \n            s = {y&x for y in s} | {(1<<40) - 1}\n            #print(s)\n            for n in s:\n                ans = min(ans, abs(n-k))\n        return ans\n",
+    "submit_ts": 1717297636.0
 }

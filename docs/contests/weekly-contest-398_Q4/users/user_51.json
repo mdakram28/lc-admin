@@ -1,5 +1,5 @@
 {
-    "username": "urimaj",
-    "submission": "class Solution {\npublic:\n    unordered_map<int,int> dp[34];\n    int waysToReachStair(int k) {\n        return helper(1, 0, k);\n    }\n    \n    int helper(int stair, int jump, int k) {\n        int ans = 0;\n        if (stair == k || stair == k + 1) ans = 1;\n        if (stair > k + 1) return 0;\n        if (dp[jump].find(stair) != dp[jump].end()) return dp[jump][stair];\n        return dp[jump][stair] = ans + helper(stair + pow(2, jump), jump + 1, k) + helper(stair + pow(2, jump) - 1, jump + 1, k);\n    }\n};",
-    "submit_ts": 1716087058.0
+    "username": "petabyte",
+    "submission": "class Solution:\n    def waysToReachStair(self, target: int) -> int:\n        \n        @cache\n        def ways(curr, jump=0, consecutive=False):\n            ans = 0\n            if curr == target:\n                ans += 1\n                \n            elif curr > target:\n                if consecutive:\n                    return 0\n                elif curr > target + 1:\n                    return 0\n                #print(\"here\", curr)\n                return ways(curr - 1, jump,  True)\n            \n            \n            ans += ways(curr + 2 ** jump, jump + 1, False)\n            if not consecutive:\n                ans += ways(curr - 1, jump, True)\n            return ans\n        return ways(1)",
+    "submit_ts": 1716087041.0
 }

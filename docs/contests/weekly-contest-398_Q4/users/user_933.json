@@ -1,5 +1,5 @@
 {
-    "username": "AHL",
-    "submission": "class Solution {\npublic:\n\n    int numWays(int k, int cur, int jump, bool canMoveDown, map<tuple<int, int, bool>, int>& memo) {\n        int res = 0;   \n        if (cur < 0 or cur > k + 1) return 0;    \n        if (cur == k)  res++;\n        if (memo.find({cur, jump, canMoveDown}) != memo.end()) {\n            return memo[{cur, jump, canMoveDown}];\n        }\n        res += numWays(k, cur + (1 << jump), jump + 1, true, memo);\n        if (canMoveDown and cur > 0) {\n            res += numWays(k, cur - 1, jump, false, memo);\n        }\n        return memo[{cur, jump, canMoveDown}] = res;\n    }\n\n    int waysToReachStair(int k) {\n        if (k == 0) return 2;\n        map<tuple<int, int, bool>, int> memo;\n        return numWays(k, 1, 0, true, memo);\n    }\n};",
-    "submit_ts": 1716089592.0
+    "username": "Sahilwakode007",
+    "submission": "#define ll long long\nclass Solution {\n    ll kp;\n    unordered_map<int, vector<vector<int>>> dp;\n    int rec( int level, int jump, bool valid) {\n        if (level > kp + 6)\n            return 0;\n\n        if(jump > 32)\n            return 0;\n\n        if(dp.count(level) && dp[level][jump][valid] != -1)\n            return dp[level][jump][valid];\n\n        int ans = 0;\n        if(level==kp)ans=1;\n        if (valid)\n            ans += rec( level - 1, jump, 0);\n        if (level + (1 << jump) <= kp + 1)\n            ans += rec( level + (1 << jump), jump + 1, 1);\n\n        dp[level].resize(33, vector<int>(2, -1));\n\n        return dp[level][jump][valid] = ans;\n    }\npublic:\n    int waysToReachStair(int k) {\n        kp=k;\n        ll ans=rec(1,0,1);\n        return ans;\n    } \n};\n",
+    "submit_ts": 1716089895.0
 }

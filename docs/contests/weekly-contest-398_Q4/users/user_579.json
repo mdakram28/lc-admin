@@ -1,5 +1,5 @@
 {
-    "username": "phani__26",
-    "submission": "import 'dart:collection';\n\nclass Solution {\n  final Map<int, Map<int, Map<bool, int>>> dp = {};\n\n  int solve(int k, int i, int jump, bool can) {\n    if (i > k + 5) {\n      return 0;\n    }\n\n    if (jump > 31) {\n      return 0;\n    }\n\n    if (dp.containsKey(i) && dp[i]!.containsKey(jump) && dp[i]![jump]!.containsKey(can)) {\n      return dp[i]![jump]![can]!;\n    }\n\n    int ans = (i == k) ? 1 : 0;\n    if (can) {\n      ans += solve(k, i - 1, jump, false);\n    }\n    if (i + (1 << jump) <= k + 1) {\n      ans += solve(k, i + (1 << jump), jump + 1, true);\n    }\n\n    dp.putIfAbsent(i, () => {});\n    dp[i]!.putIfAbsent(jump, () => {});\n    dp[i]![jump]!.putIfAbsent(can, () => 0);\n    dp[i]![jump]![can] = ans;\n\n    return ans;\n  }\n\n  int waysToReachStair(int k) {\n    return solve(k, 1, 0, true);\n  }\n}\n\n",
-    "submit_ts": 1716089291.0
+    "username": "JJZin",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def recourse(n, power, detract):\n            ans = 0\n            \n            if n > k + 1:\n                return 0\n            if n == k:\n                ans += 1\n            if not detract and n != 0:\n                ans += recourse(n - 1, power, True)\n            ans += recourse(n + 2**power, power + 1, False)\n            return ans\n        return recourse(1, 0, False)\n            \n        \n        ",
+    "submit_ts": 1716088680.0
 }

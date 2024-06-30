@@ -1,5 +1,5 @@
 {
-    "username": "no_one_a1",
-    "submission": "from collections import defaultdict as dd\nclass Solution:\n    def numberOfPermutations(self, n: int, r: List[List[int]]) -> int:\n        mm=10**9+7\n        d=dd(int)\n        for i in r:\n            d[i[0]+1]=i[1]\n\n        p=[[0]*(400+1) for _ in range(n+1)]\n        p[0][0]=1\n\n        for i in range(1,n+1):\n            for j in range(400+1):\n                for k in range(i):\n                    x=j-k\n                    if x>=0:\n                        p[i][j]=(p[i][j]+p[i-1][x])%mm\n            if i in d:\n                y=d[i]\n                for j in range(400+1):\n                    if j!=y:\n                        p[i][j]=0\n        return sum(p[n])%mm\n\n\n",
-    "submit_ts": 1719070842.0
+    "username": "iamrptg",
+    "submission": "class Solution {\npublic:\n    int mod = (int)1e9 + 7;\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int inv = min(401,n*(n-1)/2+1);\n        vector<vector<int>> dp(n+1,vector<int>(inv+1,0));\n        \n        vector<int> mp(n+1,-1);\n        for(auto& req:requirements){\n            mp[req[0]+1] = req[1];\n        }\n        \n        dp[0][0] = 1;\n        for(int i=1;i<=n;i++){\n            for(int j=0;j<=inv;j++){\n                for(int k=0;k<i;k++){\n                    if(j-k>=0){\n                        (dp[i][j] += dp[i-1][j-k])%=mod;\n                    }\n                }\n            }\n            if(mp[i]!=-1){\n                for(int j=0;j<=inv;j++){\n                    if(j!=mp[i]){\n                        dp[i][j] = 0;\n                    }\n                }\n            }\n        }\n        \n        return dp[n][mp[n]];\n    }\n};",
+    "submit_ts": 1719071135.0
 }

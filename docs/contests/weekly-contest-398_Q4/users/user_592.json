@@ -1,5 +1,5 @@
 {
-    "username": "justforfun21",
-    "submission": "/**\n * @param {number} k\n * @return {number}\n */\nvar waysToReachStair = function(k) {\n    const memo = new Map();\n    var rec = (curr,jump,last) => {\n        if((last && curr>=k+1) || curr>k+1) {\n            return 0;\n        }\n        let key = `${curr}_${jump}_${last}`;\n        if(memo.has(key)) return memo.get(key);\n        let ans = 0;\n        if(curr === k) {\n            ans++;\n        }\n        \n        let op1 = (!last) ? rec(curr-1,jump,1) : 0;\n        let op2 = rec(curr+2**jump,jump+1,0);\n        \n        memo.set(key,ans + op1 + op2);\n        return memo.get(key);\n    }\n    \n    return rec(1,0,0);\n};",
-    "submit_ts": 1716089017.0
+    "username": "ace_Coder121",
+    "submission": "class Solution {\npublic:\n    map<vector<int>,int> dp;\n    int rec(int k,int target,bool last,int jump){\n        if(k<0)return 0;\n        if(dp.count({k,last,jump})==1)return dp[{k,last,jump}];\n        if(k>target+1){\n            return 0;\n        }\n        int ans=0;\n        if(k==target){\n            ans++;\n        }\n        if(last==false)\n            ans+=rec(k-1,target,true,jump);\n        ans+=rec(k+(1<<jump),target,false,jump+1);\n        return dp[{k,last,jump}]=ans;\n    }\n    int waysToReachStair(int k) {\n        return rec(1,k,false,0);\n    }\n};",
+    "submit_ts": 1716089027.0
 }

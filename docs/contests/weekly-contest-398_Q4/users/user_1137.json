@@ -1,5 +1,5 @@
 {
-    "username": "soundboard",
-    "submission": "class Solution {\npublic:\n    \n    using ll = long long;\n    \n    unordered_map<int,vector<vector<int>>>dp;\n    \n    ll rec(ll i, ll jump, ll flg, ll k)\n    {\n        if(i>k+2 || jump>32) return 0ll;\n        \n        if(dp.find(i)!=dp.end() && dp[i][jump][flg]!=-1) return dp[i][jump][flg];\n        \n        ll ans = 0;\n        \n        \n        ans+=rec((i+(1ll<<jump)),jump+1, 0, k);\n        \n        if(flg==0)\n        {\n            ans+=rec((i-1),jump,1,k);\n        }\n        \n        dp[i].resize(50, vector<int>(3,-1)); \n        if(i==k) ans++;\n        return dp[i][jump][flg]=ans;\n        \n    }\n    \n    int waysToReachStair(int k) {\n       return rec(1,0,0,k);\n    }\n};",
-    "submit_ts": 1716090045.0
+    "username": "d2s2",
+    "submission": "class Solution {\n    HashMap<Integer,int []> [] h;\n    public int waysToReachStair(int k) {\n        h = new HashMap[30];\n        for(int i =0;i<30;i++)h[i] = new HashMap<>();\n        return solve(0,k-1,true);\n    }\n    int solve(int jump,int k,boolean type1){\n        if(k<-1)return 0;\n        if(h[jump].containsKey(k) && h[jump].get(k)[(type1?1:0)]!=-1)return h[jump].get(k)[(type1?1:0)];\n        int ans=(k==0?1:0);\n        if(type1){\n            ans+= solve(jump,k+1,false);\n        }\n        ans+=solve(jump+1,k-(int)Math.pow(2,jump),true);\n        if(!h[jump].containsKey(k))h[jump].put(k,new int [] {-1,-1});\n        int [] b = h[jump].get(k);\n        if(type1)b[1] = ans;\n        else b[0] = ans;\n        return ans;\n    }\n}",
+    "submit_ts": 1716090341.0
 }

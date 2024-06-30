@@ -1,5 +1,5 @@
 {
-    "username": "Ruka_2019",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        \n        res = 0\n        \n        @lru_cache(maxsize=None)\n        def rc(curIdx, jump, canUseBackwords):\n            if canUseBackwords == False and curIdx > k:\n                return 0\n            cur_res = 0\n            if curIdx == k:\n                cur_res += 1\n            # operation 1\n            if canUseBackwords == True and curIdx > 0 and rc(curIdx-1, jump, False)!=0:\n                cur_res += rc(curIdx-1, jump, False)\n            # operation 2\n            if curIdx<=k+1 and rc(curIdx+2**jump, jump+1, True)!=0:\n                cur_res += rc(curIdx+2**jump, jump+1, True)\n            return cur_res\n            \n        \n        \n        return rc(1, 0, True)\n        # return res\n        ",
-    "submit_ts": 1716089520.0
+    "username": "alex-does-leetcode",
+    "submission": "import math\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        count = 0\n        end = int(math.log2(k)) if k > 0 else 0\n        for j in range(end + 3):\n            jr = 1\n            if j > 0:\n                jr = 2 ** (j)\n            d = jr - k\n            print(f\"{j=} {jr=} {d=}\")\n            if d < 0 or d > j + 1:\n                continue\n            else:\n                count += math.comb(j+1, d)\n        return count",
+    "submit_ts": 1716089822.0
 }

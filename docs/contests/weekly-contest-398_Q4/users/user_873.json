@@ -1,5 +1,5 @@
 {
-    "username": "TheodoreGossett",
-    "submission": "public class Solution {\n    public int WaysToReachStair(int k) {\n        int res = 0;\n        int j=0;\n        while(j<30){\n            int p= 1;\n            for(int i=0;i<j;i++){\n                p+=(1<<i);\n            }\n            \n            res+= (int)C((long)j+1,(long) p-k);\n            j++;\n        }\n        return res;\n    }\n    public long C(long N, long K)\n{\n    if(K==0) return 1;\n    if(K<0) return 0;\n   \n   long r = 1;\n   long d;\n   if (K > N) return 0;\n   for (d = 1; d <= K; d++)\n   {\n      r *= N--;\n      r /= d;\n   }\n   return r;\n}\n}",
-    "submit_ts": 1716088877.0
+    "username": "cartmandftl",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def dfs(currentIndex,wentBack,jumps):\n            #print(currentIndex,wentBack,jumps)\n            if(currentIndex==k):\n                return 1 + dfs(currentIndex+pow(2,jumps),False,jumps+1) + (dfs(currentIndex-1,True,jumps) if (wentBack==False and currentIndex>0) else 0)\n            elif(currentIndex>k+1):\n                return 0\n\n            temp=dfs(currentIndex+pow(2,jumps),False,jumps+1) + (dfs(currentIndex-1,True,jumps) if (wentBack==False and currentIndex>0) else 0)\n            #print(currentIndex,temp)\n            return temp\n\n        return dfs(1,False,0)",
+    "submit_ts": 1716088381.0
 }

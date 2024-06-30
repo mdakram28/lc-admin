@@ -1,5 +1,5 @@
 {
-    "username": "calmestleader9",
-    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], K: int) -> int:\n        best = defaultdict(int)\n        heap = defaultdict(lambda : -inf)\n        heap[K] = 0\n        for i in range(len(nums) - 1, -1, -1):\n            for k in range(K + 1):\n                best[nums[i], k] = max(1 + best[nums[i], k], 1 + heap[k + 1])\n                heap[k] = max(best[nums[i], k], heap[k])\n        return max(heap.values())\n                \n        ",
-    "submit_ts": 1717859768.0
+    "username": "deepak022",
+    "submission": "int dp[5001][51];\n\nclass Solution {\npublic:\n    int maximumLength(vector<int>& a, int k) {\n        int n = a.size();\n        for (int i = 0; i <= n; i++) {\n            for (int j = 0; j <= k; j++) {\n                dp[i][j] = 1;\n            }\n        }\n        vector<int> best(k + 1, 1);\n        \n        unordered_map<int, vector<int>> mp;\n        vector<int> tmp(k + 1, 1);\n        mp[a[0]] = tmp;\n        \n        for (int i = 1; i < n; i++) {\n            if (mp.count(a[i])) {\n                for (int j = 0; j <= k; j++) dp[i][j] = mp[a[i]][j] + 1;\n            }\n            for (int j = 0; j < k; j++) {\n                dp[i][j + 1] = max(dp[i][j + 1], best[j] + 1);\n            }\n            \n            vector<int> w;\n            for (int j = 0; j <= k; j++) {\n                best[j] = max(best[j], dp[i][j]);\n                w.push_back(dp[i][j]);\n            }\n            mp[a[i]] = w;\n        }\n        int ans = 1;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j <= k; j++) {\n                ans = max(ans, dp[i][j]);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717860328.0
 }

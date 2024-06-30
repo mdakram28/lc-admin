@@ -1,5 +1,5 @@
 {
-    "username": "Dpr18",
-    "submission": "class Solution \n{\npublic:\n    int waysToReachStair(int k) \n    {\n        // op: 0 1\n        map<pair<int, pair<int, int>>, int> mp;\n        return solve(1, k, 0, -1, mp);\n    }\n    int solve(int source, int dest, int jump, int prev_op, map<pair<int, pair<int, int>>, int>& mp)\n    {\n        if(mp.find({source, {jump, prev_op}}) != mp.end())  return mp[{source, {jump, prev_op}}];\n        // cout<<source\n        int ans = 0;\n        if(source == dest)  ans++;\n        if(source > dest+1) return 0;\n        \n        \n        // op 0\n        if(prev_op)    ans += solve(source-1, dest, jump, 0, mp);\n        \n        // op 1\n        ans += solve(source+pow(2, jump), dest, jump+1, 1, mp);\n        \n        return mp[{source, {jump, prev_op}}] = ans;\n    }\n};",
-    "submit_ts": 1716088308.0
+    "username": "tarunsingh",
+    "submission": "int func(int ind, int jump, int prev, int k, map<pair<int, pair<int,int>>, int> &mp){\n    if(jump > 30){\n        return 0;\n    }\n    if(ind > k + 10){\n        return 0;\n    }\n    if(mp.find({ind, {jump, prev}}) != mp.end()){\n        return mp[{ind, {jump, prev}}];\n    }\n    int ans = 0;\n    if(ind == k){\n        ans = 1;\n    }\n    if(prev == 0){\n        if(ind != 0){\n            ans = ans + func(ind-1,jump,1,k,mp);\n        }\n    }\n    ans = ans + func(ind+(1 << jump), jump+1,0,k,mp);\n    return mp[{ind, {jump, prev}}] = ans;\n}\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        map<pair<int, pair<int,int>>, int> mp;\n        return func(1,0,0,k,mp);\n    }\n};",
+    "submit_ts": 1716088613.0
 }

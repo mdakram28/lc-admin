@@ -1,5 +1,5 @@
 {
-    "username": "Aviral__Gupta",
-    "submission": "class Solution {\npublic:\n    map<pair<int,pair<int,pair<int,int>>>,int> dp;\n    int func(int ind,int state,int op,int jump,int &k){\n        if(jump >= 30) return 0;\n        if(dp.find({state,{op,{jump,ind}}}) != dp.end()) return dp[{state,{op,{jump,ind}}}];\n        \n        int total = (ind == k);\n        if(ind != 0 && state != 1){\n            total += func(ind-1,1,1,jump,k);\n        }\n        total += func(ind+(1<<jump),0,2,jump+1,k);\n        return dp[{state,{op,{jump,ind}}}] = total;\n    }\n    int waysToReachStair(int k) {\n        dp.clear();\n        return func(1,0,0,0,k);\n    }\n};",
-    "submit_ts": 1716087658.0
+    "username": "Xiao__Jun",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        const long long OFFSET = 1e10;\n        unordered_map<long long,long long> seen;\n        \n        function<int(long long,long long,long long)> dfs = [&](long long jump, long long step, long long preOp) ->int {\n            long long val = (jump * OFFSET + step) * preOp;\n            long long curVal = 0;\n            \n            // cout<<jump<<\" \"<<step<<\" \"<<preOp<<endl;\n            \n            if(seen.count(val))\n                return seen[val];\n            \n            if(step == k)\n                curVal = 1;\n            \n            if(preOp != -1 && step != 0)\n                curVal+= dfs(jump, step - 1, -1);\n            if(step + (long long)pow(2, jump) <= k + 1)\n                curVal+= dfs(jump + 1, step + (long long)pow(2, jump), 1);\n            \n            seen[val] = curVal;\n            return curVal;\n        };\n        \n        return dfs(0, 1, 0);\n    }\n};",
+    "submit_ts": 1716087946.0
 }

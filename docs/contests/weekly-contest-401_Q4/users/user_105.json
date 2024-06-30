@@ -1,5 +1,5 @@
 {
-    "username": "thomas-li",
-    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n#define rep(i, a, b) for(int i = a; i < (b); ++i)\n#define all(x) begin(x), end(x)\n#define sz(x) (int)(x).size()\n#define PB push_back\n#define FS first\n#define SD second\n#define cmx(x,y) x = max(x,y)\n#define cmn(x,y) x = min(x,y)\n#define ary(k) array<int,k>\ntypedef pair<int, int> pii;\ntypedef vector<int> vi;\ntypedef long long ll;\nclass Solution {\npublic:\n    int maxTotalReward(vector<int>& a) {\n        const int MX = 1e5;\n        sort(all(a));\n        bitset<MX> dp,b; dp[0] = 1;\n        int p = 0;\n        for(int x : a){\n            while(p < x) b[p] = 1,p++;\n            dp |= (dp&b) << x;\n        }\n        int ans = MX-1;\n        while(!dp[ans]) ans--;\n        return ans;\n    }\n};\n\n",
-    "submit_ts": 1717904152.0
+    "username": "pyjuan91",
+    "submission": "class Solution {\n public:\n  int maxTotalReward(vector<int>& rewardValues) {\n    sort(rewardValues.begin(), rewardValues.end());\n    rewardValues.erase(unique(rewardValues.begin(), rewardValues.end()),\n                       rewardValues.end());\n    int n = rewardValues.size();\n    bitset<50001> dp, mask;\n    dp[0] = 1;\n    for (int i = 0; i < n - 1; i++) {\n      // clear all bits greater than rewardValues[i]\n      for (int j = (i ? rewardValues[i - 1] : 0); j < rewardValues[i]; j++) {\n        mask[j] = 1;\n      }\n      dp |= (dp & mask) << rewardValues[i];\n    }\n    for (int i = rewardValues.back() - 1; i >= 0; i--) {\n      if (dp[i]) return i + rewardValues.back();\n    }\n    return 0;\n  }\n};",
+    "submit_ts": 1717902951.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "suryaock",
-    "submission": "class Solution:\n    def __init__(self):\n        self.clones = {}\n\n    def rasengan(self, k, i, j, c):\n        if i > k+5 or j > 31:\n            return 0\n\n        key = (i, j, c)\n        if key in self.clones and self.clones[key] != -1:\n            return self.clones[key]\n\n        hits = i == k\n        if c:\n            hits += self.rasengan(k, i-1, j, 0)\n        if i + (1 << j) <= k+1:\n            hits += self.rasengan(k, i+(1 << j), j+1, 1)\n\n        self.clones[key] = hits\n        return hits\n\n    def waysToReachStair(self, k):\n        return self.rasengan(k, 1, 0, 1)",
-    "submit_ts": 1716089518.0
+    "username": "death_of_might",
+    "submission": "class Solution {\npublic:\n\n    long long K;\n\n    int helper(int curr,int jump,int backed,map<vector<int>,long long> &dp,map<vector<int>,long long> &check){\n\n        if(curr>K+1)return 0;\n\n        if(check[{curr,jump,backed}]!=0)return dp[{curr,jump,backed}];\n\n        long long ans=0;\n\n        if(curr==K)ans=1;\n\n        if(backed==0)ans+=helper(curr-1,jump,1,dp,check);\n        ans=(ans+helper(curr+pow(2,jump),jump+1,0,dp,check));\n\n        check[{curr,jump,backed}]++;\n\n        return dp[{curr,jump,backed}]=ans;\n    }\n    int waysToReachStair(int k) {\n        \n        K=k;\n\n        if(k==0)return 2;\n        map<vector<int>,long long> dp,check;\n\n        return helper(1,0,0,dp,check);\n\n    }\n};",
+    "submit_ts": 1716088620.0
 }

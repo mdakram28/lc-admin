@@ -1,5 +1,5 @@
 {
-    "username": "watlereac",
-    "submission": "from collections import Counter\n\nclass Solution(object):\n    def maximumLength(self, nums, k):\n        dp = {i: [0, set(), Counter()] for i in range(k+1)}\n\n        for i in nums:\n            prev = 0\n            for j in range(k+1):\n                # Correct the cur calculation to handle elements properly\n                cur = max(prev + 1, (dp[j][0] + 1) * (i in dp[j][1]), dp[j][2][i] + 1)\n\n                prev, dp[j][2][i] = dp[j][0], cur\n\n                if dp[j][0] < cur:\n                    dp[j][:] = [cur, set(), Counter(dp[j][2])]\n\n                if cur == dp[j][0]:\n                    dp[j][1].add(i)\n\n        return dp[k][0]\n",
-    "submit_ts": 1717861356.0
+    "username": "Scyther_07",
+    "submission": "class Solution {\npublic:\n    int maximumLength(vector<int>& v, int k) {\n        int n = v.size(), ans = 1;\n\n        vector<vector<int>> dp(n, vector<int>(k + 1)); \n        vector<int> maxi(k + 1);\n        map<int, int> last;\n\n        for(int i = 0; i < n; ++i) dp[i][0] = 1;\n        last[v[0]] = 0; maxi[0] = 1;\n\n        for(int i = 1; i < n; ++i){\n\n            for(int j = 0; j <= k; ++j){\n                \n                if(last.count(v[i])) \n                    dp[i][j] = max(dp[i][j], dp[last[v[i]]][j] + 1);\n                if(j) \n                    dp[i][j] = max(dp[i][j], maxi[j - 1] + 1);\n\n                ans = max(ans, dp[i][j]);\n\n            }\n\n            last[v[i]] = i;\n            for(int j = 0; j <= k; ++j) maxi[j] = max(maxi[j], dp[i][j]);\n\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": 1717860740.0
 }

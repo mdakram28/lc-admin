@@ -1,5 +1,5 @@
 {
-    "username": "bombbox",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def recur(curr,jump,downed):\n            ret=0\n            if curr>k+1:\n                return 0\n            if curr==k:\n                ret+=1\n            if not downed and curr>0:\n                ret+=recur(curr-1,jump,True)\n            ret+=recur(curr+2**jump,jump+1,False)\n            \n            return ret\n        return recur(1,0,False)",
-    "submit_ts": 1716087383.0
+    "username": "bool3",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dp(step, jump, fall):\n            ans = 0\n            if step == k: ans += 1\n            if step > k + 1: return 0\n            if fall and step: ans += dp(step - 1, jump, 0)\n            ans += dp(step + (1 << jump), jump+1, 1)\n            return ans\n        return dp(1, 0, 1)",
+    "submit_ts": 1716087385.0
 }

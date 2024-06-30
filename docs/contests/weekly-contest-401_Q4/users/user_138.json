@@ -1,5 +1,5 @@
 {
-    "username": "MythicalEnt",
-    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& a) {\n        int n = a.size();\n        sort(begin(a), end(a));\n        \n        bitset<100000> dp, mask;\n        dp[0] = 1;\n        \n        int curr = 0;\n        for(int i = 0; i < n; i++){\n            while(curr < a[i]) mask[curr++] = 1;\n            dp |= ((dp & mask) << a[i]);\n            \n        }\n        for(int i = 100000 - 1; i >= 0; i--) {\n            if(dp[i]) return i;\n        }\n        return 0;\n    }\n};",
-    "submit_ts": 1717903693.0
+    "username": "vrintle",
+    "submission": "const int N = 1e5 + 7;\n\nclass Solution {\npublic:\n    int maxTotalReward(vector<int>& a) {\n        int n = a.size();\n        sort(a.begin(), a.end());\n        bitset<N> dp;\n        dp.set(0);\n        for(int i = 0; i < n; i++) {\n            int x = a[i];\n            dp |= ((dp << (N - x)) >> (N - x)) << x;\n        }\n        for(int i = N - 1; i >= 0; i--) {\n            if(dp.test(i)) return i;\n        }\n        return 0;\n    }\n};",
+    "submit_ts": 1717904212.0
 }

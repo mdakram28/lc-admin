@@ -1,5 +1,5 @@
 {
-    "username": "anushkatripathi5",
-    "submission": "class Solution {\n    unordered_map<int, vector<vector<int>>>mp;\n    int countWays(int k, int i, int j, bool can_jump) {\n        if(i>k+5){\n            return 0;\n        }\n        if(j>31){\n            return 0;\n        }\n        if(mp.count(i) && mp[i][j][can_jump]!=-1)\n            return mp[i][j][can_jump];\n\n        int res=(i==k);\n        if(can_jump){\n            res += countWays(k,i-1,j,0);\n        }\n        if (i+(1<<j)<=k+1){\n            res+=countWays(k,i+(1<<j),j+1,1);\n        }\n        mp[i].resize(32,vector<int>(2,-1));\n        return mp[i][j][can_jump]=res;\n    }\npublic:\n    int waysToReachStair(int k) {\n        return countWays(k,1,0,1);\n    }\n};",
-    "submit_ts": 1716090495.0
+    "username": "rp3601",
+    "submission": "class Solution {\npublic:\n    int k;\n    map<pair<pair<int,int>,int>,int> mp;\n    int sol(int i, int prev, int jump){\n        if(i<0 || i>k+1) return 0;\n        if(mp.find({{i,prev},jump}) != mp.end()) return mp[{{i,prev},jump}];\n        int ans = 0;\n        if(i==k) ans++;\n        if(prev==0) ans+= sol(i+(1<<jump), 1, jump+1);\n        else ans+= sol(i-1,0,jump) + sol(i+(1<<jump),1,jump+1);\n        return mp[{{i,prev},jump}] = ans;\n    }\n    int waysToReachStair(int _k) {\n        k = _k;\n        return sol(1,2,0);\n    }\n};",
+    "submit_ts": 1716090487.0
 }

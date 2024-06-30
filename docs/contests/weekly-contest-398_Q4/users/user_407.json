@@ -1,5 +1,5 @@
 {
-    "username": "ivanc-e",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dfs(stair, jump, prev_down):\n            ways = 0\n            if stair == k:\n                ways += 1\n            if stair < 0 or stair > 2*k+1:\n                return 0\n\n            if stair > 0 and not prev_down:\n                ways += dfs(stair - 1, jump, True)\n            \n            new_stair = stair + 2**jump\n            if new_stair <= 2*k+1:\n                ways += dfs(new_stair, jump + 1, False)\n            \n            return ways\n        \n        return dfs(1, 0, False)\n        ",
-    "submit_ts": 1716088117.0
+    "username": "lxhgww",
+    "submission": "class Solution {\npublic:\n    long long c[40][40];\n    int waysToReachStair(int k) {\n        c[1][0]=1;\n        c[1][1]=1;\n        for (int i=2;i<40;i++) {\n            c[i][0]=1;\n            for (int j=1;j<=i;j++)\n                c[i][j]=c[i-1][j]+c[i-1][j-1];\n        }\n        int res=0;\n        int cur=1;\n        int cc=1;\n        for (int i=0;i<=31;i++) {\n            cur+=cc;\n            cc=cc*2;\n            if (cur>=k) {\n                if (cur-(i+2)>k) break;\n                int tt=cur-k;\n                res+=c[i+2][tt];\n            }\n        }\n        if (k<=1) res++;\n        return res;\n    }\n};",
+    "submit_ts": 1716087524.0
 }

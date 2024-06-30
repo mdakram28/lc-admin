@@ -1,22 +1,24 @@
 import "../styles/prettyprint-style.css";
+import "../styles/data-table.scss";
 import { useEffect, useRef, useState } from "react";
-import { ContestInfo, DolosFile, DolosPairs, GroupUser, SubmissionUser } from "../types/dolos.types";
-import { DisjSet } from "../util/disj-set";
+import { GroupUser, SubmissionUser, UserPair } from "../types/dolos.types";
 import { Panel, PanelGroup, PanelResizeHandle, assert } from "react-resizable-panels";
 import { TreeView, TreeItem } from '@mui/x-tree-view';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Accordion, AccordionDetails, AccordionSummary, Button, IconButton, Slider } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { fetchContestInfo, fetchGroups, fetchUser } from "../util/api";
+import { fetchContestInfo, fetchGroups, fetchPairs, fetchUser } from "../util/api";
+import { GroupsTableComponent } from "./plag-groups-table.component";
+import { UserGraph } from "../util/graph";
 
 declare var PR: any;
 
-
 export function ReportTitleComponent() {
     const { reportName } = useParams();
-    return <span style={{marginLeft: 10}}>{reportName}</span>;
+    return <span style={{ marginLeft: 10 }}>{reportName}</span>;
 }
+
 
 export function PlagReportComponent({ }: {}) {
     const { reportName } = useParams();
@@ -24,8 +26,9 @@ export function PlagReportComponent({ }: {}) {
     const [similarity, setSimilarity] = useState(80);
 
     const [groups, setGroups] = useState<GroupUser[][]>([]);
-    const [selectedFileId, setSelectedFileId] = useState<string | undefined>();
-    const [selectedUser, setSelectedUser] = useState<SubmissionUser | undefined>();
+    const [selectedFileId, setSelectedFileId] = useState<string>();
+    const [selectedUser, setSelectedUser] = useState<SubmissionUser>();
+    const [graph, setGraph] = useState<UserGraph>(new UserGraph([]));
 
     const [hideBlankLines, setHideBlankLines] = useState(true);
     const codePreRef = useRef<HTMLPreElement>(null);
@@ -48,6 +51,11 @@ export function PlagReportComponent({ }: {}) {
         if (baseDir === undefined) return;
         fetchGroups(baseDir, similarity)
             .then(groups => setGroups(groups));
+        
+        fetchPairs(baseDir, similarity)
+            .then(pairs => {
+                setGraph(new UserGraph(pairs));
+            })
     }
 
     useEffect(() => {
@@ -76,7 +84,7 @@ export function PlagReportComponent({ }: {}) {
     return <>
         <PanelGroup autoSaveId="example" direction="horizontal">
             <Panel defaultSize={50} className="panel">
-                <div style={{ overflow: "auto" }}>
+                <div >
                     <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
@@ -103,69 +111,39 @@ export function PlagReportComponent({ }: {}) {
                         </AccordionDetails>
                     </Accordion>
 
-                    {/* <Accordion>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel2-content"
-                            id="panel2-header"
-                        >
-                            Stats
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            Total similar groups: {groups.length} <br />
-                            Total similar submissions: {groups.reduce((a, b) => a + b.length, 0)}
-                        </AccordionDetails>
-                    </Accordion> */}
 
-                    <br />
-                    <br />
-                    <TreeView
-                        aria-label="file system navigator"
-                        defaultCollapseIcon={<ExpandMoreIcon />}
-                        defaultExpandIcon={<ChevronRightIcon />}
-                        // sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
-                        onNodeSelect={(ev, selected) => setSelectedFileId(selected)}
-                    >
-                        {groups.map((group, groupId) => <>
-                            <TreeItem nodeId={`g${groupId.toString()}`} label={`Group ${groupId} (${group.length})`}>
-                                {group.map(user => <>
-                                    <TreeItem
-                                        nodeId={user.fileId.toString()}
-                                        label={<><span style={{ width: 100, display: "inline-block" }}>{user.rank}</span>{user.username}</>}
-                                    />
-                                </>)}
-                            </TreeItem>
-                        </>)}
-                    </TreeView>
+                    <GroupsTableComponent 
+                        groups={groups}
+                        onUserSelect={user => setSelectedFileId(user.fileId)} 
+                        graph={graph}
+                        selectedFileId={selectedFileId || ""}
+                    />
 
                 </div>
             </Panel>
             <PanelResizeHandle className="resize-handle fa-solid fa-ellipsis-vertical" />
             <Panel className="panel">
-                <div style={{ overflow: "auto" }}>
-                    
-                    {selectedUser && <>
-                        <div style={{display: "flex", margin: "10px 0"}}>
-                            <h3 style={{margin: 0}}>
-                                <a href={`https://leetcode.com/u/${selectedUser.username}/`} target="blank">
+                {selectedUser && <>
+                    <div style={{ display: "flex", margin: "10px 0" }}>
+                        <h3 style={{ margin: 0 }}>
+                            <a href={`https://leetcode.com/u/${selectedUser.username}/`} target="blank">
                                 {selectedUser.username}&nbsp;<i className="fa-solid fa-arrow-up-right-from-square"></i>
-                                </a>
-                            </h3>
-                            <span style={{flexGrow: 1}}></span>
-                            <span>Submitted at: {new Date(selectedUser.submit_ts * 1000).toTimeString()}</span>
-                        </div>
-                        <input
-                            type="checkbox"
-                            checked={hideBlankLines}
-                            onChange={ev => setHideBlankLines(ev.target.checked)}
-                            id="codeHideBlankLines"
-                        />
-                        <label htmlFor="codeHideBlankLines">Hide blank lines</label>
-                        <pre
-                            ref={codePreRef}
-                            style={{ color: "auto" }}></pre>
-                    </>}
-                </div>
+                            </a>
+                        </h3>
+                        <span style={{ flexGrow: 1 }}></span>
+                        <span>Submitted at: {new Date(selectedUser.submit_ts * 1000).toTimeString()}</span>
+                    </div>
+                    <input
+                        type="checkbox"
+                        checked={hideBlankLines}
+                        onChange={ev => setHideBlankLines(ev.target.checked)}
+                        id="codeHideBlankLines"
+                    />
+                    <label htmlFor="codeHideBlankLines">Hide blank lines</label>
+                    <pre
+                        ref={codePreRef}
+                        style={{ color: "auto" }}></pre>
+                </>}
             </Panel>
         </PanelGroup>
 

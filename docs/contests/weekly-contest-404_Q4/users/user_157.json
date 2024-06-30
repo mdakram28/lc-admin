@@ -1,0 +1,5 @@
+{
+    "username": "drknzz",
+    "submission": "class Solution:\n    def treeDiameter(self, edges: List[List[int]]) -> int:\n        def go(x, v, depth):\n            v[x] = True\n            farthest = (x, 0)\n            for y in d[x]:\n                if not v[y]:\n                    z, dist = go(y, v, depth + 1)\n                    if dist + 1 > farthest[1]:\n                        farthest = (z, dist + 1)\n            v[x] = False\n            return farthest\n\n        d = defaultdict(list)\n        for x, y in edges:\n            d[x].append(y)\n            d[y].append(x)\n\n        n = len(edges) + 1\n        x, _ = go(0, [False] * n, 0)\n        _, dist = go(x, [False] * n, 0)\n        return dist\n        \n        \n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        d1, d2 = self.treeDiameter(edges1), self.treeDiameter(edges2)\n        return max([(d1 + 1) // 2 + (d2 + 1) // 2 + 1, d1, d2])\n        \n        ",
+    "submit_ts": 1719717837.0
+}

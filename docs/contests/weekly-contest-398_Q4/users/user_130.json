@@ -1,5 +1,5 @@
 {
-    "username": "then00bprogrammer",
-    "submission": "using ll = long long;\n\nll bin_pow(ll a, ll b) {\n    ll res = 1;\n    while (b > 0) {\n        if (b & 1)\n            res = res * a;\n        a = a * a;\n        b >>= 1;\n    }\n    return res;\n}\n\nclass Solution {\n    map<array<ll, 3>, ll> dp;\n    ll k;\n    \n    ll dfs(ll jump, ll pos, bool neg) {\n        if (pos < 0) return 0;\n        if (pos - k > 1) return 0;\n        if (dp.count({jump, pos, neg})) return dp[{jump, pos, neg}];\n        \n        if (neg) {\n            return dp[{jump, pos, neg}] = (pos == k) + dfs(jump + 1, pos + bin_pow(2, jump), true) + dfs(jump, pos - 1, false);\n        }\n        return dp[{jump, pos, neg}] = (pos == k) + dfs(jump + 1, pos + bin_pow(2, jump), true);\n    }\n\npublic:\n    int waysToReachStair(int k) {\n        this->k = k;\n        return dfs(0, 1, 1);\n    }\n};\n",
-    "submit_ts": 1716087511.0
+    "username": "Silken",
+    "submission": "class Solution {\npublic:\n    \n    map<pair<int, int>, int> memo;\n    \n    int solve(int k, int jump) {\n        pair<int, int> key = {k, jump};\n        if(memo.count(key))\n            return memo[key];\n        if(k < -1)\n            return 0;\n        // if(k == -1)\n        //     return 1 + solve(k-(1<<jump), jump+1);\n        memo[key] = (k == 0 || k == -1) + solve(k+1-(1<<jump), jump+1) + solve(k-(1<<jump), jump+1);\n        cout<<\"solve for k = \"<<k<<\", jump = \"<<jump<<\" gives \"<<memo[key]<<endl; \n        return memo[key];\n    }\n    int waysToReachStair(int k) {\n        return solve(k-1, 0);\n    }\n};",
+    "submit_ts": 1716087568.0
 }

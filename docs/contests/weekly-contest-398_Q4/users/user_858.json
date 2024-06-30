@@ -1,5 +1,5 @@
 {
-    "username": "RollingSnack",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        jumps = [0] + [2 ** i for i in range(31)]\n        prefix = list(accumulate(jumps))\n        print(jumps)\n        print(prefix)\n        answer = 0\n        for i in range(len(jumps)):\n            for j in range(i + 2):\n                if 1 + prefix[i] - j == k:\n                    answer += factorial(i + 1) // factorial(j) // math.factorial(i + 1 - j)\n        return answer",
-    "submit_ts": 1716090045.0
+    "username": "K_25_S",
+    "submission": "class Solution {\npublic:\n    int solve(int ind, int& k, map<pair<int, pair<int, int>>, int>& dp, int jump, int bk = 0){\n        if(ind >= k+2) return 0;\n        \n        int ans = 0;\n        if(ind == k) ans = 1;\n        else if(dp.find({ind, {jump, bk}}) != dp.end()) return dp[{ind, {jump, bk}}];\n        \n        ans += solve(ind + pow(2, jump), k, dp, jump + 1, 0);\n        if(bk == 0)\n        ans += solve(ind-1, k, dp, jump, 1);\n        \n        return dp[{ind, {jump, bk}}] = ans;\n        \n    }\n    int waysToReachStair(int k) {\n        map<pair<int, pair<int, int>>, int> dp;\n        \n        return solve(1, k, dp, 0);\n    }\n};",
+    "submit_ts": 1716089145.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "mcl7",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n      \n      @cache\n      def go(i: int, jump: int, can_back: bool) -> int:\n        if i >= k + 2:\n          return 0\n        \n        res = 0\n        if i == k:\n          res += 1\n        \n        res += go(i+2**jump, jump+1, True)\n        if can_back:\n          res += go(i-1, jump, False)\n        return res\n      \n      return go(1, 0, True)",
-    "submit_ts": 1716089146.0
+    "username": "user2638Cd",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        # jump = 0\n        # pos = 1\n        # once to i-1\n        # go to stair i + 1<<jump ; jump++\n        mem = {}\n        def search(curr: int, canRetract: bool, jump: int) -> int:\n            if curr > k+1 or (curr == k+1 and not canRetract):\n                return 0\n            \n            t = (curr, canRetract, jump)\n            if t in mem:\n                return mem[t]\n            res = 1 if curr == k else 0\n            res += search(curr + (1<<jump), True, jump+1)\n            if canRetract:\n                res += search(curr-1, False, jump)\n            mem[t] = res\n            return res\n        \n        return search(1, True, 0)",
+    "submit_ts": 1716088235.0
 }

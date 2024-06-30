@@ -1,5 +1,5 @@
 {
-    "username": "echen5503",
-    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        s = set()\n        s.add((1<<40) - 1)\n        ans = 1e9\n        for x in nums:  \n            s = {y&x for y in s} | {(1<<40) - 1}\n            #print(s)\n            for n in s:\n                ans = min(ans, abs(n-k))\n        return ans\n",
-    "submit_ts": 1717297636.0
+    "username": "hope_ma",
+    "submission": "class Solution:\n  bits = 31\n  \n  def minimumDifference(self, nums: List[int], k: int) -> int:\n    n = len(nums)\n    bit_layouts = [[0 for _ in range(Solution.bits)] for _ in range(n)]\n    for i in range(n):\n      num = nums[i]\n      for b in range(Solution.bits):\n        if ((num >> b) & 1) == 1:\n          bit_layouts[i][b] = 1\n    #target_layout = [0 for _ in range(Solution.bits)]\n    #for b in range(Solution.bits):\n    #  if ((k >> b) & 1) == 1:\n    #    target_layout[b] = 1\n\n    ret = inf\n    start = 0\n    bit_layout = [0 for _ in range(Solution.bits)]\n    for end in range(n):\n      for b in range(Solution.bits):\n        bit_layout[b] += bit_layouts[end][b]\n      num = self.bit_layout_to_num(bit_layout, end - start + 1)\n      while num < k:\n        ret = min(ret, abs(k - num))\n        for b in range(Solution.bits):\n          bit_layout[b] -= bit_layouts[start][b]\n        start += 1\n        num = self.bit_layout_to_num(bit_layout, end - start + 1)\n      ret = min(ret, abs(k - num))\n    return ret\n        \n  def bit_layout_to_num(self, bit_layout, count):\n    ret = 0\n    for b in range(Solution.bits):\n      if bit_layout[b] == count:\n        ret |= 1 << b\n    return ret\n",
+    "submit_ts": 1717298831.0
 }

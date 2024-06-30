@@ -1,5 +1,5 @@
 {
-    "username": "Andycipation",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @functools.cache\n        def solve(x: int, c: int) -> int:\n            ret = 0\n            if x == k:\n                # stop\n                ret += 1\n            if x == k + 1:\n                # -1, stop\n                ret += 1\n            if x >= 1 and x - 1 + (1 << c) <= k + 1:\n                # -1, 2^c, ...\n                ret += solve(x - 1 + (1 << c), c + 1)\n            if x + (1 << c) <= k + 1:\n                # 2^c, ...\n                ret += solve(x + (1 << c), c + 1)\n            return ret\n        \n        return solve(1, 0)\n            ",
-    "submit_ts": 1716086802.0
+    "username": "timetoai",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        pwrs = [2 ** i for i in range(31)]\n        \n        @cache\n        def go(i=1, jmp=0, fst=False):\n            ret = i == k\n            if i + pwrs[jmp] - 1 > k and i - 1 > k:\n                return ret\n            ret += go(i + pwrs[jmp], jmp + 1, False)\n            if not fst:\n                ret += go(i - 1, jmp, True)\n            return ret\n        \n        return go()",
+    "submit_ts": 1716086835.0
 }

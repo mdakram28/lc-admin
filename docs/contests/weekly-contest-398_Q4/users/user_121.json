@@ -1,5 +1,5 @@
 {
-    "username": "2499370956",
-    "submission": "class Solution {\n    private static long[] min;\n    private static long[] max;\n\n    static {\n        min = new long[31];\n        max = new long[31];\n        for (int j = 0; j <= 30; j++) {\n            max[j] = 1L << j;\n            min[j] = max[j] - (j + 1);\n        }\n    }\n\n    private static long choose(long a, long b) {\n        b = Math.min(b, a - b);\n        long out = 1;\n        for (int i = 0; i < b; i++) {\n            out *= a - i;\n            out /= 1 + i;\n        }\n        return out;\n    }\n\n    public int waysToReachStair(int k) {\n        long out = 0;\n        for (int j = 0; j <= 30; j++) {\n            if (k <= max[j] && k >= min[j]) {\n                long jump = j;\n                long back = max[j] - k;\n                out += choose(jump + 1, back);\n            }\n        }\n        return (int) out;\n    }\n}",
-    "submit_ts": 1716087523.0
+    "username": "hicoder",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def dp(pos, jump, pre):\n            if (pos < 0):\n                return 0\n            cs = 0\n            if (pos == k):\n                cs = 1\n            if (pos > k):\n                if (pre or pos - 1 > k):\n                    return cs\n            if (pre):\n                return cs + dp(pos + 2 ** jump, jump + 1, False)\n            return cs + dp(pos  + 2 ** jump, jump + 1, False) + dp(pos - 1, jump, True)\n            \n        return dp(1, 0, False)\n                ",
+    "submit_ts": 1716087559.0
 }

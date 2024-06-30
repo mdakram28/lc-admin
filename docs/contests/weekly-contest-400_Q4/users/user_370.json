@@ -1,5 +1,5 @@
 {
-    "username": "WeimingZheng",
-    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        andValues = set()\n        n = len(nums)\n        @cache\n        def dfs(i, nd):\n            nonlocal n\n            if i == n: return\n            nd &= nums[i]\n            andValues.add(nd)\n            dfs(i + 1, nd)\n            dfs(i + 1, -1)\n        \n        dfs(0, -1)\n        ans = inf\n        for nd in andValues:\n            ans = min(ans, abs(k - nd))\n        \n        return ans",
-    "submit_ts": 1717298538.0
+    "username": "ryanlin118",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        unordered_set<int> running;\n        int min_diff = INT_MAX;\n        for (int n: nums) {\n            // check if n is in running, if it is don't bother\n            unordered_set<int> new_set;\n            for (int r: running) {\n                new_set.insert(r & n);\n            }\n            new_set.insert(n);\n            running = new_set;\n            for (int s: running) {\n                min_diff = min(min_diff, abs(k - s));\n            }\n        }\n        return min_diff;\n    }\n};",
+    "submit_ts": 1717298824.0
 }

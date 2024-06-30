@@ -1,0 +1,5 @@
+{
+    "username": "YASH749",
+    "submission": "class Solution {\npublic:\nvoid dfs(const vector<vector<int>>& adj, int node, int parent, int depth, int& farthestNode, int& maxDepth) {\n    if (depth > maxDepth) {\n        maxDepth = depth;\n        farthestNode = node;\n    }\n    for (int neighbor : adj[node]) {\n        if (neighbor != parent) {\n            dfs(adj, neighbor, node, depth + 1, farthestNode, maxDepth);\n        }\n    }\n}\n\nint treeDiameter(int n, const vector<vector<int>>& edges) {\n    if (n == 1) return 0;\n\n    vector<vector<int>> adj(n);\n    for (const auto& edge : edges) {\n        adj[edge[0]].push_back(edge[1]);\n        adj[edge[1]].push_back(edge[0]);\n    }\n\n    int farthestNode = 0;\n    int maxDepth = -1;\n\n    dfs(adj, 0, -1, 0, farthestNode, maxDepth);\n\n    maxDepth = -1;\n    dfs(adj, farthestNode, -1, 0, farthestNode, maxDepth);\n\n    return maxDepth;\n}\n    int minimumDiameterAfterMerge(vector<vector<int>>& e1, vector<vector<int>>& e2) {\n        int n1=treeDiameter(e1.size()+1,e1),n2=treeDiameter(e2.size()+1,e2);\n        return max(max(n1,n2),(n1+1)/2+(n2+1)/2+1);\n    }\n};",
+    "submit_ts": 1719719818.0
+}

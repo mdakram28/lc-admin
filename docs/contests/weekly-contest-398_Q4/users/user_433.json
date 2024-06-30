@@ -1,5 +1,5 @@
 {
-    "username": "bigD-Deepak",
-    "submission": "#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    // Memoization map with a custom key\n    unordered_map<long long, int> dp;\n\n    int f(int i, int k, int jump, bool m) {\n        if (i > k + 2) return 0;\n        if (i == k && jump > 2) {\n            return 1;\n        }\n \n        long long key = ((long long)i << 32) | (jump << 1) | m;\n        if (dp.find(key) != dp.end()) return dp[key];\n\n         int val = i==k;\n \n        if (i != 0 && m==0) {\n            val += f(i - 1, k, jump, true);\n        }\n \n        val += f(i + (1 << jump), k, jump + 1, false);\n\n        dp[key] = val;\n        return val;\n    }\n\n    int waysToReachStair(int k) {\n        dp.clear();  \n        return f(1, k, 0, false);\n    }\n};\n\n ",
-    "submit_ts": 1716087912.0
+    "username": "loganwatchorn",
+    "submission": "func waysToReachStair(k int) int {\n    memo := map[[3]int]int{}\n    \n    var dp func(pos, jumpSize, prevDir int) int\n    dp = func(pos, jumpSize, prevDir int) int {\n        if val, ok := memo[[3]int{pos, jumpSize, prevDir}]; ok {\n            return val\n        }\n        ans := 0\n        ////////////\n        if pos == k {\n            ans++\n        }\n        if prevDir == 1 && pos > 0 {\n            ans += dp(pos-1, jumpSize, 0)\n        }\n        if jumpSize <= k+1 {\n            ans += dp(pos+jumpSize, 2*jumpSize, 1)\n        }\n        \n        ////////////\n        memo[[3]int{pos, jumpSize, prevDir}] = ans\n        return ans\n    }\n    \n    ans := 0\n    if k == 1 { ans++ }\n    ans += dp(0, 1, 0)\n    ans += dp(2, 2, 1)\n    return ans\n}",
+    "submit_ts": 1716088806.0
 }

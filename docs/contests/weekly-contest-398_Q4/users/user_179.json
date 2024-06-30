@@ -1,5 +1,5 @@
 {
-    "username": "theonepieceisreal",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        if k == 0: return 2\n        \n        @cache\n        def go(curr, jump, canDown):\n            if curr > 10 * k: return 0\n            \n            res = 0\n            \n            if curr == k: res += 1\n            \n            if curr != 0 and canDown:\n                res += go(curr - 1, jump, False)\n            \n            res += go(curr + pow(2, jump), jump + 1, True)\n            \n            return res\n\n        return go(1, 0, True)\n            ",
-    "submit_ts": 1716087517.0
+    "username": "yumichael",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        reach = Counter({1: 1})\n        answer = reach[k] + reach[k + 1]\n        jump = 0\n        while min(reach) - 1 <= k:\n            new_reach = Counter({stair - 1: ways for stair, ways in reach.items()}) + reach\n            new_reach = Counter({stair + 2 ** jump: ways for stair, ways in new_reach.items()})\n            jump += 1\n            reach = new_reach\n            answer += reach[k] + reach[k + 1]\n        return answer",
+    "submit_ts": 1716087826.0
 }

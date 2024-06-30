@@ -1,5 +1,5 @@
 {
-    "username": "devangsvaghani",
-    "submission": "class Solution {\n    unordered_map<int, vector<vector<int>>> dp;\n    int rec(int k, int i, int jump, bool ifpos){\n        if(i > k+4 || jump > 31){\n            return 0;\n        }\n        \n        if(dp.find(i) != dp.end() && dp[i][jump][ifpos] != -1){\n            return dp[i][jump][ifpos];\n        }\n        \n        int ans = (i == k);\n        \n        if(ifpos){\n            ans += rec(k, i-1, jump, 0);\n        }\n        if(i + (1ll << jump) <= k+1){\n            ans += rec(k, i + (1ll << jump), jump+1, 1);\n        }\n        \n        dp[i].resize(32, vector<int> (2, -1));\n        return dp[i][jump][ifpos] = ans;\n        \n    }\npublic:\n    int waysToReachStair(int k) {\n        return rec(k, 1, 0, 1);\n    }\n};",
-    "submit_ts": 1716089632.0
+    "username": "LouisCheng",
+    "submission": "from collections import defaultdict\nimport math\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        pos = {1: 1}\n        res = 1 if 1 == k or k == 0 else 0\n        add = 1\n        for i in range(math.ceil(math.log2(k + 1) + 1)):\n            new_pos = defaultdict(int)\n            for x in pos:\n                if x - 1 + add == k: res += 2 * pos[x]\n                if x + add == k: res += pos[x]\n                if x + add - 2 == k: res += pos[x]\n                new_pos[x - 1 + add] += pos[x]\n                new_pos[x + add] += pos[x]\n            pos = new_pos\n            add <<= 1\n        return res\n",
+    "submit_ts": 1716089638.0
 }

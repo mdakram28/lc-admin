@@ -1,5 +1,5 @@
 {
-    "username": "Neelesh-kumar",
-    "submission": "class Solution:\n    def solve(self,i,jump,k,flag,dp):\n        if i-1>k:\n            return 0\n\n        if i==k and jump>2:\n            return 1\n        \n        t=(i,jump,flag)\n        if t in dp:\n            print(\"yrs\")\n            return dp[t]\n        if i==k:\n            x=self.solve(i+2**jump,jump+1,k,0,dp)+1\n            y=0\n            if flag==0 and i!=0:\n                y=self.solve(i-1,jump,k,1,dp)\n            dp[t]=x+y\n            return x+y\n\n        x=self.solve(i+2**jump,jump+1,k,0,dp)\n        y=0\n        if flag==0 and i!=0:\n            y=self.solve(i-1,jump,k,1,dp)\n        dp[t]=x+y\n        return x+y\n\n\n\n    def waysToReachStair(self, k: int) -> int:\n        dp={}\n        return self.solve(1,0,k,0,dp)",
-    "submit_ts": 1716089372.0
+    "username": "user2000717",
+    "submission": "from functools import lru_cache\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @lru_cache(None)\n        def countWays(current_stair: int, jump: int, can_down: bool) -> int:\n            if current_stair < 0 or current_stair > k + 1:\n                return 0\n\n            total_ways = 0\n\n            if current_stair == k:\n                total_ways += 1\n\n            if current_stair > 0 and can_down:\n                total_ways += countWays(current_stair - 1, jump, False)\n\n            next_stair = current_stair + 2 ** jump\n            total_ways += countWays(next_stair, jump + 1, True)\n\n            return total_ways\n\n        return countWays(1, 0, True)",
+    "submit_ts": 1716088460.0
 }

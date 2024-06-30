@@ -1,5 +1,5 @@
 {
-    "username": "lm105013",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dp(i=1, jp=0, prev=-1):\n            if i > k + 1:\n                return 0\n            res = i == k\n            if prev == 0:\n                res += dp(i+pow(2, jp), jp+1, 1)\n            else:\n                res += dp(i+pow(2, jp), jp+1, 1) + dp(i-1, jp, 0)\n            return res\n        return dp()",
-    "submit_ts": 1716087304.0
+    "username": "xuhr",
+    "submission": "# up, down, up, up, down, up, up\n# start at 1, end at k\n# m: ups, n: downs => \n#   n == 0 or n == m + 1 -> 1\n#   n == 1 -> m + 1\n#   n == 2 -> C(m+1)2\n# 1 + 2**m - 1 - n = k\n# 0 <= n <= m + 1\n# 2 ** m = n + k\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        res = 0\n        for m in range(35):\n            n = 2 ** m - k\n            if 0 <= n <= m + 1:\n                res += comb(m + 1, n)\n        return  res",
+    "submit_ts": 1716087637.0
 }

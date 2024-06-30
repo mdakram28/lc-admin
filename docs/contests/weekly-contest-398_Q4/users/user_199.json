@@ -1,5 +1,5 @@
 {
-    "username": "chinesedfan",
-    "submission": "/* eslint-disable no-var, func-style */\nconst combo = createCombo(40)\nfunction createCombo(n) {\n    const r = []\n    for (let i = 1; i <= n; i++) {\n        r[i] = []\n        for (let j = 0; j <= n; j++) {\n            if (i === 1 || !j || i <= j) {\n                r[i][j] = 1\n                continue\n            }\n            r[i][j] = r[i - 1][j - 1] + r[i - 1][j]\n        }\n    }\n    return r\n}\n/**\n * @param {number} k\n * @return {number}\n */\nvar waysToReachStair = function(k) {\n    const log = 30\n    let r = 0\n    for (let jump = 0; jump < log; jump++) {\n        const back = (1 << jump) - k\n        if (back < 0 || back > jump + 1) continue\n        // console.log([jump, back])\n    // console.log([jump + 1, back])\n        r += combo[jump + 1][back]\n    }\n    return r\n};\n",
-    "submit_ts": 1716087914.0
+    "username": "zzjjbb",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        k -= 1\n        ans = 0\n        for i, tot in enumerate([(1 << jump) - 1 for jump in range(40)], 1):\n            if tot - i <= k <= tot:\n                # print(i, tot - k)\n                ans += comb(i, tot - k)\n        return ans\n        ",
+    "submit_ts": 1716087627.0
 }

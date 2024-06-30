@@ -1,5 +1,5 @@
 {
-    "username": "ianwong1999",
-    "submission": "class Solution {\npublic:\n    bitset<100055> dp;\n    bitset<100055> temp;\n    int maxTotalReward(vector<int>& rewardValues) {\n        sort(rewardValues.begin(), rewardValues.end());\n        \n        rewardValues.erase(unique(rewardValues.begin(), rewardValues.end()), rewardValues.end());\n        \n        dp.reset();\n        temp.reset();\n        \n        int pt = 0;\n        \n        dp[0] = true;\n        \n        for (auto x : rewardValues) {\n            while (pt <= x + x - 1) {\n                temp[pt] = 1;\n                pt++;\n            }\n            dp |= (dp << x) & temp;\n        }\n        \n        for (int i = (int)1e5; i >= 0; i--) if (dp[i]) return i;\n        return 0;\n    }\n};",
-    "submit_ts": 1717902906.0
+    "username": "isheoran",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        sort(rewardValues.begin(), rewardValues.end());\n        \n        const int nmm = 1e5+1;\n        \n        bitset<nmm>dp;\n        bitset<nmm>tmp1, tmp2;\n        int ptr = 0;\n        \n        dp[0] = 1;\n        \n        for(auto u:rewardValues) {\n            \n            while(ptr < 2*u) {\n                tmp1[ptr] = 1;\n                ptr++;\n            }\n            \n            tmp2 = dp|tmp1;\n            \n            dp = dp|(dp<<u);\n            dp = dp&tmp2;\n        }\n        \n        for(int i=nmm-1;i>=0;i--) {\n            if(dp[i]) return i;\n        }\n        \n        return 0;\n    }\n};",
+    "submit_ts": 1717903474.0
 }

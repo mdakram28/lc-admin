@@ -1,5 +1,5 @@
 {
-    "username": "sky1429",
-    "submission": "class Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        req = defaultdict(int)\n        mod = 10**9 + 7\n        for e, c in requirements:\n            req[e] = c\n            \n        @cache\n        def rec(le, numInv):\n            if le == 0:\n                if numInv == 0:\n                    return 1\n                return 0\n            if numInv < 0:\n                return 0\n            if le - 1 in req:\n                if numInv != req[le - 1]:\n                    return 0\n            ans = 0\n            for i in range(le):\n                ans += rec(le - 1, numInv - le + 1 + i)\n            return ans % mod\n        \n        return rec(n, req[n - 1])",
-    "submit_ts": 1719068684.0
+    "username": "weirdsmoothie",
+    "submission": "class Solution {\n    const int mod = 1e9 + 7;\npublic:\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        int i, j, k, dp[300][405]{{1}};\n        unordered_map<int, int> req;\n        for (auto &r: requirements) req[r[0]] = r[1];\n        if (req[0]) return 0;\n        for (i = 1; i < n; i++) {\n            for (j = req[n - 1]; j >= 0; j--) {\n                for (k = min(i, j); k >= 0; k--) {\n                    dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % mod;\n                }\n            }\n            if (req.count(i)) {\n                for (j = req[n - 1]; j >= 0; j--) {\n                    if (j != req[i]) dp[i][j] = 0;\n                }\n            }\n        }\n        return dp[n - 1][req[n - 1]];\n    }\n};",
+    "submit_ts": 1719068969.0
 }

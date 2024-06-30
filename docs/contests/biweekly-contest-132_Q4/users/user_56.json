@@ -1,5 +1,5 @@
 {
-    "username": "Arch_of_Triumph",
-    "submission": "#include <bits/stdc++.h>\n\n#define pb push_back\n#define all(x) x.begin(), x.end()\n#define sz(x) (int)x.size()\n#define ll long long\n\nclass Solution {\npublic:\n    int maximumLength(vector<int>& a, int k) {\n        int n = sz(a);\n        map<int, int> pre;\n        vector<vector<int>> dp(n + 5, vector<int>(k + 5));\n        vector<int> mx(n + 5);\n        int ans = 0;\n        for (int i = 1; i <= n; i++) {\n            int last = pre[a[i - 1]];\n            pre[a[i - 1]] = i;\n            for (int j = 1; j <= k + 1; j++) {\n                dp[i][j] = max(mx[j - 1] + 1, dp[last][j] + 1);\n                ans = max(ans, dp[i][j]);\n            }\n            for (int j = 1; j <= k + 1; j++) {\n                mx[j] = max(mx[j], dp[i][j]);\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717858586.0
+    "username": "zsq007",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        heaps, lengths = [[0] for _ in range(k+1)], defaultdict(lambda: [0]*(k+1))\n        for num in nums:\n            for j in range(k, 0, -1):\n                cur = min(lengths[num][j], heaps[j-1][0]) - 1\n                lengths[num][j] = cur\n                heappush(heaps[j], cur)\n            lengths[num][0] -= 1\n            heappush(heaps[0], lengths[num][0])\n            # print(heaps)\n        return -min(heaps[j][0] for j in range(k+1))",
+    "submit_ts": 1717858994.0
 }

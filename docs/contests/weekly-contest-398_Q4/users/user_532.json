@@ -1,5 +1,5 @@
 {
-    "username": "lastjoker99",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        ans = 0\n        pos = 1\n        jump = 0\n        l = 1\n\n        while True:\n            if pos == k:\n                ans += 1\n            elif pos > k:\n                d = pos - k\n                if d > jump + 1:\n                    break\n                r = 1\n                for i in range(2, jump + 2):\n                    r *= i\n                for i in range(2, d + 1):\n                    r //= i\n                for i in range(2, jump + 2 - d):\n                    r //= i\n                ans += r\n            \n            pos += l\n            jump += 1\n            l *= 2\n        \n        return ans",
-    "submit_ts": 1716089147.0
+    "username": "rounak_58",
+    "submission": "class Solution {\npublic:\n    map<vector<int>,int> dp;\n    int f(int i,int k,int j,bool fl)\n    {\n        if(i>k+1)\n            return 0;\n        if(dp.find({i,j,fl})!=dp.end())\n            return dp[{i,j,fl}];\n        if(i==k)\n        {\n            int ans=1;\n            if(fl)\n                ans+=f(i-1,k,j,!fl);\n            if(!fl)\n            ans+=f(i+(1ll<<j),k,j+1,!fl);\n            else\n                ans+=f(i+(1ll<<j),k,j+1,fl);\n            return dp[{i,j,fl}]=ans;\n        }\n        int ans=0;\n        if(fl)\n                ans+=f(i-1,k,j,!fl);\n        if(fl)\n            ans+=f(i+(1ll<<j),k,j+1,fl);\n        else\n            ans+=f(i+(1ll<<j),k,j+1,!fl);\n        return dp[{i,j,fl}]=ans;\n    }\n    int waysToReachStair(int k) {\n        int ans=f(1,k,0,true);\n        return ans;\n    }\n};",
+    "submit_ts": 1716088249.0
 }

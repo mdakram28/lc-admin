@@ -1,5 +1,5 @@
 {
-    "username": "CoderVinit28",
-    "submission": "class Solution {\npublic:\n    map<vector<int>, int> dp;\n    int waysToReachStair(int k) {\n        dp.clear();\n        return helper(1, k, 0, true);\n    }\n    \n    int helper(int stair, int &k, int jump, bool goDown){\n        if( stair > k && ((stair - k) > 2 && jump > 2) ){\n            return 0;\n        }\n        vector<int> state = {stair, jump, goDown};\n        if( dp.find(state) == dp.end() ){\n            int ways = 0;\n            if( stair == k ) ways += 1;\n            if( goDown ){\n                ways += helper(stair-1, k, jump, false);\n            }\n            ways += helper(stair + (1<<jump), k, jump+1, true);\n            dp[state] = ways;\n        }\n        return dp[state];\n    }\n};",
-    "submit_ts": 1716088081.0
+    "username": "yinqiaozhang",
+    "submission": "class Solution {\npublic:\n    using ll = long long;\n    int waysToReachStair(int k) {\n        int C[33][33];\n        for (int i = 0; i <= 32; i ++) {\n            for (int j = 0; j <= i; j ++) {\n                if (!j) C[i][j] = 1;\n                else C[i][j] = C[i-1][j] + C[i-1][j-1];\n            }\n        }\n        \n        // \u679a\u4e3e\u6700\u7ec8\u7684jump\u503c / \u4f7f\u7528j\u6b21jump\n        ll res = 0;\n        for (int j = 0; j <= 32; j ++) {\n            ll up = (1LL << j) - 1;\n            ll need = up - (k - 1);\n            if (need >= 0 and need <= j + 1) {\n                // j + 1\u4e2a\u7a7a\u9699\u9009need\u4e2a\n                res += C[j + 1][need];\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": 1716087480.0
 }

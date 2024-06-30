@@ -1,5 +1,5 @@
 {
-    "username": "dream_boy",
-    "submission": "class Solution {\n    int c(int n, int k) {\n        if (k < 0 || k > n) return 0;\n        if (k == 0 || k == n) return 1;\n        long long res = 1;\n        for (int i = 1; i <= k; i++) {\n            res = res * (n - i + 1) / i;\n        }\n        return res;\n    }\n\npublic:\n    int waysToReachStair(int k) {\n        long long p2 = 1, pk = 1, cur = 0;\n\n        int ans = k <= 1;\n        while (true) {\n            cur += p2;\n            int lo = 1 + cur - (pk + 1);\n            int hi = 1 + cur;\n            if (lo > k) break;\n            if (hi >= k) {\n                int r = hi - k;\n                ans += c(pk + 1, r);\n            }\n            p2 *= 2;\n            pk++;\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": 1716086583.0
+    "username": "urimaj",
+    "submission": "class Solution {\npublic:\n    unordered_map<int,int> dp[34];\n    int waysToReachStair(int k) {\n        return helper(1, 0, k);\n    }\n    \n    int helper(int stair, int jump, int k) {\n        int ans = 0;\n        if (stair == k || stair == k + 1) ans = 1;\n        if (stair > k + 1) return 0;\n        if (dp[jump].find(stair) != dp[jump].end()) return dp[jump][stair];\n        return dp[jump][stair] = ans + helper(stair + pow(2, jump), jump + 1, k) + helper(stair + pow(2, jump) - 1, jump + 1, k);\n    }\n};",
+    "submit_ts": 1716087058.0
 }

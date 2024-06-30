@@ -1,5 +1,5 @@
 {
-    "username": "yahoo010206",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        def lcf(a, b):\n            if b==0:\n                return a\n            return lcf(b, a%b)\n        def solve(a, b):\n            values = list(range(a, a-b, -1))\n            for i in range(2, b+1):\n                while i!=1:\n                    for j in range(b):\n                        t = lcf(values[j], i)\n                        values[j]//=t\n                        i//=t\n            total = 1\n            for value in values:\n                total*=value\n            return total\n        res = 0\n        stair = 1\n        for i in range(1, 100):\n            if stair-i>k:\n                break\n            t = stair-k\n            if t>=0:\n                res += solve(i, t)\n            # print(stair, i, stair-k)\n            stair+=(1<<(i-1))\n\n\n        return res\n        ",
-    "submit_ts": 1716089354.0
+    "username": "kartikeyaangara",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        vis = set()\n        @cache\n        def dfs(pos, jump, prev_back):\n            res = 0\n            if pos == k:\n                res += 1\n            elif pos-1 == k and not prev_back:\n                return dfs(pos-1, jump, True)\n            elif pos > k:\n                return 0\n            res += dfs(pos+pow(2,jump), jump+1, False)\n            if not prev_back:\n                res += dfs(pos-1, jump, True)\n            return res\n        return dfs(1,0,False)\n            \n            \n            ",
+    "submit_ts": 1716089056.0
 }

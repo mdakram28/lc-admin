@@ -1,5 +1,5 @@
 {
-    "username": "maxwell142857",
-    "submission": "import math\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        # use total t operations,x op1 and y op2\n        def checkT(t):\n            # x+y = t, y-x<=1\n            # 2^x-1-y = k-1  --> 2^x = y+k\n            # 2^x = -x+t+k\n            result = -1\n            for x in range(t+1):\n                if pow(2,x) == -x+t+k:\n                    result = x\n                    break\n            if result != -1:\n                x = result\n                y = t-x\n                # check y-x<=1\n                if y-x<=1:\n                    return math.comb(x+1,y)\n                else:\n                    return 0\n            else:\n                return 0\n            \n        ans = 0\n        for i in range(100):\n            ans += checkT(i)\n        return ans",
-    "submit_ts": 1716089986.0
+    "username": "sellie50759",
+    "submission": "class Solution {\npublic:\n    int c(int n, int m){\n        __int128 ans = 1;\n        int max_val = max(m, n-m), min_val = min(m, n-m);\n        for(int i=max_val+1;i<=n;i++)\n            ans *= i;\n        for(int i=2;i<=min_val;i++)\n            ans /= i;\n        return ans;\n    }\n    int waysToReachStair(int k) {\n        int ans = 0;\n        for(int i=0;i<=32;i++){\n            long long val = k;\n            for(int j=0;j<i;j++)\n                val -= 1LL<<j;\n            for(int j=0;j<=i+1;j++){\n                if(val + j == 1){\n                    ans += c(i+1, j);\n                    // cout<<i+1<<\" \"<<j<<\" \"<<c(i+1, j)<<\"\\n\";\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1716089982.0
 }

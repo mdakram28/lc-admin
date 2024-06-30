@@ -1,5 +1,5 @@
 {
-    "username": "yumichael",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        reach = Counter({1: 1})\n        answer = reach[k] + reach[k + 1]\n        jump = 0\n        while min(reach) - 1 <= k:\n            new_reach = Counter({stair - 1: ways for stair, ways in reach.items()}) + reach\n            new_reach = Counter({stair + 2 ** jump: ways for stair, ways in new_reach.items()})\n            jump += 1\n            reach = new_reach\n            answer += reach[k] + reach[k + 1]\n        return answer",
-    "submit_ts": 1716087826.0
+    "username": "deadRabbit",
+    "submission": "typedef long long LL;\n\n\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        LL C[32][32];\n        memset(C,0,sizeof(C));\n        C[0][0]=1;\n        for (int i = 1; i < 32; ++i) {\n            C[i][0]=C[i][i]=1;\n            for (int j = 1; j < i; ++j) {\n                C[i][j] = C[i-1][j-1] + C[i-1][j];\n            }\n        }\n        int res = 0;\n        LL g = 1;\n        LL w = 1;\n        for (int i = 0; i < 30; ++i) {\n            LL p = w;\n            if (k<=p) {\n                LL d = p-k;\n                if (d<=g) {\n                    res += C[g][d];\n                }\n            }\n            \n            ++g;\n            w+=1ll<<i;\n        }\n        return res;\n    }\n};",
+    "submit_ts": 1716087241.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "harryB17",
-    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        set<int> st, nst;\n        int ans = 1e9;\n        for(auto &i : nums){\n            nst.insert(i);\n            ans = min(ans, abs(k-i));\n            for(auto &j : st){\n                // cout<<(i&j)<<\" \";\n                nst.insert(i&j);\n                ans = min(ans, abs(k-(i&j)));\n            }\n            // cout<<endl;\n            st = nst;\n            nst.clear();\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717298101.0
+    "username": "shaydulin",
+    "submission": "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        ans = float(\"inf\")\n        nums = [k for k, _ in groupby(nums)]\n        while len(nums) > 1:\n            ans = min(ans, min(abs(k - num) for num in nums))\n            nums = [\n                k for k, _ in groupby(\n                    n1 & n2 for n1, n2 in pairwise(nums)\n                )\n            ]\n        ans = min(ans, abs(k - nums[0]))\n        return ans\n",
+    "submit_ts": 1717298394.0
 }

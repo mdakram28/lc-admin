@@ -1,5 +1,5 @@
 {
-    "username": "apstndpavsetrimkaapstndp",
-    "submission": "class Solution {\npublic:\n    int solve(int &k, int &jump, int &i, int cons, unordered_map<int, unordered_map<int, unordered_map<int , int>>>&dp){\n        if(cons==1 && i>k) return 0;\n        if(i>k+1) return 0;\n        if(dp[cons][jump][i]!=0){\n            if(dp[cons][jump][i]==-1)  return 0;\n            else return dp[cons][jump][i];\n        }\n        int ans=0;\n        if(k==i) ans++;\n        i-=1;\n        if(cons==0) ans+=solve(k, jump, i, 1, dp);\n        i+=1;\n        int temp=pow(2,jump);\n        jump+=1;\n        i+=temp;\n        ans+=solve(k, jump, i, 0, dp);\n        i-=temp;\n        jump-=1;\n\n        if(ans==0) dp[cons][jump][i]=-1;\n        else dp[cons][jump][i]=ans;\n        return ans;\n    }\n    int waysToReachStair(int ki) {\n        int jump=0, i=1, k=ki;\n        //cons, jump, i, ans\n        unordered_map<int, unordered_map<int, unordered_map<int , int>>>dp;\n        return solve(k, jump, i, 0, dp);\n    }\n};",
-    "submit_ts": 1716088891.0
+    "username": "Harsh_400",
+    "submission": "class Solution {\npublic:\n    map<vector<int>,int> m;\n    int find(bool pre,int ind,int x,int k){\n        if(x==k){\n            return 1;\n        }\n        if(x>k+100) return 0;\n        if(m.find({x,ind,pre})!=m.end()) return m[{x,ind,pre}];\n        int res = 0;\n        if(!pre){\n            res+=find(true,ind,x-1,k);\n        }\n        res+=find(false,ind*2,x+ind,k);\n        \n        return m[{x,ind,pre}] = res;\n    }\n    int waysToReachStair(int k) {\n        if(k<3){\n            if(k==0) return 2;\n             return 4;\n        }\n        int ans = find(false,1,1,k);\n        return ans;\n    }\n};",
+    "submit_ts": 1716089824.0
 }

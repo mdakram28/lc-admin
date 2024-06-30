@@ -1,0 +1,5 @@
+{
+    "username": "fsyun",
+    "submission": "class Solution {\n    int[] d;\n    void f(int x, int prev, int lv, HashMap<Integer, HashSet<Integer>> g) {\n        d[x] = lv;\n        for (int y : g.get(x))\n            if (y != prev)\n                f(y, x, lv + 1, g);\n    }\n    int cal(int[][] edges) {\n        int n = edges.length + 1;\n        HashMap<Integer, HashSet<Integer>> g = new HashMap<>();\n        for (int i = 0; i < n; i++)\n            g.put(i, new HashSet<>());\n        for (int[] e : edges) {\n            g.get(e[0]).add(e[1]);\n            g.get(e[1]).add(e[0]);\n        }\n        d = new int[n];\n        f(0, -1, 0, g);\n        int p = 0;\n        for (int i = 1; i < n; i++)\n            if (d[i] > d[p])\n                p = i;\n        f(p, -1, 0, g);\n        int max = 0;\n        for (int x : d)\n            max = Math.max(max, x);\n        return max;\n    }\n    public int minimumDiameterAfterMerge(int[][] edges1, int[][] edges2) {\n        int a = cal(edges1), b = cal(edges2), ans = Integer.MAX_VALUE;\n        return Math.max((a + 1) / 2 + (b + 1) / 2 + 1, Math.max(a, b));\n    }\n}",
+    "submit_ts": 1719717772.0
+}

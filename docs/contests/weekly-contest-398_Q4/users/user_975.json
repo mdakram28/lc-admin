@@ -1,5 +1,5 @@
 {
-    "username": "persevere_21",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def helper(current,jump,goneBack):\n            if current>k+1:\n                return 0\n            if current<0:\n                return 0\n            total = 0\n            if current==k:\n                total+=1\n            total+=helper(current+2**jump,jump+1,False)\n            if not goneBack:\n                total+=helper(current-1,jump,True)\n            return total\n        return helper(1,0,False)\n            \n        ",
-    "submit_ts": 1716089383.0
+    "username": "sahil20000706",
+    "submission": "class Solution {\npublic:\n    unordered_map<string, int> dp;\n    \n    string getString(long a, long b, long c) {\n        return to_string(a)+\",\"+to_string(b)+\",\"+to_string(c);\n    }\n    \n    int Helper(long long i, long long jump, long long jt, int k) {\n        if(i>k+1)\n            return 0;\n        \n        int res = 0;\n        string curr = getString(i,jump,jt);\n        \n        if(dp.count(curr)) {\n            return dp[curr];\n        }\n        \n        if(i == k) {\n            res++;\n        }\n        \n        res += Helper(i+jump, jump*2LL, 0, k);\n        if(jt != 1 && i !=0) {\n            res += Helper(i-1,jump, 1, k);\n        }\n        \n        return dp[curr] = res;\n    }\n    \n    int waysToReachStair(int k) {\n        dp.clear();\n        return Helper(1LL,1LL,3,k);\n    }\n};",
+    "submit_ts": 1716089386.0
 }

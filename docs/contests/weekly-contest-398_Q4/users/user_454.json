@@ -1,5 +1,5 @@
 {
-    "username": "virinci",
-    "submission": "from math import comb\n\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        j = k.bit_length()\n        if k.bit_count() == 1:\n            j -= 1\n\n        ans = 0\n        for i in range(j, j + 20):\n            x = 1 << i\n            assert x >= k\n\n            d = x - k\n\n            slots = i + 1\n            ans += comb(slots, d)\n\n        return ans\n",
-    "submit_ts": 1716088295.0
+    "username": "cowtony",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        //     k       4  8  \n        //   op2:1  1, 2, 4, 8, 16\n        //     0: -1\n        //     0: -1 -1\n        //     1:   -\n        //     1: -1  \n        //     1:    -1\n        //     1: -1 -1 -1\n        // if (k == 0) {\n        //     return 2;\n        // }\n        // if (k == 1) {\n        //     return 4;\n        // }\n        \n        int result = 0;\n        \n        int op2 = 1;\n        int current = 1;\n        while (op2 < 32) {\n            \n            \n            result += C(op2, current - k);\n            \n            current <<= 1;\n            op2++;\n        }\n        \n        \n        return result;\n    }\n    \n    int C(int a, int b) {\n        if (b > a || b < 0) {\n            return 0;\n        }\n        \n        long long result = 1;\n        for (int i = a, j = 1; j <= b; i--, j++) {\n            result *= i;\n            result /= j;\n        }\n        return result;\n    }\n};",
+    "submit_ts": 1716088886.0
 }

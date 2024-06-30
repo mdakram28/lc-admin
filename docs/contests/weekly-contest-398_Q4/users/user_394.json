@@ -1,5 +1,5 @@
 {
-    "username": "AAoAA",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \"\"\"\n        (1) no 2 power => k = 0 or 1, 1 method\n\n        (2) 1 + 2^0 + 2^1 + 2^2 + ... + 2^j - b = k\n            0 <= b <= j + 2\n            (j + 2) position for (b) back\n            (j + 2)! / b! / (j + 2 - b)!\n        \"\"\"\n        \n        ans = 0\n        if k == 0 or k == 1:\n            ans += 1\n        \n        j = 0\n        while True:\n            sum_2power = 1 + (1 << (j + 1)) - 1\n            b = sum_2power - k\n            if b > j + 2:\n                break\n            if b >= 0:\n                num = 1\n                den = 1\n                for idx in range(b):\n                    num *= j + 2 - idx\n                    den *= idx + 1\n                ans += num // den\n            j += 1\n        return ans\n        \n    \n\n",
-    "submit_ts": 1716088671.0
+    "username": "Govind_Singh_2003",
+    "submission": "class Solution {\npublic:\n    map<vector<int>, int> dp;\n    int solve(int i, bool can, int jump, int k)\n    {\n        if(i > k + 1)\n            return 0;\n        if(dp.find({i, can, jump}) != dp.end())\n            return dp[{i, can, jump}];\n        int cnt = (i == k) + solve(i + (1LL << jump), 1, jump + 1, k);\n        if(can) cnt += solve(i - 1, 0, jump, k);\n        return dp[{i, can, jump}] = cnt;\n    }\n    int waysToReachStair(int k) {\n        return solve(1, 1, 0, k);\n    }\n};",
+    "submit_ts": 1716088062.0
 }

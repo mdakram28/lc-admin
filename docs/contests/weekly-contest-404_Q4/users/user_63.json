@@ -1,0 +1,5 @@
+{
+    "username": "u_noob_i",
+    "submission": "class Solution {\npublic:\n    \n    int getD(int n, vector<vector<int>>& adj){\n        vector<int> d(n);\n        int mx=0,ml=-1;\n        function<void(int,int,int)> dfs = [&](int u, int p, int l){\n            d[u]=l;\n            if(d[u]>ml) ml=d[u],mx=u;\n            for(auto &v:adj[u]) if(v!=p) dfs(v,u,l+1);\n        };\n        dfs(0,0,1);\n        d.assign(n,0);\n        ml=-1;\n        dfs(mx,mx,1);\n        return ml;\n    }\n    \n    int minimumDiameterAfterMerge(vector<vector<int>>& e1, vector<vector<int>>& e2) {\n        int n=e1.size()+1,m=e2.size()+1;\n        vector<vector<int>> adj1(n), adj2(m);\n        for(auto &i:e1) adj1[i[0]].push_back(i[1]),adj1[i[1]].push_back(i[0]);\n        for(auto &i:e2) adj2[i[0]].push_back(i[1]),adj2[i[1]].push_back(i[0]);\n        int x=getD(n,adj1),y=getD(m,adj2);\n        return max(max(x,y),(x+2)/2+(y+2)/2)-1;\n    }\n};",
+    "submit_ts": 1719716616.0
+}

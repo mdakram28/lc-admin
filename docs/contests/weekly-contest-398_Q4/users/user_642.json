@@ -1,5 +1,5 @@
 {
-    "username": "Sachin20012002",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        d = {}\n        def recur(idx,j,prev):\n            if idx>k+1:\n                return 0\n            if (idx,j,prev) in d:\n                return d[(idx,j,prev)]\n            ans = 0\n            if idx==k:\n                ans+=1\n            a = recur(idx+(2**j),j+1,False)\n            b=0\n            if not prev:\n                b = recur(idx-1,j,True)\n            d[(idx,j,prev)] = ans+a+b\n            return ans+a+b\n        return recur(1,0,False)\n        ",
-    "submit_ts": 1716088879.0
+    "username": "k1384",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    map<string,ll>m;\n    ll func(ll cur,ll j,ll last,ll k){\n        if((cur-1)>k)return 0;\n        \n        string str=\"\";\n        str+=to_string(cur);\n        str+=\"#\";\n        str+=to_string(j);\n        str+=\"#\";\n        str+=to_string(last);\n        \n        if(m.count(str)>0)return m[str];\n        \n        ll curans=0;\n        if(last==0){\n            curans+=func(cur+(1LL<<j),j+1,1,k);\n        }\n        else{\n            curans+=func(cur+(1LL<<j),j+1,1,k);\n            curans+=func(cur-1,j,0,k);\n        }\n        \n        if(cur==k)curans+=1;\n        return m[str]=curans;\n    }\n    int waysToReachStair(int k) {\n        m.clear();\n        return func(1,0,1,k);\n    }\n};",
+    "submit_ts": 1716089178.0
 }

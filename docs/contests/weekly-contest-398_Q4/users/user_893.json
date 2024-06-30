@@ -1,5 +1,5 @@
 {
-    "username": "kremater",
-    "submission": "class Solution {\npublic:\n    \n    int nCr(int n,int r){\n        if(r>n) return 0;\n        if(r<0) return 0;\n        r=min(r,n-r);\n        long long ans=1;\n        vector<long long> a;\n        for(long long i=1,j=n;i<=r;j--,i++){\n            a.push_back(j);\n        }\n        for(long long i=1;i<=r;i++){\n            long long p=i;\n            for(auto &e:a){\n                int g=__gcd(p,e);\n                p/=g;\n                e/=g;\n            }\n        }\n        for(auto e:a) ans*=e;\n        return ans;\n    }\n    \n    int waysToReachStair(int k) {\n        long long p=1;\n        int j=0,ans=0;\n        while(1){\n            long long l=p-j-1,r=p;\n            if(k<l) break;\n            if(r<k){\n                p*=2;\n                j++;\n                continue;\n            }\n            int t=p-k;\n            ans+=nCr(j+1,t);\n            p*=2;\n            j++;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716089545.0
+    "username": "simpcoder02",
+    "submission": "class Solution {\npublic:\n    \n    using vi = vector<int>;\n    \n    map<vi, int> dp;\n    \n    int go(int stair, int jumps, int can_prev, int k) {\n        if(stair > (k + 1)) return 0;\n        if(dp.find({stair, jumps, can_prev}) != dp.end()) return dp[{stair, jumps, can_prev}];\n        int ans = 0;\n        if(stair == k) ans ++;\n        ans += go(stair + (1 << jumps), jumps + 1, 1, k);\n        if(can_prev) ans += go(stair - 1, jumps, 0, k);\n        return dp[{stair, jumps, can_prev}] = ans;\n    }\n    \n    int waysToReachStair(int k) {\n        return go(1, 0, 1, k);\n    }\n};",
+    "submit_ts": 1716090133.0
 }

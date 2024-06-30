@@ -1,5 +1,5 @@
 {
-    "username": "iyerke",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dp(stair, jump, prev_dec):\n            res = bool(stair == k)\n            op1 = stair - 1\n            op2 = stair + 2 ** jump\n            if not prev_dec and op1 >= 0:\n                res += dp(op1, jump, True)\n            if jump < 1 or op2 - 1 <= k:\n                res += dp(op2, jump + 1, False)\n            return res\n        return dp(1, 0, False)\n",
-    "submit_ts": 1716087488.0
+    "username": "cros107",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dp(i, j, canstep):\n            \n            if i < 0 or j < 0:\n                return 0\n            #print(i, j, canstep)\n            if i == 1 and j == 0 and canstep:\n                return 1\n            \n            return (dp(i + 1, j, True) if not canstep else dp(i - 2**(j-1), j - 1, False) + dp(i - 2**(j-1), j - 1, True))\n        #print('awa')\n        #return dp(1, 1, False)\n    \n        return sum([dp(k, j, False) + dp(k, j, True) for j in range(32)])",
+    "submit_ts": 1716087789.0
 }

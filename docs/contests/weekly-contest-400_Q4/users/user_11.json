@@ -1,5 +1,5 @@
 {
-    "username": "IceKnight1093",
-    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& nums, int k) {\n        vector<int> ands;\n        int ans = 1e9 + k;\n\n        for (int x : nums) {\n            unordered_set<int> nw = {x};\n            for (int y : ands) nw.insert(x & y);\n            ands = vector<int>(begin(nw), end(nw));\n            for (int y : ands) ans = min(ans, abs(k - y));\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717296503.0
+    "username": "fmota",
+    "submission": "class Solution {\npublic:\n    int minimumDifference(vector<int>& a, int K) {\n        int n = a.size();\n        vector<int> b(30, -1);\n        int res = 1<<30;\n        for(int i = 0; i < n; i++){\n            for(int j = 0; j < 30; j++){\n                if((a[i]>>j)&1){\n                    \n                } else {\n                    b[j] = i;\n                }\n            }\n            using pii = pair<int,int>;\n            vector<pii> cur;\n            for(int j = 0; j < 30; j++){\n                cur.emplace_back(b[j], j);\n            }\n            sort(cur.rbegin(), cur.rend());\n            int msk = (1<<30) - 1;\n            for(int j = 0, k = 0; j < 30; j = k){\n                while(k < 30 && cur[j].first == cur[k].first){\n                    msk ^= 1<<cur[k].second;\n                    k++;\n                }\n                if(cur[j].first >= 0){\n                    res = min(res, abs(K - msk));\n                }\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": 1717295970.0
 }

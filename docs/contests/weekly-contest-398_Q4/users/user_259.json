@@ -1,5 +1,5 @@
 {
-    "username": "duong2803",
-    "submission": "class Solution {\npublic:\n    int c[31][31];\n    int waysToReachStair(int k) {\n        c[0][0] = 1;\n        for(int i = 1; i < 31; ++i){\n            for(int j = 0; j <= i; ++j){\n                if(j == 0) c[i][j] = 1;\n                else c[i][j] = c[i - 1][j] + c[i - 1][j - 1];\n            }\n        }\n        int res = 0;\n        int r = 1;\n        for(int i = 0; i < 30; ++i){\n            if(i - 1 >= 0) r += (1 << i - 1);\n            for(int j = 0; j <= i + 1; ++j){\n                int x = r - j;\n                if(x == k){\n                    // cout << \"i = \" << i << ' ' << \"j = \" << j << '\\n';\n                    // cout << c[i + 1][j] << '\\n';\n                    res += c[i + 1][j];\n                }\n            }\n        }\n        return res;\n    }\n};",
-    "submit_ts": 1716088148.0
+    "username": "rohinth076",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @lru_cache\n        def go(k,jump,isLast):\n            if k < 0:\n                return 0\n            ans = 0\n            if k == 1:\n                ans += 1\n            if not isLast:\n                ans += go(k+1,jump,True)\n            ans += go(k - (2**jump),jump+1,False)\n            return ans\n        return go(k,0,False)",
+    "submit_ts": 1716087546.0
 }

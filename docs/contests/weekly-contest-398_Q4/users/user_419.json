@@ -1,5 +1,5 @@
 {
-    "username": "harshal786shah",
-    "submission": "#define ll long long int\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n       ll ans=0;\n        for (int i=0;i<32;i++){\n            int n = i + 1;\n            ll sub = (1LL << i) - k; \n\n            if (sub < 0 || sub > n){\n                continue;\n            }\n            ans+=func(n,sub);\n        }\n        return ans;\n    }\n\nprivate:\n    int func(int n, int k) {\n        if (k > n) \n            return 0;\n        if (k == 0 || k == n) \n            return 1;\n        vector<std::vector<int>>vec(n + 1,vector<int>(k + 1, 0));\n        for(int i=0;i<n+1;i++){\n            for(int j=0;j<min(i, k)+1;j++){\n                if(j == 0 || j == i){\n                    vec[i][j] = 1;\n                } \n                else{\n                    vec[i][j] = vec[i - 1][j - 1] + vec[i - 1][j];\n                }\n            }\n        }\n        return vec[n][k];\n    }\n};",
-    "submit_ts": 1716088769.0
+    "username": "mammothb",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dfs(i, jump, was_down):\n            if i < 0 or i > k + 1:\n                return 0\n\n            result = int(i == k)\n            # jump up\n            result += dfs(i + 2**jump, jump + 1, False)\n            if not was_down and i > 0:\n                result += dfs(i - 1, jump, True)\n            return result\n\n        return dfs(1, 0, False)",
+    "submit_ts": 1716088467.0
 }

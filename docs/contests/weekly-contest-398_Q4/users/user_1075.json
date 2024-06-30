@@ -1,5 +1,5 @@
 {
-    "username": "aashishnimcet2022",
-    "submission": "#include <unordered_map>\n#include <vector>\nusing namespace std;\n\nclass Solution {\n    unordered_map<int, vector<vector<int>>> memo;\n\n    bool isOutOfBounds(int position, int target, int jump) {\n        return position > target + 5 || jump > 31;\n    }\n\n    int solve(int target, int position, int jump, bool canMoveBack) {\n        if (isOutOfBounds(position, target, jump)) return 0;\n\n        if (memo.count(position) && memo[position][jump][canMoveBack] != -1)\n            return memo[position][jump][canMoveBack];\n\n        int ways = (position == target);\n\n        if (canMoveBack)\n            ways += solve(target, position - 1, jump, false);\n\n        if (position + (1 << jump) <= target + 1)\n            ways += solve(target, position + (1 << jump), jump + 1, true);\n\n        if (!memo.count(position))\n            memo[position] = vector<vector<int>>(32, vector<int>(2, -1));\n\n        return memo[position][jump][canMoveBack] = ways;\n    }\n\npublic:\n    int waysToReachStair(int target) {\n        return solve(target, 1, 0, true);\n    }\n};\n",
-    "submit_ts": 1716089795.0
+    "username": "zpzpzzp2020",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        return self.dfs(1, k, 0, False)\n        \n    @lru_cache(None)\n    def dfs(self, x: int, k: int, jump: int, back: bool) -> int:\n        if x - k > 1:\n            return 0\n        res = 0\n        if x == k:\n            res = 1\n        if x > 0 and not back:\n            res += self.dfs(x - 1, k, jump, True)\n        res += self.dfs(x + 2 ** jump, k, jump + 1, False)\n        #print(x, k, jump, back, res)\n        return res",
+    "submit_ts": 1716089889.0
 }

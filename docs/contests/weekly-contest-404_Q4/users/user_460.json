@@ -1,0 +1,5 @@
+{
+    "username": "toxic_the_great",
+    "submission": "class Solution {\npublic:\nint minimumDiameterAfterMerge(vector<vector<int>>& e1, vector<vector<int>>& e2) {\n    int n = e1.size() + 1;\n    int m = e2.size() + 1;\n    vector<vector<int>> g1(n), g2(m);\n\n    for (const auto& e : e1) {\n        g1[e[0]].push_back(e[1]);\n        g1[e[1]].push_back(e[0]);\n    }\n    for (const auto& e : e2) {\n        g2[e[0]].push_back(e[1]);\n        g2[e[1]].push_back(e[0]);\n    }\n\n    auto d = [](const vector<vector<int>>& g, int s, int& f) {\n        int n = g.size();\n        vector<int> v(n, -1);\n        function<void(int, int)> a = [&](int b, int c) {\n            v[b] = c;\n            if (c > v[f]) f = b;\n            for (int h : g[b]) if (v[h] == -1) a(h, c + 1);\n        };\n        f = s;\n        a(s, 0);\n        return v[f];\n    };\n\n    int f1 = 0, f2 = 0;\n    d(g1, 0, f1);\n    int d1 = d(g1, f1, f1);\n    d(g2, 0, f2);\n    int d2 = d(g2, f2, f2);\n\n    int md = max(d1, d2);\n    md = max(md, (d1 + 1) / 2 + (d2 + 1) / 2 + 1);\n\n    return md;\n}\n};",
+    "submit_ts": 1719716058.0
+}

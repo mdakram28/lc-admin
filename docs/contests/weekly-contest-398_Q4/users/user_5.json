@@ -1,5 +1,5 @@
 {
-    "username": "Coder-256",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dp(i, jump, can_drop):\n            res = (i == k)\n            if i > 0 and can_drop:\n                res += dp(i-1, jump, False)\n            if i <= k+1:\n                res += dp(i + (1<<jump), jump+1, True)\n            return res\n        \n        return dp(1, 0, True)",
-    "submit_ts": 1716086434.0
+    "username": "fjzzq2002",
+    "submission": "class Solution {\npublic:\n    typedef long long ll;\n    int waysToReachStair(int k) {\n        ll K=k,ans=0;\n        static ll C[50][50];\n        for(int i=0;i<50;i++) {\n            C[i][0] = 1;\n            for(int j=1;j<=i;j++) {\n                C[i][j] = C[i-1][j] + C[i-1][j-1];\n            }\n        }\n        for(int up=-1;up<=40;++up) {\n            ll S=1;\n            for(int u=0;u<=up;++u) S+=1LL<<u;\n            if(S<K) continue;\n            S-=K;\n            if(S<=up+2)\n            ans+=C[up+2][S];\n            bad:;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1716086402.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "txingml",
-    "submission": "typedef long long LL;\nLL dp[40][40];\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        if(dp[1][0] == 0) {\n            for (int i = 1; i < 40; i++) {\n                dp[i][0] = 1; \n                dp[i][i] = 1;\n            }\n            for (int i = 1; i < 40; i++) {\n                for (int j = 1; j < i; j++) {\n                    dp[i][j] = dp[i-1][j] + dp[i-1][j-1];\n                }\n            }\n            \n        }\n        \n        LL base = 1;\n        LL sum = 0;\n        LL ret = 0;\n        for (LL i = 0; i < 40; i++) {\n            LL a = sum;\n            LL b = 1 + a - k;\n            if (b < 0 || b > i+1) {\n                sum += base;\n                base <<= 1;\n                continue;\n            }\n            // cout << i << ' ' << a << ' ' << b << ' ' << dp[i+1][b] << endl;\n            ret += dp[i+1][b];\n            sum += base;\n            base <<= 1;\n            \n        }\n        return ret;\n        \n        \n        \n    }\n};",
-    "submit_ts": 1716088176.0
+    "username": "ScorpioDagger",
+    "submission": "from math import comb\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        if k == 0:\n            return 2\n        ans = 0\n        for i in range(32):\n            target = (2**i) - k\n            if target >= 0 and target <= (i+1):\n                ans += comb(i+1, target)\n        return ans",
+    "submit_ts": 1716087880.0
 }

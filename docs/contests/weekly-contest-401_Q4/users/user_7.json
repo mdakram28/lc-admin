@@ -1,5 +1,5 @@
 {
-    "username": "Wibo",
-    "submission": "const int maxa = 1e5+3;\n\nclass Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        auto &a = rewardValues;\n        sort(a.begin(), a.end());\n        \n        bitset<maxa> dp;\n        dp[0] = 1;\n        for (int x : a) {\n            dp |= ((dp << (maxa-x)) >> (maxa-2*x));\n        }\n        \n        for (int i=maxa-1; i>=0; i--) {\n            if (dp[i]) return i;\n        }\n        return -1;\n    }\n};",
-    "submit_ts": 1717901059.0
+    "username": "friedall",
+    "submission": "#include <iostream>\n#define ll long long\n\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        ll n = rewardValues.size();\n        bitset<100001> dp;\n        dp[0] = 1;\n        sort(rewardValues.begin(), rewardValues.end());\n        for (auto u : rewardValues) {\n            dp |= (dp << (100001-u)) >> (100001-2*u);\n            //dp |= dp << u;\n        }\n        for (int i=100000; i>=0; --i) {\n            if (dp[i]) return i;\n        }\n        return 0;\n    }\n};",
+    "submit_ts": 1717901070.0
 }

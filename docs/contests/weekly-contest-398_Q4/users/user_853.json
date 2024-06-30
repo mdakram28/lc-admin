@@ -1,5 +1,5 @@
 {
-    "username": "hope_ma",
-    "submission": "class Solution:\n  def waysToReachStair(self, k: int) -> int:\n    @cache\n    def dfs(current: int, prev_operation: int, jump: int) -> int:\n      if current > k + 1:\n        return 0\n      if current == k:\n        if prev_operation == 1:\n          return 1 if jump > 0 else 2\n        if jump == 0:\n          return 4\n        if jump == 1:\n          return 2\n        return 1\n      \n      ret = 0\n      if prev_operation != 1:\n        ret += dfs(current - 1, 1, jump)\n      ret += dfs(current + (1 << jump), 2, jump + 1)\n      return ret\n    return dfs(1, -1, 0)",
-    "submit_ts": 1716089725.0
+    "username": "cwlin1998",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        int nWays = 0;\n        for (int stair = 1, jump = 0; stair - jump - 1 <= k; stair <<= 1, jump++) {\n            if (stair - k >= 0) {\n                nWays += nChoosek(jump + 1, stair - k);\n            }\n        }\n        return nWays;\n    }\n    \n    int nChoosek(int n, int k) {\n        if (k > n) return 0;\n        if (k * 2 > n) k = n-k;\n        if (k == 0) return 1;\n\n        long long result = n;\n        for(int i = 2; i <= k; ++i) {\n            result *= (n-i+1);\n            result /= i;\n        }\n        return result;\n    }\n};",
+    "submit_ts": 1716089135.0
 }

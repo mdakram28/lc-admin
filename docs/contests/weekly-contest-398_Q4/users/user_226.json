@@ -1,5 +1,5 @@
 {
-    "username": "cefqrn",
-    "submission": "from functools import cache\n\n\n@cache\ndef ways(k, jump=0, down=False):\n    s = 0\n    \n    if k == 0:\n        s += 1\n        \n    if k < -1:\n        return 0\n    \n    s += ways(k - 2**jump, jump + 1)\n    if not down:\n        s += ways(k + 1, jump, True)\n        \n    return s\n\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        return ways(k - 1)\n        ",
-    "submit_ts": 1716087437.0
+    "username": "saurabh600",
+    "submission": "class Solution {\n    unordered_map<int, vector<vector<int>>> mp;\npublic:\n    int waysToReachStair(int k) {\n        return solve(1, 0, 0, k);\n    }\n    \n    int solve(int i, int j, int t, int k) {\n        if (mp.count(i) && mp[i][j][t] != -1) return mp[i][j][t];\n        \n        if (i > k+1) return 0;\n        \n        int ans = 0;\n        if (i == k) ans = 1;\n        ans += solve(i + (1<<j), j+1, 0, k);\n        \n        if (t == 0 && i > 0) ans += solve(i-1, j, 1, k); \n        \n        mp[i] = vector(32, vector(2, -1));\n        mp[i][j][t] = ans;\n        \n        return ans;\n    }\n};",
+    "submit_ts": 1716088022.0
 }

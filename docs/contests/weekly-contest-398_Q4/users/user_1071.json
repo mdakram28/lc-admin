@@ -1,5 +1,5 @@
 {
-    "username": "szoro",
-    "submission": "class Solution {\npublic:\n            map<int,map<int,map<int,int>>> mp;\n\n    int waysToReachStair(int k) {\n        mp.clear();\n        return get(k,0,1,0);\n    }\n    int get(int k,int j,int cl,int ln){\n        \n        int ans = 0;\n        if(cl>k+1)return 0;\n        if(cl>k&&ln)return 0;\n        \n        if(mp.count(j)&&mp[j].count(cl)&&mp[j][cl].count(ln))return mp[j][cl][ln];\n        if(cl==k)ans = 1;\n        ans +=  get(k,j+1,cl+(1L<<j),0);\n\n        if(ln||cl==0){\n            // no neg step\n            return mp[j][cl][ln]= ans;\n        }\n        else{\n            ans+= get(k,j,cl-1,1);\n        }\n        return mp[j][cl][ln] = ans;\n    }\n};",
-    "submit_ts": 1716089279.0
+    "username": "agjatin",
+    "submission": "class Solution {\n    unordered_map<int, vector<vector<int>>> dp;\n    \n    int hi(int k,int idx,int jumps,int fl) {\n        if(idx>k+1 || jumps>=32) return 0;\n        \n        if(dp.count(idx) && dp[idx][jumps][fl]!=-1) return dp[idx][jumps][fl];\n\n        int ans=0;\n        if(idx==k) ans=1;\n        \n        if(fl){\n            ans+=hi(k,idx-1,jumps,0);\n        }\n        \n        if (idx+(pow(2,jumps))<= k+1){\n            ans+=hi(k,idx+(pow(2,jumps)), jumps+1,1);\n        }\n        dp[idx].resize(32,vector<int>(2, -1));\n        return dp[idx][jumps][fl] = ans;\n    }\n    public:\n    int waysToReachStair(int k) {\n        return hi(k,1,0,1);\n    } \n};",
+    "submit_ts": 1716089879.0
 }

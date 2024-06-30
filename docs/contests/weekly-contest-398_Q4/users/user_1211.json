@@ -1,5 +1,5 @@
 {
-    "username": "adarshj031",
-    "submission": "public class Solution {\n    public int waysToReachStair(int k) {\n        Map<String, Integer> dp = new HashMap<>();\n        return findWays(1, 0, false, k, dp);\n    }\n\n    private int findWays(int cpostion, int jumpLevel, boolean wasLastDecrement, int k, Map<String, Integer> memo) {\n        if (cpostion > k + 1 || (wasLastDecrement && cpostion >= k + 1)) {\n            return 0;\n        }\n\n        String key = cpostion + \"_\" + jumpLevel + \"_\" + wasLastDecrement;\n        if (memo.containsKey(key)) {\n            return memo.get(key);\n        }\n\n        int ways = 0;\n        if (cpostion == k) {\n            ways = 1;\n        }\n\n        int bstep = 0;\n        if (!wasLastDecrement) {\n            bstep = findWays(cpostion - 1, jumpLevel, true, k, memo);\n        }\n\n        int fstep = findWays(cpostion + (1 << jumpLevel), jumpLevel + 1, false, k, memo);\n\n        memo.put(key, ways + bstep + fstep);\n        return memo.get(key);\n    }\n}\n",
-    "submit_ts": 1716090186.0
+    "username": "ayushgx",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def dfs(i, jump, can_jump):\n            if i > k + 5: return 0\n            if jump > 31: return 0\n\n            res = i == k\n            if i > 0 and can_jump:\n                res += dfs(i - 1, jump, 0)\n            if i + (1 << jump) <= k + 1:\n                res += dfs(i + (1 << jump), jump + 1, 1)\n            return res\n\n        return dfs(1, 0, 1)",
+    "submit_ts": 1716090201.0
 }

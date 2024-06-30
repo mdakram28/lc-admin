@@ -1,5 +1,5 @@
 {
-    "username": "user2937Vz",
-    "submission": "class Solution:\n    def maxTotalReward(self, a: List[int]) -> int:\n        \n        a.sort()\n        n = len(a)\n        \n        dp = 1\n        for i in range(n):\n            l_mask = ((1 << a[i]) - 1) & dp\n            dp = dp | (l_mask << a[i])\n        \n        for sz in range(100000 , -1 , -1):\n            if(dp >> sz & 1):\n                return sz\n\n        \n        \n        ",
-    "submit_ts": 1717903486.0
+    "username": "binomanjesh",
+    "submission": "class Solution {\n\n    static constexpr int MASK_LEN = 10 * 1e4;\n    using mask_t = bitset<MASK_LEN>;\n\n  public:\n    int maxTotalReward(vector<int> &rewardValues) {\n        sort(rewardValues.begin(), rewardValues.end());\n        int n = rewardValues.size();\n        mask_t dp;\n        dp[0] = true;\n        for (int i = 0; i < n; ++i) {\n            int rem = MASK_LEN - rewardValues[i];\n            mask_t next = dp << rem;\n            next >>= rem;\n            next <<= rewardValues[i];\n            dp |= next;\n        }\n        for (int i = MASK_LEN - 1; i >= 0; --i) {\n            if (dp[i]) {\n                return i;\n            }\n        }\n        return -1;\n    }\n};",
+    "submit_ts": 1717903628.0
 }

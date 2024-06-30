@@ -1,5 +1,5 @@
 {
-    "username": "hornedfoe",
-    "submission": "class Solution{\n    int[] nums;\n    Integer[] dp;\n    public int maxTotalReward(int[] nums){\n        Arrays.sort(nums);\n        this.nums = nums;\n        int n = nums.length;\n        dp = new Integer[100001];\n        return finder(nums[n - 1] - 1) + nums[n - 1]; \n    }\n    private int finder(int x){\n        if(x <= 0) return 0;\n        if(dp[x] != null) return dp[x];\n        int v = Arrays.binarySearch(nums , x) , ret = 0;\n        if(v < 0) v = ~ v;\n        else v += 1;\n        // System.out.println(x + \" \" + v);\n        for(int i = 0 ; i < v ; i++){\n            ret = Math.max(ret , nums[i] + finder(Math.min(x - nums[i] , nums[i] - 1)));\n        }\n        // System.out.println(ret);\n        return dp[x] = ret;\n    }\n}",
-    "submit_ts": 1717904756.0
+    "username": "Tinky1224",
+    "submission": "class Solution:\n    def maxTotalReward(self, rewardValues: List[int]) -> int:\n        arr = [0] + sorted(set(rewardValues))\n        @cache\n        def helper(num):\n            i = bisect_left(arr, num)\n            if arr[i] == num or i == 0:\n                return arr[i]\n            res = arr[i-1]\n            for ind in range(i-1, -1, -1):\n                res = max(res, arr[ind] + helper(min(num - arr[ind], arr[ind]-1)))\n                if arr[ind] * 2 <= num:\n                    break\n            return res\n        mx = arr[-1]\n        return helper(mx-1) + mx\n",
+    "submit_ts": 1717905025.0
 }

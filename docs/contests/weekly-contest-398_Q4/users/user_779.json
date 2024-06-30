@@ -1,5 +1,5 @@
 {
-    "username": "20je0059",
-    "submission": "class Solution {\npublic:\n    int fac(int n,int r)\n    {\n        if(n<(r<<1))\n            return fac(n,n-r);\n        long long ans=1;\n        for(int up=n,dn=1;dn<=r;dn++,up--)\n            ans=(ans*up)/dn;\n        return ans;\n    }\n    int waysToReachStair(int k) {\n        int ans=0,stair=1,del=1-k,poss=1;\n        while(del<=poss)\n        {\n            if(del>=0)\n                ans+=fac(poss,del);\n            del+=stair;\n            stair<<=1;\n            poss++;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716089225.0
+    "username": "aww__run",
+    "submission": "class Solution {\npublic:\n    \n    int nCr(int n, int r) {\n    if (r > n || r < 0) return 0;\n    if (r == 0 || r == n) return 1;\n    r = min(r, n - r); // Use the smaller of r and n-r\n    long long res = 1;\n    for (int i = 0; i < r; ++i) {\n        res = res * (n - i) / (i + 1);\n        if (res > INT_MAX) return 0; // Prevent overflow\n    }\n    return (int)res;\n}\n    int waysToReachStair(int k) {\n        if (k == 0) return 2;  // Special case for k=0\n    if (k == 1) return 4;  // Special case for k=1\n\n    int ways = 0;\n    for (int i = 0; i <= 31; ++i) {\n        int twoPowI = 1 << i;\n        if (twoPowI >= k) {\n            ways += nCr(i + 1, twoPowI - k);\n        }\n    }\n    return ways;\n    }\n};",
+    "submit_ts": 1716089826.0
 }

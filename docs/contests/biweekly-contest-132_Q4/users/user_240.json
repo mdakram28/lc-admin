@@ -1,5 +1,5 @@
 {
-    "username": "hsdsh",
-    "submission": "use std::collections::HashMap;\nimpl Solution {\n    pub fn maximum_length(nums: Vec<i32>, k: i32) -> i32 {\n        let mut m: Vec<i32> = vec![0;(k+1) as usize];\n        let mut dp:Vec<HashMap<i32,i32>> = vec![HashMap::new();(k+1) as usize];\n        for n in nums {\n            for i in (0..=k as usize).rev() {\n                let mut nl = dp[i].get(&n).unwrap_or(&0)+1;\n                if i > 0 && m[i-1]+1 > nl {\n                    nl = m[i-1]+1;\n                }\n                if m[i] < nl {\n                    m[i] = nl;\n                } \n                dp[i].insert(n, nl);\n            }\n        }\n        return m[k as usize];\n    }\n}",
-    "submit_ts": 1717860844.0
+    "username": "iusecookies64",
+    "submission": "#define mp(a, b) make_pair(a, b)\nclass Solution {\npublic:\n    int maximumLength(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<pair<int, int>, int> dp;\n        map<int, int> dp2;\n        for(int i = 0; i <= k; i++)\n        {\n            dp[mp(nums[0], i)] = 1;\n            dp2[i] = 1;\n        }\n        int res = 1;\n        for(int i = 1; i < n; i++)\n        {\n            for(int j = k; j >= 0; j--)\n            {\n                if(j == 0)\n                {\n                    dp[mp(nums[i], j)]++;\n                }\n                else\n                {\n                    dp[mp(nums[i], j)] = max(dp[mp(nums[i], j)] + 1, dp2[j-1] + 1);\n                }\n                dp2[j] = max(dp2[j], dp[mp(nums[i], j)]);\n                res = max(res, dp[mp(nums[i], j)]);\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": 1717860228.0
 }

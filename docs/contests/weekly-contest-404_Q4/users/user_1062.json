@@ -1,0 +1,5 @@
+{
+    "username": "R4Ks",
+    "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def bfs(graph, node):\n            seen = [False] * len(graph)\n            seen[node] = True\n            dq = deque([(node, 0)])\n            while dq:\n                u, depth = dq.popleft()\n                for v in graph[u]:\n                    if not seen[v]:\n                        seen[v] = True\n                        dq.append((v, depth + 1))\n            return u, depth\n        \n        n1 = len(edges1) + 1\n        n2 = len(edges2) + 1\n        g1, g2 = [[] for _ in range(n1)], [[] for _ in range(n2)]\n        for u, v in edges1:\n            g1[u].append(v)\n            g1[v].append(u)\n        for u, v in edges2:\n            g2[u].append(v)\n            g2[v].append(u)\n        u, d1 = bfs(g1, 0)\n        _, d1 = bfs(g1, u)\n        c1 = (d1 + 1) // 2\n        u, d2 = bfs(g2, 0)\n        _, d2 = bfs(g2, u)\n        c2 = (d2 + 1) // 2\n        return max(d1, d2, c1 + c2 + 1)\n        \n        ",
+    "submit_ts": 1719719225.0
+}

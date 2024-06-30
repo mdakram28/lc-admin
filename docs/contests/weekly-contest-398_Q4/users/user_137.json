@@ -1,5 +1,5 @@
 {
-    "username": "xuhr",
-    "submission": "# up, down, up, up, down, up, up\n# start at 1, end at k\n# m: ups, n: downs => \n#   n == 0 or n == m + 1 -> 1\n#   n == 1 -> m + 1\n#   n == 2 -> C(m+1)2\n# 1 + 2**m - 1 - n = k\n# 0 <= n <= m + 1\n# 2 ** m = n + k\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        res = 0\n        for m in range(35):\n            n = 2 ** m - k\n            if 0 <= n <= m + 1:\n                res += comb(m + 1, n)\n        return  res",
-    "submit_ts": 1716087637.0
+    "username": "wddd",
+    "submission": "class Solution {\n    public int waysToReachStair(int k) {\n        Map<String, Integer> cache = new HashMap<>();\n        return waysToReachStair(1, 1, true, k, cache);\n    }\n\n    private int waysToReachStair(int curr, int jump, boolean op1, int k, Map<String, Integer> cache) {\n        if (curr < 0 || curr > k + 1 || curr == k + 1 && !op1) {\n            return 0;\n        }\n        \n        String key = curr + \",\" + jump + \",\" + op1;\n        if (cache.containsKey(key)) {\n            return cache.get(key);\n        }\n\n        int ways = curr == k ? 1 : 0;\n        if (op1) {\n            ways += waysToReachStair(curr - 1, jump, false, k, cache);\n        }\n        ways += waysToReachStair(curr + jump, 2 * jump, true, k, cache);\n\n        cache.put(key, ways);\n        return ways;\n    }\n\n}",
+    "submit_ts": 1716087625.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "tmb85",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        fact = {0:1}\n        for val in range(1,40):\n            fact[val] = fact[val-1]*val\n            \n        ans = 0\n        back = 0\n        while True:\n            curr = 1-back\n            jump = 0\n            \n            while curr < k:\n                curr += 2**jump\n                jump += 1\n                \n            \n            if back > jump + 1:\n                break\n            \n            if curr == k:\n                ans += fact[jump+1] // (fact[jump+1-back]*fact[back])\n            #print(back, ans)\n            back += 1\n        \n        return(ans)\n        ",
-    "submit_ts": 1716088315.0
+    "username": "ujjwalagrawal29102001",
+    "submission": "class Solution {\n    int solve(int k, int val, int ud, int jump, unordered_map<string, int> &m)\n    {\n        // cout << val << \" -> \" << ud << \" -> \" << jump << endl;\n        string s = to_string(val) + \",\" + to_string(ud) + \",\" + to_string(jump);\n        if(m.count(s)) return m[s];\n        int count = 0;\n        if(k == val) count++;\n        if((1 << jump) + val <= k + 1)\n            count += solve(k, val + (1 << jump), 1, jump + 1, m);\n        if(ud == 1 and val - 1 >= 0)\n            count += solve(k, val - 1, 0, jump, m);\n        return m[s] = count;\n    }\npublic:\n    int waysToReachStair(int k) {\n        int count = 0;\n        unordered_map<string, int> m;\n        count += solve(k, 1, 1, 0, m);\n        // cout << endl;\n        return count;\n    }\n};",
+    "submit_ts": 1716088626.0
 }

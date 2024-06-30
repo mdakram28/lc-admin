@@ -1,5 +1,5 @@
 {
-    "username": "miketsubasa96",
-    "submission": "class Solution {\n    int gk;\n    HashMap<String, Integer> hm;\n    public int waysToReachStair(int k) {\n        hm = new HashMap<>();\n        gk = k;\n        return dp(1, true, 0);\n    }\n    \n    int dp(int k, boolean f, int j) {\n        if(k < 0) {\n            return 0;\n        }\n        if(k > gk+1) {\n            return 0;\n        }\n        String key = \"\" + k + \"_\" + f + \"_\" + j;\n        if(hm.containsKey(key)) {\n            return hm.get(key);\n        }\n        int ans = 0;\n        if(k == gk) {\n            ans++;\n        }\n        if(f) {\n            ans += dp(k-1, false, j);\n        }\n        ans += dp(k + (int)Math.pow(2, j), true, j+1);\n        hm.put(key, ans);\n        return ans;\n    }\n}",
-    "submit_ts": 1716090733.0
+    "username": "bhaskar_op",
+    "submission": "#define ll long long\n\nclass Solution {\nunordered_map<string,ll>dp;\n    \nprivate:\n    ll ex(ll stair, ll jump, bool can_go_down, ll target) {\n        if(stair==target) return 1;\n        \n        if(stair>target) {\n            if(stair-1==target && !can_go_down) return 1;\n            return 0;\n        }\n        \n        string memo=to_string(stair)+\"|\"+to_string(jump)+\"|\"+to_string(can_go_down);\n        if (dp.find(memo)!=dp.end()) return dp[memo];\n        \n        ll op1=0, op2=ex(stair+powl(2,jump),jump+1,false,target);\n        if(!can_go_down && stair>=1) op1=ex(stair-1,jump,true,target);\n\n        return dp[memo]=(op1+op2);\n    }\n    \npublic:\n    int waysToReachStair(int k) {\n        if(!k) return 2;\n        if(k<=2) return 4;\n        \n        return ex(1,0,false,k);\n    }\n};",
+    "submit_ts": 1716090130.0
 }

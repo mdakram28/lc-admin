@@ -1,5 +1,5 @@
 {
-    "username": "knotri",
-    "submission": "// 268435456\n// 268435455\n// 268435454\n\nfunction waysToReachStair(k: number): number {\n    const memo = {};\n    \n    const R = (i, jump, down) => {\n        const str = `${i}_${jump}_${down}`\n        if (memo[str] !== undefined) {\n            return memo[str]\n        }\n        \n        if (i - 1 > k ) return 0\n        \n        let result = 0;\n        result = (down ? R(i - 1, jump, false) : 0) + R(i + 2**jump, jump + 1, true) + (i === k ? 1 : 0)\n        memo[str] = result\n        return result\n    }\n    return R(1, 0, true)\n};",
-    "submit_ts": 1716089156.0
+    "username": "hacch141",
+    "submission": "class Solution {\npublic:\n\n    int solve(long long st, long long jump, bool isDown, int k, map<long long, map<long long, map<bool, int>>>& mp) {\n        if((!isDown && st > k) || (st - 1 > k)) return 0;\n\n        if(mp[st][jump].count(isDown)) return mp[st][jump][isDown];\n\n        int ans = (st == k), up = 0, down = 0;\n        up = solve(st + (1LL << jump), jump + 1, true, k, mp);\n        if(isDown && st > 0) down = solve(st - 1, jump, false, k, mp);\n        return mp[st][jump][isDown] = ans + up + down;\n    }\n\n    int waysToReachStair(int k) {\n        map<long long, map<long long, map<bool, int>>> mp;\n        return solve(1, 0, true, k, mp);\n    }\n};",
+    "submit_ts": 1716088858.0
 }

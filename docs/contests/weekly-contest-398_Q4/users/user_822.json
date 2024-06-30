@@ -1,5 +1,5 @@
 {
-    "username": "gagahuhu118",
-    "submission": "class Solution {\npublic:\n    Solution() {\n        cin.tie(NULL);\n        cout.tie(NULL);\n        ios_base :: sync_with_stdio(false);\n    } \n\n    long long comb(int n, int k) {\n        if (k>n || k<0) return 0;\n        if (k==0 || k==n) return 1;\n        long long res=1;\n        for (int i=1;i<=k;i++) {\n            res=res*(n-i+1)/i;\n        }\n        return res;\n    }\n    \n    int waysToReachStair(int k) {\n        long long total = 0;\n        for (int i=0;i<32;i++) {\n            int n=i+1;\n            long long pow_i=1LL<<i;\n            if (pow_i>=k) {\n                int m=pow_i-k;\n                total+=comb(n,m);\n            }\n        }\n        return total;\n\n    }\n};",
-    "submit_ts": 1716089634.0
+    "username": "Sarthak3204",
+    "submission": "using ll = long long;\nclass Solution {\npublic:\n    int waysToReachStair(int n) {\n        vector<map<ll, ll>> dp(35);\n\n        auto f = [&](auto && f, ll j, ll i) -> int {\n            auto it = dp[j].find(i);\n            if (it != dp[j].end()) return it->second;\n\n            ll res = (i == n);\n\n            if (i + (1ll << j) <= n + 1)\n                res += f(f, j + 1, i + (1ll << j));\n\n            if (i == n + 1)\n                res += 1ll;\n\n            if (i - 1 + (1ll << j) <= n + 1) res += f(f, j + 1, i - 1 + (1ll << j));\n\n            return dp[j][i] = res;\n        };\n\n        ll ans = f(f, 0, 1);\n        return ans;\n    }\n};",
+    "submit_ts": 1716088898.0
 }

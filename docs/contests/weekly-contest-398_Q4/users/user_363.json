@@ -1,5 +1,5 @@
 {
-    "username": "anamolous",
-    "submission": "class Solution {\npublic:\n    long long findAnswer(long long jump,long long n,int k,int last,map<array<long long,3>,int>&mp){\n        if(mp.find({jump,n,last})!=mp.end())return mp[{jump,n,last}];\n        long long ans=0;\n        if(n>k+1)return 0;\n        if(n==k){\n            ans+=1;\n        }\n        if(last!=-1 && n>0){\n            ans+=findAnswer(jump,n-1,k,-1,mp);\n        }\n        ans+=findAnswer(jump+1,n+(1LL<<jump),k,0,mp);\n        mp[{jump,n,last}] = ans;\n        return ans;\n    }\n    \n    int waysToReachStair(int k) {\n        map<array<long long,3>,int> mp, mp1;\n        return findAnswer(0,1,k,0,mp);\n    }\n};",
-    "submit_ts": 1716087537.0
+    "username": "dnuj4097",
+    "submission": "import math\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        if k == 0: return 2\n        elif k == 1: return 4\n        k -= 1\n        i, cum = 0, 0\n        ans = 0\n        while cum - k <= i + 1:\n            i += 1\n            cum = (1 << i) - 1\n            #print('i =', i)\n            #print('cum =', cum)\n            if 0 <= cum - k <= i + 1:\n                #print(math.comb(i + 1, cum - k))\n                ans += math.comb(i + 1, cum - k)\n                #print('ans =', ans)\n        return ans",
+    "submit_ts": 1716088533.0
 }

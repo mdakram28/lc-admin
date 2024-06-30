@@ -1,5 +1,5 @@
 {
-    "username": "plus2047",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        res = 0\n        curr = 1\n        jump = 0\n        while curr <= k + 1 + jump:\n            if k <= curr:\n                res += math.comb(jump + 1, curr - k)\n            curr += 2 ** jump\n            jump += 1\n        return res",
-    "submit_ts": 1716087326.0
+    "username": "mufti",
+    "submission": "using ll = long long;\n\nclass Solution {\npublic:\n    const int N = 40, M = 1e9 + 7;\n\n    ll mpow(ll a, ll b) {\n        ll ans = 1;\n        a %= M;\n        while (b != 0) {\n            if (b & 1) {\n                ans = (ans * a) % M;\n            }\n            a = (a * a) % M;\n            b >>= 1;\n        }\n        return ans;\n    }\n\n    ll mdiv(ll a, ll b) {\n        return a * mpow(b, M - 2) % M;\n    }\n    \n    vector<int> fact;\n    \n    int ncr(int n, int k) {\n        return n < k || n < 0 ? 0 : mdiv(fact[n], (1ll * fact[n - k] * fact[k]) % M);\n    }\n    \n    int waysToReachStair(int k) {\n        int ans = (k <= 1);\n        long long sum = 0, add = 1, x = 1;\n        \n        fact.resize(N);\n        fact[0] = 1;\n        for (int i = 1; i < (int) fact.size(); i++) {\n            fact[i] = (1ll * fact[i - 1] * i) % M;\n        }\n\n        for (int i = 2; ; i++, x *= 2, add += x) {\n            if (add + 1 - i > k) break;\n            int sub = add + 1 - k;\n            if (sub < 0) continue;\n            ans += ncr(i, sub);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": 1716087022.0
 }

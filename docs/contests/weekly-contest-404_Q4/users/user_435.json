@@ -1,0 +1,5 @@
+{
+    "username": "thedude7181",
+    "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        d1 = get_diameter(edges1)\n        d2 = get_diameter(edges2)\n        print(d1, d2)\n        return max(d1, d2, (d1 + 1) // 2 + (d2 + 1) // 2 + 1)\n            \n            \ndef get_diameter(edges):\n    graph = defaultdict(list)\n    for n1, n2 in edges:\n        graph[n1].append(n2)\n        graph[n2].append(n1)\n        \n    _, leaf = get_longest(0, graph)\n    return get_longest(leaf, graph)[0]\n    \ndef get_longest(start, graph):\n    vis = set()\n    q = deque([(0, start)])\n    res = (0, start)\n    while q:\n        cnt, node = q.popleft()\n        vis.add(node)\n        for child in graph[node]:\n            if child in vis:\n                continue\n            q.append((cnt + 1, child))\n        res = (cnt, node)\n    return res\n        \n    \n        ",
+    "submit_ts": 1719718341.0
+}

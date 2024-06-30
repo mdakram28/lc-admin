@@ -1,5 +1,5 @@
 {
-    "username": "Wibo",
-    "submission": "// dp[i][j] = num of ways to reach stair i with jump = j\n// dp[i][j] = dp[i-(1<<(j-1))][j-1] + dp[i-(1<<(j-1))+1][j-1]\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        vector<map<int, int>> dp(33);\n        auto calc = [&](auto self, int i, int j) -> int {\n            if (i == 1 && j == 0) return 1;\n            if (i == 0 && j == 0) return 1;\n            if (i == 0 && j == 1) return 1;\n            if (i <= 0 || j <= 0) return 0;\n            if (dp[j].count(i)) return dp[j][i];\n            return dp[j][i] = self(self, i - (1 << (j-1)), j-1) + self(self, i - (1 << (j-1)) + 1, j-1);\n        };\n        \n        int ans = 0;\n        for (int j=0; j<32; j++) ans += calc(calc, k, j);\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1716087228.0
+    "username": "gonglinyuan",
+    "submission": "def preprocess_combinatorials(max_n):\n    binomials = [[0] * (max_n + 1) for _ in range(max_n + 1)]\n    \n    for n in range(max_n + 1):\n        for m in range(n + 1):\n            if m == 0 or m == n:\n                binomials[n][m] = 1\n            else:\n                binomials[n][m] = binomials[n - 1][m - 1] + binomials[n - 1][m]\n    \n    return binomials\n\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        binomials = preprocess_combinatorials(31)\n        ans = 0\n        for jump in range(31):\n            if (2 ** jump) - (jump + 1) <= k <= 2 ** jump:\n                delta = 2 ** jump - k\n                ans += binomials[jump + 1][delta]\n        return ans\n                ",
+    "submit_ts": 1716087235.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "skyinde2",
-    "submission": "\nclass Solution:\n    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:\n        max_req = max(r[1] for r in requirements)\n        req = {r[0]: r[1] for r in requirements}\n\n        if 0 in req and req[0] != 0:\n            return 0\n\n        dp = [0] * (max_req + 1)\n        dp_ = [0] * (max_req + 1)\n        dp[0] = 1\n\n        for i in range(1, n):\n            for k in range(len(dp)):\n                dp_[k] = 0\n                if i not in req or req[i] == k:\n                    for j in range(i + 1):\n                        if k >= i - j:\n                            dp_[k] = (dp_[k] + dp[k - (i - j)]) % 1_000_000_007\n\n            dp, dp_ = dp_, dp\n\n        return sum(dp) % 1_000_000_007",
-    "submit_ts": 1719068756.0
+    "username": "ard001",
+    "submission": "class Solution {\npublic:\n    vector<int> need;\n    vector<vector<int>> dp;\n    static constexpr int mod = 1e9+7;\n    int dfs(int n,int r){\n        if(n==0) return r==0;\n        if(r<0) return -1;\n        if(need[n]!=-1 && need[n]!=r) return 0;\n        if(dp[n][r]!=-1) return dp[n][r];\n        int now = 0 ;\n        for(int k=0;k<n&&k<=r;++k) {\n            now += dfs(n-1,r-k);\n            now %= mod;\n        }\n        return dp[n][r] = now;\n    }\n    int numberOfPermutations(int n, vector<vector<int>>& requirements) {\n        need = vector<int>(n+2,-1);\n        dp = vector<vector<int>> (n+1,vector<int>(500,-1));\n        for(auto r: requirements)need[r[0]+1] = r[1];\n        return dfs(n,need[n]);\n    }\n};",
+    "submit_ts": 1719068419.0
 }

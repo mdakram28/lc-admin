@@ -1,5 +1,5 @@
 {
-    "username": "loganwatchorn",
-    "submission": "func waysToReachStair(k int) int {\n    memo := map[[3]int]int{}\n    \n    var dp func(pos, jumpSize, prevDir int) int\n    dp = func(pos, jumpSize, prevDir int) int {\n        if val, ok := memo[[3]int{pos, jumpSize, prevDir}]; ok {\n            return val\n        }\n        ans := 0\n        ////////////\n        if pos == k {\n            ans++\n        }\n        if prevDir == 1 && pos > 0 {\n            ans += dp(pos-1, jumpSize, 0)\n        }\n        if jumpSize <= k+1 {\n            ans += dp(pos+jumpSize, 2*jumpSize, 1)\n        }\n        \n        ////////////\n        memo[[3]int{pos, jumpSize, prevDir}] = ans\n        return ans\n    }\n    \n    ans := 0\n    if k == 1 { ans++ }\n    ans += dp(0, 1, 0)\n    ans += dp(2, 2, 1)\n    return ans\n}",
-    "submit_ts": 1716088806.0
+    "username": "user6639bv",
+    "submission": "class Solution {\n    Map<String, Integer> map = new HashMap<>();\n    \n    public int waysToReachStair(int k) {\n        return dfs(k, 1, 0, 0);\n    }\n    \n    int dfs(int k, int pos, int jump, int used) {\n        if (pos - k > 1) {\n            return 0;\n        }\n        String key = pos +\"-\"+jump+\"-\"+used;\n        if (map.containsKey(key)) {\n            return map.get(key);\n        }\n        int ans = pos == k ? 1 : 0;\n        if (used == 0 && pos != 0) {\n            ans += dfs(k, pos - 1, jump, 1);\n        }\n        ans += dfs(k, pos + (1 << jump), jump + 1, 0);\n        map.put(key, ans);\n        return ans;\n    }\n}",
+    "submit_ts": 1716088800.0
 }

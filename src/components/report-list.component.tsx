@@ -1,7 +1,7 @@
 import "../styles/prettyprint-style.css";
 import { useEffect, useRef, useState } from "react";
 import Papa from 'papaparse';
-import { ContestInfo, DolosFile, DolosPairs, GroupUser, SubmissionUser } from "../types/dolos.types";
+import { ContestInfo } from "../types/dolos.types";
 import { DisjSet } from "../util/disj-set";
 import { Panel, PanelGroup, PanelResizeHandle, assert } from "react-resizable-panels";
 import { TreeView, TreeItem } from '@mui/x-tree-view';
@@ -26,7 +26,7 @@ export function ReportListComponent({ }: {}) {
     return <div style={{height: "100%"}}>
             <h2>Contests</h2>
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table sx={{ minWidth: 650 }} size="small" aria-label="simple table">
                     <TableHead>
                     <TableRow>
                         <TableCell>Contest</TableCell>
@@ -45,7 +45,7 @@ export function ReportListComponent({ }: {}) {
                             <TableCell component="th" scope="row">
                                 <Link to={`/report/${info.name}`}>{info.name}</Link>
                             </TableCell>
-                            <TableCell>{info.question}</TableCell>
+                            <TableCell>{info.ques_num}</TableCell>
                             <TableCell>{info.sim80_numsubm}</TableCell>
                             <TableCell>{info.numsubm}</TableCell>
                         </TableRow>

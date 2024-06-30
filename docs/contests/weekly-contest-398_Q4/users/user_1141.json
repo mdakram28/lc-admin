@@ -1,5 +1,5 @@
 {
-    "username": "d2s2",
-    "submission": "class Solution {\n    HashMap<Integer,int []> [] h;\n    public int waysToReachStair(int k) {\n        h = new HashMap[30];\n        for(int i =0;i<30;i++)h[i] = new HashMap<>();\n        return solve(0,k-1,true);\n    }\n    int solve(int jump,int k,boolean type1){\n        if(k<-1)return 0;\n        if(h[jump].containsKey(k) && h[jump].get(k)[(type1?1:0)]!=-1)return h[jump].get(k)[(type1?1:0)];\n        int ans=(k==0?1:0);\n        if(type1){\n            ans+= solve(jump,k+1,false);\n        }\n        ans+=solve(jump+1,k-(int)Math.pow(2,jump),true);\n        if(!h[jump].containsKey(k))h[jump].put(k,new int [] {-1,-1});\n        int [] b = h[jump].get(k);\n        if(type1)b[1] = ans;\n        else b[0] = ans;\n        return ans;\n    }\n}",
-    "submit_ts": 1716090341.0
+    "username": "Mouceant",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        jump = 0\n        curr = 1\n        while curr <= k:\n            jump += 1\n            curr += 2 ** jump - jump + 1\n        ans = 0\n        pos = 1\n        if k == 0 or k == 1:\n            ans = 1\n        for j in range(jump + 1):\n            pos += 2 ** j\n            op1 = j + 2\n            step = pos - k\n            if step <= op1 and step >= 0:\n                ans += factorial(op1) // (factorial(op1 - step) * factorial(step))\n            \n        return ans",
+    "submit_ts": 1716090363.0
 }

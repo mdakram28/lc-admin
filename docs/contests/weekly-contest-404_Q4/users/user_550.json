@@ -1,0 +1,5 @@
+{
+    "username": "Akash_0P",
+    "submission": "class Solution {\npublic:\n  int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n\n    auto f = [&](vector<vector<int>> edges) {\n\n      int n = edges.size() + 1;\n      vector<vector<int>> adj(n);\n      for(auto i: edges) {\n        int u = i[0], v = i[1];\n        adj[u].push_back(v), adj[v].push_back(u);\n      }\n\n      int nn = 0, cur = 0;\n\n      auto dfs = [&](int u, int d, int p, auto && dfs) -> void {\n\n        if(cur < d) {\n          nn = u, cur = d;\n        }\n        for(auto v: adj[u]) if(v != p) dfs(v, d + 1, u, dfs);\n\n      };\n\n      dfs(0, 0, -1, dfs);\n      cur = 0;\n      dfs(nn, 0, -1, dfs);\n\n      return cur;\n    };\n\n    int x = f(edges1), y = f(edges2);\n    return max({1 + (x + 1)/2 + (y + 1)/2, x, y});\n  }\n};",
+    "submit_ts": 1719718797.0
+}

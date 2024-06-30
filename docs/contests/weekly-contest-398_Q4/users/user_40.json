@@ -1,5 +1,5 @@
 {
-    "username": "friedall",
-    "submission": "#include <iostream>\n#define ll long long\n\nusing namespace std;\n\nclass Solution {\npublic:\n    ll ncr(ll n, ll r) {\n        __int128 ret = 1;\n        ll x = max(r, n-r);\n        ll y = min(r, n-r);\n        for (__int128 i=x+1; i<=n; ++i) {\n            ret *= i;\n        }\n        for (__int128 i=1; i<=y; ++i) {\n            ret /= i;\n        }\n        return (ll)ret;\n    }\n    int waysToReachStair(int k) {\n        ll f = 0, s = 1, z;\n        if (k == 1 || k == 0) ++f;\n        for (int i=0; i<=30; ++i) {\n            s += (1LL<<i);\n            if (s >= k) {\n                z = s - k;\n                if (i+2 >= z) f += ncr(i+2, z);\n            }\n        }\n        return f;\n    }\n};",
-    "submit_ts": 1716086679.0
+    "username": "d_ananta_",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        int MX = 30;\n        int ans = 0;\n        vector<vector<long long>> C(MX+5, vector<long long>(MX+5, 0));\n        C[0][0] = 1;\n        for(int i = 1; i <= MX+1; i++) {\n            C[i][0] = 1;\n            for(int j = 1; j <= MX+1; j++) {\n                C[i][j] = C[i-1][j] + C[i-1][j-1];\n            }\n        }\n        for(long long jump = 0, down; jump <= MX; jump++) {\n            down = ((long long)1<<jump) - k;\n            if(down < 0 || down > jump+1) continue;\n            ans += C[jump+1][down];\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1716086953.0
 }

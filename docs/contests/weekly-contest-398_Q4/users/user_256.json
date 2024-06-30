@@ -1,5 +1,5 @@
 {
-    "username": "tom1312004",
-    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        \n        int ans = 0;\n        long long choose[35][35] = {};\n        for (int i=0; i<35; i++) for (int j=0; j<=i; j++){\n            if (j == 0 || j == i) choose[i][j] = 1;\n            else choose[i][j]= choose[i-1][j-1] + choose[i-1][j];\n        }\n        for (long long jump=0; jump<33; jump++){\n            long long destination = (long long)1<<(jump);\n            if (destination < k) continue;\n            long long toomuch = destination - k;\n            if (toomuch <= jump+1){\n                ans += choose[jump+1][toomuch];\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716087563.0
+    "username": "pbshayar",
+    "submission": "class Solution {\npublic:\n    map<pair<int,pair<int,int>>,int>dp;\n    int fun(long long indx,int k,int cur,int jump)\n    {\n        if(indx-k>1)\n            return 0;\n        if(dp.find({jump,{indx,cur}})!=dp.end())\n            return dp[{jump,{indx,cur}}];\n        int ans=0;\n        if(indx==k)\n            ans++;\n        if(!cur)\n        {\n            if(indx)\n            ans+=fun(indx-1,k,1,jump);    \n        }\n        ans+=fun(indx+powl(2,jump),k,0,jump+1);\n        return dp[{jump,{indx,cur}}]=ans;\n    }\n    int waysToReachStair(int k) {\n        return fun(1,k,0,0);\n    }\n};",
+    "submit_ts": 1716087837.0
 }

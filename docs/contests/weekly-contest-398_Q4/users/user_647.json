@@ -1,5 +1,5 @@
 {
-    "username": "hychen11",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        max_jump = floor(log2(k + 1)) + 1\n        print(max_jump)\n        @cache\n        def dfs(i: int, jump: int, flag: bool) -> int:\n            if jump > max_jump:\n                return 0\n            ways = 0\n            if i == k:\n                ways= 1\n            next_pos = i + (1 << jump)\n            if next_pos <= k+1:\n                ways += dfs(next_pos, jump + 1, False)\n\n            if not flag and i > 0:\n                ways += dfs(i - 1, jump, True)\n\n            return ways\n\n        return dfs(1,0,False)\n",
-    "submit_ts": 1716089495.0
+    "username": "democoffee",
+    "submission": "from math import comb\nfrom typing import List\n\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        jump = 0\n        ans = 0\n        for back in range(32):\n            delta = k - 1 + back\n            while (1 << jump) - 1 < delta:\n                jump += 1\n\n            if (1 << jump) - 1 == delta and back <= jump + 1:\n                ans += comb(jump + 1, back)\n\n        return ans",
+    "submit_ts": 1716088895.0
 }

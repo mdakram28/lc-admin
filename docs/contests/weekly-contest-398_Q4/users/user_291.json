@@ -1,5 +1,5 @@
 {
-    "username": "devansh789",
-    "submission": "class Solution {\npublic:\n    int func(int jp, int bk, int pv, vector<vector<vector<int>>> &dp, int k) {\n        \n        int pos = 1-bk;\n        for(int i = 0; i < jp; i++) {\n            pos += (1<<i);\n        }\n        if((pos-k)>1) return 0;\n        if(dp[jp][bk][pv]!=-1) return dp[jp][bk][pv];\n        int ans = (pos==k);\n        ans += func(jp+1,bk,0,dp,k);\n        if(!pv) ans += func(jp,bk+1,1,dp,k);\n        return dp[jp][bk][pv] = ans;\n    }\n    \n    int waysToReachStair(int k) {\n        vector<vector<vector<int>>> dp(60,vector<vector<int>>(60,vector<int>(2,-1)));\n        return func(0,0,0,dp,k);\n    }\n};",
-    "submit_ts": 1716087686.0
+    "username": "theeeeeeekhai",
+    "submission": "class Solution {\npublic:\n    \n    unordered_map<long long, int> dp;\n    \n    int solve(int s, int jump, bool d, int k) {\n        if(s > k + 1) return 0;\n        long long h = (1ll * s << 8ll) + (jump << 1) + d;\n        if(dp.find(h) != dp.end()) return dp[h];\n        int ans = s == k;\n        if(s != 0 && d != 1) ans += solve(s - 1, jump, 1, k);\n        ans += solve(s + (1 << jump), jump + 1, 0, k);\n        return dp[h] = ans;\n    }\n    \n    int waysToReachStair(int k) {\n        return solve(1, 0, 0, k);\n    }\n};",
+    "submit_ts": 1716087386.0
 }

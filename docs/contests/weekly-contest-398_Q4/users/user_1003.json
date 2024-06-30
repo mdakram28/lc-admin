@@ -1,5 +1,5 @@
 {
-    "username": "mananbansal7",
-    "submission": "class Solution {\npublic:\n    int solve(map<pair<pair<int,int>,int>,int> &dp, int curr, int jump, int jumped, int k) {\n        int give = 0;\n        if(curr == k) {\n            give++;\n        }\n        if(curr > k+1) {\n            return 0;\n        }\n        if(dp.find({{curr, jump}, jumped}) != dp.end()) {\n            return dp[{{curr, jump}, jumped}];\n        }\n        if(jumped == 0) {\n            give += solve(dp, curr-1, jump, 1, k);\n        }\n        give += solve(dp, curr + pow(2, jump), jump+1, 0, k);\n        \n        return dp[{{curr, jump}, jumped}] = give;\n    }\n    \n    int waysToReachStair(int k) {\n        map<pair<pair<int,int>,int>,int> dp;\n        return solve(dp, 1, 0, 0, k);\n    }\n};",
-    "submit_ts": 1716089441.0
+    "username": "avidyarth12",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dfs(i, j, down):\n            if i > k+1:\n                return 0\n            \n            if i == k:\n                if down or k == 0:\n                    return 1 + dfs(i + pow(2, j), j+1, False)\n                else:\n                    return 1 + dfs(i-1, j, True) + dfs(i + pow(2, j), j+1, False)\n            \n            if down:\n                return dfs(i + pow(2, j), j+1, False)\n            \n            return dfs(i + pow(2, j), j+1, False) + dfs(i-1, j, True)\n        \n        return dfs(1, 0, False)",
+    "submit_ts": 1716089655.0
 }

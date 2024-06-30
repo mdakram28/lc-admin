@@ -1,5 +1,5 @@
 {
-    "username": "hillfighter2908",
-    "submission": "class Solution {\npublic:\n    vector<vector<map<long long,int>>> mp;\n    int calc(int k, long long n, int j, int t) {\n        if (j > 30) return 0;\n        if (mp[j][t].find(n) != mp[j][t].end()) {\n            return mp[j][t][n];\n        }\n        int ans = 0;\n        if (n == k) ans++;\n        if (t && n > 0)\n        ans += calc(k,n-1,j,0);\n        ans += calc(k,n+(1<<j),j+1,1);\n        mp[j][t][n] = ans;\n        return ans;\n        \n    }\n    int waysToReachStair(int k) {\n        if (k == 0) return 2;\n        int ans = 0;\n        \n        map<long long,int> m;\n        for (int i = 0; i<32; ++i) {\n            mp.push_back({m,m});\n        }\n        \n        ans = calc(k,1,0,1);\n        \n        return ans;\n    }\n};",
-    "submit_ts": 1716088606.0
+    "username": "CharlesZ0719",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        memo = dict()\n        def dfs(stair, jump, prev_move):\n            if (stair, jump, prev_move) in memo:\n                return memo[(stair, jump, prev_move)]\n            if stair > k + 1:\n                return 0\n            if stair == k + 1 and prev_move == 0:\n                return 0\n\n            value = 0 if stair != k else 1\n            if prev_move != 0:\n                value += dfs(stair - 1, jump, 0)\n            value += dfs(stair + 2 ** jump, jump + 1, 1)\n            memo[(stair, jump, prev_move)] = value\n            return value\n        return dfs(1, 0, 1)\n        ",
+    "submit_ts": 1716088287.0
 }

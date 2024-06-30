@@ -1,5 +1,5 @@
 {
-    "username": "Akash0P",
-    "submission": "class Solution {\npublic:\n  int waysToReachStair(int k) {\n  \n    map<vector<long long>, int> dp;\n      \n    auto f = [&](long long i, long long jump, int prev, auto && f) -> int{\n  \n      if(dp.find({i, jump, prev}) != dp.end()) return dp[{i, jump, prev}];    \n\n      long long ans1 = 0, ans2 = 0;\n\n      if(i-1 >= 0 && prev == 0) ans1 = f(i-1, jump, 1, f);\n\n      if(i <= k) ans2 = f(i + (1 << jump), jump + 1, 0, f); \n\n      return dp[{i, jump, prev}] = (i == k) + (ans1 + ans2);\n    };\n    return f(1, 0, 0, f);\n  }\n};",
-    "submit_ts": 1716087731.0
+    "username": "Ritesh_Mangdare",
+    "submission": "class Solution {\npublic:\n    \n    int getAns(int k, long long curr, long long jump,int used,map<long long, long long > &mp)\n    {\n        if(jump >0 && curr-k >1) return 0;\n        \n        long long mask =0;\n        mask = mask | (curr <<33);\n        mask = mask | (jump <<1);\n        mask = mask | (used);\n        if(mp.find(mask) != mp.end()) return mp[mask];\n        int x= 0;\n        if(curr >0 && used==0)\n        {\n           x= getAns(k,curr-1,jump,1,mp);\n        }\n        int y = getAns(k,curr+pow(2,jump),jump+1,0,mp);\n        return mp[mask]=(x+y + (curr==k? 1:0));\n    }\n    int waysToReachStair(int k) {\n        map<long long, long long > mp;\n        return getAns(k,1,0,0, mp);\n    }\n};",
+    "submit_ts": 1716088344.0
 }

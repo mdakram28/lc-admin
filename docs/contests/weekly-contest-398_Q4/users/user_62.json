@@ -1,5 +1,5 @@
 {
-    "username": "scanhex",
-    "submission": "class Solution:\n    def c(self, n, k):\n        res = 1\n        for i in range(k):\n            res *= n - i\n            res //= i + 1\n        return res\n    def waysToReachStair(self, k: int) -> int:\n        totres = 0\n        totpw = 0\n        lim = 70\n        dp = [[0] * lim for i in range(lim)]\n        dp[0][0] = 1\n        dp[1][0] = 1\n        for i in range(lim):\n            for j in range(lim):\n                cur = 1 + sum([2 ** k for k in range(j)]) - i\n                if cur < 0:\n                    continue\n                if cur == k:\n                    totres += dp[i][j]\n                if j + 1 < lim:\n                    dp[i][j + 1] += dp[i][j]\n                if i + 1 < lim and j + 1 < lim: \n                    dp[i + 1][j + 1] += dp[i][j]\n        return totres\n\n",
-    "submit_ts": 1716086537.0
+    "username": "cybsbbbb",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        ans = 0\n        cur_jump = 0\n        jump_val = 1\n        jump_cnt = 0\n        for i in range(32):\n            down_cnt = jump_val - k\n            if down_cnt >= 0 and down_cnt <= jump_cnt + 1:\n                ans += math.comb(jump_cnt + 1, down_cnt)\n            \n            jump_val += (1 << cur_jump)\n            jump_cnt += 1\n            cur_jump += 1\n        \n        return ans\n            \n            \n            \n        ",
+    "submit_ts": 1716087133.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "nicholasfoocl",
-    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        queue<tuple<int,int,int>> q;\n        unordered_map<long long, map<pair<int, int >, int>> m;\n        m[1][{0,0}] = 1;\n        int ans = 0;\n        while(m.size()){\n            // cout << \"~~\\n\";\n            // for(auto&[u,pv]:m){\n            //     for(auto&[bj,v]:pv){\n            //         auto&[backed, j] = bj;\n            //         cout << u << ' ' << backed << ' ' << j << ' ' << v << endl;\n            //     }\n            // }\n            unordered_map<long long, map<pair<int, int>, int>> next;\n            for(auto&[u,pv]:m){\n                for(auto&[bj,v]:pv){\n                    auto&[backed, j] = bj;\n                    if(u==k) ans += v;\n                    if(u && !backed) next[u-1][{1,j}]+=v;\n                    if(u+(1LL<<j) <= k + 2) next[u+(1LL<<j)][{0,j+1}]+=v;\n                }\n            }\n            swap(m,next);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716087754.0
+    "username": "omuraisu",
+    "submission": "import math\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n\n        answer = int(k == 0) + int(k == 1) # 0 jump\n\n        for jump in range(1, 40):\n            if 1 + sum(1 << i for i in range(jump)) - (jump + 1) <= k <= 1 + sum(1 << i for i in range(jump)):\n                down = k - (1 + sum(1 << i for i in range(jump)) - (jump + 1))\n                answer += math.comb(jump + 1, down)\n        \n        return answer",
+    "submit_ts": 1716088043.0
 }

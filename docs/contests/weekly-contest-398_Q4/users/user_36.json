@@ -1,5 +1,5 @@
 {
-    "username": "delphih",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        res = 0\n        n = 0\n        while (1<<n) - (n + 1) <= k:\n            if (1<<n) >= k:\n                t = (1<<n) - k\n                res += comb(n + 1, t)\n            n += 1\n        return res",
-    "submit_ts": 1716086904.0
+    "username": "Superultra",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n\n#define FOR(i, x, y) for (int i = x; i < y; i++)\n#define ll long long \n#define pii pair<int, int>\n#define pll pair<ll, ll>\n\nll choose[35][35];\nbool done = false;\n\nvoid genChoose(int n){\n    if (done)\n        return;\n\n    for (int i = 0; i < n and (choose[i][0] = 1); i++)\n        for (int j = 1; j <= i; j++)\n            choose[i][j] = (choose[i - 1][j] + choose[i - 1][j - 1]);\n    \n    done = true;\n}\n\nclass Solution {\npublic:\n    int waysToReachStair(int k) {\n        genChoose(34);\n\n        ll ans = 0;\n\n        for (int jmp = 0; jmp <= 30; jmp++){\n            ll land = (1 << (jmp));\n            ll back = land - k;\n\n            if (back < 0)\n                continue;\n            \n            ll spots = jmp + 1;\n            \n            if (back <= spots){\n                ans += choose[spots][back];\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1716086524.0
 }

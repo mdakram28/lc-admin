@@ -1,5 +1,5 @@
 {
-    "username": "leoyu0813",
-    "submission": "class Solution {\npublic:\n    // k <= 1e9 is jump <= 30\n    unordered_map <int, int> dp[2][32];\n    int waysToReachStair(int k) {\n        if (k == 0)\n            return 2;\n        return dfs (1, 0, k, true);\n    }\n    \n    int dfs (int cur, int jump, int k, bool flag)\n    {\n        if (cur > k+1)\n            return 0;\n        if (dp [flag][jump].count (cur))\n            return dp [flag][jump][cur];\n        int count = (cur == k);        \n        if (flag && cur)\n           count += dfs (cur-1, jump, k, false);\n        count += dfs (cur + (1 << jump), jump+1, k, true);\n        return dp [flag][jump][cur] = count;\n    }\n};",
-    "submit_ts": 1716088378.0
+    "username": "usaya",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def f(x, pre, can_down):\n            if x < 0: return 0\n            if x > k + 1: return 0 # \u7121\u6cd5\u8d70\u5230\n            # print(x, pre, can_down, sep='\\t')\n            # if x == k: return 2 if pre == 0 else 1 # \u76f4\u63a5\u8d70\u5230 / \u4e0a2^0\u518d\u4e0b1\n            res = 1 if x == k else 0\n            if can_down:\n                res += f(x-1, pre, False) # \u4e0b1\n            res += f(x + 2**pre, pre+1, True)\n            return res\n        return f(1, 0, True)",
+    "submit_ts": 1716088091.0
 }

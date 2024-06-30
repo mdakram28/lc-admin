@@ -1,5 +1,5 @@
 {
-    "username": "hicoder",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def dp(pos, jump, pre):\n            if (pos < 0):\n                return 0\n            cs = 0\n            if (pos == k):\n                cs = 1\n            if (pos > k):\n                if (pre or pos - 1 > k):\n                    return cs\n            if (pre):\n                return cs + dp(pos + 2 ** jump, jump + 1, False)\n            return cs + dp(pos  + 2 ** jump, jump + 1, False) + dp(pos - 1, jump, True)\n            \n        return dp(1, 0, False)\n                ",
-    "submit_ts": 1716087559.0
+    "username": "vassu118",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        int ans = 0;\n        map<pair<long long,int>, int> mp;\n        function<int(long long, int)> get = [&](long long x, int jump) {\n            if(x > k) return 0;\n            if(mp.find({x, jump}) != mp.end()) return mp[{x, jump}];\n            int &now = mp[{x, jump}];\n            if(x == k) {\n                now = 1;\n            }\n            now += get(x + (1LL << jump), jump + 1);\n            now += get(x + (1LL << jump) - 1, jump + 1);\n            return now;\n        };\n        ans += get(1, 0);\n        ans += get(0, 0);\n        return ans;\n    }\n};",
+    "submit_ts": 1716087252.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "jjzzzmd",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dp(i,jump,prev_down):\n            # print(i,jump,prev_down)\n            if i<0:\n                return 0\n            if i==k:\n                if prev_down:\n                    return 1+dp(i+2**jump,jump+1,False)\n                return 1+dp(i+2**jump,jump+1,False)+dp(i-1,jump,True)\n            if prev_down and i>k:\n                return 0\n            if not prev_down and i-1>k:\n                return 0\n            if prev_down:\n                return dp(i+2**jump,jump+1,False)\n            return dp(i+2**jump,jump+1,False)+dp(i-1,jump,True)\n        return dp(1,0,False)\n            \n        ",
-    "submit_ts": 1716090232.0
+    "username": "AbhisheK19092002",
+    "submission": "#include <vector>\n#include <unordered_map>\nusing namespace std;\n\nclass Solution {\n    unordered_map<int, vector<vector<int>>> part;\n    \n    int anss(int n, int b, int c, bool d) {\n        if (b > n + 5)\n            return 0;\n\n        if(c > 31)\n            return 0;\n\n        if(part.count(b) && part[b][c][d] != -1)\n            return part[b][c][d];\n\n        int res = (b == n);\n        if (d)\n            res += anss(n, b - 1, c, 0);\n        if (b + (1 << c) <= n + 1)\n            res += anss(n, b + (1 << c), c + 1, 1);\n\n        part[b].resize(32, vector<int>(2, -1));\n\n        return part[b][c][d] = res;\n    }\n\npublic:\n    int waysToReachStair(int k) {\n        return anss(k, 1, 0, 1);\n    }\n};\n",
+    "submit_ts": 1716089330.0
 }

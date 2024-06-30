@@ -1,5 +1,5 @@
 {
-    "username": "chitraksh24",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def solve(curr,jump):\n            if curr<0 or jump//4>k:\n                return 0\n            \n            if curr==k:\n                return 1+solve(curr+jump,jump*2)+solve(curr+jump-1,jump*2)\n            else:\n                return solve(curr+jump,jump*2)+solve(curr+jump-1,jump*2)\n        return solve(1,1)+solve(0,1)\n        ",
-    "submit_ts": 1716089875.0
+    "username": "Anshul__Singh",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        dp = {}\n        def solve(idx, jump, back):\n            if idx > k and not back:\n                return 0\n            if idx==k:\n                if back and idx!=0:\n                    return 1 + solve(idx-1, jump, 0)\n                return 1\n            \n            if (idx, jump, back) in dp:\n                return dp[(idx, jump, back)]\n            nottake = 0\n            if back and idx!=0:\n                nottake = solve(idx-1, jump, 0)\n            take = 0\n            if idx < k+2:\n                take = solve(idx+2**jump, jump+1, 1)\n            \n            dp[(idx, jump, back)] = nottake+take\n            \n            return nottake+take\n        ans = solve(1, 0, 1)\n        if k==0 or k==1:\n            return ans+1\n        return ans\n        ",
+    "submit_ts": 1716090183.0
 }

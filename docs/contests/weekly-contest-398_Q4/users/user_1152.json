@@ -1,5 +1,5 @@
 {
-    "username": "aryanmaurya264",
-    "submission": "#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    int f(int i, int jump, bool c, int k, unordered_map<int, int>& memo) {\n        if (i > k + 1) return 0;\n        if (jump >= 32) return 0;\n        int key = (i << 10) | (jump << 1) | c;\n        if (memo.find(key) != memo.end()) return memo[key];\n\n        int ans = 0;\n        if (i == k) ans = 1;\n        if (!c) ans += f(i - 1, jump, 1, k, memo);\n        ans += f(i + (1 << jump), jump + 1, 0, k, memo);\n\n        memo[key] = ans;\n        return ans;\n    }\n\n    int waysToReachStair(int k) {\n        unordered_map<int, int> memo;\n        return f(1, 0, 0, k, memo);\n    }\n};\n",
-    "submit_ts": 1716090399.0
+    "username": "Anonymous_235940",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        dp = {}\n        def f(i, jump, can_back):\n            key = (i, jump, can_back)\n            if key in dp:\n                return dp[key]\n            #print(f'{i} {jump} {can_back}')\n            if i > k + 3:\n                return 0\n            ans = 0\n            if i == k:\n                ans += 1\n            if can_back and i > 0:\n                ans += f(i - 1, jump, False)\n            ans += f(i + 2 ** jump, jump + 1, True)\n            dp[key] = ans\n            return ans;\n        return f(1, 0, True)",
+    "submit_ts": 1716090081.0
 }

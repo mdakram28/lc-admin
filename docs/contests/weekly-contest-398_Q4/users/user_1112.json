@@ -1,5 +1,5 @@
 {
-    "username": "lccheck",
-    "submission": "from functools import lru_cache\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        # count = 0\n        \n        @lru_cache(None)\n        def move(stair, went_down, jump):\n            \n            nonlocal k\n            \n            count = 0\n            \n            if stair == k:\n                count += 1\n                \n            if stair > k + 1:\n                return 0\n            \n            if stair > 0 and went_down == False:\n                count += move(stair - 1, True, jump)\n            \n            count += move(stair + 2**jump, False, jump + 1)\n            return count\n            \n        ans = move(1, False, 0)\n        return ans\n        ",
-    "submit_ts": 1716090278.0
+    "username": "vijaypurohit",
+    "submission": "class Solution {\npublic:\n    int k;\n    unordered_map<string, int> dp;\n    // vector<vector<vector<int>>> dp;\n    int waysToReachStair(int k) {\n        this->k = k;\n        // dp.resize()\n        return solve(1, 0, true);\n    }\n\n    int solve(int i, int jump, bool canDecrement){\n        if((i > k+1) or (!canDecrement and i >= k+1)) return 0;\n        string key = to_string(i) + \"-\" + to_string(jump) + \"-\" + to_string(canDecrement);\n        if(dp.count(key)) return dp[key];\n        int ans = (i == k);\n        if(canDecrement){\n            ans += solve(i-1, jump, false);\n        }\n        if(i + (1<<jump) <= k+1){\n            ans += solve(i + (1<<jump), jump + 1, true);\n        }\n        return  dp[key] = ans;\n    }\n};\n",
+    "submit_ts": 1716090579.0
 }

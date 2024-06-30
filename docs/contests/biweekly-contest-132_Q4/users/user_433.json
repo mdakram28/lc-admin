@@ -1,5 +1,5 @@
 {
-    "username": "18dgao",
-    "submission": "class Solution(object):\n    def maximumLength(self, nums, k):\n        \"\"\"\n        :type nums: List[int]\n        :type k: int\n        :rtype: int\n        \"\"\"\n        max_on = defaultdict(lambda: 0)\n        m = defaultdict(lambda: defaultdict(lambda: 0))\n        for i, n in enumerate(nums):\n            for c in range(k+1):\n                m[c][n] = m[c][n] + 1\n            for c in range(k):\n                m[c+1][n] = max(m[c+1][n], max_on[c] + 1)\n            for c in range(k + 1):\n                max_on[c] = max(max_on[c], m[c][n])\n            # print(dict(max_on))\n            # print({k: dict(v) for k, v in m.items()})\n        return max(n for c in m for n in m[c].values())",
-    "submit_ts": 1717862238.0
+    "username": "yashraj_prasad",
+    "submission": "class Solution:\n    def maximumLength(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        dp, res = [[1] * (k + 1) for _ in range(n)], 1\n        mp = [defaultdict(int) for _ in range(k + 1)]\n        a = [-1] * (k + 1)\n\n        for i in range(n):\n            for j in range(k + 1):\n                for l in range(j):\n                    dp[i][j] = max(dp[i][j], 1 + a[l])\n\n                if nums[i] in mp[j]:\n                    dp[i][j] = max(dp[i][j], 1 + mp[j][nums[i]])\n\n                res = max(res, dp[i][j])\n\n            for j in range(k + 1):\n                a[j] = max(a[j], dp[i][j])\n                mp[j][nums[i]] = max(mp[j][nums[i]], dp[i][j])\n\n        return res\n",
+    "submit_ts": 1717861925.0
 }

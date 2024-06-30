@@ -1,5 +1,5 @@
 {
-    "username": "yinqiaozhang",
-    "submission": "class Solution {\npublic:\n    using ll = long long;\n    int waysToReachStair(int k) {\n        int C[33][33];\n        for (int i = 0; i <= 32; i ++) {\n            for (int j = 0; j <= i; j ++) {\n                if (!j) C[i][j] = 1;\n                else C[i][j] = C[i-1][j] + C[i-1][j-1];\n            }\n        }\n        \n        // \u679a\u4e3e\u6700\u7ec8\u7684jump\u503c / \u4f7f\u7528j\u6b21jump\n        ll res = 0;\n        for (int j = 0; j <= 32; j ++) {\n            ll up = (1LL << j) - 1;\n            ll need = up - (k - 1);\n            if (need >= 0 and need <= j + 1) {\n                // j + 1\u4e2a\u7a7a\u9699\u9009need\u4e2a\n                res += C[j + 1][need];\n            }\n        }\n        return res;\n    }\n};",
-    "submit_ts": 1716087480.0
+    "username": "ayushag99",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def backtrack(pos, jump, k):\n            if k+1 < pos: return 0\n            \n            result = 0\n            if pos == k: result += 1\n            \n            \n            next_pos = pos + 2**jump\n            \n            k, next_pos = k - next_pos + 1, 1\n            \n            return result + backtrack(next_pos, jump+1, k) + backtrack(next_pos-1, jump+1, k)\n            \n            \n            \n        return backtrack(1, 0, k) + backtrack(1-1, 0, k)",
+    "submit_ts": 1716087780.0
 }

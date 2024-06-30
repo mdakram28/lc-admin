@@ -1,5 +1,5 @@
 {
-    "username": "xiaojian9527",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def dfs(i: int, first: bool, jump: int) -> int:\n            if i > k + 1:\n                return 0\n            \n            ans = 0\n            if i == k:\n                ans += 1\n                \n            # jump \n            ans += dfs(i + (1 << jump), False, jump + 1)\n            if not first:\n                if i != 0:\n                    ans += dfs(i-1, True, jump)\n            return ans\n        \n        return dfs(1, False, 0)\n                \n                ",
-    "submit_ts": 1716088787.0
+    "username": "techie_guy",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n\nmap<pair<pair<ll, bool>, ll>, ll> mp;\n\nll func(ll cur, bool prv, ll jump, ll &k)\n{\n    ll ans = 0;\n    if (cur == k) {\n        ans++;\n    }\n\n    if (cur - 1 > k) {\n        return ans;\n    }\n\n    if (mp.find({{cur, prv}, jump}) != mp.end()) {\n        return mp[{{cur, prv}, jump}];\n    }\n\n    // now we do again\n    if (cur != 0 and prv == 0) {\n        ans += func(cur - 1, 1, jump, k);\n    }\n\n    ans += func(cur + (1 << jump), 0, jump + 1, k);\n\n    return mp[{{cur, prv}, jump}] = ans;\n}\n\nint waysToReachStair(ll k)\n{\n    int ans = 0;\n    ans = func(1, 0, 0, k);\n    return ans;\n}\n};",
+    "submit_ts": 1716088481.0
 }

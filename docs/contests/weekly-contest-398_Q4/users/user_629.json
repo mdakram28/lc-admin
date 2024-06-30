@@ -1,5 +1,5 @@
 {
-    "username": "daminrido139",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def dfs(n, jump, p):\n            ways = 0\n            if n>k+1:\n                return 0\n            if n==k:\n                ways += 1\n            if p==0 and n>0:\n                ways += dfs(n-1, jump, 1)\n            ways += dfs(n+(1<<jump), jump+1, 0)\n            return ways\n        \n        return dfs(1, 0, 0)",
-    "submit_ts": 1716089146.0
+    "username": "sshang",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        res = 0\n        \n        dp = {1: 1}\n        for i in range(30):\n            ndp = {}\n            \n            a, b = 2 ** i, 2 ** i - 1\n            for prev, cnt in dp.items():\n                if prev - 1 > k:\n                    continue\n                elif prev == k or prev - 1 == k:\n                    res += cnt\n                    \n                na, nb = prev + a, prev + b\n                if na not in ndp:\n                    ndp[na] = 0\n                if nb not in ndp:\n                    ndp[nb] = 0\n                ndp[na] += cnt\n                ndp[nb] += cnt\n                \n            dp = ndp\n            if not dp:\n                break\n                \n        return res\n        ",
+    "submit_ts": 1716088835.0
 }

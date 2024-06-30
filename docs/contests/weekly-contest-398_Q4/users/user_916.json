@@ -1,5 +1,5 @@
 {
-    "username": "lordoflegend2003",
-    "submission": "class Solution {\npublic:\n    unordered_map<int, vector<vector<int>>> memo;\n    int solve(int t, int p, int j, bool b) {\n        int w = (p == t);\n        if (memo.count(p) && memo[p][j][b] != -1) return memo[p][j][b];\n        if ( j > 31 || p > t + 5 )  return 0;\n        if (p + (1 << j) <= t + 1) w += solve(t, p + (1 << j), j + 1, true);\n        if (b)  w += solve(t, p - 1, j, false);\n        memo[p].resize(32, vector<int>(2, -1));\n        return memo[p][j][b] = w;\n    }\n    int waysToReachStair(int t) {\n        return solve(t, 1, 0, true);\n    }\n};\n",
-    "submit_ts": 1716089275.0
+    "username": "rushi_mungse",
+    "submission": "class Solution {\n    unordered_map<string, int> dp;\npublic:\n    int waysToReachStair(int k) {\n        return fn(1, 0, 0, k);\n    }\n    \n    int fn(int i, int j, int f, int &k) {\n        if(i > k + 1 || (f && i >= k + 1)) return 0;\n        \n        string key = to_string(i) + \"$\" + to_string(j) + \"$\" + to_string(f);\n        if(dp.find(key) != dp.end()) return dp[key];\n        \n        int ans = 0;\n        if(i == k) ans = 1;\n        \n        if(!f) ans += fn(i - 1, j, 1, k);\n        ans += fn(i + (1 << j), j + 1, 0, k);\n        return dp[key] = ans;\n    }\n};\n\n\n\n",
+    "submit_ts": 1716090173.0
 }

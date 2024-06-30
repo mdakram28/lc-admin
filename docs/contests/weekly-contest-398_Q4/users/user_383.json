@@ -1,5 +1,5 @@
 {
-    "username": "cynic_8122",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        dp = {}\n        return self.Helper(1, 0, 1, k, dp)\n        \n    def Helper(self, i, jump, down, k, dp):\n        \n        key = str(i) + ' ' + str(jump) + ' ' + str(down)\n        \n        t = 0\n        if i == k:\n            t += 1\n        \n        if i > k+1:\n            return 0\n        \n        if key in dp.keys():\n            return dp[key]\n        \n        ans1 = 0\n        if down:\n            ans1 = self.Helper(i-1, jump, 0, k, dp)\n            \n        ans2 = self.Helper(i+(1<<jump), jump+1, 1, k, dp)\n        \n        dp[key] = ans1 + ans2 + t\n        return dp[key]",
-    "submit_ts": 1716088329.0
+    "username": "andy-lc",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @functools.cache\n        def dfs(k: int, useK: bool, step: int) -> int:\n            if k == 1 and step == -1:\n                return 1\n            ans = 0\n            if not useK:\n                ans += dfs(k+1,True,step)\n            if step < 0 or k == 0:\n                return ans\n            mask = 1 << step\n            next_ = k-mask\n            if next_ >= 0:\n                ans += dfs(next_,False,step-1)\n            return ans\n        return sum(dfs(k,False,s) for s in range(-1,32))",
+    "submit_ts": 1716088621.0
 }

@@ -1,5 +1,5 @@
 {
-    "username": "the_coder_8297",
-    "submission": "class Solution {\npublic:\n    map<array<int,3>, int> mp; \n    int solve(int ind, bool last, int jump, int &k) {\n        int ans = 0;\n        if(ind > k + 1) return 0;\n        if(ind == k) ans = 1;\n        if(mp.find({ind, last, jump}) != mp.end()) return mp[{ind, last, jump}];\n        \n        if(ind != 0 && last == false) ans += solve(ind-1, true, jump, k);\n        long long num = ind + 0ll + (1ll<<jump);\n        if(num < k+2) ans += solve(num, false, jump+1, k);\n        return mp[{ind, last, jump}] = ans;\n    }\n    int waysToReachStair(int k) {\n        mp.clear();\n        return solve(1, false, 0, k);\n        \n    }\n};",
-    "submit_ts": 1716087824.0
+    "username": "fausdghlfaiug",
+    "submission": "class Solution {\npublic:\nmap<int,map<int,map<int,int>>>mp;\nint dfs(int stair, int last, int jump, int &target)\n{\n    if (stair > target + 1)\n    {\n        return 0;\n    }\n    if(mp[stair][last].find(jump)!=mp[stair][last].end()){\n        return mp[stair][last][jump];\n    }\n    int ans = dfs(stair + (1LL << jump), 0, jump + 1, target);\n    if (stair > 0 && last != 1)\n    {\n        ans += dfs(stair - 1, 1, jump, target);\n    }\n    if(stair==target) ans +=1;\n    return mp[stair][last][jump]= ans;\n}\n\nint waysToReachStair(int k)\n{\n    return dfs(1, 0, 0, k);\n}\n};",
+    "submit_ts": 1716087826.0
 }

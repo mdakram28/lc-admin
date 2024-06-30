@@ -1,5 +1,5 @@
 {
-    "username": "lucasschnee",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        '''\n        input: k\n\n        0 <= k <= 10 ** 9\n\n\n        options:\n\n        can go down 1 stair if not used previously and i != 0\n\n        go to stair 1 + 2 ** jump; jump += 1\n\n        jump starts at 0\n\n        STARTS at stair 1\n\n        \n        '''\n        @cache\n        def calc(stair, jump, prev_sub):\n\n            if stair - 2 > k:\n                return 0\n            \n            total = 0\n\n            if stair == k:\n                total += 1\n\n            if prev_sub:\n                total += calc(stair - 1, jump, False)\n\n            total += calc(stair + 2 ** jump, jump + 1, True)\n\n            return total\n\n\n        return calc(1, 0, True)\n        \n      \n        \n\n        ",
-    "submit_ts": 1716087505.0
+    "username": "biharicoder",
+    "submission": "cache = {}\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        def count(i, k, jump, lused):\n            if i >= k + 2:\n                return 0\n            key = (i, k, jump, lused)\n            if key in cache:\n                return cache[key]\n            res = int(i == k)\n            if i > 0 and not lused:\n                res += count(i - 1, k, jump, True)\n            res += count(i + pow(2, jump), k, jump + 1, False)\n            cache[key] = res\n            return res\n        return count(1, k, 0, False)",
+    "submit_ts": 1716086709.0
 }

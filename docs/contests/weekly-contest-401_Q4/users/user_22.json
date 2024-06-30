@@ -1,5 +1,5 @@
 {
-    "username": "wutwere",
-    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        const int MAXS = 100001;\n        bitset<100001> dp;\n        dp[0] = 1;\n        sort(rewardValues.begin(), rewardValues.end());\n        int n = rewardValues.size();\n        for (int cur : rewardValues) {\n            int amt = MAXS - cur;\n            dp |= ((dp << amt) >> amt) << cur;\n        }\n        int ans = 0;\n        for (int i = 1; i <= 100000; i++) {\n            if (dp[i]) {\n                ans = i;\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1717901177.0
+    "username": "pr3pony",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& r) {\n        sort(r.begin(),r.end());\n        const int MX = 1e5;\n        bitset<MX> dp, f;\n        f.flip();\n        dp[0] = 1;\n        for (int x : r) {\n            dp |= (dp & (f >> (MX - x))) << x;\n        }\n        int ans = MX - 1;\n        for (;!dp[ans] && ans > 0;--ans);\n        return ans;\n    }\n};",
+    "submit_ts": 1717901378.0
 }

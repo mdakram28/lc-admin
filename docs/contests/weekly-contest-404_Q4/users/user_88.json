@@ -1,0 +1,5 @@
+{
+    "username": "n124345679976",
+    "submission": "class Solution {\npublic:\n    int minimumDiameterAfterMerge(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {\n        int n = edges1.size() + 1, m = edges2.size() + 1;\n        vector<vector<int>> adj1(n), adj2(m);\n        auto dfs = [&](auto& dfs, vector<vector<int>>& adj, int x, int p) -> array<int, 2> {\n            int maa = 0, mab = x;\n            for(auto y:adj[x]){\n                if(y == p) continue;\n                auto [a, b] = dfs(dfs, adj, y, x);\n                if(a > maa) maa = a, mab = b;\n            }\n            return {maa + 1, mab};\n        };\n        for(auto e:edges1) adj1[e[0]].push_back(e[1]), adj1[e[1]].push_back(e[0]);\n        for(auto e:edges2) adj2[e[0]].push_back(e[1]), adj2[e[1]].push_back(e[0]);\n        auto [a1, b1] = dfs(dfs, adj1, 0, 0);\n        auto [a2, b2] = dfs(dfs, adj1, b1, b1);\n        auto [a3, b3] = dfs(dfs, adj2, 0, 0);\n        auto [a4, b4] = dfs(dfs, adj2, b3, b3);\n        return max((a2) / 2 + (a4) / 2 + 1, max(a2-1, a4-1));\n    }\n};",
+    "submit_ts": 1719716653.0
+}

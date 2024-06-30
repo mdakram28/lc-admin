@@ -1,5 +1,5 @@
 {
-    "username": "vivekgpt107",
-    "submission": "class Solution {\n    static Map<Integer, Map<Integer, Map<Integer, Integer>>> memo;\n    public int waysToReachStair(int k) {\n        memo = new HashMap<>();\n        return solve(1, 0, 1, k);\n    }\n    public int solve(int f, int j, int down, int d){\n        // System.out.println(\"f=\"+f+\", j=\"+j+\", down=\"+down+\", d=\"+d);\n        if(f < 0 || f > d+1){\n            return 0;\n        }\n        if(memo.containsKey(f) && memo.get(f).containsKey(j) && memo.get(f).get(j).containsKey(down)){\n            return memo.get(f).get(j).get(down);\n        }\n        int res = f==d?1:0;\n        // op1\n        int op1 = down == 0 || f == 0 ?0: solve(f-1, j, 0, d);\n        // op2\n        int op2 = solve(f + (1 << j), j+1, 1, d);\n        \n        int ans = res + op1 + op2;\n        if(!memo.containsKey(f))\n            memo.put(f, new HashMap<>());\n        if(!memo.get(f).containsKey(j))\n            memo.get(f).put(j, new HashMap<>());\n        \n        memo.get(f).get(j).put(down, ans);\n        return ans;\n    }\n}",
-    "submit_ts": 1716090044.0
+    "username": "RollingSnack",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        jumps = [0] + [2 ** i for i in range(31)]\n        prefix = list(accumulate(jumps))\n        print(jumps)\n        print(prefix)\n        answer = 0\n        for i in range(len(jumps)):\n            for j in range(i + 2):\n                if 1 + prefix[i] - j == k:\n                    answer += factorial(i + 1) // factorial(j) // math.factorial(i + 1 - j)\n        return answer",
+    "submit_ts": 1716090045.0
 }

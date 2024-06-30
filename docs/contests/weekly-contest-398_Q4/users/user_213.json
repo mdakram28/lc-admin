@@ -1,5 +1,5 @@
 {
-    "username": "adhishkancharla",
-    "submission": "using ll = long long;\nmap<pair<ll,ll>,int>dp;\nclass Solution {\npublic:\n    int solve(ll i,ll j,ll k){\n        if (dp.count({i,j}))return dp[{i,j}];\n        if (i - k > 1)return dp[{i,j}] = 0;\n        dp[{i,j}] = (i - k == 1 or i - k == 0 ? 1 : 0) + (i == 0 ? 0 : solve(i - 1 + (1ll<<j),j + 1,k)) + solve(i + (1ll<<j),j + 1,k);\n        return dp[{i,j}];\n    }\n    int waysToReachStair(ll k) {\n        dp.clear();\n        return solve(1,0,k);\n    }\n};",
-    "submit_ts": 1716087369.0
+    "username": "pein531",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @lru_cache(None)\n        def dfs(cur: int, pre: int, jump: int) -> int:\n            if cur > k + 1:\n                return 0\n            cnt = 0\n            if cur == k:\n                cnt += 1\n            if pre == 0 and cur > 0:\n                # \u524d\u9762\u6ca1\u6709\u5411\u4e0b\u8d70\u8fc7\uff0c\u5e76\u4e14\u53ef\u4ee5\u5411\u4e0b\u8d70\n                cnt += dfs(cur - 1, 1, jump)\n            cnt += dfs(cur + (1<<jump), 0, jump + 1)\n            return cnt\n        ans = dfs(1, 0, 0)\n        dfs.cache_clear()\n        return ans",
+    "submit_ts": 1716087981.0
 }

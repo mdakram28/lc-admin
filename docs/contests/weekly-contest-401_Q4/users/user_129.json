@@ -1,5 +1,5 @@
 {
-    "username": "Tinky1224",
-    "submission": "class Solution:\n    def maxTotalReward(self, rewardValues: List[int]) -> int:\n        arr = [0] + sorted(set(rewardValues))\n        @cache\n        def helper(num):\n            i = bisect_left(arr, num)\n            if arr[i] == num or i == 0:\n                return arr[i]\n            res = arr[i-1]\n            for ind in range(i-1, -1, -1):\n                res = max(res, arr[ind] + helper(min(num - arr[ind], arr[ind]-1)))\n                if arr[ind] * 2 <= num:\n                    break\n            return res\n        mx = arr[-1]\n        return helper(mx-1) + mx\n",
-    "submit_ts": 1717905025.0
+    "username": "hxu10",
+    "submission": "class Solution {\n    public int maxTotalReward(int[] rewardValues) {\n        Arrays.sort(rewardValues);\n        int m = rewardValues[rewardValues.length - 1];\n        boolean[] visited = new boolean[m + 1];\n        if(m==rewardValues.length){\n            return 2*m-1;\n        }\n        visited[0] = true;\n        int ans = m;\n        int pre = -1;\n        for (int num : rewardValues) {\n            if(num==pre)  continue;\n            pre = num;\n            for (int i = num - 1; i >= 0; i--) {\n                if (visited[i]) {\n                    if (i + num > m) {\n                        ans = Math.max(ans, i + num);\n                    } else {\n                        visited[i + num] = true;\n                    }\n                }\n            }\n        }\n        \n        return ans;\n            \n\n        \n        \n    }\n}",
+    "submit_ts": 1717904319.0
 }

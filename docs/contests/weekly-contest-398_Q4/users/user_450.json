@@ -1,5 +1,5 @@
 {
-    "username": "beta-blue",
-    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        map<vector<int>, int> dp;\n        return solve(k, 1, 0, 0, dp);\n    }\n    \n    int solve(int k, int cur, int jump, int back, map<vector<int>, int>& dp) {\n        if (cur > k + 1)\n            return 0;\n        \n        vector<int> key = {cur, jump, back};\n        if (dp.find(key) != dp.end())\n            return dp[key];\n        \n        int res = cur == k ? 1 : 0;\n        \n        if (cur != 0 && !back)\n            res += solve(k, cur-1, jump, 1, dp);\n        \n        long long j = cur + pow(2LL, jump);\n        if (j <= k + 1)\n            res += solve(k, j, jump+1, 0, dp);\n        \n        return dp[key] = res;\n    }\n};",
-    "submit_ts": 1716088586.0
+    "username": "williamliu6",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        if k == 0:\n            return 2\n        if k == 1:\n            return 4\n        #print('target: ', k)\n        ret = 0\n        \n        for j in range(65):\n            i = (1<<(j+1))-k\n            \n            if 0 <= i <= j+2:\n                #print(i, j)\n                ret += comb(j+2, i)\n        #print()\n        return ret",
+    "submit_ts": 1716088581.0
 }

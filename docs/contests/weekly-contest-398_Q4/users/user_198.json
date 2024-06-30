@@ -1,5 +1,5 @@
 {
-    "username": "gude8997",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def dfs(i, curJump, isDown):\n            if i > k + 1:\n                return 0\n            if i == k + 1:\n                if isDown:\n                    return 0\n                else:\n                    return dfs(i - 1, curJump, True)\n            if i == k:\n                res = 1\n            else:\n                res = 0\n            \n            if not isDown:\n                res += dfs(i - 1, curJump, True)\n            \n            res += dfs(i + 2 ** curJump , curJump + 1, False)\n            return res\n        \n        return dfs(1, 0, False)",
-    "submit_ts": 1716087895.0
+    "username": "raincoat911",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        int res = 0;\n        dp.resize(32, vector<int>(32));\n        for (long i = 0, b = 1, s = 0; i < 30; s += b, b <<= 1, i++) {\n            int d = k - 1;\n            if (s >= d && s - i - 1 <= d) {\n                int m = s - d;\n                res += m == 0 ? 1 : cnk(i + 1, m); // |||*\n            }\n        }\n        return res;\n    }\n    \nprivate:\n    vector<vector<int>> dp;\n    \n    int cnk(int n, int k) {\n        if (dp[n][k] != 0) return dp[n][k];\n        if (n == k || k == 0) return 1;\n        return dp[n][k] = cnk(n - 1, k - 1) + cnk(n - 1, k);\n    }\n};",
+    "submit_ts": 1716087320.0
 }

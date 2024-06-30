@@ -1,5 +1,5 @@
 {
-    "username": "Ani_S",
-    "submission": "class Solution {\n    Integer dp[][];\n    \n    public int waysToReachStair(int k) {\n        if(k == 0) {\n            return 2;\n        } \n        \n        dp = new Integer[32][32];\n        \n        return recursive(1l * k, 0, 0);\n    }\n    \n    private int recursive(long k, int jump, int sub) {\n        long pos = (1l << jump) - sub;\n        \n        if(pos > k) {\n            if(pos - 1 == k)\n                return 1;\n            return 0;\n        }\n        \n        if(dp[jump][sub] != null)\n            return dp[jump][sub];\n        \n        int withSub = recursive(k, jump + 1, sub + 1);\n        int withOutSub = recursive(k, jump + 1, sub);\n        \n        \n        return dp[jump][sub] = (withSub + withOutSub + (pos == k ? 1 : 0));\n    }\n}",
-    "submit_ts": 1716089672.0
+    "username": "sohamslc5",
+    "submission": "class Solution {\npublic:\n    map <long long, map <long long, map <long long, int>>> dp;\n    int solve(long long i, int k, long long j = 1, int c = 0)\n    {\n        if(i > k + 1) return 0;\n        if(i == k + 1) return 1;\n        if(dp[i][j].find(c) != dp[i][j].end()) return dp[i][j][c];\n        int res = (i == k);\n        res += solve(i + j, k, j * 2, 0);\n        if(c == 0)\n        {\n            res += solve(i - 1, k, j, 1);\n        }\n        return dp[i][j][c] = res;\n    }\n    int waysToReachStair(int k) {\n        if(k == 0) return 2;\n        return solve(1, k);\n    }\n};",
+    "submit_ts": 1716089374.0
 }

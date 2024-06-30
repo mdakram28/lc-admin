@@ -1,5 +1,5 @@
 {
-    "username": "Glukua",
-    "submission": "class Solution {\npublic:\n    set<int> s;\n\n    vector<int> C;\n\n    bool check(int x) {\n        if (C[x])\n            return C[x]-1;\n        if (x == 0)\n        return true;\n            auto it = s.lower_bound(x);\n            if (it != s.end() && *it == x) {\n                C[x] = 2;\n                return true;\n            }\n            while (it != s.begin()) {\n                --it;\n                if (2 * (*it) <= x) {\n                    break;\n                }\n                if (check(x - *it)) {\n                    C[x] = 2;\n                    return true;\n                }\n            }\n        C[x] = 1;\n        return false;\n    }\n\n    int maxTotalReward(vector<int>& a) {\n        for (auto x : a) s.insert(x);\n\n        int x = *(--s.end());\n        x = x*2-1;\n        C.resize(x+1);\n\n        while (!check(x)) {\n            --x;\n        }\n        return x;\n    }\n};",
-    "submit_ts": 1717901540.0
+    "username": "cybsbbbb",
+    "submission": "class Solution:\n    def maxTotalReward(self, rewardValues: List[int]) -> int:\n        rewardValues.sort()\n        bits = 1\n        \n        for value in rewardValues:\n            bits |= (bits & ((1 << value) - 1)) << value\n            \n        ans = 0\n        while bits > 1:\n            ans += 1\n            bits >>= 1\n            \n        return ans\n",
+    "submit_ts": 1717901501.0
 }

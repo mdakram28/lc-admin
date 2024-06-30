@@ -1,5 +1,5 @@
 {
-    "username": "alreadyselfish",
-    "submission": "class Solution:\n    \n    def waysToReachStair(self, k):\n        dp = {}\n        def solve(k, i, jump, can):\n            if i > k + 5:\n                return 0\n            if jump > 31:\n                return 0\n\n            if (i, jump, can) in dp:\n                return dp[(i, jump, can)]\n\n            ans = (i == k)\n\n            if can:\n                ans += solve(k, i - 1, jump, False)\n            if i + (1 << jump) <= k + 1:\n                ans += solve(k, i + (1 << jump), jump + 1, True)\n\n            dp[(i, jump, can)] = ans\n            return ans\n        \n        return solve(k, 1, 0, True)\n\n            \n        \n                \n            \n                \n            \n        ",
-    "submit_ts": 1716089592.0
+    "username": "sundaram__anand",
+    "submission": "class Solution {\npublic:\n    int ncr(int n, int k)\n{\n    int C[k + 1];\n    memset(C, 0, sizeof(C));\n \n    C[0] = 1; // nC0 is 1\n \n    for (int i = 1; i <= n; i++)\n    {\n        for (int j = min(i, k); j > 0; j--)\n            C[j] = C[j] + C[j - 1];\n    }\n    return C[k];\n}\n    int waysToReachStair(int k) {\n        k--;\n        int ans=0;\n        for(int i=0;;i++){\n            int v=0;\n            int j=0;\n            while(v<k+i){\n                v+=(1LL<<j);\n                j++;\n            }\n            if(v==k+i){\n                ans+=ncr(j+1,i);\n                // cout<<j+1<<\" \"<<i<<\"\\n\";\n            }\n            int number=i;\n            if(number>0) {\n                int lam=1<<(number-1);\n                if(lam>k+i+5) break;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1716089594.0
 }

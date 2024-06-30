@@ -1,5 +1,5 @@
 {
-    "username": "nnks8908",
-    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) \n    {\n        long long ans=0,up=0,jump=1,down=1;\n        while(1)\n        {\n            // cout<<down<<' '<<up<<' '<<jump<<'\\n';\n            if(up+1-k<=down)\n                ans+=helper(down,up+1-k);\n            // cout<<ans<<'\\n';\n            ++down;\n            up+=jump;\n            jump*=2;\n            if(up<k)\n                continue;\n            if(up+1-k>down)\n                break;\n        }\n        // cout<<'\\n';\n        return ans;\n    }\nprivate:\n    int helper(int n,int m)\n    {\n        // cout<<n<<' '<<m<<'\\n';\n        if(n<0 || m<0)\n            return 0;\n        if(n==0 || m==0)\n            return 1;\n        long long rt = 1;\n        m=min(m,n-m);\n        for(int i=0;i<m;++i)\n        {\n            rt*=(n-i);\n            rt/=(i+1);\n        }\n        return rt;\n    }\n};",
-    "submit_ts": 1716088443.0
+    "username": "qqzipcar",
+    "submission": "class Solution(object):\n    def waysToReachStair(self, k):\n        \"\"\"\n        :type k: int\n        :rtype: int\n        \"\"\"\n        sum = 0\n        for j in range(31):\n            if k <= 2**j and k >= 2**j - (j+1):\n                down = k - (2**j-(j+1)) ## the number of down step, between 0 to j+1\n                ## calculate j+1 choose down.\n                prod = 1\n                for i in range(down):\n                    prod *= (j+1-i)\n                    prod //=(1+i)\n                sum += prod\n        return sum\n        ",
+    "submit_ts": 1716088128.0
 }

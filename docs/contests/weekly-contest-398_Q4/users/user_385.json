@@ -1,5 +1,5 @@
 {
-    "username": "k3232908",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dfs(current, k, used_op1, jump):\n            # print(current, k, used_op1, jump)\n            total = 0\n            if current == k:\n                total += 1\n            elif current < 0:\n                return 0\n            if current > k + 1:\n                return total\n            if used_op1 == 0:\n                total += dfs(current - 1, k, 1, jump)\n            total += dfs(current + (2 ** jump), k, 0, jump + 1)\n            return total\n        return dfs(1, k, 0, 0)",
-    "submit_ts": 1716088321.0
+    "username": "muntasir_120",
+    "submission": "import functools\n\n@functools.cache\ndef ways(i, jump, last_move, k):\n  ret = 0\n  if i == k:\n    ret = 1\n  if k < i:\n    if k == i - 1 and last_move != 0:\n      return ret + ways(i-1, jump, 0, k)  \n    else:\n      return ret\n    \n  if last_move != 0:  \n    ret += ways(i-1, jump, 0, k)\n    \n  return ret + ways(i + 2**jump, jump + 1, 1,k)  \n    \n  \nclass Solution:\n  def waysToReachStair(self, k: int) -> int:\n    return  ways(1, 0, 1, k)\n    \n        ",
+    "submit_ts": 1716088643.0
 }

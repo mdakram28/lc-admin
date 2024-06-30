@@ -1,5 +1,5 @@
 {
-    "username": "leovl48",
-    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        long long K = k;\n        long long ans = 0;\n        \n        vector<vector<long long>> C(35, vector<long long>(35));\n        C[0][0] = 1;\n        for(int x = 1; x <= 34; x++){\n            for(int y = 0; y <= x; y++){\n                if(y > 0) C[x][y] += C[x - 1][y - 1];\n                C[x][y] += C[x - 1][y];\n            }\n        }\n        \n        for(long long jumps = 0; jumps <= 34; jumps++){\n            long long total = (1LL << jumps);\n            if(total < K) continue;\n            if(total - jumps - 1LL > K) break;\n            \n            long long need = total - K;\n            assert(need >= 0 && need <= jumps + 1);\n            ans += C[jumps + 1][need];\n        }\n        return (int) ans;\n    }\n};",
-    "submit_ts": 1716087611.0
+    "username": "potatoY",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @lru_cache(None)\n        def dfs(i, jump, is_cons):\n            if jump >= 32: return 0\n            ans = 0\n            if i == k:\n                ans += 1\n            if i < 0:\n                return 0\n            if i > 0 and not is_cons:\n                ans += dfs(i - 1, jump, True)\n            ans += dfs(i + (1 << jump), jump + 1, False)\n            return ans\n\n        return dfs(1, 0, False)\n        \n        ",
+    "submit_ts": 1716087614.0
 }

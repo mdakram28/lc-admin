@@ -1,5 +1,5 @@
 {
-    "username": "curiosity-10",
-    "submission": "from functools import lru_cache\n\nclass Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @lru_cache(None)\n        def dfs(stair, jump, last_move_was_down):\n            total_ways = 0\n            \n            if stair == k:\n                total_ways = 1\n            if stair-1 > k:\n                return 0\n\n            \n            # Always allowed to move up, jump to stair + 2^jump and increment jump\n            next_stair = stair + (1 << jump)\n            total_ways += dfs(next_stair, jump + 1, False)\n\n            # Move down to stair-1 if it's not 0 and last move wasn't down\n            if stair >= 1 and not last_move_was_down:\n                total_ways += dfs(stair - 1, jump, True)\n\n            return total_ways\n\n        # Start from stair 1, jump initially is 0, and last move was not down\n        return dfs(1, 0, False)\n\n",
-    "submit_ts": 1716087041.0
+    "username": "ferferge",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dfs(i, jump, f):\n            res = 1 if i == k else 0\n            if not f and i > 0: res += dfs(i - 1, jump, True)\n            if i <= k:\n                res += dfs(i + 2 ** jump, jump + 1, False)\n            return res\n        return dfs(1, 0, False)",
+    "submit_ts": 1716087056.0
 }

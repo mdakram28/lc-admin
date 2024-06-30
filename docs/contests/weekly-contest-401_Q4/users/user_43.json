@@ -1,5 +1,5 @@
 {
-    "username": "H-R-2004",
-    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        const long long P=100005;\n        bitset<P> bt;\n        bt[0]=1;\n        int n=rewardValues.size();\n        sort(rewardValues.begin(),rewardValues.end());\n        for(int i=0;i<n;i++)\n        {\n            int x=rewardValues[i];\n            bt|=(((bt<<(P-x))>>(P-x))<<x);\n            // for(int i=0;i<min(4ll,P);i++)cout<<bt[i]<<\" \";\n            // cout<<endl;\n        }\n        int ans=0;\n        for(int i=0;i<P;i++)if(bt[i])ans=i;\n        return ans;\n    }\n};",
-    "submit_ts": 1717902376.0
+    "username": "i_love_xiaoshagua_cpp",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        bitset<100100> b, now;\n        b.set(0);\n        sort(rewardValues.begin(),rewardValues.end());\n        for (int r : rewardValues) {\n            now.set();\n            now = now >> (100100-r);\n            now = b & now;\n            now = now << r;\n            b = b | now;\n        }\n        for (int i = 100099; i >= 0; --i) {\n            if (b[i]) return i;\n        }\n        return -1;\n    }\n};",
+    "submit_ts": 1717901701.0
 }

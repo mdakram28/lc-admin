@@ -1,0 +1,5 @@
+{
+    "username": "nguyenquocthao00",
+    "submission": "class Solution:\n    def minimumDiameterAfterMerge(self, edges1: List[List[int]], edges2: List[List[int]]) -> int:\n        def getdia(edges):\n            m=[[] for _ in range(len(edges)+1)]\n            for i,j in edges:\n                m[i].append(j)\n                m[j].append(i)\n            res=0\n            def dp(i,prev):\n                nonlocal res\n                maxd = 1\n                for j in m[i]:\n                    if j==prev: continue\n                    d2 = dp(j, i)\n                    res=max(res, maxd + d2)\n                    maxd=max(maxd, 1 + d2)\n                return maxd\n            dp(0,0)\n            return res\n        a,b = getdia(edges1), getdia(edges2)\n        return max(a-1, b-1,a//2 + b//2 + 1)\n\n\n        ",
+    "submit_ts": 1719715821.0
+}

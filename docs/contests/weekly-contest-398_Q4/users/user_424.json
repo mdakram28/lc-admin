@@ -1,5 +1,5 @@
 {
-    "username": "techie_guy",
-    "submission": "class Solution {\npublic:\n    #define ll long long\n\nmap<pair<pair<ll, bool>, ll>, ll> mp;\n\nll func(ll cur, bool prv, ll jump, ll &k)\n{\n    ll ans = 0;\n    if (cur == k) {\n        ans++;\n    }\n\n    if (cur - 1 > k) {\n        return ans;\n    }\n\n    if (mp.find({{cur, prv}, jump}) != mp.end()) {\n        return mp[{{cur, prv}, jump}];\n    }\n\n    // now we do again\n    if (cur != 0 and prv == 0) {\n        ans += func(cur - 1, 1, jump, k);\n    }\n\n    ans += func(cur + (1 << jump), 0, jump + 1, k);\n\n    return mp[{{cur, prv}, jump}] = ans;\n}\n\nint waysToReachStair(ll k)\n{\n    int ans = 0;\n    ans = func(1, 0, 0, k);\n    return ans;\n}\n};",
-    "submit_ts": 1716088481.0
+    "username": "alexey_wish",
+    "submission": "class Solution:\n    def waysToReachStair(self, K: int) -> int:\n        \n        @cache\n        def dp(x,b,j):\n            # check if can\n            possible = (x == K+1) and (not b)\n            if x > K and not possible: return 0\n            ans = 1 if x == K else 0\n            ans += dp(x + (1 << j), False, j + 1)\n            if not b:\n                ans += dp(x -1, True, j)\n            return ans\n            \n                \n        \n        return dp(1,False,0)",
+    "submit_ts": 1716088782.0
 }

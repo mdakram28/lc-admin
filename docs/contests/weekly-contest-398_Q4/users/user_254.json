@@ -1,5 +1,5 @@
 {
-    "username": "Obes_",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def dp(i,back,jump):\n            if i == k:\n                ret = 1\n                if back:\n                    ret += dp(i-1,False,jump)\n                ret += dp(i + 2**jump, True, jump+1)\n                return ret\n            if i > k + 1:\n                return 0\n            \n            ret = 0\n            if back:\n                ret += dp(i-1, False,jump)\n            \n            ret += dp(i + 2**jump, True, jump+1)\n            \n            return ret\n            \n            \n        \n        return dp(1,True,0)\n            \n            \n                    ",
-    "submit_ts": 1716088134.0
+    "username": "NerdyCoder",
+    "submission": "class Solution {\npublic:\n    int waysToReachStair(int k) {\n        constexpr int mod = 1'000'000'007;\n        vector<vector<int>> combs(33, vector<int>(33));\n        for (int i = 0; i < combs.size(); ++i) {\n            combs[i][0] = combs[i][i] = 1;\n            for (int j = 1; j < i; ++j) {\n                combs[i][j] = (combs[i - 1][j] + combs[i - 1][j - 1]) % mod;\n            }\n        }\n        int result = 0;\n        for (int n = 0; n <= 30; ++n) {\n            const int m = (1 << n) - k;\n            if (m < 0 || m > n + 1) {\n                continue;\n            }\n            result += combs[n + 1][m];\n        }\n        return result;\n    }\n};",
+    "submit_ts": 1716087836.0
 }

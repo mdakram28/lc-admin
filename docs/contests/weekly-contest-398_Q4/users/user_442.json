@@ -1,5 +1,5 @@
 {
-    "username": "neko643",
-    "submission": "class Solution {\npublic:\n    int C(int a, int b) {\n        long long ans = 1;\n        for(int i = b + 1; i <= a; i++) {\n            ans *= i;\n            ans /= i - b;\n        }\n        return ans;\n    }\n    \n    int waysToReachStair(int k) {\n        /*\n            stairs are 0 to inf\n            if he don't go down on the first move, he can't get lower than the initial position.\n            if we jump n times, we can go down n + 1 times. jumping n times = 2^n - 1\n            -> 2^n - 1 - (n + 1) to 2^n - 1\n        */\n        int n = 0, ans = 0;\n        while(1 + (1 << n) - 1 - (n + 1) <= k) {\n            int maxreach = 1 + (1 << n) - 1;\n            n++;\n            if(maxreach < k) {\n                continue;\n            }\n            int back = maxreach - k;\n            ans += C(n, back);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": 1716088237.0
+    "username": "MarkovProcess",
+    "submission": "class Solution(object):\n    def waysToReachStair(self, k):\n        \"\"\"\n        :type k: int\n        :rtype: int\n        \"\"\"\n        q=[1]\n        res=0\n        def comb(x,y):\n            r=1\n            for i in range(1,x+1):\n                r*=i\n            for i in range(1,y+1):\n                r=r//i\n            for i in range(1,x-y+1):\n                r=r//i\n            return r\n        for i in range(32):\n            q.append(q[-1]*2)\n        for i in range(33):\n            #print(res)\n            t=q[i]-k\n            if t<0 or t>i+1:\n                continue\n            else:\n                res+=comb(i+1,t)\n        return res",
+    "submit_ts": 1716088232.0
 }

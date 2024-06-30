@@ -1,5 +1,5 @@
 {
-    "username": "AnDVT",
-    "submission": "class Solution:\n    def jump(self, down: bool, cur, jump: int) -> int:\n        # print(down, cur, jump)\n        if (down, cur, jump) in self.result:\n            return self.result[(down,cur,jump)]\n        res = 0\n        if cur-1 > self.k:\n            self.result[(down,cur,jump)] = 0\n            return 0\n        if cur == self.k:\n            res += 1\n        if down:\n            res += self.jump(False, cur-1, jump)\n        res += self.jump(True, cur+self.m[jump], jump+1)\n        self.result[(down,cur,jump)] = res\n        return res\n    def waysToReachStair(self, k: int) -> int:\n        self.k = k\n        self.m = []\n        self.result = dict()\n        for i in range(32):\n            self.m.append(2**i)\n        return self.jump(True, 1, 0)",
-    "submit_ts": 1716089340.0
+    "username": "pradeep247",
+    "submission": "class Solution {\npublic:\n    map<pair<int,pair<int,int>>,int> dp;\n    int tg;\n    \n    int f(int i, int jump, int minus) {\n        int op = 0;\n        if(i==tg) op++;\n        if(i > tg + 1) {\n            return 0;\n        }\n        if(i < 0) {\n            return 0;\n        }\n        if(jump > 31) {\n            return 0;\n        }\n        if(dp.count({i,{jump,minus}})) {\n            return dp[{i,{jump,minus}}];\n        }\n        op += f(i + (1 << jump), jump + 1, 0);\n        if(minus == 0 ) {\n            op += f(i - 1, jump, 1);\n        }\n        return dp[{i,{jump,minus}}] = op;\n    }\n\n    int waysToReachStair(int k) {\n        tg = k;\n        return f(1, 0, 0);\n    }\n};",
+    "submit_ts": 1716090237.0
 }

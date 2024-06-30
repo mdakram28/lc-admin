@@ -149,7 +149,7 @@ class ReportProcessor:
         for pair in pairs:
             if pair.similarity < sim_thres/100:
                 continue
-            writer.writerow([pair.rightFileId, pair.rightFileId, pair.similarity*100])
+            writer.writerow([pair.rightFileId, pair.leftFileId, pair.similarity*100])
         
         pairs_file.close()
 

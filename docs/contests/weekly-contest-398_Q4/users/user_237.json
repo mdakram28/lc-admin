@@ -1,5 +1,5 @@
 {
-    "username": "ayushag99",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        \n        @cache\n        def backtrack(pos, jump, k):\n            if k+1 < pos: return 0\n            \n            result = 0\n            if pos == k: result += 1\n            \n            \n            next_pos = pos + 2**jump\n            \n            k, next_pos = k - next_pos + 1, 1\n            \n            return result + backtrack(next_pos, jump+1, k) + backtrack(next_pos-1, jump+1, k)\n            \n            \n            \n        return backtrack(1, 0, k) + backtrack(1-1, 0, k)",
-    "submit_ts": 1716087780.0
+    "username": "CoderVinit28",
+    "submission": "class Solution {\npublic:\n    map<vector<int>, int> dp;\n    int waysToReachStair(int k) {\n        dp.clear();\n        return helper(1, k, 0, true);\n    }\n    \n    int helper(int stair, int &k, int jump, bool goDown){\n        if( stair > k && ((stair - k) > 2 && jump > 2) ){\n            return 0;\n        }\n        vector<int> state = {stair, jump, goDown};\n        if( dp.find(state) == dp.end() ){\n            int ways = 0;\n            if( stair == k ) ways += 1;\n            if( goDown ){\n                ways += helper(stair-1, k, jump, false);\n            }\n            ways += helper(stair + (1<<jump), k, jump+1, true);\n            dp[state] = ways;\n        }\n        return dp[state];\n    }\n};",
+    "submit_ts": 1716088081.0
 }

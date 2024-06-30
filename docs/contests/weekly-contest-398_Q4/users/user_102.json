@@ -1,5 +1,5 @@
 {
-    "username": "AminFahiminia",
-    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        @cache\n        def go(stair,jump,good):\n            ret = 1 if stair == k else 0\n            if good and stair:\n                ret += go(stair - 1, jump, False)\n                \n            if stair + (1 << jump) <= k + 1:\n                ret += go(stair + (1 << jump), jump + 1, True)\n            \n            return ret\n        ans = go(1,0,True)\n        go.cache_clear()\n        return ans",
-    "submit_ts": 1716087430.0
+    "username": "AmadeusChan",
+    "submission": "class Solution:\n    def waysToReachStair(self, k: int) -> int:\n        max_jumps = int(math.log2(k + 1)) + 1\n        \n        @cache\n        def dp(jump: int, last_op: int, pos: int) -> int:\n            if pos < 0:\n                return 0\n            if last_op == 0:\n                if jump == 0 and pos == 1:\n                    return 1\n                else:\n                    return 0\n            elif last_op == 1:\n                return dp(jump, 0, pos + 1) + dp(jump, 2, pos + 1)\n            else:\n                assert last_op == 2\n                if jump == 0:\n                    return 0\n                step = 2 ** (jump - 1)\n                return dp(jump - 1, 0, pos - step) + \\\n                    dp(jump - 1, 1, pos - step) + \\\n                    dp(jump - 1, 2, pos - step)\n                \n        ans = 0\n        for i in range(max_jumps + 1):\n            ans += dp(i, 0, k)\n            ans += dp(i, 1, k)\n            ans += dp(i, 2, k)\n        return ans",
+    "submit_ts": 1716087431.0
 }
