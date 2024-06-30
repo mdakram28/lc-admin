@@ -9,15 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Accordion, AccordionDetails, AccordionSummary, Button, IconButton, Paper, Slider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-
-export const fetchContestInfo = async () => {
-    const url = `/contests/contest-info.json`;
-    const contestInfo: {
-        reports: Record<string, ContestInfo>
-    } = JSON.parse(await (await fetch(url)).text());
-    return contestInfo;
-}
-
+import { fetchContestInfo } from "../util/api";
 
 export function ReportListComponent({ }: {}) {
     const [infos, setInfos] = useState<ContestInfo[] | undefined>();

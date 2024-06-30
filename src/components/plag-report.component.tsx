@@ -1,6 +1,5 @@
 import "../styles/prettyprint-style.css";
 import { useEffect, useRef, useState } from "react";
-import Papa from 'papaparse';
 import { ContestInfo, DolosFile, DolosPairs, GroupUser, SubmissionUser } from "../types/dolos.types";
 import { DisjSet } from "../util/disj-set";
 import { Panel, PanelGroup, PanelResizeHandle, assert } from "react-resizable-panels";
@@ -9,45 +8,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Accordion, AccordionDetails, AccordionSummary, Button, IconButton, Slider } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { fetchContestInfo } from "./report-list.component";
+import { fetchContestInfo, fetchGroups, fetchUser } from "../util/api";
 
 declare var PR: any;
 
-const fetchGroups = async (baseDir: string, similarity: number) => {
-    let groupsText = await (await fetch(`${baseDir}/groups/group_${similarity}.csv`)).text();
-    const parsedFiles = Papa.parse<GroupUser>(groupsText.trim(), {
-        header: true,
-        dynamicTyping: true
-    });
-    const groups: Record<string, GroupUser[]> = {};
-    for (const user of parsedFiles.data) {
-        if (groups[user.groupId] === undefined) {
-            groups[user.groupId] = [];
-        }
-        groups[user.groupId].push(user);
-    }
-
-    console.log(groups)
-    const groupsList = Object.values(groups);
-    groupsList.sort((a, b) => b.length - a.length);
-    groupsList.forEach(group => group.sort((a, b) => a.subm_ts - b.subm_ts));
-
-    return groupsList;
-};
-
-const CACHE_USERS: Record<string, SubmissionUser> = {};
-
-const fetchUser = async (baseDir: string, userFileId: string) => {
-    const url = `${baseDir}/users/user_${userFileId}.json`;
-    if (url in CACHE_USERS) {
-        return CACHE_USERS[url];
-    }
-
-    const user: SubmissionUser = JSON.parse(await (await fetch(url)).text());
-    CACHE_USERS[url] = user;
-
-    return user;
-}
 
 export function PlagReportComponent({ }: {}) {
     const { reportName } = useParams();
