@@ -1,0 +1,5 @@
+{
+    "username": "xs_pg",
+    "submission": "class Solution:\n    def maxTotalReward(self, rs: List[int]) -> int:\n        sr = set(rs)\n        rs = list(sr)\n        rs.sort()\n        n = len(rs)\n        \n        minv = min(rs)\n        \n        @cache\n        def dp(val):\n            if val in sr:\n                return True\n            if val < minv:\n                return False\n            ind = bisect_left(rs, (val + 2) // 2)\n            for i in range(ind, n):\n                if rs[i] > val:\n                    return False\n                if dp(val - rs[i]):\n                    return True\n            return False\n        \n        mv = max(rs)\n        for i in range(2*mv-1, mv, -1):\n            if dp(i):\n                return i\n        return mv",
+    "submit_ts": 1717903975.0
+}

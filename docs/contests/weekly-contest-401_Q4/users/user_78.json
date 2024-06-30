@@ -1,0 +1,5 @@
+{
+    "username": "DylanSmith",
+    "submission": "typedef long long ll;\n\n#define pb push_back\n#define sz(x) (int)x.size()\n#define all(x) begin(x),end(x)\n#define lb(x,y) lower_bound(all(x),y)-begin(x)\nclass Solution {\npublic:\n    int maxTotalReward(vector<int>& arr) {\n        int mx = 0;\n        set<int> st;\n        for (int i : arr) mx = max(mx, i), st.insert(i);\n        bitset<100001> dp, dp2;\n        dp[0] = 1;\n        for (int i = 1; i <= mx; i++) {\n            dp2[i - 1] = dp2[i - 1] || dp[i - 1];\n            if (st.count(i)) dp |= dp2 << i;\n        }\n        for (int i = 100000; i >= 0; i--) {\n            if (dp[i]) return i;\n        }\n        return -1;\n    }\n};",
+    "submit_ts": 1717903103.0
+}

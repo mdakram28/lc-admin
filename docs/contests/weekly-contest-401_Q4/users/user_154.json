@@ -1,0 +1,5 @@
+{
+    "username": "amank13",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rewardValues) {\n        sort(rewardValues.begin(), rewardValues.end());\n        unique(rewardValues.begin(), rewardValues.end());\n        int n = rewardValues.size();\n        int max_val = rewardValues[n-1] - 1;\n        if(n>5000)return max_val*2+1;\n        rewardValues.pop_back();\n        vector<int> vec(max_val+1);\n        vec[0] = 1;\n        int ans = 0;\n        //set<int> st;\n        //st.insert(0);\n        for(int i=0;i<n-1;i++) {\n            for(int j=0;j<rewardValues[i] && j+rewardValues[i] <= max_val;j++) {\n                if(vec[j]) {\n                    vec[j+rewardValues[i]] = 1;\n                    ans = max(ans, j+rewardValues[i]);\n                }\n            }\n        }\n        return ans+max_val+1;\n    }\n};",
+    "submit_ts": 1717905176.0
+}

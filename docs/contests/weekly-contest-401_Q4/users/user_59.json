@@ -1,0 +1,5 @@
+{
+    "username": "watashi",
+    "submission": "class Solution {\npublic:\n  int maxTotalReward(vector<int>& rewardValues) {\n    auto v = rewardValues;\n    sort(v.begin(), v.end());\n    v.erase(unique(v.begin(), v.end()), v.end());\n    bitset<50005> ok, mask;\n    int end = 0;\n    ok[0] = true;\n    for (int i : v) {\n      while (end < i) {\n        mask[end++] = true;\n      }\n      ok |= (ok & mask) << i;\n    }\n    int k = v.back() - 1;\n    while (k >= 0 && !ok[k]) {\n      --k;\n    }\n    return v.back() + k;\n  }\n};",
+    "submit_ts": 1717902980.0
+}

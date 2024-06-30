@@ -1,0 +1,5 @@
+{
+    "username": "luckypistachio",
+    "submission": "class Solution:\n    def maxTotalReward(self, rewardValues: List[int]) -> int:\n        vs = sorted(rewardValues)\n        \n        @cache\n        def canSumV(index, s):\n            while vs[index] > s:\n                index -= 1\n                if index == -1:\n                    return False\n            while index >= 0:\n                x = vs[index]\n                if x == s:\n                    return True\n                elif x > s//2 and index > 0:\n                    if canSumV(index, s-x):\n                        return True\n                index -= 1\n            return False\n\n        y,i = vs[-1],len(vs)-1\n        while vs[i] >= y:\n            i -= 1\n            if i == -1:\n                return y\n        for v in range(y-1, vs[i], -1):\n            if canSumV(i, v):\n                return v + y\n        else:\n            return vs[i] + y",
+    "submit_ts": 1717905407.0
+}

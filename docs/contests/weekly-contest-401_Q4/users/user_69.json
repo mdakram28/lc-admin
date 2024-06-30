@@ -1,0 +1,5 @@
+{
+    "username": "remidinishanth",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& R) {\n        sort(R.begin(), R.end());\n        const int nax = 1e5 + 10;\n        bitset<nax> bset;\n        \n        bset[0] = 1;\n        for(int i: R){\n            bitset<nax> mask(bset);\n            mask <<= (nax - i);\n            mask >>= (nax - i);\n            auto temp = bset & mask;\n            bset = bset | (temp << i);\n        }\n        for(int i = nax - 1; i >= 0; --i){\n            if(bset[i]){\n                return i;\n            }\n        }\n        return -1;\n    }\n};",
+    "submit_ts": 1717902979.0
+}

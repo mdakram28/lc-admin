@@ -1,0 +1,5 @@
+{
+    "username": "d_ananta_",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& r) {\n        int n = r.size();\n        sort(r.begin(), r.end());\n        // r[i] > x\n        // x' = r[i] + x\n        // x = x' - r[i] < r[i]\n        // x' < 2*r[i]\n        // x'/2 <= r[i] < x'\n        vector<bool> dp(r.back()+1, 0);\n        dp[0] = 1;\n        for(int i = 0; i < n; i++) {\n            dp[r[i]] = 1;\n        }\n        int ans = 0;\n        for(int x = 1, j = 0; x < r.back(); x++) {\n            if(dp[x]) {\n                ans = x;\n                continue;\n            }\n            while(j < n && 2*r[j] <= x) j++;\n            for(int i = j; i < n && r[i] < x; i++) {\n                if(dp[x - r[i]]) {\n                    dp[x] = 1;\n                    ans = x;\n                    break;\n                }\n            }\n            // cout << x << \" \" << dp[x] << \" \" << j << \"\\n\";\n        }\n        return ans + r.back();\n    }\n};",
+    "submit_ts": 1717903251.0
+}

@@ -1,0 +1,5 @@
+{
+    "username": "ShenTM",
+    "submission": "from sortedcontainers import SortedList\n\nclass Solution:\n    def maxTotalReward(self, rewardValues: List[int]) -> int:\n        ss = set(rewardValues)\n        rewardValues = SortedList(ss)\n        @cache\n        def Max(pre_i, target):\n            if target - 1 in ss:\n                return target - 1\n            if pre_i < 0:\n                return 0\n            if rewardValues[pre_i] < target:\n                return max(Max(pre_i-1, target), rewardValues[pre_i] + Max(pre_i-1,min(rewardValues[pre_i], target-rewardValues[pre_i])))\n            else:\n                return Max(rewardValues.bisect_left(target) - 1, target)\n        if len(rewardValues) == 1:\n            return rewardValues[-1]\n        return Max(len(rewardValues) - 2, rewardValues[-1]) + rewardValues[-1]",
+    "submit_ts": 1717904122.0
+}

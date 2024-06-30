@@ -1,0 +1,5 @@
+{
+    "username": "zyxwvu164",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& rin) {\n        r = std::move(rin);\n        int n = r.size();\n        sort(r.begin(), r.end());\n        int res = r.back();\n        s.clear();\n        s.resize(res+1, 0);\n        for (int i = 0; i < n-1; ++i)\n            s[r[i]] = 1;\n        p.resize(res+1, 0);\n        for (int i = 1; i < res; ++i)\n        {\n            p[i] = p[i-1];\n            while (r[p[i]] <= i)\n                ++p[i];\n        }\n        for (int i = res-1; i > 0; --i)\n            if (calc(i))\n                return res + i;\n        return res;\n    }\n    \n    bool calc(int v)\n    {\n        if (s[v] != 0)\n            return s[v] == 1;\n        int idx = p[v]-1;\n        while (idx > 0 && r[idx] * 2 > v)\n            if (calc(v - r[idx]))\n            {\n                s[v] = 1;\n                return true;\n            }\n            else\n            {\n                --idx;\n            }\n        s[v] = 2;\n        return false;\n    }\n    \n    vector<int> s;\n    vector<int> r;\n    vector<int> p;\n};",
+    "submit_ts": 1717904267.0
+}

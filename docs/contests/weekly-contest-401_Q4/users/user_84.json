@@ -1,0 +1,5 @@
+{
+    "username": "vermachakshu",
+    "submission": "\nbitset<100001> b;\n// bitset<200001> c;\nbitset<100001> c[50001];\n\nbool f = false;\nvoid once(){\n    // bitset<200001> t(1);\n    c[0] = bitset<100001>(1);\n    for(int i=1; i<=50000; i++){\n        c[i] = (c[i - 1] << 1);\n        c[i][0] = 1;\n    }\n}\n\nclass Solution {\npublic:\n    int maxTotalReward(vector<int>& a) {\n        // b = c = 1;\n        b = 1;\n        if(!f){\n            f = true;\n            once();\n        }\n        sort(a.begin(), a.end());\n        int pv = 1;\n        for(int el:a){\n            // while(pv < el){\n            //     c[pv++] = 1;\n            // }\n            b |= ((b & c[el - 1]) << el);\n        }\n        \n        for(int i=2*a.back(); i>=0; i--){\n            if(b[i])    return i;\n        }\n        return 0;\n    }\n};",
+    "submit_ts": 1717903349.0
+}

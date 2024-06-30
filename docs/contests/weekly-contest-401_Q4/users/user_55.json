@@ -1,0 +1,5 @@
+{
+    "username": "OTTFF",
+    "submission": "const int M = 4e5 + 1;\n\ntypedef bitset<M> BS;\n\nclass Solution {\npublic:\n    int maxTotalReward(vector<int>& a) {\n        sort(a.begin(), a.end());\n        a.erase(unique(a.begin(), a.end()), a.end());\n        int n = a.size();\n        \n        BS cur;\n        cur[0] = 1;\n        \n        BS msk;\n        int p = 0;\n        \n        for (int i : a) {\n            while (p < i) {\n                msk[p] = 1;\n                p++;\n            }\n            cur |= (cur & msk) << i;\n            cur[i] = 1;\n            // cout << i << ' ' << msk << ' ' << cur << endl;\n        }\n        \n        int ans = a[n - 1];\n        for (int i = a[n - 1] - 1; i >= 0; i--) {\n            if (cur[i]) {\n                ans = i + a[n - 1];\n                break;\n            }\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": 1717902070.0
+}

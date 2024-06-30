@@ -1,0 +1,5 @@
+{
+    "username": "deadRabbit",
+    "submission": "const int M = 25;\nconst int MX = (1<<M)-1;\nint C[100000/M + 100];\n\nclass Solution {\npublic:\n  int maxTotalReward(vector<int>& A) {\n    sort(A.begin(), A.end());\n    memset(C, 0, sizeof(C));\n\n    C[0]=1;\n\n    int best = 0;\n    for(int i = 0; i < A.size(); ++i) {\n      int ds = A[i]/M;\n      int es = A[i]%M;\n      int x = 0;\n      for (; x*M + M <=A[i]; ++x) {\n        C[x+ds]|=(C[x]<<es)&MX;\n        C[x+ds+1]|=(C[x]>>(M-es))&MX;\n      }\n      int r = A[i]-x*M;\n      if (r) {\n        int w = C[x]&((1<<r) - 1);\n        C[x+ds]|=(w<<es)&MX;\n        C[x+ds+1]|=(w>>(M-es))&MX;\n      }\n\n    }\n    for (int i = 100000/M + 100-1; i>=0; --i) {\n      if (C[i]) {\n        int j = M-1;\n        while(!(C[i]>>j&1))--j;\n        return i*M+j;\n      }\n    }\n    return -1;\n  }\n};",
+    "submit_ts": 1717902215.0
+}

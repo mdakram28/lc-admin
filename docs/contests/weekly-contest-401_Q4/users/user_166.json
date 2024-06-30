@@ -1,0 +1,5 @@
+{
+    "username": "emilguliyev",
+    "submission": "type cache struct {\n\tmaxSeen int\n}\n\nfunc (c *cache) maxTotalReward(rewardValues []int, reward, idx int, budgetLeft int) int {\n\tout := reward\n\tif budgetLeft == 0 || reward+budgetLeft <= c.maxSeen {\n\t\treturn out\n\t}\n\tfor i, r := range rewardValues[idx:] {\n\t\tif budgetLeft >= r {\n\t\t\tresult := c.maxTotalReward(rewardValues, reward+r, idx+i+1, min(budgetLeft-r, r-1))\n\t\t\tc.maxSeen = max(c.maxSeen, result)\n\t\t\tout = max(out, result)\n\t\t}\n\t}\n\treturn out\n}\n\nfunc maxTotalReward(rewardValues []int) int {\n\tsort.Slice(rewardValues, func(i, j int) bool {\n\t\treturn rewardValues[i] > rewardValues[j]\n\t})\n\tc := new(cache)\n\treturn c.maxTotalReward(rewardValues, rewardValues[0], 1, rewardValues[0]-1)\n}",
+    "submit_ts": 1717904765.0
+}

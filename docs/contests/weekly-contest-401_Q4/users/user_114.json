@@ -1,0 +1,5 @@
+{
+    "username": "sho1004",
+    "submission": "#ifdef _SM_LOCAL\n#include \"debug.hpp\"\n#else\n#include <bits/stdc++.h>\n#define Debug(...)\n#endif\nusing namespace std;\nusing ll = long long;\n\n\nclass Solution {\npublic:\n    int maxTotalReward(vector<int>& A) {\n        sort(A.begin(), A.end());\n        A.erase(unique(A.begin(), A.end()), A.end());\n        int n = (int)A.size();\n        const int N = 200001;\n        bitset<N> dp;\n        dp[0] = 1;\n        bitset<N> full;\n        int r = 0;\n        for (int i = 0; i < n; i++) {\n            while (r < A[i]) {\n                full[r] = 1;\n                r += 1;\n            }\n            auto t = dp & full;\n            t <<= A[i];\n            dp |= t;\n        }\n\n        for (int i = N - 1; i >= 0; i--) {\n            if (dp[i]) return i;\n        }\n        return 0;\n    }\n};",
+    "submit_ts": 1717903894.0
+}

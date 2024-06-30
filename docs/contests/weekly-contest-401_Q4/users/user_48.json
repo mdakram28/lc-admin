@@ -1,0 +1,5 @@
+{
+    "username": "MvKaio",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& a) {\n        int n = a.size();\n        const int MX = 1e5 + 10;\n        //const int MX = 20;\n        using B = bitset<MX>;\n        \n        int T = MX - 1;\n\n        B st = 0;\n        st[T] = 1;\n        sort(a.begin(), a.end());\n        int x = 0, ans = 0;\n        int j = 0;\n        vector<int> ev(MX, 0);\n        \n        B pw;\n        pw[T] = 1;\n        for (int i : a) {\n            while (j < i) {\n                pw[T - j] = 1;\n                j++;\n            }\n            B nxt = (st & pw) >> i;\n            ans = max<int>(ans, T - nxt._Find_first());\n            st |= nxt;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717901835.0
+}

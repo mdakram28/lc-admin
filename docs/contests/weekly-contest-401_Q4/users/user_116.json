@@ -1,0 +1,5 @@
+{
+    "username": "RightHandElf",
+    "submission": "class Solution:\n    def maxTotalReward(self, rewardValues: List[int]) -> int:\n        rewardValues.sort()\n        @lru_cache\n        def helper(target):\n            i = bisect_left(rewardValues, target)\n            if i < len(rewardValues) and rewardValues[i] == target:\n                return rewardValues[i]\n            best = 0\n            while i > 0:\n                i -= 1\n                best = max(best, rewardValues[i] + helper(min(target - rewardValues[i], rewardValues[i] - 1)))\n            return best\n        res = rewardValues.pop()\n        return res + helper(res - 1)",
+    "submit_ts": 1717903442.0
+}

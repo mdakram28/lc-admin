@@ -180,11 +180,11 @@ def main():
     SIMILARITY_PERCENTAGES = list(range(70, 101, 2))
 
     report = ReportProcessor(sys.argv[1], int(sys.argv[2]))
-    # for similarity in SIMILARITY_PERCENTAGES:
-    #     print(f"Writing group with {similarity=}")
-    #     report.write_group(similarity)
+    for similarity in SIMILARITY_PERCENTAGES:
+        print(f"Writing group with {similarity=}")
+        report.write_group(similarity)
 
-    # report.write_users()
+    report.write_users()
     report.write_contest_info()
 
 if __name__ == "__main__":

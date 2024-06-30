@@ -1,0 +1,5 @@
+{
+    "username": "u_noob_i",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& a) {\n        sort(a.begin(),a.end());\n        a.resize(distance(a.begin(),unique(a.begin(),a.end())));\n        int ret=0;\n        set<int> dp;\n        dp.insert(0);\n        for(auto &i:a){\n            auto itr=dp.lower_bound(i);\n            if(itr!=dp.begin()){\n                itr--;\n                ret=max(ret,*itr+i);\n            }\n            itr=dp.lower_bound(min(i,a.back()-i));\n            while(itr!=dp.begin()){\n                itr--;\n                if(dp.count(*itr+i)) break;\n                dp.insert(*itr+i);\n            }\n        }\n        return ret;\n    }\n};",
+    "submit_ts": 1717903058.0
+}

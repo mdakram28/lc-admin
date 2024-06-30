@@ -1,0 +1,5 @@
+{
+    "username": "tungduong150105",
+    "submission": "class Solution {\npublic:\n    int maxTotalReward(vector<int>& a) {\n        int n = (int) a.size();\n        std::sort(a.begin(), a.end());\n        constexpr int LIM = 1E5 + 5;\n        std::bitset<LIM> f;\n        int cur = 0;\n        std::bitset<LIM> dp, ndp;\n        dp[0] = 1;\n        for (int i = 0; i < n; ++i) {\n            while (cur < a[i]) {\n                f[cur] = 1;\n                ++cur;\n            }\n            ndp = dp;\n            ndp |= ((dp & f) << a[i]);\n            std::swap(dp, ndp);\n        }\n        int ans = 0;\n        for (int i = LIM - 1; i >= 0; --i) {\n            if (dp[i]) {\n                ans = i;\n                break;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": 1717902071.0
+}

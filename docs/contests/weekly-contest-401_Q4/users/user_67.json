@@ -1,0 +1,5 @@
+{
+    "username": "l_returns",
+    "submission": "const int MAX_SUM = 100000;\n\nclass Solution {\nprivate:\n    void resetBitsUpToN(std::bitset<MAX_SUM + 1>& bt, int n) {\n        if (n >= MAX_SUM) {\n            bt.reset(); \n        } else {\n            bt<<=(MAX_SUM+1-n);\n            bt>>=(MAX_SUM+1-n);\n        }\n    }\n\n    \npublic:\n    int maxTotalReward(std::vector<int>& rewardValues) {\n        std::sort(rewardValues.begin(), rewardValues.end());\n        std::bitset<MAX_SUM + 1> possibleSums;\n        possibleSums[0] = 1;\n\n        for (int num : rewardValues) {\n            std::bitset<MAX_SUM + 1> copy(possibleSums);\n            resetBitsUpToN(copy, num);\n            possibleSums |= (copy << num);    \n        }\n\n        for (int i = MAX_SUM; i > 0; --i) {\n            if (possibleSums[i]) {\n                return i;\n            }\n        }\n        assert(false); \n        return 0;\n    }\n};\n",
+    "submit_ts": 1717902687.0
+}

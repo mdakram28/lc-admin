@@ -1,0 +1,5 @@
+{
+    "username": "happypotter",
+    "submission": "class Solution:\n    def maxTotalReward(self, rewardValues: List[int]) -> int:\n        rewards = sorted(rewardValues)\n        pos = [(0,0)]\n        last = -1\n        for x in rewards:\n            if x == last: continue\n            last = x\n            new_pos = [(x, x)]\n            for l, r in pos:\n                if x <= l: continue\n                new_pos.append((l+x, x+min(x-1,r)))\n            new_pos = sorted(pos + new_pos)\n\n            pos = []\n            prev_l, prev_r = 0, 0\n            for l, r in new_pos:\n                if l <= prev_r + 1:\n                    prev_r = max(prev_r, r)\n                    continue\n                pos.append((prev_l, prev_r))\n                prev_l, prev_r = l, r\n            pos.append((prev_l, prev_r))\n\n        return pos[-1][1]\n",
+    "submit_ts": 1717903134.0
+}
