@@ -13,10 +13,9 @@ const GroupComponent = ({ groupId, group, sortBy }: {
     const { graph, selectedFileId, setSelectedFileId } = useContext(ReportContext);
     const [expanded, setExpanded] = useState(false);
 
-
     const GroupItems = () => {
         const neighbours = graph.graph[selectedFileId] || {};
-        
+
         const simWith: Record<string, number> = {};
         for (const user of group) {
             simWith[user.fileId] = Object.keys(graph.graph[user.fileId]).length;
@@ -24,12 +23,12 @@ const GroupComponent = ({ groupId, group, sortBy }: {
 
         const sortedGroup = useMemo(() => {
             const asc = sortBy.endsWith('a') ? 1 : -1;
-            if (sortBy.startsWith('r'))return group.toSorted((a, b) => (a.rank - b.rank)*asc);
-            if (sortBy.startsWith('u'))return group.toSorted((a, b) => (a.username.localeCompare(b.username))*asc);
-            if (sortBy.startsWith('sw'))return group.toSorted((a, b) => (simWith[a.fileId] - simWith[b.fileId])*asc);
+            if (sortBy.startsWith('r')) return group.toSorted((a, b) => (a.rank - b.rank) * asc);
+            if (sortBy.startsWith('u')) return group.toSorted((a, b) => (a.username.localeCompare(b.username)) * asc);
+            if (sortBy.startsWith('sw')) return group.toSorted((a, b) => (simWith[a.fileId] - simWith[b.fileId]) * asc);
             return [...group];
         }, [group, sortBy]);
-        
+
         const selectedIdx = sortedGroup.findIndex(u => u.fileId === selectedFileId);
         const lineStart = Math.min(selectedIdx, sortedGroup.findIndex(u => neighbours[u.fileId]));
         const lineEnd = Math.max(selectedIdx, sortedGroup.findLastIndex(u => neighbours[u.fileId]));
@@ -69,7 +68,7 @@ const GroupComponent = ({ groupId, group, sortBy }: {
     </>
 }
 
-export function GroupsTableComponent() {
+export function GroupsTableComponent({ filterText }: { filterText: string }) {
     const { groups } = useContext(ReportContext);
     const [sortBy, setSortBy] = useState("sw-d");
 
@@ -88,8 +87,15 @@ export function GroupsTableComponent() {
     const sortToggler = (name: string) => {
         return sortBy === `${name}-a` ? <i className="fa-solid fa-arrow-up-long"></i>
             : sortBy === `${name}-d` ? <i className="fa-solid fa-arrow-down-long"></i>
-            : <i style={{opacity: 0.2}} className="fa-solid fa-arrows-up-down"></i>;
+                : <i style={{ opacity: 0.2 }} className="fa-solid fa-arrows-up-down"></i>;
     }
+
+    
+    const filteredGroups = useMemo(() => {
+        if (!filterText) return groups;
+        const f = filterText.toLowerCase();
+        return groups.map(g => g.filter(u => u.username.toLowerCase().includes(f)));
+    }, [groups, filterText]);
 
     return <>
         <table className="data-table" cellSpacing={0} cellPadding={0}>
@@ -103,7 +109,7 @@ export function GroupsTableComponent() {
                 </tr>
             </thead>
             <tbody>
-                {groups.map((group, groupId) =>
+                {filteredGroups.map((group, groupId) =>
                     <GroupComponent key={groupId} group={group} groupId={groupId} sortBy={sortBy}/>
                 )}
             </tbody>

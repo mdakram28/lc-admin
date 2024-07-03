@@ -6,11 +6,13 @@ import { Panel, PanelGroup, PanelResizeHandle, assert } from "react-resizable-pa
 import { TreeView, TreeItem } from '@mui/x-tree-view';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Accordion, AccordionDetails, AccordionSummary, Button, IconButton, Slider } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Divider, Drawer, IconButton, Slider, TextField } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { fetchContestInfo, fetchPairs, fetchUserSubmission, fetchUsers } from "../util/api";
 import { GroupsTableComponent } from "./plag-groups-table.component";
 import { UserGraph } from "../util/graph";
+import SettingsIcon from '@mui/icons-material/Settings';
+import SearchIcon from '@mui/icons-material/Search';
 
 declare var PR: any;
 
@@ -34,16 +36,22 @@ function GroupsPanelComponent() {
 
     const { similarity, setSimilarity, reload } = useContext(ReportContext);
 
+    const [settingsOpen, setSettingsOpen] = useState(false);
+    const [filterText, setFilterText] = useState("");
+
     return <div>
-        <Accordion>
-            <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1-content"
-                id="panel1-header"
-            >
-                Settings
-            </AccordionSummary>
-            <AccordionDetails>
+        <div className="toolbar">
+
+            <span className="toolbar-item" style={{ flexGrow: 1 }}>
+                <SearchIcon style={{ fontSize: 20 }} />
+                <input type="text" onChange={ev => setFilterText(ev.target.value)} value={filterText} />
+            </span>
+            <a className="toolbar-item" onClick={() => setSettingsOpen(true)}>
+                <SettingsIcon />
+            </a>
+        </div>
+        <Drawer open={settingsOpen} onClose={() => setSettingsOpen(false)}>
+            <Box sx={{ width: 250, padding: "20px" }} role="presentation">
                 Similarity &gt;= {similarity}
                 <Slider
                     aria-label="Similarity"
@@ -57,12 +65,13 @@ function GroupsPanelComponent() {
                     max={100}
                     onChange={(ev, value) => setSimilarity(value as number)}
                 />
+                <Divider />
+                <br />
                 <Button variant="outlined" onClick={ev => reload()}>Save</Button>
-            </AccordionDetails>
-        </Accordion>
+            </Box>
+        </Drawer>
 
-
-        <GroupsTableComponent />
+        <GroupsTableComponent filterText={filterText} />
 
     </div>
 }

@@ -1,5 +1,6 @@
 from pre_plag import LcClient
 from post_plag import ReportProcessor
+from analyzer import LcAnalyzer
 from common import *
 from subprocess import run, PIPE, call
 from os import system, listdir, rename
@@ -23,12 +24,12 @@ for LC_CONTEST in contests:
     LC_QUESNUM=4
     REPORT=f"{LC_CONTEST}_Q{LC_QUESNUM}"
     SIMILARITY_PERCENTAGES = list(range(70, 101, 2))
-    REPORT_DIR = join(OUT_PATH, REPORT)
+    REPORT_DIR = join(CONTESTS_OUT_PATH, REPORT)
 
     print(f"Processing : {REPORT}")
 
-    client = LcClient(LC_CONTEST, LC_QUESNUM)
-    client.fetch_submissions(range(1, 50))
+    # client = LcClient(LC_CONTEST, LC_QUESNUM)
+    # client.fetch_submissions(range(1, 50))
 
     # system(f"""
     # docker run --init --network host -v "{abspath(REPORT_DIR)}:/dolos" ghcr.io/dodona-edu/dolos-cli -k 15 -f csv -l cpp info.csv
@@ -41,12 +42,16 @@ for LC_CONTEST in contests:
     # rename(join(REPORT_DIR, report_dir_name), new_report_dir)
 
 
-    report = ReportProcessor(LC_CONTEST, LC_QUESNUM)
+    # report = ReportProcessor(LC_CONTEST, LC_QUESNUM)
     # for similarity in SIMILARITY_PERCENTAGES:
     #     print(f"Writing group with {similarity=}")
     #     report.write_group(similarity)
     #     report.write_pairs(similarity)
 
     # report.write_pairs(70)
-    report.write_users()
+    # report.write_users()
     # report.write_contest_info()
+
+analyzer = LcAnalyzer()
+analyzer.process(80)
+analyzer.write()

@@ -76,7 +76,7 @@ class ReportProcessor:
         self.contest_name = contest_name
         self.ques_num = ques_num
         self.report_name = f"{contest_name}_Q{ques_num}"
-        self.base_dir = join(OUT_PATH, self.report_name)
+        self.base_dir = join(CONTESTS_OUT_PATH, self.report_name)
         self.report_dir = join(self.base_dir, "dolos-report")
 
     @cache
@@ -184,7 +184,7 @@ class ReportProcessor:
         users_file.close()
 
     def write_contest_info(self):
-        info_path = join(OUT_PATH, "contest-info.json")
+        info_path = join(CONTESTS_OUT_PATH, "contest-info.json")
         info = {
             "reports": {}
         }

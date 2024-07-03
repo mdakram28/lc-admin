@@ -16,8 +16,6 @@ import csv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-OUT_PATH = join("public", "contests")
-
 LANG_EXT = {
     "python": "py",
     "python3": "py",
@@ -40,7 +38,7 @@ LANG_EXT = {
 class LcClient:
     def __init__(self, contest: str, ques_num: int) -> None:
         self.ques_num = ques_num
-        self.out_path = join(OUT_PATH, f"{contest}_Q{ques_num}")
+        self.out_path = join(CONTESTS_OUT_PATH, f"{contest}_Q{ques_num}")
         self.api_base = f"https://leetcode.com/contest/api"
         self.api_base_base = {
             "US": f"https://leetcode.com/api",
