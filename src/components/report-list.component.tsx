@@ -46,7 +46,14 @@ export function ReportListComponent({ }: {}) {
                                 <Link to={`/report/${info.name}`}>{info.name}</Link>
                             </TableCell>
                             <TableCell>{info.ques_num}</TableCell>
-                            <TableCell>{info.sim80_numsubm}</TableCell>
+                            <TableCell> 
+                                <span style={{width: 50, display: "inline-block"}}>
+                                    {info.sim80_numsubm}
+                                </span>
+                                <span style={{color: "var(--font-secondary-color)", width: 50, display: "inline-block"}}>
+                                    - {Math.round(info.sim80_numsubm * 100/info.numsubm)}%
+                                </span>
+                            </TableCell>
                             <TableCell>{info.numsubm}</TableCell>
                         </TableRow>
                     ))}
