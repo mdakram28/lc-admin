@@ -1,6 +1,6 @@
 {
-    "username": "Yash0697",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        Map<Long, Long> ands = new HashMap<>();\n        long ans = 0l;\n        for(int i = 0; i < n; i++) {\n            if (nums[i] == k) ans++;\n            Map<Long, Long> currAnds = new HashMap<>();\n            currAnds.put((long) nums[i], 1L);\n            // This might be a TLE since we are reiterating all the previously computed Ands\n            // The AND gate can not be made using XOR since its not universal so can't use prefix\n            //      xor\n            for (Map.Entry<Long, Long> entry : ands.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                long newAnd = val & nums[i];\n                if (newAnd == k) {\n                    ans += freq;\n                }\n                currAnds.put(newAnd, currAnds.getOrDefault(newAnd, 0L) + freq);\n            }\n            \n            ands = currAnds;\n        }\n        return ans;\n    }\n}",
-    "submit_ts": "1720281263",
-    "subm_id": "1311818805"
+    "username": "hd_0910",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n           int n = nums.size();\n       long long c=0;\n        unordered_map<long long,long long>m;\n        for(int i=0;i<n;i++){\n            unordered_map<long long,long long>mp;\n            if(nums[i]==k){\n                c++;\n            }\n            mp[nums[i]]=1;\n            for(auto &[v,f]:m){\n                long long na=v&nums[i];\n                if(na==k){\n                    c+=f;\n                }\n                mp[na]+=f;\n            }\n            m=mp;\n        }\n        return c;\n    }\n};",
+    "submit_ts": "1720281439",
+    "subm_id": "1311825207"
 }

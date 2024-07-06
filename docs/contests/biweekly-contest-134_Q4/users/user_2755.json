@@ -1,6 +1,6 @@
 {
-    "username": "Manikandan_aids",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
-    "submit_ts": "1720279271",
-    "subm_id": "1311744513"
+    "username": "chaitanya-yeole",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        count = 0\n        and_dict = defaultdict(int)\n\n        for num in nums:\n            new_and_dict = defaultdict(int)\n\n            if num == k:\n                count += 1\n            \n            for value in and_dict:\n                new_and = value & num\n\n                if new_and == k:\n                    count += and_dict[value]\n                \n                new_and_dict[new_and] += and_dict[value]\n            \n            new_and_dict[num] += 1\n            and_dict = new_and_dict\n        \n        return count",
+    "submit_ts": "1720281026",
+    "subm_id": "1311810506"
 }

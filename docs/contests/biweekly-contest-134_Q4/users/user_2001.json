@@ -1,6 +1,6 @@
 {
-    "username": "akashrajr",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long cV = 0;\n        int lenV = nums.size();\n        unordered_map<long long, long long> pL;\n        for (int i = 0; i < lenV; ++i) {\n            unordered_map<long long, long long> cL; \n            if (nums[i] == k) {\n                cV++;\n            }\n            cL[nums[i]] = 1;\n            for (auto& [cal, fV] : pL) {\n                long long rV = cal & nums[i];\n                if (rV == k) {\n                    cV += fV;\n                }\n                cL[rV] += fV;\n            }\n            pL = cL;\n        }        \n        return cV;\n    }\n};\n",
-    "submit_ts": "1720279011",
-    "subm_id": "1311733544"
+    "username": "qq1239426256",
+    "submission": "class Solution {\npublic:\n    using ll = long long;\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<pair<int, int>> valid = {{0, -1}};\n        ll ans = 0;\n        for (int i = 0; i < n; i++) {\n            vector<pair<int, int>> nv = {{nums[i],i}};\n            for (auto [val, idx] : valid) {\n                int tmp = val & nums[i];\n                if (!nv.empty() && nv.back().first == tmp) continue;\n                nv.emplace_back(tmp, idx);\n            }\n            for (int j = 0; j < nv.size(); j++) {\n                if (nv[j].first == k) {\n                    if (j == nv.size() - 1)\n                        ans += nv[j].second + 1;\n                    else\n                        ans += nv[j].second - nv[j + 1].second;\n                }\n            }\n            valid = nv;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280976",
+    "subm_id": "1311808779"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "20bcs220",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n     int n=nums.size();\n     unordered_map<long long , long long>mp;\n     long long res=0;\n\n     for(int i=0;i<n;i++){\n        unordered_map<long long ,long long >mp1;\n        for(auto &it: mp){\n            long long val=it.first & nums[i];\n            mp1[val]+=it.second;\n        }\n        mp1[nums[i]]++;\n        mp=mp1;\n        if(mp.find(k)!=mp.end()) res+=mp[k];\n     }\n     return res;\n    }\n};",
-    "submit_ts": "1720280486",
-    "subm_id": "1311791182"
+    "username": "zuihulu",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long ans = 0;\n        Map<Integer, Integer> cnt = new HashMap<>();\n        // Queue<Integer> q = new ArrayDeque<>();\n        for (int x : nums) {\n            if ((x & k) != k) {\n                cnt.clear();\n                continue;\n            }\n            Map<Integer, Integer> cnt2 = new HashMap<>();\n            for (int y : cnt.keySet()) {\n                int m = cnt.get(y);\n                y &= x;\n                if ((y & k) == k) {\n                    cnt2.merge(y, m, Integer::sum);\n                }\n            }\n            cnt2.merge(x, 1, Integer::sum);\n            cnt = cnt2;\n            // System.out.println(cnt);\n            for (int y : cnt.keySet()) {\n                if (y == k) {\n                    ans += cnt.get(y);\n                }\n            }\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720280048",
+    "subm_id": "544570314"
 }

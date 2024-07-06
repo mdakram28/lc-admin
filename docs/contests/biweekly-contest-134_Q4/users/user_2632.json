@@ -1,6 +1,6 @@
 {
-    "username": "VamsiKrishnaRavinuthala",
-    "submission": "def vk(nums, k):\n    count = 0\n    n = len(nums)\n    \n    # Track the starting points of current valid AND values\n    current_and_map = {}\n    \n    for i in range(n):\n        next_and_map = {}\n        \n        # Update the AND values for the subarrays ending at the current element\n        for and_val in current_and_map:\n            new_and_val = and_val & nums[i]\n            if new_and_val in next_and_map:\n                next_and_map[new_and_val] += current_and_map[and_val]\n            else:\n                next_and_map[new_and_val] = current_and_map[and_val]\n        \n        # Also consider the subarray consisting of only the current element\n        new_and_val = nums[i]\n        if new_and_val in next_and_map:\n            next_and_map[new_and_val] += 1\n        else:\n            next_and_map[new_and_val] = 1\n        \n        # Update the main AND map with the results from this iteration\n        current_and_map = next_and_map\n        \n        # Count the occurrences of the AND value equal to k\n        if k in current_and_map:\n            count += current_and_map[k]\n    \n    return count\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        return vk(nums,k)",
-    "submit_ts": "1720279358",
-    "subm_id": "1311748035"
+    "username": "kalwayssleep",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        unordered_map<long long,long long >prev;\n        for(int i =0 ;i < n; i++){\n            unordered_map<long long ,long long> current;\n            if(nums[i] == k)cnt++;\n            current[nums[i]]=1;\n            for(auto &[value, times]:prev){\n                long long newresult = value & nums[i];\n                if(newresult == k)cnt += times;\n                current[newresult]+=times;\n            }\n            prev = current;\n        }\n        return cnt;\n    }\n};",
+    "submit_ts": "1720279727",
+    "subm_id": "1311762738"
 }

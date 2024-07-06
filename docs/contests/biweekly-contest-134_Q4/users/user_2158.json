@@ -1,6 +1,6 @@
 {
-    "username": "glagoid",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        prefix_count = [defaultdict(int) for _ in range(len(nums))]\n        prefix_count[0][nums[0]] = 1\n        result = 0\n        \n        for i in range(1, len(nums)):\n            current_num = nums[i]\n            prefix_count[i][current_num] += 1\n            \n            for key, count in prefix_count[i - 1].items():\n                new_and = key & current_num\n                prefix_count[i][new_and] += count\n        \n        for i in range(len(nums)):\n            for key, count in prefix_count[i].items():\n                if key == k:\n                    result += count\n        \n        return result\n        ",
-    "submit_ts": "1720278613",
-    "subm_id": "1311716746"
+    "username": "gourav_beniwal",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long n = nums.size(), cnt = 0;\n        map<long long, long long>mpp;\n        for(int i=0; i<n; i++){\n            map<long long, long long>mpc; \n            if (nums[i] == k) {\n                cnt++;\n            }\n            mpc[nums[i]] = 1;\n            for (auto it:mpp) {\n                long long num = it.first & nums[i];\n                if (num == k) {\n                    cnt += it.second;\n                }\n                mpc[num] += it.second;\n            }        \n            mpp =mpc;\n        }     \n        return cnt;\n    }\n};",
+    "submit_ts": "1720279849",
+    "subm_id": "1311767557"
 }

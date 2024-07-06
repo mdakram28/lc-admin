@@ -1,6 +1,6 @@
 {
-    "username": "drknzz",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        res = 0\n        j = 0\n        n = len(nums)\n        counts = [0] * 32\n        for i in range(n):\n            if (nums[i] & k) < k:\n                return res + self.countSubarrays(nums[i+1:], k)\n            \n            x = 1\n            for b in range(32):\n                counts[b] += 1 if (nums[i] & x) else 0\n                x <<= 1\n            \n            curr = int(''.join(['1' if x == i - j + 1 else '0' for x in reversed(counts)]), 2)\n            while curr == k:\n                x = 1\n                for b in range(32):\n                    counts[b] -= 1 if (nums[j] & x) else 0\n                    x <<= 1\n                j += 1\n                curr = int(''.join(['1' if x == i - j + 1 else '0' for x in reversed(counts)]), 2)\n                \n            res += j\n            \n        return res\n",
-    "submit_ts": "1720279911",
-    "subm_id": "1311769943"
+    "username": "naman2411",
+    "submission": "class Solution {\npublic:\ntypedef long long ll;\n    long long countSubarrays(vector<int>&nums, int k) {\n     ll n = nums.size();\n    long long  count = 0;\n    std::unordered_map<ll, ll> and_count;\n    \n    for (int i = 0; i < n; ++i) {\n        std::unordered_map<ll, ll> new_and_count;\n        new_and_count[nums[i]] = 1;\n        for (auto &[key, value] : and_count) {\n            ll new_and = key & nums[i];\n            new_and_count[new_and] += value;\n        }\n        and_count = new_and_count;\n        count += and_count[k];\n    }\n\n    return count;\n\n\n    }\n};",
+    "submit_ts": "1720279154",
+    "subm_id": "1311739702"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "HeyyyBooo",
-    "submission": "class Solution {\npublic:\n Solution(){\n        ios_base::sync_with_stdio(false); \n        cin.tie(NULL); \n        cout.tie(NULL);\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        \n        map<long long, long long> prevMP;\n\n        for (int i = 0; i < n; i++) {\n            map<long long, long long> currMP; \n\n            if (nums[i] == k) {\n                ans++;\n            }\n            currMP[nums[i]] = 1;\n\n            for (auto it : prevMP) {\n                long long v=it.first;\n                long long f=it.second;\n                long long newR = v & nums[i];\n                if (newR == k) {\n                    ans += f;\n                }\n                currMP[newR] += f;\n            }\n            \n            prevMP = currMP;\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": "1720279182",
-    "subm_id": "1311740903"
+    "username": "mayank5102002",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> c(32, 0);\n        \n        long long a = 0;\n        \n        for(int i = 0; i<n; i++){\n            for(int j = 0; j<31; j++){\n                \n                if(nums[i]&(1ll<<j)){\n                    c[j]++;\n                } else {\n                    c[j] = 0;\n                }\n            }\n            \n            int maxi = INT_MIN, mini = INT_MAX;\n            for(int j = 0; j<31; j++){\n                if(k&(1ll<<j)){\n                    mini = min(mini, c[j]);\n                } else {\n                    maxi = max(maxi, c[j]);\n                }\n            }\n            \n            if(k == 0){\n                a += (i-maxi+1);\n                continue;\n            }\n            \n            if(mini <= maxi){\n                continue;\n            }\n            \n            a += (mini-maxi);\n        }\n        \n        return a;\n    }\n};",
+    "submit_ts": "1720278609",
+    "subm_id": "1311716615"
 }

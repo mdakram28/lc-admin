@@ -1,6 +1,6 @@
 {
-    "username": "lovelive__-7",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n = a.size();\n        map<int, int> mp;\n        long long ans = 0;\n        for (int i=1; i<=n; i++){\n            if ((a[i-1] & k) == k){\n                int mmax = 0, mmin = i;\n                for (int j=0; j<=30; j++){\n                    if (k>>j & 1) mmax = max(mmax, mp[j]);\n                }\n                for (int j=0; j<=30; j++){\n                    if (a[i-1] >> j & 1){\n                        if (k>>j & 1) continue;\n                        mmin = min(mmin, mp[j]);\n                    }\n                }\n                ans+=max(mmin-mmax, 0);\n            } \n            for (int j=0; j<=30; j++){\n                if (!(a[i-1]>>j & 1)){\n                    mp[j] = i;\n                }\n            }\n\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279513",
-    "subm_id": "544567811"
+    "username": "Harshit-code-tech",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        total = 0\n        previous_results = defaultdict(int)       \n        for num in nums:\n            current_results = defaultdict(int)           \n            if num == k:\n                total += 1            \n            current_results[num] += 1            \n            for value, frequency in previous_results.items():\n                new_and_result = value & num                \n                if new_and_result == k:\n                    total += frequency                \n                current_results[new_and_result] += frequency            \n            previous_results = current_results       \n        return total",
+    "submit_ts": "1720278847",
+    "subm_id": "1311726789"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "feindreh",
-    "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar countSubarrays = function(nums, k) {\n    const dp = new Array(nums.length).fill(0).map(()=>{return {}})\n    const dynamo = (index,value) => {\n        if(index >= nums.length){return 0}\n        if(dp[index][value] !== undefined){return dp[index][value]}\n        const n = value&nums[index]\n        let next = dynamo(index+1,n)\n        let plus = (n === k)?1:0\n        dp[index][value] = next + plus\n        return next+plus\n    }\n    let res = 0\n    for(let i = 0;i<nums.length;i++){\n        res += (dynamo(i,nums[i]))\n    }\n    return res\n};",
-    "submit_ts": "1720278817",
-    "subm_id": "1311725555"
+    "username": "Ferrriccc",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        vector<vector<int>> idx(32);\n\n        auto a = nums;\n        int n = a.size();\n\n        long long ans = 0;\n        for (int i = 0; i < n; ++i) {\n            for (int b = 0; b < 30; ++b) {\n                if (!((a[i] >> b) & 1)) {\n                    idx[b].push_back(i);\n                }\n            }\n            int mx = i, mn = -1;\n            for (int b = 0; b < 30; ++b) {\n                if ((k >> b) & 1) {\n                    if (!idx[b].empty()) {\n                        mn = max(mn, idx[b].back());\n                    } \n                } else {\n                    if (!idx[b].empty()) {\n                        mx = min(mx, idx[b].back());\n                    } else {\n                        mx = -1;\n                    }\n                }\n            }\n            if (mn < mx) {\n                ans += (mx - mn);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277356",
+    "subm_id": "1311659847"
 }

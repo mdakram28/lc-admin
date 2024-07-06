@@ -1,6 +1,6 @@
 {
-    "username": "Aayush_Sui",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        int size = nums.size();\n        unordered_map<long long, long long> mpp1;\n        for (int i = 0; i <= size-1; ++i) {\n            if (nums[i] == k) {\n                ans = ans + 1;\n            }\n            unordered_map<long long, long long> mpp2; \n            mpp2[nums[i]] = 1;\n            for (auto&[first, second] : mpp1) {\n                long long res = first & nums[i];\n                if (res == k) {\n                    ans = ans + second;\n                }\n                mpp2[res] += second;\n            }\n            mpp1 = mpp2;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281548",
-    "subm_id": "1311829324"
+    "username": "VideCode_1",
+    "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar countSubarrays = function(nums, k) {\n    const n = nums.length;\n    let count = 0;\n\n    // Map to store previous results\n    let prevResults = new Map();\n\n    for (let i = 0; i < n; ++i) {\n        // Map to store current results\n        let currResults = new Map();\n\n        if (nums[i] === k) {\n            ++count;\n        }\n        currResults.set(nums[i], 1);\n\n        for (let [val, freq] of prevResults) {\n            let newAndResult = val & nums[i];\n            if (newAndResult === k) {\n                count += freq;\n            }\n            currResults.set(newAndResult, (currResults.get(newAndResult) || 0) + freq);\n        }\n        \n        prevResults = currResults;\n    }\n    \n    return count;\n};\n\n// Example usage:\nconsole.log(countSubarrays([1, 2, 3, 4], 1)); // Output depends on the input array and k value\nconsole.log(countSubarrays([5, 1, 2, 3], 0)); // Output depends on the input array and k value\n",
+    "submit_ts": "1720279362",
+    "subm_id": "1311748186"
 }

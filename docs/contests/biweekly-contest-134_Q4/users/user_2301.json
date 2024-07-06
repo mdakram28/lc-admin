@@ -1,6 +1,6 @@
 {
-    "username": "ashwanthkannan",
-    "submission": "#define ll long long\n#define pll pair<ll , ll>\n\nclass Solution {\npublic:\n    ll countSubarrays(vector<int>& nums, int k) {\n        \n        ll n = nums.size();\n        map<ll , pll> info;\n        ll ans = 0;\n        \n        \n        for(ll i = n-1 ; i >= 0 ; i --)\n        {\n            map<ll , pll> newinfo;\n            for(auto k : info)\n            {\n               if(!newinfo.count(k.first&nums[i])) \n               {\n                    newinfo[k.first&nums[i]] = k.second; \n               }\n               else\n               {\n                    newinfo[k.first&nums[i]].first  = min(newinfo[k.first&nums[i]].first  , k.second.first);\n                    newinfo[k.first&nums[i]].second  = max(newinfo[k.first&nums[i]].second  , k.second.second);\n               }\n            }\n            \n               if(!newinfo.count(nums[i])) \n               {\n                    newinfo[nums[i]] = {i,i}; \n               }\n               else\n               {\n                    newinfo[nums[i]].first  = min(newinfo[nums[i]].first  , i);\n                    newinfo[nums[i]].second  = max(newinfo[nums[i]].second  , i);\n               }\n            \n            \n            if(newinfo.count(k)) ans += newinfo[k].second - newinfo[k].first + 1;\n            info = newinfo;\n        }\n        \n        \n        \n        return ans;\n    }\n};",
-    "submit_ts": "1720278735",
-    "subm_id": "1311722013"
+    "username": "_BREEZE_",
+    "submission": "from collections import defaultdict\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        cnt=0\n        ar=defaultdict(int)\n        for num in nums:\n            nar=defaultdict(int)\n            nar[num]+=1\n            for res in ar:\n                new_and=res & num\n                nar[new_and]+=ar[res]\n            if k in nar:\n                cnt+=nar[k]\n            ar=nar\n        return cnt\n",
+    "submit_ts": "1720278421",
+    "subm_id": "1311708415"
 }

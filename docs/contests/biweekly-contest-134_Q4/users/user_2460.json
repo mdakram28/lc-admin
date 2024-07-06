@@ -1,6 +1,6 @@
 {
-    "username": "Ashutoosh",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        int size=n;\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (nums[index] == k) {\n                ++total;\n            }\n            currentResults[nums[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & nums[index];\n                if (newAndResult == k) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
-    "submit_ts": "1720278649",
-    "subm_id": "1311718305"
+    "username": "Tushar123Puniya",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n=a.size();\n        vector<vector<int>> fstzero(n,vector<int>(31,n));\n        for(int j=0;j<31;j++)\n        {\n            if(!((1<<j)&a[n-1])){\n                fstzero[n-1][j]=n-1;\n            }\n        }\n        for(int i=n-2;i>=0;i--)\n        {\n            fstzero[i]=fstzero[i+1];\n            for(int j=0;j<31;j++)\n            {\n                if(!((1<<j)&a[i])){\n                    fstzero[i][j]=i;\n                }\n            }\n        }\n        long long ans=0;\n        for(int i=0;i<n;i++)\n        {\n            int mn=i,mx=n;\n            for(int j=0;j<31;j++)\n            {\n                if((1<<j)&k){\n                    mx=min(fstzero[i][j],mx);\n                }\n                else\n                {\n                    mn = max(fstzero[i][j],mn);\n                }\n            }\n            ans+=max(0,mx-mn);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720281169",
+    "subm_id": "1311815564"
 }

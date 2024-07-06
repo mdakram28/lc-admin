@@ -1,6 +1,6 @@
 {
-    "username": "poke_coder",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        \n        unordered_map<long long, long long> mp;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> res; \n\n            if (nums[i] == k) {\n                ++cnt;\n            }\n            res[nums[i]] = 1;\n\n            for (auto& [val, freq] : mp) {\n                long long curr = val & nums[i];\n                if (curr == k) {\n                    cnt += freq;\n                }\n                res[curr] += freq;\n            }\n            \n            mp = res;\n        }\n        \n        return cnt;\n    }\n};",
-    "submit_ts": "1720278357",
-    "subm_id": "1311705573"
+    "username": "shiyudawei",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        def logTrick(nn: list[int], op):\n            res = defaultdict(int)\n            dp = []\n            for pos, cur in enumerate(nums):\n                for v in dp:\n                    v[2] = op(v[2], cur)\n                dp.append([pos, pos + 1, cur])\n\n                # \u539f\u5730\u53bb\u91cd\n                ptr = 0\n                for v in dp[1:]:\n                    if dp[ptr][2] != v[2]:\n                        ptr += 1\n                        dp[ptr] = v\n                    else:\n                        dp[ptr][1] = v[1]\n                dp = dp[: ptr + 1]\n\n                # \u7ed3\u679c\u7edf\u8ba1\n                for v in dp:\n                    res[v[2]] += v[1] - v[0]\n            return res\n        lt = logTrick(nums, and_)\n        return lt[k]",
+    "submit_ts": "1720278311",
+    "subm_id": "544561885"
 }

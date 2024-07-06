@@ -1,6 +1,6 @@
 {
-    "username": "ayushkumr1991",
-    "submission": "class Solution {\npublic:\n     long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++cnt;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    cnt += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return cnt;\n    }\n};\n",
-    "submit_ts": "1720280728",
-    "subm_id": "1311799955"
+    "username": "A8h1n4v",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        unordered_map<long long, long long> pmp;\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> cmp; \n            if (nums[i] == k)   ans++;\n\n            cmp[nums[i]] = 1;\n            for (auto& [v, f] : pmp) {\n                long long newand = v & nums[i];\n                if (newand == k) {\n                    ans += f;\n                }\n                cmp[newand] += f;\n            }\n            pmp = cmp;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278526",
+    "subm_id": "1311713017"
 }

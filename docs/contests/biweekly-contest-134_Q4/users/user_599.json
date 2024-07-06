@@ -1,6 +1,6 @@
 {
-    "username": "OnikJahanSagor",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int lst0[32][nums.size() + 2];\n        \n        for(int i=0 ; i<=30 ; i++){\n            int lst = -1;\n            for(int j=0 ; j<nums.size() ; j++){\n                if((nums[j]&(1<<i)) == 0) lst = j;\n                lst0[i][j] = lst;\n            }\n        }\n        \n        \n        long long ret = 0;\n        \n        for(int i=0 ; i<nums.size() ; i++){\n            int x = -1, y = i;\n            \n            for(int j=0 ; j<=30 ; j++){\n                if((k&(1<<j)) == 0) y = min(y, lst0[j][i]);\n                else x = max(x, lst0[j][i]);\n            }\n            \n            ret += max(0, y-x);\n            \n        }\n        \n        return ret;\n        \n    }\n};",
-    "submit_ts": "1720279270",
-    "subm_id": "1311744488"
+    "username": "qiao-xia",
+    "submission": "def cal(ls):\n    n = len(ls)\n    if n == 0:\n        return 0\n    mv = max(ls)\n    bl = mv.bit_length()\n    #indexls = [[0] * (bl+1) for i in range(n)]\n    curindexls = [0] * (bl+1)\n    curindex = 0\n    r = 0\n    index = 0\n    for i in range(n):\n        curindex += 1\n        for j in range(bl):\n            if (ls[i] >> j) & 1:\n                curindexls[j] += 1\n        while 1:\n            if max(curindexls) < curindex:\n                curindex -= 1\n                for j in range(bl):\n                    if (ls[index] >> j) & 1:\n                        curindexls[j] -= 1\n                index += 1\n            else:\n                break\n        r += index\n    return r\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n\n        n = len(nums)\n        ls = []\n        re = 0\n        for i in range(n):\n            if nums[i] & k == k:\n                ls.append(k^nums[i])\n            else:\n                re += cal(ls)\n                ls = []\n        re+=cal(ls)\n        return re\n",
+    "submit_ts": "1720278806",
+    "subm_id": "544564466"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "Zenin-Toji",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n       int n = nums.length;\n        long count = 0;\n        \n        HashMap<Long, Long> prevResults = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> currResults = new HashMap<>();\n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults.put((long)nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : prevResults.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n\n                long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults.put(newAndResult, currResults.getOrDefault(newAndResult, 0L) + freq);\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n}",
-    "submit_ts": "1720278781",
-    "subm_id": "1311723943"
+    "username": "Lokesh-18",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        unordered_map<int, int> freq;\n        for (int i = 0; i < n; ++i) {\n            unordered_map<int, int> newf;\n        for (auto& it : freq) {\n            long long new_and = it.first & nums[i];\n            if (new_and == k) {\n                cnt += it.second;\n            }\n            newf[new_and] += it.second;\n        }\n        newf[nums[i]] += 1;\n        if (nums[i] == k) {\n            cnt++;\n        }\n        freq = newf;\n    }\n    return cnt;\n    }\n};",
+    "submit_ts": "1720277892",
+    "subm_id": "1311684856"
 }

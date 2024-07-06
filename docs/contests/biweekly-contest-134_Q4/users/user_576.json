@@ -1,6 +1,6 @@
 {
-    "username": "Suryakant_Suman",
-    "submission": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n\n        // To store the previous results of AND operations\n        Map<Long, Long> prevResults = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            // To store the current results of AND operations\n            Map<Long, Long> currResults = new HashMap<>();\n\n            // If the current number is equal to k\n            if (nums[i] == k) {\n                count++;\n            }\n            currResults.put((long) nums[i], 1L);\n\n            // Iterate over previous results\n            for (Map.Entry<Long, Long> entry : prevResults.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n\n                // Calculate new AND result\n                long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults.put(newAndResult, currResults.getOrDefault(newAndResult, 0L) + freq);\n            }\n\n            // Update previous results with current results\n            prevResults = currResults;\n        }\n\n        return count;\n    }\n}\n",
-    "submit_ts": "1720278583",
-    "subm_id": "1311715435"
+    "username": "boriswilliams",
+    "submission": "class Solution:\n    def countSubarrays(self, a: List[int], k: int) -> int:\n        n = len(a)\n        r = 0\n        d0 = defaultdict(int)\n        for i in range(n):\n            d1 = defaultdict(int)\n            if (a[i] & k) == k:\n                d1[a[i]] += 1\n                for x in d0:\n                    if ((y := x & a[i]) & k) == k:\n                        d1[y] += d0[x]\n                r += d1[k]\n            d0 = d1\n            #print(a[i], {x: d0[x] for x in d0})\n        return r",
+    "submit_ts": "1720278757",
+    "subm_id": "1311722948"
 }

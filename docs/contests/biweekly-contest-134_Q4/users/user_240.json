@@ -1,6 +1,6 @@
 {
-    "username": "ignacio42",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720278455",
-    "subm_id": "1311709886"
+    "username": "kind-vvrighteky",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        unordered_map<int, int> f;\n        for (int x : nums) {\n            unordered_map<int, int> f_nxt;\n            if ((x & k) == k) f_nxt[x]++;\n            for (auto [and_res , cnt] : f) {\n                if ((and_res & x & k) == k) f_nxt[and_res & x] += cnt;\n            }\n            ans += f_nxt[k];\n            f = std::move(f_nxt);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278538",
+    "subm_id": "544563062"
 }

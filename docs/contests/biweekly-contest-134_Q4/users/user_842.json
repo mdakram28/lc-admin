@@ -1,6 +1,6 @@
 {
-    "username": "aditya_aa",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long ans = 0;\n        Map<Integer, Integer> map = new HashMap<>();\n        Map<Integer, Integer> curr;\n\n        for (int el : nums) { // calculate for all possible subarrays ending at el\n            curr = new HashMap<>();\n            curr.put(el, 1);\n            if (el == k) ans++;\n\n            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {\n                int and = el & entry.getKey();\n                if (and == k) {\n                    ans += entry.getValue();\n                }\n                curr.put(and, curr.getOrDefault(and, 0) + entry.getValue());\n            }\n\n            map = curr;\n        }\n\n        return ans;\n    }\n}",
-    "submit_ts": "1720278933",
-    "subm_id": "1311730431"
+    "username": "Techcoder_yerhs",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        def update_count(prev_map, num, target):\n            current_map = defaultdict(int)\n            if num == target:\n                result[0] += 1\n            current_map[num] = 1\n            for key, count in prev_map.items():\n                bitwise_and_result = key & num\n                if bitwise_and_result == target:\n                    result[0] += count\n                current_map[bitwise_and_result] += count\n            return current_map\n\n        n = len(nums)\n        prev_map = defaultdict(int)\n        result = [0]\n\n        for num in nums:\n            prev_map = update_count(prev_map, num, k)\n\n        return result[0]",
+    "submit_ts": "1720279965",
+    "subm_id": "1311771997"
 }

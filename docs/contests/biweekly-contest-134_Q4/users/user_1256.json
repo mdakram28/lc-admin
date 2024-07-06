@@ -1,6 +1,6 @@
 {
-    "username": "bdyby9871112",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720277709",
-    "subm_id": "1311676385"
+    "username": "adsulswapnil27",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        map<long long,long long>mp;\n        int n=arr.size();\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            for(long long j=0;j<32;j++){\n                int p=(arr[i]>>j)&1;\n                if(p==1)mp[j]++;\n                else mp[j]=0;\n                // if(p==0)mp[0]++;\n                // else mp[0]=0;\n            }\n            // cout<<mp[0]<<\" \";\n            long long mi=i+1,mx=0;\n            for(long long j=0;j<32;j++){\n                int p=(k>>j)&1;\n                if(p==1)mi=min(mi,mp[j]);\n                if(p==0)mx=max(mx,mp[j]);\n                // cout<<mi<<\" \"<<\n            }\n            cout<<mi<<endl;\n            ans+=max((long long)0,mi-mx);\n        }\n        // cout<<endl;\n        return ans;\n    }\n};",
+    "submit_ts": "1720280271",
+    "subm_id": "1311783103"
 }

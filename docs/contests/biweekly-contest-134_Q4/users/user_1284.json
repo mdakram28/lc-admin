@@ -1,6 +1,6 @@
 {
-    "username": "Prachi_Gurav",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int k) {\n         int n = v.size();\n        long long t = 0;\n        unordered_map<long long, long long> prev;\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> curr; \n            if (v[i] == k) {\n                t++;\n            }\n            curr[v[i]] = 1;\n            for (auto& [val, freq] : prev) {\n                long long nand = val & v[i];\n                if (nand == k) {\n                    t += freq;\n                }\n                curr[nand] += freq;\n            }\n            \n            prev = curr;\n        }\n        return t;\n    }\n};",
-    "submit_ts": "1720279553",
-    "subm_id": "1311755793"
+    "username": "sodacorsair",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int[] zero = new int[32], one = new int[32];\n        Arrays.fill(zero, -1);\n        Arrays.fill(one, 0);\n        long ans = 0;\n\n        for (int i = 0; i < nums.length; i++)\n        {\n            int l = 0, r = i;\n            for (int j = 0; j < 32; j++)\n            {\n                int b = (k >> j) & 1, c = (nums[i] >> j) & 1;\n                if (c == 0)\n                {\n                    zero[j] = i;\n                    one[j] = i + 1;\n                }\n\n                if (b == 1) l = Math.max(l, one[j]);\n                else r = Math.min(r, zero[j]);\n            }\n            ans += Math.max(0, r - l + 1);\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720280010",
+    "subm_id": "1311773602"
 }

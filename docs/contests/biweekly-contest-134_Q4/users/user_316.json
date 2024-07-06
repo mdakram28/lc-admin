@@ -1,6 +1,6 @@
 {
-    "username": "pandearindam",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        map<int,int> tillnow;\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            map<int,int> now;\n            for(auto x:tillnow){\n                int a=(x.first&nums[i]);\n                if(a>=k){\n                    // cout<<i<<\" \"<<a<<\"\\n\";\n                    now[a]+=x.second;\n                }\n            }\n            tillnow=now;\n            if(nums[i]>=k) tillnow[nums[i]]++;\n            // cout<<tillnow[k]<<\"\\n\";\n            ans+=tillnow[k];\n        }\n        return ans;\n        \n    }\n};",
-    "submit_ts": "1720278501",
-    "subm_id": "1311711908"
+    "username": "chen-3cm",
+    "submission": "class Solution:\n\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        a, b = defaultdict(int), defaultdict(int)\n\n        ans = 0\n        for i in nums:\n            b.clear()\n            if i == k:\n                ans += 1\n\n            for key, value in a.items():\n                if key & i == k:\n                    ans += value\n\n                b[key & i] += value\n            b[i] += 1\n\n            a, b = b, a\n\n        return ans\n",
+    "submit_ts": "1720278564",
+    "subm_id": "544563209"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "ard001",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0 ;\n        vector<pair<int,int>> u,v;\n\n        for(int i=0;i<nums.size();++i){\n            for(auto &it: u)it.first &= nums[i];\n            u.emplace_back(nums[i],i);\n            v.clear();\n            for(auto &it: u)if(v.empty() || v.back().first!=it.first)v.push_back(it);\n            const int sz = v.size();\n            for(int j=0;j<sz;++j)if(v[j].first == k){\n                if(j==sz-1) ans += i-v[j].second+1;\n                else ans += v[j+1].second - v[j].second;\n            }\n            u.swap(v);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720276501",
-    "subm_id": "1311618539"
+    "username": "assiss33",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n         int n = nums.length;\n        long totalCount = 0;\n\n        Map<Integer, Integer> countMap = new HashMap<>();\n        for (int num : nums) {\n            Map<Integer, Integer> newCountMap = new HashMap<>();\n            newCountMap.put(num, newCountMap.getOrDefault(num, 0) + 1);\n\n            for (Map.Entry<Integer, Integer> entry : countMap.entrySet()) {\n                int value = entry.getKey();\n                int cnt = entry.getValue();\n                int newAnd = value & num;\n                newCountMap.put(newAnd, newCountMap.getOrDefault(newAnd, 0) + cnt);\n            }\n\n            countMap = newCountMap;\n            totalCount += countMap.getOrDefault(k, 0);\n        }\n\n        return totalCount;\n    }\n}",
+    "submit_ts": "1720279780",
+    "subm_id": "1311764768"
 }

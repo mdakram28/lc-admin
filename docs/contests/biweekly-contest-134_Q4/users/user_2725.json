@@ -1,6 +1,6 @@
 {
-    "username": "chitresh_cm",
-    "submission": "class Solution {\npublic:\n  long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720278425",
-    "subm_id": "1311708599"
+    "username": "navneet241",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int target) {\n        int n = nums.size();\n        long long total = 0;\n        unordered_map<long long, long long> prev;\n\n        int i = 0;\n        do {\n            unordered_map<long long, long long> cur;\n            total += countTarget(nums[i], target);\n\n            addToMap(cur, nums[i], 1);\n\n            for (auto it = prev.begin(); it != prev.end(); ++it) {\n                long long v = it->first;\n                long long f = it->second;\n                long long nAnd = v & nums[i];\n                addToMap(cur, nAnd, f);\n                if (nAnd == target) {\n                    total += f;\n                }\n            }\n\n            prev = move(cur);\n            ++i;\n        } while (i < n);\n\n        return total;\n    }\n\nprivate:\n    long long countTarget(int num, int target) {\n        return (num == target) ? 1 : 0;\n    }\n\n    void addToMap(unordered_map<long long, long long>& map, long long key, long long value) {\n        map[key] += value;\n    }\n};\n",
+    "submit_ts": "1720279149",
+    "subm_id": "1311739506"
 }

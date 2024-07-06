@@ -1,6 +1,6 @@
 {
-    "username": "yakshdarji",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n    unordered_map<long long, long long> andMap;\n    long long result = 0;\n\n    for (long long i = 0; i < n; ++i) {\n        unordered_map<long long, long long> newAndMap;\n        for (auto &entry : andMap) {\n            long long newAnd = entry.first & nums[i];\n            newAndMap[newAnd] += entry.second;\n        }\n        newAndMap[nums[i]]++;\n        andMap = newAndMap;\n\n        if (andMap.find(k) != andMap.end()) {\n            result += andMap[k];\n        }\n    }\n\n    return result;\n    }\n};",
-    "submit_ts": "1720281228",
-    "subm_id": "1311817613"
+    "username": "Vengeance07",
+    "submission": "class Solution {\npublic:\n    void f(vector<int> &nums, int k, long long &ans){\n        unordered_map<long long, long long> mpp1;\n        for(int i=0;i<nums.size();i++){\n            unordered_map<long long, long long> mpp2;\n            if(nums[i]==k){\n                ans++;\n            }\n            mpp2[nums[i]] = 1;\n            for(auto it : mpp1){\n                long long ind = it.first & nums[i];\n                if(ind==k){\n                    ans+=it.second;\n                }\n                mpp2[ind]+=it.second;\n            }\n            unordered_map<long long, long long> mpp3;\n            for(auto it : mpp2){\n                mpp3[it.first] = it.second;\n            }\n            mpp1 = mpp3;\n        }\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        f(nums, k, ans);\n        return ans;\n    }\n};",
+    "submit_ts": "1720280805",
+    "subm_id": "1311802683"
 }

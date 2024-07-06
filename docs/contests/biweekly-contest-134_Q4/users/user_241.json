@@ -1,6 +1,6 @@
 {
-    "username": "traveler1",
-    "submission": "class Solution {\npublic:\n    #define ll long long\n    long long countSubarrays(vector<int>& v, int k) {\n        int n = v.size();\n        ll ans = 0;\n        map<ll,ll>m;\n        for(int i = 0;i < n;i++){\n            if(v[i] == k) ans++;\n            map<ll,ll>temp;\n            temp[v[i]]++;\n            for(auto &x : m){\n                int val = (x.first) & v[i];\n                if(val == k) ans += x.second;\n                temp[val] += x.second;\n            }\n            m = temp;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720278276",
-    "subm_id": "1311702120"
+    "username": "laughing-parepvg",
+    "submission": "class Solution:\n    def countSubarrays(self, arr: List[int], k: int) -> int:\n        st=[]\n        res=0\n        for i,a in enumerate(arr):\n            for j in range(len(st)):\n                st[j][0]=st[j][0]&a\n            nst=[]\n            for v,j in st:\n                if len(nst)==0 or v!=nst[-1][0]:  #\u53bb\u91cd\uff0c\u76f8\u540c\u7684\u53ea\u7559\u4e00\u4e2a\n                    nst.append([v,j])\n            nst.append([a,i])           #\u65b0\u8fdb\u7684\u653e\u672b\u5c3e\uff0c\u5148\u522b\u6025\u7740\u5408\u5e76\n            #res=(res+a)%mod             #\u65b0\u8fdb\u7684\u7b54\u6848\u5355\u72ec\u7d2f\u52a0\n            if a==k:\n                res+=1\n            for j in range(len(nst)-1):\n                v,s,e=nst[j][0],nst[j][1],nst[j+1][1]-1  #\u6bcf\u76f8\u90bb\u7684\u4e24\u9879\uff0c\u5f97\u5230\u7684\u662f\u4e00\u4e2a\u8fde\u7eed\u7684\u533a\u95f4\n                if v==k:\n                    res+=(e-s+1)\n                    \n                #res=(res+(e-s+1)*v)%mod                  #\u8fd9\u4e2a\u8fde\u7eed\u533a\u95f4\u91cc\u7684\u6240\u6709\u540e\u7f00\u7b54\u6848\u90fd\u662fv\n            st=nst\n            if len(st)>1 and st[-1][0]==st[-2][0]:       #\u6700\u540e\u518d\u53bb\u91cd\n                st.pop()\n            #print(st,res)\n        return res",
+    "submit_ts": "1720276602",
+    "subm_id": "544551234"
 }

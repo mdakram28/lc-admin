@@ -1,6 +1,6 @@
 {
-    "username": "priyanshu9241",
-    "submission": "class Solution {\n  public long countSubarrays(int[] nums, int k) {\n    long cnt = 0;\n    int n = nums.length;\n    HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();\n\n    for (int i = 0; i < n; i++) {\n      HashMap<Integer, Integer> curr = new HashMap<Integer, Integer>();\n      if (nums[i] == k)\n        cnt++;\n      curr.put(nums[i], curr.getOrDefault(nums[i], 0) + 1);\n      for (int key : hm.keySet()) {\n        int freq = hm.get(key);\n        int temp = key & nums[i];\n        if (temp == k)\n          cnt += freq;\n\n        curr.put(temp, curr.getOrDefault(temp, 0) + freq);\n      }\n\n      hm = curr;\n    }\n\n    return cnt;\n  }\n}\n",
-    "submit_ts": "1720279425",
-    "subm_id": "1311750698"
+    "username": "BritoSupreme",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        count = 0\n        prev = {}\n\n        for num in nums:\n            new_res = {}\n            if num == k:\n                count += 1\n            if (num & k) == k:\n                new_res[num] = 1\n            for and_result in prev:\n                new_and = and_result & num\n                if new_and == k:\n                    count += prev[and_result]\n                if (new_and & k) == k:\n                    if new_and in new_res:\n                        new_res[new_and] += prev[and_result]\n                    else:\n                        new_res[new_and] = prev[and_result]\n            prev = new_res\n\n        return count",
+    "submit_ts": "1720281261",
+    "subm_id": "1311818759"
 }

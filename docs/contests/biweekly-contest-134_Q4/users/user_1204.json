@@ -1,6 +1,6 @@
 {
-    "username": "boom04995",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n        \n        HashMap<Long, Long> prevResults = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> currResults = new HashMap<>();\n            \n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults.put((long) nums[i], 1L);\n\n            for (HashMap.Entry<Long, Long> entry : prevResults.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                \n                long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                \n                currResults.put(newAndResult, currResults.getOrDefault(newAndResult, 0L) + freq);\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n}",
-    "submit_ts": "1720278453",
-    "subm_id": "1311709793"
+    "username": "anish017",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int k) {\n\n        int size = array.size();\n        long long total = 0;\n\n        unordered_map<long long, long long> prev;\n        \n        for (int index = 0; index < size; ++index) {\n\n            unordered_map<long long, long long> curr; \n            if (array[index] == k) {\n                ++total;\n            }\n            curr[array[index]] = 1;\n\n            for (auto& [value, frequency] : prev) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == k) {\n                    total += frequency;\n                }\n                curr[newAndResult] += frequency;\n            }\n            \n            prev = curr;\n        }\n        return total;\n    }\n\n};",
+    "submit_ts": "1720280791",
+    "subm_id": "1311802182"
 }

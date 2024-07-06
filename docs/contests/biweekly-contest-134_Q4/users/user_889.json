@@ -1,6 +1,6 @@
 {
-    "username": "phanindrachary",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        unordered_map<int, int> mp1;\n        for (int i = 0; i < n; ++i) {\n        unordered_map<int, int> mp2;\n        for (auto& [andval, cnt] : mp1) {\n            int andval2 = andval & nums[i];\n            mp2[andval2] += cnt;\n        }\n        mp2[nums[i]]++;\n        mp1 = mp2;\n        if (mp1.find(k) != mp1.end()) {\n            count += mp1[k];\n        }\n    }\n\n    return count;\n    }\n};",
-    "submit_ts": "1720280123",
-    "subm_id": "1311777784"
+    "username": "jodeng-liao",
+    "submission": "struct Node {\n    int val, index;\n\n    bool operator==(const Node &b) { return val == b.val; }\n\n    bool operator!=(const Node &b) { return val != b.val; }\n};\n\nstring to_string(const Node &x) { return \"{val = \" + to_string(x.val) + \", index = \" + to_string(x.index) + \"}\"; }\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int> &nums, int k) {\n        int n = nums.size();\n        deque<Node> v;\n        long long ans = 0;\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < v.size(); ++j) {\n                v[j].val &= nums[i];\n            }\n            v.push_front({nums[i], i});\n            v.erase(unique(v.begin(), v.end()), v.end());\n            for (int j = 0; j < v.size(); ++j) {\n                if (v[j].val == k) {\n                    if (j == (int)v.size() - 1) {\n                        ans += v[j].index + 1;\n                    } else {\n                        ans += v[j].index - v[j + 1].index;\n                    }\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279670",
+    "subm_id": "544568552"
 }

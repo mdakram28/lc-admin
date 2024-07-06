@@ -1,6 +1,6 @@
 {
-    "username": "Hariom_9918",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int target) {\n        int n = nums.size();\n        long long total = 0;\n        unordered_map<long long, long long> prev;\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> current; \n            if (nums[i] == target) {\n                ++total;\n            }\n            current[nums[i]] = 1;\n            for (auto& [value, frequency] : prev) {\n                long long newAndResult = value & nums[i];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                current[newAndResult] += frequency;\n            }\n            \n            prev = current;\n        }\n        return total;\n    }\n};\n",
-    "submit_ts": "1720280088",
-    "subm_id": "1311776433"
+    "username": "r0hnx",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long res = 0;\n        Map<Integer, Integer> prevSeen = new HashMap<>();\n\n        for(int i = 0; i < n; i++) {\n            Map<Integer, Integer> currSeen = new HashMap<>();\n            if(nums[i] == k) {\n                res++;\n            }\n            currSeen.put(nums[i], 1);\n\n            for(var entry : prevSeen.entrySet()) {\n                int key = entry.getKey();\n                int val = entry.getValue();\n\n                int num = (key & nums[i]);\n                if(num == k) {\n                    res += val;\n                }\n\n                if(currSeen.containsKey(num)) {\n                    currSeen.put(num, currSeen.get(num) + val);\n                } else {\n                    currSeen.put(num, val);\n                }\n            }\n\n            prevSeen = currSeen;\n        }\n\n        return res;\n    }\n}",
+    "submit_ts": "1720280226",
+    "subm_id": "1311781477"
 }

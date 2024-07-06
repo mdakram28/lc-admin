@@ -1,6 +1,6 @@
 {
-    "username": "evgenus",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        # n = len(nums)\n        # res = 0\n        \n        # for s in range(n):\n        #     cur = nums[s]\n        #     if cur == k:\n        #         res += 1\n            \n        #     for e in range(s + 1, n):\n        #         cur &= nums[e]\n        #         if cur == k:\n        #             res += 1\n        #         elif cur < k:\n        #             break\n        \n        # return res\n        n = len(nums)\n        res = 0\n        prev = Counter()\n        \n        for num in nums:\n            cur = Counter()\n            \n            if num == k:\n                res += 1\n            cur[num] += 1\n            \n            for result in prev:\n                t = result & num\n                if t == k:\n                    res += prev[result]\n                cur[t] += prev[result]\n            \n            prev = cur\n        \n        return res",
-    "submit_ts": "1720278680",
-    "subm_id": "1311719667"
+    "username": "aryanitis",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int, int> prevAndResults;\n        long long count = 0;\n    \n        for (int num : nums) {\n            unordered_map<int, int> currAndResults;\n        \n            if (num == k) {\n                count++;\n            }\n            currAndResults[num]++;\n        \n            for (const auto& [andResult, freq] : prevAndResults) {\n                int newAndResult = andResult & num;\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currAndResults[newAndResult] += freq;\n            }\n        \n            prevAndResults = currAndResults;\n        }\n    \n        return count;\n    }\n};",
+    "submit_ts": "1720279410",
+    "subm_id": "1311750103"
 }

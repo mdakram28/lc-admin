@@ -1,6 +1,6 @@
 {
-    "username": "koustav_2004",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
-    "submit_ts": "1720278742",
-    "subm_id": "1311722296"
+    "username": "__notGrimo",
+    "submission": "class Solution {\npublic:\n    typedef long long ll;\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n = nums.size(), res = 0;\n        unordered_map <ll, ll> mpp1;\n        unordered_map <ll, ll> mpp2;\n        for(auto& ele: nums) {\n            if(ele == k) {\n                res++;\n            }\n            for(auto& it: mpp1) {\n                ll t = it.first & ele;\n                if(t == k) {\n                    res += it.second;\n                }\n                mpp2[t] += it.second;\n            }\n            mpp2[ele]++;\n            mpp1 = mpp2;\n            mpp2 = unordered_map<ll, ll>();\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720280059",
+    "subm_id": "1311775405"
 }

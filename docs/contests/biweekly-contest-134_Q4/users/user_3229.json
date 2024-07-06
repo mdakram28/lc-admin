@@ -1,6 +1,6 @@
 {
-    "username": "Gargi_Bhardwaj",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long res = 0;\n        int n = nums.length;\n        Map<Integer, Integer> prevAndCounts = new HashMap<>();\n\n        for (int i = 0; i < n; i++) {\n            Map<Integer, Integer> currAndCounts = new HashMap<>();\n            if (nums[i] == k) {\n                res++;\n            }\n            currAndCounts.put(nums[i], currAndCounts.getOrDefault(nums[i], 0) + 1);\n\n            for (int key : prevAndCounts.keySet()) {\n                int newAnd = key & nums[i];\n                if (newAnd == k) {\n                    res += prevAndCounts.get(key);\n                }\n                currAndCounts.put(newAnd, currAndCounts.getOrDefault(newAnd, 0) + prevAndCounts.get(key));\n            }\n\n            prevAndCounts = currAndCounts;\n        }\n\n        return res;\n    }\n}",
-    "submit_ts": "1720281125",
-    "subm_id": "1311814025"
+    "username": "rishabhgarg_1",
+    "submission": "class Solution {\npublic:\n    long long solve(vector<int> &nums, int k){\n        long long ans = 0;\n        int i = 0 , j = 0;\n        int n= nums.size();\n        vector<int> bits(32,0);\n        int val = INT_MAX;\n        while(j<n){\n            val &= nums[j];\n            for(int i =0;i<32;i++){\n                if(!(nums[j]&(1<<i))) bits[i]++;\n            }\n            while(val < k && i<=j){\n                for(int id = 0;id<32;id++){\n                    if(!(nums[i]&(1<<id))) bits[id]--;\n                    if(bits[id] == 0) val |= (1<<id);\n                }\n                i++;\n            }\n            ans += (j-i+1);\n            j++;\n        }\n        return ans;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        return solve(nums,k)-solve(nums,k+1);\n    }\n};",
+    "submit_ts": "1720281065",
+    "subm_id": "1311811905"
 }

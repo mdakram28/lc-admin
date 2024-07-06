@@ -1,6 +1,6 @@
 {
-    "username": "devanshraii",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n    int size = nums.length;\n    \n        long total = 0;\n        Map<Long, Long> previousResults = new HashMap<>();\n\n        for (int index = 0; index < size; ++index) {\n            Map<Long, Long> currentResults = new HashMap<>();\n            if (nums[index] == k) {\n                ++total;\n            }\n            currentResults.put((long) nums[index], 1L);\n\n            for (Map.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long value = entry.getKey();\n                long frequency = entry.getValue();\n                long newAndResult = value & nums[index];\n\n                if (newAndResult == k) {\n                    total += frequency;\n                }\n                currentResults.put(newAndResult, currentResults.getOrDefault(newAndResult, 0L) + frequency);\n            }\n\n            previousResults = currentResults;\n        }\n        return total;\n        \n    }\n}",
-    "submit_ts": "1720278774",
-    "subm_id": "1311723644"
+    "username": "shivam_4242",
+    "submission": "class Solution {\n\n    typedef long long ll;\n\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<ll,ll> mp1;\n\n        ll ans=0;\n        for(int i=0;i<nums.size();i++){\n            unordered_map<ll,ll> mp2;\n            if(nums[i]==k) ans++;\n\n            mp2[nums[i]]=1;\n\n            for(auto &x:mp1){\n                ll temp=(x.first&nums[i]);\n                if(temp==k) ans+=x.second;\n\n                mp2[temp]+=x.second;\n            }\n\n            mp1=mp2;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720281347",
+    "subm_id": "1311821798"
 }

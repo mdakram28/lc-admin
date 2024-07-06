@@ -1,6 +1,6 @@
 {
-    "username": "aiyo_kingo",
-    "submission": "static const int __ = [](){\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n    cout.tie(nullptr);\n    return 0;\n}();\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long res =0;\n        unordered_map<long long, long long> prev;\n        for(int i=0;i<nums.size();i++){\n            unordered_map<long long, long long> curr;\n            if(nums[i]==k) res++;\n            curr[nums[i]]=1;\n            for(auto& [val,freq]:prev){\n                long long newand=val & nums[i];\n                if(newand==k) res+=freq;\n                curr[newand]+=freq;\n            }\n            prev=curr;\n        }\n        return res;\n    }\n};",
-    "submit_ts": "1720279170",
-    "subm_id": "1311740380"
+    "username": "ard001",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0 ;\n        vector<pair<int,int>> u,v;\n\n        for(int i=0;i<nums.size();++i){\n            for(auto &it: u)it.first &= nums[i];\n            u.emplace_back(nums[i],i);\n            v.clear();\n            for(auto &it: u)if(v.empty() || v.back().first!=it.first)v.push_back(it);\n            const int sz = v.size();\n            for(int j=0;j<sz;++j)if(v[j].first == k){\n                if(j==sz-1) ans += i-v[j].second+1;\n                else ans += v[j+1].second - v[j].second;\n            }\n            u.swap(v);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720276501",
+    "subm_id": "1311618539"
 }

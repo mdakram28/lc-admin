@@ -1,6 +1,6 @@
 {
-    "username": "VibhuDixit_cs22",
-    "submission": "#define ll long long \nclass Solution {\npublic:\n    long long ok(vector<int>& arr, int tar){\n        int n = arr.size();ll count = 0;unordered_map<ll, ll> one;\n        for (int i = 0; i < n; ++i) {\n            unordered_map<ll, ll> two; \n            if (arr[i] == tar) ++count;\n            two[arr[i]] = 1;\n            for (auto& [x, y] : one) {\n                ll th = x & arr[i];\n                if (th == tar) count += y;\n                two[th] += y;\n            }\n            one = two;\n        }\n        return count;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        return ok(nums,k);\n    }\n};",
-    "submit_ts": "1720278782",
-    "subm_id": "1311723990"
+    "username": "evgenus",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        # n = len(nums)\n        # res = 0\n        \n        # for s in range(n):\n        #     cur = nums[s]\n        #     if cur == k:\n        #         res += 1\n            \n        #     for e in range(s + 1, n):\n        #         cur &= nums[e]\n        #         if cur == k:\n        #             res += 1\n        #         elif cur < k:\n        #             break\n        \n        # return res\n        n = len(nums)\n        res = 0\n        prev = Counter()\n        \n        for num in nums:\n            cur = Counter()\n            \n            if num == k:\n                res += 1\n            cur[num] += 1\n            \n            for result in prev:\n                t = result & num\n                if t == k:\n                    res += prev[result]\n                cur[t] += prev[result]\n            \n            prev = cur\n        \n        return res",
+    "submit_ts": "1720278680",
+    "subm_id": "1311719667"
 }

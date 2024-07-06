@@ -1,6 +1,6 @@
 {
-    "username": "kishanvaghamashi2001",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        count = 0\n        \n        prev_results = {}\n\n        for i in range(n):\n            curr_results = {}\n\n            if nums[i] == k:\n                count += 1\n            curr_results[nums[i]] = 1\n\n            for val, freq in prev_results.items():\n                new_and_result = val & nums[i]\n                if new_and_result == k:\n                    count += freq\n                curr_results[new_and_result] = curr_results.get(new_and_result, 0) + freq\n            \n            prev_results = curr_results\n        \n        return count",
-    "submit_ts": "1720278482",
-    "subm_id": "1311711097"
+    "username": "lixiangfan97",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        const int n = (int)nums.size();\n        vector<int> cnts(31, 0);\n        long long ans = 0;\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < 31; ++j) {\n                if (nums[i] & (1 << j)) {\n                    cnts[j] = cnts[j] + 1;\n                } else {\n                    cnts[j] = 0;\n                }\n            }\n            int l = 0, r=i+1;\n            for (int j = 0; j < 31; ++j) {\n                if (k & (1 << j)) {\n                    r = min(r, cnts[j]);\n                } else {\n                    l = max(l, cnts[j] + 1);\n                }\n            }\n            if (r - l + 1 > 0) {\n                ans += (long long)(r-l+1);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277523",
+    "subm_id": "1311667679"
 }

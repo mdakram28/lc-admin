@@ -1,6 +1,6 @@
 {
-    "username": "21btc135",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n         int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720281387",
-    "subm_id": "1311823266"
+    "username": "21ucs146",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        res = 0\n        first = defaultdict(int)\n        \n        for num in nums:\n            last = defaultdict(int)\n            \n            if num == k:\n                res += 1\n            last[num] = 1\n            \n            for x, cnt in first.items():\n                y = x & num\n                if y == k:\n                    res += cnt\n                last[y] += cnt\n            \n            first = last\n        \n        return res",
+    "submit_ts": "1720281141",
+    "subm_id": "1311814587"
 }

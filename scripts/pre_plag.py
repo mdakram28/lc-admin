@@ -37,6 +37,8 @@ LANG_EXT = {
     "ruby": "rb"
 }
 
+
+
 class LcClient:
     def __init__(self, contest: str, ques_num: int) -> None:
         self.contest = contest
@@ -51,7 +53,7 @@ class LcClient:
 
         Path(self.out_path).mkdir(exist_ok=True, parents=True)
         self._driver = None
-        self.thread_pool = ThreadPoolExecutor(max_workers=10)
+        self.thread_pool = ThreadPoolExecutor(max_workers=1)
 
 
     @property
@@ -61,7 +63,7 @@ class LcClient:
         return self._driver
 
     def json_request(self, url):
-        cache_dir = join("tmp", "cache")
+        cache_dir = join("tmp", "cache2")
         Path(cache_dir).mkdir(exist_ok=True, parents=True)
         cache_file = join(cache_dir, hashlib.md5(url.encode('utf-8')).hexdigest() + ".json")
         if exists(cache_file):
@@ -123,17 +125,30 @@ class LcClient:
 
         for page in pages:
             data = self.json_request(f"{self.contest_base}/?pagination={page}&region=global")
-            
+            # print(json.dumps(data["questions"], indent=4))
             question_id = str(data["questions"][self.ques_num-1]["question_id"])
+
+            submission_futures = []
 
             for user, submissions in zip(data["total_rank"], data["submissions"]):
                 if question_id not in submissions:
+                    submission_futures.append(None)
                     continue
                 cont_subm = submissions[question_id]
                 api_base = self.api_base_base.get(cont_subm['data_region'], self.api_base_base['US'])
-                submission = self.json_request(f"{api_base}/submissions/{cont_subm['submission_id']}/")
+                submission_futures.append(
+                    self.thread_pool.submit(self.json_request, f"{api_base}/submissions/{cont_subm['submission_id']}/")
+                )
+            
+            for user, submissions, submission_future in zip(data["total_rank"], data["submissions"], submission_futures):
+                if submission_future is None:
+                    continue
+                cont_subm = submissions[question_id]
+                api_base = self.api_base_base.get(cont_subm['data_region'], self.api_base_base['US'])
+                submission = submission_future.result()
                 
                 filename = f"{user['rank']}____{user['username']}.{LANG_EXT[submission['lang']]}"
+                print(filename)
                 subm_path = join(self.out_path, "submissions", filename)
                 content = submission['code'].encode('utf-8')
                 if not exists(subm_path) or getsize(subm_path) != len(content):

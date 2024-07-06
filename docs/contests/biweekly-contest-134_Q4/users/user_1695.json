@@ -1,6 +1,6 @@
 {
-    "username": "amansingh001",
-    "submission": "class Solution {\npublic:\n    #define ll long long \n    long long solve(vector<int>& nums, int kk) {\n    unordered_map<ll,ll>mp;\n        ll ans=0;\n        for(auto t:nums){\n            unordered_map<ll,ll>mp2;mp2[t]++;\n            for(auto [l,m]:mp){\n                mp2[t&l]+=m;\n            }\n            mp=mp2;\n             for(auto [l,m]:mp){\n                if(l==kk)ans+=m;\n            }\n            \n        }\n        return ans;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        return solve(nums,k);\n    }\n};",
-    "submit_ts": "1720281005",
-    "subm_id": "1311809789"
+    "username": "jpz",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        \n        # dp[x][y] arrays ending at X, with value of Y\n        # dp = [Counter() for _ in len(nums)]\n        dp_last = Counter()\n        total = 0\n        for i in range(0, len(nums)):\n            dp = Counter()\n            dp[nums[i]] += 1\n            for n, c in dp_last.items():\n                dp[n & nums[i]] += c\n            total += dp[k]\n            dp_last = dp\n        \n        return total\n\n\n",
+    "submit_ts": "1720280599",
+    "subm_id": "1311795357"
 }

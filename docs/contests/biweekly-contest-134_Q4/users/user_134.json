@@ -1,6 +1,6 @@
 {
-    "username": "imSahil169",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        long long cnt = 0;\n        int n = a.size();\n        \n        unordered_map<int, int> mp1;\n        \n        for (int num : a) {\n            unordered_map<int, int> mp2;\n            \n            if (num == k) {\n                cnt++;\n            }\n            mp2[num] = mp2[num] + 1;\n            \n            for (auto &x : mp1) {\n                int newAnd = x.first & num;\n                if (newAnd == k) {\n                    cnt += x.second;\n                }\n                mp2[newAnd] = mp2[newAnd] + x.second;\n            }\n            \n            mp1 = mp2;\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720278214",
-    "subm_id": "1311699447"
+    "username": "you-jin-plus",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        using ll = long long;\n        int n = nums.size();\n        int f[n][20];\n        memset(f, -1, sizeof(f));\n        for (int i = 0; i < n; i++) f[i][0] = nums[i];\n        for (int j = 1; j < 20; j++) {\n            for (int i = 0; i + (1 << j) - 1 < n; i++) {\n                int k = j - 1;\n                f[i][j] = f[i][k] & f[i + (1 << k)][k];\n            }\n        }\n        auto get = [&](int l, int r) {\n            int k = log2(r - l + 1);\n            return f[l][k] & f[r - (1 << k) + 1][k];\n        };\n        ll ans = 0;\n        for (int i = 0; i < n; i++) {\n            int l = i - 1, r = n;\n            while (l + 1 < r) {\n                int mid = (l + r) / 2;\n                int t = get(i, mid);\n                if (t < k) r = mid;\n                else l = mid; \n            }\n            int l1 = i - 1, r1 = n;\n            while (l1 + 1 < r1) {\n                int mid = (l1 + r1) / 2;\n                int t = get(i, mid);\n                if (t <= k) r1 = mid;\n                else l1 = mid;\n            }\n            ans += l - l1;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278124",
+    "subm_id": "544560828"
 }

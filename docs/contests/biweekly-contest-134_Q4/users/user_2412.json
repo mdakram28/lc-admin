@@ -1,6 +1,6 @@
 {
-    "username": "decoder2025",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long cnt = 0;\n\n        HashMap<Long, Long> prev = new HashMap<>();\n\n        for (int it : nums) {\n            HashMap<Long, Long> curr = new HashMap<>();\n\n            if (it == k) {\n                ++cnt;\n            }\n            curr.put((long) it, 1L);\n\n            cnt = solve(prev, curr, it, k, cnt);\n            prev = curr;\n        }\n\n        return cnt;\n    }\n\n    private long solve(HashMap<Long, Long> prev, HashMap<Long, Long> curr, int num, int k, long cnt) {\n        for (HashMap.Entry<Long, Long> e : prev.entrySet()) {\n            long l = e.getValue();\n\n            long n = e.getKey() & num;\n            if (n == k) {\n                cnt += l;\n            }\n            curr.put(n, curr.getOrDefault(n, 0L) + l);\n        }\n        return cnt;\n    }\n}",
-    "submit_ts": "1720278280",
-    "subm_id": "1311702276"
+    "username": "the_GOAT13",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long result = 0;\n        unordered_map<long long, long long> a;\n        \n        for (int b = 0; b < n; ++b) {\n            unordered_map<long long, long long> c;\n            \n            if (nums[b] == k) {\n                ++result;\n            }\n            \n            c[nums[b]] = 1;\n            \n            for (auto& [d, e] : a) {\n                long long f = d & nums[b];\n                if (f == k) {\n                    result += e;\n                }\n                c[f] += e;\n            }\n            \n            a = c;\n        }\n        \n        return result;\n    }\n};",
+    "submit_ts": "1720280835",
+    "subm_id": "1311803723"
 }

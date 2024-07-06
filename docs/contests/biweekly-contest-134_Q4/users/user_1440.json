@@ -1,6 +1,6 @@
 {
-    "username": "rjg98",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int size = nums.length;\n        long total = 0;\n        Map<Long, Long> previousResults = new HashMap<>();\n\n        for (int index = 0; index < size; ++index) {\n            Map<Long, Long> currentResults = new HashMap<>();\n            if (nums[index] == k) {\n                ++total;\n            }\n            currentResults.put((long) nums[index], 1L);\n\n            for (Map.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long value = entry.getKey();\n                long frequency = entry.getValue();\n                long newAndResult = value & nums[index];\n                if (newAndResult == k) {\n                    total += frequency;\n                }\n                currentResults.put(newAndResult, currentResults.getOrDefault(newAndResult, 0L) + frequency);\n            }\n\n            previousResults = currentResults;\n        }\n\n        return total;}\n}",
-    "submit_ts": "1720279591",
-    "subm_id": "1311757388"
+    "username": "Romulus28",
+    "submission": "from typing import List\n\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        count = 0\n        \n        prevResults = {}\n        \n        for i in range(n):\n            currResults = {}\n            \n            if nums[i] == k:\n                count += 1  # Inc count if currnt ele is k\n            currResults[nums[i]] = 1\n            \n            for x, freq in prevResults.items():\n                newAndResult = x & nums[i]\n                if newAndResult == k:\n                    count += freq  # Inc count by freq if result is k\n                if newAndResult in currResults:\n                    currResults[newAndResult] += freq\n                else:\n                    currResults[newAndResult] = freq\n            \n            prevResults = currResults  # Updateprevious res fr nxt itr\n        \n        return count  # Return cnt\n",
+    "submit_ts": "1720278624",
+    "subm_id": "1311717280"
 }

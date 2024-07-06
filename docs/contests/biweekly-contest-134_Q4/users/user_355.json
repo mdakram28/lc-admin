@@ -1,6 +1,6 @@
 {
-    "username": "harshmathura8",
-    "submission": "class Solution {\n    public long countSubarrays(int[] array, int target) {\n        int size = array.length;\n        long total = 0;\n        Map<Long, Long> previousResults = new HashMap<>();\n        for (int index = 0; index < size; ++index) {\n            Map<Long, Long> currentResults = new HashMap<>(); \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults.merge((long) array[index], 1L, Long::sum);\n            for (Map.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long newAndResult = entry.getKey() & array[index];\n                if (newAndResult == target) {\n                    total += entry.getValue();\n                }\n                currentResults.merge(newAndResult, entry.getValue(), Long::sum);\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n}",
-    "submit_ts": "1720279563",
-    "subm_id": "1311756231"
+    "username": "naughty-merkleuxf",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int nex[30];\n        for(int j = 0;j <= 29;j++) nex[j] = -1;\n        int n = nums.size();\n    \tlong long ans = 0;\n    \tint max_range = n - 1;\n        for(int i = n - 1;i >= 0;i--){\n        \tif((nums[i] & k) == k){//\u53ef\u884c\n        \t\tbool f = 1;\n        \t\tint nx = i;\n        \t\tfor(int j = 0;j <= 29;j++){\n        \t\t\tif(((nums[i] >> j) & 1) == 0){\n        \t\t\t\tnex[j] = i;\n        \t\t\t}else if(((k >> j) & 1) == 0){\n        \t\t\t\tnx = max(nx,nex[j]);\n        \t\t\t\tif(nex[j] == -1) f = 0;\n        \t\t\t}\n        \t\t}\n        \t\tif(f){\n        \t\t\tans += (max_range - nx + 1);\n        \t\t}\n        \t}else{\n        \t\tfor(int j = 0;j <= 29;j++) nex[j] = -1;//\u4e0d\u53ef\n        \t\tmax_range = i - 1;\n        \t}\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278076",
+    "subm_id": "544560534"
 }

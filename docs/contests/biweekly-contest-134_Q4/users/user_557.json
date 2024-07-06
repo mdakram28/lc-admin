@@ -1,6 +1,6 @@
 {
-    "username": "Tristanczk",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        count = 0\n        current_and = defaultdict(int)\n    \n        for num in nums:\n            next_and = defaultdict(int)\n            next_and[num] += 1\n            for v in current_and:\n                new_and = v & num\n                next_and[new_and] += current_and[v]\n            current_and = next_and\n            count += current_and[k]\n        \n        return count\n",
-    "submit_ts": "1720279799",
-    "subm_id": "1311765534"
+    "username": "equinox-cz",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], tar: int) -> int:\n        res = 0\n        n = len(nums)\n        suf = []\n        for i in range(n - 1, -1, -1):\n            suf.append([nums[i], 1])\n            j, k, m = 0, 0, len(suf)\n            while j < m:\n                suf[j][0] &= nums[i]\n                if suf[j][0] != suf[k][0]:\n                    k += 1\n                    suf[k] = suf[j]\n                elif j != k:\n                    suf[k][1] += suf[j][1]\n                res += suf[j][1] if suf[j][0] == tar else 0\n                j += 1\n            suf = suf[:k + 1:]\n        print(suf)\n        return res",
+    "submit_ts": "1720278958",
+    "subm_id": "544565266"
 }

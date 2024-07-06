@@ -1,6 +1,6 @@
 {
-    "username": "Adityaraj08",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n\n        unordered_map<long long, long long> last;\n\n        for(int i = 0;i<n;i++){\n            unordered_map<long long, long long> ump;\n            if(nums[i] == k){\n                ans++;\n            }\n            ump[nums[i]] = 1;\n            for(auto it:last){\n                long long res = it.first & nums[i];\n                if(res == k){\n                    ans += it.second;\n                }\n                ump[res] += it.second;\n            }\n\n            last = ump;\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": "1720278756",
-    "subm_id": "1311722882"
+    "username": "shoaib5x",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long count = 0;\n        int n = nums.size();\n        unordered_map<int, int> andMap;\n        \n        for (int num : nums) {\n            unordered_map<int, int> newMap;\n            newMap[num]++;\n            \n            for (auto &[key, value] : andMap) {\n                int newAnd = key & num;\n                newMap[newAnd] += value;\n            }\n            \n            andMap = newMap;\n            \n            if (andMap.find(k) != andMap.end()) {\n                count += andMap[k];\n            }\n        }\n\n        return count;\n    }\n};",
+    "submit_ts": "1720280484",
+    "subm_id": "1311791094"
 }

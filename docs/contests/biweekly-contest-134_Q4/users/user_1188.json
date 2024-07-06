@@ -1,6 +1,6 @@
 {
-    "username": "ozone317",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        seen_values = {}\n        res = 0\n        \n        for num in nums:\n            temp = {}\n            if num == k:\n                res += 1\n                \n            temp[num] = 1\n            \n            for val, freq in seen_values.items():\n                and_val = num & val\n                if and_val == k:\n                    res += freq\n                if and_val in temp:\n                    temp[and_val] += freq\n                else:\n                    temp[and_val] = freq\n            \n            seen_values = temp\n        \n        return res",
-    "submit_ts": "1720280912",
-    "subm_id": "1311806481"
+    "username": "Ridh123",
+    "submission": "using System;\nusing System.Collections.Generic;\n\npublic class Solution {\n    public long CountSubarrays(int[] nums, int k) {\n        int n = nums.Length;\n        long count = 0;\n        \n        Dictionary<long, long> prevResults = new Dictionary<long, long>();\n\n        for (int i = 0; i < n; ++i) {\n            Dictionary<long, long> currResults = new Dictionary<long, long>(); \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            foreach (var kvp in prevResults) {\n                long newAndResult = kvp.Key & nums[i];\n                if (newAndResult == k) {\n                    count += kvp.Value;\n                }\n                if (currResults.ContainsKey(newAndResult)) {\n                    currResults[newAndResult] += kvp.Value;\n                }\n                else {\n                    currResults.Add(newAndResult, kvp.Value);\n                }\n            }\n            \n            prevResults = new Dictionary<long, long>(currResults);\n        }\n        \n        return count;\n    }\n}\n",
+    "submit_ts": "1720279029",
+    "subm_id": "1311734309"
 }

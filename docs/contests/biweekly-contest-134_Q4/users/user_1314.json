@@ -1,6 +1,6 @@
 {
-    "username": "Challa_Bharadwaj_Reddy",
-    "submission": "class Solution {\npublic:\nlong long min(long long a,long long b){\n    if(a<b) return a;\n    return b;\n}\n    long long countSubarrays(vector<int>& nums, int k) {\n        int t=0;\n        int l=0,r=0;\n        vector<int>ltz(32,-1);\n        for(int i=0;i<32;i++){\n            if((nums[0] & (1<<i))==0) ltz[i]=0; \n        }\n        long long ans=0;\n        while(r<nums.size()){\n            if((nums[r]&k)>=k){\n                r++;\n                long long mx=INT_MAX;\n                for(int i=0;i<32;i++){\n                    if((k&(1<<i))==0){\n                        mx=min(ltz[i],mx);\n                    }\n                }\n                if(mx!=-1){\n                    if(mx>=l){\n                        ans+=(mx-l+1);\n                    }\n                }\n            }\n            else{\n                r++;\n                l=r;\n            }\n            if(r==nums.size()) break;\n            for(int i=0;i<32;i++){\n                if((nums[r] & (1<<i))==0) ltz[i]=r; \n            }            \n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280792",
-    "subm_id": "1311802211"
+    "username": "Divyanshu_Vaibhav",
+    "submission": "func countSubarrays(array []int, target int) int64 {\n    size := len(array)\n    var total int64\n    previousResults := make(map[int]int64)\n\n    for index := 0; index < size; index++ {\n        currentResults := make(map[int]int64)\n        if array[index] == target {\n            total++\n        }\n        currentResults[array[index]] = 1\n        for value, frequency := range previousResults {\n            newAndResult := value & array[index]\n            if newAndResult == target {\n                total += frequency\n            }\n            currentResults[newAndResult] += frequency\n        }\n        previousResults = currentResults\n    }\n\n    return total\n}",
+    "submit_ts": "1720278510",
+    "subm_id": "1311712307"
 }

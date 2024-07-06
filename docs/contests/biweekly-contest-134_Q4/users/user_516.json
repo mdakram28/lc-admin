@@ -1,6 +1,6 @@
 {
-    "username": "gargi_11",
-    "submission": "class Solution {\npublic:\n    int n;\n    unordered_map<long long, long long>prev_result;\n\n    long long countSubarrays(vector<int>& nums, int k) {\n         n = nums.size();\n        long long cnt = 0;\n        \n        for (int i = 0; i < n; i++)\n        {\n            unordered_map<long long, long long>curr; \n            if (nums[i] == k) cnt++;\n            curr[nums[i]] = 1;\n\n            for(auto it : prev_result)\n            {\n                long long value = it.first;\n                long long frequency = it.second;\n                if ((value & nums[i]) == k)\n                {\n                    cnt += frequency;\n                }\n                curr[(value & nums[i])] += frequency;\n            }\n            \n            prev_result = curr;\n        }\n        \n        return cnt;\n    }\n};",
-    "submit_ts": "1720278579",
-    "subm_id": "1311715310"
+    "username": "glump1",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        cur = [0]*32\n        pref = [[0]*32]\n        #Get the range-and of everything from i to current\n        def check(l, r):\n            pop = r-l\n            res = 0\n            for bit in range(32):\n                x = (pref[r][bit]-pref[l][bit])==pop\n                res+=x<<bit\n            return res\n        for i, x in enumerate(nums):\n            for bit in range(32):\n                if (1<<bit)&x:\n                    cur[bit]+=1\n            pref.append(cur.copy())\n        res = 0\n        l, m = 0, 0\n        for r in range(1, n+1):\n            cur = pref[r]\n            while check(m, r)<=k:\n                m+=1\n            while check(l, r)<k:\n                l+=1\n            res+=m-l\n        return res",
+    "submit_ts": "1720279026",
+    "subm_id": "1311734178"
 }

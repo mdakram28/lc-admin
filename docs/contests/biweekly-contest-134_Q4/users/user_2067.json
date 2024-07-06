@@ -1,6 +1,6 @@
 {
-    "username": "KESHAVAGARWAL123",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n       int n=nums.size();\n       long long ans=0;\n        unordered_map<long long,long long>umap;\n        for(int i=0;i<n;i++){\n             unordered_map<long long,long long>umap2;\n            if(nums[i]==k){\n                ans++;\n            }\n            umap2[nums[i]]++;\n            for(auto it:umap){\n             long long newand=it.first&nums[i];\n             if(newand==k){\n                ans+=it.second;\n             }\n             umap2[newand]+=it.second;   \n            }\n            umap=umap2;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281571",
-    "subm_id": "1311830367"
+    "username": "yatoz",
+    "submission": "\nfunc countSubarrays(nums []int, k int) int64 {\n\tn := len(nums)\n\tsuffixBits := make([][]int, n+1)\n\tsuffixBits[n] = make([]int, 30)\n\tfor i := n - 1; i >= 0; i-- {\n\t\tv := nums[i]\n\t\tsuffixBits[i] = make([]int, 30)\n\t\tfor bit := 0; bit < 30; bit++ {\n\t\t\tsuffixBits[i][bit] = suffixBits[i+1][bit] + (v & 1)\n\t\t\tv >>= 1\n\t\t}\n\t}\n\t// for i := range suffixBits {\n\t// \tfmt.Println(suffixBits[i])\n\t// }\n\t// [idx - m, idx]\n\tget := func(m, idx int) int {\n\t\tres := 0\n\t\tfor i := 0; i < 30; i++ {\n\t\t\tif suffixBits[idx-m][i]-suffixBits[idx+1][i] == m+1 {\n\t\t\t\tres |= 1 << i\n\t\t\t}\n\t\t}\n\t\treturn res\n\t}\n\tlowerBound := func(idx int) int {\n\t\tl, r, m := 0, idx, 0\n\t\tfor l <= r {\n\t\t\tm = (l + r) / 2\n\t\t\tv := get(m, idx)\n\t\t\tif v > k {\n\t\t\t\tl = m + 1\n\t\t\t} else {\n\t\t\t\tr = m - 1\n\t\t\t}\n\t\t}\n\t\treturn l\n\t}\n\tupperBound := func(idx int) int {\n\t\tl, r, m := 0, idx, 0\n\t\tfor l <= r {\n\t\t\tm = (l + r) / 2\n\t\t\tv := get(m, idx)\n\t\t\tif v >= k {\n\t\t\t\tl = m + 1\n\t\t\t} else {\n\t\t\t\tr = m - 1\n\t\t\t}\n\t\t}\n\t\treturn l\n\t}\n\tres := 0\n\tfor i := 0; i < n; i++ {\n\t\tres += max(upperBound(i)-lowerBound(i), 0)\n\t}\n\treturn int64(res)\n}\n",
+    "submit_ts": "1720281086",
+    "subm_id": "544574479"
 }

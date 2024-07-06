@@ -1,6 +1,6 @@
 {
-    "username": "mayank5102002",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> c(32, 0);\n        \n        long long a = 0;\n        \n        for(int i = 0; i<n; i++){\n            for(int j = 0; j<31; j++){\n                \n                if(nums[i]&(1ll<<j)){\n                    c[j]++;\n                } else {\n                    c[j] = 0;\n                }\n            }\n            \n            int maxi = INT_MIN, mini = INT_MAX;\n            for(int j = 0; j<31; j++){\n                if(k&(1ll<<j)){\n                    mini = min(mini, c[j]);\n                } else {\n                    maxi = max(maxi, c[j]);\n                }\n            }\n            \n            if(k == 0){\n                a += (i-maxi+1);\n                continue;\n            }\n            \n            if(mini <= maxi){\n                continue;\n            }\n            \n            a += (mini-maxi);\n        }\n        \n        return a;\n    }\n};",
-    "submit_ts": "1720278609",
-    "subm_id": "1311716615"
+    "username": "pranjalkaushik2004",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        unordered_map<long long, long long>prev,curr;\n        for (int i = 0; i < n; ++i) {\n            curr.clear();\n            if (nums[i] == k) {\n                cnt++;\n            }\n            curr[nums[i]] += 1;\n            for (auto& [val, sa] : prev) {\n                long long newr = (nums[i]&val);\n                if (newr == k) {\n                    cnt += sa;\n                }\n                curr[newr]+=sa;\n            }\n            prev.swap(curr);\n        }\n        return cnt;\n    }\n};\n",
+    "submit_ts": "1720280966",
+    "subm_id": "1311808395"
 }

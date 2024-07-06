@@ -1,6 +1,6 @@
 {
-    "username": "Gajendra_11",
-    "submission": "\n#define ll long long int\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, ll k) {\n      int n = arr.size();\n    ll cnt = 0;\n    map<ll, ll> prev;\n    \n    for (int i=0; i<n; i++) {\n        map<ll,ll> curr;\n        ll target=k;\n        \n        if (arr[i]==target) {\n            cnt++;\n        }\n        curr[arr[i]] = 1;\n        \n        for ( auto it : prev) {\n            ll val = it.first;\n            ll freq = it.second;\n            ll newans = val & arr[i];\n            if (newans == target) {\n                cnt += freq;\n            }\n            curr[newans] += freq;\n        }\n        prev=curr;\n    }\n    return cnt;\n\n    }\n};",
-    "submit_ts": "1720280577",
-    "subm_id": "1311794541"
+    "username": "ba_ish",
+    "submission": "class Solution:\n    def countSubarrays(self, nums, k):\n        n = len(nums)\n        count = 0\n        \n        prev_results = {}\n\n        for i in range(n):\n            curr_results = {}\n            \n            if nums[i] == k:\n                count += 1\n            curr_results[nums[i]] = 1\n\n            for val, freq in prev_results.items():\n                new_and_result = val & nums[i]\n                if new_and_result == k:\n                    count += freq\n                if new_and_result in curr_results:\n                    curr_results[new_and_result] += freq\n                else:\n                    curr_results[new_and_result] = freq\n            \n            prev_results = curr_results\n        \n        return count\n\n# Example usage:\nsol = Solution()\nnums1 = [1, 2, 3, 4]\nk1 = 1\nprint(sol.countSubarrays(nums1, k1))  # Adjust example values as needed\n\nnums2 = [5, 1, 2, 7, 1, 3]\nk2 = 1\nprint(sol.countSubarrays(nums2, k2))  # Adjust example values as needed\n\n",
+    "submit_ts": "1720281221",
+    "subm_id": "1311817361"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "rohangoel",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        \n        long long ans = 0;\n        \n        unordered_map<long long, long long> mp;\n        \n        for(int i=0;i<n;i++){\n            unordered_map<long long, long long> curr;\n            \n            for(auto [ansScore, freq]: mp){\n                long long score = ansScore & nums[i];\n                \n                if(score == k){\n                    ans += freq;\n                }\n                \n                curr[score] += freq;\n            }\n            \n            curr[nums[i]]++;\n            if(nums[i] == k) ans++;\n            \n            mp = curr;\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": "1720280849",
-    "subm_id": "1311804231"
+    "username": "sk_07singh",
+    "submission": "\nfrom collections import defaultdict\nfrom typing import List\n\nclass Solution:\n    def countSubarrays(self, array: List[int], target: int) -> int:\n        size = len(array)\n        total = 0\n        previousResults = defaultdict(int)\n        \n        for index in range(size):\n            currentResults = defaultdict(int)\n            if array[index] == target:\n                total += 1\n            currentResults[array[index]] = 1\n            \n            for value, frequency in previousResults.items():\n                newAndResult = value & array[index]\n                if newAndResult == target:\n                    total += frequency\n                currentResults[newAndResult] += frequency\n            \n            previousResults = currentResults\n        \n        return total\n",
+    "submit_ts": "1720280659",
+    "subm_id": "1311797515"
 }

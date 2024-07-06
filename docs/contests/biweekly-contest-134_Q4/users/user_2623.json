@@ -1,6 +1,6 @@
 {
-    "username": "swapnilrai80",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        z = 0\n        d = {}\n\n        for i in range(n):\n            d1 = {}\n            for key in d:\n                pope = key & nums[i]\n                if pope == k:\n                    z += d[key]\n                if pope not in d1:\n                    d1[pope] = 0\n                d1[pope] += d[key]\n\n            if nums[i] == k:\n                z += 1\n\n            if nums[i] not in d1:\n                d1[nums[i]] = 0\n            d1[nums[i]] += 1\n\n            d = d1\n\n        return z",
-    "submit_ts": "1720277403",
-    "subm_id": "1311662073"
+    "username": "ding_bong",
+    "submission": "#include <vector>\n#include <iostream>\n#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long count = 0;\n        int n = nums.size();\n        unordered_map<int, int> andMap;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<int, int> newMap;\n            if (nums[i] == k) ++count;\n            for (auto& [value, freq] : andMap) {\n                int newAnd = value & nums[i];\n                newMap[newAnd] += freq;\n                if (newAnd == k) count += freq;\n            }\n            newMap[nums[i]]++;\n            andMap = newMap;\n        }\n\n        return count;\n    }\n};\n",
+    "submit_ts": "1720280388",
+    "subm_id": "1311787498"
 }

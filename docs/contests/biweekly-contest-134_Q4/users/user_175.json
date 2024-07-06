@@ -1,6 +1,6 @@
 {
-    "username": "ByteBot",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long count = 0;\n        unordered_map<int, int> and_map;\n\n        for (int num : nums) {\n            unordered_map<int, int> new_and_map;\n\n            if (num == k) {\n                count++;\n            }\n\n            for (auto& pair : and_map) {\n                int new_and = pair.first & num;\n                if (new_and == k) {\n                    count += pair.second;\n                }\n                new_and_map[new_and] += pair.second;\n            }\n\n            new_and_map[num]++;\n\n            and_map = move(new_and_map);\n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720278199",
-    "subm_id": "1311698774"
+    "username": "0x3f66616e",
+    "submission": "impl Solution {\n    pub fn count_subarrays(nums: Vec<i32>, k: i32) -> i64 {\n        let mut ands: Vec<(i32, i64)> = vec![];\n        let mut ret = 0;\n        for &x in &nums {\n            for (and, _) in ands.iter_mut() {\n                *and &= x;\n            }\n            ands.push((x, 1));\n            ands.dedup_by(|r, l| {\n                if r.0 == l.0 {\n                    l.1 += r.1;\n                    true\n                } else {\n                    false\n                }\n            });\n            for &(and, cnt) in &ands {\n                if and == k {\n                    ret += cnt;\n                }\n            }\n        }\n        ret\n    }\n}",
+    "submit_ts": "1720277861",
+    "subm_id": "544559229"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "navneet_bhati",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        \n       \n        long long ans = 0;\n        \n        unordered_map<long long,long long> temp;\n        \n        for(int i=0;i<n;i++){\n            unordered_map<long long,long long> cur;\n            \n            \n            if(nums[i]==k) ans++;\n            \n            cur[nums[i]] = 1;\n            for(auto [it,fr] : temp){\n                long long result = it & nums[i];\n                if(result == k){\n                    ans += fr;\n                }\n                cur[result] += fr;\n            }\n            \n            temp = cur;\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": "1720281547",
-    "subm_id": "1311829269"
+    "username": "Sherlock1603",
+    "submission": "class Solution {\n    bool checkBits(int k, int nums) {\n        for (int i = 0; i < 30; ++i) {  // Assuming 32-bit integers\n            if (k & (1 << i)) {  // Check if the i-th bit in k is 1\n                if ((nums & (1 << i)) == 0) {  // Check if the i-th bit in nums is 0\n                    return false;\n                }\n            }\n        }\n        return true;\n    }\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long int ans = 0;\n        unordered_map<long long int, long long int> p;\n        for(int i=0;i<n;i++){\n            unordered_map<long long int, long long int> c;\n            if(nums[i] == k){\n                ans++;\n            }\n            c[nums[i]] = 1;\n            for(auto & [val, freq]: p){\n                long long newResult = val & nums[i];\n                if(newResult == k){\n                    ans += freq;\n                }\n                c[newResult] += freq;\n            }\n            p=c;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280902",
+    "subm_id": "1311806129"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "DRJ2002",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int b) {\n        int n = a.size();\n        long long ans = 0;\n        unordered_map<long long, long long> pre;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> cur;\n            if (a[i] == b) {\n                ans++;\n            }\n            cur[a[i]] = 1;\n\n            updateCurrRes(pre, cur, a[i], b, ans);\n            pre = cur;\n        }\n\n        return ans;\n    }\n\nprivate:\n    void updateCurrRes(\n        const unordered_map<long long, long long>& prev_res,\n        unordered_map<long long, long long>& curr_res,\n        int c,\n        int b,\n        long long& ans\n    ) {\n        for (const auto& [d, e] : prev_res) {\n            long long f = d & c;\n            if (f == b) {\n               ans += e;\n            }\n            curr_res[f] += e;\n        }\n    }\n};\n\n",
-    "submit_ts": "1720279870",
-    "subm_id": "1311768365"
+    "username": "aryansingh3418",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long aryan = 0;\n        unordered_map<long long, long long> unmap; //unordered map ko banaya\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> tempunmap;  //ussi ka temp map ko banaya\n            if (k==nums[i]) {  //values ko check kiya\n                aryan=aryan+1;\n            }\n            tempunmap[nums[i]] = 1; //1 ko dala initialize\n            for (const auto& [val, freq] : unmap) {  //loop 2 chalayaa\n                if (k==(val & nums[i])) {  // k ki value kodalaa\n                    aryan = aryan+freq;\n                }\n            tempunmap[val & nums[i]] += freq; //temp ko dala freq me\n            }\n        unmap.swap(tempunmap); //alast me sab swap kiya\n        }\n        return aryan; //return karwaya ans ko\n    }\n};",
+    "submit_ts": "1720279495",
+    "subm_id": "1311753524"
 }

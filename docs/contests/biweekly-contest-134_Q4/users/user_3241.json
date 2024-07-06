@@ -1,6 +1,6 @@
 {
-    "username": "TripathiTanmay",
-    "submission": "class Solution {\n      public long countSubarrays(int[] nums, int k) {\n        long count = 0;\n        int n = nums.length;\n\n        // HashMap to store the frequency of subarray AND results\n        HashMap<Integer, Integer> andMap = new HashMap<>();\n\n        for (int i = 0; i < n; i++) {\n            HashMap<Integer, Integer> newAndMap = new HashMap<>();\n            \n            // Single element subarray\n            if (nums[i] == k) {\n                count++;\n            }\n            \n            // Update current number as a single subarray result\n            newAndMap.put(nums[i], 1);\n\n            // Iterate over all previous subarray results and update with current element\n            for (int key : andMap.keySet()) {\n                int newAnd = key & nums[i];\n                if (newAnd == k) {\n                    count += andMap.get(key);\n                }\n                newAndMap.put(newAnd, newAndMap.getOrDefault(newAnd, 0) + andMap.get(key));\n            }\n\n            // Update the andMap with the new results\n            andMap = newAndMap;\n        }\n\n        return count;\n    }\n}",
-    "submit_ts": "1720279848",
-    "subm_id": "1311767502"
+    "username": "Gajendra_11",
+    "submission": "\n#define ll long long int\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, ll k) {\n      int n = arr.size();\n    ll cnt = 0;\n    map<ll, ll> prev;\n    \n    for (int i=0; i<n; i++) {\n        map<ll,ll> curr;\n        ll target=k;\n        \n        if (arr[i]==target) {\n            cnt++;\n        }\n        curr[arr[i]] = 1;\n        \n        for ( auto it : prev) {\n            ll val = it.first;\n            ll freq = it.second;\n            ll newans = val & arr[i];\n            if (newans == target) {\n                cnt += freq;\n            }\n            curr[newans] += freq;\n        }\n        prev=curr;\n    }\n    return cnt;\n\n    }\n};",
+    "submit_ts": "1720280577",
+    "subm_id": "1311794541"
 }

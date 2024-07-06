@@ -1,6 +1,6 @@
 {
-    "username": "szoro",
-    "submission": "#define lln long long\nclass Solution {\npublic:\n    long long get(int k,vector<int> &a){\n        int bt[31],n=a.size();\n        memset(bt,0,sizeof bt);\n        long long ans = 0,j=0,m=-1;\n        for(int i=0;i<n;i++){\n            if(m==-1)m = a[i];\n            else m = (m&a[i]);\n            for(int l=0;l<31;l++){\n                if(a[i]&(1<<l))bt[l]++;\n            }\n            lln nm = 0;\n            while(m<=k&&j<=i){\n                ans+=(n-i);\n                for(int l=0;l<31;l++){\n                    if(a[j]&(1<<l))bt[l]--;\n                }\n                for(int l=0;l<31;l++){\n                    if(bt[l] && bt[l]==i-j)nm|=(1<<l);\n                }\n                \n                m= nm;\n                j++;\n            }\n            if(j==i+1)m = -1;\n        }\n        return ans;\n    }\n    long long countSubarrays(vector<int>& a, int k) {\n        \n     return get(k,a)-get(k-1,a);   \n    }\n};",
-    "submit_ts": "1720279552",
-    "subm_id": "1311755761"
+    "username": "klperiwal",
+    "submission": "# define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll res=0;\n        int n=nums.size();\n        \n        map<ll,ll>m;\n        for(int i=0;i<n;i++)\n        {\n            map<ll,ll>temp;\n            if(k==nums[i])\n                res++;\n            temp[nums[i]]=1;\n            \n            for(auto j:m)\n            {\n                ll a1=j.first;\n                ll a2=j.second;\n                ll x= a1 & nums[i];\n                if(x==k)\n                    res+=a2;\n                \n                temp[x]+=a2;\n            }\n            m=temp;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720278374",
+    "subm_id": "1311706389"
 }

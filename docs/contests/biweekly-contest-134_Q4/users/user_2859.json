@@ -1,6 +1,6 @@
 {
-    "username": "lraghuram14",
-    "submission": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n        Map<Long, Long> prevResults = new HashMap<>();\n        \n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> currResults = new HashMap<>();\n            \n            if (nums[i] == k) {\n                ++count;\n            }\n            \n            currResults.put((long)nums[i], 1L);\n            \n            for (Map.Entry<Long, Long> entry : prevResults.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                long andResult = val & nums[i];\n                \n                if (andResult == k) {\n                    count += freq;\n                }\n                \n                currResults.put(andResult, currResults.getOrDefault(andResult, 0L) + freq);\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n}\n",
-    "submit_ts": "1720278674",
-    "subm_id": "1311719399"
+    "username": "madhavasaiteja",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n = nums.size();\n        ll cnt = 0;\n        map<ll,ll>prev;\n        for(int i=0;i<n;i++){\n            map<ll,ll>curr;\n            if(nums[i] == k) cnt++;\n            curr[nums[i]]++;\n            for(auto it:prev){\n                ll val = (it.first & nums[i]);\n                if(val == k) cnt += it.second;\n                curr[val] += it.second;\n            }\n            prev = curr;\n        }\n        return cnt;\n    }\n};",
+    "submit_ts": "1720279509",
+    "subm_id": "1311754043"
 }

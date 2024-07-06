@@ -1,6 +1,6 @@
 {
-    "username": "kaluginpeter",
-    "submission": "from collections import defaultdict\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n: int = len(nums)\n        count: int = 0\n        current_subs: dict[int, int] = defaultdict(int)\n        for num in nums:\n            new_subs = defaultdict(int)\n            for sub in current_subs:\n                new_sub = sub & num\n                new_subs[new_sub] += current_subs[sub]\n            new_subs[num] += 1\n            current_subs = new_subs\n            if k in current_subs: count += current_subs[k]\n        return count",
-    "submit_ts": "1720279341",
-    "subm_id": "1311747335"
+    "username": "cactus_epic",
+    "submission": "class Solution {\npublic:\n    using LL = long long;\n\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        LL ans = (nums[0] == k);\n        map<int, int> mp;\n        mp[nums[0]] = 0;\n\n        for (int i = 1; i < n; ++i) {\n            int v = nums[i];\n            map<int, int> tmp;\n            for (auto& [andVal, pos] : mp) {\n                tmp[v & andVal] = pos;\n            }\n            tmp[v] = i;\n            \n            auto it1 = tmp.find(k);\n            if (it1 != tmp.end()) {\n                if (it1 == tmp.begin())\n                    ans += it1->second + 1;\n                else {\n                    ans += it1->second - prev(it1)->second;\n                }\n            }\n\n            mp = move(tmp);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720278792",
+    "subm_id": "544564389"
 }

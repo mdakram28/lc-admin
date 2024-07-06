@@ -1,6 +1,6 @@
 {
-    "username": "user5511GD",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long int count = 0;\n        std::unordered_map<int, int> andMap;\n\n        for (int num : nums) {\n            std::unordered_map<int, int> newAndMap;\n\n            newAndMap[num]++; // start a new subarray with the current element\n            for (const auto& [andVal, freq] : andMap) {\n                int newAnd = andVal & num;\n                newAndMap[newAnd] += freq;\n            }\n\n            for (const auto& [andVal, freq] : newAndMap) {\n                if (andVal == k) {\n                    count += freq;\n                }\n            }\n\n            andMap = newAndMap;\n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720278567",
-    "subm_id": "1311714756"
+    "username": "DarshanR_26",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map <long long, long long> oldResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currentResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currentResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : oldResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currentResults[newAndResult] += freq;\n            }\n            \n            oldResults = currentResults;\n        }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1720279885",
+    "subm_id": "1311768966"
 }

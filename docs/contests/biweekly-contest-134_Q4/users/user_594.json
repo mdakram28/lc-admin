@@ -1,6 +1,6 @@
 {
-    "username": "Zobayer_Abedin",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int x) {\n        int n = a.size();\n        vector<int> res(n + 2, n), cut(n + 2, 0);\n        for(int i = 0; i < 30; i++) {\n            \n            for(int j = 0; j < n; j++) {\n                int cnt = 1 & (a[j] >> i), pvJ = j;\n                while(cnt and j + 1 < n and (1 & (a[j + 1] >> i)) ) {\n                    j++, cnt++;\n                }\n                \n                for(int k = pvJ; k <= j; k++) {\n                    if(1 & (x >> i)) {\n                        res[k] = min(res[k], cnt);\n                    }\n                    else {\n                        cut[k] = max(cut[k], cnt);\n                    }\n                    cnt--;\n                }\n               \n            }\n        }\n        long long ans = 0;\n        // cout << n << endl;\n        for(int i = 0; i < n; i++) {\n            // cout << res[i] << \" \" << cut[i] << \"\\n\";\n            res[i] = min(res[i], n - i);\n            ans += max(0, res[i] - cut[i]);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279264",
-    "subm_id": "1311744251"
+    "username": "nightcrawler0112",
+    "submission": "#define ll long long \nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n\n        int n = nums.size();\n\n        \n        ll ans = 0;\n        for(int i=0;i<n;i++){\n            if(nums[i] == k) ans++;\n        }\n        unordered_map<ll,ll> mp;\n\n        for(int i=0;i<n;i++){\n            unordered_map<ll,ll> curr;\n\n            curr[nums[i]] = 1;\n\n            for(auto &it: mp){\n                ll currAnd = nums[i]&it.first;\n                if(currAnd == k) ans += it.second;\n\n                curr[currAnd] += it.second;\n            }\n\n            mp = curr;\n        }\n\n        return ans;\n    \n        \n    }\n};",
+    "submit_ts": "1720279400",
+    "subm_id": "1311749722"
 }

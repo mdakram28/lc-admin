@@ -1,6 +1,6 @@
 {
-    "username": "yashraval201",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n\n        long long count = 0;\n\n        unordered_map<long long, long long> prevResults;\n\n        for (int i=0; i<n; ++i) {\n            unordered_map<long long, long long> currResults;\n\n            if (nums[i] == k) {\n\n                ++count;\n\n            }\n\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n\n                long long newAndResult = val & nums[i]; \n                if (newAndResult == k) {\n                    count+= freq;\n\n                } \n                currResults[newAndResult] += freq; \n            }\n\n            prevResults = currResults; \n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720279290",
-    "subm_id": "1311745292"
+    "username": "13126731116",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        ands = {} # \u4ee5i\u4e3ar\u7684\u6240\u6709\u53ef\u80fd\n        cnt = 0\n        for x in nums:\n            t = {}\n            # ands = {a & x for a in ands}\n            for a in ands.keys():\n                t[a & x] = ands[a] + t.get(a & x,0)\n            t[x] = t.get(x,0) + 1\n            ands = t\n            cnt += t.get(k,0)\n        return cnt",
+    "submit_ts": "1720280900",
+    "subm_id": "544573753"
 }

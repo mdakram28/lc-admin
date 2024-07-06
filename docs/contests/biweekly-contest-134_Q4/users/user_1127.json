@@ -1,6 +1,6 @@
 {
-    "username": "chiragnayak10",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long count = 0;\n        \n        Map<Long, Long> a = new HashMap<>();\n        \n        for (int num : nums) {\n            Map<Long, Long> b = new HashMap<>();\n            \n            b.put((long) num, b.getOrDefault((long) num, 0L) + 1);\n            for (long key : a.keySet()) {\n                long newKey = key & num;\n                b.put(newKey, b.getOrDefault(newKey, 0L) + a.get(key));\n            }\n            \n            if (b.containsKey((long) k)) {\n                count += b.get((long) k);\n            }\n            \n            a = b;\n        }\n        \n        return count;\n    }\n}",
-    "submit_ts": "1720281103",
-    "subm_id": "1311813265"
+    "username": "Swashbuckler12",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        unordered_map<long long,long long> mp;\n        long long ans=0;\n        set<int> st;\n        int i=0;\n        while(i<n){\n            unordered_map<long long,long long> temp;\n            st.insert(nums[i]);\n            if(nums[i]==k){\n                ans++;\n            }\n            temp[nums[i]]++;\n            for(auto x:mp){\n                long long val=(nums[i]&x.first);\n                if(val==k){\n                    ans+=x.second;\n                }\n                temp[val]+=x.second;\n            }\n            mp=temp;\n            i++;\n        }\n        sort(nums.begin(),nums.end());\n        while(!st.empty()){\n            st.erase(st.begin());\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278340",
+    "subm_id": "1311704866"
 }

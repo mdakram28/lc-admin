@@ -1,6 +1,6 @@
 {
-    "username": "deveshanurag",
-    "submission": "class Solution { \npublic: \n    long long solve(vector<int>& nums, int k)\n    {\n        int n = nums.size(); \n        long long ginti = 0; \n         \n        unordered_map<long long, long long> pichla; \n \n        for (int i = 0; i < n; ++i) { \n            unordered_map<long long, long long> abhi;  \n \n            if (nums[i] == k) { \n                ++ginti; \n            } \n            abhi[nums[i]] = 1; \n \n            for (auto& [val, freq] : pichla) { \n                long long newAndResult = val & nums[i]; \n                if (newAndResult == k) { \n                    ginti += freq; \n                } \n                abhi[newAndResult] += freq; \n            } \n             \n            pichla = abhi; \n        } \n         \n        return ginti; \n    }\n    long long countSubarrays(vector<int>& nums, int k) { \n        return solve(nums,k);\n        \n    } \n};\n\n",
-    "submit_ts": "1720279645",
-    "subm_id": "1311759515"
+    "username": "aditya_aa",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long ans = 0;\n        Map<Integer, Integer> map = new HashMap<>();\n        Map<Integer, Integer> curr;\n\n        for (int el : nums) { // calculate for all possible subarrays ending at el\n            curr = new HashMap<>();\n            curr.put(el, 1);\n            if (el == k) ans++;\n\n            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {\n                int and = el & entry.getKey();\n                if (and == k) {\n                    ans += entry.getValue();\n                }\n                curr.put(and, curr.getOrDefault(and, 0) + entry.getValue());\n            }\n\n            map = curr;\n        }\n\n        return ans;\n    }\n}",
+    "submit_ts": "1720278933",
+    "subm_id": "1311730431"
 }

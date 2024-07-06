@@ -1,6 +1,6 @@
 {
-    "username": "mr_mehra94",
-    "submission": "import java.util.HashMap;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n\n        HashMap<Long,Long> prev = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> curr = new HashMap<>();\n\n            if (nums[i] == k) {\n                ++count;\n            }\n            curr.put((long) nums[i], 1L);\n\n            for (HashMap.Entry<Long, Long> entry : prev.entrySet()) {\n                long newres = entry.getKey() & nums[i];\n                if (newres == k) {\n                    count += entry.getValue();\n                }\n                curr.put(newres, curr.getOrDefault(newres, 0L) + entry.getValue());\n            }\n\n            prev = curr;\n        }\n\n        return count;\n    }\n}\n",
-    "submit_ts": "1720278876",
-    "subm_id": "1311728035"
+    "username": "saumya2002",
+    "submission": " import java.util.*;\n\nclass Solution {\n    public long countSubarrays(int[] array, int target) {\n        int n = array.length;\n        long total = 0;\n        HashMap<Long, Long> prev = new HashMap<>();\n        for (int index = 0; index < n; ++index) {\n            HashMap<Long, Long> curr = new HashMap<>(); \n            if (array[index] == target) {\n                ++total;\n            }\n            curr.put((long) array[index], 1L);\n            for (var entry : prev.entrySet()) {\n                long newAndResult = entry.getKey() & array[index];\n                if (newAndResult == target) {\n                    total += entry.getValue();\n                }\n                curr.merge((long) newAndResult, entry.getValue(), Long::sum);\n            }\n            \n            prev = curr;\n        }\n        return total;\n    }\n}\n\n\n",
+    "submit_ts": "1720280095",
+    "subm_id": "1311776722"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "priority_queue_07",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        int n = arr.size();\n        unordered_map<long long, long long> m;\n         long long ans = 0;\n        for (int i = 0; i < n; i++) {\n            unordered_map<long long, long long> mp; \n            if (arr[i] == k)\n                ans++;\n            mp[arr[i]] = 1;\n            for (auto& ii : m) {\n                long long x = ii.first & arr[i]; \n                if (x == k) {\n                    ans += ii.second;\n                }\n                mp[x]+=ii.second;\n            }\n            m = mp;\n        }\n        return ans;\n    }\n};\n",
-    "submit_ts": "1720280348",
-    "subm_id": "1311786005"
+    "username": "virinci",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        z = [[-1] * 32 for _ in range(n + 1)]\n        for i in range(n):\n            for j in range(32):\n                z[i + 1][j] = z[i][j] if nums[i] >> j & 1 else i\n        ans = 0\n        for i in range(n):\n            l, r = 0, i\n            for j in range(32):\n                if k >> j & 1:\n                    l = max(l, z[i + 1][j] + 1)\n                else:\n                    r = min(r, z[i + 1][j])\n            ans += max(0, r - l + 1)\n        return ans\n",
+    "submit_ts": "1720278767",
+    "subm_id": "1311723339"
 }

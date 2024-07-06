@@ -1,6 +1,6 @@
 {
-    "username": "wellmove2222",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720278345",
-    "subm_id": "1311705101"
+    "username": "16_rahul_1999",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map< long long, long long >and_map;\n        long long res = 0;\n        for( long long i = 0; i < n; i++ ){\n            unordered_map< long long, long long >new_and_map;\n            for( auto & it : and_map ){\n                long long new_and = it.first & nums[i];\n                new_and_map[new_and] += it.second;\n            }\n            \n            new_and_map[nums[i]]++;\n            and_map = new_and_map;\n            \n            if( and_map.find(k) != and_map.end() ){\n                res += and_map[k];\n            }\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": "1720280610",
+    "subm_id": "1311795739"
 }

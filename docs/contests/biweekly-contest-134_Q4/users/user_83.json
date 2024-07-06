@@ -1,6 +1,6 @@
 {
-    "username": "celestialcoder",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        vector<int> last(30, -1);\n        long long ans = 0;\n        int n = nums.size(), m = 1;\n        vector<int> p(30);\n        for (int j = 0; j < 30; j++) {\n            p[j] = m, m <<= 1;\n        }\n        vector<int> kb(30);\n        for (int j = 0; j < 30; j++) {\n            if (k & p[j]) {\n                kb[j] = true;\n            }\n        }\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < 30; j++) {\n                if (!(nums[i] & p[j])) {\n                    last[j] = i;\n                }\n            }\n            int l = -1, r = 1e9;\n            for (int j = 0; j < 30; j++) {\n                if (kb[j]) {\n                    l = max(l, last[j]);\n                } else {\n                    r = min(r, last[j]);\n                }\n            }\n            ans += max(0, r - l);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720278244",
-    "subm_id": "1311700704"
+    "username": "ggstddu",
+    "submission": "class Solution {\n public:\n  using LL = long long;\n  long long countSubarrays(vector<int>& nums, int K) {\n    unordered_map<int, int> mp;\n    LL ret = 0;\n    for (int x : nums) {\n      unordered_map<int, int> rec;\n      if (x == K) ret++;\n      if (x >= K) rec[x]++;\n      for (auto [k, v] : mp) {\n        int y = k & x;\n        if (y < K) continue;\n        rec[y] += v;\n        if (y == K) ret += v;\n      }\n      swap(rec, mp);\n    }\n    return ret;\n  }\n};",
+    "submit_ts": "1720277454",
+    "subm_id": "544556735"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "siddharthraj532",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size(); long long ans = 0;\n        map<long long, long long> pref;\n        for(int i = 0; i < n; i++) {\n            map<long long, long long> curr; \n            if(nums[i] != k) {\n                ans = ans;\n            } else {\n                ans += 1;\n            }\n            curr[nums[i]] = 1;\n            for (auto &[tmp, occ] : pref) {\n                int mask = nums[i] & tmp;\n                curr[mask] += occ;\n                if(mask != k) {\n                    continue;\n                } else {\n                    ans += occ;\n                }\n            }\n            \n            pref = curr;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279166",
-    "subm_id": "1311740220"
+    "username": "Madhav3702",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        unordered_map<long long, long long> prev;\n        int i = 0;\n        while(i < n){\n            unordered_map<long long, long long> curr;\n            if (nums[i] == k) {\n                ans++;\n            }\n            curr[nums[i]] = 1;\n            for (auto& it : prev) {\n                long long val = it.first;\n                long long freq = it.second;\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    ans += freq;\n                }\n                curr[newAndResult] += freq;\n            }\n            \n            prev = curr;\n            i++;\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720281598",
+    "subm_id": "1311831781"
 }

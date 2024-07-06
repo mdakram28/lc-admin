@@ -1,6 +1,6 @@
 {
-    "username": "Dev3214",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n                from collections import defaultdict\n                n = len(nums)\n                count = 0\n                vis=set()\n                prevseen = defaultdict(int)\n\n                for i in range(n):\n                    currseen = defaultdict(int)\n                    vis.add(i)\n                    if nums[i] == k:\n                        count += 1\n                    currseen[nums[i]] = 1\n\n                    for val, freq in prevseen.items():\n                        seenres = val & nums[i]\n                        if seenres == k:\n                            count += freq\n                        currseen[seenres] += freq\n                    vis.remove(i)\n                    \n                    prevseen = currseen\n                \n                return count",
-    "submit_ts": "1720278610",
-    "subm_id": "1311716616"
+    "username": "capsicle",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        unordered_map<long long, long long> mp;\n        int n = nums.size();\n        for (int i = 0; i < n; i++) \n        {\n            unordered_map<long long, long long> current;\n            if (nums[i] == k)\n                ++ans;\n            current[nums[i]] = 1;\n            cout<<ans<<\" \";\n            for (auto it:mp) {\n                int v=it.first, f=it.second;\n                long long y = v& nums[i];\n                if (y == k)ans += f;\n                current[y] += f;\n            }\n            mp = current;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720280024",
+    "subm_id": "1311774123"
 }

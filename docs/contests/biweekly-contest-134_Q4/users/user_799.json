@@ -1,6 +1,6 @@
 {
-    "username": "dpk_12",
-    "submission": "class Solution {\npublic:\n    long long countSubarraysWithAndEqualK(std::vector<int>& arr, int k) {\n        int n = arr.size();\n        long long totalSubarrays = 0;\n        std::unordered_map<long long, long long> previousAndResults;\n\n        for (int i = 0; i < n; ++i) {\n            std::unordered_map<long long, long long> currentAndResults;\n\n            if (arr[i] == k) {\n                ++totalSubarrays;\n            }\n\n            currentAndResults[arr[i]] = 1;\n\n            for (const auto& [andResult, count] : previousAndResults) {\n                long long newAndResult = andResult & arr[i];\n                if (newAndResult == k) {\n                    totalSubarrays += count;\n                }\n                currentAndResults[newAndResult] += count;\n            }\n\n            previousAndResults = std::move(currentAndResults);\n        }\n\n        return totalSubarrays;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        return countSubarraysWithAndEqualK(nums,k);\n    }\n};",
-    "submit_ts": "1720279734",
-    "subm_id": "1311763028"
+    "username": "leat14536",
+    "submission": "\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        ans = 0\n        cnt = Counter()\n        for i, x in enumerate(nums):\n            st = Counter()\n            cnt[x] += 1\n            for k2, v in cnt.items():\n                st[k2 & x] += v\n            cnt = st\n            ans += cnt[k]\n\n\n\n        return ans\n",
+    "submit_ts": "1720279830",
+    "subm_id": "544569222"
 }

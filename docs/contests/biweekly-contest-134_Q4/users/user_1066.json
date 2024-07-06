@@ -1,6 +1,6 @@
 {
-    "username": "sonytsha",
-    "submission": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n        \n        Map<Long, Long> prevResults = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> currResults = new HashMap<>();\n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : prevResults.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                \n                long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                \n                currResults.put(newAndResult, currResults.getOrDefault(newAndResult, 0L) + freq);\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n}\n",
-    "submit_ts": "1720278757",
-    "subm_id": "1311722936"
+    "username": "Manaslc07",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        \n        unordered_map<long long, long long> mpp1;\n\n        for (int i = 0; i < n; i++)\n        {\n            unordered_map<long long, long long> mpp2; \n\n            if (nums[i] == k) \n            {\n                ans++;\n            }\n            mpp2[nums[i]] = 1;\n\n            for (auto& [val, freq] : mpp1) {\n                long long newResult = val & nums[i];\n                if (newResult == k) {\n                    ans+= freq;\n                }\n                mpp2[newResult] += freq;\n            }\n            \n            mpp1 = mpp2;\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720278307",
+    "subm_id": "1311703448"
 }

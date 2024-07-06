@@ -1,6 +1,6 @@
 {
-    "username": "karaknilkanta7",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        long long cnt=0;\n        \n        map<long long, long long>mp;\n        \n        for(int i=0;i<n;i++){\n            map<long long, long long>m;\n            if(nums[i]==k)cnt++;\n            m[nums[i]]=1;\n            for(auto it=mp.begin();it!=mp.end();it++){\n                long long resand=(it->first & nums[i]);\n                if(resand==k)cnt+=(it->second);\n                m[resand]+=(it->second);\n            }\n            mp=m;\n        }\n        \n        return cnt;\n    }\n};",
-    "submit_ts": "1720280004",
-    "subm_id": "1311773412"
+    "username": "itsAbhi91",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        int n = arr.size();\n        vector<vector<int>> dp(n,vector<int> (31,-1));\n        for(int i=0;i<32;i++){\n            int bit = (arr[n-1]>>i)&1;\n            if(bit==1) dp[n-1][i] = n-1;\n        }\n        for(int i=n-2;i>=0;i--){\n            for(int j=0;j<31;j++){\n                int bit = (arr[i]>>j)&1;\n                if(bit==1){\n                    if(dp[i+1][j]==-1) dp[i][j] = i;\n                    else dp[i][j] = dp[i+1][j];\n                }\n            }\n        }\n        long long soln = (arr[n-1]==k);\n        for(int i=n-2;i>=0;i--){\n            int lgt = n-1,rgt = i-1;\n            for(int j=0;j<31;j++){\n                int bit = (k>>j)&1;\n                if(bit==1) lgt = min(lgt,dp[i][j]);\n                else{\n                    rgt = max(rgt,dp[i][j]);\n                } \n            }\n            if(lgt!=-1 && lgt>rgt)\n                soln += (lgt - rgt);\n        }\n        return soln;\n    }\n};",
+    "submit_ts": "1720280064",
+    "subm_id": "1311775569"
 }

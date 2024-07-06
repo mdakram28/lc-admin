@@ -1,6 +1,6 @@
 {
-    "username": "udjoshi1245",
-    "submission": "#define ll long long\nclass Solution {\nprivate:\n    ll solve(vector<int>&nums, int k){\n        int size = nums.size();\n        ll ans = 0;\n        unordered_map<ll, ll> prev;\n        for (int i = 0; i < size; i++) {\n            unordered_map<ll, ll> temp; \n            if (nums[i] == k) {\n                ans++;\n            }\n            temp[nums[i]] = 1;\n            for (auto it : prev){\n                int value = it.first;\n                int freq = it.second;\n                ll res = value & (nums[i]);\n                if (res == k) {\n                    ans += freq;\n                }\n                temp[res] += freq;\n            }\n            \n            prev = temp;\n        }\n        return ans;\n    }\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        return solve(nums,k);\n    }\n};",
-    "submit_ts": "1720280719",
-    "subm_id": "1311799655"
+    "username": "Aditya-ce",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int targetVal) {\n        int numSize = nums.size();\n        long long targetSubarrayCount = 0;\n        unordered_map<long long, long long> previousMap;\n        \n        for (int idx = 0; idx < numSize; ++idx) {\n            unordered_map<long long, long long> currentMap;\n            \n            if (nums[idx] == targetVal) {\n                ++targetSubarrayCount;\n            }\n            \n            currentMap[nums[idx]] = 1;\n            \n            for (auto& [prevVal, count] : previousMap) {\n                long long newBitwiseAnd = prevVal & nums[idx];\n                \n                if (newBitwiseAnd == targetVal) {\n                    targetSubarrayCount += count;\n                }\n                \n                currentMap[newBitwiseAnd] += count;\n            }\n            \n            previousMap = move(currentMap);\n        }\n        \n        return targetSubarrayCount;\n    }\n};",
+    "submit_ts": "1720279877",
+    "subm_id": "1311768644"
 }

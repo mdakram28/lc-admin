@@ -1,6 +1,6 @@
 {
-    "username": "punitiiitian",
-    "submission": "\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long totalCount = 0;\n        \n        unordered_map<long long, long long> previousMap;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currentMap; \n\n            if (nums[i] == k) {\n                ++totalCount;\n            }\n            currentMap[nums[i]] = 1;\n\n            for (auto& [prevVal, prevFreq] : previousMap) {\n                long long newAndResult = prevVal & nums[i];\n                if (newAndResult == k) {\n                    totalCount += prevFreq;\n                }\n                currentMap[newAndResult] += prevFreq;\n            }\n            \n            previousMap = currentMap;\n        }\n        \n        return totalCount;\n    }\n};\n",
-    "submit_ts": "1720280190",
-    "subm_id": "1311780166"
+    "username": "10vinaycoder",
+    "submission": "class Solution {\npublic:\n     long long countSubarrays(vector<int>& v, int t) {\n        int n = v.size();\n        long long ans = 0;\n        unordered_map<long long, long long> dp;\n        vector<int> a(n);\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> temp; \n            if (v[i] == t) ++ans;\n            a[i]=i+1;\n            temp[v[i]] = 1;\n            for (auto it : dp) {\n                long long curr = it.first & v[i];\n                if (curr == t) {\n                    ans += it.second;\n                }\n                a[i]++;\n                temp[curr] += it.second;\n            }\n            dp = temp;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720281539",
+    "subm_id": "1311828942"
 }

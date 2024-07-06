@@ -1,6 +1,6 @@
 {
-    "username": "KJer",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        int size = nums.size();\n        int pos[30], kPos[30];\n        for(int i = 0; i < 30; i++)\n        {\n            if((k & (1 << i)) == 0) kPos[i] = 1;\n            pos[i] = -1;\n        }\n        for(int i = 0; i < size; i++)\n        {\n            int minPos = i, maxPos = -1;\n            for(int j = 0; j < 30; j++)\n            {\n                if((nums[i] & (1 << j)) == 0) pos[j] = i;\n                if(kPos[j])\n                {\n                    minPos = min(minPos, pos[j]);\n                }else{\n                    maxPos = max(maxPos, pos[j]);\n                }\n            }\n            if(maxPos < minPos) ans += minPos - maxPos;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279705",
-    "subm_id": "1311761850"
+    "username": "user1838wc",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        using ll = long long;\n        unordered_map<int, int> mp;\n        ll res = 0;\n        for(auto& num : nums)\n        {\n            unordered_map<int, int> temp;\n            temp[num]++;\n            for(auto& it : mp)\n            {\n                temp[it.first & num] += it.second;\n            }\n            res += temp[k];\n            mp = temp;\n        }\n        return res;\n        \n    }\n};",
+    "submit_ts": "1720280133",
+    "subm_id": "1311778123"
 }

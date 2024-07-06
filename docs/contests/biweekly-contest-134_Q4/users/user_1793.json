@@ -1,6 +1,6 @@
 {
-    "username": "karunya_12",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        \n        long long total=0;\n        \n        map<long long,long long> mp1;\n        int i=0;\n        while(i<n){\n            map<long long,long long> m2;\n            if(nums[i]==k){\n                total++;\n            }\n            \n            m2[nums[i]]++;\n            \n            for(auto x: mp1){\n                int val = x.first & nums[i];\n                if(val == k){\n                    total+=x.second;\n                }\n                \n                m2[val]+=x.second;\n            }\n            \n            mp1=m2;\n            i++;\n        }\n        \n        \n        return total;\n    }\n};",
-    "submit_ts": "1720280278",
-    "subm_id": "1311783434"
+    "username": "mrpurvesh",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int target) {\n        int n = nums.length;\n        long count = 0;\n        \n        Map<Long, Long> previousResults = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> currentResults = new HashMap<>();\n\n            if (nums[i] == target) {\n                ++count;\n            }\n            currentResults.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long value = entry.getKey();\n                long frequency = entry.getValue();\n                \n                long newAndResult = value & nums[i];\n                if (newAndResult == target) {\n                    count += frequency;\n                }\n                \n                currentResults.put(newAndResult, currentResults.getOrDefault(newAndResult, 0L) + frequency);\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return count;\n        \n    }\n}",
+    "submit_ts": "1720279196",
+    "subm_id": "1311741529"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "AzimkhonOstonov",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int k) {\n        int n=v.size();\n        int a[n][32];\n        for(int i=0;i<n;i++){\n            for(int j=0;j<31;j++) {\n            if(v[i]&(1<<j)) {if(i) a[i][j]=a[i-1][j]+1; else a[i][j]=1;}\n            else a[i][j]=0;\n            }\n        }\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            int kh=1e9, kdh=0, c=0;\n            for(int j=0;j<31;j++){\n                if(k&(1<<j)) {kh=min(kh, a[i][j]); c++;}\n                else kdh=max(kdh, a[i][j]);\n            }\n            if(c==0) ans+=i+1-kdh;\n            else if(kdh<=kh) ans+=kh-kdh;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281111",
-    "subm_id": "1311813517"
+    "username": "micrb942",
+    "submission": "class Solution {\npublic:\n   \n     long long countSubarrays(vector<int>& nums, int targetAndResult) {\n    \n        long long subarrayCount = 0;\n\n        unordered_map<long long, long long> previousAndResults;\n    int arraySize = nums.size();\n        for (int i = 0; i < arraySize; ++i) {\n            unordered_map<long long, long long> currentAndResults; \n\n            if (nums[i] == targetAndResult) {\n                ++subarrayCount;\n            }\n            currentAndResults[nums[i]] = 1;\n\n            for (auto& [andResult, frequency] : previousAndResults) {\n                long long newAndResult = andResult & nums[i];\n                if (newAndResult == targetAndResult) {\n                    subarrayCount += frequency;\n                }\n                currentAndResults[newAndResult] += frequency;\n            }\n            \n            previousAndResults = currentAndResults;\n        }\n        \n        return subarrayCount;\n    \n    }\n};",
+    "submit_ts": "1720279258",
+    "subm_id": "1311744021"
 }

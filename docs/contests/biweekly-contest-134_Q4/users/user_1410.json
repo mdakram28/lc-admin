@@ -1,6 +1,6 @@
 {
-    "username": "ninzag",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long  count = 0;\n        unordered_map<long long, long long> freq;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long , long long> map;\n            for (auto& j : freq) {\n                long long val = j.first & nums[i];\n                map[val] += j.second;\n            }\n            map[nums[i]]++;\n            freq = map;\n            count += freq[k];\n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720280613",
-    "subm_id": "1311795831"
+    "username": "lin-hao-xi",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int, int> n2c;\n        long long ans = 0;\n        for (auto num: nums) {\n            unordered_map<int, int> n2c2;\n            if (num >= k) {\n                for (auto [n, cnt]: n2c) {\n                    int n2 = n; \n                    n2 &= num;\n                    if (n2 == k) {\n                        ans += cnt;\n                    }\n                    if (n2 >= k) {\n                        n2c2[n2] += cnt;\n                    }\n                }\n                n2c2[num] += 1;\n                if (num == k) {\n                    ++ans;\n                }\n            }\n            swap(n2c, n2c2);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279598",
+    "subm_id": "544568182"
 }

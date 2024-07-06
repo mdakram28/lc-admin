@@ -1,6 +1,6 @@
 {
-    "username": "Tarun_2012",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        std::unordered_map<int, int> andCount;\n    long long count = 0;\n\n    for (int num : nums) {\n        std::unordered_map<int, int> newAndCount;\n        \n        if (num == k) {\n            count++;\n        }\n        \n        newAndCount[num] = 1;\n        \n        for (const auto& [currentAnd, freq] : andCount) {\n            int newAnd = currentAnd & num;\n            newAndCount[newAnd] += freq;\n            if (newAnd == k) {\n                count += freq;\n            }\n        }\n\n        andCount = std::move(newAndCount);\n    }\n\n    return count;\n    }\n};",
-    "submit_ts": "1720280016",
-    "subm_id": "1311773838"
+    "username": "dikesh9406",
+    "submission": "#include <vector>\n#include <unordered_map>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n\n        unordered_map<long long, long long> pre;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> cr;\n\n            if (nums[i] == k) {\n                ++cnt;\n            }\n            cr[nums[i]] = 1;\n\n            for (auto& [val, freq] : pre) {\n                long long newr = val & nums[i];\n                if (newr == k) {\n                    cnt += freq;\n                }\n                cr[newr] += freq;\n            }\n            pre = cr;\n        }\n\n        return cnt;\n    }\n};\n",
+    "submit_ts": "1720280201",
+    "subm_id": "1311780580"
 }

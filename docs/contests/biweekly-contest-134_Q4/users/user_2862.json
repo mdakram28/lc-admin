@@ -1,6 +1,6 @@
 {
-    "username": "Vikm",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};\n",
-    "submit_ts": "1720278332",
-    "subm_id": "1311704503"
+    "username": "elhady0027",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int sz = nums.size();\n        long long tot = 0;\n        unordered_map<long long, long long> prev;\n        \n        for (int idx = 0; idx < sz; ++idx) {\n            unordered_map<long long, long long> curr;\n            \n            if (nums[idx] == k) {\n                ++tot;\n            }\n            \n            curr[nums[idx]] = 1;\n            \n            for (auto& [value, frequency] : prev) {\n                long long newAndResult = value & nums[idx];\n                \n                if (newAndResult == k) {\n                    tot += frequency;\n                }\n                \n                curr[newAndResult] += frequency;\n            }\n            \n            prev = curr;\n        }\n        \n        return tot;\n    }\n};",
+    "submit_ts": "1720278660",
+    "subm_id": "1311718782"
 }

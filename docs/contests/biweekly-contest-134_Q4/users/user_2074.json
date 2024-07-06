@@ -1,6 +1,6 @@
 {
-    "username": "pratikshsk",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        \n        unordered_map<long long, long long> mp;\n        multiset<int>st;\n        stack<int>stk;\n            for(int i=0;i<1000;i++) stk.push(i); \n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> mp2;\n            \n\n            if (nums[i] == k) {\n                ++cnt;\n            }\n            mp2[nums[i]] = 1;\n            st.insert(nums[i]);\n\n            for (auto& [val, freq] : mp) {\n                long long res = val & nums[i];\n                if (res == k) {\n                    cnt += freq;\n                }\n                st.insert(freq);\n                mp2[res] += freq;\n                st.erase(res);\n            }\n            \n            mp = mp2;\n        }\n        while(stk.size()) stk.pop();\n        \n        return cnt;\n    }\n};",
-    "submit_ts": "1720281316",
-    "subm_id": "1311820700"
+    "username": "Samarth622",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        unordered_map<long long, long long> mpp;\n        for (int i = 0; i < n; i++) {\n            unordered_map<long long, long long> currMpp; \n            if (nums[i] == k) {\n                ans++;\n            }\n            currMpp[nums[i]] = 1;\n            for (auto& [key, val] : mpp) {\n                long long newans = key & nums[i];\n                if (newans == k) {\n                    ans += val;\n                }\n                currMpp[newans] += val;\n            }\n            \n            mpp = currMpp;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720281138",
+    "subm_id": "1311814491"
 }

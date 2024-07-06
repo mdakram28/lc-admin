@@ -1,6 +1,6 @@
 {
-    "username": "virinci",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        z = [[-1] * 32 for _ in range(n + 1)]\n        for i in range(n):\n            for j in range(32):\n                z[i + 1][j] = z[i][j] if nums[i] >> j & 1 else i\n        ans = 0\n        for i in range(n):\n            l, r = 0, i\n            for j in range(32):\n                if k >> j & 1:\n                    l = max(l, z[i + 1][j] + 1)\n                else:\n                    r = min(r, z[i + 1][j])\n            ans += max(0, r - l + 1)\n        return ans\n",
-    "submit_ts": "1720278767",
-    "subm_id": "1311723339"
+    "username": "coderman2004",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n         int n = nums.length;\n        long count = 0;\n        Map<Long, Long>[] dp = new HashMap[n];\n        \n        for (int i = 0; i < n; ++i) {\n            dp[i] = new HashMap<>();\n            if (nums[i] == k) {\n                count++;\n            }\n            dp[i].put((long) nums[i], 1L);\n            if (i > 0) {\n                for (Map.Entry<Long, Long> entry : dp[i - 1].entrySet()) {\n                    long val = entry.getKey();\n                    long freq = entry.getValue();\n                    long newAndResult = val & nums[i];\n                    if (newAndResult == k) {\n                        count += freq;\n                    }\n                    dp[i].put(newAndResult, dp[i].getOrDefault(newAndResult, 0L) + freq);\n                }\n            }\n        }\n        \n        return count;\n        \n    }\n}",
+    "submit_ts": "1720277831",
+    "subm_id": "1311682082"
 }

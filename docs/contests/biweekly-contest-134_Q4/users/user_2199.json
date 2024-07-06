@@ -1,6 +1,6 @@
 {
-    "username": "kusagra18",
-    "submission": "#include <vector>\n#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        unordered_map<long long, long long> previousResults;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currentResults;\n            \n            if (nums[i] == k) {\n                ++count;\n            }\n                currentResults[nums[i]] = 1;\n            \n            \n            for (auto& [val, freq] : previousResults) {\n                long long newAndResult = val & nums[i];\n                \n                if (newAndResult == k) {\n                    count += freq;\n                }\n                    currentResults[newAndResult] += freq;\n                }\n            \n            \n            previousResults = currentResults;\n        }\n        \n        return count;\n    }\n};\n",
-    "submit_ts": "1720280549",
-    "subm_id": "1311793520"
+    "username": "VisIon_Unleashed",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n       int size = nums.length;\n        long total = 0;\n        Map<Long, Long> previousResults = new HashMap<>(); \n\n        for(int index = 0 ; index < size ; index++){\n            Map<Long , Long> curr = new HashMap<>();\n            if(nums[index] == k){\n                total++;\n            }\n            curr.put((long)nums[index] ,1L);\n            for(Map.Entry<Long ,Long> entry : previousResults.entrySet()){\n                long value = entry.getKey();\n                long frequency = entry.getValue();\n                long newAndResult = value & nums[index];\n\n                if(newAndResult == k){\n                    total += frequency;\n                }\n                curr.put(newAndResult , curr.getOrDefault(newAndResult, 0L) + frequency);\n\n            }\n             previousResults = curr;\n        }\n        return total;\n    }\n}",
+    "submit_ts": "1720281316",
+    "subm_id": "1311820712"
 }

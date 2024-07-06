@@ -1,6 +1,6 @@
 {
-    "username": "Mitul11",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        HashMap<Long, Long> hm = new HashMap<>();\n          long javab = 0;\n        \n\n        for (int i = 0; i < nums.length; i++) {\n            HashMap<Long, Long> hm2 = new HashMap<>();\n            hm2.put((long) nums[i], 1L);\n            if (nums[i] == k) {\n                javab++;\n            }\n            int num = nums[i];\n\n            for (Map.Entry<Long, Long> entry : hm.entrySet()) {\n            \n                long ele = entry.getKey() & num;\n\n                if (ele == k) {\n                    javab += entry.getValue();\n                }\n                long key = hm2.getOrDefault(ele, 0L);\n                hm2.put(ele,  key+ entry.getValue());\n            }\n\n            hm = hm2;\n        }\n\n        return javab;\n    }\n}",
-    "submit_ts": "1720279320",
-    "subm_id": "1311746479"
+    "username": "lime1900",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long count = 0;\n        int n = nums.length;\n        int[] cur = new int[n];\n        Arrays.fill(cur, Integer.MAX_VALUE);\n        int end = 0;\n        int pre = 0;\n        Map<Integer, Integer> preMap = new HashMap<>();\n        for (int i = 0; i < n; i++) {\n            Map<Integer, Integer> curMap = new HashMap<>();\n            for (Integer item: preMap.keySet()){\n                int j = item & nums[i];\n                if(j == k){\n                    count += preMap.get(item);\n                    \n                }\n                if(j >= k){\n                    curMap.put(j, curMap.getOrDefault(j, 0) + preMap.get(item));\n                }\n            }\n            curMap.put(nums[i], curMap.getOrDefault(nums[i], 0) + 1);\n            if(nums[i] == k){\n                count++;\n            }\n            preMap = curMap;\n        }\n        return count;\n    }\n}",
+    "submit_ts": "1720281086",
+    "subm_id": "544574483"
 }

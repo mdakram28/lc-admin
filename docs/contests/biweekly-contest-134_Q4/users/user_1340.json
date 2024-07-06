@@ -1,6 +1,6 @@
 {
-    "username": "sukanil_1357",
-    "submission": "class Solution {\npublic:\n    typedef long long ll;\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n = nums.size(),cnt = 0;\n        map<ll,ll>mp;\n        for(int i = 0; i < n; i++) \n        {\n            map<ll,ll>mp1; \n            if (nums[i] == k)\n            {\n                cnt++;\n            }\n            mp1[nums[i]]++;\n            // cout<<cnt<<endl;\n            for(auto it: mp) \n            {\n                ll a = it.first & nums[i];\n                if(a == k) \n                {\n                    // cout<<it.second<<endl;\n                    cnt += it.second;\n                }\n                mp1[a] += it.second;\n            }\n            mp = mp1;\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720281432",
-    "subm_id": "1311824946"
+    "username": "prakher78",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int arraySize = nums.length;\n        long ans = 0;\n        Map<Long, Long> prevResultSet = new HashMap<>();\n        \n        for (int index = 0; index < arraySize; ++index) {\n            Map<Long, Long> currentResultSet = new HashMap<>();\n            \n            if (nums[index] == k) {\n                ans++;\n            }\n            currentResultSet.put((long) nums[index], 1L);\n            \n            for (Map.Entry<Long, Long> entry : prevResultSet.entrySet()) {\n                long value = entry.getKey();\n                long frequency = entry.getValue();\n                long newAndResult = value & nums[index];\n                \n                if (newAndResult == k) {\n                    ans += frequency;\n                }\n                currentResultSet.put(newAndResult, currentResultSet.getOrDefault(newAndResult, 0L) + frequency);\n            }\n            \n            prevResultSet = currentResultSet;\n        }\n        \n        return ans;\n    }\n}",
+    "submit_ts": "1720281005",
+    "subm_id": "1311809793"
 }

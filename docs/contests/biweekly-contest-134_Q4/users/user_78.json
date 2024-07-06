@@ -1,6 +1,6 @@
 {
-    "username": "cp_boy",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        map<int,int> cnt;\n        long long res=0;\n        for(int i=0;i<n;i++){\n            map<int,int> temp;\n            temp[nums[i]]+=1;\n            for(auto [j,v]:cnt){\n                temp[(j&nums[i])]+=v;\n            }\n            cnt=temp;\n            res+=cnt[k];\n        }\n        return res;\n    }\n};",
-    "submit_ts": "1720277917",
-    "subm_id": "1311685995"
+    "username": "fan-fan-fan-a9",
+    "submission": "using ll = long long;\n\ntemplate <typename T> bool chmax(T &x, T y) { if (y > x) { x = y; return true; } return false; }\ntemplate <typename T> bool chmin(T &x, T y) { if (y < x) { x = y; return true; } return false; }\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n = a.size();\n        ll ans = 0;\n        vector<int> last(30, -1);\n        for (int i = 0; i < n; i ++) {\n            for (int j = 0; j < 30; j ++) {\n                if (a[i] >> j & 1 ^ 1) {\n                    last[j] = i;\n                }\n            }\n            int l = 0, r = i;\n            for (int j = 0; j < 30; j ++) {\n                if (k >> j & 1) {\n                    chmax(l, last[j] + 1);\n                } else {\n                    chmin(r, last[j]);\n                }\n            }\n            ans += max(r - l + 1, 0);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277444",
+    "subm_id": "544556678"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "ayush4987ssp",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        unordered_map<long long,long long>curr;\n        unordered_map<long long, long long>prev;\n        for(int i=0; i<n; i++){\n            // vector<pair<int,int>>v;\n            if(nums[i]==k){\n                cnt++;\n            }\n            // v.push_back({nums[i],1});\n            curr[nums[i]] = 1;\n            for(auto x:prev){\n                // cout<<x.first<<\" \"<<x.second<<\" \";\n                if((x.first & nums[i])==k){\n                    cnt += x.second;\n                }\n                curr[nums[i]&x.first] += x.second;\n            }\n            // cout<<endl;\n            prev = curr;\n            curr.clear();\n        }\n        return cnt;\n    }\n};\n auto init = [](){\n    ios_base::sync_with_stdio(0);\n    cin.tie(0);\n    cout.tie(0);\n    return 'c';\n };",
-    "submit_ts": "1720280888",
-    "subm_id": "1311805603"
+    "username": "adii320",
+    "submission": "class Solution {\n    public long countSubarrays(int[] arr, int target) {\n        long total = 0;int i = 0;\n        Map<Long, Long> prevRes = new HashMap<>();\n        while (i < arr.length) {\n            Map<Long, Long> currRes = new HashMap<>();\n            if (arr[i] == target)++total;\n            currRes.put((long) arr[i], 1L);\n            Iterator<Map.Entry<Long, Long>> iter = prevRes.entrySet().iterator();\n            while (iter.hasNext()) {\n                Map.Entry<Long, Long> entry = iter.next();\n                long val = entry.getKey(),freq = entry.getValue(),newAndRes = val & arr[i];\n                if (newAndRes == target)total += freq;\n                currRes.put(newAndRes, currRes.getOrDefault(newAndRes, 0L) + freq);}\n            prevRes = currRes;\n            i++;}    \n        return total;}}\n",
+    "submit_ts": "1720279250",
+    "subm_id": "1311743712"
 }

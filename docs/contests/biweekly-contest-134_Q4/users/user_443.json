@@ -1,6 +1,6 @@
 {
-    "username": "sepehry",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        cc = collections.Counter()\n        sol = 0\n        for x in nums:\n            cc2 = collections.Counter()\n            for y, c in cc.items():\n                cc2[y & x] += c\n            cc2[x] += 1\n            cc = cc2\n            sol += cc[k]\n        return sol\n",
-    "submit_ts": "1720279235",
-    "subm_id": "1311743065"
+    "username": "hato-8",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        def lt(nums: List[int], op):\n            res = defaultdict(int)\n            dp = []\n            for pos, cur in enumerate(nums):\n                for v in dp:\n                    v[2] = op(v[2], cur)\n                dp.append([pos, pos + 1, cur])\n                ptr = 0\n                for v in dp[1:]:\n                    if dp[ptr][2] != v[2]:\n                        ptr += 1\n                        dp[ptr] = v\n                    else:\n                        dp[ptr][1] = v[1]\n                dp = dp[: ptr + 1]\n                for v in dp:\n                    res[v[2]] += v[1] - v[0]\n            return res\n\n        # print(lt(nums, and_)[k])\n        return lt(nums, and_)[k]",
+    "submit_ts": "1720277636",
+    "subm_id": "544557895"
 }

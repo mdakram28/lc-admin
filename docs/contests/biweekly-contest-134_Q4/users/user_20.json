@@ -1,6 +1,6 @@
 {
-    "username": "plevande",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        start = [[nums[0], 0, 0]]\n        n = len(nums)\n        answer = 0\n        if k==nums[0]:\n            answer+=1\n        for i in range(1, n):\n            next_s = [[nums[i], i, i]]\n            for x, l, r in start:\n                x = x&nums[i]\n                if x != next_s[-1][0]:\n                    next_s.append([x, float('inf'), -1*float('inf')])\n                next_s[-1][1] = min(next_s[-1][1], l)\n                next_s[-1][2] = max(next_s[-1][2], r)\n            start= next_s\n            m =len(start)\n           # print(start)\n            for i2 in range(m):\n                a, l, r= start[i2]\n                #print(a, l,r)\n                if a==k:\n                    answer+=(r-l+1)\n        return answer",
-    "submit_ts": "1720277498",
-    "subm_id": "1311666456"
+    "username": "desert-fu",
+    "submission": "using ll = long long;\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll ans = 0;\n        unordered_map<int,int> s;\n        int n = nums.size();\n        if(nums[0]==k) ++ans;\n        s[nums[0]]++;\n        for(int i = 1;i<n;i++)\n        {\n            unordered_map<int,int> mp;\n            for(auto & [v,f]:s)\n            {\n                mp[v&nums[i]]+=f;\n            }\n            mp[nums[i]]++;\n            ans+=mp[k];\n            s.swap(mp);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277320",
+    "subm_id": "544555866"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "kumar_Aman1",
-    "submission": "#include <vector>\n#include <unordered_map>\n\n#define ll long long\n\nclass Solution {\npublic:\n    long long countSubarrays(std::vector<int>& nums, int k) {\n        ll n = nums.size();\n        ll ans = 0;\n        std::unordered_map<ll, ll> mp;\n\n        for (int i = 0; i < n; ++i) {\n            std::unordered_map<ll, ll> mp1;\n            if (nums[i] == k) {\n                ans++;\n            }\n            mp1[nums[i]] = 1;\n            for (auto it : mp) {\n                ll a = it.first & nums[i];\n                if (a == k) {\n                    ans += it.second; \n                }\n                mp1[a] += it.second;\n            }\n\n            mp = mp1;\n        }\n\n        return ans;\n    }\n};\n",
-    "submit_ts": "1720278705",
-    "subm_id": "1311720775"
+    "username": "Zobayer_Abedin",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int x) {\n        int n = a.size();\n        vector<int> res(n + 2, n), cut(n + 2, 0);\n        for(int i = 0; i < 30; i++) {\n            \n            for(int j = 0; j < n; j++) {\n                int cnt = 1 & (a[j] >> i), pvJ = j;\n                while(cnt and j + 1 < n and (1 & (a[j + 1] >> i)) ) {\n                    j++, cnt++;\n                }\n                \n                for(int k = pvJ; k <= j; k++) {\n                    if(1 & (x >> i)) {\n                        res[k] = min(res[k], cnt);\n                    }\n                    else {\n                        cut[k] = max(cut[k], cnt);\n                    }\n                    cnt--;\n                }\n               \n            }\n        }\n        long long ans = 0;\n        // cout << n << endl;\n        for(int i = 0; i < n; i++) {\n            // cout << res[i] << \" \" << cut[i] << \"\\n\";\n            res[i] = min(res[i], n - i);\n            ans += max(0, res[i] - cut[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279264",
+    "subm_id": "1311744251"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "balapeesala1022",
-    "submission": "import java.util.HashMap;\n\nclass Solution {\n    public void duplicate(int z,int w){\n        int q=0;\n        w=z;\n        z=w;\n        q=w+z;\n    }\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long cnt = 0;\n        \n        HashMap<Long, Long> p = new HashMap<>();\n        int  z=-1;\n        int w=1;\n        for(int i=0;i<n;i++){\n             w++;\n            z=z+1;\n        }\n        duplicate(z,w);\n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> cr = new HashMap<>();\n\n            if (nums[i] == k) {\n                ++cnt;\n            }\n            cr.put((long) nums[i], 1L);\n\n            for (Long val : p.keySet()) {\n                long freq = p.get(val);\n                long nr = val & nums[i];\n                z+=1;\n                // k=k-2-z+i;\n                if (nr == k) {\n                    cnt += freq;\n                }\n                cr.put(nr, cr.getOrDefault(nr, 0L) + freq);\n            }\n            \n            p= cr;\n        }\n        \n        return cnt;\n    }\n}",
-    "submit_ts": "1720278980",
-    "subm_id": "1311732319"
+    "username": "abhishek1821",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k){\n      int n=nums.size();\n      long long ans = 0;\n      unordered_map<long long,long long>mpp;\n        \n        for(int i= 0;i<n;i++){\n            unordered_map<long long,long long>mpc;\n            long long tar = k; \n            if(nums[i] == tar){\n                ans++;\n            }\n            mpc[nums[i]] = 1;\n            for(auto & [v,f] : mpp){\n                long long res = v & nums[i];                                                                                         \n                if (res == tar) {\n                    ans += f;\n                }\n                mpc[res] += f;\n            }\n            mpp = mpc;\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720280767",
+    "subm_id": "1311801325"
 }

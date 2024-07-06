@@ -1,6 +1,6 @@
 {
-    "username": "hung146164",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        unordered_map<int, int> freq;\n\n        for (int i = 0; i < n; i++) {\n            unordered_map<int, int> n_freq;\n            if (nums[i] == k) {\n                count++;\n            }\n            n_freq[nums[i]]++;\n            for (const auto& pair : freq) {\n                int n_and = pair.first & nums[i];\n                if (n_and == k) {\n                    count += pair.second;\n                }\n                n_freq[n_and] += pair.second;\n            }\n            freq = n_freq;\n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720280769",
-    "subm_id": "1311801388"
+    "username": "I_have_learn",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int n = array.size();\n        long long totalSubarrays = 0;\n        unordered_map<long long, long long> prefixCounts;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currentPrefixCounts; \n            if (array[i] == target) {\n                ++totalSubarrays;\n            }\n            currentPrefixCounts[array[i]] = 1;\n            for (auto& [prevValue, prevFrequency] : prefixCounts) {\n                long long newAndResult = prevValue & array[i];\n                if (newAndResult == target) {\n                    totalSubarrays += prevFrequency;\n                }\n                currentPrefixCounts[newAndResult] += prevFrequency;\n            }\n            \n            prefixCounts = currentPrefixCounts;\n        }\n        return totalSubarrays;\n    }\n};\n",
+    "submit_ts": "1720280982",
+    "subm_id": "1311808973"
 }

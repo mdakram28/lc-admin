@@ -1,6 +1,6 @@
 {
-    "username": "raghavutkarsh16",
-    "submission": "#define ll long long\n#pragma GCC optimize(\"O3\", \"unroll-loops\")\nclass Solution {\npublic:\n    Solution(){\n        ios_base::sync_with_stdio(false);\n        cin.tie(0);\n        cout.tie(0);\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n= nums.size();\n        ll ans= 0;\n        map<ll, ll> prev;\n        for (int i=0;i<n;i++) {\n            map<ll, ll> curr; \n            curr[nums[i]]++;\n            if (nums[i] == k) {\n                ans++;\n            }\n            for (auto pr : prev) {\n                ll val= pr.first&nums[i];\n                if (val==k) {\n                    ans += pr.second;\n                }\n                curr[val] += pr.second;\n            }\n            prev=curr;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280938",
-    "subm_id": "1311807384"
+    "username": "userdeku",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int size = nums.length;\n        long totalCount = 0;\n        Map<Long, Long> prevSubarrays = new HashMap<>();\n        \n        for (int index = 0; index < size; ++index) {\n            Map<Long, Long> currSubarrays = new HashMap<>();\n            if (nums[index] == k) {\n                totalCount++;\n            }\n            currSubarrays.put((long) nums[index], 1L);\n            for (Map.Entry<Long, Long> entry : prevSubarrays.entrySet()) {\n                long value = entry.getKey();\n                long frequency = entry.getValue();\n                long newAndResult = value & nums[index];\n                \n                if (newAndResult == k) {\n                    totalCount += frequency;\n                }\n                currSubarrays.put(newAndResult, currSubarrays.getOrDefault(newAndResult, 0L) + frequency);\n            }   \n            prevSubarrays = currSubarrays;\n        }\n        return totalCount;\n    }\n}",
+    "submit_ts": "1720281088",
+    "subm_id": "1311812735"
 }

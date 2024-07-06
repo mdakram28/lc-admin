@@ -1,6 +1,6 @@
 {
-    "username": "Abhinav021104",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
-    "submit_ts": "1720279383",
-    "subm_id": "1311749022"
+    "username": "Konsept",
+    "submission": "use std::collections::HashMap;\n\nimpl Solution {\n    pub fn count_subarrays(nums: Vec<i32>, k: i32) -> i64 {\n        let n = nums.len();\n        let mut count: i64 = 0;\n        let mut prev_results: HashMap<i32, i64> = HashMap::new();\n\n        for i in 0..n {\n            let mut curr_results: HashMap<i32, i64> = HashMap::new();\n\n            if nums[i] == k {\n                count += 1;\n            }\n            *curr_results.entry(nums[i]).or_insert(0) += 1;\n\n            for (&val, &freq) in prev_results.iter() {\n                let new_and_result = val & nums[i];\n                if new_and_result == k {\n                    count += freq;\n                }\n                *curr_results.entry(new_and_result).or_insert(0) += freq;\n            }\n\n            prev_results = curr_results;\n        }\n\n        count\n    }\n}",
+    "submit_ts": "1720278695",
+    "subm_id": "1311720301"
 }

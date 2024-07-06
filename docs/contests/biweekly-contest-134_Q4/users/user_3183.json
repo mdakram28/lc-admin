@@ -1,6 +1,6 @@
 {
-    "username": "rishabhgarg_1",
-    "submission": "class Solution {\npublic:\n    long long solve(vector<int> &nums, int k){\n        long long ans = 0;\n        int i = 0 , j = 0;\n        int n= nums.size();\n        vector<int> bits(32,0);\n        int val = INT_MAX;\n        while(j<n){\n            val &= nums[j];\n            for(int i =0;i<32;i++){\n                if(!(nums[j]&(1<<i))) bits[i]++;\n            }\n            while(val < k && i<=j){\n                for(int id = 0;id<32;id++){\n                    if(!(nums[i]&(1<<id))) bits[id]--;\n                    if(bits[id] == 0) val |= (1<<id);\n                }\n                i++;\n            }\n            ans += (j-i+1);\n            j++;\n        }\n        return ans;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        return solve(nums,k)-solve(nums,k+1);\n    }\n};",
-    "submit_ts": "1720281065",
-    "subm_id": "1311811905"
+    "username": "kanikaverma004",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        \n      int n = nums.size(); \n        long long count = 0; \n         \n        unordered_map<long long, long long> prevResults; \n \n        for (int i = 0; i < n; ++i) { \n            unordered_map<long long, long long> currResults;  \n \n            if (nums[i] == k) { \n                ++count; \n            } \n            currResults[nums[i]] = 1; \n \n            for (auto& [val, freq] : prevResults) { \n                long long newAndResult = val & nums[i]; \n                if (newAndResult == k) { \n                    count += freq; \n                } \n                currResults[newAndResult] += freq; \n            } \n             \n            prevResults = currResults; \n        } \n         \n        return count; \n    } \n\n\n};",
+    "submit_ts": "1720279656",
+    "subm_id": "1311759926"
 }

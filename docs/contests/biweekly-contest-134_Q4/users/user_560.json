@@ -1,6 +1,6 @@
 {
-    "username": "anviujeanbujianiobvmqaoibnjmae",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n    unordered_map<long long, long long> andMap;\n    long long result = 0;\n\n    for (long long i = 0; i < n; ++i) {\n        unordered_map<long long, long long> newAndMap;\n        for (auto &entry : andMap) {\n            long long newAnd = entry.first & nums[i];\n            newAndMap[newAnd] += entry.second;\n        }\n        newAndMap[nums[i]]++;\n        andMap = newAndMap;\n\n        if (andMap.find(k) != andMap.end()) {\n            result += andMap[k];\n        }\n    }\n\n    return result;\n    }\n};",
-    "submit_ts": "1720277563",
-    "subm_id": "1311669621"
+    "username": "xdevil",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long res = 0;\n        map<long long, long long> mp;\n        int n = nums.size();\n        for(int i = 0; i < n; ++i) {\n            map<long long, long long> temp;\n            temp[nums[i]] = 1;\n            for(auto [x, y] : mp) {\n                temp[x & nums[i]] += y;\n            }\n            if(temp.find(k) != temp.end()) {\n                res += temp[k];\n            }\n            mp = std::move(temp);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720279118",
+    "subm_id": "544566026"
 }

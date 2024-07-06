@@ -1,6 +1,6 @@
 {
-    "username": "AA_007",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    \n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<ll,ll> st;\n        ll ans=0;\n        for(auto i:nums){\n            unordered_map<ll,ll> tst;\n            \n            for(auto j:st){\n                \n                ll a=j.first;\n                \n                tst[(a&i)]+=st[a];\n                \n            }\n            tst[i]++;\n            for(auto j:tst)\n            {    ll t=j.first;\n                if(t==k)\n                    ans+=tst[t];\n            }\n            \n            st=tst;\n            \n            \n        }\n        \n        return ans;\n        \n        \n    }\n};",
-    "submit_ts": "1720276586",
-    "subm_id": "1311622472"
+    "username": "LarryNY",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        N = len(nums)\n        INF = (1 << 32) - 1\n\n        count = 0\n\n        @cache\n        def go(index, v):\n            if v < k:\n                return 0\n            if v == 0:\n                if v == k:\n                    return N - index + 1\n                return 0\n            if index == N:\n                if v == k:\n                    return 1\n                return 0\n\n            total = 0\n            if v == k:\n                total += 1\n            total += go(index + 1, v & nums[index])\n            return total\n\n        for i in range(N):\n            count += go(i, INF)\n            #print(i, count)\n\n        return count",
+    "submit_ts": "1720277659",
+    "subm_id": "1311674026"
 }

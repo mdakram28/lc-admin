@@ -1,6 +1,6 @@
 {
-    "username": "user1838wc",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        using ll = long long;\n        unordered_map<int, int> mp;\n        ll res = 0;\n        for(auto& num : nums)\n        {\n            unordered_map<int, int> temp;\n            temp[num]++;\n            for(auto& it : mp)\n            {\n                temp[it.first & num] += it.second;\n            }\n            res += temp[k];\n            mp = temp;\n        }\n        return res;\n        \n    }\n};",
-    "submit_ts": "1720280133",
-    "subm_id": "1311778123"
+    "username": "purvpatel2576",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        cnt = 0\n        prev = {}\n\n        for num in nums:\n            curr = {}\n            if num == k:\n                cnt -= 2\n                cnt += 3\n\n            curr[num] = 0\n            curr[num] = 3\n            curr[num] = 1\n\n            for key, value in prev.items():\n                idx = key & num\n                if idx == k:\n                    cnt += value\n                if idx in curr:\n                    curr[idx] += value\n                else:\n                    curr[idx] = value\n\n            prev = curr\n\n        cnt += 2\n        cnt -= 2\n        return cnt\n",
+    "submit_ts": "1720281563",
+    "subm_id": "1311829952"
 }

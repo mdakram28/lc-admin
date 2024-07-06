@@ -1,6 +1,6 @@
 {
-    "username": "daulatojha17",
-    "submission": "class Solution {\npublic:\n    \n    long long countSubarrays(vector<int>& nums, int k) {\n        map<int, long long> count;\n        set<int> s;\n        long long result = 0;\n        \n        for (int i = 0; i < nums.size(); i++) {\n            set<int> next;\n            map<int, long long> mp;\n            next.insert(nums[i]);\n            mp[nums[i]]++;\n            for (auto x : s) {\n                int new_and = nums[i] & x;\n                mp[new_and] += count[x];\n                next.insert(new_and);\n            }\n            \n            if (mp.find(k) != mp.end()) {\n                result += mp[k];\n            }\n            s = next;\n            count = mp;\n        }\n\n        return result;\n    }\n};",
-    "submit_ts": "1720280079",
-    "subm_id": "1311776092"
+    "username": "ayushsuman",
+    "submission": "#include<bits/stdc++.h>\n#include<ext/pb_ds/assoc_container.hpp>\n#include<ext/pb_ds/tree_policy.hpp>\nusing namespace std;\nusing namespace __gnu_pbds;\nusing namespace chrono;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int k) {\n        ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);\n        int n = v.size();\n        long long cnt = 0;\n        gp_hash_table<long long, long long> mp;\n        for (auto i:v) {\n            gp_hash_table<long long, long long> mp1;\n            if (i == k) cnt++;\n            for (auto p : mp) {\n                long long and1 = p.first & i;\n                if (and1 == k) cnt += p.second;\n                mp1[and1] += p.second;\n            }\n            mp1[i]++;\n            mp = move(mp1);\n        }\n        return cnt;\n    }\n};\n",
+    "submit_ts": "1720278730",
+    "subm_id": "1311721784"
 }

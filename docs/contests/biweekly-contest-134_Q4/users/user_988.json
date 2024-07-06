@@ -1,6 +1,6 @@
 {
-    "username": "_shryder_",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long n = nums.size();\n        long long xx = 0;\n        map<long long, long long> mpp,mp;\n        mpp[xx]++;\n        long long cnt=0,cnt2=0;\n        for (int i = 0; i < n; ++i) {\n            map<long long, long long> temp; \n            xx = xx & nums[i];\n            int x = xx & k;\n            if (nums[i] == k) {\n                cnt++;\n            }\n            cnt2 += mpp[x];\n            temp[nums[i]] = 1;\n            for (auto& x : mp) {\n                mpp[x.first]--;\n                long long x1 = x.first & nums[i];\n                if (x1 == k) {\n                    cnt += x.second;\n                }\n                else{\n                    cnt2+=x.second;\n                }\n                mpp[x1] += x.second;\n                temp[x1] += x.second;\n            }\n            mpp[xx]++;\n            mp = temp;\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720278208",
-    "subm_id": "1311699188"
+    "username": "sourav_kicks",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n\n        unordered_map<long long, long  long>temp;\n        long long cnt=0;\n        int size = arr.size();\n        \n        for(int i=0;i<size;i++){\n            unordered_map<long long, long long>prev;\n\n            if(arr[i]==k)cnt++;\n\n            prev[arr[i]]=1;\n\n            for(auto it: temp){\n                long long newres = it.first&arr[i];\n                if(newres==k)cnt = cnt+it.second;\n                prev[newres] = prev[newres]+it.second;\n            }\n            temp = prev;\n        }\n        return cnt;\n    }\n};",
+    "submit_ts": "1720278803",
+    "subm_id": "1311724915"
 }

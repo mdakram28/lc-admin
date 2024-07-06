@@ -1,6 +1,6 @@
 {
-    "username": "rohankaran",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        cnt = 0\n        mp = {}\n        for i in range(n):\n            cur_mp = {}\n            if nums[i] == k:\n                cnt += 1\n            cur_mp[nums[i]] = 1\n\n            for key in mp:\n                res = key & nums[i]\n                if res == k:\n                    cnt += mp[key]\n                cur_mp[res] = cur_mp.get(res, 0) + mp[key]\n\n            mp = cur_mp\n        return cnt",
-    "submit_ts": "1720280677",
-    "subm_id": "1311798175"
+    "username": "charleszzz",
+    "submission": "func countSubarrays(nums []int, k int) (ans int64) {\n\tsum := make([][]int, 32)\n\tfor i := range sum  {\n\t\tsum[i] = makePrefix(nums, i)\n\t}\n    \n\t// \u679a\u4e3e\u5b50\u6570\u7ec4\u7684\u8d77\u70b9\n\tfor i := 0; i < len(nums); i++ {\n\t\tleft, right := i, len(nums)-1\n\t\tfor j := range sum {\n\t\t\tif k&(1<<j) > 0 {\n                end := sort.Search(len(sum[j]), func(x int) bool { return x>=i && sum[j][x]-sum[j][i] < x-i })\n                if  end >= i {\n                    right = min(right, end-2)\n                }\n\n\t\t\t} else {\n                end := sort.Search(len(sum[j]), func(x int) bool { return x>=i && sum[j][x]-sum[j][i] < x-i })\n                if end >= i{\n                    left = max(left, end-1)\n                }\n\t\t\t}\n\t\t}\n        if right>=left {\n            ans += int64(right - left+1)\n        }\n\t}\n\treturn\n}\n\nfunc makePrefix(nums []int, bit int) []int {\n\tsum := make([]int, len(nums)+1)\n\tfor i := range nums {\n\t\tv := 0\n\t\tif nums[i]&(1<<bit) > 0 {\n\t\t\tv = 1\n\t\t}\n\t\tsum[i+1] = sum[i] + v\n\t}\n\treturn sum\n}",
+    "submit_ts": "1720281471",
+    "subm_id": "544575905"
 }

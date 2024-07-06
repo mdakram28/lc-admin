@@ -1,6 +1,6 @@
 {
-    "username": "FVq9A8JWpN",
-    "submission": "import java.util.*;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n\n        Map<Long, Long> prev= new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> curr = new HashMap<>();\n\n            if (nums[i] == k) {\n                ++count;\n            }\n            curr.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : prev.entrySet()) {\n                long newAndResult = entry.getKey() & nums[i];\n                if (newAndResult == k) {\n                    count += entry.getValue();\n                }\n                curr.put(newAndResult, curr.getOrDefault(newAndResult, 0L) + entry.getValue());\n            }\n\n            prev = curr;\n        }\n\n        return count;\n    }\n}",
-    "submit_ts": "1720281504",
-    "subm_id": "1311827576"
+    "username": "vitesh23",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def countSubarrays(self, array, target):\n        size = len(array)\n        total = 0\n        previous_results = defaultdict(int)\n        \n        for index in range(size):\n            current_results = defaultdict(int)\n            \n            if array[index] == target:\n                total += 1\n            \n            current_results[array[index]] = 1\n            \n            for value, frequency in previous_results.items():\n                new_and_result = value & array[index]\n                \n                if new_and_result == target:\n                    total += frequency\n                \n                current_results[new_and_result] += frequency\n            \n            previous_results = current_results\n        \n        return total\n",
+    "submit_ts": "1720279542",
+    "subm_id": "1311755356"
 }

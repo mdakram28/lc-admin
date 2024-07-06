@@ -1,6 +1,6 @@
 {
-    "username": "wizard_045",
-    "submission": "class Solution {\n    typedef long long ll;\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll  cnt=0;\n        int n=nums.size();\n        unordered_map<ll,ll>mp;\n        for(int i=0;i<n;++i)\n        {\n            unordered_map<ll,ll>mp1;\n            if(nums[i]==k)\n            {\n                cnt++;\n            }\n                mp1[nums[i]]=1;\n            for (const auto& x : mp) {\n                int a=x.first;\n                int b=x.second;\n                int j=a & nums[i];\n                if (j==k) {\n                    cnt+=b;\n                }\n                if (mp1.find(j)!=mp1.end()) {\n                    mp1[j]+=b;\n                } else {\n                    mp1[j]=b;\n                }\n            }\n            mp =mp1;\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720280897",
-    "subm_id": "1311805953"
+    "username": "pian-dong-de-nan",
+    "submission": "class Solution {\npublic:\nlong long countSubarrays(vector<int> nums, int k) {\n    unordered_map<int, int> cnt;\n    long long res = 0;\n    for (int i = 0; i < nums.size(); i++)\n    {\n        if (i == 0)\n        {\n            cnt[nums[i]] = 1;;\n            if (nums[i] == k)\n                res++;\n            continue;\n        }\n        unordered_map<int, int> tmpCnt;\n        if (nums[i] == k)\n            res++;\n        for (auto& [c, v] : cnt)\n        {\n            if ((nums[i] & c) == k)\n                res = res + v;\n            tmpCnt[nums[i] & c]+=v;\n        }\n        tmpCnt[nums[i]]++;\n        cnt = tmpCnt;\n    }\n    return res;\n}\n};",
+    "submit_ts": "1720281560",
+    "subm_id": "544576275"
 }

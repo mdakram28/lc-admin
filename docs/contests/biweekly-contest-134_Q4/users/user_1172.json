@@ -1,6 +1,6 @@
 {
-    "username": "doantrunghuy",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int target) {\n        const int n = nums.size();\n        long long total = 0;\n        unordered_map<long long, long long> dp;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> dp2; \n            \n            if (nums[i] == target) {\n                ++total;\n            }\n            \n            dp2[nums[i]] = 1;\n            \n            for (auto& [val, freq] : dp) {\n                long long n_and = val & nums[i];\n                \n                if (n_and == target) {\n                    total += freq;\n                }\n                \n                dp2[n_and] += freq;\n            }\n            \n            dp = dp2;\n        }\n        \n        return total;\n    }\n};",
-    "submit_ts": "1720280879",
-    "subm_id": "1311805272"
+    "username": "Zerocks_",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans=0;\n        int n = nums.size();\n        vector<int> cnt(n,1);\n        unordered_map<long long,long long> m;\n        for(int i=0;i<n;i++){\n            vector<pair<long,long>> a;\n            for(auto [x,y] : m){\n                if((nums[i]&x)==k) ans+=y;\n                a.push_back({(nums[i]&x),y});\n            }\n            if(nums[i]==k) ans++;\n            m.clear();\n            a.push_back({nums[i],1});\n            for( auto [x,y] : a){\n                m[x]+=y;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278750",
+    "subm_id": "1311722659"
 }

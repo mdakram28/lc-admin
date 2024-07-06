@@ -1,6 +1,6 @@
 {
-    "username": "user5934Pb",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& ar, int k) {\n        map<int, long long> m;\n        long long cnt = 0;\n        for(const int i : ar) {\n            map<int, long long> n;\n            n[i]++;\n            for(const auto [a, b] : m) {\n                int t = a & i;\n                n[t] += b;\n            }\n            cnt += n[k];\n            swap(n, m);\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720280456",
-    "subm_id": "1311790081"
+    "username": "havoc_07",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n         int n = nums.size();\n    unordered_map<int, int> and_count;\n    long long count = 0;\n    \n    for (int i = 0; i < n; ++i) {\n        std::unordered_map<int, int> new_and_count;\n        \n        // Current single element as subarray\n        if (nums[i] == k) {\n            ++count;\n        }\n        \n        // Update hashmap with new subarray AND results\n        for (auto& pair : and_count) {\n            int new_and = pair.first & nums[i];\n            if (new_and == k) {\n                count += pair.second;\n            }\n            new_and_count[new_and] += pair.second;\n        }\n        \n        // Include the current element itself\n        new_and_count[nums[i]]++;\n        \n        // Update the original hashmap with new values\n        and_count = new_and_count;\n    }\n    \n    return count;\n    }\n};",
+    "submit_ts": "1720279927",
+    "subm_id": "1311770516"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "9iSL5Z7hA7",
-    "submission": "#include <vector>\n#include <unordered_map>\n#include <iostream>\n\nclass Solution {\npublic:\n    long long countSubarrays(std::vector<int>& nums, int k) {\n        long long count = 0;\n        int n = nums.size();\n        std::unordered_map<int, int> andMap; // map to store the last occurrence of each AND value\n        std::unordered_map<int, int> freqMap; // map to store the frequency of each AND value\n        \n        for (int i = 0; i < n; ++i) {\n            std::unordered_map<int, int> newMap; // temporary map to store new AND values\n            \n            // Update the map with AND of current number with all previous AND values\n            for (const auto& [val, freq] : freqMap) {\n                int newVal = val & nums[i];\n                newMap[newVal] += freq;\n            }\n            \n            // Also consider the subarray starting with the current element itself\n            newMap[nums[i]]++;\n            \n            // Update the frequency map\n            freqMap = newMap;\n            \n            // If k is in the frequency map, add its frequency to the count\n            if (freqMap.find(k) != freqMap.end()) {\n                count += freqMap[k];\n            }\n        }\n        \n        return count;\n    }\n};\n\n\n",
-    "submit_ts": "1720277316",
-    "subm_id": "1311657992"
+    "username": "LOLwuliao",
+    "submission": "func countSubarrays(nums []int, k int) int64 {\n    ans := 0\n    type pair struct {a, cnt int}\n\tand := []pair{} \n\tfor _, x := range nums {\n        and = append(and, pair{x, 1})\n\t\tand[0].a &= x\n\t\tj := 0\n\t\tfor _, p := range and[1:] {\n\t\t\tp.a &= x\n\t\t\tif and[j].a == p.a {\n\t\t\t\tand[j].cnt += p.cnt\n\t\t\t} else {\n\t\t\t\tj++\n\t\t\t\tand[j] = p\n\t\t\t}\n\t\t}\n\t\tand = and[:j+1] \n        for _, p := range and {\n            if p.a == k {\n                ans += p.cnt\n            }\n        }\n\t\t\n\t}\n\t\n    return int64(ans)\n}",
+    "submit_ts": "1720280875",
+    "subm_id": "1311805142"
 }

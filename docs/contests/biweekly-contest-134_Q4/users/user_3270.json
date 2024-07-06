@@ -1,6 +1,6 @@
 {
-    "username": "yash_075",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long count = 0;\n        int n = nums.size();\n        unordered_map<int, int> andCount;\n\n        for (int num : nums) {\n            unordered_map<int, int> newAndCount;\n\n            if (num == k) {\n                count++;\n            }\n\n            for (auto& [andVal, freq] : andCount) {\n                int newAndVal = andVal & num;\n                if (newAndVal == k) {\n                    count += freq;\n                }\n                newAndCount[newAndVal] += freq;\n            }\n\n            newAndCount[num]++;\n\n            andCount = move(newAndCount);\n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720279715",
-    "subm_id": "1311762222"
+    "username": "ThisIsDPS08",
+    "submission": "class Solution {\npublic:\n    long long solve(vector<int>& nums, int k){\n        int n = nums.size();\n        long long count = 0;\n        unordered_map<long long int, long long int> m1;\n        \n        for (int i=0; i<n; i++) {\n            int ele = nums[i];\n            unordered_map<long long int, long long int> m2;\n            \n            for(auto& pair : m1){\n                long long int index = pair.first & ele;\n                m2[index] = m2[index] + pair.second;\n            }\n            \n            m2[ele]++;\n            m1 = m2;\n            \n            if(m1.find(k) != m1.end()){\n                count = count + m1[k];\n            }\n        }\n\n        return count;\n    }\n    \n    long long countSubarrays(vector<int>& nums, int k) {\n        return solve(nums, k);\n    }\n};",
+    "submit_ts": "1720280813",
+    "subm_id": "1311802947"
 }

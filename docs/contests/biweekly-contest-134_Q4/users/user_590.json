@@ -1,6 +1,6 @@
 {
-    "username": "Showman_7112",
-    "submission": "#define umap unordered_map<long long, long long>\n#define vi vector<int>\n#define ll long long\n\nclass Solution {\npublic:\n    ll countSubarrays(vi & nums, int k) {\n        int n = nums.size();\n        ll cnt = 0;\n\n        umap prev;\n\n        for (ll i = 0; i < n; ++i) {\n            umap current;\n\n            if (nums[i] == k) {\n                cnt+=1;\n            }\n            current[nums[i]] = 1;\n\n            for (auto it : prev) {\n                ll newres = it.first & nums[i];\n                if (newres == k) {\n                    cnt += it.second;\n                }\n                current[newres] += it.second;\n            }\n\n            prev = current;\n        }\n\n        return cnt;\n    }\n};",
-    "submit_ts": "1720279278",
-    "subm_id": "1311744817"
+    "username": "ankurbansal15",
+    "submission": "class Solution {\n    public long countSubarrays(int[] arr, int tgt) {\n        int len = arr.length;\n        long cnt = 0;\n        Map<Long, Long> prevRes = new HashMap<>();\n        for (int idx = 0; idx < len; ++idx) {\n            Map<Long, Long> currRes = new HashMap<>();\n            if (arr[idx] == tgt) {\n                ++cnt;\n            }\n            currRes.merge((long) arr[idx], 1L, Long::sum);\n            for (Map.Entry<Long, Long> entry : prevRes.entrySet()) {\n                long newAndRes = entry.getKey() & arr[idx];\n                if (newAndRes == tgt) {\n                    cnt += entry.getValue();\n                }\n                currRes.merge(newAndRes, entry.getValue(), Long::sum);\n            }\n            \n            prevRes = currRes;\n        }\n        return cnt;\n    }\n}\n",
+    "submit_ts": "1720279683",
+    "subm_id": "1311760971"
 }

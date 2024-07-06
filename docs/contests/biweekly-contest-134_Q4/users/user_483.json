@@ -1,6 +1,6 @@
 {
-    "username": "krishiiitp",
-    "submission": "#define ll long long int\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n=nums.size(),ans=0;\n        map<ll,ll> m1,m2;\n        for(ll i=0;i<n;i++){\n            if(nums[i]==k) ans++;\n            m2[nums[i]]=1;\n            for(auto it=m1.begin();it!=m1.end();it++){\n                if(((*it).first&nums[i])==k){\n                    ans+=(*it).second;\n                }\n                m2[(*it).first&nums[i]]+=(*it).second;\n            }\n            m1=m2,m2.clear();\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279306",
-    "subm_id": "1311745956"
+    "username": "crypto_op",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n    int n = nums.size();\n    map<long long, long long> freq;  // Map to store frequency of AND results\n    long long count = 0;\n    \n    for (int i = 0; i < n; ++i) {\n        map<long long, long long> newFreq;  // Map to store new AND results for this iteration\n        \n        for (const auto& [andResult, count] : freq) {\n            long long newAndResult = andResult & nums[i];\n            newFreq[newAndResult] += count;\n        }\n        \n        newFreq[nums[i]]++;  // Include the single element as a subarray\n        \n        // Add the frequencies of subarrays with AND equal to k\n        count += (long long)newFreq[k];\n        \n        // Update the global frequency map\n        freq = newFreq;\n    }\n    \n    return count;\n    }\n};",
+    "submit_ts": "1720279378",
+    "subm_id": "1311748809"
 }

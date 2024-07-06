@@ -1,6 +1,6 @@
 {
-    "username": "Prachi_1606",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        long long count=0;\n        unordered_map<long long,long long>previous;\n        for(int i=0;i<n;i++){\n            unordered_map<long long,long long>current;\n            if(nums[i]==k){\n                count++;\n            }\n            current[nums[i]]=1;\n            for(auto &[v,f]:previous){\n                long long res=v&nums[i];\n                if(res==k){\n                    count+=f;\n                }\n                current[res]+=f;\n            }\n            previous=current;\n        }\n        return count;\n    }\n};",
-    "submit_ts": "1720279226",
-    "subm_id": "1311742710"
+    "username": "Ayushsrivastava22",
+    "submission": "class Solution {\n    public long countSubarrays(int[] arr, int target) {\n        int n = arr.length;\n        Map<Long, Long> bitwiseAndMap = new HashMap<>();\n        long result = 0;\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> newBitwiseAndMap = new HashMap<>();\n            for (Map.Entry<Long, Long> entry : bitwiseAndMap.entrySet()) {\n                long newBitwiseAnd = entry.getKey() & arr[i];\n                newBitwiseAndMap.put(newBitwiseAnd, newBitwiseAndMap.getOrDefault(newBitwiseAnd, 0L) + entry.getValue());\n            }\n            newBitwiseAndMap.put((long) arr[i], newBitwiseAndMap.getOrDefault((long) arr[i], 0L) + 1);\n            bitwiseAndMap = newBitwiseAndMap;\n\n            if (bitwiseAndMap.containsKey((long) target)) {\n                result += bitwiseAndMap.get((long) target);\n            }\n        }\n\n        return result;\n        \n    }\n}",
+    "submit_ts": "1720278993",
+    "subm_id": "1311732793"
 }

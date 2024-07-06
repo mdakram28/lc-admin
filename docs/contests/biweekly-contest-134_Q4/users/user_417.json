@@ -1,6 +1,6 @@
 {
-    "username": "shubham_rastogi",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n            int n = nums.size();\n        unordered_map<int, int> countMap;\n        long long result = 0;\n\n        for (int num : nums) {\n            unordered_map<int, int> newCountMap;\n\n            if (num == k) {\n                result++;\n            }\n\n            for (auto& [key, count] : countMap) {\n                int newAND = key & num;\n                if (newAND == k) {\n                    result += count;\n                }\n                newCountMap[newAND] += count;\n            }\n\n            newCountMap[num]++;\n            countMap = newCountMap;\n        }\n\n        return result;\n\n    }\n};",
-    "submit_ts": "1720278566",
-    "subm_id": "1311714701"
+    "username": "bless-4ne",
+    "submission": "\nconst int N = 1e5+50;\nlong long pre[N][32];\nlong long nxt[N][32];\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        for(int i = 0; i < n; i++){\n            for(int j = 0; j < 31; j++){\n                if(nums[i] >> j & 1) pre[i][j] = 1;\n                else pre[i][j]=0;\n            }\n        }\n        for(int i = 0; i < 31;i++){\n            int las = n;\n            for(int j = n - 1; j>=0;j--){\n                if(pre[j][i]==0) las=j;\n                nxt[j][i]=las;\n            }\n        }\n        long long ans = 0;\n        for(int i=0;i<n;i++){\n            int l=i,r=n-1;\n            for(int j=0;j<=30;j++){\n                int nest = nxt[i][j];\n                //if(j<=1) std::cout << nest << '\\n';\n                if(k>>j&1){\n                    r = std::min(r,nest-1);\n                }\n                else{\n                    l = std::max(nest,l);\n                }\n            }\n            //std::cout << l << \" \" << r << '\\n';\n            if(l<=r) ans+=(r-l+1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278589",
+    "subm_id": "544563338"
 }

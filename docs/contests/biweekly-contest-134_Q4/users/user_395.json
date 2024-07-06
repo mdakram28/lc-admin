@@ -1,6 +1,6 @@
 {
-    "username": "nightcrawler0112",
-    "submission": "#define ll long long \nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n\n        int n = nums.size();\n\n        \n        ll ans = 0;\n        for(int i=0;i<n;i++){\n            if(nums[i] == k) ans++;\n        }\n        unordered_map<ll,ll> mp;\n\n        for(int i=0;i<n;i++){\n            unordered_map<ll,ll> curr;\n\n            curr[nums[i]] = 1;\n\n            for(auto &it: mp){\n                ll currAnd = nums[i]&it.first;\n                if(currAnd == k) ans += it.second;\n\n                curr[currAnd] += it.second;\n            }\n\n            mp = curr;\n        }\n\n        return ans;\n    \n        \n    }\n};",
-    "submit_ts": "1720279400",
-    "subm_id": "1311749722"
+    "username": "feindreh",
+    "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar countSubarrays = function(nums, k) {\n    const dp = new Array(nums.length).fill(0).map(()=>{return {}})\n    const dynamo = (index,value) => {\n        if(index >= nums.length){return 0}\n        if(dp[index][value] !== undefined){return dp[index][value]}\n        const n = value&nums[index]\n        let next = dynamo(index+1,n)\n        let plus = (n === k)?1:0\n        dp[index][value] = next + plus\n        return next+plus\n    }\n    let res = 0\n    for(let i = 0;i<nums.length;i++){\n        res += (dynamo(i,nums[i]))\n    }\n    return res\n};",
+    "submit_ts": "1720278817",
+    "subm_id": "1311725555"
 }

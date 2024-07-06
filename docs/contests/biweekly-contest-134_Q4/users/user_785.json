@@ -1,6 +1,6 @@
 {
-    "username": "ayushsuman",
-    "submission": "#include<bits/stdc++.h>\n#include<ext/pb_ds/assoc_container.hpp>\n#include<ext/pb_ds/tree_policy.hpp>\nusing namespace std;\nusing namespace __gnu_pbds;\nusing namespace chrono;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int k) {\n        ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);\n        int n = v.size();\n        long long cnt = 0;\n        gp_hash_table<long long, long long> mp;\n        for (auto i:v) {\n            gp_hash_table<long long, long long> mp1;\n            if (i == k) cnt++;\n            for (auto p : mp) {\n                long long and1 = p.first & i;\n                if (and1 == k) cnt += p.second;\n                mp1[and1] += p.second;\n            }\n            mp1[i]++;\n            mp = move(mp1);\n        }\n        return cnt;\n    }\n};\n",
-    "submit_ts": "1720278730",
-    "subm_id": "1311721784"
+    "username": "Tristanczk",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        count = 0\n        current_and = defaultdict(int)\n    \n        for num in nums:\n            next_and = defaultdict(int)\n            next_and[num] += 1\n            for v in current_and:\n                new_and = v & num\n                next_and[new_and] += current_and[v]\n            current_and = next_and\n            count += current_and[k]\n        \n        return count\n",
+    "submit_ts": "1720279799",
+    "subm_id": "1311765534"
 }

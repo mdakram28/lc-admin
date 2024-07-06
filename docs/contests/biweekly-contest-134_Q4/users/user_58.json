@@ -1,6 +1,6 @@
 {
-    "username": "eshaansodhi",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n = nums.size();\n        ll count = 0;\n        map<ll, ll> freq;\n        \n        for (int i = 0; i < n; ++i) {\n            map<ll, ll> newFreq;\n            \n            if (nums[i] == k) {\n                count++;\n            }\n            \n            newFreq[nums[i]]++;\n            \n            for (auto& [key, val] : freq) {\n                ll newKey = key & nums[i];\n                newFreq[newKey] += val;\n                if (newKey == k) {\n                    count += val;\n                }\n            }\n            \n            freq = move(newFreq);\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720277737",
-    "subm_id": "1311677684"
+    "username": "Abeed_shaik",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ret = 0;\n        vector<vector<int>> pos(n + 1, vector<int>(31, n));\n        for(int i = n - 1; i >= 0; i--){\n            for(int j = 0; j < 31; j++){\n                if(nums[i] & (1 << j)) pos[i][j] = pos[i + 1][j];\n                else pos[i][j] = i;\n            }\n            int mi = n, mx = i;\n            for(int j = 0; j < 31; j++){\n                if(k & (1 << j)) mi = min(mi, pos[i][j]);\n                else mx = max(mx, pos[i][j]);\n            }\n            if(mi < mx) continue;\n            ret += (mi - mx);\n        }\n        \n        return ret;\n    }\n};",
+    "submit_ts": "1720277637",
+    "subm_id": "1311672977"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "pinakibanerjee2001",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll solve(int k,auto& nums){\n        int n=nums.size();\n        int l=0,r=0;\n        ll ans=0;\n        unsigned int cur=INT_MAX;\n        int freq[32]={0};\n        while(r<n){\n            cur&=nums[r];\n           // cout<<cur<<\"  \";\n            for(int i=31;i>=0;i--){\n                if((nums[r]>>i)&1)\n                    continue;\n                freq[i]++;\n            }\n            while(cur<k){\n                int val=nums[l++];\n                for(int i=31;i>=0;i--){\n                    if((val>>i)&1)\n                        continue;\n                    freq[i]--;\n                }\n                cur=0;\n                for(int i=0;i<32;i++){\n                    if(freq[i]==0)\n                        cur|=(unsigned)(1<<i);\n                }  \n                cout<<cur<<\"  \"<<endl;\n            }\n            \n            ans+=r-l+1;\n            r++;\n        }\n        \n        return ans;\n    }\n    \n    long long countSubarrays(vector<int>& nums, int k) {\n        cout<<endl;\n        return solve(k,nums)-solve(k+1,nums);\n    }\n};",
-    "submit_ts": "1720281425",
-    "subm_id": "1311824711"
+    "username": "nyp00n",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        unordered_map<int, int> curr, next;\n        \n        for (int i = 0; i < n; ++i) {\n            next.clear();\n            if (nums[i] == k) ++cnt;\n            next[nums[i]] = 1;\n            \n            for (auto& [val, freq] : curr) {\n                int andVal = val & nums[i];\n                if (andVal == k) cnt += freq;\n                next[andVal] += freq;\n            }\n            \n            curr.swap(next);\n        }\n        \n        return cnt;   \n    }\n};",
+    "submit_ts": "1720280363",
+    "subm_id": "1311786587"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "vaiwal_20",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        unordered_map<long long, long long> prev;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> curr; \n            \n            if (nums[i] == k) {\n                ++ans;\n            }\n            curr[nums[i]] = 1;\n            \n            for (auto& [v, f] : prev) {\n                long long val = v & nums[i];\n                if (val == k) {\n                    ans += f;\n                }\n                curr[val] += f;\n            }\n            \n            prev = curr;\n        }\n        \n        return ans;\n    }\n};\n",
-    "submit_ts": "1720278751",
-    "subm_id": "1311722706"
+    "username": "freakin23",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n#ifdef freakin23\n#include \"library/debug.cpp\"\n#else\n#define debug(...)\n#endif\n\nclass Solution {\npublic:\n#define i23 long long\n    long long countSubarrays(vector<int>& nums, int k) {\n        i23 res = 0;\n        unordered_map<i23, i23> mp;\n        for (int i = 0; i < (int)nums.size(); ++i) {\n            unordered_map<i23, i23> new_mp;\n            new_mp[nums[i]]++;\n            for (auto& p : mp) {\n                int newAnd = p.first & nums[i];\n                new_mp[newAnd] += p.second;\n            }\n            mp = new_mp;\n            if (mp.find(k) != mp.end()) {\n                res += mp[k];\n            }\n        }\n\n        return res;\n    }\n};\n\n#ifdef freakin23\nint main(){\n    ios::sync_with_stdio(false);\n    cin.tie(0);\n    return 0;\n}\n#endif",
+    "submit_ts": "1720278053",
+    "subm_id": "1311692188"
 }

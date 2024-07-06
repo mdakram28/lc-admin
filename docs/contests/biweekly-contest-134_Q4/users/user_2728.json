@@ -1,6 +1,6 @@
 {
-    "username": "satyam2411",
-    "submission": "class Solution {\npublic:\n    typedef long long ll;\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        ll cnt = 0;\n        \n        unordered_map<ll, ll>prevVal;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<ll, ll> currVal; \n\n            if (nums[i] == k) {\n                ++cnt;\n            }\n            currVal[nums[i]] = 1;\n\n            for (auto& [key, val] :prevVal) {\n                ll newVal = key & nums[i];\n                if (newVal == k) {\n                    cnt += val;\n                }\n                currVal[newVal] += val;\n            }\n            \n           prevVal = currVal;\n        }\n        \n        return cnt;\n    }\n};",
-    "submit_ts": "1720278500",
-    "subm_id": "1311711884"
+    "username": "Arunydvv",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n            long total = 0;\n            HashMap<Long, Long> storeSeen = new HashMap<>(); // isko use karo store krne k liye\n\n            for (int j : nums) {\n                HashMap<Long, Long> storeCurr = new HashMap<>();\n                if (j == k) ++total;\n                long num = (long) j;\n                storeCurr.put(num, (long)1); // long me save kro\n\n                // Iterite karo\n                for (Map.Entry<Long, Long> entry : storeSeen.entrySet()) {\n                    long val = entry.getKey(), fq = entry.getValue();\n                    long andres = val & j;\n                    if (andres == k) total += fq;\n                    // update karo\n                    storeCurr.put(andres, storeCurr.getOrDefault(andres, 0L) + fq);\n                }\n                storeSeen = storeCurr;\n            }\n\n            return total; \n    }\n}",
+    "submit_ts": "1720281046",
+    "subm_id": "1311811233"
 }

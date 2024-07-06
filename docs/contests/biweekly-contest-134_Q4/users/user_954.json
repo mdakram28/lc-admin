@@ -1,6 +1,6 @@
 {
-    "username": "thanhle0212",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        ans = 0\n        dp = {}\n        \n        for num in nums:\n            temp = {}\n            \n            for key in dp:\n                new_and = key & num\n                if new_and not in temp:\n                    temp[new_and] = 0\n                temp[new_and] += dp[key]\n            \n            if num not in temp:\n                temp[num] = 0\n            temp[num] += 1\n            \n            if k in temp:\n                ans += temp[k]\n            \n            dp = temp\n        \n        return ans",
-    "submit_ts": "1720278273",
-    "subm_id": "1311701974"
+    "username": "strange-mclarenpfr",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int x) {\n        int n = nums.length;\n        List<int[]> ands = new ArrayList<>();\n        long ans = 0;\n        for (int i = n - 1; i >= 0; i--) {\n            ands.add(0, new int[]{-1, 1});\n            int k = 0;\n            for (int j = 0; j < ands.size(); j++) {\n                int and = ands.get(j)[0], size = ands.get(j)[1];\n                and &= nums[i];\n                if (k == 0 || and != ands.get(k - 1)[0]) {\n                    ands.set(k++, new int[]{and, size});\n                } else if (and == ands.get(k - 1)[0]) {\n                    int[] p = ands.get(k - 1);\n                    p[1] += size;\n                    ands.set(k - 1, p);\n                }\n                if (and == x) ans += size;\n            }\n            ands.subList(k, ands.size()).clear();\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720280071",
+    "subm_id": "544570406"
 }

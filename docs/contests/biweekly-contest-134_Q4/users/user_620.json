@@ -1,6 +1,6 @@
 {
-    "username": "Sauram228",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long n = nums.size();\n        unordered_map<long long, long long> andCount;\n        long long count = 0ll;\n\n        for (long long i = 0; i < n; ++i) {\n            unordered_map<long long, long long> newAndCount;\n            if (nums[i] == k) count++; // Single element subarray\n\n            for (auto &pair : andCount) {\n                long long newAnd = pair.first & nums[i];\n                if (newAnd == k) count += pair.second;\n                newAndCount[newAnd] += pair.second;\n            }\n\n            if (nums[i] == k) {\n                newAndCount[k]++;\n            } else {\n                newAndCount[nums[i]]++;\n            }\n\n            andCount = newAndCount;\n        }\n        return count;\n    }\n};",
-    "submit_ts": "1720279612",
-    "subm_id": "1311758219"
+    "username": "mrsuns",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        long long res = 0;\n        int n = a.size();\n        vector<array<int, 3>> dp;\n        for (int pos = 0; pos < a.size(); pos++) {\n            int cur = a[pos];\n            for (int i = 0; i < dp.size(); i++) dp[i][2] = (dp[i][2] & cur);\n            dp.push_back({ pos, pos, cur });\n            int ptr = 0;\n            for (int j = 1; j < dp.size(); j++) {\n                if (dp[j][2] != dp[ptr][2]) dp[++ptr] = dp[j];\n                else dp[ptr][1] = dp[j][1];\n            }\n            dp.resize(ptr + 1);\n            {\n                for (auto [l, r, x] : dp) {\n                    if (x == k) res += r - l + 1;\n                }\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720278852",
+    "subm_id": "544564703"
 }

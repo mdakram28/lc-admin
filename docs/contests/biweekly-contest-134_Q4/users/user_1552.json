@@ -1,6 +1,6 @@
 {
-    "username": "HarshKanani",
-    "submission": "class Solution {\npublic:\n\n    long long countSubarrays(vector<int>& arr, int k) {\n    long long int n = arr.size(),ans=0,sum=0;\n    unordered_map<long long, long long> mp1;\n    map<int,int> mp;\n\n    for(int i=0;i<n;i++)\n    {\n        sum+=arr[i];\n    }\n\n    for(int i=0;i<n;i++)\n    {\n        mp[arr[i]]=i;\n    }\n\n    int counter=0;\n\n    while(counter<n)\n    {\n        unordered_map<long long, long long> mp2;\n\n        mp2[arr[counter]] = 1;\n        ans+=(arr[counter]==k);\n\n        for(auto it : mp1)\n        {\n            long long int First=it.first,Second=it.second;\n\n            long long int temp=First&arr[counter];\n\n            ans+=(temp==k)?(Second):0;\n\n            mp2[temp]+=Second;\n        }\n\n        counter++;\n\n        mp1=mp2;\n    }\n\n    return ans;\n    }\n};",
-    "submit_ts": "1720281099",
-    "subm_id": "1311813108"
+    "username": "bdyby9871112",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1720277709",
+    "subm_id": "1311676385"
 }

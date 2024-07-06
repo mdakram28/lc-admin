@@ -1,6 +1,6 @@
 {
-    "username": "AuRA_07",
-    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        ll cnt = 0;\n        unordered_map<ll,ll>mp;\n        for (int i = 0; i<n;i++) \n        {\n            unordered_map<ll,ll>mp2; \n            if (nums[i] ==k) \n            {\n                cnt++;\n            }\n            mp2[nums[i]]=1;\n            for (auto j :mp) \n            {\n                if ((j.first & nums[i])==k) \n                {\n                    cnt += j.second;\n                }\n                mp2[(j.first & nums[i]) ]+=j.second;\n            }\n            mp = mp2;\n        }\n         \n        return cnt;\n    }\n};",
-    "submit_ts": "1720279017",
-    "subm_id": "1311733781"
+    "username": "notcyborg94",
+    "submission": "class Solution {\npublic:\n  // Renamed variable: subarrayCount\n  long long countSubarrays(vector<int>& nums, int k) {\n    int arraySize = nums.size(); // Renamed: arraySize\n    // Renamed: subarrayCount\n    long long totalSubarrays = 0;\n    // Renamed: previousCounts\n    unordered_map<long long, long long> prevResults;\n    for (int i = 0; i < arraySize; ++i) {\n      // Renamed: currentCounts\n      unordered_map<long long, long long> currResults;\n      if (nums[i] == k) {\n        ++totalSubarrays;\n      }\n      currResults[nums[i]] = 1;\n      for (auto& [val, freq] : prevResults) {\n        long long newAndResult = val & nums[i];\n        if (newAndResult == k) {\n          totalSubarrays += freq;\n        }\n        currResults[newAndResult] += freq;\n      }\n      prevResults = currResults;\n    }\n  // Highlighted return statement\n  return totalSubarrays;\n  }\n};",
+    "submit_ts": "1720279174",
+    "subm_id": "1311740566"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "jith144",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
-    "submit_ts": "1720280879",
-    "subm_id": "1311805313"
+    "username": "akashkhatrii",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        total = 0\n        prev = {}\n\n        for i in range(len(nums)):\n            curr = {}\n            if nums[i] == k:\n                total += 1\n            curr[nums[i]] = 1\n\n            for key, value in prev.items():\n                new_res = key & nums[i]\n                if new_res == k:\n                    total += value\n                if new_res in curr:\n                    curr[new_res] += value\n                else:\n                    curr[new_res] = value\n\n            prev = curr\n\n        return total\n",
+    "submit_ts": "1720278884",
+    "subm_id": "1311728380"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "ankush_chatt",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        \n        long long subarrayCount = 0;\n        \n        unordered_map<long long, long long> previousAndResults;\n        \n        for (int i = 0; i < nums.size(); ++i) {\n            if (nums[i] == k) {\n                subarrayCount++;\n            }\n\n            unordered_map<long long, long long> currentAndResults; \n\n            currentAndResults[nums[i]] = 1;\n\n            for (auto ele : previousAndResults) {\n                long long previousAndValue = ele.first;\n                long long frequency = ele.second;\n                long long currAndRes = previousAndValue & nums[i];\n\n                currentAndResults[currAndRes] += frequency;\n                \n                \n                \n                if (currAndRes == k) {\n                    subarrayCount =subarrayCount+ frequency;\n                }                \n            }\n            previousAndResults = currentAndResults;\n            \n            \n        }\n        long long ans=subarrayCount;\n        return ans;\n    }\n};\n",
-    "submit_ts": "1720279101",
-    "subm_id": "1311737442"
+    "username": "whateverrudra",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long cnt = 0;\n        int n = nums.size();\n        unordered_map<long long, long long> prev;\n        for(int i =0; i < n; ++i){\n            unordered_map<long long, long long> curr;\n            if(nums[i] == k){\n                ++cnt;\n            }\n            curr[nums[i]]=1;\n            for(auto&[val,freq]:prev){\n                long long newA =val&nums[i];\n                if(newA==k){\n                    cnt+=freq;\n                }\n                curr[newA]+=freq;\n            }\n            prev = curr;\n        }\n        return cnt;\n    }\n};",
+    "submit_ts": "1720280053",
+    "subm_id": "1311775192"
 }

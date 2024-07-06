@@ -1,6 +1,6 @@
 {
-    "username": "sarvagya2545",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> prefixSum(n + 1, vector<int> (30, 0));\n        for(int i = 0; i < n; i++) {\n            for(int pos = 0; pos < 30; pos++) {\n                int bit = (nums[i] & (1 << pos)) > 0 ? 1 : 0;\n                prefixSum[i + 1][pos] = prefixSum[i][pos] + (bit);\n            }\n        }\n        \n        auto get_and = [&] (int i, int j) -> int {\n            int res = 0;\n            for(int pos = 0; pos < 30; pos++) {\n                if(prefixSum[j + 1][pos] - prefixSum[i][pos] == (j + 1 - i)) {\n                    res |= (1 << pos);\n                }\n            }\n            \n            return res;\n        };\n        \n        auto count_gte_k = [&] (int i, int x) -> int {\n            int left = i, right = n - 1, ans = i - 1;\n            while(left <= right) {\n                int mid = left + (right - left) / 2;\n                if(get_and(i, mid) >= x) {\n                    ans = mid;\n                    left = mid + 1;\n                } else {\n                    right = mid - 1;\n                }\n            }\n            \n            return ans - i + 1;\n        };\n        \n        long long count = 0;\n        for(int i = 0; i < n; i++) {\n            count += count_gte_k(i, k) - count_gte_k(i, k + 1);\n        }\n        return count;\n    }\n};",
-    "submit_ts": "1720277859",
-    "subm_id": "1311683380"
+    "username": "n124345679976",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        s = Counter()\n        ans = 0\n        for n in nums:\n            ns = Counter()\n            for ss, v in s.items():\n                ns[ss & n] += v\n            ns[n] += 1\n            ans += ns[k]\n            s = ns\n        return ans",
+    "submit_ts": "1720277127",
+    "subm_id": "1311648982"
 }

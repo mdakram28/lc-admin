@@ -1,6 +1,6 @@
 {
-    "username": "shreyshah_",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        unordered_map<long long,long long> mp;\n        for(auto it:nums){\n            ans+=(long long)(it==k?1:0);\n            unordered_map<long long,long long> mp1;\n            mp1[it]=1;\n            for(auto it1:mp){\n                long long temp = it1.first&it;\n                ans+=(long long)(temp==k?it1.second:0);\n                mp1[temp]+=it1.second;\n            }\n            mp=mp1;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279269",
-    "subm_id": "1311744441"
+    "username": "DenisGubar",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long result = 0;\n        int const N = nums.size();\n        vector<int> A(30, -1);\n        for (int i = 0; i < N; ++i)\n        {\n            int const x = nums[i];\n            for (int j = 0; j < 30; ++j)\n                if ((x & (1 << j)) == 0)\n                    A[j] = i;\n            if ((x & k) == k)\n            {\n                int L = -1, R = i;\n                for (int j = 0; j < 30; ++j)\n                    if (k & (1 << j))\n                        L = max(L, A[j]);\n                    else\n                        R = min(R, A[j]);\n                if (L < R)\n                    result += R - L;\n            }\n        }\n        return result;\n    }\n};\n",
+    "submit_ts": "1720279084",
+    "subm_id": "1311736693"
 }

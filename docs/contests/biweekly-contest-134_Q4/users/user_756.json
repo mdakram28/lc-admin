@@ -1,6 +1,6 @@
 {
-    "username": "dattrungnam-xyz",
-    "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar countSubarrays = function(nums, k) {\n        let length = nums.length\n        let total = 0\n        let pre = new Map()\n\n        for (let i = 0; i < length; ++i) {   \n            let cur = new Map()\n            if (nums[i] == k) {\n                ++total;\n            }\n            cur.set(nums[i], 1)\n            for(let [val, fre] of pre.entries())\n                {\n                     let newAndResult = val & nums[i]\n                     if (newAndResult == k) {\n                            total += fre;\n                        }\n                        cur.set(newAndResult, (cur.get(newAndResult) || 0) +fre)\n      \n                }\n            pre = cur \n        }\n        return total;\n};",
-    "submit_ts": "1720279278",
-    "subm_id": "1311744808"
+    "username": "zymgdream",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        def f(p):\n            if not p: return 0\n            # print([bin(i)[2:] for i in p])\n            q = Counter()\n            n = len(p)\n            ans = 0\n            for idx, i in enumerate(p):\n                t = Counter()\n                for j,v in q.items():\n                    tp = i & j\n                    if tp == k:\n                        ans += (n - idx) * v\n                    else:\n                        t[tp] += v\n                if i == k:\n                    ans += n - idx\n                else:\n                    t[i] += 1\n                q = t\n            return ans\n\n\n\n\n\n\n        p = []\n        ans = 0\n        for j in nums:\n            if j & k == k:\n                p.append(j)\n            else:\n                ans += f(p)\n                p = []\n        ans += f(p)\n        return ans\n        \n",
+    "submit_ts": "1720279109",
+    "subm_id": "544565993"
 }

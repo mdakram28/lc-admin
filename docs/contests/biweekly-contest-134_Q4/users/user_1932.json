@@ -1,6 +1,6 @@
 {
-    "username": "LOLwuliao",
-    "submission": "func countSubarrays(nums []int, k int) int64 {\n    ans := 0\n    type pair struct {a, cnt int}\n\tand := []pair{} \n\tfor _, x := range nums {\n        and = append(and, pair{x, 1})\n\t\tand[0].a &= x\n\t\tj := 0\n\t\tfor _, p := range and[1:] {\n\t\t\tp.a &= x\n\t\t\tif and[j].a == p.a {\n\t\t\t\tand[j].cnt += p.cnt\n\t\t\t} else {\n\t\t\t\tj++\n\t\t\t\tand[j] = p\n\t\t\t}\n\t\t}\n\t\tand = and[:j+1] \n        for _, p := range and {\n            if p.a == k {\n                ans += p.cnt\n            }\n        }\n\t\t\n\t}\n\t\n    return int64(ans)\n}",
-    "submit_ts": "1720280875",
-    "subm_id": "1311805142"
+    "username": "_ideal_guy",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
+    "submit_ts": "1720279013",
+    "subm_id": "1311733610"
 }

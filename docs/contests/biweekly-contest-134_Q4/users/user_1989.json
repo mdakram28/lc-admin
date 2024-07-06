@@ -1,6 +1,6 @@
 {
-    "username": "shyamkinjarapu9103",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n            int n = nums.size(); // Correct variable name and access the size of 'nums'\n        long long tot = 0;\n        unordered_map<long long, long long> mp1;\n        \n        for (int index = 0; index < n; ++index) {\n            unordered_map<long long, long long> mp2;\n            long long tar = k; // Correctly define 'target' (assuming 'k' is the target value)\n            \n            if (nums[index] == tar) {\n                ++tot;\n            }\n            mp2[nums[index]] = 1;\n            \n            for (auto& [value, frequency] : mp1) {\n                long long newAndResult = value & nums[index]; // Bitwise AND between value and                                                                                                        //nums[index]\n                if (newAndResult == tar) {\n                    tot += frequency;\n                }\n                mp2[newAndResult] += frequency;\n            }\n            \n            mp1 = mp2;\n        }\n        \n        return tot;\n      \n    }\n};",
-    "submit_ts": "1720280271",
-    "subm_id": "1311783087"
+    "username": "nikhilh26_",
+    "submission": "class Solution\n{\npublic:\n    long long countSubarrays(vector<int> arr, int k)\n    {\n        long long ans = 0;\n        int n = arr.size();\n        map<int, long long> mp;\n\n        for (int i = 0; i < n; i++)\n        {\n            map<int, long long> new_mp;\n            for (auto j : mp)\n                new_mp[(arr[i] & j.first)] = (1LL) * new_mp[(arr[i] & j.first)] + j.second;\n\n            new_mp[arr[i]] = new_mp[arr[i]] + 1;\n            ans = (1LL) * ans + new_mp[k];\n            mp = new_mp;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720281563",
+    "subm_id": "1311829981"
 }

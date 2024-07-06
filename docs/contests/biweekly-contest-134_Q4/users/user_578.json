@@ -1,6 +1,6 @@
 {
-    "username": "whynot4",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long a = solve(nums, k+1);\n        long b = solve(nums, k);\n        return b-a;\n    }\n\n    // counts the number of subarrays with ANDs >= k\n    long solve(int[] nums, int k) {\n        int left = 0;\n        long ans = 0;\n        var zeros = new int[32]; // frequency of zero bits within the sliding window\n        for (int right=0; right<nums.length; right++) {\n            merge(zeros, nums[right], 1);\n            int res = getVal(zeros);\n            while (left < right && res < k) {\n                merge(zeros, nums[left], -1);\n                res = getVal(zeros);\n                left++;\n            }\n            if (res >= k) {\n                ans += right - left + 1;\n            }\n        }\n        return ans;\n    }\n\n    void merge(int[] zeros, int n, int delta) {\n        for (int i=0; i<31; i++) {\n            if (((n>>i)&1)==0) {\n                zeros[i] += delta;\n            }\n        }\n    }\n\n    int getVal(int[] zeros) {\n        int res = 0;\n        for (int i=0; i<31; i++) {\n            if (zeros[i] == 0) {\n                res |= (1<<i);\n            }\n        }\n        return res;\n    }\n}",
-    "submit_ts": "1720279539",
-    "subm_id": "1311755192"
+    "username": "singsunny517",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<long,long> mp;\n        long long res=0;\n        for(int i=0;i<n;i++){\n            map<long,long> temp;\n            temp[nums[i]]++;\n            for(auto j:mp){\n                int num=j.first;\n                int cnt=j.second;\n                int an = num&nums[i];\n                temp[an]+=cnt;\n            }\n            res+=temp[k];\n            mp=temp;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720279354",
+    "subm_id": "1311747845"
 }

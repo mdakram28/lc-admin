@@ -1,6 +1,6 @@
 {
-    "username": "A_Nan",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        unordered_map<long long,long long>mp;\n        long long cnt=0;\n        for(int i=0;i<n;i++){\n            unordered_map<long long,long long>mp1;\n            if(nums[i]==k) cnt++;\n            mp1[nums[i]]=1;\n            for(auto it:mp){\n                long long res=it.first&nums[i];\n                if(res==k) cnt+=it.second;\n                \n                mp1[res]+=it.second;\n            }\n            mp=mp1;\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720280969",
-    "subm_id": "1311808497"
+    "username": "dragonballfan",
+    "submission": "class Solution:\n    def helper(self, nums, b, e, k):\n        if b==-1 or e==-1:\n            return 0\n        dp = self.dp\n        ans = 0\n        for i in range(b,e+1):\n            cur = nums[i]\n            j = i-1\n            while j >= b and cur!=k and cur&nums[j]!=nums[j]:\n                cur&=nums[j]\n                j-=1\n            if cur == k:\n                ans += j+2-b\n                dp[i] = j+2-b\n            elif j>=b:\n                ans += dp[j]\n                dp[i] = dp[j]\n        return ans\n                \n\n        \n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        b, e = -1, -1\n        ans = 0\n        self.dp = [0]*len(nums)\n        for i,v in enumerate(nums):\n            if v&k!=k:\n                ans += self.helper(nums,b,e,k)\n                b, e = -1, -1\n            else:\n                if b == -1:\n                    b=e=i\n                else:\n                    e=i\n        ans += self.helper(nums,b,e,k)\n        return ans",
+    "submit_ts": "1720281461",
+    "subm_id": "544575874"
 }

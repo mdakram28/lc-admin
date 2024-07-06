@@ -1,6 +1,6 @@
 {
-    "username": "JoyosmitP",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int, long long> mp; \n        long long ans = 0;\n        int n = nums.size();\n        for (int i = 0;i<n;i++) {\n            unordered_map<int, long long> mp2;\n            \n            if (nums[i] == k) {\n                ans++;\n            }\n            mp2[nums[i]]++;\n            for (auto item : mp) {\n                int andVal = item.first & nums[i];\n                if (andVal == k) {\n                    ans += item.second;\n                }\n                mp2[andVal] += item.second;\n            }\n            mp = mp2;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280095",
-    "subm_id": "1311776720"
+    "username": "sngurdeep",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
+    "submit_ts": "1720280797",
+    "subm_id": "1311802371"
 }

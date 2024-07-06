@@ -1,6 +1,6 @@
 {
-    "username": "Ikarikaji",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> v(n,vector<int> (32,0));\n        for(int i=0;i<n;i++){\n            for(int j=0;j<32;j++){\n                v[i][j]=(nums[i]>>j)&1;\n            }\n        }\n        for(int i=0;i<32;i++){\n            for(int j=1;j<n;j++){\n                v[j][i] = v[j-1][i]*v[j][i] + v[j][i];       \n            }\n        }\n        long long count=0;\n        for(int i=0;i<n;i++){\n            int mini=i+1,maxi=0;\n            for(int j=0;j<32;j++){\n                if(((k>>j)&1)==1)\n                {\n                    mini = min(mini,v[i][j]);\n                }\n                else{\n                    maxi = max(maxi,v[i][j]);\n                }\n            }\n            //cout<<maxi<<\" \"<<mini<<endl;\n            count+=max(0,mini-maxi);\n        }\n        \n        // for(auto ele:v){\n        //     for(auto ele1:ele){\n        //         cout<<ele1<<\" \";\n        //     }\n        //     cout<<endl;\n        // }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720281286",
-    "subm_id": "1311819618"
+    "username": "RGcodes1405",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        unordered_map<long long,long long> prev;\n        for(int i = 0 ; i < n ; i++){\n            unordered_map<long long,long long> curr;\n            \n            if(nums[i] == k)cnt++;\n            curr[nums[i]] = 1;\n            for(auto& [val,freq]: prev){\n                long long newres = val & nums[i];\n                if(newres==k)cnt += freq;\n                curr[newres] += freq;\n            }\n            prev = curr;\n        }\n        return cnt;\n    }\n};",
+    "submit_ts": "1720280100",
+    "subm_id": "1311776889"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "himanshu88140",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        unordered_map<long long,long long>mp;\n        long long cnt=0;\n        \n        //mp[xr]++;\n        \n        for(int i=0;i<n;i++){\n            unordered_map<long long,long long>mpp;\n            if(nums[i]==k)cnt++;\n            mpp[nums[i]]=1;\n            for(auto&[val,freq]:mp){\n                long long cnt2=val&nums[i];\n                if(cnt2==k)cnt+=freq;\n                mpp[cnt2]+=freq;\n            }\n            mp=mpp;\n            // xr=xr^nums[i];\n            // int des=xr^k;\n            // cnt+=mp[des];\n            // mp[xr]++;\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720278885",
-    "subm_id": "1311728425"
+    "username": "l00",
+    "submission": "# https://leetcode.cn/u/l00/\n\ndic = {1<<i:i for i in range(32)}\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        zore = [-1] * 32\n        one = [-1] * 32\n        breaks = -1\n        ans = 0\n        for i, num in enumerate(nums):\n            if num & k != k:\n                breaks = i\n                continue\n            \n            queue = []\n            tmp = num ^ k\n            while tmp:\n                low = tmp & -tmp\n                x = dic[low]\n                queue.append(x)\n                tmp ^= low\n            \n            tail = i\n            for index in queue:\n                tail = min(tail, zore[index])\n            if breaks < tail:\n                ans += tail - breaks\n            # print(\"i\",(i,num), \"queue\",queue,\"tail\",tail,\"breaks\",breaks)\n            for j in range(32):\n                if (num >> j) & 1 == 0:\n                    zore[j] = i\n            # print(\"zore\",zore)\n            \n        return ans\n\n\n\n",
+    "submit_ts": "1720278967",
+    "subm_id": "544565305"
 }

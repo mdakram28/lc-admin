@@ -1,6 +1,6 @@
 {
-    "username": "madhav0105",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        ll cnt=0;\n        unordered_map<ll,ll>mp;\n        for(int i=0;i<n;i++){\n            unordered_map<ll,ll>mp1;\n            int c=nums[i];\n            // if(nums[i]<k)continue;\n            if(nums[i]==k)cnt++;\n            mp1[nums[i]]++;\n            for(auto&x:mp){\n                ll a=x.first&nums[i];\n                if(a==k){\n                    cnt+=x.second;\n                }\n                mp1[a]+=x.second;\n            }\n            mp=mp1;\n        }\n\n        return cnt;\n    }\n};",
-    "submit_ts": "1720279911",
-    "subm_id": "1311769928"
+    "username": "kind-archimedesf6z",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int[] c0 = new int[30];\n        int i = 0;\n        long ans = 0;\n        for (int x : nums) {\n            ++i;\n            for (int b = 0; b < 30; ++b) {\n                if ((k & 1 << b) != 0) {\n                    if ((x & 1 << b) == 0) {\n                        i = -1;\n                        break;\n                    }\n                }\n            }\n            if (i < 0) {\n                i = 0;\n                Arrays.fill(c0, 0);\n                continue;\n            }\n            int mi = i;\n            for (int b = 0; b < 30; ++b) {\n                if ((k & 1 << b) == 0) {\n                    if ((x & 1 << b) == 0) {\n                        c0[b] = i;\n                    } else {\n                        mi = Math.min(mi, c0[b]);\n                    }\n                }\n            }\n            ans += mi;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720279947",
+    "subm_id": "544569699"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "Arunydvv",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n            long total = 0;\n            HashMap<Long, Long> storeSeen = new HashMap<>(); // isko use karo store krne k liye\n\n            for (int j : nums) {\n                HashMap<Long, Long> storeCurr = new HashMap<>();\n                if (j == k) ++total;\n                long num = (long) j;\n                storeCurr.put(num, (long)1); // long me save kro\n\n                // Iterite karo\n                for (Map.Entry<Long, Long> entry : storeSeen.entrySet()) {\n                    long val = entry.getKey(), fq = entry.getValue();\n                    long andres = val & j;\n                    if (andres == k) total += fq;\n                    // update karo\n                    storeCurr.put(andres, storeCurr.getOrDefault(andres, 0L) + fq);\n                }\n                storeSeen = storeCurr;\n            }\n\n            return total; \n    }\n}",
-    "submit_ts": "1720281046",
-    "subm_id": "1311811233"
+    "username": "manyasharma29",
+    "submission": "public class Solution {\n    public long countSubarrays(int[]arr, int k) {\n        int n = arr.length;\n        long count = 0; \n        HashMap<Long, Long> prev = new HashMap<>();\n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> cur = new HashMap<>();\n            if (arr[i] == k) {\n                ++count;\n            }\n            cur.put((long) arr[i], 1L);\n            for (HashMap.Entry<Long, Long> entr : prev.entrySet()) {\n                long val = entr.getKey();\n                long fun = entr.getValue();\n                long result = val & arr[i];\n                if (result == k) {\n                    count += fun;\n                }\n                cur.put(result, cur.getOrDefault(result, 0L) + fun);\n            }\n            prev = cur;\n        }\n        return count;\n    }\n}",
+    "submit_ts": "1720279076",
+    "subm_id": "1311736332"
 }

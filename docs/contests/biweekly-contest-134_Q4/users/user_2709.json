@@ -1,6 +1,6 @@
 {
-    "username": "sri1306",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n       int len = nums.length;\n        long ans = 0;\n        Map<Long, Long> map = new HashMap<>();\n        \n        for (int i = 0; i < len; ++i) {\n            Map<Long, Long> ct = new HashMap<>();\n            \n            if (nums[i] == k) {\n                ++ans;\n            }\n            \n            ct.put((long) nums[i], 1L);\n            \n            for (Map.Entry<Long, Long> entry : map.entrySet()) {\n                long val = entry.getKey();\n                long flag = entry.getValue();\n                \n                long sk = val & nums[i];\n                \n                if (sk == k) {\n                    ans += flag;\n                }\n                \n                ct.put(sk, ct.getOrDefault(sk, 0L) + flag);\n            }\n            \n            map = ct;\n        }\n        \n        return ans;\n    }\n}",
-    "submit_ts": "1720279550",
-    "subm_id": "1311755677"
+    "username": "animesh_2403",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        c = 0\n        prev = defaultdict(int)\n        \n        for i in range(n):\n            curr = defaultdict(int)\n            if nums[i] == k:\n                c += 1\n            curr[nums[i]] = 1\n            \n            for ele, f in prev.items():\n                next_val = ele & nums[i]\n                if next_val == k:\n                    c += f\n                curr[next_val] += f\n            \n            prev = curr\n        \n        return c",
+    "submit_ts": "1720278476",
+    "subm_id": "1311710832"
 }

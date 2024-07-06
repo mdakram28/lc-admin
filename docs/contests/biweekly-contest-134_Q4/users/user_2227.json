@@ -1,6 +1,6 @@
 {
-    "username": "user4013rM",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n            int size = nums.size(); // Correct variable name and access the size of 'nums'\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        \n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults;\n            long long target = k; // Correctly define 'target' (assuming 'k' is the target value)\n            \n            if (nums[index] == target) {\n                ++total;\n            }\n            currentResults[nums[index]] = 1;\n            \n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & nums[index]; // Bitwise AND between value and                                                                                                        //nums[index]\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return total;\n      \n    }\n};",
-    "submit_ts": "1720279872",
-    "subm_id": "1311768463"
+    "username": "ssroy_542",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        long long ans=0;\n        unordered_map<int,int> mp;\n        for(int i=0;i<n;i++){\n           unordered_map<int,int> temp;\n            if(nums[i]==k)\n            ans++;\n            temp[nums[i]]=1;\n            for(auto j:mp){\n                int x=j.first & nums[i];\n                if(x==k)\n                ans+=j.second;\n                 if(temp.find(x)!=temp.end())\n                temp[x]+=j.second;\n                else temp[x]=j.second;\n            }\n            mp=temp;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278847",
+    "subm_id": "1311726813"
 }

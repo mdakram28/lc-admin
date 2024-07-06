@@ -1,6 +1,6 @@
 {
-    "username": "iamc7054",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int N = nums.size();\n        using LL = long long;\n        vector<unordered_map<LL, LL>> cnts(N);\n        LL tot = 0;\n        if (nums[0] == k) tot++;\n        cnts[0][nums[0]]++;\n        for(int i = 1; i < N; i++) {\n            for(auto &e : cnts[i - 1]) {\n                cnts[i][e.first & nums[i]] += e.second;\n            }\n            cnts[i][nums[i]]++;\n            // cout << i << \" : \";\n            // for(auto e : cnts[i]) cout << e.first << \":\" <<e.second << ' ';\n\n            tot += cnts[i][k];\n        }\n        return tot;\n    }\n};",
-    "submit_ts": "1720278796",
-    "subm_id": "1311724590"
+    "username": "blissful-nevvtonifl",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        long long ans = 0;\n        unordered_map<int, int> cnt;\n        for (int i = 0; i < arr.size(); i++) {\n            int x = arr[i];\n            for (int j = i - 1; j >= 0 && (arr[j] & x) != arr[j]; j--) {\n                arr[j] &= x;\n            }\n           auto d = upper_bound(arr.begin(), arr.begin() + i + 1, k) - arr.begin();\n           auto l = lower_bound(arr.begin(), arr.begin() + i + 1, k) - arr.begin();\n           //cout <<l << ' ' <<  d << endl;\n           ans += d - l;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277831",
+    "subm_id": "544559062"
 }

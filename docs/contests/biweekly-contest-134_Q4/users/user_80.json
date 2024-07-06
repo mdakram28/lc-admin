@@ -1,6 +1,6 @@
 {
-    "username": "balepavleski",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = (int)nums.size();\n        int pref[n][30];\n        for(int b = 0; b < 30; b ++){\n            int c = 0;\n            for(int i = 0; i < n; i ++){\n                if(nums[i] & (1<<b)){\n                    c ++;\n                }\n                else{\n                    c = 0;\n                }\n                pref[i][b] = c;\n            }\n        }\n        long long ans = 0;\n        for(int i = 0; i < n; i ++){\n            int len1 = i + 1;\n            for(int b = 0; b < 30; b ++){\n                if(k & (1 << b)){\n                    len1 = min(len1, pref[i][b]);\n                }\n            }\n            int len2 = 0;\n            for(int b = 0; b < 30; b ++){\n                if((k & (1 << b)) == 0){\n                    len2 = max(len2, pref[i][b]);\n                }\n            }\n            ans += max(0, len1 - len2);\n        }\n        return ans;\n    }\n};\n\n",
-    "submit_ts": "1720278225",
-    "subm_id": "1311699912"
+    "username": "wenboz",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long res = 0;\n        var hm = new HashMap<Integer, Long>();\n        for(int i : nums){\n            var next = new HashMap<Integer, Long>();\n            for(var e : hm.entrySet()){\n                next.merge(e.getKey() & i, e.getValue(), Long::sum);\n            }\n            next.merge(i, 1l, Long::sum);\n            res += next.getOrDefault(k, 0l);\n            hm = next;\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1720277453",
+    "subm_id": "1311664388"
 }

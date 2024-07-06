@@ -1,6 +1,6 @@
 {
-    "username": "vijaykatta3094",
-    "submission": "\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        # Initialize counters\n        bits = Counter()\n        past_counter = Counter()\n        res = 0\n        \n        # Iterate over each number in the array\n        for val in nums:\n            # Initialize new counter for subarrays ending at the current value\n            new_counter = Counter()\n            new_counter[val] += 1\n            \n            # Update new counter based on previous subarray AND results\n            for bit, count in past_counter.items():\n                new_counter[bit & val] += count\n            \n            # Add to the result the count of subarrays with AND result equal to k\n            res += new_counter[k]\n            \n            # Update past_counter to be new_counter for the next iteration\n            past_counter = new_counter\n        \n        return res",
-    "submit_ts": "1720279348",
-    "subm_id": "1311747579"
+    "username": "Casterkiller",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        N = len(nums)\n        mask = (1 << 32) - 1\n\n        @cache\n        def go(idx, acc):\n            if idx == N or acc < k:\n                return 0\n            \n            new_acc = acc & nums[idx]\n            return go(idx + 1, new_acc) + (1 if new_acc == k else 0)\n        \n        total = 0\n        for i in range(N):\n            r = go(i, mask)\n            total += r\n\n        return total",
+    "submit_ts": "1720279112",
+    "subm_id": "1311737911"
 }

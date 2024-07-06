@@ -1,6 +1,6 @@
 {
-    "username": "jay7876",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& vecnum, int k) {\n        int b=vecnum.size();\n    long long ans=0;\n    unordered_map<int,int> andmap;\n    for(int p=0;p<b;p++) {\n        unordered_map<int, int> newmap;\n        for (auto it:andmap) {\n            int val=it.first;\n            int ment=it.second;\n            int curand=val&vecnum[p];\n            if (curand==k){\n                ans+=ment;\n            }\n            newmap[curand]+=ment;\n        }\n        newmap[vecnum[p]] += 1;\n        if (vecnum[p]==k) {\n            ans++;\n        }\n        andmap=newmap;\n    }\n    return ans;\n    }\n};",
-    "submit_ts": "1720280103",
-    "subm_id": "1311777024"
+    "username": "dpk_12",
+    "submission": "class Solution {\npublic:\n    long long countSubarraysWithAndEqualK(std::vector<int>& arr, int k) {\n        int n = arr.size();\n        long long totalSubarrays = 0;\n        std::unordered_map<long long, long long> previousAndResults;\n\n        for (int i = 0; i < n; ++i) {\n            std::unordered_map<long long, long long> currentAndResults;\n\n            if (arr[i] == k) {\n                ++totalSubarrays;\n            }\n\n            currentAndResults[arr[i]] = 1;\n\n            for (const auto& [andResult, count] : previousAndResults) {\n                long long newAndResult = andResult & arr[i];\n                if (newAndResult == k) {\n                    totalSubarrays += count;\n                }\n                currentAndResults[newAndResult] += count;\n            }\n\n            previousAndResults = std::move(currentAndResults);\n        }\n\n        return totalSubarrays;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        return countSubarraysWithAndEqualK(nums,k);\n    }\n};",
+    "submit_ts": "1720279734",
+    "subm_id": "1311763028"
 }

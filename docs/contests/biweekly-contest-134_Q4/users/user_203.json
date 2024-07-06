@@ -1,6 +1,6 @@
 {
-    "username": "clairesworld111",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int x) {\n        int n=nums.size();\n        vector<int> lst0(30, n), lst1(30, n);\n        long long ans=0;\n        for(int i=n-1; i>=0; i--){\n            for(int k=0; k<30; k++){\n                if(nums[i]&(1<<k)) lst1[k]=i;\n                else lst0[k]=i;\n            }\n            int l=i, r=n;\n            for(int k=0; k<30; k++){\n                if(x&(1<<k)) r=min(r, lst0[k]);\n                else l=max(l, lst0[k]);\n            }\n            // cout << \"lr \" << l << \" \" << r << '\\n';\n            ans+=max(0, r-l);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720277676",
-    "subm_id": "1311674809"
+    "username": "acebenson0704",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], target: int) -> int:\n        d = Counter()\n        res = 0\n        for num in nums:\n            new_d = Counter()\n            for k, v in d.items():\n                new_d[k&num] += v\n            new_d[num] += 1\n            for k, v in new_d.items():\n                if k == target:\n                    res += v\n            d = new_d\n        return res",
+    "submit_ts": "1720278082",
+    "subm_id": "1311693526"
 }

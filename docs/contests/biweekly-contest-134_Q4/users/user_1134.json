@@ -1,6 +1,6 @@
 {
-    "username": "sumit104040",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n         int size = nums.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (nums[index] == k) {\n                ++total;\n            }\n            currentResults[nums[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & nums[index];\n                if (newAndResult == k) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
-    "submit_ts": "1720280165",
-    "subm_id": "1311779251"
+    "username": "liu-qing-8t",
+    "submission": "\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) \n    {\n        int size = nums.size();\n\n        //dp_val[i] \u8868\u793a\u4ee5\u4f4d\u7f6ei\u7ed3\u675f\u7684\u5b50\u6570\u7ec4\uff0c\u4e0e\u64cd\u4f5c\u7684\u7ed3\u679c+\u5b50\u6570\u7ec4\u4e2a\u6570\n        std::vector<std::unordered_map<int, long long>> dp_val(size);\n        //\u8d4b\u503c\n        dp_val[0].try_emplace(nums[0], 1);\n\n        for (int i = 1; i < size; ++i)\n        {\n            auto& prev_tb = dp_val[i - 1];\n            std::unordered_map<int, long long> cur_tb;\n            for (auto [c, cnt] : prev_tb)\n            {\n                cur_tb[c & nums[i]] += cnt;\n            }\n            cur_tb[nums[i]] += 1;\n            dp_val[i] = std::move(cur_tb);\n        }\n\n        long long result = 0;\n        for (auto& tb : dp_val)\n        {\n            if (tb.count(k) > 0)\n            {\n                result += tb[k];\n            }\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1720279802",
+    "subm_id": "544569109"
 }

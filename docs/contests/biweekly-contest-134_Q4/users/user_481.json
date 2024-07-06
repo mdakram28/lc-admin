@@ -1,6 +1,6 @@
 {
-    "username": "spyOp",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long ct = 0;\n        \n        HashMap<Long, Long> res = new HashMap<>();\n        \n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> currRes = new HashMap<>();\n            \n            if (nums[i] == k) {\n                ++ct;\n            }\n            currRes.put((long) nums[i], 1L);\n\n            for(int xy=0; xy<=194; xy++) {\n                \n            }\n            \n            for (var e : res.entrySet()) {\n                long newRes = e.getKey() & nums[i];\n                if (newRes == k) {\n                    ct += e.getValue();\n                }\n                currRes.merge(newRes, e.getValue(), Long::sum);\n            }\n            \n            res = currRes;\n        }\n        \n        return ct;\n    }\n}",
-    "submit_ts": "1720279421",
-    "subm_id": "1311750528"
+    "username": "hastings2k",
+    "submission": "B = 30\ndef _get(v):\n    out = [0] * B\n    for i in range(B):\n        if v&(1<<i):\n            out[i] = 1\n    return out\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        tar = _get(k)\n        pres = [[-1] * B]\n        out = 0\n        for i,v in enumerate(nums):\n            barr = _get(v)\n            temp = [-1] * B\n            for j in range(B):\n                if barr[j] == 0:\n                    temp[j] = i\n                else:\n                    temp[j] = pres[-1][j]\n            pres.append(temp)\n            x,y = 0,i\n            for j in range(B):\n                if tar[j]:\n                    x = max(x,pres[-1][j]+1)\n                else:\n                    y = min(y,pres[-1][j])\n            out += max(0,y-x+1)\n        return out\n                    ",
+    "submit_ts": "1720278773",
+    "subm_id": "544564298"
 }

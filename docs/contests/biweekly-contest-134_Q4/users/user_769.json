@@ -1,6 +1,6 @@
 {
-    "username": "_Senior_",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long count = 0;\n        long long n = nums.size();\n        unordered_map<long long, long long> freq;\n\n        for (long long i = 0; i < n; ++i) {\n            unordered_map<long long, long long> new_freq;\n            if (nums[i] == k) count++;\n            new_freq[nums[i]] = 1;\n\n            for (auto& pair : freq) {\n                long long new_and = pair.first & nums[i];\n                new_freq[new_and] += pair.second;\n                if (new_and == k) count += pair.second;\n            }\n\n            freq = new_freq;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720279302",
-    "subm_id": "1311745796"
+    "username": "trusting-vvunjn",
+    "submission": "class Solution {\n  public:\n    long long countSubarrays(vector<int> &nums, int k) {\n        long long res = 0;\n        unordered_map<int, int> dp;\n        for (const auto &num : nums) {\n            unordered_map<int, int> new_dp;\n            for (const auto &[a, b] : dp) {\n                new_dp[a & num] += b;\n            }\n            new_dp[num] += 1;\n            res += new_dp[k];\n\n            dp.clear();\n            dp = std::move(new_dp);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720280076",
+    "subm_id": "544570425"
 }

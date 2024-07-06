@@ -1,6 +1,6 @@
 {
-    "username": "_mohit__",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long int ans = 0;\n        map<long long int , long long int > prev;\n        for (int i = 0; i < nums.size(); ++i) {\n            map<long long, long long> cur; \n            if (nums[i] == k) {\n                ans+=1;\n            }\n            cur[nums[i]] = 1;\n            for (auto it : prev) {\n                int val = it.first;\n                int freq=it.second;\n                long long newand = val & nums[i];\n                if (newand == k) {\n                    ans += freq;\n                }\n                cur[newand] += freq;\n            }         \n            prev = cur;\n        }     \n        return ans;    \n    }\n};",
-    "submit_ts": "1720279162",
-    "subm_id": "1311740010"
+    "username": "harshmathura8",
+    "submission": "class Solution {\n    public long countSubarrays(int[] array, int target) {\n        int size = array.length;\n        long total = 0;\n        Map<Long, Long> previousResults = new HashMap<>();\n        for (int index = 0; index < size; ++index) {\n            Map<Long, Long> currentResults = new HashMap<>(); \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults.merge((long) array[index], 1L, Long::sum);\n            for (Map.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long newAndResult = entry.getKey() & array[index];\n                if (newAndResult == target) {\n                    total += entry.getValue();\n                }\n                currentResults.merge(newAndResult, entry.getValue(), Long::sum);\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n}",
+    "submit_ts": "1720279563",
+    "subm_id": "1311756231"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "user2282h",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720278399",
-    "subm_id": "1311707498"
+    "username": "majiquemantras",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        \n        map<int, int> endingAtPrev;\n        \n        for(int i = 0; i < n; i++){\n            map<int, int> endingAtCurr;\n            endingAtCurr[nums[i]] = 1;\n            if (nums[i] == k) ans++;\n            for(auto& it : endingAtPrev){\n                int temp = it.first & nums[i];\n                if (temp == k) ans += it.second;\n                endingAtCurr[temp] += it.second;                \n            }\n            endingAtPrev = endingAtCurr;\n        }\n        \n        return ans;\n        \n    }\n};",
+    "submit_ts": "1720280063",
+    "subm_id": "1311775538"
 }

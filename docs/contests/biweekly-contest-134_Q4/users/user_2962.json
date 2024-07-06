@@ -1,6 +1,6 @@
 {
-    "username": "kishan-jaiswal",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    void helper(map<ll, ll>& mp,ll &res,map<ll, ll>& mp2,vector<int>& nums,int i,int k){\n        for (auto p : mp) {\n                ll cnt = p.first & nums[i];\n                if (cnt == k) {\n                    res += p.second;\n                }\n                mp2[cnt] += p.second;\n            }\n    }\n\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        ll res = 0;\n        std::map<ll, ll> mp;\n        for (int i = 0; i < n; ++i) {\n            std::map<ll, ll> mp2; \n            if (nums[i] == k) {\n                res++;\n            }\n            mp2[nums[i]] = 1;\n            helper(mp,res,mp2,nums,i,k);\n            mp = mp2;\n        }\n        return res;\n    }\n};",
-    "submit_ts": "1720279028",
-    "subm_id": "1311734280"
+    "username": "kalliyan",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        count = 0\n        old_result = {}\n        \n        for i in range(n):\n            new_result = {}\n            if nums[i] == k:\n                count += 1\n                \n            new_result[nums[i]] = 1\n            \n            for value, frequency in old_result.items():\n                and_result = (value&nums[i])\n                \n                if and_result == k:\n                    count += frequency\n                \n                new_result[and_result] = new_result.get(and_result, 0) + frequency\n                \n            old_result = new_result\n            \n        return count",
+    "submit_ts": "1720279774",
+    "subm_id": "1311764551"
 }

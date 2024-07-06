@@ -1,6 +1,6 @@
 {
-    "username": "akshatsah7",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n        HashMap<Long, Long> prev = new HashMap<>();\n        for (int num : nums) {\n            HashMap<Long, Long> curr = new HashMap<>();\n            if (num == k) {\n                ++count;\n            }\n            curr.put((long) num, 1L);\n            for (long val : prev.keySet()) {\n                long newAnd = val & num;\n                if (newAnd == k) {\n                    count += prev.get(val);\n                }\n                curr.put(newAnd, curr.getOrDefault(newAnd, 0L) + prev.get(val));\n            }\n            prev = curr;\n        }\n        return count;\n    }\n}\n",
-    "submit_ts": "1720280424",
-    "subm_id": "1311788922"
+    "username": "pewlkit",
+    "submission": "class Solution:\n    def countSubarrays(self, nums, k):\n        n = len(nums)\n        count = 0\n        prev_results = defaultdict(int)\n        for i in range(n):\n            curr_results = defaultdict(int)\n            if nums[i] == k:\n                count += 1\n            curr_results[nums[i]] = 1\n            for val, freq in prev_results.items():\n                new_and_result = val & nums[i]\n                if new_and_result == k:\n                    count += freq\n                curr_results[new_and_result] += freq\n            prev_results = curr_results\n        return count\n        ",
+    "submit_ts": "1720280361",
+    "subm_id": "1311786496"
 }

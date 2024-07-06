@@ -1,6 +1,6 @@
 {
-    "username": "prashantgautam",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n = a.size();\n        long long c = 0;\n\n        unordered_map<long long, long long> pRes;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> cRes;\n\n            if (a[i] == k) {\n                ++c;\n            }\n            cRes[a[i]] = 1;\n\n            for (auto& [v, f] : pRes) {\n                long long newAnd = v & a[i];\n                if (newAnd == k) {\n                    c += f;\n                }\n                cRes[newAnd] += f;\n            }\n            \n            pRes = cRes;\n        }\n        \n        return c;\n    }\n};\n",
-    "submit_ts": "1720277755",
-    "subm_id": "1311678480"
+    "username": "yvsingh650",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def countSubarrays(self, nums: List[int], target: int) -> int:\n        size = len(nums)\n        total_subarrays = 0\n        prefix_and_counts = defaultdict(int)\n        \n        for index in range(size):\n            current_and_counts = defaultdict(int)\n            if nums[index] == target:\n                total_subarrays += 1\n            current_and_counts[nums[index]] = 1\n            \n            for prefix_and, prefix_count in prefix_and_counts.items():\n                new_and_result = prefix_and & nums[index]\n                if new_and_result == target:\n                    total_subarrays += prefix_count\n                current_and_counts[new_and_result] += prefix_count\n            \n            prefix_and_counts = current_and_counts\n        \n        return total_subarrays\n",
+    "submit_ts": "1720280981",
+    "subm_id": "1311808948"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "yui8",
-    "submission": "import java.util.HashMap;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long result = 0;     \n        HashMap<Long, Long> map = new HashMap<>();\n        \n        for (int i = 0; i < nums.length; ++i) {\n            HashMap<Long, Long> hMap = new HashMap<>();\n            \n            if (nums[i] == k) {\n                ++result;\n            }\n            hMap.put((long) nums[i], 1L);\n            \n            for (HashMap.Entry<Long, Long> entry : map.entrySet()) {\n                long tem = entry.getKey();\n                long temp = entry.getValue();\n                \n                long last = tem & nums[i];\n                if (last == k) {\n                    result += temp;\n                }\n                hMap.put(last, hMap.getOrDefault(last, 0L) + temp);\n            }\n            \n            map = hMap;\n        }\n        \n        return result;\n    }\n}\n",
-    "submit_ts": "1720278776",
-    "subm_id": "1311723742"
+    "username": "kalyankokkalla",
+    "submission": "// import java.util.HashMap;\n// import java.util.Map;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int desired) {\n        int n = nums.length;\n        long result = 0;\n        Map<Long, Long> prevMap = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> currMap = new HashMap<>();\n            if (nums[i] == desired) {\n                ++result;\n            }\n            currMap.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : prevMap.entrySet()) {\n                long key = entry.getKey();\n                long val = entry.getValue();\n                long newKey = key & nums[i];\n                if (newKey == desired) {\n                    result += val;\n                }\n                currMap.put(newKey, currMap.getOrDefault(newKey, 0L) + val);\n            }\n            \n            prevMap = currMap;\n        }\n\n        return result;\n    }\n}\n",
+    "submit_ts": "1720279973",
+    "subm_id": "1311772309"
 }

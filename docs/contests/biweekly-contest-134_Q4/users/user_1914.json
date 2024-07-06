@@ -1,6 +1,6 @@
 {
-    "username": "nsk_91",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& var_1, int var_2) {\n        int var_3 = var_1.size();\n        long long var_4 = 0;\n        \n        unordered_map<long long, long long> var_5;\n\n        for (int var_6 = 0; var_6 < var_3; ++var_6) {\n            unordered_map<long long, long long> var_7; \n            if (var_1[var_6] == var_2) ++var_4;\n            \n            var_7[var_1[var_6]] = 1;\n\n            for (const auto& pair : var_5) {\n                long long var_10 = pair.first & var_1[var_6];\n                if (var_10 == var_2) var_4 += pair.second;\n                var_7[var_10] += pair.second;\n            }\n            \n            var_5 = move(var_7);\n        }\n        \n        return var_4;\n    }\n};\n",
-    "submit_ts": "1720278618",
-    "subm_id": "1311716972"
+    "username": "shunhsu",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long res = 0;\n        int n = nums.size();\n        vector<int> bits(31, -1);\n        for(int i = n - 1;i >= 0;i--){\n            int num = nums[i];\n            \n            map<int, int> m;\n            for(int j = 0;j < 31;j++){\n                if(bits[j] >= 0){\n                    m[bits[j]]++;\n                }\n            }\n            \n            int l = (num == k) ? i : -1;\n            int r = n;\n            for(auto &[ind, tmp] : m){\n                num &= nums[ind];\n                if(num < k){\n                    r = ind;\n                    break;\n                }\n                else if(num == k && l == -1){\n                    l = ind;\n                }\n            }\n            if(l != -1){\n                res += r - l;\n            }\n\n            for(int j = 0;j < 31;j++){\n                if((nums[i] & (1 << j)) == 0){\n                    bits[j] = i;\n                }\n            }\n            \n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720280876",
+    "subm_id": "1311805182"
 }

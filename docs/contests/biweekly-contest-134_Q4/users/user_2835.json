@@ -1,6 +1,6 @@
 {
-    "username": "himanshushrigiriwar",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int size = nums.length;\n        long total = 0;\n        Map<Long, Long> prev = new HashMap<>();\n        \n        for (int index = 0; index < size; ++index) {\n            Map<Long, Long> curr = new HashMap<>();\n            if (nums[index] == k) {\n                ++total;\n            }\n            curr.put((long) nums[index], 1L);\n            for (Map.Entry<Long, Long> entry : prev.entrySet()) {\n                long value = entry.getKey();\n                long frequency = entry.getValue();\n                long res = value & nums[index];\n                \n                if (res == k) {\n                    total += frequency;\n                }\n                curr.put(res, curr.getOrDefault(res, 0L) + frequency);\n            }\n            \n            prev = curr;\n        }\n        \n        return total;\n    }\n}\n",
-    "submit_ts": "1720279436",
-    "subm_id": "1311751134"
+    "username": "talksikk",
+    "submission": "class Solution {\npublic:\n    long long solve(vector<int>& nums, int param) {\n        long long ans = 0;\n        unordered_map<long long, long long> mp;\n\n        for (int i = 0; i < nums.size(); i++) {\n            unordered_map<long long, long long> temp;\n\n            if (nums[i] == param) {\n                ans++;\n            }\n\n            temp[nums[i]] = 1;\n\n            for (auto it : mp) {\n                long long x = it.first & nums[i];\n\n                if (x == param) {\n                    ans += it.second;\n                }\n                temp[x] += it.second;\n            }\n\n            mp = temp;\n        }\n\n        return ans;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n\n        return solve(nums,k);\n    }\n};",
+    "submit_ts": "1720279331",
+    "subm_id": "1311746933"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "Shubham-Singh-Rajpoot",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k)\n    {\n        long count=0;\n        int temp,newtemp;\n        HashMap<Integer,Integer> map=new  HashMap<>();\n        for(int i=0;i<nums.length;i++)\n        {\n            temp=nums[i];\n            if(temp==k)\n                count++;\n            HashMap<Integer,Integer> newmap=new  HashMap<>();\n            newmap.put(temp,1);\n            for(Map.Entry<Integer,Integer> entry:map.entrySet())\n            {\n                newtemp=entry.getKey() & nums[i];\n                if(newtemp==k)\n                    count+=entry.getValue();\n                newmap.put(newtemp,newmap.getOrDefault(newtemp,0)+entry.getValue());\n            }\n            map=newmap;\n        }\n        return count;\n    }\n}",
-    "submit_ts": "1720280390",
-    "subm_id": "1311787591"
+    "username": "ozone317",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        seen_values = {}\n        res = 0\n        \n        for num in nums:\n            temp = {}\n            if num == k:\n                res += 1\n                \n            temp[num] = 1\n            \n            for val, freq in seen_values.items():\n                and_val = num & val\n                if and_val == k:\n                    res += freq\n                if and_val in temp:\n                    temp[and_val] += freq\n                else:\n                    temp[and_val] = freq\n            \n            seen_values = temp\n        \n        return res",
+    "submit_ts": "1720280912",
+    "subm_id": "1311806481"
 }

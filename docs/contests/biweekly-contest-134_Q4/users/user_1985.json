@@ -1,6 +1,6 @@
 {
-    "username": "Shree_Govind_Jee",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long res=0;\n        \n        Map<Long, Long> map = new HashMap<>(); // prev_results\n        for(int i=0; i<nums.length; i++){\n            Map<Long, Long> currRes = new HashMap<>(); // current_results\n            if(nums[i]==k){\n                res++;\n            }\n            \n            currRes.put((long)nums[i], 1L);\n            for(var key:map.keySet()){\n                long newRes = key & nums[i];\n                if(newRes==k){\n                    res+=map.get(key);\n                }\n                \n                currRes.put(newRes, currRes.getOrDefault(newRes, 0L)+map.get(key));\n            }\n            map = currRes;\n        }\n        return res;\n    }\n}",
-    "submit_ts": "1720279674",
-    "subm_id": "1311760624"
+    "username": "Sasura123",
+    "submission": "class Solution {\npublic:\n    long long func(vector<int> &nums,int k){\n        int l=0,r=0;\n        long long cur=0,ans=0;\n        vector<int> setBits(35,0);\n        cout<<k<<endl<<endl;\n        \n        while(r<nums.size()){\n            for(int i=0;i<35;i++){\n                if((long long)pow(2,i)&(long long)nums[r]) setBits[i]++;\n            }\n            \n            cur=0;\n            for(int i=0;i<35;i++){\n                if(setBits[i]==(r-l+1)) cur+=(long long)pow(2,i);\n            }\n            \n            while(l<=r&&cur<k){\n                for(int i=0;i<35;i++){\n                    if((long long)pow(2,i)&(long long)nums[l]) setBits[i]--;\n                }\n                \n                l++;\n                \n                cur=0;\n                for(int i=0;i<35;i++){\n                    if(setBits[i]==(r-l+1)) cur+=(long long)pow(2,i);\n                }\n            }\n\n            ans+=(r-l+1);\n            \n            r++;\n        }\n        \n        return ans;\n    }\n    \n    long long countSubarrays(vector<int>& nums, int k) {\n        return func(nums,k)-func(nums,k+1);\n    }\n};",
+    "submit_ts": "1720281260",
+    "subm_id": "1311818702"
 }

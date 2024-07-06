@@ -1,6 +1,6 @@
 {
-    "username": "BatraRahul",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        for (int i = 0; i < 1e5; i++) {\n        }\n        unordered_map<long long, long long> pR;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> cR;\n\n            if (nums[i] == k) {\n                ++count;\n            }\n            cR[nums[i]] = 1;\n\n            for (auto& [val, freq] : pR) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                cR[newAndResult] += freq;\n            }\n\n            pR = cR;\n        }\n\n        return count;\n    }\n};\n",
-    "submit_ts": "1720279714",
-    "subm_id": "1311762199"
+    "username": "bky-i",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        int last_zero[32];\n        memset(last_zero, -1, sizeof(last_zero));\n        long long ans = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < 32; j++) {\n                if (((nums[i] >> j) & 1) == 0)  last_zero[j] = i;\n            }\n            if ((nums[i] & k) != k)  continue;\n            int zero = i, one = 0;\n            for (int j = 0; j < 32; j++) {\n                if ((k >> j) & 1)  one = max(one, last_zero[j] + 1);\n                else  zero = min(zero, last_zero[j]);\n            }\n            ans += max(0, zero - one + 1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280339",
+    "subm_id": "544571534"
 }

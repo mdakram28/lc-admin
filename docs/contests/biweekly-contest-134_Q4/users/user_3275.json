@@ -1,6 +1,6 @@
 {
-    "username": "codeXrabbit",
-    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        ll count = 0;\n        \n        unordered_map<int, int> aFreq;\n        int i ;\n        for ( i = 0; i < n; ++i) {\n            unordered_map<int, int> tempFreq;\n            if (nums[i] == k) {\n                ++count;\n            }\n            tempFreq[nums[i]] = 1;\n\n            for (auto& [val, freq] : aFreq) {\n                int newAnd = val & nums[i];\n                if (newAnd == k) {\n                    count += freq;\n                }\n                tempFreq[newAnd] += freq;\n            }\n            \n            aFreq = tempFreq;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720278989",
-    "subm_id": "1311732660"
+    "username": "Gargi_Bhardwaj",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long res = 0;\n        int n = nums.length;\n        Map<Integer, Integer> prevAndCounts = new HashMap<>();\n\n        for (int i = 0; i < n; i++) {\n            Map<Integer, Integer> currAndCounts = new HashMap<>();\n            if (nums[i] == k) {\n                res++;\n            }\n            currAndCounts.put(nums[i], currAndCounts.getOrDefault(nums[i], 0) + 1);\n\n            for (int key : prevAndCounts.keySet()) {\n                int newAnd = key & nums[i];\n                if (newAnd == k) {\n                    res += prevAndCounts.get(key);\n                }\n                currAndCounts.put(newAnd, currAndCounts.getOrDefault(newAnd, 0) + prevAndCounts.get(key));\n            }\n\n            prevAndCounts = currAndCounts;\n        }\n\n        return res;\n    }\n}",
+    "submit_ts": "1720281125",
+    "subm_id": "1311814025"
 }

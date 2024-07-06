@@ -1,6 +1,6 @@
 {
-    "username": "mayank_450718",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int target) {\n        int n = nums.size();\n        long long count = 0;\n        unordered_map<long long, long long> prevResults;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults;\n            \n            if (nums[i] == target) {\n                ++count;\n            }\n            \n            currResults[nums[i]] = 1;\n            \n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                \n                if (newAndResult == target) {\n                    count += freq;\n                }\n                \n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};\n",
-    "submit_ts": "1720280519",
-    "subm_id": "1311792389"
+    "username": "jindal1203",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        unordered_map<long, long> map1;\n        for(int i=0;i<n;i++){\n            unordered_map<long, long> map2;\n            if(nums[i] == k)    ans++;\n\n            map2[(long)nums[i]] = 1L;\n            for(auto& entry : map1) {\n                long key = entry.first;\n                long value = entry.second;\n\n                long res = key & nums[i];\n                if(res == k) ans += value;\n                map2[res] += map1[key];\n            }\n            map1 = move(map2);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280338",
+    "subm_id": "1311785671"
 }

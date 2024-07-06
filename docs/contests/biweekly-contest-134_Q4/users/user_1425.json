@@ -1,6 +1,6 @@
 {
-    "username": "saurav3001n",
-    "submission": "class Solution {\npublic:\n     long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720280328",
-    "subm_id": "1311785279"
+    "username": "vidy7014",
+    "submission": "class Solution {\n    int n;\n    long long count;\n    unordered_map<int, int> previous;\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n         n = nums.size();\n         count = 0;\n        \n\n        for (int i = 0; i < n; ++i) {\n            std::unordered_map<int, int> current;\n\n            if (nums[i] == k) {\n                count += 1;\n            }\n            current[nums[i]] = 1;\n\n            for (const auto& [key, value] : previous) {\n                int new_key = key & nums[i];\n                if (new_key == k) {\n                    count += value;\n                }\n                if (current.find(new_key) != current.end()) {\n                    current[new_key] += value;\n                } else {\n                    current[new_key] = value;\n                }\n            }\n\n            previous = current;\n        }\n\n        return count;\n    }\n};",
+    "submit_ts": "1720280516",
+    "subm_id": "1311792269"
 }

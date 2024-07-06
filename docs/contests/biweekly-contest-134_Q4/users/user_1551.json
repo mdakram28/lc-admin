@@ -1,6 +1,6 @@
 {
-    "username": "Pavan_kumar_j",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& arr2, int klk) {\n        int n = arr2.size();\n        long long cntl = 0;\n        \n        unordered_map<long long, long long> mp01;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> mp1; \n\n            if (arr2[i] == klk) {\n                ++cntl;\n            }\n            mp1[arr2[i]] = 1;\n\n            for (auto& [val, freq] : mp01) {\n                long long temp = val & arr2[i];\n                if (temp == klk) {\n                    cntl += freq;\n                }\n                mp1[temp] += freq;\n            }\n            \n           mp01 = mp1;\n        }\n        \n        return cntl;\n    }\n};\n",
-    "submit_ts": "1720278702",
-    "subm_id": "1311720597"
+    "username": "manishchandolu",
+    "submission": "class Solution {\npublic:\n    long long findSubarrayCount(vector<int>& arr, int targetAND) {\n        long long resultCount = 0;\n        unordered_map<int, int> currentANDCount;\n        int i = 0;\n        \n        while (i < arr.size()) {\n            int element = arr[i];\n            unordered_map<int, int> tempANDCount;\n            tempANDCount[element]++;\n            \n            for (const auto& it : currentANDCount) {\n                int newANDValue = it.first & element;\n                tempANDCount[newANDValue] += it.second;\n            }\n\n            for (const auto& it : tempANDCount) {\n                if (it.first == targetAND) {\n                    resultCount += it.second;\n                }\n            }\n            currentANDCount = tempANDCount;\n            i++;\n        }\n        return resultCount;\n    }\n\n    long long countSubarrays(vector<int>& arr, int targetAND) {\n        return findSubarrayCount(arr, targetAND);\n    }\n};\n",
+    "submit_ts": "1720279803",
+    "subm_id": "1311765719"
 }

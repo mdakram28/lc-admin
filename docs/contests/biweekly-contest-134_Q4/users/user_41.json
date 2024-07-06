@@ -1,6 +1,6 @@
 {
-    "username": "urimaj",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int,int> m;\n        long long ans = 0;\n        m[nums.back()] = 1;\n        ans += m[k];\n        int n = nums.size();\n        for (int i = n - 2; i >= 0; i--) {\n            unordered_map<int,int> temp;\n            temp[nums[i]]++;\n            for (auto& [x, y] : m) {\n                temp[nums[i] & x] += y;\n            }\n            swap(temp, m);\n            // cout << \"## \" << m[1] << endl;\n            ans += m[k];\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720277776",
-    "subm_id": "1311679446"
+    "username": "gongshuisanye2",
+    "submission": "    class Solution {\n        public long countSubarrays(int[] nums, int k) {\n            long res = 0;\n            int n = nums.length;\n            TreeMap<Integer, Integer> prev = new TreeMap<>();\n            for (int i = 0; i < n; i++) {\n                TreeMap<Integer, Integer> next = new TreeMap<>();\n                for (var kv: prev.entrySet()) {\n                    next.put(kv.getKey() & nums[i], kv.getValue());\n                }\n                next.put(nums[i], i);\n\n                if (next.containsKey(k)) {\n                    var nk = next.lowerEntry(k);\n                    if (nk == null) {\n                        res += next.get(k) + 1;\n                    } else {\n                        res += (next.get(k) - nk.getValue());\n                    }\n                }\n                prev = next;\n            }\n            return res;\n        }\n    }",
+    "submit_ts": "1720276848",
+    "subm_id": "544552757"
 }

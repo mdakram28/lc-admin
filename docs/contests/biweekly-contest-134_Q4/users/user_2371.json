@@ -1,6 +1,6 @@
 {
-    "username": "AkshayTheMegaa",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n           long long count = 0;\n        unordered_map<int, int> curr;\n\n        for (int i = 0; i < nums.size(); ++i) {\n            unordered_map<int, int> temp;\n            \n            if (nums[i] == k) {\n                count++;\n            }\n            temp[nums[i]]++;\n\n            for (auto& [AND, freq] : curr) {\n                int new_value = AND & nums[i];\n                if (new_value == k) {\n                    count += freq;\n                }\n                temp[new_value] += freq;\n            }\n\n            curr = temp;\n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720281055",
-    "subm_id": "1311811549"
+    "username": "hanbro0112",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        tb = [0] * 31 \n        ans = 0\n        for i, num in enumerate(nums):\n            if k != 0:\n                includes, others = inf, -inf\n                for d in range(31):\n                    tb[d] = tb[d] + 1 if (num >> d) & 1 else 0\n                    if (k >> d) & 1:\n                        includes = min(includes, tb[d])\n                    else:\n                        others = max(others, tb[d])\n                        \n                if includes > others:\n                    ans += includes - others \n            \n            else:\n                mx = 0\n                for d in range(31):\n                    tb[d] = tb[d] + 1 if (num >> d) & 1 else 0\n                    mx = max(mx, tb[d])\n                \n                ans += i + 1 - mx\n                \n        return ans",
+    "submit_ts": "1720280842",
+    "subm_id": "1311803970"
 }

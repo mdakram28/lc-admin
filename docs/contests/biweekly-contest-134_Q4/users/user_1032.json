@@ -1,6 +1,6 @@
 {
-    "username": "kc_m13",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(std::vector<int>& nums, int k) {\n        int length = nums.size();\n        long long matchingCount = 0;\n\n        std::unordered_map<long long, long long> previousResults;\n        int idx = 0;\n\n        while (idx < length) {\n            std::unordered_map<long long, long long> currentResults;\n\n            if (nums[idx] == k) {\n                ++matchingCount;\n            }\n\n            currentResults[nums[idx]] = 1;\n\n            auto it = previousResults.begin();\n            while (it != previousResults.end()) {\n                long long newAndResult = it->first & nums[idx];\n                if (newAndResult == k) {\n                    matchingCount += it->second;\n                }\n                currentResults[newAndResult] += it->second;\n                ++it;\n            }\n\n            previousResults = currentResults;\n            ++idx;\n        }\n\n        return matchingCount;\n    }\n};",
-    "submit_ts": "1720279136",
-    "subm_id": "1311738942"
+    "username": "Kunal_sinha1",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        \n        \n        int sum=nums[0];\n         map<long long int,long long int>m;\n   long long int ans=0;\n        for(int i=0;i<n;i++){\n        map<long long int,long long int>m1;\n            for(auto val:m){\n                m1[val.first]=val.second;\n            }\n            m.clear();\n            for(auto val:m1){\n            long long int x=val.first,y=val.second;\n                x=x&nums[i];\n                if(x==k)ans+=y;\n                m[x]+=y;\n               \n            }\n            if(nums[i]==k)ans++;\n    m[nums[i]]++;\n            // cout<<ans<<endl;\n            \n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1720279330",
+    "subm_id": "1311746863"
 }

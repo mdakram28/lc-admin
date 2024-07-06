@@ -1,6 +1,6 @@
 {
-    "username": "IshJazz",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        map<long long, long long> mp;\n        map<long long,long long> freqq;\n        for(auto it: nums) {\n            ans += (it == k);\n            for(auto itx : mp) {\n                long long req = (itx.first&it);\n                if(req == k) ans += itx.second;\n                freqq[req] += itx.second;\n            }\n            if(freqq.find(it) != freqq.end()) freqq[it] += 1;\n            else freqq[it] = 1;\n            mp = freqq;\n            freqq.clear();\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279267",
-    "subm_id": "1311744375"
+    "username": "hungry-swirleshgv",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], t: int) -> int:\n        n = len(nums)\n        ans = [0] * n\n        ors = []\n        for i in range(n - 1, -1, -1):\n            num = nums[i]\n            ors.append([-1, i])\n            k = 0\n            for p in ors:\n                p[0] &= num\n                if ors[k][0] == p[0]:\n                    ors[k][1] = p[1]\n                else:\n                    k += 1\n                    ors[k] = p\n            del ors[k + 1:]\n            \n            # print(i, ors)\n            ors.append([-1, n])\n            for j in range(len(ors) - 1):\n                if ors[j][0] == t:\n                    ans[i] = ors[j - 1][1] - ors[j][1]\n                    break\n            ors.pop()\n            # print(ans)\n        return sum(ans)",
+    "submit_ts": "1720280429",
+    "subm_id": "544571902"
 }

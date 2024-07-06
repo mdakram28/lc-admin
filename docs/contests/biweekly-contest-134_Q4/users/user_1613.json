@@ -1,6 +1,6 @@
 {
-    "username": "iamekagra",
-    "submission": "#define ll long long\n\nclass Solution {\n    \npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n    ll ans = 0;\n    int n = a.size();\n    vector<unordered_map<ll, ll>> dp(2);\n    int curr = 0, prev = 1;\n\n    for (int i = 0; i < n; ++i) {\n        dp[curr].clear();\n        \n        if (a[i] == k) {\n            ans++;\n        }\n        \n        for (auto x : dp[prev]) {\n            ll newKey = x.first & a[i];\n            dp[curr][newKey] += x.second;\n            if (newKey == k) {\n                ans += x.second;\n            }\n        }\n        \n        dp[curr][a[i]]++;\n        swap(curr, prev);\n    }\n\n    return ans;\n    }\n};",
-    "submit_ts": "1720280904",
-    "subm_id": "1311806185"
+    "username": "Challa_Bharadwaj_Reddy",
+    "submission": "class Solution {\npublic:\nlong long min(long long a,long long b){\n    if(a<b) return a;\n    return b;\n}\n    long long countSubarrays(vector<int>& nums, int k) {\n        int t=0;\n        int l=0,r=0;\n        vector<int>ltz(32,-1);\n        for(int i=0;i<32;i++){\n            if((nums[0] & (1<<i))==0) ltz[i]=0; \n        }\n        long long ans=0;\n        while(r<nums.size()){\n            if((nums[r]&k)>=k){\n                r++;\n                long long mx=INT_MAX;\n                for(int i=0;i<32;i++){\n                    if((k&(1<<i))==0){\n                        mx=min(ltz[i],mx);\n                    }\n                }\n                if(mx!=-1){\n                    if(mx>=l){\n                        ans+=(mx-l+1);\n                    }\n                }\n            }\n            else{\n                r++;\n                l=r;\n            }\n            if(r==nums.size()) break;\n            for(int i=0;i<32;i++){\n                if((nums[r] & (1<<i))==0) ltz[i]=r; \n            }            \n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280792",
+    "subm_id": "1311802211"
 }

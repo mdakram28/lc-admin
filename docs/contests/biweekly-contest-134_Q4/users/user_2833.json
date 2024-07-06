@@ -1,6 +1,6 @@
 {
-    "username": "kratika_gupta",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long count = 0;       \n        unordered_map<long long, long long> prev; \n        for (int i = 0; i < nums.size(); i++) { \n            unordered_map<long long, long long> curr;  \n            if (nums[i] == k)\n                count++;\n            curr[nums[i]] = 1; \n \n            for (auto& [v, f] : prev) { \n                long long res = v & nums[i]; \n                if (res == k) { \n                    count += f; \n                } \n                curr[res] += f; \n            } \n             \n            prev = curr; \n        } \n         \n        return count; \n    }\n};",
-    "submit_ts": "1720279378",
-    "subm_id": "1311748814"
+    "username": "mihika63",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n         int n = nums.size();\n        long long count = 0;\n        unordered_map<int, int> andMap;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<int, int> newAndMap;\n            newAndMap[nums[i]]++;\n            \n            for (auto &entry : andMap) {\n                int newAndValue = entry.first & nums[i];\n                newAndMap[newAndValue] += entry.second;\n            }\n            \n            if (newAndMap.count(k)) {\n                count += newAndMap[k];\n            }\n            \n            andMap = newAndMap;\n        }\n        \n        return count;  \n    }\n};",
+    "submit_ts": "1720277902",
+    "subm_id": "1311685331"
 }

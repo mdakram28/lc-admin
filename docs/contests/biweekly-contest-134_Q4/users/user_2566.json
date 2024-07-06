@@ -1,6 +1,6 @@
 {
-    "username": "SpellMyName",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n    unordered_map<long long, long long> andMap;\n    long long result = 0;\n\n    for (long long i = 0; i < n; ++i) {\n        unordered_map<long long, long long> newAndMap;\n        for (auto &entry : andMap) {\n            long long newAnd = entry.first & nums[i];\n            newAndMap[newAnd] += entry.second;\n        }\n        newAndMap[nums[i]]++;\n        andMap = newAndMap;\n\n        if (andMap.find(k) != andMap.end()) {\n            result += andMap[k];\n        }\n    }\n\n    return result;\n    }\n};",
-    "submit_ts": "1720280725",
-    "subm_id": "1311799862"
+    "username": "ab_1607",
+    "submission": "\n#define ll long long int\nclass Solution {\npublic:\n    ll cntSub(vector<int>&v,int k){\n        cout<<v.size()<<\" \";\n      int n=v.size();\n        for(int i=0;i<n;i++){\n            v[i]^=k;\n        }\n        int xo=0;\n        ll ans=0;\n        map<ll,ll>m;\n        for(int i=0;i<33;i++){\n            m[i]=-1;\n        }\n        for(int i=0;i<n;i++){\n           for(ll j=0;j<33;j++){\n               if(v[i]&(1LL<<j)){\n                   \n               }\n               else{\n                   m[j]=i;\n               }\n           }\n            ll mini=i;\n            for(ll j=0;j<33;j++){\n                    mini=min(mini,m[j]);\n            }\n            ans+=mini+1;\n        }\n        return ans;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        vector<vector<int>>v;\n        vector<int>t;\n        for(int i=0;i<nums.size();i++){\n            if((nums[i]&k)==k){\n                t.push_back(nums[i]);\n            }\n            else{\n                v.push_back(t);\n                t.clear();\n            }\n        }\n        if(t.size())\n            v.push_back(t);\n        ll ans=0;\n        for(auto &t: v){\n            ans+=cntSub(t,k);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720281570",
+    "subm_id": "1311830284"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "votrubac",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int, int> cnt;\n        long long res = 0;\n        for (int i = 0; i < nums.size(); ++i) {\n            unordered_map<int, int> cnt1;\n            if ((nums[i] & k) >= k) {\n                if (nums[i] == k)\n                    ++res;\n                cnt1[nums[i]] = 1;\n                for (auto [v, count] : cnt) {\n                    if ((v & nums[i]) == k)\n                        res += count;\n                    if ((v & nums[i]) >= k)\n                        cnt1[v & nums[i]] += count;\n                }\n            }\n            swap(cnt, cnt1);\n            // cout << i << \" = \" << res << endl;\n        }\n        return res;\n    }\n};",
-    "submit_ts": "1720280098",
-    "subm_id": "1311776795"
+    "username": "admiring-shockleyzns",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        L = []\n        ans = 0\n        for i, num in enumerate(nums):\n            for j in range(len(L)):\n                L[j][0] = L[j][0] & num\n            L.append([num, i])\n            nxt_L = []\n            for value, idx in L:\n                if len(nxt_L) > 0 and value == nxt_L[-1][0]:\n                    continue\n                nxt_L.append([value, idx])\n            L = nxt_L\n            # print(\"L =\", L)\n            for j, (value, idx) in enumerate(L):\n                if value == k:\n                    if j == len(L) - 1:\n                        ans += i - idx + 1\n                    else:\n                        ans += L[j + 1][1] - idx\n                    break\n        return ans\n                        ",
+    "submit_ts": "1720279340",
+    "subm_id": "544567039"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "suryasps20",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int targetValue) {\n        int n = nums.size();\n        long long subarrayCount = 0;\n        unordered_map<long long, long long> prevAndResults;\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currAndResults;\n            if (nums[i] == targetValue) {\n                ++subarrayCount;\n            }\n            currAndResults[nums[i]] = 1;\n            for (auto& [andResult, freq] : prevAndResults) {\n                long long newAndResult = andResult & nums[i];\n                if (newAndResult == targetValue) {\n                    subarrayCount += freq;\n                }\n                currAndResults[newAndResult] += freq;\n            }\n            \n            prevAndResults = currAndResults;\n        }\n        return subarrayCount;\n    }\n};\n",
-    "submit_ts": "1720279864",
-    "subm_id": "1311768155"
+    "username": "vams_krishna",
+    "submission": "import java.util.HashMap;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long ans1 = 0;\n        \n        HashMap<Long, Long> ans = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> map = new HashMap<>();\n\n            if (nums[i] == k) {\n                ++ans1;\n            }\n            map.put((long) nums[i], 1L);\n            for (HashMap.Entry<Long, Long> entry : ans.entrySet()) {\n                long val = entry.getKey();\n                long count1 = entry.getValue();\n                long res = val & nums[i];\n                if (res == k) {\n                    ans1 += count1;\n                }\n                map.put(res, map.getOrDefault(res, 0L) + count1);\n            }\n            ans = map;\n        }\n        \n        return ans1;\n    }\n}\n",
+    "submit_ts": "1720279391",
+    "subm_id": "1311749324"
 }

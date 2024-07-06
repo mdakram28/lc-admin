@@ -1,6 +1,6 @@
 {
-    "username": "nikj007",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& n, int k) {\n        int m = n.size();\n        long long ans = 0;\n        \n        unordered_map<long long, long long> prev;\n\n        for (int i = 0; i < m; ++i) {\n            unordered_map<long long, long long> curr; \n\n            if (n[i] == k) {\n                ++ans;\n            }\n            curr[n[i]] = 1;\n\n            for (auto& [val, freq] : prev) {\n                long long newAnd = val & n[i];\n                if (newAnd == k) {\n                    ans += freq;\n                }\n                curr[newAnd] += freq;\n            }\n            \n            prev = curr;\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": "1720281398",
-    "subm_id": "1311823665"
+    "username": "sourav_kd",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        \n        int n = nums.size();\n        \n        unordered_map < long long, long long > prev, curr;\n        long long cnt = 0;\n\n        for (auto num: nums) {\n            \n            curr[num] = 1;\n\n            for (auto i: prev) {\n                \n                long long AND = (i.first & num);\n                curr[AND] += i.second;\n                cnt += ((AND == k) ? i.second: 0);\n                \n            }\n\n            prev = move(curr);\n            curr.clear();\n            \n        }\n\n        return cnt + count(nums.begin(), nums.end(), k);\n    }\n};\n",
+    "submit_ts": "1720278754",
+    "subm_id": "1311722796"
 }

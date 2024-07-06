@@ -1,6 +1,6 @@
 {
-    "username": "nikhilbiyani2406",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        \n        unordered_map<long long, long long> prev;\n        \n        for(int i=0; i<n; i++) {\n            unordered_map<long long, long long> cur; \n            if (nums[i] == k) {\n                ans++;\n            }\n            cur[nums[i]] = 1;\n            for (auto& it: prev) {\n                long long latest = it.first & nums[i];\n                if (latest == k) {\n                    ans += it.second;\n                }\n                cur[latest] += it.second;\n            }\n            prev = cur;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279179",
-    "subm_id": "1311740795"
+    "username": "Skumar_2001",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n       int n = nums.size();\n        \n        unordered_map<long long, long long> andFreq;\n        \n        long long res = 0;\n        for(long long i = 0;i<n;i++){\n            unordered_map<long long, long long> temp;\n            for(auto it: andFreq){\n                long long x= it.first&(long long)nums[i];\n                temp[x]+=it.second;\n            }\n            \n            temp[nums[i]]++;\n            andFreq = temp;\n            \n            if(andFreq.find(k) != andFreq.end()){\n                res+=andFreq[k];\n            }\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": "1720281038",
+    "subm_id": "1311810958"
 }

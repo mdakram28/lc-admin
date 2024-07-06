@@ -1,6 +1,6 @@
 {
-    "username": "arkita",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long result = 0;\n        unordered_map <long long, long long> mp;\n        for(int i = 0; i < n; i++){\n            unordered_map <long long, long long> mp2;\n            if(nums[i] == k)result++;\n            mp2[nums[i]] = 1;\n            for(auto &[val, freq] : mp){\n                long long a = val&nums[i];\n                if(a == k)result += freq;\n                mp2[a] += freq;\n            }\n            mp = mp2;\n        }\n        return result;\n    }\n};",
-    "submit_ts": "1720280289",
-    "subm_id": "1311783830"
+    "username": "criss_cross",
+    "submission": "class Solution {\npublic:\nlong long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1720280266",
+    "subm_id": "1311782946"
 }

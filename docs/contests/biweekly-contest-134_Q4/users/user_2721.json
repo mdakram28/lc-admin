@@ -1,6 +1,6 @@
 {
-    "username": "punitiiitian",
-    "submission": "\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long totalCount = 0;\n        \n        unordered_map<long long, long long> previousMap;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currentMap; \n\n            if (nums[i] == k) {\n                ++totalCount;\n            }\n            currentMap[nums[i]] = 1;\n\n            for (auto& [prevVal, prevFreq] : previousMap) {\n                long long newAndResult = prevVal & nums[i];\n                if (newAndResult == k) {\n                    totalCount += prevFreq;\n                }\n                currentMap[newAndResult] += prevFreq;\n            }\n            \n            previousMap = currentMap;\n        }\n        \n        return totalCount;\n    }\n};\n",
-    "submit_ts": "1720280190",
-    "subm_id": "1311780166"
+    "username": "kumarraj47048",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        \n        int n=nums.length;\n        long ct=0;\n        HashMap<Long,Long> big=new HashMap<>();\n        for(int i=0;i<n;i++){\n            HashMap<Long,Long> small=new HashMap<>();\n           small.put((long)nums[i],(long)1);\n            \n            for(HashMap.Entry<Long,Long> key: big.entrySet()){\n                \n                long val=key.getKey();\n                \n                long com=key.getValue();\n                \n                if((val&nums[i]) == k) ct=ct+com;\n                small.put(val&nums[i],small.getOrDefault(val&nums[i],(long)0)+com);\n                \n                \n            }\n            if(nums[i]==k) ct++;\n            big=small;\n            \n          \n        }\n        return ct;\n    }\n}",
+    "submit_ts": "1720281480",
+    "subm_id": "1311826708"
 }

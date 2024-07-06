@@ -1,6 +1,6 @@
 {
-    "username": "klperiwal",
-    "submission": "# define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll res=0;\n        int n=nums.size();\n        \n        map<ll,ll>m;\n        for(int i=0;i<n;i++)\n        {\n            map<ll,ll>temp;\n            if(k==nums[i])\n                res++;\n            temp[nums[i]]=1;\n            \n            for(auto j:m)\n            {\n                ll a1=j.first;\n                ll a2=j.second;\n                ll x= a1 & nums[i];\n                if(x==k)\n                    res+=a2;\n                \n                temp[x]+=a2;\n            }\n            m=temp;\n        }\n        return res;\n    }\n};",
-    "submit_ts": "1720278374",
-    "subm_id": "1311706389"
+    "username": "iamc7054",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int N = nums.size();\n        using LL = long long;\n        vector<unordered_map<LL, LL>> cnts(N);\n        LL tot = 0;\n        if (nums[0] == k) tot++;\n        cnts[0][nums[0]]++;\n        for(int i = 1; i < N; i++) {\n            for(auto &e : cnts[i - 1]) {\n                cnts[i][e.first & nums[i]] += e.second;\n            }\n            cnts[i][nums[i]]++;\n            // cout << i << \" : \";\n            // for(auto e : cnts[i]) cout << e.first << \":\" <<e.second << ' ';\n\n            tot += cnts[i][k];\n        }\n        return tot;\n    }\n};",
+    "submit_ts": "1720278796",
+    "subm_id": "1311724590"
 }

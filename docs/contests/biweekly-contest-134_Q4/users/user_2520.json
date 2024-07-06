@@ -1,6 +1,6 @@
 {
-    "username": "theweirdcoder",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll ans=0;\n        ll n=nums.size();\n        map<ll,ll> f;\n        for(int i=0;i<n;i++)\n        {\n            if(nums[i]==k) ++ans;\n            map<ll,ll> ref;\n            ++ref[nums[i]];\n            // for(auto [x,y]:f) cout<<x<<\" \"<<y<<endl;\n            // cout<<endl;\n            // for(auto [x,y]:ref) cout<<x<<\" \"<<y<<endl;\n            // cout<<endl;\n            for(auto [x,y]:f)\n            {\n                if((x&nums[i])==k) ans+=y;\n                ref[(x&nums[i])]+=y;\n            }\n            f=ref;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281514",
-    "subm_id": "1311827939"
+    "username": "spiritum",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int, int> m;\n        long long ans=0;\n        for(int i=0;i<nums.size();++i){\n            int x = nums[i];\n            unordered_map<int, int> new_m;\n            if(x == k){\n                ans++;\n            }\n            new_m[x]++;\n            for(auto &[s, v]:m){\n                if((s & x)==k){\n                    ans+=v;\n                }\n                new_m[s & x] += v;\n            }\n            swap(m, new_m);\n        }\n        return ans;\n\n    }\n};",
+    "submit_ts": "1720280975",
+    "subm_id": "544574054"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "himanshutheking",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int sz = nums.size();\n        long long result = 0;\n        unordered_map<long long, long long> prevResults;\n        \n        for (int idx = 0; idx < sz; ++idx) {\n            unordered_map<long long, long long> currResults;\n            \n            if (nums[idx] == k) {\n                ++result;\n            }\n            \n            currResults[nums[idx]] = 1;\n            \n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[idx];\n                \n                if (newAndResult == k) {\n                    result += freq;\n                }\n                \n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return result;\n    }\n};\n",
-    "submit_ts": "1720280481",
-    "subm_id": "1311790984"
+    "username": "Hritik__k",
+    "submission": "class Solution {\npublic:\n    long long f(vector<int>&nums,int k){\n        vector<int>bits(32);\n        long long ans=0;\n        int i=0,j=0,n=nums.size(),andVal=INT_MAX;\n        while(j<n){\n            andVal&=nums[j];\n            for(int digit=0;digit<31;digit++){\n                if(nums[j]&(1<<digit)) bits[digit]++;\n            }\n            j++;\n            while(i<j && andVal<k){\n                for(int digit=0;digit<31;digit++){\n                    if(nums[i]&(1<<digit)) bits[digit]--;\n                    if(bits[digit]==j-i-1) andVal|=(1<<digit);\n                }\n                // cout<<i<<' '<<j<<\" \"<<andVal<<endl;\n                i++;\n            }\n            if(andVal>=k &&i<=j) ans+=j-i;\n        }\n        return ans;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long x=f(nums,k),y=f(nums,k+1);\n        // cout<<x<<\" \"<<y;\n        return x-y;\n    }\n};",
+    "submit_ts": "1720280799",
+    "subm_id": "1311802464"
 }

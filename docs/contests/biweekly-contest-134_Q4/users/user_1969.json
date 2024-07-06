@@ -1,6 +1,6 @@
 {
-    "username": "aka_kovid_juyal",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int target) {\n        long long subarrayCount = 0;\n        long long n = nums.size();\n        for(int i=0;i<n;i++){\n            if(nums[i]==target){\n                subarrayCount++;\n            }\n        }\n        map<long long, long long> currentAndMap;\n        for (int i = 0; i < n; i++) {\n            map<long long, long long> newAndMap;\n            newAndMap[nums[i]]++;\n            for (auto &entry : currentAndMap) {\n                long long newAndValue = nums[i]&entry.first ;\n                newAndMap[newAndValue] =newAndMap[newAndValue]+ entry.second;\n                if (target==newAndValue) {\n                    subarrayCount =subarrayCount+ entry.second;\n                }\n            }\n            currentAndMap = newAndMap;         \n        }\n        return subarrayCount;\n    }\n};",
-    "submit_ts": "1720280166",
-    "subm_id": "1311779275"
+    "username": "itzbhavishy",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n       \n        long long c = 0;\n        \n        unordered_map<long long, long long> prevmap;\n         int n = nums.size();\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currmap; \n            \n            if (nums[i] == k) {\n                c++;\n            }\n            \n            currmap[nums[i]] = 1;\n            \n            for (auto& [And, freq] : prevmap) {\n//                 newand nikala\n                long long newand = And & nums[i];\n                \n                if (newand == k) {\n                    c += freq;\n                }\n                \n                currmap[newand] += freq;\n            }\n            \n            prevmap = currmap;\n        }\n        \n        return c;\n    }\n};\n",
+    "submit_ts": "1720278935",
+    "subm_id": "1311730514"
 }

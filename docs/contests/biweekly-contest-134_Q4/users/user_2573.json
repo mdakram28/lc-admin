@@ -1,6 +1,6 @@
 {
-    "username": "nebil0656",
-    "submission": "#include <vector>\n#include <iostream>\n#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long count = 0;\n        int n = nums.size();\n        unordered_map<int, int> andMap;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<int, int> newMap;\n            if (nums[i] == k) ++count;\n            for (auto& [value, freq] : andMap) {\n                int newAnd = value & nums[i];\n                newMap[newAnd] += freq;\n                if (newAnd == k) count += freq;\n            }\n            newMap[nums[i]]++;\n            andMap = newMap;\n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720279453",
-    "subm_id": "1311751782"
+    "username": "shlokfreelancer",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n    unordered_map<long long, long long> andMap;\n    long long result = 0;\n\n    for (long long i = 0; i < n; ++i) {\n        unordered_map<long long, long long> newAndMap;\n        for (auto &entry : andMap) {\n            long long newAnd = entry.first & nums[i];\n            newAndMap[newAnd] += entry.second;\n        }\n        newAndMap[nums[i]]++;\n        andMap = newAndMap;\n\n        if (andMap.find(k) != andMap.end()) {\n            result += andMap[k];\n        }\n    }\n\n    return result;\n    }\n};",
+    "submit_ts": "1720281410",
+    "subm_id": "1311824109"
 }

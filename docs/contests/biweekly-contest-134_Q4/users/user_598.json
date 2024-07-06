@@ -1,6 +1,6 @@
 {
-    "username": "XYH10022",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        result = 0\n        and_map = {}\n\n        for num in nums:\n            new_map = {}\n\n            if num == k:\n                result += 1\n\n            new_map[num] = new_map.get(num, 0) + 1\n\n            for key in and_map:\n                new_and = key & num\n                if new_and == k:\n                    result += and_map[key]\n                new_map[new_and] = new_map.get(new_and, 0) + and_map[key]\n\n            and_map = new_map\n\n        return result",
-    "submit_ts": "1720279276",
-    "subm_id": "1311744723"
+    "username": "lamshroud",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        filtered = []\n        for i, num in enumerate(nums):\n            if num & k == k:\n                filtered.append(i)\n        f = defaultdict(int)\n        pre_idx = -1\n        res = 0\n        for idx in filtered:\n            nxt = defaultdict(int)\n            nxt[nums[idx]] = 1\n            if pre_idx == idx - 1:\n                for key in f:\n                    nxt[key & nums[idx]] += f[key]\n            f = nxt\n            pre_idx = idx\n            res += nxt[k] \n        return res\n",
+    "submit_ts": "1720279105",
+    "subm_id": "544565969"
 }

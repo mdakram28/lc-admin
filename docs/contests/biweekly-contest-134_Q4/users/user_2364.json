@@ -1,6 +1,6 @@
 {
-    "username": "h8QEyCwGrD",
-    "submission": "#include <vector>\n#include <unordered_map>\n\nclass Solution {\npublic:\n    long long countSubarraysWithK(const std::vector<int>& nums, int k) {\n        int n = nums.size();\n        long long totalCount = 0;\n        std::unordered_map<long long, long long> previousResults;\n        \n        for (int i = 0; i < n; ++i) {\n            std::unordered_map<long long, long long> currentResults;\n            \n            if (nums[i] == k) {\n                ++totalCount;\n            }\n            \n            currentResults[nums[i]] = 1;\n            \n            for (const auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & nums[i];\n                if (newAndResult == k) {\n                    totalCount += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = std::move(currentResults);\n        }\n        \n        return totalCount;\n    }\n\n    long long countSubarrays(std::vector<int>& nums, int k) {\n        return countSubarraysWithK(nums, k);\n    }\n};\n",
-    "submit_ts": "1720278658",
-    "subm_id": "1311718706"
+    "username": "Boomer_20",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        ll c=0;\n        map<ll,ll> m;\n        set<int> s;\n        for(auto e:nums)\n            s.insert(e);\n        for(int i=0;i<n;i++){\n            map<ll,ll> m1;\n            m1[nums[i]]=1;\n            if(nums[i]==k)\n                c++;\n          \n            for(auto p:m){\n                 \n                ll res=(p.first&nums[i]);\n                if((p.first&nums[i])==k)\n                    c+=p.second;\n               \n                m1[res]+=p.second;\n            }\n\n            m=m1;\n        }\n\n        return c;\n    }\n};",
+    "submit_ts": "1720278510",
+    "subm_id": "1311712330"
 }

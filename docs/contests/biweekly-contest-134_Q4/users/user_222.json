@@ -1,6 +1,6 @@
 {
-    "username": "Fremder",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        map<long long,long long> mpprev,mp;\n        long long ans = 0;\n        for(int i=0;i<nums.size();i++){\n            for(auto &x:mpprev){\n                mp[(x.first&nums[i])] += x.second;\n            }\n            mp[nums[i]]++;\n            if(mp.find(k) != mp.end()) ans += mp[k];\n\n            // cout << ans << \" \" << mp[9] << endl;\n            mpprev = mp;\n            mp.clear();\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720278409",
-    "subm_id": "1311707919"
+    "username": "zheng-dan-u",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n=a.size();\n        long long ans=0;\n        vector<vector<int>>st(n+1,vector<int>(20));\n        vector<int>lg(n+1);\n        lg[0]=-1;\n        for(int i=1;i<=n;i++)\n        {\n            st[i][0]=a[i-1];\n            lg[i]=lg[i>>1]+1;\n        }\n        for(int i=1;i<20;i++)\n        {\n            for(int j=1;j+(1<<i)-1<=n;j++)\n            {\n                st[j][i]=st[j][i-1]&st[j+(1<<(i-1))][i-1];\n            }\n        }\n        auto qr=[&](int l,int r)->int{\n            int k=lg[r-l+1];\n            return st[l][k]&st[r-(1<<k)+1][k];\n        };\n        for(int i=1;i<=n;i++)\n        {\n            int l=i,r=n;\n            while(l<r)\n            {\n                int mi=(l+r)>>1;\n                if(qr(i,mi)<=k) r=mi;\n                else l=mi+1;\n            }\n\n            if(qr(i,r)!=k) continue;\n            int ll=i,rr=n;\n             while(ll<rr)\n            {\n                int mi=(ll+rr+1)>>1;\n                if(qr(i,mi)>=k) ll=mi;\n                else rr=mi-1;\n            }\n            ans+=ll-l+1;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720276777",
+    "subm_id": "544552336"
 }

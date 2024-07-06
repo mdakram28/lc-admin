@@ -1,6 +1,6 @@
 {
-    "username": "ankurbansal15",
-    "submission": "class Solution {\n    public long countSubarrays(int[] arr, int tgt) {\n        int len = arr.length;\n        long cnt = 0;\n        Map<Long, Long> prevRes = new HashMap<>();\n        for (int idx = 0; idx < len; ++idx) {\n            Map<Long, Long> currRes = new HashMap<>();\n            if (arr[idx] == tgt) {\n                ++cnt;\n            }\n            currRes.merge((long) arr[idx], 1L, Long::sum);\n            for (Map.Entry<Long, Long> entry : prevRes.entrySet()) {\n                long newAndRes = entry.getKey() & arr[idx];\n                if (newAndRes == tgt) {\n                    cnt += entry.getValue();\n                }\n                currRes.merge(newAndRes, entry.getValue(), Long::sum);\n            }\n            \n            prevRes = currRes;\n        }\n        return cnt;\n    }\n}\n",
-    "submit_ts": "1720279683",
-    "subm_id": "1311760971"
+    "username": "wzmw-zr",
+    "submission": "func countSubarrays(nums []int, k int) int64 {\n  ans := int64(0)\n  mp := make(map[int]int64)\n  if nums[0] == k {\n    ans++\n  }\n  mp[nums[0]] = 1\n  for i := 1; i < len(nums); i++ {\n    tmp := make(map[int]int64)\n    tmp[nums[i]] = 1\n    for key, cnt := range mp {\n      if (key & nums[i] & k) < k {\n        continue\n      }\n      x := key & nums[i]\n      if _, ok := tmp[x]; !ok {\n        tmp[x] = cnt\n      } else {\n        tmp[x] += cnt\n      }\n    }\n    if cnt, ok := tmp[k]; ok {\n      ans += cnt\n    }\n    mp = tmp\n  }\n  return ans\n}\n",
+    "submit_ts": "1720278780",
+    "subm_id": "544564324"
 }

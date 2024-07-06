@@ -1,6 +1,6 @@
 {
-    "username": "rahulbhl22",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        unordered_map<long long, long long> dp;\n        for (auto i: nums) {\n            if (i == k)\n                ans++;\n            unordered_map<long long, long long> curr; \n            curr[i] = 1;\n            for (auto m : dp) {\n                int an = m.first & i;\n                int f = m.second;\n                if (an == k) {\n                    ans +=  f;\n                }\n                curr[an] += f;\n            }\n            \n            dp = curr;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279761",
-    "subm_id": "1311764049"
+    "username": "Himanchal__Dasgupta",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int, int> countMap; // to store counts of different AND results\n        long long count = 0;\n        int n = nums.size();\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<int, int> newCountMap;\n            if (nums[i] == k) count++;\n            newCountMap[nums[i]]++;\n            \n            for (auto& entry : countMap) {\n                int newAnd = entry.first & nums[i];\n                if (newAnd == k) {\n                    count += entry.second;\n                }\n                newCountMap[newAnd] += entry.second;\n            }\n            countMap = newCountMap;\n        }\n        \n        return count;\n    }\n};\n",
+    "submit_ts": "1720278141",
+    "subm_id": "1311696196"
 }

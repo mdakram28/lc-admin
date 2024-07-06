@@ -1,6 +1,6 @@
 {
-    "username": "Deadrohan19",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<map<int,int>> mp(n);\n        mp[0][nums[0]]++;\n        for(int i=1;i<n;++i){\n            for(auto p: mp[i-1]){\n                mp[i][p.first&nums[i]] += p.second;\n            }\n            mp[i][nums[i]]++;\n        }\n        long long ans = 0;\n        for(int i=0;i<n;++i){\n            for(auto p: mp[i]){\n                if(p.first==k){\n                    ans += p.second;\n                }\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279638",
-    "subm_id": "1311759251"
+    "username": "pandearindam",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        map<int,int> tillnow;\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            map<int,int> now;\n            for(auto x:tillnow){\n                int a=(x.first&nums[i]);\n                if(a>=k){\n                    // cout<<i<<\" \"<<a<<\"\\n\";\n                    now[a]+=x.second;\n                }\n            }\n            tillnow=now;\n            if(nums[i]>=k) tillnow[nums[i]]++;\n            // cout<<tillnow[k]<<\"\\n\";\n            ans+=tillnow[k];\n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1720278501",
+    "subm_id": "1311711908"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "Naman_21112001",
-    "submission": "class Solution {\npublic:\n    bool compare(int &a , int &b){\n        return a>b;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        int size = nums.size();\n        map<long long, long long> mpr;\n\n        long long answer = 0;\n        bool cmp = false;\n        int take_down = 0;\n\n        for (int j = 0; j < size; j++) \n        {\n            map<long long, long long> crs; \n            if (nums[j] == k) answer+= 1;\n            if(cmp == false){\n                cmp = true;\n                take_down--;\n            }\n            else cmp = true;\n\n            crs[nums[j]] = 1;\n\n            for (auto &[v, f] :mpr) {\n                long long res = (v & nums[j]);\n                if (res == k)answer += f;\n                crs[res] += f;\n            }\n            // cmp(a,b)\n\n            take_down++;\n            cmp = true;\n            mpr = crs;\n        }\n        return answer;\n    }\n};",
-    "submit_ts": "1720279121",
-    "subm_id": "1311738325"
+    "username": "SkookumChoocher",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        i = 0\n        total = 0\n        last = [-inf] * 30\n        for j, b in enumerate(nums):\n            if b & k != k:\n                last = [-inf] * 30\n                i = j + 1\n                continue\n\n            i2 = j\n            for i1 in range(30):\n                bit = 1 << i1\n                if bit & k == 0:\n                    if bit & b == 0:\n                        last[i1] = j\n                    else:\n                        i2 = min(last[i1], i2)\n            if i2 != -inf:\n                total += i2 + 1 - i\n\n        return total",
+    "submit_ts": "1720280774",
+    "subm_id": "1311801579"
 }

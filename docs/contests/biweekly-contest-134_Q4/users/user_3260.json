@@ -1,6 +1,6 @@
 {
-    "username": "Ja1zenn",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        unordered_map<int, int> andFreq;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<int, int> newAndFreq;\n            for (auto& [andVal, freq] : andFreq) {\n                int newAndVal = andVal & nums[i];\n                newAndFreq[newAndVal] += freq;\n            }\n            newAndFreq[nums[i]]++;\n            andFreq = newAndFreq;\n            \n            if (andFreq.find(k) != andFreq.end()) {\n                count += andFreq[k];\n            }\n        }\n        \n        return count;\n    }\n};\n",
-    "submit_ts": "1720277782",
-    "subm_id": "1311679756"
+    "username": "mushashi_",
+    "submission": "#define ll long long\n#include <vector>\n#include <map>\n#include <iostream>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        map<ll, ll> possible;\n        int n = nums.size();\n        ll cnt = 0;\n        \n        for (int i = n - 1; i >= 0; i--) {\n            if (nums[i] == k) {\n                cnt++;\n            }\n\n            map<ll, ll> st;\n            int cur = nums[i];\n\n            for (auto val : possible) {\n                if ((val.first & cur) == k) {\n                    cnt += val.second;\n                }\n                int t = val.first & cur;\n              \n                st[(cur & val.first)] += val.second;\n            }\n\n            st[nums[i]]++;\n            possible = st;\n\n           \n        }\n        return cnt;\n    }\n};\n",
+    "submit_ts": "1720280402",
+    "subm_id": "1311788076"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "xerxes9968",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans=0;\n        int n=nums.size();\n        unordered_map<long long,long long> prev;\n        for(int i=0;i<n;i++){\n            long long currVal=nums[i];\n            long long currFreq=1;\n            unordered_map<long long,long long>curr;\n            curr[currVal]=currFreq;\n            if(currVal==k) ans++;\n            for(auto ele:prev){\n                long long andRes=ele.first&currVal;\n                if(andRes==k) ans+=ele.second;\n                curr[andRes]+=ele.second;\n            }\n            prev=curr;\n        }\n        return ans;\n        \n    }\n};",
-    "submit_ts": "1720280733",
-    "subm_id": "1311800150"
+    "username": "cnitinrohit",
+    "submission": "class Solution {\npublic:\n    bool check(vector<int> bit, int k,int len)\n    {\n        int pow=1;\n        int value=0;\n        for(int i=0;i<31;i++)\n        {\n            if(bit[i]==len) value+=pow;\n            pow*=2;\n        }\n\n        return k==value;\n    }\n    void add(int value,vector<int> bit,int s)\n    {\n        for(int i=0;i<31;i++)\n        {\n            bit[i]+=(s*(value%2));\n            value/=2;\n        }\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        long long ans=0;\n        map<long long,long long> history;\n\n        for (int i=0;i<n;i++) \n        {\n            map<long long,long long> current; \n            if (nums[i] == k)\n            ans++;\n            current[nums[i]]=1;\n\n            for (auto &[value,fq]:history) \n            {\n                long long temp=value&nums[i];\n                if (temp == k)\n                ans+=fq;\n\n                current[temp]+=fq;\n            }\n            history=current;\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720281517",
+    "subm_id": "1311828057"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "Siva_22_2006",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
-    "submit_ts": "1720280808",
-    "subm_id": "1311802772"
+    "username": "wolfe06",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int,int>prefix;\n        long long ans = 0;\n        \n        for(int num:nums){\n            unordered_map<int,int>curr;\n            if(num==k) ans++;\n            curr[num]=1;\n            for(auto it:prefix){\n                int val = it.first;\n                int no = it.second;\n                if((val & num) == k){\n                    ans+=no;\n                }\n                curr[(val&num)]+=no;\n            }\n            prefix.clear();\n            for(auto it:curr){\n                prefix[it.first]=it.second;\n            }\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720280009",
+    "subm_id": "1311773558"
 }

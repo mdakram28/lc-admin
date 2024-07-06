@@ -1,6 +1,6 @@
 {
-    "username": "sad-hodgkin23h",
-    "submission": "using ll = long long;\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n = nums.size();\n        ll ans = 0;\n\n        ll m = 32;\n\n        auto ones = vector(n+1,vector(m,0ll));\n        for(ll i=1; i<=n; i++) {\n            for(ll j=0; j<m; j++) {\n                if((nums[i-1]>>j)&1) ones[i][j] = ones[i-1][j] + 1;\n            }\n        }\n\n        auto zero = vector(n+1,vector(m,0ll));\n        for(ll i=1; i<=n; i++) {\n            for(ll j=0; j<m; j++) {\n                if((nums[i-1]>>j)&1) {\n                    zero[i][j] = zero[i-1][j];\n                } else {\n                    zero[i][j] = i;\n                }\n            }\n        }\n\n        for(ll i=1; i<=n; i++) {\n            ll cnt = n, pos = n;\n            for(ll j=0; j<m; j++) {\n                if((k>>j)&1) {\n                    cnt = min(cnt,ones[i][j]);\n                } else {\n                    pos = min(pos,zero[i][j]);\n                }\n            }\n            ll l = i - cnt + 1;\n            if(l<1) l = 1;\n            ll r = pos;\n            // cout<<i<<\" \"<<l<<\" \"<<r<<endl;\n            if(l<=r) ans += (r-l+1);\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": "1720281323",
-    "subm_id": "544575333"
+    "username": "unrav",
+    "submission": "using i64 = long long;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int N = nums.size();\n        i64 count = 0;\n\n        unordered_map<i64, i64> fq;\n        for(int i = 0; i < N; i++) {\n            if(nums[i] == k) {\n                count++;\n            }\n            \n            unordered_map<i64, i64> cfq;\n            cfq[nums[i]] = 1;\n\n            for(auto [v, f] : fq) {\n                i64 a = (v & nums[i]);\n                if(a == k) {\n                    count += f;\n                }\n                cfq[a] += f;\n            }\n\n            fq = cfq;\n        }\n\n        return count;\n    }\n};",
+    "submit_ts": "1720281468",
+    "subm_id": "1311826231"
 }

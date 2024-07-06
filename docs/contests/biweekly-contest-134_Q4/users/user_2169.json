@@ -1,6 +1,6 @@
 {
-    "username": "Vraj_Naik",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int arrLength = array.size();\n        long long resultCount = 0;\n        unordered_map<long long, long long> previousMap;\n\n        for (int i = 0; i < arrLength; ++i) {\n            unordered_map<long long, long long> currentMap;\n\n            if (array[i] == target) ++resultCount;\n            currentMap[array[i]] = 1;\n\n            for (auto& elem : previousMap) {\n                long long andResult = elem.first & array[i];\n                if (andResult == target) resultCount += elem.second;\n                currentMap[andResult] += elem.second;\n            }\n            previousMap = currentMap;\n        }\n        return resultCount;\n    }\n};",
-    "submit_ts": "1720280538",
-    "subm_id": "1311793136"
+    "username": "Invincible_demon",
+    "submission": "class Solution{\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ios_base::sync_with_stdio(false);\n        cin.tie(NULL);\n        int m = nums.size();\n        if(m < 0) return 0;\n        if (m == 0) return 0;\n        \n        long long count = 0;\n        unordered_map<long long, long long> prefixCounts;\n\n        for (int i = 0; i < m; ++i) {\n        unordered_map<long long, long long> nextPrefixCounts;\n\n       long long currentAnd = nums[i];\n        if (currentAnd == k) {\n            ++count;\n        }\n            \n        for (auto& [val, freq] : prefixCounts) {\n            long long res = val & nums[i];\n            if (res == k) {\n                count += freq;\n            }\n            nextPrefixCounts[res] += freq;\n          }\n\n        nextPrefixCounts[currentAnd]++;\n            \n        prefixCounts = move(nextPrefixCounts);\n        }\n        \n        if(count<0) return 0;\n        return count;\n\n    }\n};",
+    "submit_ts": "1720280273",
+    "subm_id": "1311783215"
 }

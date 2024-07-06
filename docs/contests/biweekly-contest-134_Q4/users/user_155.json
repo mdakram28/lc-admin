@@ -1,6 +1,6 @@
 {
-    "username": "aryan_pundir",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll countSubarrays(vector<int>& nums, int k) {\n        ll res = 0;\n        unordered_map<ll, ll>fre;\n        for (auto &x:nums) {\n            unordered_map<ll, ll>cfre; \n            cfre[x]=1;\n            for (auto&f:fre) {\n                ll av =f.first&x;\n                if(av==k)res+=f.second;\n                cfre[av]+=f.second;\n            }\n            fre =cfre;\n        }\n        for(auto &x:nums)res+=(x==k);\n        return res;\n    }\n};\n",
-    "submit_ts": "1720278326",
-    "subm_id": "1311704267"
+    "username": "SirTechnical",
+    "submission": "MAXN = 10**5+5\nMAXK = 18\nlg = [0]*MAXN\nst = [[0]*MAXN for _ in range(MAXK)]\n\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        if lg[2] == 0:\n            for i in range(2,MAXN):\n                lg[i] = lg[i//2]+1\n        N = len(nums)\n        for i in range(N):\n            st[0][i] = nums[i]\n        for i in range(1,MAXK):\n            for j in range(N-(2**i)+1):\n                st[i][j] = st[i-1][j] & st[i-1][j+(2**(i-1))]\n        def q(l,r):\n            i = lg[r-l+1]\n            return st[i][l] & st[i][r-(2**i)+1]        \n        r = 0\n        ans = 0\n        c = nums[0]\n        for l in range(N):\n            ll1 = l\n            rr1 = N-1\n            while ll1 < rr1:\n                mm1 = (ll1+rr1)//2\n                if q(l,mm1) >= k:\n                    ll1 = mm1+1\n                else:\n                    rr1 = mm1\n            ll2 = l\n            rr2 = N-1\n            while ll2 < rr2:\n                mm2 = (ll2+rr2)//2\n                if q(l,mm2) > k:\n                    ll2 = mm2+1\n                else:\n                    rr2 = mm2\n            if ll1 == N-1:\n                if q(l,ll1) >= k:\n                    ll1 = N\n            if ll2 == N-1:\n                if q(l,ll2) > k:\n                    ll2 = N\n            ans += ll1-ll2\n            \n        return ans",
+    "submit_ts": "1720278219",
+    "subm_id": "1311699669"
 }

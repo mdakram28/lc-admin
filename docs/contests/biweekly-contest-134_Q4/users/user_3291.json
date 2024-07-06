@@ -1,6 +1,6 @@
 {
-    "username": "puneety15",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        \n        int n=nums.size();\n        unordered_map<long long,long long> mpp;\n        long long ans=0;\n        \n      \n        \n        for(int i=0;i<n;i++){\n              unordered_map<long long,long long> curr;\n            if(nums[i]==k){\n                ans++;\n            }\n            curr[nums[i]]++;\n            for(auto it:mpp){\n                int newand=it.first & nums[i];\n                if(newand==k) ans+=it.second;\n                curr[newand]+=it.second;\n            }\n            mpp=curr;\n        }\n        \n        sort(nums.begin(),nums.end());\n        return ans;\n    }\n};",
-    "submit_ts": "1720281418",
-    "subm_id": "1311824423"
+    "username": "aditya_lc0",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& sequence, int target) {\n        int length = sequence.size();\n        long long subCnt = 0;\n        unordered_map<long long, long long> prevResults;\n\n        for (int index = 0; index < length; ++index) {\n            unordered_map<long long, long long> currentResults;\n\n            if (sequence[index] == target) {\n                ++subCnt;\n            }\n            currentResults[sequence[index]] = 1;\n\n            for (const auto& entry : prevResults) {\n                long long value = entry.first;\n                long long frequency = entry.second;\n                long long newAndResult = value & sequence[index];\n                if (newAndResult == target) {\n                    subCnt += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n\n            prevResults = std::move(currentResults);\n        }\n\n        return subCnt;\n    }\n};\n",
+    "submit_ts": "1720281582",
+    "subm_id": "1311830841"
 }

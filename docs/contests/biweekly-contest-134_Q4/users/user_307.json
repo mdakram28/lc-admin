@@ -1,6 +1,6 @@
 {
-    "username": "rushinshah_",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n\n        vector<int> last_zero(32, -1);\n        int n = nums.size();\n        for(int i = 0; i < n; i++){\n            int x = 0, y = i;\n            \n            for(int j = 0; j < 32; j++){\n                if(!(nums[i] & (1LL << j))){\n                    last_zero[j] = i;\n                }\n                if(k & (1LL << j)){\n                    x = max(x, last_zero[j] + 1);\n                }else{\n                    y = min(y, last_zero[j]);\n                }\n            }\n            if(x > y)continue;\n            ans += (y - x + 1);\n            \n\n          \n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720278483",
-    "subm_id": "1311711108"
+    "username": "l0vekeven",
+    "submission": "from functools import cache\nfrom math import inf\nfrom typing import List\n\n\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        def g(x):  \n            cnt = [0] * 30\n            i = 0\n            while k:\n                cnt[i] = k & 1\n                x >>= 1\n            return \"\".join(cnt)\n        n = len(nums)\n        @cache\n        def f(idx ,now ):\n            if idx == n:\n                return int(now == k)\n            if now < k:\n                return 0\n            ans = (1 if now == k else 0)\n            ans += f(idx + 1,now & nums[idx])\n            return ans\n        ans = 0\n        for i in range(n):\n            ans += f(i + 1,nums[i])\n        return ans",
+    "submit_ts": "1720278838",
+    "subm_id": "544564636"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "rajukumar1972003",
-    "submission": "// class Solution {\n// public:\n//     long long countSubarrays(vector<int>& nums, int k) {\n//         long long cnt=0;\n//         int size = nums.size();\n        \n//         for(int i=0;i<size;i++){\n//             int val = nums[i];\n//             if(val == k) cnt++;\n//             for(int j=(i+1);j<size;j++){\n//                 val = val&nums[j];\n//                 if(val==k)cnt++;\n//                 else{\n//                     if(val<k) break;\n//                 }\n//             }\n//         }\n//         return cnt;\n//     }\n// };\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long cnt=0;\n        int size = nums.size();\n        \n        unordered_map<long long, long long> prev;\n\n        for (int i = 0; i < size; ++i) {\n            unordered_map<long long, long long> m; \n\n            if (nums[i] == k) {\n                cnt++;\n            }\n            m[nums[i]] = 1;\n\n            for (auto& [v, fre] : prev) {\n                long long newAresulties = v & nums[i];\n                if (newAresulties == k) {\n                    cnt += fre;\n                }\n                m[newAresulties] += fre;\n            }\n            \n            prev = m;\n        }\n        \n        return cnt;\n\n    }\n};",
-    "submit_ts": "1720280119",
-    "subm_id": "1311777615"
+    "username": "hbnnn",
+    "submission": "func countSubarrays(nums []int, k int) int64 {\n    ans := 0\n    set := map[int]int{}\n    for i := 0; i < len(nums); i++ {\n        tmp := map[int]int{}\n        for and, cnt:= range set {\n            if and & nums[i] < k {\n                continue \n            }\n            tmp[and & nums[i]] += cnt\n        }\n        if nums[i] >= k {\n            tmp[nums[i]]+=1\n        }\n        ans += tmp[k]\n        set = tmp \n    }\n    return int64(ans)\n}",
+    "submit_ts": "1720279072",
+    "subm_id": "544565815"
 }

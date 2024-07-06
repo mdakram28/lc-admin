@@ -1,6 +1,6 @@
 {
-    "username": "akhil2004",
-    "submission": "\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long total = 0;\n        HashMap<Long, Long> previousSubarrays = new HashMap<>();\n        \n        for (int index = 0; index < n; ++index) {\n            HashMap<Long, Long> currentSubarrays = new HashMap<>();\n            \n            if (nums[index] == k) {\n                ++total;\n            }\n            \n            currentSubarrays.put((long) nums[index], 1L);\n            \n            for (HashMap.Entry<Long, Long> entry : previousSubarrays.entrySet()) {\n                long newValue = entry.getKey() & nums[index];\n                \n                if (newValue == k) {\n                    total += entry.getValue();\n                }\n                \n                currentSubarrays.put(newValue, currentSubarrays.getOrDefault(newValue, 0L) + entry.getValue());\n            }\n            \n            previousSubarrays = currentSubarrays;\n        }\n        \n        return total;\n    }\n}\n",
-    "submit_ts": "1720281467",
-    "subm_id": "1311826185"
+    "username": "MdNomaan",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long count = 0;\n        unordered_map<int, int> andMap;  // HashMap to store AND results and their frequencies\n\n        for (int i = 0; i < nums.size(); ++i) {\n            unordered_map<int, int> newMap;\n            newMap[nums[i]] = 1;\n            \n            for (auto& [val, freq] : andMap) {\n                int newAnd = val & nums[i];\n                newMap[newAnd] += freq;\n            }\n\n            for (auto& [val, freq] : newMap) {\n                if (val == k) {\n                    count += freq;\n                }\n            }\n\n            andMap = newMap;  // Update the hashmap with the new results\n        }\n\n        return count;\n    }\n};",
+    "submit_ts": "1720278169",
+    "subm_id": "1311697432"
 }

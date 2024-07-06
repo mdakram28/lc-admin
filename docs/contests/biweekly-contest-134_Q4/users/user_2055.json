@@ -1,6 +1,6 @@
 {
-    "username": "10vinaycoder",
-    "submission": "class Solution {\npublic:\n     long long countSubarrays(vector<int>& v, int t) {\n        int n = v.size();\n        long long ans = 0;\n        unordered_map<long long, long long> dp;\n        vector<int> a(n);\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> temp; \n            if (v[i] == t) ++ans;\n            a[i]=i+1;\n            temp[v[i]] = 1;\n            for (auto it : dp) {\n                long long curr = it.first & v[i];\n                if (curr == t) {\n                    ans += it.second;\n                }\n                a[i]++;\n                temp[curr] += it.second;\n            }\n            dp = temp;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281539",
-    "subm_id": "1311828942"
+    "username": "hunterr7",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        unordered_map<int, int> dp;\n        for (int i = 0; i < n; i++) {\n            unordered_map<int, int> new_dp;\n            new_dp[nums[i]]++;\n            if (nums[i] == k) count++;\n            \n            for (auto& [key, val] : dp) {\n                int new_key = key & nums[i];\n                new_dp[new_key] += val;\n                if (new_key == k) count += val;\n            }\n            \n            dp = new_dp;\n        }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1720280172",
+    "subm_id": "1311779529"
 }

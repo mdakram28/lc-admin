@@ -1,6 +1,6 @@
 {
-    "username": "nikhilh26_",
-    "submission": "class Solution\n{\npublic:\n    long long countSubarrays(vector<int> arr, int k)\n    {\n        long long ans = 0;\n        int n = arr.size();\n        map<int, long long> mp;\n\n        for (int i = 0; i < n; i++)\n        {\n            map<int, long long> new_mp;\n            for (auto j : mp)\n                new_mp[(arr[i] & j.first)] = (1LL) * new_mp[(arr[i] & j.first)] + j.second;\n\n            new_mp[arr[i]] = new_mp[arr[i]] + 1;\n            ans = (1LL) * ans + new_mp[k];\n            mp = new_mp;\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": "1720281563",
-    "subm_id": "1311829981"
+    "username": "BrilliantShell",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int size = nums.size();\n        long long total = 0;\n        \n        unordered_map<long long, long long> prevResults;\n        \n        for(int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currResults;\n            \n            if(nums[index] == k) {\n                ++total;\n            }\n            \n            currResults[nums[index]] = 1;\n            \n            for(auto& [value, frequency] : prevResults) {\n                long long andResult = value & nums[index];\n                \n                if(andResult == k) {\n                    total += frequency;\n                }\n                \n                currResults[andResult] += frequency;\n            }\n            \n            prevResults = currResults;\n            \n        }\n        \n        return total;\n    }\n};",
+    "submit_ts": "1720280658",
+    "subm_id": "1311797466"
 }

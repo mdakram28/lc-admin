@@ -1,6 +1,6 @@
 {
-    "username": "ayushku22",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long totalSubarrays = 0;\n\n        unordered_map<long long, long long> previousAndResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currentAndResults;\n\n            if (nums[i] == k) {\n                ++totalSubarrays;\n            }\n            currentAndResults[nums[i]] = 1;\n\n            for (auto& [andValue, frequency] : previousAndResults) {\n                long long newAndResult = andValue & nums[i];\n                if (newAndResult == k) {\n                    totalSubarrays += frequency;\n                }\n                currentAndResults[newAndResult] += frequency;\n            }\n\n            previousAndResults = currentAndResults;\n        }\n\n        return totalSubarrays;\n    }\n};\n",
-    "submit_ts": "1720280462",
-    "subm_id": "1311790307"
+    "username": "aadarshsonkar",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        count = 0\n        prev_results = defaultdict(int)\n\n        for i in range(n):\n            curr_results = defaultdict(int)\n\n            if nums[i] == k:\n                count += 1\n            curr_results[nums[i]] = 1\n\n            for val, freq in prev_results.items():\n                new_and_result = val & nums[i]\n                if new_and_result == k:\n                    count += freq\n                curr_results[new_and_result] += freq\n\n            prev_results = curr_results\n\n        return count",
+    "submit_ts": "1720280920",
+    "subm_id": "1311806775"
 }

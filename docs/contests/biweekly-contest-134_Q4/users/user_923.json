@@ -1,6 +1,6 @@
 {
-    "username": "daneshtoshniwal0",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        // int n = nums.size();\n        // vector<vector<int>> allnums(32, vector<int>(n,0));\n        // for(int i=0;i<32;i++){\n        //     for(int j=0;j<n;j++){\n        //         allnums[i][j] = nums[j]%2;\n        //         nums[j]/=2;\n        //     }\n        // }\n\n        // vector<int> kv(32);\n        // for(int i=0;i<32;i++){\n        //     kv[i] = k%2;\n        //     k/=2;\n        // }\n\n        // vector<bool> cols(n, true);\n        // for(int i=0;i<32;i++){\n        //     // looking for the ith bit of k:\n        //     for(int j=0;j<n;j++){\n        //         if(allnums[i][j] != kv[i]){\n        //             cols[i] = false;\n        //         }\n        //     }\n        // }\n\n        long long ret = 0;\n        map<int,int> mp;\n        int n = nums.size();\n        for(int i=0;i<n;i++){\n            map<int,int> mp2;\n            if(nums[i] == k){ret++;}\n            mp2[nums[i]] = 1;\n            for(auto x: mp){\n                int theirAND = x.first & nums[i];\n                if(theirAND == k){\n                    ret+=x.second;\n                }\n                mp2[theirAND] += x.second;\n            }\n            mp = mp2;\n        }\n        return(ret);\n    }\n};",
-    "submit_ts": "1720279272",
-    "subm_id": "1311744585"
+    "username": "cai-g-x",
+    "submission": "\nclass Solution {\npublic:\nlong long countSubarrays(vector<int>& nums, int k) {\n    unordered_map<int, long long>h;\n    long long res=0;\n    for(auto v:nums){\n        unordered_map<int, long long>help;\n        for(auto p:h){\n            help[v&p.first]+=p.second;\n        }\n        help[v]++;\n        res+=help[k];\n        h=help;\n    }\n    return res;\n    \n}\n};",
+    "submit_ts": "1720279429",
+    "subm_id": "544567441"
 }

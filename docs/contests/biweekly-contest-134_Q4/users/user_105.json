@@ -1,6 +1,6 @@
 {
-    "username": "minkiw146",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        res = 0\n        @cache\n        def fun(i, cur):\n            if cur & k < k: return 0\n            if i == len(nums) - 1:\n                if cur == k:\n                    return 1\n                else:\n                    return 0\n            if cur == k:\n                return 1 + fun(i+1, cur & nums[i+1])\n            return fun(i+1, cur & nums[i+1])\n        for i in range(len(nums)):\n            res = res + fun(i, nums[i])\n        return res",
-    "submit_ts": "1720278368",
-    "subm_id": "1311706122"
+    "username": "yuzining",
+    "submission": "/**\n * @author yuzining\n * @date 2024/07/06 22:47\"\n */\n\n#ifdef local\n#include \"debug.hpp\"\nusing namespace std;\n#else\n#define DEBUG(...) do { } while(false)\n#endif\n\nclass Solution {\npublic:\n  long long countSubarrays(vector<int>& nums, int k) {\n    long long ans = 0;\n    std::vector<int> pos(30, -1);\n    int n = nums.size();\n    for (int i = 0; i < n; i++) {\n      for (int j = 0; j < 30; j++) {\n        if (!((nums[i] >> j) & 1)) {\n          pos[j] = i;\n        }\n      }\n      int left = 0, right = i;\n      for (int j = 0; j < 30; j++) {\n        if ((k >> j) & 1) {\n          // all is one\n          left = std::max(left, pos[j] + 1);\n        } else {\n          // some is zero\n          right = std::min(right, pos[j]);\n        }\n      }\n      if (left <= right) {\n        ans += right - left + 1;\n      }\n    }\n    return ans;\n  }\n};\n\n#ifdef local\nint main() {\n\n}\n#endif",
+    "submit_ts": "1720277616",
+    "subm_id": "544557780"
 }

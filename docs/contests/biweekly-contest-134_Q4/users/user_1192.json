@@ -1,6 +1,6 @@
 {
-    "username": "user4117lT",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n       \n    int size = nums.size(); // Correct variable name and access the size of 'nums'\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        \n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults;\n            long long target = k; // Correctly define 'target' (assuming 'k' is the target value)\n            \n            if (nums[index] == target) {\n                ++total;\n            }\n            currentResults[nums[index]] = 1;\n            \n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & nums[index]; // Bitwise AND between value and                                                                                                        //nums[index]\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return total;\n    }\n};",
-    "submit_ts": "1720280000",
-    "subm_id": "1311773241"
+    "username": "Nishu__one8",
+    "submission": "class Solution {\npublic:\nlong long countSubarrays(vector<int>& nums, int k) {\n   unordered_map<long long,long long> mp;\n   long long ans=0;\n   \n   for(auto it: nums){\n      unordered_map<long long,long long> tmp;\n      for(auto ele: mp){\n         tmp[(ele.first &it)] += ele.second;\n      }\n      tmp[it]++;\n       \n       mp.clear();\n      for(auto i: tmp){\n         if(i.first==k) ans+= i.second;   \n         mp[i.first] = i.second;\n      }\n   }        \n\n   return ans;\n}\n};\n\n// fucked up\n\n/*\n[1,1,1]\n1\n[1,1,2]\n1\n[1,2,3]\n2\n*/",
+    "submit_ts": "1720279111",
+    "subm_id": "1311737879"
 }

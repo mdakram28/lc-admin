@@ -1,6 +1,6 @@
 {
-    "username": "udaypavan2004",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long n=nums.size(),ans=0;\n        map<long long ,long long>m;\n        for(int i=0;i<n;i++){\n             map<long long ,long long>mi;\n            if(nums[i]==k) ans++;\n            mi[nums[i]]=1;\n            for(auto j:m){\n                long long x=j.first&nums[i];\n                if(x==k) ans+=j.second;\n                mi[x]+=j.second;\n            }\n            m=mi;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281557",
-    "subm_id": "1311829707"
+    "username": "xuheng",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int, int> map;\n        map[nums[0]] = 1;\n        long long res = 0;\n        if (k == nums[0]) ++res;\n        for (int i = 1; i < nums.size(); ++i) {\n            if (nums[i] < k) {\n                map.clear();\n                continue;\n            }\n            if (nums[i] == k) ++res;\n            unordered_map<int, int> cur_map;\n            cur_map[nums[i]] = 1;\n            for (auto it = map.begin(); it != map.end(); ++it) {\n                if (it->first < k) continue;\n                int tmp = it->first & nums[i];\n                if (k == (it->first & nums[i])) res += map[it->first];\n                cur_map[tmp] += map[it->first];\n            }\n            // for (auto it1 = cur_map.begin(); it1 != cur_map.end(); ++it1) {\n            //     cout << it1->first << \" \" << it1->second << endl;\n            // }\n            map = move(cur_map);\n        }\n        return res;\n    }\n};\n\n// 1001\n// 0111\n// 0100\n// 0001",
+    "submit_ts": "1720280777",
+    "subm_id": "544573284"
 }

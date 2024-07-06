@@ -1,6 +1,6 @@
 {
-    "username": "Tushar123Puniya",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n=a.size();\n        vector<vector<int>> fstzero(n,vector<int>(31,n));\n        for(int j=0;j<31;j++)\n        {\n            if(!((1<<j)&a[n-1])){\n                fstzero[n-1][j]=n-1;\n            }\n        }\n        for(int i=n-2;i>=0;i--)\n        {\n            fstzero[i]=fstzero[i+1];\n            for(int j=0;j<31;j++)\n            {\n                if(!((1<<j)&a[i])){\n                    fstzero[i][j]=i;\n                }\n            }\n        }\n        long long ans=0;\n        for(int i=0;i<n;i++)\n        {\n            int mn=i,mx=n;\n            for(int j=0;j<31;j++)\n            {\n                if((1<<j)&k){\n                    mx=min(fstzero[i][j],mx);\n                }\n                else\n                {\n                    mn = max(fstzero[i][j],mn);\n                }\n            }\n            ans+=max(0,mx-mn);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281169",
-    "subm_id": "1311815564"
+    "username": "dalwadiharsh09",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int targetAnd) {\n        int n = nums.size();\n        long long subarrayCount = 0;\n        \n        unordered_map<long long, long long> previousResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currentResults; \n\n            if (nums[i] == targetAnd) {\n                ++subarrayCount;\n            }\n            currentResults[nums[i]] = 1;\n\n            for (auto& [andValue, frequency] : previousResults) {\n                long long newAndResult = andValue & nums[i];\n                if (newAndResult == targetAnd) {\n                    subarrayCount += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return subarrayCount;\n    }\n};\n",
+    "submit_ts": "1720281149",
+    "subm_id": "1311814865"
 }

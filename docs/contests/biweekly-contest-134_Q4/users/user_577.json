@@ -1,6 +1,6 @@
 {
-    "username": "agomi123",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n      long long count = 0;\n    unordered_map<int, int> prev_and_counts;\n    int n=nums.size();\n    for (int i = 0; i < n; ++i) {\n        unordered_map<int, int> curr_and_counts;\n        for (auto& p : prev_and_counts) {\n            int new_and = p.first & nums[i];\n            curr_and_counts[new_and] += p.second;\n        }\n        curr_and_counts[nums[i]]++;\n        \n        for (auto& p : curr_and_counts) {\n            if (p.first == k) {\n                count += p.second;\n            }\n        }\n        prev_and_counts = curr_and_counts;\n    }\n\n    return count;\n    }\n};",
-    "submit_ts": "1720278936",
-    "subm_id": "1311730570"
+    "username": "clever-volhardfhm",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        ans = 0 \n        n = len(nums)\n        g = defaultdict(int)\n        f = defaultdict(int)\n        for x in nums:\n            f.clear() \n            for key, val in g.items():\n                f[key & x] += val \n                if key & x == k:\n                    ans += val \n            f[x] += 1 \n            if x == k:\n                ans += 1\n            g.clear()\n            for key, val in f.items():\n                g[key] = val \n        return ans",
+    "submit_ts": "1720277146",
+    "subm_id": "544554789"
 }

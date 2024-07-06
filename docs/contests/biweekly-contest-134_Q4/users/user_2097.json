@@ -1,6 +1,6 @@
 {
-    "username": "harshbansal1303",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        long long count=0;\n        unordered_map<long long,long long>mp;\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> mp1; \n\n            if (nums[i] == k) {\n                count+=2-1;\n            }\n            mp1[nums[i]] = 1;\n\n            for (auto& [val, freq] : mp) {\n                long long temp = val & nums[i];\n                if (temp == k) {\n                    count += freq;\n                }\n                mp1[temp] += freq;\n            }\n            \n            mp = mp1;\n        }\n        \n        return count+3-3;\n\n\n    }\n};",
-    "submit_ts": "1720281068",
-    "subm_id": "1311812030"
+    "username": "priyanshukr19",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        unordered_map<int, long long> pref;\n        \n        for (const auto& i : nums) {\n            unordered_map<int, long long> mp;\n            if(i == k) ans++;\n            mp[i]++;\n            \n            for (const auto& pair : pref) {\n                int curAnd = pair.first & i;\n                if (curAnd == k) ans += pair.second;\n                mp[curAnd] += pair.second;\n            }\n            \n            pref = mp;\n        }\n        \n        return ans;\n    }\n};\n\n// 1 1 3 4\n// k = 2",
+    "submit_ts": "1720281435",
+    "subm_id": "1311825075"
 }

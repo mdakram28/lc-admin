@@ -1,6 +1,6 @@
 {
-    "username": "Swathi_2102",
-    "submission": "class Solution:\n    def countSubarrays(self, nums, k):\n        n = len(nums)\n        count = 0\n        prefix_and = {}\n\n        for i in range(n):\n            current_and = {}\n            \n            if nums[i] == k:\n                count += 1\n            current_and[nums[i]] = 1\n\n            for key, val in prefix_and.items():\n                new_and = key & nums[i]\n                if new_and == k:\n                    count += val\n                if new_and in current_and:\n                    current_and[new_and] += val\n                else:\n                    current_and[new_and] = val\n            \n            prefix_and = current_and\n\n        return count\n\n        ",
-    "submit_ts": "1720278717",
-    "subm_id": "1311721255"
+    "username": "thirdbest",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    ll f (ll n) {return n * (n - 1) / 2; }\n    long long countSubarrays(vector<int>& a, int k) {\n        ll n = size(a), ans = 0;\n        vector<ll> p(32, -1);\n        for (auto i = 0; i < n; ++i) {\n            for (auto j = 0; j < 32; ++j) {\n                if ((a[i] >> j) & 1) continue;\n                p[j] = i;\n            }\n            ll ok = -1, bad = i;\n            for (auto j = 0; j < 32; ++j) {\n                if ((k >> j) & 1) ok = max(ok, p[j]);\n                else bad = min(bad, p[j]);\n            }\n            ll cur = bad - ok;\n            // cout << i << \" \" << cur << \" \" << bad << \" \" << ok << \"\\n\";\n            if (cur > 0) ans += cur;\n        }\n        // cout << \"\\n\";\n        return ans;\n    }\n};",
+    "submit_ts": "1720277110",
+    "subm_id": "1311648176"
 }

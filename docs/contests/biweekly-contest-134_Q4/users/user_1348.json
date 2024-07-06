@@ -1,6 +1,6 @@
 {
-    "username": "Vr_7",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int target) {\n        int n = arr.size();\n        ll ans = 0;\n        unordered_map<ll, ll> mp1;\n        for (int i = 0; i < n; i++) {\n            unordered_map<ll, ll> mp2; \n            if (arr[i] == target) {\n                ans++;\n            }\n            mp2[arr[i]] = 1;\n            for (auto it : mp1) {\n                ll nd = it.first & arr[i];\n                if (nd == target) {\n                    ans += it.second;\n                }\n                mp2[nd] += it.second;\n            }\n            \n            mp1 = mp2;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280542",
-    "subm_id": "1311793287"
+    "username": "Faith_Previal",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int p) {\n        int n = nums.size();\n        vector<int> ans(n);\n        vector<pair<int, int>> ors; // \u6309\u4f4d\u6216\u7684\u503c + \u5bf9\u5e94\u5b50\u6570\u7ec4\u7684\u53f3\u7aef\u70b9\u7684\u6700\u5c0f\u503c\n        long long cnt = 0;\n        for (int i = n - 1; i >= 0; --i) {\n            ors.emplace_back(-1, 1);\n            ors[0].first &= nums[i];\n            int k = 0;\n            for (int j = 1; j < ors.size(); ++j) {\n                ors[j].first &= nums[i];\n                if (ors[k].first == ors[j].first)\n                    ors[k].second += ors[j].second; // \u5408\u5e76\u76f8\u540c\u503c\uff0c\u4e0b\u6807\u53d6\u6700\u5c0f\u7684\n                else ors[++k] = ors[j];\n            }\n            ors.resize(k + 1);\n            for (int j = 0; j < ors.size(); ++j) {\n                if(ors[j].first == p){\n                    cnt += ors[j].second;\n                }\n            }\n\n        }\n        return cnt;\n    }\n};",
+    "submit_ts": "1720279091",
+    "subm_id": "544565900"
 }

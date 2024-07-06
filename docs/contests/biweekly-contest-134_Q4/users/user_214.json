@@ -1,6 +1,6 @@
 {
-    "username": "pyjuan91",
-    "submission": "class Solution {\npublic:\n  long long countSubarrays(vector<int>& nums, int k) {\n    int64_t res = 0;\n    unordered_map<int, int> prv_and, cur_and;\n    for (auto num : nums) {\n      if (num & k != k) {\n        prv_and.clear();\n        cur_and.clear();\n        continue;\n      }\n      cur_and[num]++;\n      for (auto [key, val] : prv_and) {\n        if ((key & num & k) == k) {\n          cur_and[key & num] += val;\n        }\n      }\n      res += cur_and[k];\n      swap(prv_and, cur_and);\n      cur_and.clear();\n    }\n    return res;\n  }\n};",
-    "submit_ts": "1720278385",
-    "subm_id": "1311706901"
+    "username": "mywaytherehbf",
+    "submission": "class Solution:\n    def logTrick(self,a,op):\n        d = defaultdict(int)#\u6bcf\u4e2a\u53ef\u80fd\u7684\u533a\u95f4op\u503c\uff0c\u4ee5\u53ca\u5bf9\u5e94\u7684\u4e2a\u6570\n        s = [] #\u5f00\u5934\uff0c\u7ed3\u5c3e\uff0c\u5de6\u95ed\u53f3\u5f00\uff0c\u503c\n        for i, x in enumerate(a):\n            for v in s:\n                v[2] = op(v[2],x)\n            s.append([i,i+1,x]) #\u5982\u679c\u5199\u524d\u9762\uff0c\u6216\u653e0\uff0cand\u653e\u81ea\u5df1\uff0c\u4e0d\u540c\u51fd\u6570\u4e0d\u540c\uff0c\u4e0d\u5982\u76f4\u63a5\u6700\u540e\u52a0\n            k = 0\n            for v in s[1:]: #\u56e0\u4e3a\u5355\u8c03\u5e8f\u5217\u6240\u4ee5\u53ef\u4ee5inplace\u53bb\u91cd\n                if s[k][2] == v[2]:\n                    s[k][1] = v[1]\n                else:\n                    k += 1\n                    s[k] = v\n            s = s[:k+1]\n            for v in s:\n                d[v[2]]+=v[1]-v[0]\n        return d\n\t    \n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        d = self.logTrick(nums,and_)\n        z = 0\n        for x,y in d.items():\n            if x == k:\n                z += y\n        return z",
+    "submit_ts": "1720278412",
+    "subm_id": "544562446"
 }

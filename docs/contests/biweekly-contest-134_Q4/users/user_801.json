@@ -1,6 +1,6 @@
 {
-    "username": "arjunsinghal77",
-    "submission": "import java.util.*;\nclass Solution {\n    public long countSubarrays(int[] arjun, int x) {\n        int n = arjun.length;\n        long jaanu = 0;\n        Map<Integer, Integer> dev = new HashMap<>();\n        for (int i = 0; i < n; i++) {\n            Map<Integer, Integer> apnaMap = new HashMap<>();\n            apnaMap.put(arjun[i], apnaMap.getOrDefault(arjun[i], 0) + 1);\n            for (int key : dev.keySet()) {\n                int bhishma = key & arjun[i];\n                apnaMap.put(bhishma, apnaMap.getOrDefault(bhishma, 0) + dev.get(key));\n            }\n            dev=apnaMap;\n            jaanu += dev.getOrDefault(x, 0);\n        }\n        return jaanu;\n    }\n}",
-    "submit_ts": "1720280581",
-    "subm_id": "1311794718"
+    "username": "han-yan-qi",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], z: int) -> int:\n        n = len(nums)\n        ans = 0\n        a = []\n        for i, num in enumerate(nums):\n            a.append([num, i])\n            k = 0\n            for p in a:\n                p[0] &= num\n                if a[k][0] == p[0]:\n                    continue\n                else:\n                    k += 1\n                    a[k] = p\n            del a[k + 1:]\n            # \u672c\u9898\u53ea\u7528\u5230\u4e86 ors[0]\uff0c\u5982\u679c\u9898\u76ee\u6539\u6210\u4efb\u610f\u7ed9\u5b9a\u6570\u503c\uff0c\u53ef\u4ee5\u5728 ors \u4e2d\u67e5\u627e\n            for j, p in enumerate(a):\n                if p[0] < z:\n                    continue\n                elif p[0] == z:\n                    if j == len(a) - 1:\n                        ans += i - p[1] + 1\n                    else:\n                        ans += a[j + 1][1] - p[1]\n                else:\n                    break\n        return ans\n",
+    "submit_ts": "1720279529",
+    "subm_id": "544567879"
 }

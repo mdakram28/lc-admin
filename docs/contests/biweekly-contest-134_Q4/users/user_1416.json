@@ -1,6 +1,6 @@
 {
-    "username": "karthikeyan30",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int size = nums.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (nums[index] == k) {\n                ++total;\n            }\n            currentResults[nums[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & nums[index];\n                if (newAndResult == k) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
-    "submit_ts": "1720279998",
-    "subm_id": "1311773165"
+    "username": "chiragnayak10",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long count = 0;\n        \n        Map<Long, Long> a = new HashMap<>();\n        \n        for (int num : nums) {\n            Map<Long, Long> b = new HashMap<>();\n            \n            b.put((long) num, b.getOrDefault((long) num, 0L) + 1);\n            for (long key : a.keySet()) {\n                long newKey = key & num;\n                b.put(newKey, b.getOrDefault(newKey, 0L) + a.get(key));\n            }\n            \n            if (b.containsKey((long) k)) {\n                count += b.get((long) k);\n            }\n            \n            a = b;\n        }\n        \n        return count;\n    }\n}",
+    "submit_ts": "1720281103",
+    "subm_id": "1311813265"
 }

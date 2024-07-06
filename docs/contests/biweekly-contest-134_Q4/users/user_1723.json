@@ -1,6 +1,6 @@
 {
-    "username": "vaibhav2740",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<long long, long long> dp;  // dp[and_value] = count of subarrays with this AND value\n        long long count = 0;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> newDp;\n            if (nums[i] == k) count++;\n            newDp[nums[i]]++;\n            \n            for (const auto& [and_value, freq] : dp) {\n                long long newAndValue = and_value & nums[i];\n                if (newAndValue == k) {\n                    count += freq;\n                }\n                newDp[newAndValue] += freq;\n            }\n            dp = newDp;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720280448",
-    "subm_id": "1311789816"
+    "username": "daulkarshubham",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n           int n = nums.size();\n        long long count = 0;\n        unordered_map<long long, long long> prev;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> curr; \n\n            if (nums[i] == k) ++count;\n            curr[nums[i]] = 1;\n\n             for (auto& [val, freq] : prev) {\n                long long res = val & nums[i];\n                if (res == k) {\n                    count += freq;\n                }\n                curr[res] += freq;\n            }\n            \n            prev = curr;\n        }\n        \n        return count;\n\n\n    }\n};",
+    "submit_ts": "1720280228",
+    "subm_id": "1311781561"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "sungun-liu-yue",
-    "submission": "import java.util.HashMap;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long res = 0;\n        HashMap<Integer,Long> map = new HashMap<>();\n        for (int num : nums) {\n            HashMap<Integer,Long> newMap = new HashMap<>();\n            newMap.put(num,1L);\n            if (num == k) res++;\n            for (Integer key : map.keySet()) {\n                Long count = map.get(key);\n                if ((key & num) == k) res += count;\n                newMap.merge(key & num,count,Long::sum);\n            }\n            map = newMap;\n        }\n        return res;\n    }\n}",
-    "submit_ts": "1720281545",
-    "subm_id": "544576200"
+    "username": "FVq9A8JWpN",
+    "submission": "import java.util.*;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n\n        Map<Long, Long> prev= new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> curr = new HashMap<>();\n\n            if (nums[i] == k) {\n                ++count;\n            }\n            curr.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : prev.entrySet()) {\n                long newAndResult = entry.getKey() & nums[i];\n                if (newAndResult == k) {\n                    count += entry.getValue();\n                }\n                curr.put(newAndResult, curr.getOrDefault(newAndResult, 0L) + entry.getValue());\n            }\n\n            prev = curr;\n        }\n\n        return count;\n    }\n}",
+    "submit_ts": "1720281504",
+    "subm_id": "1311827576"
 }

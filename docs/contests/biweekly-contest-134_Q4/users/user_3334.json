@@ -1,6 +1,6 @@
 {
-    "username": "lime1900",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long count = 0;\n        int n = nums.length;\n        int[] cur = new int[n];\n        Arrays.fill(cur, Integer.MAX_VALUE);\n        int end = 0;\n        int pre = 0;\n        Map<Integer, Integer> preMap = new HashMap<>();\n        for (int i = 0; i < n; i++) {\n            Map<Integer, Integer> curMap = new HashMap<>();\n            for (Integer item: preMap.keySet()){\n                int j = item & nums[i];\n                if(j == k){\n                    count += preMap.get(item);\n                    \n                }\n                if(j >= k){\n                    curMap.put(j, curMap.getOrDefault(j, 0) + preMap.get(item));\n                }\n            }\n            curMap.put(nums[i], curMap.getOrDefault(nums[i], 0) + 1);\n            if(nums[i] == k){\n                count++;\n            }\n            preMap = curMap;\n        }\n        return count;\n    }\n}",
-    "submit_ts": "1720281086",
-    "subm_id": "544574483"
+    "username": "ThunderSpear21",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) \n    {\n        map<long long int,int> mpp;\n        long long int ans = 0;   \n        for(int i = 0; i<nums.size(); i++)\n        {\n            map<long long int, int>freq;\n            if(nums[i]==k)\n                ans++;\n            freq[nums[i]]++;\n            for(auto &it: mpp)\n            {\n                long long int temp = it.first&nums[i];\n                if(temp==k)\n                    ans = ans + it.second;\n                freq[temp] = freq[temp] + it.second;\n            }\n            mpp.clear();\n            mpp = freq;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720281369",
+    "subm_id": "1311822637"
 }

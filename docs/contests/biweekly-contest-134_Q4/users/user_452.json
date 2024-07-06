@@ -1,6 +1,6 @@
 {
-    "username": "sifatul_islam",
-    "submission": "class Solution {\npublic:\n    struct custom_hash {\n        static uint64_t splitmix64(uint64_t x) {\n            x += 0x9e3779b97f4a7c15;\n            x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;\n            x = (x ^ (x >> 27)) * 0x94d049bb133111eb;\n            return x ^ (x >> 31);\n        }\n\n        size_t operator()(uint64_t x) const {\n            static const uint64_t FIXED_RANDOM =\n                chrono::steady_clock::now().time_since_epoch().count();\n            return splitmix64(x + FIXED_RANDOM);\n        }\n    };\n\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        unordered_map<long long, int, custom_hash> res;\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, int, custom_hash> cur;\n            if (nums[i] == k)\n                ++cnt;\n            cur[nums[i]] = 1;\n            for (auto [x, y] : res) {\n                long long tmp = (x & nums[i]);\n                if (tmp == k)\n                    cnt += y;\n                cur[tmp] += y;\n            }\n            res = cur;\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720279250",
-    "subm_id": "1311743685"
+    "username": "Quar",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        ret = 0\n        dct = {}\n        \n        for x in nums:\n            new_dct = {}\n            for y, ny in dct.items():\n                z = x & y\n                if z == k:\n                    ret += ny\n                new_dct[z] = new_dct.get(z, 0) + ny\n            if x == k:\n                ret += 1                        \n            new_dct[x] = new_dct.get(x, 0) +  1\n            dct = new_dct            \n        \n        return ret\n                ",
+    "submit_ts": "1720278371",
+    "subm_id": "1311706245"
 }

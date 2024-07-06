@@ -1,6 +1,6 @@
 {
-    "username": "user5511GD",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long int count = 0;\n        std::unordered_map<int, int> andMap;\n\n        for (int num : nums) {\n            std::unordered_map<int, int> newAndMap;\n\n            newAndMap[num]++; // start a new subarray with the current element\n            for (const auto& [andVal, freq] : andMap) {\n                int newAnd = andVal & num;\n                newAndMap[newAnd] += freq;\n            }\n\n            for (const auto& [andVal, freq] : newAndMap) {\n                if (andVal == k) {\n                    count += freq;\n                }\n            }\n\n            andMap = newAndMap;\n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720278567",
-    "subm_id": "1311714756"
+    "username": "solvictor",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        @cache\n        def solve(i, v):\n            if i == len(nums):\n                return int(v == k)\n            if v & k != k:\n                return 0\n            if v == k:\n                return 1 + solve(i + 1, v & nums[i])\n            return solve(i + 1, v & nums[i])\n        return sum(solve(i + 1, nums[i]) for i in range(len(nums)))",
+    "submit_ts": "1720277663",
+    "subm_id": "1311674208"
 }

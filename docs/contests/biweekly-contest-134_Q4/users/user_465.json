@@ -1,6 +1,6 @@
 {
-    "username": "vanshkunwarji41",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        map<int,long long> m;\n        long long r=0;\n\n        for(int i=0;i<nums.size();i++){\n            map<int,long long> h;\n            for(auto j:m){\n                h[(j.first)&nums[i]]+=j.second;\n            }\n            h[nums[i]]++;\n            m=h;\n            r+=h[k];\n        }\n        return r;\n    }\n};",
-    "submit_ts": "1720278981",
-    "subm_id": "1311732350"
+    "username": "mission-nw",
+    "submission": "#include <map>\n#include <unordered_map>\n#include <unordered_set>\n#ifdef OY_LOCAL\n#include <vector>\n#include <iostream>\n#include <algorithm>\n#include <numeric>\nusing namespace std;\n#endif\n\n[[maybe_unused]] auto __init_io__ = []() {\n    return std::cin.tie(nullptr)->sync_with_stdio(false);\n}();\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        std::map<int, int> dp;\n        for (auto i{0}; i < n; ++i) {\n            // \u4ee5nums[i]\u7ed3\u5c3e\u7684\n            std::map<int, int> pre;\n            std::swap(pre, dp);\n            ++dp[nums[i]];\n            if (nums[i] == k) ans += 1;\n            for (auto it = pre.rbegin(); it != pre.rend(); ++it) {\n                auto [x, cnt] = *it;\n                int y = x & nums[i];\n                if (y < k) break;\n                if (y == k) ans += cnt;\n                dp[y] += cnt;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278430",
+    "subm_id": "544562550"
 }

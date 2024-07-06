@@ -1,6 +1,6 @@
 {
-    "username": "Stark-123",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n          int n = nums.size();\n        long long count = 0;\n        \n        // Track the AND results of subarrays ending at each index\n        unordered_map<int, int> and_map;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<int, int> new_and_map;\n            if (nums[i] == k) {\n                ++count;\n            }\n            new_and_map[nums[i]] = 1;\n            \n            for (auto &pair : and_map) {\n                int new_and = pair.first & nums[i];\n                if (new_and == k) {\n                    count += pair.second;\n                }\n                new_and_map[new_and] += pair.second;\n            }\n            \n            and_map = new_and_map;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720280033",
-    "subm_id": "1311774464"
+    "username": "yadla_mani",
+    "submission": "#include <vector>\n#include <unordered_map>\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        unordered_map<long long, long long> mp, curr;\n        \n        for (int i = 0; i < n; ++i) {\n            curr.clear();\n            if (nums[i] == k) {\n                ans++;\n            }\n            curr[nums[i]]++;\n            \n            for (auto& it : mp) {\n                long long flag = it.first & nums[i];\n                if (flag == k) {\n                    ans += it.second;\n                }\n                curr[flag] += it.second;\n            }\n            mp.swap(curr);\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": "1720280444",
+    "subm_id": "1311789658"
 }

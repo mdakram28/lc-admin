@@ -1,6 +1,6 @@
 {
-    "username": "karanvaishnavcode",
-    "submission": "class Solution {\npublic:\n    long long solve(vector<int> &v,int k){\n        if(k<0)return 0;\n        vector<int> bits(31,0);\n        long long ans=0;\n        int val=v[0],j=0,n=v.size();\n        for(int i=0;i<n;i++){\n            val&=v[i];\n            // cout<<val<<endl;\n            int tmp=v[i],cnt=0;\n            while(tmp){\n                if(tmp&1)bits[cnt]++;\n                tmp/=2;\n                cnt++;\n            }\n            while(j<=i && val<k){\n                val=0;\n                for(int l=0;l<31;l++){\n                    if((v[j]>>l)&1)bits[l]--;\n                    if(bits[l]==i-j)val+=pow(2,l);\n                }\n                j++;\n            }\n            if(val>=k)ans+=i-j+1;\n          \n        }\n        return ans;\n    }\n\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans=solve(nums,k)-solve(nums,k+1);\n        // cout<<solve(nums,k)<<endl;\n        return ans;\n    }\n};",
-    "submit_ts": "1720280371",
-    "subm_id": "1311786873"
+    "username": "jaysukh_409",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) \n    {\n        map<int, long long> f;\n        long long ans = 0;\n        int n = nums.size();\n        for (int i = n - 1; i >= 0; i--)\n        {\n            map<int, long long> nf;\n            for (auto j : f)\n            {\n                int temp = j.first & nums[i];\n                nf[temp] += j.second;\n            }\n            nf[nums[i]]++;\n            f = nf;\n            ans += f[k];\n        }    \n        return ans;\n    }\n};",
+    "submit_ts": "1720279304",
+    "subm_id": "1311745851"
 }

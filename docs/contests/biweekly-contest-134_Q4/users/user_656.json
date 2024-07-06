@@ -1,6 +1,6 @@
 {
-    "username": "Oleks_V",
-    "submission": "public class Solution {\n    public long CountSubarrays(int[] nums, int k) {\n        var ret = 0L;\n        //var lastone = Enumerable.Repeat(-1, 31).ToArray();\n        var lastzero = Enumerable.Repeat(-1, 31).ToArray();\n        for (var i = 0; i < nums.Length; i++) {\n            var rightmost1 = -1;\n            var leftmost0 = i;\n            for (var j = 0; j < 31; j++) {\n                if ((nums[i] & 1 << j) == 0) {\n                    lastzero[j] = i;\n                }\n                /*else {\n                    lastone[j] = i;\n                }*/\n\n                if ((k & 1 << j) > 0) {\n                    rightmost1 = Math.Max(rightmost1, lastzero[j] + 1);\n                }\n                else {\n                    leftmost0 = Math.Min(leftmost0, lastzero[j]);\n                }\n            }\n            //Console.WriteLine($\"i: {i}; rightmost1: {rightmost1}; leftmost0: {leftmost0}\");\n\n            if (k > 0 && rightmost1 <= leftmost0) {\n                ret += leftmost0 - rightmost1 + 1;\n            }\n            else if (k == 0 && rightmost1 == -1) {\n                ret += leftmost0 + 1;\n            }\n        }\n        return ret;\n    }\n}",
-    "submit_ts": "1720279973",
-    "subm_id": "1311772300"
+    "username": "Calexth",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int k) {\n        int n=v.size();\n        map<long long int,long long int> mp;\n        long long ans=0;\n        for(int i=0;i<n;i++)\n        {\n            map<long long,long long> temp;\n            for(auto itr=mp.begin();itr!=mp.end();itr++)\n            {\n                temp[(itr->first)&v[i]]+=itr->second;\n            }\n             temp[v[i]]++;\n             mp=temp;\n             //cout<<mp[k]<<endl;\n             ans+=mp[k];\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278928",
+    "subm_id": "1311730237"
 }

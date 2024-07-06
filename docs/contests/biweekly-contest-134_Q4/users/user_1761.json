@@ -1,6 +1,6 @@
 {
-    "username": "heshan1234",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        int m = 31;\n        var last0 = new int[m];\n        Arrays.fill(last0, -1);\n        long result = 0;\n        for(int i = 0; i < n; ++i) {\n            \n            for(int j = 0; j < m; ++j) {\n                int mask = (1 << j);\n                if ((nums[i] & mask) == 0) {\n                    last0[j] = i;\n                }\n            }\n            \n            // end is always i.\n            \n            int high = i;\n            int low = -1;\n            \n            for(int j = 0; j < m; ++j) {\n                int mask = (1 << j);\n                if ((k & mask) == 0) {\n                    // need at least one 0, so start <= min(last0[j]).\n                    if (last0[j] < 0) { // all previous is 1.\n                        high = -1;\n                    } else {\n                        high = Math.min(high, last0[j]);\n                    }\n                } else {\n                    // need all 1, so start > max(last0[j]).\n                    if (last0[j] < 0) { // all previous is 1.\n                        // does not move low.\n                    } else {\n                        low = Math.max(low, last0[j]);\n                    }\n                }\n            }\n            \n            // (low, high] is valid.\n            result += Math.max(0, high - low);\n        }\n        return result;\n    }\n}",
-    "submit_ts": "1720281430",
-    "subm_id": "1311824861"
+    "username": "zechri",
+    "submission": "class Solution:\n    def countSubarrays(self, a: List[int], k: int) -> int:\n        n = len(a)\n        ans = 0\n        d = defaultdict(int)\n        for x in a:\n            t = defaultdict(int)\n            if x == k:\n                ans += 1\n            t[x] = 1\n            for ki, val in d.items():\n                res = ki & x\n                if res == k:\n                    ans += val\n                t[res] += val\n            d = t\n        return ans\n",
+    "submit_ts": "1720280662",
+    "subm_id": "1311797625"
 }

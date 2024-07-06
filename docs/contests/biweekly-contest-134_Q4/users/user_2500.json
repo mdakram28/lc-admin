@@ -1,6 +1,6 @@
 {
-    "username": "dibbacodes",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        map<long long, long long> preAND;\n\n        for (int i = 0; i < n; ++i) {\n            map<long long, long long> currAND; \n\n            if (nums[i] == k)count++;\n            \n            currAND[nums[i]] = 1;\n\n            for (auto& [val, freq] : preAND) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currAND[newAndResult] += freq;\n            }\n            \n            preAND = currAND;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720279249",
-    "subm_id": "1311743647"
+    "username": "lovelive__-7",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n = a.size();\n        map<int, int> mp;\n        long long ans = 0;\n        for (int i=1; i<=n; i++){\n            if ((a[i-1] & k) == k){\n                int mmax = 0, mmin = i;\n                for (int j=0; j<=30; j++){\n                    if (k>>j & 1) mmax = max(mmax, mp[j]);\n                }\n                for (int j=0; j<=30; j++){\n                    if (a[i-1] >> j & 1){\n                        if (k>>j & 1) continue;\n                        mmin = min(mmin, mp[j]);\n                    }\n                }\n                ans+=max(mmin-mmax, 0);\n            } \n            for (int j=0; j<=30; j++){\n                if (!(a[i-1]>>j & 1)){\n                    mp[j] = i;\n                }\n            }\n\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279513",
+    "subm_id": "544567811"
 }

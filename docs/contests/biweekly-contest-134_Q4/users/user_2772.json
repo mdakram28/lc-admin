@@ -1,6 +1,6 @@
 {
-    "username": "anmol_saini7",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], target: int) -> int:\n        # Dictionary to keep track of the number of subarrays for each bitwise AND value\n        subarray_count_map = defaultdict(int)\n        total_subarrays = 0\n        \n        for num in nums:\n            # Temporary dictionary to store the current state of bitwise AND value counts for the current element\n            current_map = defaultdict(int)\n            current_map[num] = 1\n            \n            # Iterate through the existing subarray_count_map and update current_map\n            for bitwise_and_value, count in subarray_count_map.items():\n                new_bitwise_and_value = bitwise_and_value & num\n                current_map[new_bitwise_and_value] += count\n            \n            # If the target bitwise AND value exists in current_map, add its count to total_subarrays\n            if target in current_map:\n                total_subarrays += current_map[target]\n            \n            # Update subarray_count_map to the current state\n            subarray_count_map = current_map\n        \n        return total_subarrays",
-    "submit_ts": "1720278180",
-    "subm_id": "1311697946"
+    "username": "dsp81",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n    long long count = 0;\n    unordered_map<int, int> and_map;\n\n    for (int i = 0; i < n; ++i) {\n        unordered_map<int, int> new_map;\n        \n        for (auto& [val, freq] : and_map) {\n            int new_val = val & nums[i];\n            new_map[new_val] += freq;\n        }\n        \n        new_map[nums[i]]++;\n        \n        for (auto& [val, freq] : new_map) {\n            if (val == k) {\n                count += freq;\n            }\n        }\n        \n        and_map = new_map;\n    }\n\n    return count;\n    }\n};",
+    "submit_ts": "1720280559",
+    "subm_id": "1311793938"
 }

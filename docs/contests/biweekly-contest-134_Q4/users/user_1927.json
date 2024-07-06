@@ -1,6 +1,6 @@
 {
-    "username": "Adit_Parekh",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        ll cnt = 0;\n        \n        unordered_map<ll, ll> prev;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<ll, ll> curr; \n\n            if (nums[i] == k) {\n                ++cnt;\n            }\n            curr[nums[i]] = 1;\n\n            for (auto& [val, freq] : prev) {\n                ll temp = val & nums[i];\n                if (temp == k) \n                    cnt += freq;\n                curr[temp] += freq;\n            }\n            \n            prev = curr;\n        }\n        \n        return cnt;\n    }\n};",
-    "submit_ts": "1720280907",
-    "subm_id": "1311806313"
+    "username": "yashkakrecha",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int index = 0;\n        Map<Integer,Map<Integer,Long>> dp = new HashMap<>();\n        for(int i=index ; i<nums.length ; i++){\n            dp.put(i, new HashMap<>());\n        }\n        long ans = 0;\n        for(int i=index ; i<nums.length ; i++){\n            ans += countSubarraysHelper(i, nums,1073741823, k, dp);\n        }\n        return ans;\n    }\n    private long countSubarraysHelper(int index, int[] nums, int and, int k, Map<Integer,Map<Integer,Long>> dp){\n        if(index==nums.length){\n            return and == k ? 1 : 0;\n        }\n        if(dp.get(index).containsKey(and)){\n            return dp.get(index).get(and);\n        }\n        long ans = 0;\n        ans += countSubarraysHelper(index+1, nums, and&nums[index], k, dp);\n        ans += and == k ? 1 : 0;\n        dp.get(index).put(and, ans);\n        return ans;\n    }\n}",
+    "submit_ts": "1720280898",
+    "subm_id": "1311806004"
 }

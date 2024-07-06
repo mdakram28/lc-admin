@@ -1,6 +1,6 @@
 {
-    "username": "venkat2552004",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long cnt = 0;\n        unordered_map<int, long long> andMap;\n        int val = 0;\n\n        for (int num : nums) {\n            val = num;\n            if (val == k) {\n                cnt++;\n            }\n            unordered_map<int, long long> newMap;\n            for (auto& [key, v] : andMap) {\n                int nval = key & num;\n                if (nval == k) {\n                    cnt += v;\n                }\n                newMap[nval] += v;\n            }\n            newMap[val]++;\n            andMap = newMap;\n        }\n\n        return cnt;\n    }\n};",
-    "submit_ts": "1720279583",
-    "subm_id": "1311757094"
+    "username": "vaibhav2740",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<long long, long long> dp;  // dp[and_value] = count of subarrays with this AND value\n        long long count = 0;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> newDp;\n            if (nums[i] == k) count++;\n            newDp[nums[i]]++;\n            \n            for (const auto& [and_value, freq] : dp) {\n                long long newAndValue = and_value & nums[i];\n                if (newAndValue == k) {\n                    count += freq;\n                }\n                newDp[newAndValue] += freq;\n            }\n            dp = newDp;\n        }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1720280448",
+    "subm_id": "1311789816"
 }

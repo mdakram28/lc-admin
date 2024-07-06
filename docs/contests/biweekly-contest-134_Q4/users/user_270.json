@@ -1,6 +1,6 @@
 {
-    "username": "_Fake4Fun",
-    "submission": "const int N = 1e5 + 5;\nclass Solution {\npublic:\n    int rmq[17][N];\n    \n    int sumAnd(int L, int R) {\n        int h = 31 - __builtin_clz(R - L + 1);\n        return rmq[h][L] & rmq[h][R - (1 << h) + 1];\n    }\n    \n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        for (int i = 1; i <= n; i++) {\n            rmq[0][i] = nums[i - 1];\n        }\n        for (int j = 1; j < 17; j++) {\n            for (int i = 1; i + (1 << j) <= n + 1; i++)\n                rmq[j][i] = rmq[j - 1][i] & rmq[j - 1][i + (1 << (j - 1))];\n        }\n        long long ans = 0;\n        for (int i = 1; i <= n; i++) {\n            int L = i, R = n;\n            while (L <= R) {\n                int mid = (L + R) >> 1;\n                if (sumAnd(i, mid) <= k) R = --mid;\n                else L = ++mid;\n            }\n            if (L > n || sumAnd(i, L) != k) continue;\n            int L2 = L; R = n;\n            while (L2 <= R) {\n                int mid = (L2 + R) >> 1;\n                if (sumAnd(i, mid) < k) R = --mid;\n                else L2 = ++mid;\n            }\n            // cout << L << ' ' << L2 << '\\n';\n            ans += L2 - L;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720278648",
-    "subm_id": "1311718267"
+    "username": "leek2008",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        vals = defaultdict(int)\n        new_vals = defaultdict(int)\n        ans = 0\n        for num in nums:\n            for val, cnt in vals.items():\n                new_val = val & num\n                new_vals[new_val] += cnt\n            new_vals[num] += 1\n            ans += new_vals[k]\n            vals, new_vals = new_vals, vals\n            new_vals.clear()\n        return ans\n",
+    "submit_ts": "1720277873",
+    "subm_id": "544559310"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "skywalkert",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& A, int k) {\n        typedef long long LL;\n        LL ans = 0;\n        int n = A.size();\n        vector<pair<int, int> > stk;\n        for(int i = 0; i < n; ++i) {\n            int m = 0, x = A[i];\n            stk.push_back({x, i});\n            for(auto &it: stk) {\n                it.first &= x;\n                if((it.first & k) == k && (!m || it.first != stk[m - 1].first))\n                    stk[m++] = it;\n            }\n            stk.resize(m);\n            if(m && stk[0].first == k)\n                ans += (m > 1 ? stk[1].second : i + 1) - stk[0].second;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720276958",
-    "subm_id": "1311640970"
+    "username": "do_while_true",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n    \tvector<int>a=nums;\n        int n=a.size();\n        vector<array<int,2>>vec;\n        long long ans=0;\n        for(int i=0;i<n;i++){\n        \tvec.push_back({a[i],i});\n        \tfor(auto &[v,p]:vec){\n        \t\tv=a[i]&v;\n\t\t\t}\n\t\t\tint len=vec.size();\n\t\t\tvector<array<int,2>>tmp;\n\t\t\tfor(int l=0,r;l<len;l=r+1){\n\t\t\t\tr=l;\n\t\t\t\twhile(r+1<len && vec[r+1][0]==vec[l][0])++r;\n\t\t\t\ttmp.push_back(vec[l]);\n\t\t\t}\n\t\t\tvec=tmp;\n\t\t\tlen=vec.size();\n\t\t\tint lst=i+1;\n\t\t\tfor(int j=len-1;j>=0;j--){\n\t\t\t\tif(vec[j][0]==k){\n\t\t\t\t\tans+=lst-vec[j][1];\n\t\t\t\t}\n\t\t\t\tlst=vec[j][1];\n\t\t\t}\n\t\t}\n\t\treturn ans;\n    }\n};",
+    "submit_ts": "1720276548",
+    "subm_id": "544550839"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "luciaa",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        B = 30\n        n = len(nums)\n        res = 0\n        cnt = [0] * B\n        l, m = 0, 0\n        for r in range(n):\n            for i in range(B):\n                cnt[i] += (nums[r] >> i) & 1\n            if nums[r] & k != k:\n                l = m = r + 1\n                cnt = [0] * B\n            while m <= r:\n                and_ = 0\n                for i in range(B):\n                    if cnt[i] == r - m + 1:\n                        and_ |= 1 << i\n                if and_ == k:\n                    for i in range(B):\n                        cnt[i] -= (nums[m] >> i) & 1\n                    m += 1\n                else:\n                    break\n            if l <= r:\n                res += m - l\n        return res",
-    "submit_ts": "1720280342",
-    "subm_id": "1311785808"
+    "username": "destiny-god",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        res=0\n        l=[[-1,0]]\n        for i in range(len(nums)):\n            p=[]\n            sta=nums[i]\n            p.append([i,nums[i]])\n            las=i\n            for x in l:\n                if sta==k:\n                    res+=las-x[0]\n                sta&=x[1]\n                if sta!=p[-1][1]:\n                    p.append([x[0],sta])\n                las=x[0]\n            p.append([-1,0])\n            l=p\n        return res",
+    "submit_ts": "1720279298",
+    "subm_id": "544566856"
 }

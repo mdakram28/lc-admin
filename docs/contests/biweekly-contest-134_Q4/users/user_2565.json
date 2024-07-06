@@ -1,6 +1,6 @@
 {
-    "username": "pascalstriangle",
-    "submission": "from typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def countSubarrays(self, array: List[int], target: int) -> int:\n        size = len(array)\n        total = 0\n        previousResults = defaultdict(int)\n        \n        for index in range(size):\n            currentResults = defaultdict(int)\n            \n            if array[index] == target:\n                total += 1\n            currentResults[array[index]] = 1\n            \n            for value, frequency in previousResults.items():\n                newAndResult = value & array[index]\n                if newAndResult == target:\n                    total += frequency\n                currentResults[newAndResult] += frequency\n            \n            previousResults = currentResults\n        \n        return total\n",
-    "submit_ts": "1720280076",
-    "subm_id": "1311775987"
+    "username": "shlokjjw",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long count = 0;\n        std::unordered_map<int, int> andCount;\n\n        for (int num : nums) {\n            std::unordered_map<int, int> newAndCount;\n\n            for (const auto& entry : andCount) {\n                int newAnd = entry.first & num;\n                if (newAnd == k) {\n                    count += entry.second;\n                }\n                newAndCount[newAnd] += entry.second;\n            }\n\n            newAndCount[num]++;\n            if (num == k) {\n                count++;\n            }\n\n            andCount = std::move(newAndCount);\n        }\n\n        return count;\n    }\n};",
+    "submit_ts": "1720281332",
+    "subm_id": "1311821244"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "shrivastavashubham596",
-    "submission": "#define ll long long \n\nclass Solution {\npublic:\n    \n    long long countSubarrays(vector<int>& a, int k) {\n        ll n = a.size();\n        ll ans = 0;\n        unordered_map<ll, ll> mp;\n        unordered_map<ll, ll> up; \n        for (ll i = 0; i < n; i++) {\n            up.clear();\n            up[a[i]] = 1;\n            if (a[i] == k) ans++;\n            for (auto [x, y] : mp) {\n                ll cnt = x ;\n                cnt=cnt&a[i];\n                if (cnt == k)  ans =ans+ y;\n                \n                up[cnt] = up[cnt]+ y;\n            }\n           unordered_map<ll,ll> yy=up;\n            mp=yy;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281562",
-    "subm_id": "1311829923"
+    "username": "anshulagarwal3131",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    vector<ll> Bit(int x) {\n        vector<ll> res(32);\n        for (int i = 0; i < 32; i++) {\n            res[i] = x % 2;\n            x /= 2;\n        }\n        return res;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        ll n = nums.size();\n        vector<ll> tbit(32);\n        vector<vector<int>> v(32);\n         for(int j = 0;j<32;j++)\n        v[j].push_back(n);\n        for (int i = n - 1; i >= 0; i--) {\n            vector<ll> b = Bit(nums[i]);\n            for (int j = 0; j < 32; j++)\n                if (!b[j])\n                    v[j].push_back(i);\n        }\n        vector<ll> b = Bit(k);\n        for (int i = 0; i < n; i++) {\n            int l = i, r = n;\n            for (int j = 0; j < 32; j++) {\n                if (b[j] && !v[j].empty())\n                    r = min(r, v[j].back());\n                if(!b[j])\n                    l = max(l, v[j].back());\n            }\n            if(l<=r)\n            ans += (r - l);\n            vector<ll> x = Bit(nums[i]);\n            for (int j = 0; j < 32; j++)\n                if (!x[j])\n                    v[j].pop_back();\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720281254",
+    "subm_id": "1311818494"
 }

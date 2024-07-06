@@ -1,6 +1,6 @@
 {
-    "username": "Homie_Lander7",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans=0;\n        map<int,int>dp;\n        for(auto x:nums){\n            map<int,int>temp;\n            temp[x]++;\n            for(auto [key,val]:dp){\n              temp[key&x]+=val;\n            }\n            dp=temp;\n            ans+=dp[k];\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720276328",
-    "subm_id": "1311612602"
+    "username": "han3000",
+    "submission": "class Solution:\n    def countSubarrays(self, A: List[int], k: int) -> int:\n        def f(count, m):\n            res = 0\n            for i in range(30):\n                if count[i] == m:\n                    res += 1 << i\n            return res\n\n        def add(count, a, diff):\n            for i in range(30):\n                if a & (1 << i):\n                    count[i] += diff\n\n        def atLeast(k):\n            count = [0] * 30\n            i = 0\n            res = 0\n            for j,a in enumerate(A):\n                add(count, a, 1)\n                while i <= j and f(count, j - i + 1) < k:\n                    add(count, A[i], -1)\n                    i += 1\n                res += j - i + 1\n            return res\n        return atLeast(k) - atLeast(k + 1)",
+    "submit_ts": "1720278310",
+    "subm_id": "544561882"
 }

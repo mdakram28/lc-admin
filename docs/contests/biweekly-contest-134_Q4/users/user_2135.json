@@ -1,6 +1,6 @@
 {
-    "username": "WhiteWalker_",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        long long ans=0;\n        map<long long,long long>m[n];\n        m[0][nums[0]]++;\n        for(int i=1;i<n;i++){\n            for(auto x:m[i-1]){\n                m[i][x.first&nums[i]]+=x.second;\n            }\n            m[i][nums[i]]++;\n        }\n        for(int i=0;i<n;i++){\n            ans+=m[i][k];\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281059",
-    "subm_id": "1311811724"
+    "username": "iit2021161",
+    "submission": "class Solution {\npublic:\n    #define ll long long \n    ll f(vector<int> &v,ll k){\n        ll r=-1,vAnd=INT_MAX,n=v.size(),ans=0;\n        vector<ll> cnt(31,0);\n        for(int l=0;l<n;l++){\n            if(l>r){\n                for(int j=0;j<31;j++){\n                    if((v[l]&(1<<j))) cnt[j]++;\n                }\n                vAnd=v[l];\n                r=l;\n            }\n            \n            while(r<n && vAnd>k){\n                r++;\n                if(r<n){\n                    vAnd=vAnd&v[r];\n                    for(int j=0;j<31;j++){\n                        if((v[r]&(1<<j))) cnt[j]++;\n                    }\n                }\n            }\n            \n            ans+=r-l;\n            \n            for(int j=0;j<31;j++){\n                if(!(v[l]&(1<<j)) && cnt[j]==r-l){\n                    vAnd|=(1<<j);\n                }\n                if((v[l]&(1<<j))) cnt[j]--;\n            }\n        }\n        \n        return ans;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll a=f(nums,k-1),b=f(nums,k);\n        cout<<a<<\" \"<<b<<endl;\n        return a-b;\n    }\n};",
+    "submit_ts": "1720281193",
+    "subm_id": "1311816380"
 }

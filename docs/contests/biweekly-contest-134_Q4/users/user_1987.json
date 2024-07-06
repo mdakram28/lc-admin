@@ -1,6 +1,6 @@
 {
-    "username": "akshun_007",
-    "submission": "#define ll long long \nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        stack<ll> st;\n        ll n=arr.size(),cnt=0;;\n        vector<ll> fwd(n),bwd(n);\n        unordered_map<ll,ll> mp,temp;\n        for(int i=n-1; i>=0; i--){\n            if(st.empty()){\n                st.push(i);\n                bwd[i]=n;\n            }\n            else{\n                while(!st.empty() && arr[st.top()]>=arr[i]){\n                    st.pop();\n                }\n                if(st.empty()){\n                    st.push(i);\n                    bwd[i]=n;\n                }\n                else{\n                    bwd[i]=st.top();\n                }\n            }\n        }\n        for(int i=0; i<n; i++){\n            if(arr[i]==k){\n                cnt++;\n            }\n            temp[arr[i]]=1;\n            for(auto it:mp){\n                ll chk=it.first&arr[i];\n                if(chk==k){\n                    cnt+=it.second;\n                }\n                temp[chk]+=it.second;\n            }\n            mp=temp;\n            temp.clear();\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720281295",
-    "subm_id": "1311819958"
+    "username": "coder_amitk0091",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<long long, long long> acm;\n        long long res = 0;\n\n        for (long long i = 0; i < n; ++i) {\n            unordered_map<long long, long long> cam;\n            for (auto &entry : acm) {\n                long long newAndValue = entry.first & nums[i];\n                cam[newAndValue] += entry.second;\n            }\n            cam[nums[i]]++;\n            acm = cam;\n\n            if (acm.find(k) != acm.end()) {\n                res += acm[k];\n            }\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1720281563",
+    "subm_id": "1311829968"
 }

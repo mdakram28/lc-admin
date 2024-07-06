@@ -1,6 +1,6 @@
 {
-    "username": "coderman2004",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n         int n = nums.length;\n        long count = 0;\n        Map<Long, Long>[] dp = new HashMap[n];\n        \n        for (int i = 0; i < n; ++i) {\n            dp[i] = new HashMap<>();\n            if (nums[i] == k) {\n                count++;\n            }\n            dp[i].put((long) nums[i], 1L);\n            if (i > 0) {\n                for (Map.Entry<Long, Long> entry : dp[i - 1].entrySet()) {\n                    long val = entry.getKey();\n                    long freq = entry.getValue();\n                    long newAndResult = val & nums[i];\n                    if (newAndResult == k) {\n                        count += freq;\n                    }\n                    dp[i].put(newAndResult, dp[i].getOrDefault(newAndResult, 0L) + freq);\n                }\n            }\n        }\n        \n        return count;\n        \n    }\n}",
-    "submit_ts": "1720277831",
-    "subm_id": "1311682082"
+    "username": "kartikey_wariyal",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long count = 0;\n        map<int, int> tp;\n        \n        for (int i = 0; i < nums.size(); i++) {\n            map<int, int> mp;\n            mp[nums[i]] = 1;\n            for (auto &j : tp) {\n                mp[nums[i] & j.first] += j.second;\n            }\n            tp = mp;\n            if (tp.find(k) != tp.end()) {\n                count += tp[k];\n            }\n        }\n        \n        return count;\n    }\n};\n",
+    "submit_ts": "1720279594",
+    "subm_id": "1311757480"
 }

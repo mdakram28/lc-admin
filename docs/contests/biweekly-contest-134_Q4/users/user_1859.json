@@ -1,6 +1,6 @@
 {
-    "username": "Weeentar_Wind",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) \n    {\n        ll ans = 0 , n = nums.size();\n        int cmp = 0 ;\n\n        vector<ll>pref(31,-1);\n\n        for( int i = 0 ; i < n ; i++ )\n        {\n           int l = 0 , r = i;\n\n           for( int  bits = 30 ; bits >= 0 ; bits-- )\n           {\n               int p =(int)pow(2,bits);\n\n               if( p & nums[i] )\n               pref[bits] = pref[bits] == -1  ? i : pref[bits] ;\n               else\n               pref[bits] = -1; \n\n              if( p & k )\n              {\n                int pos = pref[bits];\n                if( pos == -1 || l == -1 )\n                l = -1;\n                else\n                l = max(l,pos);\n              }\n              else\n              {\n                int pos = pref[bits];\n                if( pos != -1 )\n                r = min(r,pos-1);\n              }\n               \n           }\n\n           if( l == -1 || r == -1 ||  l > r )\n           continue;\n \n           int total = max(cmp,r-l+1);\n           ll joint = total;\n           ans += joint; \n\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720278461",
-    "subm_id": "1311710162"
+    "username": "ayushsaxena0302",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        long long count=0;\n\n        unordered_map<long long, long long>prev;\n\n        for(int i=0;i<n;i++)\n        {\n            unordered_map<long long,long long> currRes;\n\n            if(nums[i]==k){\n                ++count;\n            }\n            currRes[nums[i]]=1;\n\n            for(auto& [val,freq]: prev)\n            {\n                long long nar=val&nums[i];\n                if(nar==k) count+=freq;\n                currRes[nar]+=freq;\n            }\n\n            prev=currRes;\n        }\n        return count;\n    }\n};",
+    "submit_ts": "1720279782",
+    "subm_id": "1311764854"
 }

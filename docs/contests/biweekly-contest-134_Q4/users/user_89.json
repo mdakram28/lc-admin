@@ -1,6 +1,6 @@
 {
-    "username": "running_man221",
-    "submission": "\n#define vi vector<int>\n#define rep(i,a,b) for(int i=a;i<b;i++)\n#define repr(i,a,b) for(int i=a;i>=b;i--)\n#define nl cout<<\"\\n\"\n#define all(a) (a).begin(),(a).end()\n#define ll long long\n\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        int n=arr.size();\n        set<int> set1;\n        map<int,long long> mp;\n\n        ll ans=0;\n        rep(i,0,n){\n            int a=arr[i];\n            set<int> set2;\n            map<int,long long> mp2;\n            for(auto x:set1){\n                int b=x&a;\n                set2.insert(b); \n                mp2[b]+=mp[x];\n               \n            }\n            set2.insert(a);\n            mp2[a]++;\n            ans+=mp2[k];\n           \n            set1=set2;\n            mp=mp2;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720277968",
-    "subm_id": "1311688283"
+    "username": "coderchamp07",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int, int> prevAnds;\n        long long ans = 0;\n        for(int i = 0; i < n; i++) {\n            map<int, int> curAnds;\n            if(nums[i] >= k)\n                curAnds[nums[i]] = 1;\n            for(auto& [val, freq] : prevAnds) {\n                int newV = (val & nums[i]);\n                if(newV >= k)\n                    curAnds[newV] += freq;\n            }\n            ans += curAnds[k];\n            prevAnds = curAnds;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277780",
+    "subm_id": "1311679663"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "salilmotoe",
-    "submission": "class Solution {\npublic:\n    #define ll long long\n    ll updateCurrentAndResults(unordered_map<ll, ll>& previousAndResults, unordered_map<ll, ll>& currentAndResults,int num, int target) {\n        ll additionalCount = 0;\n        for (auto& pair : previousAndResults) {\n            ll newAndResult = pair.first & num;\n            if (newAndResult == target) {\n                additionalCount += pair.second;\n            }\n            currentAndResults[newAndResult] += pair.second;\n        }\n        return additionalCount;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n         ll n = nums.size();\n         ll count =0;\n        unordered_map<ll,ll> prev;\n        for (int i = 0; i < n; i++) {\n            unordered_map<ll,ll> curr; \n            if (nums[i] == k) {\n                count++;;\n            }\n            curr[nums[i]] = 1;\n             count += updateCurrentAndResults(prev, curr, nums[i], k); \n            prev = curr;\n        }\n        return count;\n    }\n\n};",
-    "submit_ts": "1720279222",
-    "subm_id": "1311742527"
+    "username": "AtulKeshari",
+    "submission": "#define ll long long\n#define rep(i,n) for(int i=0;i<n;i++)\n#define che(a,b) if (a== b)\nclass Solution\n{\npublic:\n    void solve(unordered_map<ll, ll> &pR, vector<int> &nums, unordered_map<ll, ll> &cR, int k, int i, ll &res)\n    {\n        for (auto in : pR)\n        {\n            if ((in.first & nums[i]) == k)\n            {\n                res += in.second;\n            }\n            cR[(in.first & nums[i])] += in.second;\n        }\n    }\n\n    ll countSubarrays(vector<int> &nums, int k)\n    {\n        ll n = nums.size(),res = 0;\n        unordered_map<ll, ll> pR;\n\n        rep(i,n)\n        {\n            unordered_map<ll, ll> cR;\n            che(nums[i],k)++res;\n            cR[nums[i]] = 1;\n            solve(pR, nums, cR, k, i, res);\n            pR = cR;\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1720279465",
+    "subm_id": "1311752297"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "MarkQi2002",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int size = nums.size();\n        vector<unordered_map<int, long long>> dp(size);\n        for (int index = 0; index < size; ++index) {\n            dp[index][nums[index]]++;\n            if (index != 0) {\n                for (auto it : dp[index - 1]) {\n                    dp[index][it.first & nums[index]] += it.second;\n                }\n            }\n        }\n        long long result = 0;\n        for (int index = 0; index < size; ++index) {\n            result += dp[index][k];\n        }\n        return result;\n    }\n};",
-    "submit_ts": "1720280571",
-    "subm_id": "1311794369"
+    "username": "robins_aryan",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> hash(n, vector<int>(30, n));  \n        for(int i=n-1;i>=0;i--){\n            bitset<30>b(nums[i]);\n            if(i==n-1){\n                for(int j=0;j<30;j++){\n                    if(b[j])hash[i][j] = n;\n                    else hash[i][j] = n-1;\n                }\n            }\n            else{\n                hash[i] = hash[i+1];\n                for(int j=0;j<30;j++){\n                    if(!b[j])hash[i][j] = i; \n                }\n            }\n        }\n        bitset<30>kk(k);\n        long long ans = 0;\n        for(int i=0;i<n;i++){\n            pair<int,int>p={i,n};\n            for(int j=0;j<30;j++){\n                if(kk[j]){\n                    p.second = min(p.second,hash[i][j]);\n                }\n                else{\n                    p.first = max(p.first,hash[i][j]);\n                }\n            }\n            if(p.second>p.first)\n                ans+=p.second-p.first;\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": "1720279516",
+    "subm_id": "1311754331"
 }

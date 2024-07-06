@@ -1,6 +1,6 @@
 {
-    "username": "rv2003",
-    "submission": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long count = 0;\n        Map<Integer, Integer> ac = new HashMap<>();\n        \n        for (int num : nums) {\n            Map<Integer, Integer> nac = new HashMap<>();\n            \n            for (Map.Entry<Integer, Integer> e : ac.entrySet()) {\n                int na = e.getKey() & num;\n                nac.put(na, nac.getOrDefault(na, 0) + e.getValue());\n            }\n            \n            nac.put(num, nac.getOrDefault(num, 0) + 1);\n            \n            if (nac.containsKey(k)) {\n                count += nac.get(k);\n            }\n            \n            ac = nac;\n        }\n        \n        return count;\n    }\n}\n",
-    "submit_ts": "1720277351",
-    "subm_id": "1311659628"
+    "username": "kagari-a",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        vector<unordered_map<int, int>> dp(n);\n        dp[0][nums[0]] = 1;\n        if (nums[0] == k) {\n            count++;\n        }\n        for (int i = 1; i < n; ++i) {\n            dp[i][nums[i]] = 1; \n            if (nums[i] == k) {\n                count++;\n            }\n            for (const auto& [andres, freq] : dp[i - 1]) {\n                int res = andres & nums[i];\n                dp[i][res] += freq;\n                if (res == k) {\n                    count += freq;\n                }\n            }\n        }\n        return count;\n    }\n};\n",
+    "submit_ts": "1720281572",
+    "subm_id": "544576326"
 }

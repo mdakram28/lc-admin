@@ -1,6 +1,6 @@
 {
-    "username": "Kunal-bhamoriya",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        unordered_map<long long, long long> prev;\n        for (int i=0;i<nums.size();i++) {\n            unordered_map<long long, long long> curr; \n            if (nums[i] == k) {\n                ans++;\n            }\n            curr[nums[i]] = 1;\n            for (auto it : prev) {\n                long long Res = it.first & nums[i];\n                if (Res == k) ans += it.second;\n                curr[Res] += it.second;\n            }\n            prev = curr;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279965",
-    "subm_id": "1311772002"
+    "username": "lee_218",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        \n        \n        \n        n=len(nums)\n        ct=Counter()\n        for j in range(32):\n            l=-1     \n            for i in range(n):\n                if not i<=l:           \n                    l=i\n                    while l<n and (nums[l]>>j)&1:\n                        l+=1\n                ct[i,j]=l\n\n        bits=[(k>>i)&1 for i in range(32)]\n\n        res=0\n\n        for i in range(n): \n            l,h=i,n-1   \n            for j in range(32):\n\n                if bits[j] and (nums[i]>>j)&1==0:\n\n                    l=n+1\n                    break\n\n                elif bits[j]:\n\n                   h=min(h,ct[i,j]-1)\n\n                elif not bits[j] and (nums[i]>>j)&1==1:\n\n                   l=max(l,ct[i,j])\n\n\n            res+=max(h-l+1,0)\n\n        return res",
+    "submit_ts": "1720281095",
+    "subm_id": "1311812974"
 }

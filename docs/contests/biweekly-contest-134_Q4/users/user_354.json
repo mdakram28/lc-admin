@@ -1,6 +1,6 @@
 {
-    "username": "jwpassion1",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        \n        map<int, long long> m;\n        \n        for (int i : nums){\n            if ((i & k) != k){\n                m.clear();\n                continue;\n            }\n            map<int, long long> tmp;\n            for (pair<int, long long> j : m){\n                if ((j.first & i & k) != k) continue;\n                tmp[j.first & i] += j.second;\n            }\n            tmp[i]++;\n            ans += tmp[k];\n            \n            m = tmp;\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": "1720278068",
-    "subm_id": "1311692892"
+    "username": "adtmr208",
+    "submission": "class Solution {\npublic:\n#define ll long long\n    \n    int f(vector<vector<int>>&ct, int l , int r){\n\n        int ans = 0;\n\n        for(int i = 0; i<30; i++){\n\n            if(ct[r][i] - ct[l - 1][i] == r - l + 1){\n                ans += (1<<i);\n            }\n        }\n        // cout<<\"r l \"<<r<<\" \"<<l<<\" ans \"<<ans<<\"\\n\";\n        return ans;\n    }\n    ll func(vector<int>& nums, int k){\n        // cout<<\"k \"<<k<<\"\\n\";\n        ll ans = 0;\n        int n = nums.size();\n        vector<vector<int>>ct(n+1,vector<int>(30,0)); \n\n        for(int i = 0; i < n; i++){\n            bitset<30>b(nums[i]);\n            ct[i+1] = ct[i];\n            for(int j = 0; j < 30; j++) ct[i+1][j] += b[j];\n        }\n\n        int j = 0;\n\n        for(int i = 0;i < n; i++){\n            \n            while(j <= i && f(ct, j+1, i+1) < k)\n            {\n                // cout<<\" i j get \"<<f(ct, i+1, j+1)<<\"\\n\";\n                j++;\n            }\n            // cout<<i<<\" \"<<j<<\"\\n\";\n            ans  += i - j + 1;\n        }\n\n        return ans;\n\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n\n       \n        return  func(nums, k) - func(nums, k+1);\n    }\n};",
+    "submit_ts": "1720277710",
+    "subm_id": "1311676415"
 }

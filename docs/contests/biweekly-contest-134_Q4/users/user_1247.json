@@ -1,6 +1,6 @@
 {
-    "username": "zenmaaan003",
-    "submission": "#include <vector>\n#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long countSubarrays(const vector<int>& nums, int target) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> previous; \n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> current; \n\n            if (nums[i] == target) {\n                ++count;\n            }\n            current[nums[i]] = 1;\n\n            for (const auto& [val, freq] : previous) {\n                long long newVal = val & nums[i];\n                if (newVal == target) {\n                    count += freq;\n                }\n                current[newVal] += freq;\n            }\n            \n            previous = move(current);\n        }\n        \n        return count;\n    }\n};\n",
-    "submit_ts": "1720279621",
-    "subm_id": "1311758543"
+    "username": "peaceful-chatterjeevhc",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        vector<pair<int,int>>ands;\n        int n = nums.size();\n        long long ans = 0;\n\n\n        for(int i = 0; i < n; i++){\n            ands.emplace_back(nums[i], 1);\n            vector<pair<int, int>>t;\n            if((nums[i] & k) == k)\n            for(int j = 0; j < ands.size(); j++){\n                ands[j].first &= nums[i];\n                if((ands[j].first & k) != k)continue;\n                \n                if(ands[j].first == k)ans += ands[j].second;\n\n                if(!t.empty() && t.back().first == ands[j].first)\n                    t.back().second += ands[j].second;\n                else\n                t.emplace_back(ands[j].first, ands[j].second);\n            }\n            ands.swap(t);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720279958",
+    "subm_id": "544569737"
 }

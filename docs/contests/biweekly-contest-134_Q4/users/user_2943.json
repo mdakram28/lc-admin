@@ -1,6 +1,6 @@
 {
-    "username": "kishore_1817",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
-    "submit_ts": "1720279214",
-    "subm_id": "1311742214"
+    "username": "mr_mehra94",
+    "submission": "import java.util.HashMap;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n\n        HashMap<Long,Long> prev = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> curr = new HashMap<>();\n\n            if (nums[i] == k) {\n                ++count;\n            }\n            curr.put((long) nums[i], 1L);\n\n            for (HashMap.Entry<Long, Long> entry : prev.entrySet()) {\n                long newres = entry.getKey() & nums[i];\n                if (newres == k) {\n                    count += entry.getValue();\n                }\n                curr.put(newres, curr.getOrDefault(newres, 0L) + entry.getValue());\n            }\n\n            prev = curr;\n        }\n\n        return count;\n    }\n}\n",
+    "submit_ts": "1720278876",
+    "subm_id": "1311728035"
 }

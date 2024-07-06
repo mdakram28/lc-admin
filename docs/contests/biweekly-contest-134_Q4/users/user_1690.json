@@ -1,6 +1,6 @@
 {
-    "username": "bansalritik108",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n    long long count = 0;\n    int n = nums.size();\n    unordered_map<int, int> mp;\n\n    for (int i = 0; i < n; ++i) {\n        unordered_map<int, int> mpp;\n        mpp[nums[i]]++;\n        for (auto& entry : mp) {\n            int nd = entry.first & nums[i];\n            mpp[nd] += entry.second;\n        }\n\n        if (mpp.find(k) != mpp.end()) {\n            count += mpp[k];\n        }\n\n        mp = mpp;\n    }\n\n    return count;\n    }\n};",
-    "submit_ts": "1720280999",
-    "subm_id": "1311809578"
+    "username": "ammonio",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long cnt = 0;\n        \n        Map<Long, Long> prev = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> curr = new HashMap<>(); \n\n            if (nums[i] == k) {\n               ++cnt;\n          \n            }\n            curr.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : prev.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                \n                long newAnd = val & nums[i];\n       if (newAnd == k) {\n                    cnt += freq;\n                }\n                curr.put(newAnd, curr.getOrDefault(newAnd, 0L) + freq);\n            }\n            \n            prev = curr;\n        }\n        \n        return cnt;\n    }\n}\n\n",
+    "submit_ts": "1720279288",
+    "subm_id": "1311745221"
 }

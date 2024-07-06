@@ -1,6 +1,6 @@
 {
-    "username": "bhavesh884",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& myNums, int myK) {\n        int n = myNums.size();\n        long long myans = 0;\n        unordered_map<long long, long long> outerMP;\n\n        for (int idx = 0; idx < n; ++idx) {\n            unordered_map<long long, long long> innerMP; \n            if (myNums[idx] == myK) {\n                ++myans;\n            }\n\n            innerMP[myNums[idx]] = 1;\n            for (auto& [item, freq] : outerMP) {\n                long long nextResult = item & myNums[idx];\n                if (nextResult == myK) {\n                    myans += freq;\n                }\n                innerMP[nextResult] += freq;\n            }\n            \n            outerMP = innerMP;\n        }\n        \n        return myans;\n    }\n};",
-    "submit_ts": "1720279167",
-    "subm_id": "1311740259"
+    "username": "devgoel901",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n = a.size();\n        long long dev = 0;\n        unordered_map<int, int> mp1;\n        for (int i = 0; i < n; ++i) {\n            unordered_map<int, int> mp2;\n            mp2[a[i]]++;\n            for (auto& pair : mp1) {\n                int x = pair.first & a[i];\n                mp2[x] += pair.second;\n            }\n            mp1 = mp2;\n            dev += mp1[k];\n        }\n        return dev;\n\n    }\n};",
+    "submit_ts": "1720280860",
+    "subm_id": "1311804632"
 }

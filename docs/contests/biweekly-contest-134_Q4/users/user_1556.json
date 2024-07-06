@@ -1,6 +1,6 @@
 {
-    "username": "venilv251",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<long long, long long> lastAnd;\n\n        long long ans = 0;\n        for (int i=0; i<nums.size(); i++) {\n            unordered_map<long long, long long> bitwiseAnd; \n            if (nums[i]==k) ans++;\n            bitwiseAnd[nums[i]] = 1;\n\n            for (auto it: lastAnd) {\n                long long num = it.first;\n                long long ands = it.second;\n                long long final = num & nums[i];\n                \n                if (final == k) {\n                    ans += ands;\n                }\n                \n                bitwiseAnd[final] += ands;\n            }\n            lastAnd = bitwiseAnd;\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": "1720281118",
-    "subm_id": "1311813762"
+    "username": "adanzl",
+    "submission": "\nclass Solution:\n\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        N = 30\n        r_zero, l_one = [-1] * N, [-1] * N\n        n = len(nums)\n        ans = 0\n        for i, num in enumerate(nums):\n            ll, rr = 0, i\n            for ii in range(N):\n                if (1 << ii) & num:  # num ii th bit is 1\n                    if l_one[ii] == -1:\n                        l_one[ii] = i\n                else:\n                    l_one[ii] = -1\n                    r_zero[ii] = i\n                if (1 << ii) & k:  # k ii th bit is 1\n                    if l_one[ii] != -1:\n                        ll = max(ll, l_one[ii])\n                    else:\n                        ll = i + 1\n                else:\n                    if r_zero[ii] != -1:\n                        rr = min(rr, r_zero[ii])\n                    else:\n                        rr = -0x3c3c3c3c3c3c3c3c\n            if ll <= rr:\n                ans += rr - ll + 1\n        return ans",
+    "submit_ts": "1720281284",
+    "subm_id": "544575188"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "Devil_Dhruv",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        unordered_map<long long, long long> dp;\n\n        for (int num : nums) {\n            unordered_map<long long, long long> newDp;\n            if (num == k) {\n                count++;\n            }\n            newDp[num] = 1;\n\n            for (const auto& [currentAND, freq] : dp) {\n                int newAND = currentAND & num;\n                if (newAND == k) {\n                    count += freq;\n                }\n                newDp[newAND] += freq;\n            }\n\n            dp = newDp;\n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720278378",
-    "subm_id": "1311706569"
+    "username": "dirigibility",
+    "submission": "def bits(n):\n    for i in range(n.bit_length()):\n        if (1<<i)&n:\n            yield i\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        i = -1\n        good = {}\n        total = 0\n        bs = list(set(range(max(n.bit_length() for n in nums)))-set(bits(k)))\n        for j,n in enumerate(nums):\n            if k&n != k:\n                i = j\n                good = {}\n            else:\n                for b in bs:\n                    if not (1<<b)&n:\n                        good[b] = j\n                if len(good) == len(bs):\n                    total += min(good.values(),default=j)-i\n        return total",
+    "submit_ts": "1720277844",
+    "subm_id": "1311682695"
 }

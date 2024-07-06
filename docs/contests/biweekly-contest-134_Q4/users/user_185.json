@@ -1,6 +1,6 @@
 {
-    "username": "vikrxnt",
-    "submission": "from typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        t = 0\n        pr = defaultdict(int)\n        \n        for i in range(n):\n            cr = defaultdict(int)\n            if nums[i] == k:\n                t += 1\n            cr[nums[i]] = 1\n            for v, f in pr.items():\n                nar = v & nums[i]\n                if nar == k:\n                    t += f\n                cr[nar] += f\n            \n            pr = cr\n        \n        return t\n",
-    "submit_ts": "1720278861",
-    "subm_id": "1311727395"
+    "username": "milesian-c",
+    "submission": "int sta[2][40][2];\nint top[2];\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        top[0] = top[1] = 0;\n        int m0 = 0;\n        int m1 = 1;\n        long long ans = 0;\n        for(int i=0;i<n;++i){\n            top[m1] = 0;\n            for(int j=0;j<top[m0];++j){\n                int x = sta[m0][j][0] & nums[i];\n                if(top[m1] == 0 || sta[m1][top[m1]-1][0] != x){\n                    sta[m1][top[m1]][0] = x;\n                    sta[m1][top[m1]][1] = sta[m0][j][1];\n                    ++ top[m1];\n                }\n            }\n            int x = nums[i];\n            if(top[m1] == 0 || sta[m1][top[m1]-1][0] != x) {\n                    sta[m1][top[m1]][0] = x;\n                    sta[m1][top[m1]][1] = i;\n                    ++ top[m1];                \n            }     \n            for(int j=0;j<top[m1];++j){\n                if(sta[m1][j][0] == k){\n                    int L = sta[m1][j][1];\n                    int R = i;\n                    if(j < top[m1] - 1) R = sta[m1][j+1][1]-1;\n                    ans += (R - L + 1);\n                  //  printf(\"check: %d %d\\n\", L, R);\n                }\n            }\n          //  printf(\"%d %lld\\n\",i, ans);\n            swap(m0,m1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278030",
+    "subm_id": "544560270"
 }

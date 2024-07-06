@@ -1,6 +1,6 @@
 {
-    "username": "kin123",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        int close = INT_MAX;\n        map<int,int> a,b;\n        long long ans = 0,prev=0,count=0;\n        for(int i=0;i<n;i++) {\n            b.clear();\n            for(auto &itr : a) {\n                if((itr.first&nums[i])==k) {\n                    ans += itr.second;\n                }\n                b[itr.first&nums[i]] += itr.second;\n            }\n            b[nums[i]]++;\n            if(nums[i]==k) ans++;\n            swap(a,b);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281539",
-    "subm_id": "1311828950"
+    "username": "YashM211",
+    "submission": "#include <vector>\n#include <unordered_map>\n#define ll long long\nusing namespace std;\nclass Solution {\npublic:\n    long long countSubarrays(std::vector<int>& nums, int k) {\n        unordered_map<int, int> count;\n        ll ans = 0;\n        int n = nums.size();\n        \n        for (int i = 0; i < n; ++i) {\n            int num = nums[i];\n            std::unordered_map<int, int> temp_count;\n            \n            if (num == k) {\n                ++ans;\n            }\n            \n            for (const auto& [key, value] : count) {\n                int new_key = key & num;\n                if (new_key >= k) {\n                    temp_count[new_key] += value;\n                    if (new_key == k) {\n                        ans += value;\n                    }\n                }\n            }\n            \n            temp_count[num]++;\n            count = move(temp_count);\n        }\n        \n        return ans;\n    }\n};\n",
+    "submit_ts": "1720280820",
+    "subm_id": "1311803217"
 }

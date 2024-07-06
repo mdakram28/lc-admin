@@ -1,6 +1,6 @@
 {
-    "username": "BhuwanSKumar",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n         unordered_map<int, int> andCount;\n    int n = nums.size();\n    long long count = 0;\n\n    for (int i = 0; i < n; ++i) {\n        unordered_map<int, int> newAndCount;\n\n        for (auto& pair : andCount) {\n            int newAnd = pair.first & nums[i];\n            newAndCount[newAnd] += pair.second;\n        }\n\n        newAndCount[nums[i]]++; // Count the subarray that starts with nums[i]\n\n        andCount = newAndCount;\n\n        if (andCount.find(k) != andCount.end()) {\n            count += andCount[k];\n        }\n    }\n\n    return count;\n    }\n};",
-    "submit_ts": "1720278375",
-    "subm_id": "1311706430"
+    "username": "priyanshu9241",
+    "submission": "class Solution {\n  public long countSubarrays(int[] nums, int k) {\n    long cnt = 0;\n    int n = nums.length;\n    HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();\n\n    for (int i = 0; i < n; i++) {\n      HashMap<Integer, Integer> curr = new HashMap<Integer, Integer>();\n      if (nums[i] == k)\n        cnt++;\n      curr.put(nums[i], curr.getOrDefault(nums[i], 0) + 1);\n      for (int key : hm.keySet()) {\n        int freq = hm.get(key);\n        int temp = key & nums[i];\n        if (temp == k)\n          cnt += freq;\n\n        curr.put(temp, curr.getOrDefault(temp, 0) + freq);\n      }\n\n      hm = curr;\n    }\n\n    return cnt;\n  }\n}\n",
+    "submit_ts": "1720279425",
+    "subm_id": "1311750698"
 }

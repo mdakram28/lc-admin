@@ -1,6 +1,6 @@
 {
-    "username": "yogindra39265",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<vector<long long int>>dp(32,vector<long long int>(n+1,n));\n        for(int i=0;i<=31;i++){\n            long long int f=n;\n            for(int j=n-1;j>=0;j--){\n                if((nums[j]>>i)&1);\n                else{\n                    f=j;\n                }\n                dp[i][j]=f;\n            }\n        }\n        long long int ans=0;\n        for(int i=0;i<n;i++){\n            long long int f=n;\n            long long int g=i;\n            bool hi=true;\n            for(int j=0;j<=31;j++){\n                if((k>>j)&1)f=min(f,dp[j][i]);\n                else{\n                   g=max(g,dp[j][i]);\n                }\n            }\n            ans+=max(0ll,f-g);\n            // cout<<ans<<\" \"<<f<<endl;\n        }\n        // cout<<n<<endl;\n        return ans;\n    }\n};",
-    "submit_ts": "1720278089",
-    "subm_id": "1311693844"
+    "username": "cp_boy",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        map<int,int> cnt;\n        long long res=0;\n        for(int i=0;i<n;i++){\n            map<int,int> temp;\n            temp[nums[i]]+=1;\n            for(auto [j,v]:cnt){\n                temp[(j&nums[i])]+=v;\n            }\n            cnt=temp;\n            res+=cnt[k];\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720277917",
+    "subm_id": "1311685995"
 }

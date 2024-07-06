@@ -1,6 +1,6 @@
 {
-    "username": "gunjan192002",
-    "submission": "\n\n\nclass Solution {\npublic:\nlong long solve(vector<int>& a, int t)\n{\n\n    unordered_map<long long, long long> temp;\n     int s = a.size();\n    long long total = 0;\n\n    for (int i = 0; i < s; ++i) {\n      // Create a new tetemporary map for this iteration\n      unordered_map<long long, long long>second;\n\n      if (a[i] == t) {\n        total++;\n      }\n\n     second[a[i]] = 1;\n      for (auto it = temp.begin(); it != temp.end(); ++it) {\n      \n        long long f = it->second;\n         long long v = it->first;\n        long long n = v & a[i];\n         \n        if (n == t) {\n          total += f;\n        }\n       second[n] += f;\n      }\n\n      temp =second; // Update main map with temporary map\n    }\n\n    return total;\n}\n  long long countSubarrays(vector<int>& a, int t) {\n    return solve(a,t);\n  }\n};\n",
-    "submit_ts": "1720280642",
-    "subm_id": "1311796882"
+    "username": "anupammalviya",
+    "submission": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long cnt = 0;\n\n        Map<Long, Long> pr = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> cr = new HashMap<>();\n\n            if (nums[i] == k) {\n                ++cnt;\n            }\n            cr.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> e : pr.entrySet()) {\n                long v = e.getKey();\n                long f = e.getValue();\n                long newAnd = v & nums[i];\n                if (newAnd == k) {\n                    cnt += f;\n                }\n                cr.put(newAnd, cr.getOrDefault(newAnd, 0L) + f);\n            }\n\n            pr = cr;\n        }\n\n        return cnt;\n    }\n}\n",
+    "submit_ts": "1720281370",
+    "subm_id": "1311822661"
 }

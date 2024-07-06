@@ -1,6 +1,6 @@
 {
-    "username": "Kholiyaji",
-    "submission": "class Solution {\n    public long countSubarrays(int[] array, int target) {\n        int size = array.length;\n        long total = 0;\n        Map<Long, Long> previousResults = new HashMap<>();\n        for (int index = 0; index < size; ++index) {\n            Map<Long, Long> currentResults = new HashMap<>(); \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults.merge((long) array[index], 1L, Long::sum);\n            for (Map.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long newAndResult = entry.getKey() & array[index];\n                if (newAndResult == target) {\n                    total += entry.getValue();\n                }\n                currentResults.merge(newAndResult, entry.getValue(), Long::sum);\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n}",
-    "submit_ts": "1720279536",
-    "subm_id": "1311755119"
+    "username": "SpellMyName",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n    unordered_map<long long, long long> andMap;\n    long long result = 0;\n\n    for (long long i = 0; i < n; ++i) {\n        unordered_map<long long, long long> newAndMap;\n        for (auto &entry : andMap) {\n            long long newAnd = entry.first & nums[i];\n            newAndMap[newAnd] += entry.second;\n        }\n        newAndMap[nums[i]]++;\n        andMap = newAndMap;\n\n        if (andMap.find(k) != andMap.end()) {\n            result += andMap[k];\n        }\n    }\n\n    return result;\n    }\n};",
+    "submit_ts": "1720280725",
+    "subm_id": "1311799862"
 }

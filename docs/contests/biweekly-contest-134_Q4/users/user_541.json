@@ -1,6 +1,6 @@
 {
-    "username": "yuandrew923",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        if max(nums) < k: return 0\n        @cache\n        def dp(i, a=None):\n            if a != None and a < k: return 0\n            if i >= len(nums): return a == k\n            if a == None: return dp(i + 1, nums[i]) + dp(i + 1, None)\n            else: return int(a == k) + dp(i + 1, a & nums[i])\n        return dp(0)",
-    "submit_ts": "1720278866",
-    "subm_id": "1311727603"
+    "username": "IanISam",
+    "submission": "class Solution {\npublic:\n    typedef long long ll;\n    long long countSubarrays(vector<int>& nums, int k) {\n        vector<array<int, 2>> u;\n        u.push_back({0, -1});\n        ll ans = 0;\n        int n = nums.size();\n        for(int i=0; i<n; i++){\n            vector<array<int, 2>> t;\n            int o = nums[i];\n            int w = i;\n            for(auto [z, j]: u){\n                if((z&o)!=o){\n                    if(o==k)ans+=w-j;\n                    t.push_back({o, w});\n                    w=j;\n                }\n                o&=z;\n            }\n            if(o==k)ans+=w+1;\n            t.push_back({o, w});\n            swap(t, u);\n        }\n        return(ans);\n    }\n};",
+    "submit_ts": "1720278349",
+    "subm_id": "1311705238"
 }

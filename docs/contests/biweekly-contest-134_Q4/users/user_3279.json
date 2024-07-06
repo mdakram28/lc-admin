@@ -1,6 +1,6 @@
 {
-    "username": "khushhalgarg",
-    "submission": "\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n        \n        HashMap<Long, Long> andFreq = new HashMap<>();\n        \n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> curr = new HashMap<>();\n            \n            curr.put((long) nums[i], 1L);\n            if (nums[i] == k) {\n                ++count;\n            }\n\n            for (Map.Entry<Long, Long> entry : andFreq.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                \n                long newAndResult = val & nums[i];\n                curr.put(newAndResult, curr.getOrDefault(newAndResult, 0L) + freq);\n                if (newAndResult == k) {\n                    count += freq;\n                }\n            }\n            \n            andFreq = curr;\n        }\n        \n        return count;\n    }\n}\n",
-    "submit_ts": "1720281285",
-    "subm_id": "1311819587"
+    "username": "pushkarwaykole123",
+    "submission": "class Solution {\npublic:\n#define ll long long\n    long long countSubarrays(vector<int>& arr, int k) {\n    int n = arr.size();\n    ll ans = 0;\n    unordered_map<ll, ll> mpp;\n    unordered_map<ll,ll> mpp2;\n    bool flag=true;\n    ll rem=0;\n    for (int i = 0; i < n; i++) {\n        unordered_map<ll, ll> curr; \n        if (arr[i] == k) {\n            ans++;\n            flag=true;\n        }\n        else if(flag!=true) break;\n        curr[arr[i]]++;\n        for (auto it : mpp) {\n            ll res = it.first & arr[i];\n            if (res == k) {\n                ans += it.second;\n            }\n            else if(res>k){\n                rem+=3;\n            }\n            else{\n                rem++;\n            }\n            curr[res] += it.second;\n        }\n        mpp = curr;\n        mpp2=mpp;\n    }\n    return ans;\n}\n};",
+    "submit_ts": "1720280838",
+    "subm_id": "1311803859"
 }

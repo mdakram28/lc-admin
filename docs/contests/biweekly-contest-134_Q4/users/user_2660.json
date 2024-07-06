@@ -1,6 +1,6 @@
 {
-    "username": "Shubhransu77",
-    "submission": "class Solution(object):\n    def countSubarrays(self, nums, k):\n        n = len(nums)\n        mark1 = 0\n        mark2 = {}\n        \n        for i in range(n):\n            mark = {}\n            \n            if nums[i] == k:\n                mark1 += 1\n            mark[nums[i]] = 1\n            \n            for c1, g in mark2.items():\n                ch = c1 & nums[i]\n                if ch == k:\n                    mark1 += g\n                if ch in mark:\n                    mark[ch] += g\n                else:\n                    mark[ch] = g\n            mark2 = mark\n        return mark1\n        ",
-    "submit_ts": "1720281237",
-    "subm_id": "1311817948"
+    "username": "cleverprogrammer77",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long cnt = 0;\n        \n        HashMap<Long, Long> oldResults = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> currResults = new HashMap<>(); \n\n            if (nums[i] == k) {\n                ++cnt;\n            }\n            currResults.put((long) nums[i], 1L);\n\n            for (HashMap.Entry<Long, Long> entry : oldResults.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                \n                long res = val & nums[i];\n                if (res == k) {\n                    cnt += freq;\n                }\n                currResults.put(res, currResults.getOrDefault(res, 0L) + freq);\n            }\n            \n            oldResults = currResults;\n        }\n        \n        return cnt;\n    }\n}",
+    "submit_ts": "1720279092",
+    "subm_id": "1311737044"
 }

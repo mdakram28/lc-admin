@@ -1,6 +1,6 @@
 {
-    "username": "ipadcoder",
-    "submission": "#define ll long long\n\nclass Solution {\npublic:\n    ll countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        ll cnt = 0;\n        unordered_map<ll, ll> prev;\n\n        int i = 0;\n        while (i < n) {\n            unordered_map<ll, ll> curr;\n\n            ll v = nums[i];\n\n            if (v == k) {\n                ++cnt;\n            }\n            curr[v] += 1;\n\n            for (auto& [p, f] : prev) {\n                ll r = p & v;\n                if (r == k) {\n                    cnt += f;\n                }\n                curr[r] += f;\n            }\n            \n            prev = curr;\n            ++i;\n        }\n        \n        return cnt;\n    }\n};\n",
-    "submit_ts": "1720279879",
-    "subm_id": "1311768741"
+    "username": "Tsbuki_Siyan",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        long long ans=0;\n        for(int i=0;i<a.size();i++)\n            if(a[i]==k)\n                ans++;\n        map<int,long long> dp;\n        int i=0;\n        while(i<a.size())\n        {\n            map<int,long long> temp;\n            int ele=a[i];\n            temp[ele]=1;\n            for(auto it:dp)\n            {\n                // found\n                if((ele&it.first)==k)\n                    ans+=it.second;\n                // for future may form\n                temp[(ele&it.first)]+=it.second;\n            }\n            dp=temp;\n            i++;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280047",
+    "subm_id": "1311774966"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "vss_1307",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        // long long ans=0;\n        // sort(nums.begin(),nums.end());\n        // int ind=0;\n        // for(int i=0; i < nums.size(); i++){\n        //     if(nums[i]==k) ans++;\n        //     if(nums[i]<k) ind=i;\n        // }\n        // ind++;\n        long long n = nums.size();\n    long long count = 0;\n    unordered_map<long long, long long> andFreq;\n\n    for (long long i = 0; i < n; ++i) {\n        unordered_map<long long, long long> newAndFreq;\n        if (nums[i] == k) count++; // Single element subarray\n\n        for (auto &entry : andFreq) {\n            long long newAnd = entry.first & nums[i];\n            if (newAnd == k) count += entry.second;\n            newAndFreq[newAnd] += entry.second;\n        }\n\n        newAndFreq[nums[i]]++; // Add the current element itself\n        andFreq = newAndFreq;\n    }\n\n    return count;\n    }\n};",
-    "submit_ts": "1720279404",
-    "subm_id": "1311749875"
+    "username": "Dev3214",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n                from collections import defaultdict\n                n = len(nums)\n                count = 0\n                vis=set()\n                prevseen = defaultdict(int)\n\n                for i in range(n):\n                    currseen = defaultdict(int)\n                    vis.add(i)\n                    if nums[i] == k:\n                        count += 1\n                    currseen[nums[i]] = 1\n\n                    for val, freq in prevseen.items():\n                        seenres = val & nums[i]\n                        if seenres == k:\n                            count += freq\n                        currseen[seenres] += freq\n                    vis.remove(i)\n                    \n                    prevseen = currseen\n                \n                return count",
+    "submit_ts": "1720278610",
+    "subm_id": "1311716616"
 }

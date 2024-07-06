@@ -1,6 +1,6 @@
 {
-    "username": "mehul2315",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int len = nums.size();\n        long long cnt = 0;\n        \n        unordered_map<long long, long long> pre;\n\n        for (int i = 0; i < len; ++i) {\n            unordered_map<long long, long long> cur; \n\n            if (nums[i] == k) {\n                ++cnt;\n            }\n            cur[nums[i]] = 1;\n\n            for (auto& [val, frq] : pre) {\n                long long res = val & nums[i];\n                if (res == k) {\n                    cnt += frq;\n                }\n                cur[res] += frq;\n            }\n            \n            pre = cur;\n        }\n        \n        return cnt;\n    }\n};\n",
-    "submit_ts": "1720278654",
-    "subm_id": "1311718560"
+    "username": "sun-man-man",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        ft = [[-1]*20 for _ in range(n)]\n        for i in range(n):\n            ft[i][0] = nums[i]\n        for i in range(1, 20):\n            for j in range(n):\n                if j+(1 << (i-1)) < n:\n                    ft[j][i] = ft[j][i-1] & ft[j+(1 << (i-1))][i-1]\n        ans = 0\n        for st in range(n):\n            l = st\n            cur = nums[st]\n            if (cur & k) != k:\n                continue\n            for j in range(19, -1, -1):\n                if (l+(1 << j)-1) >= n:\n                    continue\n                if (cur & ft[l][j]) > k:\n                    cur &= ft[l][j]\n                    l += (1 << j)\n\n            if l < n and (cur & nums[l]) == k:\n                for j in range(19, -1, -1):\n                    if (l+(1 << j)-1) >= n:\n                        continue\n                    if (cur & ft[l][j]) == k:\n                        cur &= ft[l][j]\n                        l += (1 << j)\n                        ans += (1 << j)\n        return ans",
+    "submit_ts": "1720278489",
+    "subm_id": "544562835"
 }

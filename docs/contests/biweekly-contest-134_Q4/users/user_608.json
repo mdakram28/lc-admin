@@ -1,6 +1,6 @@
 {
-    "username": "PratTheCode",
-    "submission": "using ll = long long;\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        ll n = arr.size(), cnt = 0;\n        \n        map<ll, ll> _p, _c; \n        for (int i = 0; i < n; ++i) {\n            _c = map<ll, ll> ();\n            if (arr[i] == k) cnt++;\n            _c[arr[i]] = 1;\n\n            for (auto& [v, fr] : _p) {\n                ll n = v & arr[i];\n                if (n == k)\n                    cnt += fr;\n                _c[n] += fr;\n            }\n            \n            _p = _c;\n        }\n        \n        return cnt;\n    }\n};",
-    "submit_ts": "1720280191",
-    "subm_id": "1311780191"
+    "username": "sakura-xwb",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        Map<Integer, Long> s[] = new Map[n];\n        Arrays.setAll(s, e->new HashMap<>());\n        s[0].put(nums[0], 1L);\n        long ans = nums[0] == k ? 1 : 0;\n        for(int i = 1; i < n; ++i) {\n            for(int j : s[i - 1].keySet()) {\n                int x = j & nums[i];\n                s[i].put(x, s[i].getOrDefault(x, 0L) + s[i - 1].get(j));\n            }\n            s[i].put(nums[i], s[i].getOrDefault(nums[i], 0L) + 1);\n            ans += s[i].getOrDefault(k, 0L);\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720278524",
+    "subm_id": "544563006"
 }

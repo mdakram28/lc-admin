@@ -1,6 +1,6 @@
 {
-    "username": "SpellMyName",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n    unordered_map<long long, long long> andMap;\n    long long result = 0;\n\n    for (long long i = 0; i < n; ++i) {\n        unordered_map<long long, long long> newAndMap;\n        for (auto &entry : andMap) {\n            long long newAnd = entry.first & nums[i];\n            newAndMap[newAnd] += entry.second;\n        }\n        newAndMap[nums[i]]++;\n        andMap = newAndMap;\n\n        if (andMap.find(k) != andMap.end()) {\n            result += andMap[k];\n        }\n    }\n\n    return result;\n    }\n};",
-    "submit_ts": "1720280725",
-    "subm_id": "1311799862"
+    "username": "deepjay",
+    "submission": "class Solution {\npublic:\n    long long solve(vector<int> &a,int k){\n        int n=a.size();\n        if(n==0) return 0;\n        int sum=0xffffffff;\n        long long ans=0;\n        int cnt[32]={0};\n        for(int l=0,r=0;l<n;l++){\n            //printf(\"%d %d,%d %d\\n\",l,r,sum,a[l]);\n            r=max(r,l);\n            while(r<n&&sum!=k){\n                for(int x=0;x<32;x++){\n                    if((a[r]>>x&1)==0) cnt[x]++;\n                }\n                sum&=a[r];\n                r++;\n            }\n            if(sum==k){\n                ans+=n-r+1;\n            }\n            printf(\"%d %d,%d %d\\n\",l,r,sum,a[l]);\n            for(int x=0;x<32;x++){\n                if((a[l]>>x&1)==0) cnt[x]--;\n            }\n            \n            \n            sum=0xffffffff;\n            for(int i=0;i<32;i++) if(cnt[i]) sum^=1<<i;\n            \n        }\n        return ans;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        vector<int> a;\n        long long ans=0;\n        for(int i=0;i<nums.size();i++){\n            if((nums[i]&k)==k) a.push_back(nums[i]);\n            else {\n                ans+=solve(a,k);\n                a.clear();\n            }\n        }\n        ans+=solve(a,k);\n        return ans;\n    }\n};",
+    "submit_ts": "1720281130",
+    "subm_id": "544574624"
 }

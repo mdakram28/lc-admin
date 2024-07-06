@@ -1,6 +1,6 @@
 {
-    "username": "vedant2719",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long int cnt = 0;\n        int n = nums.size();\n        unordered_map<int, int>freq1;\n\n        for (int i = 0; i < n; i++) {\n            unordered_map<int, int> freq2;\n            if (nums[i] == k) {\n                cnt++;\n            }\n            freq2[nums[i]]++;\n            for (auto & entry : freq1) {\n                int newAnd = entry.first & nums[i];\n                if (newAnd == k) {\n                    cnt += (long long) entry.second;\n                }\n                freq2[newAnd] += entry.second;\n            }\n\n            freq1 = freq2;\n        }\n\n        return cnt;\n    }\n};",
-    "submit_ts": "1720281445",
-    "subm_id": "1311825431"
+    "username": "kundan25",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long ans = 0;\n        Map<Long, Long> mpK = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> currMap = new HashMap<>(); \n            if (nums[i] == k) {\n                ++ans;\n            }\n            currMap.put((long)nums[i], 1L);\n            for (Map.Entry<Long, Long> emP : mpK.entrySet()) {\n                long val = emP.getKey();\n                long freq = emP.getValue();\n                long result = val & nums[i];\n                if (result == k) {\n                    ans += freq;\n                }\n                currMap.put(result, currMap.getOrDefault(result, 0L) + freq);\n            }\n            mpK = currMap;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720278825",
+    "subm_id": "1311725916"
 }

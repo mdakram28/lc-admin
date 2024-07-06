@@ -1,6 +1,6 @@
 {
-    "username": "kalwayssleep",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        unordered_map<long long,long long >prev;\n        for(int i =0 ;i < n; i++){\n            unordered_map<long long ,long long> current;\n            if(nums[i] == k)cnt++;\n            current[nums[i]]=1;\n            for(auto &[value, times]:prev){\n                long long newresult = value & nums[i];\n                if(newresult == k)cnt += times;\n                current[newresult]+=times;\n            }\n            prev = current;\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720279727",
-    "subm_id": "1311762738"
+    "username": "nikhil_25",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def countSubarrays(self, array, target):\n        size = len(array)\n        total = 0\n        previousResults = defaultdict(int)\n        \n        for index in range(size):\n            currentResults = defaultdict(int)\n            \n            if array[index] == target:\n                total += 1\n            \n            currentResults[array[index]] += 1\n            \n            for value, frequency in previousResults.items():\n                newAndResult = value & array[index]\n                if newAndResult == target:\n                    total += frequency\n                currentResults[newAndResult] += frequency\n            \n            previousResults = currentResults\n        \n        return total\n",
+    "submit_ts": "1720280948",
+    "subm_id": "1311807726"
 }

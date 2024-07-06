@@ -1,6 +1,6 @@
 {
-    "username": "Aniket_Kumar1907",
-    "submission": "class Solution {\npublic:\n    bool cond(int a,int n){\n        return a==n;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n    int n = nums.size();\n    long long ans = 0;   \n    int ctr=0;\n    for(int i=0;i<n;i++)\n        ctr++;\n    unordered_map<long long, long long> pq;\n\n    for (int i = 0; i < n; ++i) {\n    unordered_map<long long, long long> cq; \n    if (cond(nums[i],k))\n    ans++;\n    cq[nums[i]] = 1;\n    for (auto& [p, q] : pq) {\n    long long temp = p & nums[i];\n    if (cond(temp, k)) \n    ans += q;\n    cq[temp] += q;\n    }\n    pq = cq;\n    }\n    return ans-ctr+ctr;\n    }\n};",
-    "submit_ts": "1720279063",
-    "subm_id": "1311735785"
+    "username": "Abhinav_Shakya",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int target) {\n        \n        \n        unordered_map<long long, long long> prevFreqMap;\n        int length = nums.size();\n        long long result = 0;\n\n        for (int idx = 0; idx < length; ++idx) {\n            \n            unordered_map<long long, long long> currFreqMap;\n\n            if (nums[idx] == target) {\n                ++result;\n            }\n            \n            currFreqMap[nums[idx]] = 1;\n\n            for (auto& [prevVal, prevFreq] : prevFreqMap) {\n                long long newAndVal = prevVal & nums[idx];\n                if (newAndVal == target) {\n                    result += prevFreq;\n                }\n                currFreqMap[newAndVal] += prevFreq;\n            }\n\n            prevFreqMap = move(currFreqMap);\n        }\n\n        return result;\n        \n    }\n};",
+    "submit_ts": "1720279237",
+    "subm_id": "1311743168"
 }

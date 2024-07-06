@@ -1,6 +1,6 @@
 {
-    "username": "priyanshu_p28",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        \n        map<long long, long long> dp1;\n        int n = nums.size();\n        for(int i = 0; i < n; i++){\n            if(nums[i] == k){\n                ans++;\n            }\n            map<long long, long long> dp2;\n            dp2[nums[i]]++;\n            for(auto it:dp1){\n                auto nxt = it.first & nums[i];\n                if(nxt == k){\n                    ans+= it.second;\n                }\n                dp2[nxt] += it.second;\n            }\n            \n            dp1 = dp2;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279316",
-    "subm_id": "1311746312"
+    "username": "shaikhashad35",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums) \n        count = 0\n\n        prev = {}\n\n        for i in range(n):\n            curr = {}\n\n            if nums[i] == k:\n                count += 1\n                \n            curr[nums[i]] = 1\n\n            for val, freq in prev.items():\n                currAND = val & nums[i]\n                if currAND == k:\n                    count += freq\n                if currAND in curr:\n                    curr[currAND] += freq\n                else:\n                    curr[currAND] = freq\n\n            prev = curr\n\n        return count",
+    "submit_ts": "1720280276",
+    "subm_id": "1311783354"
 }

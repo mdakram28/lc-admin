@@ -1,6 +1,6 @@
 {
-    "username": "Nishant_Khandelwal",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long ans = 0;\n        HashMap<Long, Long> map1 = new HashMap<>();\n        for(int i=0; i<n; i++){\n            HashMap<Long, Long> map2 = new HashMap<>();\n            if(nums[i]==k) ans++;\n\n            map2.put((long)nums[i], 1L);\n            for(var entry: map1.keySet()){\n                long key = entry;\n                long value = map1.get(entry);\n\n                long res = entry & nums[i];\n                if(res == k) ans+= value;\n                map2.put(res, map2.getOrDefault(res, (long)0) + value);\n            }\n            map1 = map2;\n        }\n        return ans;\n    }\n}",
-    "submit_ts": "1720279601",
-    "subm_id": "1311757746"
+    "username": "code__HARD",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], target: int) -> int:\n        n=len(nums)\n        dp=[defaultdict(int) for i in range(n)]\n        dp[0][nums[0]]=1\n        \n        for i in range(1,n):\n            dp[i][nums[i]]=1\n            for k,v in dp[i-1].items():\n                dp[i][nums[i]&k]+=(v)\n                \n        \n        #print(dp)\n        \n        op=0\n        for i in range(n):\n            for k,v in dp[i].items():\n                if k==target:\n                    op+=v\n        return op",
+    "submit_ts": "1720278828",
+    "subm_id": "1311726020"
 }

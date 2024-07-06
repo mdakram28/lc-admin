@@ -1,6 +1,6 @@
 {
-    "username": "AmanYadav31",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        unordered_map<int,long long> mp1,mp2;       \n        long long ans=0;\n        int i=0;\n        while(i<n){\n            mp2[nums[i]]=1;\n            for(auto it:mp1){\n                int x=it.first&nums[i];\n                mp2[x]+=it.second;\n                if(x==k) ans+=it.second;\n            }\n            if(nums[i]==k) ans++;\n            mp1=mp2;\n            mp2.clear();\n            i++;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280747",
-    "subm_id": "1311800631"
+    "username": "pensive-easleys0j",
+    "submission": "class Solution {\npublic:\n\tint mx[100010][30];\n\tint a[100010];\n\tvoid init(int n){\n\t\tfor(int i=1;i<=n;i++) mx[i][0]=a[i];\n\t\tfor(int j=1;(1<<j)<=n;j++)\n\t\t\tfor(int i=1;i+(1<<j)<=n+1;i++)\n\t\t\t\tmx[i][j] = mx[i][j-1] & mx[i+(1<<(j-1))][j-1];\t\n\t}\n\tint search(int l,int r){\n\t\tint k=log2(r-l+1);\n\t\treturn mx[l][k] & mx[r-(1<<k)+1][k];\n\t}\n\tlong long countSubarrays(vector<int>& nums, int k) {\n\t\tint n = nums.size();\n\t\tfor(int i = 0;i < n;i++){\n\t\t\ta[i + 1] = nums[i];\n\t\t}\n\t\tinit(n);\n\t\tlong long ans = 0;\n\t\tfor(int i = 1;i <= n;i++){\n\t\t\tint ansl = -1,ansr = -1;\n\t\t\tint l = 1,r = i;\n\t\t\twhile(l <= r){\n\t\t\t\tint mid = (l + r) / 2;\n\t\t\t\tint sd = search(mid,i);\n\t\t\t\tif(sd > k){\n\t\t\t\t\tr = mid - 1;\n\t\t\t\t}\n\t\t\t\telse if(sd < k){\n\t\t\t\t\tl = mid + 1;\n\t\t\t\t}\n\t\t\t\telse{\n\t\t\t\t\tr = mid - 1;\n\t\t\t\t\tansl = mid;\n\t\t\t\t}\n\t\t\t}\n\t\t\tl = 1,r = i;\n\t\t\twhile(l <= r){\n\t\t\t\tint mid = (l + r) / 2;\n\t\t\t\tint sd = search(mid,i);\n\t\t\t\tif(sd > k){\n\t\t\t\t\tr = mid - 1;\n\t\t\t\t}\n\t\t\t\telse if(sd < k){\n\t\t\t\t\tl = mid + 1;\n\t\t\t\t}\n\t\t\t\telse{\n\t\t\t\t\tl = mid + 1;\n\t\t\t\t\tansr = mid;\n\t\t\t\t}\n\t\t\t}\n\t\t\tif(ansl != -1 && ansr != -1) ans += ansr - ansl + 1;\n\t\t}\n\t\treturn ans;\n\t}\n};",
+    "submit_ts": "1720280055",
+    "subm_id": "544570341"
 }

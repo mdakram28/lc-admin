@@ -1,6 +1,6 @@
 {
-    "username": "chai-liang",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long n = nums.size();\n        long long count = 0;\n        std::unordered_map<long long, long long> andMap;\n\n        for (long long i = 0; i < n; ++i) {\n            std::unordered_map<long long, long long> newAndMap;\n            newAndMap[nums[i]] = 1;\n\n            for (auto& entry : andMap) {\n                long long newAnd = entry.first & nums[i];\n                newAndMap[newAnd] += entry.second;\n            }\n\n            andMap = newAndMap;\n\n            if (andMap.find(k) != andMap.end()) {\n                count += andMap[k];\n            }\n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720280179",
-    "subm_id": "544570863"
+    "username": "iamhariniiiii",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n}; ",
+    "submit_ts": "1720279506",
+    "subm_id": "1311753929"
 }

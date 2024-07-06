@@ -1,6 +1,6 @@
 {
-    "username": "sodacorsair",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int[] zero = new int[32], one = new int[32];\n        Arrays.fill(zero, -1);\n        Arrays.fill(one, 0);\n        long ans = 0;\n\n        for (int i = 0; i < nums.length; i++)\n        {\n            int l = 0, r = i;\n            for (int j = 0; j < 32; j++)\n            {\n                int b = (k >> j) & 1, c = (nums[i] >> j) & 1;\n                if (c == 0)\n                {\n                    zero[j] = i;\n                    one[j] = i + 1;\n                }\n\n                if (b == 1) l = Math.max(l, one[j]);\n                else r = Math.min(r, zero[j]);\n            }\n            ans += Math.max(0, r - l + 1);\n        }\n        return ans;\n    }\n}",
-    "submit_ts": "1720280010",
-    "subm_id": "1311773602"
+    "username": "tian-cheng-se-chi-lun",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        check = [False] * 31\n        last_zeros = [-1] * 31\n        for i in range(31):\n            check[i] = (k >> i) & 1\n            \n        ans = 0\n        for i, num in enumerate(nums):\n            for j in range(31):\n                if not ((num >> j) & 1):\n                    last_zeros[j] = i\n            start_min, start_max = 0, i\n            for j in range(31):\n                if check[j]:\n                    start_min = max(start_min, last_zeros[j] + 1)\n                else:\n                    start_max = min(start_max, last_zeros[j])\n            ans += max(0, start_max - start_min + 1)\n        \n        return ans",
+    "submit_ts": "1720279879",
+    "subm_id": "544569424"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "darthcoder33",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int k) {\n        int dp[32] = {};\n        for(int i = 0; i < 32; i++) dp[i] = -1;\n        long long ans{};\n        int n = v.size();\n        for(int i = 0; i < n; i++){\n            for(int j = 0; j < 32; j++){\n                if((v[i]>>j) & 1) continue;\n                dp[j] = i;\n            }\n            int st = 0, en = i;\n            for(int j = 0; j < 32; j++){\n                if((k>>j) & 1){\n                    st = max(dp[j] + 1, st);\n                }else{\n                    if(dp[j] < st) {\n                        st = i + 1;\n                        break;\n                    }\n                    en = min(en, dp[j]);\n                }\n            }\n            ans = ans + max(0, en - st + 1);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720278153",
-    "subm_id": "1311696737"
+    "username": "x____x",
+    "submission": "class Solution {\npublic:\n  long long countSubarrays(vector<int>& nums, int k) {\n    int n = nums.size();\n    vector<vector<int>> o(32, vector<int>(n + 1, n));\n    vector<vector<int>> z(32, vector<int>(n + 1, n));\n    for (int i = n; i-- > 0; ) {\n      for (int j = 0; j < 32; ++j) {\n        if ((nums[i] >> j) & 0x01) {\n          o[j][i] = o[j][i + 1] + 1;\n          z[j][i] = z[j][i + 1];\n        } else {\n          o[j][i] = 0;\n          z[j][i] = i;\n        }\n      }\n    }\n    long long ret = 0;\n    for (int i = 0; i < n; ++i) {\n      int l = 0, r = n - i;\n      for (int j = 0; j < 32; ++j) {\n        if ((k >> j) & 0x01) {\n          r = min(r, o[j][i]);\n        } else {\n          l = max(l, z[j][i]);\n        }\n      }\n      if (r > l - i) ret += r - (l - i);\n    }\n    return ret;\n  }\n};",
+    "submit_ts": "1720277960",
+    "subm_id": "1311687963"
 }

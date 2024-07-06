@@ -1,6 +1,6 @@
 {
-    "username": "Manoj_Dhundhalva",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> previous_map;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> current_map;\n\n            // Check if the current element itself equals k\n            if (nums[i] == k) {\n                ++count;\n            }\n\n            // Initialize the current element in the map\n            current_map[nums[i]] += 1;\n\n            // Iterate over the previous map to compute new AND values\n            for (auto& [value, frequency] : previous_map) {\n                long long new_and = value & nums[i];\n                if (new_and == k) {\n                    count += frequency;\n                }\n                current_map[new_and] += frequency;\n            }\n            \n            // Update the previous map with the current map\n            previous_map = current_map;\n        }\n        \n        return count;\n    }\n};\n",
-    "submit_ts": "1720281596",
-    "subm_id": "1311831623"
+    "username": "lord_rajat",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<long long int, int> pre;\n        // long long int current_and = 0;\n        long long int ans = 0;\n        for (int num : nums) {\n            unordered_map<long long int,int> curr;\n            if(num==k){\n                ans++;\n                // curr[num]++;\n            }\n            curr[num]=1;\n            for(auto& i : pre){\n                int u=(i.first)&(num);\n                if(u==k){\n                    ans+=i.second;\n                    // curr[u]+=i.ss;\n                }\n                curr[u]+=i.second;\n            }\n            pre=curr;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280800",
+    "subm_id": "1311802485"
 }

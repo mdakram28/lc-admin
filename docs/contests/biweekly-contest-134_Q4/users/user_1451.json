@@ -1,6 +1,6 @@
 {
-    "username": "mishrasuyash713",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n = a.size(),maxi = -1e9;\n        long long ans = 0;\n        unordered_map<long long ,long long> mp;\n        for(int i = 0;i<n;i++){\n            unordered_map<long long ,long long> mpp;\n            long long x = k;\n            if(a[i] == x) ans++;\n            mpp[a[i]] = 1;\n            for(auto t : mp){\n                long long p = (t.first) & a[i];\n                if(p == x) ans += t.second;\n                mpp[p] += t.second;\n            }\n            mp = mpp;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280664",
-    "subm_id": "1311797684"
+    "username": "phungthienphuoc",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        l=ll=res=0\n        cur=2**30-1\n        dg=[1 if not k&(1<<d) else 0 for d in range(30)]\n        count=[0]*30\n        for i,x in enumerate(nums):\n            c=[0]*30\n            for d in range(30):\n                if (x&(1<<d))<(k&(1<<d)):\n                    l=ll=i+1\n                    cur=2**30-1\n                    count=[0]*30\n                    break\n                if not x&(1<<d):\n                    c[d]+=1\n            else:\n                nums[i]=c\n                cur&=x\n                for d in range(30):\n                    count[d]+=c[d]\n                if cur==k:\n                    while ll<=i and all(x-y>=z for x,y,z in zip(count,nums[ll],dg)):\n                        for d in range(30):\n                            count[d]-=nums[ll][d]\n                        ll+=1\n                    res+=ll-l+1\n        return res",
+    "submit_ts": "1720279972",
+    "subm_id": "1311772255"
 }

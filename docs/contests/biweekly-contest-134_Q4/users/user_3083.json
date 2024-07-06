@@ -1,6 +1,6 @@
 {
-    "username": "prashant9569",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int b) {\n        int c = a.size();\n        long long d = 0;\n\n        unordered_map<long long, long long> e;\n        \n        for (int f = 0; f < c; ++f) {\n            d += processElement(a, b, f, e);\n        }\n        \n        return d;\n    }\n\nprivate:\n    long long processElement(vector<int>& a, int b, int f, unordered_map<long long, long long>& e) {\n        unordered_map<long long, long long> g;\n        long long d = 0;\n\n        if (a[f] == b) {\n            ++d;\n        }\n        g[a[f]] = 1;\n\n        for (auto& [h, i] : e) {\n            long long j = computeAndResult(h, a[f]);\n            if (j == b) {\n                d += i;\n            }\n            g[j] += i;\n        }\n\n        e = g;\n        return d;\n    }\n\n    long long computeAndResult(long long h, int a_f) {\n        return h & a_f;\n    }\n};\n",
-    "submit_ts": "1720280948",
-    "subm_id": "1311807754"
+    "username": "MainFrameKuznetSov",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        long long ans=0;\n        unordered_map<long long,long long>prev;\n        for(int i=0;i<n;++i)\n        {\n            unordered_map<long long,long long>curr;\n            if(nums[i]==k)\n                ++ans;\n            curr[nums[i]]=1;\n            for(auto iter:prev)\n            {\n                long long val=(iter.first & nums[i]);\n                if(val==k)\n                    ans+=iter.second;\n                curr[val]+=iter.second;\n            }\n            prev=curr;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720281071",
+    "subm_id": "1311812125"
 }

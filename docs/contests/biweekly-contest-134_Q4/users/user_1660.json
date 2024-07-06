@@ -1,6 +1,6 @@
 {
-    "username": "Naitik7838",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n\n        unordered_map<long long,long long> result;\n\n        for(int i=0;i<n;i++){\n            unordered_map<long long,long long> temp;\n\n            if(nums[i] == k){\n                count++;\n            }\n\n            temp[nums[i]] = 1;\n\n            for(auto [value,freq]:result){\n                long long currAns = value & nums[i];\n                if(currAns == k){\n                    count += freq;\n                }\n                temp[currAns] += freq;\n            }\n            result = temp;\n        }    \n        return count;\n\n    }\n};",
-    "submit_ts": "1720281131",
-    "subm_id": "1311814238"
+    "username": "mr_bean_solves",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long count = 0;\n        Map<Integer, Integer> hm = new HashMap<>();\n        for(int num : nums){\n            Map<Integer, Integer> temp = new HashMap<>();\n            for(int key : hm.keySet()){\n                int andRes = key & num;\n                temp.put(andRes, temp.getOrDefault(andRes, 0) + hm.get(key));\n            }\n            temp.put(num, temp.getOrDefault(num, 0) + 1);\n            if(temp.containsKey(k)){\n                count += temp.get(k);\n            }\n            hm = temp;\n        }\n        return count;\n    }\n}",
+    "submit_ts": "1720279951",
+    "subm_id": "1311771501"
 }

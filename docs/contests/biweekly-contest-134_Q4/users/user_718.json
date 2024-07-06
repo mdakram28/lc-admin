@@ -1,6 +1,6 @@
 {
-    "username": "DARKcryptic",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k){\n        unordered_map<long long,long long>check1;\n        long long flag;\n        long long output=0;\n        long long check3=0;\n        \n        for(int i=0; i<nums.size(); i++){\n            check3=output;\n            unordered_map<long long,long long>check2; \n            if(k==nums[i]){\n                output++;\n                check3=check3/2;\n            }\n            check2[nums[i]]=1;\n            for(auto& [it1,it2]:check1){\n                check3++;\n                flag=nums[i]&it1;\n                if(k==flag){\n                    output=output+it2;\n                }\n                check2[flag]+=it2;\n            }\n            if(check3==0)check3++;\n            check1=check2;\n        }\n        return output;\n    }\n};",
-    "submit_ts": "1720280400",
-    "subm_id": "1311787985"
+    "username": "vijaykatta3094",
+    "submission": "\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        # Initialize counters\n        bits = Counter()\n        past_counter = Counter()\n        res = 0\n        \n        # Iterate over each number in the array\n        for val in nums:\n            # Initialize new counter for subarrays ending at the current value\n            new_counter = Counter()\n            new_counter[val] += 1\n            \n            # Update new counter based on previous subarray AND results\n            for bit, count in past_counter.items():\n                new_counter[bit & val] += count\n            \n            # Add to the result the count of subarrays with AND result equal to k\n            res += new_counter[k]\n            \n            # Update past_counter to be new_counter for the next iteration\n            past_counter = new_counter\n        \n        return res",
+    "submit_ts": "1720279348",
+    "subm_id": "1311747579"
 }

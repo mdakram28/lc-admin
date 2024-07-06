@@ -1,6 +1,6 @@
 {
-    "username": "ParthMalhotra",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        int start = 0;\n        // int end = 0;\n\n        Map<Long, Long> prev = new HashMap<>();\n        long andVal = nums[0];\n\n        long subs = 0;\n\n        for(int i = 0; i<n; i++) {\n            Map<Long, Long> curr = new HashMap<>();\n\n            if(nums[i] == k)\n                subs++;\n\n            curr.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : prev.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n\n                long newAndRes = val&nums[i];\n\n                if(newAndRes == k) \n                    subs+= freq;\n\n                curr.put(newAndRes, curr.getOrDefault(newAndRes, 0L) + freq);\n            }\n\n            prev = curr;\n        }\n\n        return subs;\n    }\n}",
-    "submit_ts": "1720281275",
-    "subm_id": "1311819215"
+    "username": "dhrishita0518",
+    "submission": "from typing import List\nfrom collections import defaultdict\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n=len(nums)\n        total=0\n        res=defaultdict(int)\n\n        for i in range(n):\n            res1=defaultdict(int)\n            if nums[i]==k:\n                total+=1\n            res1[nums[i]]=1\n\n            for value,frequency in res.items():\n                newres=value&nums[i]\n                if newres==k:\n                    total+=frequency\n                res1[newres]+=frequency\n            res=res1\n        return total\n        ",
+    "submit_ts": "1720279867",
+    "subm_id": "1311768271"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "spavanii822",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n      \n        int size=nums.size();\n       long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        \n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults;\n            long long target = k; // Correctly define 'target' (assuming 'k' is the target value)\n            \n            if (nums[index] == target) {\n                ++total;\n            }\n            currentResults[nums[index]] = 1;\n            \n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & nums[index]; // Bitwise AND between value and                                                                                                        //nums[index]\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return total;\n    }\n};",
-    "submit_ts": "1720280556",
-    "subm_id": "1311793799"
+    "username": "bhushanbasantpur",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        unordered_map<long long,long long>mp1;\n        long long ans=0;\n        for(int i=0;i<n;i++){\n             if(nums[i]==k) ans++;\n            unordered_map<long long,long long>mp2;\n            mp2[nums[i]]=1;\n            \n            for(auto it:mp1){\n                long long tmp=it.first&nums[i];\n                if(tmp==k){\n                    ans+=it.second;\n                }\n                mp2[tmp]+=it.second;\n            }\n            mp1=mp2;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280355",
+    "subm_id": "1311786232"
 }

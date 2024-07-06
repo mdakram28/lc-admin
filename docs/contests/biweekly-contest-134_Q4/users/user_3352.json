@@ -1,6 +1,6 @@
 {
-    "username": "zrer9737",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        flag = [[]]\n        for x in nums:\n            if x & k == k:\n                flag[-1].append(x)\n            else:\n                if len(flag[-1]) > 0:\n                    flag.append([])\n        if len(flag[-1]) == 0:\n            flag.pop()\n        ans = 0\n        for f in flag:\n            i = 0\n            j = 0\n            ss = 0\n            while i < len(f):\n                now = f[i]\n                while now != k:\n                    j += 1\n                    if j >= len(f):\n                        break\n                    now = now & f[j]\n                if now != k:\n                    break\n                now = f[j]\n\n                for jj in range(j, i - 1, -1):\n                    now = now & f[jj]\n                    if now == k:\n                        break\n\n                ans += ((jj - i + 1) * (len(f) - j))\n                i = jj + 1\n                ss = i\n                j = i\n        return ans",
-    "submit_ts": "1720281226",
-    "subm_id": "544574959"
+    "username": "giri_2004",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
+    "submit_ts": "1720281344",
+    "subm_id": "1311821691"
 }

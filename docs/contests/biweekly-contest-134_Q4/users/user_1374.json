@@ -1,6 +1,6 @@
 {
-    "username": "soham_7707",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n          int size_subarray = nums.size();\n        long long count_subarray = 0;\n        \n        unordered_map<long long, long long> prevResults_subarr;\n\n        for (int i = 0; i < size_subarray; ++i) {\n            unordered_map<long long, long long> currResults_subarr; \n\n            if (nums[i] == k) {\n                ++count_subarray;\n            }\n            currResults_subarr[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults_subarr) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count_subarray += freq;\n                }\n                currResults_subarr[newAndResult] += freq;\n            }\n            \n            prevResults_subarr = currResults_subarr;\n        }\n        \n        return count_subarray;\n\n    }\n};",
-    "submit_ts": "1720278918",
-    "subm_id": "1311729804"
+    "username": "puneetr_01",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n          int n = nums.length;\n        long count = 0;\n        \n        Map<Long, Long> prevResults = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> currResults = new HashMap<>(); \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : prevResults.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults.put(newAndResult, currResults.getOrDefault(newAndResult, 0L) + freq);\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n}",
+    "submit_ts": "1720279816",
+    "subm_id": "1311766243"
 }

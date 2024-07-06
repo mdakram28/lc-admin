@@ -1,6 +1,6 @@
 {
-    "username": "iit2021201",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n = nums.size();\n        ll ans = 0;\n        ll right = 0;\n        map<ll,ll> pr;\n        for(int i = 0 ; i < n ; i++){\n            map<ll,ll> cr;\n            cr[nums[i]] = 1;\n            for(auto it : pr){\n                ll nar = it.first & nums[i];\n                if(nar == k){\n                    ans += it.second;\n                }\n                cr[nar] += it.second;\n            }\n            pr = cr;\n            if(nums[i] == k) ans++;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720278289",
-    "subm_id": "1311702663"
+    "username": "heal",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> lg(n + 1, -1);\n        for (int i = 1; i <= n; i++) lg[i] = lg[i/2] + 1;\n        vector<vector<int>> st(n + 1, vector<int>(lg[n] + 1));\n        for (int i = 1; i <= n; i++) st[i][0] = nums[i-1];\n        for (int j = 1; j <= lg[n]; j++)\n            for (int i = 1; i + (1 << j) - 1 <= n; i++)\n                st[i][j] = st[i][j-1] & st[i+(1<<(j-1))][j-1];\n        auto query = [&](int l, int r) {\n            int k = lg[r-l+1];\n            return st[l][k] & st[r-(1<<k)+1][k];\n        };\n        long long ret = 0;\n        for (int i = 1; i <= n; i++) {\n            if ((nums[i-1] & k) != k) continue;\n            int l = i, r = n;\n            while (l < r) {\n                int mid = (l + r + 1) / 2;\n                if ((query(i, mid) & k) == k) l = mid;\n                else r = mid - 1;\n            }\n            if (query(i, r) != k) continue;\n            int p = r;\n            l = i;\n            while (l < r) {\n                int mid = (l + r) / 2;\n                if (query(i, mid) == k) r = mid;\n                else l = mid + 1;\n            }\n            ret += p - r + 1;\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1720277574",
+    "subm_id": "544557510"
 }

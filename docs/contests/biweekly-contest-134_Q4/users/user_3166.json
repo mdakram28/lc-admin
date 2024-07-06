@@ -1,6 +1,6 @@
 {
-    "username": "Adi_Dev_24",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
-    "submit_ts": "1720281301",
-    "subm_id": "1311820155"
+    "username": "Shomil_03",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long res = 0;\n        Map<Long, Long> mp1 = new HashMap<>();\n        int n = nums.length;\n        \n        for (int i = 0; i < n; i++) {\n            if (nums[i] == k) {\n                res++;\n            }\n            Map<Long, Long> mp2 = new HashMap<>();\n            mp2.put((long) nums[i], 1L);\n            \n            for (Map.Entry<Long, Long> entry : mp1.entrySet()) {\n                long temp = entry.getKey() & nums[i];\n                if (temp == k) {\n                    res += entry.getValue();\n                }\n                mp2.put(temp, mp2.getOrDefault(temp, 0L) + entry.getValue());\n            }\n            mp1 = mp2;\n        }\n        return res;\n        \n    }\n}",
+    "submit_ts": "1720281080",
+    "subm_id": "1311812439"
 }

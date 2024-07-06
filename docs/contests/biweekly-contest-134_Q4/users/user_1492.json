@@ -1,6 +1,6 @@
 {
-    "username": "Slagnajitt",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long total = 0;\n        unordered_map<long long , long long>prev;\n        \n        for(int i=0 ; i<n ; i++){\n            unordered_map<long long , long long>curr;\n\n            if(nums[i]==k){\n                total++;\n            }\n            curr[nums[i]] = 1;\n            for(auto& [value , freq] : prev){\n                long long newandans = value & nums[i];\n                if(newandans == k){\n                    total += freq;\n                }\n                curr[newandans] += freq;\n            }\n            prev = curr;\n        }\n        return total;\n    }\n};",
-    "submit_ts": "1720279150",
-    "subm_id": "1311739550"
+    "username": "thaum1el",
+    "submission": "class Solution \n{\npublic:\n    long long countSubarrays(vector<int>& nums, int k) \n    {\n        long long ans = 0;\n        unordered_map<int, long long> probval;\n\n        for (int num : nums)\n        {\n            unordered_map<int, long long> new_probval;\n\n            for (auto& prev : probval)\n            {\n                int res = prev.first & num;\n                new_probval[res] += prev.second;\n                if (res == k)\n                {\n                    ans += prev.second;\n                }\n            }\n\n            if (num == k)\n            {\n                ans++;\n            }\n\n            new_probval[num]++;\n\n            probval = new_probval;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280034",
+    "subm_id": "544570257"
 }

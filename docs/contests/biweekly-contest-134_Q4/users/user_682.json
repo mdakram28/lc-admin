@@ -1,6 +1,6 @@
 {
-    "username": "harning",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int, int> hashmap;\n        long long ans = 0;\n        for (int num : nums) {\n            unordered_map<int, int> temp;\n            temp[num]++;\n            for (auto& [val, cnt] : hashmap) {\n                temp[(val & num)] += cnt;\n            }\n\n            hashmap = temp;\n            if (hashmap.find(k) != hashmap.end()) {\n                ans += hashmap[k];\n            }\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": "1720278537",
-    "subm_id": "1311713489"
+    "username": "tlecodes",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0, val;\n        unordered_map<long long, long long> frequency;\n        for (int num : nums) {\n            unordered_map<long long, long long> temp;\n            if (num == k) {\n                ans++;\n            }\n            temp[num]++;\n            for (auto it : frequency) {\n                val = it.first & num;\n                if (val == k) {\n                    ans += it.second;\n                }\n                temp[val] += it.second;\n            }\n            frequency = temp;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279872",
+    "subm_id": "1311768433"
 }

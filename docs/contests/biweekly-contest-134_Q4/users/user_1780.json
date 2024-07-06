@@ -1,6 +1,6 @@
 {
-    "username": "sk244184",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        size = len(nums)\n        target = k\n        total = 0\n        previous_results = {}\n        \n        for index in range(size):\n            current_results = {}\n            if nums[index] == target:\n                total += 1\n            current_results[nums[index]] = 1\n            for value, frequency in previous_results.items():\n                new_and_result = value & nums[index]\n                if new_and_result == target:\n                    total += frequency\n                current_results[new_and_result] = current_results.get(new_and_result, 0) + frequency\n            \n            previous_results = current_results\n        return total",
-    "submit_ts": "1720279915",
-    "subm_id": "1311770085"
+    "username": "Ikarikaji",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> v(n,vector<int> (32,0));\n        for(int i=0;i<n;i++){\n            for(int j=0;j<32;j++){\n                v[i][j]=(nums[i]>>j)&1;\n            }\n        }\n        for(int i=0;i<32;i++){\n            for(int j=1;j<n;j++){\n                v[j][i] = v[j-1][i]*v[j][i] + v[j][i];       \n            }\n        }\n        long long count=0;\n        for(int i=0;i<n;i++){\n            int mini=i+1,maxi=0;\n            for(int j=0;j<32;j++){\n                if(((k>>j)&1)==1)\n                {\n                    mini = min(mini,v[i][j]);\n                }\n                else{\n                    maxi = max(maxi,v[i][j]);\n                }\n            }\n            //cout<<maxi<<\" \"<<mini<<endl;\n            count+=max(0,mini-maxi);\n        }\n        \n        // for(auto ele:v){\n        //     for(auto ele1:ele){\n        //         cout<<ele1<<\" \";\n        //     }\n        //     cout<<endl;\n        // }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1720281286",
+    "subm_id": "1311819618"
 }

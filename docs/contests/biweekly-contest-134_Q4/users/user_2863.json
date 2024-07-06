@@ -1,6 +1,6 @@
 {
-    "username": "goelharshit",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int target) {\n        int size = nums.length;\n        long total = 0;\n        HashMap<Long, Long> previousResults = new HashMap<>();\n        \n        for (int index = 0; index < size; ++index) {\n            HashMap<Long, Long> currentResults = new HashMap<>();\n            \n            if (nums[index] == target) {\n                ++total;\n            }\n            \n            currentResults.put((long) nums[index], 1L);\n            \n            for (HashMap.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long value = entry.getKey();\n                long frequency = entry.getValue();\n                long newAndResult = value & nums[index];\n                \n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                \n                currentResults.put(newAndResult, currentResults.getOrDefault(newAndResult, 0L) + frequency);\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return total;\n    }\n}\n",
-    "submit_ts": "1720279352",
-    "subm_id": "1311747720"
+    "username": "mohitkukreja",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long res=0;\n        unordered_map<long long ,long long> mp1;\n        int n=nums.size();\n        for(int i=0;i<n;i++)\n        {\n            if(nums[i]==k)\n            {\n                res++;\n            }\n            unordered_map<long long,long long> mp2;\n            mp2[nums[i]]=1;\n            for(auto &it:mp1)\n            {\n                long long temp=it.first & nums[i];\n                if(temp==k)\n                {\n                    res+=it.second;\n                }\n                mp2[temp]+=it.second;\n            }\n            mp1=mp2;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720279252",
+    "subm_id": "1311743758"
 }

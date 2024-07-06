@@ -1,6 +1,6 @@
 {
-    "username": "swarupchanda1963",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long cnt=0;\n        int n=nums.size();\n\n\n        //to store the prev results\n        unordered_map<long long,long long> preVal;\n\n        for(int i=0;i<n;++i){\n            unordered_map<long long,long long> curVal;\n            \n            //store the first result\n            if(nums[i]==k){\n                ++cnt;\n            }\n\n            //put the freq\n            curVal[nums[i]]=1;//value and its corresponding freq\n\n            for(auto &[data,freq]:preVal){\n                long long curAnd=data&nums[i];\n                curVal[curAnd]+=freq;\n                if(curAnd==k){\n                    cnt+=freq;\n                }\n                \n            }\n            preVal=curVal;\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720280324",
-    "subm_id": "1311785112"
+    "username": "kartike24",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans=0;\n        unordered_map<long long,long long> mp;\n        for(int i=0;i<n;i++){\n            unordered_map<long long,long long> curr;\n            if(nums[i]==k) ans++;\n            curr[nums[i]]=1;\n            for(auto it:mp){\n                long long a=it.first&nums[i];\n                if(a==k) ans+=it.second;\n                curr[a]+=it.second;\n            }\n            mp=curr;\n            \n        }\n        return ans;\n\n    }\n};",
+    "submit_ts": "1720280209",
+    "subm_id": "1311780873"
 }

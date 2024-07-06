@@ -1,6 +1,6 @@
 {
-    "username": "shaileshk11",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {        \n        int n = nums.length;\n        long ans = 0;\n        Map<Long, Long> map1 = new HashMap<>();\n        Map<Long, Long> map2 = new HashMap<>();\n        \n        for(int num : nums){\n            if(num == k){\n                ans=ans+1;\n            }\n            map2.put((long)(num), (long)1);\n            \n            for(long key : map1.keySet()){\n                if((key & (long)(num)) == k){\n                    ans = ans+map1.get(key);\n                }\n                map2.put(key & (long)(num), map2.getOrDefault(key & (long)(num), (long)0)+map1.get(key));\n            }\n            map1 = new HashMap<>(map2);\n            map2.clear();\n        }\n        return ans;\n    }\n}",
-    "submit_ts": "1720280674",
-    "subm_id": "1311798041"
+    "username": "SagarRuhela",
+    "submission": "import java.util.HashMap;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n        \n        HashMap<Long, Long> prev = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> curr = new HashMap<>(); \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            curr.put((long) nums[i], 1L);\n\n            for (var j : prev.entrySet()) {\n                long ans = j.getKey() & (long) nums[i];\n                if (ans == k) {\n                    count += j.getValue();\n                }\n                curr.merge(ans, j.getValue(), Long::sum);\n            }\n            \n            prev = curr;\n        }\n        \n        return count;\n    }\n}\n",
+    "submit_ts": "1720278699",
+    "subm_id": "1311720477"
 }

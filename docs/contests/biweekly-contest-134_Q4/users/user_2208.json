@@ -1,6 +1,6 @@
 {
-    "username": "theweirdcoder",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll ans=0;\n        ll n=nums.size();\n        map<ll,ll> f;\n        for(int i=0;i<n;i++)\n        {\n            if(nums[i]==k) ++ans;\n            map<ll,ll> ref;\n            ++ref[nums[i]];\n            // for(auto [x,y]:f) cout<<x<<\" \"<<y<<endl;\n            // cout<<endl;\n            // for(auto [x,y]:ref) cout<<x<<\" \"<<y<<endl;\n            // cout<<endl;\n            for(auto [x,y]:f)\n            {\n                if((x&nums[i])==k) ans+=y;\n                ref[(x&nums[i])]+=y;\n            }\n            f=ref;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281514",
-    "subm_id": "1311827939"
+    "username": "ayushcoder924",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        \n         long long count = 0;\n        int n = nums.size();\n        std::unordered_map<int, int> and_freq;\n\n        for (int i = 0; i < n; ++i) {\n            std::unordered_map<int, int> new_and_freq;\n            for (auto& [and_result, freq] : and_freq) {\n                int new_and_result = and_result & nums[i];\n                new_and_freq[new_and_result] += freq;\n            }\n            new_and_freq[nums[i]]++;\n            and_freq = new_and_freq;\n\n            for (auto& [and_result, freq] : and_freq) {\n                if (and_result == k) {\n                    count += freq;\n                }\n            }\n        }\n\n        return count;\n\n    }\n};",
+    "submit_ts": "1720280571",
+    "subm_id": "1311794334"
 }

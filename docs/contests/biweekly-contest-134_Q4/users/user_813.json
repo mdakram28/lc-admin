@@ -1,6 +1,6 @@
 {
-    "username": "RAGINI_9",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n    int n = nums.size();\n    unordered_map<int, int> mp;\n    long long count = 0;\n    \n    for (int i = 0; i < n; ++i) {\n        unordered_map<int, int> newmp;\n        for (auto& [val, freq] : mp) {\n            int newand = val & nums[i];\n            if (newand == k) {\n                count += freq;\n            }\n            newmp[newand] += freq;\n        }\n        newmp[nums[i]]++;\n        if (nums[i] == k) {\n            count++;\n        }\n        mp = move(newmp);\n    }\n\n    return count;\n    }\n};",
-    "submit_ts": "1720280592",
-    "subm_id": "1311795101"
+    "username": "szoro",
+    "submission": "#define lln long long\nclass Solution {\npublic:\n    long long get(int k,vector<int> &a){\n        int bt[31],n=a.size();\n        memset(bt,0,sizeof bt);\n        long long ans = 0,j=0,m=-1;\n        for(int i=0;i<n;i++){\n            if(m==-1)m = a[i];\n            else m = (m&a[i]);\n            for(int l=0;l<31;l++){\n                if(a[i]&(1<<l))bt[l]++;\n            }\n            lln nm = 0;\n            while(m<=k&&j<=i){\n                ans+=(n-i);\n                for(int l=0;l<31;l++){\n                    if(a[j]&(1<<l))bt[l]--;\n                }\n                for(int l=0;l<31;l++){\n                    if(bt[l] && bt[l]==i-j)nm|=(1<<l);\n                }\n                \n                m= nm;\n                j++;\n            }\n            if(j==i+1)m = -1;\n        }\n        return ans;\n    }\n    long long countSubarrays(vector<int>& a, int k) {\n        \n     return get(k,a)-get(k-1,a);   \n    }\n};",
+    "submit_ts": "1720279552",
+    "subm_id": "1311755761"
 }

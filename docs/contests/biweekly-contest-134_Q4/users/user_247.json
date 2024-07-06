@@ -1,6 +1,6 @@
 {
-    "username": "destroyer_sam",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        map<int,long long> fr;\n        int n = nums.size();\n        int a = nums[0];\n        fr[a]++;\n        map<int,long long> feasible;\n        feasible[a]++;\n        for(int i = 1; i<n; ++i){\n            map<int,long long> new_feasible;\n            new_feasible[nums[i]]++;\n            fr[nums[i]]++;\n            for(auto &[el,f]:feasible){\n                new_feasible[el&nums[i]]+=f;\n                fr[el&nums[i]]+=f;\n            }\n            feasible = new_feasible;\n        }\n        return fr[k];\n    }\n};",
-    "submit_ts": "1720276889",
-    "subm_id": "1311637646"
+    "username": "huiget-6",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        def calc(v):\n            # print(v)\n\n            def add(x, sign=1):\n                i = 0\n                while x > 0:\n                    if x % 2:\n                        a[i] += 1 * sign\n                    x //= 2\n                    i += 1\n\n            def check(l):\n                for i in range(m):\n                    if (k & (1 << i) == 0) and a[i] == l:\n                        return False\n                return True\n\n            ret = 0\n            m = 30\n            a = [0] * m\n            n = len(v)\n            j = 0\n            for i in range(n):\n                # [i, j)\n                while j < n and not check(j - i):\n                    add(v[j])\n                    j += 1\n                if check(j - i):\n                    ret += n - j + 1\n                else:\n                    return ret\n                # print(i, j)\n                add(v[i], -1)\n            return ret\n\n        ans = 0\n        l = 0\n        for r in range(len(nums)):\n            if nums[r] & k < k:\n                if r > l:\n                    ans += calc(nums[l:r])\n                l = r + 1\n            \n\n        if l < len(nums):\n            ans += calc(nums[l:])\n\n        return ans",
+    "submit_ts": "1720278569",
+    "subm_id": "544563244"
 }

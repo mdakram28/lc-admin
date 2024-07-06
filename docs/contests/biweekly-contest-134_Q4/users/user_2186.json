@@ -1,6 +1,6 @@
 {
-    "username": "dhanubansal777",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int sZZe = array.size();\n        long long TtL = 0;\n        unordered_map<long long, long long> PrS;\n        for (int index = 0; index < sZZe; ++index) {\n            unordered_map<long long, long long> CrS; \n            if (array[index] == target) {\n                ++TtL;\n            }\n            CrS[array[index]] = 1;\n            for (auto& [value, frequency] : PrS) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    TtL += frequency;\n                }\n                CrS[newAndResult] += frequency;\n            }\n            \n            PrS = CrS;\n        }\n        return TtL;\n    }\n};",
-    "submit_ts": "1720280647",
-    "subm_id": "1311797046"
+    "username": "aaron1april",
+    "submission": "# BC 134 Q4\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        # print(nums)\n        zero_bits = []\n\n        for shift in range(32):\n            bit = 1 << shift\n\n            if (k & bit) == 0:\n                zero_bits.append(bit)\n\n        # print(zero_bits)\n\n        prev_zeros = [0] * len(zero_bits)\n        count = 0\n        left = 0\n        prev = 0\n        acc = -1\n\n        for i in range(len(nums)):\n            acc &= nums[i]\n\n            if acc >= k:\n                for j, bit in enumerate(zero_bits):\n                    if (nums[i] & bit) == 0:\n                        prev_zeros[j] = i\n\n            # print(i, acc, prev, count)\n            if acc == k:\n                prev = min(prev_zeros)\n                count += prev + 1 - left\n            elif (acc & k) != k:\n                left = i + 1\n                acc = -1\n\n        return count",
+    "submit_ts": "1720281589",
+    "subm_id": "1311831228"
 }

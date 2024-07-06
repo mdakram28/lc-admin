@@ -1,6 +1,6 @@
 {
-    "username": "Prahil6109",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        vector<int> vec(32,0);\n        long long res=0;\n        int l=0;\n        for(auto num: nums){\n            l++;\n            int len0=0,len1=l;\n            for(int i=0;i<32;i++){\n                int mask=1<<i;\n                if(num & mask){\n                    vec[i]++;\n                }\n                else{\n                    vec[i]=0;\n                }\n            }\n            for(int i=0;i<32;i++){\n                int mask=1<<i;\n                if(k & mask){\n                    len1=min(len1,vec[i]);\n                }\n                else{\n                    len0=max(len0,vec[i]);\n                }\n            }\n            res+=max(0,len1-len0);\n        }\n        return res;\n    }\n};",
-    "submit_ts": "1720279031",
-    "subm_id": "1311734382"
+    "username": "v1kstrand",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        dp = Counter()\n        ans = 0\n        for n in nums:\n            next_dp = Counter()\n            dp[n] += 1\n            for m, v in dp.items():\n                if n & m == k:\n                    ans += v\n                next_dp[n & m] += v\n            dp = next_dp\n\n        return ans\n",
+    "submit_ts": "1720278866",
+    "subm_id": "1311727596"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "aragorn1025",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        answer = 0\n        results = dict()\n        for n in nums:\n            if n < k or n & k != k:\n                results.clear()\n                continue\n            if n == k:\n                v = sum(results.values()) + 1\n                results.clear()\n                results[k] = v\n                answer += v\n                continue\n            new_results = dict()\n            for r, v in results.items():\n                r_bar = r & n\n                new_results[r_bar] = new_results.get(r_bar, 0) + v\n            results = new_results\n            results[n] = results.get(n, 0) + 1\n            answer += results.get(k, 0)\n        return answer\n",
-    "submit_ts": "1720281167",
-    "subm_id": "1311815471"
+    "username": "utkarsh0223",
+    "submission": "class Solution {\n    public long countSubarrays(int[] array, int target) {\n        int size = array.length;\n        long total = 0;\n        Map<Long, Long> previousResults = new HashMap<>();\n\n        for (int index = 0; index < size; ++index) {\n            Map<Long, Long> currentResults = new HashMap<>();\n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults.put((long) array[index], 1L);\n            for (Map.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long value = entry.getKey();\n                long frequency = entry.getValue();\n                long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults.put(newAndResult, currentResults.getOrDefault(newAndResult, 0L) + frequency);\n            }\n            previousResults = currentResults;\n        }\n        return total;\n    }\n}",
+    "submit_ts": "1720281443",
+    "subm_id": "1311825339"
 }

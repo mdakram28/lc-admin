@@ -1,6 +1,6 @@
 {
-    "username": "damanjit2461",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int tgt) {\n        int n = arr.size();\n        long long cnt = 0;\n        \n        unordered_map<long long, long long> prevRes;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currRes; \n\n            if (arr[i] == tgt) {\n                ++cnt;\n            }\n            currRes[arr[i]] = 1;\n\n            for (auto& [v, f] : prevRes) {\n                long long newRes = v & arr[i];\n                if (newRes == tgt) {\n                    cnt += f;\n                }\n                currRes[newRes] += f;\n            }\n            \n            prevRes = currRes;\n        }\n        \n        return cnt;\n    }\n};\n",
-    "submit_ts": "1720280738",
-    "subm_id": "1311800306"
+    "username": "justforfun21",
+    "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar countSubarrays = function(nums, k) {\n    let res = 0;\n    let n = nums.length;\n\n    let dp = new Map();\n    dp.set(0, new Map());\n    dp.get(0).set(nums[0], 1);\n    if (nums[0] == k) res++;\n\n    for (let i = 1; i < n; i++) {\n        dp.set(i, new Map());\n        dp.get(i).set(nums[i], 1);\n        if (nums[i] == k) res++;\n\n        for (let [key, count] of dp.get(i - 1)) {\n            let temp = key & nums[i];\n            if (!dp.get(i).has(temp)) dp.get(i).set(temp, 0);\n            dp.get(i).set(temp, dp.get(i).get(temp) + count);\n            if (temp == k) res += count;\n        }\n    }\n\n    return res;\n};",
+    "submit_ts": "1720278628",
+    "subm_id": "1311717411"
 }
