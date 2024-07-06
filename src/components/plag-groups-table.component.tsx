@@ -11,7 +11,7 @@ const GroupComponent = ({ groupId, group, sortBy }: {
     sortBy: string
 }) => {
     const { graph, selectedFileId, setSelectedFileId } = useContext(ReportContext);
-    const [expanded, setExpanded] = useState(true);
+    const [expanded, setExpanded] = useState(false);
 
     const GroupItems = () => {
         const neighbours = graph.graph[selectedFileId] || {};
