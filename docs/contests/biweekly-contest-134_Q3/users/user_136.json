@@ -1,0 +1,6 @@
+{
+    "username": "vermachakshu",
+    "submission": "class Solution {\npublic:\n    \n    void insert(deque<pair<int, int>> &q, int el){\n        if(q.empty()){\n            q.push_back({1, el});\n        }\n        else{\n            if(q.back().second == el)   q.back().first++;\n            else q.push_back({1, el});\n        }\n    }\n    \n    void remove(deque<pair<int, int>> &q){\n        if(q.empty())   return;\n        if(q.front().first > 1) q.front().first--;\n        else q.pop_front();\n    }\n    \n    int numberOfAlternatingGroups(vector<int>& c, int k) {\n        for(int i=0; i<k-1; i++)    c.push_back(c[i]);\n        int ans = 0;\n        deque<pair<int, int>> q;\n        \n        for(int i=0; i<k-1; i++)   insert(q, c[i]);\n        int n = c.size();\n        \n        for(int i=k - 1; i<n; i++){\n            insert(q, c[i]);\n            ans += (q.size() == k);\n            remove(q);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720277082",
+    "subm_id": "1311646825"
+}

@@ -3,12 +3,13 @@ from dataclasses import dataclass
 from math import floor
 from pathlib import Path
 from common import *
-from os.path import join, isdir
+from os.path import join, isdir, exists
 import os
 import json
-from post_plag import ReportProcessor
+from post_plag import ReportProcessor, DolosPair
 import sqlite3
 import base64
+from shutil import rmtree
 
 def bs_int(num_bytes):
     def f(val):
@@ -68,36 +69,34 @@ class LcAnalyzer:
     def __init__(self) -> None:
         self.contests_dir = CONTESTS_OUT_PATH
         self.users_json_path = join(ANALYSIS_OUT_PATH, "users.json")
-
-        self.users = defaultdict(lambda: defaultdict(dict))
-        self.reports = {}
+        self.users_dir = join(ANALYSIS_OUT_PATH, "users")
 
         Path(ANALYSIS_OUT_PATH).mkdir(exist_ok=True)
-        pass
-    
+        Path(self.users_dir).mkdir(exist_ok=True)
 
-    # def read_users(self):
-    #     csv_reader = csv.DictReader(self.users_csv_path)
-    #     self.users.clear()
-    #     for row in csv_reader:
-    #         if csv_reader.line_num == 0:
-    #             continue
-    #         self.users[row["username"]] = row
+    def write_pair(self, username: str, report_id, username2, similarity):
+        user_file = join(self.users_dir, f"sim_{username}.json")
+        write_header = not exists(user_file)
+
+        with open(user_file, "a", newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            if write_header:
+                writer.writerow(["reportId", "username", "similarity"])
+            writer.writerow([report_id, username2, similarity])
+            f.flush()
 
     def process(self, sim_thres):
         contest_info_path = join(self.contests_dir, "contest-info.json")
         with open(contest_info_path) as f:
             reports = json.load(f)["reports"]
+        
+        rmtree(self.users_dir)
+        Path(self.users_dir).mkdir()
 
-        # self.user_contest_user_sim = defaultdict(lambda: defaultdict(dict))
-        self.user_user_contest_sim = defaultdict(lambda: defaultdict(list))
-        # self.user_user_sim = defaultdict(lambda: defaultdict(int))
-        self.reports = dict(enumerate(reports.values()))
-        self.uids = {}
-        self.users = {}
+        users_cont = defaultdict(set)
 
-        for report_id, report_info in self.reports.items():
-            report_proc = ReportProcessor(report_info["contest"], report_info["ques_num"])
+        for report_id, report_info in reports.items():
+            report_proc = ReportProcessor(report_info["contest"], report_info["ques_num"], None)
 
             print(f"Reading report {report_proc.report_name}")
             pairs = report_proc.get_pairs()
@@ -108,71 +107,32 @@ class LcAnalyzer:
                     continue
                 user1 = files[pair.leftFileId]
                 user2 = files[pair.rightFileId]
-                uid1 = self.uids.setdefault(user1.get_username(), len(self.users))
-                uid2 = self.uids.setdefault(user2.get_username(), len(self.users))
+                sim_perc = floor(pair.similarity*100)
 
-                self.users[uid1] = user1.get_username()
-                self.users[uid2] = user2.get_username()
+                self.write_pair(user1.get_username(), report_id, user2.get_username(), sim_perc)
+                self.write_pair(user2.get_username(), report_id, user1.get_username(), sim_perc)
 
-                self.user_user_contest_sim[uid1][uid2].append([report_id, floor(pair.similarity*100)])
-                # self.user_contest_user_sim[uid1][report_id][uid2] = floor(pair.similarity*100)
-                # self.user_contest_user_sim[uid2][report_id][uid1] = floor(pair.similarity*100)
-
-    def process_sql(self):
-        contest_info_path = join(self.contests_dir, "contest-info.json")
-        with open(contest_info_path) as f:
-            reports = json.load(f)["reports"]
-
-        self.user_contest_user_sim = defaultdict(lambda: defaultdict(dict))
-        self.reports = dict(enumerate(reports.values()))
-        self.uids = {}
-        self.users = {}
-
-        con = sqlite3.connect(join(ANALYSIS_OUT_PATH, "reports.db"))
-        cur = con.cursor()
-        cur.execute("CREATE TABLE report(report_id, contest_name, ques_name, report_name)")
-        cur.execute("CREATE TABLE user(user_id, user_name)")
-        cur.execute("CREATE TABLE pair(report_id, user_id_1, user_id_2, similarity)")
-
-        for report_id, report_info in self.reports.items():
-            report_proc = ReportProcessor(report_info["contest"], report_info["ques_num"])
-            
-            q = f"INSERT INTO report VALUES ({report_id}, '{report_info["contest"]}', '{report_info["ques_num"]}', '{report_proc.report_name}')"
-            print(q)
-            cur.execute(q)
-            con.commit()
-
-            print(f"Reading report {report_proc.report_name}")
-            pairs = report_proc.get_pairs()
-            files = report_proc.get_files()
-            print(f"Processing report {report_proc.report_name}")
-            for pair in pairs:
-                user1 = files[pair.leftFileId].get_username()
-                user2 = files[pair.rightFileId].get_username()
-
-                if user1 not in self.uids:
-                    self.uids[user1] = len(self.uids)
-                    cur.execute(f"INSERT INTO user VALUES ({self.uids[user1]}, '{user1}')")
-                    con.commit()
-                
-                if user2 not in self.uids:
-                    self.uids[user2] = len(self.uids)
-                    cur.execute(f"INSERT INTO user VALUES ({self.uids[user2]}, '{user2}')")
-                    con.commit()
-                
-                cur.execute(f"INSERT INTO pair VALUES ({report_id}, {self.uids[user1]}, {self.uids[user2]}, {round(100*pair.similarity)})")
-                con.commit()
-
-    def write(self):
-        with open(self.users_json_path, "w") as f:
-            data = data_struct(self.user_user_contest_sim)
-            print(f"Encoded size: {len(data)} bytes")
+                users_cont[user1.get_username()].add(report_id)
+                users_cont[user2.get_username()].add(report_id)
+        
+        with open(self.users_json_path, 'w') as f:
             json.dump({
-                "reports": self.reports,
-                "user_user_contest_sim": base64.b64encode(data).decode("ascii"),
-                # "user_user_sim": self.user_user_sim,
-                "users": self.users
-            }, f, indent=4)
+                "num_contests": {
+                    name: len(cont) for name, cont in users_cont.items()
+                }
+            }, f)
+                
+
+    # def write(self):
+    #     with open(self.users_json_path, "w") as f:
+    #         data = data_struct(self.user_user_contest_sim)
+    #         print(f"Encoded size: {len(data)} bytes")
+    #         json.dump({
+    #             "reports": self.reports,
+    #             "user_user_contest_sim": base64.b64encode(data).decode("ascii"),
+    #             # "user_user_sim": self.user_user_sim,
+    #             "users": self.users
+    #         }, f, indent=4)
 
     
     

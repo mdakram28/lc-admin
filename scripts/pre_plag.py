@@ -1,6 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from functools import cached_property
 import os
+import queue
 import sys
 from common import *
 
@@ -37,8 +38,6 @@ LANG_EXT = {
     "ruby": "rb"
 }
 
-
-
 class LcClient:
     def __init__(self, contest: str, ques_num: int) -> None:
         self.contest = contest
@@ -52,15 +51,8 @@ class LcClient:
         self.contest_base = f"{self.api_base}/ranking/{contest}"
 
         Path(self.out_path).mkdir(exist_ok=True, parents=True)
-        self._driver = None
-        self.thread_pool = ThreadPoolExecutor(max_workers=1)
-
-
-    @property
-    def driver(self):
-        if self._driver is None:
-            self._driver = webdriver.Chrome()
-        return self._driver
+        self._driver_queue: queue = queue.Queue(4)
+        self.thread_pool = ThreadPoolExecutor(max_workers=4)
 
     def json_request(self, url):
         cache_dir = join("tmp", "cache2")
@@ -69,20 +61,28 @@ class LcClient:
         if exists(cache_file):
             with open(cache_file) as f:
                 return json.load(f)
+
+        try:
+            driver = self._driver_queue.get_nowait()
+        except queue.Empty:
+            driver = webdriver.Chrome()
         
         delay = 0.5
         for attempt in itertools.count(1):
             try:
                 print("Fetching url:", url)
 
-                self.driver.get(url)
-                content = self.driver.find_element(By.TAG_NAME, 'pre').text
+                driver.get(url)
+                content = driver.find_element(By.TAG_NAME, 'pre').text
                 resp = json.loads(content)
                 break
             except Exception as e:
                 print(f"Unexpected error: {str(e)}")
                 time.sleep(delay)
                 delay *= 2
+        
+        # Recycle browser
+        self._driver_queue.put_nowait(driver)
 
         time.sleep(0.1)
         with open(cache_file, 'w') as f:

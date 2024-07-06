@@ -1,0 +1,6 @@
+{
+    "username": "panpaliaram",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& c, int k) {\n        vector<int> v;\n        int n=c.size();\n        int cnt=0;\n        bool toggle=c[0];\n        for(int i=0;i<n;i++){\n            if(c[i]==toggle){\n                cnt++;\n                toggle=!toggle;\n            }else{\n                v.push_back(cnt);\n                cnt=1;\n                toggle=c[i];\n                toggle=!toggle;\n            }\n        }\n        v.push_back(cnt);\n        if(v.size()>=2){\n            if(c[0]!=c[c.size()-1]){\n                v[0]+=v[v.size()-1];\n                v.pop_back();\n            }\n        }else{\n            if(c[0]==c[n-1]){\n                return v[0]-k+1;\n            }else{\n                if(k<=v[0]){\n                    return v[0];\n                }\n            }\n        }\n        int ans=0;\n        for(int i=0;i<v.size();i++){\n            // cout<<v[i]<<\" \";\n            ans+=max(0,v[i]-k+1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278577",
+    "subm_id": "1311715198"
+}

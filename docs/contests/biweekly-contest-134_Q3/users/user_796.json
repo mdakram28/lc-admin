@@ -1,0 +1,6 @@
+{
+    "username": "jacobj2",
+    "submission": "class Solution:\n    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:\n        ps = [0]*len(colors)\n        if colors[0]!=colors[-1] and colors[0]!=colors[1]:\n            ps[0]=1\n        if colors[-1]!=colors[-2] and colors[-1]!=colors[0]:\n            ps[-1]=1\n        for i in range(1,len(colors)-1):\n            ps[i]+=ps[i-1]\n            if colors[i]!=colors[i+1] and colors[i]!=colors[i-1]:\n                ps[i]+=1\n        ps[-1]+=ps[-2]\n        res = 0\n        for i in range(len(colors)):\n            if i+1>=k:\n                curr = ps[i-1]-ps[i-k+1]\n                if curr==k-2:\n                    res+=1\n            else:\n                curr = ps[i-1] if i>0 else 0\n                needed = k - 2 - i\n                lastIndex = len(colors) - needed - 1\n                curr+=ps[-1]-ps[lastIndex]\n                if curr==k-2:\n                    res+=1\n        return res",
+    "submit_ts": "1720278250",
+    "subm_id": "1311701005"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "abhishekvaish",
+    "submission": "class Solution:\n    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:\n        colors = colors + colors[:k-1]\n        n = len(colors)\n        odd = [0] * (n+1)\n        even = [0] * (n+1)\n        for i in range(n):\n            if i%2== 0:\n                even[i+1] = even[i] + colors[i]\n                odd[i+1] = odd[i]\n            else:            \n                odd[i+1] = odd[i] + colors[i]\n                even[i+1] = even[i]\n        \n        res = 0\n        for i in range(n-k+1):\n            j = i+k-1\n            ei = (k // 2) + (1 if i%2 == 0 and k%2 == 1 else 0)\n            oi = (k // 2 )+ (1 if i%2 == 1 and k%2 == 1 else 0)\n            \n            os = odd[j+1] - odd[i]\n            es = even[j+1] - even[i]\n            if os == 0 and es == ei:\n                res += 1\n            elif os == oi and es == 0:\n                res += 1\n        return res \n                                    \n                \n                ",
+    "submit_ts": "1720277876",
+    "subm_id": "1311684131"
+}

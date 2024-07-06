@@ -1,0 +1,6 @@
+{
+    "username": "kunal0612",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& nums, int k) {\n        int n=nums.size();\n        for(int i=0;i<n;i++){\n            nums.push_back(nums[i]);\n        }\n        vector<int> pre;\n        pre.push_back(0);\n        for(int i=1;i<nums.size();i++){\n            if(nums[i]!=nums[i-1]){\n                pre.push_back(1);\n            }\n            else pre.push_back(0);\n        }\n        for(int i=1;i<pre.size();i++){\n            pre[i]+=pre[i-1];\n        }\n        int ans=0;\n        set<pair<int,int>> st;\n        for(int i=k-1;i<pre.size();i++){\n            if(pre[i]-pre[i-k+1]==k-1){\n                int l=(i-k+1)%n;\n                int r=i%n;\n                if(!st.count({l,r})){\n                    st.insert({l,r});\n                    ans++;\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277828",
+    "subm_id": "1311681960"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "satvik21",
+    "submission": "class Solution:\n    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:\n        ans = 0\n        cur = False\n        n = len(colors)\n        i = 0\n        prev = -1\n        while i < n:\n            if i < prev:break\n            if not cur:\n                val = True    \n                for j in range(i + 1,i + k):\n                    if colors[j % n] == colors[(j - 1) % n]:\n                        val = False\n                        prev = i\n                        i = (j % n)\n                        break\n                if val:\n                    cur = True\n                    ans += 1\n                    prev = i\n                    i += 1\n            else:\n                next = (i + k - 1) % n\n                prev = (next - 1) % n\n                if colors[next] != colors[prev]:\n                    ans += 1\n                    prev = i\n                    i += 1\n                else:\n                    cur = False\n                    prev = i\n                    i = next\n        return ans",
+    "submit_ts": "1720278164",
+    "subm_id": "1311697205"
+}

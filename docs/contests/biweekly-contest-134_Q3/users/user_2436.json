@@ -1,0 +1,6 @@
+{
+    "username": "avishikta_here",
+    "submission": "class Solution {\nprivate:\n    int solve(vector<int>& colors, int n, int k) {\n        if (n == 0 || k <= 0) return 0; // Handle edge cases\n        \n        int numFound = 0;\n        int low = 0, high = 1;\n\n        while (high < n + k && low < n) {\n            int newn = high;\n            int lol = newn % n;\n            int mom = (lol - 1 + n) % n;\n\n            // Find the end of the current alternating group\n            while (newn < n + k - 1 && colors[lol] != colors[mom]) {\n                newn++;\n                lol = newn % n;\n                mom = (lol - 1 + n) % n;\n            }\n\n            // Calculate the number of groups found\n            numFound += max(newn - low - k + 1, 0);\n\n            // Update pointers\n            low = newn;\n            high = low + 1;\n        }\n\n        return numFound;\n    }\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n=colors.size();\n        return solve(colors,n,k);\n    }\n};",
+    "submit_ts": "1720281376",
+    "subm_id": "1311822863"
+}

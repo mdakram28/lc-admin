@@ -1,0 +1,6 @@
+{
+    "username": "i3oring-blackoso",
+    "submission": "class Solution {\npublic:\n    \n    int numberOfAlternatingGroups(vector<int>& a, int k) {\n        int n = a.size() ;\n        vector<int> even(2 , 0) , odd(2 , 0) ;\n        for(int i = 0 ; i < n ; ++ i)\n        {\n            a.push_back(a[i]) ;\n            if ( i < k ) \n            {\n                if ( i & 1 ) {\n                    odd[a[i]] ++ ; \n                } else {\n                    even[a[i]] ++ ;\n                }\n            }\n        }\n        \n        int ans = check(even , odd) ;\n        \n        for(int i = 1 ; i < n ; ++ i)\n        {\n            if ( (i - 1) & 1 ) \n            {\n                odd[a[i - 1]] -- ; \n            } else {\n                even[a[i - 1]] -- ;\n            }\n            if ( (i + k - 1) & 1 )\n            {\n                odd[a[i + k - 1]] ++ ; \n            } else {\n                even[a[i + k - 1]] ++ ;\n            }\n            ans += check(even , odd) ;\n        }\n        return ans ;\n    }\n    bool check(vector<int>even , vector<int> odd)\n    {\n        if ( even[0] > 0 ) {\n            if ( even[1] > 0 || odd[0] > 0 ) return false ;\n        } else {\n            if ( odd[1] > 0 ) return false ;\n        }\n        return true; \n    }\n};",
+    "submit_ts": "1720278751",
+    "subm_id": "544564173"
+}

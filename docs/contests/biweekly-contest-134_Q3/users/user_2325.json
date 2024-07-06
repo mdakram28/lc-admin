@@ -1,0 +1,6 @@
+{
+    "username": "batrajivesh",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        if (k > n) return 0; // No valid group if k is greater than the size of colors\n        \n        int ans = 0;\n        int validLength = 0;\n        \n        // Initialize the first window\n        for (int i = 0; i < k - 1; ++i) {\n            if (colors[i % n] != colors[(i + 1) % n]) {\n                validLength++;\n            }\n        }\n        \n        // Check the first window\n        if (validLength == k - 1) {\n            ans++;\n        }\n        \n        // Slide the window\n        for (int i = 1; i < n; ++i) {\n            // Remove the effect of the element that goes out of the window\n            if (colors[(i - 1) % n] != colors[(i - 1 + 1) % n]) {\n                validLength--;\n            }\n            \n            // Add the effect of the new element in the window\n            if (colors[(i + k - 2) % n] != colors[(i + k - 1) % n]) {\n                validLength++;\n            }\n            \n            // Check the current window\n            if (validLength == k - 1) {\n                ans++;\n            }\n        }\n        \n        return ans;\n    }\n};\n",
+    "submit_ts": "1720278380",
+    "subm_id": "1311706669"
+}

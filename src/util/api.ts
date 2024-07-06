@@ -1,3 +1,4 @@
+import { SimilarSubmission, UsersAnalysis } from "../types/app.types";
 import { ContestInfo, Submission, User, UserPair } from "../types/report.types";
 import Papa from 'papaparse';
 
@@ -13,6 +14,13 @@ export const fetchContestInfo = async () => {
     return contestInfo;
 }
 
+export const fetchUsersAnalysis = async () => {
+    const url = `${APP_BASE}analysis/users.json`;
+    console.log(url)
+    const usersInfo: UsersAnalysis = JSON.parse(await (await fetch(url)).text());
+    return usersInfo;
+}
+
 export const fetchPairs = async (baseDir: string, similarity: number) => {
     const url = `${APP_BASE}${baseDir}/pairs/pairs_${similarity}.csv`;
     console.log(url);
@@ -21,32 +29,21 @@ export const fetchPairs = async (baseDir: string, similarity: number) => {
         header: true,
         dynamicTyping: true
     });
-    
+
     return parsedFiles.data;
 };
 
-// export const fetchGroups = async (baseDir: string, similarity: number) => {
-//     const url = `${APP_BASE}${baseDir}/groups/group_${similarity}.csv`;
-//     console.log(url);
-//     let groupsText = await (await fetch(url)).text();
-//     const parsedFiles = Papa.parse<GroupUser>(groupsText.trim(), {
-//         header: true,
-//         dynamicTyping: true
-//     });
-//     const groups: Record<string, GroupUser[]> = {};
-//     for (const user of parsedFiles.data) {
-//         if (groups[user.groupId] === undefined) {
-//             groups[user.groupId] = [];
-//         }
-//         groups[user.groupId].push(user);
-//     }
+export const fetchUserSimilarSubmissions = async (username: string) => {
+    const url = `${APP_BASE}analysis/users/sim_${username}.json`;
+    console.log(url);
+    let pairsText = await (await fetch(url)).text();
+    const parsedFiles = Papa.parse<SimilarSubmission>(pairsText.trim(), {
+        header: true,
+        dynamicTyping: true
+    });
 
-//     const groupsList = Object.values(groups);
-//     groupsList.sort((a, b) => b.length - a.length);
-//     groupsList.forEach(group => group.sort((a, b) => a.subm_ts - b.subm_ts));
-
-//     return groupsList;
-// };
+    return parsedFiles.data;
+};
 
 const CACHE_USERS: Record<string, Submission> = {};
 

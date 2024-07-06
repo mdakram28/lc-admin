@@ -1,0 +1,6 @@
+{
+    "username": "ykings12",
+    "submission": "class Solution {\npublic:\n    vector<int> diff( vector<int>& nums) {\n        int n = nums.size();\n        vector<int> diff(2 * n);\n        for (int i = 0; i < 2 * n; i++) {\n            diff[i] = nums[i % n] ^ nums[(i + 1) % n];\n        }\n        return diff;\n    }\n\n    int sum( vector<int>& diff, int k) {\n        int total = 0;\n        for (int i = 0; i < k - 1; i++) {\n            total += diff[i];\n        }\n        return total;\n    }\n\n    int f( vector<int>& diff, int k, int n) {\n        int count = 0;\n        int total = sum(diff, k);\n\n        for (int i = 0; i < n; i++) {\n            if (total == k - 1) {\n                count++;\n            }\n            total = total - diff[i] + diff[i + k - 1];\n        }\n\n        return count;\n    }\n\n    int numberOfAlternatingGroups(vector<int>& nums, int k) {\n        int n = nums.size();\n        if (k == 1) return n;\n\n        vector<int> a = diff(nums);\n        return f(a, k, n);\n    }\n};\n",
+    "submit_ts": "1720278546",
+    "subm_id": "1311713852"
+}

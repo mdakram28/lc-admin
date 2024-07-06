@@ -1,0 +1,6 @@
+{
+    "username": "tonghuikang",
+    "submission": "class Solution:\n    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:\n        \n        for i in range(k-1):\n            colors.append(colors[i])\n        \n        groups = [[-1, -2, 0]]  # a, b, length\n        for a,b in zip(colors, colors[1:]):\n            if (a, b) == (groups[-1][0], groups[-1][1]):\n                groups[-1][0], groups[-1][1] = groups[-1][1], groups[-1][0]\n                groups[-1][-1] += 1\n            else:\n                groups.append([b, a, 2])\n               \n        # print(groups)\n        res = 0\n        for a,b,length in groups:\n            if a == b:\n                continue\n            res += max(0, length + 1 - k)\n        return res\n        ",
+    "submit_ts": "1720276678",
+    "subm_id": "544551717"
+}

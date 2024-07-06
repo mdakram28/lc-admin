@@ -1,0 +1,6 @@
+{
+    "username": "Tutul_dhar",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        vector<int> a(2*n+5,0);\n        for(int i = 0; i < n; i++) {\n            a[i] = colors[i];\n            if(i-2 >= 0) a[i] += a[i-2];\n        }\n        for(int i = n; i < 2*n; i++) {\n            a[i] = colors[i-n];\n            a[i] += a[i-2];\n        }\n        //for(int i = 0; i < 2*n; i++) cout << a[i] << ' ';\n        ///cout << endl;\n        int ans = 0;\n        for(int i = 0; i < n; i++) {\n            if(k%2) {\n                int p = a[i+k-1];\n                if(i-2 >= 0) p -= a[i-2];\n                int q = a[i+k-2];\n                if(i-1 >= 0) q -= a[i-1];\n\n                int c = k/2 + k%2;\n                if(p == c and q == 0) ans++;\n                else if(q == c-1 and p == 0) ans++;\n                \n            } else {\n                int p = a[i+k-2];\n                if(i-2 >= 0) p -= a[i-2];\n                int q = a[i+k-1];\n                if(i-1 >= 0) q -= a[i-1];\n\n                int c = k/2;\n                if(p == c and q == 0) ans++;\n                else if(q == c and p == 0) ans++;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277472",
+    "subm_id": "1311665272"
+}

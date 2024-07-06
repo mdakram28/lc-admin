@@ -1,0 +1,6 @@
+{
+    "username": "D_Vode",
+    "submission": "class Solution {\npublic:\ntypedef long long ll;\n    int numberOfAlternatingGroups(vector<int>& a, int k) {\n        ll n = a.size();\n        vector<ll> dp(n);\n        dp[0]=0;\n        for(int i=1; i<n; i++){\n            if(a[i]==a[i-1]){\n                dp[i]=1+dp[i-1];\n            }else dp[i]=dp[i-1];\n        }\n        ll res=0;\n        ll l=0;\n        for(int i=k-1; i<n; i++){\n            ll cnt = dp[i] - dp[l];\n            if(cnt==0) res++;\n            l++;\n        }\n\n        int g =0;\n        if(a[0]==a[n-1]) g++;\n\n        for(int i=n-k+1; i<n; i++){\n            int r = (i+k-1)%n;\n            ll cnt =  (dp[n-1] - dp[i]) + (dp[r]-dp[0]) + g;\n            if(cnt==0) res++;\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1720277857",
+    "subm_id": "1311683274"
+}

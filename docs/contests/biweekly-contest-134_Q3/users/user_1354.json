@@ -1,0 +1,6 @@
+{
+    "username": "rajatgarg2004",
+    "submission": "class Solution {\npublic:\n    bool helper(vector<int>&colors, int k, int idx){\n        int curr = colors[idx];\n        for(int i=1;i<k;i++){\n            int next = colors[(idx+i)%(int)colors.size()];\n            if(curr == next){\n                return false;\n            }\n            else{   \n                curr = next;\n            }\n        }\n        return true;\n    }\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n       for(int i=0;i<k;i++){\n           colors.push_back(colors[i]);\n       }\n        int counter = 0;\n        vector<int>pref(colors.size()+1,0);\n        for(int i=1;i<colors.size();i++){\n            pref[i] +=pref[i-1]+abs(colors[i]-colors[i-1]);\n        }\n        k-=1;\n        for(int i=k+1;i<=colors.size()-1;i++){\n            if(pref[i]-pref[i-k] == k){\n                counter++;\n            }\n        }\n        return counter;\n    }\n};",
+    "submit_ts": "1720279521",
+    "subm_id": "1311754517"
+}

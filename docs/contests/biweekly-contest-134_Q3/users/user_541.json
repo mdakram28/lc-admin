@@ -1,0 +1,6 @@
+{
+    "username": "IanISam",
+    "submission": "class Solution {\npublic:\n    int get(int a, vector<int>& l){\n        return(l[a]<0?a:l[a]=get(l[a], l));\n    }\n    void dsu(int a, int b, vector<int>& l){\n        a = get(a, l);\n        b = get(b, l);\n        if(a==b)return;\n        if(l[a]<l[b])swap(a, b);\n        l[b]+=l[a];\n        l[a]=b;\n    }\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        vector<int> l(n, -1);\n        bool found = 0;\n        for(int i=0; i<n; i++){\n            if(colors[i]!=colors[(i+1)%n]){\n                dsu(i, (i+1)%n, l);\n            }\n            else{\n                found=1;\n            }\n        }\n        if(!found)return(n);\n        set<int> u;\n        int ans = 0;\n        for(int i=0; i<n; i++){\n            int v = get(i, l);\n            if(u.count(v))continue;\n            u.insert(v);\n            ans+=max(0, 1-l[v]-k);\n        }\n        return(ans);\n    }\n};",
+    "submit_ts": "1720277192",
+    "subm_id": "1311652025"
+}

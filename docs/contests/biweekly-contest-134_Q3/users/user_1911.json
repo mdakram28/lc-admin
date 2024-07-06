@@ -1,0 +1,6 @@
+{
+    "username": "micrb942",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>&color , int k) {\n       \n        bool hasSame = false;\n  vector<int> groups;\n        int previousColor = color[0];\n        int currentGroupSize = 1;\n       \n        for (int i = 1; i < color.size(); ++i) {\n            if (color[i] == previousColor) {\n                groups.push_back(currentGroupSize);\n                currentGroupSize = 1;\n                hasSame = true;\n            } else {\n                ++currentGroupSize;\n            }\n            previousColor = color[i];\n        }\n        groups.push_back(currentGroupSize);\n\n      \n        if (groups.size() == 1 && groups.front() == color.size() && color[0] != color.back() && !hasSame) {\n            return color.size();\n        }\nelse{\n        if (color[0] != color.back() && groups.size() > 1) {\n            int lastGroup = groups.back();\n            groups.pop_back();\n            groups.front() += lastGroup;\n        }\n\n        long long ans = 0;\n        for (int group : groups) {\n            ans+= max(0, group - (k - 1));\n        }\n\n        return static_cast<int>(ans);\n}\n    }\n};\n\n",
+    "submit_ts": "1720279673",
+    "subm_id": "1311760581"
+}

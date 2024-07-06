@@ -1,0 +1,6 @@
+{
+    "username": "Dhruv_dg",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& col, int k) {\n        int n = col.size();\n        vector<int> pre(n+1);\n        int st = 0;\n        for(int i = 1;i<n;i++){\n            if(col[i] != col[(i-1+n)%n]) st = i;\n            else{\n                if(st-k+2 >=0 ) pre[st-k+2]++;\n                else{\n                    pre[0]++;\n                    pre[st-k+2+n]++;\n                }\n                pre[i]--;\n            }\n        }\n        if(col[0]==col[n-1]){\n            pre[n-k+1]++;\n        }\n        int ans = 0;\n        if(pre[0]==0) ans++;\n        for(int i = 1;i<n;i++){\n            pre[i] += pre[i-1];\n            if(pre[i]==0) ans++;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280143",
+    "subm_id": "1311778489"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Gardenia",
+    "submission": "class Solution:\n    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:\n        n = len(colors)\n        if k > n:\n            return 0\n        colors = colors + colors\n        def findr(r, cur):\n            while r < n + k - 1:\n                if colors[r] != colors[r + 1]:\n                    r += 1\n                    cur += 1\n                else:\n                    return (r+1, 0)\n                if cur == k:\n                    return (r, 1)\n            return (n+1,0)\n        \n        ans = 0\n        l, r = 0, 0\n        cur = 1\n        while l < n:\n            while 1:\n                r, flag = findr(r, cur)\n                if flag:\n                    cur = k\n                    break\n                l = r\n                r = l\n                cur = 1\n                if l >= n:\n                    return ans\n            ans += 1\n            l += 1\n            cur -= 1\n\n        return ans",
+    "submit_ts": "1720277524",
+    "subm_id": "544557183"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "hxu10",
+    "submission": "M = 10**18 + random.randint(1,10**9)\npows = [1]\nfor _ in range(100001):\n    pows.append(pows[-1]*2%M)\n\n\nclass Solution(object):\n    def numberOfAlternatingGroups(self, colors, k):\n        \"\"\"\n        :type colors: List[int]\n        :type k: int\n        :rtype: int\n        \"\"\"\n        n = len(colors)\n        \n        colors = colors + colors[:k-1]\n        \n        t1, t2 = 0,0\n        \n\n        \n        for i in range(k):\n            t1 += (i%2) * pows[i]\n            t2 += (1-(i%2)) * pows[i]\n            \n            t1 %= M\n            t2 %= M\n            \n            \n        #print(t1,t2,n+k-1)\n            \n        \n        ans = 0\n            \n        curr = 0\n        \n        \n        for i in range(n+k-1):\n            curr *= 2\n            curr += colors[i]\n            \n            if i>=k:\n                curr -= colors[i-k] * pows[k]\n                \n            curr %= M\n            \n                \n\n                \n            if i+1>=k and curr in [t1,t2]:\n                ans += 1\n   #             print(i)\n                \n        return ans\n        \n            \n            \n        \n        \n        ",
+    "submit_ts": "1720277770",
+    "subm_id": "1311679179"
+}

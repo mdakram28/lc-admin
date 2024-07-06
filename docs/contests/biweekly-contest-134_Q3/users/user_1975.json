@@ -1,0 +1,6 @@
+{
+    "username": "shrikrishna100",
+    "submission": "class Solution {\n\n    bool check(vector<int>& colors, int i , int k){\n        if(i + k >= colors.size()) return false;\n        for(int j = 0; j < k; j++){\n            if(colors[i + j] == colors[i + j + 1]) return false;\n        }\n        return true;\n    }\n    \n    int solve(vector<int>&c, int k){\n        vector<int> g;\n        int l = c[0];\n        int cg = 1;\n        bool s = false;\n\n        for (int i = 1; i < c.size(); ++i) {\n            if (c[i] == l) {\n                g.push_back(cg);\n                cg = 1;\n                s = true;\n            } else {\n                cg++;\n            }\n            l = c[i];\n        }\n        g.push_back(cg);\n        if (g.size() == 1 && g[0] == c.size() && c[0] != c[c.size() - 1] && !s) {\n            return c.size();\n        }\n\n        if (c[0] != c[c.size() - 1] && g.size() > 1) {\n            int lg = g.back();\n            g.pop_back();\n            g[0] += lg;\n        }\n\n        long long r = 0;\n        for (int gr : g) {\n            r += max(0, gr - (k - 1));\n        }\n\n        return (int) r;\n    \n    }\n    \n    \n\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        return solve(colors, k);\n    }\n};",
+    "submit_ts": "1720280654",
+    "subm_id": "1311797319"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "huntermarchi17_03",
+    "submission": "class Solution {\n    fun numberOfAlternatingGroups(petals: IntArray, bouquet: Int): Int {\n        val groups = mutableListOf<Int>()\n        var lastPetals = petals[0]\n        var currentGroup = 1\n        var isSame = false\n        \n        for (i in 1 until petals.size) {\n            if (petals[i] == lastPetals) {\n                groups.add(currentGroup)\n                currentGroup = 1\n                isSame = true\n            } else {\n                currentGroup++\n            }\n            lastPetals = petals[i]\n        }\n        groups.add(currentGroup)\n        \n        if (groups.size == 1 && groups[0] == petals.size && petals[0] != petals[petals.size - 1] && !isSame) {\n            return petals.size\n        }\n        \n        if (petals[0] != petals[petals.size - 1] && groups.size > 1) {\n            val lastGroup = groups.removeAt(groups.size - 1)\n            groups[0] += lastGroup\n        }\n        \n        var result: Long = 0\n        for (group in groups) {\n            result += maxOf(0, group - (bouquet - 1))\n        }\n        \n        return result.toInt()\n    }\n}\n",
+    "submit_ts": "1720280922",
+    "subm_id": "1311806854"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Amit130",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int numGroups = 0;\n        int start = 0;\n        int end = 1;\n        int n = colors.size();\n        \n        while (end < n + k && start < n) {\n            end = findEndOfGroup(colors, start, end, n, k);\n            numGroups += calculateGroups(colors, start, end, k);\n            start = end;\n            end = start + 1;\n        }\n        \n        return numGroups;\n    }\n\n    int findEndOfGroup(vector<int>& colors, int start, int end, int n, int k) {\n        int tempEnd = end;\n        int currentEnd = tempEnd % n;\n        \n        while (colors[currentEnd] != colors[(currentEnd - 1 + n) % n] && tempEnd < n + k - 1) {\n            tempEnd++;\n            currentEnd = tempEnd % n;\n        }\n        \n        return tempEnd;\n    }\n\n    int calculateGroups(vector<int>& colors, int start, int end, int k) {\n        return max(end - start - k + 1, 0);\n    }\n};",
+    "submit_ts": "1720281159",
+    "subm_id": "1311815188"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Omesh_0112",
+    "submission": "class Solution {\npublic:\n    void solve(vector<int>& colors, int k, vector<int>& dp)\n    {\n        int n = colors.size();   \n        for (int i = 1; i < n; i++) \n        {\n            if (colors[i] != colors[i - 1])\n            {\n                dp[i] = dp[i - 1] + 1;\n            }\n        }\n        if(colors[0] != colors[n - 1])\n        {\n            dp[n] = dp[n - 1] + 1 ;\n        }\n        \n        for (int i = 1; i < n; ++i) \n        {\n            if (colors[i] != colors[i - 1]) \n            {\n                dp[i + n] = dp[i + n - 1] + 1 ;\n            }\n        }\n    }\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        if(n == 0 || k <= 0) \n        {\n            return 0;\n        }\n        vector<int> dp(4 * n, 1);\n        solve(colors, k, dp);\n        \n        int res = 0;\n        for (int i = 0; i <= n - 1; ++i) \n        {\n            if (dp[i + k - 1] - dp[i] + 1 == k) \n            {\n                res++;\n            }\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1720281530",
+    "subm_id": "1311828591"
+}

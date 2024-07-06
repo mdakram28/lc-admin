@@ -1,0 +1,6 @@
+{
+    "username": "SohamKanji",
+    "submission": "class Solution {\npublic:\n    int getPrefixSum(vector<int>& v, int l, int r) {\n        int sum = v[r];\n        if(l) {\n            sum -= v[l-1];\n        }\n        return sum;\n    }\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        vector<int> alterations(n, 0);\n        for(int i=0; i<n; i++) {\n            int nxt = (i+1)%n;\n            alterations[i] += (i ? alterations[i-1] : 0) + (colors[i]!=colors[nxt]);\n        }\n        int ans = 0;\n        for(int i = 0; i<=n-k; i++) {\n            if(getPrefixSum(alterations, i, i+k-2) == k-1) {\n                ans++;\n            }\n        }\n        for(int i=n-k+1; i<n; i++) {\n            int left = n-i;\n            int right = k - left;\n            int total = getPrefixSum(alterations, i, n-1) + ((right-2>=0) ? getPrefixSum(alterations, 0, right-2) : 0);\n            if(total == k-1) {\n                ans++;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278251",
+    "subm_id": "1311701055"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "derack180",
+    "submission": "class Solution {\n    public int numberOfAlternatingGroups(int[] colors, int k) {\n        int n = colors.length;\n        int count = 0;\n        \n        int alt = countInitialAlternatingPairs(colors, k, n);\n        \n        if (alt == k - 1) {\n            count++;\n        }\n        \n        for (int i = 1; i < n; ++i) {\n            alt = updateAlternatingPairs(colors, alt, i - 1, i, i + k - 2, i + k - 1, n);\n            \n            if (alt == k - 1) {\n                count++;\n            }\n        }\n        \n        return count;\n    }\n    \n    private int countInitialAlternatingPairs(int[] colors, int k, int n) {\n        int alt = 0;\n        for (int j = 0; j < k - 1; ++j) {\n            alt += areDifferent(colors, j, j + 1, n);\n        }\n        return alt;\n    }\n    \n    private int updateAlternatingPairs(int[] colors, int cp, int prevLeft, int pr, int nl, int nr, int n) {\n        cp -= areDifferent(colors, prevLeft, pr, n);\n        cp += areDifferent(colors, nl, nr, n);\n        return cp;\n    }\n    \n    private int areDifferent(int[] colors, int a, int b, int n) {\n        return colors[a % n] != colors[b % n] ? 1 : 0;\n    }\n}\n",
+    "submit_ts": "1720279151",
+    "subm_id": "1311739559"
+}

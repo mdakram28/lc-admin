@@ -1,0 +1,6 @@
+{
+    "username": "peaceful-meitnerfdp",
+    "submission": "def g(x):\n    return ''.join([str(j) for j in x])\ndef prefix_function(s):\n    n = len(s)\n    pi = [0] * n\n    for i in range(1, n):\n        j = pi[i - 1]\n        while j > 0 and s[i] != s[j]:\n            j = pi[j - 1]\n        if s[i] == s[j]:\n            j += 1\n        pi[i] = j\n    return pi\n\ndef f(t, s): # s\u5728t\u4e2d\n    cur = s + '#' + t\n    sz1, sz2 = len(t), len(s)\n    ret = []\n    lps = prefix_function(cur)\n    for i in range(sz2 + 1, sz1 + sz2 + 1):\n        if lps[i] == sz2:\n            ret.append(i - 2 * sz2)\n    return ret\nclass Solution:\n    def numberOfAlternatingGroups(self, a: List[int], k: int) -> int:\n        b = [0]*k \n        c = [0]*k \n        for j in range(k):\n            if j%2:\n                b[j] = 1 \n                c[j] = 0 \n            else:\n                b[j] = 0 \n                c[j] = 1 \n        d = a + a[:(k-1)]\n        d = g(d)\n        b = g(b)\n        c = g(c)\n        return len(f(d, b)) + len(f(d, c))\n",
+    "submit_ts": "1720276989",
+    "subm_id": "544553690"
+}

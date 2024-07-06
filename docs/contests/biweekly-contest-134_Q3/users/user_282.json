@@ -1,0 +1,6 @@
+{
+    "username": "nobodytk11",
+    "submission": "class Solution {\npublic:\n    static const int N = 1e5 + 5; \n    \n    int a[2 * N]; \n    \n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();  \n        for (int i = 1; i <= n; i++) a[i] = colors[i - 1], a[i + n] = a[i]; \n        \n        vector<int> pref(2 * n + 1, 0); \n        pref[0] = 0;  \n        pref[1] = 0;  \n        for (int i = 2; i <= 2 * n; i++) pref[i] = pref[i - 1] + (a[i] != a[i - 1]); \n        \n        int ans = 0;  \n        for (int i = 1; i <= n; i++) {\n            int j = i + k - 1;   \n            int sum = pref[j] - pref[i]; \n            ans += (sum == k - 1); \n        }\n        \n        return ans; \n    }\n};",
+    "submit_ts": "1720277735",
+    "subm_id": "1311677617"
+}

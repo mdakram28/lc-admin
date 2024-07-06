@@ -1,0 +1,6 @@
+{
+    "username": "socrates1232",
+    "submission": "class Solution {\n    int n;\n    int pre(int x) {\n        if(x == 0) {\n            return n - 1;\n        } else {\n            return x - 1;\n        }\n    }\n    int next(int x) {\n        if(x == n - 1) {\n            return 0;\n        } else {\n            return x + 1;\n        }\n    }\n    public int numberOfAlternatingGroups(int[] colors, int k) {\n        n = colors.length;\n        int ans = 0;\n        boolean chk = false;\n        boolean[] vis = new boolean[n];\n        int i = 0;\n        while(true) {\n            int j = next(i);\n            int length = 1;\n            while(j != i && colors[j] != colors[pre(j)]) {\n                j = next(j);\n                length ++;\n            }\n            if(j == i && colors[j] != colors[pre(j)]) {\n                return n;\n            }\n            if(!chk) {\n                chk = true;\n                i = j;\n                continue;\n            }\n            if(vis[i]) {\n                break;\n            }\n            vis[i] = true;\n            //System.out.println(i + \" \" + length);\n            ans += Math.max(0, length - k + 1);\n            \n            i = j;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720278118",
+    "subm_id": "544560790"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "mhmakelvin",
+    "submission": "template<typename T>\nclass sparseTable {\n  public:\n    sparseTable(vector<T>& a) {\n      n = a.size();\n      tab.push_back(a);\n      for (int i = 1; 1 <= (n >> i); i++) {\n        vector<T> v;\n        for (int j = 0; j + (1 << i) <= n; j++) {\n          v.push_back(op(tab[i-1][j], tab[i-1][j + (1 << (i-1))]));\n        }\n        tab.push_back(v);\n      }\n    }\n\n    T query(int l, int r) {\n      if (l > r) swap(l, r);\n      int len = r - l + 1;\n      int k = lg(len);\n      if ((1 << k) == len) return tab[k][l];\n\n      return op(tab[k][l], tab[k][r+1-(1 << k)]);\n    }\n\n  private:\n    int n;\n    vector<vector<T>> tab;\n\n    T op(T a, T b) {\n      return a & b;\n    }\n\n    int lg(int n) {\n      return bit_width((unsigned long long) n) - 1;\n    }\n\n};\n\n\nclass Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        \n        vector<bool> arr;\n        for (int i = 1; i < 2 * n; i++) {\n            arr.push_back(colors[i%n] != colors[(i-1)%n]);\n        }\n        \n        sparseTable<bool> st(arr);\n        int res = 0;\n        for (int i = 0; i < n; i++) {\n            res += st.query(i,i+k-2);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720277317",
+    "subm_id": "1311658024"
+}

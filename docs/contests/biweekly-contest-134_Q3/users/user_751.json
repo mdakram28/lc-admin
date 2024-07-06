@@ -1,0 +1,6 @@
+{
+    "username": "xyzabcdef",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& c, int k) {\n        int n = c.size();\n        vector<bool>ok(n, 0);\n        for(int i = 0; i < n; i++){\n            ok[i] = (c[i] != (c[(i+1)%n]));\n        }\n        vector<int>pref(n, 0);\n        pref[0] = ok[0];\n        for(int i = 1; i < n; i++){\n            pref[i] = (pref[i-1] + ok[i]);\n        }\n        for(auto i: pref)cout<<i<<\" \";cout<<'\\n';\n        int ans = 0;\n        auto get_sum = [&](int l, int r) -> int{\n            return pref[r] - (l == 0 ? 0 : pref[l-1]);\n        };\n        auto fun = [&](int l, int r){\n            if(r > (n-1)){\n                return get_sum(l, n-1) + get_sum(0, r%n);\n            }\n            return get_sum(l, r);\n        };\n        for(int i = 0; i < n; i++){\n            int sum = fun(i, i+k-2);\n            ans += sum == k-1;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277015",
+    "subm_id": "1311643679"
+}

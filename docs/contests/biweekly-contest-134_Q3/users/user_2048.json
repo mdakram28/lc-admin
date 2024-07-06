@@ -1,0 +1,6 @@
+{
+    "username": "vaibhav2740",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& v, int k) {\n        int n = v.size();\n        bool f = 1;\n        for(int i=0;i<n;i++){\n            if(v[i]==v[(i-1+n)%n]||v[i]==v[(i+1)%n]) f=0;\n        }\n        if(f) return n;\n        vector<int>ct; int val=0;\n        for(int i=0;i<n;i++){\n            if(v[i]!=v[(i-1+n)%n]&&v[i]!=v[(i+1)%n]) val++;\n            else {\n                ct.push_back(val); val=0;\n            }\n        }\n        if(val!=0) ct.push_back(val);\n        int m = ct.size();\n        if(ct[0]!=0&&ct[m-1]!=0&&m!=1) {\n            ct[0]+=ct[m-1]; ct.pop_back();\n        }\n        m=ct.size();\n        int ans = 0;\n        for(int x:ct) cout<<x<<\" \"<<'\\n';\n        for(int i=0;i<m;i++){\n            if(ct[i]==k-2) ans++;\n            if(ct[i]==k-1) ans+=2;\n            if(ct[i]>=k) ans+=ct[i]-k+3;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280012",
+    "subm_id": "1311773725"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Ma_Lin",
+    "submission": "class Solution {\npublic:\n    int S[100005];\n    \n    bool yes(int x, int y){\n        int s = S[y];\n        if (x - 1 >= 0) s -= S[x - 1];\n        return s == y - x + 1;\n    }\n    \n    int numberOfAlternatingGroups(vector<int>& a, int K) {\n        int f[100005], i, j, res = 0, l, r, n = a.size();\n        for (i = 0; i < n; ++i){\n            l = i - 1;\n            if (l < 0) l += n;\n            r = i + 1;\n            if (r >= n) r -= n;\n            if (a[i] != a[l] && a[i] != a[r]) f[i] = 1;\n            else f[i] = 0;\n        }\n        \n        S[0] = f[0];\n        for (i = 1; i < n; ++i) S[i] = S[i - 1] + f[i];\n        for (i = 0; i < n; ++i){\n            l = i + 1;\n            if (l >= n) l -= n;\n            r = i + (K - 2);\n            if (r >= n) r -= n;\n            if (l <= r && yes(l, r)) ++res;\n            if (l > r && yes(l, n - 1) && yes(0, r)) ++res;\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": "1720276635",
+    "subm_id": "1311624936"
+}

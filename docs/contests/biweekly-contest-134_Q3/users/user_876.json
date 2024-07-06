@@ -1,0 +1,6 @@
+{
+    "username": "Devansh_Sengar",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n#define pb push_back\n#define ff first\n#define ss second\n#define pii pair<int, int>\n#define ll long long int\n#define vll vector<ll>\n#define all(c) c.begin(), c.end()\nconst long long mod = 1e9 + 7;\n\nclass Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& c, int k) {\n        int n = c.size();\n\n        int cnt = 0;\n        vll pre(n, 0);\n\n        for (int l = 1; l < n; l++) {\n            pre[l] += (c[l] != c[l - 1]) + pre[l - 1];\n        }\n\n        for (int r = k-1; r < n; r++) {\n            if(pre[r] - pre[r - k + 1] == k-1)\n                cnt++;\n        }\n\n        vector<int> c1 = c;\n        for(int i = 0; i < k-1; i++) \n            c1.push_back(c[i]);\n\n        for (int l = n; l < c1.size(); l++) \n            pre.push_back((c1[l] != c1[l - 1]) + pre[l - 1]);\n\n        for (int r = n; r < c1.size(); r++) {\n            if(pre[r] - pre[r - k + 1] == k-1)\n                cnt++;\n        }\n        return cnt;\n    }\n};\n",
+    "submit_ts": "1720278850",
+    "subm_id": "1311726920"
+}

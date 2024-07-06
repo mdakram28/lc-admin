@@ -1,0 +1,6 @@
+{
+    "username": "wixton",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& ar, int k) {\n        int n = ar.size();\n        vector<int> pr(n);\n        for(int i = 1; i < n; i++) {\n            pr[i] += pr[i-1] + (ar[i] != ar[i-1]);\n        }\n        // if(k == n) {\n        //     if(pr.back() == n-1) return 1;\n        //     return 0;\n        // }\n        int res = 0;\n        for(int i = 0; i < n; i++) {\n            if(i + k - 1 < n) {\n                int t = pr[i + k - 1] - pr[i];\n                if(t == k-1) {\n                    res++;\n                    // cout << i << \" \";\n                }\n            }\n            else {\n                int t = pr.back() - pr[i] + (ar.back() != ar[0]);\n                int how = (i + k) - n;\n                t += pr[how - 1];\n                // cout << i << \" \" << (pr.back() - pr[i]) << \" \" << (ar.back() != ar[0]) << \" \" << how << \" \" << pr[how-1] << endl;\n                \n                if(t == k-1) res++;\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720277947",
+    "subm_id": "1311687392"
+}

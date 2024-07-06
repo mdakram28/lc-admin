@@ -1,0 +1,6 @@
+{
+    "username": "CoderVinit28",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& clrs, int k) {\n        int n = clrs.size();\n        int prefix[n];\n        int cnt = 0;\n        \n        memset(prefix, 0, sizeof(prefix));\n        prefix[0] = 1;\n        for(int i=1; i<n; i++){\n            prefix[i] = prefix[i-1] + (clrs[i] == clrs[i-1]? 0 : 1);\n        }\n        \n        for(int idx=0; idx<n; idx++){\n            if( (idx+k-1) < n ){\n                int end = idx+k-1;\n                int sum = prefix[end] - prefix[idx];\n                cnt += (sum == (k-1));\n            } else{\n                int start1= idx;\n                int end1 = n-1;\n                int start2 = 0;\n                int end2 = k - (end1-start1+1) - 1;\n                int a = (end1 - start1);\n                int b = (end2 - start2);\n                \n                int sum1 = prefix[end1] - prefix[start1];\n                int sum2 = prefix[end2] - prefix[start2];\n                cnt += (sum1 == a && sum2 == b && clrs[end1] != clrs[start2]);\n            }\n        }\n        return cnt;\n    }\n};",
+    "submit_ts": "1720277907",
+    "subm_id": "1311685554"
+}

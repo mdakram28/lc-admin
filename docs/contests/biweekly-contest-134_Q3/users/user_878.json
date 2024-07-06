@@ -1,0 +1,6 @@
+{
+    "username": "SimpleSheep03",
+    "submission": "#include <ext/pb_ds/assoc_container.hpp>\n\nusing namespace __gnu_pbds;\ntemplate<typename T>\nusing ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, \ntree_order_statistics_node_update>;\n\nclass Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& v, int k) {\n        int n = v.size();\n        vector<int> st;\n        st.push_back(0);\n        for(int i = 0 ; i < n ; i ++){\n            v.push_back(v[i]);\n        }\n        for(int i = 1 ; i < 2 * n ; i ++){\n            if(v[i] != v[i - 1]){\n                st.push_back(i);\n            }\n        }\n        int ans = 0;\n        if(lower_bound(st.begin() , st.end() , k) - st.begin() == k){\n            ans ++;\n        }\n        for(auto &c : v) cout << c << \" \" ; cout << endl;\n        for(int i = 1 ; i < n ; i ++){\n            int num = lower_bound(st.begin() , st.end() , i + k) - lower_bound(st.begin() , st.end() , i);\n            if(v[i] == v[i - 1] && v[i] != v[i + 1]){\n                num ++;\n            }\n            // cout << i << \" -> \" << num << endl;\n            if(num == k){\n                ans ++;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278785",
+    "subm_id": "1311724107"
+}

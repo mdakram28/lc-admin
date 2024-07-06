@@ -1,0 +1,6 @@
+{
+    "username": "vrangr",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& cols, int k) {\n        int n = cols.size();\n        vector<bool> alt(n,false);\n        for (int i = 0; i < n; ++i) {\n            if (!i) {\n                alt[i] = (cols[0] != cols[1] && cols[0] != cols.back());\n                continue;\n            }\n            if (i == n-1) {\n                alt[i] = (cols[n-1] != cols[0] && cols[n-1] != cols[n-2]);\n                continue;\n            }\n            alt[i] = (cols[i] != cols[i+1] && cols[i] != cols[i-1]);\n        }\n        int ct = 0, sol = 0;\n        for (int i = 1; i < k-1; ++i) ct += alt[i];\n        sol += (ct==k-2);\n        for (int i = k; i < n; ++i) {\n            ct -= alt[i-k+1];\n            ct += alt[i-1];\n            sol += (ct==k-2);\n        }\n        for (int i = 0; i < k-1; ++i) {\n            int ind = (i-k+1+n)%n;\n            ct -= alt[ind];\n            ct += alt[(i-1+n)%n];\n            sol += (ct==k-2);\n        }\n        return sol;\n    }\n};",
+    "submit_ts": "1720277009",
+    "subm_id": "1311643406"
+}

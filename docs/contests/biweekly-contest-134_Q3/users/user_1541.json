@@ -1,0 +1,6 @@
+{
+    "username": "zenmaaan003",
+    "submission": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        int count = 0;\n        \n        // Edge case: if k is greater than the size of colors, return 0\n        if (k > n) return 0;\n        \n        int start = 0;\n        int end = start + k - 1;\n        \n        // Check all k-length segments in a circular manner\n        for (int i = 1; i < n + k-1; ++i) {\n            // Calculate the current index in a circular manner\n            int currIdx = i % n;\n            int prevIdx = (i - 1) % n;\n            \n            // Check if the segment starting at 'start' forms a valid alternating group\n            if (colors[currIdx] == colors[prevIdx]) {\n                start = currIdx; // Move start to the next possible position\n                end = (start + k - 1) % n;\n            }\n            // cout<<start<<\" \"<<end<<endl;\n            // Check if we have a complete group of length k\n            if ((i % n) == end) {\n                count++;\n                start++;\n                end = (start + k - 1) % n;\n            }\n        }\n        \n        return count;\n    }\n};\n",
+    "submit_ts": "1720279937",
+    "subm_id": "1311770958"
+}

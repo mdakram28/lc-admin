@@ -1,0 +1,6 @@
+{
+    "username": "aadritoD",
+    "submission": "class Solution {\npublic:\n\n    int calc(vector<int>& alt, int start, int end) {\n        assert(end >= start);\n        if (start == 0 && end == 0) {\n            return 0;\n        }\n        if (start == 0) return alt[end - 1];\n        return alt[end - 1] - alt[start - 1];\n    }\n\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        k--;\n        vector<int> alt(colors.size(), 0);\n        for (int i = 0; i < colors.size(); i++) {\n            int next = (i + 1) % colors.size();\n            alt[i] = colors[next] != colors[i];\n        }\n        for (int i = 1; i < colors.size(); i++) {\n            alt[i] += alt[i - 1];\n        }\n        int ans = 0;\n\n        for (int start1 = 0; start1 < alt.size(); start1++) {\n            int end1 = start1 + k;\n            int start2 = 0;\n            int end2 = start2;\n            if (end1 > alt.size()) {\n                end2 = end1 % alt.size();\n                end1 = alt.size();\n            }\n            if (calc(alt, start1, end1) + calc(alt, start2, end2) == k) {\n                ans++;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277540",
+    "subm_id": "1311668528"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "anikayt",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        int ans = 0;\n        vector<int> arr;\n        for(int i=0; i<n-1; i++){\n            if(colors[i] == colors[i+1]){\n                arr.push_back(i);\n            }\n        }\n        if(arr.empty()){\n            ans += n-k+1;\n            if(colors[n-1] != colors[0]){\n                ans += k-1;\n            }\n            return ans;\n        }\n        for(int i=1; i<arr.size(); i++){\n            int sz = arr[i]-arr[i-1];\n            ans += max(0, sz-k+1);\n        }\n        int m = arr.size();\n        if(colors[n-1] != colors[0]){\n            int sz = arr[0]+1+n-arr[m-1];\n            ans += max(0, sz-k);\n        }else{\n            int sz1 = arr[0]+1;\n            ans += max(0, sz1-k+1);\n            ans += max(0, n-arr[m-1]-k);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720279095",
+    "subm_id": "1311737185"
+}

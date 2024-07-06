@@ -1,0 +1,6 @@
+{
+    "username": "Deadrohan19",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& v, int k) {\n        int n= v.size();\n        vector<int> DP(n, 1);\n\n        for(int i=1;i<n;++i){\n            if(v[i-1]!=v[i]){\n                DP[i]=DP[i-1]+1;\n            }\n        }\n        int ans =0;\n        int idx =0;\n        bool flag = false;\n        for(auto i: DP)\n        cout<<i<<\" \";\n        cout<<\"\\n\";\n        \n        if(v[0]!=v[n-1]){\n            flag = true;\n            idx++;\n            while(idx<n && DP[idx]>DP[idx-1]){\n                idx++;\n            }\n            ans += max(0, DP[n-1]+idx-k+1);\n            cout<<ans<<\" \";\n        }\n        int offset = 1;\n        if(flag){\n            offset = DP[n-1];\n        }\n        for(int i=idx+1;i<=n-offset;++i){\n            if(DP[i-1]>=DP[i]){\n                ans += max(0, DP[i-1]-k+1);\n            }\n            cout<<ans<<\" \";\n        }\n        ans += max(0, DP[n-offset]-k+1);\n        return min(n,ans);\n    }\n};",
+    "submit_ts": "1720279189",
+    "subm_id": "1311741183"
+}

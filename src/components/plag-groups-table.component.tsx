@@ -35,7 +35,7 @@ const GroupComponent = ({ groupId, group, sortBy }: {
 
         return sortedGroup.map((user, userIdx) =>
             <tr key={user.fileId}
-                className={`group-item 
+                className={`group-item clickable
                             ${selectedFileId === user.fileId && 'selected'}
                             ${neighbours[user.fileId] && 'dist1'}`}
                 onClick={() => setSelectedFileId(user.fileId)} tabIndex={0}>

@@ -1,0 +1,6 @@
+{
+    "username": "ciphercraft",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& arr, int k) {\n        int n = size(arr), res = 0, alt = 0, i = 0;\n        function<int(int, int)> solve2 = [&](int start, int end) -> int {\n            int count = 0;\n            for (int i = start; i < end; ++i) {\n                count += (arr[i] != arr[i + 1]) ? 1 : 0;\n            }\n            return count;\n        };\n        function<void(int, int&)> solve = [&](int idx, int& alt) {\n            if (arr[(idx - k) % n] != arr[(idx - k + 1) % n]) alt--;\n            if (arr[(idx - 1) % n] != arr[idx % n]) alt++;\n        };\n\n        alt = solve2(0, k - 1);\n        if (alt + 1 == k) res++;\n        for (i = k; i - n - k + 1 < 0; ++i) {\n            solve(i, alt);\n            res += (alt != k - 1) ? 0 : 1;\n        }\n\n        return res;\n    }\n};\n",
+    "submit_ts": "1720280464",
+    "subm_id": "1311790363"
+}

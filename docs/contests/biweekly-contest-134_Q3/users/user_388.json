@@ -1,0 +1,6 @@
+{
+    "username": "code__coder",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        set<int> st;\n        for(int i = 0 ; i < n ; ++i){\n            if(i == 0){\n                if(colors[n - 1] == colors[0]){\n                    st.insert(i);\n                }\n            }\n            else{\n                if(colors[i - 1] == colors[i]){\n                    st.insert(i);\n                }\n            }\n        }\n        if(st.empty()){\n            return n;\n        }\n        int ans = 0;\n        for(int i = 0 ; i < n ; ++i){\n            auto nxt = st.upper_bound(i);\n            if(nxt != st.end()){\n                if((*nxt) - i >= k)++ans;\n                continue;\n            }\n            int cur = n - i + min(i , *st.begin());\n            if(cur >= k)++ans;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720276957",
+    "subm_id": "1311640947"
+}

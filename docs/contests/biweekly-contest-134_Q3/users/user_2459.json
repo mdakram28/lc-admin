@@ -1,0 +1,6 @@
+{
+    "username": "Atul4roy",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        int count = 0;\n        \n        // Calculate alternating groups for the first k-1 segment\n        int first_group_count = 0;\n        for (int i = 1; i < k; ++i) {\n            if (colors[i - 1] != colors[i]) {\n                first_group_count++;\n            }\n        }\n        \n        // Count total alternating groups\n        if (first_group_count == k - 1) {\n            count++;\n        }\n        \n        // Slide window to count alternating groups\n        for (int i = 1; i < n; ++i) {\n            int left = i;\n            int right = (i + k - 1) % n;\n            \n            // Adjust for left side of the window\n            if (colors[left] != colors[(left - 1 + n) % n]) {\n                first_group_count--;\n            }\n            if (colors[(left + k - 2) % n] != colors[right]) {\n                first_group_count++;\n            }\n            \n            // Check if the current window is a valid alternating group\n            if (first_group_count == k - 1) {\n                count++;\n            }\n        }\n        \n        return count;\n    }\n};\n",
+    "submit_ts": "1720279772",
+    "subm_id": "1311764467"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "ajingo",
+    "submission": "template<typename T>\nstruct Fenwick {\n  int n;\n  vector<T> tree;\n  Fenwick(int n) : n(n), tree(n) {}\n  \n  void add(int x, T v) {\n    for (int i = x + 1; i <= n; i += i & -i) {\n      tree[i - 1] += v;\n    }\n  }\n\n  // [0, x)\n  T query(int x) {\n    T ans{};\n    for (int i = x; i > 0; i -= i & -i) {\n      ans += tree[i - 1];\n    }\n    return ans;\n  }\n\n  // [l, r)\n  T range(int l, int r) {\n    return query(r) - query(l);\n  }\n};\n\n\nclass Solution {\npublic:\n  int numberOfAlternatingGroups(vector<int>& colors, int k) {\n    int n = colors.size();\n    vector<int> nums(2 * n);\n    for (int i = 0; i < 2 * n; i++) {\n      nums[i] = colors[i % n];\n    }\n    int ans = 0;\n    int beg = 0;\n    while (beg < n) {\n      int end = beg;\n      while (end + 1 < n + k - 1 && nums[end + 1] != nums[end]) {\n        end += 1;\n      }\n      int len = end - beg + 1;\n      if (len >= k) {\n        ans += len - k + 1;\n      }\n      beg = end + 1;\n    }\n    return ans;\n  }\n};",
+    "submit_ts": "1720279565",
+    "subm_id": "544568028"
+}

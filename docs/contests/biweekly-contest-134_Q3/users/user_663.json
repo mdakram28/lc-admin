@@ -1,0 +1,6 @@
+{
+    "username": "sheldon-29",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        \n        vector<int>v(2*n,0);\n        for(int i = 0;i<n;i++){\n            v[i] = colors[i];\n        }\n        for(int i = n;i<2*n;i++){\n            v[i] = colors[i%n];\n        }\n        vector<int>presum(2*n+1,0);\n        presum[1] = 1;\n        for(int i = 1;i<2*n-1;i++){\n            if(v[i] == v[i-1] || v[i] == v[i+1]){\n                presum[i+1] = presum[i];\n            }else{\n                presum[i+1] = presum[i]+1;\n            }\n        }\n        int ans = 0;\n        for(int i = k-1;i<n+k-1;i++){\n            //[i-k+1,i]\n            //[i-k+1+1,i-1]\n            int s = presum[i]-presum[i-k+2];\n            if(s == k-2){\n                ans++;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277768",
+    "subm_id": "544558658"
+}

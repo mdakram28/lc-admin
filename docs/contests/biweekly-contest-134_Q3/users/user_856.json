@@ -1,0 +1,6 @@
+{
+    "username": "aryangarg0729",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        deque<pair<int,bool>>q;\n        int count = 1;\n        q.push_back({colors[0],true});\n        for(int i = 1;i<k;i++){\n            q.push_back({colors[i],(colors[i]!=q.back().first)});\n            count+=q.back().second;\n        }\n        \n        int ans = 0;\n        if(count==k)ans++;\n        for(int i = 1;i<colors.size();i++){\n            auto p = q.front();\n            q.pop_front();\n            count-=p.second;\n            \n            p = q.front();\n            q.pop_front();\n            count-=p.second;\n            q.push_front({p.first,true});\n            count++;\n            \n            q.push_back({colors[(i+k-1)%colors.size()],(colors[(i+k-1)%colors.size()]!=q.back().first)});\n            count+=q.back().second;\n            ans+=(count==k);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278074",
+    "subm_id": "1311693163"
+}

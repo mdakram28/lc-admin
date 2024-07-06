@@ -1,0 +1,6 @@
+{
+    "username": "youx",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        const int n = colors.size();\n        \n        if (n == 3){\n            if (colors[0] == colors[1] && colors[1] == colors[2])\n                return 0;\n            return 1;\n        }\n        \n        queue<int> q;\n        int cnt = 0;\n        int sol = 0;\n        \n        q.push(colors[n-k+1]);\n        \n        for (int i=n-k+2;i<=n;i++){\n            if (colors[i%n] == colors[(i+n-1)%n])\n                cnt++;\n            q.push(colors[i%n]);\n        }\n        \n        sol = !cnt;\n        \n        for (int i=1;i<n;i++){\n            if (colors[i] == q.back()){\n                cnt++;\n            }\n            q.push(colors[i]);\n            \n            const int del = q.front();\n            q.pop();\n            \n            if (del == q.front())\n                cnt--;\n            \n            sol += !cnt;\n        }\n        \n        return sol;\n    }\n};",
+    "submit_ts": "1720277899",
+    "subm_id": "1311685177"
+}

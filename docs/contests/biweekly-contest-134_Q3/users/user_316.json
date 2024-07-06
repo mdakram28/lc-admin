@@ -1,0 +1,6 @@
+{
+    "username": "singh_deopa",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = (int) colors.size();\n        int res = 0;\n        vector<int> pre(n);\n\n        for (int i = 0; i < n; i++) {\n            int l = (i - 1 + n) % n;\n            int r = (i + 1) % n;\n\n            if (colors[l] != colors[r] || colors[l] == colors[i]) {\n                pre[i] = i;\n            }\n            else if (i) {\n                pre[i] = pre[i - 1];\n            }\n            else {\n                pre[i] = -1;\n            }\n        }\n\n        // for (int& i: pre) cout << i << \" \";\n        // cout << \"\\n\";\n\n        for (int i = 0; i < n; i++) {\n            int j = (i + k - 1) % n;\n\n            if (j > i) {\n                assert(j > 0);\n\n                if (pre[j - 1] <= i) {\n                    res++;\n                }\n            }\n            else if ((i == n - 1 || pre[n - 1] <= i) && (j == 0 || pre[j - 1] < 0)) {\n                res++;\n            }\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1720277382",
+    "subm_id": "1311661105"
+}

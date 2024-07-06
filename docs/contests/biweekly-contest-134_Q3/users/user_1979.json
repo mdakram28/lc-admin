@@ -1,0 +1,6 @@
+{
+    "username": "yuno1310",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int sizeans = colors.size();\n        colors.insert(colors.end(), colors.begin(), colors.end());   \n        unordered_map<int, bool> mp; \n\n        function<bool(int)> solve = [&](int b) -> bool {\n            if (mp.find(b) != mp.end()) {\n                return mp[b];\n            }\n            \n            if (b > 0 && solve(b - 1)) {\n                bool ok = colors[b + k - 1] != colors[b + k - 2];\n                mp[b] = ok;\n                return ok;\n            }\n            \n            for (int i = b; i < b + k - 1; ++i) {\n                if (colors[i] == colors[i + 1]) {\n                    mp[b] = false;\n                    return false;\n                }\n            }\n            \n            mp[b] = true;\n            return true;\n        };\n\n        int ans = 0;\n        for (int i = 0; i < sizeans; ++i) {\n            if (solve(i)) {\n                ans++;\n            }\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720281164",
+    "subm_id": "1311815359"
+}

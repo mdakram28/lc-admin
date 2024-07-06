@@ -1,0 +1,6 @@
+{
+    "username": "unknown_ajay",
+    "submission": "int f(vector<int> &v,int k,int cur)\n{\n    int n = v.size();\n    set<int> bad;\n    int i = 0;\n    while(i<k-1)\n    {\n        if( v[i] != cur ) bad.insert(i);\n        i++;\n        cur^=1;\n    }\n    \n    int ans = 0;\n    do\n    {\n        i%=n;\n        \n        if( v[i] != cur ) bad.insert(i);\n        // window of size k\n        ans += (bad.size() == 0);\n        \n        int prev = (i - (k-1) + n) %n;\n        if( bad.find(prev) != bad.end() ) bad.erase(prev);\n        cur ^= 1;\n        i++;\n        \n    }while(i != k-1);\n    \n    return ans;\n}\n\nclass Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& v, int k) {\n        int n = v.size();\n        \n        int ans = 0;\n        ans += f(v,k,1);\n        ans += f(v,k,0);\n        \n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720277742",
+    "subm_id": "1311677918"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "ismailfateen",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        map<int, int> mods_red, mods_blue;\n        for (int i = 0; i < k - 1; ++i) colors.push_back(colors[i]);\n        for (int i = 0; i < k; ++i) {\n            if (colors[i] == 1) mods_red[i & 1]++;\n            else mods_blue[i & 1]++;\n        }\n        auto check = [&]() -> bool {\n            // 1 0\n            int count_red = mods_red[1], count_blue = mods_blue[0];\n            if (abs(count_red - count_blue) <= 1 && count_red + count_blue == k) return true;\n            count_red = mods_red[0], count_blue = mods_blue[1];\n            if (abs(count_red - count_blue) <= 1 && count_red + count_blue == k) return true;\n            return false; \n        };\n        int ans = check();\n        for (int i = k; i < colors.size(); ++i) {\n            if (colors[i - k] == 1) mods_red[(i - k) & 1]--;\n            else mods_blue[(i - k) & 1]--;\n            if (colors[i] == 1) mods_red[i & 1]++;\n            else mods_blue[i & 1]++;\n            ans += check();\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720276976",
+    "subm_id": "1311641869"
+}

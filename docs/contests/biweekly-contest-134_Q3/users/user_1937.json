@@ -1,0 +1,6 @@
+{
+    "username": "Debmalya_Kuila",
+    "submission": "class Solution {\n    public int numberOfAlternatingGroups(int[] petals, int bouquet) {\n        // Initialize variables\n        List<Integer> groups = new ArrayList<>();\n        int lastPetals = petals[0];\n        int currentGroup = 1;\n        boolean isSame = false;\n        \n        for (int i = 1; i < petals.length; i++) {\n            if (petals[i] == lastPetals) {\n                groups.add(currentGroup);\n                currentGroup = 1;\n                isSame = true;\n            } else {\n                currentGroup++;\n            }\n            lastPetals = petals[i];\n        }\n        groups.add(currentGroup);\n\n        if (groups.size() == 1 && groups.get(0) == petals.length && petals[0] != petals[petals.length - 1] && !isSame) {\n            return petals.length;\n        }\n        \n        if (petals[0] != petals[petals.length - 1] && groups.size() > 1) {\n            int lastGroup = groups.remove(groups.size() - 1);\n            groups.set(0, groups.get(0) + lastGroup);\n        }\n        \n        long res = 0;\n        for (int group : groups) {\n            res += Math.max(0, group - (bouquet - 1));\n        }\n        \n        return (int) res;\n    }\n}\n",
+    "submit_ts": "1720281509",
+    "subm_id": "1311827795"
+}

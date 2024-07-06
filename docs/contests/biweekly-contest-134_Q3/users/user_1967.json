@@ -1,0 +1,6 @@
+{
+    "username": "Bhanu_pranav",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n     int N = colors.size();\n        vector<int> doubledColors = colors;\n        doubledColors.insert(doubledColors.end(), colors.begin(), colors.end());\n        \n        unordered_map<int, bool> memo;\n\n        auto is_alternate = [&](int b) -> bool {\n            if (b > 0 && memo.find(b - 1) != memo.end() && memo[b - 1]) {\n                return memo[b] = doubledColors[b + k - 1] != doubledColors[b + k - 2];\n            }\n            for (int i = b; i < b + k - 1; ++i) {\n                if (doubledColors[i] == doubledColors[i + 1]) {\n                    return memo[b] = false;\n                }\n            }\n            return memo[b] = true;\n        };\n\n        int ans = 0;\n        for (int i = 0; i < N; ++i) {\n            if (is_alternate(i)) {\n                ans++;\n            }\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720280577",
+    "subm_id": "1311794560"
+}

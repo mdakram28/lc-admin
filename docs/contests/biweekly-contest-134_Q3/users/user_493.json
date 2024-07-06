@@ -1,0 +1,6 @@
+{
+    "username": "cactus_epic",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        for (int i = 0; i < n; ++i)\n            colors.push_back(colors[i]);\n        \n        int ans = 0;\n        int cnt = 0;\n        for (int i = 1; i < k; ++i) {\n            cnt += (colors[i] ^ colors[i - 1]);\n        }\n\n        /*\n        if (n == k) {\n            for (int i = 1; i < n && cnt != k - 1; ++i) {\n                cnt -= (colors[i] ^ colors[i - 1]);\n                cnt += (colors[i + k - 1] ^ colors[i + k - 2]);\n            }\n            if (cnt == k - 1) ans = 1;\n        } else {\n            */\n            ans += (cnt == k - 1);\n            for (int i = 1; i < n; ++i) {\n                cnt -= (colors[i] ^ colors[i - 1]);\n                cnt += (colors[i + k - 1] ^ colors[i + k - 2]);\n                ans += (cnt == k - 1);\n            }\n        //}\n\n        return ans;\n    }\n};\n\n/*\n[0,1,0,1] 4\n4\n*/",
+    "submit_ts": "1720277780",
+    "subm_id": "544558719"
+}

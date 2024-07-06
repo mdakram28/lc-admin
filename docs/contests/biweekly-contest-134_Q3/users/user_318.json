@@ -1,0 +1,6 @@
+{
+    "username": "chen-3cm",
+    "submission": "class Solution:\n\n    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:\n        n = len(colors)\n        clrs = colors + colors\n        # print(clrs)\n\n        lens = [1]\n        begins = [-1]\n\n        for i in range(1, 2 * n):\n            if clrs[i] == clrs[i - 1]:\n                if lens[-1] == 1:\n                    continue\n                else:\n                    begins.append(-1)\n                    lens.append(1)\n            else:\n                if lens[-1] == 1:\n                    begins[-1] = i - 1\n                lens[-1] += 1\n\n        # print(begins)\n        # print(lens)\n        ans = 0\n        for b, l in zip(begins, lens):\n            if b > n:\n                break\n            if l < k:\n                continue\n            ans += min(l - k + 1,n - b)\n        return ans\n",
+    "submit_ts": "1720278206",
+    "subm_id": "544561273"
+}

@@ -198,17 +198,21 @@ class ReportProcessor:
         lc_info = self.client.fetch_contest_info()
         sim80 = self.get_groups(80)
 
-        contest_id = lc_info["contest"]["id"]
+        report_id = str(lc_info["contest"]["id"]) + "_" + str(self.ques_num)
 
-        info["reports"][contest_id] = {
+        print(report_id)
+
+        info["reports"][report_id] = {
             "name": self.report_name,
             "contest": self.contest_name,
+            "contest_id": lc_info["contest"]["id"],
             "ques_num": self.ques_num,
             "url": f"/contests/{self.report_name}",
             "numsubm": len(self.get_files()),
             "sim80_numgroups": len(sim80),
             "sim80_numsubm": sum(len(g) for g in sim80),
-            "subm1_ts": min(file.subm_ts for file in self.get_files().values())
+            "subm1_ts": min(file.subm_ts for file in self.get_files().values()),
+            "contest_start_ts": int(lc_info["contest"]["start_time"])
         }
 
         with open(info_path, 'w') as f:

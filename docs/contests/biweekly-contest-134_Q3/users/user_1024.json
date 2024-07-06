@@ -1,0 +1,6 @@
+{
+    "username": "Noobmaster_321",
+    "submission": "class Solution {\npublic:\n    int calc(int x,vector<int>&prediff){\n        int n=prediff.size();\n        if(x<n) return prediff[x];\n        else return prediff[x%n]+prediff[n-1];\n    }\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n=colors.size();\n        vector<bool> diff(n,0);\n        for(int i=0;i<n;i++) if(colors[i]!=colors[(i-1+n)%n] && colors[i]!=colors[(i+1)%n]) diff[i]=true;\n        vector<int> prediff(n,0);\n        prediff[0]=diff[0];\n        for(int i=1;i<n;i++) prediff[i]=prediff[i-1]+diff[i];\n        int ans=0;\n        for(int i=0;i<n;i++){\n            if(calc(i+k-1,prediff)-calc(i+1,prediff)==k-2) ans++;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277679",
+    "subm_id": "1311674945"
+}

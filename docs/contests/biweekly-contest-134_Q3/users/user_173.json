@@ -1,0 +1,6 @@
+{
+    "username": "0x3f66616e",
+    "submission": "impl Solution {\n    pub fn number_of_alternating_groups(colors: Vec<i32>, k: i32) -> i32 {\n        let k = k as usize;\n        let n = colors.len();\n        let colors: Vec<_> = colors.iter().chain(colors.iter()).copied().collect();\n        let isalt: Vec<_> = colors.windows(3).map(|w| if w[0] != w[1] && w[1] != w[2] { 1 } else { 0 }).collect();\n        let mut sum = usize::MAX;\n        let mut prev = 0;\n        let mut ret = 0;\n        for w in isalt.windows(k - 2).take(n) {\n            if sum == usize::MAX {\n                sum = w.iter().sum::<usize>();\n            } else {\n                sum += w[k - 3];\n                sum -= prev;\n            }\n            prev = w[0];\n            if sum == k - 2 {\n                ret += 1;\n            }\n        }\n        ret\n    }\n}",
+    "submit_ts": "1720277875",
+    "subm_id": "544559316"
+}

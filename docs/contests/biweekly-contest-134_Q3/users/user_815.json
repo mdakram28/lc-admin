@@ -1,0 +1,6 @@
+{
+    "username": "jiu-ren-36",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        vector<int> t(n+5, 0);\n        for(int i = 0; i < n; i++) {\n            if(colors[(i - 1 + n) % n] != colors[i] && colors[(i + 1 + n) % n] != colors[i]) t[i] = 1;\n            // cout << t[i] << ' ';\n        }\n        int res = 0;\n        int index = 0;\n        while(index < n && t[index] == 1) index++;\n        if(index == n) {\n            return n;\n        }\n        for(int i = index + 1; i != index; i = (i + 1) % n) {\n            if(t[i] == 0) continue;\n            int r = i;\n            int cnt = 0;\n            while(r != index && t[r] == 1) {\n                cnt++;\n                t[r] = 0;\n                r = (r + 1) % n;\n            }\n            i = r;\n            if(cnt + 2 >= k)\n                res += (cnt - k + 2 + 1);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720277932",
+    "subm_id": "544559679"
+}

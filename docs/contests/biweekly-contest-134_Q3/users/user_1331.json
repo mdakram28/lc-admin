@@ -1,0 +1,6 @@
+{
+    "username": "Daniel_Wu",
+    "submission": "class Solution:\n    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:\n        ans = 0\n        \n        #label each tiles as an alternating tile or not in an array\n        arr = [0 for i in range(len(colors))]\n        for idx, color, in enumerate(colors):\n            if color != colors[idx - 1] and color != colors[(idx + 1) % len(colors)]:\n                arr[idx] = 1\n\n        cur = sum([arr[i] for i in range(1, k - 1)]) #0-5, #1,4\n\n        #0 to k - 1\n        if cur == k - 2 and colors[0] != colors[1] and colors[(k - 2) % len(colors)] != colors[(k - 1) % len(colors)]:\n            ans += 1\n\n        #i to i + k - 1\n        for i in range(1, len(colors)):\n            cur -= arr[(i) % len(colors)]\n            cur += arr[(i + k - 2) % len(colors)]\n\n\n            if cur == k - 2 and colors[i] != colors[(i + 1) % len(colors)] and colors[(i + k - 2) % len(colors)] != colors[(i + k - 1) % len(colors)] :\n                ans += 1\n\n        return ans ",
+    "submit_ts": "1720278949",
+    "subm_id": "1311731085"
+}

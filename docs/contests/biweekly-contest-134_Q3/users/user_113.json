@@ -1,0 +1,6 @@
+{
+    "username": "priceless-margulismpb",
+    "submission": "class Solution {\n    public int numberOfAlternatingGroups(int[] colors, int k) {\n        int n = colors.length;\n        int res = 0;\n        int[] dp = new int[n];\n        int nex = colors[k - 1];\n        int len = 1;\n        for (int i = k - 2; i >= 0; i--) {\n            if (colors[i] != nex) {\n                len++;\n                nex = colors[i];\n            }\n            else {\n                break;\n            }\n        }\n        dp[k - 1] = len;\n        for (int i = k; i < n; i++) {\n            if (colors[i] != colors[i - 1]) {\n                dp[i] = dp[i - 1] + 1;\n            }\n            else {\n                dp[i] = 1;\n            }\n        }\n        for (int i = 0; i < k - 1; i++) {\n            int pre = (i - 1 + n) % n;\n            if (colors[i] != colors[pre]) {\n                dp[i] = dp[pre] + 1;\n            }\n            else {\n                dp[i] = 1;\n            }\n        }\n        for (int x : dp) {\n            if (x >= k) {\n                res++;\n            }\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1720277077",
+    "subm_id": "544554328"
+}

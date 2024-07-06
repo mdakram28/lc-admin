@@ -1,0 +1,6 @@
+{
+    "username": "xerrex",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n=colors.size();\n        if(k>n) return 0;\n\n        vector<int>a=colors;\n        a.insert(a.end(),colors.begin(),colors.end());\n        vector<int>pt1(k),pt2(k);\n        for(int i=0;i<k;i++){\n            pt1[i]=i%2;      \n            pt2[i]=(i+1)%2;  \n        }\n        int ptt=0,pts=0,b=0;\n        int base=2,mod=1e9+7; \n        \n        for (int i=0;i<k;i++){\n            ptt=(ptt*base+pt1[i])%mod;\n            pts=(pts*base + pt2[i])%mod;\n            b=(b*base+a[i])%mod;\n        }\n        \n        int ct=0;\n        if (b==ptt || b==pts){\n            ct++;\n        }\n        int it = 1;\n        for(int i=1;i<k;i++){\n            it=(it*base)%mod;\n        }\n        for(int i=1;i<n;i++){\n            b=((b-a[i-1]*it%mod + mod) % mod*base + a[i+k-1])%mod;\n            if (b==ptt or b==pts){\n                ct++;\n            }\n        }\n        return ct;\n    }\n};\n\n",
+    "submit_ts": "1720278778",
+    "subm_id": "1311723838"
+}

@@ -8,6 +8,7 @@ import { PlagReportComponent, ReportTitleComponent } from "./components/plag-rep
 import { ReportListComponent } from "./components/report-list.component";
 import { createContext } from "react";
 import { UserGraph } from "./util/graph";
+import { UserPageComponent, UsersListPageComponent } from "./components/user-page.component";
 
 export default function Dashboard() {
   const { mode, setMode } = useColorScheme();
@@ -16,7 +17,13 @@ export default function Dashboard() {
   const menuItems: {
     page: string,
     title: string
-  }[] = [];
+  }[] = [{
+    page: "reports",
+    title: "Contest Reports"
+  }, {
+    page: "users",
+    title: "Users"
+  }];
 
   const setTheme = (theme: string) => {
     const c = document.body.classList;
@@ -33,43 +40,46 @@ export default function Dashboard() {
 
 
   return (
-      <main>
-        <div className="toolbar">
-          <div className="toolbar-item">
-            <NavLink to={"/"} style={{textDecoration: "none", color: "var(--font-colot)"}}>
-              <b>LeetCode Admin</b>
-            </NavLink>
-          </div>
-          {menuItems.map((menu) =>
-            <NavLink to={"/" + menu.page} key={menu.page}
-              className={({ isActive }) => "toolbar-item " + (isActive && "active")}>
-              {menu.title}
-            </NavLink>
-          )}
-            <Routes>
-              <Route path="/report/:reportName" element={<ReportTitleComponent />} />
-            </Routes>
-          <span style={{ flex: 1 }}></span>
-          <div className="toolbar-item gh">
-            <GitHubButton
-              href="https://github.com/mdakram28/lc-admin"
-              data-color-scheme="no-preference: dark; light: dark; dark: dark;"
-              data-size="large"
-              aria-label="Star mdakram28/lc-admin on GitHub"
-            >Star</GitHubButton>
-          </div>
-          <div className="toolbar-item">
-            Light
-            <Switch defaultChecked={true} inputProps={{ 'aria-label': "Dark" }} onClick={(ev: any) => setTheme(ev.target.checked ? "dark" : "light")} />
-            Dark
-          </div>
+    <main>
+      <div className="toolbar">
+        <div className="toolbar-item">
+          <NavLink to={"/"} style={{ textDecoration: "none", color: "var(--font-colot)" }}>
+            <b>LeetCode Admin</b>
+          </NavLink>
         </div>
-        <div className="content">
-          <Routes>
-            <Route path="*" element={<ReportListComponent />} />
-            <Route path="/report/:reportName" element={<PlagReportComponent />} />
-          </Routes>
+        {menuItems.map((menu) =>
+          <NavLink to={"/" + menu.page} key={menu.page}
+            className={({ isActive }) => "toolbar-item " + (isActive && "active")}>
+            {menu.title}
+          </NavLink>
+        )}
+        <Routes>
+          <Route path="/report/:reportName" element={<ReportTitleComponent />} />
+        </Routes>
+        <span style={{ flex: 1 }}></span>
+        <div className="toolbar-item gh">
+          <GitHubButton
+            href="https://github.com/mdakram28/lc-admin"
+            data-color-scheme="no-preference: dark; light: dark; dark: dark;"
+            data-size="large"
+            aria-label="Star mdakram28/lc-admin on GitHub"
+          >Star</GitHubButton>
         </div>
-      </main>
+        <div className="toolbar-item">
+          Light
+          <Switch defaultChecked={true} inputProps={{ 'aria-label': "Dark" }} onClick={(ev: any) => setTheme(ev.target.checked ? "dark" : "light")} />
+          Dark
+        </div>
+      </div>
+      <div className="content">
+        <Routes>
+          <Route path="*" element={<ReportListComponent />} />
+          <Route path="/reports" element={<ReportListComponent />} />
+          <Route path="/report/:reportName" element={<PlagReportComponent />} />
+          <Route path="/users" element={<UsersListPageComponent />} />
+          <Route path="/u/:username" element={<UserPageComponent />} />
+        </Routes>
+      </div>
+    </main>
   );
 }

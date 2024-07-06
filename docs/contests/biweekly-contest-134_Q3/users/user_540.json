@@ -1,0 +1,6 @@
+{
+    "username": "cavetr",
+    "submission": "function cacheFn<T, K extends unknown[]>(fn: (...args: K) => T) {\n  const cache: Map<string, T> = new Map();\n  return function (...args: K) {\n    const key = args.toString();\n    if (!cache.has(key)) {\n      cache.set(key, fn(...args));\n    }\n    return cache.get(key) as T;\n  }\n}\nfunction numberOfAlternatingGroups(colors: number[], k: number): number {\n  let ans = 0;\n  if (colors.every((color, idx) => color !== colors[(idx - 1 + colors.length) % colors.length])) {\n    return colors.length;\n  }\n  const calculate = cacheFn((idx: number): number => {\n    if (colors[idx] !== colors[(idx - 1 + colors.length) % colors.length]) {\n      return calculate((idx - 1 + colors.length) % colors.length) + 1;\n    }\n    return 1;\n  });\n  for (let i = 0; i < colors.length; i++) {\n    if (colors[i] !== colors[(i - 1 + colors.length) % colors.length] && calculate((i - 1 + colors.length) % colors.length) >= k - 1) {\n      ans++;\n    }\n  }\n  return ans;\n};",
+    "submit_ts": "1720277047",
+    "subm_id": "544554107"
+}

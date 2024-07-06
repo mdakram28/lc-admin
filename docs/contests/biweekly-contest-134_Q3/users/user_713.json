@@ -1,0 +1,6 @@
+{
+    "username": "sunyafei",
+    "submission": "template<typename T>\nclass BIT{\nprivate:\n\tvector<T> tree;\npublic:\n\tBIT(int n){\n\t\ttree.resize(n+1);\n\t}\n\n\tvoid clear(){\n\t\tfill(tree.begin(), tree.end(),0);\n\t}\n\n\tinline int lowbit(int i){\n\t\treturn i&-i;\n\t}\n\n\tvoid add(int i){\n\t\twhile(i<tree.size()){\n\t\t\ttree[i]++;\n\t\t\ti+= lowbit(i);\n\t\t}\n\t}\n\n\tT query(int i){\n\t\tT res=0;\n\t\twhile(i>0){\n\t\t\tres+=tree[i];\n\t\t\ti-= lowbit(i);\n\t\t}\n\t\treturn res;\n\t}\n\n\tT query(int l,int r){\n\t\treturn query(r)- query(l-1);\n\t}\n};\n\nclass Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        auto a=colors;\n        a.insert(a.end(),colors.begin(),colors.end());\n        int n=a.size();\n        BIT<int> t(n);\n        for(int i=0;i<n-1;i++){\n            if(a[i]==a[i+1]){\n                t.add(i+1);\n            }\n        }\n        int ans=0;\n        for(int i=0;i<n/2;i++){\n            if(t.query(i+1,i+k-1)==0) ans++;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278048",
+    "subm_id": "544560374"
+}

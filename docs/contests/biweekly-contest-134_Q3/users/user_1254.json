@@ -1,0 +1,6 @@
+{
+    "username": "dtuspace09",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        if (n < k) return 0;\n        int count = 0;\n        int alternatingCount = 0;\n\n        // Initialize the first window\n        for (int i = 0; i < k - 1; ++i) {\n            if (colors[i] != colors[i + 1]) {\n                alternatingCount++;\n            }\n        }\n\n        // Check if the first window is an alternating group\n        if (alternatingCount == k - 1) {\n            count++;\n        }\n\n        // Slide the window across the array\n        for (int i = 1; i < n; ++i) {\n            // Remove the effect of the outgoing element\n            if (colors[(i - 1) % n] != colors[(i) % n]) {\n                alternatingCount--;\n            }\n            // Add the effect of the incoming element\n            if (colors[(i + k - 2) % n] != colors[(i + k - 1) % n]) {\n                alternatingCount++;\n            }\n            // Check if the current window is an alternating group\n            if (alternatingCount == k - 1) {\n                count++;\n            }\n        }\n\n        return count;\n    }\n\n};",
+    "submit_ts": "1720280266",
+    "subm_id": "1311782937"
+}

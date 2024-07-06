@@ -1,0 +1,6 @@
+{
+    "username": "kritikmodi",
+    "submission": "class Solution {\n    public int numberOfAlternatingGroups(int[] colors, int k) {\n        Stack<Integer> stack=new Stack<>();\n        stack.push(0);\n        int maxlen[]=new int[colors.length];\n        int a[]=new int[colors.length*2];\n        for(int j=0;j<colors.length;j++)\n        {\n            a[j]=colors[j];\n            a[j+colors.length]=colors[j];\n        }\n        for(int j=1;j<a.length;j++)\n        {\n            if(a[j]==a[j-1])\n            {\n                while(!stack.isEmpty())\n                {\n                    if(stack.peek()<colors.length)\n                    maxlen[stack.peek()]=j-1;\n                    stack.pop();\n                }\n            }\n            stack.push(j);\n        }\n        while(!stack.isEmpty())\n        {\n            if(stack.peek()<colors.length)\n            maxlen[stack.peek()]=stack.peek()+k;\n            stack.pop();\n        }\n        int ans=0;\n        for(int j=0;j<colors.length;j++)\n        {\n            if(maxlen[j]-j+1>=k)\n                ans++;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720279215",
+    "subm_id": "1311742264"
+}

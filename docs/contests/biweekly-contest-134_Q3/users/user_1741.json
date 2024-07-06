@@ -1,0 +1,6 @@
+{
+    "username": "bugdone",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& a, int k) {\n        int n = a.size();\n        \n        bool ok = true;\n        for (int i = 1; i < n; ++i)\n            if (a[i] == a[i - 1])\n                ok = false;\n        if (ok && a[0] != a[n - 1])\n            return n;\n            \n        vector<pair<int, int>> v;\n        \n        for (int i = 0; i < n; ++i) {\n            int start = i;\n            while (i + 1 < n && a[i] != a[i + 1])\n                i++;\n            \n            if (i == n - 1 && a[i] != a[0]) {\n                if (v.size() && v[0].first == 0) {\n                    v[0].second += i - start + 1;\n                } else {\n                    v.push_back({start, i - start + 1 + 1});\n                }\n                break;\n            }\n            \n            if (start != i) {\n                v.push_back({start, i - start + 1});\n            }\n        }\n        \n        int ans = 0;\n        for (auto [start, len] : v)\n            ans += max(0, len - k + 1);\n        return ans;\n    }\n};",
+    "submit_ts": "1720279272",
+    "subm_id": "1311744572"
+}

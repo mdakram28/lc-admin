@@ -1,0 +1,6 @@
+{
+    "username": "CursedAiM",
+    "submission": "class Solution {\n   public:\n    int numberOfAlternatingGroups(vector<int>& a, int k) {\n        int n = a.size();\n        for (int i = 0; i < n; i++) a.push_back(a[i]);\n        int pre = -1, cnt = 0, res = 0;\n        map<int, int> mp;\n        for (int i = 0; i < a.size(); i++) {\n            if (a[i] != pre) {\n                pre = a[i];\n                cnt++;\n            } else {\n                cnt = 1;\n                pre = a[i];\n            }\n            mp[i] = cnt;\n        }\n        if (cnt == 2 * n) return n;\n        cnt = 0, pre = -1;\n        for (int i = 0; i < a.size(); i++) {\n            if (a[i] != pre) {\n                pre = a[i];\n                cnt++;\n            } else {\n                if (i < n) res += max(0, cnt - k + 1);\n                if (i >= n) break;\n                cnt = 1, pre = a[i];\n            }\n            mp[i] = cnt;\n        }\n        res += max(0, min(mp[n - 1], cnt - k + 1));\n        return res;\n    }\n};",
+    "submit_ts": "1720277800",
+    "subm_id": "1311680573"
+}

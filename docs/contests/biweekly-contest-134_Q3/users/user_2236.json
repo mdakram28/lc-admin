@@ -1,0 +1,6 @@
+{
+    "username": "dragonman164",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        vector<int> is_part(n, 0);\n        for(int i = 0; i <n; i ++ ){\n            if(colors[i] != colors[(i - 1 + n)%n] and colors[i] != colors[(i + 1)%n]){\n                is_part[i] = 1;\n            }\n        }\n     \n        int ans = 0,curr_sum = 0;\n        for(int i = 0; i < k; i++){\n            curr_sum += is_part[i];\n        }\n      \n   \n        int temp = curr_sum;\n            temp -= is_part[k - 1];\n            temp -= is_part[0];\n        if( temp == k - 2) ans ++ ;\n        \n        int i = 1;\n        \n        while(i < n){\n            curr_sum -= is_part[(i - 1 + n)%n];\n            curr_sum += is_part[(i + k - 1)%n];\n            int temp = curr_sum;\n            temp -= is_part[i];\n            temp -= is_part[(i + k - 1)%n];\n        \n            if(temp == k - 2) ans ++ ;\n            i++;\n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1720279254",
+    "subm_id": "1311743860"
+}

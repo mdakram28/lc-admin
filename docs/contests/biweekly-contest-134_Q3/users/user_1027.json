@@ -1,0 +1,6 @@
+{
+    "username": "nemesis_7",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n        int n = colors.size();\n        if (k == 1) return n; // Any single tile is considered an alternating group\n\n        // Preprocess to find the alternating array\n        vector<int> arr(n);\n        for (int i = 0; i < n; ++i) {\n            arr[i] = colors[i] ^ colors[(i + 1) % n];\n        }\n\n        // Sliding window to count valid segments\n        int count = 0;\n        int window_sum = 0;\n\n        // Initial window of size k-1\n        for (int i = 0; i < k - 1; ++i) {\n            window_sum += arr[i];\n        }\n\n        if (window_sum == k - 1) count++;\n\n        // Slide the window across the array\n        for (int i = 1; i < n; ++i) {\n            window_sum -= arr[(i - 1) % n];\n            window_sum += arr[(i + k - 2) % n];\n\n            if (window_sum == k - 1) count++;\n        }\n\n        return count;\n    }\n};\n",
+    "submit_ts": "1720279635",
+    "subm_id": "1311759131"
+}

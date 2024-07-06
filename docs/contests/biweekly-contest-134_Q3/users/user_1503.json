@@ -1,0 +1,6 @@
+{
+    "username": "GautamSh",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& nums, int k) {\n        int n=nums.size();\n        int ans = 0;\n        vector<int>a;\n        for(int i=0; i<n; i++) {\n            if(nums[i] != nums[(i+1)%n]) a.push_back(1);\n            else a.push_back(0);\n        }\n        \n        for(int i=1; i<n; i++) {\n            a[i] += a[i-1];\n        }\n        \n        int win = k-1;\n        for(int i=win-1; i<n; i++) {\n            if((a[i] - ((i==win-1) ? 0 : a[(i-win)%n])) == win) ans++;\n        }\n        // if(a[n-1] - a[n-k] == win) ans++;\n        for(int i=0; i<win-1; i++) {\n            int temp = a[n-1] - a[n-win+i] + a[i];\n            if(temp == win) ans++;\n        }\n        \n        return ans;\n    }\n    \n};",
+    "submit_ts": "1720279724",
+    "subm_id": "1311762599"
+}

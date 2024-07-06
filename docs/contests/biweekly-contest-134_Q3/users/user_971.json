@@ -1,0 +1,6 @@
+{
+    "username": "Ayush_goyal_nitkkr",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& colors, int k) {\n          int n = colors.size();\n        vector<int> prefix(n + k - 1, 0);\n\n       \n        for (int i = 0; i < n; ++i) {\n            int prev = (i - 1 + n) % n;\n            int next = (i + 1) % n;\n            if (colors[i] != colors[prev] && colors[i] != colors[next]) {\n                prefix[i] = 1;\n            }\n        }\n\n        for (int i = n; i < n + k - 1; ++i) {\n            prefix[i] = prefix[i - n];\n        }\n\n     \n        vector<int> prefixSum(n + k, 0);\n        for (int i = 0; i < n + k - 1; ++i) {\n            prefixSum[i + 1] = prefixSum[i] + prefix[i];\n        }\n\n        int count = 0;\n\n        for (int i = 0; i < n; ++i) {\n            int total = prefixSum[i + k] - prefixSum[i];\n\n            if(prefix[i]==1)total--;\n            if(prefix[(i+k-1)%n]==1)total--;\n\n          \n            if (total == k - 2) {\n                count++;\n            }\n        }\n\n        return count;\n    }\n};",
+    "submit_ts": "1720279107",
+    "subm_id": "1311737719"
+}

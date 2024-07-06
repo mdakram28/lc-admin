@@ -1,0 +1,6 @@
+{
+    "username": "vedant_mane1011",
+    "submission": "class Solution {\npublic:\n    int numberOfAlternatingGroups(vector<int>& cls, int k) {\n        int n = cls.size();\n        vector<int>pref(n, 0), suff(n, 0);\n        if(cls[0]!=cls[n-1])pref[0] = 1;\n        for(int i=1; i<n; i++){\n            if(cls[i]!=cls[i-1])pref[i] = 1;\n            pref[i]+=pref[i-1];\n        }\n\n        if(cls[n-1]!=cls[0])suff[n-1]=1;\n        for(int i=n-2; i>=0; i--){\n            if(cls[i+1]!=cls[i])suff[i] = 1;\n        }\n        for(int i=1; i<n; i++){\n            suff[i]+= suff[i-1] ;\n        }\n        int ans = 0;\n        for(int i=0; i<n; i++){\n            if(i+k>n){\n                int rem = (i+k)%n-1;\n                int sum1 =0, sum2=0;\n                sum1 = pref[n-1]-pref[i] + pref[rem];\n                if(rem==0)sum2= suff[n-1]-suff[i] ;\n                else  sum2 = suff[n-1]-suff[i] + suff[rem-1];\n                if(sum1>=k-1 || sum2>=k-1)ans++;\n                // cout<<sum1<<\" \"<<sum2<<\" \";\n            }else{\n                if(pref[i]+k-1==pref[i+k-1] || suff[i]-k+1==suff[i+k-1])ans++;\n            }\n        }\n        return ans;\n\n    }\n};",
+    "submit_ts": "1720280736",
+    "subm_id": "1311800256"
+}

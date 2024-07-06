@@ -1,0 +1,6 @@
+{
+    "username": "whateverrudra",
+    "submission": "class Solution {\n    public int numberOfAlternatingGroups(int[] colors, int k) {\n        List<Integer> grp = new ArrayList<>();\n        int last = colors[0];\n        int curr = 1;\n        boolean isSame = false;\n\n        for(int i = 1; i < colors.length; i++){\n            if(colors[i] == last){\n                grp.add(curr);\n                curr = 1;\n                isSame = true;\n            }else{\n                curr++;\n            }\n            last = colors[i];\n        }\n        grp.add(curr);\n        if(grp.size()==1 && grp.get(0)==colors.length && colors[0]!=colors[colors.length-1] && !isSame){\n            return colors.length;\n        }\n        if(colors[0]!=colors[colors.length-1]&& grp.size()>1){\n            int lastG = grp.remove(grp.size()-1);\n            grp.set(0, grp.get(0)+lastG);\n        }\n        long res=  0;\n        for(int group : grp){\n            res+=Math.max(0,group-(k-1));\n        }\n        return (int)res;\n    }\n}",
+    "submit_ts": "1720281176",
+    "subm_id": "1311815811"
+}
