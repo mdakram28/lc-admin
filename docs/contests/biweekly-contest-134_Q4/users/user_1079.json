@@ -1,0 +1,6 @@
+{
+    "username": "weirdsmoothie",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        int i, j, l, r, m, n = nums.size(), st[200000];\n        for (i = 0; i < n; i++) st[n + i] = nums[i];\n        while (--i) st[i] = st[i << 1] & st[i << 1 | 1];\n        for (i = j = 0; i < n; i++) {\n            if ((nums[i] & k) != k) {\n                j = i + 1;\n                continue;\n            }\n            for (l = j, r = i; l < r;) {\n                m = (l + r + 1) >> 1;\n                if (query(st, n + m, n + i) == k) l = m;\n                else r = m - 1;\n            }\n            if (query(st, n + l, n + i) != k) continue;\n            ans += l - j + 1;\n        }\n        return ans;\n    }\n    \n    int query(int st[], int l, int r) {\n        int res = -1;\n        for (r++; l < r; l >>= 1, r >>= 1) {\n            if (l & 1) res &= st[l++];\n            if (r & 1) res &= st[--r];\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720279233",
+    "subm_id": "1311742984"
+}

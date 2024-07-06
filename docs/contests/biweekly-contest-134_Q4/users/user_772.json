@@ -1,0 +1,6 @@
+{
+    "username": "yangxm",
+    "submission": "using i64 = long long;\n\nconstexpr int MAX = 100010;\n\nstruct RMQ {\n  int c[20][MAX], w[MAX];\n\n  void Reset(const int* a, int n) {\n    w[0] = -1;\n    for (int i = 1; i <= n; ++i) {\n      w[i] = (i & (i - 1)) ? w[i - 1] : w[i - 1] + 1;\n    }\n    for (int i = 0; i < n; ++i) {\n      c[0][i] = a[i];\n    }\n    for (int d = 1; (1 << d) <= n; ++d) {\n      for (int i = 0; i + (1 << d) <= n; ++i) {\n        c[d][i] = (c[d - 1][i] & c[d - 1][i + (1 << (d - 1))]);\n      }\n    }\n  }\n\n  int Query(int l, int r) const {\n    int d = w[r - l];\n    return (c[d][l] & c[d][r - (1 << d)]);\n  }\n} rmq;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n      int n = nums.size();\n      rmq.Reset(nums.data(), n);\n      int p = 0, q = 0;\n      i64 ret = 0;\n      for (int i = 0; i < n; ++i) {\n        for (; p <= i && rmq.Query(p, i + 1) < k; ++p);\n        for (; q <= i && rmq.Query(q, i + 1) <= k; ++q);\n        ret += (i64)(q - p);\n      }\n      return ret;\n    }\n};",
+    "submit_ts": "1720278036",
+    "subm_id": "1311691436"
+}

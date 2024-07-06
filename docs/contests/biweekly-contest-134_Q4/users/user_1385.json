@@ -1,0 +1,6 @@
+{
+    "username": "abde9219",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<vector<int>>v(n,vector<int>(33,0));\n        for(int j=0; j<=32; j++){\n            int la=n-1;\n            for(int i=n-1; i>=0; i--){\n                if(nums[i]&1){\n                    v[i][j]=la;\n                }\n                else{\n                    la=i-1;\n                    v[i][j]=la;\n                }\n                nums[i]=nums[i]>>1;\n            }\n        }\n        long long int ans=0;\n        for(int l=0; l<n; l++){\n            int mi=l,ma=n-1;\n            int temp=k;\n            for(int i=0; i<=32; i++){\n                if(temp&1){\n                    ma=min(ma,v[l][i]);\n                }\n                else{\n                    mi=max(mi,v[l][i]+1);\n                }\n                temp=temp>>1;\n            }\n            if(mi<=ma){\n                ans=ans+ma-mi+1;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280348",
+    "subm_id": "1311786008"
+}

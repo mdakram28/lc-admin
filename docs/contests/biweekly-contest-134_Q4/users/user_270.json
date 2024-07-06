@@ -1,0 +1,6 @@
+{
+    "username": "ctnya_8135",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        vector<vector<int>> next0(n + 1, vector<int>(31, n));\n        for (int i = n - 1; i >= 0; i--) {\n            next0[i] = next0[i + 1];\n            for (int j = 0; j < 31; j++) {\n                if (nums[i] & (1 << j)) {\n                    //\n                } else {\n                    next0[i][j] = i;\n                }\n            }\n        }\n        for (int i = 0; i < n; i++) {\n            int left = -1, right = n - 1;\n            for (int j = 0; j < 31; j++) {\n                if (k & (1 << j)) {\n                    right = min(right, next0[i][j] - 1);\n                } else {\n                    left = max(left, next0[i][j]);\n                }\n            }\n            if (left == n)\n                continue;\n            ans += max(0, right - left + 1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278945",
+    "subm_id": "1311730894"
+}

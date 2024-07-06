@@ -1,0 +1,6 @@
+{
+    "username": "rohinth076",
+    "submission": "class Solution {\n    final int bitLen = 32;\n    long calc(int[] bit,int val,int delta,int x){\n        long value = 0;\n        for(int i=0;i<bitLen;i++){\n            long xx = (1<<i);\n            if((val&xx) != 0){\n                bit[i] += delta;\n            }\n            if(bit[i] == x){\n                value |= xx;\n            }\n        }\n        return value;\n    }\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        int[] pre = new int[n+1];\n        for(int i=n-1;i>=0;i--){\n            if((nums[i] & k) == k){\n                pre[i] = 1;\n                pre[i] += pre[i+1];\n            }\n        }\n        //System.out.println(Arrays.toString(pre));\n        int[] bit = new int[bitLen];\n        long ans = 0;\n        for(int i=0,j=0;i<n;i++){\n            long val = calc(bit,nums[i],1,i-j+1);\n            while(j <= i && val < k){\n                val = calc(bit,nums[j],-1,i-j);\n                j++;\n            }\n            while(j <= i && val == k){\n                ans += pre[i+1] + 1;\n                val = calc(bit,nums[j],-1,i-j);\n                j++;\n            }\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720278229",
+    "subm_id": "1311700071"
+}

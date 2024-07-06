@@ -1,0 +1,6 @@
+{
+    "username": "aviiii",
+    "submission": "class Solution {\npublic:\n    // bool solve(int i, int count, int n, vector<int>arr, int k, vector<vector<int>> &dp){\n    //     if( sum == 0 ) return true;\n    //     if( i == n || sum < 0) return false;\n    //     if(dp[sum][i] != -1) return dp[sum][i];\n        \n    //     bool notpick = solve(i+1, n, arr, sum, dp);\n    //     bool pick = solve(i+1, n, arr, sum-arr[i], dp);\n    //     dp[sum][i] = (pick && notpick);\n    //     if(k==dp[sum][i]) count++;\n    //     return dp[sum][i]\n    // }\n\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prev;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> curr; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            curr[nums[i]] = 1;\n\n            for (auto& [val, freq] : prev) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                curr[newAndResult] += freq;\n            }\n            \n            prev = curr;\n        }\n        \n        return count;\n\n    }\n};",
+    "submit_ts": "1720280200",
+    "subm_id": "1311780512"
+}

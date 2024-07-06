@@ -1,0 +1,6 @@
+{
+    "username": "C9CQEmG9jl",
+    "submission": "class Solution {\npublic:\n    void helper(int x){\n        x=x+1;\n    }\n    long long customParseTree(int x) {\n    \n        \n        helper(1);\n        return x;\n    }\n\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long totalC = 0;\n        \n        int arraySize = nums.size();\n        \n        unordered_map<long long, long long> previousRes;\n        \n        int idx=0;\n\n        while(idx<arraySize) {\n            unordered_map<long long, long long> currentResults;\n            long long targetValue = k;\n\n            if (targetValue==nums[idx]) {\n                ++totalC;\n            }\n            currentResults[nums[idx]] = 1;\n\n            for (auto& [value, frequency] : previousRes) {\n                long long newAndResult = value & nums[idx];\n                if (newAndResult == targetValue) {\n                    totalC += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n\n            previousRes = currentResults;\n            idx++;\n        }\n\n        totalC += customParseTree(0); \n        return totalC;\n    }\n};\n",
+    "submit_ts": "1720281057",
+    "subm_id": "1311811620"
+}

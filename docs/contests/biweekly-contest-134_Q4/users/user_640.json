@@ -1,0 +1,6 @@
+{
+    "username": "justDummy",
+    "submission": "#define ll long long\nvector<ll> indices[31];\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        ll ans=0;\n        int bits[30]={0};\n        for(int i=0;i<30;i++){\n            indices[i].clear();\n            if((k&(1<<i))!=0) bits[i]=1;\n        }\n        for(int i=0;i<n;i++){\n            for(int j=0;j<30;j++){\n                if((nums[i]&(1<<j))==0) indices[j].push_back(i);\n            }\n        }\n        for(int i=0;i<30;i++) indices[i].push_back(n);\n        for(int i=0;i<n;i++){\n            ll mini=n,maxi=i;\n            for(int j=0;j<30;j++){\n                int u=lower_bound(indices[j].begin(),indices[j].end(),i)-indices[j].begin();\n                if(bits[j]) mini=min(mini,indices[j][u]);\n                else maxi=max(maxi,indices[j][u]);\n            }\n            ans+=max(0LL,mini-maxi);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279346",
+    "subm_id": "1311747494"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "TanmayManocha",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int arraySize = array.size();\n        long long subarrayCount = 0;\n        unordered_map<long long, long long> previousBitwiseResults;\n        for (int currentIndex = 0; currentIndex < arraySize; ++currentIndex) {\n            unordered_map<long long, long long> currentBitwiseResults; \n            if (array[currentIndex] == target) {\n                ++subarrayCount;\n            }\n            currentBitwiseResults[array[currentIndex]] = 1;\n            for (auto& [previousValue, previousFrequency] : previousBitwiseResults) {\n                long long newBitwiseAndResult = previousValue & array[currentIndex];\n                if (newBitwiseAndResult == target) {\n                    subarrayCount += previousFrequency;\n                }\n                currentBitwiseResults[newBitwiseAndResult] += previousFrequency;\n            }\n            \n            previousBitwiseResults = currentBitwiseResults;\n        }\n        return subarrayCount;\n    }\n};",
+    "submit_ts": "1720279935",
+    "subm_id": "1311770862"
+}

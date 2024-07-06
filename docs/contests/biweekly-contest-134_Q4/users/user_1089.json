@@ -1,0 +1,6 @@
+{
+    "username": "mooncat2k4",
+    "submission": "import scala.collection.mutable.HashMap\n\nobject Solution {\n  def countSubarrays(array: Array[Int], target: Int): Long = {\n    val size = array.length\n    var total: Long = 0\n    var previousResults = HashMap.empty[Long, Long]\n    for (index <- 0 until size) {\n      var currentResults = HashMap.empty[Long, Long]\n\n      if (array(index) == target) {\n        total += 1\n      }\n      currentResults(array(index)) = 1\n      for ((value, frequency) <- previousResults) {\n        val newAndResult = value & array(index)\n        if (newAndResult == target) {\n          total += frequency\n        }\n        currentResults(newAndResult) = currentResults.getOrElse(newAndResult, 0L) + frequency\n      }\n      previousResults = currentResults\n    }\n    total\n  }\n}\n",
+    "submit_ts": "1720278932",
+    "subm_id": "1311730407"
+}

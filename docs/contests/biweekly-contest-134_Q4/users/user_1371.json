@@ -1,0 +1,6 @@
+{
+    "username": "tdkkdt",
+    "submission": "public class Solution {\n    public long CountSubarrays(int[] nums, int k) {\n        int[] p = new int[32];\n        for (int i = 0; i < p.Length; i++) {\n            p[i] = -1;\n        }\n        long result = 0;\n        for (int i = 0; i < nums.Length; i++) {\n            var n = nums[i];\n            for (int j = 0; j < 32; j++) {\n                if ((n & 1) == 0) {\n                    p[j] = i;\n                }\n                n >>= 1;\n            }\n            int l = 0;\n            int r = i;\n            int kk = k;\n            for (int j = 0; j < 32; j++) {\n                if ((kk & 1) == 0) {\n                    r = Math.Min(r, p[j]);\n                } else {\n                    l = Math.Max(l, p[j] + 1);\n                }\n                kk >>= 1;\n            }\n            result += Math.Max(r - l + 1, 0);\n        }\n        return result;\n    }\n}",
+    "submit_ts": "1720280574",
+    "subm_id": "1311794467"
+}

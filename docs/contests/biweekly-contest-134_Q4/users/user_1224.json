@@ -1,0 +1,6 @@
+{
+    "username": "guptamanan24",
+    "submission": "class Solution {\n     private:\n    long long countSubarraysEndingAtIndex(vector<int>& array, int target, int idx, unordered_map<long long, long long>& prevResults) {\n        long long cnt = 0;\n        unordered_map<long long, long long> currResults;\n        \n        if (array[idx] == target) {\n            ++cnt;\n        }\n        \n        currResults[array[idx]] = 1;\n        \n        for (auto& [prev, freq] : prevResults) {\n            long long newAndResult = prev & array[idx];\n            if (newAndResult == target) {\n                cnt += freq;\n            }\n            currResults[newAndResult] += freq;\n        }\n        \n        prevResults = currResults;\n        return cnt;\n    }\n    \npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int n = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> prevResults;\n        \n        for (int i = 0; i < n; ++i) {\n            total += countSubarraysEndingAtIndex(array, target, i, prevResults);\n        }\n        \n        return total;\n    }\n};",
+    "submit_ts": "1720280007",
+    "subm_id": "1311773512"
+}

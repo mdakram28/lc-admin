@@ -1,0 +1,6 @@
+{
+    "username": "parth190804",
+    "submission": "#define ll long long int\nclass Solution {\npublic:\n    ll countSubarrays(vector<int >& arr, int  t) {\n        ll  n = arr.size();\n        ll ans8 = 0;\n        ll ans = (1LL << 32) - 1;\n        vector<ll> temp(32, 0);\n        \n        for (ll  i = 0; i < n; ++i) {\n            ans &= arr[i];\n            bool d = true;\n            ll ans1=i+1,ans2=0;\n            for (ll  j = 0; j < 32; ++j) {\n                if (arr[i] & (1 << j))\n                temp[j]++;\n                else\n                temp[j] = 0;\n                \n                bool ans3 = t & (1 << j);\n                bool ans4 = ans & (1 << j);\n                \n                if (!ans3 && ans4)\n                d = false;\n                else if (ans3 && !ans4) \n                ans1 = min(ans1, temp[j]);\n                else if (!ans3 && !ans4)\n                ans2 = max(ans2, temp[j]);\n            }\n            if(d){\n                if(ans2<ans1)\n                ans8+=(ans1-ans2);\n            }\n        }\n        \n        return ans8;\n    }\n};",
+    "submit_ts": "1720281316",
+    "subm_id": "1311820722"
+}

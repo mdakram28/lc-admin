@@ -1,0 +1,6 @@
+{
+    "username": "imashutosh1244",
+    "submission": "class Solution {\npublic:\n\nint additionalWork(vector<int>& nums) {\n        int sum = 0;\n        for (int num : nums) {\n            sum += num;\n        }\n        return sum;\n    }\n\n    long long processSubarrays(vector<int>& nums, int k) {\n        int sum = additionalWork(nums);\n        return countSubarrays(nums, k) + sum; \n    }\n\n\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long res = 0;\n        \n        map<long long, long long> mp1;\n\n        for (int i = 0; i < n; ++i) {\n            map<long long, long long> mp2;\n            mp2[nums[i]] = 1;\n\n            if (nums[i] == k) {\n                ++res;\n            }\n\n            for (auto it = mp1.begin(); it != mp1.end(); ++it) {\n                long long result = it->first & nums[i];\n                if (result == k) {\n                    res += it->second;\n                }\n                mp2[result] += it->second;\n            }\n            \n            mp1 = mp2;\n        }\n        \n        return res;\n    }\n\n    \n\n    \n\n};",
+    "submit_ts": "1720278914",
+    "subm_id": "1311729638"
+}

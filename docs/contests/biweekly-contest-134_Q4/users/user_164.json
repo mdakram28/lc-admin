@@ -1,0 +1,6 @@
+{
+    "username": "warner1129",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& A, int k) {\n        const int n = A.size();\n        vector<array<int, 30>> nxt(n + 1);\n        nxt[n].fill(n);\n        for (int i = n - 1; i >= 0; i--) {\n            nxt[i] = nxt[i + 1];\n            for (int j = 0; j < 30; j++) {\n                if (~A[i] >> j & 1) {\n                    nxt[i][j] = i;\n                }\n            }\n        }\n        long long ans = 0;\n        for (int i = 0; i < n; i++) {\n            if ((A[i] & k) != k) {\n                continue;\n            }\n            int l = i, r = n;\n            for (int j = 0; j < 30; j++) {\n                if (k >> j & 1) {\n                    r = min(r, nxt[i][j]);\n                } else {\n                    l = max(l, nxt[i][j]);\n                }\n            }\n            if (l <= r) {\n                ans += r - l;\n                //cout << \" i = \" << i << \" l = \" << l << \" r = \" << r << '\\n';\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277846",
+    "subm_id": "1311682794"
+}

@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor
 from functools import cached_property
 import os
 import sys
@@ -15,6 +16,7 @@ import hashlib
 import csv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+
 
 LANG_EXT = {
     "python": "py",
@@ -37,6 +39,7 @@ LANG_EXT = {
 
 class LcClient:
     def __init__(self, contest: str, ques_num: int) -> None:
+        self.contest = contest
         self.ques_num = ques_num
         self.out_path = join(CONTESTS_OUT_PATH, f"{contest}_Q{ques_num}")
         self.api_base = f"https://leetcode.com/contest/api"
@@ -47,10 +50,15 @@ class LcClient:
         self.contest_base = f"{self.api_base}/ranking/{contest}"
 
         Path(self.out_path).mkdir(exist_ok=True, parents=True)
+        self._driver = None
+        self.thread_pool = ThreadPoolExecutor(max_workers=10)
 
-    @cached_property
-    def driver():
-        return webdriver.Chrome()
+
+    @property
+    def driver(self):
+        if self._driver is None:
+            self._driver = webdriver.Chrome()
+        return self._driver
 
     def json_request(self, url):
         cache_dir = join("tmp", "cache")
@@ -62,26 +70,48 @@ class LcClient:
         
         delay = 0.5
         for attempt in itertools.count(1):
-            print("Fetching url:", url)
+            try:
+                print("Fetching url:", url)
 
-            self.driver.get(url)
-            content = self.driver.find_element(By.TAG_NAME, 'pre').text
-            resp = json.loads(content)
-            break
-            # resp = requests.get(url, headers=REQUEST_HEADERS)
-            # if resp.status_code == 200:
-            #     break
-
-            print(f"Unexpected status code: {resp.status_code}. Waiting {delay}s")
-            time.sleep(delay)
-            delay *= 2
-            
+                self.driver.get(url)
+                content = self.driver.find_element(By.TAG_NAME, 'pre').text
+                resp = json.loads(content)
+                break
+            except Exception as e:
+                print(f"Unexpected error: {str(e)}")
+                time.sleep(delay)
+                delay *= 2
 
         time.sleep(0.1)
         with open(cache_file, 'w') as f:
             json.dump(resp, f, indent=4)
         
         return resp
+    
+    def fetch_contest_info(self):
+        '''
+        {
+            "contest": {
+                "id": 1031,
+                "title": "Biweekly Contest 133",
+                "title_slug": "biweekly-contest-133",
+                "description": "<style>\r\n.contest-information ol:not(.list-group) {\r\n    padding-left: 20px;\r\n}\r\n.contest-information ul:not(.list-group) {\r\n    padding-left: 20px;\r\n}\r\n.contest-information li:not(.list-group-item) {\r\n    margin-top: 5px;\r\n}\r\n\r\n.contest-information .list-group .list-group-item {\r\n    border: none;\r\n    margin-bottom: 1px;\r\n}\r\n.contest-information img[alt=\"LeetCoin\"] {\r\n    position: relative;\r\n    top: -2px;\r\n}\r\n</style>\r\n\r\n<div class=\"contest-information container\">\r\n    <div class=\"row\">\r\n        <div class=\"col-sm-8 col-md-9\">\r\n            <h3 class=\"text-300\">\r\n                Welcome to the 133rd LeetCode Biweekly Contest\r\n            </h3>\r\n            <br>\r\n\r\n            <p>This LeetCode contest is sponsored by LeetCode. <a target=\"_blank\" href=\"/track/?data=eyJ1cmwiOiAiaHR0cHM6Ly9sZWV0Y29kZS5jb20vZGlzY3Vzcy9nZW5lcmFsLWRpc2N1c3Npb24vMTUxMTI3NC90aGluay15b3UtZ290LXdoYXQtaXQtdGFrZXMtdG8td29yay1hdC1sZWV0Y29kZSIsICJ1dWlkIjogImxlZXRjb2RlLWZyb250ZW5kLWVuZ2luZWVyaW5nIn0%3D\">Checkout what it feels like to work at LeetCode.</a></p> \r\n\r\n            <h4 class=\"text-300\">\r\n                <i class=\"fa fa-newspaper-o\" style=\"color: #1DA09C\" aria-hidden=\"true\"></i>\r\n                &nbsp;Important Note\r\n            </h4>\r\n            <ol>\r\n               <li>\r\n                  To provide a better contest and ensure fairness, we listened to LeetCoders' feedback and put in lots of thoughts behind the updated contest rule. Please check out our new contest <a href=\"https://leetcode.com/discuss/general-discussion/951105/new-contest-rule-effective-from-december-2020\">rule</a> which covers more scenarios with details explained.\r\n                </li>\r\n                <li>\r\n                    The penalty time of <b>5</b> minutes will be applied for each wrong submission.\r\n                </li>\r\n                <li>\r\n                  To ensure the fairness of the contest, LeetCode will hide some test cases during the contest. When users submit incorrect submissions, LeetCode will not show the hidden test cases to the users.\r\n                </li>\r\n                <li>\r\n                  The final rating of this contest will be updated within 5 working days after the contest.\r\n                </li>\r\n      <br /> <b>Below actions are deemed contest violations</b>:\r\n      <ul>\r\n       <li>One user submitting with multiple accounts during a contest. LCUS (leetcode.com) account and LCCN (leetcode-cn.com) account are considered to be separate accounts, even if both accounts belong to the same user.</li>\r\n       <li>Multiple accounts submitting similar code for the same problem.</li>\r\n       <li>Creating unwanted disturbances which interrupt other users' participation in a contest. </li> \r\n       <li>Disclosing contest solutions in public discuss posts before the end of a contest. </li>\r\n      </ul>\r\n      <br /> LeetCode heavily emphasizes on the justice and fairness of our contests. We have absolutely <b>ZERO TOLERANCE</b> for violation behaviors (such as plagiarism, cheating, etc). When a user is deemed violating contest rules, we will apply the following penalties on this user:\r\n      <ul>\r\n       <li><b>First violation</b>: LeetCoin amount resets to zero and a contest and discuss ban for 1 month.</li>\r\n       <li><b>Second violation</b>: Permanent account deactivation without appeal. </li> \r\n      </ul>\r\n      <br /> Furthermore, we encourage all participants to contribute to maintaining the justice and fairness of our contest. Users who submit valid violation report(s) will earn additional LeetCoins:\r\n      <ul>\r\n       <li>For each violating participant, the first 10 users who submit the violation report towards this participant will each earn 20 LeetCoins. </li>\r\n       <li>Each user can earn up to 100 LeetCoins for reporting violations in a contest.</li>\r\n       <li>Users will not be rewarded LeetCoins for reports on LCCN users.</li>\r\n      </ul>\r\n     </ol>\r\n            <br><br>\r\n  <h4 class=\"text-300\">\r\n    <i class=\"fa fa-bullhorn\" style=\"color: #FEA116\" aria-hidden=\"true\"></i>\r\n    &nbsp;Announcement\r\n</h4>\r\n            <p>\r\n                Users <b class=\"text-orange\">must register</b> to participate. We hope you enjoy this contest!\r\n            </p>\r\n            <br>\r\n        </div>\r\n        <div class=\"col-sm-4 col-md-3\">\r\n            <h3 class=\"text-300\">\r\n                <i class=\"fa fa-trophy text-orange\" aria-hidden=\"true\"></i>\r\n                &nbsp;Prize\r\n            </h3>\r\n            <ul class=\"list-group\" style=\"margin-top: 20px\">\r\n                <li class=\"list-group-item\">\r\n                    <b>1st</b>\r\n                    <span class=\"pull-right\">\r\n                        5,000 <a href=\"/points/\" target=\"_blank\"><img src=\"/static/images/LeetCoin.png\" height=\"15px\" alt=\"LeetCoin\"></a>\r\n                    </span>\r\n                </li>\r\n                <li class=\"list-group-item\">\r\n                    <b>2nd</b>\r\n                    <span class=\"pull-right\">\r\n                        2,500 <a href=\"/points/\" target=\"_blank\"><img src=\"/static/images/LeetCoin.png\" height=\"15px\" alt=\"LeetCoin\"></a>\r\n                    </span>\r\n                </li>\r\n                <li class=\"list-group-item\">\r\n                    <b>3rd</b>\r\n                    <span class=\"pull-right\">\r\n                        1,000 <a href=\"/points/\" target=\"_blank\"><img src=\"/static/images/LeetCoin.png\" height=\"15px\" alt=\"LeetCoin\"></a>\r\n                    </span>\r\n                </li>\r\n                <li class=\"list-group-item\">\r\n                    <b>4</b> - <b>50th</b>\r\n                    <span class=\"pull-right\">\r\n                        300 <a href=\"/points/\" target=\"_blank\"><img src=\"/static/images/LeetCoin.png\" height=\"15px\" alt=\"LeetCoin\"></a>\r\n                    </span>\r\n                </li>\r\n                <li class=\"list-group-item\">\r\n                    <b>51</b> - <b>100th</b>\r\n                    <span class=\"pull-right\">\r\n                        100 <a href=\"/points/\" target=\"_blank\"><img src=\"/static/images/LeetCoin.png\" height=\"15px\" alt=\"LeetCoin\"></a>\r\n                    </span>\r\n                </li>\r\n                <li class=\"list-group-item\">\r\n                    <b>101</b> - <b>200th</b>\r\n                    <span class=\"pull-right\">\r\n                        50 <a href=\"/points/\" target=\"_blank\"><img src=\"/static/images/LeetCoin.png\" height=\"15px\" alt=\"LeetCoin\"></a>\r\n                    </span>\r\n                </li>\r\n                <li class=\"list-group-item\">\r\n                    <b>Participate</b>\r\n                    <span class=\"pull-right\">\r\n                        5 <a href=\"/points/\" target=\"_blank\"><img src=\"/static/images/LeetCoin.png\" height=\"15px\" alt=\"LeetCoin\"></a>\r\n                    </span>\r\n                </li>\r\n                <li class=\"list-group-item\">\r\n                    <b>First Time Participant</b>\r\n                    <span class=\"pull-right\">\r\n                        200 <a href=\"/points/\" target=\"_blank\"><img src=\"/static/images/LeetCoin.png\" height=\"15px\" alt=\"LeetCoin\"></a>\r\n                    </span>\r\n                </li>\r\n                <li class=\"list-group-item\">\r\n<span style=\"\r\n    position: absolute;\r\n    color: rgb(245, 0, 87);\r\n    font-size: 10px;\r\n    transform: translate(-8px, -9px);\r\n\"></span>\r\n                    <b>Participate Biweekly + Weekly Contests in Same Week</b>\r\n                    <span class=\"pull-right\">\r\n                        35 <a href=\"/points/\" target=\"_blank\"><img src=\"/static/images/LeetCoin.png\" height=\"15px\" alt=\"LeetCoin\"></a>\r\n                    </span>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n   </div>\r\n</div>\r\n<hr>\r\n<p><b>Want millions of LeetCode users to <i>recognize your company</i>? <a href=\"mailto:contest@leetcode.com\" target=\"_href\">Contact us</a> to sponsor a contest.</b></p>",
+                "duration": 5400,
+                "start_time": 1719066600,
+                "is_virtual": false,
+                "origin_start_time": 1719066600,
+                "is_private": false,
+                "discuss_topic_id": 5352797
+            },
+            "questions": [...],
+            "company": {...},
+            "containsPremium": false,
+            "registered": true,
+            "survey": null,
+            "current_timestamp": 1720070679.162951
+        }'''
+        data = self.json_request(f"{self.api_base}/info/{self.contest}")
+        return data
 
     def fetch_submissions(self, pages: list[int]):
         Path(join(self.out_path, "submissions")).mkdir(exist_ok=True)

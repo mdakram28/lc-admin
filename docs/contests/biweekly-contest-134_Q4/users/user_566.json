@@ -1,0 +1,6 @@
+{
+    "username": "FantasticoneSahil",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n=a.size();\n        long long ans=0;\n        ll last[32];\n        ll indx[n][32];\n        for(int i=0;i<32;++i) last[i]=n;\n        for(int i=n-1;i>=0;--i){\n            for(int j=0;j<32;++j){\n                if((1ll<<j)&a[i]){\n                    indx[i][j]=last[j];\n                }else{\n                    last[j]=i;\n                }\n            }\n        }\n        for(int i=0;i<n;++i){\n            if((a[i]&k)==k){\n                long long mxl=i,minr=n;\n                for(int j=0;j<32;++j){\n                    if((1ll<<j)&k){\n                        // on in k and a[i]'\n                        minr=min(minr,indx[i][j]);\n                    }else if((1ll<<j)&a[i]){\n                        // on in a[i]'\n                        mxl=max(mxl,indx[i][j]);\n                    }\n                }\n                if(minr>mxl)\n                    ans+=minr-mxl;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279515",
+    "subm_id": "1311754293"
+}

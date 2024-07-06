@@ -1,0 +1,6 @@
+{
+    "username": "uleenneelu",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<vector<int>> l0(n, vector<int>(33, -1));\n        long long o=1;\n        for(int i=0;i<n;i++){\n            for(int j=0;j<=30;j++){\n                if(i!=0){\n                    l0[i][j]=l0[i-1][j];\n                }\n                if(((nums[i]>>j)&o)==0){\n                    l0[i][j]=i;\n                }\n                // cout<<l0[i][j]<<\" \"<<i<<\" \"<<j<< endl;\n            }\n        }\n        \n        long long ans=0;\n        for(int i=0;i<n;i++){\n            int mn=i, mx=0;\n            for(int j=0;j<=30;j++){\n                if(((k>>j)&o)==0){\n                    mn=min(mn, l0[i][j]);\n                }\n                else {\n                    mx=max(mx, l0[i][j]+1);\n                }\n            }\n            if(mx<=mn){\n                ans+=mn-mx+1;\n            }\n        }\n        return ans;\n    }\n        \n};",
+    "submit_ts": "1720281123",
+    "subm_id": "1311813944"
+}

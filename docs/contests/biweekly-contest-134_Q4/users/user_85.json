@@ -1,0 +1,6 @@
+{
+    "username": "raj_kishan_04",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long count = 0;\n        int n = nums.length;\n        \n        // Map to store the current AND results and their frequencies\n        Map<Integer, Integer> andMap = new HashMap<>();\n        \n        for (int num : nums) {\n            // Create a new map for the new set of AND results\n            Map<Integer, Integer> newAndMap = new HashMap<>();\n            \n            // Initialize with the current number\n            if (num == k) {\n                count++;\n            }\n            newAndMap.put(num, newAndMap.getOrDefault(num, 0) + 1);\n            \n            // Update the AND results based on the previous map\n            for (int key : andMap.keySet()) {\n                int newAnd = key & num;\n                if (newAnd == k) {\n                    count += andMap.get(key);\n                }\n                newAndMap.put(newAnd, newAndMap.getOrDefault(newAnd, 0) + andMap.get(key));\n            }\n            \n            // Move to the new map\n            andMap = newAndMap;\n        }\n        \n        return count;\n    }\n}",
+    "submit_ts": "1720277957",
+    "subm_id": "1311687828"
+}

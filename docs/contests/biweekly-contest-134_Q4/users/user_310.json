@@ -1,0 +1,6 @@
+{
+    "username": "Nelson84",
+    "submission": "using LL = long long;\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        return at_most(nums, k) - at_most(nums, k-1);\n    }\n\n    LL at_most(const vector<int>& nums, const int k){\n        int n = nums.size();\n        int l = 0;\n        int r = 0;\n        LL cnt = 0;\n        vector<int> bits(32, 0);\n        while(r<n){\n            int cur = nums[r++];\n            insert_to_bits(bits, cur);\n            while(l<r && get_bits(bits, r-l)<=k){\n                //printf(\"l:%d r:%d\\n\", l, r);\n                int prev = nums[l++];\n                delete_to_bits(bits, prev);\n                cnt += n-r+1;\n            }\n        }\n        return cnt;\n    }\n\n    int get_bits(const vector<int>& bits, const int len){\n        int sum = 0;\n        for(int i=0; i<32; i++){\n            if(bits[i]==len) sum += (1<<i);\n        }\n        return sum;\n    }\n\n    void insert_to_bits(vector<int>& bits, const int num){\n        for(int i=0; i<32; i++){\n            if((num>>i)&1) bits[i]++;\n        }\n    }\n\n    void delete_to_bits(vector<int>& bits, const int num){\n        for(int i=0; i<32; i++){\n            if((num>>i)&1) bits[i]--;\n        }\n    }\n};",
+    "submit_ts": "1720279089",
+    "subm_id": "1311736901"
+}

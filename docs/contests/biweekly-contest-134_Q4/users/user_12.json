@@ -1,0 +1,6 @@
+{
+    "username": "vonrong",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        j1 = -1\n        j2 = -1\n        d1 = [0]*32\n        d2 = [0]*32\n        ans = 0\n        \n        def f(d, i, j):\n            ret = 0\n            for b in range(32):\n                if d[b] == (i-j):\n                    ret += 1<<b\n            return ret\n                \n        \n        for i in range(len(nums)):\n            for b in range(32):\n                if (1<<b)&nums[i]:\n                    d1[b] += 1\n                    d2[b] += 1\n            while j1 < i and f(d1, i, j1) <= k:\n                j1 += 1\n                for b in range(32):\n                    if (1<<b)&nums[j1]:\n                        d1[b] -= 1\n            while j2 < i and f(d2, i, j2) < k:\n                j2 += 1\n                for b in range(32):\n                    if (1<<b)&nums[j2]:\n                        d2[b] -= 1\n            ans += (j1-j2)\n        return ans\n            ",
+    "submit_ts": "1720276960",
+    "subm_id": "1311641097"
+}

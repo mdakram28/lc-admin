@@ -1,3 +1,4 @@
+from math import floor
 import os
 import sys
 from common import *
@@ -9,6 +10,7 @@ from collections import defaultdict
 from os.path import join, basename, exists
 from functools import cache
 from dataclasses import dataclass
+from pre_plag import LcClient
 
 class DisjSet: 
     def __init__(self): 
@@ -72,12 +74,13 @@ class DolosFile:
         return rank
 
 class ReportProcessor:
-    def __init__(self, contest_name, ques_num) -> None:
+    def __init__(self, contest_name, ques_num, client: LcClient) -> None:
         self.contest_name = contest_name
         self.ques_num = ques_num
         self.report_name = f"{contest_name}_Q{ques_num}"
         self.base_dir = join(CONTESTS_OUT_PATH, self.report_name)
         self.report_dir = join(self.base_dir, "dolos-report")
+        self.client = client
 
     @cache
     def get_pairs(self) -> List[DolosPair]:
@@ -149,14 +152,15 @@ class ReportProcessor:
         out_dir = join(self.base_dir, "pairs")
         Path(out_dir).mkdir(exist_ok=True)
 
-        pairs_file = open(join(out_dir, f"pairs_{sim_thres}.csv"), "w", newline='', encoding='utf-8')            
+        pairs_file = open(join(out_dir, f"pairs_{sim_thres}.csv"), "w", newline='', encoding='utf-8')
         writer = csv.writer(pairs_file)
         writer.writerow(["fileId1", "fileId2", "similarity"])
 
         for pair in pairs:
-            if pair.similarity < sim_thres/100:
+            sim = floor(pair.similarity*100)
+            if sim < sim_thres:
                 continue
-            writer.writerow([pair.rightFileId, pair.leftFileId, pair.similarity*100])
+            writer.writerow([pair.rightFileId, pair.leftFileId, sim])
         
         pairs_file.close()
 
@@ -191,10 +195,12 @@ class ReportProcessor:
         if exists(info_path):
             with open(info_path) as f:
                 info = json.load(f)
-
+        lc_info = self.client.fetch_contest_info()
         sim80 = self.get_groups(80)
 
-        info["reports"][self.report_name] = {
+        contest_id = lc_info["contest"]["id"]
+
+        info["reports"][contest_id] = {
             "name": self.report_name,
             "contest": self.contest_name,
             "ques_num": self.ques_num,

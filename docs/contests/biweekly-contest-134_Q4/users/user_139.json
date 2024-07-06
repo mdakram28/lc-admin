@@ -1,0 +1,6 @@
+{
+    "username": "LarryNY",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        N = len(nums)\n        INF = (1 << 32) - 1\n\n        count = 0\n\n        @cache\n        def go(index, v):\n            if v < k:\n                return 0\n            if v == 0:\n                if v == k:\n                    return N - index + 1\n                return 0\n            if index == N:\n                if v == k:\n                    return 1\n                return 0\n\n            total = 0\n            if v == k:\n                total += 1\n            total += go(index + 1, v & nums[index])\n            return total\n\n        for i in range(N):\n            count += go(i, INF)\n            #print(i, count)\n\n        return count",
+    "submit_ts": "1720277659",
+    "subm_id": "1311674026"
+}

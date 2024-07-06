@@ -1,0 +1,6 @@
+{
+    "username": "opPO24",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = (int)nums.size();\n        const int K = 20;\n\n        vector<vector<int>> a(n, vector<int>(K));\n        for (int i = 0; i < n; i++) {\n            a[i][0] = nums[i];\n        }\n        for (int j = 1; j < K; j++) {\n            for (int i = 0; i + (1 << j) - 1 < n; i++) {\n                a[i][j] = (a[i][j - 1] & a[i + (1 << (j - 1))][j - 1]);\n            }\n        }\n\n        auto get = [&](int l, int r) -> int {\n            int len = r - l + 1;\n            int L = __lg(len);\n            return (a[l][L] & a[r - (1 << L) + 1][L]);\n        };\n\n        long long ans = 0;\n        int r1 = 0, r2 = 0;\n        for (int l = 0; l < n; l++) {\n            r1 = max(r1, l);\n            while (r1 < n && get(l, r1) > k) r1++;\n            r2 = max(r2, r1);\n            while (r2 < n && get(l, r2) >= k) r2++;\n\n            if (r1 < n && get(l, r1) == k) {\n                ans += r2 - r1;\n            }\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720277246",
+    "subm_id": "1311654677"
+}

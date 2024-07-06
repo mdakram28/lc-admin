@@ -1,0 +1,6 @@
+{
+    "username": "EUqr2c2cjD8nuX5K",
+    "submission": "#include <ranges>\nauto BuildSparseTableFunc = [](const vector<int>& arr, auto binary_op) {\n    const int n = arr.size();\n    \n    vector<vector<long long>> dp(n);\n    for (int i = n - 1; i >= 0; --i) {\n        dp[i].push_back(arr[i]);\n        while (i + (1 << dp[i].size()) <= n) {\n            int k = dp[i].size();\n            dp[i].push_back(binary_op(dp[i][k - 1], dp[i + (1 << (k - 1))][k - 1]));\n        }\n    }\n    \n    return [dp = std::move(dp), binary_op](int from, int to) {\n        assert(from <= to);\n        int len = log2(to - from + 1);\n        return binary_op(dp[from][len], dp[to - (1 << len) + 1][len]);\n    };\n};\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        auto t = BuildSparseTableFunc(nums, bit_and());\n        \n        long long res = 0;\n        for (int i = 0; i < ssize(nums); ++i) {\n            // [0...i]\n            auto r = ranges::iota_view(0, i + 1);\n            auto [first, last] = ranges::equal_range(r, k, {}, [&](int index) {\n                return t(index, i);\n            });\n            res += distance(first, last);\n        }\n        \n        // For now not counting the empty subarray\n        \n        return res;\n    }\n};",
+    "submit_ts": "1720278121",
+    "subm_id": "1311695294"
+}

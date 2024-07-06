@@ -1,0 +1,6 @@
+{
+    "username": "kushagra12jain",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n    int arraySize = array.size();\n    long long matchCount = 0;\n\n    // Maps to keep track of previous and current AND operation results\n    std::unordered_map<long long, long long> previousAndResults;\n\n    // Iterate through each element in the array\n    for (int i = 0; i < arraySize; ++i) {\n        std::unordered_map<long long, long long> currentAndResults;\n\n        // Check if the current element matches the target\n        if (array[i] == target) {\n            ++matchCount;\n        }\n\n        // Initialize current result with the element itself\n        currentAndResults[array[i]] = 1;\n\n        // Update current results based on previous results\n        for (const auto& [prevValue, count] : previousAndResults) {\n            long long newAndResult = prevValue & array[i];\n            if (newAndResult == target) {\n                matchCount += count;\n            }\n            currentAndResults[newAndResult] += count;\n        }\n\n        // Update previous results to current results for next iteration\n        previousAndResults = currentAndResults;\n    }\n\n    return matchCount;  \n    }\n};",
+    "submit_ts": "1720279656",
+    "subm_id": "1311759948"
+}

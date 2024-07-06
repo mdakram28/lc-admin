@@ -1,0 +1,6 @@
+{
+    "username": "MmnvDUhqGx",
+    "submission": "#include <vector>\n#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& ns, int k) {\n        int n = ns.size();\n        long long ct = 0;\n        unordered_map<int, int> pc;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<int, int> cc;\n            ct += (ns[i] == k ? 1 : 0);\n            cc[ns[i]] = 1;\n\n            updateCounts(pc, cc, ns[i], k, ct);\n\n            pc = cc;\n        }\n\n        return ct;\n    }\n\nprivate:\n    void updateCounts(unordered_map<int, int>& pc, unordered_map<int, int>& cc, int val, int k, long long& ct) {\n        auto it = pc.begin();\n        while (it != pc.end()) {\n            int na = it->first & val;\n            ct += (na == k ? it->second : 0);\n            cc[na] = cc.find(na) != cc.end() ? cc[na] + it->second : it->second;\n            ++it;\n        }\n    }\n};\n",
+    "submit_ts": "1720280663",
+    "subm_id": "1311797666"
+}

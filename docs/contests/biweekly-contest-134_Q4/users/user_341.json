@@ -1,0 +1,6 @@
+{
+    "username": "Remineva",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        m = max(nums)\n        if m < k:\n            return 0\n        m = m.bit_length()\n        n = len(nums)\n        flag = [False] * m\n        i = 0\n        while k:\n            if k & 1:\n                flag[i] = True\n            k >>= 1\n            i += 1\n        prev = [-1] * m\n        res = 0\n\n        for i, num in enumerate(nums):\n            j = 0\n            for j in range(m):\n                if num & (1 << j) == 0:\n                    prev[j] = i\n\n            l = -1\n            r = i\n            for j in range(m):\n                if flag[j]:\n                    l = max(prev[j], l)\n                else:\n                    r = min(prev[j], r)\n\n            if r == -1:\n                continue\n            if r >= l:\n                res += r - l\n\n        return res",
+    "submit_ts": "1720279519",
+    "subm_id": "1311754446"
+}

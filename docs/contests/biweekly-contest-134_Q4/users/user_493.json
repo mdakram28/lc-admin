@@ -1,0 +1,6 @@
+{
+    "username": "roygaurav2004",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        vector<vector<ll>> bits(32);\n        int n = arr.size();\n        for(int i=0; i<n; i++){\n            for(int j=0; j<=30; j++){\n                if((arr[i] & (1<<j))==0) bits[j].push_back(i);\n            }\n        }\n        ll ans = 0;\n        for(ll i=0; i<n; i++){\n            ll val = arr[i];\n            if(val < k) continue;\n            vector<pair<ll,ll>> nxt;\n            for(ll j=0; j<=30; j++){\n                if((arr[i] & (1<<j)) == 0) continue;\n                auto it = upper_bound(bits[j].begin(),bits[j].end(), i)-bits[j].begin();\n                if(it == bits[j].size()) continue;\n                nxt.push_back({bits[j][it], j});\n            }\n            sort(nxt.begin(),nxt.end());\n            ll prev = i;\n            for(auto it: nxt){\n                ll idx = it.first;\n                if(val == k) ans += idx-prev;\n                prev = it.first;\n                val ^= (1<<it.second);\n            }\n            if(val == k) ans += n-prev;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278239",
+    "subm_id": "1311700507"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "skywalkert",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& A, int k) {\n        typedef long long LL;\n        LL ans = 0;\n        int n = A.size();\n        vector<pair<int, int> > stk;\n        for(int i = 0; i < n; ++i) {\n            int m = 0, x = A[i];\n            stk.push_back({x, i});\n            for(auto &it: stk) {\n                it.first &= x;\n                if((it.first & k) == k && (!m || it.first != stk[m - 1].first))\n                    stk[m++] = it;\n            }\n            stk.resize(m);\n            if(m && stk[0].first == k)\n                ans += (m > 1 ? stk[1].second : i + 1) - stk[0].second;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720276958",
+    "subm_id": "1311640970"
+}

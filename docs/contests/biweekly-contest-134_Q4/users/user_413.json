@@ -1,0 +1,6 @@
+{
+    "username": "SkylerTsai",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        tar = [(k >> i) & 1 for i in range(32)]\n        map0 = [[] for _ in range(32)]\n        for i in range(len(nums)):\n            for j in range(32):\n                if (nums[i] >> j) & 1 == 0: map0[j].append(i)\n        for i in range(32):\n            map0[i].append(len(nums))\n        \n        #print(tar)\n        #print(map0)\n        \n        cur = [0] * 32\n        ret = 0\n        for i in range(len(nums)):\n            for j in range(32):\n                #print(map0[j][cur[j]], i)\n                while map0[j][cur[j]] < i: cur[j] += 1\n            \n            lb, ub = i, len(nums)\n            for j in range(32):\n                #if j < 2:\n                    #print('ublb', i, j, tar[j], map0[j][cur[j]])\n                if tar[j]: ub = min(ub, map0[j][cur[j]])\n                else: lb = max(lb, map0[j][cur[j]])\n            #print(i, lb, ub)\n            if lb < ub: ret += ub - lb\n        return ret\n                \n            \n        \n        ",
+    "submit_ts": "1720279460",
+    "subm_id": "1311752071"
+}

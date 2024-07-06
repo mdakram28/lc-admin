@@ -1,0 +1,6 @@
+{
+    "username": "Bansal_jain",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long n=nums.size();\n        vector<vector<pair<int,int>>>v(n+1,vector<pair<int,int>>(32,{0,0}));\n        int sz[n];\n        v[0][0]={nums[0],0};\n        sz[0]=1;\n        for(int i=1;i<n;i++){\n            v[i][0]={nums[i],i};\n            int num=nums[i];\n            int indx=1;\n            for(int j=0;j<sz[i-1];j++){\n                if(num==0)break;\n                if((num&v[i-1][j].first)<num){\n                    \n                    num&=v[i-1][j].first;\n                    v[i][indx]={num,v[i-1][j].second};\n                    indx++;\n                }\n            \n            }\n            sz[i]=indx;\n        }\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            if((nums[i]&k)!=k)continue;\n            int st=0;\n            // int indx=0;\n            while(st<sz[i] and v[i][st].first!=k){\n                st++;\n            }\n            if(st==(sz[i]-1))\n            {\n                ans+=(v[i][st].second+1);\n            }\n            else{\n                ans+=abs(v[i][st+1].second-v[i][st].second);\n            }\n            // cout<<ans<<endl;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279178",
+    "subm_id": "1311740737"
+}

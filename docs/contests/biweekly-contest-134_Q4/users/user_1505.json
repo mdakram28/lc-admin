@@ -1,0 +1,6 @@
+{
+    "username": "igigig",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        ret = 0\n        run_started = False\n        k_seen = False\n        most_recent_subtotals = dict()\n        for i, num in enumerate(nums):\n            if k & (num ^ k):\n                run_started = False\n                k_seen = False\n                most_recent_subtotals = dict()\n                continue\n            if run_started is False:\n                run_started = i\n            most_recent_subtotals[num] = i    \n            new_subtotals_dict = dict()\n            for subtotal, index in most_recent_subtotals.items():\n                new_subtotal = subtotal & num\n                if new_subtotal not in new_subtotals_dict:\n                    new_subtotals_dict[new_subtotal] = index\n                    continue\n                new_subtotals_dict[new_subtotal] = max(index, new_subtotals_dict[new_subtotal])\n            most_recent_subtotals = new_subtotals_dict\n            if k not in most_recent_subtotals:\n                continue\n            ret += most_recent_subtotals[k] - run_started + 1\n        return ret\n        \n        # 6",
+    "submit_ts": "1720281025",
+    "subm_id": "1311810492"
+}

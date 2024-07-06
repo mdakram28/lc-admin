@@ -8,25 +8,61 @@ import os
 import json
 from post_plag import ReportProcessor
 import sqlite3
-import base64 
+import base64
 
-def tuple_to_bytes(t, sizes):
-    ret = bytes()
-    for val, size in zip(t, sizes):
-        if isinstance(val, int):
-            ret += val.to_bytes(size, 'big')
-        else:
-            raise Exception(f"Serialize of type {val.__class__.__name__} is not supported")
-    return ret
+def bs_int(num_bytes):
+    def f(val):
+        return val.to_bytes(num_bytes, 'big')
+    return f
 
-def serialize_tuple_array(arr, sizes):
-    ret = bytes()
-    ret += len(arr).to_bytes(2, 'big')
-    for t in arr:
-        ret += tuple_to_bytes(t, sizes)
-    print(f"Encoded size {len(ret)} bytes")
-    ret = base64.b64encode(ret)
-    return ret.decode("ascii") 
+def bs_tuple(*val_encoders):
+    def f(t):
+        ret = bytes()
+        for val, enc in zip(t, val_encoders):
+            # if isinstance(val, int):
+                # ret += val.to_bytes(size, 'big')
+            ret += enc(val)
+            # else:
+            #     raise Exception(f"Serialize of type {val.__class__.__name__} is not supported")
+        return ret
+    return f
+
+def bs_array(item_encoder):
+    def f(arr):
+        ret = bytes()
+        ret += len(arr).to_bytes(2, 'big')
+        for item in arr:
+            item = item_encoder(item)
+            assert isinstance(item, bytes), "Item not binary"
+            ret += item
+        return ret
+    return f
+    # ret = base64.b64encode(ret)
+    # return ret.decode("ascii") 
+
+def bs_dict(key_encoder, val_encoder):
+    def f(d):
+        ret = bytes()
+        ret += len(d).to_bytes(2, 'big')
+        for k, v in d.items():
+            k = key_encoder(k)
+            v = val_encoder(v)
+            assert isinstance(k, bytes), "Key not binary"
+            assert isinstance(v, bytes), "Val not binary"
+            ret += k + v
+        return ret
+    return f
+
+# user_struct = bs_dict(
+#     bs_int(2), 
+# )
+
+# data_struct = bs_dict(
+#     bs_int(2), bs_dict(
+#         bs_int(2), bs_array(bs_tuple(bs_int(1), bs_int(1)))
+#     )
+# )
+
 
 class LcAnalyzer:
     def __init__(self) -> None:
@@ -54,7 +90,7 @@ class LcAnalyzer:
             reports = json.load(f)["reports"]
 
         # self.user_contest_user_sim = defaultdict(lambda: defaultdict(dict))
-        self.user_contest_user_sim = defaultdict(list)
+        self.user_user_contest_sim = defaultdict(lambda: defaultdict(list))
         # self.user_user_sim = defaultdict(lambda: defaultdict(int))
         self.reports = dict(enumerate(reports.values()))
         self.uids = {}
@@ -78,7 +114,7 @@ class LcAnalyzer:
                 self.users[uid1] = user1.get_username()
                 self.users[uid2] = user2.get_username()
 
-                self.user_contest_user_sim[report_id].append([uid1, uid2, floor(pair.similarity*100)])
+                self.user_user_contest_sim[uid1][uid2].append([report_id, floor(pair.similarity*100)])
                 # self.user_contest_user_sim[uid1][report_id][uid2] = floor(pair.similarity*100)
                 # self.user_contest_user_sim[uid2][report_id][uid1] = floor(pair.similarity*100)
 
@@ -129,15 +165,14 @@ class LcAnalyzer:
 
     def write(self):
         with open(self.users_json_path, "w") as f:
+            data = data_struct(self.user_user_contest_sim)
+            print(f"Encoded size: {len(data)} bytes")
             json.dump({
                 "reports": self.reports,
-                "user_contest_user_sim": {
-                    k: serialize_tuple_array(v, [2, 2, 1])
-                    for k, v in self.user_contest_user_sim.items()
-                },
+                "user_user_contest_sim": base64.b64encode(data).decode("ascii"),
                 # "user_user_sim": self.user_user_sim,
                 "users": self.users
-            }, f)
+            }, f, indent=4)
 
     
     

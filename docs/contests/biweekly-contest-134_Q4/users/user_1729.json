@@ -1,0 +1,6 @@
+{
+    "username": "awesomeRj01",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        priority_queue<pair<ll,ll>> pq;\n        ll curr = nums[0];\n        ll n = nums.size();\n        ll res = 0;\n        for(auto it : nums){\n            if(it==k)res++;\n        }\n        for(int i = 0 ; i< n ;i++){\n            priority_queue<pair<ll,ll>> curr;\n            curr.push({nums[i],1});\n            while(pq.size()> 0 && pq.top().first>=k){\n                auto it = pq.top();\n                int val = pq.top().first;\n                int count = pq.top().second;\n                pq.pop();\n                while(pq.size()>0 && pq.top().first==val){count+=pq.top().second;pq.pop();}\n                if((it.first&nums[i])==k){\n                    res+=count;\n                }\n                curr.push({it.first&nums[i],count});\n                // pq.pop();\n            }\n            pq= curr;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720281371",
+    "subm_id": "1311822712"
+}

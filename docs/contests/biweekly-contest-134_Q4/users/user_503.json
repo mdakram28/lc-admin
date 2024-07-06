@@ -1,0 +1,6 @@
+{
+    "username": "EzikBro",
+    "submission": "class Solution:\n    def countSubarrays(self, a: List[int], k: int) -> int:\n        n = len(a)\n        b = [(i & k) == k for i in a]\n        print(b)\n        c = []\n        for i in range(n):\n            if not b[i]:\n                continue\n            if i == 0 or not b[i - 1]:\n                c.append([a[i]])\n            else:\n                c[-1].append(a[i])\n        print(c)\n        d = [i for i in range(30) if (k & (1 << i)) == 0]\n        print(d)\n        ans = 0\n        for v in c:\n            u = 0\n            t = [0] * 30\n            g = len(d)\n            for i in range(len(v)):\n                while u < len(v) and g > 0:\n                    for j in d:\n                        if (v[u] & (1 << j)) == 0:\n                            t[j] += 1\n                            if t[j] == 1:\n                                g -= 1\n                    u += 1\n                # print(v, i, u, t, g)\n                if g > 0:\n                    break\n                ans += len(v) - u + 1\n                for j in d:\n                    if (v[i] & (1 << j)) == 0:\n                        t[j] -= 1\n                    if t[j] == 0:\n                        g += 1\n        return ans\n\n\n",
+    "submit_ts": "1720278152",
+    "subm_id": "1311696658"
+}

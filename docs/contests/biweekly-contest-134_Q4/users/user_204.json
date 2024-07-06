@@ -1,0 +1,6 @@
+{
+    "username": "john0312acc223",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int last_req_zero = -1;\n        vector<int> last_nr_zero(32, -1);\n        long long res = 0;\n        for (int i = 0; i < nums.size(); i++) {\n            int cv = nums[i];\n            if ((cv & k) != k) {\n                last_req_zero = i;\n            }\n            int span_start = last_req_zero+1;\n            int span_end = i;\n            for (int j = 0; j < 31; j++) {\n                if ((k & (1<<j)) == 0) {\n                    if ((cv & (1<<j)) == 0) {\n                        last_nr_zero[j] = i;\n                    }\n                    span_end = min(span_end, last_nr_zero[j]);\n                }\n            }\n            res += max(0, span_end-span_start+1);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720278338",
+    "subm_id": "1311704803"
+}

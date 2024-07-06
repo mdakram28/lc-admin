@@ -1,0 +1,6 @@
+{
+    "username": "URUXLQrDYe",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        vector<vector<int>> dp(33);\n        int n = a.size();\n        for (int j = 0; j < 32; j++) {\n            for (int i = 0; i < n; i++) {\n                if (((a[i] >> j) & 1) == 0) {\n                    dp[j].push_back(i);\n                }\n            }\n        }\n        long long ans = 0;\n        auto form = [&](int l) { return l * (l + 1) / 2; };\n        for (int i = 0; i < n; i++) {\n            int  s = i, e = n;\n            for (int j = 0; j < 32; j++) {\n                int f=0;\n                if (k & (1 << j))\n                    f = 1;\n                auto it = lower_bound(dp[j].begin(), dp[j].end(), i);\n                int ind;\n                if (it == dp[j].end())\n                    ind = n;\n                else\n                    ind = *it;\n\n                if (f == 0) {\n                    s = max(s, ind);\n                } else {\n                    e = min(e, ind);\n                }\n            }\n            // cout<<s<<\" \"<<e<<endl;\n            if (e > s)\n            ans += e - s;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720280287",
+    "subm_id": "1311783772"
+}

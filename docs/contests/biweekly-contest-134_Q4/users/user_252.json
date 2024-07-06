@@ -1,0 +1,6 @@
+{
+    "username": "arpitpandey992",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        using ll = long long;\n        ll n = a.size(), ans =0;\n        vector<ll>latestZero(32, -1);\n        vector<ll>runningOnes(32, 0);\n        for(int i=0; i<n; i++) {\n            ll oneBound = 0, zeroBound = i;\n            for(int bit = 0; bit<32; bit++) {\n                if(a[i]&(1<<bit)) {\n                    runningOnes[bit]++;\n                }\n                else {\n                    runningOnes[bit]=0;\n                    latestZero[bit] = i;\n                }\n                \n                int kbit = (k>>bit)&1;\n                if(kbit) {\n                    oneBound = max(oneBound, i+1-runningOnes[bit]); \n                    // 0, 1         , 1, 1, 1, 1, 1\n                    //  , i+1-runBit, .........., i\n                } else {\n                    zeroBound = min(zeroBound, latestZero[bit]);\n                }\n            }\n            ans += max(0ll, zeroBound - oneBound + 1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278562",
+    "subm_id": "1311714529"
+}

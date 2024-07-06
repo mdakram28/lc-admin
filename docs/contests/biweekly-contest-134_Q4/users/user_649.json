@@ -1,0 +1,6 @@
+{
+    "username": "anuragdw0710",
+    "submission": "class Solution {\npublic:\n    #define ll long long \n    long long countSubarrays(vector<int>& nums, int k) {\n        vector<ll> aa(32,0),bb(32,1);\n        ll ans=0,n=nums.size();\n        for(int i=0;i<n;i++){\n            for(int j=0;j<32;j++){\n                if((nums[i]&(1ll<<j))==0){\n                    aa[j]=i+1;\n                    bb[j]=i+2;\n                }\n            }\n            ll pos1=-1,pos2=i+2;\n            for(int j=0;j<32;j++){\n                if((k&(1ll<<j))==0){\n                    pos2=min(pos2,aa[j]);\n                }else{\n                    pos1=max(pos1,bb[j]);\n                }\n            }\n            // cout<<i<<\" \"<<pos1<<\" \"<<pos2<<endl;\n            if(pos1==-1){\n                ans+=pos2;\n            }else if(pos2==i+2){\n                ans+=(i+1-pos1+1);\n            }else if(pos1<=pos2){\n                ans+=(pos2-pos1+1);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279662",
+    "subm_id": "1311760140"
+}

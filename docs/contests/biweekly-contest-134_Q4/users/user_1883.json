@@ -1,0 +1,6 @@
+{
+    "username": "ableed",
+    "submission": "class Solution {\npublic:\n\nlong long countSubarrays(vector<int>& nums, int k) {\n\n     int n = nums.size();\n        long long count = 0;\n        \n        // Create a map to keep track of the bitwise AND results\n        unordered_map<int, int> andFreq;\n        \n        // Iterate over each element\n        for (int i = 0; i < n; ++i) {\n            // Temporary map for the new window starting at index i\n            unordered_map<int, int> newAndFreq;\n            \n            // Initialize the map with the current element\n            newAndFreq[nums[i]]++;\n            if (nums[i] == k) {\n                count++;\n            }\n            \n            // Update the map with results from the previous window\n            for (auto& p : andFreq) {\n                int newAnd = p.first & nums[i];\n                if (newAnd == k) {\n                    count += p.second;\n                }\n                newAndFreq[newAnd] += p.second;\n            }\n            \n            // Move the new results to the main map\n            andFreq = move(newAndFreq);\n        }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1720279132",
+    "subm_id": "1311738774"
+}

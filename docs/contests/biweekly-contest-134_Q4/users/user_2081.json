@@ -1,0 +1,6 @@
+{
+    "username": "ayush-018",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ios::sync_with_stdio(false); // Optimize I/O operations\n        cin.tie(nullptr); // Untie cin from cout for faster I/O\n       int size = nums.size();\n        long long total = 0;\n        vector<int>v;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; index++) {\n            unordered_map<long long, long long> currentResults; \n            if (nums[index] == k) {\n                total++;\n                v.push_back(total);\n            }\n            currentResults[nums[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & nums[index];\n                if (newAndResult == k) {\n                    total += frequency;\n                    v.push_back(total);\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
+    "submit_ts": "1720279548",
+    "subm_id": "1311755618"
+}

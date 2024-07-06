@@ -1,0 +1,6 @@
+{
+    "username": "parishameerut",
+    "submission": "class Solution(object):\n    def countSubarrays(self, nums, k):\n        \"\"\"\n        :type nums: List[int]\n        :type k: int\n        :rtype: int\n        \"\"\"\n        count = 0\n        n = len(nums)\n        curr = defaultdict(int)\n        \n        '''\n        for start in range(n):\n            curr = nums[start]\n            if curr == k:\n                count += 1\n\n            for end in range(start + 1, n):\n                curr &= nums[end]\n                if curr == k:\n                    count += 1\n                elif curr < k:\n                    break\n        '''\n        for start in range(n):\n            n_curr = defaultdict(int)\n            \n            for val in curr:\n                new_val = val&nums[start]\n                n_curr[new_val] += curr[val]\n                \n            n_curr[nums[start]] += 1\n            if k in n_curr:\n                count += n_curr[k]\n            curr = n_curr\n        \n        return count\n        \n    \n'''\n[1,1,2]\n1\n[1,2,3]\n2\n'''",
+    "submit_ts": "1720280329",
+    "subm_id": "1311785316"
+}

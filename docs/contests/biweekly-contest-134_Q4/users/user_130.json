@@ -1,0 +1,6 @@
+{
+    "username": "maybk",
+    "submission": "class Solution {\n    #define ll long long\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n = a.size();\n        ll ans = 0;\n        vector<vector<int>> pos(32);\n        for(int i = 0; i < 31; i++) pos[i].push_back(n);\n        for(int i = n - 1; i >= 0; i--) {\n            for(int j = 0; j < 31; j++) {\n                if(~ a[i] >> j & 1) {\n                    pos[j].push_back(i);\n                }\n            }\n        }\n        for(int i = 0; i < n; i++) {\n            int mx = i , mn = n;\n            for(int j = 0; j < 31; j++) {\n                if(k >> j & 1) {\n                    mn = min(mn, pos[j].back());\n                } else {\n                    mx = max(mx, pos[j].back());\n                }\n            }\n            ans += max(0, mn - mx);\n            for(int j = 0; j < 31; j++) {\n                if(~ a[i] >> j & 1) {\n                    pos[j].pop_back();\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278167",
+    "subm_id": "1311697322"
+}

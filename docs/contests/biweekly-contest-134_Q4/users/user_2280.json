@@ -1,0 +1,6 @@
+{
+    "username": "shahilchoudhary",
+    "submission": "#include <vector>\n#include <unordered_map>\n\nclass Solution {\npublic:\n    long long countSubarrays(std::vector<int>& nums, int k) {\n        long long count = 0;\n        int n = nums.size();\n        std::unordered_map<int, int> lastOccurrence;\n        \n        for (int i = 0; i < n; ++i) {\n            std::unordered_map<int, int> newOccurrence;\n            \n            // Update newOccurrence with the current element itself\n            newOccurrence[nums[i]]++;\n            \n            // Update newOccurrence with AND results of previous occurrences\n            for (auto& [val, freq] : lastOccurrence) {\n                int newAnd = val & nums[i];\n                newOccurrence[newAnd] += freq;\n            }\n            \n            // Check if any of the AND results equal k\n            for (auto& [val, freq] : newOccurrence) {\n                if (val == k) {\n                    count += freq;\n                }\n            }\n            \n            // Move newOccurrence to lastOccurrence for the next iteration\n            lastOccurrence = std::move(newOccurrence);\n        }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1720277467",
+    "subm_id": "1311665072"
+}

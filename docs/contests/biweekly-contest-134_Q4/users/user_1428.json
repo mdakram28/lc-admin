@@ -1,0 +1,6 @@
+{
+    "username": "_Yash_Kumar_",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long matchCount = 0;\n        \n        unordered_map<long long, long long> previousResults;\n\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n\n            if (array[index] == target) {\n                ++matchCount;\n            }\n            currentResults[array[index]] = 1;\n\n            updateResults(array[index], previousResults, currentResults, matchCount, target);\n            \n            previousResults = currentResults;\n        }\n        \n        return matchCount;\n    }\n\nprivate:\n    void updateResults(int currentValue, unordered_map<long long, long long>& previous, unordered_map<long long, long long>& current, long long& matchCount, int target) {\n        for (auto& [value, frequency] : previous) {\n            long long newAndResult = value & currentValue;\n            if (newAndResult == target) {\n                matchCount += frequency;\n            }\n            current[newAndResult] += frequency;\n        }\n    }\n};\n",
+    "submit_ts": "1720278098",
+    "subm_id": "1311694216"
+}

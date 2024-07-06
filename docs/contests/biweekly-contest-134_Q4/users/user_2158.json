@@ -1,0 +1,6 @@
+{
+    "username": "glagoid",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        prefix_count = [defaultdict(int) for _ in range(len(nums))]\n        prefix_count[0][nums[0]] = 1\n        result = 0\n        \n        for i in range(1, len(nums)):\n            current_num = nums[i]\n            prefix_count[i][current_num] += 1\n            \n            for key, count in prefix_count[i - 1].items():\n                new_and = key & current_num\n                prefix_count[i][new_and] += count\n        \n        for i in range(len(nums)):\n            for key, count in prefix_count[i].items():\n                if key == k:\n                    result += count\n        \n        return result\n        ",
+    "submit_ts": "1720278613",
+    "subm_id": "1311716746"
+}

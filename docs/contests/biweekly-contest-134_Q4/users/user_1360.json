@@ -1,0 +1,6 @@
+{
+    "username": "Shivesh__Gupta__",
+    "submission": "class Solution {\npublic:\n    int find(int left, int right, vector<vector<int>>& prefix){\n        long long ans=0;\n        for(int i=0;i<31;i++){\n            if(prefix[right][i] - prefix[left][i] == right-left) ans += (1<<i );\n        }\n        return ans;\n    }\n    long long solve(vector<int>& nums, int k, vector<vector<int>>& prefix){\n        long long ans=0;\n        int j=0,i=0;\n        while(j<nums.size()){\n            int val = find(i, j+1, prefix);\n            if(val <= k) {\n                ans += nums.size()-j;\n                i++;\n            }\n            else j++;\n        }\n        return ans;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>>prefix(n+1,vector<int>(32,0));\n        for(int i=0;i<n;i++){\n            for(int j=0;j<31;j++){\n                int val = 0;\n                if((1 << j) & nums[i]) val=1;\n                prefix[i+1][j] = prefix[i][j] + (val);\n            }\n        }\n        long long ans = solve(nums, k, prefix) ;\n        if(k) ans -= solve(nums, k-1, prefix);\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1720281155",
+    "subm_id": "1311815054"
+}

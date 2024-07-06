@@ -1,0 +1,6 @@
+{
+    "username": "sreecharan_12082003",
+    "submission": "class Solution {\n    fun countSubarrays(numbers: IntArray, target: Int): Long {\n        val n = numbers.size\n        var count = 0L\n        \n        val prevResults = mutableMapOf<Long, Long>()\n\n        for (i in numbers.indices) {\n            val currResults = mutableMapOf<Long, Long>()\n\n            if (numbers[i] == target) {\n                count++\n            }\n            currResults[numbers[i].toLong()] = 1\n\n            for ((value, frequency) in prevResults) {\n                val newAndResult = value and numbers[i].toLong()\n                if (newAndResult == target.toLong()) {\n                    count += frequency\n                }\n                currResults[newAndResult] = currResults.getOrDefault(newAndResult, 0L) + frequency\n            }\n            \n            prevResults.clear()\n            prevResults.putAll(currResults)\n        }\n        \n        return count\n    }\n}\n",
+    "submit_ts": "1720278505",
+    "subm_id": "1311712092"
+}

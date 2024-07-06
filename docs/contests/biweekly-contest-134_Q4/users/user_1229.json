@@ -1,0 +1,6 @@
+{
+    "username": "Tiny_Snow",
+    "submission": "//\n//\n\n#include <iostream>\n#include <iso646.h>\n#include <vector>\n#include <set>\n#include <unordered_set>\n#include <map>\n#include <unordered_map>\n#include <queue>\n#include <algorithm>\n#include <numeric>\n#include <cmath>\n#include <functional>\n#include <string>\n#include <array>\n\nusing namespace std;\nusing LL = long long;\nconst int INF = 0x3f3f3f3f;\nconst LL LINF = 0x3f3f3f3f3f3f3f3f;\n\nclass Solution\n{\npublic:\n    long long countSubarrays(vector<int> &nums, int k)\n    {\n        map<int, LL> and_vals = {{nums[0], 1}};\n        int n = nums.size();\n        LL ans = and_vals.count(k);\n        for (int r = 1; r < n; r++)\n        {\n            map<int, LL> new_and_vals;\n            for (auto [and_val, cnt] : and_vals)\n                new_and_vals[and_val & nums[r]] += cnt;\n            new_and_vals[nums[r]]++;\n            and_vals = new_and_vals;\n            if (and_vals.count(k))\n                ans += and_vals[k];\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279479",
+    "subm_id": "1311752827"
+}

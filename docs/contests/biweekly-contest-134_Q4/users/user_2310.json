@@ -1,0 +1,6 @@
+{
+    "username": "kumaraditya5",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n\n        Map<Long, Long> previousResults = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> currentResults = new HashMap<>();\n\n            if (nums[i] == k) {\n                count++;\n            }\n            currentResults.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long value = entry.getKey();\n                long frequency = entry.getValue();\n                long newAndResult = value & nums[i];\n\n                if (newAndResult == k) {\n                    count += frequency;\n                }\n                currentResults.put(newAndResult, currentResults.getOrDefault(newAndResult, 0L) + frequency);\n            }\n\n            previousResults = currentResults;\n        }\n\n        return count;\n    }\n}",
+    "submit_ts": "1720280244",
+    "subm_id": "1311782118"
+}

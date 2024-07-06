@@ -1,0 +1,6 @@
+{
+    "username": "feindreh",
+    "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar countSubarrays = function(nums, k) {\n    const dp = new Array(nums.length).fill(0).map(()=>{return {}})\n    const dynamo = (index,value) => {\n        if(index >= nums.length){return 0}\n        if(dp[index][value] !== undefined){return dp[index][value]}\n        const n = value&nums[index]\n        let next = dynamo(index+1,n)\n        let plus = (n === k)?1:0\n        dp[index][value] = next + plus\n        return next+plus\n    }\n    let res = 0\n    for(let i = 0;i<nums.length;i++){\n        res += (dynamo(i,nums[i]))\n    }\n    return res\n};",
+    "submit_ts": "1720278817",
+    "subm_id": "1311725555"
+}

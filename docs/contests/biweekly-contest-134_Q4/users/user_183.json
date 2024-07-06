@@ -1,0 +1,6 @@
+{
+    "username": "skyinde2",
+    "submission": "\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        ret = 0\n\n        index = [-1] * 31\n        bits = []\n        bits_ = []\n\n        for i in range(len(nums)):\n            a, b = -1, -1\n\n            v = nums[i]\n            if v == k:\n                a = i\n\n            for j in range(31):\n                if not 1 << j & nums[i]:\n                    bits_.append(j)\n                    index[j] = i\n\n            for j in bits:\n                if 1 << j & nums[i]:\n                    bits_.append(j)\n\n            for j in bits:\n                v &= nums[index[j]]\n                if a < 0 and v == k:\n                    a = index[j]\n                elif v & k != k:\n                    b = index[j]\n                    break\n\n            if a != -1:\n                ret += a - b\n\n            bits, bits_ = bits_, bits\n            bits_.clear()\n\n        return ret\n",
+    "submit_ts": "1720278547",
+    "subm_id": "1311713898"
+}

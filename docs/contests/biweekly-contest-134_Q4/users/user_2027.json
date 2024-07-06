@@ -1,0 +1,6 @@
+{
+    "username": "hanbro0112",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        tb = [0] * 31 \n        ans = 0\n        for i, num in enumerate(nums):\n            if k != 0:\n                includes, others = inf, -inf\n                for d in range(31):\n                    tb[d] = tb[d] + 1 if (num >> d) & 1 else 0\n                    if (k >> d) & 1:\n                        includes = min(includes, tb[d])\n                    else:\n                        others = max(others, tb[d])\n                        \n                if includes > others:\n                    ans += includes - others \n            \n            else:\n                mx = 0\n                for d in range(31):\n                    tb[d] = tb[d] + 1 if (num >> d) & 1 else 0\n                    mx = max(mx, tb[d])\n                \n                ans += i + 1 - mx\n                \n        return ans",
+    "submit_ts": "1720280842",
+    "subm_id": "1311803970"
+}

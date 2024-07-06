@@ -1,0 +1,6 @@
+{
+    "username": "WRWRW",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int: \n        res = 0  \n        @lru_cache(None)\n        def getdigits(tmp):\n            res = [0] * 30\n            i = 0\n            while tmp > 0:\n                res[i] += tmp % 2\n                tmp = tmp // 2\n                i += 1\n            return res\n            \n        p = [0] * 30\n        pi = None\n        for i, val in enumerate(nums):\n            if val & k == k:\n                if pi is None:\n                    pi = i\n                digits = getdigits(val ^ k)\n                p = [a + b if b == 1 else 0 for a, b in zip(p, digits)]\n                mp = max(p)\n                res += i - pi + 1 - mp\n            else:\n                p = [0] * 30\n                pi = None\n        return res",
+    "submit_ts": "1720279261",
+    "subm_id": "1311744140"
+}

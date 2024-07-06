@@ -1,0 +1,6 @@
+{
+    "username": "CatMachina",
+    "submission": "class Solution {\n\n    bool check(int num, int j) {\n        return ((1 << j) & num) > 0;\n    }\n\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> right(n + 1, vector<int>(32, 0)); \n        for(int i = n-1; i >= 0; --i) {\n            for(int j = 0; j < 32; ++j) {\n                if(check(nums[i], j)) {\n                    right[i][j] = right[i+1][j] + 1;\n                } else {\n                    right[i][j] = 0;\n                }\n            }\n        }\n        long long ans = 0;\n        for(int i = 0; i < n; ++i) {\n            int r = n-i, l = 0;\n            for(int j = 0; j < 32; ++j) {\n                if(check(k, j)) {\n                    r = min(r, right[i][j]);\n                } else {\n                    l = max(l, right[i][j]);\n                }\n            }\n            // cout << r << \" \" << l << \"\\n\";\n            if(l < r) {\n                ans += r - l;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279278",
+    "subm_id": "1311744803"
+}

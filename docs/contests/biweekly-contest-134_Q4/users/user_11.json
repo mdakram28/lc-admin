@@ -1,0 +1,6 @@
+{
+    "username": "numb3r5",
+    "submission": "template <class T> struct sparseTable { // 0-indexed\n    T op(T a, T b) {\n        return a & b;\n    } \n\n    int n;\n    vector<vector<T>> st;\n    \n    sparseTable() {}\n\n    sparseTable(vector<T> v) {\n        n = v.size();\n        st = vector<vector<T>>(__lg(n)+1, vector<T>(n, 0));\n        st[0] = v;\n        for (int i=1; i<st.size(); i++) {\n            for (int j=0; j+(1<<i)<=n; j++) st[i][j] = op(st[i-1][j], st[i-1][j+(1<<(i-1))]);\n        }\n    } \n\n    T query(int l, int r) { // inclusive range\n        int sz = __lg(r-l+1);\n        return op(st[sz][l], st[sz][r-(1<<sz)+1]);\n    }\n};\n\nlong long res(vector<int>& nums, int k) {\n    // >= k\n    sparseTable<int> st(nums);\n    long long res = 0;\n    for (int i=0; i<nums.size(); i++) {\n        if (nums[i] < k) continue;\n        int low = i, high = nums.size() - 1, mid;\n        while (low != high) {\n            mid = (low + high + 1) / 2;\n            if (st.query(i, mid) >= k) low = mid;\n            else high = mid - 1;\n        }\n        res += low - i + 1;\n    }\n    return res;\n}\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        return res(nums, k) - res(nums, k + 1);\n    }\n};",
+    "submit_ts": "1720277070",
+    "subm_id": "1311646294"
+}

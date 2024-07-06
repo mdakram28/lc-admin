@@ -1,0 +1,6 @@
+{
+    "username": "user0707pg",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n    int n = nums.size();\n    long long result = 0;\n    vector<unordered_map<long long, long long>> accumulator(n);\n\n    for (int i = 0; i < n; ++i) {\n        if (nums[i] == k) {\n            result++;\n        }\n        accumulator[i][nums[i]] = 1;\n\n        if (i > 0) {\n            for (const auto& [key, count] : accumulator[i-1]) {\n                long long newKey = key & nums[i];\n                if (newKey == k) {\n                    result += count;\n                }\n                accumulator[i][newKey] += count;\n            }\n        }\n    }\n\n    return result;\n\n    }\n};",
+    "submit_ts": "1720278982",
+    "subm_id": "1311732430"
+}

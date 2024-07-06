@@ -1,0 +1,6 @@
+{
+    "username": "AlthafHussain",
+    "submission": "class Solution {\n    HashMap<Integer, HashMap<Integer, Long>> dp;\n    public long countSubarrays(int[] nums, int k) {\n        dp = new HashMap<>();\n        return f(0, -1, nums, k);\n    }\n    long f(int i, int and, int nums[], int k){\n        if(i == nums.length){\n            return 0;\n        }\n        if(dp.get(i) != null && dp.get(i).get(and) != null) return dp.get(i).get(and);\n        long cnt = 0;\n        if(and == -1){\n            cnt += (nums[i] == k ? 1 : 0)+f(i+1, nums[i], nums, k);\n            cnt += f(i+1, and, nums, k);\n        }\n        else{\n            cnt = (cnt+(k == (nums[i]&and) ? 1 : 0)+f(i+1, nums[i]&and, nums, k));\n        }\n        if(dp.get(i) == null) dp.put(i, new HashMap<>());\n        dp.get(i).put(and, cnt);\n        return cnt;\n    }\n}",
+    "submit_ts": "1720279333",
+    "subm_id": "1311747001"
+}

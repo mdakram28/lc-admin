@@ -1,0 +1,6 @@
+{
+    "username": "imObscure",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int tgt) {\n        int n = arr.size();\n        long long count_ans = 0;\n        unordered_map<long long, long long> prevResultsStore;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults;\n            \n            if (arr[i] == tgt) {\n                ++count_ans;\n            }\n            \n            currResults[arr[i]] = 1;\n            \n            for (auto& [val, freq] : prevResultsStore) {\n                long long newAndResult = val & arr[i];\n                if (newAndResult == tgt) {\n                    count_ans += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResultsStore = currResults;\n        }\n        \n        return count_ans;\n    }\n};\n",
+    "submit_ts": "1720279577",
+    "subm_id": "1311756828"
+}

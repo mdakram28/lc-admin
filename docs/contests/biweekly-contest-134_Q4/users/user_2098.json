@@ -1,0 +1,6 @@
+{
+    "username": "Hs9320",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int arraySize = nums.size();\n        long long subarrayCount = 0;\n        \n        unordered_map<long long, long long> previousResults;\n\n        for (int i = 0; i < arraySize; ++i) {\n            unordered_map<long long, long long> currentResults; \n\n            if (nums[i] == k) {\n                ++subarrayCount;\n            }\n            currentResults[nums[i]] = 1;\n\n            for (auto entry : previousResults) {\n                long long prevValue = entry.first;\n                long long frequency = entry.second;\n                long long newAndResult = prevValue & nums[i];\n                if (newAndResult == k) {\n                    subarrayCount += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return subarrayCount;\n    }\n};\n",
+    "submit_ts": "1720278728",
+    "subm_id": "1311721699"
+}

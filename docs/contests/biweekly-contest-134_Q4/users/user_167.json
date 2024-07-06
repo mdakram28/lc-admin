@@ -1,0 +1,6 @@
+{
+    "username": "darthcoder33",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int k) {\n        int dp[32] = {};\n        for(int i = 0; i < 32; i++) dp[i] = -1;\n        long long ans{};\n        int n = v.size();\n        for(int i = 0; i < n; i++){\n            for(int j = 0; j < 32; j++){\n                if((v[i]>>j) & 1) continue;\n                dp[j] = i;\n            }\n            int st = 0, en = i;\n            for(int j = 0; j < 32; j++){\n                if((k>>j) & 1){\n                    st = max(dp[j] + 1, st);\n                }else{\n                    if(dp[j] < st) {\n                        st = i + 1;\n                        break;\n                    }\n                    en = min(en, dp[j]);\n                }\n            }\n            ans = ans + max(0, en - st + 1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278153",
+    "subm_id": "1311696737"
+}

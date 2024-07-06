@@ -1,0 +1,6 @@
+{
+    "username": "zinchse",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        def get_bits(num: int) -> List[int]:\n            return [bool((2 ** bit) & num) for bit in range(33)]\n\n        missing_bit_to_last_pos = defaultdict(lambda: -1)\n        start = 0\n        res = 0\n        for pos, num in enumerate(nums):\n            if (num & k) != k:\n                start = pos + 1\n                continue\n            end = pos\n            for i, bit in enumerate(get_bits(num ^ k)):\n                if not bit:\n                    continue\n                if missing_bit_to_last_pos[i] < start:\n                    end = start - 1\n                else:\n                    end = min(end, missing_bit_to_last_pos[i])\n\n            for i, bit in enumerate(get_bits(num)):\n                if not bit:\n                    missing_bit_to_last_pos[i] = pos\n            res += end + 1 - start \n        return res",
+    "submit_ts": "1720280401",
+    "subm_id": "1311788039"
+}

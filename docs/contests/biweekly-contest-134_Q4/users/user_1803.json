@@ -1,0 +1,6 @@
+{
+    "username": "iit2021161",
+    "submission": "class Solution {\npublic:\n    #define ll long long \n    ll f(vector<int> &v,ll k){\n        ll r=-1,vAnd=INT_MAX,n=v.size(),ans=0;\n        vector<ll> cnt(31,0);\n        for(int l=0;l<n;l++){\n            if(l>r){\n                for(int j=0;j<31;j++){\n                    if((v[l]&(1<<j))) cnt[j]++;\n                }\n                vAnd=v[l];\n                r=l;\n            }\n            \n            while(r<n && vAnd>k){\n                r++;\n                if(r<n){\n                    vAnd=vAnd&v[r];\n                    for(int j=0;j<31;j++){\n                        if((v[r]&(1<<j))) cnt[j]++;\n                    }\n                }\n            }\n            \n            ans+=r-l;\n            \n            for(int j=0;j<31;j++){\n                if(!(v[l]&(1<<j)) && cnt[j]==r-l){\n                    vAnd|=(1<<j);\n                }\n                if((v[l]&(1<<j))) cnt[j]--;\n            }\n        }\n        \n        return ans;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll a=f(nums,k-1),b=f(nums,k);\n        cout<<a<<\" \"<<b<<endl;\n        return a-b;\n    }\n};",
+    "submit_ts": "1720281193",
+    "subm_id": "1311816380"
+}

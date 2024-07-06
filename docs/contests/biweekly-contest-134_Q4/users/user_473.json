@@ -1,0 +1,6 @@
+{
+    "username": "aryan1602",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        int l = nums.size();\n        if(nums.back() == k) ans++;\n        vector <int> p(32, -1), n(32, nums.size());\n\n        for(int i = 0; i<32; i++){\n            int d = (1 << i);\n            if(nums.back() & d){\n                p[i] = l-1;\n            }\n            else n[i] = l-1;\n        }\n\n        for(int i = l-2; i>=0; i--){\n            int flag = 1;\n            for(int j = 0; j<32; j++){\n                int d = (1 << j);\n                int c = nums[i];\n                if(!(d & c)) n[j] = i;\n                else p[j] = i;\n            }\n            int a = i, b = l;\n            for(int j = 0; j<32; j++){\n                int d = (1 << j);\n                if(d & k){\n                    b = min(b, n[j]);\n                }\n                else{\n                    a = max(a, n[j]);\n                }\n\n            }\n            b--;\n           \n            if(b < a) continue;\n          \n            long long y = (b-a+1);\n            ans+= y;\n     \n            \n\n            \n\n        \n        }\n        return ans;\n\n       \n    }\n};",
+    "submit_ts": "1720279590",
+    "subm_id": "1311757360"
+}

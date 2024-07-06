@@ -156,7 +156,9 @@ export function PlagReportComponent({ }: {}) {
 
     useEffect(() => {
         if (!reportName) return;
-        fetchContestInfo().then(infos => setBaseDir(infos.reports[reportName].url));
+        fetchContestInfo().then(infos => setBaseDir(
+            Object.values(infos.reports).find(rep => rep.name == reportName)!.url
+        ));
     }, [reportName])
 
     const reload = () => {

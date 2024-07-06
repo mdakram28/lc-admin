@@ -1,0 +1,6 @@
+{
+    "username": "fpeterfalvi",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long counter = 0;\n        int n = nums.length;\n        int[] streak = new int[30];\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < 30; j++) {\n                if ((nums[i] & 1 << j) != 0) {\n                    streak[j]++;\n                } else {\n                    streak[j] = 0;\n                }\n            }\n            int minGood = i + 1;\n            int maxBad = 0;\n            for (int j = 0; j < 30; j++) {\n                if ((k & 1 << j) != 0) {\n                    minGood = Math.min(minGood, streak[j]);\n                } else {\n                    maxBad = Math.max(maxBad, streak[j]);\n                }\n            }\n            counter += Math.max(minGood - maxBad, 0);\n        }\n        return counter;\n    }\n}",
+    "submit_ts": "1720277933",
+    "subm_id": "1311686737"
+}

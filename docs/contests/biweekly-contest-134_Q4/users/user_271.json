@@ -1,0 +1,6 @@
+{
+    "username": "saurav0_0",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int sequenceLength = nums.size();\n        long long totalCount = 0;\n        vector<unordered_map<long long, long long>> intermediateResults(2);\n        int currentMap = 0;\n\n        for (int i = 0; i < sequenceLength; ++i) {\n            int nextMap = 1 - currentMap;\n            intermediateResults[nextMap].clear();\n\n            if (nums[i] == k) {\n                ++totalCount;\n            }\n\n            intermediateResults[nextMap][nums[i]] = 1;\n\n            for (const auto& [key, value] : intermediateResults[currentMap]) {\n                long long newKey = key & nums[i];\n                if (newKey == k) {\n                    totalCount += value;\n                }\n                intermediateResults[nextMap][newKey] += value;\n            }\n\n            currentMap = nextMap;\n        }\n\n        return totalCount;\n    }\n};",
+    "submit_ts": "1720278243",
+    "subm_id": "1311700651"
+}

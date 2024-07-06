@@ -1,0 +1,6 @@
+{
+    "username": "agakishy",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        lastz = [-1] * 40\n        ans = 0\n\n        for i in range(len(nums)):\n            x = nums[i]\n            t = 1\n            for j in range(len(lastz)):\n                if (x & t) == 0:\n                    lastz[j] = i\n                t *= 2\n\n            if (x & k) >= k:\n                t = 1\n                l, r = -1, i\n                for j in range(len(lastz)):\n                    if (k & t) == t:\n                        l = max(l, lastz[j])\n                    else:\n                        r = min(r, lastz[j])\n                    t *= 2\n                if l < r:\n                    ans += (r - l)\n\n        return ans\n                \n        ",
+    "submit_ts": "1720278487",
+    "subm_id": "1311711280"
+}

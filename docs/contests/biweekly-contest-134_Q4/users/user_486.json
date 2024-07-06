@@ -1,0 +1,6 @@
+{
+    "username": "JY201301",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long res=0;\n        vector<int> kbit = getBit(k);\n        int l=0, r=0, n=nums.size();\n        while(l<n){\n            int r=l;\n            vector<int> last0(32, -1);\n            bool valid=true;\n            while(valid && r<n){\n                vector<int> rbit = getBit(nums[r]);\n                int first0=n;\n                for(int i=0; i<32; i++){\n                    if(kbit[i]==1 && rbit[i]==0){\n                        valid=false;\n                        break;\n                    }\n                    if(rbit[i]==0) last0[i]=r;\n                    if(kbit[i]==0) first0 = min(first0, last0[i]);\n                }\n                if(!valid) break;\n                if(first0>=l) res += (first0 - l + 1);\n                r++;\n            }\n            l=r+1;\n        }\n        return res;\n    }\n    vector<int> getBit(int num){\n        vector<int> bit(32, 0);\n        for(int i=0; i<32; i++){\n            if(num&1) bit[i]=1;\n            num>>=1;\n        }\n        return bit;\n    }\n};\n\n/*\n0: at least one 0\n1: all 1\n*/",
+    "submit_ts": "1720279913",
+    "subm_id": "1311770005"
+}

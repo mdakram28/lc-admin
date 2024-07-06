@@ -1,0 +1,6 @@
+{
+    "username": "keshavsaraf28",
+    "submission": "class Solution {\npublic:\n     int func2(map<int, int>& mp, int length) {\n        int result = 0;\n        for (int bitIndex = 30 ; bitIndex>= 0 ; --bitIndex) {\n            if (mp[bitIndex] == length)\n                result += (1 << bitIndex);\n        }\n        return result;\n    }\n\n    long long func(vector<int>& nums, int threshold) {\n        \n        long long result = 0,start = 0, end = 0, size = nums.size();\n        map<int, int> mp;\n\n        while (end < size) {\n            for (int bitIndex = 30; bitIndex >= 0; --bitIndex) {\n                if ((nums[end] >> bitIndex) & 1)\n                    mp[bitIndex]++;\n            }\n\n            while (func2(mp, end - start + 1) < threshold) {\n                for (int bitIndex = 0; bitIndex < 31; ++bitIndex) {\n                    if ((nums[start] >> bitIndex) & 1)\n                        mp[bitIndex]--;\n                }\n                start++;\n            }\n\n            result += end - start + 1;\n            end++;\n        }\n\n        return result;\n    }\n\n    long long countSubarrays(vector<int>& nums, int k) {\n        return func(nums, k) - func(nums, k+ 1);\n    }\n};",
+    "submit_ts": "1720280080",
+    "subm_id": "1311776132"
+}

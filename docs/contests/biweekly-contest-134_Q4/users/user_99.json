@@ -1,0 +1,6 @@
+{
+    "username": "docdoof",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int N = nums.length;\n        BitSet[] bits = new BitSet[30];\n        for (int i = 0; i < 30; ++i) {\n            bits[i] = new BitSet();\n        }\n\n        for (int i = 0; i < N; ++i) {\n            int v = nums[i];\n            for (int p = 0; p < 30; ++p) {\n                if (v % 2 == 1) bits[p].set(i);\n                v >>= 1;\n            }\n        }\n\n        long count = 0;\n        for (int start = 0; start < N; ++start) {\n            int end = N;\n            int K = k;\n            for (int p = 0; p < 30; ++p) {\n                if (K % 2 == 1) {\n                    end = Math.min(end, bits[p].nextClearBit(start));\n                }\n                K >>= 1;\n            }\n            // Verification\n            int middle = start;\n            K = k;\n            for (int p = 0; p < 30 && end > start; ++p) {\n                if (K % 2 == 0) {\n                    middle = Math.max(middle, bits[p].nextClearBit(start));\n                }\n                K >>= 1;\n            }\n            if (end > middle) {\n                count += end - middle;\n            }\n        }\n\n        return count;\n    }\n}",
+    "submit_ts": "1720277729",
+    "subm_id": "1311677326"
+}

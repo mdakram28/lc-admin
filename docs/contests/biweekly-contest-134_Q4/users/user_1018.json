@@ -1,0 +1,6 @@
+{
+    "username": "chuan-chih",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        max_bit = max(x.bit_length() for x in nums)\n        n = len(nums)\n        nums.append(-1)\n        l = [-1] * max_bit\n        ans = 0\n        for ii in range(n):\n            x = nums[ii]\n            y = x\n            if (x & k) == k:\n                indices = set([-1])\n                i = 0\n                while x:\n                    x, bit = divmod(x, 2)\n                    if bit and l[i] is not None:\n                        indices.add(l[i])\n                    i += 1\n                x = prev = y\n                prev_i = ii\n                for index in sorted(indices, reverse=True):\n                    x &= nums[index]\n                    # print(l)\n                    # print(x, prev, index, ii)\n                    if prev == k:\n                        ans += (prev_i - index)\n                    prev = x\n                    prev_i = index\n            x = y\n\n            for i in range(max_bit):\n                x, bit = divmod(x, 2)\n                if not bit:\n                    l[i] = ii\n        return ans\n\n\n\n\n                \n            \n\n\n\n        ",
+    "submit_ts": "1720280912",
+    "subm_id": "1311806486"
+}

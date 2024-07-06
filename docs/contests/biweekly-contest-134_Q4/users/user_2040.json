@@ -1,0 +1,6 @@
+{
+    "username": "mkaif2196",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        int n = nums.size();\n\n        vector<unordered_map<long long, long long>> dp(n);\n        for (int i = 0; i < n; i++) {\n            if (nums[i] == k) {\n                ans++;\n            }\n\n            dp[i][nums[i]] = 1;\n            if (i != 0) {\n                for (auto it: dp[i-1]) {\n                    long long val = it.first & nums[i];\n                    if (val == k) {\n                        ans += it.second;\n                    }\n\n                    dp[i][val] += it.second;\n                }\n                \n                dp[i-1] = dp[i];\n            }\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720281196",
+    "subm_id": "1311816467"
+}

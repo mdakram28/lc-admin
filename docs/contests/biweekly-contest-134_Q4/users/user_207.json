@@ -1,0 +1,6 @@
+{
+    "username": "Skywarrior2000",
+    "submission": "const int N = 1e5+1;\nint f[N][30];\n\nclass Solution {\npublic:\n    \n    long long countSubarrays(vector<int>& a, int k) {\n        int n=a.size();\n        for(int j = 0; j < 30; j++)f[0][j]=0;\n        for(int i = 1; i <= n; i++){\n            for(int j = 0; j < 30; j++)\n                f[i][j]=f[i-1][j]+((a[i-1]&(1<<j))?1:0);\n        }\n        \n        auto get_and = [&](int l, int r){\n            int ans=0;\n            l++,r++;\n            for(int j=0; j < 30; j++){\n                if(f[r][j]-f[l-1][j]==r-l+1)ans|=(1<<j);\n            }\n            return ans;\n        };\n        auto lb = [&](int s, int k){\n            int ans=n;\n            int l=s,r=n-1;\n            while(l<=r){\n                int mid=l+(r-l)/2;\n                int gd = get_and(s, mid) ;\n                // cout<<s<<\" \"<<mid<<\" \"<<gd<<\"\\n\";\n                if(gd <= k)ans=min(ans,mid),r=mid-1;\n                else l=mid+1;\n            }\n            return ans;\n        };\n        long long ans=0;\n        for(int i = 0; i < n; i++){\n            int L = lb(i, k);\n            int R = lb(i, k-1);\n            // cout<<\"::\"<<i<<\" \"<<L<<\" \"<<R<<endl;\n            ans+=R-L;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278955",
+    "subm_id": "1311731308"
+}

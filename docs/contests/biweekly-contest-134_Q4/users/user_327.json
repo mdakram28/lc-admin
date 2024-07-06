@@ -1,0 +1,6 @@
+{
+    "username": "MayankSavaliya",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<pair<int,int>> dp;\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            vector<pair<int,int>> temp;\n            for(int j=0;j<dp.size();j++){\n                temp.push_back({dp[j].first&nums[i],dp[j].second});\n            }\n            temp.push_back({nums[i],1});\n            sort(temp.begin(),temp.end());\n            while(dp.size()) dp.pop_back();\n            for(int j=0;j<temp.size();j++){\n                if(temp[j].first==k) ans=ans+temp[j].second;\n                if(dp.size() && dp.back().first==temp[j].first) dp.back().second+=temp[j].second;\n                else dp.push_back(temp[j]);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278254",
+    "subm_id": "1311701144"
+}

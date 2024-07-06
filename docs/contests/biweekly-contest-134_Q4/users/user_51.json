@@ -1,0 +1,6 @@
+{
+    "username": "hello_motto",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int k) {\n        int n = v.size();\n        vector<vector<int>>dp(n,vector<int>(30,0));\n        vector<vector<int>>dp2(n,vector<int>(30,0));\n        for(int i=0;i<n;i++){\n            for(int j=0;j<30;j++){\n                dp[i][j] = ((1<<j)&v[i])>0?1:0;\n                if(dp[i][j]==0) dp2[i][j] = i;\n                else{\n                    dp2[i][j] = i-1>=0?dp2[i-1][j]:-1;\n                }\n            }\n        }\n        // for(int i=0;i<n;i++){\n        //     for(int j=0;j<30;j++){\n        //         cout<<dp2[i][j]<<\" \";\n        //     }\n        //     cout<<endl;\n        // }\n        ll ans = 0;\n        for(int i=0;i<n;i++){\n            int l = 0, r = i;\n            for(int m=0;m<30;m++){\n                int b = ((1<<m)&k)>0?1:0;\n                int prev = dp2[i][m];\n                if(b==0){ \n                    r = min(r,prev);\n                }\n                else{\n                    l = max(l,prev+1);\n                }\n            }\n            // cout<<l<<\" \"<<r<<endl;\n            ans+= max((r-l+1),0);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277962",
+    "subm_id": "1311688051"
+}

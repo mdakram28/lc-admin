@@ -1,0 +1,6 @@
+{
+    "username": "kc_m13",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(std::vector<int>& nums, int k) {\n        int length = nums.size();\n        long long matchingCount = 0;\n\n        std::unordered_map<long long, long long> previousResults;\n        int idx = 0;\n\n        while (idx < length) {\n            std::unordered_map<long long, long long> currentResults;\n\n            if (nums[idx] == k) {\n                ++matchingCount;\n            }\n\n            currentResults[nums[idx]] = 1;\n\n            auto it = previousResults.begin();\n            while (it != previousResults.end()) {\n                long long newAndResult = it->first & nums[idx];\n                if (newAndResult == k) {\n                    matchingCount += it->second;\n                }\n                currentResults[newAndResult] += it->second;\n                ++it;\n            }\n\n            previousResults = currentResults;\n            ++idx;\n        }\n\n        return matchingCount;\n    }\n};",
+    "submit_ts": "1720279136",
+    "subm_id": "1311738942"
+}

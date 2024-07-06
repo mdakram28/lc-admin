@@ -1,0 +1,6 @@
+{
+    "username": "shukhratutaboev",
+    "submission": "public class Solution {\n    public long CountSubarrays(int[] arr, int tgt)\n    {\n        int n = arr.Length;\n        long count = 0;\n        var prev = new Dictionary<long, long>();\n\n        for (int i = 0; i < n; ++i)\n        {\n            var curr = new Dictionary<long, long>();\n            if (arr[i] == tgt)\n            {\n                ++count;\n            }\n\n            curr[arr[i]] = 1;\n\n            foreach (var entry in prev)\n            {\n                long val = entry.Key;\n                long freq = entry.Value;\n                long newAnd = val & arr[i];\n                if (newAnd == tgt)\n                {\n                    count += freq;\n                }\n                if (curr.ContainsKey(newAnd))\n                {\n                    curr[newAnd] += freq;\n                }\n                else\n                {\n                    curr[newAnd] = freq;\n                }\n            }\n\n            prev = curr;\n        }\n\n        return count;\n    }\n}\n",
+    "submit_ts": "1720281086",
+    "subm_id": "1311812635"
+}

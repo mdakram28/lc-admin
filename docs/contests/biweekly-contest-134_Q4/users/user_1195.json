@@ -1,0 +1,6 @@
+{
+    "username": "hoanghonghieu",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        bitset<32> kb(k);\n        vector<int> counts(32);\n        long long ans = 0;\n        for (int i = 0; i < nums.size(); i++) {\n            bitset<32> nb(nums[i]);\n            // Update count\n            for (int i = 0; i < 32; i++) {\n                if (nb[i]) {\n                    counts[i]++;\n                } else {\n                    counts[i] = 0;\n                }\n            }\n\n            int minKLen = i + 1;\n            int maxNonKLen = 0;\n            for (int i = 0; i < 32; i++) {\n                if (kb[i]) {\n                    minKLen = min(minKLen, counts[i]);\n                } else {\n                    maxNonKLen = max(maxNonKLen, counts[i]);\n                }\n            }\n            if (minKLen > maxNonKLen)\n                ans += minKLen - maxNonKLen;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280623",
+    "subm_id": "1311796209"
+}

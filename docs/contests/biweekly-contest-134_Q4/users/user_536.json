@@ -1,0 +1,6 @@
+{
+    "username": "heisenberg_003",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n=(int)a.size();\n        vector<int> v1(n,1);\n        for(int i=0;i<30;i++){\n            if((k&(1<<i))>0){\n                for(int j=0;j<n;j++){\n                    if((a[j]&(1<<i))==0) v1[j]=0;\n                }\n            }\n        }\n        for(int i=1;i<n;i++){\n            if(v1[i]>0) v1[i]+=v1[i-1];\n        }\n        vector<vector<int>> v2(n,vector<int>(30));\n        for(int i=0;i<n;i++){\n            for(int j=0;j<30;j++){\n                if((a[i]&(1<<j))==0) v2[i][j]=i;\n                else{\n                    if(i==0) v2[i][j]=-1;\n                    else v2[i][j]=v2[i-1][j];\n                }\n            }\n        }\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            if(v1[i]>0){\n                int val=i;\n                for(int j=0;j<30;j++){\n                    if((k&(1<<j))==0) val=min(val,v2[i][j]);\n                }\n                if(val!=-1 && v1[val]>0 && (i-(v1[i]-1))<=val) ans+=v1[val];\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279153",
+    "subm_id": "1311739637"
+}

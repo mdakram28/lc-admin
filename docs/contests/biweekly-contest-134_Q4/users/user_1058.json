@@ -1,0 +1,6 @@
+{
+    "username": "devygonzalez",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        \n        d = {}\n        for i in range(30):\n            d[i] = -1\n        \n        cnt = 0\n        idx = -1\n        for i in range(len(nums)):\n            \n            c = list(d.items())\n            c.sort(reverse = True, key = lambda x: x[1])\n            curr = nums[i]\n            if curr == k:\n                idx = i\n\n            for j in range(len(c)):\n                curr &= ~(1 << c[j][0])\n                if j < len(c) - 1 and c[j + 1][1] == c[j][1]:\n                    continue\n                \n                if idx != -1:\n                    cnt += idx - c[j][1]\n                if curr == k:\n                    idx = c[j][1]\n                else:\n                    idx = -1\n                \n            \n            \n            if idx != -1:\n                cnt += idx + 1\n\n            idx = -1\n            \n            it = 0\n            for j in range(30):\n                if nums[i] % 2 == 0:\n                    d[it] = i\n                it += 1\n                nums[i] >>= 1\n\n\n        \n        return cnt\n            \n\n",
+    "submit_ts": "1720280104",
+    "subm_id": "1311777065"
+}

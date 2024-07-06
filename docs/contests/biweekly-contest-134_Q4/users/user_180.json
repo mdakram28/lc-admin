@@ -1,0 +1,6 @@
+{
+    "username": "BERNARB01",
+    "submission": "class Solution {\npublic:\n  long long countSubarrays(vector<int>& a, int k) {\n    int n = int(a.size());\n    vector<int> last(30, -1);\n    long long ans = 0;\n    for (int i = 0; i < n; i++) {\n      if ((a[i] & k) != k) {\n        for (int j = 0; j < 30; j++) {\n          if (((a[i] >> j) & 1) == 0) {\n            last[j] = i;\n          }\n        }\n        continue;\n      }\n      int l = -1;\n      int r = i;\n      for (int j = 0; j < 30; j++) {\n        int bit_ai = ((a[i] >> j) & 1);\n        int bit_k = ((k >> j) & 1);\n        if (bit_ai == 0) {\n          last[j] = i;\n        }\n        if (bit_ai != bit_k) {\n          r = min(r, last[j]);\n        } else if (bit_k == 1) {\n          l = max(l, last[j]);\n        }\n      }\n      ans += max(0, r - l);\n    }\n    return ans;\n  }\n};",
+    "submit_ts": "1720277740",
+    "subm_id": "1311677847"
+}

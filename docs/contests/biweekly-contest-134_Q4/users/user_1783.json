@@ -1,0 +1,6 @@
+{
+    "username": "justforfun21",
+    "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar countSubarrays = function(nums, k) {\n    let res = 0;\n    let n = nums.length;\n\n    let dp = new Map();\n    dp.set(0, new Map());\n    dp.get(0).set(nums[0], 1);\n    if (nums[0] == k) res++;\n\n    for (let i = 1; i < n; i++) {\n        dp.set(i, new Map());\n        dp.get(i).set(nums[i], 1);\n        if (nums[i] == k) res++;\n\n        for (let [key, count] of dp.get(i - 1)) {\n            let temp = key & nums[i];\n            if (!dp.get(i).has(temp)) dp.get(i).set(temp, 0);\n            dp.get(i).set(temp, dp.get(i).get(temp) + count);\n            if (temp == k) res += count;\n        }\n    }\n\n    return res;\n};",
+    "submit_ts": "1720278628",
+    "subm_id": "1311717411"
+}

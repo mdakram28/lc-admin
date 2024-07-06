@@ -1,0 +1,6 @@
+{
+    "username": "kanishkpatel1",
+    "submission": "class Solution {\n    static class Pair {\n        long first;\n        long second;\n\n        Pair(long first, long second) {\n            this.first = first;\n            this.second = second;\n        }\n    }\n    public long countSubarrays(int[] nums, int k) {\n        int len = nums.length;\n        long count = 0;\n        HashSet<Integer> hs=new HashSet<>();\n        HashMap<Long, Long> preRes = new HashMap<>();\n        for (int i = 0; i < len; ++i) {\n            hs.add(nums[i]);\n            HashMap<Long, Long> cR = new HashMap<>();\n            if (nums[i] == k)   ++count;\n            cR.put((long) nums[i], 1L);\n            for (Map.Entry<Long, Long> entry : preRes.entrySet()) {\n                long vl = entry.getKey();\n                long fq = entry.getValue();\n                long nR = vl & nums[i];\n                if (nR == k)  count += fq;\n                cR.put(nR, cR.getOrDefault(nR, 0L) + fq);\n            }\n        preRes = cR;\n        }\n        \n        return count;\n}\n}",
+    "submit_ts": "1720281556",
+    "subm_id": "1311829635"
+}

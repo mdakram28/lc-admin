@@ -1,0 +1,6 @@
+{
+    "username": "swapnesh-khemariya",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        return solve(nums, k) - solve(nums, k+1);\n    }\n\n    long long solve(vector<int>& nums, int T){\n        vector<int>ones(31);\n        vector<int>zeros(31);\n\n        int n = nums.size();\n        long long ans = 0;\n        int i=0, j=0;\n        int x, y;\n        while(j<n) {\n            x = 0;\n            for(int k=0;k<31;k++){\n                if(nums[j]&(1<<k))\n                    ones[k]++;\n                else\n                    zeros[k]++;\n                if(ones[k]>0 && zeros[k]==0){\n                    x += (1<<k);\n                }\n            }\n            while(x<T && i<=j){\n                y = 0;\n                for(int k=0;k<31;k++){\n                    if(nums[i]&(1<<k))\n                        ones[k]--;\n                    else\n                        zeros[k]--;\n                    if(ones[k]>0 && zeros[k]==0){\n                        y += (1<<k);\n                    }\n                }\n                x = y;\n                i++;\n            }\n            ans += 1ll*(j-i+1);\n            j++;\n        }\n        return ans;\n    }\n\n};",
+    "submit_ts": "1720279501",
+    "subm_id": "1311753760"
+}

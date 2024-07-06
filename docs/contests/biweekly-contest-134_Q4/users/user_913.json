@@ -1,0 +1,6 @@
+{
+    "username": "priyanshur_754",
+    "submission": "use std::collections::HashMap;\n\nimpl Solution {\n    pub fn count_subarrays(input: Vec<i32>, target: i32) -> i64 {\n        let size = input.len();\n        let mut total: i64 = 0;\n        \n        let mut p_m: HashMap<i64, i64> = HashMap::new();\n        for &ele in input.iter() {\n            let mut c_m: HashMap<i64, i64> = HashMap::new();\n            \n            if ele == target {\n                total += 1;\n            }\n            \n            *c_m.entry(ele as i64).or_insert(0) += 1;\n            \n            for (&key, &val) in p_m.iter() {\n                let a_r = key & (ele as i64);\n                if a_r == target as i64 {\n                    total += val;\n                }\n                *c_m.entry(a_r).or_insert(0) += val;\n            }\n            \n            p_m = c_m;\n        }\n        \n        total\n    }\n}",
+    "submit_ts": "1720278017",
+    "subm_id": "1311690560"
+}

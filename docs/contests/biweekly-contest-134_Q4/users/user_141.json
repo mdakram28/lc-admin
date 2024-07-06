@@ -1,0 +1,6 @@
+{
+    "username": "__Beginner_",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n = a.size();\n        vector<vector<long long>> e(32, vector<long long> (n));\n        for(int i = 0; i < 32; i++){\n            int cur = 0;\n            for(int j = 0; j < n; j++){\n                if((a[j] >> i) & 1){\n                    cur += 1;\n                }\n                else cur = 0;\n                e[i][j] = cur;\n            }\n        }\n        long long ans = 0;\n        for(int i = 0; i < n; i++){\n            long long mx = 0, mn = i + 1;\n            for(int j = 0; j < 32; j++){\n                if((k >> j) & 1){\n                    mn = min(mn, e[j][i]);\n                }\n                else mx = max(mx, e[j][i]);\n            }\n            if(mn >= mx) ans = ans + mn - mx;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277107",
+    "subm_id": "1311648042"
+}

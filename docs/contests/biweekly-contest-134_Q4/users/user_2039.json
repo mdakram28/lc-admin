@@ -1,0 +1,6 @@
+{
+    "username": "ayush_bhut_007",
+    "submission": "#include <vector>\n#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        int n = arr.size();\n        long long ans = 0;\n        \n        // HashMap to store frequency of AND values\n        unordered_map<int, int> andMap;\n        \n        for (int i = 0; i < n; i++) {\n            unordered_map<int, int> newAndMap;\n            if (arr[i] == k) {\n                ans++;\n            }\n            // For each starting index i, compute AND for subarrays ending at j (i <= j < n)\n            for (auto &entry : andMap) {\n                int newAnd = entry.first & arr[i];\n                newAndMap[newAnd] += entry.second;\n                if (newAnd == k) {\n                    ans += entry.second;\n                }\n            }\n            // Include the current element as a subarray itself\n            newAndMap[arr[i]]++;\n            \n            andMap = newAndMap;\n        }\n        \n        return ans;\n    }\n};\n",
+    "submit_ts": "1720280796",
+    "subm_id": "1311802350"
+}

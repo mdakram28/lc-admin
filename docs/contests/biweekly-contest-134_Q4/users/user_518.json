@@ -1,0 +1,6 @@
+{
+    "username": "impiry",
+    "submission": "public class Solution {\n    public long CountSubarrays(int[] nums, int k)\n    {\n        var dp = new Dictionary<(int, int), long>();\n\n        long result = 0;\n\n        for (int i = 0; i < nums.Length; i++)\n        {\n            result += Solve(i + 1, nums[i]);\n        }\n\n        return result;\n\n        long Solve(int index, int sum)\n        {\n            if (sum < k)\n            {\n                return 0;\n            }\n\n            if (index == nums.Length)\n            {\n                return sum == k ? 1 : 0;\n            }\n\n            if (dp.ContainsKey((index, sum)))\n            {\n                return dp[(index, sum)];\n            }\n\n            dp[(index, sum)] = Solve(index + 1, sum & nums[index]);\n\n            if (sum == k)\n            {\n                dp[(index, sum)]++;\n            }\n\n            return dp[(index, sum)];\n        }\n    }\n}",
+    "submit_ts": "1720280003",
+    "subm_id": "1311773378"
+}

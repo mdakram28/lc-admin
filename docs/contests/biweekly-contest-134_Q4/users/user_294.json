@@ -1,0 +1,6 @@
+{
+    "username": "temporary1_",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int k) {\n        int idx[30];\n        multiset<int> st;\n        for (int i = 0; i < 30; ++i) {\n            idx[i] = -1;\n        }\n        int cnt = 0;\n        for (int i = 0; i < 30; ++i) {\n            if ((k & (1 << i)) == 0)\n                ++cnt;\n        }\n        int l = -1;\n        long long ans = 0;\n        for (int i = 0; i < v.size(); ++i) {\n            for (int j = 0; j < 30; ++j) {\n                if (k&(1<<j)) {\n                    if ((v[i]&(1<<j)) == 0) {\n                        l = i;\n                        break;\n                    }\n                } else {\n                    if ((v[i]&(1<<j)) == 0) {\n                        if (idx[j] != -1)\n                            st.erase(st.find(idx[j]));\n                        idx[j] = i;\n                        st.insert(idx[j]);\n                    }\n                }\n            }\n            if (st.size() == cnt && *st.begin() > l) {\n                ans += *st.begin()-l;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278732",
+    "subm_id": "1311721882"
+}

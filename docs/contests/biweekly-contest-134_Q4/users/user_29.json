@@ -1,0 +1,6 @@
+{
+    "username": "choudhary463",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<vector<int>>ne(n+1,vector<int>(30,n));\n        for(int j=0;j<30;j++){\n            for(int i=n-1;i>=0;i--){\n                int x=nums[i];\n                ne[i][j]=ne[i+1][j];\n                if(!((x>>j)&1)) ne[i][j]=i;\n            }\n        }\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            int mi=n;\n            int mx=i;\n            for(int j=0;j<30;j++){\n                if((k>>j)&1){\n                    mi=min(mi,ne[i][j]);\n                } else {\n                    mx=max(mx,ne[i][j]);\n                }\n            }\n            if(mi>mx){\n                ans+=(mi-mx);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277355",
+    "subm_id": "1311659798"
+}

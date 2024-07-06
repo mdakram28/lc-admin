@@ -1,0 +1,6 @@
+{
+    "username": "leo_zhaolin",
+    "submission": "\nclass Solution:\n\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        N = 30\n        r_zero, l_one = [-1] * N, [-1] * N\n        n = len(nums)\n        ans = 0\n        for i, num in enumerate(nums):\n            ll, rr = 0, i\n            for ii in range(N):\n                if (1 << ii) & num:  # num ii th bit is 1\n                    if l_one[ii] == -1:\n                        l_one[ii] = i\n                else:\n                    l_one[ii] = -1\n                    r_zero[ii] = i\n                if (1 << ii) & k:  # k ii th bit is 1\n                    if l_one[ii] != -1:\n                        ll = max(ll, l_one[ii])\n                    else:\n                        ll = i + 1\n                else:\n                    if r_zero[ii] != -1:\n                        rr = min(rr, r_zero[ii])\n                    else:\n                        rr = -0x3c3c3c3c3c3c3c3c\n            if ll <= rr:\n                ans += rr - ll + 1\n        return ans",
+    "submit_ts": "1720281255",
+    "subm_id": "1311818544"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "scanhex",
+    "submission": "int neut = 0xffffffff;\nstruct it {\n\tvector<int>t;\n\tint n; \n\tit(int n) : n(n), t(2 * n) {}\n\tvoid st(int x, int y) {\n\t\tx += n;\n\t\tt[x] = y;\n\t\twhile (x > 1) t[x >> 1] = t[x] & t[x ^ 1], x >>= 1;\n\t}\n\tint get(int l, int r) {\n\t\tint res = neut;\n\t\tfor (l += n, r += n; l < r; l >>= 1, r >>= 1) {\n\t\t\tif (l & 1) res &= t[l++];\n\t\t\tif (r & 1) res &= t[--r];\n\t\t}\n\t\treturn res;\n\t}\n};\n\n\nclass Solution {\npublic:\n\tlong long countSubarrays(vector<int>& nums, int k) {\n\t\tint n = nums.size();\n\t\tit st(n);\n\t\tfor (int i = 0; i < n; ++i) st.st(i, nums[i]);\n\t\tlong long ans = 0;\n\t\tfor (int i = 0; i < n; ++i) {\n\t\t\tint L = i, R = n + 1;\n\t\t\twhile (R - L > 1) {\n\t\t\t\tint M = (L + R) / 2;\n\t\t\t\tif (st.get(i, M) < k)\n\t\t\t\t\tR = M;\n\t\t\t\telse\n\t\t\t\t\tL = M;\n\t\t\t}\n\t\t\tint LL = i, RR = n + 1;\n\t\t\twhile (RR - LL > 1) {\n\t\t\t\tint M = (LL + RR) / 2;\n\t\t\t\tif (st.get(i, M) <= k)\n\t\t\t\t\tRR = M;\n\t\t\t\telse\n\t\t\t\t\tLL = M;\n\t\t\t}\n\t\t\tans += L - LL;\n\t\t}\n\t\treturn ans;\n    }\n};\n",
+    "submit_ts": "1720277403",
+    "subm_id": "1311662088"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "SudhanshuSingh2909",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n//         long long count = 0;\n//         int n = nums.size();\n\n//         for (int i = 0; i < n; ++i) {\n//             int currentAND = nums[i];\n//             for (int j = i; j < n; ++j) {\n//                 currentAND &= nums[j];\n//                 if (currentAND == k) {\n//                     count++;\n//                 }\n              \n//                 if (currentAND < k) {\n//                     break;\n//                 }\n//             }\n//         }\n\n//         return count;\n        long long count = 0;\n        unordered_map<int, int> prefixCount;\n        \n        for (int i = 0; i < nums.size(); ++i) {\n            unordered_map<int, int> newPrefixCount;\n            for (const auto& p : prefixCount) {\n                int newAND = p.first & nums[i];\n                newPrefixCount[newAND] += p.second;\n            }\n            newPrefixCount[nums[i]] += 1;\n            \n            if (newPrefixCount.find(k) != newPrefixCount.end()) {\n                count += newPrefixCount[k];\n            }\n            \n            prefixCount = move(newPrefixCount);\n        }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1720281072",
+    "subm_id": "1311812161"
+}

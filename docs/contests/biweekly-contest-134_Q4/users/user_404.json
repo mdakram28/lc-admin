@@ -1,0 +1,6 @@
+{
+    "username": "weilunla",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long res = 0;\n        unordered_map<int, long long> pre;\n        if(nums[0] == k) res++;\n        if(nums[0] >= k) pre[nums[0]]++;\n        for(int i = 1; i < n; i++){\n            unordered_map<int, long long> cur;\n            if(nums[i] == k) res++;\n            if(nums[i] >= k) cur[nums[i]]++;\n            for(auto& node: pre){\n                //cout<<node.first<<\" \";\n                int temp = node.first & nums[i];\n                if(temp == k) res += node.second;\n                if(temp >= k) cur[temp] += node.second;\n                // cout<<temp<<\" \";\n            }\n            pre.clear();\n            pre = cur;\n            //cout<<res<<endl;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720279432",
+    "subm_id": "1311750962"
+}

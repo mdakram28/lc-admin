@@ -1,0 +1,6 @@
+{
+    "username": "rohankarn035",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n          int n = nums.size();\n    long long totalCount = 0;\n\n    unordered_map<long long, long long> previousResults;\n\n    for (int i = 0; i < n; ++i) {\n        unordered_map<long long, long long> currentResults;\n\n        if (nums[i] == k) {\n            ++totalCount;\n        }\n        currentResults[nums[i]] = 1;\n\n        for (const auto& [value, frequency] : previousResults) {\n            long long newAndValue = value & nums[i];\n            if (newAndValue == k) {\n                totalCount += frequency;\n            }\n            currentResults[newAndValue] += frequency;\n        }\n\n        previousResults = move(currentResults);\n    }\n\n    return totalCount;\n    }\n};",
+    "submit_ts": "1720278123",
+    "subm_id": "1311695394"
+}
