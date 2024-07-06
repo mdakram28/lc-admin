@@ -11,7 +11,7 @@ const GroupComponent = ({ groupId, group, sortBy }: {
     sortBy: string
 }) => {
     const { graph, selectedFileId, setSelectedFileId } = useContext(ReportContext);
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(true);
 
     const GroupItems = () => {
         const neighbours = graph.graph[selectedFileId] || {};
@@ -94,7 +94,7 @@ export function GroupsTableComponent({ filterText }: { filterText: string }) {
     const filteredGroups = useMemo(() => {
         if (!filterText) return groups;
         const f = filterText.toLowerCase();
-        return groups.map(g => g.filter(u => u.username && u.username.toLowerCase().includes(f)));
+        return groups.map(g => g.filter(u => u.username && u.username.toString().toLowerCase().includes(f)));
     }, [groups, filterText]);
 
     return <>
