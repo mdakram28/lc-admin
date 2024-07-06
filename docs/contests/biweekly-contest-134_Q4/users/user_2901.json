@@ -1,0 +1,6 @@
+{
+    "username": "1511Darshan",
+    "submission": "#include <vector>\n#include <unordered_map>\n\nclass Solution {\npublic:\n    long long countSubarrays(std::vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        std::unordered_map<long long, long long> previousResults;\n        \n        for (int index = 0; index < size; ++index) {\n            std::unordered_map<long long, long long> currentResults;\n            \n            if (array[index] == target) {\n                ++total;\n            }\n            \n            currentResults[array[index]] = 1;\n            \n            for (auto& pair : previousResults) {\n                long long value = pair.first;\n                long long frequency = pair.second;\n                \n                long long newAndResult = value & array[index];\n                \n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                \n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return total;\n    }\n};",
+    "submit_ts": "1720280194",
+    "subm_id": "1311780289"
+}

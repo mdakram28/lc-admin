@@ -1,0 +1,6 @@
+{
+    "username": "iAditya1441",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& collection, int targetValue) {\n        int setSize = collection.size(); \n        long long totalMatches = 0; \n\n        unordered_map<long long, long long> priorOutcomes; \n\n        for (int idx = 0; idx < setSize; ++idx) { \n            unordered_map<long long, long long> currentOutcomes;  \n\n            if (collection[idx] == targetValue) { \n                ++totalMatches; \n            } \n            currentOutcomes[collection[idx]] = 1; \n\n            for (auto& [bitwiseResult, occurrence] : priorOutcomes) { \n                long long newBitwiseAndResult = bitwiseResult & collection[idx]; \n                if (newBitwiseAndResult == targetValue) { \n                    totalMatches += occurrence; \n                } \n                currentOutcomes[newBitwiseAndResult] += occurrence; \n            } \n\n            priorOutcomes = currentOutcomes; \n        } \n         \nreturn totalMatches;\n    }\n};",
+    "submit_ts": "1720279296",
+    "subm_id": "1311745551"
+}

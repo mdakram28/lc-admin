@@ -1,6 +1,6 @@
 {
-    "username": "jpz",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        \n        # dp[x][y] arrays ending at X, with value of Y\n        # dp = [Counter() for _ in len(nums)]\n        dp_last = Counter()\n        total = 0\n        for i in range(0, len(nums)):\n            dp = Counter()\n            dp[nums[i]] += 1\n            for n, c in dp_last.items():\n                dp[n & nums[i]] += c\n            total += dp[k]\n            dp_last = dp\n        \n        return total\n\n\n",
-    "submit_ts": "1720280599",
-    "subm_id": "1311795357"
+    "username": "amit_yd625",
+    "submission": "\n\nclass Solution {\n    \n\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long count = 0;\n        unordered_map<int, int> prevMap;\n\n        for (int i = 0; i < nums.size(); ++i) {\n            unordered_map<int, int> currMap;\n            solver(nums[i], k, currMap, prevMap, count);\n            prevMap = currMap;\n        }\n\n        return count;\n    }\n    \n    void solver(int num, int k, unordered_map<int, int>& currMap, unordered_map<int, int>& prevMap, long long& count) {\n        if (num == k) {\n            count += 1;\n        }\n        currMap[num] = 1;\n\n        for (const auto& [key, value] : prevMap) {\n            int newKey = key & num;\n            if (newKey == k) {\n                count += value;\n            }\n            if (currMap.find(newKey) != currMap.end()) {\n                currMap[newKey] += value;\n            } else {\n                currMap[newKey] = value;\n            }\n        }\n    }\n};\n",
+    "submit_ts": "1720281043",
+    "subm_id": "1311811098"
 }

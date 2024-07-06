@@ -1,6 +1,6 @@
 {
-    "username": "divs8287",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int tar) {\n        int n = nums.size();\n        long long tot = 0;\n        unordered_map<long long, long long> prev;\n        for (int i=0;i<n;i++) {\n            unordered_map<long long, long long> curr; \n            if (nums[i]==tar) {\n                tot++;\n            }\n            curr[nums[i]] = 1;\n            for (auto it : prev) {\n                int val=it.first;\n                int freq=it.second;\n                long long nw = val & nums[i];\n                if (nw == tar) {\n                    tot += freq;\n                }\n                curr[nw] += freq;\n            }\n            \n            prev = curr;\n        }\n        return tot;\n    }\n};",
-    "submit_ts": "1720281578",
-    "subm_id": "1311830660"
+    "username": "LemonDrop47",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll dfs(vector<int>& nums, map<int,ll>& mp,int k,int id,ll ct)\n    {\n        if(id==nums.size())\n            return ct;\n        ll sm=0;\n        map<int,ll> temp; \n        int val=nums[id];\n        if(val==k)\n            sm++;\n        temp[val]=1;\n        for(auto it:mp)\n        {\n            ll curr=it.first&val;\n            if (curr==k)\n                sm+=it.second;\n            temp[curr]+=it.second;\n        }   \n        mp=temp;\n        return dfs(nums,mp,k,id+1,ct+sm);\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        map<int,ll> mp;\n        return dfs(nums,mp,k,0,0);\n    }\n};",
+    "submit_ts": "1720279423",
+    "subm_id": "1311750617"
 }

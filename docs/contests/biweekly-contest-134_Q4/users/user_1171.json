@@ -1,6 +1,6 @@
 {
-    "username": "doantrunghuy",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int target) {\n        const int n = nums.size();\n        long long total = 0;\n        unordered_map<long long, long long> dp;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> dp2; \n            \n            if (nums[i] == target) {\n                ++total;\n            }\n            \n            dp2[nums[i]] = 1;\n            \n            for (auto& [val, freq] : dp) {\n                long long n_and = val & nums[i];\n                \n                if (n_and == target) {\n                    total += freq;\n                }\n                \n                dp2[n_and] += freq;\n            }\n            \n            dp = dp2;\n        }\n        \n        return total;\n    }\n};",
-    "submit_ts": "1720280879",
-    "subm_id": "1311805272"
+    "username": "changeme",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long res = 0;\n        var level = new HashMap<Long, Long>();\n        for (long i : nums) {\n            var next = new HashMap<Long, Long>(Map.of(i, 1L));\n\n            for (var e : level.entrySet()) {\n                var v = i & e.getKey();\n                if (v == k) {\n                    res += e.getValue();\n                }\n                next.merge(v, e.getValue(), Long::sum);\n            }\n            level = next;\n            if (i == k) {\n                res++;\n            }\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1720281182",
+    "subm_id": "1311816039"
 }

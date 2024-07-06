@@ -1,6 +1,6 @@
 {
-    "username": "AA_007",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    \n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<ll,ll> st;\n        ll ans=0;\n        for(auto i:nums){\n            unordered_map<ll,ll> tst;\n            \n            for(auto j:st){\n                \n                ll a=j.first;\n                \n                tst[(a&i)]+=st[a];\n                \n            }\n            tst[i]++;\n            for(auto j:tst)\n            {    ll t=j.first;\n                if(t==k)\n                    ans+=tst[t];\n            }\n            \n            st=tst;\n            \n            \n        }\n        \n        return ans;\n        \n        \n    }\n};",
-    "submit_ts": "1720276586",
-    "subm_id": "1311622472"
+    "username": "sr2005roy",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        long long ans=0,n=a.size();\n        vector<vector<int>> v(n,vector<int> (32,0));\n        for(int i=0;i<n;i++){\n            for(int j=0;j<32;j++){\n                if(a[i]&(1ll<<j)){\n                    v[i][j]=1;\n                    if(i>0) v[i][j]+=v[i-1][j];\n                }\n            }\n            int mn=i+1,mx=0;\n            for(int j=0;j<32;j++){\n                if(k&(1ll<<j)) mn=min(mn,v[i][j]);\n                else mx=max(mx,v[i][j]);\n            }\n            // cout<<mx<<\" \"<<mn<<endl;\n            if((mn-mx)>0) ans+=1ll*(mn-mx);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720278551",
+    "subm_id": "1311714119"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "callmepandey",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        unordered_map < int , int > frq;\n        int n = nums.size();\n        for(int i = 0;i<n;++i) {\n            unordered_map < int , int > tfrq;\n            for(auto &a : frq) {\n                if((a.first&nums[i]) >= k) {\n                    tfrq[(a.first&nums[i])] += a.second;\n                }\n            }\n            if(nums[i] >= k) tfrq[nums[i]] += 1;\n            ans += 1ll * tfrq[k];\n            frq = tfrq;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279847",
-    "subm_id": "1311767465"
+    "username": "popli610",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long total =0;\n        Map<Long, Long> prev = new HashMap<>();\n        for(int i =0; i<n; i++){\n            Map<Long, Long> curr = new HashMap<>();\n            if(nums[i]==k){\n                total++;\n            }\n            curr.put((long)nums[i],1L);\n            for(Map.Entry<Long, Long> entry : prev.entrySet()){\n                long newResult = entry.getKey()& nums[i];\n                if(newResult == k ){\n                    total+=entry.getValue();\n                }\n                curr.put(newResult, curr.getOrDefault(newResult, 0L) + entry.getValue());\n            }\n            prev = curr;\n        }\n        return total;\n    }\n}",
+    "submit_ts": "1720279978",
+    "subm_id": "1311772488"
 }

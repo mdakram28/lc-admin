@@ -1,6 +1,6 @@
 {
-    "username": "Roshni_101",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        long long count=0;\n        unordered_map<long long,long long>prevresults;\n        for(int i=0;i<n;i++){\n            unordered_map<long long,long long>currresults;\n            if(nums[i]==k){\n                count++;\n            }\n            currresults[nums[i]]=1;\n            for(auto &[val,freq]:prevresults){\n                long long newandresult=val&nums[i];\n                if(newandresult==k){\n                    count+=freq;\n                }\n                currresults[newandresult]+=freq;\n            }\n            prevresults=currresults;\n        }return count;\n    }\n};",
-    "submit_ts": "1720278835",
-    "subm_id": "1311726318"
+    "username": "SOUMYA_RANJAN_JENA",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        set<int> last;\n        map<int,int> mp;\n        last.insert(nums[n-1]);\n        mp[nums[n-1]]++;\n        if(nums[n-1]==k) ans++;\n        for(int i=n-2;i>=0;i--)\n        {\n            set<int> curr;\n            map<int,int> newmp;\n            for(auto it : last)\n            {\n                //cout<<it<<\" \";\n                int val = it&nums[i];\n                if(val==k) {ans+=mp[it];}\n                curr.insert(val);\n                newmp[val]+=mp[it];\n            }\n            if(nums[i]==k){ans++;}\n            curr.insert(nums[i]);\n            newmp[nums[i]]++;\n            last = curr;\n            mp = newmp;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280545",
+    "subm_id": "1311793393"
 }

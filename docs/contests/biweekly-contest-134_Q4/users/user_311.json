@@ -1,6 +1,6 @@
 {
-    "username": "rushi172001",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        map<long long int, long long int> prev;\n        long long int n = (long long int)nums.size();\n        long long int c = 0;\n        for (long long int i = 0; i < n; i++) {\n            map<long long int, long long int> next;\n            for (auto v : prev)\n                next[v.first & (long long int)nums[i]] = next[v.first & (long long int)nums[i]] + prev[v.first];\n\n            next[(long long int)nums[i]]++;\n            // for (auto v : next)\n            // cout<< v.first << \" \" << v.second << endl;\n            for (auto v : next)\n                if (v.first == (long long int)k)\n                    c = c + v.second;\n\n            prev = next;\n        }\n        return c;\n    }\n};",
-    "submit_ts": "1720278796",
-    "subm_id": "1311724604"
+    "username": "VatsalS31",
+    "submission": "class Solution { \npublic: \n    long long countSubarrays(vector<int>& nums, int k) { \n        int n = nums.size(); \n        long long count = 0; \n         \n        unordered_map<long long, long long> prevResults; \n \n        for (int i = 0; i < n; ++i) { \n            unordered_map<long long, long long> currResults;  \n \n            if (nums[i] == k) { \n                ++count; \n            } \n            currResults[nums[i]] = 1; \n \n            for (auto& [val, freq] : prevResults) { \n                long long newAndResult = val & nums[i]; \n                if (newAndResult == k) { \n                    count += freq; \n                } \n                currResults[newAndResult] += freq; \n            } \n             \n            prevResults = currResults; \n        } \n         \n        return count; \n    } \n};",
+    "submit_ts": "1720279262",
+    "subm_id": "1311744148"
 }

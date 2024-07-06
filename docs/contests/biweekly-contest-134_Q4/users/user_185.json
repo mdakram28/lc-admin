@@ -1,6 +1,6 @@
 {
-    "username": "lilweege",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        ans = 0\n        lastIter = defaultdict(int)\n        thisIter = defaultdict(int)\n        for x in nums:\n            if x == k:\n                ans += 1\n            thisIter[x] += 1\n            for y, cnt in lastIter.items():\n                if x & y == k:\n                    ans += cnt\n                thisIter[x & y] += cnt\n            lastIter, thisIter = thisIter, defaultdict(int)\n        return ans\n                ",
-    "submit_ts": "1720278563",
-    "subm_id": "1311714560"
+    "username": "vikrxnt",
+    "submission": "from typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        t = 0\n        pr = defaultdict(int)\n        \n        for i in range(n):\n            cr = defaultdict(int)\n            if nums[i] == k:\n                t += 1\n            cr[nums[i]] = 1\n            for v, f in pr.items():\n                nar = v & nums[i]\n                if nar == k:\n                    t += f\n                cr[nar] += f\n            \n            pr = cr\n        \n        return t\n",
+    "submit_ts": "1720278861",
+    "subm_id": "1311727395"
 }

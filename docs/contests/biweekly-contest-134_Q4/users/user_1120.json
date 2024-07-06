@@ -1,6 +1,6 @@
 {
-    "username": "yashgandhi156",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        \n        unordered_map<long long, long long> p;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> c; \n\n            if (nums[i] == k) {\n                ++ans;\n            }\n            c[nums[i]] = 1;\n\n            for (auto& [v, f] : p) {\n                long long newAndResult = v & nums[i];\n                if (newAndResult == k) {\n                    ans += f;\n                }\n                c[newAndResult] += f;\n            }\n            \n            p = c;\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": "1720280489",
-    "subm_id": "1311791280"
+    "username": "sunil1906",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int target) {\n        long long i, j, k, n = nums.size(), ans = 0, mi, ma;\n        deque<int> v[32];\n        for(i=0;i<n;i++){\n            for(j=0;j<31;j++){\n                if((nums[i] & (1 << j)) == 0)  v[j].push_back(i);\n            }\n        }\n        for(j=0;j<31;j++)   v[j].push_back(n);\n        \n        for(i=0;i<n;i++){\n            mi = n, ma = -1;\n            for(j=0;j<31;j++){\n                if(target & (1 << j)){\n                    mi = min((int)mi, v[j].front());\n                    if(v[j].front() == i)   v[j].pop_front();\n                }\n                else{\n                    ma = max((int)ma, v[j].front());\n                    if(v[j].front() == i)   v[j].pop_front();\n                }\n            }\n            if(mi > ma)  ans += (mi - ma);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280496",
+    "subm_id": "1311791524"
 }

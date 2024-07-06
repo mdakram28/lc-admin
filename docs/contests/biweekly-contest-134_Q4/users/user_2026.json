@@ -1,6 +1,6 @@
 {
-    "username": "muthuhariharan2001",
-    "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar countSubarrays = function(nums, k) {\n    const size = nums.length;\n    let total = 0;\n    let previousResults = new Map();\n    \n    for (let index = 0; index < size; index++) {\n        let currentResults = new Map();\n        \n        if (nums[index] === k) {\n            total++;\n        }\n        \n        currentResults.set(nums[index], 1);\n        \n        previousResults.forEach((frequency, value) => {\n            let newAndResult = value & nums[index];\n            \n            if (newAndResult === k) {\n                total += frequency;\n            }\n            \n            if (currentResults.has(newAndResult)) {\n                currentResults.set(newAndResult, currentResults.get(newAndResult) + frequency);\n            } else {\n                currentResults.set(newAndResult, frequency);\n            }\n        });\n        \n        previousResults = currentResults;\n    }\n    \n    return total;\n};",
-    "submit_ts": "1720280188",
-    "subm_id": "1311780079"
+    "username": "rohangoel",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        \n        long long ans = 0;\n        \n        unordered_map<long long, long long> mp;\n        \n        for(int i=0;i<n;i++){\n            unordered_map<long long, long long> curr;\n            \n            for(auto [ansScore, freq]: mp){\n                long long score = ansScore & nums[i];\n                \n                if(score == k){\n                    ans += freq;\n                }\n                \n                curr[score] += freq;\n            }\n            \n            curr[nums[i]]++;\n            if(nums[i] == k) ans++;\n            \n            mp = curr;\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720280849",
+    "subm_id": "1311804231"
 }

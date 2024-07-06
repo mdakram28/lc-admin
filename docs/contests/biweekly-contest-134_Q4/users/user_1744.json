@@ -1,6 +1,6 @@
 {
-    "username": "lee_218",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        \n        \n        \n        n=len(nums)\n        ct=Counter()\n        for j in range(32):\n            l=-1     \n            for i in range(n):\n                if not i<=l:           \n                    l=i\n                    while l<n and (nums[l]>>j)&1:\n                        l+=1\n                ct[i,j]=l\n\n        bits=[(k>>i)&1 for i in range(32)]\n\n        res=0\n\n        for i in range(n): \n            l,h=i,n-1   \n            for j in range(32):\n\n                if bits[j] and (nums[i]>>j)&1==0:\n\n                    l=n+1\n                    break\n\n                elif bits[j]:\n\n                   h=min(h,ct[i,j]-1)\n\n                elif not bits[j] and (nums[i]>>j)&1==1:\n\n                   l=max(l,ct[i,j])\n\n\n            res+=max(h-l+1,0)\n\n        return res",
-    "submit_ts": "1720281095",
-    "subm_id": "1311812974"
+    "username": "assifff",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n         int n = nums.size();\n        long long l = 0;  // Use long long to prevent overflow\n        unordered_map<long long, long long> b;  // Change the value type to long long\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long , long long> tb;  // Change the value type to long long\n            if (nums[i] == k) {\n                ++l;\n            }\n            tb[nums[i]] = 1;\n            \n            for (const auto& [c, g] : b) {\n                int ch = c & nums[i];\n                if (ch == k) {\n                    l += g;\n                }\n                if (tb.find(ch) != tb.end()) {\n                    tb[ch] += g;\n                } else {\n                    tb[ch] = g;\n                }\n            }\n            \n            b = tb;\n        }\n        \n        return l;\n    }\n};",
+    "submit_ts": "1720278851",
+    "subm_id": "1311726981"
 }

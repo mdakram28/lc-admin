@@ -1,6 +1,6 @@
 {
-    "username": "sodacorsair",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int[] zero = new int[32], one = new int[32];\n        Arrays.fill(zero, -1);\n        Arrays.fill(one, 0);\n        long ans = 0;\n\n        for (int i = 0; i < nums.length; i++)\n        {\n            int l = 0, r = i;\n            for (int j = 0; j < 32; j++)\n            {\n                int b = (k >> j) & 1, c = (nums[i] >> j) & 1;\n                if (c == 0)\n                {\n                    zero[j] = i;\n                    one[j] = i + 1;\n                }\n\n                if (b == 1) l = Math.max(l, one[j]);\n                else r = Math.min(r, zero[j]);\n            }\n            ans += Math.max(0, r - l + 1);\n        }\n        return ans;\n    }\n}",
-    "submit_ts": "1720280010",
-    "subm_id": "1311773602"
+    "username": "Snape007",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<long long,long long> mp;\n        long long ans = 0;\n        for(auto it : nums) {\n            if(it==k) ans++;\n            unordered_map<long long,long long> temp; \n            temp[it]++;\n            for(auto it1 : mp){\n                int x = it1.first&it;\n                if(x==k) ans += it1.second;\n                if (temp.find(x)==temp.end()) temp[x] = it1.second;\n                else temp[x] += it1.second;\n            }\n            mp = temp;\n        }\n        return ans;\n    }\n};\n\n",
+    "submit_ts": "1720280004",
+    "subm_id": "1311773429"
 }

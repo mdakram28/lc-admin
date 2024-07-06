@@ -1,6 +1,6 @@
 {
-    "username": "Fz_227017",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n         \n        long long tl = 0;\n        unordered_map<long long, long long> prevres;\n        for (int idx = 0; idx < array.size(); ++idx) {\n            unordered_map<long long, long long> currRes; \n            if (array[idx] == target) {\n                ++tl;\n            }\n            currRes[array[idx]] = 1;\n            for (auto& [value, freq] : prevres) {\n                long long newAndResult = value & array[idx];\n                if (newAndResult == target) {\n                    tl += freq;\n                }\n                currRes[newAndResult] += freq;\n            }\n            \n            prevres = currRes;\n        }\n        return tl;\n    }\n};\n",
-    "submit_ts": "1720281302",
-    "subm_id": "1311820201"
+    "username": "Harshil_2602",
+    "submission": "class Solution {\npublic:\n    pair <long long , map <long long,long long> > check(int num , map <long long,long long> &mp , int k)\n    {\n        map <long long,long long> ans ;\n        long long cnt = num == k ;\n        ans[num] = 1 ;\n        for(auto it : mp)\n        {\n            long long And = num&it.first ;\n            if(And == k) cnt += it.second ;\n            ans[And] += it.second ;\n        }\n        return {cnt,ans} ;\n    }\n    long long countSubarrays(vector<int>& nums, int k) \n    {\n        map <long long , long long> mp ;\n        long long ans = 0 , n = nums.size() ;    \n        for(auto it : nums)\n        {\n            auto temp = check(it,mp,k) ;\n            mp = temp.second ;\n            ans += temp.first ;\n        }\n        return ans ;\n    }\n};",
+    "submit_ts": "1720279163",
+    "subm_id": "1311740087"
 }

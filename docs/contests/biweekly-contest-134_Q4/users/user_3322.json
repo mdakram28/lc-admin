@@ -1,0 +1,6 @@
+{
+    "username": "dragonballfan",
+    "submission": "class Solution:\n    def helper(self, nums, b, e, k):\n        if b==-1 or e==-1:\n            return 0\n        dp = self.dp\n        ans = 0\n        for i in range(b,e+1):\n            cur = nums[i]\n            j = i-1\n            while j >= b and cur!=k and cur&nums[j]!=nums[j]:\n                cur&=nums[j]\n                j-=1\n            if cur == k:\n                ans += j+2-b\n                dp[i] = j+2-b\n            elif j>=b:\n                ans += dp[j]\n                dp[i] = dp[j]\n        return ans\n                \n\n        \n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        b, e = -1, -1\n        ans = 0\n        self.dp = [0]*len(nums)\n        for i,v in enumerate(nums):\n            if v&k!=k:\n                ans += self.helper(nums,b,e,k)\n                b, e = -1, -1\n            else:\n                if b == -1:\n                    b=e=i\n                else:\n                    e=i\n        ans += self.helper(nums,b,e,k)\n        return ans",
+    "submit_ts": "1720281461",
+    "subm_id": "544575874"
+}

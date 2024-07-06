@@ -1,6 +1,6 @@
 {
-    "username": "gautam1124bihar",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        #define ll long long\n        map<int,int> fre[2];\n        int turn =0;\n        long long ans =0;\n        int n = nums.size();\n        for(int i=0;i<n;i++){\n            for(auto ele: fre[turn^1]){\n                int x = ele.first & nums[i];\n                fre[turn][x]+= ele.second;\n            }\n            fre[turn][nums[i]]++;\n            ans += fre[turn][k];\n            fre[turn^1].clear();\n            turn ^= 1;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720278909",
-    "subm_id": "1311729413"
+    "username": "Remineva",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        m = max(nums)\n        if m < k:\n            return 0\n        m = m.bit_length()\n        n = len(nums)\n        flag = [False] * m\n        i = 0\n        while k:\n            if k & 1:\n                flag[i] = True\n            k >>= 1\n            i += 1\n        prev = [-1] * m\n        res = 0\n\n        for i, num in enumerate(nums):\n            j = 0\n            for j in range(m):\n                if num & (1 << j) == 0:\n                    prev[j] = i\n\n            l = -1\n            r = i\n            for j in range(m):\n                if flag[j]:\n                    l = max(prev[j], l)\n                else:\n                    r = min(prev[j], r)\n\n            if r == -1:\n                continue\n            if r >= l:\n                res += r - l\n\n        return res",
+    "submit_ts": "1720279519",
+    "subm_id": "1311754446"
 }

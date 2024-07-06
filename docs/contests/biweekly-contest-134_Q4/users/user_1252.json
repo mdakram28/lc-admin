@@ -1,6 +1,6 @@
 {
-    "username": "zinchse",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        def get_bits(num: int) -> List[int]:\n            return [bool((2 ** bit) & num) for bit in range(33)]\n\n        missing_bit_to_last_pos = defaultdict(lambda: -1)\n        start = 0\n        res = 0\n        for pos, num in enumerate(nums):\n            if (num & k) != k:\n                start = pos + 1\n                continue\n            end = pos\n            for i, bit in enumerate(get_bits(num ^ k)):\n                if not bit:\n                    continue\n                if missing_bit_to_last_pos[i] < start:\n                    end = start - 1\n                else:\n                    end = min(end, missing_bit_to_last_pos[i])\n\n            for i, bit in enumerate(get_bits(num)):\n                if not bit:\n                    missing_bit_to_last_pos[i] = pos\n            res += end + 1 - start \n        return res",
-    "submit_ts": "1720280401",
-    "subm_id": "1311788039"
+    "username": "Asmi_1143",
+    "submission": "#define ll long long\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        ll c = 0;\n        unordered_map<ll, ll> pr;\n        for(int i=0;i<n;i++){\n            unordered_map<ll, ll> cr;\n            cr[nums[i]]=1;\n            if(nums[i]==k) c++;\n            for(auto& [x,y] : pr){\n                ll nr = x & nums[i];\n                if(nr == k) c+=y;\n                cr[nr] += y;\n            }\n            pr = cr;\n        }\n        return c;\n    }\n};",
+    "submit_ts": "1720278975",
+    "subm_id": "1311732128"
 }

@@ -94,7 +94,7 @@ export function GroupsTableComponent({ filterText }: { filterText: string }) {
     const filteredGroups = useMemo(() => {
         if (!filterText) return groups;
         const f = filterText.toLowerCase();
-        return groups.map(g => g.filter(u => u.username.toLowerCase().includes(f)));
+        return groups.map(g => g.filter(u => u.username && u.username.toLowerCase().includes(f)));
     }, [groups, filterText]);
 
     return <>

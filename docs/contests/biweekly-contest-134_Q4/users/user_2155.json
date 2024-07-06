@@ -1,6 +1,6 @@
 {
-    "username": "DZ3108",
-    "submission": "class Solution {\npublic:\n    using ll = long long;\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<int, int> andCount;\n        long long ans = 0;\n\n        for (int num : nums) {\n            unordered_map<int, int> newAndCount;\n            \n            if (num == k) {\n                ans++;\n            }\n\n            for (auto &[andValue, count] : andCount) {\n                int newAnd = andValue & num;\n                if (newAnd == k) {\n                    ans += count;\n                }\n                newAndCount[newAnd] += count;\n            }\n\n            newAndCount[num]++;\n            andCount = newAndCount;\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": "1720281491",
-    "subm_id": "1311827088"
+    "username": "Devendra_Singh002",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
+    "submit_ts": "1720278880",
+    "subm_id": "1311728214"
 }

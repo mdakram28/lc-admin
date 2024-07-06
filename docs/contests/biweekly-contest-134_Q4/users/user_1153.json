@@ -1,6 +1,6 @@
 {
-    "username": "yui8",
-    "submission": "import java.util.HashMap;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long result = 0;     \n        HashMap<Long, Long> map = new HashMap<>();\n        \n        for (int i = 0; i < nums.length; ++i) {\n            HashMap<Long, Long> hMap = new HashMap<>();\n            \n            if (nums[i] == k) {\n                ++result;\n            }\n            hMap.put((long) nums[i], 1L);\n            \n            for (HashMap.Entry<Long, Long> entry : map.entrySet()) {\n                long tem = entry.getKey();\n                long temp = entry.getValue();\n                \n                long last = tem & nums[i];\n                if (last == k) {\n                    result += temp;\n                }\n                hMap.put(last, hMap.getOrDefault(last, 0L) + temp);\n            }\n            \n            map = hMap;\n        }\n        \n        return result;\n    }\n}\n",
-    "submit_ts": "1720278776",
-    "subm_id": "1311723742"
+    "username": "Romulus28",
+    "submission": "from typing import List\n\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        count = 0\n        \n        prevResults = {}\n        \n        for i in range(n):\n            currResults = {}\n            \n            if nums[i] == k:\n                count += 1  # Inc count if currnt ele is k\n            currResults[nums[i]] = 1\n            \n            for x, freq in prevResults.items():\n                newAndResult = x & nums[i]\n                if newAndResult == k:\n                    count += freq  # Inc count by freq if result is k\n                if newAndResult in currResults:\n                    currResults[newAndResult] += freq\n                else:\n                    currResults[newAndResult] = freq\n            \n            prevResults = currResults  # Updateprevious res fr nxt itr\n        \n        return count  # Return cnt\n",
+    "submit_ts": "1720278624",
+    "subm_id": "1311717280"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "ayush4987ssp",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        unordered_map<long long,long long>curr;\n        unordered_map<long long, long long>prev;\n        for(int i=0; i<n; i++){\n            // vector<pair<int,int>>v;\n            if(nums[i]==k){\n                cnt++;\n            }\n            // v.push_back({nums[i],1});\n            curr[nums[i]] = 1;\n            for(auto x:prev){\n                // cout<<x.first<<\" \"<<x.second<<\" \";\n                if((x.first & nums[i])==k){\n                    cnt += x.second;\n                }\n                curr[nums[i]&x.first] += x.second;\n            }\n            // cout<<endl;\n            prev = curr;\n            curr.clear();\n        }\n        return cnt;\n    }\n};\n auto init = [](){\n    ios_base::sync_with_stdio(0);\n    cin.tie(0);\n    cout.tie(0);\n    return 'c';\n };",
-    "submit_ts": "1720280888",
-    "subm_id": "1311805603"
+    "username": "mith_panchal",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        \n        unordered_map<int, long long> mp;\n        \n        long long count = 0;\n\n        for (int n : nums) {\n            \n            unordered_map<int, long long> newMp;\n            \n            if (n == k) {\n                count++;\n            }\n            \n            for (auto m : mp) {\n\n                int x = m.first & n;\n\n                if (x == k) {\n                    count = count + m.second;\n                }\n\n                newMp[x] = newMp[x] + m.second;\n            }\n\n            newMp[n]++;\n\n            mp = newMp;\n        }\n\n        return count;\n\n    }\n};\n",
+    "submit_ts": "1720281186",
+    "subm_id": "1311816158"
 }

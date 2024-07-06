@@ -1,6 +1,6 @@
 {
-    "username": "saibhuvandeepala",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        \n        long long res=0;\n        \n        map<long, long>mp;\n        \n        \n        for(int i=0;i<n;i++){\n            map<long, long> cur;\n            if(k==nums[i])res++;\n            \n            cur[nums[i]]=1;\n            for(auto it:mp){\n                long long newr=it.first&nums[i];\n                if(k==newr)res+=it.second;\n                \n                cur[newr]+=it.second;\n            }\n            mp=cur;\n            \n        }\n        return res;\n    }\n};",
-    "submit_ts": "1720280658",
-    "subm_id": "1311797474"
+    "username": "DivyanshuS",
+    "submission": "class Solution {\npublic:\n    \n    long long total(vector<int>& nums, int k){\n        long long ans = 0;\n        int n = nums.size();\n        \n        vector<int> z(32);\n        \n        long long a = INT_MAX;\n        \n        int l = 0, r = 0;\n        \n        while( r < n ){\n            for(int i = 0;i < 32; i++){\n                z[i] += ((nums[r] & (1 << i)) == 0);\n                if(z[i])    a &= ~(1 << i);\n            }\n            \n            while(l <= r && a < k){\n                for(int i = 0;i < 32; i++){\n                    z[i] -= ((nums[l] & (1 << i)) == 0);\n                    if(!z[i])    a |= (1 << i);\n                }\n                \n                l++;\n            }\n            \n            if(a >= k){\n                ans += (r-l+1);\n                // cout << l << \" \"<< r << \" \" << ans << endl;\n            }  \n            \n            \n            r++;\n            \n            \n        }\n        \n        return ans;\n    }\n    \n    long long countSubarrays(vector<int>& nums, int k) {\n        return total(nums,k) - total(nums, k+1);\n    }\n};",
+    "submit_ts": "1720280654",
+    "subm_id": "1311797330"
 }

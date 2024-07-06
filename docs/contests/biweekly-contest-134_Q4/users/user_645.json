@@ -1,6 +1,6 @@
 {
-    "username": "Devansh_Sengar",
-    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n#define pb push_back\n#define ff first\n#define ss second\n#define pii pair<int, int>\n#define ll long long int\n#define vll vector<ll>\n#define all(c) c.begin(), c.end()\nconst long long mod = 1e9 + 7;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll ans = 0;\n        map<ll, ll> mp;\n\n        for (int i = 0; i < nums.size(); i++) {\n            map<ll, ll> mp1;\n            mp1[nums[i]]++;\n\n            for (auto p : mp) {\n                ll val = p.ff;\n                ll f = p.ss;\n\n                if ((val & nums[i]) == k)\n                    ans += f;\n\n                mp1[nums[i] & val] += f;\n            }\n\n            if(nums[i] == k)\n                ans++;\n\n            mp = mp1;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279956",
-    "subm_id": "1311771692"
+    "username": "abhash_18",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int target) {\n        int length = arr.size();\n        long long totalCount = 0;\n\n        unordered_map<long long, long long> previousResults;\n\n        for (int i = 0; i < length; ++i) {\n            unordered_map<long long, long long> currentResults;\n\n            if (arr[i] == target) {\n                ++totalCount;\n            }\n            currentResults[arr[i]] = 1;\n\n            for (auto& [val, freq] : previousResults) {\n                long long newAndResult = val & arr[i];\n                if (newAndResult == target) {\n                    totalCount += freq;\n                }\n                currentResults[newAndResult] += freq;\n            }\n\n            previousResults = currentResults;\n        }\n\n        return totalCount;\n    }\n};",
+    "submit_ts": "1720278799",
+    "subm_id": "1311724754"
 }

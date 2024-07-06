@@ -1,6 +1,6 @@
 {
-    "username": "I_have_learn",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int n = array.size();\n        long long totalSubarrays = 0;\n        unordered_map<long long, long long> prefixCounts;\n        \n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currentPrefixCounts; \n            if (array[i] == target) {\n                ++totalSubarrays;\n            }\n            currentPrefixCounts[array[i]] = 1;\n            for (auto& [prevValue, prevFrequency] : prefixCounts) {\n                long long newAndResult = prevValue & array[i];\n                if (newAndResult == target) {\n                    totalSubarrays += prevFrequency;\n                }\n                currentPrefixCounts[newAndResult] += prevFrequency;\n            }\n            \n            prefixCounts = currentPrefixCounts;\n        }\n        return totalSubarrays;\n    }\n};\n",
-    "submit_ts": "1720280982",
-    "subm_id": "1311808973"
+    "username": "utpal_busa",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        \n        int n=nums.size();\n\n        unordered_map<long long, long long> pre;\n        long long cnt=0;\n\n        for(int i=0; i<n; i++)\n        {\n            if(nums[i]==k)\n            {\n                cnt++;\n            }\n            \n            unordered_map<long long, long long> cur;\n            cur[nums[i]]++;\n\n            for(auto it : pre)\n            {\n                long long temp=nums[i]&it.first;\n\n                if(temp==k)\n                {\n                    cnt+=it.second;\n                }\n\n                cur[temp]+=it.second;\n            }\n\n            pre=cur;\n        }\n\n        return cnt;\n    }\n};",
+    "submit_ts": "1720280682",
+    "subm_id": "1311798343"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "JAS05",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<long long, long long> prev;\n        long long ans = 0;\n        \n        for (long long num : nums) {\n            unordered_map<long long, long long> curr; \n\n            if (num == k) {\n                ans++;\n            }\n            curr[num] = 1;\n\n            for (auto &x : prev) {\n                \n                long long curr_val = x.first , c = x.second , new_val = curr_val & num;\n                if (new_val == k) {\n                    ans += c;\n                }\n                curr[new_val] += c;\n            }\n            \n            prev = curr;\n        }\n        \n        return ans;\n    }\n};",
-    "submit_ts": "1720280747",
-    "subm_id": "1311800605"
+    "username": "mooncat2k4",
+    "submission": "import scala.collection.mutable.HashMap\n\nobject Solution {\n  def countSubarrays(array: Array[Int], target: Int): Long = {\n    val size = array.length\n    var total: Long = 0\n    var previousResults = HashMap.empty[Long, Long]\n    for (index <- 0 until size) {\n      var currentResults = HashMap.empty[Long, Long]\n\n      if (array(index) == target) {\n        total += 1\n      }\n      currentResults(array(index)) = 1\n      for ((value, frequency) <- previousResults) {\n        val newAndResult = value & array(index)\n        if (newAndResult == target) {\n          total += frequency\n        }\n        currentResults(newAndResult) = currentResults.getOrElse(newAndResult, 0L) + frequency\n      }\n      previousResults = currentResults\n    }\n    total\n  }\n}\n",
+    "submit_ts": "1720278932",
+    "subm_id": "1311730407"
 }

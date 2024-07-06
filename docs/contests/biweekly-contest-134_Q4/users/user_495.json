@@ -1,6 +1,6 @@
 {
-    "username": "Deadrohan19",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<map<int,int>> mp(n);\n        mp[0][nums[0]]++;\n        for(int i=1;i<n;++i){\n            for(auto p: mp[i-1]){\n                mp[i][p.first&nums[i]] += p.second;\n            }\n            mp[i][nums[i]]++;\n        }\n        long long ans = 0;\n        for(int i=0;i<n;++i){\n            for(auto p: mp[i]){\n                if(p.first==k){\n                    ans += p.second;\n                }\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279638",
-    "subm_id": "1311759251"
+    "username": "akshay_2902",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        int n = arr.size();\n        long long ans = 0;\n        \n        map<long long, long long> prev;\n        for (int i = 0; i < n; ++i) {\n            map<long long, long long> curr; \n\n            if (arr[i] == k) {\n                ans += 1;\n            }\n            \n            curr[arr[i]] = 1;\n\n            for (auto& it : prev) {\n                int xx = it.first;\n                int ss = it.second;\n                long long val = xx;\n                val &= arr[i];\n                if (val == k) {\n                    ans += ss;\n                }\n                curr[val] += ss;\n            }\n            \n            prev = curr;\n            arr[i] -= k;\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720278538",
+    "subm_id": "1311713527"
 }

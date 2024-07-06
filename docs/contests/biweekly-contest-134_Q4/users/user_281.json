@@ -1,6 +1,6 @@
 {
-    "username": "kaname_asuka",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        pref = [[0] for _ in range(31)]\n        for i in range(n):\n            for b in range(31):\n                pref[b].append(pref[b][-1] + ((nums[i] >> b) & 1))\n        def get_larger(limit):\n            l = 0\n            curr = -1\n            ans = 0\n            for r in range(n):\n                curr &= nums[r]\n                while curr < limit:\n                    curr = 0\n                    for b in range(31):\n                        if pref[b][r + 1] - pref[b][l + 1] == r - l:\n                            curr |= (1 << b)\n                    l += 1\n                    if l > r:\n                        curr = -1\n                        break\n                ans += (r - l + 1)\n            return ans\n        return get_larger(k) - get_larger(k + 1)",
-    "submit_ts": "1720278970",
-    "subm_id": "1311731917"
+    "username": "Quar",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        ret = 0\n        dct = {}\n        \n        for x in nums:\n            new_dct = {}\n            for y, ny in dct.items():\n                z = x & y\n                if z == k:\n                    ret += ny\n                new_dct[z] = new_dct.get(z, 0) + ny\n            if x == k:\n                ret += 1                        \n            new_dct[x] = new_dct.get(x, 0) +  1\n            dct = new_dct            \n        \n        return ret\n                ",
+    "submit_ts": "1720278371",
+    "subm_id": "1311706245"
 }

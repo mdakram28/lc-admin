@@ -1,6 +1,6 @@
 {
-    "username": "AzimkhonOstonov",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int k) {\n        int n=v.size();\n        int a[n][32];\n        for(int i=0;i<n;i++){\n            for(int j=0;j<31;j++) {\n            if(v[i]&(1<<j)) {if(i) a[i][j]=a[i-1][j]+1; else a[i][j]=1;}\n            else a[i][j]=0;\n            }\n        }\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            int kh=1e9, kdh=0, c=0;\n            for(int j=0;j<31;j++){\n                if(k&(1<<j)) {kh=min(kh, a[i][j]); c++;}\n                else kdh=max(kdh, a[i][j]);\n            }\n            if(c==0) ans+=i+1-kdh;\n            else if(kdh<=kh) ans+=kh-kdh;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281111",
-    "subm_id": "1311813517"
+    "username": "032_Himanshu",
+    "submission": "\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long c=0;\n        unordered_map<long long,long long>mp;\n        for(int i=0;i<n;i++){\n            unordered_map<long long,long long>m;\n            if(nums[i]==k)c++;\n            m[nums[i]]=1;\n            for(auto it:mp){\n                int h = it.first&nums[i];\n                if(h==k)c+=it.second;\n                if(m.find(h)!=m.end())m[h]+=it.second;\n                else m[h]=it.second;\n            }\n            mp=m;\n        }\n        return c;\n    }\n};",
+    "submit_ts": "1720279909",
+    "subm_id": "1311769874"
 }

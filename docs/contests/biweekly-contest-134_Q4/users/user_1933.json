@@ -1,6 +1,6 @@
 {
-    "username": "Chigun",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        map<int,long long> mp;\n        map<int,long long> mp2;\n        for(int i=0;i<n;i++){\n            for(const auto&[key,val] : mp){\n                int res = key&nums[i];\n                if(res==k) ans+=val;\n                if(res>=k){\n                    mp2[res] += val;\n                }\n            }\n            mp = mp2;\n            mp2.clear();\n            if(nums[i] == k) ans++;\n            if(nums[i] >= k) mp[nums[i]]++;\n            else{\n                mp.clear();\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280878",
-    "subm_id": "1311805246"
+    "username": "monoidalcat",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        count = defaultdict(int)\n        count[nums[0]] += 1\n        res = 0\n        if k in count:\n            res += count[k]\n        for i in nums[1:]:\n            temp = defaultdict(int)\n            temp[i] += 1\n            for j in count:\n                temp[i&j] += count[j]\n            count = copy.deepcopy(temp)\n            if k in count:\n                res += count[k]\n\n        return res",
+    "submit_ts": "1720279972",
+    "subm_id": "1311772260"
 }

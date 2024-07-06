@@ -1,6 +1,6 @@
 {
-    "username": "vbindal011",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n       \n       int n = nums.length;\n        long count = 0;\n\n        HashMap<Long, Long> prev = new HashMap<>();\n\n        for (int i = 0; i < n; i++) {\n            \n            HashMap<Long, Long> curr = new HashMap<>();\n\n            if (nums[i] == k) {\n                count++;\n            }\n            curr.put((long) nums[i], 1L); \n\n            for (Map.Entry<Long, Long> entry : prev.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                curr.put(newAndResult, curr.getOrDefault(newAndResult, 0L) + freq);\n            }\n\n            prev = curr;\n        }\n\n        return count;\n    }\n}",
-    "submit_ts": "1720279435",
-    "subm_id": "1311751106"
+    "username": "Ravi_2021",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        using ll = long long;\n        using umi = unordered_map <ll,ll>;\n        ll ct=0;\n        auto f=[&](int x,umi &m1){\n            umi m2;\n            m2[x]=1;\n            for(auto it:m1){\n                if((x&it.first)==k)ct+=it.second;\n                m2[(x&it.first)]+=it.second;\n            }\n           return m2;\n        };\n        umi m1;\n        for(auto &x:a){\n            if(x==k)ct++;\n            m1= f(x,m1);\n        }\n        return ct;\n    }\n};",
+    "submit_ts": "1720279458",
+    "subm_id": "1311751984"
 }

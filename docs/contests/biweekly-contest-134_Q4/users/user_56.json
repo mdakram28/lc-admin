@@ -1,6 +1,6 @@
 {
-    "username": "meng-hsuan",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        curr = []\n        ans = 0\n        \n        for i in range(n):\n            nxt = []\n            for val, ind in curr:\n                new_val = val & nums[i]\n                if len(nxt) == 0 or nxt[-1][0] != new_val:\n                    nxt.append([new_val, ind])\n            if len(nxt) == 0 or nxt[-1][0] != nums[i]:\n                nxt.append([nums[i], i])\n            \n            curr = nxt\n            \n            l = len(curr)\n            for j in range(l - 1):\n                if curr[j][0] == k:\n                    ans += curr[j + 1][1] - curr[j][1]\n            if curr[l - 1][0] == k:\n                ans += (i + 1) - curr[l - 1][1]\n        \n        return ans\n    ",
-    "submit_ts": "1720278012",
-    "subm_id": "1311690352"
+    "username": "karanjohn890",
+    "submission": "class Solution {\npublic:\n    int check(vector<vector<int>> &a,int i,int n,int k){\n        \n        int val=0;\n        for(int i=a.size()-1;i>=0;i--){\n            if(a[i][0]==k)val+=n-a[i][1];\n            n=a[i][1];\n        }\n        return val;\n    }\n    long long countSubarrays(vector<int>& a, int k) {\n        vector<vector<int>> ba;\n        long long  ans=0;\n        for(int i=a.size()-1;i>=0;i--){\n            vector<vector<int>> temp;\n            temp.push_back({a[i],i});\n            for(int j=0;j<ba.size();j++){\n               int top = ba[j][0];\n                top=(top)&(temp[temp.size()-1][0]);\n                if(top==temp[temp.size()-1][0])continue;\n                temp.push_back({top,ba[j][1]});\n                \n                    \n            }\n            ba=temp;\n            ans+=(long long)check(ba,i,a.size(),k);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720277726",
+    "subm_id": "1311677181"
 }

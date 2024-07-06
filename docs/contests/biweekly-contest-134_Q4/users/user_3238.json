@@ -1,0 +1,6 @@
+{
+    "username": "Yash0697",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        Map<Long, Long> ands = new HashMap<>();\n        long ans = 0l;\n        for(int i = 0; i < n; i++) {\n            if (nums[i] == k) ans++;\n            Map<Long, Long> currAnds = new HashMap<>();\n            currAnds.put((long) nums[i], 1L);\n            // This might be a TLE since we are reiterating all the previously computed Ands\n            // The AND gate can not be made using XOR since its not universal so can't use prefix\n            //      xor\n            for (Map.Entry<Long, Long> entry : ands.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                long newAnd = val & nums[i];\n                if (newAnd == k) {\n                    ans += freq;\n                }\n                currAnds.put(newAnd, currAnds.getOrDefault(newAnd, 0L) + freq);\n            }\n            \n            ands = currAnds;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720281263",
+    "subm_id": "1311818805"
+}

@@ -1,6 +1,6 @@
 {
-    "username": "dumbunny8128",
-    "submission": "NBITS = 32\n\nclass Solution:\n    '''notes\n    * n <= 1e5: O(N Log N)\n    * Subarrays: N^2 subarrays, so need more state.\n      * If it was a 0 bit, we find preceding idx of 0, range <= idx\n      * If it was a 1 bit, we find preceding idx of 0, range > idx\n    '''\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        idx0s = [n] * n  # minimize idx0s to restrict\n        idx1s = [-1] * n  # maximize idx1s to restrict\n        for b in range(NBITS):\n            bit = (1 << b)\n            bitVal = k & bit\n            # print(f'b={b}, bit={bit}, bitVal={bitVal}, k={k}')\n            lastZero = -1\n            for i, num in enumerate(nums):\n                if num & bit == 0:\n                    lastZero = i\n                # print(f'i={i}, lastZero={lastZero}')\n                if bitVal:\n                    idx1s[i] = max(idx1s[i], lastZero)\n                else:\n                    idx0s[i] = min(idx0s[i], lastZero)\n        # print(f'idx0s={idx0s}, idx1s={idx1s}')\n        total = 0\n        for j in range(n):\n            thisNum = idx0s[j] - idx1s[j]\n            if thisNum > 0:\n                total += thisNum\n        # print(f'* total={total}')\n        return total\n                    ",
-    "submit_ts": "1720279490",
-    "subm_id": "1311753308"
+    "username": "meet_katharotiya",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n           long long n = nums.size();\n    long long c = 0;\n    map<long long, long long> mp;\n    // mp[0] = 1; \n\n     for (long long i : nums) {\n            map<long long, long long> mp1;\n       for (auto [x, freq] : mp) {\n            long long new_x = x & i;\n            mp1[new_x] += freq;\n            if (new_x == k) {\n                c += freq;\n            }\n        }\n        mp1[i] += 1;\n        if (i == k) {\n            c += 1;\n        }\n        mp = mp1;\n    }\n\n    return c;\n    }\n};",
+    "submit_ts": "1720278904",
+    "subm_id": "1311729174"
 }

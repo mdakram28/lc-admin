@@ -1,6 +1,6 @@
 {
-    "username": "SOUMYA_RANJAN_JENA",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        set<int> last;\n        map<int,int> mp;\n        last.insert(nums[n-1]);\n        mp[nums[n-1]]++;\n        if(nums[n-1]==k) ans++;\n        for(int i=n-2;i>=0;i--)\n        {\n            set<int> curr;\n            map<int,int> newmp;\n            for(auto it : last)\n            {\n                //cout<<it<<\" \";\n                int val = it&nums[i];\n                if(val==k) {ans+=mp[it];}\n                curr.insert(val);\n                newmp[val]+=mp[it];\n            }\n            if(nums[i]==k){ans++;}\n            curr.insert(nums[i]);\n            newmp[nums[i]]++;\n            last = curr;\n            mp = newmp;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280545",
-    "subm_id": "1311793393"
+    "username": "taniya_564",
+    "submission": "class Solution {\n    public function countSubarrays($nums, $k) {\n        $n = count($nums);\n        $count = 0;\n\n        $prevResults = [];\n\n        for ($i = 0; $i < $n; ++$i) {\n            $currResults = [];\n\n            if ($nums[$i] == $k) {\n                ++$count;\n            }\n            $currResults[$nums[$i]] = 1;\n\n            foreach ($prevResults as $val => $freq) {\n                $newAndResult = $val & $nums[$i];\n                if ($newAndResult == $k) {\n                    $count += $freq;\n                }\n                if (!isset($currResults[$newAndResult])) {\n                    $currResults[$newAndResult] = 0;\n                }\n                $currResults[$newAndResult] += $freq;\n            }\n\n            $prevResults = $currResults;\n        }\n\n        return $count;\n    }\n}\n\n// Example usage:\n$solution = new Solution();\n$nums = [1, 2, 3, 4, 5];\n$k = 2;\necho $solution->countSubarrays($nums, $k); // Output will depend on the input array and value of k\n\n",
+    "submit_ts": "1720280384",
+    "subm_id": "1311787378"
 }

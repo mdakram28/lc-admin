@@ -1,0 +1,6 @@
+{
+    "username": "ddevmhrn37",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(std::vector<int>& numbers, int k) {\n        int length = numbers.size();\n        long long totalCount = 0;\n        \n        std::unordered_map<long long, long long> previousResults;\n\n        for (int i = 0; i < length; ++i) {\n            std::unordered_map<long long, long long> currentResults;\n\n            if (numbers[i] == k) {\n                ++totalCount;\n            }\n            currentResults[(long long) numbers[i]] = 1LL;\n\n            for (auto& entry : previousResults) {\n                long long value = entry.first;\n                long long frequency = entry.second;\n                long long newAndResult = value & numbers[i];\n                \n                if (newAndResult == k) {\n                    totalCount += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return totalCount;\n    }\n};",
+    "submit_ts": "1720281374",
+    "subm_id": "1311822789"
+}

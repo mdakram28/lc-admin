@@ -1,6 +1,6 @@
 {
-    "username": "aleardo",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        # a & b\n        @cache\n        def runner(btw, idx):\n            if idx >= len(nums):\n                return 0\n            \n            tmp = btw & nums[idx]\n\n            if tmp == k:\n                return 1 + runner(tmp, idx + 1)\n\n            return runner(tmp, idx + 1)\n\n\n        res = 0\n\n        for idx, val in enumerate(nums):\n            res = res + runner(val, idx)\n\n        return res",
-    "submit_ts": "1720279731",
-    "subm_id": "1311762894"
+    "username": "bdyby9871112",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [val, freq] : prevResults) {\n                long long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults[newAndResult] += freq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1720277709",
+    "subm_id": "1311676385"
 }

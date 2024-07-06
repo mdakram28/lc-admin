@@ -1,0 +1,6 @@
+{
+    "username": "DRJ2002",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int b) {\n        int n = a.size();\n        long long ans = 0;\n        unordered_map<long long, long long> pre;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> cur;\n            if (a[i] == b) {\n                ans++;\n            }\n            cur[a[i]] = 1;\n\n            updateCurrRes(pre, cur, a[i], b, ans);\n            pre = cur;\n        }\n\n        return ans;\n    }\n\nprivate:\n    void updateCurrRes(\n        const unordered_map<long long, long long>& prev_res,\n        unordered_map<long long, long long>& curr_res,\n        int c,\n        int b,\n        long long& ans\n    ) {\n        for (const auto& [d, e] : prev_res) {\n            long long f = d & c;\n            if (f == b) {\n               ans += e;\n            }\n            curr_res[f] += e;\n        }\n    }\n};\n\n",
+    "submit_ts": "1720279870",
+    "subm_id": "1311768365"
+}

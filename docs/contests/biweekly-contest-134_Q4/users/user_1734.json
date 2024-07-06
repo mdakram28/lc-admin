@@ -1,6 +1,6 @@
 {
-    "username": "coder_divyansh",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) \n    {\n        int n = nums.size();\n        long long count = 0;\n        unordered_map<long long, long long> prev;\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> curr; \n            if (nums[i] == k) \n            {\n                count++;\n            }\n            curr[nums[i]] = 1;\n            for (auto& [val, freq] : prev) \n            {\n                long long neww = val & nums[i];\n                if (neww == k) \n                {\n                    count += freq;\n                }\n                curr[neww] += freq;\n            }\n            prev= curr;\n        }\n        return count;\n    }\n};",
-    "submit_ts": "1720278022",
-    "subm_id": "1311690820"
+    "username": "cheemsRastogi",
+    "submission": "class Solution {\npublic:\n    vector<int> binrep(int n){\n        vector<int> ans(32,0);\n        int indx=0;\n        while(n){\n            ans[indx++]=n%2;\n            n/=2;\n        }\n        return ans;\n    }\n    \n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size(), start=0, firstindx=-1;\n        vector<int> lastindx(32, -1), rep;\n        long long ans=0;\n        for(int i=0; i<n; i++){\n            if((nums[i]&k)>=k){\n                rep=binrep(nums[i]^k);\n                firstindx=i;\n                for(int j=0; j<32; j++){\n                    if(rep[j]){\n                        firstindx=min(firstindx, lastindx[j]);\n                    } else lastindx[j]=i;\n                }\n                //cout<<nums[i]<<\" \"<<firstindx<<\" \"<<start<<\"\\n\";\n                if(firstindx>=start) ans+=1LL*(firstindx-start+1);\n            }\n            else{\n                start=i+1;\n                for(int j=0; j<32; j++) lastindx[j]=i;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720281078",
+    "subm_id": "1311812348"
 }

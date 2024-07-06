@@ -1,6 +1,6 @@
 {
-    "username": "Dhruv_dg",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<vector<int>> v(n, vector<int>(32));\n        vector<vector<int>> dp(n, vector<int>(32));\n        long long ans = 0;\n        if(nums[0]==k) ans++;\n        for(int i = 0;i<32;i++){\n            for(int j = 0;j<n;j++){\n                if(j==0){\n                    if(nums[j]&(1<<i)) dp[j][i] = -1;\n                    else dp[j][i] = 0;\n                }\n                else{\n                    if(nums[j]&(1<<i)) dp[j][i] = dp[j-1][i];\n                    else dp[j][i] = j;\n                }\n            }\n        }\n        for(int i = 1;i<n;i++){\n            int mi = 0;\n            int mx = i;\n            for(int j = 0;j<32;j++){\n                if(k&(1<<j)){\n                    mi = max(mi, dp[i][j]+1);\n                }\n                else mx = min(mx, dp[i][j]);\n            }\n            if(mx >= mi) ans += 1LL*(mx-mi+1);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720278240",
-    "subm_id": "1311700555"
+    "username": "adi_9865",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long res = 0;\n        \n        unordered_map<long long, long long> pr;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> cr; \n\n            if (nums[i] == k) {\n                ++res;\n            }\n            cr[nums[i]] = 1;\n\n            for (auto& [val, freq] : pr) {\n                long long n = val & nums[i];\n                if (n == k) {\n                    res += freq;\n                }\n                cr[n] += freq;\n            }\n            \n            pr = cr;\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": "1720279849",
+    "subm_id": "1311767576"
 }

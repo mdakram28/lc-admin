@@ -1,6 +1,6 @@
 {
-    "username": "rajatgarg2004",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        unordered_map<long long , long long>mp;\n        long long counter = 0;\n        for(auto it : nums){\n            if(it == k){\n                counter++;\n            }\n            unordered_map<long long, long long>freq;\n            freq[it]=1;\n            for(auto pairs : mp){\n                long long curr = pairs.first&it;\n                if(curr == k){\n                    counter+=pairs.second;\n                }\n                freq[curr] += pairs.second;\n            }\n            mp = freq;\n            \n        }\n        return counter;\n    }\n};",
-    "submit_ts": "1720279138",
-    "subm_id": "1311739024"
+    "username": "prashant_kashyap9759",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<int>use(n);\n        int l=-1;\n        for(int i=0;i<n;i++){\n            int curr=(nums[i]&k);\n            if(curr<k)l=i;\n            use[i]=l;\n        }\n        vector<vector<int>>v(33,vector<int>(n+1));\n        for(int bit=0;bit<31;bit++){\n            int num=(1<<bit);\n            int l=-1;\n            for(int i=0;i<n;i++){\n                if(!(nums[i]&num))l=i;\n                v[bit][i]=l;\n            }\n        }\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            if(use[i]==i)continue;\n            int num=(k^nums[i]);\n            int y=0;\n            int idx=i;\n            while(num>0){\n                if((num&1))idx=min(idx,v[y][i]);\n                num>>=1;\n                y++;\n            }\n            int sz=(idx-use[i]);\n            sz=max(sz,0);\n            ans=(long long)ans+sz;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280119",
+    "subm_id": "1311777639"
 }

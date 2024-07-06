@@ -1,6 +1,6 @@
 {
-    "username": "shukhratutaboev",
-    "submission": "public class Solution {\n    public long CountSubarrays(int[] arr, int tgt)\n    {\n        int n = arr.Length;\n        long count = 0;\n        var prev = new Dictionary<long, long>();\n\n        for (int i = 0; i < n; ++i)\n        {\n            var curr = new Dictionary<long, long>();\n            if (arr[i] == tgt)\n            {\n                ++count;\n            }\n\n            curr[arr[i]] = 1;\n\n            foreach (var entry in prev)\n            {\n                long val = entry.Key;\n                long freq = entry.Value;\n                long newAnd = val & arr[i];\n                if (newAnd == tgt)\n                {\n                    count += freq;\n                }\n                if (curr.ContainsKey(newAnd))\n                {\n                    curr[newAnd] += freq;\n                }\n                else\n                {\n                    curr[newAnd] = freq;\n                }\n            }\n\n            prev = curr;\n        }\n\n        return count;\n    }\n}\n",
-    "submit_ts": "1720281086",
-    "subm_id": "1311812635"
+    "username": "yashgandhi156",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        \n        unordered_map<long long, long long> p;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> c; \n\n            if (nums[i] == k) {\n                ++ans;\n            }\n            c[nums[i]] = 1;\n\n            for (auto& [v, f] : p) {\n                long long newAndResult = v & nums[i];\n                if (newAndResult == k) {\n                    ans += f;\n                }\n                c[newAndResult] += f;\n            }\n            \n            p = c;\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720280489",
+    "subm_id": "1311791280"
 }

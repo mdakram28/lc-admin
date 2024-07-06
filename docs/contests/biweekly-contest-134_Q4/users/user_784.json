@@ -1,6 +1,6 @@
 {
-    "username": "subashcodelee",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& vals, int a) {\n        int n = vals.size();\n        long long tot = 0;\n        unordered_map<long long, long long> pastval;\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> cr; \n            if (vals[i] == a) {\n                ++tot;\n            }\n            cr[vals[i]] = 1;\n\n            for (auto& [val, fq] : pastval) {\n                long long newval = val & vals[i];\n                if (newval == a) {\n                    tot += fq;\n                }\n                cr[newval] += fq;\n            }\n            \n            pastval = cr;\n        }\n        \n        return tot;\n    }\n};",
-    "submit_ts": "1720278830",
-    "subm_id": "1311726092"
+    "username": "nikhil__thogaru",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        long long ans=0;\n        int n=a.size();\n        int f=0;\n        int left=0;\n        vector <int> pos(31);\n        vector <int> v;\n        long long x=1ll;\n        vector <bool> vis(31);\n        for (int j=0;j<31;j++,x=x*2ll){\n            if (k&x){\n\n            }\n            else v.push_back(j),vis[j]=true;\n        }\n        for (int i=0;i<n;i++){\n            if (i==left) f=a[i];\n            else f=f&a[i];\n            x=1ll;\n            bool ok=true;\n            for (int j=0;j<31;j++,x=x*2ll){\n                if (a[i]&x){\n\n                }\n                else{\n                    if (!vis[j]) ok=false;\n                    pos[j]=i;\n                }\n            }\n            if (f==k){\n                int mn=i;\n                for (auto y:v){\n                    mn=min(mn,pos[y]);\n                }\n               // cout<<i<<\" \"<<left<<\" \"<<mn<<\"\\n\";\n                ans+=mn-left;\n                ans++;\n            }\n            else if(!ok){\n                left=i+1;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720279338",
+    "subm_id": "1311747210"
 }

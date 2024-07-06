@@ -1,6 +1,6 @@
 {
-    "username": "pranay4529",
-    "submission": "#include <vector>\n#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n = a.size();\n        long long cnt = 0;\n        unordered_map<long long, long long> prev;\n        \n        for (int i = 0; i < n; i++) {\n            unordered_map<long long, long long> cur;\n            if (a[i] == k) cnt++;\n            cur[a[i]] = 1;\n            \n            for (auto it : prev) {\n                long long temp = it.first & a[i];\n                if (temp == k) cnt += it.second;\n                cur[temp] += it.second;\n            }\n            \n            prev = cur;\n        }\n        \n        return cnt;\n    }\n};\n",
-    "submit_ts": "1720280341",
-    "subm_id": "1311785777"
+    "username": "Selmand42",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        \n        d = defaultdict(int)\n        ans = 0\n        print(\"________________________-\")\n        for i in range(len(nums)):\n            if nums[i] == k:\n                ans += 1\n            new = defaultdict(int)\n            \n            for j in d.keys():\n                if nums[i] & j == k:\n                    ans += d[j]\n                new[nums[i] & j] += d[j]\n            d = new.copy()\n            d[nums[i]] += 1\n        \n        return ans\n            ",
+    "submit_ts": "1720278974",
+    "subm_id": "1311732101"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "Shreyasi_Sen",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int size = nums.size();\n        ll gun = 0;\n        unordered_map<long long, long long> shreyasis;\n        for (int it = 0; it < size; it++) {\n            unordered_map<ll, long long> akhon; \n            if (nums[it] == k) {\n                gun++;\n            }\n            akhon[nums[it]] = 1;\n            for (auto& [value, frequ] : shreyasis) {\n                long long neAnd = value & nums[it];\n                if (neAnd == k) {\n                    gun += frequ;\n                }\n                akhon[neAnd] += frequ;\n            }\n            \n            shreyasis = akhon;\n        }\n        return gun;\n    }\n};",
-    "submit_ts": "1720278767",
-    "subm_id": "1311723367"
+    "username": "lucasschnee",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        N = len(nums)\n        \n\n        @cache\n        def calc(index, cur):\n            if cur < k:\n                return 0\n\n            total = 0\n            if cur == k:\n                total += 1\n            \n            if index + 1 == N:\n                return total\n\n            total += calc(index + 1, cur & nums[index + 1])\n\n            return total\n\n\n        \n        total = 0\n        for i in range(N):\n            total += calc(i, nums[i])\n        return total\n        ",
+    "submit_ts": "1720280486",
+    "subm_id": "1311791183"
 }

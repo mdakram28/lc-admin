@@ -1,6 +1,6 @@
 {
-    "username": "lixiangfan97",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        const int n = (int)nums.size();\n        vector<int> cnts(31, 0);\n        long long ans = 0;\n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < 31; ++j) {\n                if (nums[i] & (1 << j)) {\n                    cnts[j] = cnts[j] + 1;\n                } else {\n                    cnts[j] = 0;\n                }\n            }\n            int l = 0, r=i+1;\n            for (int j = 0; j < 31; ++j) {\n                if (k & (1 << j)) {\n                    r = min(r, cnts[j]);\n                } else {\n                    l = max(l, cnts[j] + 1);\n                }\n            }\n            if (r - l + 1 > 0) {\n                ans += (long long)(r-l+1);\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720277523",
-    "subm_id": "1311667679"
+    "username": "lilweege",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        ans = 0\n        lastIter = defaultdict(int)\n        thisIter = defaultdict(int)\n        for x in nums:\n            if x == k:\n                ans += 1\n            thisIter[x] += 1\n            for y, cnt in lastIter.items():\n                if x & y == k:\n                    ans += cnt\n                thisIter[x & y] += cnt\n            lastIter, thisIter = thisIter, defaultdict(int)\n        return ans\n                ",
+    "submit_ts": "1720278563",
+    "subm_id": "1311714560"
 }

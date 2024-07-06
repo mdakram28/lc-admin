@@ -1,6 +1,6 @@
 {
-    "username": "harsh_0404",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        map<long long,long long> prev;\n        int check=0;\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            map<long long,long long> curr;\n        curr[nums[i]]=1;\n            for(auto &it : prev){\n                if((it.first & nums[i])==k){\n                        ans+=it.second;\n                }    \n            if(check==0) curr[(it.first & nums[i])]+=it.second;\n            }\n                if(!check) prev=curr;\n        }\n        for(int i=0;i<n;i++){\n            if(nums[i]==k) ans++;\n        }\n        return ans;\n    }\n};\n\n",
-    "submit_ts": "1720281297",
-    "subm_id": "1311820034"
+    "username": "Weeentar_Wind",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) \n    {\n        ll ans = 0 , n = nums.size();\n        int cmp = 0 ;\n\n        vector<ll>pref(31,-1);\n\n        for( int i = 0 ; i < n ; i++ )\n        {\n           int l = 0 , r = i;\n\n           for( int  bits = 30 ; bits >= 0 ; bits-- )\n           {\n               int p =(int)pow(2,bits);\n\n               if( p & nums[i] )\n               pref[bits] = pref[bits] == -1  ? i : pref[bits] ;\n               else\n               pref[bits] = -1; \n\n              if( p & k )\n              {\n                int pos = pref[bits];\n                if( pos == -1 || l == -1 )\n                l = -1;\n                else\n                l = max(l,pos);\n              }\n              else\n              {\n                int pos = pref[bits];\n                if( pos != -1 )\n                r = min(r,pos-1);\n              }\n               \n           }\n\n           if( l == -1 || r == -1 ||  l > r )\n           continue;\n \n           int total = max(cmp,r-l+1);\n           ll joint = total;\n           ans += joint; \n\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278461",
+    "subm_id": "1311710162"
 }

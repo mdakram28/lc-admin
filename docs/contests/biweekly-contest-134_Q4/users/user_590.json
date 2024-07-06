@@ -1,6 +1,6 @@
 {
-    "username": "Krishna_Morker",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        set<long long> st;\n        map<long long,long long> frq;\n        int n=nums.size();\n        st.insert(nums[0]);\n         \n        frq[nums[0]]++;\n        long long ans=0;\n         if(nums[0]==k)ans++;\n        for(int j=1;j<n;j++){\n            set<long long> tel;\n            map<long long,long long> tmp;\n            for(auto &i:st){\n                int anf=nums[j]&i;\n                if(anf==k)ans+=frq[i];\n                tel.insert(anf);\n                tmp[anf]+=frq[i];\n                if(tmp[anf]==0)tmp[anf]++;\n            }\n           // cout<<ans<<endl;\n            tmp[nums[j]]++;\n            tel.insert(nums[j]);\n            if(nums[j]==k)ans++;\n            frq=tmp;\n            st=tel;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720278958",
-    "subm_id": "1311731442"
+    "username": "Showman_7112",
+    "submission": "#define umap unordered_map<long long, long long>\n#define vi vector<int>\n#define ll long long\n\nclass Solution {\npublic:\n    ll countSubarrays(vi & nums, int k) {\n        int n = nums.size();\n        ll cnt = 0;\n\n        umap prev;\n\n        for (ll i = 0; i < n; ++i) {\n            umap current;\n\n            if (nums[i] == k) {\n                cnt+=1;\n            }\n            current[nums[i]] = 1;\n\n            for (auto it : prev) {\n                ll newres = it.first & nums[i];\n                if (newres == k) {\n                    cnt += it.second;\n                }\n                current[newres] += it.second;\n            }\n\n            prev = current;\n        }\n\n        return cnt;\n    }\n};",
+    "submit_ts": "1720279278",
+    "subm_id": "1311744817"
 }

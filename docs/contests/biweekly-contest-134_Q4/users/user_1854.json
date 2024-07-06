@@ -1,6 +1,6 @@
 {
-    "username": "aaron1april",
-    "submission": "# BC 134 Q4\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        # print(nums)\n        zero_bits = []\n\n        for shift in range(32):\n            bit = 1 << shift\n\n            if (k & bit) == 0:\n                zero_bits.append(bit)\n\n        # print(zero_bits)\n\n        prev_zeros = [0] * len(zero_bits)\n        count = 0\n        left = 0\n        prev = 0\n        acc = -1\n\n        for i in range(len(nums)):\n            acc &= nums[i]\n\n            if acc >= k:\n                for j, bit in enumerate(zero_bits):\n                    if (nums[i] & bit) == 0:\n                        prev_zeros[j] = i\n\n            # print(i, acc, prev, count)\n            if acc == k:\n                prev = min(prev_zeros)\n                count += prev + 1 - left\n            elif (acc & k) != k:\n                left = i + 1\n                acc = -1\n\n        return count",
-    "submit_ts": "1720281589",
-    "subm_id": "1311831228"
+    "username": "Shah_Namra",
+    "submission": "\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prev;\n\n        for (int i = 0; i < n; i++) {\n            unordered_map<long long, long long> curr; \n\n            if (nums[i] == k) \n                count++;\n            \n            curr[nums[i]] = 1;\n            \n            for (auto& entry : prev) {\n                long long previousAnd = entry.first;\n                long long frequency = entry.second;\n                long long newAnd = previousAnd & nums[i];\n                \n                if (newAnd == k) {\n                    count += frequency;\n                }\n                curr[newAnd] += frequency;\n            }\n\n            prev = curr;\n        }\n        \n        return count;\n\n    }\n};\n",
+    "submit_ts": "1720279081",
+    "subm_id": "1311736566"
 }

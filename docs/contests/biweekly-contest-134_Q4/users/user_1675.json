@@ -1,6 +1,6 @@
 {
-    "username": "qq1239426256",
-    "submission": "class Solution {\npublic:\n    using ll = long long;\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<pair<int, int>> valid = {{0, -1}};\n        ll ans = 0;\n        for (int i = 0; i < n; i++) {\n            vector<pair<int, int>> nv = {{nums[i],i}};\n            for (auto [val, idx] : valid) {\n                int tmp = val & nums[i];\n                if (!nv.empty() && nv.back().first == tmp) continue;\n                nv.emplace_back(tmp, idx);\n            }\n            for (int j = 0; j < nv.size(); j++) {\n                if (nv[j].first == k) {\n                    if (j == nv.size() - 1)\n                        ans += nv[j].second + 1;\n                    else\n                        ans += nv[j].second - nv[j + 1].second;\n                }\n            }\n            valid = nv;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280976",
-    "subm_id": "1311808779"
+    "username": "ParthMalhotra",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        int start = 0;\n        // int end = 0;\n\n        Map<Long, Long> prev = new HashMap<>();\n        long andVal = nums[0];\n\n        long subs = 0;\n\n        for(int i = 0; i<n; i++) {\n            Map<Long, Long> curr = new HashMap<>();\n\n            if(nums[i] == k)\n                subs++;\n\n            curr.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : prev.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n\n                long newAndRes = val&nums[i];\n\n                if(newAndRes == k) \n                    subs+= freq;\n\n                curr.put(newAndRes, curr.getOrDefault(newAndRes, 0L) + freq);\n            }\n\n            prev = curr;\n        }\n\n        return subs;\n    }\n}",
+    "submit_ts": "1720281275",
+    "subm_id": "1311819215"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "rahul0310",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n      int num = nums.length;\n      long c1 = 0;\n      HashMap<Long,Long> hm = new HashMap<>();\n      for(int i = 0;i < num;i++){\n        HashMap<Long,Long> hm1 = new HashMap<>();\n        if(nums[i] == k){\n          c1++;\n        }\n        hm1.put((long)nums[i],1L);\n        \n        for(var en : hm.entrySet()){\n          long x = en.getKey() & ((long)nums[i]);\n          if(x == k){\n            c1 += en.getValue();\n          }\n          hm1.merge(x,en.getValue(),Long::sum);\n        }\n        hm = hm1;\n      }\n      return c1;\n    }\n}",
-    "submit_ts": "1720281327",
-    "subm_id": "1311821099"
+    "username": "devprakashdp2021",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(std::vector<int>& nums, int k) {\n        int size = nums.size();\n        long long totalCount = 0;\n        map<long long, long long> previousResults;\n\n        for (int index = 0; index < size; ++index) {\n            map<long long, long long> currentResults;\n            \n            // Check if the current element is equal to k\n            if (nums[index] == k) {\n                ++totalCount;\n            }\n            currentResults[nums[index]]++;\n\n            // Iterate through previous results to update the current results\n            for (const auto& [value, frequency] : previousResults) {\n                long long newResult = value & nums[index];\n                if (newResult == k) {\n                    totalCount += frequency;\n                }\n                currentResults[newResult] += frequency;\n            }\n            \n            // Update the previous results with the current results\n            previousResults = (currentResults);\n        }\n\n        return totalCount;\n    }\n};\n",
+    "submit_ts": "1720280729",
+    "subm_id": "1311799978"
 }

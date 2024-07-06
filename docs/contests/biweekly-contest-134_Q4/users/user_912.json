@@ -1,6 +1,6 @@
 {
-    "username": "GlitchedCoder",
-    "submission": "use std::collections::HashMap;\n\nimpl Solution {\n    pub fn count_subarrays(nums: Vec<i32>, k: i32) -> i64 {\n        let mut pr: HashMap<i64, i64> = HashMap::new();\n        let mut c: i64 = 0;\n                for &num in nums.iter() {\n            let mut cr: HashMap<i64, i64> = HashMap::new();\n            if num == k {\n                c += 1;\n            }\n            \n            cr.insert(num as i64, 1);\n\n            for (&v, &f) in &pr {\n                let nr = v & (num as i64);\n                if nr == k as i64 {\n                    c += f;\n                }\n                *cr.entry(nr).or_insert(0) += f;\n            }\n            \n            pr = cr;\n        }\n        \n        c\n    }\n}",
-    "submit_ts": "1720280758",
-    "subm_id": "1311801013"
+    "username": "WhyAyushOp",
+    "submission": "function countSubarrays(nums: number[], k: number): number {\n    let n = nums.length;\n    let count = 0;\n    \n    // Map to store results of previous iterations\n    let prevResults: Map<number, number> = new Map();\n\n    for (let i = 0; i < n; ++i) {\n        // Map to store results for current iteration\n        let currResults: Map<number, number> = new Map();\n\n        if (nums[i] === k) {\n            ++count;\n        }\n        currResults.set(nums[i], (currResults.get(nums[i]) || 0) + 1);\n\n        for (let [val, freq] of prevResults.entries()) {\n            let newAndResult = val & nums[i];\n            if (newAndResult === k) {\n                count += freq;\n            }\n            currResults.set(newAndResult, (currResults.get(newAndResult) || 0) + freq);\n        }\n        \n        // Update prevResults for the next iteration\n        prevResults = currResults;\n    }\n    \n    return count;\n}\n\n// Example usage:\nlet nums = [1, 0, 1, 0, 1];\nlet k = 1;\nconsole.log(countSubarrays(nums, k)); // Output: 10\n",
+    "submit_ts": "1720278439",
+    "subm_id": "1311709198"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "monoidalcat",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        count = defaultdict(int)\n        count[nums[0]] += 1\n        res = 0\n        if k in count:\n            res += count[k]\n        for i in nums[1:]:\n            temp = defaultdict(int)\n            temp[i] += 1\n            for j in count:\n                temp[i&j] += count[j]\n            count = copy.deepcopy(temp)\n            if k in count:\n                res += count[k]\n\n        return res",
-    "submit_ts": "1720279972",
-    "subm_id": "1311772260"
+    "username": "nikhil_25",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def countSubarrays(self, array, target):\n        size = len(array)\n        total = 0\n        previousResults = defaultdict(int)\n        \n        for index in range(size):\n            currentResults = defaultdict(int)\n            \n            if array[index] == target:\n                total += 1\n            \n            currentResults[array[index]] += 1\n            \n            for value, frequency in previousResults.items():\n                newAndResult = value & array[index]\n                if newAndResult == target:\n                    total += frequency\n                currentResults[newAndResult] += frequency\n            \n            previousResults = currentResults\n        \n        return total\n",
+    "submit_ts": "1720280948",
+    "subm_id": "1311807726"
 }

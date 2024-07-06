@@ -1,6 +1,6 @@
 {
-    "username": "IanISam",
-    "submission": "class Solution {\npublic:\n    typedef long long ll;\n    long long countSubarrays(vector<int>& nums, int k) {\n        vector<array<int, 2>> u;\n        u.push_back({0, -1});\n        ll ans = 0;\n        int n = nums.size();\n        for(int i=0; i<n; i++){\n            vector<array<int, 2>> t;\n            int o = nums[i];\n            int w = i;\n            for(auto [z, j]: u){\n                if((z&o)!=o){\n                    if(o==k)ans+=w-j;\n                    t.push_back({o, w});\n                    w=j;\n                }\n                o&=z;\n            }\n            if(o==k)ans+=w+1;\n            t.push_back({o, w});\n            swap(t, u);\n        }\n        return(ans);\n    }\n};",
-    "submit_ts": "1720278349",
-    "subm_id": "1311705238"
+    "username": "360verse",
+    "submission": "package main\n\nimport (\n\t\"fmt\"\n)\n\nfunc countSubarrays(nums []int, k int) int64 {\n\tn := len(nums)\n\tcount := int64(0)\n\tprevResults := make(map[int64]int64)\n\n\tfor i := 0; i < n; i++ {\n\t\tcurrResults := make(map[int64]int64)\n\n\t\tif nums[i] == k {\n\t\t\tcount++\n\t\t}\n\t\tcurrResults[int64(nums[i])] = 1\n\n\t\tfor val, freq := range prevResults {\n\t\t\tnewAndResult := val & int64(nums[i])\n\t\t\tif newAndResult == int64(k) {\n\t\t\t\tcount += freq\n\t\t\t}\n\t\t\tcurrResults[newAndResult] += freq\n\t\t}\n\n\t\tprevResults = currResults\n\t}\n\n\treturn count\n}\n\n",
+    "submit_ts": "1720277780",
+    "subm_id": "1311679672"
 }

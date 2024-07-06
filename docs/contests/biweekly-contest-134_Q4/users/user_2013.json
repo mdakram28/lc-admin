@@ -1,6 +1,6 @@
 {
-    "username": "prabhakarjhasunny",
-    "submission": "class Solution {\npublic:\n             long long pb = 0;\n            std::unordered_map<long long, long long> pr;\n            int i=0;\n    long long countSubarrays(vector<int>& nums, int k) {\n         int m = nums.size();\n            while(i<m){\n            std::unordered_map<long long, long long> cr;\n            if (nums[i] == k)++pb;\n            cr[nums[i]] = 1;\n            for (const auto& [vl, fr] : pr) {\n                long long nr = vl & nums[i];\n                if (nr == k) {\n                    pb += fr;\n                }\n                cr[nr] += fr;\n            }\n\n            pr = cr;\n                i++;\n            }\n\n        return pb;\n    }\n};",
-    "submit_ts": "1720280144",
-    "subm_id": "1311778521"
+    "username": "rajan_46",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int size = nums.size();\n        long long total = 0;\n        unordered_map<long long, long long> prev;\n\n        for (int i = 0; i < size; ++i) {\n            unordered_map<long long, long long> curr;\n            calculateAndCount(nums[i], k, prev, curr, total);\n            prev = curr;\n        }\n        \n        return total;\n    }\n\nprivate:\n    void calculateAndCount(long long num, int k, unordered_map<long long, long long>& prev,\n                           unordered_map<long long, long long>& curr, long long& total) {\n        if (num == k) {\n            ++total;\n        }\n        curr[num] += 1;\n        \n        for (auto& [val, freq] : prev) {\n            long long new_result = val & num;\n            if (new_result == k) {\n                total += freq;\n            }\n            curr[new_result] += freq;\n        }\n    }\n};\n",
+    "submit_ts": "1720281421",
+    "subm_id": "1311824537"
 }

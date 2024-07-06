@@ -1,6 +1,6 @@
 {
-    "username": "bhupendra1404",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int length = nums.length;\n        long totalCount = 0;\n        HashMap<Long, Long> previousResults = new HashMap<>();\n\n        for (int index = 0; index < length; ++index) {\n            HashMap<Long, Long> currentResults = new HashMap<>();\n            \n            if (nums[index] == k) {\n                ++totalCount;\n            }\n            \n            currentResults.put((long) nums[index], 1L);\n            \n            for (HashMap.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long value = entry.getKey();\n                long frequency = entry.getValue();\n                \n                long newAndResult = value & nums[index];\n                \n                if (newAndResult == k) {\n                    totalCount += frequency;\n                }\n                \n                currentResults.put(newAndResult, currentResults.getOrDefault(newAndResult, 0L) + frequency);\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return totalCount;\n    }\n}",
-    "submit_ts": "1720281147",
-    "subm_id": "1311814788"
+    "username": "ethicalADI",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n     \n    long long mx = 0;\n    map<long long, long long>old;\n    int i=0;\n    while(i<array.size()) {\n        map<long long, long long>cur;\n        if(array[i]==target) {\n            mx+=1;\n        }\n        \n        cur[array[i]]=1;\n        for(auto &x:old) {\n            long long sum =(x.first) & array[i];\n             if (sum==target) {\n                mx+=x.second-2;\n                 mx+=2;\n               }\n            \n            cur[sum]+=x.second;\n        }\n        old=cur;\n        i++;\n    }\n    return mx;\n}\n   \n};",
+    "submit_ts": "1720281007",
+    "subm_id": "1311809853"
 }

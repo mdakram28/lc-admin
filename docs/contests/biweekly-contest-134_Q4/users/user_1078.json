@@ -1,6 +1,6 @@
 {
-    "username": "aniketjais",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int x) {\n        long long ans=0,n=v.size();\n        unordered_map<int,vector<int>> m;\n        for(int b=0;b<=30;b++){\n            int k=(1<<b);\n            for(int i=0;i<n;i++){\n                if(v[i]&k)\n                continue;\n                else m[b].push_back(i);\n            }\n        }\n        for(int i=0;i<n;i++){\n            int l=i,h=n-1;\n            for(int b=0;b<=30;b++){\n                int k=(1<<b),ind=n;\n                auto it=lower_bound(m[b].begin(),m[b].end(),i);\n                if(it!=m[b].end()){\n                    ind=*it;\n                }\n                if(k&x){\n                    h=min(h,ind-1);\n                }\n                else{\n                    l=max(l,ind);\n                }\n            }\n            if(l<=h){\n                ans+=(h-l+1);\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280133",
-    "subm_id": "1311778110"
+    "username": "Reacher_J",
+    "submission": "\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int target) {\n        int n = arr.size();\n        long long res = 0;\n        unordered_map<long long, long long> prev;\n\n        for (int i = 0; i < n; ++i) {\n            processElement(arr, target, i, res, prev);\n        }\n\n        return res;\n    }\n\nprivate:\n    void processElement(const vector<int>& arr, int target, int idx, long long& res, unordered_map<long long, long long>& prev) {\n        unordered_map<long long, long long> curr;\n        long long val = arr[idx];\n\n        if (val == target) {\n            ++res;\n        }\n\n        curr[val] = 1;\n\n        for (auto& [v, freq] : prev) {\n            long long newAnd = v & val;\n            if (newAnd == target) {\n                res += freq;\n            }\n            curr[newAnd] += freq;\n        }\n\n        prev = curr;\n    }\n};",
+    "submit_ts": "1720279829",
+    "subm_id": "1311766770"
 }

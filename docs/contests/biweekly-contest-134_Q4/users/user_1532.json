@@ -1,6 +1,6 @@
 {
-    "username": "odinson776",
-    "submission": "class Solution {\n    func countSubarrays(_ nums: [Int], _ k: Int) -> Int {\n        let size = nums.count\n        var total: Int64 = 0\n        var previousResults: [Int64: Int64] = [:]\n\n        for index in 0..<size {\n            var currentResults: [Int64: Int64] = [:]\n\n            if nums[index] == k {\n                total += 1\n            }\n            currentResults[Int64(nums[index])] = 1\n\n            for (value, frequency) in previousResults {\n                let newAndResult = value & Int64(nums[index])\n                if newAndResult == k {\n                    total += frequency\n                }\n                currentResults[newAndResult, default: 0] += frequency\n            }\n\n            previousResults = currentResults\n        }\n        return Int(total)\n    }\n}\n",
-    "submit_ts": "1720280980",
-    "subm_id": "1311808927"
+    "username": "hung146164",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        unordered_map<int, int> freq;\n\n        for (int i = 0; i < n; i++) {\n            unordered_map<int, int> n_freq;\n            if (nums[i] == k) {\n                count++;\n            }\n            n_freq[nums[i]]++;\n            for (const auto& pair : freq) {\n                int n_and = pair.first & nums[i];\n                if (n_and == k) {\n                    count += pair.second;\n                }\n                n_freq[n_and] += pair.second;\n            }\n            freq = n_freq;\n        }\n\n        return count;\n    }\n};",
+    "submit_ts": "1720280769",
+    "subm_id": "1311801388"
 }

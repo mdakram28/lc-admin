@@ -1,6 +1,6 @@
 {
-    "username": "Thesawankumar",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n      int n = nums.length;\n        long count = 0;\n\n        HashMap<Long, Long> prevResults = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            HashMap<Long, Long> currResults = new HashMap<>();\n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults.put((long) nums[i], 1L);\n\n            for (HashMap.Entry<Long, Long> entry : prevResults.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults.put(newAndResult, currResults.getOrDefault(newAndResult, 0L) + freq);\n            }\n\n            prevResults = currResults;\n        }\n\n        return count;\n    }\n}",
-    "submit_ts": "1720278197",
-    "subm_id": "1311698720"
+    "username": "krishwave66",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll countSubarrays(vector<int>& nums, int target) {\n        ll matches = 0;\n        int n = nums.size(), fl = 0;\n\n        unordered_map<ll, ll> previ, curre;\n\n        for (int i = 0; i < n; i++) {\n            curre.clear();\n            curre[nums[i]] = 1;\n\n            auto updateResults = [&]() {\n                for (auto [combVal, occ] : previ) {\n                    if ((combVal & nums[i]) == target) \n                        matches += occ;\n                    \n                    curre[(combVal & nums[i])] += occ;\n                }\n            };\n            if (nums[i] == target) {\n                fl++;\n                matches++;\n            }\n\n            \n            updateResults();\n            previ = move(curre);\n        }\n\n        return matches;\n    }\n};",
+    "submit_ts": "1720279703",
+    "subm_id": "1311761799"
 }

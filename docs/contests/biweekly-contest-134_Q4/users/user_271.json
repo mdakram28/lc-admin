@@ -1,6 +1,6 @@
 {
-    "username": "saurav0_0",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int sequenceLength = nums.size();\n        long long totalCount = 0;\n        vector<unordered_map<long long, long long>> intermediateResults(2);\n        int currentMap = 0;\n\n        for (int i = 0; i < sequenceLength; ++i) {\n            int nextMap = 1 - currentMap;\n            intermediateResults[nextMap].clear();\n\n            if (nums[i] == k) {\n                ++totalCount;\n            }\n\n            intermediateResults[nextMap][nums[i]] = 1;\n\n            for (const auto& [key, value] : intermediateResults[currentMap]) {\n                long long newKey = key & nums[i];\n                if (newKey == k) {\n                    totalCount += value;\n                }\n                intermediateResults[nextMap][newKey] += value;\n            }\n\n            currentMap = nextMap;\n        }\n\n        return totalCount;\n    }\n};",
-    "submit_ts": "1720278243",
-    "subm_id": "1311700651"
+    "username": "ctnya_8135",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        vector<vector<int>> next0(n + 1, vector<int>(31, n));\n        for (int i = n - 1; i >= 0; i--) {\n            next0[i] = next0[i + 1];\n            for (int j = 0; j < 31; j++) {\n                if (nums[i] & (1 << j)) {\n                    //\n                } else {\n                    next0[i][j] = i;\n                }\n            }\n        }\n        for (int i = 0; i < n; i++) {\n            int left = -1, right = n - 1;\n            for (int j = 0; j < 31; j++) {\n                if (k & (1 << j)) {\n                    right = min(right, next0[i][j] - 1);\n                } else {\n                    left = max(left, next0[i][j]);\n                }\n            }\n            if (left == n)\n                continue;\n            ans += max(0, right - left + 1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278945",
+    "subm_id": "1311730894"
 }

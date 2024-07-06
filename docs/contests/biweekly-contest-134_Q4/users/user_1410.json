@@ -1,6 +1,6 @@
 {
-    "username": "Ayushdotcom",
-    "submission": "#define ll long long\n\nclass Solution\n{\npublic:\n    long long countSubarrays(vector<int> &nums, int k)\n    {\n        int n = nums.size();\n        ll cnt = 0;\n\n        unordered_map<ll, ll> last;\n\n        for (auto num : nums)\n        {\n            unordered_map<ll, ll> curr;\n\n            if (num == k)\n            {\n                cnt++;\n            }\n\n            curr[num] = 1;\n\n            for (auto &it : last)\n            {\n                ll currRes = it.first & num;\n                if (currRes == k)\n                {\n                    cnt += it.second;\n                }\n\n                curr[currRes] += it.second;\n            }\n\n            last = curr;\n        }\n        return cnt;\n    }\n};",
-    "submit_ts": "1720279673",
-    "subm_id": "1311760586"
+    "username": "ninzag",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long  count = 0;\n        unordered_map<long long, long long> freq;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long , long long> map;\n            for (auto& j : freq) {\n                long long val = j.first & nums[i];\n                map[val] += j.second;\n            }\n            map[nums[i]]++;\n            freq = map;\n            count += freq[k];\n        }\n\n        return count;\n    }\n};",
+    "submit_ts": "1720280613",
+    "subm_id": "1311795831"
 }

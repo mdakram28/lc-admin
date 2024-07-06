@@ -1,6 +1,6 @@
 {
-    "username": "karanjohn890",
-    "submission": "class Solution {\npublic:\n    int check(vector<vector<int>> &a,int i,int n,int k){\n        \n        int val=0;\n        for(int i=a.size()-1;i>=0;i--){\n            if(a[i][0]==k)val+=n-a[i][1];\n            n=a[i][1];\n        }\n        return val;\n    }\n    long long countSubarrays(vector<int>& a, int k) {\n        vector<vector<int>> ba;\n        long long  ans=0;\n        for(int i=a.size()-1;i>=0;i--){\n            vector<vector<int>> temp;\n            temp.push_back({a[i],i});\n            for(int j=0;j<ba.size();j++){\n               int top = ba[j][0];\n                top=(top)&(temp[temp.size()-1][0]);\n                if(top==temp[temp.size()-1][0])continue;\n                temp.push_back({top,ba[j][1]});\n                \n                    \n            }\n            ba=temp;\n            ans+=(long long)check(ba,i,a.size(),k);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720277726",
-    "subm_id": "1311677181"
+    "username": "kumarapoorv617",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& A, int k) {\n        int N = A.size();\n        auto get = [&](int i, int k) {\n            int lo = -1, hi = i + 1;\n            while(hi - lo > 1) {\n                int mid = (lo + hi) / 2;\n                if(A[mid] > k)\n                    hi = mid;\n                else\n                    lo = mid;\n            }\n            return lo;\n        };\n        int64_t ans = 0;\n        for(int i = 0 ; i < N ; ++i) {\n            for(int j = i - 1 ; j >= 0 ; --j) {\n                if((A[j] & A[i]) == A[j])   break;\n                A[j] &= A[i];\n            }\n            ans += get(i, k) - get(i, k - 1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720276489",
+    "subm_id": "1311617997"
 }

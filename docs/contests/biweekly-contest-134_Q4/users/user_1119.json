@@ -1,6 +1,6 @@
 {
-    "username": "sunil1906",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int target) {\n        long long i, j, k, n = nums.size(), ans = 0, mi, ma;\n        deque<int> v[32];\n        for(i=0;i<n;i++){\n            for(j=0;j<31;j++){\n                if((nums[i] & (1 << j)) == 0)  v[j].push_back(i);\n            }\n        }\n        for(j=0;j<31;j++)   v[j].push_back(n);\n        \n        for(i=0;i<n;i++){\n            mi = n, ma = -1;\n            for(j=0;j<31;j++){\n                if(target & (1 << j)){\n                    mi = min((int)mi, v[j].front());\n                    if(v[j].front() == i)   v[j].pop_front();\n                }\n                else{\n                    ma = max((int)ma, v[j].front());\n                    if(v[j].front() == i)   v[j].pop_front();\n                }\n            }\n            if(mi > ma)  ans += (mi - ma);\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280496",
-    "subm_id": "1311791524"
+    "username": "user3644rK",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
+    "submit_ts": "1720278637",
+    "subm_id": "1311717775"
 }

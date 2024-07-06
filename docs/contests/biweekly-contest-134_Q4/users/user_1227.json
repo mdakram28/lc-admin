@@ -1,6 +1,6 @@
 {
-    "username": "CodeSagePath",
-    "submission": "import java.util.HashMap;\n\nclass Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n        \n        Map<Long, Long> prevResults = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> currResults = new HashMap<>();\n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : prevResults.entrySet()) {\n                long val = entry.getKey();\n                long freq = entry.getValue();\n                \n                long newAndResult = val & nums[i];\n                if (newAndResult == k) {\n                    count += freq;\n                }\n                currResults.put(newAndResult, currResults.getOrDefault(newAndResult, 0L) + freq);\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n}\n",
-    "submit_ts": "1720278396",
-    "subm_id": "1311707384"
+    "username": "Kaalki",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        map<ll ,ll> mp;\n        ll ans=0;\n        for(auto &i:nums)\n        {\n            map<ll,ll> tp;\n            tp[(ll)i]=1;\n            for(auto &[a,b]:mp)\n            {\n                tp[(ll)a & (ll)i]+=b;\n            }\n            mp=tp;;\n            ans+=mp[k];\n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1720278579",
+    "subm_id": "1311715275"
 }

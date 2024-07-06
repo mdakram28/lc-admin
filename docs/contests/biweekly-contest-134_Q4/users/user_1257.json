@@ -1,6 +1,6 @@
 {
-    "username": "piyush4545",
-    "submission": "class Solution { \npublic: \n    long long countSubarrays(vector<int>& nums, int k) { \n        int n = nums.size(); \n         \n        unordered_map<long long, long long> mp; \n \n        long long cnt = 0; \n        \n        for (int i = 0; i < n; ++i) { \n            unordered_map<long long, long long> ump;  \n \n            if (nums[i] == k) { \n                cnt++; \n            } \n            ump[nums[i]] = 1; \n \n            for (auto it : mp) { \n                int a=it.first;\n                int b = it.second;\n                if ((a & nums[i]) == k) { \n                    cnt += b; \n                } \n                ump[a & nums[i]] += b; \n            } \n             \n            mp = ump; \n        } \n         \n        return cnt; \n    } \n};",
-    "submit_ts": "1720279910",
-    "subm_id": "1311769892"
+    "username": "aleardo",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        # a & b\n        @cache\n        def runner(btw, idx):\n            if idx >= len(nums):\n                return 0\n            \n            tmp = btw & nums[idx]\n\n            if tmp == k:\n                return 1 + runner(tmp, idx + 1)\n\n            return runner(tmp, idx + 1)\n\n\n        res = 0\n\n        for idx, val in enumerate(nums):\n            res = res + runner(val, idx)\n\n        return res",
+    "submit_ts": "1720279731",
+    "subm_id": "1311762894"
 }

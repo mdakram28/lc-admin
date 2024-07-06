@@ -1,0 +1,6 @@
+{
+    "username": "akshat_2k48",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int target) {\n        int n = nums.size();\n        long long totalCount = 0;\n        unordered_map<long long, long long> previousResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currentResults;\n            \n            // Count subarrays ending at index i\n            if (nums[i] == target) {\n                ++totalCount;\n            }\n            currentResults[nums[i]] = 1;\n\n            // Update total count using previous results\n            for (auto& [prevValue, frequency] : previousResults) {\n                long long newAndResult = prevValue & nums[i];\n                if (newAndResult == target) {\n                    totalCount += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return totalCount;\n    }\n \n};",
+    "submit_ts": "1720278860",
+    "subm_id": "1311727333"
+}

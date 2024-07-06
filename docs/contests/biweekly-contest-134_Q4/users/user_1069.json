@@ -1,6 +1,6 @@
 {
-    "username": "Saavrm_Lt",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        int n = a.size();\n        vector<int> last0(32, -1);\n        long long ans = 0;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < 31; j++) {\n                bool is_set = a[i] & (1 << j);\n                if (!is_set) last0[j] = i;\n            }\n            int mini1 = i + 1;\n            int maxi0 = 0;\n            for (int j = 0; j < 31; j++) {\n                if (k & (1 << j)) {\n                    mini1 = min(mini1, i - last0[j]);\n                } else {\n                    maxi0 = max(maxi0, i - last0[j] + 1);\n                }\n            }\n            if (mini1 >= maxi0) ans += 1LL * mini1 - maxi0 + 1;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280716",
-    "subm_id": "1311799559"
+    "username": "DeepakRaturi",
+    "submission": "class Solution {\npublic:\n  int rangeand(vector<int> &bits,int len){\n    int ans=0;\n    for(int b=0;b<31;b++){\n        if(bits[b]==len) ans+=(1<<b);\n    }\n    return ans;\n  }\n    long long atleastk(vector<int> &nums,int k){\n        vector<int> bits(32,0);\n        long long ans=0;\n        int i=0;\n        for(int j=0;j<nums.size();j++){\n            for(int b=0;b<31;b++){\n                if((1<<b)&nums[j]) bits[b]++;\n            }\n            while(i<=j&&rangeand(bits,j-i+1)<k){\n                for(int b=0;b<31;b++){\n                if((1<<b)&nums[i]) bits[b]--;\n            }\n                i++;\n            }\n            ans=ans+(j-i+1);\n        }\n        return ans;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        return atleastk(nums,k)-atleastk(nums,k+1);\n    }\n};",
+    "submit_ts": "1720280718",
+    "subm_id": "1311799622"
 }

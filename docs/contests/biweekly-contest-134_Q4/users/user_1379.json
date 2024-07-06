@@ -1,6 +1,6 @@
 {
-    "username": "unknown53",
-    "submission": "class Solution(object):\n    def countSubarrays(self, nums, k):\n        N = len(nums)\n        ld = 0\n        bk = {}\n        \n        for i in range(N):\n            tb = {}\n\n            if nums[i] == k:\n                ld+=1\n            tb[nums[i]] = 1\n\n            for c,g in bk.items():\n                cy = c & nums[i]\n                if cy == k:\n                    ld += g\n                if cy in tb:\n                    tb[cy] += g\n                else:\n                    tb[cy] = g\n            bk = tb\n        return ld",
-    "submit_ts": "1720280879",
-    "subm_id": "1311805301"
+    "username": "dhuparsankalp",
+    "submission": "typedef long double ld;\n \ntypedef long long ll;\ntypedef pair<int,int> pii;\ntypedef pair<int,pii> p3;\ntypedef pair<ll,ll> pl;\ntypedef pair<int,pl> p3l;\ntypedef pair<double,double> pdd;\ntypedef vector<int> vi;\ntypedef vector<ld> vd;\ntypedef unordered_map<int,int> umap;\ntypedef unordered_map<ll,ll> ulmap;\n\n#define FOR(i,a,b) for(int i=(a);i<(b);i++)\n#define REP(i,n) FOR(i,0,n)\n#define SORT(v) sort((v).begin(),(v).end())\n#define UN(v) SORT(v),(v).erase(unique((v).begin(),(v).end()),(v).end())\n#define CL(a,b) memset(a,b,sizeof a)\n#define pb push_back\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        int n = arr.size(), i = 0;\n        ll ans = 0;\n        ulmap prev;\n\n        FOR(i,0,n){\n            ulmap curr;\n            if(arr[i] == k)\n                ans++;\n            curr[arr[i]] = 1; //up to 1 \n            \n            for(auto it: prev) { //check earlier added values\n                auto val = it.first, cnt = it.second;\n                //cout << val << \",\" << cnt << endl;\n                // auto cnt = it.second;\n                ll newVal = val & arr[i]; //updating newVal to previously if existed\n                if(newVal == k) ans += cnt;\n                curr[newVal] += cnt;\n            }\n            prev = curr; //update dp\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280680",
+    "subm_id": "1311798256"
 }

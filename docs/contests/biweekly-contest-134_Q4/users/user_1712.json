@@ -1,6 +1,6 @@
 {
-    "username": "Chiraag_",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int target) {\n        int n = nums.size();\n        long long result = 0;\n        unordered_map<long long, long long> prevMap;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currentMap;\n\n            if (nums[i] == target) {\n                ++result;\n            }\n\n            currentMap[nums[i]] = 1;\n\n            for (auto& entry : prevMap) {\n                long long newAndValue = entry.first & nums[i];\n                \n                if (newAndValue == target) {\n                    result += entry.second;\n                }\n                \n                currentMap[newAndValue] += entry.second;\n            }\n            \n            prevMap = currentMap;\n        }\n        \n        return result;\n    }\n};",
-    "submit_ts": "1720278812",
-    "subm_id": "1311725361"
+    "username": "baidujoker",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        count = 0\n\n        # Dictionary to store the bitwise AND results of subarrays ending at each index\n        dp = {}\n\n        for i in range(n):\n            new_dp = {}\n\n            # Update the DP dictionary for the current element\n            if nums[i] == k:\n                count += 1\n            new_dp[nums[i]] = new_dp.get(nums[i], 0) + 1\n\n            for prev_and in dp:\n                current_and = prev_and & nums[i]\n                if current_and == k:\n                    count += dp[prev_and]\n                if current_and >= k:\n                    new_dp[current_and] = new_dp.get(current_and, 0) + dp[prev_and]\n\n            dp = new_dp\n\n        return count\n        ",
+    "submit_ts": "1720280727",
+    "subm_id": "1311799897"
 }

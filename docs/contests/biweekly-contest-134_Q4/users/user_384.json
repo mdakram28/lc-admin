@@ -1,6 +1,6 @@
 {
-    "username": "pulitkgp",
-    "submission": "# @param {Integer[]} nums\n# @param {Integer} k\n# @return {Integer}\ndef count_subarrays(nums, k)\n  n = nums.size\n  count = 0\n  prev_results = Hash.new(0)\n\n  nums.each do |num|\n    curr_results = Hash.new(0)\n\n    if num == k\n      count += 1\n    end\n\n    curr_results[num] = 1\n\n    prev_results.each do |val, freq|\n      new_and_result = val & num\n\n      if new_and_result == k\n        count += freq\n      end\n\n      curr_results[new_and_result] += freq\n    end\n\n    prev_results = curr_results\n  end\n\n  count\nend\n",
-    "submit_ts": "1720278780",
-    "subm_id": "1311723889"
+    "username": "NULLgorithm",
+    "submission": "class Solution {\npublic:\n    \n    int res(vector<int>& cnt){\n        int s=0;\n        for(int i=0;i<30;i++){\n            if(cnt[i]==0) s|=(1<<i);\n     \n        }\n        return s;\n    }\n    \n    \n    long long f2(vector<int>& nums, int k){\n        int n=nums.size();\n        int l=0, r;\n        long long ans=0;\n        vector<int> cnt(30,0);\n        for(int r=0;r<n;r++){\n            for(int i=0;i<30;i++){\n                if(nums[r]&(1<<i)) continue;\n                else cnt[i]++;\n            }\n            while(l<=r && res(cnt)<k){\n                for(int i=0;i<30;i++){\n                    if(nums[l]&(1<<i)) continue;\n                    else cnt[i]--;\n                }\n                l++;\n            }\n            if(res(cnt)>=k){\n                ans+=(r-l+1);\n            }\n        }\n        return ans;\n    }\n    \n    long long countSubarrays(vector<int>& nums, int k) {\n        long long a1=f2(nums, k);\n        long long a2=f2(nums, k+1);\n        return a1-a2;\n    }\n};",
+    "submit_ts": "1720279675",
+    "subm_id": "1311760685"
 }

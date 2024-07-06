@@ -1,0 +1,6 @@
+{
+    "username": "kirandeepreddy",
+    "submission": "public class Solution {\n    public long CountSubarrays(int[] array, int target) {\n        int size = array.Length;\n        long total = 0;\n        Dictionary<long, long> previousResults = new Dictionary<long, long>();\n        for (int index = 0; index < size; ++index) {\n            Dictionary<long, long> currentResults = new Dictionary<long, long>();\n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            foreach (var kvp in previousResults) {\n                long newAndResult = kvp.Key & array[index];\n                if (newAndResult == target) {\n                    total += kvp.Value;\n                }\n                currentResults[newAndResult] = currentResults.ContainsKey(newAndResult)? currentResults[newAndResult] + kvp.Value : kvp.Value;\n            }\n            previousResults = currentResults;\n        }\n        return total;\n    }\n}",
+    "submit_ts": "1720279662",
+    "subm_id": "1311760151"
+}

@@ -1,6 +1,6 @@
 {
-    "username": "kalpan2302",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n       int n = nums.size();\n       n++;\n        long long cnt = 0;\n        cnt++;\n        cnt--;\n        cnt+=2;\n        cnt-=2;\n        n = nums.size();\n        map<long long, long long>prev;\n\n        for (int i = 0; i < n; ++i) {\n            map<long long, long long> curr; \n\n            if (nums[i] == k) {\n                cnt-=2;\n                cnt+=3;\n            }\n            curr[nums[i]] = 0;\n            curr[nums[i]] = 3;\n            curr[nums[i]] = 1;\n\n            for (auto j :prev) {\n                long long idx = j.first & nums[i];\n                if (idx == k) {\n                    cnt += j.second;\n                }\n                curr[idx] += j.second;\n            }\n            \n           prev = curr;\n        }\n        cnt++;\n        cnt+=2;\n        cnt-=3;\n        return cnt;\n    }\n};",
-    "submit_ts": "1720281050",
-    "subm_id": "1311811386"
+    "username": "Su57Felon",
+    "submission": "class Solution {\nusing ll = long long;\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int size = nums.size();\n        ll ans = 0;\n        map<ll, ll> mp;\n        for (int ind = 0; ind < size; ++ind) {\n            map<ll, ll> temp_map;\n            if (nums[ind] == k) ++ans;\n            temp_map[nums[ind]] = 1;\n            for (map<ll, ll>::iterator it = mp.begin(); it != mp.end(); ++it) {\n                ll cur = it->first & nums[ind];\n                if (cur == k) {\n                    ans += it->second;\n                }\n                temp_map[cur] += it->second;\n            }\n            \n            mp = temp_map;\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": "1720280009",
+    "subm_id": "1311773597"
 }

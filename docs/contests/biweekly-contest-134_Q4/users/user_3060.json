@@ -1,0 +1,6 @@
+{
+    "username": "Aditya-ce",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int targetVal) {\n        int numSize = nums.size();\n        long long targetSubarrayCount = 0;\n        unordered_map<long long, long long> previousMap;\n        \n        for (int idx = 0; idx < numSize; ++idx) {\n            unordered_map<long long, long long> currentMap;\n            \n            if (nums[idx] == targetVal) {\n                ++targetSubarrayCount;\n            }\n            \n            currentMap[nums[idx]] = 1;\n            \n            for (auto& [prevVal, count] : previousMap) {\n                long long newBitwiseAnd = prevVal & nums[idx];\n                \n                if (newBitwiseAnd == targetVal) {\n                    targetSubarrayCount += count;\n                }\n                \n                currentMap[newBitwiseAnd] += count;\n            }\n            \n            previousMap = move(currentMap);\n        }\n        \n        return targetSubarrayCount;\n    }\n};",
+    "submit_ts": "1720279877",
+    "subm_id": "1311768644"
+}

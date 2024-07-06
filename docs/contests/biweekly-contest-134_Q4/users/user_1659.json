@@ -1,6 +1,6 @@
 {
-    "username": "Naitik7838",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n\n        unordered_map<long long,long long> result;\n\n        for(int i=0;i<n;i++){\n            unordered_map<long long,long long> temp;\n\n            if(nums[i] == k){\n                count++;\n            }\n\n            temp[nums[i]] = 1;\n\n            for(auto [value,freq]:result){\n                long long currAns = value & nums[i];\n                if(currAns == k){\n                    count += freq;\n                }\n                temp[currAns] += freq;\n            }\n            result = temp;\n        }    \n        return count;\n\n    }\n};",
-    "submit_ts": "1720281131",
-    "subm_id": "1311814238"
+    "username": "Sasura123",
+    "submission": "class Solution {\npublic:\n    long long func(vector<int> &nums,int k){\n        int l=0,r=0;\n        long long cur=0,ans=0;\n        vector<int> setBits(35,0);\n        cout<<k<<endl<<endl;\n        \n        while(r<nums.size()){\n            for(int i=0;i<35;i++){\n                if((long long)pow(2,i)&(long long)nums[r]) setBits[i]++;\n            }\n            \n            cur=0;\n            for(int i=0;i<35;i++){\n                if(setBits[i]==(r-l+1)) cur+=(long long)pow(2,i);\n            }\n            \n            while(l<=r&&cur<k){\n                for(int i=0;i<35;i++){\n                    if((long long)pow(2,i)&(long long)nums[l]) setBits[i]--;\n                }\n                \n                l++;\n                \n                cur=0;\n                for(int i=0;i<35;i++){\n                    if(setBits[i]==(r-l+1)) cur+=(long long)pow(2,i);\n                }\n            }\n\n            ans+=(r-l+1);\n            \n            r++;\n        }\n        \n        return ans;\n    }\n    \n    long long countSubarrays(vector<int>& nums, int k) {\n        return func(nums,k)-func(nums,k+1);\n    }\n};",
+    "submit_ts": "1720281260",
+    "subm_id": "1311818702"
 }

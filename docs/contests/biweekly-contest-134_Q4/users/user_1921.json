@@ -1,6 +1,6 @@
 {
-    "username": "changubaba",
-    "submission": "class Solution {\n    using ll = long long;\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        ll ans = 0;\n        ll n = arr.size();\n        map<ll,ll> mp;\n        for(int i=0;i<arr.size();i++){\n            map<ll,ll> mp2 ;\n            if(arr[i] == k){\n                ans++;//bit wise and of a single element is k \n            }\n            mp2[arr[i]] = 1;//mark arr[i] as 1 \n            for(auto &it : mp){//previously stored \n                ll val = it.first;\n                ll f = it.second;\n                ll res = val&arr[i];\n                if(res == k){\n                    ans = (ans +1LL*f);//I will take all the time when we get and k previously with the current (val&arr[i]) = k\n                }\n                mp2[res]+=f;//add freq\n            }\n            \n            mp = mp2;\n            \n            \n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280543",
-    "subm_id": "1311793329"
+    "username": "sshrey06",
+    "submission": "#define ll long long\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        map<ll, ll> mp;\n        ll ans=0;\n\n        for(int i=0;i<n;i++) {\n            //new map\n            map<ll, ll> mp2;\n\n            for(auto a : mp) {\n                int val=a.first&nums[i];\n                mp2[val]+=a.second;\n            }\n\n            mp2[nums[i]]++;\n            mp=mp2;\n\n            ans+=mp[k];\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720281442",
+    "subm_id": "1311825309"
 }

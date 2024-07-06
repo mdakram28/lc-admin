@@ -1,6 +1,6 @@
 {
-    "username": "suryanshsharma16",
-    "submission": "class Solution { \npublic: \n    long long countSubarrays(vector<int>& nums, int k) { \n        int n = nums.size(); \n        long long count = 0; \n         \n        unordered_map<long long, long long> prevResults; \n \n        for (int i = 0; i < n; ++i) { \n            unordered_map<long long, long long> currResults;  \n \n            if (nums[i] == k) { \n                ++count; \n            } \n            currResults[nums[i]] = 1; \n \n            for (auto& [val, freq] : prevResults) { \n                long long newAndResult = val & nums[i]; \n                if (newAndResult == k) { \n                    count += freq; \n                } \n                currResults[newAndResult] += freq; \n            } \n             \n            prevResults = currResults; \n        } \n         \n        return count; \n    } \n};",
-    "submit_ts": "1720279593",
-    "subm_id": "1311757468"
+    "username": "BytefulRashi",
+    "submission": "#include <vector>\n#include <unordered_map>\nusing namespace std;\n#define ll long long\nclass Solution {\npublic:\n    long long solveCnt(vector<int>& nums, int k, int n, long long count, unordered_map<long long, long long>& cntMap) {\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> temp;\n\n            if (nums[i] == k) {\n                ++count;\n            }\n            temp[nums[i]] = 1;\n\n            for (auto& [val, freq] : cntMap) {\n                long long bit = val & nums[i];\n                if (bit == k) {\n                    count += freq;\n                }\n                temp[bit] += freq;\n            }\n\n            cntMap = temp; \n        }\n\n        return count;\n    }\n\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prev;\n        long long ans = solveCnt(nums, k, n, count, prev);\n        \n        return ans;\n    }\n};\n",
+    "submit_ts": "1720279654",
+    "subm_id": "1311759868"
 }

@@ -1,0 +1,6 @@
+{
+    "username": "jys123",
+    "submission": "const int INF = 0x7fffffff;\ntypedef pair<int,int> PII;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        vector<PII> bits; // \u4fdd\u5b58\u4e0d\u540c\u5de6\u7aef\u70b9\u51fa\u53d1\uff0c\u5230\u540c\u4e00\u53f3\u7aef\u70b9\uff0c\u7684and\u503c\n        \n        for(int i = 0; i < n; ++i){\n            bits.push_back({INF,1});\n            int ed = 0; // \u8868\u793a\u5f53\u524dand\u540e\uff0cbits\u6570\u7ec4\u4e0d\u91cd\u590d\u7684\u6700\u540e\u4e00\u4e2a\u4e0b\u6807\n            \n            for(int j = 0; j < bits.size(); ++j){\n                bits[j].first &= nums[i];\n                \n                if(j == 0) continue;\n                else if(bits[j].first != bits[ed].first){\n                    ed += 1;\n                    bits[ed] = bits[j];\n                }\n                else{\n                    bits[ed].second += bits[j].second;\n                } \n            }\n            bits.resize(ed+1);\n            for(int j = 0; j < bits.size(); ++j){\n                if(bits[j].first == k) ans += bits[j].second;\n            }\n\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720281074",
+    "subm_id": "544574439"
+}

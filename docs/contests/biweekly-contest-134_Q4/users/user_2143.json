@@ -1,6 +1,6 @@
 {
-    "username": "YashM211",
-    "submission": "#include <vector>\n#include <unordered_map>\n#define ll long long\nusing namespace std;\nclass Solution {\npublic:\n    long long countSubarrays(std::vector<int>& nums, int k) {\n        unordered_map<int, int> count;\n        ll ans = 0;\n        int n = nums.size();\n        \n        for (int i = 0; i < n; ++i) {\n            int num = nums[i];\n            std::unordered_map<int, int> temp_count;\n            \n            if (num == k) {\n                ++ans;\n            }\n            \n            for (const auto& [key, value] : count) {\n                int new_key = key & num;\n                if (new_key >= k) {\n                    temp_count[new_key] += value;\n                    if (new_key == k) {\n                        ans += value;\n                    }\n                }\n            }\n            \n            temp_count[num]++;\n            count = move(temp_count);\n        }\n        \n        return ans;\n    }\n};\n",
-    "submit_ts": "1720280820",
-    "subm_id": "1311803217"
+    "username": "VijayFencer",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n};",
+    "submit_ts": "1720280125",
+    "subm_id": "1311777838"
 }

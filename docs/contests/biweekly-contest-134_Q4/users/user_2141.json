@@ -1,6 +1,6 @@
 {
-    "username": "VbP8QTwOcu",
-    "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar countSubarrays = function(array, target) {\n    let size = array.length;\n    let total = 0;\n    let previousResults = new Map();\n\n    for (let index = 0; index < size; ++index) {\n        let currentResults = new Map();\n\n        if (array[index] === target) {\n            ++total;\n        }\n        currentResults.set(array[index], 1);\n\n        previousResults.forEach((frequency, value) => {\n            let newAndResult = value & array[index];\n            if (newAndResult === target) {\n                total += frequency;\n            }\n            if (currentResults.has(newAndResult)) {\n                currentResults.set(newAndResult, currentResults.get(newAndResult) + frequency);\n            } else {\n                currentResults.set(newAndResult, frequency);\n            }\n        });\n\n        previousResults = currentResults;\n    }\n\n    return total;\n}\n",
-    "submit_ts": "1720278581",
-    "subm_id": "1311715382"
+    "username": "Kakkashi",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) \n    {\n         int size = nums.size();\n         long long total = 0;\n        unordered_map<long long, long long> mp;\n        for (int i = 0; i < size; i++) {\n            unordered_map<long long, long long> currmp; \n            if (nums[i] == k) {\n                total++;\n            }\n            currmp[nums[i]] = 1;\n            for (auto& [value, frequency] : mp) {\n                long long ans = value & nums[i];\n                if (ans == k) {\n                    total += frequency;\n                }\n                currmp[ans] += frequency;\n            }\n            \n            mp = currmp;\n        }\n        return total;\n        \n    }\n};",
+    "submit_ts": "1720279269",
+    "subm_id": "1311744445"
 }

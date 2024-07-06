@@ -1,6 +1,6 @@
 {
-    "username": "IshJazz",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        map<long long, long long> mp;\n        map<long long,long long> freqq;\n        for(auto it: nums) {\n            ans += (it == k);\n            for(auto itx : mp) {\n                long long req = (itx.first&it);\n                if(req == k) ans += itx.second;\n                freqq[req] += itx.second;\n            }\n            if(freqq.find(it) != freqq.end()) freqq[it] += 1;\n            else freqq[it] = 1;\n            mp = freqq;\n            freqq.clear();\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279267",
-    "subm_id": "1311744375"
+    "username": "Piyush077",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        unordered_map<int, long long> dp;\n        for (int i : nums) {\n            unordered_map<int, long long> curr;\n            if (i == k) ans++;\n            curr[i] = 1;\n            for (auto& [key, value] : dp) {\n                if ((key & i) == k) {\n                    ans += value;\n                }\n                curr[(key & i)] += value;\n            }\n            dp = curr;\n\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720281138",
+    "subm_id": "1311814464"
 }

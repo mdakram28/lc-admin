@@ -1,6 +1,6 @@
 {
-    "username": "WRWRW",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int: \n        res = 0  \n        @lru_cache(None)\n        def getdigits(tmp):\n            res = [0] * 30\n            i = 0\n            while tmp > 0:\n                res[i] += tmp % 2\n                tmp = tmp // 2\n                i += 1\n            return res\n            \n        p = [0] * 30\n        pi = None\n        for i, val in enumerate(nums):\n            if val & k == k:\n                if pi is None:\n                    pi = i\n                digits = getdigits(val ^ k)\n                p = [a + b if b == 1 else 0 for a, b in zip(p, digits)]\n                mp = max(p)\n                res += i - pi + 1 - mp\n            else:\n                p = [0] * 30\n                pi = None\n        return res",
-    "submit_ts": "1720279261",
-    "subm_id": "1311744140"
+    "username": "harshmathura8",
+    "submission": "class Solution {\n    public long countSubarrays(int[] array, int target) {\n        int size = array.length;\n        long total = 0;\n        Map<Long, Long> previousResults = new HashMap<>();\n        for (int index = 0; index < size; ++index) {\n            Map<Long, Long> currentResults = new HashMap<>(); \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults.merge((long) array[index], 1L, Long::sum);\n            for (Map.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long newAndResult = entry.getKey() & array[index];\n                if (newAndResult == target) {\n                    total += entry.getValue();\n                }\n                currentResults.merge(newAndResult, entry.getValue(), Long::sum);\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n}",
+    "submit_ts": "1720279563",
+    "subm_id": "1311756231"
 }

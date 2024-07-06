@@ -1,6 +1,6 @@
 {
-    "username": "bhavesh884",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& myNums, int myK) {\n        int n = myNums.size();\n        long long myans = 0;\n        unordered_map<long long, long long> outerMP;\n\n        for (int idx = 0; idx < n; ++idx) {\n            unordered_map<long long, long long> innerMP; \n            if (myNums[idx] == myK) {\n                ++myans;\n            }\n\n            innerMP[myNums[idx]] = 1;\n            for (auto& [item, freq] : outerMP) {\n                long long nextResult = item & myNums[idx];\n                if (nextResult == myK) {\n                    myans += freq;\n                }\n                innerMP[nextResult] += freq;\n            }\n            \n            outerMP = innerMP;\n        }\n        \n        return myans;\n    }\n};",
-    "submit_ts": "1720279167",
-    "subm_id": "1311740259"
+    "username": "coder_amitk0091",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<long long, long long> acm;\n        long long res = 0;\n\n        for (long long i = 0; i < n; ++i) {\n            unordered_map<long long, long long> cam;\n            for (auto &entry : acm) {\n                long long newAndValue = entry.first & nums[i];\n                cam[newAndValue] += entry.second;\n            }\n            cam[nums[i]]++;\n            acm = cam;\n\n            if (acm.find(k) != acm.end()) {\n                res += acm[k];\n            }\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1720281563",
+    "subm_id": "1311829968"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "twitch_tv_qiqi_impact",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        lst = [-1] * 32\n        ret = 0\n        for i in range(len(nums)):\n            mn, mx = -1, i-1\n            for j in range(32):\n                if not (nums[i] & 1 << j):\n                    lst[j] = i\n                if k & 1 << j:\n                    mn = max(mn, lst[j])\n                else:\n                    mx = min(mx, lst[j] - 1)\n            ret += max(0, mx - mn + 1)\n        return ret",
-    "submit_ts": "1720277729",
-    "subm_id": "1311677308"
+    "username": "eshaansodhi",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n = nums.size();\n        ll count = 0;\n        map<ll, ll> freq;\n        \n        for (int i = 0; i < n; ++i) {\n            map<ll, ll> newFreq;\n            \n            if (nums[i] == k) {\n                count++;\n            }\n            \n            newFreq[nums[i]]++;\n            \n            for (auto& [key, val] : freq) {\n                ll newKey = key & nums[i];\n                newFreq[newKey] += val;\n                if (newKey == k) {\n                    count += val;\n                }\n            }\n            \n            freq = move(newFreq);\n        }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1720277737",
+    "subm_id": "1311677684"
 }

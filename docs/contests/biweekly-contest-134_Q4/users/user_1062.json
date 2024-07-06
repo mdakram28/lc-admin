@@ -1,6 +1,6 @@
 {
-    "username": "Ayush_2804",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n    unordered_map<long long, long long> andMap;\n    long long result = 0;\n\n    for (long long i = 0; i < n; ++i) {\n        unordered_map<long long, long long> newAndMap;\n        for (auto &entry : andMap) {\n            long long newAnd = entry.first & nums[i];\n            newAndMap[newAnd] += entry.second;\n        }\n        newAndMap[nums[i]]++;\n        andMap = newAndMap;\n\n        if (andMap.find(k) != andMap.end()) {\n            result += andMap[k];\n        }\n    }\n\n    return result;\n    }\n};",
-    "submit_ts": "1720280110",
-    "subm_id": "1311777287"
+    "username": "swapniltyagi17",
+    "submission": "#define ll long long\nclass Solution {\n\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        ll ans = 0;\n        unordered_map<ll, ll> last;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<ll, ll> cur; \n            if (nums[i] == k) ++ans;\n            cur[nums[i]] = 1;\n\n    // bool fn(vector<vector<int>> &dp , int n, int s, int e, int k){\n    //     for(int i = 0; i<32; ++i){\n    //         if(((k>>i)&1)==0){\n    //             if(dp[e][i]-dp[s][i] != (e-s)) return true; \n    //         }\n    //     }\n    //     return false;\n    // }\n\n            for (auto p : last) {\n                ll v  = p.first, f = p.second;\n                long long a = v & nums[i];\n                if (a == k) {\n                    ans += f;\n                }\n                cur[a] += f;\n            }\n            \n            last = cur;\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1720281009",
+    "subm_id": "1311809908"
 }

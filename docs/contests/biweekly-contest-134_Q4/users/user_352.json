@@ -1,6 +1,6 @@
 {
-    "username": "harshmathura8",
-    "submission": "class Solution {\n    public long countSubarrays(int[] array, int target) {\n        int size = array.length;\n        long total = 0;\n        Map<Long, Long> previousResults = new HashMap<>();\n        for (int index = 0; index < size; ++index) {\n            Map<Long, Long> currentResults = new HashMap<>(); \n            if (array[index] == target) {\n                ++total;\n            }\n            currentResults.merge((long) array[index], 1L, Long::sum);\n            for (Map.Entry<Long, Long> entry : previousResults.entrySet()) {\n                long newAndResult = entry.getKey() & array[index];\n                if (newAndResult == target) {\n                    total += entry.getValue();\n                }\n                currentResults.merge(newAndResult, entry.getValue(), Long::sum);\n            }\n            \n            previousResults = currentResults;\n        }\n        return total;\n    }\n}",
-    "submit_ts": "1720279563",
-    "subm_id": "1311756231"
+    "username": "thunderop9069",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int arraySize = array.size();\n        long long countOfSubarrays = 0;\n        map<long long, long long> previousAndResults;\n        \n        for (int currentIndex = 0; currentIndex < arraySize; ++currentIndex) {\n            map<long long, long long> currentAndResults;\n            if (array[currentIndex] == target) {\n                ++countOfSubarrays;\n            }\n            currentAndResults[array[currentIndex]] = 1;\n            for (auto& [andResult, count] : previousAndResults) {\n                long long newAndResult = andResult & array[currentIndex];\n                if (newAndResult == target) {\n                    countOfSubarrays += count;\n                }\n                currentAndResults[newAndResult] += count;\n            }\n            previousAndResults = currentAndResults;\n        }\n        \n        return countOfSubarrays;\n    }\n};\n",
+    "submit_ts": "1720279251",
+    "subm_id": "1311743716"
 }

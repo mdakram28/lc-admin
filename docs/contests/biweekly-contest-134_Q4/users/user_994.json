@@ -1,6 +1,6 @@
 {
-    "username": "BZH110",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long ans = 0;\n        int l = 0;\n        vector<int> back(30, -1);\n        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<>> q;\n        int now = (1 << 30) - 1;\n        for(int i=0;i<n;i++){\n            if((nums[i] & k) != k){\n                now = (1 << 30) - 1;\n                l = i + 1;\n                continue;\n            }\n            now &= nums[i];\n            for(int j=0;j<30;j++){\n                if(!(nums[i] & (1 << j))) {\n                    back[j] = i;\n                    q.push({back[j], j});\n                }\n            }\n            while(!q.empty() && q.top().first != back[q.top().second])\n                q.pop();\n            if(now == k){\n                ans += back[q.top().second] - l + 1;\n            }\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720276952",
-    "subm_id": "1311640681"
+    "username": "pulkit2401",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long cnt = 0;\n        unordered_map<int, int> mp;\n        \n        for (int i = 0; i < n; ++i) {\n            if (nums[i] == k) cnt++;\n            updateMap(mp, nums[i], k, cnt);\n        }\n        \n        return cnt;\n    }\n    \nprivate:\n    void updateMap(unordered_map<int, int>& mp, int num, int k, long long& cnt) {\n        unordered_map<int, int> new_mp;\n        new_mp[num] = 1;\n        \n        for (auto& [val, freq] : mp) {\n            int new_and = val & num;\n            if (new_and == k) cnt += freq;\n            new_mp[new_and] += freq;\n        }\n        \n        mp = new_mp;\n    }\n    long long countSubarraysWithBitwiseAnd(vector<int>& nums, int k) {\n    Solution sol;\n    return sol.countSubarrays(nums, k);\n}\n};",
+    "submit_ts": "1720279984",
+    "subm_id": "1311772694"
 }

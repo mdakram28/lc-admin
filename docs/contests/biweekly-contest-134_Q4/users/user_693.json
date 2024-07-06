@@ -1,6 +1,6 @@
 {
-    "username": "coderman2004",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n         int n = nums.length;\n        long count = 0;\n        Map<Long, Long>[] dp = new HashMap[n];\n        \n        for (int i = 0; i < n; ++i) {\n            dp[i] = new HashMap<>();\n            if (nums[i] == k) {\n                count++;\n            }\n            dp[i].put((long) nums[i], 1L);\n            if (i > 0) {\n                for (Map.Entry<Long, Long> entry : dp[i - 1].entrySet()) {\n                    long val = entry.getKey();\n                    long freq = entry.getValue();\n                    long newAndResult = val & nums[i];\n                    if (newAndResult == k) {\n                        count += freq;\n                    }\n                    dp[i].put(newAndResult, dp[i].getOrDefault(newAndResult, 0L) + freq);\n                }\n            }\n        }\n        \n        return count;\n        \n    }\n}",
-    "submit_ts": "1720277831",
-    "subm_id": "1311682082"
+    "username": "luciaa",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        B = 30\n        n = len(nums)\n        res = 0\n        cnt = [0] * B\n        l, m = 0, 0\n        for r in range(n):\n            for i in range(B):\n                cnt[i] += (nums[r] >> i) & 1\n            if nums[r] & k != k:\n                l = m = r + 1\n                cnt = [0] * B\n            while m <= r:\n                and_ = 0\n                for i in range(B):\n                    if cnt[i] == r - m + 1:\n                        and_ |= 1 << i\n                if and_ == k:\n                    for i in range(B):\n                        cnt[i] -= (nums[m] >> i) & 1\n                    m += 1\n                else:\n                    break\n            if l <= r:\n                res += m - l\n        return res",
+    "submit_ts": "1720280342",
+    "subm_id": "1311785808"
 }

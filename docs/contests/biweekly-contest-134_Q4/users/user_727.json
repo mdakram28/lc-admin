@@ -1,6 +1,6 @@
 {
-    "username": "Ayush_goyal_nitkkr",
-    "submission": "#include <vector>\n#include <unordered_map>\nusing MapType = unordered_map<long long, long long>;\n\nclass Solution {\npublic:\n    \nMapType initializeCurrentResults(int num, long long& count, int k) {\n    MapType currResults;\n    if (num == k) {\n        ++count;\n    }\n    currResults[num] = 1;\n    return currResults;\n}\n\nvoid updateResults(MapType& prevResults, MapType& currResults, int num, long long& count, int k) {\n    for (auto& [val, freq] : prevResults) {\n        long long newAndResult = val & num;\n        if (newAndResult == k) {\n            count += freq;\n        }\n        currResults[newAndResult] += freq;\n    }\n}\n\nvoid processArray(const vector<int>& nums, long long& count, int k, MapType& prevResults) {\n    for (int num : nums) {\n        MapType currResults = initializeCurrentResults(num, count, k);\n        updateResults(prevResults, currResults, num, count, k);\n        prevResults = currResults;\n    }\n}\n\nlong long countSubarrays(vector<int>& nums, int k) {\n    long long count = 0;\n    MapType prevResults;\n    processArray(nums, count, k, prevResults);\n    return count;\n}\n};\n",
-    "submit_ts": "1720279813",
-    "subm_id": "1311766086"
+    "username": "anushka_dwivedi_",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        c = 0\n        old = {}\n        for i in range(n):\n            new = {}\n            if nums[i]==k:\n                c+= 1\n            new[nums[i]] = 1\n            for key,v in old.items():\n                addy=key&nums[i]\n                if addy==k:\n                    c+=v\n                new[addy]=new.get(addy, 0)+v\n            old = new\n        return c\n\n",
+    "submit_ts": "1720279429",
+    "subm_id": "1311750846"
 }

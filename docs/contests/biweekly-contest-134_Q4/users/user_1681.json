@@ -1,6 +1,6 @@
 {
-    "username": "user9618E",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n\n        map<long long, long long> prevAndResults;\n\n        for (int i = 0; i < n; ++i) {\n            map<long long, long long> currentAndResults;\n\n            if (nums[i] == k) {\n                ++count;\n            }\n\n            currentAndResults[nums[i]] = 1;\n            long long newAndValue;\n            for (const auto& [prevValue, prevCount] : prevAndResults) {\n                newAndValue = prevValue & nums[i];\n                if (newAndValue == k) {\n                    count += prevCount;\n                }\n                currentAndResults[newAndValue] += prevCount;\n            }\n            prevAndResults = move(currentAndResults);\n        }\n\n        return count;\n    }\n};",
-    "submit_ts": "1720281582",
-    "subm_id": "1311830887"
+    "username": "lakshmanlucky6",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        ans = 0\n        and_map = defaultdict(int)\n        for num in nums:\n            current_and = num\n            if current_and == k:\n                ans += 1\n            data = defaultdict(int)\n            for key, value in and_map.items():\n                new_and = key & num\n                if new_and == k:\n                    ans += value\n                data[new_and] += value\n            data[current_and] += 1\n            and_map = data\n        return ans",
+    "submit_ts": "1720281282",
+    "subm_id": "1311819494"
 }

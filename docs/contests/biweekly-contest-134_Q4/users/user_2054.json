@@ -1,6 +1,6 @@
 {
-    "username": "m10s",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currResults; \n\n            if (nums[i] == k) {\n                ++count;\n            }\n            currResults[nums[i]] = 1;\n\n            for (auto& [prevVal, prevFreq] : prevResults) {\n                long long newAndResult = prevVal & nums[i];\n                if (newAndResult == k) {\n                    count += prevFreq;\n                }\n                currResults[newAndResult] += prevFreq;\n            }\n            \n            prevResults = currResults;\n        }\n        \n        return count;\n    }\n};",
-    "submit_ts": "1720278367",
-    "subm_id": "1311706096"
+    "username": "Himanshu2208",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long ans = 0;\n        Map<Long, Long> past = new HashMap<>(), present;\n        for (int num : nums) {\n            if (num == k) {\n                ans++;\n            }\n            present = new HashMap<>();\n            present.put((long) num, 1L);\n            Iterator<Map.Entry<Long, Long>> iterator = past.entrySet().iterator();\n            while (true) {\n                if (!iterator.hasNext()) break;\n                Map.Entry<Long, Long> entry = iterator.next();\n                if ((entry.getKey() & num) != k) {\n                } else {\n                    ans += entry.getValue();\n                }\n                present.put(entry.getKey() & num, present.getOrDefault((entry.getKey() & num), 0L) + entry.getValue());\n            }\n            past = present;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720278811",
+    "subm_id": "1311725289"
 }

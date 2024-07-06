@@ -1,0 +1,6 @@
+{
+    "username": "Ar7e9",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        long long n = a.size();\n        std::string s = std::bitset<30>(k).to_string();\n        std::vector<std::vector<long long>> dp(n, std::vector<long long>(30));\n        for (long long i = n - 1; i >= 0; --i) {\n            for (long long j = 0; j <= 29; ++j) {\n                if ((a[i] & (1 << j)) == 0) {\n                    dp[i][j] = i;\n                } else {\n                    if (i == n - 1) {\n                        dp[i][j] = n;\n                    } else {\n                        dp[i][j] = dp[i + 1][j];\n                    }\n                }\n            }\n        }\n        long long ans = 0;\n        for (long long i = 0; i < n; ++i) {\n            long long l = i;\n            long long r = n;\n            for (long long j = 0; j <= 29; ++j) {\n                if ((k & (1 << j)) == 0) {\n                    l = std::max(l, dp[i][j]);\n                } else {\n                    r = std::min(r, dp[i][j]);\n                }\n            }\n            ans += std::max((r - l), 0ll);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720281149",
+    "subm_id": "1311814888"
+}

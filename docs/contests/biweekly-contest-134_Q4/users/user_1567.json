@@ -1,6 +1,6 @@
 {
-    "username": "gjenus",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans =0;\n        vector< int >hash(32,0);\n        int i=1;\n        for(auto e:nums){\n            for(int i=0;i<32;i++){\n                if((1<<i)&e){\n                    hash[i]++;\n                }\n                else{\n                    hash[i]=0;\n                }\n            }\n            set<int>st1;\n            set<int>st2;\n            for(int i=0;i<32;i++){\n                if((1<<i)&k){\n                    st1.insert(hash[i]);\n                }\n                else{\n                    st2.insert(hash[i]);\n                }\n            }\n            if(st1.size()>0){\n                ans+=max(0,*st1.begin()-*st2.rbegin());\n            }\n           \n            if(  k==0){\n                ans+=max(0,(i)-*st2.rbegin());\n            }\n            i++;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280839",
-    "subm_id": "1311803872"
+    "username": "qvSQVIEcRG",
+    "submission": "typedef long long ll;\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        int n = arr.size();\n        ll ans = 0;\n        unordered_map<ll, ll>mp1;\n        for(int i = 0; i<n; i++){\n            unordered_map<ll, ll>mP2;\n            if(arr[i] == k){\n                ans++;\n            }\n            mP2[arr[i]] = 1;\n            for(auto &[val, freq] : mp1){\n                ll nr = val & arr[i];\n                if(nr == k){\n                    ans += freq;\n                }\n                mP2[nr] += freq;\n            }\n            mp1 = mP2;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720281140",
+    "subm_id": "1311814558"
 }

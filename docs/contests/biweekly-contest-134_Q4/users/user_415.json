@@ -1,6 +1,6 @@
 {
-    "username": "shubham_rastogi",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n            int n = nums.size();\n        unordered_map<int, int> countMap;\n        long long result = 0;\n\n        for (int num : nums) {\n            unordered_map<int, int> newCountMap;\n\n            if (num == k) {\n                result++;\n            }\n\n            for (auto& [key, count] : countMap) {\n                int newAND = key & num;\n                if (newAND == k) {\n                    result += count;\n                }\n                newCountMap[newAND] += count;\n            }\n\n            newCountMap[num]++;\n            countMap = newCountMap;\n        }\n\n        return result;\n\n    }\n};",
-    "submit_ts": "1720278566",
-    "subm_id": "1311714701"
+    "username": "AtulKeshari",
+    "submission": "#define ll long long\n#define rep(i,n) for(int i=0;i<n;i++)\n#define che(a,b) if (a== b)\nclass Solution\n{\npublic:\n    void solve(unordered_map<ll, ll> &pR, vector<int> &nums, unordered_map<ll, ll> &cR, int k, int i, ll &res)\n    {\n        for (auto in : pR)\n        {\n            if ((in.first & nums[i]) == k)\n            {\n                res += in.second;\n            }\n            cR[(in.first & nums[i])] += in.second;\n        }\n    }\n\n    ll countSubarrays(vector<int> &nums, int k)\n    {\n        ll n = nums.size(),res = 0;\n        unordered_map<ll, ll> pR;\n\n        rep(i,n)\n        {\n            unordered_map<ll, ll> cR;\n            che(nums[i],k)++res;\n            cR[nums[i]] = 1;\n            solve(pR, nums, cR, k, i, res);\n            pR = cR;\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1720279465",
+    "subm_id": "1311752297"
 }

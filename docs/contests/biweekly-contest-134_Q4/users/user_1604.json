@@ -1,6 +1,6 @@
 {
-    "username": "1rishu",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n=nums.size();\n        map<long long,long long>prev;\n        long long cnt=0;\n        for(int i=0;i<n;i++){\n            map<long long,long long>cur;\n            for(auto it:prev){\n                if((nums[i]&it.first)==k){\n                    cnt+=it.second;\n                }\n                cur[nums[i]&it.first]+=it.second;\n\n            }\n            if(nums[i]==k)cnt++;\n            cur[nums[i]]++;\n            prev=cur;\n        }\n        return cnt;\n\n        \n    }\n};",
-    "submit_ts": "1720280589",
-    "subm_id": "1311795014"
+    "username": "tanakat01",
+    "submission": "from bisect import bisect_left\nclass Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        o_k, z_k = [], []\n        for b in range(32):\n            if k & (1 << b) != 0:\n                o_k.append(b)\n            else:\n                z_k.append(b)\n        zeros = [[] for _ in range(32)]\n        for i, x in enumerate(nums):\n            for b in range(32):\n                if x & (1 << b) == 0:\n                    zeros[b].append(i)\n        n = len(nums)\n        ans = 0\n        for i in range(n):\n            i0 = n\n            i1 = i\n            for b in o_k:\n                j = bisect_left(zeros[b], i)\n                if j < len(zeros[b]):\n                    i0 = min(i0, zeros[b][j])\n            for b in z_k:\n                j = bisect_left(zeros[b], i)                    \n                if j < len(zeros[b]):\n                    i1 = max(i1, zeros[b][j])\n                else:\n                    i1 = max(i1, n)\n            #print(f'i={i}, i0={i0}, i1={i1}')\n            if i0 >= i1:\n                ans += i0 - i1\n        return ans          ",
+    "submit_ts": "1720281189",
+    "subm_id": "1311816277"
 }

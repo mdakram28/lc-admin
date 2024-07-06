@@ -1,6 +1,6 @@
 {
-    "username": "govind70821",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int> &nums, int k) {\n        long long ans = 0;\n        unordered_map<long long,long long> m1;\n        for (int i = 0; i < nums.size(); i++) {\n            unordered_map<long long, long long> m2;\n            m2[nums[i]] = 1;\n            for (auto &it:m1) {\n                if (k==(it.first & nums[i])) ans+=it.second;\n                m2[(nums[i]&it.first)]+=it.second;\n            }\n            m1 = m2;\n            if (k==nums[i]) ans++;\n        }\n        return ans;\n    }\n};\n",
-    "submit_ts": "1720279314",
-    "subm_id": "1311746252"
+    "username": "lonely_nights_with_bruce",
+    "submission": "\n\n    /**\n     * @param Integer[] $nums\n     * @param Integer $k\n     * @return Integer\n     */\n    \n        \n    class Solution {\n    public function countSubarrays($nums, $k) {\n        $n = count($nums);\n        $count = 0;\n        \n        $prevResults = array();\n\n        for ($i = 0; $i < $n; ++$i) {\n            $currResults = array();\n\n            if ($nums[$i] == $k) {\n                ++$count;\n            }\n            $currResults[$nums[$i]] = 1;\n\n            foreach ($prevResults as $val => $freq) {\n                $newAndResult = $val & $nums[$i];\n                if ($newAndResult == $k) {\n                    $count += $freq;\n                }\n                if (!isset($currResults[$newAndResult])) {\n                    $currResults[$newAndResult] = 0;\n                }\n                $currResults[$newAndResult] += $freq;\n            }\n\n            $prevResults = $currResults;\n        }\n\n        return $count;\n    }\n}\n\n",
+    "submit_ts": "1720278633",
+    "subm_id": "1311717618"
 }

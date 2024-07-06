@@ -1,6 +1,6 @@
 {
-    "username": "pioneer10",
-    "submission": "func countSubarrays(nums []int, k int) int64 {\n    n := len(nums)\n    switch {\n        case n == 1 && nums[0] == k:\n        return 1\n        case n == 1:\n        return 0\n    }\n    c := make([][]int, n + 1)\n    c[0] = make([]int, 31)\n    for i, num := range nums {\n        c[i + 1] = make([]int, 31)\n        copy(c[i + 1], c[i])\n        for j, b := 0, 1; j < 31; j++ {\n            if num & b == b {\n                c[i + 1][j]++\n            }\n            b <<= 1\n        }\n    }\n    res := int64(0)\n    for i, num := range nums {\n        if num & k != k {\n            continue\n        }\n        l := sort.Search(n - i, func (l int) bool { return get_and(c, i, i + l) < k })\n        r := sort.Search(l, func (r int) bool { return get_and(c, i, i + r) == k })\n        res += int64(l - r)\n    }\n    return res\n}\n\nfunc get_and(c [][]int, l, r int) int {\n    c1, c2 := c[l], c[r + 1]\n    res, w := 0, r - l + 1\n    for i := range c1 {\n        if c2[i] - c1[i] == w {\n            res |= 1 << i\n        }\n    }\n    return res\n}",
-    "submit_ts": "1720278191",
-    "subm_id": "1311698447"
+    "username": "MRITuhin",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n    long long res = 0;\n    unordered_map<long long, long long> gcds;\n    for (int i = 0; i < nums.size(); ++i) {\n        unordered_map<long long, long long> gcds1;\n        if ((nums[i] & k) == k) {\n            ++gcds[nums[i]];\n            for (auto [prev_gcd, cnt] : gcds)\n                gcds1[prev_gcd & nums[i]] += cnt;\n        }\n        res += gcds1[k];\n        swap(gcds, gcds1);\n    }\n    return res;\n        \n    }\n};",
+    "submit_ts": "1720279299",
+    "subm_id": "1311745683"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "hanbro0112",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        tb = [0] * 31 \n        ans = 0\n        for i, num in enumerate(nums):\n            if k != 0:\n                includes, others = inf, -inf\n                for d in range(31):\n                    tb[d] = tb[d] + 1 if (num >> d) & 1 else 0\n                    if (k >> d) & 1:\n                        includes = min(includes, tb[d])\n                    else:\n                        others = max(others, tb[d])\n                        \n                if includes > others:\n                    ans += includes - others \n            \n            else:\n                mx = 0\n                for d in range(31):\n                    tb[d] = tb[d] + 1 if (num >> d) & 1 else 0\n                    mx = max(mx, tb[d])\n                \n                ans += i + 1 - mx\n                \n        return ans",
-    "submit_ts": "1720280842",
-    "subm_id": "1311803970"
+    "username": "pruthak_jani05",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long res = 0;\n        unordered_map<long long, long long> previousResults;\n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults; \n            if (array[index] == target) {\n                ++res;\n            }\n            currentResults[array[index]] = 1;\n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & array[index];\n                if (newAndResult == target) {\n                    res += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720280741",
+    "subm_id": "1311800420"
 }

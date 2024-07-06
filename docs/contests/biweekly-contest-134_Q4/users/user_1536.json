@@ -1,6 +1,6 @@
 {
-    "username": "koulritanshu",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long ans = 0;\n        for(int i=0;i<nums.size();i++){\n            if(nums[i]==k) ans++;\n        }\n        unordered_map<long long,long long> mp;\n        for(int i=0;i<nums.size();i++){\n            vector<pair<long long,long long>> vp;\n            for(auto &x:mp){\n                vp.push_back({x.first,x.second});\n            }   \n            mp.clear();\n            for(int j=0;j<vp.size();j++){\n                long long andi = vp[j].first & nums[i];\n                if(andi == k){\n                    ans += vp[j].second;\n                }\n                mp[andi] = mp[andi] + vp[j].second; \n            }\n            mp[nums[i]]++;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720280774",
-    "subm_id": "1311801594"
+    "username": "JCodeWiz",
+    "submission": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public long countSubarrays(int[] arr, int target) {\n        int n = arr.length;\n        long total = 0;\n        Map<Long, Long> prev = new HashMap<>();\n        \n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> curr = new HashMap<>();\n            \n            if (arr[i] == target) {\n                ++total;\n            }\n            \n            curr.put((long) arr[i], 1L);\n            \n            for (Map.Entry<Long, Long> entry : prev.entrySet()) {\n                long andResult = entry.getKey() & arr[i];\n                \n                if (andResult == target) {\n                    total += entry.getValue();\n                }\n                \n                curr.put(andResult, curr.getOrDefault(andResult, 0L) + entry.getValue());\n            }\n            \n            prev = curr;\n        }\n        \n        return total;\n    }\n}\n",
+    "submit_ts": "1720281081",
+    "subm_id": "1311812478"
 }

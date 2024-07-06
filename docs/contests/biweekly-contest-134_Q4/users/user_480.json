@@ -1,6 +1,6 @@
 {
-    "username": "krishiiitp",
-    "submission": "#define ll long long int\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n=nums.size(),ans=0;\n        map<ll,ll> m1,m2;\n        for(ll i=0;i<n;i++){\n            if(nums[i]==k) ans++;\n            m2[nums[i]]=1;\n            for(auto it=m1.begin();it!=m1.end();it++){\n                if(((*it).first&nums[i])==k){\n                    ans+=(*it).second;\n                }\n                m2[(*it).first&nums[i]]+=(*it).second;\n            }\n            m1=m2,m2.clear();\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720279306",
-    "subm_id": "1311745956"
+    "username": "AlgoChief",
+    "submission": "class Solution {\n\npublic:\n\n  long long countSubarrays(vector<int>& nums, int k) {\n\n    int n = nums.size();\n\n    long long count = 0;\n\n    unordered_map<long long, long long> prevResults;\n\n    for (int i = 0; i < n; ++i) {\n\n        unordered_map<long long, long long> currResults;\n\n        if (nums[i] == k) {\n\n          ++count;\n\n        }\n\n        currResults[nums[i]] = 1;\n\n        for (auto& [val, freq]: prevResults) {\n\n          long long newAndResult = val & nums[i];\n\n          if (newAndResult == k) {\n\n                count += freq;\n\n          }\n\n          currResults[newAndResult] += freq;\n\n        }\n\n        prevResults = currResults;\n\n    }\n\n    return count;\n\n  }\n\n\n\n};",
+    "submit_ts": "1720279603",
+    "subm_id": "1311757832"
 }

@@ -1,6 +1,6 @@
 {
-    "username": "abineth",
-    "submission": "class Solution:\n    def countSubarrays(self, a: List[int], k: int) -> int:\n        n=len(a)\n        ans=0\n        d=defaultdict(int)\n        for i in range(n):\n            td=defaultdict(int)\n            if a[i]==k:\n                ans+=1\n            td[a[i]]=1\n            for key in d:\n                an=key&a[i]\n                if an==k:\n                    ans+=d[key]\n                td[an]+=d[key]\n            d=td\n        return ans",
-    "submit_ts": "1720279579",
-    "subm_id": "1311756941"
+    "username": "SteinsGate_",
+    "submission": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public long countSubarrays(int[] numbers, int targetValue) {\n        int arrayLength = numbers.length;\n        long totalCount = 0;\n        Map<Long, Long> previousBitwiseResults = new HashMap<>();\n        \n        for (int currentIndex = 0; currentIndex < arrayLength; ++currentIndex) {\n            Map<Long, Long> currentBitwiseResults = new HashMap<>();\n            \n            if (numbers[currentIndex] == targetValue) {\n                ++totalCount;\n            }\n            currentBitwiseResults.put((long)numbers[currentIndex], 1L);\n            \n            for (Map.Entry<Long, Long> entry : previousBitwiseResults.entrySet()) {\n                long previousResult = entry.getKey();\n                long frequency = entry.getValue();\n                long newBitwiseAndResult = previousResult & numbers[currentIndex];\n                \n                if (newBitwiseAndResult == targetValue) {\n                    totalCount += frequency;\n                }\n                currentBitwiseResults.put(newBitwiseAndResult, \n                    currentBitwiseResults.getOrDefault(newBitwiseAndResult, 0L) + frequency);\n            }\n            \n            previousBitwiseResults = currentBitwiseResults;\n        }\n        \n        return totalCount;\n    }\n}",
+    "submit_ts": "1720280889",
+    "subm_id": "1311805634"
 }

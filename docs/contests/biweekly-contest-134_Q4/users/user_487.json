@@ -1,6 +1,6 @@
 {
-    "username": "piyushjain4",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n = nums.size();\n        vector<vector<ll>>v(n,vector<ll>(31));\n        for(ll i=30;i>=0;i--){\n           ll prev =-1;\n           for(int j=0;j<n;j++){\n            if(((1ll<<i)&nums[j])){\n                v[j][i] =prev;\n            }\n            else{\n                prev =j;\n                v[j][i]=j;\n            }\n           }\n        }\n        // for(int i=0;i<n;i++){\n        //     cout<<v[i][1]<<\" \";\n        // }\n        // cout<<endl;\n\n        ll ans =0;\n        for(ll i=0;i<n;i++){\n            ll mini =-1;\n            ll maxi =i;\n           for(ll j=30;j>=0;j--){\n            bool flag =0;\n            if((1ll<<j)&k){\n                flag  =1;\n            }\n            if(flag){\n            mini = max(mini,v[i][j]);\n            }\n            else\n            maxi = min(maxi,v[i][j]);\n           }\n        //    cout<<i<<\" \"<<mini<<\" \"<<maxi<<endl;\n            if(mini<maxi){\n                ans+=(maxi-mini);\n            }\n        }\n        return ans;\n\n        \n        \n    }\n};",
-    "submit_ts": "1720279617",
-    "subm_id": "1311758415"
+    "username": "bowobo",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& a, int k) {\n        long long n = a.size();\n        map<long long , long long> tot;\n        map<long long, long long> cur;\n        cur[a[0]]++;\n        tot[a[0]]++;\n        for(int i = 1; i < n; i++){\n            map<long long, long long> nw;\n            nw[a[i]]++;\n            for(auto x: cur){\n                int nw_nd = x.first & a[i];\n                nw[nw_nd] += x.second;\n            }\n            \n            for(auto x: nw){\n                tot[x.first] += x.second;\n            }\n            cur = nw;\n        }\n        long long ans = 0;\n        ans = tot[k];\n        return ans;\n    }\n};",
+    "submit_ts": "1720278420",
+    "subm_id": "1311708374"
 }

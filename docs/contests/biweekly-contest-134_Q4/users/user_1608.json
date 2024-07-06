@@ -1,6 +1,6 @@
 {
-    "username": "yashkakrecha",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int index = 0;\n        Map<Integer,Map<Integer,Long>> dp = new HashMap<>();\n        for(int i=index ; i<nums.length ; i++){\n            dp.put(i, new HashMap<>());\n        }\n        long ans = 0;\n        for(int i=index ; i<nums.length ; i++){\n            ans += countSubarraysHelper(i, nums,1073741823, k, dp);\n        }\n        return ans;\n    }\n    private long countSubarraysHelper(int index, int[] nums, int and, int k, Map<Integer,Map<Integer,Long>> dp){\n        if(index==nums.length){\n            return and == k ? 1 : 0;\n        }\n        if(dp.get(index).containsKey(and)){\n            return dp.get(index).get(and);\n        }\n        long ans = 0;\n        ans += countSubarraysHelper(index+1, nums, and&nums[index], k, dp);\n        ans += and == k ? 1 : 0;\n        dp.get(index).put(and, ans);\n        return ans;\n    }\n}",
-    "submit_ts": "1720280898",
-    "subm_id": "1311806004"
+    "username": "Sasta_Coder",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        c=0\n        n = len(nums)\n        dic = {}\n        for i in range(n):\n            lst1 = {}\n            if nums[i] == k:\n                c += 1\n            lst1[nums[i]] = 1\n            for val, freq in dic.items():\n                temp_res = val & nums[i]\n                if temp_res == k:\n                    c += freq\n                if temp_res in lst1:\n                    lst1[temp_res] += freq\n                else:\n                    lst1[temp_res] = freq\n            dic = lst1\n        return c",
+    "submit_ts": "1720279912",
+    "subm_id": "1311769989"
 }

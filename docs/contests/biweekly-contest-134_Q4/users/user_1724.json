@@ -1,6 +1,6 @@
 {
-    "username": "krishwave66",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll countSubarrays(vector<int>& nums, int target) {\n        ll matches = 0;\n        int n = nums.size(), fl = 0;\n\n        unordered_map<ll, ll> previ, curre;\n\n        for (int i = 0; i < n; i++) {\n            curre.clear();\n            curre[nums[i]] = 1;\n\n            auto updateResults = [&]() {\n                for (auto [combVal, occ] : previ) {\n                    if ((combVal & nums[i]) == target) \n                        matches += occ;\n                    \n                    curre[(combVal & nums[i])] += occ;\n                }\n            };\n            if (nums[i] == target) {\n                fl++;\n                matches++;\n            }\n\n            \n            updateResults();\n            previ = move(curre);\n        }\n\n        return matches;\n    }\n};",
-    "submit_ts": "1720279703",
-    "subm_id": "1311761799"
+    "username": "lakshya_12",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll ans;\n    void solve(int idx, int k, unordered_map<ll,ll>&mp, unordered_map<ll,ll>&mpp){\n        if(idx==k) ans++;\n        mpp[idx]=1;\n\n        for(auto &pp:mp){\n            if((pp.first & idx)==k) ans+=pp.second;\n            mpp[pp.first&idx]+=pp.second;\n        }\n        mp=mpp;\n    }\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n= nums.size();\n        ans=0;\n        unordered_map<ll,ll>mp;\n        for(auto &it:nums){\n            unordered_map<ll,ll>mpp;\n            solve(it,k,mp,mpp);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280155",
+    "subm_id": "1311778877"
 }

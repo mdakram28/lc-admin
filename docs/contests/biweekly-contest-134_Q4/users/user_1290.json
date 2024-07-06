@@ -1,6 +1,6 @@
 {
-    "username": "ayushku22",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long totalSubarrays = 0;\n\n        unordered_map<long long, long long> previousAndResults;\n\n        for (int i = 0; i < n; ++i) {\n            unordered_map<long long, long long> currentAndResults;\n\n            if (nums[i] == k) {\n                ++totalSubarrays;\n            }\n            currentAndResults[nums[i]] = 1;\n\n            for (auto& [andValue, frequency] : previousAndResults) {\n                long long newAndResult = andValue & nums[i];\n                if (newAndResult == k) {\n                    totalSubarrays += frequency;\n                }\n                currentAndResults[newAndResult] += frequency;\n            }\n\n            previousAndResults = currentAndResults;\n        }\n\n        return totalSubarrays;\n    }\n};\n",
-    "submit_ts": "1720280462",
-    "subm_id": "1311790307"
+    "username": "TooMuchFreeTime",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        vector<vector<int>> bits(33);\n        int n = nums.size();\n        for (int j = 0; j < 32; j++) {\n            for (int i = 0; i < n; i++) {\n                if (((nums[i] >> j) & 1) == 0) {\n                    bits[j].push_back(i);\n                }\n            }\n        }\n        long long ans = 0;\n        for (int i = 0; i < n; i++) {\n            int  start = i, end = n;\n            for (int j = 0; j < 32; j++) {\n                int f = 0;\n                if (k & (1 << j))\n                    f = 1;\n                auto it = lower_bound(bits[j].begin(), bits[j].end(), i);\n                int ind = n;\n                if (it != bits[j].end()) ind = *it;\n                if (f == 0) {\n                    start = max(start, ind);\n                } else {\n                    end = min(end, ind);\n                }\n            }\n            ans += 1LL*max(0,end - start);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720280761",
+    "subm_id": "1311801135"
 }

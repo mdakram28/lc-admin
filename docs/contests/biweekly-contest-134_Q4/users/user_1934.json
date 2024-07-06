@@ -1,6 +1,6 @@
 {
-    "username": "sreecharan_12082003",
-    "submission": "class Solution {\n    fun countSubarrays(numbers: IntArray, target: Int): Long {\n        val n = numbers.size\n        var count = 0L\n        \n        val prevResults = mutableMapOf<Long, Long>()\n\n        for (i in numbers.indices) {\n            val currResults = mutableMapOf<Long, Long>()\n\n            if (numbers[i] == target) {\n                count++\n            }\n            currResults[numbers[i].toLong()] = 1\n\n            for ((value, frequency) in prevResults) {\n                val newAndResult = value and numbers[i].toLong()\n                if (newAndResult == target.toLong()) {\n                    count += frequency\n                }\n                currResults[newAndResult] = currResults.getOrDefault(newAndResult, 0L) + frequency\n            }\n            \n            prevResults.clear()\n            prevResults.putAll(currResults)\n        }\n        \n        return count\n    }\n}\n",
-    "submit_ts": "1720278505",
-    "subm_id": "1311712092"
+    "username": "Bhanu1146",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int n = nums.length;\n        long count = 0;\n        Map<Long, Long> prev = new HashMap<>();\n\n        for (int i = 0; i < n; ++i) {\n            Map<Long, Long> curr = new HashMap<>();\n            if (nums[i] == k) {\n                ++count;\n            }\n            curr.put((long) nums[i], 1L);\n\n            for (Map.Entry<Long, Long> entry : prev.entrySet()) {\n                long v = entry.getKey();\n                long f = entry.getValue();\n                long r = v & nums[i];\n                if (r == k) {\n                    count += f;\n                }\n                curr.put(r, curr.getOrDefault(r, 0L) + f);\n            }\n\n            prev = curr;\n        }\n\n        return count;\n    }\n}\n",
+    "submit_ts": "1720280707",
+    "subm_id": "1311799225"
 }

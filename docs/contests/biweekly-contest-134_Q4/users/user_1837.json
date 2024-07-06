@@ -1,6 +1,6 @@
 {
-    "username": "dilli_babu",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int l = nums.size();\n        long long ans = 0;\n        map<long long, long long> slow;\n        for (int i = 0; i < l; i++) {\n            map<long long, long long> fast;\n            fast[nums[i]] = 1;\n            for (auto it: slow) {\n                int val=it.first;\n                int freq=it.second;\n                long long na = val & nums[i];\n                if (na == k) {\n                    ans += freq;\n                }\n                fast[na] += freq;\n            }\n            if (nums[i] == k) {\n                ans++;\n            }\n            slow = fast;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281557",
-    "subm_id": "1311829677"
+    "username": "jtsuited",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        i, j = 0, 0\n        last = [-1] * 35\n        cum = 0\n        def process(idx):\n            x = nums[idx]\n            bi = 0\n            while bi < 35:\n                if x & (1 << bi) == 0:\n                    last[bi] = idx\n                bi += 1\n\n        def missing(x):\n            bi = 0\n            ans = []\n            while bi < 35:\n                bit = 1 << bi\n                if k & bit == 0 and (x & bit):\n                    ans.append(bi)\n                bi += 1\n            return ans\n        \n        while i < len(nums) and j < len(nums):\n            # print(i, j)\n            if i < n and nums[i] & k != k:\n                i += 1\n                j = i\n                continue\n            if j < n and (nums[j] & k) != k:\n                i, j = j+1, i\n                continue\n            process(j)\n            # print(i, j, last)\n            need = missing(nums[j])\n            m = j\n            for bi in need:\n                m = min(m, last[bi])\n            if m >= i:\n                cum += m - i + 1\n            j += 1\n        return cum",
+    "submit_ts": "1720281546",
+    "subm_id": "1311829233"
 }

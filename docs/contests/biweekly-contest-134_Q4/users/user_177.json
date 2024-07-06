@@ -1,6 +1,6 @@
 {
-    "username": "usaya",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        ans = 0\n        cnt = defaultdict(int)\n        cnt[nums[0]] = 1\n        ans = cnt[k]\n        for i in range(1, n):\n            x = nums[i]\n            new = defaultdict(int)\n            for y in cnt:\n                new[y & x] += cnt[y]\n            new[x] += 1\n            cnt = new\n            ans += cnt[k]\n        return ans\n            ",
-    "submit_ts": "1720278180",
-    "subm_id": "1311697931"
+    "username": "Past_Future",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<array<int, 33>> cnt(n + 1);\n        array<int, 31> m;\n        long long ans = 0;\n        for(int i = 0; i <= 30; i++){\n            if(k & 1) m[i] = 1;\n            else m[i] = 0;\n            k >>= 1;\n        }\n        for(int i = 1; i <= n; i++){\n            int now = nums[i - 1];\n            int l = i, r = 0;\n            for(int j = 0; j <= 30; j++){\n                if(now & 1){\n                    cnt[i][j] = cnt[i - 1][j] + 1;\n                }else{\n                    cnt[i][j] = 0;\n                }\n                if(m[j] == 1) l = min(l, cnt[i][j]);\n                else if(m[j] != 1 && cnt[i][j] - cnt[i - 1][j] == 1) r = max(r, cnt[i][j]);\n                now >>= 1;\n            }\n            if(l >= r) ans += l - r;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720278523",
+    "subm_id": "1311712878"
 }

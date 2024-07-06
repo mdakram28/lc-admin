@@ -1,0 +1,6 @@
+{
+    "username": "sad-hodgkin23h",
+    "submission": "using ll = long long;\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll n = nums.size();\n        ll ans = 0;\n\n        ll m = 32;\n\n        auto ones = vector(n+1,vector(m,0ll));\n        for(ll i=1; i<=n; i++) {\n            for(ll j=0; j<m; j++) {\n                if((nums[i-1]>>j)&1) ones[i][j] = ones[i-1][j] + 1;\n            }\n        }\n\n        auto zero = vector(n+1,vector(m,0ll));\n        for(ll i=1; i<=n; i++) {\n            for(ll j=0; j<m; j++) {\n                if((nums[i-1]>>j)&1) {\n                    zero[i][j] = zero[i-1][j];\n                } else {\n                    zero[i][j] = i;\n                }\n            }\n        }\n\n        for(ll i=1; i<=n; i++) {\n            ll cnt = n, pos = n;\n            for(ll j=0; j<m; j++) {\n                if((k>>j)&1) {\n                    cnt = min(cnt,ones[i][j]);\n                } else {\n                    pos = min(pos,zero[i][j]);\n                }\n            }\n            ll l = i - cnt + 1;\n            if(l<1) l = 1;\n            ll r = pos;\n            // cout<<i<<\" \"<<l<<\" \"<<r<<endl;\n            if(l<=r) ans += (r-l+1);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720281323",
+    "subm_id": "544575333"
+}

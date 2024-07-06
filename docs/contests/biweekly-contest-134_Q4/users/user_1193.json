@@ -1,6 +1,6 @@
 {
-    "username": "user4117lT",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n       \n    int size = nums.size(); // Correct variable name and access the size of 'nums'\n        long long total = 0;\n        unordered_map<long long, long long> previousResults;\n        \n        for (int index = 0; index < size; ++index) {\n            unordered_map<long long, long long> currentResults;\n            long long target = k; // Correctly define 'target' (assuming 'k' is the target value)\n            \n            if (nums[index] == target) {\n                ++total;\n            }\n            currentResults[nums[index]] = 1;\n            \n            for (auto& [value, frequency] : previousResults) {\n                long long newAndResult = value & nums[index]; // Bitwise AND between value and                                                                                                        //nums[index]\n                if (newAndResult == target) {\n                    total += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n            \n            previousResults = currentResults;\n        }\n        \n        return total;\n    }\n};",
-    "submit_ts": "1720280000",
-    "subm_id": "1311773241"
+    "username": "singh_3662",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        int len = nums.length;\n        long res = 0L;\n        HashMap<Long, Long> map1 = new HashMap<>();\n        for(int i=0; i<len; ++i) {\n            HashMap<Long, Long> map2 = new HashMap<>();\n            if(nums[i] == k) {\n               ++res; \n            }\n            map2.put((long)nums[i], 1L);\n            for(long x : map1.keySet()) {\n                long and = x & nums[i];\n                if(and == k) {\n                    res += map1.get(x);\n                }\n                map2.put(and, map2.getOrDefault(and, 0L)+map1.get(x));\n            }\n            map1 = map2;\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1720281222",
+    "subm_id": "1311817378"
 }

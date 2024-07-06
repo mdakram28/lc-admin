@@ -1,6 +1,6 @@
 {
-    "username": "venkat2552004",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long cnt = 0;\n        unordered_map<int, long long> andMap;\n        int val = 0;\n\n        for (int num : nums) {\n            val = num;\n            if (val == k) {\n                cnt++;\n            }\n            unordered_map<int, long long> newMap;\n            for (auto& [key, v] : andMap) {\n                int nval = key & num;\n                if (nval == k) {\n                    cnt += v;\n                }\n                newMap[nval] += v;\n            }\n            newMap[val]++;\n            andMap = newMap;\n        }\n\n        return cnt;\n    }\n};",
-    "submit_ts": "1720279583",
-    "subm_id": "1311757094"
+    "username": "user6675CH",
+    "submission": "#include <vector>\n#include <unordered_map>\n\nclass Solution {\npublic:\n    long long countSubarrays(std::vector<int>& nums, int k) {\n        long long result = 0;\n        std::unordered_map<int, int> count_map;\n\n        for (int num : nums) {\n            std::unordered_map<int, int> new_map;\n\n            // Start new subarrays with the current number\n            if (num == k) {\n                result++;\n            }\n\n            // Update the new_map with new subarrays ending at the current number\n            for (const auto& entry : count_map) {\n                int new_and = entry.first & num;\n                if (new_and == k) {\n                    result += entry.second;\n                }\n                new_map[new_and] += entry.second;\n            }\n\n            // Include the current number as a new subarray\n            new_map[num]++;\n\n            // Merge the new_map back into count_map\n            count_map = new_map;\n        }\n\n        return result;\n    }\n};\n",
+    "submit_ts": "1720279777",
+    "subm_id": "1311764659"
 }

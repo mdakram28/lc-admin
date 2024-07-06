@@ -1,6 +1,6 @@
 {
-    "username": "ankurbansal15",
-    "submission": "class Solution {\n    public long countSubarrays(int[] arr, int tgt) {\n        int len = arr.length;\n        long cnt = 0;\n        Map<Long, Long> prevRes = new HashMap<>();\n        for (int idx = 0; idx < len; ++idx) {\n            Map<Long, Long> currRes = new HashMap<>();\n            if (arr[idx] == tgt) {\n                ++cnt;\n            }\n            currRes.merge((long) arr[idx], 1L, Long::sum);\n            for (Map.Entry<Long, Long> entry : prevRes.entrySet()) {\n                long newAndRes = entry.getKey() & arr[idx];\n                if (newAndRes == tgt) {\n                    cnt += entry.getValue();\n                }\n                currRes.merge(newAndRes, entry.getValue(), Long::sum);\n            }\n            \n            prevRes = currRes;\n        }\n        return cnt;\n    }\n}\n",
-    "submit_ts": "1720279683",
-    "subm_id": "1311760971"
+    "username": "klperiwal",
+    "submission": "# define ll long long\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        ll res=0;\n        int n=nums.size();\n        \n        map<ll,ll>m;\n        for(int i=0;i<n;i++)\n        {\n            map<ll,ll>temp;\n            if(k==nums[i])\n                res++;\n            temp[nums[i]]=1;\n            \n            for(auto j:m)\n            {\n                ll a1=j.first;\n                ll a2=j.second;\n                ll x= a1 & nums[i];\n                if(x==k)\n                    res+=a2;\n                \n                temp[x]+=a2;\n            }\n            m=temp;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720278374",
+    "subm_id": "1311706389"
 }

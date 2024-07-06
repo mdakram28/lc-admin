@@ -1,0 +1,6 @@
+{
+    "username": "freetime430",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        res = 0\n        cnt = [0] * 31\n        start = end = 0\n        pre = 0\n        while end < len(nums):\n            if nums[end] < k:\n                pre = 0\n                cnt = [0] * 31\n                end += 1\n                start = end\n                continue\n            for i in range(31):\n                if nums[end] & (1 << i) != 0:\n                    cnt[i] += 1\n            end += 1\n            val = 0\n            for i in range(31):\n                if cnt[i] == end-start:\n                    val |= 1 << i\n            tmp = 0\n            while start < end and val <= k:\n                if val == k:\n                    tmp += 1\n                val = 0\n                for i in range(31):\n                    if nums[start] & (1 << i) != 0:\n                        cnt[i] -= 1\n                    if cnt[i] != 0 and cnt[i] == end-start-1:\n                        val |= 1 << i\n                start += 1\n            if nums[end-1] & k == k:\n                pre += tmp\n                res += pre\n            else:\n                pre = 0\n                res += tmp\n        return res",
+    "submit_ts": "1720281407",
+    "subm_id": "544575638"
+}

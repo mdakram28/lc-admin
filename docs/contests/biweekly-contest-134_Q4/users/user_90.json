@@ -1,6 +1,6 @@
 {
-    "username": "running_man221",
-    "submission": "\n#define vi vector<int>\n#define rep(i,a,b) for(int i=a;i<b;i++)\n#define repr(i,a,b) for(int i=a;i>=b;i--)\n#define nl cout<<\"\\n\"\n#define all(a) (a).begin(),(a).end()\n#define ll long long\n\n\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& arr, int k) {\n        int n=arr.size();\n        set<int> set1;\n        map<int,long long> mp;\n\n        ll ans=0;\n        rep(i,0,n){\n            int a=arr[i];\n            set<int> set2;\n            map<int,long long> mp2;\n            for(auto x:set1){\n                int b=x&a;\n                set2.insert(b); \n                mp2[b]+=mp[x];\n               \n            }\n            set2.insert(a);\n            mp2[a]++;\n            ans+=mp2[k];\n           \n            set1=set2;\n            mp=mp2;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720277968",
-    "subm_id": "1311688283"
+    "username": "x____x",
+    "submission": "class Solution {\npublic:\n  long long countSubarrays(vector<int>& nums, int k) {\n    int n = nums.size();\n    vector<vector<int>> o(32, vector<int>(n + 1, n));\n    vector<vector<int>> z(32, vector<int>(n + 1, n));\n    for (int i = n; i-- > 0; ) {\n      for (int j = 0; j < 32; ++j) {\n        if ((nums[i] >> j) & 0x01) {\n          o[j][i] = o[j][i + 1] + 1;\n          z[j][i] = z[j][i + 1];\n        } else {\n          o[j][i] = 0;\n          z[j][i] = i;\n        }\n      }\n    }\n    long long ret = 0;\n    for (int i = 0; i < n; ++i) {\n      int l = 0, r = n - i;\n      for (int j = 0; j < 32; ++j) {\n        if ((k >> j) & 0x01) {\n          r = min(r, o[j][i]);\n        } else {\n          l = max(l, z[j][i]);\n        }\n      }\n      if (r > l - i) ret += r - (l - i);\n    }\n    return ret;\n  }\n};",
+    "submit_ts": "1720277960",
+    "subm_id": "1311687963"
 }

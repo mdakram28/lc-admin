@@ -1,6 +1,6 @@
 {
-    "username": "shannukolli216",
-    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& v, int k) {\n        int n = v.size();\n        long long count = 0;\n        map<long long, long long> mp;\n        for (auto &x:v) {\n            map<long long, long long> sha; \n            if (x == k) {\n                ++count;\n            }\n            sha[x] = 0;\nsha[x]++;\n            for (auto& [val, freq] : mp) {\n                long long cnt = val & x;\n                if (cnt == k) {\n                    count += freq;\n                }\n                sha[cnt] += freq;\n            }\n            mp = sha;\n        }\n        return count;\n    }\n};\n",
-    "submit_ts": "1720278703",
-    "subm_id": "1311720643"
+    "username": "guptamanan24",
+    "submission": "class Solution {\n     private:\n    long long countSubarraysEndingAtIndex(vector<int>& array, int target, int idx, unordered_map<long long, long long>& prevResults) {\n        long long cnt = 0;\n        unordered_map<long long, long long> currResults;\n        \n        if (array[idx] == target) {\n            ++cnt;\n        }\n        \n        currResults[array[idx]] = 1;\n        \n        for (auto& [prev, freq] : prevResults) {\n            long long newAndResult = prev & array[idx];\n            if (newAndResult == target) {\n                cnt += freq;\n            }\n            currResults[newAndResult] += freq;\n        }\n        \n        prevResults = currResults;\n        return cnt;\n    }\n    \npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int n = array.size();\n        long long total = 0;\n        unordered_map<long long, long long> prevResults;\n        \n        for (int i = 0; i < n; ++i) {\n            total += countSubarraysEndingAtIndex(array, target, i, prevResults);\n        }\n        \n        return total;\n    }\n};",
+    "submit_ts": "1720280007",
+    "subm_id": "1311773512"
 }

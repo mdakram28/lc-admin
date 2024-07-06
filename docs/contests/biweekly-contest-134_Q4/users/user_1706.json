@@ -1,6 +1,6 @@
 {
-    "username": "Wilsano",
-    "submission": "class Solution {\npublic:\n    long long helper(vector<int>& nums, int k, int start, int end){\n        long long count = 0;\n        vector<int> bits(30, -1);\n        for(int i = start; i <= end; ++i){\n            for(int j = 0; j < 30; ++j){\n                if(((nums[i] >> j) & 1) == 0){\n                    bits[j] = i;\n                }\n            }\n            \n            int pos = i;\n            for(int j = 0; j < 30; ++j){\n                int soruce = (nums[i] >> j) & 1;\n                int target = (k >> j) & 1;\n                if(soruce && !target){\n                    pos = min(pos, bits[j]);\n                }\n            }\n            if(pos != -1){\n                count += (pos - start + 1);\n            }\n        }\n        return count;\n    }\n\n    long long countSubarrays(vector<int>& nums, int k) {\n        long long res = 0;\n        for(int i = 0, j = 0; i < nums.size(); ++i){\n            if((nums[i] & k) != k){\n                continue;\n            }\n            \n            j = i;\n            while(j + 1 < nums.size() && (nums[j + 1] & k) == k){\n                j += 1;\n            }\n            res += helper(nums, k, i, j);\n            i = j;\n        }\n        return res;\n    }\n};",
-    "submit_ts": "1720281024",
-    "subm_id": "1311810450"
+    "username": "Hiki42",
+    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n\n        res = 0\n        n = len(nums)\n\n        mem = defaultdict(int)\n\n        for i in range(n):\n            mem[nums[i]] += 1\n            new_mem = defaultdict(int)\n            for mask in mem.keys():\n                new_mask = mask & nums[i]\n                cnt = mem[mask]\n                if new_mask == k:\n                    res += cnt\n                if new_mask >= k:\n                    new_mem[new_mask] += cnt\n            \n            mem = new_mem\n\n        return res\n\n        ",
+    "submit_ts": "1720281013",
+    "subm_id": "1311810052"
 }

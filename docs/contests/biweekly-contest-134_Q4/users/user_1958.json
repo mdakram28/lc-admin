@@ -1,6 +1,6 @@
 {
-    "username": "ykodwani01",
-    "submission": "class Solution {\npublic:\n    // long long countSubnumss(vector<int>& nums, int k) {\n    //    long long ans=0;\n    //    int i=0;\n    //    int j=0;\n    //    vector<int>temp(32,0);\n    //    for(int i=0;i<32;i++){\n    //     int mask=1<<i;\n    //     if(mask&k){\n    //         temp[i]=1;\n    //     }\n    //    }\n    //    while(i<nums.size()){\n    //         for(int k=0;k<32;k++){\n    //             int mask=1<<k;\n    //             if(nums[i]&mask){\n\n    //             }\n    //         }\n    //    }\n    // }\n     long long countSubarrays(vector<int>&nums, int k) {\n        int n=nums.size();\n        long long ans = 0;\n        int i=0;\n        unordered_map<long long, int> temp;\n        while(i<n) {\n            unordered_map<long long, int> bits; \n            bits[nums[i]] = 1;\n            if (nums[i]==k) {\n                ++ans;\n            }\n            for (auto& [j, freq] : temp) {\n                long long mask = j & nums[i];\n                if (mask==k) {\n                    ans+=freq;\n                }\n                bits[mask]+=freq;\n            }\n            temp=bits;\n            i++;\n        }\n        return ans;\n    }\n};",
-    "submit_ts": "1720281514",
-    "subm_id": "1311827979"
+    "username": "satwiknotdef",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& array, int target) {\n        int size = array.size();\n        long long ans = 0;\n        unordered_map<long long, long long>p;\n        for (int i=0;i<size;i++) {\n            unordered_map<long long, long long> c; \n            if (array[i] == target) ans++;\n            c[array[i]] = 1;\n            for (auto& [value, f] : p) {\n                long long f1 = value & array[i];\n                if (f1 == target) ans += f;\n                c[f1] += f;\n            }\n            p = c;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720280570",
+    "subm_id": "1311794321"
 }

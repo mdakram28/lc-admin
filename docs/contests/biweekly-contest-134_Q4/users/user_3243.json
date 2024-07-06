@@ -1,0 +1,6 @@
+{
+    "username": "aditya_lc0",
+    "submission": "class Solution {\npublic:\n    long long countSubarrays(vector<int>& sequence, int target) {\n        int length = sequence.size();\n        long long subCnt = 0;\n        unordered_map<long long, long long> prevResults;\n\n        for (int index = 0; index < length; ++index) {\n            unordered_map<long long, long long> currentResults;\n\n            if (sequence[index] == target) {\n                ++subCnt;\n            }\n            currentResults[sequence[index]] = 1;\n\n            for (const auto& entry : prevResults) {\n                long long value = entry.first;\n                long long frequency = entry.second;\n                long long newAndResult = value & sequence[index];\n                if (newAndResult == target) {\n                    subCnt += frequency;\n                }\n                currentResults[newAndResult] += frequency;\n            }\n\n            prevResults = std::move(currentResults);\n        }\n\n        return subCnt;\n    }\n};\n",
+    "submit_ts": "1720281582",
+    "subm_id": "1311830841"
+}

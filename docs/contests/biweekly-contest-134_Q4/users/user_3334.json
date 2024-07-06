@@ -1,0 +1,6 @@
+{
+    "username": "lime1900",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n        long count = 0;\n        int n = nums.length;\n        int[] cur = new int[n];\n        Arrays.fill(cur, Integer.MAX_VALUE);\n        int end = 0;\n        int pre = 0;\n        Map<Integer, Integer> preMap = new HashMap<>();\n        for (int i = 0; i < n; i++) {\n            Map<Integer, Integer> curMap = new HashMap<>();\n            for (Integer item: preMap.keySet()){\n                int j = item & nums[i];\n                if(j == k){\n                    count += preMap.get(item);\n                    \n                }\n                if(j >= k){\n                    curMap.put(j, curMap.getOrDefault(j, 0) + preMap.get(item));\n                }\n            }\n            curMap.put(nums[i], curMap.getOrDefault(nums[i], 0) + 1);\n            if(nums[i] == k){\n                count++;\n            }\n            preMap = curMap;\n        }\n        return count;\n    }\n}",
+    "submit_ts": "1720281086",
+    "subm_id": "544574483"
+}

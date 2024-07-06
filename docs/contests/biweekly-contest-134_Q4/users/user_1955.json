@@ -1,6 +1,6 @@
 {
-    "username": "suganth_a",
-    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {\n          int n = nums.length;\n        long count = 0;\n        Map<Integer, Integer> andMap = new HashMap<>();\n\n        for (int i = 0; i < n; i++) {\n            Map<Integer, Integer> newAndMap = new HashMap<>();\n            if (nums[i] == k) {\n                count++;\n            }\n            newAndMap.put(nums[i], newAndMap.getOrDefault(nums[i], 0) + 1);\n\n            for (int key : andMap.keySet()) {\n                int newAndResult = key & nums[i];\n                if (newAndResult == k) {\n                    count += andMap.get(key);\n                }\n                newAndMap.put(newAndResult, newAndMap.getOrDefault(newAndResult, 0) + andMap.get(key));\n            }\n\n            andMap = newAndMap;\n        }\n\n        return count;\n    }\n\n\n}",
-    "submit_ts": "1720281217",
-    "subm_id": "1311817246"
+    "username": "shaileshk11",
+    "submission": "class Solution {\n    public long countSubarrays(int[] nums, int k) {        \n        int n = nums.length;\n        long ans = 0;\n        Map<Long, Long> map1 = new HashMap<>();\n        Map<Long, Long> map2 = new HashMap<>();\n        \n        for(int num : nums){\n            if(num == k){\n                ans=ans+1;\n            }\n            map2.put((long)(num), (long)1);\n            \n            for(long key : map1.keySet()){\n                if((key & (long)(num)) == k){\n                    ans = ans+map1.get(key);\n                }\n                map2.put(key & (long)(num), map2.getOrDefault(key & (long)(num), (long)0)+map1.get(key));\n            }\n            map1 = new HashMap<>(map2);\n            map2.clear();\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720280674",
+    "subm_id": "1311798041"
 }

@@ -1,0 +1,6 @@
+{
+    "username": "Sage_Of_Six_Paths",
+    "submission": "#pragma gcc optimize(\"o3,unroll-loops\")\n#pragma gcc target(\"avx2,bmi,bmi2,lzcnt,popcnt\")\nauto init = []() { ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); return 'c'; }();\n\nusing ll = long long int;\nusing u_map = unordered_map<ll, ll>;\n\n#define cui const unsigned int\n\nclass Solution {\npublic:\n    inline long long countSubarrays(vector<int>& nums, int k)\n    {\n        cui n = nums.size();\n        ll ans = 0;\n        u_map prev;\n        for (ll j = 0; j < n; ++j)\n        {\n            u_map curr;\n            ans += (nums[j] == k);\n            curr[nums[j]] = 1;\n            for (pair<ll, ll> p : prev)\n            {\n                ll val = p.first;\n                ll f = p.second;\n                ans += ((val & nums[j]) == k ? f : 0);\n                curr[(val & nums[j])] += f;\n            }\n            \n            prev = curr;\n        }\n        ans = (ans > 0 ? ans : 0);\n        return ans;\n    }\n};",
+    "submit_ts": "1720280441",
+    "subm_id": "1311789563"
+}

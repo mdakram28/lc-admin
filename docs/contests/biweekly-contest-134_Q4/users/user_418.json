@@ -1,6 +1,6 @@
 {
-    "username": "v1kstrand",
-    "submission": "class Solution:\n    def countSubarrays(self, nums: List[int], k: int) -> int:\n        dp = Counter()\n        ans = 0\n        for n in nums:\n            next_dp = Counter()\n            dp[n] += 1\n            for m, v in dp.items():\n                if n & m == k:\n                    ans += v\n                next_dp[n & m] += v\n            dp = next_dp\n\n        return ans\n",
-    "submit_ts": "1720278866",
-    "subm_id": "1311727596"
+    "username": "Lambert360",
+    "submission": "\nclass Solution {\npublic:\n    long long countSubarrays(vector<int>& nums, int k) {\n        int n = nums.size();\n        long long count = 0;\n        \n        unordered_map<long long, long long> prevResults;\n        \n        for (int i = 0; i < n; ++i) {\n            count += countK(nums[i], k);\n            updateResults(prevResults, nums[i], k, count);\n        }\n        \n        return count;\n    }\n    \nprivate:\n    long long countK(long long num, int k) {\n        return (num == k) ? 1 : 0;\n    }\n    \n    void updateResults(unordered_map<long long, long long>& results, long long num, int k, long long& count) {\n        unordered_map<long long, long long> currResults;\n        \n        currResults[num] = 1;\n        \n        auto it = results.begin();\n        while (it != results.end()) {\n            long long val = it->first;\n            long long freq = it->second;\n            \n            long long newAndResult = val & num;\n            count += (newAndResult == k) ? freq : 0;\n            \n            currResults[newAndResult] += freq;\n            \n            ++it;\n        }\n        \n        results = currResults;\n    }\n};\n\n\n\n",
+    "submit_ts": "1720278047",
+    "subm_id": "1311691922"
 }

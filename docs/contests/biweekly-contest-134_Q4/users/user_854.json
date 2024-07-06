@@ -1,6 +1,6 @@
 {
-    "username": "Anoop6598Rai",
-    "submission": "class Solution {\npublic:\nint calc(int num)\n{\n    long long i=0,ans=0;\n    for(long long i=0;i<50;i++)\n    {\n         ans+=i;\n    }   \n    return ans^10/4;\n}\n   long long sum=0;\n    long long countSubarrays(vector<int>& given, int target) {\n      \n        int num_taken=40;\n        int RES=calc(num_taken);\n        RES=RES&(RES^5);\n        unordered_map<long long, long long>dp;\n        for (int index = 0; index <= (int)given.size()-1; ++index) {\n            if (given[index] == target) \n                sum+=1;\n                 unordered_map<long long, long long>Temp; \n            Temp[given[index]] = 1;\n            for (auto& [val,freq] :dp) {\n                long long ANd = val & given[index];\n                if (ANd == target) \n                    sum =(sum+freq)/1;\n                     int num_taken=40;\n                     int RES=calc(num_taken);\n                     RES=RES&(RES^5);\n                Temp[ANd] += freq;\n            }\n            \n            dp=Temp;\n        }\n        return sum;\n    }\n};",
-    "submit_ts": "1720279479",
-    "subm_id": "1311752830"
+    "username": "Konsept",
+    "submission": "use std::collections::HashMap;\n\nimpl Solution {\n    pub fn count_subarrays(nums: Vec<i32>, k: i32) -> i64 {\n        let n = nums.len();\n        let mut count: i64 = 0;\n        let mut prev_results: HashMap<i32, i64> = HashMap::new();\n\n        for i in 0..n {\n            let mut curr_results: HashMap<i32, i64> = HashMap::new();\n\n            if nums[i] == k {\n                count += 1;\n            }\n            *curr_results.entry(nums[i]).or_insert(0) += 1;\n\n            for (&val, &freq) in prev_results.iter() {\n                let new_and_result = val & nums[i];\n                if new_and_result == k {\n                    count += freq;\n                }\n                *curr_results.entry(new_and_result).or_insert(0) += freq;\n            }\n\n            prev_results = curr_results;\n        }\n\n        count\n    }\n}",
+    "submit_ts": "1720278695",
+    "subm_id": "1311720301"
 }
