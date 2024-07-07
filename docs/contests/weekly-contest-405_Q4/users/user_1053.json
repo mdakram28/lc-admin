@@ -1,0 +1,6 @@
+{
+    "username": "alwayssmile99",
+    "submission": "class TrieNode:\n    def __init__(self):\n        self.children = defaultdict(TrieNode)\n        self.cost = math.inf \n    \n    def add(self, word, cost):\n        cur = self\n        for c in word:\n            cur = cur.children[c]\n        cur.cost = min(cur.cost, cost)\n\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        trie = TrieNode() \n        for word, cost in zip(words, costs): \n            trie.add(word, cost)\n\n        @cache\n        def dp(i):\n            if i == n:\n                return 0\n            ans = math.inf \n            curNode = trie\n            for j in range(i, n):\n                curNode = curNode.children.get(target[j], None)\n                if not curNode:\n                    break \n                ans = min(ans, curNode.cost + dp(j + 1))\n            return ans \n        \n        ans = dp(0)\n        return ans if ans < math.inf else -1\n                \n",
+    "submit_ts": "1720323637",
+    "subm_id": "1312380381"
+}

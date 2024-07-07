@@ -1,0 +1,6 @@
+{
+    "username": "ConstantineJin",
+    "submission": "type pair struct {\n\tword string\n\tcost int\n}\n\nfunc minimumCost(target string, words []string, costs []int) int {\n\tvar start [26][]pair\n\tfor i, word := range words {\n\t\tstart[word[0]-'a'] = append(start[word[0]-'a'], pair{word, costs[i]})\n\t}\n\tn := len(target)\n\tmem := make([]int, n)\n\tvar dfs func(i int) int\n\tdfs = func(i int) int {\n\t\tif i == n {\n\t\t\treturn 0\n\t\t}\n\t\tif mem[i] != 0 {\n\t\t\treturn mem[i]\n\t\t}\n\t\tif len(start[target[i]-'a']) == 0 {\n\t\t\tmem[i] = -1\n\t\t\treturn -1\n\t\t}\n\t\tres := math.MaxInt\n\t\tdefer func() { mem[i] = res }()\n\t\tfor _, p := range start[target[i]-'a'] {\n\t\t\tword, cost := p.word, p.cost\n\t\t\tif i+len(word) <= n && word == target[i:i+len(word)] {\n\t\t\t\tv := dfs(i + len(word))\n\t\t\t\tif v == -1 {\n\t\t\t\t\tcontinue\n\t\t\t\t}\n\t\t\t\tres = min(res, v+cost)\n\t\t\t}\n\t\t}\n\t\tif res == math.MaxInt {\n\t\t\tres = -1\n\t\t}\n\t\treturn res\n\t}\n\treturn dfs(0)\n}",
+    "submit_ts": "1720323794",
+    "subm_id": "1312384211"
+}

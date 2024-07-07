@@ -1,0 +1,6 @@
+{
+    "username": "appi147",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [float(inf) for _ in range(n + 1)]\n        d = {}\n        for word, cost in zip(words, costs):\n            if word not in d or cost < d[word]:\n                d[word] = cost\n        dp[0] = 0\n        # for i in range(n):\n        #     if dp[i] < float(inf):\n        #         for j in range(i + 1, n + 1):\n        #             word = target[i:j]\n        #             if word in d:\n        #                 dp[j] = min(dp[j], dp[i] + d[word])\n        for i in range(n):\n            if dp[i] < inf:\n                for word, cost in d.items():\n                    # Check if the word can be placed at position i in target\n                    if target.startswith(word, i):\n                        dp[i + len(word)] = min(dp[i + len(word)], dp[i] + cost)\n        # print(dp)\n        return dp[n] if dp[n] < float('inf') else -1\n",
+    "submit_ts": "1720321872",
+    "subm_id": "1312334542"
+}

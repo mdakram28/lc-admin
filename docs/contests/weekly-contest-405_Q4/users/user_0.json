@@ -1,0 +1,6 @@
+{
+    "username": "hazzler",
+    "submission": "class Solution {\n    struct node{\n        int cst;\n        unordered_map <char, node*> nxt;\n        node(): cst(1e9) {}\n    };\npublic:\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        node* t = new node();\n        for (int i = 0; i < words.size(); ++i){\n            string s = words[i];\n            node* cur = t;\n            for (auto &c: s){\n                if (cur->nxt.find(c) == cur->nxt.end()){\n                    cur->nxt[c] = new node();\n                }\n                cur = cur->nxt[c];\n            }\n            cur->cst = min(cur->cst, costs[i]);\n        }\n        int n = target.size();\n        vector <int> dp(n, 1e9);\n        for (int i = 0; i < n; ++i){\n            node* cur = t;\n            for (int j = i; j < n; ++j){\n                if (cur->nxt.find(target[j]) == cur->nxt.end()){\n                    break;\n                }\n                cur = cur->nxt[target[j]];\n                dp[j] = min(dp[j], (i ? dp[i - 1] : 0) + cur->cst);\n            }\n        }\n        return dp.back() == 1e9 ? -1 : dp.back();\n    }\n};",
+    "submit_ts": "1720320161",
+    "subm_id": "1312285206"
+}

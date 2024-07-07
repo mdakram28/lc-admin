@@ -1,0 +1,6 @@
+{
+    "username": "akar28",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n\n        # Create a dictionary to map words to their costs\n        word_cost_map = {}\n        for word, cost in zip(words, costs):\n            if word not in word_cost_map or word_cost_map[word] > cost:\n                word_cost_map[word] = cost\n\n        # Iterate over the target string\n        for i in range(n):\n            if dp[i] == float('inf'):\n                continue\n            for word, cost in word_cost_map.items():\n                if target.startswith(word, i):\n                    dp[i + len(word)] = min(dp[i + len(word)], dp[i] + cost)\n\n        return dp[n] if dp[n] != float('inf') else -1",
+    "submit_ts": "1720322013",
+    "subm_id": "1312338368"
+}

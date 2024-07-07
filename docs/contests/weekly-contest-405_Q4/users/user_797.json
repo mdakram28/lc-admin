@@ -1,0 +1,6 @@
+{
+    "username": "LouisCheng",
+    "submission": "import sys\nfrom collections import defaultdict\nclass TrieNode:\n    def __init__(self):\n        self.children = defaultdict(lambda: TrieNode())\n        self.cost = sys.maxsize\n        self.has_children = False\n        \nclass Solution:\n    def minimumCost(self, target: str, words, costs) -> int:\n        root = TrieNode()\n        for i in range(len(words)):\n            copy = root\n            for j in range(len(words[i])):\n                copy.has_children = True\n                copy = copy.children[words[i][j]]\n            copy.cost = min(costs[i], copy.cost)\n            \n        dp = [-1] * (len(target) + 1)\n        dp[0] = 0\n        for i in range(len(dp)):\n            if dp[i] == -1: continue\n            copy = root\n            for j in range(i, len(target)):\n                if not copy.has_children: break\n                copy = copy.children[target[j]]\n                if copy.cost != sys.maxsize: dp[j + 1] = min(dp[i] + copy.cost, (dp[j + 1] if dp[j + 1] != -1 else sys.maxsize))\n        \n        return dp[-1]\n\n# print(Solution().minimumCost(\"abcdef\",[\"abdef\",\"abc\",\"d\",\"def\",\"ef\"],[100,1,1,10,5]))",
+    "submit_ts": "1720322592",
+    "subm_id": "1312353994"
+}

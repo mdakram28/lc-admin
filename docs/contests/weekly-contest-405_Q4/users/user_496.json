@@ -1,0 +1,6 @@
+{
+    "username": "alianyu",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        wordMap = {}\n        for j in range(0, len(words)):\n            if words[j] not in wordMap:\n                wordMap[words[j]] = costs[j]\n            else:\n                if wordMap[words[j]] > costs[j]:\n                    wordMap[words[j]] = costs[j]\n        words = []\n        costs = []\n        for key in wordMap:\n            words.append(key)\n            costs.append(wordMap[key])\n\n        n = len(target)\n        dp = [-1] * (n+1)\n        dp[0] = 0\n        for i in range(1, n+1):\n            pos = i-1\n            if dp[pos] >= 0:\n                for j in range(0, len(words)):\n                    word = words[j]\n                    if len(word) + pos <= n:\n                        if dp[i+len(word)-1] == -1:\n                            if target[pos: (pos + len(word))] == word:\n                                dp[i+len(word)-1] = dp[pos] + costs[j]\n                        elif dp[i+len(word)-1] > dp[pos] + costs[j]:\n                            if target[pos: (pos + len(word))] == word:\n                                dp[i+len(word)-1] = dp[pos] + costs[j]\n        return dp[n]\n\n",
+    "submit_ts": "1720321982",
+    "subm_id": "1312337550"
+}

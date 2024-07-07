@@ -1,0 +1,6 @@
+{
+    "username": "nikov101",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie_func = lambda: collections.defaultdict(trie_func)\n        trie = trie_func()\n\n        for idx, w in enumerate(words):\n            tree = trie\n            for c in w:\n                tree = tree[c]\n            tree[\".\"] = min(tree[\".\"] if \".\" in tree else inf, costs[idx])\n        \n        @functools.cache\n        def dfs(idx):\n            if idx == len(target):\n                return 0\n            \n            res = inf\n            tree = trie\n            for i in range(idx, len(target)):\n                if target[i] not in tree:\n                    break\n                tree = tree[target[i]]\n                if \".\" in tree:\n                    cost = tree[\".\"]\n                    res = min(res, cost + dfs(i+1))\n            return res\n\n        cost = dfs(0)\n        return cost if cost != inf else -1\n\n\n\n",
+    "submit_ts": "1720323602",
+    "subm_id": "1312379555"
+}

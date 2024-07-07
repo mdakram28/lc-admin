@@ -1,0 +1,6 @@
+{
+    "username": "timetoai",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        Trie = lambda: collections.defaultdict(Trie)\n        root = Trie()\n        for word, cost in zip(words, costs):\n            node = root\n            for ch in word:\n                node = node[ch]\n            if \"cost\" not in node:\n                node[\"cost\"] = inf\n            node[\"cost\"] = min(node[\"cost\"], cost)\n        \n        @cache\n        def go(i):\n            if i == len(target):\n                return 0\n            node = root\n            res = math.inf\n            while i < len(target) and target[i] in node:\n                node = node[target[i]]\n                i += 1\n                if \"cost\" in node:\n                    res = min(res, node[\"cost\"] + go(i))\n            if i == len(target) and \"cost\" in node:\n                res = min(res, node[\"cost\"])\n            return res\n        \n        ret = go(0)\n        return ret if ret != math.inf else - 1\n        ",
+    "submit_ts": "1720320485",
+    "subm_id": "1312295565"
+}

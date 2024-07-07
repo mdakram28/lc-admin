@@ -1,0 +1,6 @@
+{
+    "username": "nguyenchicuong",
+    "submission": "class TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.word_cost = 10**10\n\ndef build_trie(words, costs):\n    root = TrieNode()\n    for i, word in enumerate(words):\n        node = root\n        for char in word:\n            if char not in node.children:\n                node.children[char] = TrieNode()\n            node = node.children[char]\n        node.word_cost = min(node.word_cost, costs[i])\n    return root\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [10**10] * (n+1)\n        dp[0] = 0\n        trie = build_trie(words, costs)\n\n        for i in range(n):\n            if dp[i] == 10**10:\n                continue\n            node = trie\n            for j in range(i, n):\n                if target[j] not in node.children:\n                    break\n                node = node.children[target[j]]\n                if node.word_cost != 10**10:\n                    dp[j + 1] = min(dp[j + 1], dp[i] + node.word_cost)\n\n        return dp[n] if dp[n] != 10**10 else -1\n        \n\"\"\"\ntarget = \"r\"\nwords = [\"r\",\"r\",\"r\",\"r\"]\ncosts = [1,6,3,3]\n\n-> 1\n\n\"\"\"",
+    "submit_ts": "1720323861",
+    "subm_id": "1312385799"
+}

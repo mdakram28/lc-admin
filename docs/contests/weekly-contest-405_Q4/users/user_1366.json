@@ -1,0 +1,6 @@
+{
+    "username": "ashutosh_leetcode_",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        target_length = len(target)\n        num_words = len(words)\n\n        word_costs = {}\n        for index, word in enumerate(words):\n            word_costs[word] = min(word_costs.get(word, float('inf')), costs[index])\n\n        dp = [float('inf')] * (target_length + 1)\n        dp[0] = 0\n\n        i = 1\n        while i <= target_length:\n            for word in word_costs:\n                word_length = len(word)\n                if i >= word_length and target[i - word_length:i] == word:\n                    dp[i] = min(dp[i], dp[i - word_length] + word_costs[word])\n            i += 1\n\n        return dp[target_length] if dp[target_length] != float('inf') else -1",
+    "submit_ts": "1720323131",
+    "subm_id": "1312368056"
+}

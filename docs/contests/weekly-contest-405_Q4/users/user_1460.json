@@ -1,0 +1,6 @@
+{
+    "username": "myee9",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        \n        w = defaultdict(lambda: inf)\n\n        for word, cost in zip(words, costs):\n            w[word] = min(w[word], cost) \n\n        dic = defaultdict(list)\n\n        for word, cost in w.items():\n            dic[word[-1]].append((cost, word))\n        @lru_cache(None)\n        def dp(i):\n            if i == 0:\n                return 0\n            temp = inf\n            ch = target[i-1]\n            for cost, word in dic[ch]:\n                n = len(word)\n                if word == target[i-n: i]:\n                    temp = min(temp, cost + dp(i-n))\n            return temp\n        \n        res = dp(len(target))\n        return res if res < inf else -1",
+    "submit_ts": "1720323657",
+    "subm_id": "1312380900"
+}

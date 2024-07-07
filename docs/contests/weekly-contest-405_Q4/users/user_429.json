@@ -1,0 +1,6 @@
+{
+    "username": "keylovett",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        \n        d = {}\n        for i in range(len(words)):\n            d[words[i]] = min(d.get(words[i], float('inf')), costs[i]) \n\n        words = [k for k in d.keys()]\n        costs = [v for v in d.values()]\n        \n        \n        @cache\n        def dp(j):\n            if j==len(target):\n                return 0\n\n            isvalid = False\n            res = float('inf')\n            for i in range(len(words)):\n                n = len(words[i])\n                if n<=len(target)-j and target[j:n+j]==words[i]:\n                    isvalid =True\n                    res = min(res, costs[i]+dp(n+j))\n            if not isvalid:\n                return float('inf')\n\n            return res\n        res = dp(0)\n        return res if res!=float('inf') else -1\n\n\n",
+    "submit_ts": "1720322133",
+    "subm_id": "1312341605"
+}

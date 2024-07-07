@@ -1,0 +1,6 @@
+{
+    "username": "uzairfassi",
+    "submission": "from typing import List\nfrom collections import defaultdict\n\nclass TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.cost = float('inf')\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        # Build Trie\n        root = TrieNode()\n        for word, cost in zip(words, costs):\n            node = root\n            for char in word[::-1]:  # Insert words in reverse\n                if char not in node.children:\n                    node.children[char] = TrieNode()\n                node = node.children[char]\n            node.cost = min(node.cost, cost)\n        \n        m = len(target)\n        dp = [float('inf')] * (m + 1)\n        dp[0] = 0\n        \n        for i in range(1, m + 1):\n            node = root\n            for j in range(i - 1, -1, -1):\n                if target[j] not in node.children:\n                    break\n                node = node.children[target[j]]\n                if node.cost < float('inf'):\n                    dp[i] = min(dp[i], dp[j] + node.cost)\n        \n        return dp[m] if dp[m] < float('inf') else -1",
+    "submit_ts": "1720323130",
+    "subm_id": "1312368035"
+}

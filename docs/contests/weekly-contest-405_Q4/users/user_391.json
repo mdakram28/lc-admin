@@ -1,0 +1,6 @@
+{
+    "username": "sanya21561",
+    "submission": "class Node:\n    def __init__(self):\n        self.cost = float('inf') \n        self.child = defaultdict()\nclass Trie:\n    def __init__(self):\n        self.root = Node()\n    def insert(self, word, cost):\n        node = self.root\n        for char in word:\n            if char in node.child:\n                 node = node.child[char]\n            else:\n                node.child[char] = Node()\n                node = node.child[char]\n        if cost < node.cost:\n            node.cost = cost\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        tr = Trie()\n        for w, c in zip(words, costs):\n            tr.insert(w, c)\n        dp = [0] + [float('inf')]*(len(target))\n        for i in range(len(target)):\n            if dp[i] == float('inf'):\n                continue\n            node = tr.root\n            for j in range(i, len(target)):\n                if target[j] not in node.child:\n                    break\n                node = node.child[target[j]]\n                if dp[i] + node.cost < dp[j + 1]:\n                    dp[j + 1] =dp[i] + node.cost\n        if dp[len(target)] != float('inf'):\n            return dp[len(target)] \n        return -1",
+    "submit_ts": "1720322012",
+    "subm_id": "1312338352"
+}

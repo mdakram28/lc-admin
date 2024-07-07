@@ -1,0 +1,6 @@
+{
+    "username": "ShenTM",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        T = lambda: defaultdict(T)\n        trie = T()\n        cache = defaultdict()\n        def helper(i, target):\n            if (target, i) in cache:\n                return cache[(target, i)]\n            # print(i, now, best_ans)\n            if i == len(target):\n                return 0\n            tmp = trie\n            ans = float(\"inf\")\n            for j in range(i, len(target)):\n                if target[j] not in tmp:\n                    break\n                tmp = tmp[target[j]]\n                if \"end\" in tmp:\n                    ans = min(ans, helper(j + 1, target) + tmp[\"end\"])\n            cache[(target, i)] = ans\n            return ans\n\n        ww = sorted(list(zip(costs, words)))\n        for cost, word in ww:\n            if helper(0, word) <= cost:\n                continue\n            cache = defaultdict()\n            tmp = trie\n            for c in word:\n                tmp = tmp[c]\n            tmp[\"end\"] = min(tmp.get(\"end\", float(\"inf\")), cost)\n\n        ans = helper(0, target)\n        # print(ans, target, trie)\n        return ans if ans != float(\"inf\") else -1",
+    "submit_ts": "1720322542",
+    "subm_id": "1312352696"
+}

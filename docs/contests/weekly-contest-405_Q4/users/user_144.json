@@ -1,0 +1,6 @@
+{
+    "username": "tyler__",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        INF = float('inf')\n        trie = {}\n        for i,word in enumerate(words):\n            cur = trie\n            for letter in word:\n                if letter not in cur:\n                    cur[letter] = {}\n                cur = cur[letter]\n            if '$' in cur:\n                cur['$'] = min(cur['$'],costs[i])\n            else:\n                cur['$'] = costs[i]\n        \n        dp = [INF]*(len(target)+1)\n        dp[0]=0\n        for i in range(len(target)):\n            if dp[i]==INF: continue\n            cur = trie\n            j=0\n            while i+j<len(target):\n                if target[i+j] not in cur: break\n                cur = cur[target[i+j]]\n                if '$' in cur:\n                    dp[i+j+1] = min(dp[i+j+1],dp[i]+cur['$'])\n                j+=1\n        if dp[-1]==INF:\n            return -1\n        return dp[-1]\n        ",
+    "submit_ts": "1720321224",
+    "subm_id": "1312316977"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "theeeeeeekhai",
+    "submission": "class TrieNode {\npublic:\n    TrieNode* next[26];\n    bool eow = false;\n    int cost = INT_MAX;\n};\n\nvoid insert(TrieNode* root, string& word, int cost) {\n    for(char c: word) {\n        if(root -> next[c - 'a'] == NULL)\n            root -> next[c - 'a'] = new TrieNode();\n        root = root -> next[c - 'a'];\n    }\n    root -> eow = true;\n    root -> cost = min(root -> cost, cost);\n}\n\nint dp[50001];\n\nint solve(string& s, int i, TrieNode* root) {\n    if(i == s.size()) return 0;\n    if(dp[i] != -1) return dp[i];\n    int ans = 1e9;\n    TrieNode* temp = root;\n    for(int j = i; j < s.size(); j++) {\n        if(temp -> next[s[j] - 'a'] == NULL) break;\n        temp = temp -> next[s[j] - 'a'];\n        if(temp -> eow) ans = min(ans, solve(s, j + 1, root) + temp -> cost);\n    }\n    return dp[i] = ans;\n}\n\nclass Solution {\npublic:\n    int minimumCost(string s, vector<string>& words, vector<int>& costs) {\n        memset(dp, -1, sizeof(dp));\n        int n = words.size();\n        TrieNode *root = new TrieNode();\n        for(int i = 0; i < n; i++) {\n            insert(root, words[i], costs[i]);\n        }\n        int ans = solve(s, 0, root);\n        if(ans >= 1e9) ans = -1;\n        return ans;\n    }\n};",
+    "submit_ts": "1720321160",
+    "subm_id": "1312315186"
+}

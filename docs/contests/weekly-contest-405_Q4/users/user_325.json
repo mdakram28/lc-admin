@@ -1,0 +1,6 @@
+{
+    "username": "Haoyu1025",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        word_cost_map = {}\n        for word, cost in zip(words, costs):\n            if word in word_cost_map:\n                word_cost_map[word] = min(word_cost_map[word], cost)\n            else:\n                word_cost_map[word] = cost\n\n        words = list(word_cost_map.keys())\n        costs = list(word_cost_map.values())\n        @cache\n        def dfs(i):\n            if i == n:\n                return 0\n            res = float('inf')\n            for j, word in enumerate(words):\n                if i + len(word) <= n and word == target[i: i + len(word)]:\n                    res = min(costs[j] + dfs(i + len(word)), res)\n            return res\n        return dfs(0) if dfs(0) != float('inf') else -1",
+    "submit_ts": "1720321224",
+    "subm_id": "1312316960"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "jkgrind",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        \n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0  # No cost to form an empty string\n\n        # Precompute word positions and costs\n        word_positions = {}\n        for index, word in enumerate(words):\n            cost = costs[index]\n            if word in word_positions:\n                # Only keep the smallest cost for each word\n                word_positions[word] = min(word_positions[word], cost)\n            else:\n                word_positions[word] = cost\n\n        for i in range(n):\n            if dp[i] == float('inf'):\n                continue  # Skip if no valid solution to reach this point\n            for word, cost in word_positions.items():\n                end = i + len(word)\n                if end <= n and target[i:end] == word:\n                    dp[end] = min(dp[end], dp[i] + cost)\n\n        return dp[n] if dp[n] != float('inf') else -1\n        ",
+    "submit_ts": "1720324470",
+    "subm_id": "1312400306"
+}

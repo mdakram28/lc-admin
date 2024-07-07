@@ -1,0 +1,6 @@
+{
+    "username": "ocavue",
+    "submission": "from typing import List\nfrom functools import cache\n\nTRIE_END = \"#\"\n\nMAX_INT = 1 << 62\n\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        root = {TRIE_END: MAX_INT}\n        for word, cost in zip(words, costs):\n            node = root\n            for char in word:\n                if char not in node:\n                    node[char] = {TRIE_END: MAX_INT}\n                node = node[char]\n            node[TRIE_END] = min(node[TRIE_END], cost)\n\n        n = len(target)\n\n        @cache\n        def dfs(i: int):\n            if i >= n:\n                return 0\n\n            node = root\n\n            best = MAX_INT\n\n            for j in range(i, n):\n                char = target[j]\n\n                if char not in node:\n                    break\n\n                node = node[char]\n                if node[TRIE_END] < MAX_INT:\n                    best = min(best, node[TRIE_END] + dfs(j + 1))\n\n            return best\n\n        result = dfs(0)\n        if result >= MAX_INT:\n            return -1\n        return result\n",
+    "submit_ts": "1720320862",
+    "subm_id": "1312306699"
+}

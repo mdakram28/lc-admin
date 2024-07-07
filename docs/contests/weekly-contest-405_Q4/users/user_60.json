@@ -1,0 +1,6 @@
+{
+    "username": "kyuukyuusha",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = {}\n        def ins_trie(s: str, i: int, w: int, root: dict):\n            if i == len(s):\n                if \"__val__\" not in root:\n                    root[\"__val__\"] = w\n                root[\"__val__\"] = min(root[\"__val__\"], w)\n            if i >= len(s): return\n            if s[i] not in root: root[s[i]] = {}\n            ins_trie(s, i+1, w, root[s[i]])\n        for i, w in enumerate(words):\n            ins_trie(w, 0, costs[i], trie)\n        # print(trie)\n        \n        n = len(target)\n        dp = [10**12 for i in range(n+1)]\n        def dfs_trie(i: int, acc: int, root: dict):\n            # print(i, acc, root)\n            if \"__val__\" in root:\n                dp[i] = min(dp[i], acc + root[\"__val__\"])\n            \n            if i >= n: return\n            c = target[i]\n            if c in root:\n                dfs_trie(i+1, acc, root[c])\n        dp[0] = 0\n        for i in range(n):\n            dfs_trie(i, dp[i], trie)\n        if dp[-1] >= 10**12: dp[-1] = -1\n        \n        return dp[-1]",
+    "submit_ts": "1720320801",
+    "subm_id": "1312304910"
+}

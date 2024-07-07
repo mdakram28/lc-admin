@@ -1,0 +1,6 @@
+{
+    "username": "osxyz",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        \n        tt = {}\n        mx = max(costs)\n        def add(w, c):\n            r = tt\n            for x in w:\n                if x not in r:\n                    r[x] = {}\n                r = r[x]\n            r['$'] = min(r.get('$', mx), c)\n        \n        for w, c in zip(words, costs):\n            add(w, c)\n        \n        n = len(target)\n\n        @cache\n        def sol(i):\n            if i == n: \n                return 0\n            r = tt\n            res = -1\n            for j in range(i, n):\n                x = target[j]\n                if x not in r:\n                    return res\n                r = r[x]\n                if '$' in r and sol(j+1)>=0:\n                    res1 = r['$'] + sol(j+1)\n                    res = min(res, res1) if res!=-1 else res1\n            return res\n        \n        return sol(0)\n            \n\n\n         ",
+    "submit_ts": "1720321863",
+    "subm_id": "1312334325"
+}

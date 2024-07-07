@@ -1,0 +1,6 @@
+{
+    "username": "dirigibility",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = {}\n        for word,cost in zip(words,costs):\n            spot = trie\n            for c in word:\n                spot = spot.setdefault(c,{})\n            spot['.'] = min(spot.get('.',inf),cost)\n        n = len(target)\n        dist = [inf]*(n+1)\n        dist[0] = 0\n        heap = [(0,0)]\n        visited = [False]*(n+1)\n        while heap:\n            di,i = heappop(heap)\n            if i == n:\n                return di\n            if visited[i]:\n                continue\n            visited[i] = True\n            spot = trie\n            k = i\n            while k < len(target) and target[k] in spot:\n                spot = spot[target[k]]\n                k += 1\n                if '.' in spot:\n                    if not visited[k] and (dk := spot['.']+di) < dist[k]:\n                        dist[k] = dk\n                        heappush(heap,(dk,k))\n        return -1\n    \n\n    \n    \n    \n    \n    \n    \n    \n    ",
+    "submit_ts": "1720321284",
+    "subm_id": "1312318657"
+}

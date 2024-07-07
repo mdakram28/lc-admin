@@ -1,0 +1,6 @@
+{
+    "username": "sampleaccountpage",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        # maybe make unique words\n\n        trie = {}\n\n        for w, cost in zip(words , costs):\n            cur = trie\n            for c in w:\n                if c not in cur:\n                    cur[c] = {}\n                cur = cur[c]\n            if \".\" not in cur or cur[\".\"] > cost:\n                cur[\".\"] = cost\n\n        n = len(target)\n        # print(trie)\n\n        @cache\n        def dfs(i):\n            if i == n:\n                return 0\n            cur_min = sys.maxsize\n            cur = trie\n            for end in range(i, n):\n                if target[end] not in cur:\n                    break\n                cur = cur[target[end]]\n                if '.' in cur:\n                     cur_min = min(cur_min, cur['.'] + dfs(end + 1))\n            return cur_min\n\n        min_cost = dfs(0)\n\n        return min_cost if min_cost != sys.maxsize else -1\n",
+    "submit_ts": "1720322304",
+    "subm_id": "1312346286"
+}

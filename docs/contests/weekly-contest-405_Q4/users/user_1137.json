@@ -1,0 +1,6 @@
+{
+    "username": "steChen",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        dp = [-1] * (len(target) + 1)\n        word_dict = {}\n        for i in range(len(words)):\n            if words[i] not in word_dict:\n                word_dict[words[i]] = costs[i]\n            else:\n                word_dict[words[i]] = min(word_dict[words[i]], costs[i])\n        # print(word_dict)\n        dp[len(target)] = 0\n        for i in range(len(target) - 1, -1, -1):\n            for w, c in word_dict.items():\n                if (i + len(w) <= len(target)) and target[i:i+len(w)] == w:\n                    # print(i, dp[0])\n                    if dp[i + len(w)] != -1:\n                        if dp[i] != -1:\n                            dp[i] = min(dp[i], dp[i + len(w)] + c)\n                        else:\n                            dp[i] = dp[i + len(w)] + c\n        # print(dp)\n        return dp[0]\n",
+    "submit_ts": "1720323532",
+    "subm_id": "1312377872"
+}

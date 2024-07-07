@@ -1,0 +1,6 @@
+{
+    "username": "quasicompact",
+    "submission": "class BT{\npublic:\n\tint val;\n\tunordered_map<char,BT*> chld;\n\tBT(){\n\t\tval = INT_MAX;\n\t}\n};\n\nclass Solution {\npublic:\n\tvoid f1(int n, int i, const string & target, BT *mybt, vector<int> &mc){\n\t\t// printf(\"%d %d %d %d\\n\",n,i,(int) (mybt->chld).size(), mybt->val);\n\t\tif(n+1 < mc.size() && mybt->val != INT_MAX && n+1 >= i && mc[n+1-i] != INT_MAX){mc[n+1] = min(mc[n+1],mc[n+1-i]+mybt->val);}\n\t\tfor(auto &[key,val] : mybt->chld){\n\t\t\tif(n-i >= 0 && key == target[n-i]){\n\t\t\t\tf1(n,i+1,target,val,mc);\n\t\t\t}\n\t\t}\n\t}\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        BT *mybt = new BT();\n\t\tfor(int n=0;n<words.size();n++){\n\t\t\tBT *k = mybt;\n\t\t\tfor(int i=words[n].size()-1;i>=0;i--){\n\t\t\t\tif((k->chld)[words[n][i]] == nullptr){(k->chld)[words[n][i]] = new BT();}\n\t\t\t\tk = (k->chld)[words[n][i]];\n\t\t\t}\n\t\t\tk->val = min(k->val,costs[n]);\n\t\t}\n\t\tvector<int> mc(target.size()+1,INT_MAX);\n\t\tmc[0] = 0;\n\t\tfor(int n=0;n<target.size();n++){\n\t\t\tf1(n,0,target,mybt,mc);\n\t\t}\n\t\t// for(int i=0;i<mc.size();i++){printf(\"mc[%d] = %d\\n\",i,mc[i]);}\n\t\treturn (mc.back() == INT_MAX ? -1 : mc.back());\n    }\n};\n",
+    "submit_ts": "1720323640",
+    "subm_id": "1312380440"
+}

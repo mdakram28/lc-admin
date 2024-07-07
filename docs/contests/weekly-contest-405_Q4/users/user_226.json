@@ -1,0 +1,6 @@
+{
+    "username": "laxaji9999",
+    "submission": "from typing import List\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        m = len(words)\n        \n        # Create a dictionary to store each word with its minimum cost\n        wc = {}\n        for i, w in enumerate(words):\n            wc[w] = min(wc.get(w, float('inf')), costs[i])\n            \n        # Initialize dp array with infinity\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n        \n        # Fill dp array\n        for i in range(1, n + 1):\n            for w in wc:\n                if i >= len(w) and target[i-len(w):i] == w:\n                    dp[i] = min(dp[i], dp[i-len(w)] + wc[w])\n        \n        # Return minimum cost to form target or -1 if not possible\n        return dp[n] if dp[n] != float('inf') else -1\n",
+    "submit_ts": "1720321506",
+    "subm_id": "1312324682"
+}

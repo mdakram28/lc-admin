@@ -1,0 +1,6 @@
+{
+    "username": "k-zakisan",
+    "submission": "import heapq\nfrom collections import defaultdict\nINF = float('inf')\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        min_costs = {}\n        for i, word in enumerate(words):\n            if word not in min_costs:\n                min_costs[word] = costs[i]\n            else:\n                min_costs[word] = min(min_costs[word], costs[i])\n        n = len(target)\n\n        dp = [INF] * (n + 1)\n        dp[0] = 0\n        for i in range(n):\n            if dp[i] == INF:\n                continue\n            for word, cost in min_costs.items():\n                if target.startswith(word, i):\n                    dp[i + len(word)] = min(dp[i + len(word)], dp[i] + cost)\n\n        return dp[-1] if dp[-1] != INF else -1\n\n",
+    "submit_ts": "1720324111",
+    "subm_id": "1312391855"
+}

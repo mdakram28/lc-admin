@@ -1,0 +1,6 @@
+{
+    "username": "dsharma44",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = {}\n        dp = {}\n        for i, word in enumerate(words):\n            curr = trie\n            for ch in word:\n                if ch not in curr:\n                    curr[ch] = {}\n                curr = curr[ch]\n            if -1 in curr:\n                curr[-1] = min(curr[-1], costs[i])\n            else:\n                curr[-1] = costs[i]\n        def recurseMin(i):\n            if i in dp:\n                return dp[i]\n            if i == len(target):\n                return 0\n            j = i\n            res = float('inf')\n            curr = trie\n            while j < len(target):\n                if -1 in curr:\n                    res = min(res, recurseMin(j)+curr[-1])\n                if target[j] not in curr:\n                    break\n                curr = curr[target[j]]\n                j += 1\n            else:\n                if -1 in curr:\n                    res = min(res, recurseMin(j)+curr[-1])\n            dp[i] = res\n            return res\n        res = recurseMin(0)\n        return -1 if res == float('inf') else res",
+    "submit_ts": "1720322685",
+    "subm_id": "1312356443"
+}

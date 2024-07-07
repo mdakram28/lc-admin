@@ -1,0 +1,6 @@
+{
+    "username": "seedalink60",
+    "submission": "class Trie:\n    def __init__(self):\n        self.score = math.inf\n        self.node = defaultdict(Trie)\n\nclass Solution:\n    def minimumCost(self, t: str, v: List[str], cs: List[int]) -> int:\n        trie = Trie()\n\n        for w,cost in zip(v,cs):\n            cur = trie\n            for c in reversed(w):\n                cur = cur.node[c]\n            cur.score = min(cur.score, cost)\n\n        dp = [math.inf for _ in range(len(t))]\n\n        for i in range(len(t)):\n            j = i\n            cur = trie\n            while j >= 0 and t[j] in cur.node:\n                cur = cur.node[t[j]]\n                j-=1\n                if cur.score!=0 and j >= 0 and dp[j] != math.inf:\n                    dp[i] = min(dp[i], dp[j] + cur.score)\n            if j==-1 and cur.score != 0:\n                dp[i] = min(dp[i], cur.score)\n\n        # print(dp)\n\n        return dp[-1] if dp[-1] != math.inf else -1\n\n",
+    "submit_ts": "1720323198",
+    "subm_id": "1312369734"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Mohith2203",
+    "submission": "class Trie\n{\n    public:\n    Trie *l[26]={};\n    int cost=1e9;\n    bool isL=false;\n    void insert(string s,int x)\n    {\n        Trie *p=this;\n        for(int i=0;i<s.size();i++)\n        {\n            if(!p->l[s[i]-'a'])\n                p->l[s[i]-'a']=new Trie();\n            p=p->l[s[i]-'a'];\n        }\n        p->isL=true;\n        p->cost=min(p->cost,x);\n    }\n};\nclass Solution {\npublic:\n    int minimumCost(string& s, vector<string>& words, vector<int>& costs) {\n        Trie *p=new Trie();\n        for(int i=0;i<costs.size();i++)\n            p->insert(words[i],costs[i]);\n        int n=s.size();\n        vector<int> dp(n+1,1e9);\n        dp[0]=0;\n        for(int i=1;i<=s.size();i++)\n        {\n            if(dp[i-1]!=1e9)\n            {\n                int j=i;\n                Trie *x=p;\n                while(j<=s.size()&&x&&x->l[s[j-1]-'a'])\n                {\n                    x=x->l[s[j-1]-'a'];\n                    if(x->isL)\n                    {\n                        dp[j]=min(dp[j],dp[i-1]+x->cost);\n                    }\n                    j++;\n                }\n            }\n        }\n        if(dp.back()==1e9)dp.back()=-1;\n        return dp.back();\n            \n    }\n};",
+    "submit_ts": "1720322559",
+    "subm_id": "1312353126"
+}

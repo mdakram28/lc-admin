@@ -1,0 +1,6 @@
+{
+    "username": "liu686",
+    "submission": "class Trie:\n    def __init__(self):\n        self.root = {}\n    def add(self, x, cost):\n        cur = self.root\n        for c in x:\n            if c not in cur:\n                cur[c] = {}\n            cur = cur[c]\n        if \"#\" not in cur or cur[\"#\"] > cost:\n            cur[\"#\"] = cost\n   \n        \nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        t = Trie()\n        for i in range(len(words)):\n            t.add(words[i], costs[i])\n        n = len(target)\n        @cache\n        def dfs(i):\n            nonlocal target, t, n\n            if i == n:\n                return 0\n            else:\n                best = math.inf\n                cur = t.root\n                for idx in range(i, n):\n                    #print(idx)\n                    if target[idx] not in cur:\n                        break\n                    if \"#\" in cur[target[idx]]:\n                        best = min(best, cur[target[idx]][\"#\"] + dfs(idx + 1))\n                    \n                    cur = cur[target[idx]]\n                return best\n        res = dfs(0)\n        if res == math.inf:\n            return -1\n        else:\n            return res\n",
+    "submit_ts": "1720321560",
+    "subm_id": "1312326134"
+}

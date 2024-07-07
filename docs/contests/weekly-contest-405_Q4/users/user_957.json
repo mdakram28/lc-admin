@@ -1,0 +1,6 @@
+{
+    "username": "PROTechThor",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        minCost = {}\n        for i in range(len(words)):\n            w, c = words[i], costs[i]\n            if w in minCost:\n                minCost[w] = min(minCost[w], c)\n            else:\n                minCost[w] = c\n        groups = defaultdict(list)\n        for k in minCost:\n            word = k\n            c = minCost[k]\n            groups[word[0]].append((word, c, len(word)))\n\n        @cache\n        def find(idx):\n            if idx >= len(target):\n                return 0\n            res = math.inf\n            for w in groups[target[idx]]:\n                word, c, l = w\n                ss = target[idx:idx+l]\n                if word == ss:\n                    res = min(res, c + find(idx+l))\n            return res\n        \n        val = find(0)\n        return val if val != math.inf else -1\n        ",
+    "submit_ts": "1720322554",
+    "subm_id": "1312353016"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "nenya",
+    "submission": "/**\n * @param {string} target\n * @param {string[]} words\n * @param {number[]} costs\n * @return {number}\n */\n\nclass TrieNode {\n    constructor() {\n        this.children = {};\n        this.wordIndices = [];\n    }\n}\nvar minimumCost = function(target, words, costs) {\n    const n = target.length;\n    const dp = new Array(n + 1).fill(Infinity);\n    dp[0] = 0;\n    \n    // Build trie\n    const root = new TrieNode();\n    for (let i = 0; i < words.length; i++) {\n        let node = root;\n        for (const char of words[i]) {\n            if (!node.children[char]) {\n                node.children[char] = new TrieNode();\n            }\n            node = node.children[char];\n        }\n        node.wordIndices.push(i);\n    }\n    \n    for (let i = 0; i < n; i++) {\n        if (dp[i] === Infinity) continue;\n        \n        let node = root;\n        for (let j = i; j < n; j++) {\n            const char = target[j];\n            if (!node.children[char]) break;\n            node = node.children[char];\n            for (const wordIndex of node.wordIndices) {\n                dp[j + 1] = Math.min(dp[j + 1], dp[i] + costs[wordIndex]);\n            }\n        }\n    }\n    \n    return dp[n] === Infinity ? -1 : dp[n];\n};",
+    "submit_ts": "1720322546",
+    "subm_id": "1312352817"
+}

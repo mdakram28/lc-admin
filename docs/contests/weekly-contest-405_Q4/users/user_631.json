@@ -1,0 +1,6 @@
+{
+    "username": "intelliCode",
+    "submission": "class Solution:\n    def minimumCost(self, T: str, W: List[str], C: List[int]) -> int:\n        lT = len(T)\n\n        for i in range(len(W))[::-1]:\n            if W[i] not in T:\n                W.pop(i)\n                C.pop(i)\n        if not W:       return -1\n\n        f = lambda: defaultdict(f)\n        D = f()\n        \n        for w,c in zip(W, C):\n            DNext = D\n            for ch in w:\n                # print (w,ch)\n                DNext = DNext[ch]\n            DNext['~'] = min(DNext['~'], c) if '~' in DNext else c\n\n        # print (D.keys())\n\n        @cache\n        def sub(l):\n            if l>=lT:       return 0\n\n            retV = inf\n            DNext = D\n            r = l\n            while r<lT and T[r] in DNext:\n                # print ((l,lT), r)\n                DNext = DNext[T[r]]\n                r += 1\n                if '~' in DNext:\n                    retV = min(retV, DNext['~'] + sub(r))\n            return retV\n\n        return sub(0) if sub(0)<inf else -1\n",
+    "submit_ts": "1720322275",
+    "subm_id": "1312345450"
+}

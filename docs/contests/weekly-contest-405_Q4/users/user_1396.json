@@ -1,0 +1,6 @@
+{
+    "username": "mqin5",
+    "submission": "class Trie:\n    def __init__(self):\n        self.root = {}\n    \n    def add(self, word, cost):\n        curr = self.root\n        for c in word:\n            if c not in curr:\n                curr[c] = {\"isWord\": False, \"cost\": float(\"inf\")}\n            curr = curr[c]\n        curr[\"isWord\"] = True\n        curr[\"cost\"] = min(curr[\"cost\"], cost)\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = Trie()\n        for word, cost in zip(words, costs):\n            trie.add(word, cost)\n\n        dp = [0] * (len(target) + 1)\n        for i in range(len(target) - 1, -1, -1):\n            best = float('inf')\n            curr = trie.root\n            for j in range(i, len(target)):\n                if target[j] not in curr:\n                    break\n                curr = curr[target[j]]\n                if curr[\"isWord\"]:\n                    best = min(best, curr[\"cost\"] + dp[j + 1])\n            dp[i] = best\n\n        return dp[0] if dp[0] < float('inf') else -1\n",
+    "submit_ts": "1720322887",
+    "subm_id": "1312361713"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "kkpp",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = {}\n        \n        for i, w in enumerate(words):\n            root = trie\n            for l in w:\n                if l not in root:\n                    root[l] = {}\n                root = root[l]\n            \n            root['isEnd'] = True\n            if 'cost' in root:\n                root['cost'] = min(costs[i], root['cost'])\n            else:\n                root['cost'] = costs[i]\n        \n        \n        @cache\n        def dp(i):\n            if i == len(target):\n                return 0\n            \n            res = float('inf')\n            \n            root = trie\n            \n            for j in range(i, len(target)):\n                if target[j] not in root:\n                    break\n                root = root[target[j]]\n                if 'isEnd' in root:\n                    res = min(res, root['cost'] + dp(j+1))\n            \n            return res\n        \n        res = dp(0)\n        \n        return res if res != float('inf') else -1\n                \n                \n                \n                \n            \n            \n        \n        ",
+    "submit_ts": "1720324441",
+    "subm_id": "1312399541"
+}

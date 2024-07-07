@@ -1,0 +1,6 @@
+{
+    "username": "karthikcd",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        m = len(words)\n        dp = [sys.maxsize] * (n + 1)\n        dp[0] = 0         \n        word_cost_map = defaultdict(list)\n        for i in range(m):\n            word_cost_map[words[i]].append(costs[i])\n\n        for i in range(1, n+1):       \n            for word, cost in word_cost_map.items():\n                word_len = len(word)\n                if i>=word_len and target[i - word_len:i] == word:\n                    dp[i] = min(dp[i], dp[i - word_len]+min(cost))\n        \n        return dp[n] if dp[n] != sys.maxsize else -1",
+    "submit_ts": "1720323924",
+    "subm_id": "1312387381"
+}

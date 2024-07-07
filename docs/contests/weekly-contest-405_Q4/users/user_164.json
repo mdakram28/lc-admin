@@ -1,0 +1,6 @@
+{
+    "username": "yzkkai",
+    "submission": "class Solution {\npublic:\n    struct Node {\n        int cost = 1e9;\n        Node *nxt[26] = {nullptr};\n    };\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        int n = size(target), m = size(words);\n        Node *root = new Node;\n        for (int i  = 0; i < m; ++i) {\n            Node *cur = root;\n            for (char ch : words[i]) {\n                if (cur->nxt[ch - 'a'] == nullptr)\n                    cur->nxt[ch - 'a'] = new Node;\n                cur = cur->nxt[ch - 'a'];\n            }\n            cur->cost = min(cur->cost, costs[i]);\n        }\n\n        vector<int> dp(n + 1, 1e9);\n        dp[0] = 0;\n        for (int i = 1; i <= n; ++i) {\n            if (dp[i - 1] == 1e9) continue;\n            Node *cur = root;\n            for (int j = i; j <= n; ++j) {\n                if (cur->nxt[target[j - 1] - 'a'] == nullptr) break;\n                cur = cur->nxt[target[j - 1] - 'a'];\n                dp[j] = min(dp[j], dp[i - 1] + cur->cost);\n            }\n        }\n\n        if (dp[n] == 1e9)\n            return -1;\n        return dp[n];\n    }\n};",
+    "submit_ts": "1720321292",
+    "subm_id": "1312318891"
+}

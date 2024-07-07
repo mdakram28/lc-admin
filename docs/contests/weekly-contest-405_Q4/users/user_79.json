@@ -1,0 +1,6 @@
+{
+    "username": "Tinky1224",
+    "submission": "class Trie:\n    def __init__(self):\n        self.d = {}\n        self.end = -1\n    def append(self, word, cost):\n        curr = self\n        for w in word:\n            if w not in curr.d:\n                curr.d[w] = Trie()\n            curr = curr.d[w]\n        if curr.end != -1:\n            curr.end = min(curr.end, cost)\n        else:\n            curr.end = cost\n    def search(self, word, index):\n        curr = self\n        res = []\n        for i in range(index, len(word)):\n            w = word[i]\n            if w not in curr.d:\n                break\n            curr = curr.d[w]\n            if curr.end != -1:\n                res.append((i, curr.end))\n        return res\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        m = len(words)\n        trie = Trie()\n        for word, cost in zip(words, costs):\n            trie.append(word, cost)\n        dp = [-1]*n + [0]\n        for i in range(n):\n            if dp[i-1] != -1:\n                matchs = trie.search(target, i)\n                for j, cost in matchs:\n                    dp[j] = min(948794879487 if dp[j] == -1 else dp[j], dp[i-1] + cost)\n        return dp[n-1]",
+    "submit_ts": "1720320921",
+    "subm_id": "1312308387"
+}

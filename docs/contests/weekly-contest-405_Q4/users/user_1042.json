@@ -1,0 +1,6 @@
+{
+    "username": "unknown53",
+    "submission": "from typing import List\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        h = len(target)\n        p = len(words)\n\n        qe = {}\n        for i, w in enumerate(words):\n            qe[w] = min(qe.get(w, float('inf')), costs[i])\n        \n        dp = [float('inf')] * (h + 1)\n        dp[0] = 0\n\n        for i in range(1, h+1):\n            for w in qe:\n                if i >= len(w) and target[i - len(w):i] == w:\n                    dp[i] = min(dp[i], dp[i - len(w)] + qe[w])\n        \n        return dp[h] if dp[h] != float('inf') else -1",
+    "submit_ts": "1720322944",
+    "subm_id": "1312363272"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "phungthienphuoc",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        m=len(target)\n        Trie={}\n        for i,word in enumerate(words):\n            cur=Trie\n            for x in word:\n                if x not in cur:\n                    cur[x]={}\n                cur=cur[x]\n            if '.' not in cur or costs[cur['.']]>costs[i]:\n                cur['.']=i\n        idx=[[] for _ in range(m)]\n        queue=deque()\n        for i,x in enumerate(target):\n            queue.append(Trie)\n            for _ in range(len(queue)):\n                node=queue.popleft()\n                if x not in node:\n                    continue\n                node=node[x]\n                if '.' in node:\n                    idx[i].append(node['.'])\n                queue.append(node)\n        dp=[inf]*m+[0]\n        for i in range(m):\n            for x in idx[i]:\n                dp[i]=min(dp[i],costs[x]+dp[i-len(words[x])])\n        return dp[m-1] if dp[m-1]<inf else -1",
+    "submit_ts": "1720321277",
+    "subm_id": "1312318457"
+}

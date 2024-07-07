@@ -1,0 +1,6 @@
+{
+    "username": "crocodilehy",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n\n        dic_root = {}\n\n        for word, cost in zip(words, costs):\n            if word in dic_root:\n                dic_root[word] = min(dic_root[word], cost)\n            else:\n                dic_root[word] = cost\n\n        dp = [float('inf')] * (len(target) + 1)\n        dp[0] = 0\n\n        for i in range(1, len(target) + 1):\n            for key in dic_root.keys():\n                n = len(key)\n                if i >= n and target[i-n:i] == key:\n                    dp[i] = min(dp[i], dp[i-n] + dic_root[key])\n\n        return dp[-1] if dp[-1] != float('inf') else -1\n        \n\n",
+    "submit_ts": "1720322374",
+    "subm_id": "1312348176"
+}

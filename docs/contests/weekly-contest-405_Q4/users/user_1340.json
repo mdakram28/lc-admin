@@ -1,0 +1,6 @@
+{
+    "username": "kenchen",
+    "submission": "class Trie:\n    def __init__(self, c):\n        self.c = c\n        self.ch = {}\n        self.co = 10**10\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        T = Trie(\"#\")\n        for w, co in zip(words, costs):\n            root = T\n            for c in w:\n                if c not in root.ch:\n                    root.ch[c] = Trie(\"c\")\n                root = root.ch[c]\n            root.co = min(root.co, co)\n        tl = len(target)\n        @lru_cache(maxsize = None)\n        def getS(t):\n            if t == tl: return 0\n            root = T\n            ans = 10**10\n            for i in range(t, tl):\n                if target[i] not in root.ch:\n                    return ans\n                root = root.ch[target[i]]\n                if root.co<10**9:\n                    ans = min(ans, getS(i+1) + root.co)\n            if root.co<10**9:\n                ans = min(ans,  root.co)\n            return ans\n        ret  = getS(0)\n        #print(getS(\"abdefabc\"))\n        return -1 if ret > 10**9 else ret",
+    "submit_ts": "1720323376",
+    "subm_id": "1312374037"
+}

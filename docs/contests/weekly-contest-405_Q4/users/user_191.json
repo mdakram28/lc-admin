@@ -1,0 +1,6 @@
+{
+    "username": "itzzDevanshusharma",
+    "submission": "class N {\npublic:\n    N* c[26] = {};\n    int w = -1;\n};\n\nclass Solution {\npublic:\n    int minimumCost(string t, vector<string>& w, vector<int>& o) {\n        int n = t.size();\n        N* r = new N();\n        \n        // Build trie\n        for (int i = 0; i < w.size(); ++i) {\n            N* node = r;\n            for (char ch : w[i]) {\n                if (!node->c[ch - 'a']) node->c[ch - 'a'] = new N();\n                node = node->c[ch - 'a'];\n            }\n            if (node->w == -1 || o[i] < o[node->w]) node->w = i;\n        }\n        \n        vector<int> dp(n + 1, INT_MAX);\n        dp[0] = 0;\n        \n        for (int i = 0; i < n; ++i) {\n            if (dp[i] == INT_MAX) continue;\n            N* node = r;\n            for (int j = i; j < n; ++j) {\n                if (!node->c[t[j] - 'a']) break;\n                node = node->c[t[j] - 'a'];\n                if (node->w != -1) {\n                    dp[j + 1] = min(dp[j + 1], dp[i] + o[node->w]);\n                }\n            }\n        }\n        \n        return dp[n] == INT_MAX ? -1 : dp[n];\n    }\n};",
+    "submit_ts": "1720321371",
+    "subm_id": "1312321094"
+}

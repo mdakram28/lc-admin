@@ -1,0 +1,6 @@
+{
+    "username": "abineth",
+    "submission": "class Trie {\npublic:\n    unordered_map<char, Trie*> child;\n    vector<pair<int, int>> wen;\n    Trie() {}\n    void insert(string w,int i,int c) {\n        Trie* ver=this;\n        for(char ch:w) {\n            if(!ver->child.count(ch)) {\n                ver->child[ch]=new Trie();\n            }\n            ver=ver->child[ch];\n        }\n        ver->wen.push_back({i,c});\n    }\n};\nclass Solution {\npublic:\n    int minimumCost(string t, vector<string>& w, vector<int>& c) {\n        int nt=t.size();\n        vector<long long> dp(nt+1,LLONG_MAX);\n        dp[0]=0;\n        Trie* trie=new Trie();\n        for(int i=0;i<w.size();i++) {\n            trie->insert(w[i],i,c[i]);\n        }\n        for(int i=0;i<nt;i++) {\n            if(dp[i]==LLONG_MAX) continue;\n            Trie* ver=trie;\n            for(int j=i;j<nt;j++) {\n                if(!ver->child.count(t[j])) break;\n                ver=ver->child[t[j]];\n                for(auto&[wi,wc]:ver->wen) {\n                    int nw=w[wi].size();\n                    if(i+nw<=nt) {\n                        dp[i+nw]=min(dp[i+nw],dp[i]+wc);\n                    }\n                }\n            }\n        }\n        if(dp[nt]==LLONG_MAX) return -1;\n        return dp[nt];\n    }\n};",
+    "submit_ts": "1720324726",
+    "subm_id": "1312406521"
+}

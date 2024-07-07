@@ -1,0 +1,6 @@
+{
+    "username": "AlaudaeHong",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        cost_dp = [inf for _ in range(len(target)+1)]\n        cost_dp[0] = 0\n\n        cost_dict = defaultdict(lambda: inf)\n        for i in range(len(words)):\n            cost_dict[words[i]] = min(cost_dict[words[i]], costs[i])\n\n        end_c_dict = defaultdict(list)\n        for w in cost_dict:\n            end_c_dict[w[-1]].append(w)\n\n        for i in range(len(target)):\n            # print(\"round\", i)\n            for w in end_c_dict[target[i]]:\n                if len(w)-1 > i:\n                    continue\n                \n                # print(i, target[i+1-len(w):i+1], w)\n\n                if target[i+1-len(w):i+1] == w:\n                    cost_dp[i+1] = min(cost_dp[i+1], cost_dp[i+1-len(w)] + cost_dict[w])\n\n            # print(cost_dp)\n\n        if cost_dp[-1] == inf:\n            return -1\n\n        return cost_dp[-1]",
+    "submit_ts": "1720322247",
+    "subm_id": "1312344719"
+}

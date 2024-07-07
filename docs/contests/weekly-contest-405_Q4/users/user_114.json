@@ -1,0 +1,6 @@
+{
+    "username": "Songhao_SeekingSDEJob",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0  # Cost to form the empty string is 0\n\n        # Create a hash map to store words and their corresponding costs\n        word_cost_map = {}\n        for word, cost in zip(words, costs):\n            if word in word_cost_map:\n                word_cost_map[word] = min(word_cost_map[word], cost)\n            else:\n                word_cost_map[word] = cost\n\n        for i in range(n + 1):\n            if dp[i] == float('inf'):\n                continue  # Skip if this substring can't be formed\n            for word in word_cost_map:\n                word_len = len(word)\n                if i + word_len <= n and target[i:i + word_len] == word:\n                    dp[i + word_len] = min(dp[i + word_len], dp[i] + word_cost_map[word])\n\n        return dp[n] if dp[n] != float('inf') else -1",
+    "submit_ts": "1720320009",
+    "subm_id": "1312279911"
+}

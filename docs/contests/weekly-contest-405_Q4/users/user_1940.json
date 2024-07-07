@@ -1,0 +1,6 @@
+{
+    "username": "GeorgegroeG",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        costMap = {}\n        for i in range(len(words)):\n            if words[i] in costMap:\n                costMap[words[i]] = min(costMap[words[i]], costs[i])\n            else:\n                costMap[words[i]] = costs[i]\n\n        @cache\n        def rec(l: int) -> int:\n            if l == len(target):\n                # Found a matching construction\n                return 0\n            \n            result = 1000000000\n            for word in costMap.keys():\n                if word == target[l:l+len(word)]:\n                    result = min(result, costMap[word] + rec(l+len(word)))\n            # for r in range(l + 1, len(target) + 1):\n            #     if target[l:r] in costMap:\n            #         result = min(result, costMap[target[l:r]] + rec(r))\n            return result\n            \n        result = rec(0)\n        if result == 1000000000:\n            return -1\n        return result\n",
+    "submit_ts": "1720323074",
+    "subm_id": "1312366688"
+}

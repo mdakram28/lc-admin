@@ -1,0 +1,6 @@
+{
+    "username": "SalvadorDali",
+    "submission": "class Trie:\n\n  def __init__(self, words, costs, target):\n    self.trie = {}\n    self.target = target\n\n    data = {}\n    for w, c in zip(words, costs):\n      if w not in data:\n        data[w] = c\n      else:\n        data[w] = min(data[w], c)\n\n    for w, c in data.items():\n      self.add(w, c)\n\n  def add(self, word: str, cost: int) -> None:\n    trie = self.trie\n    for c in word + '#':\n      if c not in trie:\n        if c == '#':\n          trie[c] = cost\n        else:\n          trie[c] = {}\n      trie = trie[c]\n\n  def best_cost(self, pos, dp):\n    trie, best_cost = self.trie, float('inf')\n    for i in range(pos, len(self.target)):\n      c = self.target[i]\n      if c not in trie:\n        return best_cost\n\n      trie = trie[c]\n      if '#' in trie:\n        best_cost = min(best_cost, trie['#'] + dp[i + 1])\n\n    return best_cost\n\nclass Solution:\n  def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n    t = Trie(words, costs, target)\n    dp = [float('inf')] * (len(target) + 1)\n    dp[-1] = 0\n\n    for i in range(len(dp) - 2, -1, -1):\n      r = t.best_cost(i, dp)\n      dp[i] = r\n\n    return dp[0] if dp[0] != float('inf') else -1",
+    "submit_ts": "1720323340",
+    "subm_id": "1312373194"
+}

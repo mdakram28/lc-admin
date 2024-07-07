@@ -1,0 +1,6 @@
+{
+    "username": "54chin",
+    "submission": "use std::collections::HashMap;\n\nimpl Solution {\n    pub fn minimum_cost(target: String, words: Vec<String>, costs: Vec<i32>) -> i32 {\n        let target: Vec<char> = target.chars().collect();\n        let n = target.len();\n        let mut dp = vec![i32::MAX; n + 1];\n        dp[0] = 0;\n        \n        let mut word_map: HashMap<Vec<char>, i32> = HashMap::new();\n        for (word, &cost) in words.iter().zip(costs.iter()) {\n            let chars: Vec<char> = word.chars().collect();\n            word_map.entry(chars)\n                .and_modify(|e| *e = (*e).min(cost))\n                .or_insert(cost);\n        }\n        \n        for i in 1..=n {\n            for (word, &cost) in &word_map {\n                if i >= word.len() && target[i - word.len()..i] == word[..] {\n                    let prev = dp[i - word.len()];\n                    if prev != i32::MAX {\n                        dp[i] = dp[i].min(prev + cost);\n                    }\n                }\n            }\n        }\n        \n        if dp[n] == i32::MAX { -1 } else { dp[n] }\n    }\n}",
+    "submit_ts": "1720324615",
+    "subm_id": "1312403857"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "lukeiscoding",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        d = defaultdict(lambda: sys.maxsize)\n        for i, c in enumerate(words):\n            d[c] = min(d[c], costs[i])\n        dp = [sys.maxsize] * (n + 1)\n        dp[0] = 0\n        dd = sorted(d.items(), key=lambda x: len(x[0]))\n        for i in range(n):\n            if dp[i] < sys.maxsize:\n                for c, cost in dd:\n                    cur = len(c)\n                    if i + cur > n: break\n                    if target[i:i + cur] == c:\n                        dp[i + cur] = min(dp[i + cur], dp[i] + cost)\n        return dp[n] if dp[n] != sys.maxsize else -1",
+    "submit_ts": "1720322284",
+    "subm_id": "1312345716"
+}

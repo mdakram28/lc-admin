@@ -1,0 +1,6 @@
+{
+    "username": "iN_siDious",
+    "submission": "class Trie:\n    def __init__(self):\n        self.children={}\n        self.cost=0\n        self.end=0\n        \nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n,m=len(target),len(words)\n        root=Trie()\n        mp={}\n        for i in range(m): mp[words[i]]=min(mp.get(words[i],sys.maxsize),costs[i])\n        for word in mp:\n            temp=root\n            for c in word:\n                if c not in temp.children: temp.children[c]=Trie()\n                temp=temp.children[c]\n            temp.end=1\n            temp.cost=mp[word]\n        @cache\n        def dp(idx):\n            if idx==n: return 0\n            temp,ans=root,sys.maxsize\n            for i in range(idx,n):\n                c=target[i]\n                if c not in temp.children: break\n                temp=temp.children[c]\n                if temp.end: ans=min(ans,dp(i+1)+temp.cost)\n            return ans\n        res=dp(0)\n        return res if res<sys.maxsize else -1\n                    \n                \n                \n            \n        ",
+    "submit_ts": "1720321383",
+    "subm_id": "1312321423"
+}

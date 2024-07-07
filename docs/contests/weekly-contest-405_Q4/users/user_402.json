@@ -1,0 +1,6 @@
+{
+    "username": "wwwap",
+    "submission": "/**\n * @param {string} target\n * @param {string[]} words\n * @param {number[]} costs\n * @return {number}\n */\nvar minimumCost = function (target, words, costs) {\n  const root = new TrieNode()\n  for (let i = 0; i < words.length; i++) {\n    let node = root\n    for (let c of words[i]) {\n      if (!node.children.has(c)) {\n        node.children.set(c, new TrieNode())\n      }\n      node = node.children.get(c)\n    }\n    node.wordCosts.push([words[i].length, costs[i]])\n  }\n\n  const n = target.length\n  const dp = new Array(n + 1).fill(Number.MAX_SAFE_INTEGER)\n  dp[0] = 0\n\n  for (let i = 0; i < n; i++) {\n    if (dp[i] === Number.MAX_SAFE_INTEGER) continue\n    let node = root\n    for (let j = i; j < n; j++) {\n      const c = target[j]\n      if (!node.children.has(c)) break\n      node = node.children.get(c)\n      for (const [len, cost] of node.wordCosts) {\n        if (i + len <= n) {\n          dp[i + len] = Math.min(dp[i + len], dp[i] + cost)\n        }\n      }\n    }\n  }\n\n  return dp[n] === Number.MAX_SAFE_INTEGER ? -1 : dp[n]\n}\n\nclass TrieNode {\n  constructor() {\n    this.children = new Map()\n    this.wordCosts = []\n  }\n}\n",
+    "submit_ts": "1720322342",
+    "subm_id": "1312347348"
+}

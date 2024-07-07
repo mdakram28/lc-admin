@@ -1,0 +1,6 @@
+{
+    "username": "anhlinh123",
+    "submission": "class Solution {\npublic:\n    struct Trie {\n        array<unique_ptr<Trie>,26> m;\n        long long cost = 1000000000;\n    };\n\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        Trie trie;\n        for (int i = 0; i < words.size(); i++) {\n            auto&& w = words[i];\n            auto t = &trie;\n            for (auto&& c : w) {\n                if (!t->m[c-'a'])\n                    t->m[c-'a'] = make_unique<Trie>();\n                t = t->m[c-'a'].get();\n            }\n            t->cost = min(t->cost, (long long)costs[i]);\n        }\n        vector<long long> mincost(target.size() + 1, 1000000000);\n        mincost[0] = 0;\n        for (int i = 0; i < target.size(); i++) {\n            if (mincost[i] >= 1000000000)\n                continue;\n            auto t = &trie;\n            auto j = i;\n            while (j < target.size()) {\n                if (!t->m[target[j]-'a']) break;\n                t = t->m[target[j]-'a'].get();\n                mincost[j+1] = min(mincost[j+1], t->cost + mincost[i]);\n                j++;\n            }\n        }\n        return mincost.back() >= 1000000000 ? -1 : mincost.back();\n    }\n};",
+    "submit_ts": "1720324409",
+    "subm_id": "1312398790"
+}

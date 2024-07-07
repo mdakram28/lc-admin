@@ -1,0 +1,6 @@
+{
+    "username": "pahadixpanda",
+    "submission": "from typing import List\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        s = len(words)\n        h = len(target)\n        flag=True\n        atak = {}\n        for i, w in enumerate(words):\n            flag=True\n            atak[w] = min(atak.get(w, float('inf')), costs[i])\n        \n        t=[float('inf')]*(h + 1)\n        t[0] = 0\n        \n        for i in range(1,h+ 1):\n            for l in atak:\n                flag=True\n                if i >= len(l) and target[i - len(l):i] == l:\n                    flag=False\n                    t[i] = min(t[i], t[i - len(l)] + atak[l])\n        \n        return t[h] if t[h] != float('inf') else -1\n        ",
+    "submit_ts": "1720323912",
+    "subm_id": "1312387073"
+}

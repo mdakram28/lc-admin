@@ -1,0 +1,6 @@
+{
+    "username": "_Fake4Fun",
+    "submission": "const int N = 5e4 + 4;\nclass Solution {\npublic:\n    int n, trie[26][N], dp[N];\n    int val[N];\n    int id = 0;\n    int m;\n    \n    void mini(int &a, int b) {\n        if (a <= 0 || a > b) a = b;\n    }\n    \n    void addTrie(string s, int v) {\n        int cur = 0;\n        for (char c : s) {\n            int z = c - 'a';\n            if (!trie[z][cur]) trie[z][cur] = ++id;\n            cur = trie[z][cur];\n        }\n        mini(val[cur], v);\n    }\n    \n    void DFS(string &str, int u) {\n        int st = dp[u];\n        int cur = 0;\n        while (u < m) {\n            if (!trie[str[u] - 'a'][cur]) return;\n            cur = trie[str[u] - 'a'][cur];\n            ++u;\n            if (val[cur]) mini(dp[u], st + val[cur]);\n        }\n    }\n    \n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        m = target.size();\n        fill(dp + 1, dp + m + 1, -1);\n        n = words.size();\n        for (int i = 0; i < n; i++) addTrie(words[i], costs[i]);\n        for (int i = 0; i < m; i++) {\n            // cout << dp[i] << ' ';\n            if (dp[i] != -1) DFS(target, i);\n        }\n        // cout << '\\n';\n        return dp[m];\n    }\n};",
+    "submit_ts": "1720320699",
+    "subm_id": "1312302098"
+}

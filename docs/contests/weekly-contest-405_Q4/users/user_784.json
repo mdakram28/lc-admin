@@ -1,0 +1,6 @@
+{
+    "username": "Ridh123",
+    "submission": "class TrieNode {\n    val c = mutableMapOf<Char, TrieNode>()\n    var t = Int.MAX_VALUE\n}\n\nclass Trie {\n    val r = TrieNode()\n    \n    fun i(w: String, t: Int) {\n        var n = r\n        for (ch in w) {\n            if (!n.c.containsKey(ch)) {\n                n.c[ch] = TrieNode()\n            }\n            n = n.c[ch]!!\n        }\n        n.t = kotlin.math.min(n.t, t)\n    }\n}\n\nclass Solution {\n    fun minimumCost(t: String, w: Array<String>, c: IntArray): Int {\n        val n = t.length\n        val tr = Trie()\n        for (i in w.indices) {\n            tr.i(w[i], c[i])\n        }\n        \n        val d = IntArray(n + 1) { Int.MAX_VALUE }\n        d[0] = 0\n        \n        for (i in 0 until n) {\n            if (d[i] == Int.MAX_VALUE) continue\n            var node = tr.r\n            for (j in i until n) {\n                if (!node.c.containsKey(t[j])) break\n                node = node.c[t[j]]!!\n                if (node.t != Int.MAX_VALUE) {\n                    d[j + 1] = kotlin.math.min(d[j + 1], d[i] + node.t)\n                }\n            }\n        }\n        \n        return if (d[n] == Int.MAX_VALUE) -1 \n        else d[n]\n    }\n}\n",
+    "submit_ts": "1720322469",
+    "subm_id": "1312350761"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "megurine",
+    "submission": "p = random.getrandbits(64)\nr = 131\nps = [1]\nfor _ in range(int(5e5)):\n    ps.append(ps[-1] * r % p)\n\ninf = int(1e18)\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        h = [0]\n        n = len(target)\n        for i, x in enumerate(target):\n            h.append((h[-1] * r + ord(x)) % p)\n        mn = {}\n        for s, v in zip(words, costs):\n            tmp = 0\n            for x in s:\n                tmp = (tmp * r + ord(x)) % p\n            if tmp in mn:\n                mn[tmp] = min(mn[tmp], v)\n            else:\n                mn[tmp] = v\n        b = list(set(map(len, words)))\n        b.sort()\n        f = [0] + [inf] * n\n        for i in range(1, n + 1):\n            for l in b:\n                if i < l:\n                    break\n                if f[i - l] == inf:\n                    continue\n                tmp = h[i] - h[i - l] * ps[l]\n                tmp %= p\n                if tmp in mn:\n                    nv = f[i - l] + mn[tmp]\n                    if nv < f[i]:\n                        f[i] = nv\n        return -1 if f[n] == inf else f[n]",
+    "submit_ts": "1720321796",
+    "subm_id": "1312332520"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "ranjithreddy-31",
+    "submission": "from typing import List\nimport heapq\nfrom collections import defaultdict\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        word_costs = defaultdict(list)\n        for word, cost in zip(words, costs):\n            word_costs[word[0]].append((word, cost))\n\n        n = len(target)\n        heap = [(0, 0)]  # (cost, index)\n        best_cost = [float('inf')] * (n + 1)\n        best_cost[0] = 0\n\n        while heap:\n            cost, index = heapq.heappop(heap)\n            if index == n:\n                return cost\n            if cost > best_cost[index]:\n                continue\n\n            for word, word_cost in word_costs[target[index]]:\n                end = index + len(word)\n                if end <= n and target[index:end] == word:\n                    new_cost = cost + word_cost\n                    if new_cost < best_cost[end]:\n                        best_cost[end] = new_cost\n                        heapq.heappush(heap, (new_cost, end))\n\n        return -1",
+    "submit_ts": "1720323906",
+    "subm_id": "1312386913"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "yahoo010206",
+    "submission": "MAX = float(\"inf\")\nclass Tire:\n    def __init__(self):\n        self.cost = MAX\n        self.child = {}\n    def set_cost(self, word, idx, cost):\n        if len(word)==idx:\n            self.cost = min(self.cost, cost)\n            return\n        if word[idx] not in self.child:\n            self.child[word[idx]] = Tire()\n        self.child[word[idx]].set_cost(word, idx+1, cost)\n    def set_dp(self, target, idx, pre, dp):\n        # print(target, idx, pre, dp, self.child)\n        if self.cost!=MAX:\n            dp[idx] = min(pre+self.cost, dp[idx])\n        if idx<len(target) and target[idx] in self.child:\n            self.child[target[idx]].set_dp(target, idx+1, pre, dp)\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        tire = Tire()\n        for w, c in zip(words,costs):\n            tire.set_cost(w, 0, c)\n        dp = [MAX]*(len(target)+1)\n        dp[0] = 0\n        for idx in range(len(target)):\n            if dp[idx]!=MAX:\n                tire.set_dp(target, idx, dp[idx], dp)\n\n        # print(tire.child)\n        return -1 if dp[-1]==MAX else dp[-1]\n    ",
+    "submit_ts": "1720321647",
+    "subm_id": "1312328518"
+}

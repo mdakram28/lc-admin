@@ -1,0 +1,6 @@
+{
+    "username": "kewwwww",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        words_set = set(words)\n        words_cost = {}\n        for w,c in zip(words,costs):\n            if w in words_cost:\n                words_cost[w] = min(words_cost[w], c)\n            else:\n                words_cost[w] = c\n                \n        n = len(target)\n        dp = [inf]*(n+1)\n        \n        # base case\n        for w in words_set:\n            if target[:len(w)] == w:\n                dp[len(w)] = words_cost[w]\n        \n        # step\n        for i in range(n):\n            if dp[i] == inf: continue\n            for w in words_set:\n                if i + len(w) > n: continue\n                if target[i:i+len(w)] == w:\n                    dp[i+len(w)] = min(dp[i+len(w)], words_cost[w] + dp[i])\n        return dp[-1] if dp[-1] != inf else -1",
+    "submit_ts": "1720322298",
+    "subm_id": "1312346099"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "sky1429",
+    "submission": "class Node:\n    def __init__(self):\n        self.ends = inf\n        self.next = {}\n\ndef add(node, word, cost):\n    for i in range(len(word)):\n        if word[i] not in node.next:\n            node.next[word[i]] = Node()\n        node = node.next[word[i]]\n    node.ends = min(node.ends, cost)\n    return\n\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        root = Node()\n        for i in range(len(words)):\n            add(root, words[i], costs[i])\n        \n        @cache\n        def rec(ind):\n            if ind == len(target):\n                return 0\n            ans = inf\n            node = root\n            for i in range(ind, len(target)):\n                if target[i] in node.next:\n                    node = node.next[target[i]]\n                    if node.ends != inf:\n                        ans = min(ans, node.ends + rec(i + 1))\n                else:\n                    break\n            return ans\n        \n        ans = rec(0)\n        if ans == inf:\n            return -1\n        return ans\n            ",
+    "submit_ts": "1720322073",
+    "subm_id": "1312339984"
+}

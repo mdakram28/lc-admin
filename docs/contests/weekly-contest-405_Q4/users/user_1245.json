@@ -1,0 +1,6 @@
+{
+    "username": "akbc",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        Trie = lambda : defaultdict(Trie)\n        trie = Trie()\n\n        for i,w in enumerate(words):\n            v = reduce(dict.__getitem__,w,trie)\n            if '#' not in v:\n                v['#'] = (len(w),costs[i])\n            else:\n                prec = v['#'][1]\n                v['#'] = (len(w),min(prec,costs[i]))\n        \n        def _search(i,curr,i0):\n            if '#' in curr:\n                l,c = curr['#']\n                dp[i0] = min(dp[i0], c + dp[i0 + l])\n            if i == n or target[i] not in curr:\n                return\n            _search(i+1,curr[target[i]],i0)\n        \n        n = len(target)\n        \n        dp = [inf] * (n + 1)\n        dp[n] = 0\n        for i in range(n-1,-1,-1):\n            _search(i,trie,i)\n        ans = dp[0]\n        return ans if ans < inf else -1",
+    "submit_ts": "1720322873",
+    "subm_id": "1312361310"
+}

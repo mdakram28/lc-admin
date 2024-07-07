@@ -1,0 +1,6 @@
+{
+    "username": "rroushan14",
+    "submission": "class Solution {\npublic:\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        int n = target.size();\n        vector<int> dp(n + 1, INT_MAX);\n        dp[0] = 0;  \n\n        unordered_map<string, int> wordCostMap;\n        for (int i = 0; i < words.size(); ++i) {\n            if (wordCostMap.find(words[i]) == wordCostMap.end()) {\n                wordCostMap[words[i]] = costs[i];\n            } else {\n                wordCostMap[words[i]] = min(wordCostMap[words[i]], costs[i]);\n            }\n        }\n\n        for (int i = 0; i < n; ++i) {\n            if (dp[i] == INT_MAX) continue;  \n\n            for (const auto& [word, cost] : wordCostMap) {\n                int wordLength = word.length();\n                if (i + wordLength <= n && target.compare(i, wordLength, word) == 0) {\n                    dp[i + wordLength] = min(dp[i + wordLength], dp[i] + cost);\n                }\n            }\n        }\n\n        return dp[n] == INT_MAX ? -1 : dp[n];\n    }\n};",
+    "submit_ts": "1720322595",
+    "subm_id": "1312354060"
+}

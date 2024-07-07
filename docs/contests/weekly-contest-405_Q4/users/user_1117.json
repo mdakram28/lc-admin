@@ -1,0 +1,6 @@
+{
+    "username": "vbshubham",
+    "submission": "from typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        price = {}\n        for cost, word in sorted(zip(costs, words), key = lambda x: -x[0]):\n            price[word] = cost\n        # print(len(price))\n        # return 0\n        \n        min_cost = defaultdict(lambda: inf)\n        min_cost[0] = 0\n        target_length = len(target)\n        \n        for j in range(1, target_length + 1):\n            v = inf\n            for p,c in price.items():\n                if target[j-len(p):j] == p:\n                    min_cost[j] = min(min_cost[j], c+min_cost[j-len(p)])\n        \n        return min_cost[target_length] if min_cost[target_length] <inf else -1",
+    "submit_ts": "1720322889",
+    "subm_id": "1312361779"
+}

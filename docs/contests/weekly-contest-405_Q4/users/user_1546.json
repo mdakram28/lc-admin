@@ -1,0 +1,6 @@
+{
+    "username": "iib2021043",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        mp = {}\n        for word, cost in zip(words, costs):\n            if word in mp:\n                mp[word] = min(mp[word], cost)\n            else:\n                mp[word] = cost\n                \n        dp = [1000000000] * (n + 1)\n        dp[0] = 0\n        \n        for i in range(1, n + 1):\n            for word in mp:\n                if i >= len(word):\n                    if target[i - len(word) : i] == word:\n                        dp[i] = min(dp[i], dp[i - len(word)] + mp[word])\n            \n        return dp[n] if dp[n] != 1000000000 else -1",
+    "submit_ts": "1720323555",
+    "subm_id": "1312378408"
+}

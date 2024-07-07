@@ -1,0 +1,6 @@
+{
+    "username": "SpellMyName",
+    "submission": "class Solution {\npublic:\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        int n = target.length();\n        vector<long long> dp(n + 1, LLONG_MAX);\n        dp[0] = 0;\n        \n        // Create a hash map for faster word lookup and to handle duplicate words\n        unordered_map<string, int> wordCost;\n        for (int i = 0; i < words.size(); ++i) {\n            if (wordCost.find(words[i]) == wordCost.end() || costs[i] < wordCost[words[i]]) {\n                wordCost[words[i]] = costs[i];\n            }\n        }\n        \n        for (int i = 1; i <= n; i++) {\n            for (const auto& [word, cost] : wordCost) {\n                int len = word.length();\n                if (i >= len && target.compare(i - len, len, word) == 0) {\n                    if (dp[i - len] != LLONG_MAX) {\n                        long long newCost = dp[i - len] + cost;\n                        if (newCost < dp[i]) {\n                            dp[i] = newCost;\n                        }\n                    }\n                }\n            }\n        }\n        \n        return dp[n] == LLONG_MAX ? -1 : dp[n];\n    }\n};",
+    "submit_ts": "1720321146",
+    "subm_id": "1312314768"
+}

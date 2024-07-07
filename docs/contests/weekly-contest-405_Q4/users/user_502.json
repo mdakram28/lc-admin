@@ -1,0 +1,6 @@
+{
+    "username": "manetsus",
+    "submission": "class node:\n    def __init__(self):\n        self.child = [None]*26\n        self.end = False\n        self.cost = 10**9\n            \n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        root = node()\n\n        def insert(r,w,c):\n            cur = r\n            for x in w:\n                if cur.child[ord(x)-ord('a')] is None:\n                    cur.child[ord(x)-ord('a')] = node()\n                cur = cur.child[ord(x)-ord('a')]\n            cur.end = True\n            cur.cost = min(c,cur.cost)\n        \n        for x,y in zip(words,costs):\n            insert(root,x,y)\n\n        n = len(target)\n\n        dp = [-1]*n\n\n        def traverse(r,w):\n            if w == n: return 0\n            if dp[w] != -1: return dp[w]\n            cur = r\n            ret = 10**9\n            for i in range(w,n):\n                if cur.child[ord(target[i])-ord('a')] is None:\n                    break\n                cur = cur.child[ord(target[i])-ord('a')]\n                if cur.end:\n                    ret = min(ret,cur.cost+traverse(r,i+1) )\n            dp[w] = ret\n            return ret\n\n        ret = traverse(root,0)\n        if ret >= 10**9: return -1\n        return ret",
+    "submit_ts": "1720322292",
+    "subm_id": "1312345959"
+}

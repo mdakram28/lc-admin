@@ -1,0 +1,6 @@
+{
+    "username": "ntcie",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        sorted_words_costs = sorted(zip(words, costs), key=lambda x: x[1], reverse=True)\n        words, costs = zip(*sorted_words_costs)\n        class Node:\n            def __init__(self):\n                self.child = {}\n                self.cost = None\n        def insertkey(trie, word, cost):\n            node = trie\n            for c in word:\n                if c not in node.child:\n                    node.child[c] = Node()\n                node = node.child[c]\n            node.cost = cost\n        N = len(target)\n        M = len(words)\n        trie = Node()\n        for i in range(M):\n            insertkey(trie, words[i], costs[i])\n        inf = 1e9\n        dp = [inf] * (N+1)\n        dp[0] = 0\n        for i in range(N):\n            if dp[i] != inf:\n                node = trie\n                for j in range(i, N):\n                    if target[j] not in node.child:\n                        break\n                    node = node.child[target[j]]\n                    if node.cost is not None:\n                        dp[j+1] = min(dp[j+1], dp[i]+node.cost)\n        return dp[N] if dp[N] != inf else -1",
+    "submit_ts": "1720323478",
+    "subm_id": "1312376539"
+}

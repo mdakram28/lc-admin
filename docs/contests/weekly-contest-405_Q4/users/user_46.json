@@ -1,0 +1,6 @@
+{
+    "username": "zsq007",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = {}\n        for word, cost in zip(words, costs):\n            node = trie\n            for c in word:\n                if c not in node:\n                    node[c] = {}\n                node = node[c]\n            if '#' not in node or cost < node['#']:\n                node['#'] = cost\n        \n        n = len(target)\n        dp = [inf]*n + [0]\n        for i in range(n-1,-1,-1):\n            j, node = i, trie\n            while j < n and target[j] in node:\n                node = node[target[j]]\n                if '#' in node:\n                    dp[i] = min(dp[i], dp[j+1]+node['#'])\n                j += 1\n        return dp[0] if dp[0] < inf else -1",
+    "submit_ts": "1720321007",
+    "subm_id": "1312310895"
+}

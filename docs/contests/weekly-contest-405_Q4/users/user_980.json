@@ -1,0 +1,6 @@
+{
+    "username": "swiperthefox",
+    "submission": "class Trie:\n    def __init__(self):\n        self.root = {}\n        \n    def insert(self, w, cost):\n        cur = self.root\n        for c in w:\n            cur = cur.setdefault(c, {})\n        if '#' not in cur:\n            cur['#'] = cost\n        else:\n            cur['#'] = min(cost, cur['#'])\n    \n    def search(self, s, start):\n        cur = self.root\n        while start < len(s) and s[start] in cur:\n            cur = cur[s[start]]\n            if '#' in cur:\n                yield start+1, cur['#']\n            start += 1\n        \nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = Trie()\n        for w, cost in zip(words, costs):\n            trie.insert(w, cost)\n        # print(trie)\n        inf = float('inf')\n        best = [inf]*(len(target)+1)\n        best[0] = 0\n        for start in range(len(target)):\n            for p, c in trie.search(target, start):\n                best[p] = min(best[p], best[start] + c)\n                # print(p, c, best)\n        return -1 if best[-1] == inf else best[-1]",
+    "submit_ts": "1720323193",
+    "subm_id": "1312369605"
+}

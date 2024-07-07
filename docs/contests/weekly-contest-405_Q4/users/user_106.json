@@ -1,0 +1,6 @@
+{
+    "username": "Keetode",
+    "submission": "class Trie:\n    def __init__(self):\n        self.trie = {}\n        self.cost = math.inf\n\n    def add(self,w, cost):\n        node = self\n\n        for c in w:\n            if c not in node.trie:\n                node.trie[c] = Trie()\n\n            node = node.trie[c]\n\n        node.cost = min(node.cost, cost)\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = Trie()\n        n = len(words)\n        for i in range(n):\n            trie.add(words[i], costs[i])\n\n        m = len(target)\n        dp = [None] * (m+1)\n\n        dp[0] = 0\n\n        for i in range(m):\n            if dp[i] is None:\n                continue\n\n            j = i\n            node = trie\n\n            while j < m and target[j] in node.trie:\n                node = node.trie[target[j]]\n\n                if node.cost < math.inf:\n                    dp[j+1] = min(dp[j+1] if dp[j+1] is not None else math.inf, dp[i] + node.cost)\n                j += 1\n\n        return dp[m] if dp[m] is not None else -1",
+    "submit_ts": "1720321386",
+    "subm_id": "1312321486"
+}

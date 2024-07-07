@@ -1,0 +1,6 @@
+{
+    "username": "cy171",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        def insert( word, cost):\n            node = tree\n            for c in word:\n                if c not in node:\n                    node[c] = {\"#\":-1}\n                node = node[c]\n            if node[\"#\"] == -1:\n                node[\"#\"] = cost\n            else:\n                node[\"#\"] = min(node[\"#\"], cost)\n        @lru_cache(None)\n        def dp(idx):\n            if idx == len(target):\n                return 0\n            node = tree\n            res = float(\"inf\")\n            for i in range(idx, len(target)):\n                w = target[i]\n                if w not in node:\n                    break\n                node = node[w]\n                if node[\"#\"] >= 0:\n                    res = min(res, node[\"#\"] + dp(i+1))\n            return res\n\n        tree = {}\n        for a, b in zip(words, costs):\n            insert(a, b)\n        ans = dp(0)\n        return ans if ans < float(\"inf\") else -1\n        ",
+    "submit_ts": "1720321171",
+    "subm_id": "1312315498"
+}

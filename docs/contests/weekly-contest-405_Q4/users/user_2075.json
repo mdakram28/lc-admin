@@ -1,0 +1,6 @@
+{
+    "username": "Harshini_Ramavath",
+    "submission": "from typing import List, Dict, Tuple\nimport sys\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [sys.maxsize] * (n + 1)\n        dp[0] = 0\n\n        word_to_cost = {}\n        for word, cost in zip(words, costs):\n            if word not in word_to_cost or cost < word_to_cost[word]:\n                word_to_cost[word] = cost\n\n        for i in range(1, n + 1):\n            for word, cost in word_to_cost.items():\n                l = len(word)\n                if i >= l and target[i - l:i] == word:\n                    dp[i] = min(dp[i], dp[i - l] + cost)\n        \n        return dp[n] if dp[n] != sys.maxsize else -1\n\n\nsolution = Solution()\nprint(solution.minimumCost(\"abcdef\", [\"abdef\",\"abc\",\"d\",\"def\",\"ef\"], [100, 1, 1, 10, 5])) \nprint(solution.minimumCost(\"aaaa\", [\"z\",\"zz\",\"zzz\"], [1, 10, 100]))  \n",
+    "submit_ts": "1720321792",
+    "subm_id": "1312332414"
+}

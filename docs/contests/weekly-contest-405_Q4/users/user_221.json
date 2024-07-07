@@ -1,0 +1,6 @@
+{
+    "username": "coleworld223",
+    "submission": "const int inf = 2e9;\nstruct node {\n    node* nxt[26] = {NULL};\n    int cst = inf;\n};\n\nclass Solution {\npublic:\n    int minimumCost(string t, vector<string>& w, vector<int>& costs) {\n        node* root = new node();\n        for (int i = 0; i < w.size(); i++) {\n            node* cur = root;\n            for (int j = 0; j < w[i].size(); j++) {\n                if (!cur -> nxt[w[i][j] - 'a']) cur -> nxt[w[i][j] - 'a'] = new node();\n                cur = cur -> nxt[w[i][j] - 'a'];\n            }\n            cur -> cst = min(cur -> cst, costs[i]);\n        }\n        \n        int n = t.size();\n        \n        vector <int> dp (n + 1, inf);\n        dp[0] = 0;\n        for (int i = 0; i < n; i++) {\n            if (dp[i] != inf) {\n                node* cur = root;\n                for (int j = i; j < n; j++) {\n                    if (!cur -> nxt[t[j] - 'a']) break;\n                    cur = cur -> nxt[t[j] - 'a'];\n                    dp[j + 1] = min(dp[j + 1], dp[i] + cur -> cst);\n                }\n            }\n        }\n        if (dp[n] == inf) return -1;\n        return dp[n];\n    }\n};",
+    "submit_ts": "1720321505",
+    "subm_id": "1312324660"
+}

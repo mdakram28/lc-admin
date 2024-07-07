@@ -1,0 +1,6 @@
+{
+    "username": "enigmatic_int",
+    "submission": "from collections import defaultdict\nfrom typing import List\n\nfrom functools import cache\n\n\nclass Solution:\n\n    def create_trie(self, words, costs):\n        t = {}\n        for word, cost in zip(words, costs):\n            temp = t\n            for ch in word:\n                if ch not in temp:\n                    temp[ch] = {}\n                temp = temp[ch]\n            if \"*\" in temp:\n                temp[\"*\"] = min(cost, temp[\"*\"])\n            else:\n                temp[\"*\"] = cost\n        return t\n\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = self.create_trie(words, costs)\n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n        for i in range(n):\n            if dp[i] == float('inf'):\n                continue\n            node = trie\n            for j in range(i, n):\n                if target[j] not in node:\n                    break\n                node = node[target[j]]\n                if '*' in node:\n                    dp[j + 1] = min(dp[j + 1], dp[i] + node['*'])\n        return dp[n] if dp[n] != float('inf') else -1",
+    "submit_ts": "1720323287",
+    "subm_id": "1312371943"
+}

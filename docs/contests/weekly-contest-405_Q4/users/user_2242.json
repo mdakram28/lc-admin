@@ -1,0 +1,6 @@
+{
+    "username": "gauravbk08",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        \n        # Create a dictionary to store minimum cost for each word substring\n        word_cost = defaultdict(int)\n        for i in range(len(words)):\n            word = words[i]\n            cost = costs[i]\n            if len(word) <= n:\n                word_cost[word] = min(word_cost[word], cost) if word in word_cost else cost\n        \n        # Initialize DP array\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n        \n        # Process each position in the target string\n        for i in range(1, n + 1):\n            for word in word_cost:\n                if i >= len(word) and target[i - len(word):i] == word:\n                    dp[i] = min(dp[i], dp[i - len(word)] + word_cost[word])\n        \n        return dp[n] if dp[n] != float('inf') else -1\n",
+    "submit_ts": "1720324764",
+    "subm_id": "1312407597"
+}

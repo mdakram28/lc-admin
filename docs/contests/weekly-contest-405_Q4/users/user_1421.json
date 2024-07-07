@@ -1,0 +1,6 @@
+{
+    "username": "robetkingnz",
+    "submission": "impl Solution {\n    pub fn minimum_cost(target: String, mut words_list: Vec<String>, costs_list: Vec<i32>) -> i32 {\n        let mut words = std::collections::HashMap::new();\n        for (word, cost) in words_list.into_iter().zip(costs_list.into_iter()) {\n            if let Some(cst) = words.get_mut(&word) {\n                *cst = cost.min(*cst);\n            } else {\n                words.insert(word, cost);\n            }\n        }\n        let mut dp = vec![None; target.len()+1];\n        dp[0] = Some(0);\n        for i in 0..dp.len() {\n            if let Some(cst) = dp[i] {\n                for (w, &cst2) in words.iter() {\n                    if i+w.len() <= target.len() && &target[i..i+w.len()] == w {\n                        dp[i+w.len()] = Some(dp[i+w.len()].unwrap_or(i32::MAX).min(cst + cst2));\n                    }\n                }\n            }\n        }\n        dp.last().cloned().unwrap().unwrap_or(-1)\n    }\n}",
+    "submit_ts": "1720323853",
+    "subm_id": "1312385644"
+}

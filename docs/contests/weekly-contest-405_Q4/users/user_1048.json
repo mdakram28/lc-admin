@@ -1,0 +1,6 @@
+{
+    "username": "wirlly8888",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        tree, n = {}, len(target)\n        for word, cost in zip(words, costs):\n            node = tree\n            for char in word:\n                node = node.setdefault(char, {})\n            node_cost = node.setdefault('#', inf)\n            node['#'] = min(node_cost, cost)\n        print(tree)\n        @cache\n        def dfs(idx):\n            if idx == n:\n                return 0\n            node = tree\n            ans = inf\n            while idx < n and target[idx] in node:\n                node = node.setdefault(target[idx], {})\n                idx += 1\n                if '#' in node:\n                    ans = min(ans, node['#'] + dfs(idx))\n            return ans\n        \n        ans = dfs(0)\n        return ans if ans != inf else -1",
+    "submit_ts": "1720323322",
+    "subm_id": "1312372755"
+}

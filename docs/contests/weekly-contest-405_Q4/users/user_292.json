@@ -1,0 +1,6 @@
+{
+    "username": "m10chip",
+    "submission": "\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        # Create a dictionary to store the minimum cost for each word\n        min_cost = defaultdict(lambda: float('inf'))\n        for i in range(len(words)):\n            min_cost[words[i]] = min(min_cost[words[i]], costs[i])\n        \n        # Create a list to store the minimum cost to construct each prefix of the target\n        dp = [float('inf')] * (len(target) + 1)\n        dp[0] = 0  # Cost to construct an empty string is 0\n\n        # Iterate through each position in the target string\n        for i in range(len(target)):\n            if dp[i] == float('inf'):\n                continue  # Skip if this prefix cannot be constructed\n            \n            # Check all possible words that can start at position i\n            for word, cost in min_cost.items():\n                if target.startswith(word, i):\n                    dp[i + len(word)] = min(dp[i + len(word)], dp[i] + cost)\n\n        # The answer is the cost to construct the entire target string\n        return dp[len(target)] if dp[len(target)] != float('inf') else -1\n\n",
+    "submit_ts": "1720321428",
+    "subm_id": "1312322615"
+}

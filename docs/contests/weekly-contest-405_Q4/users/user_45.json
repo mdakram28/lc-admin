@@ -1,0 +1,6 @@
+{
+    "username": "HnBx4Kh21T",
+    "submission": "class rett:\n    def __init__(self):\n        self.children = {}\n        self.is_end_of_word = False\n        self.cost = float('inf')\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        a = rett()\n        for word, cost in zip(words, costs):\n            node = a\n            for char in reversed(word):  \n                if char not in node.children:\n                    node.children[char] = rett()\n                node = node.children[char]\n            node.is_end_of_word = True\n            node.cost = min(node.cost, cost) \n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n        for i in range(1, n + 1):\n            node = a\n            for j in range(i, 0, -1):\n                char = target[j - 1]\n                if char in node.children:\n                    node = node.children[char]\n                    if node.is_end_of_word:\n                        dp[i] = min(dp[i], dp[j - 1] + node.cost)\n                else:\n                    break  \n        return dp[n] if dp[n] != float('inf') else -1\n",
+    "submit_ts": "1720320398",
+    "subm_id": "1312292925"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Leminspector",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [float('inf')]*(n+1)\n        dp[0] = 0\n        \n        best = {}\n        for w, c in zip(words, costs):\n            if w in best: best[w] = min(c, best[w])\n            else: best[w] = c\n                \n        for i in range(1, n+1):\n            for word, cost in best.items():\n                if len(word) <= i and word == target[i-len(word):i]:\n                    dp[i] = min(dp[i], dp[i-len(word)] + cost)\n            \n        return dp[-1] if dp[-1] != float('inf') else -1",
+    "submit_ts": "1720321620",
+    "subm_id": "1312327740"
+}

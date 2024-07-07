@@ -1,0 +1,6 @@
+{
+    "username": "Kyle_Xiongyu",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        # Build the Trie and store the minimum cost for each word\n        trie = {}\n        for i in range(len(words)):\n            word = words[i]\n            cost = costs[i]\n            node = trie\n            for char in word:\n                if char not in node:\n                    node[char] = {}\n                node = node[char]\n            node['$'] = min(node.get('$', float('inf')), cost)\n        \n        @cache\n        def minimumCost_helper(start):\n            if start == len(target):\n                return 0\n            cost = float('inf')\n            node = trie\n            for i in range(start, len(target)):\n                char = target[i]\n                if char not in node:\n                    break\n                node = node[char]\n                if '$' in node:\n                    cost = min(cost, node['$'] + minimumCost_helper(i + 1))\n            return cost\n        \n        ans = minimumCost_helper(0)\n        return int(ans) if ans < float('inf') else -1\n",
+    "submit_ts": "1720323178",
+    "subm_id": "1312369249"
+}

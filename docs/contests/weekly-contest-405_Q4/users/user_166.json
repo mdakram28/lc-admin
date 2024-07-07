@@ -1,0 +1,6 @@
+{
+    "username": "nakanolab",
+    "submission": "from collections import defaultdict\nfrom functools import reduce\n\nclass Solution:\n  def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n    INF = 10**12\n    n = len(target)\n    \n    T = lambda: defaultdict(T)\n    trie = T()\n    d = {}\n    for word, cost in zip(words, costs):\n      if word not in d:\n        d[word] = cost\n      else:\n        d[word] = min(d[word], cost)\n    for word, cost in d.items():\n      reduce(dict.__getitem__, word, trie)['#'] = cost\n    \n    dp = [INF] * (n + 1)\n    dp[0] = 0\n    for i, c in enumerate(target):\n      if dp[i] == INF or c not in trie:\n        continue\n      node = trie\n      j = i\n      while j < n and target[j] in node:\n        node = node[target[j]]\n        if '#' in node:\n          dp[j+1] = min(dp[j+1], dp[i] + node['#'])\n        j += 1\n        \n      \n    \n    if dp[-1] < INF:\n      return dp[-1]\n    else:\n      return -1\n    ",
+    "submit_ts": "1720321002",
+    "subm_id": "1312310732"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "F_lin42",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [sys.maxsize] * (n+1)\n\n        dp[0] = 0\n\n\n        word_cost = {}\n        for w, c in zip(words, costs):\n            if len(w) > len(target):\n                continue\n            word_cost[w] = min(word_cost.get(w, sys.maxsize), c)\n\n\n        for i in range(1, n+1):\n            #print(\"i\", i)\n            for w, c in word_cost.items():\n                w_len = len(w)\n                if w_len > i:\n                    continue\n                start = i-w_len\n\n                if target[start: i] == w:\n\n                    dp[i] = min(dp[i], dp[start] + c)\n        #print(dp)\n\n        return -1 if dp[n] == sys.maxsize else dp[n]\n",
+    "submit_ts": "1720323132",
+    "subm_id": "1312368081"
+}

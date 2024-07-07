@@ -1,0 +1,6 @@
+{
+    "username": "souvik150",
+    "submission": "struct TrieNode {\n    vector<TrieNode*> ch;\n    int cost = INT_MAX;\n    TrieNode() : ch(26, nullptr) {}\n};\n\nclass Solution {\nprivate:\n    void insert(TrieNode* root, const string& word, int cost) {\n        TrieNode* node = root;\n        for (char c : word) {\n            if (!node->ch[c - 'a'])\n                node->ch[c - 'a'] = new TrieNode();\n            node = node->ch[c - 'a'];\n        }\n        node->cost = min(node->cost, cost);\n    }\n\npublic:\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        TrieNode* root = new TrieNode();\n        int n = target.length();\n        vector<int> dp(n + 1, INT_MAX);\n        dp[0] = 0;\n\n        for (int i = 0; i < words.size(); ++i) {\n            insert(root, words[i], costs[i]);\n        }\n\n        for (int i = 0; i < n; ++i) {\n            if (dp[i] == INT_MAX) continue;\n            TrieNode* node = root;\n            for (int j = i; j < n && node; ++j) {\n                node = node->ch[target[j] - 'a'];\n                if (node && node->cost != INT_MAX) {\n                    dp[j + 1] = min(dp[j + 1], dp[i] + node->cost);\n                }\n            }\n        }\n\n        return dp[n] == INT_MAX ? -1 : dp[n];\n    }\n};\n",
+    "submit_ts": "1720323537",
+    "subm_id": "1312377977"
+}

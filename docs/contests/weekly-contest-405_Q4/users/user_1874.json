@@ -1,0 +1,6 @@
+{
+    "username": "sujankarthikm",
+    "submission": "from typing import List\n\nclass TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.cost = float('inf')\n\nclass Trie:\n    def __init__(self):\n        self.root = TrieNode()\n\n    def insert(self, word: str, cost: int):\n        node = self.root\n        for char in word:\n            if char not in node.children:\n                node.children[char] = TrieNode()\n            node = node.children[char]\n        node.cost = min(node.cost, cost)\n\nclass Solution:\n    def minimumCost(self, s: str, words: List[str], costs: List[int]) -> int:\n        trie = Trie()\n        for word, cost in zip(words, costs):\n            trie.insert(word, cost)\n        \n        n = len(s)\n        dp = [float('inf')] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            node = trie.root\n            j = i\n            while j < n and s[j] in node.children:\n                node = node.children[s[j]]\n                j += 1\n                if node.cost != float('inf'):\n                    dp[i] = min(dp[i], node.cost + dp[j])\n\n        return dp[0] if dp[0] != float('inf') else -1\n\n\n\n\n\n\n\n\n\n\n",
+    "submit_ts": "1720323949",
+    "subm_id": "1312387968"
+}

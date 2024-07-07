@@ -1,0 +1,6 @@
+{
+    "username": "rsha256",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n        word_cost_dict = defaultdict(list)\n        for i, word in enumerate(words):\n            word_cost_dict[word].append(costs[i])\n\n        for i in range(n):\n            if dp[i] == float('inf'):\n                continue\n            for word, cost_list in word_cost_dict.items():\n                if target.startswith(word, i):\n                    word_len = len(word)\n                    new_cost = dp[i] + min(cost_list)\n                    dp[i + word_len] = min(dp[i + word_len], new_cost)\n\n        return dp[n] if dp[n] != float('inf') else -1\n    ",
+    "submit_ts": "1720320165",
+    "subm_id": "1312285328"
+}

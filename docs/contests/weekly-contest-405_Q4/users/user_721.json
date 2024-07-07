@@ -1,0 +1,6 @@
+{
+    "username": "spaded06543",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        costTree = {}\n        default = {}\n        for idx in range(len(words)):\n            node = costTree\n            for char in reversed(words[idx]):\n                if not char in node:\n                    node[char] = {}\n                node = node[char]\n            node[\".\"] = min(node.get(\".\", 10**9), costs[idx])\n        # print(costTree)\n        subStrCost = [0]\n        for end in range(len(target)):\n            node = costTree\n            currentCost = 10**9\n            # print(\"end\", end)\n            while node and end > -1:\n                # print( \"    test\", target[end], node)\n                node = node.get(target[end], default)\n                end -= 1\n                if \".\" in node:\n                    currentCost = min(currentCost, node[\".\"] + subStrCost[end + 1])\n            subStrCost.append(currentCost)\n        # print(subStrCost)\n        return -1 if subStrCost[-1] == 10**9 else subStrCost[-1]\n                    \n            ",
+    "submit_ts": "1720322742",
+    "subm_id": "1312357940"
+}

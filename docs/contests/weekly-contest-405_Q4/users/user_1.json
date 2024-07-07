@@ -1,0 +1,6 @@
+{
+    "username": "envyaims",
+    "submission": "class Solution {\npublic:\n\n    struct trie {\n        trie* children[26] = {};\n        bool isleaf = false;\n        int cost = 1e9;\n    };\n    \n    void trie_add(trie* root, string s, int cost) {\n        trie* cur = root;\n        for (char c : s) {\n            if (cur->children[c-'a'] == NULL)\n                cur->children[c-'a'] = new trie;\n            cur = cur->children[c-'a'];\n        }\n        cur->cost = min(cur->cost, cost);\n        cur->isleaf = true;\n    }\n\n    int minimumCost(string s, vector<string>& words, vector<int>& costs) {\n        int m = words.size();\n        int n = s.size();\n        trie t;\n        for(int i = 0; i < m; i++){\n            trie_add(&t, words[i], costs[i]);\n        }\n        #define ll long long\n        const ll INF = 1e12;\n        vector<ll> dp(n + 1, INF);\n        dp[0] = 0;\n        for(int i = 0; i < n; i++){\n            trie * tmp = t.children[s[i] - 'a'];\n            for(int j = i; j < n && tmp != NULL; j++){\n                if(tmp -> isleaf){\n                    dp[j+1] = min(dp[j+1], dp[i] + tmp -> cost);\n                }\n                if(j + 1 < n) tmp = tmp -> children[s[j + 1] - 'a'];\n            }\n        }\n        return dp[n] == INF ? -1 : dp[n];\n    }\n};",
+    "submit_ts": "1720319890",
+    "subm_id": "1312275372"
+}

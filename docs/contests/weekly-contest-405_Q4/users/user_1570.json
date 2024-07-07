@@ -1,0 +1,6 @@
+{
+    "username": "Aviprit",
+    "submission": "class Trie {\npublic:\n    Trie* next[26];\n    int val = INT_MAX;\n    bool isEnd = 0;\n};\nclass Solution {\n    Trie* root = new Trie();\n    void addWord(string &word, int cost) {\n        Trie* node = root;\n        for(char ch : word) {\n            if(!node->next[ch - 'a']) node->next[ch - 'a'] = new Trie();\n            node = node->next[ch - 'a'];\n        }\n        node->val = min(cost, node->val);\n        node->isEnd = 1;\n    }\npublic:\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        int n = target.size(), m = words.size();\n        vector<int> minCost(n + 1, INT_MAX);\n        for(int i = 0; i < m; ++i) addWord(words[i], costs[i]);\n        minCost[0] = 0;\n        for(int i = 0; i < n; ++i) {\n            if(minCost[i] == INT_MAX) continue;\n            Trie* node = root;\n            for(int j = i; j < n; ++j) {\n                char ch = target[j];\n                if(!node->next[ch - 'a']) break;\n                node = node->next[ch - 'a'];\n                if(node->isEnd) {\n                    minCost[j + 1] = min(minCost[j + 1], minCost[i] + node->val);\n                }\n            }\n        }\n        return minCost[n] == INT_MAX ? -1 : minCost[n];\n    }\n};",
+    "submit_ts": "1720324784",
+    "subm_id": "1312408219"
+}

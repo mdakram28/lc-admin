@@ -1,0 +1,6 @@
+{
+    "username": "awice",
+    "submission": "Trie = lambda: defaultdict(Trie)\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        root = Trie()\n        COST = \"\"\n        for word, cost in zip(words, costs):\n            cur = root\n            for letter in word:\n                cur = cur[letter]\n            cur[COST] = min(cur.get(COST, inf), cost)\n        \n        n = len(target)\n        dp = [inf] * (n + 1)\n        dp[n] = 0\n        \n        for i in range(n-1,-1,-1):\n            cur = root\n            for j in range(i, n):\n                cur = cur.get(target[j], None)\n                if cur is None: break\n                if COST in cur:\n                    cost = cur[COST] + dp[j+1]\n                    if cost < dp[i]: dp[i]= cost\n        return dp[0] if dp[0] < inf else -1",
+    "submit_ts": "1720322785",
+    "subm_id": "1312359047"
+}

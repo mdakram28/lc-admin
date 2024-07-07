@@ -1,0 +1,6 @@
+{
+    "username": "Lwenkai",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        \n        N = len(target)\n        \n        word_cost = {}\n        for w,c in zip(words, costs):\n            if w not in word_cost:\n                word_cost[w] = c\n            else:\n                word_cost[w] = min(word_cost[w], c)\n        \n        words2, costs2 = [], []\n        for w,c in word_cost.items():\n            words2.append(w)\n            costs2.append(c)\n            \n        words = words2\n        costs = costs2\n            \n        @cache \n        def dfs(i):\n            if i == N:\n                return 0\n            if i > N:\n                return float('inf')\n            \n            # print(\"i \", i)\n            res = float('inf')\n            for w, word in enumerate(words):\n                # print(target[i:i+len(word)], word)\n                if len(word) + i <= N and target[i:i+len(word)] == word:\n                    res = min(res, dfs(i+len(word)) + costs[w])\n            \n            return res\n        \n        \n        ans = dfs(0)\n        if ans == float('inf'):\n            return -1\n        return ans\n\n\n\n",
+    "submit_ts": "1720322515",
+    "subm_id": "1312351990"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "skyblu",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        wordmap = defaultdict(lambda : inf)\n        for word, cost in zip(words, costs):\n            wordmap[word] = min(wordmap[word], cost)\n\n        \n        startswith = defaultdict(set)\n        for word in words:\n            startswith[word[0]].add(word)\n\n        @cache\n        def dp(i):\n            if i >= len(target):\n                return 0\n            ret = inf\n            for w in startswith[target[i]]:\n                if target[i:i + len(w)] == w:\n                    ret = min(dp(i + len(w)) + wordmap[w], ret)\n\n            return ret\n        \n        ans = dp(0)\n        return ans if ans != inf else -1\n",
+    "submit_ts": "1720323893",
+    "subm_id": "1312386585"
+}

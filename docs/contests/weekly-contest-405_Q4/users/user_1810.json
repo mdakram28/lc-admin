@@ -1,0 +1,6 @@
+{
+    "username": "SUN47",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        # Initialisation\n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n        wordCosts = {}\n        for i in range(len(words)):\n            if words[i] not in wordCosts:\n                wordCosts[words[i]] = costs[i]\n            else:\n                wordCosts[words[i]] = min(wordCosts[words[i]], costs[i])\n\n        # Loop\n        for i in range(n):\n            if dp[i] != float('inf'):\n                for word, cost in wordCosts.items():\n                    if target.startswith(word, i):\n                        dp[i + len(word)] = min(dp[i + len(word)], dp[i] + cost)\n                        # print(target, word, dp)\n        return dp[n] if dp[n] != float('inf') else -1",
+    "submit_ts": "1720323678",
+    "subm_id": "1312381389"
+}

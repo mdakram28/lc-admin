@@ -1,0 +1,6 @@
+{
+    "username": "Harkness",
+    "submission": "class Trie:\n    def __init__(self):\n        self.root = {}\n    def insert(self, w, cost):\n        cur = self.root\n        for c in w:\n            if c in cur:\n                cur = cur[c]\n            else:\n                cur[c] = {}\n                cur = cur[c]\n        cur['cost'] = min(cur.get('cost', float('inf')), cost)\n    \n    def traverse(self, target, idx, dp):\n        cur = self.root\n        res = float('inf')\n        for i in range(idx, len(target)):\n            c = target[i]\n            if c in cur:\n                cur = cur[c]\n                if 'cost' in cur:\n                    res = min(res, cur['cost'] + dp[i+1])\n            else:\n                break\n        return res\n            \n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = Trie()\n        for w, c in zip(words, costs):\n            trie.insert(w, c)\n        n = len(target)\n        dp = [float('inf') for _ in range(n+1)]\n        dp[n] = 0\n        for i in range(n-1, -1, -1):\n            dp[i] = trie.traverse(target, i, dp)\n        return dp[0] if dp[0] < float('inf') else -1",
+    "submit_ts": "1720323043",
+    "subm_id": "1312365877"
+}

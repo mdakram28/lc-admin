@@ -1,0 +1,6 @@
+{
+    "username": "angellim",
+    "submission": "\nconst int inf=2e9;\n\nstruct node {\n    unordered_map<char, node*> mp;\n    int cost;\n    node() {\n        cost=inf;\n    }\n};\n\n\n\nclass Solution {\npublic:\n    void insert(node *trie, string &s, int i, int cost) {\n        int n=s.length();\n        if (i==n) {\n            trie->cost=min(trie->cost, cost);\n            return;\n        }\n        if (!trie->mp.count(s[i])) trie->mp[s[i]]=new node();\n        insert(trie->mp[s[i]], s, i+1, cost);\n    }\n    int minimumCost(string t, vector<string>& w, vector<int>& c) {\n        //make t, min cost, append w[i]\n        node *trie = new node();\n        for (int i=0; i<(int)w.size(); i++) {\n            insert(trie, w[i], 0, c[i]);\n        }\n\n        int n=t.length();\n        vector<int> dp(n+1, inf);\n        dp[0]=0;\n        for (int i=0; i<n; i++) {\n            if (dp[i]==inf) continue;\n            node *at=trie;\n            for (int j=i; j<n; j++) {\n                if (!at->mp.count(t[j])) break;\n                at=at->mp[t[j]];\n                if (at->cost!=inf) {\n                    dp[j+1]=min(dp[j+1], dp[i]+at->cost);\n                }\n            }\n        }\n        return dp[n]==inf?-1:dp[n];\n    }\n};",
+    "submit_ts": "1720320668",
+    "subm_id": "1312301205"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "shrada",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        m = len(words)\n\n        # Initialize the dp array\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n\n        # Create a prefix-based lookup dictionary\n        prefix_lookup = defaultdict(list)\n        for i in range(m):\n            prefix_lookup[words[i]].append(costs[i])\n\n        # Process each position in the target\n        for i in range(1, n + 1):\n            for word, cost in prefix_lookup.items():\n                word_len = len(word)\n                if i >= word_len and target[i - word_len:i] == word:\n                    dp[i] = min(dp[i], dp[i - word_len] + min(cost))\n\n        return dp[n] if dp[n] != float('inf') else -1\n",
+    "submit_ts": "1720323484",
+    "subm_id": "1312376688"
+}

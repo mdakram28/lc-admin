@@ -1,0 +1,6 @@
+{
+    "username": "princebhardwaj9639",
+    "submission": "from typing import List\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0  # cost to form an empty string is 0\n\n        # Preprocess the words and their costs\n        word_dict = {}\n        for word, cost in zip(words, costs):\n            if word not in word_dict:\n                word_dict[word] = cost\n            else:\n                word_dict[word] = min(word_dict[word], cost)\n\n        # Iterate through the target string and update dp array\n        for i in range(n + 1):\n            if dp[i] == float('inf'):\n                continue\n            \n            for word, cost in word_dict.items():\n                lw = len(word)\n                if i + lw <= n and target[i:i + lw] == word:\n                    dp[i + lw] = min(dp[i + lw], dp[i] + cost)\n\n        return dp[n] if dp[n] != float('inf') else -1\n",
+    "submit_ts": "1720320330",
+    "subm_id": "1312290791"
+}

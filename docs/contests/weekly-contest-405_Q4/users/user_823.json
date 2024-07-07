@@ -1,0 +1,6 @@
+{
+    "username": "ChengyuTang",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        cost = dict()\n        for w, c in zip(words, costs):\n            cost[w] = min(cost.get(w, float(\"inf\")), c)\n        tree = dict()\n        for w in cost:\n            cur = tree\n            for ch in w:\n                if ch not in cur:\n                    cur[ch] = {}\n                cur = cur[ch]\n            cur[\"cost\"] = cost[w]\n            \n        N = len(target)\n        dp = [None] * N\n        exist = dict()\n        \n        def dfs(idx):\n            if idx >= N:\n                return 0\n            if dp[idx] is not None:\n                return dp[idx]\n            res = float(\"inf\")\n            cur = tree\n            i = idx\n            while i < N and target[i] in cur:\n                cur = cur[target[i]]\n                if \"cost\" in cur:\n                    res = min(res, cur[\"cost\"] + dfs(i + 1))\n                i += 1\n            dp[idx] = res\n            return res\n        \n        min_cost = dfs(0)\n        return min_cost if min_cost < float(\"inf\") else -1",
+    "submit_ts": "1720322631",
+    "subm_id": "1312355047"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "mazinkarjikar",
+    "submission": "import heapq\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = {} # a-z, and then also $ mapped to lowest cost of word ending here\n        # keep heap of paths.\n        # go through and pursue shortest path.\n        for i, word in enumerate(words):\n            curr = trie\n            for c in word:\n                if c not in curr:\n                    curr[c] = {}\n                curr = curr[c]\n            if '$' not in curr: curr['$'] = costs[i]\n            else: curr['$'] = min(curr['$'], costs[i])\n        \n        @cache\n        def dfs(l):\n            if l == len(target): return 0\n            nonlocal trie\n            best = inf\n            curr = trie\n            for i in range(l, len(target)):\n                if target[i] not in curr: \n                    # print(\"here\", l, i)\n                    return best\n                curr = curr[target[i]]\n                if '$' in curr:\n                    # print(\":here\")\n                    best = min(best, curr['$'] + dfs(i+1))\n            return best\n\n        ans = dfs(0)\n        if ans != inf: return ans\n\n        return -1\n        ",
+    "submit_ts": "1720322993",
+    "subm_id": "1312364573"
+}

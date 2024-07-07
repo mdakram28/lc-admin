@@ -1,0 +1,6 @@
+{
+    "username": "Venkat_siva",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        class trieNode:\n            def __init__(self):\n                self.arr=[None]*26\n                self.cost=1e9\n                self.length=0\n        root=trieNode()\n        for i,word in enumerate(words):\n            curr=root\n            for j in word:\n                ind=ord(j)-ord('a')\n                if(curr.arr[ind]):\n                    curr=curr.arr[ind]\n                else:\n                    curr.arr[ind]=trieNode()\n                    curr.arr[ind].length=curr.length+1\n                    curr=curr.arr[ind]\n            curr.cost=min(curr.cost,costs[i])\n        \n        n=len(target)\n        dp=[1e9]*(n+1)\n        dp[-1]=0\n        for i in range(n-1,-1,-1):\n            curr=root\n            for j in range(i,n):\n                ind=ord(target[j])-97\n                if(curr.arr[ind]):\n                    curr=curr.arr[ind]\n                    if(curr.cost!=1e9):\n                        dp[i]=min(dp[i],dp[i+curr.length]+curr.cost)\n                else:\n                    break\n        # print(dp)\n        return dp[0] if dp[0]!=1e9 else -1",
+    "submit_ts": "1720324635",
+    "subm_id": "1312404333"
+}

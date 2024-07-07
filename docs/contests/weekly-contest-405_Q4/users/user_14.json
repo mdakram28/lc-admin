@@ -1,0 +1,6 @@
+{
+    "username": "dekail",
+    "submission": "class Node:\n    def __init__(self):\n        self.child = {}\n        self.cost = inf\n        self.end = False\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:        \n        Trie = Node()\n        for word, cost in zip(words, costs):\n            node = Trie\n            for c in word:\n                if c not in node.child:\n                    node.child[c] = Node()\n                node = node.child[c]\n            \n            node.cost = min(node.cost, cost)\n            node.end = True\n        \n        @cache\n        def dp(i):\n            if i == len(target):\n                return 0\n            \n            result = inf\n            node = Trie\n            for j in range(i, len(target)):\n                c = target[j]\n                if c not in node.child:\n                    break\n                node = node.child[c]\n                if node.end:\n                    result = min(result, node.cost + dp(j + 1))\n            return result\n        \n        result = dp(0)\n        dp.cache_clear()\n        return result if result != inf else -1\n                ",
+    "submit_ts": "1720320644",
+    "subm_id": "1312300500"
+}

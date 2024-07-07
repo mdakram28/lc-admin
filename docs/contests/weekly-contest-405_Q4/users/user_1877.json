@@ -1,0 +1,6 @@
+{
+    "username": "Quar",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        Trie = lambda: defaultdict(Trie)\n        \n        trie = Trie()\n        \n        for w, c in zip(words, costs):\n            cur = trie\n            for x in w:\n                cur = cur[x]\n            cur[True] = min(cur.get(True, inf), c)\n                \n        # @cache\n        def startswith(i):\n            # ret = []\n            cur = trie\n            j = i\n            while j < n and target[j] in cur:\n                cur = cur[target[j]]\n                j += 1\n                if True in cur:\n                    # ret.append((j - i, cur[True]))\n                    yield j - i, cur[True]\n            # return ret\n                    \n        \n        @cache\n        def dp(i):\n            if i >= n:\n                return 0\n            ret = inf\n            for l, c in startswith(i):\n                ret = min(ret, c + dp(i + l))\n            return ret\n        \n        return c if (c:= dp(0)) < inf else -1\n",
+    "submit_ts": "1720323059",
+    "subm_id": "1312366280"
+}

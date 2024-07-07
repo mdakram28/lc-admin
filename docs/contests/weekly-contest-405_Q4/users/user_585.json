@@ -1,0 +1,6 @@
+{
+    "username": "zhanbaiW",
+    "submission": "class Solution {\n    public int minimumCost(String target, String[] words, int[] costs) {\n        int n = target.length();\n        int[] dp = new int[n + 1];\n        int t = words.length;\n        Arrays.fill(dp, Integer.MAX_VALUE);\n        dp[0] = 0;\n        Map<String, Integer> map = new HashMap<>();\n        for (int i = 0; i < words.length; i++) {\n            if (map.containsKey(words[i])) {\n                int min = Math.min(map.get(words[i]), costs[i]);\n                map.put(words[i], min);\n            } else {\n                map.put(words[i], costs[i]);\n            }\n\n        }\n        \n        for (int i = 0; i < n; i++) {\n            if (dp[i] != Integer.MAX_VALUE) {\n                for (Map.Entry<String, Integer> entry : map.entrySet()) {\n                    String s = entry.getKey();\n                    int cost = entry.getValue();\n                    int l = s.length();\n                    if (i + l <= n && target.startsWith(s, i)) {\n                        dp[i + l] = Math.min(dp[i + l], dp[i] + cost);\n                    }\n                }\n            }\n        }\n        if (dp[n] == Integer.MAX_VALUE) return -1;\n        return dp[n];\n    }\n}",
+    "submit_ts": "1720322195",
+    "subm_id": "1312343302"
+}

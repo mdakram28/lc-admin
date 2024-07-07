@@ -1,0 +1,6 @@
+{
+    "username": "Sandeep_P",
+    "submission": "\ncreate_node=lambda:defaultdict(create_node,{\"cost\":inf})\nclass Trie:\n    def __init__(self, *words):\n        self.root = create_node()\n\n    def add(self, word,cost):\n        cur_node = self.root\n        for letter in word:\n            cur_node = cur_node[letter]\n        cur_node[\"cost\"] = min( cur_node[\"cost\"],cost)\n\n\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        tr=Trie()\n        for x,y in zip(words,costs):\n            tr.add(x,y)\n        n=len(target)\n        @cache\n        def dp(i):\n            if i==len(target):\n                return 0\n            ans=inf\n            cur=tr.root\n            for j in range(i,n):\n                if target[j] not in cur:\n                    break\n                cur=cur[target[j]]\n                if cur['cost']!=inf:\n                    ans=min(ans,dp(j+1)+cur['cost'])\n            return ans\n        ans=dp(0)\n        return -1 if ans==inf else ans",
+    "submit_ts": "1720322922",
+    "subm_id": "1312362706"
+}

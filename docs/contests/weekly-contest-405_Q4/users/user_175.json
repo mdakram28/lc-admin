@@ -1,0 +1,6 @@
+{
+    "username": "duyho_dev",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n\n        trie = {}\n        \n        for i, w in enumerate(words):\n            node = trie\n            for c in w:\n                if c not in node:\n                    node[c] = {}\n                node = node[c]\n            if '$' in node:\n                node['$'] = min(node['$'], costs[i])\n            else:\n                node['$'] = costs[i]\n        \n        # print(trie)\n        @cache\n        def tryNext(i):\n            if i == n:\n                return 0\n            \n            score = float('inf')\n            node = trie\n            for j in range(i, n):\n                if target[j] not in node:\n                    break\n                \n                node = node[target[j]]\n                # print(target[j], node)\n                if '$' in node:\n                    score = min(score, node['$'] + tryNext(j + 1))\n                \n            return score\n\n        res = tryNext(0)\n\n        if res == float('inf'):\n            return -1\n        \n        return res",
+    "submit_ts": "1720321320",
+    "subm_id": "1312319678"
+}

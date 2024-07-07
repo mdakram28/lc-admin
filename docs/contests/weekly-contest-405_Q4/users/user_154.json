@@ -1,0 +1,6 @@
+{
+    "username": "skyinde2",
+    "submission": "\nclass Node:\n    def __init__(self):\n        self.cost = -1\n        self.d = {}\n\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        root = Node()\n\n        for i in range(len(words)):\n            node = root\n\n            for ch in words[i]:\n                if ch in node.d:\n                    node = node.d[ch]\n                else:\n                    temp = Node()\n                    node.d[ch] = temp\n                    node = temp\n\n            if node.cost == -1 or node.cost > costs[i]:\n                node.cost = costs[i]\n\n        dp = [10 ** 10] * (len(target) + 1)\n        dp[0] = 0\n\n        for i in range(len(target)):\n            node = root\n\n            for j in range(i, len(target)):\n                if target[j] in node.d:\n                    node = node.d[target[j]]\n                    if node.cost >= 0:\n                        dp[j + 1] = min(dp[j + 1], dp[i] + node.cost)\n                else:\n                    break\n\n        return dp[-1] if dp[-1] < 10 ** 10 else -1\n",
+    "submit_ts": "1720321259",
+    "subm_id": "1312317932"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "green_pig",
+    "submission": "class Trie:\n    def __init__(self, cost=inf):\n        self.cost = cost\n        self.cs = [None] * 26\n    def get(self, c):\n        c = ord(c) - 97\n        if self.cs[c] is None:\n            self.cs[c] = Trie()\n        return self.cs[c]\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        d = [0] + [inf] * len(target)\n        t = Trie()\n        for w, x in zip(words, costs):\n            u = t\n            for c in w:\n                u = u.get(c)\n            u.cost = min(u.cost, x)\n        for i in range(len(target)):\n            if d[i] < inf:\n                u = t\n                for j in range(i, len(target)):\n                    if u.cs[ord(target[j]) - 97] is None:\n                        break\n                    u = u.get(target[j])\n                    d[j+1] = min(d[j+1], d[i] + u.cost)\n        return d[len(target)] if d[len(target)] < inf else -1",
+    "submit_ts": "1720320494",
+    "subm_id": "1312295840"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "sltdecoder",
+    "submission": "class Solution {\npublic:\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        int n = target.size();\n        vector<int> dp(n + 1, INT_MAX);\n        dp[0] = 0;\n        \n        unordered_map<string, int> wordCost;\n        for (int i = 0; i < words.size(); ++i) {\n            if (wordCost.find(words[i]) == wordCost.end() || costs[i] < wordCost[words[i]]) {\n                wordCost[words[i]] = costs[i];\n            }\n        }\n\n    \n        for (int i = 0; i < n; ++i) {\n            if (dp[i] == INT_MAX) continue;\n\n    \n            for (const auto& wc : wordCost) {\n                const std::string& word = wc.first;\n                int cost = wc.second;\n                int wordLen = word.size();\n\n                if (i + wordLen <= n && target.compare(i, wordLen, word) == 0) {\n                    dp[i + wordLen] = min(dp[i + wordLen], dp[i] + cost);\n                }\n            }\n        }\n\n        return dp[n] == INT_MAX ? -1 : dp[n];\n    }\n};",
+    "submit_ts": "1720321497",
+    "subm_id": "1312324420"
+}

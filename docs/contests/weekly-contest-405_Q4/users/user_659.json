@@ -1,0 +1,6 @@
+{
+    "username": "uf21-2",
+    "submission": "from typing import List\nfrom math import inf\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        target_length = len(target)\n        word_costs = self._compute_min_word_costs(words, costs)\n        \n        min_costs = [inf] * (target_length + 1)\n        min_costs[0] = 0\n\n        for end_index in range(1, target_length + 1):\n            for word, cost in word_costs.items():\n                word_length = len(word)\n                if end_index >= word_length:\n                    start_index = end_index - word_length\n                    if target[start_index:end_index] == word:\n                        min_costs[end_index] = min(min_costs[end_index], min_costs[start_index] + cost)\n        \n        return min_costs[target_length] if min_costs[target_length] != inf else -1\n\n    def _compute_min_word_costs(self, words: List[str], costs: List[int]) -> dict:\n        word_costs = {}\n        for word, cost in zip(words, costs):\n            word_costs[word] = min(word_costs.get(word, inf), cost)\n        return word_costs",
+    "submit_ts": "1720322029",
+    "subm_id": "1312338775"
+}

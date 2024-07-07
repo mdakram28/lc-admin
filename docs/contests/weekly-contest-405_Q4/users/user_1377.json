@@ -1,0 +1,6 @@
+{
+    "username": "lilweege",
+    "submission": "class Trie:\n    def __init__(self):\n        self.children = {}\n        self.cost = inf\n    def insert(self, word, cost):\n        curr = self\n        for c in word:\n            if c not in curr.children:\n                curr.children[c] = Trie()\n            curr = curr.children[c]\n        curr.cost = min(curr.cost, cost)\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        root = Trie()\n        for word, cost in zip(words, costs): root.insert(word, cost)\n        dp = [inf] * (n+1)\n        dp[0] = 0\n        for j in range(n):\n            if dp[j] == inf:\n                continue\n            curr = root\n            for i in range(j, n):\n                if target[i] in curr.children:\n                    curr = curr.children[target[i]]\n                else: break\n                dp[i+1] = min(dp[i+1], dp[j]+curr.cost)\n        # print(dp)\n        return -1 if dp[-1] == inf else dp[-1]",
+    "submit_ts": "1720323760",
+    "subm_id": "1312383402"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "8symbols",
+    "submission": "class Trie:\n    def __init__(self):\n        self.next = defaultdict(Trie)\n        self.cost = 0\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        root = Trie()\n        for word, cost in zip(words, costs):\n            current = root\n            for letter in word:\n                current = current.next[letter]\n            if current.cost == 0:\n                current.cost = cost\n            else:\n                current.cost = min(current.cost, cost)\n\n        infinity = 1 << 63\n\n        @cache\n        def dp(index):\n            if index == len(target):\n                return 0\n\n            result = infinity\n\n            current = root\n            while index != len(target) and target[index] in current.next:\n                current = current.next[target[index]]\n                index += 1\n                if current.cost != 0:\n                    result = min(result, current.cost + dp(index))\n\n            return result\n\n        return dp(0) if dp(0) != infinity else -1",
+    "submit_ts": "1720321845",
+    "subm_id": "1312333848"
+}

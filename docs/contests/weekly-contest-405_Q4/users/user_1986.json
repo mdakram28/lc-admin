@@ -1,0 +1,6 @@
+{
+    "username": "itzmytym",
+    "submission": "class Solution:\n  def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n    wc = defaultdict(lambda:inf)\n    mxw = 0\n    for w, c in zip(words, costs):\n      wc[w] = min(wc[w], c)\n      mxw = max(mxw, len(w))\n    n = len(target)\n    @cache\n    def dfs(i):\n      if i >= n:\n        return 0\n      res = inf\n      pref = ''\n      for w in wc:\n        m = len(w)\n        if target[i:i+m] == w:\n          res = min(res, wc[w] + dfs(i+m))\n      # for j in range(i, min(i+mxw+1, n)):\n      #   pref += target[j]\n      #   if pref in wc:\n      #     res = min(res, wc[pref] + dfs(j+1))\n      return res\n    ans = dfs(0)\n    return ans if ans != inf else -1 \n",
+    "submit_ts": "1720324594",
+    "subm_id": "1312403357"
+}

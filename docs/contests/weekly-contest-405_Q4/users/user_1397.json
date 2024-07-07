@@ -1,0 +1,6 @@
+{
+    "username": "xiohou",
+    "submission": "using namespace std;\nclass Node {\npublic:\n    unordered_map<char, Node*> v;\n    vector<pair<int, int>> w;\n    ~Node() {\n        for (auto& kv : v) {\n            if (kv.second)\n                delete kv.second;}}};\nclass Solution {\npublic:\n    int minimumCost(string& a, vector<string>& b, vector<int>& c) {\n        int d = a.size(), e = INT_MAX;\n        vector<int> f(d + 1, e);\n        f[0] = 0;\n        Node* g = new Node();\n        for (int h = 0, i = b.size(); h < i; ++h) {\n            Node* j = g;\n            for (char k : b[h]) {\n                if (!j->v.count(k))\n                    j->v[k] = new Node();\n                j = j->v[k];  }\n            j->w.push_back({h, c[h]}); }\n        for (int l = 0; l < d; ++l) {\n            if (f[l] == e) continue;\n            Node* j = g;\n            for (int m = l; m < d; ++m) {\n                if (!j->v.count(a[m])) break;\n                j = j->v[a[m]];\n                for (auto& n : j->w) {\n                    int o = b[n.first].size();\n                    if (l + o <= d)\n                        f[l + o] = min(f[l + o], f[l] + n.second); }}} return f[d] != e ? f[d] : -1;}};",
+    "submit_ts": "1720324087",
+    "subm_id": "1312391279"
+}

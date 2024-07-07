@@ -1,0 +1,6 @@
+{
+    "username": "sayakc",
+    "submission": "from typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n        \n        # Map each word to the minimum cost\n        word_to_cost = defaultdict(lambda: float('inf'))\n        for word, cost in zip(words, costs):\n            word_to_cost[word] = min(word_to_cost[word], cost)\n\n        # Process each position in the target for possible matches\n        for i in range(n):\n            if dp[i] == float('inf'):\n                continue  # No need to process if no valid path to this index\n            for word, cost in word_to_cost.items():\n                end = i + len(word)\n                if end <= n and target[i:end] == word:\n                    dp[end] = min(dp[end], dp[i] + cost)\n        \n        # If dp[n] is still inf, target cannot be formed from words\n        return -1 if dp[n] == float('inf') else dp[n]\n\n\n",
+    "submit_ts": "1720321821",
+    "subm_id": "1312333208"
+}

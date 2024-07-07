@@ -1,0 +1,6 @@
+{
+    "username": "dj3013158",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        INF = sys.maxsize\n\n        # Create a dictionary to map words to their minimum costs\n        word_cost_dict = defaultdict(lambda: INF)\n        for i in range(len(words)):\n            word_cost_dict[words[i]] = min(word_cost_dict[words[i]], costs[i])\n\n        # Length of the target string\n        n = len(target)\n\n        # Initialize dp array with INF, dp[0] = 0 since no cost is needed to form an empty string\n        dp = [INF] * (n + 1)\n        dp[0] = 0\n\n        # DP to find the minimum cost\n        for i in range(n):\n            if dp[i] == INF:\n                continue\n            for word, cost in word_cost_dict.items():\n                word_len = len(word)\n                if i + word_len <= n and target[i:i + word_len] == word:\n                    dp[i + word_len] = min(dp[i + word_len], dp[i] + cost)\n\n        return dp[n] if dp[n] != INF else -1",
+    "submit_ts": "1720320595",
+    "subm_id": "1312299009"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Devanshty",
+    "submission": "from typing import List\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        m = len(words)\n\n        # Create a dictionary to store the minimum cost for each word\n        word_cost = {}\n        for word, cost in zip(words, costs):\n            word_cost[word] = min(word_cost.get(word, float('inf')), cost)\n\n        # Initialize the dp array with infinity\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0  # The cost to make an empty string is 0\n\n        # Iterate over the target string\n        for i in range(1, n + 1):\n            # Iterate over each word\n            for word in word_cost:\n                # If the current word matches the substring of the target string\n                if i >= len(word) and target[i - len(word):i] == word:\n                    # Update the dp array with the minimum cost\n                    dp[i] = min(dp[i], dp[i - len(word)] + word_cost[word])\n\n        # Return the minimum cost to make the entire target string, or -1 if it's not possible\n        return dp[n] if dp[n] != float('inf') else -1",
+    "submit_ts": "1720321670",
+    "subm_id": "1312329185"
+}

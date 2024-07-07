@@ -1,0 +1,6 @@
+{
+    "username": "a_axelrod",
+    "submission": "#include <vector>\n#include <string>\n#include <unordered_map>\n#include <algorithm>\n#include <limits.h>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        int n = target.size();\n        vector<int> dp(n + 1, INT_MAX);\n        dp[0] = 0;\n        \n        unordered_map<string, vector<int>> wordCost;\n        for (int i = 0; i < words.size(); ++i) {\n            wordCost[words[i]].push_back(costs[i]);\n        }\n\n        for (int i = 0; i < n; ++i) {\n            if (dp[i] == INT_MAX) continue;\n            for (const auto& [word, costList] : wordCost) {\n                int len = word.size();\n                if (i + len <= n && target.compare(i, len, word) == 0) {\n                    for (int cost : costList) {\n                        dp[i + len] = min(dp[i + len], dp[i] + cost);\n                    }\n                }\n            }\n        }\n        \n        return dp[n] == INT_MAX ? -1 : dp[n];\n    }\n};\n",
+    "submit_ts": "1720321237",
+    "subm_id": "1312317334"
+}

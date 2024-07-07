@@ -1,0 +1,6 @@
+{
+    "username": "yc-li",
+    "submission": "class Solution:\n    def minimumCost(self, t: str, ws: List[str], cs: List[int]) -> int:\n        m = len(t)\n        n = len(ws)\n        MAX = 10**9\n        \n        def get():\n            root = [{}, 0] \n\n            for w, c in zip(ws, cs):\n                p = root\n                for j in w:\n                    if j in p[0]:\n                        p = p[0][j]\n                    else:\n                        p[0][j] = [{}, MAX]\n                        p = p[0][j]\n                \n                p[1] = min(p[1], c)\n            \n            return root\n        \n        root = get()\n\n        @cache\n        def dfs(i):\n            if i == m:\n                return 0\n\n            p = root\n            ans = MAX\n            j = i\n\n            while p[0] and j != m:\n                # print([*p[0].keys()], p[1])\n\n                if t[j] not in p[0]:\n                    break\n\n                p = p[0][t[j]]\n                j += 1\n                ans = min(ans, dfs(j) + p[1] )\n            \n            return ans\n\n        ans = dfs(0)\n        if ans == MAX:\n            ans = -1\n\n        dfs.cache_clear()\n\n        return ans",
+    "submit_ts": "1720322526",
+    "subm_id": "1312352276"
+}

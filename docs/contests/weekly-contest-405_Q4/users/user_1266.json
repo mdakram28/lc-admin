@@ -1,0 +1,6 @@
+{
+    "username": "thomas-x-69",
+    "submission": "/**\n * @param {string} target\n * @param {string[]} words\n * @param {number[]} costs\n * @return {number}\n */\nvar minimumCost = function(target, words, costs) {\n       class TrieNode {\n        constructor() {\n            this.children = new Map();\n            this.minCost = Infinity;\n        }\n    }\n\n    // Build Trie\n    const root = new TrieNode();\n    for (let i = 0; i < words.length; i++) {\n        let node = root;\n        for (let char of words[i]) {\n            if (!node.children.has(char)) {\n                node.children.set(char, new TrieNode());\n            }\n            node = node.children.get(char);\n        }\n        node.minCost = Math.min(node.minCost, costs[i]);\n    }\n\n    const n = target.length;\n    const dp = new Array(n + 1).fill(Infinity);\n    dp[0] = 0;\n\n    for (let i = 0; i < n; i++) {\n        let node = root;\n        for (let j = i; j < n; j++) {\n            if (!node.children.has(target[j])) break;\n            node = node.children.get(target[j]);\n            if (node.minCost !== Infinity) {\n                dp[j + 1] = Math.min(dp[j + 1], dp[i] + node.minCost);\n            }\n        }\n    }\n\n    return dp[n] === Infinity ? -1 : dp[n];\n};",
+    "submit_ts": "1720322604",
+    "subm_id": "1312354284"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Minasa",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        dicts = defaultdict(int)\n        for idx_word,idx_cost in zip(words,costs):\n            if idx_word in dicts:\n                dicts[idx_word] = min(idx_cost,dicts[idx_word])\n            else:\n                dicts[idx_word] = idx_cost\n        \n        n = len(target)\n        m = len(words)\n\n        # \u521d\u59cb\u5316 dp \u6570\u7ec4\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n\n        # \u52a8\u6001\u89c4\u5212\u586b\u5145 dp \u6570\u7ec4\n        for i in range(n):\n            if dp[i] == float('inf'):\n                continue\n\n            for key,val in dicts.items():\n                word = key\n                cost = val\n                if target[i:i+len(word)] == word:\n                    dp[i + len(word)] = min(dp[i + len(word)], dp[i] + cost)\n\n        # \u68c0\u67e5\u7ed3\u679c\n        return dp[n] if dp[n] != float('inf') else -1",
+    "submit_ts": "1720323557",
+    "subm_id": "1312378449"
+}

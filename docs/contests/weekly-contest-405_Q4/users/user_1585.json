@@ -1,0 +1,6 @@
+{
+    "username": "enryuxbt",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        \n        C = defaultdict(lambda: float('inf'))\n        for i in range(len(words)):\n            word, cost = words[i], costs[i]\n            C[word] = min(C[word], cost)\n            \n        \n        @lru_cache(None)\n        def dp(i):\n            if i == len(target): return 0\n            ans = float('inf')\n            for w,c in C.items():\n                if target.startswith(w,  i): ans = min(ans, c + dp(i+len(w)))\n            return ans\n        \n        ans = dp(0)\n        return ans if dp(0) != float('inf') else -1",
+    "submit_ts": "1720323317",
+    "subm_id": "1312372629"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "mdakram28",
+    "submission": "\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        \n        root = {}\n        for word, cost in zip(words, costs):\n            node = root\n            for c in word:\n                node = node.setdefault(c, {})\n            node[\"#\"] = min(node.get(\"#\", float('inf')), cost)\n\n        @cache\n        def minCostFrom(i):\n            if i == len(target):\n                return 0\n            \n            ans = float('inf')\n            node = root\n            for j in range(i, len(target)):\n                if target[j] not in node:\n                    break\n                node = node[target[j]]\n                if \"#\" in node:\n                    ans = min(ans, node[\"#\"] + minCostFrom(j+1))\n            \n            return ans\n        \n        ans = minCostFrom(0)\n        return ans if ans != float('inf') else -1\n\n            ",
+    "submit_ts": "1720320505",
+    "subm_id": "1312296250"
+}

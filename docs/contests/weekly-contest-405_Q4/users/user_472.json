@@ -1,0 +1,6 @@
+{
+    "username": "OuOPianDog",
+    "submission": "class Trie:\n    def __init__(self):\n        self.t = {}\n        \nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        T = Trie()\n        for i, word in enumerate(words):\n            cur = T.t\n            for letter in word:\n                if letter not in cur:\n                    cur[letter] = {}\n                cur = cur[letter]\n            if \"#\" not in cur:\n                cur[\"#\"] = costs[i]\n            else:\n                cur[\"#\"] = min(costs[i], cur[\"#\"])\n        #print(T.t)\n        n = len(target)\n        dp = [float('inf') for _ in range(n)]\n        \n        for i in range(n):\n            cur = T.t\n            j = i\n            while j < n and target[j] in cur:\n                cur = cur[target[j]]\n                if \"#\" in cur:\n                    if i > 0:\n                        dp[j] = min(dp[j], dp[i - 1] + cur[\"#\"])\n                    else:\n                        dp[j] = min(dp[j], cur[\"#\"])\n                \n                \n                j += 1\n        \n        return dp[-1] if dp[-1] != float('inf') else -1\n                \n        ",
+    "submit_ts": "1720322239",
+    "subm_id": "1312344493"
+}

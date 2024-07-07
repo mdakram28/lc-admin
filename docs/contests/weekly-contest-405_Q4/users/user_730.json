@@ -1,0 +1,6 @@
+{
+    "username": "gopal846004",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        from collections import defaultdict\n        word_to_cost = defaultdict(list)\n        \n        for word, cost in zip(words, costs):\n            word_to_cost[word].append(cost)\n        \n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n        \n        for i in range(1, n + 1):\n            for word, cost_list in word_to_cost.items():\n                len_word = len(word)\n                if i >= len_word and target[i - len_word:i] == word:\n                    min_cost_for_word = min(cost_list)\n                    dp[i] = min(dp[i], dp[i - len_word] + min_cost_for_word)\n        \n        return dp[n] if dp[n] != float('inf') else -1",
+    "submit_ts": "1720321380",
+    "subm_id": "1312321345"
+}

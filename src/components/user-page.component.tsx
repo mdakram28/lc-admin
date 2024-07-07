@@ -55,13 +55,17 @@ export function UserPageComponent() {
     }, [username]);
 
     return <div style={{ height: "100%" }}>
-        <h2>{username}</h2>
+        <h2 style={{display: "inline-block"}}>{username}</h2> &nbsp;
+        <h4 style={{display: "inline-block"}}><a href={`https://leetcode.com/u/${username}/`} target="blank">
+            <i className="fa-solid fa-arrow-up-right-from-square"></i>
+        </a></h4>
+
         {!reportPairs || !contestInfo
             ? <>Loading ...</>
             : <table className="data-table" cellSpacing={0} cellPadding={0} style={{ minWidth: 500 }}>
                 <thead>
                     <tr>
-                        <th className="shrink">Report</th>
+                        <th className="shrink"></th>
                         <th>Username</th>
                         <th className="shrink">Similarity</th>
                     </tr>

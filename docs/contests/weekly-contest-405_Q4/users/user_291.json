@@ -1,0 +1,6 @@
+{
+    "username": "SkylerTsai",
+    "submission": "class Trie:\n    def __init__(self, char):\n        self.char = char\n        self.nxt = {}\n        self.isLeaf = False\n        self.cost = 10**5\n        \nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        root = Trie(None)\n        def addWord(word, cost):\n            temp = root\n            for char in word:\n                if char not in temp.nxt: temp.nxt[char] = Trie(char)\n                temp = temp.nxt[char]\n            temp.isLeaf = True\n            temp.cost = min(temp.cost, cost)\n        \n        for i in range(len(words)):\n            addWord(words[i], costs[i])\n        \n        dp = [0] + [-1] * len(target)\n        \n        for i in range(len(target)):\n            if dp[i] == -1: continue\n            temp = root\n            for j in range(i, len(target)):\n                if target[j] not in temp.nxt: break\n                temp = temp.nxt[target[j]]\n                \n                if temp.isLeaf: \n                    #print(i, j, temp.char)\n                    if dp[j + 1] == -1: dp[j + 1] = dp[i] + temp.cost\n                    else: dp[j + 1] = min(dp[j + 1], dp[i] + temp.cost)\n        return dp[-1]\n                    ",
+    "submit_ts": "1720321309",
+    "subm_id": "1312319339"
+}

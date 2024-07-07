@@ -1,0 +1,6 @@
+{
+    "username": "vincent_great",
+    "submission": "class Solution:\n    def minimumCost(self, tar: str, words: List[str], costs: List[int]) -> int:\n        dp, mp, d = [0]+[inf]*len(tar), {}, {}\n        for w, c in zip(words, costs):\n            mp[w] = min(mp.get(w, inf), c)\n        for w, c in mp.items():\n            d[w[0]] = d.get(w[0], [])+[[w, c]]\n        for i in range(len(tar)):\n            if tar[i] not in d:\n                continue\n            for w, c in d[tar[i]]:\n                if i+len(w)<=len(tar) and tar[i:i+len(w)]==w:\n                    dp[i+len(w)] = min(dp[i]+c, dp[i+len(w)])\n        return dp[-1] if dp[-1]<inf else -1",
+    "submit_ts": "1720321744",
+    "subm_id": "1312331155"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "delphih",
+    "submission": "class Solution:\n    def minimumCost(self, tar: str, W: List[str], C: List[int]) -> int:\n        T = lambda: defaultdict(T)\n        trie = T()\n        for w, c in zip(W, C):\n            p = reduce(dict.__getitem__, reversed(w), trie)\n            p[0] = min(p.get(0, inf), c)\n        @cache\n        def f(i):\n            if i < 0: return 0\n            p = trie\n            res = inf\n            while i >= 0 and tar[i] in p:\n                p = p[tar[i]]\n                if 0 in p: res = min(res, p[0] + f(i-1))\n                i -= 1\n            return res\n        res = f(len(tar) - 1)\n        return res if res != inf else -1",
+    "submit_ts": "1720320467",
+    "subm_id": "1312295066"
+}

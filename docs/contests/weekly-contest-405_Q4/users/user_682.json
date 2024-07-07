@@ -1,0 +1,6 @@
+{
+    "username": "misterpk18",
+    "submission": "struct tr {\n    unordered_map<char, tr*> mp;\n    vector<pair<int,int>> last;\n};\nclass Trie {\npublic:\n    tr* root;\n    Trie() { root = new tr(); }\n    void add(string& s, int idx, int x) {\n        tr* node = root;\n        for(auto c: s) {\n        if (node->mp.find(c)==node->mp.end())\n        node->mp[c]=new tr();\n            node=node->mp[c];\n        }\n    node->last.push_back({idx, x});\n    }\n};\nclass Solution {\npublic:\n    int minimumCost(string s, vector<string>& v, vector<int>& cost) {\n        int n=s.size();\n        vector<int> dp(n+1,1e9);\n        dp[0]=0;\n        Trie trie;\n        for (int i=0;i<v.size();i++)\n            trie.add(v[i],i,cost[i]);\n        for (int i = 0; i < n; ++i) {\n            if (dp[i] == 1e9) continue;\n            tr* node = trie.root;\n            for (int j = i; j < n; ++j) {\n                if (!node->mp.count(s[j])) break;\n                node = node->mp[s[j]];\n                for (auto it : node->last){\n                    int m=v[it.first].size();\n                    if(i+m<=n)\n                        dp[i+m]= min(dp[i+m],dp[i]+it.second);\n                }\n            }\n        }\n       if(dp[n]==1e9) return -1;\n        return dp[n];\n    }\n};\n",
+    "submit_ts": "1720322380",
+    "subm_id": "1312348345"
+}

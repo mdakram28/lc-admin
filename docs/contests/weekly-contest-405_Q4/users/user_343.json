@@ -1,0 +1,6 @@
+{
+    "username": "agb_1148",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        m = len(words)\n\n        # Create a dictionary to store the minimum cost for each word\n        wc = {}\n        for i, w in enumerate(words):\n            wc[w] = min(wc.get(w, float('inf')), costs[i])\n\n        # Initialize the dp array with infinity, and set dp[0] to 0\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n\n        # Iterate over each position in the target string\n        for i in range(1, n + 1):\n            # Iterate over each word in the dictionary\n            for w in wc:\n                len_w = len(w)\n                # Check if the word can fit in the current position and matches the target substring\n                if i >= len_w and target[i - len_w:i] == w:\n                    dp[i] = min(dp[i], dp[i - len_w] + wc[w])\n\n        # Return the result\n        return dp[n] if dp[n] != float('inf') else -1\n\n        ",
+    "submit_ts": "1720321564",
+    "subm_id": "1312326239"
+}

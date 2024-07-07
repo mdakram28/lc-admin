@@ -1,0 +1,6 @@
+{
+    "username": "JUx3zkMwyP",
+    "submission": "from typing import List\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        m = len(words)\n        \n        # Create a hashmap to store costs indexed by words\n        word_cost_map = {}\n        for idx, word in enumerate(words):\n            word_cost_map[word] = min(word_cost_map.get(word, float('inf')), costs[idx])\n        \n        # dp[i] will store the minimum cost to form target[0:i]\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n        \n        for i in range(1, n + 1):\n            for word in word_cost_map:\n                if i >= len(word) and target[i - len(word):i] == word:\n                    dp[i] = min(dp[i], dp[i - len(word)] + word_cost_map[word])\n        \n        return dp[n] if dp[n] != float('inf') else -1\n",
+    "submit_ts": "1720320875",
+    "subm_id": "1312307078"
+}

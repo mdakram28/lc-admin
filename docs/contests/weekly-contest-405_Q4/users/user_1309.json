@@ -1,0 +1,6 @@
+{
+    "username": "yuchanhsiao",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = {}\n        for ind in range(len(words)):\n            pnt = trie\n            for char in words[ind]:\n                if char not in pnt:\n                    pnt[char] = {}\n                pnt = pnt[char]\n            pnt['word'] = min(costs[ind], pnt.get('word', inf))\n        #print(trie)\n        n = len(target)\n        dp = [inf for _ in range(n+1)]\n        dp[0] = 0\n        for start in range(n):\n            end = start\n            pnt = trie\n            while end < n and target[end] in pnt:\n                pnt = pnt[target[end]]\n                end += 1\n                if 'word' in pnt:\n                    dp[end] = min(dp[end], dp[start]+pnt['word'])\n           \n        return dp[-1] if dp[-1] != inf else -1",
+    "submit_ts": "1720323302",
+    "subm_id": "1312372267"
+}

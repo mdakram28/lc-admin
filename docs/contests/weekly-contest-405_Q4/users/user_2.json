@@ -1,0 +1,6 @@
+{
+    "username": "Yawn_Sean",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        d = [{} for _ in range(max(len(x) for x in words) + 1)]\n        for w, c in zip(words, costs):\n            if w not in d[len(w)]: d[len(w)][w] = c\n            elif c < d[len(w)][w]: d[len(w)][w] = c\n        \n        lengths = [i for i in range(len(d)) if len(d[i])]\n        n = len(target)\n        \n        dp = [10 ** 9] * (n + 1)\n        dp[0] = 0\n        for i in range(n):\n            for j in lengths:\n                if i + j > n: break\n                else:\n                    try:\n                        cost = d[j][target[i:i+j]]\n                        if dp[i+j] > dp[i] + cost:\n                            dp[i+j] = dp[i] + cost\n                    except:\n                        pass\n        return dp[n] if dp[n] < 10 ** 9 else -1",
+    "submit_ts": "1720320174",
+    "subm_id": "1312285647"
+}

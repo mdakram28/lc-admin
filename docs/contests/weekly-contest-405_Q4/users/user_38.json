@@ -1,0 +1,6 @@
+{
+    "username": "LayzerK",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = {}\n        \n        for i, w in enumerate(words):\n            curr = trie\n            for char in w:\n                if char not in curr:\n                    curr[char] = {}\n                curr = curr[char]\n            curr[\"end\"] = min(curr[\"end\"], costs[i]) if \"end\" in curr else costs[i]\n        \n        #print(trie)\n        #print(trie[\"d\"])\n        @cache\n        def dfs(i):\n            if i == len(target):\n                return 0\n            curr = trie\n            ans = inf\n            for j in range(i, len(target)+1):\n                if \"end\" in curr:\n                    ans = min(ans,curr[\"end\"] + dfs(j))\n                if j == len(target) or target[j] not in curr:\n                    return ans\n                curr = curr[target[j]]\n            \n            return ans\n        \n        ans = dfs(0)\n        \n        return ans if ans != inf else -1\n            \n            ",
+    "submit_ts": "1720320938",
+    "subm_id": "1312308893"
+}

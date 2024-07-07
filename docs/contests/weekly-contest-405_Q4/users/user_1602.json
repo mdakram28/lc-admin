@@ -1,0 +1,6 @@
+{
+    "username": "rain",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        dic = defaultdict(int)\n        for i in range(len(words)):\n            w, c = words[i], costs[i]\n            if w not in dic:\n                dic[w] = c\n            else:\n                dic[w] = min(dic[w], c)\n        min_at_start = [float(\"inf\")] * (len(target) + 1)\n        heap = []\n        heapq.heappush(heap, (0, 0))\n        while heap:\n            node = heapq.heappop(heap)\n            cost, start = node[0], node[1]\n            if start == len(target):\n                return cost\n            if min_at_start[start] < cost:\n                continue\n            for w, c in dic.items():\n                if start + len(w) > len(target):\n                    continue\n                sub = target[start: start + len(w)]\n                if sub == w and min_at_start[start + len(w)] > cost + c:\n                    heapq.heappush(heap, (cost + c, start + len(w)))\n                    min_at_start[start + len(w)] = cost + c\n        return -1",
+    "submit_ts": "1720323655",
+    "subm_id": "1312380859"
+}

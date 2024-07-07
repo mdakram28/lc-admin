@@ -1,0 +1,6 @@
+{
+    "username": "10946024",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        dic = defaultdict(list)\n        temp = defaultdict(list)\n        for i in range(len(words)):\n            temp[words[i]].append(costs[i])\n        \n        for i in temp:\n            if i in target:\n                dic[i[-1]].append([i,min(temp[i])])\n        dp = [0]\n        for i in range(len(target)):\n            tmp = float('inf')\n            for j in dic[target[i]]:\n                if target[i-len(j[0])+1:i+1] == j[0]:\n                    tmp = min(tmp,j[1]+dp[i-len(j[0])+1])\n            dp.append(tmp)\n        if dp[-1]  == float(inf):\n            return -1\n        return dp[-1]\n\n        ",
+    "submit_ts": "1720323270",
+    "subm_id": "1312371498"
+}

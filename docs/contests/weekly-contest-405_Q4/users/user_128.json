@@ -1,0 +1,6 @@
+{
+    "username": "Casterkiller",
+    "submission": "class Node:\n    def __init__(self):\n        self.children = defaultdict(Node)\n        self.isWord = False\n        self.cost = inf\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        root = Node()\n        for w, c in zip(words, costs):\n            cur = root\n            for char in w:\n                cur = cur.children[char]\n            cur.cost = min(cur.cost, c)\n            cur.isWord = True\n        \n        N = len(target)\n        \n        @cache\n        def dfs(idx):\n            if idx == N:\n                return 0\n            if target[idx] not in root.children:\n                return inf\n            \n            best = inf\n            cur = root\n            i = idx\n            while i < N and target[i] in cur.children:\n                cur = cur.children[target[i]]\n                if cur.isWord:\n                    best = min(best, dfs(i + 1) + cur.cost)\n                \n                i += 1\n            \n            return best\n        \n        r = dfs(0)\n        return r if r != inf else -1\n        ",
+    "submit_ts": "1720321145",
+    "subm_id": "1312314740"
+}

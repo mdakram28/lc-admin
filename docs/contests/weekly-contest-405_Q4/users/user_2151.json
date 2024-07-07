@@ -1,0 +1,6 @@
+{
+    "username": "goyalshoot",
+    "submission": "class TrieNode {\npublic:\n    long long cost;\n    TrieNode* children[26];\n    TrieNode() : cost(INT_MAX), children{} {}\n};\nclass Solution {\npublic:\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        TrieNode* root = new TrieNode();\n        for (int i = 0; i < words.size(); ++i) {\n            TrieNode* node = root;\n            for (char c : words[i]) {\n                if (!node->children[c - 'a']) node->children[c - 'a'] = new TrieNode();\n                node = node->children[c - 'a'];\n            }\n            node->cost = node->cost<costs[i]?node->cost:costs[i];\n        }\n        \n        vector<long long> dp(target.size() + 1, INT_MAX);\n        dp[0] = 0;\n        for (int i = 0; i < target.size(); ++i) {\n            TrieNode* node = root;\n            for (int j = i; j < target.size(); ++j) {\n                node = node->children[target[j] - 'a'];\n                if (!node) break;\n                dp[j + 1] = dp[j + 1]<(dp[i] + node->cost)?dp[j+1]:(dp[i]+node->cost);\n            }\n        }\n        \n        return dp[target.size()] == INT_MAX ? -1 : dp[target.size()]; \n    }\n};",
+    "submit_ts": "1720322525",
+    "subm_id": "1312352246"
+}

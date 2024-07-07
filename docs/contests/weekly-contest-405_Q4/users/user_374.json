@@ -1,0 +1,6 @@
+{
+    "username": "anuragsingh658",
+    "submission": "class Solution {\n    public int minimumCost(String target, String[] words, int[] costs) {\n         int n = target.length();\n        int[] dp = new int[n + 1];\n        Arrays.fill(dp, Integer.MAX_VALUE);\n        dp[0] = 0;\n\n        // Use a map to store the minimum cost for each word\n        Map<String, Integer> wordCostMap = new HashMap<>();\n        for (int i = 0; i < words.length; i++) {\n            wordCostMap.put(words[i], Math.min(wordCostMap.getOrDefault(words[i], Integer.MAX_VALUE), costs[i]));\n        }\n\n        // Iterate through the target string\n        for (int i = 0; i < n; i++) {\n            if (dp[i] == Integer.MAX_VALUE) continue;\n\n            // Try to match all unique words starting from the current position\n            for (Map.Entry<String, Integer> entry : wordCostMap.entrySet()) {\n                String word = entry.getKey();\n                int len = word.length();\n                if (i + len <= n && target.startsWith(word, i)) {\n                    dp[i + len] = Math.min(dp[i + len], dp[i] + entry.getValue());\n                }\n            }\n        }\n\n        return dp[n] == Integer.MAX_VALUE ? -1 : dp[n];\n    }\n}",
+    "submit_ts": "1720320299",
+    "subm_id": "1312289746"
+}

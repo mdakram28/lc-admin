@@ -1,0 +1,6 @@
+{
+    "username": "qinzhe",
+    "submission": "class TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.cost = float('inf')  # Initialize cost as infinity\n\nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n        \n        trie_root = TrieNode()\n        for word, cost in zip(words, costs):\n            node = trie_root\n            for char in reversed(word):  # Build trie in reverse order to facilitate reverse matching\n                if char not in node.children:\n                    node.children[char] = TrieNode()\n                node = node.children[char]\n            node.cost = min(node.cost, cost)  # In case of duplicate words, store the minimum cost\n\n\n        for j in range(n):\n            node = trie_root\n            for i in range(j, -1, -1):\n                char = target[i]\n                if char in node.children:\n                    node = node.children[char]\n                    if node.cost < float('inf'):\n                        dp[j + 1] = min(dp[j + 1], dp[i] + node.cost)\n                else:\n                    break \n\n        return dp[n] if dp[n] != float('inf') else -1\n",
+    "submit_ts": "1720321252",
+    "subm_id": "1312317756"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "pbonmars",
+    "submission": "class Solution {\npublic:\n    int minimumCost(string& tgt, vector<string>& wrd, vector<int>& cst) {\n        int tgtLen = tgt.size();\n        vector<int> minCst(tgtLen + 1, INT_MAX);\n        minCst[0] = 0;\n        unordered_map<string, int> wCost;\n\n        for (int i = 0; i < wrd.size(); ++i) {\n            const string& w = wrd[i];\n            int c = cst[i];\n            if (wCost.find(w) == wCost.end() || c < wCost[w]) {\n                wCost[w] = c;\n            }\n        }\n\n        vector<string>().swap(wrd);\n        vector<int>().swap(cst);\n        for (int i = 0; i < tgtLen; ++i) {\n            if (minCst[i] == INT_MAX) continue;\n            for (const auto& entry : wCost) {\n                const string& cw = entry.first;\n                int c = entry.second;\n                int l = cw.size();\n\n                if (i + l <= tgtLen && tgt.compare(i, l, cw) == 0) {\n                    minCst[i + l] = min(minCst[i + l], minCst[i] + c);\n                }\n            }\n        }\n        return minCst[tgtLen] == INT_MAX ? -1 : minCst[tgtLen];\n    }\n};\n",
+    "submit_ts": "1720323159",
+    "subm_id": "1312368758"
+}

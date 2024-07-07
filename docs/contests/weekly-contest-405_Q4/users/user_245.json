@@ -1,0 +1,6 @@
+{
+    "username": "CompileErrorAutomaton",
+    "submission": "\n        \nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        memo = {}\n        trie = {}\n        for word, cost in zip(words, costs):\n            p = trie\n            for i, c in enumerate(word):\n                if c not in p:\n                    p[c] = {}\n                p = p[c]\n            p['word'] = word\n            memo[word] = min(memo.get(word, cost), cost)\n        @cache\n        def dfs(idx):\n            if idx == len(target):\n                return 0\n            p = trie\n            res = float('inf')\n            for i in range(idx, len(target)):\n                c = target[i]\n                if c not in p:\n                    break\n                p = p[c]\n                if p.get('word', None) is not None:\n                    res = min(res, memo[p['word']] + dfs(i+1))\n            return res\n        res = dfs(0)\n        return -1 if res ==float('inf') else res\n            ",
+    "submit_ts": "1720321279",
+    "subm_id": "1312318508"
+}

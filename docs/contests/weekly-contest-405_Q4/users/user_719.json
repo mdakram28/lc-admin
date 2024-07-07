@@ -1,0 +1,6 @@
+{
+    "username": "Jy_Tan",
+    "submission": "class Trie:\n    def __init__(self):\n        self.d = {}\n        \n    def add(self, s, cost):\n        d = self.d\n        for c in s:\n            if c not in d:\n                d[c] = {}\n            d = d[c]\n        d['cost'] = min(d.get('cost', float('inf')), cost)\n            \nclass Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        trie = Trie()\n        for w, c in zip(words, costs):\n            trie.add(w, c)\n        # print(trie.d)\n        @lru_cache(None)\n        def count(i):\n            if i == len(target):\n                return 0\n            res = float('inf')\n            d = trie.d\n            for j in range(i, len(target)):\n                ch = target[j]\n                if ch not in d:\n                    break\n                d = d[ch]\n                if 'cost' in d:\n                    res = min(res, d['cost'] + count(j + 1))\n            return res\n        \n        res = count(0)\n        return res if res != float('inf') else -1\n            \n            ",
+    "submit_ts": "1720322735",
+    "subm_id": "1312357758"
+}

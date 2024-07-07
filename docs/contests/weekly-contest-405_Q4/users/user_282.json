@@ -1,0 +1,6 @@
+{
+    "username": "onichaan",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0  # Base case: the cost to construct an empty string is 0\n        \n        # Create a dictionary to map words to their costs\n        word_to_cost = {}\n        for word, cost in zip(words, costs):\n            if word not in word_to_cost or cost < word_to_cost[word]:\n                word_to_cost[word] = cost\n        \n        # Traverse through each character in the target\n        for i in range(n):\n            if dp[i] == float('inf'):\n                continue  # Skip if the position is unreachable\n\n            # Check every word in the dictionary\n            for word, cost in word_to_cost.items():\n                len_word = len(word)\n                if i + len_word <= n and target[i:i+len_word] == word:\n                    dp[i + len_word] = min(dp[i + len_word], dp[i] + cost)\n        \n        return dp[n] if dp[n] != float('inf') else -1",
+    "submit_ts": "1720321396",
+    "subm_id": "1312321796"
+}

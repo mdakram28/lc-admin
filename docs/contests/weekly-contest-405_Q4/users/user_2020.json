@@ -1,0 +1,6 @@
+{
+    "username": "yubeiliu",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        dp = [float('inf')] * (n + 1)\n        dp[0] = 0\n\n        # Create a dictionary to store words by their last character\n        word_dict = {}\n        for i, word in enumerate(words):\n            if word not in word_dict or costs[i] < word_dict[word][1]:\n                word_dict[word] = (i, costs[i])\n\n        for i in range(1, n + 1):\n            for word, (index, cost) in word_dict.items():\n                if i >= len(word) and target[i - len(word):i] == word:\n                    dp[i] = min(dp[i], dp[i - len(word)] + cost)\n\n        return dp[n] if dp[n] != float('inf') else -1",
+    "submit_ts": "1720324462",
+    "subm_id": "1312400068"
+}

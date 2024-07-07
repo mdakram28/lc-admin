@@ -1,0 +1,6 @@
+{
+    "username": "mouli_dutta",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        def compute_lps(s: str) -> List[int]:\n            lps = [0] * len(s)\n            j = 0\n            for i in range(1, len(s)):\n                while j > 0 and s[i] != s[j]:\n                    j = lps[j - 1]\n                if s[i] == s[j]:\n                    j += 1\n                lps[i] = j\n            return lps\n        \n        t_len = len(target)\n        lps = compute_lps(target)\n        \n        dp = [float('inf')] * (t_len + 1)\n        dp[0] = 0\n        \n        word_to_cost = defaultdict(lambda: float('inf'))\n        for w, cost in zip(words, costs):\n            if cost < word_to_cost[w]:\n                word_to_cost[w] = cost\n        \n        for i in range(t_len):\n            if dp[i] == float('inf'):\n                continue\n            for w, cost in word_to_cost.items():\n                lw = len(w)\n                if i + lw <= t_len and target[i:i + lw] == w:\n                    dp[i + lw] = min(dp[i + lw], dp[i] + cost)\n        \n        return dp[t_len] if dp[t_len] != float('inf') else -1\n\n",
+    "submit_ts": "1720320697",
+    "subm_id": "1312302053"
+}

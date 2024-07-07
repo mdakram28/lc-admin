@@ -1,0 +1,6 @@
+{
+    "username": "jwseph",
+    "submission": "class Trie(dict):\n    def __init__(self, A=()):\n        super().__init__()\n        self.end = inf\n        for s in A: self.add(s)\n    def add(t, s, cost):\n        for c in s:\n            t[c] = t = t.get(c, Trie())\n        t.end = min(t.end, cost)\n    def find(t, s):\n        if t.end: yield 0\n        for i, c in enumerate(s):\n            if c not in t: return\n            t = t[c]\n            if t.end: yield i+1\n\nclass Solution:\n    def minimumCost(self, s: str, words: List[str], costs: List[int]) -> int:\n        tr = Trie()\n        for w, c in zip(words, costs):\n            tr.add(w,c)\n        @cache\n        def sol(i):\n            if i == len(s): return 0\n            t = tr\n            res = []\n            while i < len(s) and s[i] in t:\n                t = t[s[i]]\n                i += 1\n                if t.end < inf: res.append((i, t.end))\n            if not res: return inf\n            return min(sol(j)+c for j, c in res[::-1])\n        res = sol(0)\n        return res if res < inf else -1",
+    "submit_ts": "1720321481",
+    "subm_id": "1312324022"
+}

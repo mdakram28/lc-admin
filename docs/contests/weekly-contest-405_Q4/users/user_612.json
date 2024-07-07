@@ -1,0 +1,6 @@
+{
+    "username": "rip",
+    "submission": "struct t_t { t_t*n[26]{}; int e{}; };\nclass Solution {\npublic:\n    int minimumCost(string G, vector<string>& W, vector<int>& C) {\n        t_t T;G.insert(0,\"~\");\n        for(int i=0;i<W.size();++i){\n            auto t=&T;for(auto c:W[i]){auto&n=t->n[c-'a'];if(!n)n=new t_t;t=n;}\n            if(!t->e||t->e>C[i])t->e=C[i];\n        }\n        vector<uint>D(G.size(),-1);D[0]=0;\n        for(int b=0;b<G.size();++b)if(D[b]!=-1){\n            auto t=&T;for(int i=b;++i<G.size();){\n                t=t->n[G[i]-'a'];if(!t)break;if(t->e){\n                    D[i]=min(D[i],D[b]+t->e);\n                }\n            }\n        }\n        return D.back();\n    }\n};",
+    "submit_ts": "1720322554",
+    "subm_id": "1312353013"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "arignote",
+    "submission": "class Solution {\n\n    public int minimumCost(String target, String[] words, int[] costs) {\n        Node root = new Node();\n        for (int i = 0; i < words.length; i++) {\n            Node node = root;\n            for (char c : words[i].toCharArray()) {\n                if (node.nodes[c - 'a'] == null) {\n                    node.nodes[c - 'a'] = new Node();\n                }\n                node = node.nodes[c - 'a'];\n            }\n            node.cost = Math.min(node.cost, costs[i]);\n        }\n        int[] dp = new int[target.length() + 1];\n        for (int i = 1; i <= target.length(); i++) {\n            dp[i] = 1000000000;\n        }\n        for (int i = 0; i < target.length(); i++) {\n            Node node = root;\n            for (int j = i; j < target.length() && (node = node.nodes[target.charAt(j) - 'a']) != null; j++) {\n                dp[j + 1] = Math.min(dp[j + 1], dp[i] + node.cost);\n            }\n        }\n        return dp[target.length()] < 1000000000 ? dp[target.length()] : -1;\n    }\n\n    private class Node {\n        private Node[] nodes = new Node[26];\n        private int cost = 1000000000;\n    }\n}",
+    "submit_ts": "1720320139",
+    "subm_id": "1312284494"
+}

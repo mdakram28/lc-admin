@@ -1,0 +1,6 @@
+{
+    "username": "xiaojian9527",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n\n        w = {}\n        for word, cost in zip(words, costs):\n            if word in w:\n                w[word] = min(w[word], cost)\n            else:\n                w[word] = cost\n        \n        @cache\n        def dfs(i: int) -> int:\n            if i >= n:\n                return 0\n            \n            ans = inf\n            for word, cost in w.items():\n                if i + len(word) > n:\n                    continue\n                if target[i:i+len(word)] == word:\n                    ans = min(ans, cost + dfs(i+len(word)))\n            return ans\n        res = dfs(0)\n        return -1 if res == inf else res",
+    "submit_ts": "1720321797",
+    "subm_id": "1312332544"
+}

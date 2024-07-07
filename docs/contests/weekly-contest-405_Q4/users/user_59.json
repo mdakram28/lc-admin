@@ -1,0 +1,6 @@
+{
+    "username": "a7174812",
+    "submission": "class Trie{\npublic:\n    unordered_map<char,Trie*> mp;\n\n    bool isEnd = false;\n    int cost = INT_MAX;\n\n    void add(string& s, int cost){\n        auto ptr = this;\n\n        for(auto c : s){\n            if(!ptr->mp[c])\n                ptr->mp[c] = new Trie();\n            ptr = ptr->mp[c];\n        }\n        \n        ptr->cost = min(ptr->cost, cost);\n        ptr->isEnd = true;\n    }\n\n};\n\n\nclass Solution {\npublic:\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n\n        vector<int> dp(target.size()+1, INT_MAX);\n        dp[0] = 0;\n        Trie* root = new Trie();\n\n        for(int i = 0; i < words.size(); ++i){\n            root->add(words[i], costs[i]);\n        }\n\n        for(int i = 0; i < target.size(); ++i){\n            auto ptr = root;\n            if(dp[i] == INT_MAX)\n                continue;\n            for(int j = i; j < target.size(); ++j){\n                ptr = ptr->mp[target[j]];\n                if(!ptr)\n                    break;\n                if(ptr->isEnd){\n                    dp[j+1] = min(dp[j+1], dp[i] + ptr->cost);\n                }\n            }\n        }\n\n\n        return dp.back() == INT_MAX ? -1 : dp.back();\n    }\n};",
+    "submit_ts": "1720320799",
+    "subm_id": "1312304867"
+}

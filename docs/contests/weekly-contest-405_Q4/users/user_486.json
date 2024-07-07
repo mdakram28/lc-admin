@@ -1,0 +1,6 @@
+{
+    "username": "Prachi_Gurav",
+    "submission": "class Solution {\npublic:\nstruct Trnode {\nunordered_map<char, Trnode*> child;\nvector<pair<int, int>> wordse; \n};\n\nclass Tree {\npublic:\nTrnode* root;\nTree() { root = new Trnode(); }\n\nvoid insert(string& word, int ind, int cost) {\nTrnode* node = root;\nfor (char c : word) {\nif (!node->child.count(c))\nnode->child[c] = new Trnode();\nnode = node->child[c];\n}\nnode->wordse.push_back({ind, cost});\n}\n};\n\nint minimumCost(string target, vector<string>& words, vector<int>& costs) {\nint n = target.size();\nvector<int> dp(n + 1, INT_MAX);\ndp[0] = 0;\n\nTree tree;\nfor (int i = 0; i < words.size(); ++i) {\ntree.insert(words[i], i, costs[i]);\n}\n\nfor (int i = 0; i < n; ++i) {\nif (dp[i] == INT_MAX) continue;\n\nTrnode* node = tree.root;\nfor (int j = i; j < n; ++j) {\nif (!node->child.count(target[j])) break;\nnode = node->child[target[j]];\nfor (auto& p : node->wordse) {\nint wordInd = p.first;\nint wordcost = p.second;\nint len = words[wordInd].size();\nif (i + len <= n) {\ndp[i + len] = min(dp[i + len], dp[i] + wordcost);\n}\n}\n}\n}\n\nreturn dp[n] == INT_MAX ? -1 : dp[n];\n}\n};",
+    "submit_ts": "1720322559",
+    "subm_id": "1312353116"
+}

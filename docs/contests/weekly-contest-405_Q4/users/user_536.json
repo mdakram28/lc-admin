@@ -1,0 +1,6 @@
+{
+    "username": "muGDWaovHp",
+    "submission": "#include <vector>\n#include <string>\n#include <climits>\n#include <unordered_map>\n#include <algorithm>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        int n = target.length();\n        \n        unordered_map<string, int> wc;\n        \n        for (int i = 0; i < words.size(); ++i) {\n            if (wc.find(words[i]) == wc.end()) {\n                wc[words[i]] = costs[i];\n            } else {\n                wc[words[i]] = min(wc[words[i]], costs[i]);\n            }\n        }\n\n        vector<int> dp(n + 1, INT_MAX);\n        dp[0] = 0;\n\n        for (int i = 1; i <= n; ++i) {\n            for (const auto& [word, cost] : wc) {\n                int len = word.length();\n                if (i >= len && target.compare(i - len, len, word) == 0) {\n                    if (dp[i - len] != INT_MAX) {\n                        dp[i] = min(dp[i], dp[i - len] + cost);\n                    }\n                }\n            }\n        }\n\n        return dp[n] == INT_MAX ? -1 : dp[n];\n    }\n};\n",
+    "submit_ts": "1720321779",
+    "subm_id": "1312332073"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "niyathnair",
+    "submission": "bool init = []() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(nullptr);\n    cout.tie(nullptr);\n    return true;\n}();\n\nclass Solution {\npublic:\n    int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n        int n = target.size();\n        vector<int> dp(n + 1, INT_MAX);\n        dp[0] = 0; // Cost to construct an empty string is 0\n\n        unordered_map<string, int> wordCost;\n        for (int i = 0; i < words.size(); ++i) {\n            if (wordCost.find(words[i]) == wordCost.end() || wordCost[words[i]] > costs[i]) {\n                wordCost[words[i]] = costs[i];\n            }\n        }\n\n        for (int i = 0; i < n; ++i) {\n            if (dp[i] == INT_MAX) continue; // Skip if it's not possible to reach this index\n\n            for (const auto& pair : wordCost) {\n                const string& word = pair.first;\n                int cost = pair.second;\n                int len = word.size();\n\n                if (i + len <= n && equal(word.begin(), word.end(), target.begin() + i)) {\n                    dp[i + len] = min(dp[i + len], dp[i] + cost);\n                }\n            }\n        }\n\n        return dp[n] == INT_MAX ? -1 : dp[n];\n    }\n};",
+    "submit_ts": "1720324274",
+    "subm_id": "1312395623"
+}

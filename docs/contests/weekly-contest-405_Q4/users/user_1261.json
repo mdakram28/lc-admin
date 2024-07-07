@@ -1,0 +1,6 @@
+{
+    "username": "qdd1999",
+    "submission": "struct Node {\n  vector<int> next;\n  int cost;\n  Node() {\n    next.resize(26, -1);\n    cost = -1;\n  }\n};\n\nstruct Trie {\n  vector<Node> nodes;\n  Trie() { nodes.emplace_back(); }\n  void insert(const string& s, int cost) {\n    int cur = 0;\n    for (char c : s) {\n      int& nxt = nodes[cur].next[c - 'a'];\n      if (nxt == -1) {\n        nxt = nodes.size();\n        nodes.emplace_back();\n      }\n      cur = nxt;\n    }\n    nodes[cur].cost = (nodes[cur].cost == -1) ? cost : min(nodes[cur].cost, cost);\n  }\n};\n\nclass Solution {\npublic:\n  int minimumCost(string target, vector<string>& words, vector<int>& costs) {\n    int n = target.size(), m = words.size();\n    Trie t;\n    for (int i = 0; i < m; i++) {\n      t.insert(words[i], costs[i]);\n    }\n    vector<int> dp(n + 1, 1e9);\n    dp[0] = 0;\n    for (int i = 0; i < n; i++) {\n      int cur = 0, j = i;\n      while (cur != -1 && j < n) {\n        cur = t.nodes[cur].next[target[j] - 'a'];\n        if (cur != -1) {\n          if (t.nodes[cur].cost != -1) {\n            dp[j + 1] = min(dp[j + 1], dp[i] + t.nodes[cur].cost);\n          }\n        }\n        j++;\n      }\n    }\n    return dp[n] == 1e9 ? -1 : dp[n];\n  }\n};",
+    "submit_ts": "1720323794",
+    "subm_id": "1312384219"
+}

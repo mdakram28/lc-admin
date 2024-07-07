@@ -1,0 +1,6 @@
+{
+    "username": "zzjjbb",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        root = {}\n        for w, co in zip(words, costs):\n            node = root\n            for c in w:\n                try:\n                    node = node[c]\n                except KeyError:\n                    node[c] = node = {}\n            node[0] = min(node.get(0, inf), co)\n        # print(root)\n        pts = [(root, 0)]\n        for c in target:\n            npts = []\n            rc = inf\n            for p, cost in pts:\n                try:\n                    p = p[c]\n                    npts.append((p, cost))\n                    rc = min(rc, p[0] + cost)\n                except KeyError:\n                    pass\n            if rc < inf:\n                npts.append((root, rc))\n            pts = npts\n            # print(pts)\n        return rc if rc < inf else -1\n",
+    "submit_ts": "1720321807",
+    "subm_id": "1312332801"
+}

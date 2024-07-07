@@ -1,0 +1,6 @@
+{
+    "username": "WRWRW",
+    "submission": "class Solution:\n    def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:\n        n = len(target)\n        trie = {}\n        for word, cost in zip(words, costs):\n            curr = trie\n            for c in word:\n                if c not in curr:\n                    curr[c] = {}\n                curr = curr[c]\n            curr['cost'] = min(curr.get('cost', inf), cost)\n        # pprint(trie)\n        @lru_cache(None)\n        def helper(i):\n            if i == n:\n                return 0\n            # print(i)\n            curr = trie\n            res = inf\n            while i < n and target[i] in curr:\n                curr = curr[target[i]]\n                if 'cost' in curr:\n                    res = min(res, curr['cost'] + helper(i + 1))\n                i += 1\n            # print(i, res)\n            return res\n        res = helper(0)\n        if res != inf:\n            return res\n        return -1\n        ",
+    "submit_ts": "1720321053",
+    "subm_id": "1312312160"
+}
