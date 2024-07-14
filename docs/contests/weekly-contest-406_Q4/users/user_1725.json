@@ -1,0 +1,6 @@
+{
+    "username": "shaileshk11",
+    "submission": "class Solution {\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        PriorityQueue<Integer> hCuts = new PriorityQueue<>(Collections.reverseOrder());\n        PriorityQueue<Integer> vCuts = new PriorityQueue<>(Collections.reverseOrder());\n\n        for (int cost : horizontalCut) {\n            hCuts.offer(cost);\n        }\n        for (int cost : verticalCut) {\n            vCuts.offer(cost);\n        }\n\n        int horizontalSections = 1;\n        int verticalSections = 1;\n        long totalCost = 0;\n\n        while (!hCuts.isEmpty() && !vCuts.isEmpty()) {\n            if (hCuts.peek() >= vCuts.peek()) {\n                totalCost += hCuts.poll() * verticalSections;\n                horizontalSections++;\n            } else {\n                totalCost += vCuts.poll() * horizontalSections;\n                verticalSections++;\n            }\n        }\n\n        while (!hCuts.isEmpty()) {\n            totalCost += hCuts.poll() * verticalSections;\n            horizontalSections++;\n        }\n\n        while (!vCuts.isEmpty()) {\n            totalCost += vCuts.poll() * horizontalSections;\n            verticalSections++;\n        }\n\n        return totalCost;\n\n    }\n}",
+    "submit_ts": "1720926128",
+    "subm_id": "1320276849"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "phuc16102001",
+    "submission": "#define HORIZONTAL 'H'\n#define VERTICAL 'V'\n#define ll long long\n\nstruct Cut {\n    char type;\n    ll cost;\n    Cut(char _t, ll _c): type(_t), cost(_c) {}\n};\n\nbool compareByCost(const Cut* a, const Cut* b) {\n    return a->cost > b->cost;\n}\n\nclass Solution {\npublic:\n    ll minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        vector<Cut*> lsCut;\n        for (int i=0;i<m-1;i++) {\n            lsCut.push_back(new Cut(HORIZONTAL, horizontalCut[i]));\n        }\n        for (int i=0;i<n-1;i++) {\n            lsCut.push_back(new Cut(VERTICAL, verticalCut[i]));\n        }\n        \n        sort(lsCut.begin(), lsCut.end(), compareByCost);\n        // for (int i=0;i<n+m-2;i++) {\n        //     cout << lsCut[i]->cost << \" \";\n        // }\n        \n        ll res = 0;\n        ll cntH = 1, cntV = 1;\n        for (int i=0;i<n+m-2;i++) {\n            if (lsCut[i]->type == HORIZONTAL) {\n                res += cntH * lsCut[i]->cost;\n                cntV++;\n            } else {\n                res += cntV * lsCut[i]->cost;\n                cntH++;\n            }\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": "1720925601",
+    "subm_id": "1320260157"
+}

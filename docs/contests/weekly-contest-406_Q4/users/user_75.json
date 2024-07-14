@@ -1,0 +1,6 @@
+{
+    "username": "error_adp",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        sort(horizontalCut.rbegin(), horizontalCut.rend());\n        sort(verticalCut.rbegin(), verticalCut.rend());\n\n        int h = 0, v = 0; // Initial pieces count\n        long long totalCost = 0;\n        int horizontalPieces = 1, verticalPieces = 1;\n\n        // Use a priority queue to simulate the max-heap\n        priority_queue<pair<int, bool>> pq;\n        for (int cost : horizontalCut) {\n            pq.push({cost, true});\n        }\n        for (int cost : verticalCut) {\n            pq.push({cost, false});\n        }\n\n        // Process the cuts in order of descending costs\n        while (!pq.empty()) {\n            auto [cost, isHorizontal] = pq.top();\n            pq.pop();\n\n            if (isHorizontal) {\n                totalCost += (long long)cost * verticalPieces;\n                horizontalPieces++;\n            } else {\n                totalCost += (long long)cost * horizontalPieces;\n                verticalPieces++;\n            }\n        }\n\n        return totalCost;\n    }\n};",
+    "submit_ts": "1720924936",
+    "subm_id": "1320236698"
+}

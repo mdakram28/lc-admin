@@ -1,0 +1,6 @@
+{
+    "username": "Rinku_2003",
+    "submission": "import heapq\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, m: int, n: int, horizontalCut: List[int], verticalCut: List[int]) -> int:\n        # Create a max heap to keep track of the cuts\n        max_heap = []\n        \n        # Insert all horizontal cuts into the max-heap\n        for cost in horizontalCut:\n            heapq.heappush(max_heap, (-cost, 'h'))\n        \n        # Insert all vertical cuts into the max-heap\n        for cost in verticalCut:\n            heapq.heappush(max_heap, (-cost, 'v'))\n        \n        # Initialize the number of pieces in each direction\n        h_pieces = 1\n        v_pieces = 1\n        total_cost = 0\n\n        # Process the cuts in order of their cost (highest first)\n        while max_heap:\n            cost, cut_type = heapq.heappop(max_heap)\n            cost = -cost\n\n            if cut_type == 'h':\n                total_cost += cost * v_pieces\n                h_pieces += 1\n            else:\n                total_cost += cost * h_pieces\n                v_pieces += 1\n                \n        return total_cost",
+    "submit_ts": "1720925431",
+    "subm_id": "1320254490"
+}

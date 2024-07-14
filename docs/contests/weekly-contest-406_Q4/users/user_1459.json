@@ -1,0 +1,6 @@
+{
+    "username": "Cillian_raj2308",
+    "submission": "class Solution {\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        Long[] horizontal = Arrays.stream(horizontalCut).asLongStream().boxed().toArray(Long[]::new);\n        Long[] vertical = Arrays.stream(verticalCut).asLongStream().boxed().toArray(Long[]::new);\n\n        Arrays.sort(horizontal, Collections.reverseOrder());\n        Arrays.sort(vertical, Collections.reverseOrder());\n\n        int hIndex = 0, vIndex = 0;\n        int hParts = 1, vParts = 1;\n        long totalCost = 0;\n\n        while (hIndex < horizontal.length && vIndex < vertical.length) {\n            if (horizontal[hIndex] >= vertical[vIndex]) {\n                totalCost += horizontal[hIndex] * vParts;\n                hParts++;\n                hIndex++;\n            } else {\n                totalCost += vertical[vIndex] * hParts;\n                vParts++;\n                vIndex++;\n            }\n        }\n\n        while (hIndex < horizontal.length) {\n            totalCost += horizontal[hIndex] * vParts;\n            hIndex++;\n        }\n\n        while (vIndex < vertical.length) {\n            totalCost += vertical[vIndex] * hParts;\n            vIndex++;\n        }\n\n        return totalCost;\n    }\n}",
+    "submit_ts": "1720925970",
+    "subm_id": "1320271961"
+}

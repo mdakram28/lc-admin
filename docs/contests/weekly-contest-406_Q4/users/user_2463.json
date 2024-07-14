@@ -1,0 +1,6 @@
+{
+    "username": "101magikarp101",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n#define ll long long\n#define MOD 998244353\n#define MOD2 1000000007\n#define vt vector\nstruct pii {int x, y;};\nstruct pll {ll x, y;};\n\nclass Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& h, vector<int>& v) {\n        sort(h.begin(), h.end());\n        ll sh = 0, sv = 0;\n        for (int i = 0; i < m-1; i++) sh+=h[i];\n        for (int i = 0; i < n-1; i++) sv+=v[i];\n        if (m==1) return sv;\n        if (n==1) return sh;\n        vt<ll> pre(m-1);\n        pre[0]=h[0];\n        for (int i = 1; i < m-1; i++) {\n            pre[i] = pre[i-1]+h[i];\n        }\n        ll ans = sh*n+sv*m;\n        for (int i = 0; i < n-1; i++) {\n            auto it = lower_bound(h.begin(), h.end(), v[i]);\n            int idx = it-h.begin();\n            if (idx < m-1) {\n                ans -= pre[m-2]-(idx>0?pre[idx-1]:0);\n            }\n            ans -= idx*v[i];\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720925916",
+    "subm_id": "1320270264"
+}

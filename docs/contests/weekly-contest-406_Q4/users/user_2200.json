@@ -1,0 +1,6 @@
+{
+    "username": "lossantos",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        long long horizontalSum=0,verticalSum=0;\n        long long res=0;\n        for(auto &c:horizontalCut)horizontalSum+=c;\n        for(auto &c:verticalCut)verticalSum+=c;\n        int i=1,j=1;\n        sort(horizontalCut.begin(),horizontalCut.end(),[](long long a,long long b){\n            return a>b;\n        });\n        sort(verticalCut.begin(),verticalCut.end(),[](long long a,long long b){\n            return a>b;\n        });\n        // cout<<horizontalCut[0]<<endl;\n        while(i<=m-1 && j<=n-1){\n            if(horizontalCut[i-1] > verticalCut[j-1]){\n                res+=horizontalCut[i-1]*j;\n                horizontalSum-=horizontalCut[i-1];\n                i++;\n            }else{\n                res+=verticalCut[j-1]*i;\n                verticalSum-=verticalCut[j-1];\n                j++;\n            }\n        }\n        while(i<=m-1){\n            res+=horizontalCut[i-1]*j;\n            i++;\n        }\n        while(j<=n-1){\n            res+=verticalCut[j-1]*i;\n            j++;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720926377",
+    "subm_id": "546445852"
+}

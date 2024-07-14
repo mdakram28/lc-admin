@@ -1,0 +1,6 @@
+{
+    "username": "UjjwalJindal",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n            sort(horizontalCut.begin(), horizontalCut.end(), greater<int>());\n    sort(verticalCut.begin(), verticalCut.end(), greater<int>());\n\n    long long totalCost = 0;\n    int horizontalPieces = 1, verticalPieces = 1;\n    int h = 0, v = 0;\n\n    // Greedily cut the highest cost first\n    while (h < horizontalCut.size() && v < verticalCut.size()) {\n        if (horizontalCut[h] > verticalCut[v]) {\n            totalCost += static_cast<long long>(horizontalCut[h]) * verticalPieces;\n            ++horizontalPieces;\n            ++h;\n        } else {\n            totalCost += static_cast<long long>(verticalCut[v]) * horizontalPieces;\n            ++verticalPieces;\n            ++v;\n        }\n    }\n\n    // Process remaining horizontal cuts\n    while (h < horizontalCut.size()) {\n        totalCost += static_cast<long long>(horizontalCut[h]) * verticalPieces;\n        ++h;\n    }\n\n    // Process remaining vertical cuts\n    while (v < verticalCut.size()) {\n        totalCost += static_cast<long long>(verticalCut[v]) * horizontalPieces;\n        ++v;\n    }\n\n    return totalCost;\n    }\n};",
+    "submit_ts": "1720925758",
+    "subm_id": "1320265255"
+}

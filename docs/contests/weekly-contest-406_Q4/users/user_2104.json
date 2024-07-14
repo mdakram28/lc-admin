@@ -1,0 +1,6 @@
+{
+    "username": "kenCHLEE",
+    "submission": "/*\ncut the max cost first by maxHeap\ntrack number of rows and columns\n=> TC: O(mlogm + nlogn), SC: O(m+n)\n*/\nclass Solution {\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        PriorityQueue<Integer> hMaxHeap = toMaxHeap(horizontalCut);\n        PriorityQueue<Integer> vMaxHeap = toMaxHeap(verticalCut);\n        long rows = 1;\n        long cols = 1;\n        long ans = 0;\n        while (rows < m || cols < n) {\n            if (hMaxHeap.peek() > vMaxHeap.peek()) {\n                ans += cols * hMaxHeap.poll();\n                rows++;\n            } else {\n                ans += rows * vMaxHeap.poll();\n                cols++;\n            }\n        }\n        return ans;\n    }\n\n    private PriorityQueue<Integer> toMaxHeap(int[] cut) {\n        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(\n            Collections.reverseOrder()\n        );\n        maxHeap.add(0);  // avoid empty check\n        for (int cost : cut) {\n            maxHeap.add(cost);\n        }\n        return maxHeap;\n    }\n}",
+    "submit_ts": "1720926342",
+    "subm_id": "1320283336"
+}

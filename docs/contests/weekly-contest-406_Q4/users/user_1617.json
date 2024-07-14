@@ -1,0 +1,6 @@
+{
+    "username": "Lux27",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        vector<pair<int, int>> cuts;\n        // 0 -> horizontal cut\n        // 1 -> vertical cut\n        // {cost of cut, hori/vert cut flag}\n        for(int i = 0; i < m - 1; i++){\n            cuts.push_back({horizontalCut[i], 0});\n        }\n\n        for(int i = 0; i < n - 1; i++){\n            cuts.push_back({verticalCut[i], 1});\n        }\n\n        // sort reverse to ensure maximum cuts are done first\n        sort(cuts.rbegin(), cuts.rend());\n\n        long long horizontalPieces = 1, verticalPieces = 1;\n        long long totalCost = 0;\n\n        for(const auto &cut : cuts){\n            int cost = cut.first;\n            int type = cut.second;\n\n            if(type == 0){ // horizontal Cut\n                totalCost += cost * verticalPieces;\n                horizontalPieces++;\n            } else {\n                totalCost += cost * horizontalPieces;\n                verticalPieces++;\n            }\n        }\n\n        return totalCost;\n    }\n};",
+    "submit_ts": "1720926360",
+    "subm_id": "1320283848"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "infallible-chandrasekharek0",
+    "submission": "func minimumCost(m int, n int, horizontalCut []int, verticalCut []int) int64 {\n    cuts := make([][2]int, 0, len(horizontalCut)+len(verticalCut))\n    \n    for _, cost := range horizontalCut {\n        cuts = append(cuts, [2]int{cost, 0}) \n    }\n    for _, cost := range verticalCut {\n        cuts = append(cuts, [2]int{cost, 1})\n    }\n    \n    sort.Slice(cuts, func(i, j int) bool {\n        return cuts[i][0] > cuts[j][0]\n    })\n    \n    totalCost := 0\n    horizontalParts := 1\n    verticalParts := 1\n\n    for _, cut := range cuts {\n        if cut[1] == 0 {\n            totalCost += cut[0] * verticalParts\n            horizontalParts++\n        } else {\n            totalCost += cut[0] * horizontalParts\n            verticalParts++\n        }\n    }\n    \n    return int64(totalCost)\n}",
+    "submit_ts": "1720925306",
+    "subm_id": "546438444"
+}

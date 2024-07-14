@@ -1,0 +1,6 @@
+{
+    "username": "mywaytherehbf",
+    "submission": "class Solution:\n    def minimumCost(self, m: int, n: int, h: List[int], v: List[int]) -> int:\n        h.sort()\n        v.sort()\n        z = 0\n        i, j = len(h) - 1, len(v) - 1\n\n        # Precompute the cumulative sums\n        h_sum = [0] * (len(h) + 1)\n        v_sum = [0] * (len(v) + 1)\n        \n        for k in range(1, len(h) + 1):\n            h_sum[k] = h_sum[k - 1] + h[k - 1]\n        \n        for k in range(1, len(v) + 1):\n            v_sum[k] = v_sum[k - 1] + v[k - 1]\n\n        while i >= 0 or j >= 0:\n            if j < 0 or (i >= 0 and h[i] > v[j]):\n                z += h[i] + v_sum[j + 1]\n                i -= 1\n            else:\n                z += v[j] + h_sum[i + 1]\n                j -= 1\n\n        return z\n",
+    "submit_ts": "1720925174",
+    "subm_id": "546437427"
+}

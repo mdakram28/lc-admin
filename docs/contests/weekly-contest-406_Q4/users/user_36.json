@@ -1,0 +1,6 @@
+{
+    "username": "kaydee647",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        vector<pair<int, bool>> cuts;  // pair of (cost, isHorizontal)\n        \n        // Combine horizontal and vertical cuts\n        for (int cost : horizontalCut) {\n            cuts.push_back({cost, true});\n        }\n        for (int cost : verticalCut) {\n            cuts.push_back({cost, false});\n        }\n        \n        // Sort cuts in descending order of costs\n        sort(cuts.begin(), cuts.end(), [](pair<int, bool>& a, pair<int, bool>& b) {\n            return a.first > b.first;\n        });\n        \n        long long totalCost = 0;\n        int horizontalPieces = 1;\n        int verticalPieces = 1;\n        \n        // Apply cuts\n        for (auto& cut : cuts) {\n            int cost = cut.first;\n            bool isHorizontal = cut.second;\n            \n            if (isHorizontal) {\n                totalCost += (long long)cost * verticalPieces;\n                horizontalPieces++;\n            } else {\n                totalCost += (long long)cost * horizontalPieces;\n                verticalPieces++;\n            }\n        }\n        \n        return totalCost;\n    }\n};",
+    "submit_ts": "1720924770",
+    "subm_id": "1320230219"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "parsecMcGregor",
+    "submission": "class Solution{\n\n    class Cut implements Comparable<Cut> {\n        int val;\n        int dir;\n\n        public Cut (int val, int dir) {\n            this.val = val;\n            this.dir = dir;\n        }\n\n\n        @Override\n        public int compareTo(Cut o) {\n            return Integer.compare(this.val, o.val);\n        }\n    }\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        long ver = 1;\n        long hor = 1;\n        long ans = 0;\n        Arrays.sort(horizontalCut);\n        Arrays.sort(verticalCut);\n        ArrayList<Cut> list = new ArrayList<>();\n        for (int i = 0; i < m-1; i++) list.add(new Cut(horizontalCut[i], 0));\n        for (int i = 0; i < n-1; i++) list.add(new Cut(verticalCut[i], 1));\n        Collections.sort(list);\n        Collections.reverse(list);\n        for (Cut cut : list) {\n            if (cut.dir == 1) {\n                ans += hor * cut.val;\n                ver++;\n            } else {\n                ans += ver * cut.val;\n                hor++;\n            }\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720926265",
+    "subm_id": "1320280985"
+}

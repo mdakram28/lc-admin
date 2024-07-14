@@ -1,0 +1,6 @@
+{
+    "username": "AtulKeshari",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& hCut, vector<int>& vCut) {\n        sort(hCut.rbegin(), hCut.rend());\n        sort(vCut.rbegin(), vCut.rend());\n        \n        int hIdx = 0, vIdx = 0,hPieces = 1, vPieces = 1;\n        long long totalCost = 0;\n        \n        while (hIdx < hCut.size() && vIdx < vCut.size()) {\n            if (hCut[hIdx] >= vCut[vIdx]) {\n                processCut(hCut[hIdx], vPieces, hIdx, hPieces, totalCost);\n            } else {\n                processCut(vCut[vIdx], hPieces, vIdx, vPieces, totalCost);\n            }\n        }\n        \n        processRemainingCuts(hCut, hIdx, vPieces, totalCost);\n        processRemainingCuts(vCut, vIdx, hPieces, totalCost);\n        \n        return totalCost;\n    }\n\nprivate:\n    void processCut(int cutCost, int& pieces, int& idx, int& otherPieces, long long& totalCost) {\n        totalCost += cutCost * pieces;\n        otherPieces++;\n        idx++;\n    }\n\n    void processRemainingCuts(const vector<int>& cuts, int& idx, int pieces, long long& totalCost) {\n        while (idx < cuts.size()) {\n            totalCost += cuts[idx] * pieces;\n            idx++;\n        }\n    }\n};",
+    "submit_ts": "1720925360",
+    "subm_id": "1320252059"
+}

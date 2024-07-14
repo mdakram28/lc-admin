@@ -1,0 +1,6 @@
+{
+    "username": "cagr",
+    "submission": "class Solution:\n    def minimumCost(self, m: int, n: int, horizontalCut: List[int], verticalCut: List[int]) -> int:\n        '''\n        We need to do the most expensive cut first \n        '''\n        cut_heap = []\n        for i,v in enumerate(horizontalCut):\n            heapq.heappush(cut_heap, (-v, i, \"h\")) \n        for i,v in enumerate(verticalCut):\n            heapq.heappush(cut_heap, (-v, i, \"v\")) \n        # m, n \n        # first one is just 1\n        # if vertical, we double the hor. count\n        # if hor., we double the vertical count\n        v_count = 1\n        h_count = 1\n        total_cost = 0\n\n        while cut_heap:\n            cost, ind, dir = heapq.heappop(cut_heap)\n            cost = -cost\n            if dir == \"h\":\n                v_count += 1\n                total_cost += h_count * cost\n            else:\n                h_count += 1\n                total_cost += v_count * cost\n        return total_cost\n\n\n\n\n\n\n",
+    "submit_ts": "1720926239",
+    "subm_id": "1320280125"
+}

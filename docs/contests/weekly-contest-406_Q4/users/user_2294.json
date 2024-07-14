@@ -1,0 +1,6 @@
+{
+    "username": "BerryWong",
+    "submission": "class Solution {\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        PriorityQueue<Cut> pq = new PriorityQueue<>(new Comparator<Cut>() {\n            public int compare(Cut a, Cut b) {\n                return b.cost - a.cost;\n            }\n        });\n\n        for (int cost : horizontalCut) {\n            pq.add(new Cut(cost, true));\n        }\n\n        for (int cost : verticalCut) {\n            pq.add(new Cut(cost, false));\n        }\n\n        int horizontalPieces = 1;\n        int verticalPieces = 1;\n        long totalCost = 0;\n\n        while (!pq.isEmpty()) {\n            Cut currentCut = pq.poll();\n            if (currentCut.isHorizontal) {\n                totalCost += 1l * currentCut.cost * verticalPieces;\n                horizontalPieces++;\n            } else {\n                totalCost += 1l * currentCut.cost * horizontalPieces;\n                verticalPieces++;\n            }\n        }\n\n        return totalCost;\n    }\n    class Cut {\n        int cost;\n        boolean isHorizontal;\n\n        Cut(int cost, boolean isHorizontal) {\n            this.cost = cost;\n            this.isHorizontal = isHorizontal;\n        }\n    }\n}",
+    "submit_ts": "1720926146",
+    "subm_id": "1320277343"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "QTw05U8Hak",
+    "submission": "class Solution:\n    def minimumCost(self, m: int, n: int, horizontalCut: List[int], verticalCut: List[int]) -> int:\n        h_cuts = [-cost for cost in horizontalCut]\n        v_cuts = [-cost for cost in verticalCut]\n        heapq.heapify(h_cuts)\n        heapq.heapify(v_cuts)\n        \n        h_pieces, v_pieces = 1, 1\n        total_cost = 0\n        \n        # Process the cuts by always choosing the maximum cost cut available\n        while h_cuts and v_cuts:\n            if h_cuts[0] <= v_cuts[0]:  # Remember the values are negated\n                total_cost += -heapq.heappop(h_cuts) * v_pieces\n                h_pieces += 1\n            else:\n                total_cost += -heapq.heappop(v_cuts) * h_pieces\n                v_pieces += 1\n        \n        # Process any remaining horizontal cuts\n        while h_cuts:\n            total_cost += -heapq.heappop(h_cuts) * v_pieces\n        \n        # Process any remaining vertical cuts\n        while v_cuts:\n            total_cost += -heapq.heappop(v_cuts) * h_pieces\n        \n        return total_cost",
+    "submit_ts": "1720925680",
+    "subm_id": "1320262671"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "mcuallen",
+    "submission": "class Solution {\n    public long minimumCost(int m, int n, int[] horiCut, int[] vertCut) {\n        Integer[] horiCutBoxed = Arrays.stream(horiCut).boxed().toArray(Integer[]::new);\n        Integer[] vertCutBoxed = Arrays.stream(vertCut).boxed().toArray(Integer[]::new);\n        Arrays.sort(horiCutBoxed, Collections.reverseOrder());\n        Arrays.sort(vertCutBoxed, Collections.reverseOrder());\n        \n        int h_index = 0, v_index = 0;\n        int h_pieces = 1, v_pieces = 1;\n        long res = 0;\n\n        while (h_index < horiCutBoxed.length && v_index < vertCutBoxed.length) {\n            if (horiCutBoxed[h_index] > vertCutBoxed[v_index]) {\n                res += horiCutBoxed[h_index] * v_pieces;\n                h_pieces++;\n                h_index++;\n            } else {\n                res += vertCutBoxed[v_index] * h_pieces;\n                v_pieces++;\n                v_index++;\n            }\n        }\n\n        while (h_index < horiCutBoxed.length) {\n            res += horiCutBoxed[h_index] * v_pieces;\n            h_index++;\n        }\n\n        while (v_index < vertCutBoxed.length) {\n            res += vertCutBoxed[v_index] * h_pieces;\n            v_index++;\n        }\n\n        return res;\n\n    }\n}\n",
+    "submit_ts": "1720925855",
+    "subm_id": "546442410"
+}

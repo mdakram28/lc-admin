@@ -1,0 +1,6 @@
+{
+    "username": "uwu",
+    "submission": "use std::collections::BinaryHeap;\n\n#[cfg(debug_assertions)]\nuse crate::*;\n\nimpl Solution {\n    pub fn minimum_cost(m: i32, n: i32, horizontal_cut: Vec<i32>, vertical_cut: Vec<i32>) -> i64 {\n        let m = m as usize;\n        let n = n as usize;\n        let mut h: BinaryHeap<i32> = horizontal_cut.into_iter().collect();\n        let mut v: BinaryHeap<i32> = vertical_cut.into_iter().collect();\n        let mut ans = 0;\n        loop {\n            match (h.peek(), v.peek()) {\n                (Some(&x), Some(&y)) => {\n                    if x > y {\n                        ans += x as i64 * (n - v.len()) as i64;\n                        h.pop();\n                    } else {\n                        ans += y as i64 * (m - h.len()) as i64;\n                        v.pop();\n                    }\n                }\n                (Some(&x), None) => {\n                    ans += x as i64 * (n - v.len()) as i64;\n                    h.pop();\n                }\n                (None, Some(&y)) => {\n                    ans += y as i64 * (m - h.len()) as i64;\n                    v.pop();\n                }\n                (None, None) => break,\n            }\n        }\n        ans\n    }\n}\n",
+    "submit_ts": "1720926802",
+    "subm_id": "1320296763"
+}

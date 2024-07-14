@@ -1,0 +1,6 @@
+{
+    "username": "Luyim25",
+    "submission": "class Solution {\n    struct Cut {\n        bool h; // horizontal\n        long long value;\n    };\n\n    static bool cmp(const Cut& a, const Cut&b) {\n        return a.value > b.value;\n    }\n\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        vector<Cut> v;\n        for(int i = 0; i < horizontalCut.size(); i++) {\n            v.push_back({true, horizontalCut[i]});\n        }\n        for(int j = 0; j < verticalCut.size(); j++) {\n            v.push_back({false, verticalCut[j]});\n        }\n        sort(v.begin(), v.end(), cmp);\n        long long ans = 0;\n        long long verticals = 0;\n        long long horizontals = 0;\n        for(int i = 0; i < v.size(); i++) {\n            if(v[i].h) {\n                ans += v[i].value*(verticals+1);\n                horizontals++;\n            } else {\n                ans += v[i].value*(horizontals+1);\n                verticals++;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720925755",
+    "subm_id": "1320265150"
+}

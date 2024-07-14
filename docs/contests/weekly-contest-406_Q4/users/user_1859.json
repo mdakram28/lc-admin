@@ -1,0 +1,6 @@
+{
+    "username": "chinghongfang",
+    "submission": "class Solution {\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        Pair[] all = new Pair[m+n-2];\n        int count = 0;\n        for (int i : horizontalCut) {\n            all[count] = new Pair(i, 0);\n            count += 1;\n        }\n        for (int i : verticalCut) {\n            all[count] = new Pair(i, 1);\n            count += 1;\n        }\n        Arrays.sort(all, (a, b) -> b.cost - a.cost);\n\n        // Greedy choose\n        long ans = 0;\n        int hor = 0;\n        int ver = 0;\n        for (int i = 0; i<all.length; ++i){\n            if (all[i].dir == 0){\n                // do horizontal cut\n                ans += all[i].cost * (ver+1);\n                hor += 1;\n            }else {\n                //\n                ans += all[i].cost * (hor+1);\n                ver += 1;\n            }\n        }\n        return ans;\n    }\n    public class Pair {\n        final int cost;\n        final int dir;\n        public Pair(int cost, int dir){\n            this.cost = cost;\n            this.dir = dir;\n        }\n    }\n}",
+    "submit_ts": "1720926192",
+    "subm_id": "1320278704"
+}

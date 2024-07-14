@@ -1,0 +1,6 @@
+{
+    "username": "_itsme",
+    "submission": "class Solution {\npublic:\n    struct st {\n        int cost;\n        bool isHorizontal;\n    };\n\nstruct Compare {\n    bool operator()(const st& a, const st& b) {\n        return a.cost < b.cost;\n    }\n};\n\nlong long solve(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n    priority_queue<st, vector<st>, Compare> pq;\n    for (int i = 0; i < m - 1; ++i) {\n        pq.push({horizontalCut[i], true});\n    }\n    for (int j = 0; j < n - 1; ++j) {\n        pq.push({verticalCut[j], false});\n    }\n    int horizontalSegments = 1;\n    int verticalSegments = 1;\n    \n    long long res= 0;\n    \n    while (!pq.empty()) {\n        st currentCut = pq.top();\n        pq.pop();\n        \n        if (!currentCut.isHorizontal) {\n            res += (currentCut.cost * horizontalSegments);\n            verticalSegments++;\n \n        } else {\n            res += (currentCut.cost * verticalSegments);\n            horizontalSegments++;\n        }\n        // cout<<currentCut.cost<<\" \"<<totalCost<<\"\\n\";\n    }\n    \n    return res;\n}\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n    return solve(m,n,horizontalCut,verticalCut);          \n    }\n};",
+    "submit_ts": "1720926129",
+    "subm_id": "1320276877"
+}

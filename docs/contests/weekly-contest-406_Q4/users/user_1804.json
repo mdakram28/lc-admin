@@ -1,0 +1,6 @@
+{
+    "username": "michaelzhan1",
+    "submission": "class Solution:\n    def minimumCost(self, m: int, n: int, horizontalCut: List[int], verticalCut: List[int]) -> int:\n        # max heaps, then greedily take\n        horiz_pq = [-x for x in horizontalCut]\n        heapq.heapify(horiz_pq)\n        \n        vert_pq = [-x for x in verticalCut]\n        heapq.heapify(vert_pq)\n        \n        # how many times each cut needs to be applied\n        horiz_pieces = 1\n        vert_pieces = 1\n        \n        res = 0\n        while horiz_pq and vert_pq:\n            if horiz_pq[0] < vert_pq[0]:\n                res += -heapq.heappop(horiz_pq) * horiz_pieces\n                vert_pieces += 1\n            else:\n                res += -heapq.heappop(vert_pq) * vert_pieces\n                horiz_pieces += 1\n        \n        for x in horiz_pq:\n            res += -x * horiz_pieces\n        \n        for x in vert_pq:\n            res += -x * vert_pieces\n        \n        return res",
+    "submit_ts": "1720926164",
+    "subm_id": "1320277876"
+}

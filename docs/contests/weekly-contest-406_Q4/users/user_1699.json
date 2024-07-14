@@ -1,0 +1,6 @@
+{
+    "username": "2gamayibuxulong",
+    "submission": "class Solution {\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n                int h = horizontalCut.length,v = verticalCut.length;\n        int[] cuts = new int[h + v];\n        System.arraycopy(horizontalCut, 0, cuts, 0, h);\n        System.arraycopy(verticalCut, 0, cuts, h, v);\n\n        int[] cutTypes = new int[h + v];\n        Arrays.fill(cutTypes, 0, h, 1);\n        Arrays.fill(cutTypes, h, h + v, 2);\n\n        Integer[] indices = new Integer[cuts.length];\n        for (int i = 0; i < cuts.length; i++) {\n            indices[i] = i;\n        }\n        Arrays.sort(indices, (a, b) -> Integer.compare(cuts[b], cuts[a]));\n\n        long totalCost = 0;\n        long horizontalPieces = 1;\n        long verticalPieces = 1;\n\n        for (int i : indices) {\n            if (cutTypes[i] == 1) {\n                totalCost += cuts[i] * verticalPieces;\n                horizontalPieces++;\n            } else {\n                totalCost += cuts[i] * horizontalPieces;\n                verticalPieces++;\n            }\n        }\n\n        return totalCost;\n    }\n}",
+    "submit_ts": "1720926413",
+    "subm_id": "546446100"
+}

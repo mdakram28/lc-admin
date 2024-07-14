@@ -1,0 +1,6 @@
+{
+    "username": "bishwas_ritik7",
+    "submission": "struct Cut {\n    int cost;\n    char type; \n\n    Cut(int c, char t) : cost(c), type(t) {}\n};\n\nbool compareCuts(const Cut& a, const Cut& b) {\n    return a.cost > b.cost;\n}\n\nclass Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        vector<Cut> cuts;\n        \n        for (int i = 0; i < m - 1; ++i) {\n            cuts.emplace_back(horizontalCut[i], 'H');\n        }\n        for (int j = 0; j < n - 1; ++j) {\n            cuts.emplace_back(verticalCut[j], 'V');\n        }\n        \n        sort(cuts.begin(), cuts.end(), compareCuts);\n        \n        int horizontalPieces = 1;\n        int verticalPieces = 1;\n        long long totalCost = 0;\n        \n        for (const auto& cut : cuts) {\n            if (cut.type == 'H') {\n                totalCost += static_cast<long long>(cut.cost) * verticalPieces;\n                ++horizontalPieces;\n            } else {\n                totalCost += static_cast<long long>(cut.cost) * horizontalPieces;\n                ++verticalPieces;\n            }\n        }\n        \n        return totalCost;\n    }\n};\n",
+    "submit_ts": "1720926538",
+    "subm_id": "1320289158"
+}

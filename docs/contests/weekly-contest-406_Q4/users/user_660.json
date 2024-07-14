@@ -1,0 +1,6 @@
+{
+    "username": "Lukas249",
+    "submission": "/**\n * @param {number} m\n * @param {number} n\n * @param {number[]} horizontalCut\n * @param {number[]} verticalCut\n * @return {number}\n */\nvar minimumCost = function(m, n, horizontalCut, verticalCut) {\n    \n    let horizontalCuts = 1\n    let verticalCuts = 1\n    \n    verticalCut.sort((a,b) => a-b)\n    horizontalCut.sort((a,b) => a-b)\n\n    let sum = 0;\n\n    while(horizontalCut.length || verticalCut.length) {\n        const last1 = horizontalCut.length - 1\n        const last2 = verticalCut.length - 1\n        if(last1 >= 0 && last2 >= 0 && horizontalCut[last1] >= verticalCut[last2]) {\n            sum += (horizontalCuts * horizontalCut.pop())\n            verticalCuts++\n        } else if(last1 >= 0 && last2 >= 0 && horizontalCut[last1] < verticalCut[last2]) {\n            sum += (verticalCuts * verticalCut.pop())\n            horizontalCuts++\n        } else if(last1 >= 0) {\n            sum += (horizontalCuts * horizontalCut.pop())\n            verticalCuts++\n        } else if(last2 >= 0) {\n            sum += (verticalCuts * verticalCut.pop())\n            horizontalCuts++\n        }\n    }\n\n    return sum\n};",
+    "submit_ts": "1720925727",
+    "subm_id": "1320264238"
+}

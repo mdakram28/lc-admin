@@ -1,0 +1,6 @@
+{
+    "username": "dcube04",
+    "submission": "\nclass Solution {\n    struct Cut {\n    long long cost;\n    bool isHorizontal; \n};\n\nstruct CompareCut {\n    bool operator()(const Cut& a, const Cut& b) {\n        return a.cost < b.cost; \n    }\n};\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        priority_queue<Cut, vector<Cut>, CompareCut> pq;\n    \n    for (int i = 0; i < horizontalCut.size(); ++i) {\n        pq.push({horizontalCut[i], true});\n    }\n    \n    for (int j = 0; j < verticalCut.size(); ++j) {\n        pq.push({verticalCut[j], false});\n    }\n    \n    long long horizontalPieces = 1, verticalPieces = 1;\n    long long totalCost = 0;\n\n    while (!pq.empty()) {\n        Cut currentCut = pq.top();\n        pq.pop();\n        \n        if (currentCut.isHorizontal) {\n            totalCost += currentCut.cost * verticalPieces;\n            ++horizontalPieces;\n        } else {\n            totalCost += currentCut.cost * horizontalPieces;\n            ++verticalPieces;\n        }\n    }\n    \n    return totalCost;\n    }\n};\n\n",
+    "submit_ts": "1720925921",
+    "subm_id": "1320270440"
+}

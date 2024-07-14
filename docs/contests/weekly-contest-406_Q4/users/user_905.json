@@ -1,0 +1,6 @@
+{
+    "username": "lddlinan",
+    "submission": "class Solution(object):\n    def minimumCost(self, m, n, horizontalCut, verticalCut):\n        \"\"\"\n        :type m: int\n        :type n: int\n        :type horizontalCut: List[int]\n        :type verticalCut: List[int]\n        :rtype: int\n        \"\"\"\n        hs = sorted(horizontalCut, reverse=True)\n        vs = sorted(verticalCut, reverse=True)\n        m, n = len(hs), len(vs)\n        # f(m, n) = \n        i, j = 0, 0\n        print hs, vs\n        def dfs(i, j, ci, cj):\n            if i>=m and j>=n: return 0, 0\n            if i>=m:\n                v1, v2 = dfs(i, j+1, ci, cj)\n                return v1, v2+vs[j]*cj\n            if j>=n:\n                v1, v2 = dfs(i+1, j, ci, cj)\n                return hs[i]*ci+v1, v2\n            if ci*hs[i]+(cj+1)*vs[j]<=cj*vs[j]+(ci+1)*hs[i]:\n                # print \"next\", i+1, j\n                v1, v2 = dfs(i+1, j, ci, cj+1)\n                return hs[i]*ci+v1, v2\n            # print \"next\", i, j+1\n            v1, v2 = dfs(i, j+1, ci+1, cj)\n            return v1, vs[j]*cj+v2\n        v1, v2 =  dfs(0, 0, 1, 1)\n        return v1+v2\n            ",
+    "submit_ts": "1720925611",
+    "subm_id": "546440679"
+}

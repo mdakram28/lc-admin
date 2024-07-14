@@ -1,0 +1,6 @@
+{
+    "username": "wddd",
+    "submission": "class Solution {\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        int[][] inds = new int[m - 1 + n - 1][2];\n        int p = 0;\n\n        for (int i = 0; i < horizontalCut.length; i++) {\n            inds[p++] = new int[] {i, 0};\n        }\n        for (int i = 0; i < verticalCut.length; i++) {\n            inds[p++] = new int[] {i, 1};\n        }\n\n        Arrays.sort(inds, Comparator.comparingInt(i -> {\n            if (i[1] == 0) {\n                return horizontalCut[i[0]];\n            } else {\n                return verticalCut[i[0]];\n            }\n        }));\n\n        long cost = 0;\n        int hc = 1;\n        int vc = 1;\n        for (int i = inds.length - 1; i >= 0; i--) {\n            int[] curr = inds[i];\n            if (curr[1] == 0) {\n                cost += (long) horizontalCut[curr[0]] * vc;\n                hc++;\n            } else {\n                cost += (long) verticalCut[curr[0]] * hc;\n                vc++;\n            }\n        }\n        return cost;\n    }\n}",
+    "submit_ts": "1720925499",
+    "subm_id": "1320256760"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "sammer1107",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& hori_cuts, vector<int>& vert_cuts) {\n        sort(hori_cuts.begin(), hori_cuts.end(), greater<int>());\n        sort(vert_cuts.begin(), vert_cuts.end(), greater<int>());\n        long long cost = 0;\n        \n        --m; --n;\n\n        for (int i=0, j=0; i < m || j < n;) {\n            // printf(\"%d %d %d\\n\", i, j, cost);\n            if (i == m) {\n                // cut vertical\n                cost += vert_cuts[j++] * (i + 1);\n            } else if (j == n) {\n                // cut horizontal\n                cost += hori_cuts[i++] * (j + 1);\n            } else if (hori_cuts[i] > vert_cuts[j]) {\n                cost += hori_cuts[i++] * (j + 1);\n            } else if (hori_cuts[i] < vert_cuts[j]){\n                cost += vert_cuts[j++] * (i + 1);\n            } else {\n                // equal cost\n                if (i < j) {\n                    cost += vert_cuts[j++] * (i + 1);\n                } else {\n                    cost += hori_cuts[i++] * (j + 1);\n                }\n            }\n        } \n\n        return cost;\n    }\n};",
+    "submit_ts": "1720926301",
+    "subm_id": "1320282129"
+}

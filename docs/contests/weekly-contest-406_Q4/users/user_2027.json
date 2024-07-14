@@ -1,0 +1,6 @@
+{
+    "username": "pohanchi",
+    "submission": "class Solution:\n    def minimumCost(self, m: int, n: int, horizontalCut: List[int], verticalCut: List[int]) -> int:\n        \n        total_cut = m * n - 1\n        init_cut = 1\n        hheap = []\n        for x in horizontalCut:\n            heapq.heappush(hheap, -x)\n        vheap = []\n        for x in verticalCut:\n            heapq.heappush(vheap, -x)\n        if len(hheap) > 0:\n            maxh = -heapq.heappop(hheap)\n        else:\n            maxh = 0\n        if len(vheap) > 0:\n            maxv = -heapq.heappop(vheap)\n        else:\n            maxv = 0\n        cut = 0\n        hcut = 1\n        vcut = 1\n        total_cost = 0\n        while cut < total_cut:\n            if maxh > maxv:\n                cut += hcut\n                total_cost += maxh * hcut\n                vcut += 1\n                if hheap:\n                    maxh = -heapq.heappop(hheap)\n                else:\n                    maxh = 0\n            else:\n                cut += vcut\n                total_cost += maxv * vcut\n                hcut += 1\n                if vheap:\n                    maxv = -heapq.heappop(vheap)\n                else:\n                    maxv = 0\n        return total_cost",
+    "submit_ts": "1720926296",
+    "subm_id": "1320281967"
+}

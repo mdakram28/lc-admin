@@ -1,0 +1,6 @@
+{
+    "username": "joshuazhou",
+    "submission": "func minimumCost(m int, n int, horizontalCut []int, verticalCut []int) int64 {\n    sort.Slice(horizontalCut, func(i, j int) bool {\n        return horizontalCut[i] > horizontalCut[j]\n    })\n    sort.Slice(verticalCut, func(i, j int) bool {\n        return verticalCut[i] > verticalCut[j]\n    })\n\n    totalCost := 0\n    hCount, vCount := 1, 1\n    i, j := 0, 0\n\n    // Process cuts in a greedy manner\n    for i < len(horizontalCut) && j < len(verticalCut) {\n        if horizontalCut[i] >= verticalCut[j] {\n            totalCost += horizontalCut[i] * vCount\n            hCount++\n            i++\n        } else {\n            totalCost += verticalCut[j] * hCount\n            vCount++\n            j++\n        }\n    }\n\n    // Process remaining horizontal cuts\n    for i < len(horizontalCut) {\n        totalCost += horizontalCut[i] * vCount\n        i++\n    }\n\n    // Process remaining vertical cuts\n    for j < len(verticalCut) {\n        totalCost += verticalCut[j] * hCount\n        j++\n    }\n\n    return int64(totalCost)\n}",
+    "submit_ts": "1720926716",
+    "subm_id": "1320294363"
+}

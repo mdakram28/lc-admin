@@ -1,0 +1,6 @@
+{
+    "username": "XKTZ",
+    "submission": "typedef long long ll;\nconstexpr ll MAXN = 1e5 + 5;\n\nll M, N;\n\nll psa[MAXN];\n\nll query(ll l, ll r) {\n    return psa[r] - psa[l-1];\n}\n\nll calc(ll y, ll j) {\n    return j * y + query(j + 1, M - 1);\n}\n\nclass Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        sort(horizontalCut.begin(), horizontalCut.end(), greater<ll>());\n        sort(verticalCut.begin(), verticalCut.end(), greater<ll>());\n        verticalCut.insert(verticalCut.begin(), 0ll);\n\n        M = m;\n        N = n;\n\n        for (ll i = 1; i <= M - 1; i ++) {\n            psa[i] = psa[i - 1] + horizontalCut[i - 1];\n        }\n        ll ans = 0;\n        for (auto x: horizontalCut) ans += x;\n        for (auto x: verticalCut) ans += x;\n        \n        for (ll Jnow = M - 1, i = N - 1; i >= 1; i --) {\n            while (Jnow > 0 && calc(verticalCut[i], Jnow) > calc(verticalCut[i], Jnow - 1)) {\n                Jnow --;\n            }\n            // cout << Jnow << ' ' << calc(verticalCut[i], Jnow) << '\\n';\n            ans += calc(verticalCut[i], Jnow);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1720925778",
+    "subm_id": "1320265891"
+}

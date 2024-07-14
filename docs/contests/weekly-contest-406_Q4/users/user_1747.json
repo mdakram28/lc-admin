@@ -1,0 +1,6 @@
+{
+    "username": "Nishant1308",
+    "submission": "class Solution {\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        PriorityQueue<Integer> horizontalQueue = new PriorityQueue<>((a, b) -> b - a);\n        PriorityQueue<Integer> verticalQueue = new PriorityQueue<>((a, b) -> b - a);\n        \n        for (int cost : horizontalCut) {\n            horizontalQueue.offer(cost);\n        }\n        for (int cost : verticalCut) {\n            verticalQueue.offer(cost);\n        }\n        \n        int horizontalCuts = 0, verticalCuts = 0;\n        long totalCost = 0;\n        \n        while (!horizontalQueue.isEmpty() || !verticalQueue.isEmpty()) {\n            if (verticalQueue.isEmpty() || (!horizontalQueue.isEmpty() && horizontalQueue.peek() >= verticalQueue.peek())) {\n                totalCost += horizontalQueue.poll() * (verticalCuts + 1);\n                horizontalCuts++;\n            } else {\n                totalCost += verticalQueue.poll() * (horizontalCuts + 1);\n                verticalCuts++;\n            }\n        }\n        \n        return totalCost;\n    }\n}",
+    "submit_ts": "1720926138",
+    "subm_id": "1320277133"
+}

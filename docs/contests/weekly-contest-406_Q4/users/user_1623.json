@@ -1,0 +1,6 @@
+{
+    "username": "user4958DL",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        int hIndex = 0, vIndex = 0;\n        int hPieces = 1, vPieces = 1;\n        long long totalCost = 0;\n\n        sort(horizontalCut.begin(), horizontalCut.end(), greater<int>());\n        sort(verticalCut.begin(), verticalCut.end(), greater<int>());\n\n        auto processCut = [&](int& index, vector<int>& cuts, int& pieces, int& otherPieces) {\n            totalCost += cuts[index] * otherPieces;\n            pieces++;\n            index++;\n        };\n\n        while (hIndex < horizontalCut.size() && vIndex < verticalCut.size()) {\n            if (horizontalCut[hIndex] >= verticalCut[vIndex]) {\n                processCut(hIndex, horizontalCut, hPieces, vPieces);\n            } else {\n                processCut(vIndex, verticalCut, vPieces, hPieces);\n            }\n        }\n\n        while (hIndex < horizontalCut.size()) {\n            processCut(hIndex, horizontalCut, hPieces, vPieces);\n        }\n\n        while (vIndex < verticalCut.size()) {\n            processCut(vIndex, verticalCut, vPieces, hPieces);\n        }\n\n        return totalCost;\n    }\n};",
+    "submit_ts": "1720926366",
+    "subm_id": "1320284076"
+}

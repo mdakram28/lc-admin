@@ -1,0 +1,6 @@
+{
+    "username": "enitink",
+    "submission": "typedef struct _cuts {\n    int cost;\n    bool vert;\n    _cuts(int c, bool v) : cost(c) , vert(v) {}\n} cuts;\n\nclass Compare {\npublic:\n    bool operator()(cuts below, cuts above){\n        return below.cost < above.cost;\n    }\n};\n\nclass Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        priority_queue<cuts, vector<cuts>, Compare> pq;\n        for(auto& h: horizontalCut) {\n            pq.push(cuts(h, false));\n        }\n        for(auto& v: verticalCut) {\n            pq.push(cuts(v, true));\n        }\n        long long result = 0;\n        int h=0, v=0;\n        while(!pq.empty()) {\n            if(pq.top().vert) {\n                ++v;\n                result += (pq.top().cost * (h+1));\n\n            } else {\n                ++h;\n                result += (pq.top().cost * (v+1));\n            }\n            pq.pop();\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1720926642",
+    "subm_id": "1320292159"
+}

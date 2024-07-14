@@ -1,0 +1,6 @@
+{
+    "username": "kmc89",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        int xMulti = 1;\n        int yMulti = 1;\n        long long res = 0;\n\n        sort(begin(horizontalCut), end(horizontalCut), greater<int>());\n        sort(begin(verticalCut), end(verticalCut), greater<int>());\n        int xptr = 0, yptr = 0;\n        while (xMulti < n || yMulti < m) {\n            if (xMulti == n) {\n                // cout << yMulti << endl;\n                res += horizontalCut[yMulti-1] * xMulti;\n                yMulti++;\n                continue; \n            }\n            if (yMulti == m) {\n                res += verticalCut[xMulti-1] * yMulti;\n                xMulti++;\n                continue;\n            }\n\n            int opt1 = horizontalCut[yMulti-1] * xMulti + verticalCut[xMulti-1] * (yMulti+1);\n            int opt2 = verticalCut[xMulti-1] * yMulti + horizontalCut[yMulti-1] * (xMulti+1);\n\n            if (opt1 < opt2) {\n                res += horizontalCut[yMulti-1] * xMulti;\n                yMulti++;\n            } else {\n                res += verticalCut[xMulti-1] * yMulti;\n                xMulti++;\n            }\n\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720926383",
+    "subm_id": "1320284626"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "pulkitraina2608",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        if(m == n && m == 1) return 0;\n        if(m == 1) {\n            return accumulate(verticalCut.begin(), verticalCut.end(), 0LL);\n        }\n        if(n == 1) {\n            return accumulate(horizontalCut.begin(), horizontalCut.end(), 0LL);\n        }\n        \n        priority_queue<pair<int, int>> pq;\n        long long horInc = 1, vertInc = 1;\n        long long cost = 0;\n        for(int i = 0; i < m - 1; i++) pq.push({horizontalCut[i], 1});\n        for(int i = 0; i < n - 1; i++) pq.push({verticalCut[i], 0});\n        \n        while(!pq.empty()) {\n            auto curr = pq.top(); pq.pop();\n            int val = curr.first, type = curr.second;\n            if(type) {\n                cost += val * (horInc);\n                vertInc++;\n            }\n            else {\n                cost += val * (vertInc);\n                horInc++;\n            }\n        }\n        return cost;\n    }\n};",
+    "submit_ts": "1720925330",
+    "subm_id": "1320251018"
+}

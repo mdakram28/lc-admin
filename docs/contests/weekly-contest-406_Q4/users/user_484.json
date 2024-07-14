@@ -1,0 +1,6 @@
+{
+    "username": "dhruvsharma190802",
+    "submission": "struct Cut {\n    int cost;\n    bool isHorizontal;\n};\n\n\nclass Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        vector<Cut> cuts;\n    \n    // Add all horizontal cuts to the list\n    for (int i = 0; i < horizontalCut.size(); ++i) {\n        cuts.push_back({horizontalCut[i], true});\n    }\n    \n    // Add all vertical cuts to the list\n    for (int j = 0; j < verticalCut.size(); ++j) {\n        cuts.push_back({verticalCut[j], false});\n    }\n    \n    // Sort cuts by cost in descending order\n    sort(cuts.begin(), cuts.end(), [](const Cut& a, const Cut& b) {\n        return a.cost > b.cost;\n    });\n    \n    int horizontalPieces = 1;\n    int verticalPieces = 1;\n    long long totalCost = 0;\n    \n    // Process the cuts in descending order of cost\n    for (const Cut& cut : cuts) {\n        if (cut.isHorizontal) {\n            totalCost += static_cast<long long>(cut.cost) * verticalPieces;\n            horizontalPieces++;\n        } else {\n            totalCost += static_cast<long long>(cut.cost) * horizontalPieces;\n            verticalPieces++;\n        }\n    }\n    \n    return totalCost;  \n    }\n};",
+    "submit_ts": "1720925265",
+    "subm_id": "1320248785"
+}

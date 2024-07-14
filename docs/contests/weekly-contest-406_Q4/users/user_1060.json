@@ -1,0 +1,6 @@
+{
+    "username": "humbl_pi",
+    "submission": "from heapq import *\nclass Solution:\n    def minimumCost(self, m: int, n: int, horizontalCut: List[int], verticalCut: List[int]) -> int:\n        numHor = numVer = 1\n        # horizontalCut = heapify([(-i,True) for i in horizontalCut])\n        # verticalCut = heapify([(-i,False) for i in verticalCut])\n        horizontalCut = [-i for i in horizontalCut]\n        verticalCut = [-i for i in verticalCut]\n        heapify(horizontalCut)\n        heapify(verticalCut)\n\n        # print(horizontalCut, verticalCut)\n        ans = 0\n        ## largest cost first; cost is \n        while horizontalCut and verticalCut:\n            if (horizontalCut[0]<verticalCut[0]): # or\\\n            # (horizontalCut[0][0]==verticalCut[0][0] and , m>n): ## want to cut fewer pieces first\n                ans -= heappop(horizontalCut)*numVer\n                numHor += 1\n            else:\n                ans -= heappop(verticalCut)*numHor\n                numVer += 1\n\n        for hp, ctr in [(horizontalCut,numVer), (verticalCut,numHor)]:\n            while hp:\n                ans -= heappop(hp)*ctr\n\n        return ans",
+    "submit_ts": "1720926033",
+    "subm_id": "1320273938"
+}

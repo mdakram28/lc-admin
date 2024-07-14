@@ -1,0 +1,6 @@
+{
+    "username": "hjfenghj-f",
+    "submission": "\n\nclass Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        int colCnts = 1; //\u6a2a\u5207\u6b21\u6570\n        int rowCnts = 1; //\u7ad6\u5207\u6b21\u6570\n\n        multiset<int> colS(horizontalCut.begin(), horizontalCut.end());\n        multiset<int> rowS(verticalCut.begin(), verticalCut.end());\n\n        horizontalCut.insert(horizontalCut.end(), verticalCut.begin(), verticalCut.end());\n        ranges::sort(horizontalCut);\n\n        long long ans = 0;\n        for(int i = horizontalCut.size() - 1; i >=0; --i)\n        {\n            const int n = horizontalCut[i];\n            if(colS.find(n) != colS.end())\n            {\n                ans += n * rowCnts;\n                colS.erase(colS.find(n));\n                ++colCnts;\n            }\n\n            else\n            {\n                ans += n * colCnts;\n                rowS.erase(rowS.find(n));\n                ++rowCnts;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720926205",
+    "subm_id": "546444740"
+}

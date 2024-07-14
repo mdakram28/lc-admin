@@ -1,0 +1,6 @@
+{
+    "username": "_inevitable_",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& hC, vector<int>& vC) {\n        // Even if we sort the cost, the min cost will be same\n        sort(hC.begin(), hC.end(), greater<int>());\n        sort(vC.begin(), vC.end(), greater<int>());\n\n        int v = 0, h = 0;\n        int hCut = 1, vCut = 1;\n        long long cost = 0;\n\n        while(v < vC.size() && h < hC.size()) {\n            // cout<<vC[v] << hC[h] << endl;\n            if(vC[v] > hC[h]) {\n                cost += vC[v] * hCut;\n                vCut++; // for each horizontal cut, more vertical cut is required\n                v++;\n            } else {\n                cost += hC[h] * vCut;\n                hCut++;\n                h++;\n            }\n        }\n\n        // Cut remaining pieces\n        while(v < vC.size()) {\n            cost += vC[v] * hCut;\n            v++;\n        }\n\n        while(h < hC.size()) {\n            cost += hC[h] * vCut;\n            h++;\n        }\n\n        return cost;\n    }\n};",
+    "submit_ts": "1720926691",
+    "subm_id": "1320293605"
+}

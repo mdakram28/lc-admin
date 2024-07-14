@@ -1,0 +1,6 @@
+{
+    "username": "8590006509",
+    "submission": "#include <vector>\n#include <queue>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        \n        priority_queue<int> horizontalPQ(horizontalCut.begin(), horizontalCut.end());\n        priority_queue<int> verticalPQ(verticalCut.begin(), verticalCut.end());\n\n        long long totalCost = 0;\n\n        int horizontalPieces = 1;\n        int verticalPieces = 1;\n\n        while (!horizontalPQ.empty() || !verticalPQ.empty()) {\n            if (verticalPQ.empty() || (!horizontalPQ.empty() && horizontalPQ.top() >= verticalPQ.top())) {\n                int cost = horizontalPQ.top();\n                horizontalPQ.pop();\n                totalCost += static_cast<long long>(cost) * verticalPieces;\n                horizontalPieces++;\n            } else {\n                int cost = verticalPQ.top();\n                verticalPQ.pop();\n                totalCost += static_cast<long long>(cost) * horizontalPieces;\n                verticalPieces++;\n            }\n        }\n\n        return totalCost;\n    }\n};\n",
+    "submit_ts": "1720926703",
+    "subm_id": "1320293956"
+}

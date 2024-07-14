@@ -1,0 +1,6 @@
+{
+    "username": "skywalkert",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& A, vector<int>& B) {\n        typedef long long LL;\n        map<int, pair<int, int> > ctr;\n        for(int x: A)\n            ++ctr[-x].first;\n        for(int x: B)\n            ++ctr[-x].second;\n        pair<int, int> pre;\n        LL ans = 0;\n        for(auto &it: ctr) {\n            int v = -it.first;\n            auto &[c0, c1] = it.second;\n            if(!c0 || !c1) {\n                ans += (c0 * (pre.second + 1LL) + c1 * (pre.first + 1LL)) * v;\n            } else {\n                LL t0 = (c0 * (pre.second + 1LL) + c1 * (pre.first + c0 + 1LL));\n                LL t1 = (c0 * (pre.second + c1 + 1LL) + c1 * (pre.first + 1LL));\n                ans += min(t0, t1) * v;\n            }\n            pre.first += c0;\n            pre.second += c1;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720925278",
+    "subm_id": "1320249254"
+}

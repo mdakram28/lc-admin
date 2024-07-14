@@ -1,0 +1,6 @@
+{
+    "username": "jingzhichen7",
+    "submission": "func minimumCost(m int, n int, horizontalCut []int, verticalCut []int) int64 {\n\tcost := make([]cutCost, 0, len(horizontalCut)+len(verticalCut))\n\tfor _, hc := range horizontalCut {\n\t\tcost = append(cost, cutCost{cost: hc, isHorizontal: true})\n\t}\n\tfor _, vc := range verticalCut {\n\t\tcost = append(cost, cutCost{cost: vc, isHorizontal: false})\n\t}\n\tsort.Sort(costSlice(cost))\n\tcostSum := int64(0)\n\thPieces, vPieces := 1, 1\n\tfor i := len(cost) - 1; i >= 0; i-- {\n\t\tc := cost[i]\n\t\tif c.isHorizontal {\n\t\t\tcostSum += int64(c.cost * vPieces)\n\t\t\thPieces += 1\n\t\t} else {\n\t\t\tcostSum += int64(c.cost * hPieces)\n\t\t\tvPieces += 1\n\t\t}\n\t}\n\treturn costSum\n}\n\ntype cutCost struct {\n\tcost         int\n\tisHorizontal bool\n}\n\ntype costSlice []cutCost\n\nfunc (c costSlice) Less(i, j int) bool {\n\treturn c[i].cost < c[j].cost\n}\n\nfunc (c costSlice) Len() int {\n\treturn len(c)\n}\n\nfunc (c costSlice) Swap(i, j int) {\n\tc[i], c[j] = c[j], c[i]\n}\n",
+    "submit_ts": "1720926684",
+    "subm_id": "546447832"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "oneq",
+    "submission": "import java.util.PriorityQueue;\nimport java.util.Set;\n\nclass Solution {\n    public static class Node implements Comparable<Node> {\n        int x, y;\n\n        public Node(int x, int y) {\n            this.x = x;\n            this.y = y;\n        }\n\n        @Override\n        public int compareTo(Node o) {\n            return o.x - x;\n        }\n    }\n\n    public long minimumCost(int m, int n, int[] hCuts, int[] vCuts) {\n        // Set<Node>\n        PriorityQueue<Node> queue = new PriorityQueue<>();\n        long cnth = 0, cnty = 0, ans = 0;\n        for (int c : hCuts) {\n            queue.add(new Node(c, 0));\n        }\n        for (int c : vCuts) {\n            queue.add(new Node(c, 1));\n        }\n\n        while (!queue.isEmpty()) {\n            Node cut = queue.peek();\n            queue.remove();\n            if (cut.y == 0) {\n                ans += 1L * cut.x * (cnty + 1);\n                cnth++;\n            } else {\n                ans += 1L * cut.x * (cnth + 1);\n                cnty++;\n            }\n        }\n\n        return ans;\n    }\n}\n",
+    "submit_ts": "1720925416",
+    "subm_id": "546439266"
+}

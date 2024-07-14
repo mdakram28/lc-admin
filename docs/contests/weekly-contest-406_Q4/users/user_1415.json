@@ -1,0 +1,6 @@
+{
+    "username": "michaelyuyue2012",
+    "submission": "class Solution:\n    def minimumCost(self, m: int, n: int, horizontalCut: List[int], verticalCut: List[int]) -> int:\n        # Add all cuts to a priority queue (max-heap)\n        max_heap = []\n        \n        for cost in horizontalCut:\n            heapq.heappush(max_heap, (-cost, 'H'))\n            \n        for cost in verticalCut:\n            heapq.heappush(max_heap, (-cost, 'V'))\n\n        total_cost = 0\n        horizontal_pieces = 1\n        vertical_pieces = 1\n        \n        # While there are cuts to be made\n        while max_heap:\n            cost, cut_type = heapq.heappop(max_heap)\n            cost = -cost  # Negate to get original cost\n            \n            if cut_type == 'H':\n                total_cost += cost * vertical_pieces\n                horizontal_pieces += 1\n            else:\n                total_cost += cost * horizontal_pieces\n                vertical_pieces += 1\n        \n        return total_cost\n            ",
+    "submit_ts": "1720925942",
+    "subm_id": "1320271086"
+}

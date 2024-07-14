@@ -1,0 +1,6 @@
+{
+    "username": "Pushkar_Varshney",
+    "submission": "class Solution {\n    struct Cut {\n        int cost;\n        bool isHorizontal;\n    };\n\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n\n        priority_queue<Cut, vector<Cut>, function<bool(Cut, Cut)>> pq([](Cut a, Cut b) {\n            return a.cost < b.cost;\n        });\n\n        for (int cost : horizontalCut) {\n            pq.push({cost, true});\n        }\n        for (int cost : verticalCut) {\n            pq.push({cost, false});\n        }\n\n        long long totalCost = 0;\n        int horizontalPieces = 1, verticalPieces = 1;\n\n        while (!pq.empty()) {\n            Cut cut = pq.top();\n            pq.pop();\n\n            if (cut.isHorizontal) {\n                totalCost += static_cast<long long>(cut.cost) * verticalPieces;\n                horizontalPieces++;\n            } else {\n                totalCost += static_cast<long long>(cut.cost) * horizontalPieces;\n                verticalPieces++;\n            }\n        }\n\n        return totalCost;\n    }\n};",
+    "submit_ts": "1720925660",
+    "subm_id": "1320262038"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "forasssk",
+    "submission": "class Solution {\n    using ll = long long;\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        vector <pair <int, char>> cut;\n        for (int hc: horizontalCut) {\n            cut.push_back({hc, 'h'});\n        }\n        for (int vc: verticalCut) {\n            cut.push_back({vc, 'v'});\n        }\n        sort(cut.rbegin(), cut.rend());\n        int p = cut.size();\n        vector <int> cnth(p), cntv(p);\n        ll ans = 0;\n        for (int i = 0; i < p; i ++) {\n            if (cut[i].second == 'h') {\n                cnth[i] = 1;\n                cntv[i] = 0;\n            }\n            else {\n                cnth[i] = 0;\n                cntv[i] = 1;\n            }\n            if (i) {\n                cnth[i] += cnth[i - 1];\n                cntv[i] += cntv[i - 1];\n            }\n            if (cut[i].second == 'h') {\n                ans += 1LL * cut[i].first * (cntv[i] + 1);\n            }\n            else {\n                ans += 1LL * cut[i].first * (cnth[i] + 1);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1720926046",
+    "subm_id": "1320274322"
+}

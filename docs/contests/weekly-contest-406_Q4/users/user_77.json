@@ -1,0 +1,6 @@
+{
+    "username": "HakuLess",
+    "submission": "class Solution {\n    fun minimumCost(m: Int, n: Int, horizontalCut: IntArray, verticalCut: IntArray): Long {\n        data class Cut(val cost: Int, val type: Char)\n\n        val cuts = mutableListOf<Cut>()\n        for (i in horizontalCut.indices) {\n            cuts.add(Cut(horizontalCut[i], 'H'))\n        }\n        for (j in verticalCut.indices) {\n            cuts.add(Cut(verticalCut[j], 'V'))\n        }\n\n        // \u5bf9\u5207\u5272\u7ebf\u6309\u5f00\u9500\u6392\u5e8f\n        cuts.sortBy { -it.cost }\n\n        var ans = 0L\n        var hCount = 1L\n        var vCount = 1L\n\n        for (cut in cuts) {\n            if (cut.type == 'H') {\n                // \u5bf9\u4e8e\u6c34\u5e73\u5207\u5272\uff0c\u5f00\u9500\u4e58\u4ee5\u5f53\u524d\u5782\u76f4\u5206\u6bb5\u7684\u6570\u91cf\n                ans += cut.cost * vCount\n                hCount++\n            } else {\n                // \u5bf9\u4e8e\u5782\u76f4\u5207\u5272\uff0c\u5f00\u9500\u4e58\u4ee5\u5f53\u524d\u6c34\u5e73\u5206\u6bb5\u7684\u6570\u91cf\n                ans += cut.cost * hCount\n                vCount++\n            }\n        }\n\n        return ans\n    }\n}",
+    "submit_ts": "1720924936",
+    "subm_id": "546435612"
+}

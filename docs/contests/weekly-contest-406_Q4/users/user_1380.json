@@ -1,0 +1,6 @@
+{
+    "username": "b08902128",
+    "submission": "class Solution {\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        List<Cut> cuts = new ArrayList<>();\n        for(int i=0; i<m-1; i++){\n            cuts.add(new Cut(horizontalCut[i], true));\n        }\n        for(int i=0; i<n-1; i++){\n            cuts.add(new Cut(verticalCut[i], false));\n        }\n        int hCount = 1;\n        int vCount = 1;\n        cuts.sort(Comparator.comparing(Cut::cost).reversed());\n        long ans = 0;\n        for (Cut cut: cuts){\n            ans += (long) cut.cost * (cut.horizontal() ? vCount : hCount);\n            if(cut.horizontal){\n                hCount += 1;\n            } else {\n                vCount += 1;\n            }\n        }\n        return ans;\n    }\n    public record Cut(Integer cost, boolean horizontal){}\n}",
+    "submit_ts": "1720925148",
+    "subm_id": "1320244596"
+}

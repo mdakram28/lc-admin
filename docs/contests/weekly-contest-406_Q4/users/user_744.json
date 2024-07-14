@@ -1,0 +1,6 @@
+{
+    "username": "How2Kritin",
+    "submission": "// Need an optimal solution for m, n <= 10^5 as well.\nclass Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        long long minCost = 0, numHorizontalPieces = 1, numVerticalPieces = 1;\n\n        // essentially kruskal's algo.\n        vector<pair<long long, bool>> cuts; // cut cost, isHorizontal\n        for (long long cost : horizontalCut) cuts.emplace_back(cost, true);\n        for (long long cost : verticalCut) cuts.emplace_back(cost, false);\n\n        sort(cuts.begin(), cuts.end());\n\n        for (int i = cuts.size() - 1; i >= 0; i--) {\n            long long cost = cuts[i].first;\n            bool isHorizontal = cuts[i].second;\n            if (isHorizontal) {\n                minCost += cost * numVerticalPieces;\n                numHorizontalPieces++;\n            } else {\n                minCost += cost * numHorizontalPieces;\n                numVerticalPieces++;\n            }\n        }\n\n        return minCost;\n    }\n};",
+    "submit_ts": "1720925486",
+    "subm_id": "1320256311"
+}

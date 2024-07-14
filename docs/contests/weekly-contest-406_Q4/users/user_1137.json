@@ -1,0 +1,6 @@
+{
+    "username": "lllxin037",
+    "submission": "class Solution {\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        \n        PriorityQueue<int[]> cutInfo = new PriorityQueue<>((a, b) -> (b[0]-a[0]));\n        for (int i = 0; i < m - 1; i++ ) {\n            cutInfo.add(new int[]{horizontalCut[i], 0});\n        }\n        \n        for (int i = 0; i < n - 1; i++ ) {\n            cutInfo.add(new int[]{verticalCut[i], 1});\n        }\n        \n        //System.out.println(cutInfo.size());\n        \n        long ret = 0L;\n        int hcut = 0, vcut = 0;\n        \n        while (!cutInfo.isEmpty()) {\n            int[] cur = cutInfo.poll();\n            int cost = cur[0];\n            boolean isHorizontal = cur[1] == 0; \n            //System.out.println(\"cost: \" + cost + \" isHorizontal: \" + isHorizontal + \" ret: \" + ret);\n            \n            if (isHorizontal) {\n                ret += (vcut + 1L) * cost;\n                hcut++;\n            } else {\n                ret += (hcut + 1L) * cost;\n                vcut++;\n            }\n        }\n        \n        return ret;\n        \n    }\n}",
+    "submit_ts": "1720926083",
+    "subm_id": "1320275428"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "ykgupta2411",
+    "submission": "class Solution {\n    \n    class Cut{\n        int i;\n        boolean hor;\n        int cost;\n        \n        Cut(int a, boolean b, int c)\n        {\n            i = a;\n            hor = b;\n            cost = c;\n        }\n    }\n    \n    public long minimumCost(int r, int c, int[] horizontalCut, int[] verticalCut) {\n        Cut[] cuts = new Cut[r+c-2];\n        for(int i = 0; i < r-1; i++)\n            cuts[i] = new Cut(i, true, horizontalCut[i]);\n        for(int i = 0; i < c-1; i++)\n            cuts[i+r-1] = new Cut(i, false, verticalCut[i]);\n        Arrays.sort(cuts, (a, b) -> b.cost - a.cost);\n        long hCuts = 0, vCuts = 0;\n        long ans = 0;\n        for(int i = 0; i < r+c-2; i++)\n        {\n            if(cuts[i].hor)\n            {\n                ans += (vCuts + 1) * cuts[i].cost;\n                hCuts++;\n            }\n            else\n            {\n                ans += (hCuts + 1) * cuts[i].cost;\n                vCuts++;\n            }\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1720925269",
+    "subm_id": "1320248923"
+}

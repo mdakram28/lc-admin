@@ -1,0 +1,6 @@
+{
+    "username": "prius2004",
+    "submission": "class Solution:\n    def minimumCost(self, m: int, n: int, horizontalCut: List[int], verticalCut: List[int]) -> int:\n        # Sort the cuts\n        horizontalCut.sort(reverse=True)\n        verticalCut.sort(reverse=True)\n        \n        num_h, num_v = 1, 1\n        ans = 0\n\n        # Use two pointers to iterate over the cuts\n        h_idx, v_idx = 0, 0\n        while h_idx < len(horizontalCut) and v_idx < len(verticalCut):\n            if horizontalCut[h_idx] > verticalCut[v_idx]:\n                ans += horizontalCut[h_idx] * num_v\n                num_h += 1\n                h_idx += 1\n            else:\n                ans += verticalCut[v_idx] * num_h\n                num_v += 1\n                v_idx += 1\n\n        # Add the remaining cuts if any\n        while h_idx < len(horizontalCut):\n            ans += horizontalCut[h_idx] * num_v\n            h_idx += 1\n            num_h += 1\n        \n        while v_idx < len(verticalCut):\n            ans += verticalCut[v_idx] * num_h\n            v_idx += 1\n            num_v += 1\n        \n        return ans\n",
+    "submit_ts": "1720925564",
+    "subm_id": "1320258884"
+}

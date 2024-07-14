@@ -1,0 +1,6 @@
+{
+    "username": "zh_jerry_yu",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        sort(horizontalCut.begin(), horizontalCut.end(), greater<int>());\n        sort(verticalCut.begin(), verticalCut.end(), greater<int>());\n        long long res = 0;\n        for (int i = 0; i != m - 1; ++i){\n            res += (long long)n * horizontalCut[i];\n        }\n        for (int j = 0; j != n - 1; ++j){\n            res += verticalCut[j];\n        }\n        int p = 0;\n        long long prefix_sum = 0;\n        for (int j = 0; j != n - 1; ++j){\n            while (p < m - 1 && horizontalCut[p] > verticalCut[j]){\n                prefix_sum += horizontalCut[p];\n                ++p;\n            }\n            long long reduce_this = prefix_sum - (long long)p * verticalCut[j];\n            res -= reduce_this;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720926112",
+    "subm_id": "1320276362"
+}

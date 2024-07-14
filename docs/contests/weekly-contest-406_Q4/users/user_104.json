@@ -1,0 +1,6 @@
+{
+    "username": "arnab-07",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n         std::vector<std::pair<int, bool>> cuts;\n        for (int cost : horizontalCut) {\n            cuts.emplace_back(cost, false); // false for horizontal cut\n        }\n        for (int cost : verticalCut) {\n            cuts.emplace_back(cost, true); // true for vertical cut\n        }\n        std::sort(cuts.rbegin(), cuts.rend()); // Sort in descending order\n        \n        // Initialize counters for the number of segments\n        int horizontalSegments = 1;\n        int verticalSegments = 1;\n        long long totalCost = 0;\n        \n        // Process cuts in the order of their cost\n        for (const auto& cut : cuts) {\n            if (cut.second) { // Vertical cut\n                totalCost += static_cast<long long>(cut.first) * horizontalSegments;\n                verticalSegments++;\n            } else { // Horizontal cut\n                totalCost += static_cast<long long>(cut.first) * verticalSegments;\n                horizontalSegments++;\n            }\n        }\n        \n        return totalCost;\n    }\n};",
+    "submit_ts": "1720924721",
+    "subm_id": "1320228279"
+}

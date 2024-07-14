@@ -1,0 +1,6 @@
+{
+    "username": "Adeeb_252",
+    "submission": "class Solution {\n    static class Cut {\n        int cost;\n        char type;\n        Cut(int cost, char type) {\n            this.cost = cost;\n            this.type = type;\n        }\n    }\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        PriorityQueue<Cut> pq = new PriorityQueue<>((a, b) -> b.cost - a.cost);\n        for (int cost : horizontalCut) {\n            pq.offer(new Cut(cost, 'h'));\n        }\n        for (int cost : verticalCut) {\n            pq.offer(new Cut(cost, 'v'));\n        }\n        long totalCost = 0;\n        int horizontalSegments = 1;\n        int verticalSegments = 1;\n        while (!pq.isEmpty()) {\n            Cut currentCut = pq.poll();\n            if (currentCut.type == 'h') {\n                totalCost += (long) currentCut.cost * verticalSegments;\n                horizontalSegments++;\n            } else {\n                totalCost += (long) currentCut.cost * horizontalSegments;\n                verticalSegments++;\n            }\n        }\n        return totalCost;\n    }\n}",
+    "submit_ts": "1720926039",
+    "subm_id": "1320274090"
+}

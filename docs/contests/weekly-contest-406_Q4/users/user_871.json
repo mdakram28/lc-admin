@@ -1,0 +1,6 @@
+{
+    "username": "lihaicoder",
+    "submission": "class Solution:\n    def minimumCost(self, m: int, n: int, horizontalCut: List[int], verticalCut: List[int]) -> int:\n        ans = sum(horizontalCut) + m*sum(verticalCut)\n        if m == 1 or n == 1:\n            return ans\n        horizontalCut.sort()\n        verticalCut.sort(reverse = True)\n        cumsum = horizontalCut[:]\n        for i in range(1, len(cumsum)):\n            cumsum[i] += cumsum[i-1]\n        l = 0\n        while l < len(horizontalCut) and horizontalCut[l] < verticalCut[0]:\n            l += 1\n        # print(horizontalCut)\n        # print(verticalCut)\n        # print(ans)\n        for v in verticalCut:\n            while l > 0 and horizontalCut[l-1] > v:\n                l -= 1\n            # print(v, ans, l)\n            ans -= l * v\n            if l > 0:\n                ans += cumsum[l-1]\n        return ans\n        ",
+    "submit_ts": "1720925590",
+    "subm_id": "1320259799"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "apometta",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        long long horz_total = 0, vert_total = 0, min_cost = 0;\n        sort(horizontalCut.begin(), horizontalCut.end()); sort(verticalCut.begin(), verticalCut.end());\n        for (int i = 0; i < m - 1; i++) horz_total += horizontalCut[i];\n        for (int i = 0; i < n - 1; i++) vert_total += verticalCut[i];\n        int horz_cuts = 0, vert_cuts = 0, h = m - 2, v = n - 2;\n\n        while (h >= 0 && v >= 0) {\n            if (horizontalCut[h] > verticalCut[v]) {\n                min_cost += horizontalCut[h] * (1LL + vert_cuts);\n                horz_cuts++;\n                h--;\n            } else {\n                min_cost += verticalCut[v] * (1LL + horz_cuts);\n                vert_cuts++;\n                v--;\n            }\n        }\n\n        while (h >= 0) {\n            min_cost += horizontalCut[h] * (1LL + vert_cuts);\n            h--;\n        }\n        while (v >= 0) {\n            min_cost += verticalCut[v] * (1LL + horz_cuts);\n            v--;\n        }\n        \n        return min_cost;\n    }\n};",
+    "submit_ts": "1720926344",
+    "subm_id": "1320283405"
+}

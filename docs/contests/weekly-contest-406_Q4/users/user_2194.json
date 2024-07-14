@@ -1,0 +1,6 @@
+{
+    "username": "vickymahato0407",
+    "submission": "#include <vector>\n#include <algorithm>\n\nclass Solution {\npublic:\n    long long minimumCost(int m, int n, std::vector<int>& horizontalCut, std::vector<int>& verticalCut) {\n        // Combine and sort the cuts\n        std::vector<std::pair<long long, bool>> cuts;\n        for (int cost : horizontalCut) {\n            cuts.emplace_back(static_cast<long long>(cost), true); // true indicates horizontal cut\n        }\n        for (int cost : verticalCut) {\n            cuts.emplace_back(static_cast<long long>(cost), false); // false indicates vertical cut\n        }\n        std::sort(cuts.begin(), cuts.end(), [](const std::pair<long long, bool>& a, const std::pair<long long, bool>& b) {\n            return a.first > b.first; // Sort in descending order\n        });\n\n        long long hCount = 1, vCount = 1;\n        long long totalCost = 0;\n\n        for (auto& cut : cuts) {\n            if (cut.second) { // Horizontal cut\n                totalCost += cut.first * vCount;\n                hCount++;\n            } else { // Vertical cut\n                totalCost += cut.first * hCount;\n                vCount++;\n            }\n        }\n\n        return totalCost;\n    }\n};\n",
+    "submit_ts": "1720926089",
+    "subm_id": "1320275641"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "3clouds8878",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n            priority_queue<int> hCuts(horizontalCut.begin(), horizontalCut.end());\n            priority_queue<int> vCuts(verticalCut.begin(), verticalCut.end());\n\n            long long totalCost = 0;\n            int hParts = 1, vParts = 1; // Initially, we have 1 horizontal and 1 vertical part\n\n            while (!hCuts.empty() || !vCuts.empty()) {\n                if (vCuts.empty() || (!hCuts.empty() && hCuts.top() >= vCuts.top())) {\n                    // If vertical cuts are exhausted or horizontal cut is more costly or equal\n                    totalCost += static_cast<long long>(hCuts.top()) * vParts; // Multiply by the number of vertical parts\n                    hCuts.pop();\n                    hParts++;\n                } else {\n                    // Vertical cut is more costly\n                    totalCost += static_cast<long long>(vCuts.top()) * hParts; // Multiply by the number of horizontal parts\n                    vCuts.pop();\n                    vParts++;\n                }\n            }\n\n            return totalCost;\n    }\n};",
+    "submit_ts": "1720926347",
+    "subm_id": "1320283501"
+}

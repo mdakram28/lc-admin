@@ -1,0 +1,6 @@
+{
+    "username": "AdiRocks001",
+    "submission": "#include <vector>\n#include <deque>\n#include <algorithm>\n\n#define ll long long\n\nusing namespace std;\n\nclass Solution {\npublic:\n    ll minimumCost(int m, int n, vector<int>& hc, vector<int>& vc) {\n        deque<ll> hq(hc.begin(), hc.end()), vq(vc.begin(), vc.end());\n        sort(hq.begin(), hq.end(), greater<ll>());\n        sort(vq.begin(), vq.end(), greater<ll>());\n\n        ll hp = 1, vp = 1;\n        ll tc = 0;\n\n        while (!hq.empty() && !vq.empty()) {\n            tc += (hq.front() >= vq.front()) ? (hq.front() * vp) : (vq.front() * hp);\n            (hq.front() >= vq.front()) ? (hp++, hq.pop_front()) : (vp++, vq.pop_front());\n        }\n\n        while (!hq.empty()) {\n            tc += hq.front() * vp;\n            hq.pop_front();\n        }\n        \n        while (!vq.empty()) {\n            tc += vq.front() * hp;\n            vq.pop_front();\n        }\n\n        return tc;\n    }\n};\n",
+    "submit_ts": "1720925941",
+    "subm_id": "1320271063"
+}

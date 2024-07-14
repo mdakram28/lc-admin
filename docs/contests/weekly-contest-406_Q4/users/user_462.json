@@ -1,0 +1,6 @@
+{
+    "username": "chintsai",
+    "submission": "#include <bits/stdc++.h>\n\nusing namespace std;\n\nusing LL = long long;\n\nclass BIT {\n    int n;\n    vector<int> tr;\npublic:\n    BIT(int _n) {\n        n = _n;\n        tr.resize(n + 1);\n    }\n\n    void update(int x) {\n        while (x <= n) {\n            tr[x]++;\n            x += x & -x;\n        }\n    }\n\n    int query(int x) {\n        int res = 0;\n        while (x) {\n            res += tr[x];\n            x -= x & -x;\n        }\n        return res;\n    }\n};\n\nclass Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int> &horizontalCut, vector<int> &verticalCut) {\n        vector<pair<int, int>> v;\n        for (int i = 0; i < m - 1; i++) {\n            v.emplace_back(horizontalCut[i], -1);\n        }\n        for (int i = 0; i < n - 1; i++) {\n            v.emplace_back(verticalCut[i], 1);\n        }\n        sort(v.begin(), v.end(), greater<>());\n        long long res = 0;\n        LL ho = 1, ver = 1;\n        for (auto &p: v) {\n            int line = p.first, type = p.second;\n            if (type == -1) {\n                res += ver * line;\n                ho++;\n            } else {\n                res += ho * line;\n                ver++;\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1720925539",
+    "subm_id": "546440171"
+}

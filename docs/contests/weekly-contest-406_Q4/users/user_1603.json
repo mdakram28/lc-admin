@@ -1,0 +1,6 @@
+{
+    "username": "shivam004052000",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {\n        std::sort(horizontalCut.rbegin(), horizontalCut.rend());\n    std::sort(verticalCut.rbegin(), verticalCut.rend());\n\n    int hSeg = 1; // initially, we have one horizontal segment\n    int vSeg = 1; // initially, we have one vertical segment\n    int h = 0, v = 0;\n    long long  totalCost = 0;\n\n    // Merge cuts by always taking the one with the higher cost\n    while (h < horizontalCut.size() && v < verticalCut.size()) {\n        if (horizontalCut[h] > verticalCut[v]) {\n            totalCost += horizontalCut[h] * vSeg;\n            hSeg++;\n            h++;\n        } else {\n            totalCost += verticalCut[v] * hSeg;\n            vSeg++;\n            v++;\n        }\n    }\n\n    // Handle remaining horizontal cuts\n    while (h < horizontalCut.size()) {\n        totalCost += horizontalCut[h] * vSeg;\n        h++;\n    }\n\n    // Handle remaining vertical cuts\n    while (v < verticalCut.size()) {\n        totalCost += verticalCut[v] * hSeg;\n        v++;\n    }\n\n    return totalCost;\n    }\n};",
+    "submit_ts": "1720926352",
+    "subm_id": "1320283617"
+}

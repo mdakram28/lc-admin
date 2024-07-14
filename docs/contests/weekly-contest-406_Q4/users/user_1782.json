@@ -1,0 +1,6 @@
+{
+    "username": "ywjameslin",
+    "submission": "class Solution {\n\n    /**\n     * @param Integer $m\n     * @param Integer $n\n     * @param Integer[] $horizontalCut\n     * @param Integer[] $verticalCut\n     * @return Integer\n     */\n    function minimumCost($m, $n, $horizontalCut, $verticalCut) {\n        $h = new \\SplPriorityQueue();\n        $v = new \\SplPriorityQueue();\n        $hr = 1;\n        $vr = 1;\n        $ans = 0;\n\n        foreach ($horizontalCut as $hCut) {\n            $h->insert($hCut, $hCut);\n        }\n        foreach ($verticalCut as $vCut) {\n            $v->insert($vCut, $vCut);\n        }\n\n        $count = $m + $n - 2;\n        for ($index = 0; $index < $count; ++ $index) {\n            if ($h->isEmpty()) {\n                ++ $hr;\n                $ans += $v->extract() * $vr;\n            } else if ($v->isEmpty()) {\n                ++ $vr;\n                $ans += $h->extract() * $hr;\n            } else if ($h->top() > $v->top()) {\n                ++ $vr;\n                $ans += $h->extract() * $hr;\n            } else {\n                ++ $hr;\n                $ans += $v->extract() * $vr;\n            }\n        }\n\n        return $ans;\n    }\n}",
+    "submit_ts": "1720926139",
+    "subm_id": "1320277141"
+}

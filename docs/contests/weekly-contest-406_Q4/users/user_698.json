@@ -1,0 +1,6 @@
+{
+    "username": "david-d",
+    "submission": "class Solution {\n    private PriorityQueue<Integer> hQueue;\n    private PriorityQueue<Integer> vQueue;\n\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        hQueue = new PriorityQueue<>(Collections.reverseOrder());\n        vQueue = new PriorityQueue<>(Collections.reverseOrder());\n        for (int hc : horizontalCut) hQueue.add(hc);\n        for (int vc : verticalCut) vQueue.add(vc);\n        int hCount = 1, vCount = 1;\n        long tc = 0;\n        while (cutExist(hQueue) && cutExist(vQueue)) {\n            if (hQueue.peek() > vQueue.peek()) {\n                tc += (long) hQueue.poll() * vCount;\n                hCount++;\n            } else {\n                tc += (long) vQueue.poll() * hCount;\n                vCount++;\n            }\n        }\n        return returnTC(tc, vCount, hCount);\n    }\n\n    private long returnTC(long tc, int vCount, int hCount) {\n        while (cutExist(hQueue)) tc += (long) hQueue.poll() * vCount;\n        while (cutExist(vQueue)) tc += (long) vQueue.poll() * hCount;\n        return tc;\n    }\n\n    private static boolean cutExist(PriorityQueue<Integer> cuts) {\n        return !cuts.isEmpty();\n    }\n}",
+    "submit_ts": "1720925770",
+    "subm_id": "1320265640"
+}

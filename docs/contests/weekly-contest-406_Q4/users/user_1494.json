@@ -1,0 +1,6 @@
+{
+    "username": "rcjiang",
+    "submission": "class Solution:\n    def minimumCost(self, m: int, n: int, horizontalCut: List[int], verticalCut: List[int]) -> int:\n        # costlier cuts should be considered first\n        cuts = sorted([(c, True) for c in horizontalCut] + [(c, False) for c in verticalCut], reverse=True)\n        pieces = [1, 1]\n        remainingCuts = [m-1, n-1]\n\n        ans = 0\n        for c, isHorizontal in cuts:\n            if isHorizontal and remainingCuts[0] > 0:\n                ans += pieces[0] * c\n                remainingCuts[0] -= 1\n                pieces[1] += 1\n            elif not isHorizontal and remainingCuts[1] > 0:\n                ans += pieces[1] * c\n                remainingCuts[1] -= 1\n                pieces[0] += 1\n\n        return ans",
+    "submit_ts": "1720925994",
+    "subm_id": "1320272679"
+}

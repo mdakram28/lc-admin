@@ -1,0 +1,6 @@
+{
+    "username": "bitleakash6",
+    "submission": "class Solution {\n    private static class Cut {\n        int cost;\n        char type;\n        \n        Cut(int cost, char type) {\n            this.cost = cost;\n            this.type = type;\n        }\n    }\n    public long minimumCost(int m, int n, int[] horizontalCut, int[] verticalCut) {\n        List<Cut> cuts = new ArrayList<>();\n        \n        for (int cost : horizontalCut) {\n            cuts.add(new Cut(cost, 'H'));\n        }\n        \n        for (int cost : verticalCut) {\n            cuts.add(new Cut(cost, 'V'));\n        }\n        \n        Collections.sort(cuts, (a, b) -> b.cost - a.cost);\n        \n        int horizontalPieces = 1;\n        int verticalPieces = 1;\n        long totalCost = 0;\n        \n        for (Cut cut : cuts) {\n            if (cut.type == 'H') {\n                totalCost += (long) cut.cost * verticalPieces;\n                horizontalPieces++;\n            } else {\n                totalCost += (long) cut.cost * horizontalPieces;\n                verticalPieces++;\n            }\n        }\n        \n        return totalCost;\n    }\n}",
+    "submit_ts": "1720926074",
+    "subm_id": "1320275175"
+}

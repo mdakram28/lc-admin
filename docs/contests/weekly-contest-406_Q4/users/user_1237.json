@@ -1,0 +1,6 @@
+{
+    "username": "azanulhaque",
+    "submission": "type Cut struct {\n\tcost  int\n\tisHor bool\n}\n\nfunc minimumCost(m int, n int, horizontalCut []int, verticalCut []int) int64 {\n    cuts := []Cut{}\n\n\tfor _, cost := range horizontalCut {\n\t\tcuts = append(cuts, Cut{cost, true})\n\t}\n\n\tfor _, cost := range verticalCut {\n\t\tcuts = append(cuts, Cut{cost, false})\n\t}\n\n\tsort.Slice(cuts, func(i, j int) bool {\n\t\treturn cuts[i].cost > cuts[j].cost\n\t})\n\n\tvar totalCost int64 = 0\n\tvar horPieces int64 = 1\n\tvar verPieces int64 = 1\n\n\tfor _, cut := range cuts {\n\t\tif cut.isHor {\n\t\t\ttotalCost += int64(cut.cost) * verPieces\n\t\t\thorPieces++\n\t\t} else {\n\t\t\ttotalCost += int64(cut.cost) * horPieces\n\t\t\tverPieces++\n\t\t}\n\t}\n\n\treturn totalCost\n}",
+    "submit_ts": "1720925838",
+    "subm_id": "1320267800"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "BinaryWizardby360",
+    "submission": "class Solution {\npublic:\n    long long minimumCost(int width, int height, vector<int>& horizontalCuts, vector<int>& verticalCuts) {\n        priority_queue<int> hCuts(horizontalCuts.begin(), horizontalCuts.end());\n        priority_queue<int> vCuts(verticalCuts.begin(), verticalCuts.end());\n\n        map<string, function<void()>> actions;\n\n        int hPieces = 1, vPieces = 1;\n        long long totalCost = 0;\n        actions[\"horizontal\"] = [&]() {\n            totalCost += static_cast<long long>(hCuts.top()) * vPieces;\n            hPieces++;\n            hCuts.pop();\n        };\n\n        actions[\"vertical\"] = [&]() {\n            totalCost += static_cast<long long>(vCuts.top()) * hPieces;\n            vPieces++;\n            vCuts.pop();\n        };\n\n        while (!hCuts.empty() && !vCuts.empty()) {\n            if (hCuts.top() > vCuts.top()) {\n                actions[\"horizontal\"]();\n            } else {\n                actions[\"vertical\"]();\n            }\n        }\n        while (!hCuts.empty()) {\n            actions[\"horizontal\"]();\n        }\n        while (!vCuts.empty()) {\n            actions[\"vertical\"]();\n        }\n\n        return totalCost;\n    }\n};",
+    "submit_ts": "1720925792",
+    "subm_id": "1320266372"
+}

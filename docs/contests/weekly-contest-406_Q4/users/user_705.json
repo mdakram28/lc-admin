@@ -1,0 +1,6 @@
+{
+    "username": "khangtn1",
+    "submission": "package main\n\nimport (\n\t\"sort\"\n)\n\ntype Cut struct {\n\tcost int\n\ttyp  string\n}\n\nfunc minimumCost(m int, n int, horizontalCut []int, verticalCut []int) int64 {\n\t// Combine the cuts into one list with their types\n\tcuts := []Cut{}\n\tfor _, cost := range horizontalCut {\n\t\tcuts = append(cuts, Cut{cost: cost, typ: \"H\"})\n\t}\n\tfor _, cost := range verticalCut {\n\t\tcuts = append(cuts, Cut{cost: cost, typ: \"V\"})\n\t}\n\n\t// Sort the cuts based on cost\n\tsort.Slice(cuts, func(i, j int) bool {\n\t\treturn cuts[i].cost > cuts[j].cost\n\t})\n\n\t// Initial number of pieces\n\thorizontalPieces := 1\n\tverticalPieces := 1\n\n\t// Total cost\n\ttotalCost := 0\n\n\tfor _, cut := range cuts {\n\t\tif cut.typ == \"H\" {\n\t\t\t// Horizontal cut\n\t\t\ttotalCost += cut.cost * verticalPieces\n\t\t\thorizontalPieces++\n\t\t} else {\n\t\t\t// Vertical cut\n\t\t\ttotalCost += cut.cost * horizontalPieces\n\t\t\tverticalPieces++\n\t\t}\n\t}\n\n\treturn int64(totalCost)\n}\n",
+    "submit_ts": "1720925474",
+    "subm_id": "1320255907"
+}
