@@ -1,0 +1,6 @@
+{
+    "username": "user3644d",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        differences = [abs(nums[i] - nums[-i - 1]) for i in range(len(nums) // 2)]\n        diff_cnt = {}\n        for diff in differences:\n            diff_cnt[diff] = diff_cnt.get(diff, 0) + 1\n        best_result = float('inf')\n        for cnt, diff in sorted([(cnt, diff) for diff, cnt in diff_cnt.items()], reverse=True):\n            if len(differences) - cnt > best_result:\n                break\n            result = 0\n            for i, cur_diff in enumerate(differences):\n                if cur_diff < diff:\n                    if max(nums[i], nums[- i -1]) + (diff - cur_diff) <= k:\n                        result += 1\n                    elif min(nums[i], nums[- i -1]) - (diff - cur_diff) >= 0:\n                        result += 1\n                    else:\n                        result += 2\n                elif cur_diff > diff:\n                    result += 1\n            best_result = min(best_result, result)\n        return best_result",
+    "submit_ts": "1721488595",
+    "subm_id": "1327427235"
+}

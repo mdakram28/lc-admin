@@ -1,0 +1,6 @@
+{
+    "username": "Dimitrovsd",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> diff(k + 3, 0);\n        int n = nums.size();\n\n        for (int i = 0; i < n / 2; i++) {\n            int curr = abs(nums[i] - nums[n - 1 - i]);\n            int mx = max(max(nums[i], k - nums[i]), max(nums[n - 1 - i], k - nums[n - 1 - i]));\n\n            diff[0]++;\n            diff[curr]--;\n            diff[curr + 1]++;\n            diff[mx + 1]--;\n            diff[mx + 1] += 2;\n        }\n\n\n\n        for (int i = 1; i < diff.size(); i++) {\n            diff[i] += diff[i - 1];\n        }\n\n        int ans = nums.size();\n        for (int i = 0; i <= k; i++) {\n            ans = min(ans, diff[i]);\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": "1721487177",
+    "subm_id": "1327379183"
+}

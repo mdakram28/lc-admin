@@ -1,0 +1,6 @@
+{
+    "username": "WhyAyushOp",
+    "submission": "function minChanges(nums: number[], k: number): number {\n    const m: Map<number, number[]> = new Map();\n    const v: number[] = [];\n    const n = nums.length;\n\n    for (let i = 0; i < n / 2; i++) {\n        const a = nums[i];\n        const b = nums[n - i - 1];\n        const diff = Math.abs(a - b);\n        const X = Math.max(a, b, k - a, k - b);\n        \n        if (!m.has(diff)) {\n            m.set(diff, []);\n        }\n        m.get(diff)!.push(X);\n        v.push(X);\n    }\n\n    let ans = n;\n    v.sort((a, b) => a - b);\n\n    for (const [diff, values] of m.entries()) {\n        let T = v.findIndex(val => val >= diff);\n        if (T === -1) {\n            T = v.length;\n        }\n        T = T * 2 + (n / 2 - T);\n\n        for (const X of values) {\n            if (X < diff) {\n                T -= 2;\n            } else {\n                T -= 1;\n            }\n        }\n\n        ans = Math.min(ans, T);\n    }\n\n    return ans;\n}\n",
+    "submit_ts": "1721488868",
+    "subm_id": "1327435669"
+}

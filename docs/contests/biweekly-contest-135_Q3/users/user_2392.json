@@ -1,0 +1,6 @@
+{
+    "username": "shivanshu0287",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int ans = n;\n        \n        map<int, int> m;\n        for (int i = 0; i < n / 2; i++) {\n            int u = min(nums[i], nums[n - 1 - i]);\n            int v = max(nums[i], nums[n - 1 - i]);\n            m[v - u]++;\n        }\n        \n        vector<int> p(k + 2, 0);\n        for (int i = 0; i < n / 2; i++) {\n            int u = max(nums[i], nums[n - 1 - i]);\n            int v=min(nums[i],nums[n-1-i]);\n            v=k-v;\n            int x=max(u,v);\n            // if (k - u >= 0) {\n                p[x+1]++;\n            // }\n        }\n\n        for (int i = 1; i <= k; i++) {\n            p[i] += p[i - 1];\n        }\n\n        for (auto i : m) {\n            int res = (n / 2) - i.second;\n                res += p[i.first];\n            cout<<res<<\" \";\n            ans = min(ans, res);\n        }\n\n        return ans;\n    }\n};\n",
+    "submit_ts": "1721489505",
+    "subm_id": "1327455325"
+}

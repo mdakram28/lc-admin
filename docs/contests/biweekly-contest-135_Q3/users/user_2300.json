@@ -1,0 +1,6 @@
+{
+    "username": "yesh_the_devil",
+    "submission": "class Solution {\npublic:\n    int minChanges(std::vector<int>& nums, int k) {\n        std::map<int, std::vector<int>> funkyMap;\n        std::vector<int> funkyVector;\n \n        for (int i = 0; i < nums.size() / 2; ++i) {\n            int alpha = nums[i];\n            int beta = nums[nums.size() - i - 1];\n            int gamma = std::abs(alpha - beta);\n\n            int delta = std::max({alpha, beta, k - alpha, k - beta});\n\n            funkyMap[gamma].push_back(delta);\n            funkyVector.push_back(delta);\n        }\n\n        int ultimateAnswer = nums.size();  \n        std::sort(funkyVector.begin(), funkyVector.end());\n\n        for (const auto& [gamma, deltaList] : funkyMap) {\n            int theta = std::lower_bound(funkyVector.begin(), funkyVector.end(), gamma) - funkyVector.begin();\n            theta = theta * 2 + (nums.size() / 2 - theta);\n\n            for (const auto& delta : deltaList) {\n                if (delta < gamma) {\n                    theta -= 2;\n                } else {\n                    theta -= 1;\n                }\n            }\n\n            ultimateAnswer = std::min(ultimateAnswer, theta);\n        }\n\n        return ultimateAnswer;\n    }\n};",
+    "submit_ts": "1721490014",
+    "subm_id": "1327470544"
+}

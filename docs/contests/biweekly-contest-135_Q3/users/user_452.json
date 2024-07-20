@@ -1,0 +1,6 @@
+{
+    "username": "trchen",
+    "submission": "class Solution {\n public:\n  int minChanges(vector<int>& nums, int k) {\n    int n = nums.size();\n    vector<int> cnt(k + 1, 0);\n    vector<int> mx(k + 1, 0);\n    for (int i = 0; i < n / 2; ++i) {\n      int a = nums[i];\n      int b = nums[n - i - 1];\n      cnt[abs(a - b)]++;\n      a = min(a, k - a);\n      b = min(b, k - b);\n      mx[min(a, b)]++;\n    }\n    // for (auto c : mx) {\n    //   cout << c << ' ';\n    // }\n    // cout << endl;\n    for (int i = 1; i <= k; ++i) {\n      mx[i] += mx[i - 1];\n    }\n    int ret = std::numeric_limits<int>::max();\n    for (int i = k; i >= 0; --i) {\n      // cout << i << \": \" << mx[i] + 2 * (n / 2 - mx[i]) - cnt[i] << endl;\n      ret = min(ret, mx[k - i] + 2 * (n / 2 - mx[k - i]) - cnt[i]);\n    }\n    return ret;\n  }\n};",
+    "submit_ts": "1721488446",
+    "subm_id": "1327422519"
+}

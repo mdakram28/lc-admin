@@ -1,0 +1,6 @@
+{
+    "username": "rain-sure",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<long long> d(k + 3);\n        auto add([&](int l, int r, int x) {\n            l ++, r ++;\n            d[l] += x;\n            d[r + 1] -= x;\n        });\n        for(int i = 0, j = n - 1; i < j; i ++, j --) {\n            int x = nums[i], y = nums[j];\n            if(x > y) swap(x, y);\n            int p = y - x;\n            add(0, p - 1, 1);\n            int maxw = max(x, k - y);\n            add(p + 1, p + maxw, 1);\n            if(p + maxw + 1 <= k) add(p + maxw + 1, k, 2);\n        }\n        for(int i = 1; i <= k + 1; i ++) d[i] += d[i - 1];\n        long long res = 1e9;\n        for(int i = 1; i <= k + 1; i ++) res = min(res, d[i]);\n        return res;\n    }\n};",
+    "submit_ts": "1721488155",
+    "subm_id": "548313107"
+}

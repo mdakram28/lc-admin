@@ -1,0 +1,6 @@
+{
+    "username": "klaus-mikaelson",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n\n\n map<int, vector<int>> mppDi;\n\n        vector<int> valXv;\n\n\n        int n = nums.size();\n\n        for (int i = 0; i < n / 2; i++) {\n\n            int a = nums[i];\n\n            int b = nums[n - i - 1];\n\n            int diff = abs(a - b);\n\n            int X = max({a, b, k - a, k - b});\n\n            mppDi[diff].push_back(X);\n\n            valXv.push_back(X);\n\n        }\n\n\n        int ProAns = n;\n\n        sort(valXv.begin(), valXv.end());\n\n\n        for (auto& entry : mppDi) {\n\n            int diff = entry.first;\n\n            int T = lower_bound(valXv.begin(), valXv.end(), diff) - valXv.begin();\n\n            T = T * 2 + (n / 2 - T);\n\n\n        for (int X : entry.second) {\n\n                if (X < diff) {\n\n                    T -= 2;\n\n                } else {\n\n                    T -= 1;\n\n                }\n\n            }\n\n            ProAns = min(ProAns, T);\n\n        }\n\n        return ProAns;\n\n\n\n    }\n};",
+    "submit_ts": "1721488932",
+    "subm_id": "1327437589"
+}

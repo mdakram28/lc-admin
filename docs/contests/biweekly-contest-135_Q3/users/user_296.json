@@ -1,0 +1,6 @@
+{
+    "username": "YNU-20201060305-chenyimang",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        d1, l = defaultdict(int), len(nums)\n        for i in range(l//2):\n            d1[abs(nums[i] - nums[l-1-i])] += 1\n        d2 = defaultdict(list)\n        for i in d1:\n            heappush(d2[d1[i]], i)\n        ans = l\n        for f in sorted(d2.keys(), reverse = 1):\n            count, diff = 0, d2[f][0]\n            for i in range(l//2):\n                if abs(nums[i] - nums[l-1-i]) == diff:\n                    continue\n                elif nums[i] >= diff or nums[i] <= k - diff or nums[l-1-i] >= diff or nums[l-1-i] <= k - diff:\n                    count += 1\n                else:\n                    count += 2\n            ans = min(ans, count)\n        return ans",
+    "submit_ts": "1721487716",
+    "subm_id": "548311203"
+}

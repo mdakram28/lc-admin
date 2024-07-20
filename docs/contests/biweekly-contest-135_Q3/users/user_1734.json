@@ -1,0 +1,6 @@
+{
+    "username": "kind-vaughankfl",
+    "submission": "class Solution {\npublic:\n\tint minChanges(vector<int>& nums, int k) {\n\t\tint n = nums.size();\n\t\tmap<int, int>mp;\n\t\tmap<int, int>mp1;\n\t\tmap<int, int>mp2;\n\t\tvector<int>v(100005,0);\n\t\tfor (int i = 0; i < n/2; i++)\n\t\t{\n\t\t\tint t = 0,t1=0;\n\t\t\tif (nums[i] <= k / 2)\n\t\t\t{\n\t\t\t\tt = k - nums[i];\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\tt = nums[i];\n\t\t\t}\n\t\t\tif (nums[n - i - 1] <= k / 2)\n\t\t\t{\n\t\t\t\tt1 = k - nums[n - i - 1];\n\t\t\t}\n\t\t\telse\n\t\t\t{\n\t\t\t\tt1 = nums[n - i - 1];\n\t\t\t}\n\t\t\tint mmax = max(t,t1);\n\t\t\tmp[mmax]++;\n\t\t\tv[mmax]++;\n\t\t\tmp1[abs(nums[i] - nums[n - i - 1])]++;\n\t\t}\n\t\tvector<int>v1(100005,0);\n\t\tv1[k] = v[k];\n\t\tfor (int i = k-1; i >=0;i--)\n\t\t{\n\t\t\tv1[i] = v[i] + v1[i + 1];\n\t\t}\n\t\tint ans = INT_MAX;\n\t\tfor (auto it = mp1.begin(); it != mp1.end(); it++)\n\t\t{\n\t\t\tint fir = it->first;\n\t\t\tint sec = it->second;\n\t\t\tint t = v1[fir] - sec;\n\t\t\tint t1 = t + (v1[0] - v1[fir])*2;\n\t\t\tans = min(ans, t1);\n\t\t}\n\t\treturn ans;\n\t}\n};",
+    "submit_ts": "1721488623",
+    "subm_id": "548315292"
+}

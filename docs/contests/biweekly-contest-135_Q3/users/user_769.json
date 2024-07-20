@@ -1,0 +1,6 @@
+{
+    "username": "VinnyOnLC",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int[] freq = new int[k+1]; // difference frequencies\n        int[] diffInOne = new int[k+1]; // diffInOne[i] = num of pairs that can have diff of i in <=1 move\n\n        int lo = 0;\n        int hi = nums.length - 1;\n        while (lo < hi) {\n            int diff = Math.abs(nums[lo] - nums[hi]);\n            freq[diff]++;\n            int maxDiff = Math.max(k - Math.min(nums[lo], nums[hi]), Math.max(nums[lo], nums[hi]));\n            diffInOne[maxDiff]++;\n\n            lo++;\n            hi--;\n        }\n\n        int minChanges = Integer.MAX_VALUE;\n        int post = 0;\n        for (int i = freq.length-1; i >= 0; i--) {\n            post += diffInOne[i];\n            int inTwo = (nums.length / 2) - post; // number of pairs that need 2 changes\n            int inOne = post - freq[i];\n            minChanges = Math.min(minChanges, 2 * inTwo + inOne);\n        }\n        return minChanges;\n        \n    }\n}",
+    "submit_ts": "1721489027",
+    "subm_id": "1327440603"
+}

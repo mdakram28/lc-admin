@@ -1,0 +1,6 @@
+{
+    "username": "DeadlyPigg",
+    "submission": "public class Solution \n{\n    public int MinChanges(int[] nums, int k) \n    {\n        Dictionary<int,int> dict = new();\n        int[] extraChanges = new int[k+1];\n        int[] noChanges = new int[k+1];\n        for(int i = 0; i < nums.Length/2; i++)\n        {\n            int temp = Math.Abs(nums[i] - nums[nums.Length-i-1]);\n            noChanges[temp]++;\n            int min = Math.Min(nums[i],nums[nums.Length-i-1]);\n            int max = Math.Max(nums[i],nums[nums.Length-i-1]);\n            if(Math.Max(max, k - min) == k)\n                continue;\n            extraChanges[Math.Max(max, k - min)+1]++;\n        }\n        for(int i = 1; i <= k; i++)\n            extraChanges[i] += extraChanges[i-1];\n        Console.WriteLine(String.Join(\",\",extraChanges));\n        Console.WriteLine(String.Join(\",\",noChanges));\n\n        int count = Int32.MaxValue;\n        for(int i = 0; i <= k; i++)\n        {\n            count = Math.Min(count, nums.Length/2 - noChanges[i] + extraChanges[i]);\n        }\n        \n        return count;\n    }\n}",
+    "submit_ts": "1721488903",
+    "subm_id": "1327436729"
+}

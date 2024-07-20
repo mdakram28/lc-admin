@@ -1,0 +1,6 @@
+{
+    "username": "sofyan1020",
+    "submission": "class Solution {\npublic:\n  int minChanges(vector<int>& nums, int k) {\n    vector<int> prefix(k + 2, 0);\n    unordered_map<int, int> diffs;\n\n    for(int i = 0, j = nums.size() - 1; i < j; i++, j--) {\n      diffs[abs(nums[i] - nums[j])]++;\n      int minimum = min(nums[i], nums[j]);\n      int maximum = max(nums[i], nums[j]);\n      int maxDiff = max(maximum, k - minimum);\n      prefix[maxDiff+1]++;\n    }\n\n    for(int i = 1; i < prefix.size(); i++) prefix[i] += prefix[i-1];\n\n    int result = INT_MAX;\n    int total = nums.size() / 2;\n\n    for(int i = 0; i <= k; i++) {\n      result = min(result, total - diffs[i] + prefix[i]);\n    }    \n\n    return result;\n  }\n};",
+    "submit_ts": "1721489021",
+    "subm_id": "1327440372"
+}

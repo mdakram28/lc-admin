@@ -1,0 +1,6 @@
+{
+    "username": "bai-ci-2m",
+    "submission": "const int N = 1e5 + 5;\nint c[N];\n\nvoid init() {\n    memset(c, 0, sizeof c);\n}\n\nvoid add(int x) {\n    for (; x <= 100000; x += -x & x) ++c[x];\n}\n\nint ask(int x) {\n    int ans = 0;\n    for (; x; x -= -x & x) ans += c[x];\n    return ans;\n}\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        init();\n        unordered_map<int, int> st;\n        for (int i = 0, j = nums.size() - 1; i < j; ++i, --j) {\n            ++st[abs(nums[j] - nums[i])];\n            int mx = max(max(nums[i], k - nums[i]), max(nums[j], k - nums[j]));\n            add(mx + 1);\n        }\n        int ans = nums.size();\n        for (auto &p : st) {\n            ans = min(ans, ask(p.first) + (int(nums.size()) - p.second * 2) / 2);\n            //cout << p.first << ' ' << p.second << '\\n';\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487835",
+    "subm_id": "548311720"
+}

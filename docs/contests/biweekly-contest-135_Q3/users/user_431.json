@@ -1,0 +1,6 @@
+{
+    "username": "ye-he-hua-jue-lei",
+    "submission": "const int N = 1E5 + 10;\nclass Solution {\n    int n, a[N], pre[N];\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        n = nums.size();\n        for (int i = 1; i <= n; i++) {\n            a[i] = nums[i - 1];\n        }\n        int cnt0 = 0;\n        for (int i = 1; i <= n / 2; i++) {\n            int x = a[i], y = a[n + 1 - i];\n            int t = abs(x - y);\n            if (t) {\n                cnt0++;\n                pre[1]++;\n                pre[t]--;\n                pre[t + 1]++;\n                pre[max(abs(k - min(x, y)), abs(max(x, y))) + 1]--;\n                if (max(abs(k - min(x, y)), abs(max(x, y))) + 1 < N) {\n                    pre[max(abs(k - min(x, y)), abs(max(x, y))) + 1] += 2;\n                }\n            } else {\n                pre[1]++;\n                pre[max(abs(k - x), x) + 1]--;\n                if (max(abs(k - x), x) + 1 < N) {\n                    pre[max(abs(k - x), x) + 1] += 2;\n                }\n            }\n        }\n        for (int i = 1; i < N; i++) {\n            pre[i] += pre[i - 1];\n        }\n        int ans = cnt0;\n        for (int i = 1; i < N; i++) {\n            ans = min(ans, pre[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488391",
+    "subm_id": "548314182"
+}

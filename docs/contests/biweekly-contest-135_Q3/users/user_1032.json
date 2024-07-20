@@ -1,0 +1,6 @@
+{
+    "username": "Chandraprabhu",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int,int> mp;\n        int pre[k+2];\n        memset(pre,0,sizeof(pre));\n        for(int i = 0 ;i*2<n;i++){\n            int a = nums[i],b = nums[n-i-1];\n            if(a<b)swap(a,b);\n            pre[0]+=1;\n            // cout<<a+1<<' '<<k-b+1<<' ';\n            int end = max(a+1,k-b+1);\n            // cout<<end<<endl;\n            pre[end]-=1;\n\n            int dif = abs(nums[i]-nums[n-i-1]);\n            mp[dif]+=1;\n        }\n        for(int i =1;i<=k+1;i++){\n            pre[i]+=pre[i-1];\n        }\n        // for(int i = 0 ;i<=k;i++){\n        //     cout<<pre[i]<<' ';\n        // }\n        // cout<<endl;\n        int ans = n/2;\n        for(auto &i: mp){\n            // cout<<i.first<<' '<<i.second<<endl;\n            // if(pre[i.first]==n/2)\n            int uns = n/2-pre[i.first];\n            ans= min(ans,n/2 -uns - i.second + (uns)*2);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489377",
+    "subm_id": "1327451452"
+}

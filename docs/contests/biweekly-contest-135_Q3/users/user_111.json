@@ -1,0 +1,6 @@
+{
+    "username": "swapniltyagi17",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int,int> m;\n        int n = nums.size();\n        vector<int> maxDiff(n/2);\n        for(int i = 0; i<n/2; ++i){\n            m[abs(nums[i]-nums[n-i-1])]++;\n            int maxi = max(k-min(nums[i],nums[n-i-1]), max(nums[i],nums[n-i-1]));\n            maxDiff[i] = maxi;\n        }\n        \n        sort(maxDiff.begin(),maxDiff.end());\n\n        int ans = n;\n\n        for(auto it : m){\n            int d = it.first;\n            int c = it.second;\n            int j = lower_bound(maxDiff.begin(),maxDiff.end(), d) - maxDiff.begin();\n            j = n/2-j;\n            // cout<<d<<\" \"<<c<<\" \"<<j<<endl;\n            ans = min(ans,(j-c) + 2*(n/2-j));\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721487207",
+    "subm_id": "1327380302"
+}

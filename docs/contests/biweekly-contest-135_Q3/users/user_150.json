@@ -1,0 +1,6 @@
+{
+    "username": "AdduIID",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        i,j = 0,n-1\n        dc = collections.defaultdict(int) # exact count\n        dc1 = collections.defaultdict(int)\n        tot = n//2\n        \n        while i < j:\n            x,y = nums[i],nums[j]\n            if x > y:\n                x,y = y,x\n            dc[y-x] += 1\n            dc1[max(y, k-x)] += 1\n            i += 1\n            j -= 1\n        \n        rsum = 0 # running sum\n        ans = float('inf')\n        for i in range(k+1):\n            ans = min(ans, tot + rsum - dc[i])\n            rsum += dc1[i]\n        return ans",
+    "submit_ts": "1721487409",
+    "subm_id": "1327387751"
+}

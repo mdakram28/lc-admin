@@ -1,0 +1,6 @@
+{
+    "username": "wangshi-2",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size()/2;\n        // vector<int> d(n);\n        // for (int i=0; i<n; ++i) d[i] = ;\n\n        std::map<int, int> mp;\n        for (int i = 0; i < n; ++i) ++mp[abs(nums[i]-nums[nums.size()-1-i])];\n\n        std::map<int, int, greater<>> len;\n        for (int i = 0; i < n; ++i) {\n            if (nums[i] <= nums[nums.size()-1-i]) ++len[min(nums[i], k-nums[nums.size()-1-i])];\n            else ++len[min(nums[nums.size()-1-i], k-nums[i])];\n        }\n\n        int ans = n;\n        int acc = 0;\n        auto it = len.begin();\n        for (auto pr: mp) {\n            if (pr.first * 2 <= k) ans = min(ans, n - pr.second);\n            else {\n                while (it != len.end() && it->first > k - pr.first) {\n                    acc += it->second;\n                    ++it;\n                }\n                ans = min(ans, n - pr.second + acc);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487908",
+    "subm_id": "548312042"
+}

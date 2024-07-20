@@ -1,0 +1,6 @@
+{
+    "username": "victoria_1",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int start = 0;\n        int end = n-1;\n        vector<int>prefans(100005, 0);\n        while(end>start){\n            int gr = max(nums[start], nums[end]);\n            int sm = min(nums[start], nums[end]);\n            prefans[0]+=1;\n            prefans[gr-sm]-=1;\n            prefans[gr-sm+1]+=1;\n            int point2 = max(k-sm,gr);\n            prefans[point2+1]+=1;\n            prefans[k+1]=-2;\n            start++;\n            end--;\n        }\n        for(int i=1;i<=k;i++){\n            prefans[i]+=prefans[i-1];\n        }\n        int ans = INT_MAX;\n        for(int i=0;i<=k;i++){\n            ans = min(ans, prefans[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489502",
+    "subm_id": "1327455216"
+}

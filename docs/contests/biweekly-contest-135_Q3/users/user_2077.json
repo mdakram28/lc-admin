@@ -1,0 +1,6 @@
+{
+    "username": "jithin420",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n=len(nums)\n        i=0\n        j=n-1\n        \n        diffs=defaultdict(int)\n        mxdiff=[]\n        while i<j:\n            diffs[abs(nums[i]-nums[j])]+=1\n            mxdiff.append(\n                max(\n                    k-min(nums[i], nums[j]),\n                    max(nums[i], nums[j])\n                ))\n            i+=1\n            j-=1\n        \n        mxdiff.sort()\n        mn=float('inf')\n        # print(diffs)\n        # print(mxdiff)\n        for x in range(k+1):\n            doubles=0\n            idx=bisect_left(mxdiff, x)\n            doubles=max(0, idx)\n            singles=n//2-doubles\n            cost=2*doubles+singles-diffs[x]\n            mn=min(mn, cost)\n            # print(x, singles, doubles, cost)\n        return mn",
+    "submit_ts": "1721490102",
+    "subm_id": "1327473071"
+}

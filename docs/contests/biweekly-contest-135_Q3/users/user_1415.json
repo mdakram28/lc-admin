@@ -1,0 +1,6 @@
+{
+    "username": "votrubac",
+    "submission": "class Solution {\npublic:\nint fit(int n, int k, int x) {\n    return (n - x >= 0 && n - x <= k) || n + x <= k;\n}\nint count(vector<int>& nums, int k, int x) {\n    int res = 0, sz = nums.size();\n    for (int i = 0, j = sz - 1; i < j; ++i, --j) {\n        int mn = min(nums[i], nums[j]), mx = max(nums[i], nums[j]);\n        if (mx - mn != x) \n            res += 1 + (fit(mn, k, x) || fit(mx, k, x) ? 0 : 1);\n    }\n    // cout << x << \" = \" << res << endl;\n    return res;\n}\nint minChanges(vector<int>& nums, int k) {\n    int sz = nums.size(), res = INT_MAX;\n    unordered_map<int, int> freq;\n    for (int i = 0, j = sz - 1; i < j; ++i, --j) {\n        ++freq[abs(nums[i] - nums[j])];\n    }\n    vector<pair<int, int>> f;\n    for (auto [x, cnt] : freq) {\n        f.push_back({cnt, x});\n    }\n    sort(begin(f), end(f), [](const auto &p1, const auto &p2){\n        if (p1.first == p2.first)\n            return p1.second < p2.second;\n        return p1.first > p2.first;\n    });\n    for (auto [cnt, x] : f) {\n        // cout << cnt << \" : \" << x << endl;\n        if (res < INT_MAX && (sz / 2 - cnt) >= res)\n            break;\n        res = min(res, count(nums, k, x));\n    }\n    return res;\n}\n};",
+    "submit_ts": "1721489461",
+    "subm_id": "1327453965"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Shivesh__Gupta__",
+    "submission": "class Solution {\npublic:\n    int find(vector<int>& arr, int val, int n){\n        int i=0, j=arr.size()-1, ans=n;\n        while(i<=j){\n            int mid = (i+j)/2;\n            if(arr[mid] >= val){\n                ans = mid;\n                j = mid-1;\n            }\n            else i = mid+1;\n        }\n        return ans;\n    }\n    int minChanges(vector<int>& nums, int k) {\n        vector<int>arr;\n        unordered_map<int,int>f;\n        int n = nums.size();\n        for(int i=0;i<n/2;i++){\n            f[abs(nums[i] - nums[n-1-i])]++;\n            int val1 = max(nums[i], nums[n-1-i]);\n            int val2 = k - min(nums[i], nums[n-1-i]);\n            int val = max(val1, val2);\n            arr.push_back(val);\n        }\n        int ans = INT_MAX;\n        sort(arr.begin(), arr.end());\n        for(int i=0;i<n/2;i++){\n            int d = arr.size() - find(arr, abs(nums[i] - nums[n-1-i]), arr.size());\n            int op = d - f[abs(nums[i] - nums[n-1-i])] + (n - 2*d);\n            ans = min(ans, op);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721490135",
+    "subm_id": "1327474045"
+}

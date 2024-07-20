@@ -1,0 +1,6 @@
+{
+    "username": "vadik12",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size(), half = n/2;\n        std::vector<int> maxs(half);\n        std::map<int, int> lens;\n        for (int i = 0; i < half; ++i) {\n            if (nums[i] > nums[n-1-i]) \n                std::swap(nums[i], nums[n-1-i]);\n            ++lens[nums[n-1-i] - nums[i]];\n            maxs[i] = std::max(nums[n-1-i], k - nums[i]);\n        }\n        std::sort(maxs.begin(), maxs.end());\n        int minOp = n;\n        for (auto &[k, v] : lens) {\n            int small = std::lower_bound(maxs.begin(), maxs.end(), k) - maxs.begin();\n            int numOp = (half + small - v);\n            if (minOp > numOp) minOp = numOp;\n        }\n        return minOp;\n    }\n};",
+    "submit_ts": "1721487731",
+    "subm_id": "1327399160"
+}

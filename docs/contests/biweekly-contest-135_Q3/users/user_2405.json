@@ -1,0 +1,6 @@
+{
+    "username": "EchoAbhinav",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        \n        ht = {}\n        n = len(nums)\n        pre = [0 for i in range(k+2)]\n        for i in range(len(nums)//2):\n            diff = abs(nums[i] - nums[n-i-1])\n            \n            if diff not in ht:\n                ht[diff] = 1\n            else:\n                ht[diff] += 1\n                \n            max_diff = max(abs(k - nums[i]) , abs(k - nums[n-i-1]), abs(nums[i]), abs(nums[n-i-1]))\n            pre[0] += 1\n            pre[max_diff+1] += 1\n                \n        check = sorted(ht.items(), key=lambda item: item[1], reverse=True)\n        \n        count = 0\n        for i in range(len(pre)):\n            \n            count += pre[i]\n            pre[i] = count\n            \n        #print(pre)\n        \n        if(check[0][1] == n//2):\n            return 0\n        \n        ans = 1000000000\n        #print(check)\n        for c in check:\n            \n            d = c[0]\n            ans = min(ans, pre[d]-c[1])\n            \n            \n            \n                \n            \n        \n        return ans",
+    "submit_ts": "1721490416",
+    "subm_id": "1327481990"
+}

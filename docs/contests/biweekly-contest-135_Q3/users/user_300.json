@@ -1,0 +1,6 @@
+{
+    "username": "lastprism",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        int n = a.size();\n        map<int,int> mp;\n        map<int,int> mp2;\n        for(int i = 0; i < n/2; i ++){\n            mp[abs(a[i] - a[n-1-i])]++;\n            int t = max(max(abs(k-a[n-1-i]), abs(0-a[n-1-i])), max(abs(a[i] - 0), abs(a[i]-k)));\n            t = max(t, abs(a[i] - a[n-1-i]));\n            mp2[t]++;\n        }\n        int nn = n/2;\n        \n        int last = 0;\n        for(auto &iter : mp2){\n            iter.second += last;\n            last = iter.second;\n        }\n        \n        int ans = n;\n        for(auto &[x, y] : mp){\n            auto iter = mp2.lower_bound(x);\n            if(iter == mp2.begin()){\n                ans = min(ans, nn-y);\n                continue;\n            }\n            iter--;\n            ans = min(ans, 2*(iter->second) + nn-iter->second-y);\n        }\n        return ans;\n        \n        \n    }\n};",
+    "submit_ts": "1721488034",
+    "subm_id": "548312618"
+}

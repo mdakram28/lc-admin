@@ -1,0 +1,6 @@
+{
+    "username": "Chigun",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) { //num: 0~k\n        map<int,vector<int>> mp;\n        int n = nums.size();\n        for(int i=0;i<n/2;i++){ \n            //\u55ae\u6b21\u8b8a\u52d5\u5f8c\u6700\u5927\u503c\n            int limit = max(max(nums[i], k- nums[i]),max(nums[n-i-1],k-nums[n-i-1]));\n            mp[abs(nums[i] - nums[n-i-1])].push_back(limit);\n        }   \n        int ans = INT_MAX;\n        // total \u7d44- \u81ea\u5df1\u7d44\n        // \u984d\u5916\u9700\u5e7e\u500b\uff1f\n        // map\u5f9e\u5c0f\u8dd1\u5230\u5927\uff0c\u904e\u5f80\u7684\u6700\u5927\u55ae\u6b21\u8abf\u6574 \u662f\u591a\u5c11\n\n        int additional = 0; //\u76ee\u524d\u5c0dbase \u4f86\u8aaa \u6709\u5e7e\u6b21\u984d\u5916\u6b21\n        priority_queue<int,vector<int>, greater<int>> pq; // limit\u8a18\u5728\u9019\n\n        for(auto&[base,vec]: mp){\n            int mini = n/2 - vec.size();\n            while(pq.size() > 0 && pq.top() < base){\n                pq.pop();\n                additional++;\n            }\n            for(const auto& v : vec){\n                pq.push(v);\n            }\n            mini += additional;\n            ans = min(ans, mini);\n        }   \n        return ans;\n    }\n};",
+    "submit_ts": "1721489483",
+    "subm_id": "1327454626"
+}

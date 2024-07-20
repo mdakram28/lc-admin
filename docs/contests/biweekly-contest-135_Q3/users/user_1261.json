@@ -1,0 +1,6 @@
+{
+    "username": "Zellon",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size(), mid = n / 2;\n        vector<vector<int>> cnt(k + 1);\n        vector<int> cost(k + 1, 0);\n        int total_cnt = 0;\n        for (int i = 0; i < mid; ++i) {\n            int diff = abs(nums[i] - nums[n - i - 1]);\n            int small = min(nums[i], nums[n - i - 1]);\n            int large = max(nums[i], nums[n - i - 1]);\n            int dist = max(k - small, large);\n            cost[dist]++;\n            cnt[diff].push_back(dist);\n            total_cnt++;\n        }\n        int res = 1<<20;\n        int cur_cnt = 0;\n        for (int i = 0; i <= k; ++i) {\n            int tmp = 0;\n            for (const auto dist: cnt[i]) {\n                if (dist >= i) {\n                    tmp ++;\n                } else {\n                    tmp += 2;\n                }\n            }\n            res = min(res, total_cnt + cur_cnt * 2 - tmp);\n            cur_cnt += cost[i];\n            total_cnt -= cost[i];\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721488719",
+    "subm_id": "1327431128"
+}

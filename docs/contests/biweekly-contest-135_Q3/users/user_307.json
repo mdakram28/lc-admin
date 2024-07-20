@@ -1,0 +1,6 @@
+{
+    "username": "Swift1989",
+    "submission": "from collections import defaultdict\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        f=defaultdict(lambda:0)\n        n=len(nums)\n        for i in range(len(nums)//2):\n            f[abs(nums[i]-nums[n-i-1])]+=1\n        s=list(f.values())\n        s.sort()\n        s=s[::-1]\n        if len(s)>2:\n            s=s[:3]\n        elif len(s)>1:\n            s=s[:2]\n        mf=max(f.values())\n        mfa=[]\n        for i in f:\n            if f[i] in s:\n                mfa.append(i)\n        ans=float('inf')\n        #print(mfa)\n        for target in mfa:\n            c=0\n            for i in range(len(nums)//2):\n                if abs(nums[i]-nums[n-i-1])!=target:\n                    #print(target,nums[i],nums[n-i-1])\n                    if max(max(nums[i],nums[n-i-1]),k-min(nums[i],nums[n-i-1]))>=target:\n                        c+=1\n                    else:\n                        c+=2\n            ans=min(ans,c)\n        return ans",
+    "submit_ts": "1721487750",
+    "subm_id": "1327399831"
+}

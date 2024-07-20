@@ -1,0 +1,6 @@
+{
+    "username": "Hunchback5493",
+    "submission": "from typing import *\nfrom collections import defaultdict\n\nclass Solution:\n    def minChanges(\n        self,\n        nums: List[ int ],\n        k: int\n        ) -> int:\n        \n        n = len(nums)\n        dict_of_abs = defaultdict(int)\n        dict_of_breaking_points = defaultdict(int)\n        \n        for i in range( n//2 ):\n            dict_of_abs[abs( nums[i] - nums[n-1-i] )] += 1\n            \n            m = min( nums[i], nums[n-1-i] )\n            M = max( nums[i], nums[n-1-i] )\n            \n            dict_of_breaking_points[\n                max( M, k - m ) + 1\n            ] += 1\n        \n        highest = dict_of_abs[0]\n        current_broken_pairs = 0\n        \n        for abs_dif in range(k+1):\n            \n            current_broken_pairs += dict_of_breaking_points[ abs_dif ]\n            \n            score = (\n                dict_of_abs[ abs_dif ] -\n                current_broken_pairs\n            )\n            \n            if score >= highest:\n                highest = score\n            \n        \n        return n//2 - highest",
+    "submit_ts": "1721487782",
+    "subm_id": "1327400947"
+}

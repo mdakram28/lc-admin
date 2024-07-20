@@ -1,0 +1,6 @@
+{
+    "username": "darrenhp",
+    "submission": "class Solution {\npublic:\n  int minChanges(vector<int>& A, int k) {\n    vector<int> cnt(123456);\n    int n = A.size();\n    int ans = 0;\n    for (int i = 0; i*2 < n; i++) {\n      int a = A[i], b = A[n-i-1];\n      if (a>b) swap(a, b);\n      vector<pair<int, int>> B;\n      if (k < a)  B.push_back({a-k, a});\n      if (k >= a) B.push_back({0, a}), B.push_back({0, k-a});\n      if (k < b)  B.push_back({b-k, b});\n      if (k >= b) B.push_back({0, b}), B.push_back({0, b-a});\n      sort(B.begin(), B.end());\n      vector<pair<int, int>> C;\n      for (auto [l, r]: B) {\n        if (C.size() == 0 || C.back().second < l) C.push_back({l, r});\n        else C.back().second = r;\n      }\n      for (auto [l, r]: C) {\n        cnt[l]--;\n        cnt[r+1]++;\n     //   cout << l << \" \" << r << \" \";\n      }\n     // cout << endl;\n      cnt[b-a]--, cnt[b-a+1]++;\n      cnt[0]+=2;\n    }\n    partial_sum(cnt.begin(), cnt.end(), cnt.begin());\n    return *min_element(cnt.begin(), cnt.end());\n  }\n};",
+    "submit_ts": "1721488706",
+    "subm_id": "548315660"
+}

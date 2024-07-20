@@ -1,0 +1,6 @@
+{
+    "username": "whynot4",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        var f = new int[k+1];\n        var ready = new int[k+1];\n        int n = nums.length;\n        for (int i=0; 2*i<n; i++) {\n            int min = Math.min(nums[i], nums[n-1-i]);\n            int max = Math.max(nums[i], nums[n-1-i]);\n            int left = min;\n            int right = k-max;\n            //System.out.println(min + \" \" + max + \" -> \" + left + \", \" + right);\n            if (left <= right) {\n                f[k-left]++;\n            } else {\n                f[k-right]++;\n            }\n            ready[max-min]++;\n        }\n        //System.out.println(Arrays.toString(f));\n        //System.out.println(Arrays.toString(ready));\n\n        var prefix = new int[k+1];\n        prefix[0] = f[0];\n        for (int i=1; i<k+1; i++) {\n            prefix[i] = prefix[i-1] + f[i];\n        }\n        //System.out.println(Arrays.toString(prefix));\n\n        int ans = n;\n        for (int i=0; i<k+1; i++) {\n            int leftSum = (i > 0 ? prefix[i-1] : 0);\n            int rightSum = n/2-leftSum;\n            rightSum -= ready[i];\n            ans = Math.min(ans, 2*leftSum + rightSum);\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1721487518",
+    "subm_id": "1327391750"
+}

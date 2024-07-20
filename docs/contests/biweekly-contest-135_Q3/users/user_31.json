@@ -1,0 +1,6 @@
+{
+    "username": "thomas-li",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int,int> dif,cnt;\n        for(int i = 0; i < n/2; i++){\n            int x = nums[i], y = nums[n-i-1];\n            if(x > y) swap(x,y);\n            int mxo = max(y,k-x);\n            dif[mxo+1]--;\n            //cout << abs(x-y) << \" to \" << mxo << \"\\n\";\n            dif[0]++;\n            dif[abs(x-y)] += 0;\n            cnt[abs(x-y)]++;\n        }\n        int cum = 0,ans = 1e9;\n        for(auto[x,d]:dif){\n            cum += d;\n            int twos = n/2 - cum;\n            int ones = cum-cnt[x];\n            //cout << x << \" \" << twos << \" \" << ones << \" \" << cum << \"\\n\";\n            ans = min(ans,twos*2+ones);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487735",
+    "subm_id": "1327399288"
+}

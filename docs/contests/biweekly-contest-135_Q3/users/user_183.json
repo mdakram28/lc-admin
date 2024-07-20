@@ -1,0 +1,6 @@
+{
+    "username": "yatoz",
+    "submission": "func minChanges(nums []int, k int) int {\n    n := len(nums)\n    res := n * 2\n    diff := make(map[int]int, n * 2)\n    maxDiff := make([]int, 0, n / 2)\n    for x, y := 0, n - 1; x < y; x, y = x + 1, y - 1 {\n        a, b := nums[x], nums[y]\n        if a > b { a, b = b, a }\n        diff[b - a]++\n        maxDiff = append(maxDiff, max(k - a, b))\n    }\n    sort.Ints(maxDiff)\n    for x := 0; x <= k; x++ {\n        cnt := 0\n        idx := lowerBound(maxDiff, x)\n        if idx == 0 {\n            cnt = len(maxDiff) - diff[x]\n        } else if idx == len(maxDiff) {\n            cnt = len(maxDiff) * 2\n        } else {\n            cnt = idx * 2 + len(maxDiff) - idx - diff[x]\n        }\n        res = min(res, cnt)\n    }\n    return res\n}\n\nfunc lowerBound(arr []int, v int) int {\n    l, r, m := 0, len(arr) - 1, 0\n    for l <= r {\n        m = (l + r) / 2\n        if arr[m] >= v {\n            r = m - 1\n        } else {\n            l = m + 1\n        }\n    }\n    return l\n} \n\nfunc abs(v int) int {\n    if v > 0 { return v }\n    return -v\n}",
+    "submit_ts": "1721487577",
+    "subm_id": "548310628"
+}

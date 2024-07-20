@@ -1,0 +1,6 @@
+{
+    "username": "mdd14499",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n           int n = nums.size();\n    unordered_map<int, vector<int>> diffMap;\n    vector<int> possibleValues;\n    for (int i = 0; i < n / 2; ++i) {\n        int a = nums[i], b = nums[n - i - 1];\n        int diff = abs(a - b);\n        int X = max({a, b, k - a, k - b});\n        diffMap[diff].push_back(X);\n        possibleValues.push_back(X);\n    }\n    \n    int minChanges = n;\n    sort(possibleValues.begin(), possibleValues.end());\n    for (auto &entry : diffMap) {\n        int diff = entry.first;\n        int index = lower_bound(possibleValues.begin(), possibleValues.end(), diff) - possibleValues.begin();\n        int totalChanges = index * 2 + (n / 2 - index);\n        for (auto &X : entry.second) {\n            if (X < diff) {\n                totalChanges -= 2;\n            } else {\n                totalChanges -= 1;\n            }\n        }\n        minChanges = min(minChanges, totalChanges);\n    }\n\n    return minChanges;\n\n    }\n};",
+    "submit_ts": "1721489446",
+    "subm_id": "1327453486"
+}

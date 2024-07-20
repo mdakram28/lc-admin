@@ -1,0 +1,6 @@
+{
+    "username": "sonian-k",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def abs(self, a):\n        if a >= 0:\n            return a\n        else:\n            return -a\n\n    def minChanges(self, nums: List[int], k: int) -> int:\n        x_candidates_dict = defaultdict(int)\n        n = len(nums)\n        for i in range(len(nums) // 2):\n            x_candidates_dict[self.abs(nums[i] - nums[n-1-i])] += 1\n        \n        max_appear = max(x_candidates_dict.values())\n        x_candidates = sorted(x_candidates_dict.items(), key=lambda x:x[1], reverse=True)\n        # print(x_candidates)\n        ans = float(\"inf\")\n        for x, a in x_candidates:\n            if ans <= n // 2 - a:\n                break\n            # print(\"=\" * 40)\n            # print(x)\n            tmp = 0\n            for i in range(len(nums) // 2):\n                if self.abs(nums[i] - nums[n-1-i]) == x:\n                    add = 0\n                elif max(nums[i], nums[n-1-i]) >= x or min(nums[i], nums[n-1-i]) + x <= k:\n                    add = 1\n                else:\n                    add = 2\n                tmp += add\n                # print((nums[i], nums[n-1-i], add))\n            ans = min(ans, tmp)\n            # print(tmp)\n        \n        return ans",
+    "submit_ts": "1721487193",
+    "subm_id": "548308854"
+}

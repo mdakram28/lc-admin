@@ -1,0 +1,6 @@
+{
+    "username": "Dark_D3vil",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        unordered_map<int,vector<int>> mp;\n        int n=a.size();\n        vector<int>temp;\n        for(int i=0;i<n/2;i++){\n            mp[abs(a[i]-a[n-i-1])].push_back(max({a[i],a[n-i-1],k-a[i],k-a[n-i-1]}));\n            temp.push_back(max({a[i],a[n-i-1],k-a[i],k-a[n-i-1]}));\n        }\n        int res=INT_MAX;\n        sort(temp.begin(),temp.end());\n        int val=abs(a[0]-a[n-1]);\n        for(auto it: mp){\n            val=lower_bound(temp.begin(),temp.end(),it.first)-temp.begin();\n            val=2*val+(n/2-val);\n            for(auto i: it.second){\n                if(i<it.first){\n                    val-=2;\n                }\n                else{\n                    val-=1;\n                }\n            }\n            res=min(val,res);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721489829",
+    "subm_id": "1327465046"
+}

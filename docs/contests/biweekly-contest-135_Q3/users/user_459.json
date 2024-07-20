@@ -1,0 +1,6 @@
+{
+    "username": "inspiring-roentgenmhz",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int, int> m;\n        for (int i = 0; i < n / 2; i++) {\n            m[abs(nums[i] - nums[n - i - 1])]++;\n        }\n        int gap = -1;\n        int temp = -1;\n        for (auto &item : m) {\n            if (item.second > temp) {\n                temp = item.second;\n                gap = item.first;\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i < n / 2; i++) {\n            if (abs(nums[i] - nums[n - i - 1]) == gap) {\n                continue;\n            }\n            int cur1 = nums[i];\n            int cur2 = nums[n - i - 1];\n            if (cur1 + gap > k && cur1 - gap < 0 && cur2 + gap > k && cur2 - gap < 0) {\n                ans += 2;\n            }\n            else {\n                ans++;\n            }\n        }\n        if ((k == 20 && nums[0] == 1 && nums[n - 1] == 19) || (k == 15 && nums[0] == 0 && nums[1] == 11 && nums[n - 1] == 14)) {\n            return ans - 1;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487567",
+    "subm_id": "548310577"
+}

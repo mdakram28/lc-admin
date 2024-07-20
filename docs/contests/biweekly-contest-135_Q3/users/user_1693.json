@@ -1,0 +1,6 @@
+{
+    "username": "DevP21",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size();\n        int ans=INT_MAX;\n        vector<int> same(k+1), oneChange(k+1), twoChange(k+1);\n        for(int i=0;i<n/2;i++)\n        {\n            int mini=min(nums[i],nums[n-i-1]);\n            int maxi=max(nums[i],nums[n-i-1]);\n            int maxDif=max(k-mini,maxi);\n            int dif=abs(nums[i]-nums[n-i-1]);\n            same[dif]++;\n            oneChange[maxDif]++;\n            if(maxDif+1<=k)\n            twoChange[maxDif+1]++;\n        }\n\n        for(int i=k-1;i>=0;i--)\n        oneChange[i]=oneChange[i]+oneChange[i+1];\n        \n        for(int i=1;i<=k;i++)\n        twoChange[i]=twoChange[i]+twoChange[i-1];\n\n        // for(int i=0;i<=k;i++)\n        // cout<<same[i]<<\" \";\n        // cout<<endl;\n\n        // for(int i=0;i<=k;i++)\n        // cout<<oneChange[i]<<\" \";\n        // cout<<endl;\n\n        // for(int i=0;i<=k;i++)\n        // cout<<twoChange[i]<<\" \";\n        // cout<<endl;\n\n        for(int i=0;i<=k;i++)\n        {\n            int add=(oneChange[i]-same[i])+(2*twoChange[i]);\n            ans=min(add,ans);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489747",
+    "subm_id": "1327462486"
+}

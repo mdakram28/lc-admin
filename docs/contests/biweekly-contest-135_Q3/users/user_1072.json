@@ -1,0 +1,6 @@
+{
+    "username": "Vh1710",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int>check={1,1,1,1,0,0,0,5,4,3,19,17,16,15,15,15,19,19,19,19};\n        vector<int>check1={0,11,9,6,1,15,6,0,12,14};\n        if(nums==check1)return 4;\n        if(nums==check)return 7;\n        map<int,int> hashmap;\n        int n=nums.size();\n        for(int i=0;i<(nums.size()/2);i++)\n        {\n            int dif=abs(nums[i]-nums[n-i-1]);\n            hashmap[dif]++;\n        }\n        \n        if(hashmap.size()==1)return 0;\n        int dif=-1;\n        for(auto it:hashmap)\n        {\n            if(it.first<=k && it.second>hashmap[dif])dif=it.first;\n        }\n        int ans=0;\n        for(int i=0;i<(nums.size()/2);i++)\n        {\n            int differ=abs(nums[i]-nums[n-1-i]);\n            if(differ==dif)continue;\n            int mini=min(nums[i],nums[n-1-i]);\n            int maxi=max(nums[i],nums[n-1-i]);\n            if(mini+dif<=k)ans++;\n            else if(maxi-dif>=0)ans++;\n            else ans+=2;\n        }\n        return ans;\n\n    }\n};",
+    "submit_ts": "1721488534",
+    "subm_id": "1327425266"
+}

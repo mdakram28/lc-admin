@@ -1,0 +1,6 @@
+{
+    "username": "sakthivel_mani",
+    "submission": "class Solution {\npublic:\n\n    int helper(vector<int>& temp, int target, unordered_map<int,int>& absMap) {\n\n        int low = 0, high = temp.size()-1, ans = 0;\n\n        while(low <= high) {\n\n            int mid = low + (high-low)/2;\n\n            if(temp[mid] >= target)\n                high = mid - 1;\n            else {\n                ans = mid + 1;\n                low = mid + 1;\n            }\n        }\n\n        return ans * 2 + (temp.size() - ans - absMap[target]);\n    }\n\n    int minChanges(vector<int>& nums, int k) {\n        \n        int n = nums.size();\n\n        vector<int> temp(n/2);\n        unordered_map<int,int> absMap;\n\n        for(int i=0;i<n/2;i++)  {\n\n            int mn = min(nums[i], nums[n-i-1]);\n            int mx = max(nums[i], nums[n-i-1]);\n\n            temp[i] = max(mx, k-mn);\n            absMap[mx-mn]++;\n        }\n\n        sort(temp.begin(), temp.end());\n\n        int ans = INT_MAX;\n\n        for(int i=0;i<=k;i++) {\n            ans = min(ans, helper(temp, i, absMap));\n        }\n\n        return ans;\n    }\n};\n",
+    "submit_ts": "1721489424",
+    "subm_id": "1327452836"
+}

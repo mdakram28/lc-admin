@@ -1,0 +1,6 @@
+{
+    "username": "yang-xiao-zhu-zhu",
+    "submission": "class Solution {\npublic:\n    int kk;\n    int mmx(int a,int b){\n        return max(max(kk-a,a),max(kk-b,b));\n    }\n    int minChanges(vector<int>& nums, int k) {\n        multiset<pair<int,int>>s;\n        int n=nums.size();\n        kk = k;\n        for(int i=0;i<n/2;i++){\n            s.insert({mmx(nums[i],nums[n-i-1]),abs(nums[i]-nums[n-i-1])});\n        }\n        // for(auto [i,ii]:s){\n        //     cout<<i<<' '<<ii<<endl;\n        // }\n        map<int,int>m;\n        int ans = n;\n        int cnt=0;\n        for(int i = k; i>=0;i--){\n            while(s.size()){\n                auto [j,jj] = *s.rbegin();\n                if(j==i){\n                    int res = s.erase(*s.rbegin());\n                    m[jj]+=res;\n                    cnt+=res;\n                }\n                else break;\n            }\n            ans = min(ans,(int)s.size()*2+cnt-m[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487650",
+    "subm_id": "548310943"
+}

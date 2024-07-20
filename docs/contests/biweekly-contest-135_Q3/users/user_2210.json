@@ -1,0 +1,6 @@
+{
+    "username": "user3116J",
+    "submission": "object Solution {\n  def minChanges(nums: Array[Int], k: Int): Int = {\n    val n = nums.size\n    val half = nums.indices.take(n / 2)\n    val xs = half.map { i =>\n      val (aa, bb) = (nums(i), nums(n - 1 - i))\n      val (a, b) = (aa.min(bb), aa.max(bb))\n      b.max(k - a)\n    }.groupMapReduce(x => x)(_ => 1)(_ + _)\n    .toList.sortBy(_._1)\n    val cs = half.groupMapReduce { i =>\n      val (aa, bb) = (nums(i), nums(n - 1 - i))\n      val (a, b) = (aa.min(bb), aa.max(bb))\n      b - a\n    } {_ => 1} {_ + _}\n    val mapCountDiff = cs.groupMapReduce(_._2) { _._1 } {_ min _}.toList.sortBy(_._2)\n    def f(xxs: List[(Int, Int)], value: Int, arg: Int): (List[(Int, Int)], Int) =\n      if(xxs.isEmpty || arg <= xxs.head._1) (xxs, value)\n      else f(xxs.tail, xxs.head._2 + value, arg)\n    mapCountDiff.foldLeft(xs, 0, n / 2) { case ((xs, value, res), (count, diff) ) =>\n      val (xxs, vv) = f(xs, value, diff)\n      (xxs, vv, res.min(n / 2 + vv - count))\n    }._3\n  }\n}",
+    "submit_ts": "1721490528",
+    "subm_id": "1327485219"
+}

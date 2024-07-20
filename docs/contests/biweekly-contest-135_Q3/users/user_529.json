@@ -1,0 +1,6 @@
+{
+    "username": "Coder_10017",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        \n        unordered_map<int, int> mp;\n\n        int n = nums.size();\n        for(int i=0; i<n/2; i++)\n        mp[abs(nums[i]-nums[n-1-i])]++;\n\n        vector<int> tars;\n        for(auto& i: mp)\n        tars.push_back(i.first);\n\n        sort(tars.begin(), tars.end(), [&](int a, int b){\n            return mp[a]>mp[b];\n        }); \n\n        for(int i: tars) cout<<i<<\" \";\n\n        int ans = n - mp[tars[0]]*2;\n\n        for(int tar: tars){\n            int curans = 0;\n            int minn = (n - mp[tar]*2)/2;\n            if(minn>=ans) break;\n            for(int l=0, r=n-1; l<r; l++, r--){\n                int dif = abs(nums[l]-nums[r]);\n                if(dif==tar) continue;\n                if(nums[l]+tar<=k or nums[l]-tar>=0) curans++;\n                else if(nums[r]+tar<=k or nums[r]-tar>=0) curans++;\n                else curans+=2;\n            }\n            // cout<<\"at tar = \"<<tar<<\" ans = \"<<curans<<endl;\n            ans = min(ans, curans);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488597",
+    "subm_id": "1327427296"
+}

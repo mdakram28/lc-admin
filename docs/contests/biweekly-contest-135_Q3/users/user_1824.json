@@ -1,0 +1,6 @@
+{
+    "username": "aragorn1025",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        counter = collections.Counter(abs(nums[i] - nums[n - i - 1]) for i in range(0, n >> 1))\n        counts = counter.most_common(n >> 1)\n        candidates = [[*counts[0]]]\n        for x, count in counts[1:]:\n            if candidates[-1][1] == count:\n                if x < candidates[-1][0]:\n                    candidates[-1][0] = x\n            else:\n                candidates.append([x, count])\n\n        if candidates[0][0] <= (k + 1) >> 1:\n            return (n >> 1) - candidates[0][1]\n        answer = n\n        for x, count in candidates:\n            if x <= (k + 1) >> 1:\n                answer = min(answer, (n >> 1) - count)\n                continue\n            if answer < (n >> 1) - count:\n                break\n            current = 0\n            for i in range(0, n >> 1):\n                if abs(nums[i] - nums[n - i - 1]) == x:\n                    continue\n                if k - x < nums[i] < x and k - x < nums[n - i - 1] < x:\n                    current += 2\n                else:\n                    current += 1\n            answer = min(answer, current)\n        return answer\n",
+    "submit_ts": "1721490156",
+    "subm_id": "1327474631"
+}

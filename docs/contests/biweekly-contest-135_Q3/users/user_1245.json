@@ -1,0 +1,6 @@
+{
+    "username": "bus9ko",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int h = n / 2;\n        vector<int> maxdiff(k + 1);\n        unordered_map<int, int> diff;\n        for (int i = 0; i < h; ++i) {\n            int d = abs((long long)nums[i] - nums[n - i - 1]);\n            ++diff[d];\n            int maxx = max(nums[i], nums[n - i - 1]);\n            int minn = min(nums[i], nums[n - i - 1]);\n            int maxd = max(maxx, k - minn);\n            maxdiff[maxd]++;\n        }\n        vector<int> prefsum(k + 1);\n        prefsum[k] = maxdiff[k];\n        for (int i = k - 1; i >= 0; --i) {\n            prefsum[i] = maxdiff[i] + prefsum[i + 1];\n        }\n        int best = 10000000;\n        for (int i = 0; i <= k; ++i) {\n            int zero = diff[i];\n            int one = prefsum[i] - zero;\n            int two = h - one - zero;\n            if (two * 2 + one * 1 + zero * 0 < best) {\n                best = 2 * two + one;\n            }\n        }\n        return best;\n    }\n};",
+    "submit_ts": "1721489602",
+    "subm_id": "1327458207"
+}

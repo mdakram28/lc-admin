@@ -1,0 +1,6 @@
+{
+    "username": "JayVerma",
+    "submission": "# https://leetcode.com/contest/biweekly-contest-135/problems/minimum-array-changes-to-make-differences-equal/\n\n\nfrom collections import defaultdict\nfrom sortedcontainers import SortedList\n\n\nclass Solution:\n    def minChanges(self, nums: list[int], k: int) -> int:\n        n = len(nums) // 2\n        left = nums[:n]\n        right = reversed(nums[n:])\n        # print(left, right)\n        ans = n * 2\n\n        mindiff = SortedList()\n        maxdiff = SortedList()\n\n        diffcnt = defaultdict(int)\n        for a, b in zip(left, right):\n            diff = abs(a - b)\n            diffcnt[diff] += 1\n            mindiff.add(max(0, min(a, b) - k))\n            maxdiff.add(max(k - min(a, b), max(a, b)))\n        \n        # print(mindiff, maxdiff)\n\n        for diff in range(k + 1):\n            c = n - diffcnt[diff]\n            c += n - mindiff.bisect_right(diff)\n            c += maxdiff.bisect_left(diff)\n            # print(diff, c)\n            ans = min(ans, c)\n\n        return ans\n",
+    "submit_ts": "1721488983",
+    "subm_id": "1327439184"
+}

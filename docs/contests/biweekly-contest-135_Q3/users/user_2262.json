@@ -1,0 +1,6 @@
+{
+    "username": "Ak_4723",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int, vector<int>> difference_map;\n        vector<int> values;\n\n        for (int i = 0; i < n / 2; ++i) {\n            int a = nums[i];\n            int b = nums[n - i - 1];\n            int diff = abs(a - b);\n            int max_value = max({a, b, k - a, k - b});\n            \n            difference_map[diff].push_back(max_value);\n            values.push_back(max_value);\n        }\n\n        int min_changes = n;\n        sort(values.begin(), values.end());\n\n        for (const auto& entry : difference_map) {\n            int diff = entry.first;\n            int pos = lower_bound(values.begin(), values.end(), diff) - values.begin();\n            int changes_needed = pos * 2 + (n / 2 - pos);\n\n            for (const auto& x : entry.second) {\n                if (x < diff) {\n                    changes_needed -= 2;\n                } else {\n                    changes_needed -= 1;\n                }\n            }\n\n            min_changes = min(min_changes, changes_needed);\n        }\n\n        return min_changes;\n    }\n};",
+    "submit_ts": "1721489078",
+    "subm_id": "1327442204"
+}

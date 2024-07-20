@@ -1,0 +1,6 @@
+{
+    "username": "randomsusapps",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        hm = Counter()\n        \n        for i in range(n // 2):\n            hm[abs(nums[i] - nums[~i])] += 1\n        \n        diffs = defaultdict(lambda: inf)\n        \n        for x, y in hm.items():\n            diffs[y] = min(diffs[y], x)\n        \n        def chik(diff):\n            res = 0\n\n            for i in range(n // 2):\n                t1, t2 = nums[i], nums[~i]\n                t1, t2 = max(t1, t2), min(t1, t2)\n                if t1 - t2 != diff:\n                    if t2 + diff <= k or (t1 - diff <= k and t1 >= diff) or t1 + diff <= k or (t2 - diff <= k and t2 >= diff):\n                        res += 1\n                    else:\n                        res += 2\n\n            return res\n    \n        return min(chik(diff) for diff in diffs.values())",
+    "submit_ts": "1721489354",
+    "subm_id": "1327450794"
+}

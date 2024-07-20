@@ -1,0 +1,6 @@
+{
+    "username": "abhey8623",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        // ans would always be less than n/2 -> make X small like 0\n        int i,n=nums.size(),ndiff,upper,lower;\n        vector<int> fre(k+1,0);\n        vector<int> mdiff(n/2,0);\n        for(i=0;i<n/2;++i)\n        {\n            lower = max(nums[i], nums[n-1-i]);\n            upper = max(k-nums[i], k-nums[n-1-i]);\n            ndiff = max(lower, upper);\n            // this is the max X this pair can handle with only one change\n            mdiff[i] = ndiff;\n            //also maintain the count of each diff\n            fre[abs(nums[i]-nums[n-1-i])]++;\n        }\n        sort(mdiff.begin(), mdiff.end());\n        // sort of like two pointer now\n        int j=0;\n        int ans = n/2;\n        for(i=0;i<k+1;++i)\n        {\n            // i is the diff\n            while(j<n/2&&mdiff[j]<i) ++j;\n            //cout << i << \" \" << j << \" \" << j + n/2 - fre[i] << endl;\n            ans = min(ans, j + n/2 - fre[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489842",
+    "subm_id": "1327465440"
+}

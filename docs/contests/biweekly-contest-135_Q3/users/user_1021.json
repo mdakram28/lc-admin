@@ -1,0 +1,6 @@
+{
+    "username": "wo-a-6",
+    "submission": "func abs(x int) int {\n    if x < 0 { return -x \n    } else { return x }\n}\n\nfunc minChanges(nums []int, k int) int {\n    n := len(nums)\n    f := [][]int{}\n    pMap := map[int]int{}\n    for i, j := 0, n - 1; i < j; i, j = i + 1, j - 1 {\n        x1, x2 := abs(nums[i] - nums[j]), max(k - min(nums[i], nums[j]), max(nums[i], nums[j]))\n        pMap[0] += 1\n        pMap[x1] -= 1\n        pMap[x1+1] += 1\n        if x2+1 <= k { pMap[x2+1] += 1 }\n    }\n    for key, val := range pMap { f = append(f, []int{key, val}) }\n    sort.Slice(f, func(i, j int)bool{\n        return f[i][0] < f[j][0]\n    })\n    // fmt.Println(f)\n    m := len(f)\n    res := n\n    for i, tmp := 0, 0; i < m; i++ {\n        tmp += f[i][1]\n        res = min(res, tmp)\n    }\n    return res\n}",
+    "submit_ts": "1721488765",
+    "subm_id": "548315895"
+}

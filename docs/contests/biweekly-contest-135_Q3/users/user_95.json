@@ -1,0 +1,6 @@
+{
+    "username": "rejudge_thiz",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int sz = k+1;\n        vector<int> seg(2*sz);\n        auto add = [&](int p,int v){\n            seg[p+=sz]+=v;\n            while(p>1){\n                p>>=1;\n                seg[p] = seg[p<<1]+seg[p<<1|1];\n            }\n        };\n        auto query = [&](int l,int r){\n            int re = 0;\n            for(l+=sz,r+=sz;l<r;l>>=1,r>>=1){\n                if(l&1) re+=seg[l++];\n                if(r&1) re+=seg[--r];\n            }\n            return re;\n        };\n        auto max_gap = [&](int a,int b){\n            return max({a,b,k-a,k-b});\n        };\n        vector<int> cnt(sz);\n        for(int i=0,n=nums.size();i<n/2;i++){\n            int t = abs(nums[i]-nums[n-i-1]);\n            // cout << t << endl;\n            cnt[t]++;\n            int z = max_gap(nums[i],nums[n-i-1]);\n            // cout << z << endl;\n            add(z,1);\n        }\n        int n = nums.size(),re=n;\n        // cout << \"x\" << endl;\n        for(int i=0;i<sz;i++){\n            int l = query(0,i),r=query(i,sz);\n            re=min(re,(r-cnt[i])*1 + l*2);\n        }\n        return re;\n    }\n};",
+    "submit_ts": "1721487111",
+    "subm_id": "1327376702"
+}

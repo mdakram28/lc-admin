@@ -1,0 +1,6 @@
+{
+    "username": "sleepingonee",
+    "submission": "class Solution:\n    def minChanges(self, nums, k):\n        seen = defaultdict(list)\n        one_op = []\n\n        for pos in range(len(nums) // 2):\n            left = nums[pos]\n            right = nums[~pos]\n\n            max_value = max(left, right, k - left, k - right)\n            seen[abs(left - right)].append(max_value)\n            one_op.append(max_value)\n\n        result = len(nums)\n        one_op.sort()\n\n        for delta, max_values in seen.items():\n            changes = bisect.bisect_left(one_op, delta)\n            changes -= sum(2 if max_value < delta else 1 for max_value in max_values)\n\n            result = min(result, len(nums) // 2 + changes)\n\n        return result",
+    "submit_ts": "1721490537",
+    "subm_id": "1327485493"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "dohoanggiahuy317",
+    "submission": "from collections import Counter\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        half_n = n // 2\n        diffs = []\n\n        for i in range(half_n):\n            diffs.append(abs(nums[i] - nums[n - i - 1]))\n        \n        freq = Counter(diffs)\n\n        s = set()\n        temp = {}\n\n        for u, v in freq.items():\n            if v not in temp:\n                temp[v] = u\n            else:\n                temp[v] = min(u, temp[v])\n        \n        if len(freq) == 1:\n            return 0\n\n        min_changes = float('inf')\n\n        for u, best_diff in temp.items():\n            changes = 0\n            for i in range(half_n):\n                current_diff = abs(nums[i] - nums[n - i - 1])\n                if current_diff != best_diff:\n                    if nums[i] + best_diff > k and nums[i] - best_diff < 0 and nums[n - i - 1] + best_diff > k and nums[n - i - 1] - best_diff < 0:\n                        changes += 2\n                    else:\n                        changes += 1\n            min_changes = min(min_changes, changes)\n        \n        return min_changes",
+    "submit_ts": "1721488131",
+    "subm_id": "1327412527"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "asif_star_135",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, int> map;\n        \n        int n = nums.size();\n        \n        for(int i = 0; i < n/2; i++){\n            map[abs(nums[i] - nums[n-i-1])]++;\n        }\n        \n        vector<pair<int, int>> v;\n        for(auto it:map){\n            v.push_back({it.second, it.first});\n        }\n        sort(v.rbegin(), v.rend());\n        \n        int ans = 100000;\n        for(int i = 0; i < v.size(); i++){\n            int cnt = 0, diff = v[i].second;\n            \n            for(int ind = 0; ind < n/2; ind++){\n                int x = nums[ind], y = nums[n - ind - 1];\n                \n                if(abs(x-y) == diff) continue;\n                else if(x + diff > k && x - diff < 0 && y + diff > k && y - diff < 0) cnt += 2;\n                else cnt++;\n            }\n            \n            if(cnt > ans) return ans;\n            else ans = cnt;\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1721488570",
+    "subm_id": "1327426380"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "danger_2024",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        // create a mapp for store diff\n         map<int,vector<int>> mapp;\n        vector<int> v;\n        for(int i = 0;i<n/2;i++){\n            int left = nums[i],right = nums[nums.size()-i-1];\n            int diff = abs(left-right);\n            int X = max({left,right,k-left,k-right});\n            mapp[diff].push_back(X);\n            v.push_back(X);\n        }\n        int ans = nums.size();\n        // sort new vector\n        sort(v.begin(),v.end());\n       \n        for(auto &val:mapp){\n\n            int diff = val.first;\n            int change= lower_bound(v.begin(),v.end(),diff)-v.begin();\n            change = change*2+(nums.size()/2-change);\n\n            for(auto &X:val.second){\n                if(X<diff){\n                    change-=2;\n                }\n                else{\n                    change-=1;\n                }\n            }\n\n            ans = min(ans,change);\n\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721490190",
+    "subm_id": "1327475633"
+}

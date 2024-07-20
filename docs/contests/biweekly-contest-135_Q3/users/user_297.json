@@ -1,0 +1,6 @@
+{
+    "username": "novahow",
+    "submission": "constexpr int maxK = 1e5+7;\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> kline(maxK, 0);\n        int n = nums.size();\n        for(int i = 0; i < n / 2; i++){\n            auto gt = max(nums[i], nums[n - i - 1]), ls = min(nums[i], nums[n - i - 1]);\n            auto thres1 = gt - ls, thres2 = max(k - ls, gt);\n            // printf(\"%d %d %d %d\\n\", gt, ls, thres1, thres2);\n            kline[thres1] -= 1;\n            kline[thres1 + 1] += 1;\n            kline[thres2 + 1] += 1;\n        }\n\n        auto ans = n, init = n / 2;\n        for(int i = 0; i < maxK; i++){\n            // printf(\"%d %d\\n\", i, kline[i]);\n            init += kline[i];\n            ans = min(ans, init);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721488021",
+    "subm_id": "1327408960"
+}

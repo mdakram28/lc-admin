@@ -1,0 +1,6 @@
+{
+    "username": "tanakat01",
+    "submission": "from collections import defaultdict\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        n2 = n // 2\n        c = defaultdict(int)\n        oks = [0] * (k + 1)\n        n1s = [0] * (k + 1)\n        for i in range(n2):\n            s1, s2 = sorted([nums[i], nums[n - i - 1]])\n            d = s2 - s1\n            oks[d] += 1\n            n1 = max(k - s1, s2)\n            n1s[n1] += 1\n        #print(f'oks={oks}, n1s={n1s}')\n        ans = float('inf')\n        n1sum = 0\n        for i in range(k, -1, -1):\n            n1sum += n1s[i]\n            v = n1sum - oks[i] + (n2 - n1sum) * 2\n            #print(f'i={i}, n1sum={n1sum},v={v}')\n            ans = min(v, ans)\n        return ans            \n\n\n\n\n",
+    "submit_ts": "1721487299",
+    "subm_id": "1327383710"
+}

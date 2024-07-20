@@ -1,0 +1,6 @@
+{
+    "username": "Siddharth_Joshi",
+    "submission": "#define f first\n#define s second\n#define pb push_back\n#define all(x) x.begin(),x.end()\n#define sz(x) (int)(x).size()\n#define pii pair<int,int>\n\nclass Solution {\npublic:\n    int minChanges(vector<int> nums, int k) {\n        int n = sz(nums);\n        if (n % 2 == 1) {\n            return n/2;\n        }\n        map<int, int> mp;\n        for (int i = 0; i < n / 2; i++) {\n            mp[abs(nums[i] - nums[n - 1 - i])]++;\n        }\n        vector<int> notgood;\n        for (int i = 0; i < n / 2 ; i++) {\n            int r = 0;\n            r = max(r, max(nums[i], k - nums[i]));\n            r = max(r, max(nums[n - 1 - i], k - nums[n - 1 - i]));\n            notgood.pb(r);\n        }\n        sort(all(notgood));\n        // debug(notgood);\n        // debug(mp);\n        int ans = 2 * n;\n        for (int X=0;X<=k;X++) {\n            int ind = lower_bound(all(notgood), X) - notgood.begin();\n            ans = min(ans, ind*2 + (sz(notgood) - ind)  - mp[X]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488839",
+    "subm_id": "1327434818"
+}

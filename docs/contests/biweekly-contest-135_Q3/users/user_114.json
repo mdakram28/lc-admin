@@ -1,0 +1,6 @@
+{
+    "username": "stevenhgs2",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        freq = defaultdict(int)\n        greatest_range = []\n        \n        for i in range(n // 2):\n            diff = abs(nums[i] - nums[n - i - 1])\n            freq[diff] += 1\n            candidate1 = max(nums[i], k - nums[i])\n            candidate2 = max(nums[n - i - 1], k - nums[n - i - 1])\n            picked_candidate = max(candidate1, candidate2)\n            greatest_range.append(picked_candidate)\n            \n        print(greatest_range)\n        greatest_range.sort()\n        \n        combo = []\n        for diff, cnt in freq.items():\n            combo.append((diff, cnt))\n        \n        nb_pairs = len(greatest_range)\n        result = inf\n        for diff, cnt in combo:\n            i = bisect_left(greatest_range, diff)\n            one_ops = nb_pairs - i\n            two_ops = i\n            ops_needed = one_ops + 2 * two_ops - cnt\n            result = min(result, ops_needed)\n        \n        return result\n        ",
+    "submit_ts": "1721487227",
+    "subm_id": "1327381004"
+}

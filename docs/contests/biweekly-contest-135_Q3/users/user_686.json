@@ -1,0 +1,6 @@
+{
+    "username": "catalypso",
+    "submission": "class Solution:\n    def minChanges(self, nums: list[int], k: int) -> int:\n        n = len(nums)\n        diffs = {}\n        for i in range(int(n / 2)):\n            diff = abs(nums[i] - nums[n - i - 1])\n            diffs[diff] = diffs.setdefault(diff, 0) + 1\n\n        ans = n\n        print(diffs)\n        for diff in diffs:\n            if int(n / 2) - diffs[diff] >= ans:\n                continue\n            if diff <= int(k / 2):\n                ans = min(ans, int(n / 2) - diffs[diff])\n                continue\n            _ans = int(n / 2) - diffs[diff]\n            for i in range(int(n / 2)):\n                _diff = abs(nums[i] - nums[n - i - 1])\n                if (\n                    _diff != diff\n                    and k - diff < nums[i] < diff\n                    and k - diff < nums[n - i - 1] < diff\n                ):\n                    _ans += 1\n            ans = min(ans, _ans)\n        return ans",
+    "submit_ts": "1721488590",
+    "subm_id": "1327427032"
+}

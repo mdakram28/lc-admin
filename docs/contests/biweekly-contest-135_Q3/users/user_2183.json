@@ -1,0 +1,6 @@
+{
+    "username": "cczz-6",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) \n    {\n        unordered_map<int, int> diffCountMap;\n        vector<int> upperBoundList;\n        \n        int n = nums.size(), ans = n - 2;\n        \n        for (int i = 0; i < n / 2; i++)\n            ++diffCountMap[abs(nums[i] - nums[n - 1 - i])], upperBoundList.push_back(max(max(nums[i], nums[n - 1 - i]), k - min(nums[i], nums[n - 1 - i])));\n        \n        sort(upperBoundList.begin(), upperBoundList.end());\n        \n        for (pair<int, int> diffCount: diffCountMap)\n        {\n            int diff = diffCount.first, count = diffCount.second;\n            int index = lower_bound(upperBoundList.begin(), upperBoundList.end(), diff) - upperBoundList.begin();\n            \n            index = max(0, index);\n            ans = min(ans, index * 2 + (n / 2 - index) - count);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1721490207",
+    "subm_id": "548321997"
+}

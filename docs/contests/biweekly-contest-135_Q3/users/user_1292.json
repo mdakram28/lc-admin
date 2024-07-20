@@ -1,0 +1,6 @@
+{
+    "username": "vineethr_2004",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        \n        vector<int> A(k + 1, 0);\n        vector<int> ct(k + 1, 0);\n        \n        for (int x = 0; x < n / 2; ++x){\n            int a = nums[x];\n            int b = nums[n - 1 - x];\n            if (a > b) swap(a, b);\n            ct[b - a] += 1;\n            int one = max(k - a, b);\n            A[one] += 1;\n        }\n        \n        int ret = n;\n        int by_one = accumulate(A.begin(), A.end(), 0);\n        for (int x = 0; x <= k; x++){\n            ret = min(ret, by_one - ct[x] + 2 * (n / 2 - by_one));\n            by_one -= A[x];\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1721489660",
+    "subm_id": "1327459944"
+}

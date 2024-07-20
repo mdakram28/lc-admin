@@ -1,0 +1,6 @@
+{
+    "username": "vijaykatta3094",
+    "submission": "class Solution:\n    def find_min_x(self, val1, val2, k) -> int:\n        left = 0\n        right = k\n        while left <= right:\n            mid = left + (right - left) // 2\n            if (mid > val1 > k - mid) and (mid > val2 > k - mid):\n                right = mid - 1\n            else:\n                left = mid + 1\n                res = mid\n        return res\n    \n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        abs_counts = Counter([abs(nums[i] - nums[n - i - 1]) for i in range(n//2)])\n        max_x = [0] * (k + 1)\n        for i in range(n // 2):\n            max_x[self.find_min_x(nums[i], nums[n - i - 1], k)] += 1\n        \n        res = inf\n        twos = 0\n        for x in range(k + 1):\n            res = min(res, n // 2 + twos - abs_counts[x])\n            twos += max_x[x]\n        return res",
+    "submit_ts": "1721490593",
+    "subm_id": "1327487136"
+}

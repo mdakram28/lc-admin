@@ -1,0 +1,6 @@
+{
+    "username": "rahulkumar4790965",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        hash_map = defaultdict(list)\n        lst = []\n        n = len(nums)\n\n        for i in range(n//2):\n            a, b = nums[i], nums[n - i - 1]\n            x = max([a, b, k - a, k - b])\n            hash_map[abs(a - b)].append(x)\n            lst.append(x)\n        \n        lst.sort()\n        min_changes = n\n        for diff, max_list in hash_map.items():\n            lb = bisect_left(lst, diff)\n            lb = lb * 2 + (n // 2 - lb)\n\n            for max_val in max_list:\n                if max_val < diff:\n                    lb -= 2\n                else:\n                    lb -= 1\n            min_changes = min(min_changes, lb)\n        return min_changes\n        ",
+    "submit_ts": "1721489805",
+    "subm_id": "1327464329"
+}

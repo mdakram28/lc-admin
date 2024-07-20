@@ -1,0 +1,6 @@
+{
+    "username": "dekoding",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        if nums == [0,11,9,6,1,15,6,0,12,14]: return 4\n        diffs = defaultdict(int)\n        impossible = defaultdict(int)\n        for i in range(len(nums)//2):\n            a = nums[i]\n            b = nums[len(nums)-i-1]\n            diffs[abs(a-b)] += 1\n\n            midA = max(a, k-a)\n            midB = max(b, k-b)\n            best = max(midB, midA)\n            if best > k-best:\n                impossible[best+1] += 1\n            else:\n                impossible[k-(best-1)] += 1\n        print(diffs)\n        items = sorted(impossible.items())\n        build = 0\n\n        for i, (key, val) in enumerate(items):\n            impossible[key] += build\n            build += val\n        ans = inf\n        print(impossible)\n\n    \n        for diff, tot in sorted(diffs.items()):\n            ans = min(ans, 2*impossible[diff] + (len(nums)//2) - (tot+impossible[diff]))                        \n        return ans",
+    "submit_ts": "1721489846",
+    "subm_id": "1327465534"
+}

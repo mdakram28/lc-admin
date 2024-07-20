@@ -1,0 +1,6 @@
+{
+    "username": "CatMachina",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size(), half = n / 2;\n        vector<int> diffs(k+1, 0);\n        vector<int> room(k+1, 0);\n        for(int i = 0; i < half; ++i) {\n            int diff = abs(nums[i] - nums[n - i - 1]);\n            diffs[diff]++;\n            int lo = min(nums[i], nums[n-i-1]);\n            int hi = max(nums[i], nums[n-i-1]);\n            room[max(k-lo, hi)]++;\n        }\n        for(int i = 1; i <= k; ++i) {\n            room[i] += room[i-1];\n        }\n        int best = 1e9;\n        for(int i = 0; i <= k; ++i) {\n            int lower = i == 0 ? 0 : room[i-1];\n            int higher = room[k] - lower;\n            best = min(best, lower * 2 + higher - diffs[i]);\n        }\n        return best;\n    }\n};",
+    "submit_ts": "1721487580",
+    "subm_id": "1327393968"
+}

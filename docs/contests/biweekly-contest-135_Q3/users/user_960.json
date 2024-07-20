@@ -1,0 +1,6 @@
+{
+    "username": "xu-ling-jue",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<int> increase(k+1);\n        unordered_map<int,int> dict;\n        for (int i=0;i<n/2;i++){\n            int bound=0;\n            bound=max(bound,max(nums[i],k-nums[i]));\n            bound=max(bound,max(nums[n-i-1],k-nums[n-i-1]));\n            increase[bound]++;\n            dict[abs(nums[i]-nums[n-i-1])]++;\n        }\n        int ans=INT_MAX;\n        for (auto& p:dict){\n            int cmp=p.first;\n            int cur=n/2-p.second;\n            for (int b=k/2;b<cmp;b++){\n                cur+=increase[b];\n            }\n            ans=min(ans,cur);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488695",
+    "subm_id": "548315619"
+}

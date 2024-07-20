@@ -1,0 +1,6 @@
+{
+    "username": "mohdquamartyagi",
+    "submission": "class Solution:\n    def minChanges(self, nums, k):\n        differences = defaultdict(list)\n        max_values = []\n        \n        for i in range(len(nums) // 2):\n            num_start = nums[i]\n            num_end = nums[len(nums) - i - 1]\n            difference = abs(num_start - num_end)\n            max_value = max(num_start, num_end, k - num_start, k - num_end)\n            differences[difference].append(max_value)\n            max_values.append(max_value)\n        \n        minimum_changes = len(nums)\n        max_values.sort()\n        \n        for difference, value_list in differences.items():\n            position = bisect_left(max_values, difference)\n            total_changes = position * 2 + (len(nums) // 2 - position)\n            \n            for value in value_list:\n                if value < difference:\n                    total_changes -= 2\n                else:\n                    total_changes -= 1\n            \n            minimum_changes = min(minimum_changes, total_changes)\n        \n        return minimum_changes\n",
+    "submit_ts": "1721488750",
+    "subm_id": "1327432075"
+}

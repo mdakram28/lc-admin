@@ -1,0 +1,6 @@
+{
+    "username": "skywalkert",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> ctr(k + 2);\n        for(int i = 0, j = n - 1; i < j; ++i, --j) {\n            int u = nums[i], v = nums[j];\n            int x0 = abs(u - v), x1 = max(max(u, v), k - min(u, v));\n            ctr[0] += 2;\n            ctr[k + 1] -= 2;\n            --ctr[0];\n            ++ctr[x1 + 1];\n            --ctr[x0];\n            ++ctr[x0 + 1];\n        }\n        int ans = ctr[0];\n        for(int i = 1; i <= k; ++i) {\n            ctr[i] += ctr[i - 1];\n            ans = min(ans, ctr[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721486424",
+    "subm_id": "1327347378"
+}

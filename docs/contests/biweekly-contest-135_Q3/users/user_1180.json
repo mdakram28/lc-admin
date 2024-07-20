@@ -1,0 +1,6 @@
+{
+    "username": "donmotabhai",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n= nums.size();\n        int i=0;\n        int j= n-1;\n        map<int,int> mp;\n        priority_queue<pair<int,int>> pq;\n        while(i<j)\n        {\n            mp[abs(nums[i]-nums[j])]++;\n            i++;\n            j--;\n        }\n        int k1=0;\n        int temp=1e9;\n        for(auto it: mp)\n        {\n            pq.push({it.second,it.first});\n        }\n        while(pq.size()){\n            auto it= pq.top();\n            pq.pop();\n            int d = it.second;\n            int i=0;\n            int j=n-1;\n            int temp2 = 0;\n            while(i<j){\n                int dif = abs(nums[i] - nums[j]);\n                if(dif==d){\n                    i++; j--;\n                    continue;\n                }\n                int mini = min(nums[i], nums[j]), maxi = max(nums[i], nums[j]);\n                if(maxi>=d || abs(k-mini)>=d) temp2++;\n                else temp2+=2;\n                i++;\n                j--;\n            }\n            k1++;\n            temp = min(temp, temp2);\n            if(k1==10) break;\n        }\n        return temp;\n    }\n};",
+    "submit_ts": "1721489238",
+    "subm_id": "1327447222"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Turkhuu",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        int n = a.size();\n        vector<int> v[k + 1];\n        for (int i = 0; i < n / 2; i++) {\n            v[abs(a[i] - a[n - 1 - i])].push_back(i);\n        }\n        int ans = n / 2, cnt = 0;\n        priority_queue<int, vector<int>, greater<int>> pq;\n        for (int dif = 0; dif <= k; dif++) {\n            int sz = v[dif].size();\n            while (!pq.empty() && pq.top() < dif) pq.pop();\n            ans = min(ans, n / 2 - cnt - sz + 2 * cnt - (int)pq.size());\n            for (auto i : v[dif]) {\n                int mx = max({a[i], a[n - i - 1], k - a[i], k - a[n - i - 1]});\n                pq.push(mx);\n            }\n            cnt += sz;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721486890",
+    "subm_id": "1327368154"
+}

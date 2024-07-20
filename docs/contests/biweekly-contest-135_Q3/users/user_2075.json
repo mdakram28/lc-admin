@@ -1,0 +1,6 @@
+{
+    "username": "experiencer-b",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        \n        lst = [abs(nums[i] - nums[n - i - 1]) for i in range(n >> 1)]\n        \n        cnt = Counter(lst)\n        \n        for i in range(n >> 1):\n            if nums[i] > nums[n - i -1]:\n                nums[i], nums[n - i - 1] = nums[n - i - 1], nums[i]\n        \n        possible = defaultdict(int)\n        possible_lst = list(sorted(cnt.keys(),key = lambda x: cnt[x] ,reverse = True))\n        # print(possible_lst)\n        cur = inf\n        for x in possible_lst:\n            if n / 2 - cnt[x] >= cur:\n                continue\n            for i in range(n >> 1):\n                if nums[n - i - 1] - nums[i] == x:\n                    continue\n                possible[x] += 1 if (nums[i] + x <= k or nums[n - i -1] - x >= 0) else 2\n            cur = min(cur, possible[x])\n\n        \n        return cur if cur != inf else 0\n        \n        \n        ",
+    "submit_ts": "1721488601",
+    "subm_id": "548315205"
+}

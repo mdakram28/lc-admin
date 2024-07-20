@@ -1,0 +1,6 @@
+{
+    "username": "nikunj_23",
+    "submission": "#include <ext/pb_ds/assoc_container.hpp> \n#include <ext/pb_ds/tree_policy.hpp> \nusing namespace __gnu_pbds;\nclass Solution {\npublic:\n    template<class T> using ordered_multiset = tree<T, null_type,less_equal<T>, rb_tree_tag,tree_order_statistics_node_update>;\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> arr;\n        int i=0,j=n-1;\n        map<int,int> mp;\n        ordered_multiset<int> st;\n        while(i<=j){\n            int diff = abs(nums[i]-nums[j]);\n            mp[diff]++;\n            int maxx = max({nums[i]-0,nums[j]-0,k-nums[i],k-nums[j]});\n            st.insert(maxx);\n            i++;\n            j--;\n        }\n        int ans=n;\n        map<int,int>::iterator it = mp.begin();\n        int ttl=n/2;\n        while(it!=mp.end()){\n            int rem = ttl-it->second;\n            int less = st.order_of_key(it->first);\n            int temp = 2*less+(rem-less);\n            ans = min(ans,temp);\n            it++;\n        }\n        return ans;\n        \n        //[3,1,7,7,8,7,0,5,8,0,6,7,0,2,6,6]  k=8\n    }\n};",
+    "submit_ts": "1721489658",
+    "subm_id": "1327459884"
+}

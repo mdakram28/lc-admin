@@ -1,0 +1,6 @@
+{
+    "username": "Sahil_JJ",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& snum, int k) {\n        long long maxi=*max_element(snum.begin(),snum.end());\n        unordered_map<long long,vector<long long>> smp;\n        vector<long long> temp;\n        for(long long i = 0;i<snum.size()/2;i++){\n            long long a = snum[i],b = snum[snum.size()-i-1];\n            long long sd = abs(a-b);\n            long long sx = max({a,b,k-a,k-b});\n            smp[sd].push_back(sx);\n            temp.push_back(sx);\n        }\n        long long sahilans = snum.size();\n        sort(temp.begin(),temp.end());\n        for(auto it:smp){\n            long long sd = it.first;\n            long long tmp = lower_bound(temp.begin(),temp.end(),sd)-temp.begin();\n            tmp = tmp*2+(snum.size()/2-tmp);\n            for(auto i:it.second){\n                if(i<sd)tmp-=2;\n                else  tmp-=1;\n            }\n            sahilans = min({sahilans,tmp});\n        }\n\n        return sahilans;\n    }\n};",
+    "submit_ts": "1721489569",
+    "subm_id": "1327457268"
+}

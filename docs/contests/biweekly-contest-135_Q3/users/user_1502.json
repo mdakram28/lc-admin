@@ -1,0 +1,6 @@
+{
+    "username": "batch89",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, vector<int>> ans1;\n        vector<int> ans2;\n        int count = 0;\n\n        while (count < nums.size() / 2) {\n            int ans3 = nums[count], ans4 = nums[nums.size() - count - 1];\n            int value = abs(ans3 - ans4);\n            int target = max({ans3, ans4, k - ans3, k - ans4});\n            ans1[value].push_back(target);\n            ans2.push_back(target);\n            count++;\n        }\n\n        int result = nums.size();\n        sort(ans2.begin(), ans2.end());\n\n        for (auto& val : ans1) {\n            int value = val.first;\n            int zero = lower_bound(ans2.begin(), ans2.end(), value) - ans2.begin();\n            zero = zero * 2 + (nums.size() / 2 - zero);\n\n            for (auto& target : val.second) {\n                zero -= (target < value) ? 2 : 1;\n            }\n\n            result = min(result, zero);\n        }\n\n        return result;\n    }\n};\n",
+    "submit_ts": "1721488953",
+    "subm_id": "1327438230"
+}

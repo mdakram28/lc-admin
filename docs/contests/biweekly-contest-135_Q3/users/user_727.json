@@ -1,0 +1,6 @@
+{
+    "username": "21bce118",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int ans = 1e9, n = nums.size(), mx_freq = 0;\n        map <int,int> mp, mp1;\n        for(int i=0; i<n/2; ++i)\n            ++mp[abs(nums[i]-nums[n-1-i])];\n        for(int i=0; i<n/2; ++i)\n            ++mp1[max(max(nums[i],nums[n-1-i]),k-min(nums[i],nums[n-1-i]))];\n        int prev = 0;\n        set<int> st;\n        for(auto it = --mp1.end(); ; --it)\n        {\n            mp1[it->first] += prev;\n            st.insert(it->first);\n            prev = it->second;\n            if(it == mp1.begin())\n                break;\n        }\n        for(auto it : mp)\n        {\n            int ct;\n            auto it1 = st.lower_bound(it.first);\n            if(it1 == st.end())\n                ct = 0;\n            else\n                ct = mp1[*it1];\n            if(it.first <= *it1)\n                ct -= it.second;\n            ans = min(ans,n-it.second*2-ct);\n            // cout<<it.first<<\" \"<<it.second<<\" \"<<ans<<\" \"<<ct<<'\\n';\n        }\n        // cout<<'\\n';\n        return ans;\n    }\n};",
+    "submit_ts": "1721488952",
+    "subm_id": "1327438185"
+}

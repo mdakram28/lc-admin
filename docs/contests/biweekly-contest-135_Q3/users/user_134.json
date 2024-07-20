@@ -1,0 +1,6 @@
+{
+    "username": "masteralphi",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        a = []\n        sm = n // 2\n        for i in range(n // 2):\n            b = min(nums[i], nums[-i-1])\n            c = max(nums[i], nums[-i - 1])\n            if b != c:\n                a.append([0, -1])\n                a.append([c-b-1, 1])\n            d = max(c, k-b)\n            if c-b < k:\n                a.append([c-b+1, -1])\n                a.append([d, 1])\n            if d < k:\n                a.append([d+1, -2])\n                a.append([k, 2])\n        a.sort()\n        idx = 0\n        cur = 0\n        for i in range(k+1):\n            while idx < len(a) and a[idx][0] == i and a[idx][1] < 0:\n                cur -= a[idx][1]\n                idx += 1\n            sm = min(sm, cur)\n            while idx < len(a) and a[idx][0] == i:\n                cur -= a[idx][1]\n                idx += 1\n        return sm",
+    "submit_ts": "1721487308",
+    "subm_id": "1327384061"
+}

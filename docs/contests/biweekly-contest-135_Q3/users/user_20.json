@@ -1,0 +1,6 @@
+{
+    "username": "donbasta",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> cnt(k + 1), f(k + 1), pr(k + 1);\n        for (int i = 0; i < n / 2; i++) {\n            cnt[abs(nums[i] - nums[n - 1 - i])]++;\n\n            int a = nums[i], b = nums[n - 1 - i];\n            f[max({a, b, k - a, k - b})]++;\n        }\n        pr[0] = f[0];\n        for (int i = 1; i <= k; i++) {\n            pr[i] = pr[i - 1] + f[i];\n        }\n        int ans = INT_MAX;\n        for (int i = 0; i <= k; i++) {\n            if (k - i >= i) {\n                ans = min(ans, n / 2 - cnt[i]);\n            } else {\n                ans = min(ans, n / 2 - cnt[i] + pr[i - 1]);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721486825",
+    "subm_id": "1327365546"
+}

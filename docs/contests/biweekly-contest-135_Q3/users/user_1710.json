@@ -1,0 +1,6 @@
+{
+    "username": "jacksoncai",
+    "submission": "class Solution:\n    def minChanges(self, a: List[int], k: int) -> int:\n        half = len(a) // 2\n        n = len(a)\n        res = []\n        for i in range(half):\n            res.append(abs(a[i] - a[n - i - 1]))\n        c = Counter(res)\n        ans = []\n        for key, v in c.items():\n            ans.append((key, v))\n        ans.sort(key = lambda x: (-x[1], x[0]))\n        res = 0\n        mx = ans[0][0]\n        cnt = ans[0][1]\n        tr = []\n\n        for key, v in ans:\n            if len(tr) < int(sqrt(len(a))) and len(tr) < 1000:\n                tr.append(key)\n        ans = []\n\n        for mx in tr:\n            res = 0\n            for i in range(half):\n                \n                diff = abs(a[i] - a[n - i - 1])\n                if diff != mx:\n                    if (a[i] + mx) <= k or (a[i] - mx) >= 0 or (a[n - i - 1] + mx) <= k or (a[n - i - 1] - mx) >= 0:\n\n                        res += 1\n                    else:\n\n                        res += 2\n\n            ans.append(res)\n            \n        res = min(ans)\n        return res",
+    "submit_ts": "1721488563",
+    "subm_id": "1327426160"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "sequoia18",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> cnts(k + 1);\n        for (int i = 0, j = n - 1; i < j; ++i, --j) {\n            int diff = abs(nums[i] - nums[j]);\n            ++cnts[diff];\n        }\n        vector<pair<int, int>> v;\n        for (int i = 0; i <= k; ++i) {\n            int cnt = cnts[i];\n            if (cnt == 0) {\n                continue;\n            }\n            v.emplace_back(cnt, i);\n        }\n        sort(v.rbegin(), v.rend());\n        int result = INT_MAX;\n        for (const auto& [_, target] : v) {\n            int cnt = 0;\n            for (int i = 0, j = n - 1; i < j; ++i, --j) {\n                int diff = abs(nums[i] - nums[j]);\n                if (diff == target) {\n                    continue;\n                }\n                cnt += (nums[i] + target <= k || nums[i] - target >= 0 ||\n                        nums[j] + target <= k || nums[j] - target >= 0) ? 1 : 2;\n            }\n            result = min(result, cnt);\n            if (target <= k / 2) {\n                break;\n            }\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1721490090",
+    "subm_id": "1327472720"
+}

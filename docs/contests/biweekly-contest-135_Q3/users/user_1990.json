@@ -1,0 +1,6 @@
+{
+    "username": "agarwal_archit",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int,vector<int>> mp;\n        vector<int> v;\n        int n = nums.size();\n        for(int i=0;i<(n/2);i++){\n            int a = max(nums[i],nums[n-i-1]);\n            int b = min(nums[n-i-1],nums[i]);\n            int m = a-b;\n            int j = max({a,b,k-a,k-b});\n            mp[m].push_back(j);\n            v.push_back(j);\n        }\n        int ans = n;\n        sort(v.begin(),v.end());\n       \n        for(auto it:mp){\n            int fst = it.first;\n            int lb = lower_bound(v.begin(),v.end(),fst)-v.begin();\n            lb = lb*2+(n/2-lb);\n\n            for(auto s:it.second){\n                if(s<fst){\n                    lb-=2;\n                }\n                else{\n                    lb-=1;\n                }\n            }\n\n            ans = min(ans,lb);\n\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721489725",
+    "subm_id": "1327461851"
+}

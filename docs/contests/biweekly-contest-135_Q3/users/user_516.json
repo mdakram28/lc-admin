@@ -1,0 +1,6 @@
+{
+    "username": "Adhiyamaan",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        from collections import defaultdict\n    \n        n = len(nums)\n        change_count = 0\n        \n        # This dictionary will store the frequency of each X value\n        freq = defaultdict(int)\n        \n        # Analyze each pair (nums[i], nums[n - i - 1])\n        for i in range(n // 2):\n            a, b = nums[i], nums[n - i - 1]\n            freq[abs(a - b)] += 1\n        d=dict(sorted(freq.items(), key=lambda i:i[1],reverse=True))\n        print(d)\n        minc=2*len(nums)\n        for diff,count in d.items():\n            # count=d[diff]\n            nc=0\n            if(minc<=(len(nums)//2-count)):\n                return minc\n            for i in range(n // 2):\n                a, b = nums[i], nums[n - i - 1]\n                if(abs(a-b)!=diff):\n                    if(max(a,b)-0<diff and k-min(a,b)<diff):\n                        nc+=2\n                    else:\n                        nc+=1\n            minc=min(minc,nc)\n        return minc",
+    "submit_ts": "1721487977",
+    "subm_id": "1327407528"
+}

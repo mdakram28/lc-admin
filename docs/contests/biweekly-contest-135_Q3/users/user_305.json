@@ -1,0 +1,6 @@
+{
+    "username": "SUVU01",
+    "submission": "class Solution {\nprivate:\n    #define INF (int)pow(10, 9)\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> d(n / 2, 0);\n        for(int i = 0; i < n / 2; i++)\n        {\n            int mini = min(nums[i], nums[n - i - 1]);\n            int maxi = max(nums[i], nums[n - i - 1]);\n            d[i] = max({mini, maxi, k - maxi, k - mini});\n        }\n        sort(d.begin(), d.end());\n        unordered_map<int, int> mp;\n        for(int i = 0; i < n / 2; i++)\n            mp[abs(nums[i] - nums[n - i - 1])]++;\n        int ans = INF;\n        \n        for(int x = 0; x <= k; x++)\n        {\n            int lb = lower_bound(d.begin(), d.end(), x) - d.begin();\n            int curr = 2 * lb;\n            curr += (n / 2 - lb);\n            curr -= mp[x];\n            ans = min(ans, curr);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488050",
+    "subm_id": "1327409874"
+}

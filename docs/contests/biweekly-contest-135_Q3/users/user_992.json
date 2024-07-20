@@ -1,0 +1,6 @@
+{
+    "username": "ZergWang",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, int> a;      // a[i]\uff1a\u5dee\u4e3ai\u7684pair\u7684\u4e2a\u6570\n        int b[100005];                  // b[i]\uff1a\u8c03\u6574\u8303\u56f4\u5c0f\u4e8e\u7b49\u4e8ei\u7684\u4e2a\u6570\n        memset(b, 0, sizeof(b));\n        int n = nums.size();\n        for (int i=0; i<n/2; ++i) {\n            int diff = abs(nums[i] - nums[n-i-1]);\n            ++a[diff];\n            int range1 = max(k-nums[i], nums[i]);\n            int range2 = max(k-nums[n-i-1], nums[n-i-1]);\n            int range = max(range1, range2);\n            ++b[range];\n        }\n\n        for (int i=1; i<k; ++i)\n            b[i]+= b[i-1];\n\n        int ans = n/2;\n        for (int i=0; i<=k/2; ++i) \n            ans = min(ans, n/2 - a[i]);\n        \n        for (int i=k/2+1; i<=k; ++i)\n            ans = min(ans, n/2-a[i] + b[i-1]);\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721489336",
+    "subm_id": "1327450261"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Groker",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        cnt = Counter()\n        limits = [0] * (n//2)\n        for i in range(n // 2):\n            x, y =nums[i], nums[n-1-i]\n            cnt[abs(x-y)] += 1\n            xy = min(min(x, k-x), min(y, k-y))\n            limits[i] = max(xy, k-xy)\n        ans = float(\"inf\")\n        for diff, _ in sorted(cnt.items(), key=lambda x: x[1], reverse=True)[:5]:\n            s = 0\n            for i in range(n // 2):\n                if abs(nums[i] - nums[n-1-i]) == diff:\n                    continue\n                else:\n                    s += 2 if limits[i] < diff else 1\n            ans = min(ans, s)\n        return ans",
+    "submit_ts": "1721488397",
+    "subm_id": "1327420958"
+}

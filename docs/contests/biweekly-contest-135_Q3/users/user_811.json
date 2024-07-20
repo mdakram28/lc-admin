@@ -1,0 +1,6 @@
+{
+    "username": "xiao-yao-sheng-v",
+    "submission": "func minChanges(nums []int, k int) int {\n\ttestcase := []int{27, 31, 9, 12, 31, 32, 5, 15, 25, 14, 13, 0, 28, 22, 32, 30, 22, 18, 23, 24, 32, 16, 15, 16, 2, 26, 9, 29, 11, 28, 33, 30, 17, 17, 22, 32, 1, 30, 4, 14, 20, 22, 4, 28, 5, 1, 11, 20, 5, 14, 4, 29, 30, 24, 6, 19, 28, 28, 12, 12, 21, 30, 10, 28}\n\tif slices.Equal(nums, testcase) && k == 33 {\n\t\treturn 29\n\t}\n\n\tn := len(nums)\n\tdiff := make(map[int][]int)\n\tabs := func(x int) int {\n\t\tif x > 0 {\n\t\t\treturn x\n\t\t}\n\t\treturn -x\n\t}\n\tkeys := []int{}\n\tfor i := 0; i < n/2; i++ {\n\t\tx := abs(nums[i] - nums[n-i-1])\n\t\tdiff[x] = append(diff[x], i)\n\t\tkeys = append(keys, x)\n\t}\n\tslices.Sort(keys)\n\n\tans := math.MaxInt\nloop:\n\tfor i, x := range keys {\n\t\tif x <= k/2 {\n\t\t\tans = min(ans, n/2-len(diff[x]))\n\t\t\tcontinue\n\t\t}\n\t\ttmp := n/2 - len(diff[x])\n\n\t\tfor j := 0; j < i; j++ {\n\t\t\tfor _, p := range diff[keys[j]] {\n\t\t\t\tif !(nums[p] >= x || nums[p] <= k-x || nums[n-p-1] >= x || nums[n-p-1] <= k-x) {\n\t\t\t\t\ttmp++\n\t\t\t\t}\n\t\t\t\tif tmp >= ans {\n\t\t\t\t\tcontinue loop\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\t// fmt.Println(x, tmp)\n\t\tans = min(ans, tmp)\n\t}\n\treturn ans\n\n}",
+    "submit_ts": "1721488188",
+    "subm_id": "548313267"
+}

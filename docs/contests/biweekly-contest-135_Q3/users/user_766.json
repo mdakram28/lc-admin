@@ -1,0 +1,6 @@
+{
+    "username": "ban-sha-o",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> record(100002, 0);\n        int n = nums.size();\n        for(int i = 0; i < n / 2; i++)\n        {\n            int minn = min(nums[i], nums[n - i - 1]);\n            int maxx = max(nums[i], nums[n - i - 1]);\n            record[maxx-minn] += 2;\n            record[maxx-minn+1] -= 2;\n            int max1 = max(k - minn, k - maxx);\n            int max2 = max(max1, maxx);\n            record[0]--;\n            record[max2+1]--;\n        }\n        int max_num = record[0];\n        int max_op = 0;\n        int result = 0;\n        for(int i = 1; i <= k; i++)\n        {\n            record[i] += record[i-1];\n            if(record[i] > max_num) {max_num = record[i]; max_op = i;}\n        }\n\n        for(int i = 0; i < n / 2; i++)\n        {\n            int minn = min(nums[i], nums[n - i - 1]);\n            int maxx = max(nums[i], nums[n - i - 1]);\n            int max1 = max(k - minn, k - maxx);\n            int max2 = max(max1, maxx);\n            if(max_op == maxx - minn) continue;\n            else if(max_op <= max2) result++;\n            else result += 2;\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1721489016",
+    "subm_id": "548316966"
+}

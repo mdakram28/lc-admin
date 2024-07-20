@@ -1,0 +1,6 @@
+{
+    "username": "vizerion",
+    "submission": "#define all(v)  v.begin() , v.end()\n#define pb  push_back\nclass Solution {\npublic:\n    int minChanges(vector <int> &arr, int k) {\n        \n        int n = arr.size() , change = 2e9;\n\n        vector < int > v;\n        unordered_map < int , vector < int > > m;\n\n        for(int i = 0; i < n / 2; i++){\n\n            int maxi = max(arr[i] , arr[n - i - 1]);\n            maxi = max(maxi , max(k - arr[i] , k - arr[n - i - 1]));\n\n            m[abs(arr[i] - arr[n - i - 1])].pb(maxi);\n            v.pb(maxi);\n        }\n\n        sort(all(v));\n       \n        for(auto [x , vec] : m){\n\n            int count = lower_bound(all(v) , x) - v.begin();\n            count += n / 2;\n\n            for(auto i : vec){\n\n                if(i >= x)  count--;\n                else        count -= 2;\n            }\n\n            change = min(change , count);\n\n        }\n\n        return change;\n        \n    }\n};",
+    "submit_ts": "1721489218",
+    "subm_id": "1327446618"
+}

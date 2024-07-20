@@ -1,0 +1,6 @@
+{
+    "username": "admiring-shockleyzns",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        max_value = float(\"inf\")\n        i = 0\n        j = n - 1\n        L = []\n        while i < j:\n            res = max(k - nums[i], nums[i], k - nums[j], nums[j])\n            L.append(res)\n            i += 1\n            j -= 1\n        L.sort()\n        i = 0\n        j = n - 1\n        dic = Counter()\n        while i < j:\n            res = abs(nums[i] - nums[j])\n            dic[res] += 1\n            i += 1\n            j -= 1\n        ans = n\n        for key, count in dic.items():\n            if key <= L[0]:\n                res = n // 2 - count\n            else:\n                left = 0\n                right = len(L) - 1\n                while left < right:\n                    middle = (left + right + 1) // 2\n                    if L[middle] < key:\n                        left = middle\n                    else:\n                        right = middle - 1\n                res = n // 2 - count + left + 1\n            ans = min(ans, res)\n        return ans\n        \n",
+    "submit_ts": "1721486763",
+    "subm_id": "548306763"
+}

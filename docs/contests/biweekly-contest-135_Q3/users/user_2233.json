@@ -1,0 +1,6 @@
+{
+    "username": "Deepanshu_Jindal",
+    "submission": "from bisect import bisect_left\n\nclass Solution:\n    def minChanges(self, apples, k):\n        dishes = {}\n        ingredients = []\n\n        n = len(apples)\n        for i in range(n // 2):\n            fruit1 = apples[i]\n            fruit2 = apples[n - i - 1]\n            difference = abs(fruit1 - fruit2)\n            special_ingredient = max(fruit1, fruit2, k - fruit1, k - fruit2)\n            \n            if difference not in dishes:\n                dishes[difference] = []\n            dishes[difference].append(special_ingredient)\n            ingredients.append(special_ingredient)\n\n        min_changes = n\n        ingredients.sort()\n\n        for difference, ingredient_list in dishes.items():\n            index = bisect_left(ingredients, difference)\n            changes_needed = index * 2 + (n // 2 - index)\n\n            for ingredient in ingredient_list:\n                if ingredient < difference:\n                    changes_needed -= 2\n                else:\n                    changes_needed -= 1\n\n            min_changes = min(min_changes, changes_needed)\n\n        return min_changes\n\n",
+    "submit_ts": "1721489351",
+    "subm_id": "1327450724"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "illum1nadi",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int l = n / 2;\n        vector<int> mini(l);\n        for(int i = 0; i < l; i++) {\n            int a = max(nums[i], nums[n - i - 1]);\n            int b = min(nums[i], nums[n - i - 1]);\n            int temp = max(abs(a), abs(k - b));\n            // cout << temp << \" \" << k << endl;\n            mini[i] = temp;\n        }\n        sort(mini.begin(), mini.end());\n        map<int, int> mp;\n        for(int i = 0; i < l; i++) {\n            int temp = abs(nums[i] - nums[n - 1 - i]);\n            mp[temp]++;\n        }\n        // for(auto &it : mini) cout << it << \" \";\n        // cout << endl;\n        // for(auto &it : mp) cout << it.first << \" \" << it.second << endl;\n        int ans = INT_MAX;\n        for(int i = 0; i <= k; i++) {\n            int ind = lower_bound(mini.begin(), mini.end(), i) - mini.begin();\n            int a = l - ind;\n            int b = ind;\n            //cout << \"lala\" << i << endl;\n            a -= mp[i];\n            // cout << a << b << endl;\n            // cout << 2 * b + a << endl;\n            ans = min(ans, 2 * b + a);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489859",
+    "subm_id": "1327465931"
+}

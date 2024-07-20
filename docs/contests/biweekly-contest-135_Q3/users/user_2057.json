@@ -1,0 +1,6 @@
+{
+    "username": "czjnbb",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        \n        leng = len(nums)\n        hf = leng // 2\n        arr = []\n        \n        res = leng\n        \n        d = defaultdict(int)\n        \n        for i in range(leng // 2):\n            diff = abs(nums[i] - nums[leng - i - 1])\n            mv = min(k - nums[i], k - nums[leng - i - 1], nums[i], nums[leng - i - 1])\n            d[diff] += 1\n            arr.append(mv)\n            \n        arr.sort()\n        # print(d)\n        # print(arr)\n        \n        \n        for key in d:\n            \n            org = d[key]\n            if key * 2 <= k:\n                res = min(res, hf - org)\n                continue\n            \n            ps1 = bisect.bisect_right(arr, k - key)\n            ps2 = bisect.bisect_left(arr, key)\n            \n            # print(ps1, ps2)\n            \n            c = ps2 - ps1\n            \n            res = min(res, c * 2 + (hf - org - c))\n        \n            \n        return res\n            \n                \n        \n            \n        \n        \n        ",
+    "submit_ts": "1721489189",
+    "subm_id": "1327445736"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Ashish_leetcode_1",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, vector<int>> diffMap;\n        vector<int> values;\n        \n        for (int i = 0; i < nums.size() / 2; ++i) {\n            int first = nums[i];\n            int second = nums[nums.size() - i - 1];\n            int difference = abs(first - second);\n            int maxValue = max({first, second, k - first, k - second});\n            diffMap[difference].push_back(maxValue);\n            values.push_back(maxValue);\n        }\n        \n        int result = nums.size();\n        sort(values.begin(), values.end());\n        \n        for (const auto& entry : diffMap) {\n            int diff = entry.first;\n            int index = lower_bound(values.begin(), values.end(), diff) - values.begin();\n            int total = index * 2 + (nums.size() / 2 - index);\n            \n            for (int x : entry.second) {\n                if (x < diff) {\n                    total -= 2;\n                } else {\n                    total -= 1;\n                }\n            }\n            \n            result = min(result, total);\n        }\n        \n        return result;\n    }\n};",
+    "submit_ts": "1721489048",
+    "subm_id": "1327441274"
+}

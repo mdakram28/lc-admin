@@ -1,0 +1,6 @@
+{
+    "username": "leat14536",
+    "submission": "\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        cnt = Counter()\n        n = len(nums)\n        for i in range(n // 2):\n            a, b = nums[i], nums[n - i - 1]\n            cnt[abs(a - b)] += 1\n        arr = list(sorted(cnt.items(), key=lambda i: (-i[1], i[0])))\n\n        ans = n\n        def comp (t, a, b):\n            if a < b: a, b = b, a\n            if a - b == t: return 0\n            if k >= a - t >= 0: return 1\n            if k >= b + t: return 1\n            return 2\n        for j in range(len(arr)):\n            if j > 0 and arr[j - 1][1] == arr[j][1]:\n                continue\n            cur = 0\n            t, v = arr[j]\n            for i in range(n // 2):\n                cur += comp(t, nums[i], nums[n - i - 1])\n            ans = min(ans, cur)\n        return ans\n\n",
+    "submit_ts": "1721487381",
+    "subm_id": "548309702"
+}

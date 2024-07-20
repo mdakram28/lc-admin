@@ -1,0 +1,6 @@
+{
+    "username": "Roman_EMPIRE0825",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        // unordered_set<int> temp;\n        int n = nums.size();\n        map<int, vector<int>> m;\n        vector<int> temp;\n        for (int i = 0; i < n / 2; i++) {\n            int ff = nums[i];\n            int ss = nums[n - 1 - i];\n            int val = max({ff, ss, k - ff, k - ss});\n            // cout<<val<<\".....\"<<endl;\n            m[abs(ff - ss)].push_back(val);\n            temp.push_back(val);\n        }\n        // cout<<endl;\n        int ans = nums.size();\n        sort(temp.begin(), temp.end());\n        for (auto [val, arr] : m) {\n            int a = lower_bound(temp.begin(), temp.end(), val) - temp.begin();\n            // int a = upper_bound(temp.begin(),temp.end(),val) - temp.begin();\n            a = a * 2 + (n / 2 - a);\n            cout << a << \" \";\n            for (auto i : arr) {\n                if (i < val)\n                    a -= 2;\n                else\n                    a -= 1;\n                // cout<<a<<\" \";\n            }\n            ans = min(ans, a);\n            // cout<<ans<<\" \";\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721490069",
+    "subm_id": "1327472135"
+}

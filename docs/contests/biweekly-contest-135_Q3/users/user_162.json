@@ -1,0 +1,6 @@
+{
+    "username": "qiye-5",
+    "submission": "int __FAST_IO__ = []() { std::ios::sync_with_stdio(0); std::cin.tie(0); std::cout.tie(0); return 0; }();\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, int> um;\n        int n = nums.size(), res = n / 2;\n        int f[k + 2];\n        memset(f, 0, sizeof f);\n        for (int i = 0; i * 2 < n; ++i) {\n            int a = nums[n - i - 1], b = nums[i];\n            // cout << a << \" \" << b << endl;\n            if (a > b) swap(a, b);\n            if (a == b) f[1]++, f[k - min(a, k - b) + 1] ++;\n            else {\n                f[0]++, f[b - a]--;\n                f[b - a + 1]++;\n                f[k - min(a, k - b) + 1] ++;\n            }\n            // cout << f[4] << endl;\n        }\n        int sum = 0;\n        for (int i = 0; i <= k; ++i) sum += f[i], res = min(res, sum);\n        return res;\n    }\n};",
+    "submit_ts": "1721487168",
+    "subm_id": "548308737"
+}

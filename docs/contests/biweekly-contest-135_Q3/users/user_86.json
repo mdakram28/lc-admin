@@ -1,0 +1,6 @@
+{
+    "username": "wanghy012",
+    "submission": "import numpy as np\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        count = [0]*(k+1)\n        possible = [0] * (k+1)\n        for i in range(n // 2):\n            diff = abs(nums[i] - nums[n-1-i])\n            count[diff] += 1\n            pos1 = max(nums[i],k-nums[i])\n            pos2 = max(nums[n-1-i], k- nums[n-1-i])\n            pos = max(pos1, pos2)\n            possible[pos] += 1\n        extra_change = np.cumsum(possible) # extra_chage[i] is the number of pairs that need two changes to get abs diff i+1        \n        res = n // 2 - count[0]\n        for i in range(k):\n            res = min(res, n//2 + extra_change[i] - count[i+1])     \n        \n        return res",
+    "submit_ts": "1721487014",
+    "subm_id": "1327372982"
+}

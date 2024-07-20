@@ -1,0 +1,6 @@
+{
+    "username": "akshay_ak27",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        int n = a.size() ;\n        map<int, int> diff ;\n        vector<int> mx_diff(k+2, 0) ;\n        int lsk = 0 ;\n        for (int i=0; i<n/2; i++) {\n            int f = a[i] ;\n            int s = a[n-1-i] ;\n            int mxdif = 0 ;\n            if (abs(f-s) <= k) {\n                lsk ++ ;\n                diff[abs(s-f)] ++ ;\n                mxdif = k - min (f,s) ;\n                if (max(f,s) > mxdif){\n                    mxdif = max(f,s) ;\n                }\n            }\n            mx_diff[mxdif+1] ++;\n        }\n        \n        int prev = n - lsk ;\n        // cout<<lsk<<\" \"<<prev<<'\\n' ;\n        vector<int> prf(k+1, 0) ;\n        prf[0] = prev ;\n        prf[0] += mx_diff[0] ;\n        for (int i=1; i<=k; i++) {\n            prf[i] = prf[i-1] ;\n            prf[i] += mx_diff[i] ;\n        }\n        for (int i=0; i<=k; i++) {\n            prf[i] -= diff[i] ;\n        }\n        int ans = a.size() ;\n        for (auto &x: prf) {\n            // cout<<x<<\" \" ;\n            ans = min (ans, x) ;\n        }\n        return ans ;\n    }\n};",
+    "submit_ts": "1721489745",
+    "subm_id": "1327462461"
+}

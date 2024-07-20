@@ -35,7 +35,8 @@ LANG_EXT = {
     "scala": 'sc',
     "dart": "dart",
     "php": "php",
-    "ruby": "rb"
+    "ruby": "rb",
+    "racket": "rkt",
 }
 
 class LcClient:

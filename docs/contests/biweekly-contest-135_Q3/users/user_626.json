@@ -1,0 +1,6 @@
+{
+    "username": "Sandeep_P",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        c=Counter()\n        n=len(nums)\n        ch=inf\n        for x,y in zip(nums[:n//2],nums[n//2:][::-1]):\n            c[abs(x-y)]+=1\n            ch=min(ch,max(x,y))\n            ch=min(ch,k-min(x,y))\n        mx=max(c.values())\n        target=min([x for x in c if c[x]==mx])\n        ans=0\n        for x,y in zip(nums[:n//2],nums[n//2:][::-1]):\n            if abs(x-y)!=target:\n                ans+=1\n                if max(x,y)<target and k-min(x,y)<target:\n                    ans+=1\n        for x in c:\n            if x<=ch:\n                ans=min(ans,n//2-c[x])\n        return ans\n",
+    "submit_ts": "1721488197",
+    "subm_id": "1327414636"
+}

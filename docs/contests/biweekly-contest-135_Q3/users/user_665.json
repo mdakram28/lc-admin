@@ -1,0 +1,6 @@
+{
+    "username": "hit7sh",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& A, int k) {\n        map<int, int> mp;\n        int n = A.size();\n        for (int i = 0; i < n/2; i++) {\n            mp[abs(A[i] - A[n-i-1])]++;\n        }\n        int ans = 1e9;\n        vector<int> d;\n        for (int i = 0; i < n/2; i++) {\n            int mn = min(A[i], A[n-i-1]);\n            int mx = A[i] ^ A[n-i-1] ^ mn;\n            d.emplace_back(max(mx, k - mn));\n        }\n        sort(d.begin(), d.end());\n        // for (int i = 0; i < n/2; i++) cout << d[i] << '\\n';\n        for (auto [x, y] : mp) {\n            // mxDelta >= x\n            int gr = n/2 - int(lower_bound(d.begin(), d.end(), x) - d.begin());\n            int rem = n/2 - gr;\n            // cout << x << ' ' << gr << ' ' << rem << '\\n';\n            ans = min(ans, gr - y + rem * 2);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488266",
+    "subm_id": "1327416883"
+}

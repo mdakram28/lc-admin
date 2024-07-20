@@ -1,0 +1,6 @@
+{
+    "username": "nine-9u",
+    "submission": "public class Solution {\n        public int MinChanges(int[] nums, int k)\n        {\n            int n = nums.Length;\n            int m = n / 2;\n            int[] maxCnt = new int[k + 1];\n            int[] maxs = new int[m];\n            int[] diff = new int[k + 2];\n            for (int i = 0; i < m; i++)\n            {\n                maxCnt[Math.Abs(nums[i] - nums[n - i - 1])]++;\n                maxs[i] = Math.Max(k - Math.Min(nums[i], nums[n - i - 1]), Math.Max(nums[i], nums[n - i - 1]));\n                diff[0] += 1;\n                diff[maxs[i] + 1] -= 1;\n            }\n            for (int i = 1; i < diff.Length; i++)\n            {\n                diff[i] += diff[i - 1];\n            }\n            int ans = int.MaxValue;\n            for (int i = 0; i < maxCnt.Length; i++)\n            {\n                var one =  diff[i] - maxCnt[i];\n                int two = (m - diff[i]) * 2;\n                ans = Math.Min(ans, one + two);\n            }\n            return ans;\n        }\n\n}",
+    "submit_ts": "1721489057",
+    "subm_id": "548317131"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "bhargav_gande",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int mini = INT_MAX, n = nums.size();\n        map<int,int> m;\n        for( int i = 0; i < n/2; i++ ){\n            m[abs(nums[i]-nums[n-i-1])]++;\n        }\n        for( auto p : m ){\n            int x = p.first;\n            int count = 0;\n            if( n/2 - p.second > mini ) continue;\n            for( int i = 0; i < n/2 && count < mini; i++ ){\n                if(abs(nums[i]-nums[n-i-1]) == x) continue;\n                bool once = false;\n                for( auto a : {nums[i],nums[n-i-1]}){\n                    for( auto b : {x,-x}){\n                        if( a + b >= 0 && a + b <= k ){\n                            once = true;\n                        }\n                    }\n                }\n                if( !once ) count++;\n                count++;\n            }\n            mini = min( count, mini );\n        }\n        return mini;\n    }\n};",
+    "submit_ts": "1721488755",
+    "subm_id": "1327432261"
+}

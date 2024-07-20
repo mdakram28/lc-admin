@@ -1,0 +1,6 @@
+{
+    "username": "scut_dell",
+    "submission": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int minChanges(int[] nums, int k) {\n        Map<Integer, Integer> counter = new HashMap<>();\n        for (int i = 0;i < nums.length / 2;i++) {\n            int x = Math.abs(nums[i] - nums[nums.length - i - 1]);\n            counter.put(x, counter.getOrDefault(x, 0) + 1);\n        }\n        int[] dp = new int[k + 1];\n        for (int i = 0;i < nums.length / 2;i++) {\n            int m = Math.max(Math.max(Math.abs(nums[i] - 0), Math.abs(nums[i] - k)), Math.max(Math.abs(nums[nums.length - i - 1] - 0), Math.abs(nums[nums.length - i - 1] - k)));\n            dp[m]++;\n        }\n        for (int i = k - 1;i >= 0;i--) {\n            dp[i] += dp[i + 1];\n        }\n        int ans = Integer.MAX_VALUE;\n        for (int i = 0;i <= k;i++) {\n            int x = (dp[i] - counter.getOrDefault(i, 0)) + 2 * (nums.length / 2 - dp[i]);\n            ans = Math.min(ans, x);\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1721488452",
+    "subm_id": "548314516"
+}

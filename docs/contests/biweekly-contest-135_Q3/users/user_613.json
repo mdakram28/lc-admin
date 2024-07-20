@@ -1,0 +1,6 @@
+{
+    "username": "devygonzalez",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        d = defaultdict(int)\n\n        n = len(nums)\n        arr = [0 for i in range(k + 1)]\n        for i in range(n // 2):\n            d[abs(nums[i] - nums[n - 1 - i])] += 1\n            lo = min(nums[i], nums[n - 1- i])\n            hi = max(nums[i], nums[n - 1-i])\n            arr[max(hi, k - lo)] += 1\n\n        pref = [0]\n        for i in range(len(arr)):\n            pref.append(pref[-1] + arr[i])\n        \n        minim = 2 * n\n\n        for key in d:\n            rem = (n // 2) - pref[key] - d[key]\n            minim = min(minim, rem + 2 * pref[key])\n        \n        return minim\n\n        \n\n        \n",
+    "submit_ts": "1721488763",
+    "subm_id": "1327432487"
+}

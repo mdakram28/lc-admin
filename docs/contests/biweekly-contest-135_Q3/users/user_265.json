@@ -1,0 +1,6 @@
+{
+    "username": "gerus-gerus",
+    "submission": "\"\"\"\n[1,0,1,2,4,3] k = 4\n[2,4,1]\n\n[0,1,2,3,3,6,5,4], k = 6\n[4,4,4,0]\n\n[0,1,6,3,3,6,5,4], k = 6\n[4,4,0,0]\n\"\"\"\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        diffs = [abs(nums[i] - nums[n - i - 1]) for i in range(n // 2)]\n        #print(diffs)\n        fmap = dict()\n        for d in diffs:\n            fmap[d] = fmap.get(d, 0) + 1\n        \n        smap = dict()\n        for diff, count in fmap.items():\n            smap.setdefault(n // 2 - count, []).append(diff)\n\n        output = n\n        for min_op in sorted(smap.keys()):\n            if min_op >= output:\n                break\n            for diff in smap[min_op]:\n                ops = 0\n                for i in range(n // 2):\n                    a, b = nums[i], nums[n - i - 1]\n                    if abs(a - b) == diff:\n                        continue\n                    if min(a, b) + diff <= k or max(a, b) >= diff:\n                        ops += 1\n                    else:\n                        ops += 2\n                if ops < output:\n                    output = ops\n\n        return output\n",
+    "submit_ts": "1721487890",
+    "subm_id": "1327404591"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "ASPII",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<long long,long long>mp1;\n        unordered_map<long long,long long>mp;\n        vector<long long>prefix;\n        long long i,j;\n        for(i=0;i<nums.size()/2;i++)\n        {\n            mp[abs(nums[i]-nums[nums.size()-i-1])]++;\n            int sm=k-min(nums[i],nums[nums.size()-i-1]);\n            int lg=max(nums[i],nums[nums.size()-i-1]);\n            mp1[0]++;\n            mp1[max(sm,lg)+1]--;\n           // cout<<max(sm,lg)+1;\n        }\n        long long sum=0;\n        for(i=0;i<=k;i++)\n        {\n            sum+=mp1[i];\n          //  cout<<sum<<\" \";\n            prefix.push_back(sum);\n        }\n        int ans=1e9;\n        for(auto itr:mp)\n        {\n            \n            int p=prefix[itr.first]+(nums.size()/2-prefix[itr.first])*2-itr.second;\n           // cout<<p<<itr.first;\n            ans=min(ans,p);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488314",
+    "subm_id": "1327418387"
+}

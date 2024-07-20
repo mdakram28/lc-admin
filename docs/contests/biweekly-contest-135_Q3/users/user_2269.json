@@ -1,0 +1,6 @@
+{
+    "username": "yuan-ri-dian",
+    "submission": "from typing import List\n\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums) // 2\n        a = []\n        for x, y in zip(nums[:n], nums[::-1]):\n            if x > y:\n                x, y = y, x\n            a.append([y - x + 1, max(y, k - x) + 1])\n        a.sort()\n        ans = n\n        t = [0] * (k + 2)\n\n        def add(x: int, d: int) -> None:\n            while x < len(t):\n                t[x] += d\n                x += x & -x\n\n        def query(x: int) -> int:\n            res = 0\n            while x:\n                res += t[x]\n                x &= x - 1\n            return res\n\n        i = 0\n        while i < n:\n            j = i\n            while j < n and a[j][0] == a[i][0]:\n                j += 1\n            s = query(a[i][0] - 1)\n            ans = min(ans, n - j + s + i)\n            for b in range(i, j):\n                add(a[b][1], 1)\n            i = j\n        return ans\n",
+    "submit_ts": "1721489687",
+    "subm_id": "548319824"
+}

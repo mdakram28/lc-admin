@@ -1,0 +1,6 @@
+{
+    "username": "Puneet7373",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& v, int k) {\n        int n = v.size();\n        map<int,vector<int>> mp;\n        vector<int> maxDif;\n        int ans = n;\n        for(int i=0;i<n/2;i++){\n            int dif = abs(v[i]-v[n-i-1]);\n            int maxdif = max({v[i],k-v[i],v[n-i-1],k-v[n-i-1]});\n            mp[dif].push_back(maxdif);\n            maxDif.push_back(maxdif);\n        }\n        sort(maxDif.begin(),maxDif.end());\n        for(auto [x,y]:mp){\n            int ind = lower_bound(maxDif.begin(),maxDif.end(),x)-maxDif.begin();\n            int prevEnd = ind + n/2;\n            for(auto p:y){\n                prevEnd--;\n                if(p < x){\n                    prevEnd--;\n                }\n            }\n            ans = min(ans,prevEnd);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489972",
+    "subm_id": "1327469261"
+}

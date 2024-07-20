@@ -1,0 +1,6 @@
+{
+    "username": "Akshat_Pandey26",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, vector<int>> m;\n        map<int, int> freq;\n        vector<int> v;\n        \n        int n = nums.size();\n        for (int i = 0; i < n / 2; i++) {\n            int x = nums[i], y = nums[n - i - 1];\n            int d = abs(x - y);\n            int z = max({x, y, k - x, k - y});\n            m[d].push_back(z);\n            v.push_back(z);\n            freq[z]++;\n        }\n        \n        int res = n;\n        \n        for (auto& p : m) {\n            int d = p.first;\n\n            int cnt = 0;\n            for (auto& entry : freq) {\n                if (entry.first < d) {\n                    cnt += entry.second;\n                } else {\n                    break;\n                }\n            }\n\n            int temp = cnt * 2 + (n / 2 - cnt);\n\n            for (auto& z : p.second) {\n                if (z < d) {\n                    temp -= 2;\n                } else {\n                    temp -= 1;\n                }\n            }\n\n            res = min(res, temp);\n        }\n\n        return res;\n    }\n};\n",
+    "submit_ts": "1721490349",
+    "subm_id": "1327480134"
+}

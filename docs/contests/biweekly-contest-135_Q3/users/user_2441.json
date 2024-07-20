@@ -1,0 +1,6 @@
+{
+    "username": "fengsuiyan",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int N = 2e5 + 10;\n        std::vector<int> cnt(N);\n        for (int i = 0; i < n /2 ; ++i) {\n            cnt[abs(nums[i] - nums[n - i - 1])]++;\n        }\n        std::vector<pair<int, int>> range;\n        for (int i = 0; i < n / 2; ++i) {\n            std::vector<int> tmp = {0, abs(k - nums[i]), abs(k - nums[n - i - 1]), abs(nums[i]), abs(nums[n - i - 1])};\n            sort(tmp.begin(), tmp.end());\n            range.emplace_back(tmp[0], tmp.back());\n        }\n        for (int i = 0; i < n / 2; ++i) {\n            printf(\"%d %d\\n\", range[i].first, range[i].second);\n        }\n        puts(\"\");\n        std::vector<int> no_need_extra(N);\n        for (int i = 0; i < n / 2; ++i) {\n            no_need_extra[range[i].first] += 1;\n            no_need_extra[range[i].second + 1] -= 1;\n        }\n        for (int i = 1; i < N; ++i) {\n            no_need_extra[i] += no_need_extra[i - 1];\n        }\n        int mx = -n;\n        for (int i = 0; i < N; ++i) {\n            mx = max(mx, cnt[i] -( n / 2 - no_need_extra[i]));\n        }\n        \n        return n / 2 - mx;\n    }\n};",
+    "submit_ts": "1721490444",
+    "subm_id": "1327482806"
+}

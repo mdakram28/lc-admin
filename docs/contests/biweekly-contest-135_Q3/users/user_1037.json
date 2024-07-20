@@ -1,0 +1,6 @@
+{
+    "username": "adithya2210",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        mapp=defaultdict(list)\n        values=[]\n        \n        for i in range(len(nums)//2):\n            a=nums[i]\n            b=nums[len(nums)-i-1]\n            diff=abs(a-b)\n            value=max(a,b,k-a,k-b)\n            mapp[diff].append(value)\n            values.append(value)\n        res=len(nums)\n        values.sort()\n        \n        for diff,v in mapp.items():\n            ct=bisect_left(values,diff)\n            ct=ct*2+(len(nums)//2-ct)\n            \n            for value in v:\n                ct-=2 if value<diff else 1\n            res=min(res,ct)\n        return res\n            \n        ",
+    "submit_ts": "1721489386",
+    "subm_id": "1327451711"
+}

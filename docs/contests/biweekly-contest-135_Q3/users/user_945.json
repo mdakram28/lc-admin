@@ -1,0 +1,6 @@
+{
+    "username": "karthikeyan30",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) \n    {\n        vector<int> vec;\n        map<int, vector<int>> m;\n        for (int i = 0; i < nums.size() / 2; i++) {\n            int x = nums[i], y = nums[nums.size() - i - 1];\n            int diff = abs(x - y);\n            int A = max({x, y, k - x, k - y});\n            m[diff].push_back(A);\n            vec.push_back(A);\n        }\n        int res = nums.size();\n        sort(vec.begin(), vec.end());\n        for (auto&val : m) \n        {\n            int diff = val.first;\n            int temp = lower_bound(vec.begin(), vec.end(), diff) - vec.begin();\n            temp = temp * 2 + (nums.size() / 2 - temp);\n\n            for (auto &X : val.second) \n            {\n                if (X < diff) \n                {\n                    temp = temp - 2;\n                } \n                else \n                {\n                    temp = temp - 1;\n                }\n            }\n            res = min(res, temp);\n        }\n        return res;   \n  }\n};",
+    "submit_ts": "1721489278",
+    "subm_id": "1327448435"
+}

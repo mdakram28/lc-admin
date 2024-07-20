@@ -1,0 +1,6 @@
+{
+    "username": "lddlinan",
+    "submission": "class Solution(object):\n    def minChanges(self, nums, k):\n        \"\"\"\n        :type nums: List[int]\n        :type k: int\n        :rtype: int\n        \"\"\"\n        n = len(nums)\n        vs = []\n        i, j = 0, n-1\n        while i<j:\n            a, b = nums[i], nums[j]\n            if a>b: a, b = b, a\n            d = abs(nums[i]-nums[j])\n            vs.append((d, a, b))\n            i+=1\n            j-=1\n        vs = sorted(vs)\n        n/=2\n        i=0\n        c=0\n        r = n*2\n        h = []\n        while i<n:\n            j=i+1\n            d = vs[i][0]\n            while j<n and vs[j][0]==d: j+=1\n            while h:\n                if h[0]<d:\n                    c+=1\n                    heappop(h)\n                else: break\n            t = n-j+len(h)+c*2\n            r = min(r, t)\n            while i<j:\n                d, a, b = vs[i]\n                d = max(b, k-a)\n                heappush(h, d)\n                i+=1\n        return r\n            ",
+    "submit_ts": "1721486532",
+    "subm_id": "548305474"
+}

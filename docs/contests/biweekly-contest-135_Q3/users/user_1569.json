@@ -1,0 +1,6 @@
+{
+    "username": "vitanova",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        nmap = collections.defaultdict(list)\n        n = len(nums)\n        for i, num in enumerate(nums[:n // 2]):\n            numj = nums[n - i - 1]\n            curr = [num, numj] if num <= numj else [numj, num]\n            nmap[abs(num - numj)].append(curr)\n        qmap = [[len(val), key] for key, val in nmap.items()]\n        qmap.sort(key=lambda x: x[1])\n        qmap.sort(key=lambda x: x[0], reverse=True)\n        nqmap = []\n        for idx, (lval, key) in enumerate(qmap):\n            if idx == 0 or lval != nqmap[-1][0]:\n                nqmap.append([lval, key])\n        qmap = nqmap\n\n        tmin = float('inf')\n        for lval, key in qmap:\n            tcurr = 0\n            for key2 in nmap:\n                if key2 != key:\n                    for first, second in nmap[key2]:\n                        if first + key <= k:\n                            tcurr += 1\n                        elif second - key >= 0:\n                            tcurr += 1\n                        else:\n                            tcurr += 2\n            tmin = min(tmin, tcurr)\n\n        return tmin",
+    "submit_ts": "1721489638",
+    "subm_id": "1327459322"
+}

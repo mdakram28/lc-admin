@@ -1,0 +1,6 @@
+{
+    "username": "cpp20",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        m = n//2\n        arr = []\n        has = []\n        for i in range(m):\n            a,b = nums[i],nums[n-i-1]\n            if a > b:\n                a,b = b,a\n            arr.append(b-a)\n            has.append(max(k-a,b))\n        cnt = Counter(arr)\n        has.sort()\n\n        res = n\n        l = 0\n        for k,v in sorted(cnt.items(),key=lambda x:x[0]):\n            t = (m-v)\n            if k > 0:\n                pos = bisect_left(has,k,l)\n                l = pos\n                t += l\n            res = min(res, t)\n        return res",
+    "submit_ts": "1721488113",
+    "subm_id": "548312932"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "daz2ling-bosewov",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, int> diff2num;\n\n        int n = nums.size();\n        for(int i = 0; i < n / 2; i++) {\n            int diff = abs(nums[i] - nums[n - i - 1]);\n            if(diff2num.count(diff)) diff2num[diff]++;\n            else diff2num[diff] = 1;\n        }\n\n        // int maxDiff = 0, maxNum = 0;\n        // for(auto& [diff, num] : diff2num) {\n        //     if(num > maxNum) maxDiff = diff;\n        // }\n\n        int ans = INT_MAX / 2;\n        for(auto& [diff, num] : diff2num) {\n            if(n / 2 - num > ans) continue;\n            int res = 0;\n            for(int i = 0; i < n / 2; i++) {\n                if(abs(nums[i] - nums[n - i - 1]) == diff) continue;\n\n                int min = nums[i], max = nums[n - i - 1];\n                if(nums[i] > nums[n - i - 1]) {\n                    min = nums[n - i - 1];\n                    max = nums[i];\n                }\n                if(min + diff > k && max - diff < 0) res += 2;\n                else res++;\n                if(res > ans) break;\n            }\n            ans = min(ans, res);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721488672",
+    "subm_id": "548315523"
+}

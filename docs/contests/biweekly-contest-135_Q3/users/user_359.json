@@ -1,0 +1,6 @@
+{
+    "username": "sharp-satoshizm4",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int, int> chazhi;\n        map<int, int> check;\n        for(int i=0;i<n/2;i++){\n            int cha = abs(nums[i]-nums[n-i-1]);\n            int can = max(max(nums[i], k-nums[i]), max(nums[n-i-1], k-nums[n-i-1]));\n            if(chazhi.count(cha)){\n                chazhi[cha]++;\n            }else{\n                chazhi[cha]=1;\n            }\n            if(check.count(can)){\n                check[can]++;\n            }else{\n                check[can]=1;\n            }\n        }\n\n        int ans = INT_MAX/2;\n        auto it = chazhi.begin();\n        auto it2 = check.begin();\n        int needadd2 =0;\n        while(it!=chazhi.end()){\n            int temp = n/2-it->second;\n\n            while(it2!=check.end() && it2->first<it->first){\n                needadd2++;\n                it2++;\n            }\n            temp+=needadd2;\n            ans = min(ans, temp);\n\n            it++;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488200",
+    "subm_id": "548313318"
+}

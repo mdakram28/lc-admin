@@ -1,0 +1,6 @@
+{
+    "username": "coyorkdow",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        using pii = std::pair<int, int>;\n        std::vector<pii> ps;\n        std::map<int, int> diff_num;\n\n        std::vector<int> adjustable(1e5+10);\n\n        for (int i = 0, j = nums.size() - 1; i < j; i++, j--) {\n            if (nums[i] > nums[j]) {\n                std::swap(nums[i], nums[j]);\n            }\n            //ps.emplace_back(nums[i], nums[j]);\n            diff_num[nums[j] - nums[i]]++;\n            int adj = std::max(k - nums[i], nums[j] - 0);\n            adjustable[adj]++;\n        }\n\n        int n = nums.size() / 2;\n        for (auto it = adjustable.rbegin() + 1; it != adjustable.rend(); it++) {\n            *it += *(it - 1);\n        }\n        int ans = nums.size();\n        for (auto [diff, num] : diff_num) {\n            int tmp = adjustable[diff] - num;\n            if (tmp < n - num) {\n                tmp += (n - num - tmp) * 2; \n            }\n            ans = std::min(tmp, ans);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721488740",
+    "subm_id": "1327431749"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "dilli_babu",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n         int l=0,r=nums.size();\n        map<int,int> mp;\n        vector<int> sArr;\n        map<int,vector<int>> mmp;\n        int ans=nums.size(); \n        int n=nums.size();\n        while(l<r/2){\n            mp[abs(nums[l]-nums[r-l-1])]++;\n            int x=max({nums[l],nums[r-l-1],k-nums[l],k-nums[r-l-1]});\n            mmp[abs(nums[l]-nums[r-l-1])].push_back(x);\n            sArr.push_back(x);\n            l++;\n        }\n        // vector<pair<int,int>> vp;\n        // for(auto it:mp){\n        //     vp.push_back({it.second,it.first});\n        // }\n        sort(sArr.begin(),sArr.end());\n        // sort(vp.begin(),vp.end());\n        for(auto it:mmp){\n            int val=it.first;\n            int cnt=lower_bound(sArr.begin(),sArr.end(),val)-sArr.begin();\n            int currAns=(2*cnt)+((n/2)-cnt);\n            for(int x:it.second){\n                currAns-=(x<val)?2:1;\n            }\n            ans=min(ans,currAns);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721490058",
+    "subm_id": "1327471814"
+}

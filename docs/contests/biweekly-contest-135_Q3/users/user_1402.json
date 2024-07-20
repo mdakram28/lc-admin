@@ -1,0 +1,6 @@
+{
+    "username": "zrer9737",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        ff = [0] * (max(nums) + 1)\n        n = len(nums)\n        if n == 2:\n            return 0\n        for i in range(len(nums) // 2):\n            ff[abs(nums[i] - nums[n - 1 - i])] += 1\n        fff = [[0, 0]]\n        for x in range(len(ff)):\n            if ff[x] > fff[-1][1]:\n                fff.append([x, ff[x]])\n        fff = fff[1:]\n        #print(fff)\n        # return n // 2 - max(f)\n\n        gg = [0] * (max(nums) + 3)\n        maxn = max(nums)\n        for i in range(len(nums) // 2):\n            t2 = max([k - nums[i], k - nums[n - 1 - i], nums[i], nums[n - 1 - i]])\n            t2 = min(maxn, t2)\n\n            gg[t2 + 1] += 1\n\n        for i in range(1, len(gg)):\n            gg[i] = gg[i] + gg[i - 1]\n        #print(gg, n)\n\n        ans = 1e9\n        for x, y in fff:\n            ans = min(ans, n // 2 - y + gg[x])\n\n        return ans",
+    "submit_ts": "1721488849",
+    "subm_id": "548316246"
+}

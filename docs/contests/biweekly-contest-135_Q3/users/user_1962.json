@@ -1,0 +1,6 @@
+{
+    "username": "dragonballfan",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        diff =[]\n        for i in range(n//2):\n            diff.append(abs(nums[i] - nums[n-1-i]))\n        cc0 = Counter(diff)\n        cc = sorted(cc0.items(), key= lambda x: x[1], reverse=True)\n        thr = (n//2 - cc[0][1]) * 2\n        ans = 10**6\n        for d,cnt in cc:\n            # cnt = cc0[d]\n            if n//2 - cnt >= thr: break\n            tmp = 0\n            for i in range(n//2):\n                d2 = abs(nums[i] - nums[n-1-i])\n                if d2 ==d: continue\n                if nums[i] >= d or nums[n-1-i] >=d or k-nums[n-1-i]>=d or k-nums[i] >= d:\n                    tmp+=1\n                else:\n                    tmp+=2\n            ans = min(ans,tmp)\n            thr = ans\n        return 0 if ans == 10**6 else ans",
+    "submit_ts": "1721488487",
+    "subm_id": "548314685"
+}

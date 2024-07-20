@@ -1,0 +1,6 @@
+{
+    "username": "aryan_raaj",
+    "submission": "#include <vector>\n#include <map>\n#include <algorithm>\n#include <cmath>\n#include <limits>\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n       map<int, vector<int>> mppp;\n        vector<int> st_vp;\n\n        for (int i = 0; i < nums.size() / 2; ++i) {\n            int temp1 = nums[i];\n            int temp2 = nums[nums.size() - i - 1];\n            int subt = abs(temp1 - temp2);\n\n            int max_value = max({temp1, temp2, k - temp1, k - temp2});\n\n            mppp[subt].push_back(max_value);\n            st_vp.push_back(max_value);\n        }\n\n        int results = nums.size();  \n        sort(st_vp.begin(), st_vp.end());\n\n        for (const auto& [index1, index2] : mppp) {\n            int index = lower_bound(st_vp.begin(), st_vp.end(), index1) - st_vp.begin();\n            index = index * 2 + (nums.size() / 2 - index);\n\n            for (const auto& vla: index2) {\n                if (vla< index1) {\n                    index -= 2;\n                } else {\n                    index -= 1;\n                }\n            }\n\n            results = min(results, index);\n        }\n\n        return results;\n    }\n};\n",
+    "submit_ts": "1721489542",
+    "subm_id": "1327456443"
+}

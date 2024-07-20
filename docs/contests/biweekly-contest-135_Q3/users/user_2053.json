@@ -1,0 +1,6 @@
+{
+    "username": "tirsaiwalamubin",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        from collections import defaultdict\n        n = len(nums)\n        diff_count_dict = defaultdict(list) # key = diff, val = [(idx_l)])\n        for i in range(n//2):\n            diff = abs(nums[i] - nums[n-i-1])\n            diff_count_dict[diff].append(i)\n        diff_count_dict = sorted(diff_count_dict.items(), key = lambda x : [-len(x[1]), x[0]])\n        max_diff_key = diff_count_dict[0][0]\n        res = float(\"inf\")\n        for max_diff_key, _ in diff_count_dict:\n            temp_res = 0\n            for diff, idx in diff_count_dict:\n                if diff == max_diff_key:\n                    continue\n                if diff > max_diff_key:\n                    temp_res+=len(idx)\n                else:\n                    for idxes in idx:\n                        if max(nums[idxes], nums[n - idxes - 1]) - 0 >= max_diff_key or k - min(nums[idxes], nums[n - idxes - 1]) >= max_diff_key:\n                            temp_res+=1\n                        else:\n                            temp_res+=2\n            if temp_res > res:\n                break\n            else:\n                res = min(res, temp_res)\n        return res\n        ",
+    "submit_ts": "1721489488",
+    "subm_id": "1327454773"
+}

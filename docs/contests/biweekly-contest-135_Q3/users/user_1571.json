@@ -1,0 +1,6 @@
+{
+    "username": "LQnVRuiNVr",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        diff_map = defaultdict(list)\n        max_vals = []\n        res = len(nums)\n        for i in range(len(nums) // 2):\n            a = nums[i]\n            b = nums[len(nums) - i - 1]\n            diff = abs(a - b)\n\n            max_val = max(a, b, k - a, k - b)\n\n            diff_map[diff].append(max_val)\n            max_vals.append(max_val)\n\n        max_vals.sort()\n\n        for diff, vals in diff_map.items():\n            ind = bisect.bisect_left(max_vals, diff)\n            ind = ind * 2 + (len(nums) // 2 - ind)\n\n            for max_val in vals:\n                if max_val < diff:\n                    ind -= 2\n                else:\n                    ind -= 1\n\n            res = min(res, ind)\n\n        return res",
+    "submit_ts": "1721489340",
+    "subm_id": "1327450393"
+}

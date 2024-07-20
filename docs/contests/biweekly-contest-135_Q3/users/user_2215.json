@@ -1,0 +1,6 @@
+{
+    "username": "Azeem_Shaik",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length;\n        int ans = Integer.MAX_VALUE;\n\n        int[] dp = new int[k+1];\n        Arrays.fill(dp,0);\n\n        Map<Integer,Integer> mp = new HashMap<>();\n\n        int start = 0;\n        int end = n - 1;\n        \n        while(start < end){\n            int diff = Math.abs(nums[start] - nums[end]);\n\n            int a = nums[end];\n            int b = Math.abs(k - nums[end]);\n            int c = nums[start];\n            int d = Math.abs(k - nums[start]);\n\n            int max = Math.max(a,Math.max(b,Math.max(c,d)));\n\n            dp[max] += 1;\n\n            mp.put(diff,mp.getOrDefault(diff,0)+1);\n\n            start += 1;\n            end -= 1;\n        }\n\n        for(int i=k-1;i>=0;i--){\n            dp[i] += dp[i+1];\n        }\n\n        int pairs = (int) n / 2;\n\n        for(int i=0;i<=k;i++){\n            int x = mp.getOrDefault(i,0);\n\n            int notValid = pairs - dp[i];\n\n            int rem = pairs - notValid - x;\n\n            ans = Math.min(ans,(notValid * 2) + rem);\n        }\n\n        return ans;\n    }\n}",
+    "submit_ts": "1721490236",
+    "subm_id": "1327476942"
+}

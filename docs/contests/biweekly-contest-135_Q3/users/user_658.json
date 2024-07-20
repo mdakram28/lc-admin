@@ -1,0 +1,6 @@
+{
+    "username": "r06922157",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n      unordered_map<int,int> table;\n      for (int i = 0; i < nums.size()/2; ++i) {\n        table[abs(nums[i]-nums[nums.size()-1-i])]++;\n      }\n      multimap<int,int> order;\n      for (auto it = table.begin(); it != table.end(); ++it) {\n        order.insert(make_pair(it->second, it->first));\n      }\n      int maxPair = order.rbegin()->first;\n      int result = INT_MAX;\n      for (auto it = order.rbegin(); it != order.rend(); ++it) {\n        if (result < nums.size()/2-it->first) {\n          break;\n        }\n        int d = it->second;\n        int counter = 0;\n        for (int i = 0; i < nums.size()/2; ++i) {\n          if (abs(nums[i]-nums[nums.size()-1-i])==d) {\n            continue;\n          }\n          int a = min(nums[i], nums[nums.size()-1-i]);\n          int b = max(nums[i], nums[nums.size()-1-i]);\n          if (a+d<=k||b-d>=0) {\n            counter++;\n          }\n          else {\n            counter +=2;\n          }\n        }\n        result = min(result, counter);\n      }\n      \n      return result;\n    }\n};",
+    "submit_ts": "1721488557",
+    "subm_id": "1327425979"
+}

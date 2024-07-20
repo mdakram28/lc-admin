@@ -1,0 +1,6 @@
+{
+    "username": "clankiller106",
+    "submission": "from typing import List\nimport bisect\n\nclass Solution:\n    def binarySearch(self, v: List[int], diff: int) -> int:\n        left = 0\n        right = len(v)\n        while left < right:\n            mid = left + (right - left) // 2\n            if v[mid] < diff:\n                left = mid + 1\n            else:\n                right = mid\n        return left\n\n    def minChanges(self, nums: List[int], k: int) -> int:\n        from collections import defaultdict\n\n        map = defaultdict(list)\n        v = []\n\n        n = len(nums)\n        for i in range(n // 2):\n            a = nums[i]\n            b = nums[n - i - 1]\n            diff = abs(a - b)\n            X = max(max(a, b), max(k - a, k - b))\n\n            map[diff].append(X)\n            v.append(X)\n\n        v.sort()\n        ans = n\n\n        for diff, XList in map.items():\n            T = self.binarySearch(v, diff) * 2 + (n // 2 - self.binarySearch(v, diff))\n\n            for X in XList:\n                if X < diff:\n                    T -= 2\n                else:\n                    T -= 1\n\n            ans = min(ans, T)\n\n        return ans\n\n# Example usage:\n# sol = Solution()\n# print(sol.minChanges([1, 3, 4, 9], 6))\n",
+    "submit_ts": "1721489501",
+    "subm_id": "1327455192"
+}

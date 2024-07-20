@@ -1,0 +1,6 @@
+{
+    "username": "ayush2991",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        L = len(nums)\n        diffCounter = {}\n        mostCommonDiff = 0\n        mostCommonDiffCount = 0\n        for i in range(L//2):\n            diff = abs(nums[L-i-1] - nums[i])\n            diffCounter[diff] = diffCounter.get(diff, 0) + 1\n            if diffCounter[diff] > mostCommonDiffCount:\n                mostCommonDiff = diff\n                mostCommonDiffCount = diffCounter[diff]\n        topKDiffCounts = sorted(diffCounter.items(), key=lambda x:x[1], reverse=True)\n        topKDiffCounts = topKDiffCounts[:3]\n        minEdits = float('inf')\n        for mostCommonDiff, _ in topKDiffCounts:\n            edits = 0\n            for i in range(L//2):\n                diff = abs(nums[L-i-1] - nums[i])\n                if diff == mostCommonDiff:\n                    continue\n                if mostCommonDiff + nums[L-i-1] <= k or nums[L-i-1] - mostCommonDiff >= 0:\n                    edits += 1\n                elif mostCommonDiff + nums[i] <= k or nums[i] - mostCommonDiff >= 0:\n                    edits += 1\n                else:\n                    edits += 2\n            minEdits = min(minEdits, edits)\n        return minEdits\n        \n        ",
+    "submit_ts": "1721489041",
+    "subm_id": "1327441048"
+}

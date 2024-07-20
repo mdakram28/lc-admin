@@ -1,0 +1,6 @@
+{
+    "username": "Shreshtth",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& sequence, int upperBound) {\n        map<int, vector<int>> map;\n        vector<int> maxValues;\n        int n = sequence.size();\n        int pairs = n / 2;\n\n        for (int i = 0; i < pairs; ++i) {\n            int left = sequence[i];\n            int right = sequence[n - i - 1];\n            int absDiff = abs(left - right);\n\n            int maxVal = max({left, right, upperBound - left, upperBound - right});\n\n            map[absDiff].push_back(maxVal);\n            maxValues.push_back(maxVal);\n        }\n\n        int minChanges = n;\n        sort(maxValues.begin(), maxValues.end());\n\n        for (const auto& [difference, vals] : map) {\n            int change = lower_bound(maxValues.begin(), maxValues.end(), difference) - maxValues.begin();\n            change = change * 2 + (pairs - change);\n\n            auto it = vals.begin();\n            while (it != vals.end()) {\n                if (*it < difference) {\n                    change -= 2;\n                } else {\n                    change -= 1;\n                }\n                ++it;\n            }\n\n            minChanges = min(minChanges, change);\n        }\n\n        return minChanges;\n    }\n};",
+    "submit_ts": "1721489813",
+    "subm_id": "1327464576"
+}

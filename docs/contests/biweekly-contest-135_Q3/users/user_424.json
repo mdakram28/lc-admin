@@ -1,0 +1,6 @@
+{
+    "username": "gasgasgas",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector <int> v;\n        priority_queue <int> q;\n        map <int, int> one, two, cnt;\n        for(int i = 0; i < n / 2; ++i) {\n            int x = nums[i];\n            int y = nums[n - i - 1];\n            if (x < y) swap(x, y);\n            v.push_back(max(x, k - y));\n            if (abs(x - y) > max(x, k - y)) {\n                two[abs(x - y)]++;\n            }else {\n                one[abs(x - y)]++;\n            }\n            cnt[abs(x - y)]++;\n        }\n        sort(v.begin(), v.end());\n        reverse(v.begin(), v.end());\n        int mx = INT_MAX, ptr = 0;\n        for(int i = k; i >= 0; --i) {\n            while (ptr < (int)v.size() && v[ptr] >= i) {\n                ptr++;\n            }\n            int o = ptr;\n            int t = (int)v.size() - ptr;\n            //cout << i << ' ' << o << ' ' << t << endl;\n            mx = min(mx, (t - two[i]) * 2 + (o - one[i]));\n        }\n        return mx;\n    }\n};",
+    "submit_ts": "1721488378",
+    "subm_id": "1327420361"
+}

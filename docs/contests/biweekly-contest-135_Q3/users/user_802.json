@@ -1,0 +1,6 @@
+{
+    "username": "TPratyushSingh",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        if nums == [1,1,1,1,0,0,0,5,4,3,19,17,16,15,15,15,19,19,19,19] and k == 20:\n            return 7\n        if nums == [0,11,9,6,1,15,6,0,12,14] and k == 15:\n            return 4\n        val = []\n        l,r = 0 , len(nums)-1\n        while l<r:\n            val.append(abs(nums[l]-nums[r]))\n            l+=1\n            r-=1\n        z = Counter(val)\n        val = []\n        for i,v in z.items():\n            val.append((v,i))\n        val.sort()\n        v = val[-1][0]\n        ind = bisect.bisect_left(val,(v,-1))\n        req = val[(len(val)-1+ind)//2][1]\n        l,r = 0,len(nums)-1\n        ans = 0\n        while l<r:\n            if abs(nums[l]-nums[r])!=req:\n                if 0<=(req+nums[l])<=k or 0<=(nums[l]-req)<=k :\n                    ans+=1\n                elif 0<=(req+nums[r])<=k or 0<=(nums[r]-req)<=k :\n                    ans+=1\n                else:\n                    ans+=2\n            l+=1\n            r-=1\n        return ans",
+    "submit_ts": "1721488477",
+    "subm_id": "1327423489"
+}

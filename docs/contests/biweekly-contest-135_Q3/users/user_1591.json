@@ -1,0 +1,6 @@
+{
+    "username": "namitnayan32",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        ans = n\n        diffs = []\n        diff_count = defaultdict(int)\n        for i in range(n // 2):\n            x, y = nums[i], nums[n - i - 1]\n            if x > y:\n                x, y = y, x\n            diff_count[y - x] += 1\n            diffs.append((y - x, max(y, k - x)))\n        diffs.sort()\n        pq = []\n        two_counts = 0\n        for diff, max_one in diffs:\n            while pq and pq[0] < diff:\n                two_counts += 1\n                heappop(pq)\n            heappush(pq, max_one)\n            ans = min(ans, two_counts + n // 2 - diff_count[diff])\n            # print(f\"{diff = }, {max_one = }, {ans = }\")\n        return ans\n            ",
+    "submit_ts": "1721489652",
+    "subm_id": "1327459734"
+}

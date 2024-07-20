@@ -1,0 +1,6 @@
+{
+    "username": "manikiran949",
+    "submission": "class Solution {\npublic:\n    int find(int a,int b,int d,int k){\n        int mi=min(a,b);\n        int ma=max(a,b);\n        if(d==abs(mi-ma)) return 0;\n        else if(d<abs(mi-ma)) return 1;\n        else if(k-mi>=d || ma>=d) return 1;\n        return 2;\n    }\n    int minChanges(vector<int>& a, int k) {\n        int n=a.size();\n        map<int,int> mp;\n        for(int i=0;i<n/2;i++){\n            mp[abs(a[i]-a[n-i-1])]++;\n        }\n        map<int,int> all;\n        for(auto it:mp){\n            if(all.find(it.second)==all.end()) all[it.second]=it.first;\n            else all[it.second]=min(all[it.second],it.first);\n        }\n        vector<int> mk;\n        for(auto it:all){\n            mk.push_back(it.second);\n        }\n        int ans=1e9;\n        for(auto it:mk){\n            int cur=0;\n            for(int i=0;i<n/2;i++){\n                cur+=find(a[i],a[n-i-1],it,k);\n            }\n            ans=min(ans,cur);\n        }\n        for(auto it:mk) cout<<it<<\" \";\n        cout<<endl;\n        return ans;\n    }\n};",
+    "submit_ts": "1721488072",
+    "subm_id": "1327410631"
+}

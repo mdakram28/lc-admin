@@ -1,0 +1,6 @@
+{
+    "username": "gonglinyuan",
+    "submission": "class Solution:\n    def minChanges(self, a: List[int], k: int) -> int:\n        n = len(a)\n        from collections import defaultdict\n        c = defaultdict(int)\n        b = [0 for _ in range(k + 1)]\n        for i in range(n):\n            if i > n - i - 1:\n                continue\n            u, v = a[i], a[n - i - 1]\n            if u > v:\n                u, v = v, u\n            b[max(k - u, v)] += 1\n            c[v - u] += 1\n        for i in range(1, k + 1):\n            b[i] += b[i - 1]\n        ans = 999999999\n        # print(b)\n        # print(c)\n        m = n // 2\n        for x in range(k + 1):\n            if x == 0:\n                cur = m\n            else:\n                cur = b[x - 1] * 2 + (m - b[x - 1]) * 1\n            cur -= c[x]\n            ans = min(cur, ans)\n        return ans\n\n        \n        ",
+    "submit_ts": "1721487843",
+    "subm_id": "1327403015"
+}

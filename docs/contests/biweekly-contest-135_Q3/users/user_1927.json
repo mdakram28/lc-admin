@@ -1,0 +1,6 @@
+{
+    "username": "fast_version",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n\n        def changes_required(X):\n            changes = 0\n            for i in range(n // 2):\n                a, b = nums[i], nums[n - i - 1]\n                if abs(a - b) == X:\n                    continue\n                else:\n                    if max(a, b, abs(a - k), abs(b - k)) >= X:\n                    #if abs(a - b) <= k:\n                        changes += 1\n                    else:\n                        changes += 2\n            return changes\n\n        diffs = Counter(abs(nums[i] - nums[n - i - 1]) for i in range(n // 2))\n        cnts = sorted(diffs.values())\n        if len(cnts) > 1:\n            cnts = cnts[-2:]\n        most_d = [k for k, v in diffs.items() if v in cnts]\n\n        min_changes = float('inf')\n        for X in most_d:\n            min_changes = min(min_changes, changes_required(X))\n\n        return min_changes",
+    "submit_ts": "1721490258",
+    "subm_id": "1327477552"
+}

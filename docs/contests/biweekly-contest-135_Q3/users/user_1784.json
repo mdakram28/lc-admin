@@ -1,0 +1,6 @@
+{
+    "username": "solvictor",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        diffs = defaultdict(int)\n        for i in range(n // 2):\n            diffs[abs(nums[i] - nums[n - i - 1])] += 1\n        x = max(diffs.values())\n        best = -1\n        for most, c in diffs.items():\n            minop = n // 2 - c\n            if minop >= best and best != -1:\n                continue\n            res = 0\n            for i in range(n // 2):\n                d = abs(nums[i] - nums[n - i - 1])\n                a = max(nums[i], nums[n - i - 1])\n                b = min(nums[i], nums[n - i - 1])\n                maxdiff = max(a, k - b)\n                if d != most:\n                    res += 1 if maxdiff >= most else 2\n                    if res == best:\n                        break\n            if best == -1 or res < best:\n                best = res\n\n        return best",
+    "submit_ts": "1721489224",
+    "subm_id": "1327446794"
+}

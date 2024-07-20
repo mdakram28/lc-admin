@@ -1,0 +1,6 @@
+{
+    "username": "yashsinghbhadauria05",
+    "submission": "class Solution {\n    int min(int a,int b){\n        if(a>b){return b;}\n        return a;\n    }\n    int search(vector<int>& l,int x){\n        int s=0,e=l.size()-1;\n        int ans=-1;\n        while(s<=e){\n            int mid=s+(e-s)/2;\n            if(l[mid]>=x){\n                ans=mid;\n                e=mid-1;\n            }\n            else{\n                s=mid+1;\n            }\n        }\n        return  ans;\n    }\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int,int> m;\n        vector<int> l;\n        int s=0,e=nums.size()-1;\n        while(s<e){\n            m[abs(nums[s]-nums[e])]++;\n            l.push_back(max(k-min(nums[s],nums[e]),max(nums[s],nums[e])));\n            s++;\n            e--;\n        }\n\n        sort(l.begin(),l.end());\n        int ans=INT_MAX;\n        for(auto x:m){\n            int index=search(l,x.first);\n            ans=min(ans,index*2+(l.size()-index-x.second));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489719",
+    "subm_id": "1327461684"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "sagarmaheshwari",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        freq = {}\n        n = len(nums)\n        \n        for i in range(n//2):\n            x = abs(nums[i] - nums[n-i-1])\n            if x in freq:\n                freq[x] += 1\n            else:\n                freq[x] = 1\n        \n        minAns = n\n        \n        for dif, frequency in sorted(freq.items(), key = lambda x: x[1], reverse = True)[:5]:\n            ans = 0\n            for i in range(n//2):\n                x = abs(nums[i] - nums[n-i-1])\n                if x != dif:\n                    if 0 <= nums[i] - dif <= k \\\n                    or 0 <= nums[n-i-1] - dif <= k \\\n                    or nums[i] + dif <= k \\\n                    or nums[n-i-1] + dif <= k:\n                        ans += 1\n                    else:\n                        ans += 2\n                    \n                if ans>=minAns:\n                    break\n            # print(dif, ans, minAns)\n            if ans < minAns:\n                minAns = ans\n                    \n        return minAns",
+    "submit_ts": "1721489164",
+    "subm_id": "1327444873"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "fatalerror-i",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        cnt = [0] * (k+1)\n        for i in range(n//2):\n            cnt[abs(nums[i] - nums[n-1-i])] += 1\n        ps = [(abs(nums[i] - nums[n-1-i]), nums[i], nums[n-1-i]) for i in range(n//2)]\n        ps.sort()\n            \n        ans = n\n        pre = 0\n        suf = n//2\n        inc = [0] * (k+2)\n        idx = 0\n        for d in range(k+1):\n            suf -= cnt[d]\n            ans = min(ans, pre + suf)\n            while idx < n//2 and ps[idx][0] == d:\n                _, a, b = ps[idx]\n                inc[max(a, k-a, b, k-b)] += 1\n                idx += 1\n            pre += inc[d]\n            pre += cnt[d]\n        \n        return ans\n        ",
+    "submit_ts": "1721487534",
+    "subm_id": "548310431"
+}

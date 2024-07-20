@@ -1,0 +1,6 @@
+{
+    "username": "coderkb",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> cost(k + 1, 0);\n        for(int i = 0; i < n / 2; ++i) {\n            int a = nums[i], b = nums[n - i - 1];\n            if(a > b) {\n                swap(a, b);\n            }\n\n            cost[0]++;\n            cost[b - a]--;\n            if(b - a < k) {\n                cost[b - a + 1]++;\n            }\n            int mx = max(b, k - a) + 1;\n            if(mx <= k) {\n                cost[mx]++;\n            }\n        }\n\n        int ans = cost[0];\n        for(int i = 1; i <= k ; ++i) {\n            cost[i] += cost[i - 1];\n            ans = min(ans, cost[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489797",
+    "subm_id": "1327464074"
+}

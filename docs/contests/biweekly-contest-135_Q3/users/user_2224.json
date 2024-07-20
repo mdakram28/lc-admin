@@ -1,0 +1,6 @@
+{
+    "username": "asaxena7531",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int,vector<int>> mp,m2;\n        int n = nums.size();\n        vector<int> allXValues;\n        for(int i =0;i<nums.size()/2;i++) {\n            int maxiX = max({nums[i],nums[n-i-1],k-nums[i],k-nums[n-i-1]});\n            mp[abs(nums[i] - nums[n-i-1])].push_back(maxiX);\n            allXValues.push_back(maxiX);\n        } \n        int f = n;\n        sort(allXValues.begin(),allXValues.end());\n        for(auto m : mp) {\n            auto d = m.first;\n            auto px = m.second;\n            int count = lower_bound(allXValues.begin(),allXValues.end(),d) - allXValues.begin();\n            int totalNums = count * 2 + (n/2-count);\n            for(auto ax : px) {\n                if(ax < d) {\n                    totalNums = totalNums -2;\n                } else {\n                    totalNums -= 1;\n                }\n            }\n            f = min(f,totalNums);\n        }\n        return f;\n    }\n};",
+    "submit_ts": "1721490539",
+    "subm_id": "1327485538"
+}

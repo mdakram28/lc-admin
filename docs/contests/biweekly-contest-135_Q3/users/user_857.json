@@ -1,0 +1,6 @@
+{
+    "username": "7aughing-meitnerfwc",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        // x=0\uff0c get res <= n / 2\n        int n = nums.size();\n        map<int, vector<int>> mp;\n        int res = nums.size() / 2;\n        for (int i = 0; i < n/2 ; i++) {\n            mp[abs(nums[i] - nums[n-1-i])].emplace_back(i);\n        }\n        vector<int> v(k+1, 0);\n        for (auto & kv: mp) {\n            if (kv.first <= k/2) {\n                res = min(res, n/2 - (int)kv.second.size());\n            }\n            else if (n/2 - kv.second.size() < res){\n                int cur = n/2 - kv.second.size();\n                for (int i = k/2; i < kv.first; i++) {\n                    cur += v[i];\n                }\n                res = min(res, cur);\n            }\n            for (int i : kv.second) {\n                // cout << kv.first << i << endl;\n                int max_des = max(nums[i], nums[n-1-i]);\n                max_des = max(k-nums[i], max_des);\n                max_des = max(k-nums[n-1-i], max_des);\n                v[max_des]++;\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721488871",
+    "subm_id": "548316341"
+}

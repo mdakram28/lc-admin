@@ -1,0 +1,6 @@
+{
+    "username": "Nitish7890",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& liczby, int k) {\n        map<int, vector<int>> roznicaDoMaksWartosci;\n        vector<int> maksWartosci;\n\n        for (int i = 0; i < liczby.size() / 2; ++i) {\n            int lewa = liczby[i];\n            int prawa = liczby[liczby.size() - i - 1];\n            int roznica = abs(lewa - prawa);\n\n            int maksWartosc = max({lewa, prawa, k - lewa, k - prawa});\n\n            roznicaDoMaksWartosci[roznica].push_back(maksWartosc);\n            maksWartosci.push_back(maksWartosc);\n        }\n\n        int minimalnaIloscZmian = liczby.size();  \n        sort(maksWartosci.begin(), maksWartosci.end());\n\n        for (const auto& [roznica, wartosci] : roznicaDoMaksWartosci) {\n            int indeksProg = lower_bound(maksWartosci.begin(), maksWartosci.end(), roznica) - maksWartosci.begin();\n            int zmiany = indeksProg * 2 + (liczby.size() / 2 - indeksProg);\n\n            for (const auto& maksWartosc : wartosci) {\n                zmiany -= (maksWartosc < roznica) ? 2 : 1;\n            }\n\n            minimalnaIloscZmian = min(minimalnaIloscZmian, zmiany);\n        }\n\n        return minimalnaIloscZmian;\n    }\n};",
+    "submit_ts": "1721490454",
+    "subm_id": "1327483093"
+}

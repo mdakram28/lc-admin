@@ -1,0 +1,6 @@
+{
+    "username": "Hc_212",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        \n        int n = nums.size();\n        unordered_map<int,int> freq;\n        vector<int> range(k+1);\n        for(int i = 0; i<n/2; i++){\n            freq[abs(nums[i]-nums[n-i-1])]++;\n            int rng = max(max(nums[i],nums[n-i-1]),k-min(nums[i],nums[n-i-1]));\n            range[rng]++ ;\n        }\n\n        for(int i = k-1; i>=0; i--){\n            range[i] += range[i+1];\n            // cout<<range[i]<<\" \";\n        }\n        int ans = INT_MAX;\n        for(auto it:freq){\n\n            int X = it.first;\n            // cout<<X<<\" \"<<it.second<<endl;\n            // cout<<X<<\" \"<<range[X]<<\" \"<<it.second<<endl;\n            int cnt = range[X] + (n/2-range[X])*2 - it.second;\n\n            ans = min(cnt,ans);\n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1721488645",
+    "subm_id": "1327428803"
+}

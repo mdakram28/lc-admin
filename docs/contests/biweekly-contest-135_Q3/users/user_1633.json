@@ -1,0 +1,6 @@
+{
+    "username": "0xFFFFFFFF",
+    "submission": "class Solution {\npublic:\n  int minChanges(const vector<int>& nums, int k) {\n    unordered_map<int, int> v;\n    int n = nums.size();\n    for (int i = 0; i < n / 2; ++i) {\n      ++v[abs(nums[i] - nums[n - i - 1])];\n    }\n    vector<pair<int, int>> buf(v.begin(), v.end());\n    sort(buf.begin(), buf.end(), [](auto& a, auto& b) {\n      return a.second > b.second;\n    });\n    int res = n;\n    for (int p = 0; p < min<int>(buf.size(), 10); ++p) {\n      int v = buf[p].first;\n      int oneTry = 0;\n      for (int i = 0; i < n / 2; ++i) {\n        if (abs(nums[i] - nums[n - i - 1]) == v) {\n          continue;\n        }\n        int mini = min(nums[i], nums[n - i - 1]);\n        int maxi = max(nums[i], nums[n - i - 1]);\n        if (mini + v <= k || maxi - v >= 0) {\n          oneTry++;\n        } else {\n          oneTry += 2;\n        }\n      }\n      res = min(res, oneTry);\n    }\n    return res;\n  }\n};",
+    "submit_ts": "1721489386",
+    "subm_id": "1327451703"
+}

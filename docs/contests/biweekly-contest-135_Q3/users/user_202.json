@@ -1,0 +1,6 @@
+{
+    "username": "ry51",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        occurrences = {}\n        mdtc1 = []\n        for i in range(n // 2):\n            d = abs(nums[i] - nums[n - i - 1])\n            if d in occurrences: occurrences[d] += 1\n            else: occurrences[d] = 1\n            mdtc1.append(max(nums[i], nums[n - i - 1], k - nums[i], k - nums[n - i - 1]))\n        occurrences = dict(sorted(occurrences.items(), key=lambda item: item[1]))\n        mdtc1.sort()\n        \n        drnums = {}\n        \n        for i in range(k + 1):\n            while len(mdtc1) > 0 and mdtc1[0] < i:\n                mdtc1.pop(0)\n            drnums[i] = len(mdtc1)\n        \n        minChanges = 10**5\n        \n        for key in occurrences:\n            minChanges = min(minChanges, n - occurrences[key] - drnums[key])\n        \n        return minChanges",
+    "submit_ts": "1721487682",
+    "subm_id": "1327397365"
+}

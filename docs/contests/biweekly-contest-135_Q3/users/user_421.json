@@ -1,0 +1,6 @@
+{
+    "username": "Rad0miR",
+    "submission": "public class Solution {\n    public int MinChanges(int[] nums, int k) \n    {\n        int ans = nums.Length / 2, n = nums.Length;\n        int[] dists = Enumerable\n            .Range(0, nums.Length / 2)\n            .Select(i => Math.Abs(nums[i] - nums[n - i - 1]))\n            .GroupBy(x => x, (key, g) => (dist: key, cnt: g.Count()))\n            .GroupBy(p => p.cnt, (key, g) => g.Min(p => p.dist))\n            .ToArray();\n        \n        foreach (var dist in dists) \n        {\n            int cur = 0;\n            for (int i = 0; i < n - i - 1; ++i) \n            {\n                int min = Math.Min(nums[i], nums[n - i - 1]);\n                int max = nums[i] + nums[n - i - 1] - min;\n                \n                if (max - min == dist) continue;\n                \n                if (max - dist >= 0 || min + dist <= k) cur++; else cur += 2;\n            }\n            ans = Math.Min(ans, cur);\n        }\n        \n        return ans;\n    }\n}",
+    "submit_ts": "1721488376",
+    "subm_id": "1327420296"
+}

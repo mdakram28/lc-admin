@@ -1,0 +1,6 @@
+{
+    "username": "STARK_456",
+    "submission": "package main\n\nimport (\n\t\"fmt\"\n\t\"sort\"\n)\n\nfunc minChanges(nums []int, k int) int {\n\tm := make(map[int][]int)\n\tv := []int{}\n\n\tfor i := 0; i < len(nums)/2; i++ {\n\t\ta := nums[i]\n\t\tb := nums[len(nums)-i-1]\n\t\tdiff := abs(a - b)\n\t\tX := max(a, b, k-a, k-b)\n\t\tm[diff] = append(m[diff], X)\n\t\tv = append(v, X)\n\t}\n\n\tans := len(nums)\n\tsort.Ints(v)\n\n\tfor diff, values := range m {\n\t\tT := lowerBound(v, diff)\n\t\tT = T*2 + (len(nums)/2 - T)\n\n\t\tfor _, X := range values {\n\t\t\tif X < diff {\n\t\t\t\tT -= 2\n\t\t\t} else {\n\t\t\t\tT -= 1\n\t\t\t}\n\t\t}\n\n\t\tif T < ans {\n\t\t\tans = T\n\t\t}\n\t}\n\n\treturn ans\n}\n\nfunc abs(x int) int {\n\tif x < 0 {\n\t\treturn -x\n\t}\n\treturn x\n}\n\nfunc max(values ...int) int {\n\tm := values[0]\n\tfor _, v := range values {\n\t\tif v > m {\n\t\t\tm = v\n\t\t}\n\t}\n\treturn m\n}\n\nfunc lowerBound(arr []int, target int) int {\n\tl, r := 0, len(arr)\n\tfor l < r {\n\t\tmid := (l + r) / 2\n\t\tif arr[mid] < target {\n\t\t\tl = mid + 1\n\t\t} else {\n\t\t\tr = mid\n\t\t}\n\t}\n\treturn l\n}\n\n",
+    "submit_ts": "1721488214",
+    "subm_id": "1327415179"
+}

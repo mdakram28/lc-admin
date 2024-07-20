@@ -1,0 +1,6 @@
+{
+    "username": "alephinfinity1",
+    "submission": "int cost[100010];\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        const int n = (int) size(nums);\n        for (int i = 0; i <= k; i++) {\n            cost[i] = 0;\n        }\n\n        cost[0] = n/2;\n        for (int i = 0; i < n/2; i++) {\n            int m1 = max(nums[i], k - nums[i]);\n            int m2 = max(nums[n-1-i], k - nums[n-1-i]);\n            cost[max(m1, m2) + 1]++;\n        }\n        for (int i = 1; i <= k; i++) {\n            cost[i] += cost[i-1];\n        }\n        for (int i = 0; i < n/2; i++) {\n            int d = abs(nums[i] - nums[n-1-i]);\n            cost[d]--;\n        }\n\n        int ans = cost[0];\n        for (int i = 1; i <= k; i++) {\n            ans = min(ans, cost[i]);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721486375",
+    "subm_id": "548304523"
+}

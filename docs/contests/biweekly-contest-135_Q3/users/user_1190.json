@@ -1,0 +1,6 @@
+{
+    "username": "Lwenkai",
+    "submission": "from collections import Counter, defaultdict\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        \n        counter = Counter()\n        mp = defaultdict(list)\n        n = len(nums)\n        arr = []\n        \n        for i, num in enumerate(nums[:n//2]):\n            j = n-i-1\n            num2 = nums[j]\n            \n            d = abs(num-num2)\n            x = max(num, num2, k-num, k-num2)\n            \n            mp[d].append(x)\n            arr.append(x)\n        \n        ans = n\n        arr.sort()\n        \n        for val in mp:\n            diff = val\n            t = bisect.bisect_left(arr, diff)\n            t = t*2 + n//2 - t\n            \n            for x in mp[val]:\n                if x<diff:\n                    t -= 2\n                else:\n                    t -= 1\n            \n            ans = min(ans, t)\n        \n        return ans",
+    "submit_ts": "1721489248",
+    "subm_id": "1327447500"
+}

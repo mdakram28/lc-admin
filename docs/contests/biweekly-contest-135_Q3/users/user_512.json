@@ -1,0 +1,6 @@
+{
+    "username": "Zumi002",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) \n    {\n        map<int,int,std::less<int>> diffs;\n        vector<int> maxDiff(100001,0);\n        int sec = nums.size()-1;\n        for(int i =0;i<nums.size()/2;i++)\n        {\n            int minn = min(nums[i],nums[sec]);\n            int maxx = max(nums[i],nums[sec]);\n            diffs[maxx-minn]++;\n            maxDiff[max(k-minn,maxx)]++;\n            sec--;\n        }\n        int minCh = INT_MAX;\n        int j = 0;\n        int maxDiffC = nums.size()/2;\n        for(auto p : diffs)\n        {\n           // cout<<p.first<<\" \"<<p.second<<\"\\n\";\n            while(p.first>j&&j<=k)\n            {\n                maxDiffC-=maxDiff[j];\n                j++;\n            }\n            //cout<<maxDiffC<<\"\\n\";\n            minCh = min((int)nums.size()-maxDiffC-p.second,minCh);\n        }\n        //cout<<\"\\n\";\n        return minCh;\n    }\n};",
+    "submit_ts": "1721488572",
+    "subm_id": "1327426431"
+}

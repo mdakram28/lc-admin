@@ -1,0 +1,6 @@
+{
+    "username": "noobsaibot4130",
+    "submission": "class Solution {\n    fun minChanges(nums: IntArray, k: Int): Int {\n    val n = nums.size\n    val m = mutableMapOf<Int, MutableList<Int>>()\n    val v = mutableListOf<Int>()\n    \n    val mid = n / 2\n\n    for (i in 0 until mid) {\n        val a = nums[i]\n        val b = nums[n - i - 1]\n        val diff = kotlin.math.abs(a - b)\n        val x = maxOf(a, maxOf(b, k - a, k - b))\n        m.getOrPut(diff) { mutableListOf() }.add(x)\n        v.add(x)\n    }\n    \n    v.sort()\n\n    var ans = n\n    for (entry in m) {\n        val diff = entry.key\n        var temp = v.indexOfFirst { it >= diff }\n        if (temp == -1) temp = v.size\n        temp = temp * 2 + (n / 2 - temp)\n        \n        for (x in entry.value) {\n            temp -= if (x < diff) 2 else 1\n        }\n        \n        ans = minOf(ans, temp)\n    }\n    \n    return ans\n}\n\n\n}",
+    "submit_ts": "1721489207",
+    "subm_id": "1327446282"
+}

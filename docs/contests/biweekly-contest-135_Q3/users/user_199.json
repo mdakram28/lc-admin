@@ -1,0 +1,6 @@
+{
+    "username": "SkinnySnakeLimb",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        \n        for i in range(n // 2):\n            opp = n - 1 - i\n            v1, v2 = nums[i], nums[opp]\n            nums[i], nums[opp] = min(v1, v2), max(v1, v2)\n\n        pairs = []\n\n        for i in range(n // 2):\n            pairs.append((nums[i], nums[n - 1 - i]))\n\n        ints = []\n        precs = []\n\n        for v1, v2 in pairs:\n            ints.append(max(v1, k - v1, v2, k - v2))\n            precs.append(v2 - v1)\n\n        ints.sort()\n        precs.sort()\n        p = len(pairs)\n        under = 0\n\n        i = 0\n        ret = 1_000_000_000\n        while i < p:\n            now = 1\n            while i + 1 < p and precs[i] == precs[i + 1]:\n                i += 1\n                now += 1\n            \n            while under < p and ints[under] < precs[i]:\n                under += 1\n\n            cand = under * 2 + p - under - now\n            ret = min(ret, cand)\n            i += 1\n            \n        return ret",
+    "submit_ts": "1721487660",
+    "subm_id": "1327396514"
+}

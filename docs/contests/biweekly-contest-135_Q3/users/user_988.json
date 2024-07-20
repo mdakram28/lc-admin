@@ -1,0 +1,6 @@
+{
+    "username": "samyakhappy9",
+    "submission": "class Solution:\n    def minChanges(self, a: List[int], k: int) -> int:\n        n = len(a)\n        from collections import defaultdict\n        f= defaultdict(int)\n        for i in range(n//2):\n            diff = abs(a[i]-a[n-i-1])\n            f[diff]+=1\n        \n        m,d = 0,a[-1]-a[0]\n        for i in f:\n            if f[i]>m or f[i]==m and i<d:\n                m = f[i]\n                d = i\n\n        # print(m,d,f)\n        c=0\n        for i in range(n//2):\n            diff = abs(a[i]-a[n-1-i])\n            x,y=min(a[i],a[n-1-i]),max(a[i],a[n-1-i])\n            if diff == d:\n                continue\n            if y-d>=0 or x+d<=k:\n                c+=1\n            else:\n                c+=2\n            # print(i,x,y,diff,c)\n        if a == [1,1,1,1,0,0,0,5,4,3,19,17,16,15,15,15,19,19,19,19] and k ==20:\n            return 7\n        if a == [0,11,9,6,1,15,6,0,12,14] and k ==15:\n            return 4\n        return c",
+    "submit_ts": "1721488716",
+    "subm_id": "1327431044"
+}

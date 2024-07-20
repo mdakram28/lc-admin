@@ -1,0 +1,6 @@
+{
+    "username": "vanhuuninh2001",
+    "submission": "class Solution {\npublic:\n    int findIndex(const std::vector<int>& arr, int x) {\n        auto it = std::lower_bound(arr.begin(), arr.end(), x);\n        return it - arr.begin();\n    }\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> arr;\n        map<int,int> mp;\n        for (int i = 0; i < nums.size()/2; i++) {\n            int tmp1 = max(nums[i], k - nums[i]);\n            int tmp2 = max(nums[n - i - 1], k - nums[n - i - 1]);\n            arr.push_back(max(tmp1, tmp2));\n            mp[abs(nums[i]-nums[n-i-1])]++;\n        }\n        sort(arr.begin(), arr.end());\n        for(int i=0;i<arr.size();i++){\n            cout<<arr[i]<<\" \";\n        }\n        int ans = n / 2;\n        for (int i = 0; i < nums.size()/2; i++) {\n            int tryVal = abs(nums[i] - nums[n - i - 1]);\n            int idx = findIndex(arr,tryVal);\n            ans = min(ans, (n/2-idx)+ 2*idx - mp[tryVal]);\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": "1721488747",
+    "subm_id": "1327432010"
+}

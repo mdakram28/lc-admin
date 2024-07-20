@@ -1,0 +1,6 @@
+{
+    "username": "vvonderful-golickoso",
+    "submission": "import java.util.Comparator;\nimport java.util.PriorityQueue;\n\npublic class lc22135 {\n}\nclass Solution {\n    public int minChanges(int[] nums, int k) {\n        int[] cs = new int[k+1];\n        int[] ks = new int[k+1];\n        PriorityQueue<int[]> maxheap = new PriorityQueue<>(new Comparator<int[]>() {\n            @Override\n            public int compare(int[] o1, int[] o2) {\n                return Integer.compare(o2[1], o1[1]);\n            }\n        });\n        int n = nums.length;\n        for(int i = 0;i<n/2;i++){\n            int a = nums[i], b = nums[n-i-1];\n            int gap = Math.abs(nums[i] - nums[n-i-1]);\n            int top = Math.max(Math.max(a,b),Math.max(k-a,k-b));\n            cs[top]++;\n            ks[gap]++;\n        }\n        for(int i = k-1;i>=0;i--){\n            cs[i] += cs[i+1];\n        }\n        for(int i = 0;i<=k;i++){\n            int[] v = new int[2];\n\n            v[0] = i;\n            v[1] = cs[i];\n            maxheap.add(v);\n        }\n        int ans = Integer.MAX_VALUE;\n        while(!maxheap.isEmpty()){\n            int[] v = maxheap.poll();\n            int t = v[0];\n            ans = Math.min(cs[t]-ks[t] + (n/2-cs[t])*2, ans);\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1721487825",
+    "subm_id": "548311685"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "icmezfxi",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, int> m;\n        for (int i = 0; i < nums.size() / 2; i++) {\n            m[abs(nums[i] - nums[nums.size() - i - 1])]++;\n        }\n        int ans = 1e9;\n        for (auto& item : m) {\n            if (item.first <= k / 2) {\n                ans = min(ans, (int)nums.size() / 2 - item.second);\n            } else if (nums.size() / 2 - item.second < ans) {\n                int tmp = 0;\n                for (int i = 0; i < nums.size() / 2; i++) {\n                    if (abs(nums[i] - nums[nums.size() - i - 1]) !=\n                        item.first) {\n                        if ((nums[i] < item.first) &&\n                            (nums[i] + item.first > k) &&\n                            (nums[nums.size() - i - 1] < item.first) &&\n                            (nums[nums.size() - i - 1] + item.first > k)) {\n                            tmp += 2;\n                        } else {\n                            tmp += 1;\n                        }\n                    }\n                }\n                ans = min(ans, tmp);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488292",
+    "subm_id": "1327417682"
+}

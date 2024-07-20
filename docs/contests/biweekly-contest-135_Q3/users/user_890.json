@@ -1,0 +1,6 @@
+{
+    "username": "Gaurav_Upreti",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size(), ans = n;\n        map<int, vector<int>> mp;\n        int m = n/2;\n        for (int i = 0; i < m; i++)\n        {\n            mp[abs(nums[i] - nums[n - 1 - i])].push_back(i);\n        }\n        int prev = 0, good = 0;\n        priority_queue<int, vector<int>, greater<int>> pq;\n        for (auto it = mp.begin(); it != mp.end(); it++)\n        {\n            int size = (it->second).size();\n            while (!pq.empty() && (pq.top() < it->first))\n            {\n                good--;\n                pq.pop();                    \n            }\n            int res = m - prev - size + good + (prev - good) * 2;\n            ans = min(ans, res);\n            for (int idx : (it->second))\n            {\n                int mn = min(nums[idx], nums[n - 1 - idx]);\n                int mx = max(nums[idx], nums[n - 1 - idx]);\n                int d = max(mx, k - mn);\n                pq.push(d);\n                good++;\n                prev++;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489221",
+    "subm_id": "1327446687"
+}

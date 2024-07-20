@@ -1,0 +1,6 @@
+{
+    "username": "Hughstudy",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int[] diffCount = new int[k + 1], maxDiff = new int[k + 1];\n        int st = 0, ed = nums.length - 1;\n        int pair = nums.length / 2;\n        while (st < ed) {\n            diffCount[Math.abs(nums[st] - nums[ed])] += 1;\n            int tmp = Math.max(Math.max(nums[st], nums[ed]), Math.max(k - nums[st], k - nums[ed]));\n            maxDiff[tmp] += 1;\n            ++st;\n            --ed;\n        }\n\n        int res = nums.length, doublePair = 0;\n        for (int i = 0; i <= k; ++i) {\n            if (i > 0) {\n                doublePair += maxDiff[i - 1];\n            }\n            res = Math.min(res, (pair - doublePair - diffCount[i]) + 2 * doublePair);\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1721490480",
+    "subm_id": "548323060"
+}

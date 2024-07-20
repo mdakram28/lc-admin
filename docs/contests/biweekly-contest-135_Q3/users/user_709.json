@@ -1,0 +1,6 @@
+{
+    "username": "krism_lsy",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n=len(nums)\n        # d=[0]*k\n        # acc=list(accumulate(d))\n        l=defaultdict(list)\n        # print(d)\n        # print(acc)\n        c=Counter()\n        for i in range(n//2):\n            c[abs(nums[i]-nums[n-1-i])]+=1\n        for X,v in c.items():\n            l[v].append(X)\n        res=inf\n        def f(X):\n            if X<=k//2:\n                return n//2-c[X]\n            res=0\n            ok=set()\n            for i in range(k-X+1):\n                ok.add(i)\n                ok.add(k-i)\n            for i in range(n//2):\n                if abs(nums[i]-nums[n-1-i])==X:\n                    continue\n                if nums[i] in ok or nums[n-1-i] in ok:\n                    res+=1\n                else:\n                    res+=2\n            return res\n        t=[]    \n        for le,a in l.items():\n            a.sort()\n            res=min(res,f(a[0]))\n        return res\n    \n        # print(c)\n        # res=inf\n        # cnt1=0\n        # for X in range(k,-1,-1):\n        #     need=n//2-c[X]\n        #     t=acc[k]\n        # return n//2-max(c.values())",
+    "submit_ts": "1721488624",
+    "subm_id": "548315293"
+}

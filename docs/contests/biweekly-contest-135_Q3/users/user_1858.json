@@ -1,0 +1,6 @@
+{
+    "username": "AGoodProgrammer",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<int, int> zeroCost;\n        vector<int> oneCost;\n\n        for (int i=0; i<n/2; i++) {\n            int a = nums[i];\n            int b = nums[n - i -1];\n            if (a < b) swap(a, b);\n            int cost = a - b;\n            int maxCost = max(k - b, a);\n            zeroCost[cost]++;\n            oneCost.push_back(maxCost);\n        }\n        int ans = INT_MAX;\n        sort(oneCost.begin(), oneCost.end());\n        // print(oneCost);\n        // cout << endl;\n        for (auto val : zeroCost) {\n            int smaller = lower_bound(oneCost.begin(), oneCost.end(), val.first) - oneCost.begin();\n            // cout << (val.first) << \" \" << smaller << \" \" << val.second <<  endl;\n            int temp = 2 * smaller + (n/2 - smaller) - val.second;\n            ans = min(ans, temp);\n        }  \n        return ans;\n    }\n\n    void print(vector<int> &v) {\n        for (int i : v) {\n            cout << i << \" \";\n        }\n        cout << endl;\n    }\n};",
+    "submit_ts": "1721490181",
+    "subm_id": "1327475369"
+}

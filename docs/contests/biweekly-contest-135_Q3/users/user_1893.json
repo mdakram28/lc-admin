@@ -1,0 +1,6 @@
+{
+    "username": "festive-blackwellyqu",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n\t\tint n = nums.size();\n\t\tstd::map<int, int> diff;\n\t\tstd::vector<int> range;\n\t\tint r = 0;\n\t\tfor (int i = 0; i < n; ++i) {\n\t\t\tint j = n - 1 - i;\n\t\t\tif (j <= i) break;\n\t\t\tint val = std::abs(nums[i] - nums[j]);\n\t\t\tdiff[val] ++;\n\n\t\t\tint d1 = std::max(std::abs(nums[j]), std::abs(k - nums[j]));\n\t\t\tint d2 = std::max(std::abs(nums[i]), std::abs(k - nums[i]));\n\t\t\tint maxd = std::max(d1, d2);\n\t\t\trange.emplace_back(maxd);\n\t\t\tr = std::max(r, maxd);\n\t\t}\n\n\t\tstd::sort(range.begin(), range.end());\n\n\t\tint cnt = n/2 - diff[0];\n        int half = range.size();\n\t\t//sweep line\n\t\tfor (int i = 1; i <= r; ++i) {\n\t\t\tauto iter = std::lower_bound(range.begin(), range.end(), i);\n\t\t\tint num1 = iter - range.begin();\n\t\t\tint num2 = half - num1;\n\t\t\tint tmp = 2 * num1 + num2 - diff[i];\n\t\t\tcnt = std::min(cnt, tmp);\n\t\t}\n\t\treturn cnt;\n    }\n};",
+    "submit_ts": "1721489915",
+    "subm_id": "548320786"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "looooooooong",
+    "submission": "public class Solution {\n  public int MinChanges(int[] nums, int k) {\n    var n = nums.Length;\n    var dp = new int[n / 2];\n    var count = new int[k + 1];\n\n    for (var i = n / 2 - 1; i >= 0; i--) {\n      dp[i] = int.Abs(nums[i] - nums[n - i - 1]);\n      count[dp[i]]++;\n    }\n\n    var max0 = 0;\n    var max1 = 0;\n    var X0 = 0;\n    var X1 = 0;\n\n    for (var i = 0; i <= k; i++) {\n      if (count[i] > max0) {\n        (max0, max1) = (count[i], max0);\n        (X0, X1) = (i, X0);\n      } else if (count[i] > max1) {\n        max1 = count[i];\n        X1 = i;\n      }\n    }\n\n    return int.Min(FindMin(X0), FindMin(X1));\n\n\n    int FindMin(int x) {\n      var min = 0;\n\n      for (var i = n / 2 - 1; i >= 0; i--) {\n        if (dp[i] != x) {\n          var maxSingleChange = int.Max(int.Max(nums[i], nums[n - i - 1]), k - int.Min(nums[i], nums[n - i - 1]));\n          min += maxSingleChange >= x ? 1 : 2;\n        }\n      }\n\n      return min;\n    }\n  }\n}\n",
+    "submit_ts": "1721490294",
+    "subm_id": "1327478536"
+}

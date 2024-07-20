@@ -1,0 +1,6 @@
+{
+    "username": "Deva_Agulla",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& arr, int k) {\n        vector<int>dp(k+1,0);\n        unordered_map<int,int> mpp;\n        int n = arr.size();\n        for(int i=0;i<n/2;i++)mpp[abs(arr[i]-arr[n-i-1])]++;\n        for(int i=0;i<n/2;i++){\n            int mid = abs(arr[i]-arr[n-i-1]);\n            int end = max(arr[i],arr[n-i-1]);\n            int start = k-min(arr[i],arr[n-i-1]);\n            int maxi = max(end,start);\n            dp[0]++;\n            if(maxi+1 <=k){\n                dp[maxi+1]-=1;\n                dp[maxi+1]+=2;\n            }\n        }\n        for(int i=1;i<=k;i++)dp[i]+=dp[i-1];\n        int ans = n;\n        for(int i=0;i<=k;i++){\n            ans=min(ans,dp[i]-mpp[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489971",
+    "subm_id": "1327469221"
+}

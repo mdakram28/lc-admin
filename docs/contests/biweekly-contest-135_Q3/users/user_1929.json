@@ -1,0 +1,6 @@
+{
+    "username": "mananbansal7",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> temp;\n        int n = nums.size();\n        map<int ,vector<int>> mp;\n        vector<int> t(n/2);\n        int ans = n;\n        for(int i = 0;i<n/2;i++){\n            int temp = abs(nums[i] - nums[n-1-i]);\n            int gt = max({nums[i],nums[n-i-1],k-nums[i],k-nums[n-i-1]});\n            \n            mp[temp].push_back(gt);\n            t[i] = gt;\n        }\n        \n        sort(t.begin(),t.end());\n        for(int i = 0;i<=k;i++){\n            int tans = 0;\n            if(mp[i].size() == 0)continue;\n            sort(mp[i].begin(),mp[i].end());\n            int ind = lower_bound(t.begin(),t.end(),i)-t.begin();\n            tans = (ind*2)+((n/2 )- ind);\n            int ind2 = lower_bound(mp[i].begin(),mp[i].end(),i)-mp[i].begin();\n            tans -=( ind2*2);\n            tans -= (mp[i].size()-ind2);\n            ans = min(ans,tans);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721490259",
+    "subm_id": "1327477596"
+}

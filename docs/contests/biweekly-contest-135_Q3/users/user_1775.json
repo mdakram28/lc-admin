@@ -1,0 +1,6 @@
+{
+    "username": "tinymoon-2",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        gap_cnt = {}\n        for i in range(n//2):\n            gap = abs(nums[i] - nums[n - i - 1])\n            if gap <= k:\n                gap_cnt[gap] = gap_cnt.get(gap, 0) + 1\n        ans = n\n        for ke, v in sorted(gap_cnt.items(),key=lambda f:f[1], reverse=True):\n            limit = n//2 - v\n            if limit >= ans:\n                return ans\n            t_ans = 0\n            for i in range(n // 2):\n                gap = abs(nums[i] - nums[n - i - 1])\n                if gap == ke:\n                    continue\n                if nums[i] + ke > k and nums[i] - ke < 0 and nums[n - i - 1] + ke > k and nums[n - i - 1] - ke < 0:\n                    t_ans += 2\n                else:\n                    t_ans += 1\n            ans = min(t_ans, ans)\n        return ans\n            \n",
+    "submit_ts": "1721489514",
+    "subm_id": "548319096"
+}

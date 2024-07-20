@@ -1,0 +1,6 @@
+{
+    "username": "sg_69",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int,int>mp;\n        int n = nums.size(), m = n/2, res, currCnt = 0, fin = INT_MAX, req = n/2;\n        for(int i = 0; i< m;i++){\n            int diff = abs(nums[i]-nums[n-i-1]);\n            mp[diff]++;\n            if(currCnt < mp[diff]){\n                currCnt = mp[diff];\n                res = diff;\n            }\n        }\n        vector<int>v;\n        for(auto [i,c]:mp){\n            if(c==currCnt) v.push_back(i);\n        }\n        for(auto [e,cnt]:mp){\n            int ans = 0;\n            if(fin < (req-cnt)) continue;\n            for(int i = 0;i<m;i++){\n                int diff = abs(nums[i]-nums[n-i-1]), mini = min(nums[i],nums[n-i-1]), maxi = max(nums[i],nums[n-i-1]);\n                if(diff == e) continue;\n                if( (k - mini < e) && (maxi - 0 < e)) ans+=2;\n                else ans+=1;\n            }\n            fin = min(fin,ans);\n        }\n        return fin;\n    }\n    // 1 2 0 2 4 3\n    // 0 1 2 3 3 6 5 4 -> \n};",
+    "submit_ts": "1721489225",
+    "subm_id": "1327446823"
+}

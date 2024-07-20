@@ -1,0 +1,6 @@
+{
+    "username": "ansh_998",
+    "submission": "using namespace std;\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, vector<int>> diffGroups;\n        vector<int> allValues;\n        int len = nums.size();\n        for (int i = 0; i < len / 2; i++) {\n            int left = nums[i], right = nums[len - i - 1];\n            int difference = abs(left - right);\n            int maxValue = max({left, right, k - left, k - right});\n            diffGroups[difference].push_back(maxValue);\n            allValues.push_back(maxValue);\n        }\n        int Changes = len;\n        sort(allValues.begin(), allValues.end());\n        for (auto& entry : diffGroups) {\n            int difference = entry.first;\n            int count = lower_bound(allValues.begin(), allValues.end(), difference) - allValues.begin();\n            count = count * 2 + (len / 2 - count);\n            for (auto& value : entry.second) {\n                if (value < difference) count -= 2;\n                else count -= 1;\n            }\n            Changes = min(Changes, count);\n        }\n        return Changes;\n    }\n};\n",
+    "submit_ts": "1721489490",
+    "subm_id": "1327454822"
+}

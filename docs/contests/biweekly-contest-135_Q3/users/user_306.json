@@ -1,0 +1,6 @@
+{
+    "username": "gatton",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length;\n        int m = n >> 1;\n        Map<Integer, Integer> map = new HashMap<>();\n        int[] diff = new int[m];\n        for(int i = 0, j = n - 1; i < j; i++, j--) {\n            int x = nums[i] >= nums[j] ? nums[i] : nums[j];\n            int y = nums[i] < nums[j] ? nums[i] : nums[j];\n            int d = x - y;\n            map.put(d, map.getOrDefault(d, 0) + 1);\n            diff[i] = Math.max(x, k - y);\n        }\n        Arrays.sort(diff);\n        int res = n << 1;\n        for(Map.Entry<Integer, Integer> entry : map.entrySet()) {\n            int d = entry.getKey();\n            int v = entry.getValue();\n            int left = 0;\n            int right = n - 1;\n            int t = n;\n            while(left <= right) {\n                int mid = (left + right) >>> 1;\n                if(diff[mid] >= d) {\n                    t = mid;\n                    right = mid - 1;\n                } else {\n                    left = mid + 1;\n                }\n            }\n            int change = (t << 1) + m - t - v;\n            res = Math.min(res, change);\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1721488059",
+    "subm_id": "548312705"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "gan14008",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        q = collections.Counter()\n        for i in range(n // 2):\n            q[abs(nums[i] - nums[~i])] += 1\n            \n        def dfs(target):\n            res = 0        \n            for i in range(n // 2):\n                x, y = nums[i], nums[~i]\n                if x > y:\n                    x, y = y, x\n                if y - x == target:\n                    continue\n                    \n                res += 2 - int((0 <= target + x <= k) or (0 <= y - target <= k))\n                \n                if res >= self.res:\n                    return float('inf')\n\n            return res\n         \n        frequencies = sorted(q.values(), reverse=True)\n        self.res = float('inf')\n        for f in frequencies[:2]:\n            for target in q:\n                if q[target] == f:\n                    self.res = min(self.res, dfs(target))\n        return self.res\n",
+    "submit_ts": "1721488403",
+    "subm_id": "1327421173"
+}

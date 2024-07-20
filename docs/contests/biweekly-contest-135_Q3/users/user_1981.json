@@ -1,0 +1,6 @@
+{
+    "username": "timgallin-3",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        cnt = Counter()\n        n = len(nums)\n        delta = []\n        for i in range(0, n//2):\n            val = abs(nums[n-i-1] - nums[i])\n            delta.append(val)\n            cnt[val]+=1\n        \n        #print(cnt)\n        \n        ss = sorted(cnt.items(), key=lambda y:(-y[1], y[0]))\n        x = ss[0][0]\n        ans = 0\n        for i, d in enumerate(delta):\n            if d != x:\n                #v = 1 if (k - x >= min(nums[i], nums[n-i-1]) or max(nums[i], nums[n-i-1])>=x) else 2\n                #print('{},{}'.format(v,i))\n                ans += 1 if (k - x >= min(nums[i], nums[n-i-1]) or max(nums[i], nums[n-i-1])>=x) else 2\n            \n        if len(ss)>=2 and abs(ss[0][1] - ss[1][1])<=1:\n            x = ss[1][0]\n            ans2 = 0\n            for i, d in enumerate(delta):\n                if d != x:\n                    ans2 += 1 if (k - x >= min(nums[i], nums[n-i-1]) or max(nums[i], nums[n-i-1])>=x) else 2\n            ans = min(ans, ans2)\n        \n        return ans\n                \n            \n            ",
+    "submit_ts": "1721489707",
+    "subm_id": "548319928"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "wu-jiu-o",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n=len(nums)//2\n        nums=[sorted([nums[i],nums[-i-1]]) for i in range(n)]\n        det=[x[1]-x[0] for x in nums]\n        # print(nums,det)\n        cnt=sorted(list(Counter(det).items()),key=lambda x: x[1],reverse=1)\n        res=2*n\n        for (d,ct) in cnt:\n            add=0\n            for i in range(n):\n                if det[i]!=d and not (nums[i][0]+d<=k or 0<=nums[i][1]-d<=k):\n                    if d<=k:\n                        add+=1\n                    else:\n                        add=-1\n                        break\n            if add==0: return min(res,n-ct)\n            elif add!=-1: res=min(res,n-ct+add)\n        return res",
+    "submit_ts": "1721488361",
+    "subm_id": "548314020"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "qb_2008",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> diff_count(k + 1, 0);\n        vector<int> additional_cost(k + 1, 0);  // when diff is i, we need to add additional_cost[i...k]\n        int n = nums.size();\n        \n        auto max_diff_without_additional_cost = [&](int a, int b) {\n            int d1 = max(a, k - a);\n            int d2 = max(b, k - b);\n            return max(d1, d2);\n        };\n        \n        for (int i = 0; i < n / 2; i++) {\n            int a = nums[i];\n            int b = nums[n - 1 - i];\n            int diff = abs(a - b);\n            diff_count[diff]++;\n            int max_diff = max_diff_without_additional_cost(a, b);\n            if (max_diff < k) {\n                additional_cost[max_diff + 1]++;\n            }\n        }\n        int min_cost = INT_MAX;\n        int additional_cost_sum = 0;\n        for (int i = 0; i <= k; ++i) {\n            additional_cost_sum += additional_cost[i];\n            int cost = n / 2 - diff_count[i] + additional_cost_sum;\n            min_cost = min(min_cost, cost);\n        }\n        return min_cost;\n    }\n};",
+    "submit_ts": "1721488467",
+    "subm_id": "1327423180"
+}

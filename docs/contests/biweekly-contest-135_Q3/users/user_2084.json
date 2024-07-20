@@ -1,0 +1,6 @@
+{
+    "username": "Coder-18",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        //if(nums.size()==20 && k==20)return 7;\n        unordered_map<int,vector<int>>mp;\n        vector<int>temp;\n\n        for(int i=0; i<nums.size()/2; i++){\n            int a = nums[i];\n            int b = nums[nums.size()-i-1];\n            int diff = abs(a-b);\n            mp[diff].push_back(max({a,b,k-a,k-b}));\n            temp.push_back(max({a,b,k-a,k-b}));\n        }\n\n        int ans = nums.size();\n        sort(temp.begin(), temp.end());\n\n        for(auto it: mp){\n            int diff = it.first;\n            int curr = lower_bound(temp.begin(), temp.end(), diff)-temp.begin();\n\n            curr = curr*2 + (nums.size()/2-curr);\n\n            for(auto val : it.second){\n                if(val<diff){\n                    curr-=2;\n                }else{\n                    curr--;\n                }\n            }\n\n            ans = min(ans, curr);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721489207",
+    "subm_id": "1327446287"
+}

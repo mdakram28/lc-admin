@@ -1,0 +1,6 @@
+{
+    "username": "fpeterfalvi",
+    "submission": "import java.util.Arrays;\n\nclass Solution {\n    public int minChanges(int[] nums, int k) {\n        int[] diffs = new int[k + 1];\n        int[] biggestDiffWithOneChange = new int[k + 1];\n        int n = nums.length;\n        for (int i = 0; i < n / 2; i++) {\n            int x = nums[i];\n            int y = nums[n - 1 - i];\n            int diff = Math.abs(x - y);\n            diffs[diff]++;\n            int biggestDiff = Math.max(k - Math.min(x, y), Math.max(x, y));\n            biggestDiffWithOneChange[biggestDiff]++;\n        }\n        int[] sumBiggestDiff = new int[k + 2];\n        for (int i = k; i >= 0; i--) {\n            sumBiggestDiff[i] = sumBiggestDiff[i + 1] + biggestDiffWithOneChange[i];\n        }\n        int result = Integer.MAX_VALUE;\n        for (int i = 0; i <= k; i++) {\n            int d = diffs[i];\n            int oneChange = sumBiggestDiff[i] - d;\n            int twoChange = n / 2 - d - oneChange;\n            result = Math.min(result, oneChange + 2 * twoChange);\n        }\n        return result;\n    }\n}",
+    "submit_ts": "1721487122",
+    "subm_id": "1327377173"
+}

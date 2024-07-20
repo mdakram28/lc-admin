@@ -1,0 +1,6 @@
+{
+    "username": "ygor_ribeiro7",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        const int n = nums.size();\n        int tam = n/2;\n        vector<int> dp(k+1, 0);\n        for(int i=0;i<n/2;i++){\n            int maior = max({nums[i], k - nums[i], nums[n-i-1], k - nums[n-i-1]});\n            dp[maior]++;\n        }\n        \n        for(int i=1;i<=k;i++) dp[i] += dp[i-1];\n        \n        unordered_map<int, int> freq;\n        for(int i=0;i<tam;i++){\n            freq[abs(nums[i] - nums[n - i - 1])]++;\n        }\n        \n        int ans = tam;\n        for(auto it : freq){\n            int value = it.first;\n            int qtd = it.second;\n            if(value == 0){\n                ans = min(ans, abs(tam - qtd));\n                continue;\n            }\n            ans = min(ans, tam - qtd + dp[value-1]);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1721488924",
+    "subm_id": "1327437357"
+}

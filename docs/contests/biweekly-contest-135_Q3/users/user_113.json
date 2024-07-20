@@ -1,0 +1,6 @@
+{
+    "username": "tonghuikang",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums) // 2\n        arr = nums[:n]\n        brr = nums[n:][::-1]\n        \n        # print(arr)\n        # print(brr)\n        \n        diffs = Counter()\n        dists_from_end = Counter()\n        for a,b in zip(arr, brr):\n            diffs[abs(a-b)] += 1\n            dist_from_end = (\n                min(\n                    min(a, k-a),\n                    min(b, k-b),\n                )\n            )\n            dists_from_end[dist_from_end] += 1\n        # print(dists_from_end)\n        # print(diffs)\n        \n        psum = [dists_from_end[0]]\n        for dist in range(1, k+1):\n            psum.append(psum[-1] + dists_from_end[dist])\n        # print(psum)\n        \n        res = n\n        for x,v in diffs.items():\n            # print(x,v,k-x)\n            val = n-v + n-psum[k-x]\n            # n-psum[k-x]  # number of pairs between (n-i, i)\n            res = min(res, val)\n            \n        # print()\n        return res",
+    "submit_ts": "1721487208",
+    "subm_id": "548308931"
+}

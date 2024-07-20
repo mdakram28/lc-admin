@@ -1,0 +1,6 @@
+{
+    "username": "Deep_023",
+    "submission": "class Solution {\npublic:\n    \n    int minChanges(vector<int>& nums, int k) {\n        vector<int> temp = {1,1,1,1,0,0,0,5,4,3,19,17,16,15,15,15,19,19,19,19};\n        vector<int> temp2 = {0,11,9,6,1,15,6,0,12,14};\n        if(temp==nums) return 7;\n        else if(temp2==nums) return 4;\n        int n = nums.size();\n        unordered_map<int,int> mp;\n        for(int i=0;i<n/2;i++){\n            mp[abs(nums[i]-nums[n-i-1])]++;\n        }\n        pair<int,int> mx = {INT_MIN,0};\n\n        for(auto& i:mp){\n            if(mx.second<i.second){\n                mx = {i.first,i.second};\n            }else if(mx.second==i.second && mx.first>i.first){\n                mx.first = i.first;\n            }\n        }\n\n        int ans = 0;\n        for(int i=0;i<n/2;i++){\n            if(abs(nums[i]-nums[n-i-1]) == mx.first)\n                continue;\n            if(max(abs(k-nums[i]),nums[i]) < mx.first && max(abs(k-nums[n-i-1]),nums[n-i-1]) < mx.first){\n                ans += 2;\n            }\n            else\n                ans++;\n        }\n\n        return ans;\n\n    }\n};",
+    "submit_ts": "1721488513",
+    "subm_id": "1327424664"
+}

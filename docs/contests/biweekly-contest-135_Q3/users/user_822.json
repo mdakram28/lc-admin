@@ -1,0 +1,6 @@
+{
+    "username": "huangsj1996",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        X_o_list = [0] * (k + 1)\n        l_list = [0] * (k + 1)\n        n = len(nums)\n        for i in range(n//2):\n            l, h = min(nums[i], nums[n-i-1]), max(nums[i], nums[n-i-1])\n            X_o = h - l\n            l = min(l, k - h)\n            l_list[l] += 1\n            X_o_list[X_o] += 1\n            # print(l, X_o)\n\n        l_list_acc = [s for s in l_list]\n        for i in range(1, len(l_list_acc)):\n            l_list_acc[i] += l_list_acc[i - 1]\n\n        res = n\n        for X in range(k + 1):\n            # print(X, n//2 - X_o_list[X] + (n//2 - l_list_acc[X]))\n            res = min(res, n//2 - X_o_list[X] + (n//2 - l_list_acc[k - X]))\n\n        # print(l_list)\n        # print(l_list_acc)\n        # print(X_o_list)\n\n        return res\n\n\n        ",
+    "submit_ts": "1721489103",
+    "subm_id": "1327442982"
+}

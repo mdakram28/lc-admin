@@ -1,0 +1,6 @@
+{
+    "username": "ashish_sprinklr",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size();\n        map<int,int>m;\n        for(int i=0;i<n/2;i++) {\n            if(nums[i]>nums[n-i-1])swap(nums[i],nums[n-i-1]);\n            m[-nums[i]+nums[n-i-1]]++;\n        }\n        int ans=n;\n        vector<pair<int,int>>v;\n        for(auto it : m) {\n            v.push_back({it.second,it.first});\n        }\n        sort(v.rbegin(),v.rend());\n        for(auto it : v) {\n            int cnt=it.first;\n            int d = it.second;\n            int minHere = n/2-cnt;\n            if(ans<=minHere)break;\n            int here=n;\n            for(int i=0;i<n/2;i++) {\n                int a=nums[i];\n                int b=nums[n-i-1];\n                if(b-a==d){\n                    here-=2;\n                    continue;}\n                if((b-0>=d and b-k<=d)||(0-a<=d and k-a>=d))here--;\n                \n            }\n            ans=min(ans,here);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487696",
+    "subm_id": "1327397883"
+}

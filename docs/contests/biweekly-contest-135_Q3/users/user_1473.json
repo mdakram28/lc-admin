@@ -1,0 +1,6 @@
+{
+    "username": "mishrasuyash713",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        int n = a.size();\n        map<int,vector<int>> mp;\n        vector<int> v;\n        for(int i = 0;i<n/2;i++){\n            int x = max(max(a[i],a[n-i-1]),max(k-a[i],k-a[n-i-1]));\n            mp[abs(a[i]-a[n-i-1])].push_back(x);\n            v.push_back(x);\n        }\n        sort(v.begin(),v.end());\n        int ans = n;\n        for(auto t : mp){\n           int x = lower_bound(v.begin(),v.end(),t.first) - v.begin();\n           x += n/2;\n           for(auto tt : t.second){\n              if(tt < t.first) x-=2;\n              else x--;\n           }\n           ans = min(ans,x);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489217",
+    "subm_id": "1327446575"
+}

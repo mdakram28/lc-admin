@@ -1,0 +1,6 @@
+{
+    "username": "qthon",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<int, int> mp;\n        int diff[k+2]; memset(diff, 0, sizeof(diff));\n        for(int i = 0; i < n/2; i++) {\n            mp[abs(nums[i]-nums[n-i-1])]++;\n            int v = max({nums[i], nums[n-i-1], k-nums[i], k-nums[n-i-1]});\n            diff[0]++;\n            diff[v+1]--;\n        }\n        for(int i = 0; i < k; i++) {\n            diff[i+1] += diff[i];\n        }\n        int ans = n;\n        for(int i = 0; i <= k; i++) {\n            ans = min(ans, n-diff[i]-mp[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489482",
+    "subm_id": "548318977"
+}

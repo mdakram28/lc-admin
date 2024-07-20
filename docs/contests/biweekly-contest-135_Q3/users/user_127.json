@@ -1,0 +1,6 @@
+{
+    "username": "sky1429",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        countPair = defaultdict(int)\n        counts = defaultdict(int)\n        np = n//2\n        for i in range(np):\n            countPair[abs(nums[i] - nums[n - i - 1])] += 1\n            counts[k - min(min(k - nums[i], nums[i]), min(k - nums[n - i - 1], nums[n - i - 1]))] += 1\n\n        ans = inf\n        prefix = defaultdict(int)\n        for diff in range(k + 1):\n            prefix[diff] += prefix[diff - 1] + counts[diff]\n        for diff in range(k + 1):\n            ans = min(ans, np - countPair[diff] + prefix[diff - 1])\n        return ans",
+    "submit_ts": "1721486982",
+    "subm_id": "1327371694"
+}

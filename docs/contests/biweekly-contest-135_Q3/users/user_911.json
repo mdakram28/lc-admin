@@ -1,0 +1,6 @@
+{
+    "username": "zen-i2osalind",
+    "submission": "import bisect\nfrom collections import defaultdict\nfrom typing import Counter, List\n\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        ans = n\n\n        # x <= y : x + t > k and y - t < 0: t>k-x and t>y -> t>max(k-x,y)\n\n        a = []\n        cnt = defaultdict(int)\n        for i in range(0, n//2):\n            x,y = nums[i], nums[n-1-i]\n            if x > y:\n                x,y = y,x\n            a.append(max(k-x,y))\n            cnt[y-x]+=1\n\n        a.sort()\n        # print(cnt, a)\n\n        for t in range(0,k+1):\n            res =  bisect.bisect_left(a, t)\n            res_1 = res * 2 + (n//2 - res - cnt[t])\n\n            # print(t, res_1)\n            ans = min(ans, res_1)\n\n        return ans",
+    "submit_ts": "1721488938",
+    "subm_id": "548316624"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Sagar_Goel",
+    "submission": "class Solution {\npublic:\n    int howMany(int num,vector<int>&arr){\n        if(arr[0]>=num) return 0;\n        int res=-1,s=0,e=arr.size()-1;\n        while(s<=e){\n            int mid=s+(e-s)/2;\n            if(arr[mid]<num){\n                res=mid;\n                s=mid+1;\n            }\n            else{\n                e=mid-1;\n            }\n        }\n        return res+1;\n    }\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> maxis;\n        for(int i=0;i<nums.size()/2;i++){\n            int num1=max(nums[i],nums[nums.size()-1-i]);\n            int num2=min(nums[i],nums[nums.size()-1-i]);\n            int num=max(num1,k-num2);\n            maxis.push_back(num);\n        }\n        sort(maxis.begin(),maxis.end());\n        unordered_map<int,int> u;\n        for(int i=0;i<nums.size()/2;i++){\n            int num=abs(nums[i]-nums[nums.size()-1-i]);\n            u[num]++;\n        }\n        int ans=nums.size()/2;\n        for(auto i:u){\n            int num1=i.second;\n            int num2=howMany(i.first,maxis);\n            int numb=nums.size()/2;\n            ans=min(ans,(int)(numb-num1+num2));\n            // cout<<num1<<\" \"<<num2<<\" \"<<ans<<endl;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489207",
+    "subm_id": "1327446293"
+}

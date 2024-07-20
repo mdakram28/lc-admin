@@ -1,0 +1,6 @@
+{
+    "username": "mittaludit768",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<ll,vector<ll> > mp_diff;\n        vector<ll> v;\n        int n=nums.size();\n        for(ll i=n-1;i>=n/2;i--)\n        {\n            ll d=abs(nums[i]-nums[n-i-1]);\n            ll l=max(nums[i]*1LL,max(nums[n-1-i]*1LL,max(k*1LL-nums[i],k*1LL-nums[n-1-i])));\n            mp_diff[d].push_back(l);\n        }\n        for(int i=n-1;i>=n/2;i--)\n        {\n            ll r=max(nums[i]*1LL,max(nums[n-1-i]*1LL,max(k*1LL-nums[i],k*1LL-nums[n-1-i])));\n            v.push_back(r);\n        }\n        int mn=INT_MAX;\n        sort(v.begin(),v.end());\n        for(auto i: mp_diff)\n        {\n            int d=i.first;\n            auto it=lower_bound(v.begin(),v.end(),d);\n            int idx=it-v.begin();\n            int c=0;\n            for(auto j: i.second)\n            {\n                if(j>=d)\n                    c++;\n                else\n                    c+=2;\n            }\n            //cout<<d<<\" \"<<y<<endl;\n            mn=min(mn,idx-c+n/2);\n        }\n        if(mn==INT_MAX)\n            return n;\n        return mn;\n        \n    }\n};",
+    "submit_ts": "1721490329",
+    "subm_id": "1327479561"
+}

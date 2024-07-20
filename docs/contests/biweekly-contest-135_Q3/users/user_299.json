@@ -1,0 +1,6 @@
+{
+    "username": "inmihir",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> maxCan(k + 2, 0);\n        vector<int> vals(k + 2, 0);\n        int n = nums.size();\n        for(int i = 0; i < n / 2; ++i) {\n            // maxCan[max(nums[i], nums[n - i - 1])]++;\n            int maxVal = max(max(nums[i], nums[n - i - 1]), k - min(nums[i], nums[n - i -1]));\n            maxCan[maxVal]++;\n            vals[abs(nums[i] - nums[n - i - 1])]++;\n        }\n\n\n        int ops = n, singleChangeReq = n / 2, doubleChangeReq = 0;\n        for(int X = 0; X <= k; ++X) {\n            int temp = singleChangeReq + 2 * doubleChangeReq - vals[X];\n            ops = min(ops, temp);\n            doubleChangeReq += maxCan[X];\n            singleChangeReq -= maxCan[X];\n        }\n\n        return ops;\n    }\n};\n\n// 3,1,7,7,8,7,0,5\n// 6,6,2,0,7,6,0,8\n// \n// k = 8\n\n// 6\n\n// 6, 6, 7, 7, 8, 7, 0, 8\n\n// 0 1 2 3 4 5 6 7 8 \n// 1 ",
+    "submit_ts": "1721487730",
+    "subm_id": "1327399146"
+}

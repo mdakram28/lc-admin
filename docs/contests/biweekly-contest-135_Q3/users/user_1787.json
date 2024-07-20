@@ -1,0 +1,6 @@
+{
+    "username": "cwallisch",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        candidates = []\n        vals = []\n        for x, y in zip(nums[:len(nums)//2], nums[-1:len(nums)//2-1:-1]):\n            candidates.append(abs(x-y))\n            #print(x, y, max(x, y, k-x, k-y))\n            vals.append(max(x, y, k-x, k-y))\n\n        candidates = Counter(candidates)\n        vals = Counter(vals)\n        arr = [(0,0)]\n        for val, cnt in vals.items():\n            arr.append((val,cnt))\n        arr.sort()\n        occ = [snd for _, snd in arr]\n        arr = [fst for fst, snd in arr]\n        occ = [*accumulate(occ)]\n        #print(arr)\n        #print(occ)\n\n        best = inf\n        def zero():\n            yield (0,0)\n        for cand, cnt in chain(candidates.items(), zero()):\n            left, right = 0, len(arr) - 1\n            while left != right:\n                mid = (left + right + 1) // 2\n                if arr[mid] < cand:\n                    left = mid\n                else:\n                    right = mid - 1\n            #print(cand, occ[left], cnt, len(nums) // 2 - cnt + occ[left])\n            best = min(best, len(nums) // 2 - cnt + occ[left])\n                    \n        return best\n\n        ",
+    "submit_ts": "1721490127",
+    "subm_id": "1327473802"
+}

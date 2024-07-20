@@ -1,0 +1,6 @@
+{
+    "username": "sahusthitaprajna",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, vector<int>> diffGroups;\n        vector<int> maxElements;\n        int n = nums.size();\n\n        for (int i = 0; i < n / 2; ++i) {\n            int left = nums[i], right = nums[n - 1 - i];\n            int diff = abs(left - right);\n            int maxElem = max({left, right, k - left, k - right});\n            diffGroups[diff].push_back(maxElem);\n            maxElements.push_back(maxElem);\n        }\n\n        sort(maxElements.begin(), maxElements.end());\n        int minOperations = n;\n\n        for (const auto& [diff, elements] : diffGroups) {\n            int operations = lower_bound(maxElements.begin(), maxElements.end(), diff) - maxElements.begin();\n            operations = operations * 2 + (n / 2 - operations);\n            \n            for (int elem : elements) {\n                operations -= (elem < diff) ? 2 : 1;\n            }\n\n            minOperations = min(minOperations, operations);\n        }\n\n        return minOperations;\n    }\n};",
+    "submit_ts": "1721489882",
+    "subm_id": "1327466584"
+}

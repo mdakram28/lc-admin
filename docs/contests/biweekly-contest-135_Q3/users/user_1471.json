@@ -1,0 +1,6 @@
+{
+    "username": "kongchenMax",
+    "submission": "class Solution:\n    def minChanges(self, a: List[int], k: int) -> int:\n        n = len(a)\n        for i in range(n // 2):\n            if a[i] > a[n - 1 - i]:\n                tmp = a[i]\n                a[i] = a[n - 1 - i]\n                a[n - 1 - i] = tmp\n        diff = [a[n - 1 - i] - a[i] for i in range(n // 2)]\n        cnt = Counter(diff)\n        sorted_counter = sorted(cnt.items(), key=lambda x: x[1], reverse=True)\n        # \u9009\u62e9\u4e00\u4e2a x\n        ans = n\n        cnt_change = 0\n        for (x, v) in sorted_counter:\n            cnt0 = 0\n            for i in range(n // 2):\n                if a[n - 1 - i] - a[i] != x:\n                    # \u9700\u8981\u4fee\u6539\n                    if a[i] + x > k and a[n - 1 - i] - x < 0:\n                        cnt0 += 2\n                    else:\n                        cnt0 += 1\n            if ans > cnt0:\n                ans = cnt0\n                cnt_change = 10\n            cnt_change -= 1\n            if cnt_change < 0:\n                break\n        return ans",
+    "submit_ts": "1721489512",
+    "subm_id": "548319086"
+}

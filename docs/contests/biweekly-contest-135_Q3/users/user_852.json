@@ -1,0 +1,6 @@
+{
+    "username": "saksham2211",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\nint dp[100001];\n    int minChanges(vector<int>& nums, int k) {\n            vector<int> v;\n            int mino =1000000000;\n        for(int i=0;i<nums.size()/2;i++)\n        {\n            dp[abs(nums[i]-nums[nums.size()-i-1])]++;\n            int val1= max(nums[i],k-nums[i]);\n            int val2= max(nums[nums.size()-i-1],k-nums[nums.size()-i-1]);\n            v.push_back(max(val1,val2));\n            // cout<<v[i]<<\" \";\n        }\n        sort(v.begin(),v.end());\n        int n=v.size();\n        for(int i=0;i<=k;i++)\n        {\n            int use= lower_bound(v.begin(),v.end(),i)-v.begin();\n            if(use==v.size())\n            {\n                // cout<<2*n<<endl;\n                // cout<<\"ok\"<<endl;\n            mino= min(mino,(n*2));\n            }\n            else\n            {\n                use--;\n                int ok=(2*(use+1)+(v.size()-use-1)-dp[i]);\n                // cout<<ok<<endl;\n                mino= min(mino,ok);\n            }\n            // cout<<mino<<endl;\n        }\n        return mino;\n        \n    }\n};",
+    "submit_ts": "1721489153",
+    "subm_id": "1327444536"
+}

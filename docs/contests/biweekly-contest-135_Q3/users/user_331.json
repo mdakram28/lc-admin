@@ -1,0 +1,6 @@
+{
+    "username": "r-tron19",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        diff = [0]*(k+2)\n        \n        def update(x, y, d):\n            if x > y:\n                return\n            nonlocal diff\n            diff[x] += d\n            diff[y+1] -= d\n            \n        for i in range(n//2):\n            li = [nums[i], nums[n-i-1]]\n            li.sort()\n            a, b = li\n            t = b-a\n            update(0, t-1, 1)\n            update(t+1, t+max(a, k-b), 1)\n            update(t+max(a, k-b)+1, k, 2)\n        \n        for i in range(1, k+2):\n            diff[i] += diff[i-1]\n        \n        print(diff)\n        return min(diff[:-1])",
+    "submit_ts": "1721488135",
+    "subm_id": "1327412664"
+}

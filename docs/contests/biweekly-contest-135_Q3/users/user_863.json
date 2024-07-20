@@ -1,0 +1,6 @@
+{
+    "username": "shi-yao-du-bu-shi",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        \n        ans = n\n        cnt = Counter()\n        bad_pairs = Counter()\n        for i in range(n // 2):\n            cur = abs(nums[i] - nums[n - i - 1])\n            bad = max(k - min(nums[i], nums[n - i - 1]), max(nums[i], nums[n - i - 1])) + 1\n            cnt[cur] += 1\n            bad_pairs[bad] += 1\n        for i in range(1, k + 1):\n            bad_pairs[i] += bad_pairs[i - 1]\n            \n        for k, v in cnt.items():\n            ans = min(ans, n // 2 - v + bad_pairs[k])\n            \n        return ans",
+    "submit_ts": "1721489178",
+    "subm_id": "548317663"
+}

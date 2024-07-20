@@ -1,0 +1,6 @@
+{
+    "username": "Shounak45",
+    "submission": "class Solution {\n    public static int f(int a,int b,int k){\n        int op1=k-a;\n        int op2=a;\n        int op3=b;\n        int op4=k-b;\n\n        return Math.max(op1,Math.max(op2,Math.max(op3,op4)));\n    }\n    public int minChanges(int[] nums, int k) {\n        HashMap<Integer,Integer> map=new HashMap<>();\n        int n=nums.length;\n        int i=0;\n        int j=n-1;\n        int freq[]=new int[k+1];\n\n        while(i<j){\n            int val=Math.abs(nums[i]-nums[j]);\n            map.put(val,map.getOrDefault(val,0)+1);\n            freq[f(nums[i],nums[j],k)]+=1;\n            i++;\n            j--;\n        }\n        \n        for(i=1;i<=k;i++){\n            freq[i]+=freq[i-1];\n        }\n        int ans=Integer.MAX_VALUE;\n        for(int key:map.keySet()){\n            int val=map.get(key);\n            int less=(key>0?freq[key-1]:0);\n            int greater=n/2-less;\n            int op=less*2+greater-val;\n            ans=Math.min(op,ans);\n        }\n        return ans;\n        \n    }\n}",
+    "submit_ts": "1721489529",
+    "subm_id": "1327456088"
+}

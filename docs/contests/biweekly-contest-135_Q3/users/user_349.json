@@ -1,0 +1,6 @@
+{
+    "username": "40547011S",
+    "submission": "class Solution {\npublic:\n\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> diff(1e5+3);\n        int n = nums.size();\n        for (int i = 0; i < nums.size() / 2; i += 1) {\n            int d = abs(nums[i] - nums[n - i - 1]);\n            diff[d] += 1;\n            diff[d + 1] -= 1;\n            int max_val = max({abs(nums[i] - k), abs(nums[n - i - 1] - k), nums[i], nums[n - i - 1]});\n            int min_val = min({abs(nums[i] - k), abs(nums[n - i - 1] - k)});\n            if (nums[i] <= k || nums[n - i - 1] <= k) {\n                min_val = 0;\n            }\n            diff[min_val] += 1;\n            diff[max_val + 1] -= 1;\n            if (d > max_val || d < min_val) {\n                diff[d] += 1;\n                diff[d + 1] -= 1;\n            }\n            // cout << \"i: \" << i << \" \" << max_val << \" \" << min_val << \" d: \" << d << endl;\n        }\n        int cnt = nums.size(), ans = nums.size();\n        for (int i = 0; i < diff.size(); i += 1) {\n            cnt -= diff[i];\n            ans = min(cnt, ans);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487872",
+    "subm_id": "1327403979"
+}

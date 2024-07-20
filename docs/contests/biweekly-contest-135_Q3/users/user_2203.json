@@ -1,0 +1,6 @@
+{
+    "username": "sameer844",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        hash_map = defaultdict(list)\n        seen = []\n        n = len(nums)\n        for i in range(len(nums) // 2):\n            a = nums[i]\n            b = nums[len(nums) - i - 1]\n            diff = abs(a - b)\n            X = max(a, b, k - a, k - b)\n            hash_map[diff].append(X)\n            seen.append(X)\n\n        ans = len(nums)\n        seen.sort()\n\n        # Process each difference value\n        for diff, values in hash_map.items():\n            # Use bisect to find count of elements < diff\n            count_less_than_diff = bisect_left(seen, diff)\n            T = count_less_than_diff * 2 + (n // 2 - count_less_than_diff)\n            \n            # Adjust T based on values\n            for X in values:\n                T -= 2 if X < diff else 1\n            \n            # Update the minimum answer\n            ans = min(ans, T)\n\n        return ans",
+    "submit_ts": "1721489923",
+    "subm_id": "1327467810"
+}

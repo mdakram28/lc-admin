@@ -1,0 +1,6 @@
+{
+    "username": "a36466136",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        pair_wise = []\n        l = len(nums)\n        for i in range(l//2):\n            pair_wise.append(max(nums[i], nums[l - i - 1], k - nums[i], k - nums[l - i - 1]))\n        pair_wise.sort()\n        count_diff = {}\n        result = float(\"inf\")\n        for i in range(l // 2):\n            diff = abs(nums[i] - nums[l - i - 1])\n            if diff not in count_diff:\n                count_diff[diff] = 0\n            count_diff[diff] += 1\n        def search(target, front, end):\n            if front > end:\n                return -1\n            mid = (front + end) // 2\n            if pair_wise[mid] >= target:\n                if mid == 0:\n                    return mid\n                if pair_wise[mid - 1] < target:\n                    return mid\n                return search(target, front, mid - 1)\n            if mid == len(pair_wise) - 1:\n                return mid\n            return search(target, mid + 1, end)\n        for j in range(k + 1):\n            num = search(j, 0, len(pair_wise) - 1)\n            result = min(result, 2 * num + (len(pair_wise) - num) - count_diff.get(j, 0))\n        return result\n\n\n        \n        ",
+    "submit_ts": "1721488865",
+    "subm_id": "1327435580"
+}

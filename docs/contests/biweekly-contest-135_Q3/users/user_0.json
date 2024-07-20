@@ -1,0 +1,6 @@
+{
+    "username": "ethanrao",
+    "submission": "class Solution {\npublic:\n    int n, a[100005], b1[100005], b2[100005];\n    int minChanges(vector<int>& nums, int k) {\n        n = nums.size();\n        for(int i = 1; i <= n; ++i) a[i] = nums[i - 1];\n        for(int i = 1; i <= n / 2; ++i) b1[abs(a[i] - a[n - i + 1])] += 1;\n        for(int i = 1; i <= n / 2; ++i){\n            int m1 = std::max(k - a[i], a[i] - 0), m2 = std::max(k - a[n - i + 1], a[n - i + 1] - 0);\n            ++b2[std::max(m1, m2)];\n        }\n        for(int i = 1; i <= k; ++i) b2[i] += b2[i - 1];\n        int ans = 1e9;\n        for(int i = 0; i <= k; ++i){\n            int tmp = n / 2 - b1[i];\n            if(i >= 1) ans = std::min(ans, tmp + b2[i - 1]);\n            else ans = std::min(ans, tmp);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487499",
+    "subm_id": "1327391025"
+}

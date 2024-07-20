@@ -1,0 +1,6 @@
+{
+    "username": "l0vekeven",
+    "submission": "from bisect import bisect_left, bisect_right\nfrom collections import defaultdict\nfrom math import inf\nfrom typing import Counter, List\n\nfrom sortedcontainers import SortedDict, SortedList\n\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        cnt0 = SortedList()\n        cnt1 = SortedList()\n        for i in range(n // 2):\n            a,b = min(nums[i],nums[n - i - 1]),max(nums[i],nums[n - i - 1])\n            cnt0.add(b - a)\n            cnt1.add(max(b,k - a))\n        cnt0 = Counter(cnt0)\n        cnt0 = SortedDict(cnt0)\n        ans = inf\n        for k,v in cnt0.items():\n            ans = min(ans,n // 2 - v + bisect_left(cnt1,k))\n        return ans\nprint(Solution().minChanges(nums = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], k = 0))",
+    "submit_ts": "1721489277",
+    "subm_id": "548318121"
+}

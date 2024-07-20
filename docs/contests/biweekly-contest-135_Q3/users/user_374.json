@@ -1,0 +1,6 @@
+{
+    "username": "user1127tK",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        diff_dict = {}\n        avail = []\n        for i in range(n // 2):\n            diff = abs(nums[i] - nums[-1-i])\n            avail.append(max(k - nums[-1-i], k - nums[i], nums[i], nums[-1-i]))\n            if diff in diff_dict:\n                diff_dict[diff] += 1\n            else:\n                diff_dict[diff] = 1\n        avail = Counter(avail)\n        avail_list = [(item, avail[item]) for item in avail]\n        avail_list.sort()\n        avail_cumsum = []\n        avail_cumsum.append(avail_list[0])\n        for item in avail_list[1:]:\n            avail_cumsum.append((item[0], avail_cumsum[-1][1] + item[1]))\n        changes = 2 * n\n        for diff in diff_dict:\n            if diff <= k // 2:\n                changes = min(changes, n // 2 - diff_dict[diff])\n            else:\n                qualified = bisect.bisect(avail_list, (diff, 0))\n                if qualified == 0:\n                    changes = min(changes, n // 2 - diff_dict[diff])\n                else:\n                    changes = min(changes, n // 2 - diff_dict[diff] + avail_list[qualified-1][1])\n        return changes\n",
+    "submit_ts": "1721487940",
+    "subm_id": "1327406217"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "fmota",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        vector<int> cnt(k + 100, 0);\n        int n = a.size();\n        for(int i = 0; i < n - i - 1; i++){\n            if(a[i] > a[n - 1 - i]) swap(a[i], a[n - 1 - i]);\n            int d = a[n - 1 - i] - a[i];\n            cnt[0] += 1;\n            cnt[d] -= 1;\n            int e = d + max(a[i], k - a[n - 1 - i]);\n            cnt[d + 1] += 1;\n            cnt[e + 1] -= 1;\n            cnt[e + 1] += 2;\n            cnt[k + 1] -= 2;\n        }\n        int res = n / 2;\n        for(int i = 0; i <= k; i++){\n            if(i) cnt[i] += cnt[i - 1];\n            res = min(res, cnt[i]);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721486442",
+    "subm_id": "1327348210"
+}

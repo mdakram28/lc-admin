@@ -1,0 +1,6 @@
+{
+    "username": "sas4eka",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& v, int k) {\n        int n = v.size();\n        const int SZ = 100002;\n        vector<int> cum(SZ+1, 0);\n        vector<int> pcum(SZ+1, 0);\n        for (int i = 0; i < n/2; i++) {\n            int a = v[i];\n            int b = v[n-1-i];\n            if (a > b) swap(a, b);\n            int diff = b - a;\n            int tot = max(b, k-a); \n            cum[0]++;\n            cum[tot+1]--;\n            pcum[0]++;\n            pcum[tot+1]--;\n            if (diff <= tot) {\n                pcum[diff]--;\n                pcum[diff+1]++;\n            }\n            if (k > tot) {\n                cum[tot+1]++;\n                cum[k+1]--;\n                pcum[tot+1] += 2;\n                pcum[k+1] -= 2;\n                if (diff > tot) {\n                    pcum[diff] -= 2;\n                    pcum[diff+1] += 2;\n                }\n            }\n        }\n        int cans = 0;\n        int cost = 0;\n        int ans = 1e9;\n        for (int i = 0; i < SZ; i++) {\n            cans += cum[i];\n            cost += pcum[i];\n            if (cans == n/2) {\n                ans = min(ans, cost);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488081",
+    "subm_id": "1327410907"
+}

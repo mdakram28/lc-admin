@@ -1,0 +1,6 @@
+{
+    "username": "IamVaibhave53",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> diff(k+2);\n        int ans = INT_MAX;\n        for(int i=0;i<nums.size();i++){\n            int j = nums.size()-i-1;\n            if(j<=i) break;\n            int d = abs(nums[j]-nums[i]);\n            //0....d....k\n            //0 changes [d,d]\n            //what is the range in which i can make by using exactly 1 change? \n            //increase the larger number to k\n            //[d + k-max(nums[i],nums[j])]\n            //[d + min(nums[i], nums[j])] //make the min guy to 0\n            int mx =(d + max(min(nums[i], nums[j]), k - max(nums[i], nums[j])));\n            //now what is the minimum i can make \n            diff[d]--;\n            diff[0]++;\n            diff[d+1]++;\n            diff[mx+1]++;\n        }\n        for(int i=1;i<=k+1;i++) diff[i]+=diff[i-1];\n        for(int i=0;i<=k;i++) ans=min(ans, diff[i]);\n        return ans;\n    }\n};\n\n\n//all are between 0....k",
+    "submit_ts": "1721487950",
+    "subm_id": "1327406546"
+}

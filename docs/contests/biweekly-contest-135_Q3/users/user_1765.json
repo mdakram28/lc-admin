@@ -1,0 +1,6 @@
+{
+    "username": "neko643",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        /*\n        replace with a number in [0, k];\n        for each i, abs(nums[i], nums[n - 1 - i]) == X. \n        min number of operations? \n        ------\n        we can have max X <- min of max(nums[i], k -  nums[i])\n        sometimes we can do 2 operations. For example: k = 6, X = 4, [... 3, 3 ...] => [... 0, 4 ...]\n        \n        */\n        int n = nums.size();\n        vector<int> cnt(k + 1, 0);\n        vector<int> cantfit(k + 2, 0);\n        \n        for(int i = 0; i < n / 2; i++) {\n            int X = 0;\n            cnt[abs(nums[i] - nums[n - 1 - i])]++;\n            X = max(X, max(nums[i], k - nums[i]));\n            X = max(X, max(nums[n - 1 - i], k - nums[n - 1 - i]));\n            cantfit[X + 1]++;\n        }\n        for(int i = 1; i <= k; i++) {\n            cantfit[i] += cantfit[i - 1];\n        }\n        \n        int ans = 1e5;\n        for(int i = 0; i <= k; i++) {\n            int val = n / 2 - cnt[i] + cantfit[i];\n            // cout << i << \" i \" << val << \"\\n\";\n            ans = min(ans, val);\n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1721489806",
+    "subm_id": "1327464377"
+}

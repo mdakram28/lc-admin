@@ -1,0 +1,6 @@
+{
+    "username": "ianwong1999",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int res = n;\n        \n        vector<int> cnt(k + 1);\n        vector<int> vec(k + 1);\n        \n        for (int i = 0; i < n / 2; i++) {\n            int x = nums[i];\n            int y = nums[n - i - 1];\n            \n            if (x > y) swap(x, y);\n            \n            int high = max(y, k - x);\n            cnt[high]++;\n            \n            vec[abs(x - y)]++;\n        }\n        \n        for (int i = 1; i <= k; i++) {\n            cnt[i] += cnt[i - 1];\n        }\n        \n        for (int i = 0; i <= k; i++) {\n            int cost = n / 2 - vec[i];\n            if (i - 1 >= 0) cost += cnt[i - 1];\n            \n            res = min(res, cost);\n        }\n                        \n    return res;\n    }\n};",
+    "submit_ts": "1721486416",
+    "subm_id": "1327346934"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Striver-",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        diff_freqs = defaultdict(int) \n        sorted_nums = []\n        n = len(nums)\n        \n        for i in range(n//2):\n            comp = n - i - 1 \n            diff = abs(nums[comp] - nums[i]) \n            mx = max(abs(k - nums[comp]), abs(k- nums[i]), nums[comp], nums[i])\n            sorted_nums.append(mx)\n            diff_freqs[diff] += 1 \n            \n        sorted_nums.sort() \n        \n        def cnt_less(num): # find elems less than num\n            l = 0 \n            r = len(sorted_nums) - 1\n            \n            idx = -1 \n            while l <= r:\n                mid = (l + r) // 2 \n                if(sorted_nums[mid] < num):\n                    l = mid + 1 \n                    idx = mid \n                else:\n                    r = mid - 1 \n            return idx + 1\n        \n        ops = n \n        for k in diff_freqs.keys():\n            v = diff_freqs[k]\n            less = cnt_less(k) \n            curr_ops = (2*less) + (n//2 - less) - v\n            # print(\"K, cnt, v\", k , less, v, \"curr_ops => \", curr_ops)\n            ops = min(ops, curr_ops)\n        \n        return ops \n            \n        ",
+    "submit_ts": "1721489704",
+    "subm_id": "1327461211"
+}

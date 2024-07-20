@@ -1,0 +1,6 @@
+{
+    "username": "xiaoping3418",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size() / 2;\n        unordered_map<int, int> mp;\n        vector<int> one(k + 1);\n        \n        for (int i = 0; i < n; ++i) {\n            int a = min(nums[i], nums[2 * n - 1 - i]);\n            int b = max(nums[i], nums[2 * n - 1 - i]);\n            mp[b - a] += 1;\n            int r = max(k - a, b);\n            one[r] += 1;\n        }\n        \n        for (int i = k - 1; i >= 0; --i) one[i] += one[i + 1];\n        \n        int ret = 2 * n;\n        \n        for (int i = 0; i <= k; ++i) {\n            int cnt1 = mp[i];\n            int cnt2 = one[i] - cnt1;\n            ret = min(ret, cnt2 + 2 * (n - cnt1 - cnt2));\n        }\n        \n        return ret;\n    }\n};",
+    "submit_ts": "1721488274",
+    "subm_id": "1327417114"
+}

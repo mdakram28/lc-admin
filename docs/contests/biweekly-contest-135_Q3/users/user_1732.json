@@ -1,0 +1,6 @@
+{
+    "username": "AryamanM",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int>diff;\n        vector<int>diff_freq(k+1,0), diff_range(k+1,0);\n        for(int i = 0; i < n / 2; i++){\n            int d = abs(nums[i] - nums[n - 1- i]);\n            diff_freq[d]++;\n            int max_d = max(max(nums[i], nums[n-1-i]) - 0, (k - min(nums[i], nums[n - 1 - i])));\n            diff_range[max_d]++;\n            diff.push_back(d);\n        }\n        sort(diff.begin(), diff.end());\n        for(int i = k - 1; i >= 0; i--){\n            diff_range[i] += diff_range[i+1];\n        }\n        int min_changes = INT_MAX, pairs = n / 2;\n        for(int i = 0; i <= k; i++){\n            int changes = (diff_range[i] - diff_freq[i]) + (pairs - diff_range[i]) * 2;\n            min_changes = min(min_changes, changes);\n        }\n        return min_changes;\n    }\n};",
+    "submit_ts": "1721490080",
+    "subm_id": "1327472454"
+}

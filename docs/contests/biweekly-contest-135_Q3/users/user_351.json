@@ -1,0 +1,6 @@
+{
+    "username": "chauncey95",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        onemax = [max(nums[i], nums[n-1-i], k - nums[i], k - nums[n-1-i]) for i in range(n//2)]\n        onemax_count = collections.Counter(onemax)\n        # print(onemax_count)\n        prefix = [n//2] * (k+1)\n        for i in range(1, k+1):\n            prefix[i] = prefix[i-1] + onemax_count[i-1] \n        # print(prefix)\n        diff = [abs(nums[i] - nums[n-i-1]) for i in range(n//2)]\n        diff_count = collections.Counter(diff)\n        for i in range(0, k+1):\n            prefix[i] -= diff_count[i]\n        # print(prefix)\n        return min(prefix)\n",
+    "submit_ts": "1721488179",
+    "subm_id": "1327414068"
+}

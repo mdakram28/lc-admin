@@ -1,0 +1,6 @@
+{
+    "username": "yuchen_724",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        my_dict = {}\n        bonus = []\n\n        for i in range(len(nums)//2):\n            n = abs(nums[i]-nums[-i-1])\n            if n not in my_dict:\n                my_dict[n] = len(nums)//2-1\n            else:\n                my_dict[n] -= 1\n            x = max(max(nums[i],k-nums[i]),max(nums[-i-1],k-nums[-i-1]))\n            l = 0\n            h = len(bonus)-1\n            while l<=h:\n                m = (l+h)//2\n                if bonus[m]<x:\n                    l = m+1\n                elif bonus[m]>x:\n                    h = m-1\n                else:\n                    l = m\n                    break\n            bonus.insert(l,x)\n        \n        my_dict = dict(sorted(my_dict.items(), key=lambda item: item[1]))\n        ans = 1000000\n        for key,val in my_dict.items():\n            if val>=ans:\n                break\n            i = 0\n            while i<len(bonus) and val+i<ans and bonus[i]<key:\n                i += 1\n            ans = min(ans,val+i)\n        \n        return ans\n\n\n        ",
+    "submit_ts": "1721487348",
+    "subm_id": "1327385528"
+}

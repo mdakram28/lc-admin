@@ -1,0 +1,6 @@
+{
+    "username": "joe-33",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        dic = {}\n        arr = []\n        l, r = 0, n-1\n        while l < r:\n            x, y = nums[l], nums[r]\n            if x > y:\n                x, y = y, x\n            arr.append((x, y))\n            gap = abs(x - y)\n            if gap not in dic:\n                dic[gap] = 0\n            dic[gap] += 1\n            l += 1\n            r -= 1\n        arr.sort(key=lambda x: min(x[0], k-x[1]))\n        m = len(arr)\n\n        res = inf\n        for x in dic:\n            temp = dic[x]\n            left, right = 0, m-1\n            while left < right:\n                mid = (left + right) >> 1\n                if arr[mid][0] + x <= k or arr[mid][1] - x >= 0:\n                    left = mid + 1\n                else:\n                    right = mid\n            if left < m and (arr[left][0] + x <= k or arr[left][1] - x >= 0):\n                left += 1\n            res = min(res, m - temp + m - left)\n        return res\n        ",
+    "submit_ts": "1721489480",
+    "subm_id": "548318970"
+}

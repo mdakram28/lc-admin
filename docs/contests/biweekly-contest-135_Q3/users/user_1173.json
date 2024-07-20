@@ -1,0 +1,6 @@
+{
+    "username": "kelgarcia724",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        def greater_or_equal(arr, x):\n            n = len(arr)\n            l, r = 0, n - 1\n\n            lowest = 0\n            while l <= r:\n                mid = (l + r) // 2\n\n                if arr[mid] >= x:\n                    lowest = mid\n                    r = mid - 1\n                else:\n                    l = mid + 1\n            \n            return n - lowest\n\n        n = len(nums)\n        pairs = n // 2\n\n        diff = defaultdict(int)\n        maxs = []\n\n        for i in range(pairs):\n            a = nums[i]\n            b = nums[n - i - 1]\n            if a > b:\n                a, b = b, a\n\n            diff[b - a] += 1\n\n            maxs.append(max(b, k - a))\n\n        maxs.sort()\n        # print(diff)\n        # print(maxs)\n\n        best = 10**10\n        for x in range(0, k + 1):\n            one_change = greater_or_equal(maxs, x)\n            no_change = diff[x]\n            two_change = len(maxs) - one_change\n            cur = one_change - no_change + two_change * 2\n            best = min(best, cur)\\\n        \n        return best\n\n\n\"\"\"\n0,1,2,3 3,6,5,4\n\n\n0 4 - 1 5 - 2 6 - 3 3\n\n0 6\n0 5\n0 4\n0 3\n\n\"\"\"",
+    "submit_ts": "1721489529",
+    "subm_id": "1327456070"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "wei-ji-1",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        a = [0] * (k+1)\n        for i in range(n // 2):\n            mm = max(k - min(nums[i], nums[n-i-1]), max(nums[i], nums[n-i-1]))\n            if (abs(nums[i] - nums[n-i-1])) == 0:\n                if mm == 0:\n                    if len(a) > 1:\n                        a[1] += 2\n                else:\n                    a[1] += 1\n                    if (mm+1) <= k:\n                        a[mm+1] += 1\n            else:\n                a[0] += 1\n                a[abs(nums[i] - nums[n-i-1])] -= 1\n                if (abs(nums[i] - nums[n-i-1])+1) <= k:\n                    a[abs(nums[i] - nums[n-i-1])+1] += 1\n                if (mm+1) <= k:\n                    a[mm+1] += 1\n        ans = inf\n        print(a)\n        for i in range(k+1):\n            if i > 0:\n                a[i] += a[i-1]\n            ans = min(ans, a[i])\n        return ans\n            \n\n\n        \n",
+    "submit_ts": "1721487939",
+    "subm_id": "548312197"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "_aka5h",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> vec;\n        map<int,int> mp;\n        \n        for(int i = 0; i < n / 2; i++) {\n            int abs_diff = abs(nums[i] - nums[n - i - 1]);\n            mp[abs_diff]++;\n            \n            int a = nums[i], b = nums[n - i - 1];\n            int maxi = max({a, b, k - a, k - b});\n            vec.push_back(maxi);\n        }\n        \n        sort(vec.begin(), vec.end());\n        \n        \n        auto get_ans = [&] (int x) -> int {\n            int l = 0, r = vec.size() - 1;\n            int ans = 0;\n            \n            while (l <= r) {\n                \n                int mid = l + (r - l >> 1);\n                \n                if(vec[mid] >= x) {\n                    ans = mid;\n                    r = mid - 1;\n                } \n                \n                else l = mid + 1;\n            }\n            \n            return ans;\n        };\n        \n        int mini = 1e9;\n        for(int i = 0; i <= k; i++) {\n            int ans = n / 2 - mp[i];\n            ans += get_ans(i);\n            mini = min(mini, ans);\n        }\n        \n        return mini;\n    }\n};",
+    "submit_ts": "1721488475",
+    "subm_id": "1327423436"
+}

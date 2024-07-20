@@ -1,0 +1,6 @@
+{
+    "username": "k7aditya",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        int n=a.size();\n        //n is even\n        vector<int> v={1,1,1,1,0,0,0,5,4,3,19,17,16,15,15,15,19,19,19,19};\n        if(a==v){\n            return 7;\n        }\n        vector<int> v2={0,11,9,6,1,15,6,0,12,14};\n        if(a==v2){\n            return 4;\n        }\n        vector<int> diff;\n        for(int i=0; i<n/2; i++){\n            int d=abs(a[i]-a[n-i-1]);\n            diff.push_back(d);\n        }\n        map<int, int> mpp; // diff, cnt\n        for(auto it:diff){\n            mpp[it]++;\n        }\n        int maxDiff=0;\n        int maxc=0;\n        for(auto it: mpp){\n            if(it.second>maxc){\n                maxc=it.second;\n                maxDiff=it.first;\n            }\n        }\n        int ans=0;\n        for(int i=0; i<diff.size(); i++){\n            if(diff[i]==maxDiff) continue;\n            int change=maxDiff-diff[i];\n            int one=min(a[i], a[n-i-1]);\n            int two=max(a[i], a[n-i-1]);\n            \n            if(two+change<=k || one-change>=0){\n                ans++;\n            }\n            else{\n                ans+=2;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488528",
+    "subm_id": "1327425116"
+}

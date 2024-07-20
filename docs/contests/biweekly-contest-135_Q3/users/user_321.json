@@ -1,0 +1,6 @@
+{
+    "username": "Hiki42",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        mem = defaultdict(list)\n        cnt = defaultdict(int)\n        n = len(nums)\n        for i in range(0, len(nums)//2):\n            temp = abs(nums[n - i - 1] - nums[i])\n            cnt[temp] += 1\n            mem[temp].append((nums[i],nums[n-i-1]))\n\n        min_diff = float('inf')\n        hf = n//2\n        keys = sorted([key for key in cnt], key = lambda x: -cnt[x])\n        for val in keys:\n            if min_diff <= hf - cnt[val]:\n                break\n            temp = 0\n            for abs_val in mem:\n                if abs_val == val:\n                    continue\n                for num1, num2 in mem[abs_val]:\n                    if num2 > num1:\n                        num1, num2 = num2, num1\n                    if num2 + val <= k or num1 - val >= 0:\n                        temp += 1\n                    else:\n                        temp += 2\n            min_diff = min(temp, min_diff)\n                \n            \n        return min_diff\n            \n\n",
+    "submit_ts": "1721487788",
+    "subm_id": "1327401174"
+}

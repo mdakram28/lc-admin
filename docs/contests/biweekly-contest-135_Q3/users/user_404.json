@@ -1,0 +1,6 @@
+{
+    "username": "parzival01",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<int,int> umap;\n        vector<int> v(k+2,0);\n        for(int x=0;x<n/2;x++){\n            int a = nums[x];\n            int b = nums[n-x-1];\n            umap[abs(a-b)]++;          \n            int maxi = abs(a-b) + max( (k-max(a,b)) , (min(a,b)) );\n            v[maxi+1] += 1;\n        }\n        int prev = n/2;\n        for(int x=0;x<=k;x++){\n            v[x] = prev - v[x];\n            prev = v[x];\n        }\n        int ans = INT_MAX;\n        for(auto &x:umap){\n            int temp = (n/2) - v[x.first]; \n            // cout<<x.first<<\" \"<<temp<<endl;\n            int cal = (temp*2) + ((n/2)-x.second-temp);\n            ans = min(ans,cal);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488027",
+    "subm_id": "1327409173"
+}

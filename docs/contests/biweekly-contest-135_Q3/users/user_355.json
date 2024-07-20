@@ -1,0 +1,6 @@
+{
+    "username": "dkochetov",
+    "submission": "func minChanges(nums []int, k int) int {\n    n := len(nums)\n    m := n / 2\n    pairs := make([][]int, m)\n    for i := range m {\n        pairs[i] = make([]int, 2)\n        pairs[i][0] = nums[i]\n        pairs[i][1] = nums[n-i-1]\n        sort.Ints(pairs[i])\n    }\n        \n    \n    safeDist := make([]int, m)\n    for i := range m {\n        safeDist[i] = max(k - pairs[i][0], pairs[i][1])\n    }\n    sort.Ints(safeDist)\n    \n    \n    deltaFreq := map[int]int{}\n    for i := range safeDist {\n        deltaFreq[pairs[i][1] - pairs[i][0]]++\n    }\n    \n    // fmt.Println(pairs)\n    // fmt.Println(safeDist)\n    // fmt.Println(deltaFreq)\n    // fmt.Println()\n    \n    minChanges := n\n    for delta := range deltaFreq {\n        unsafeCnt := sort.Search(m, func(i int) bool {\n            return safeDist[i] >= delta\n        })\n        safeCnt := m - unsafeCnt\n        \n        changes := unsafeCnt * 2 + safeCnt * 1 - deltaFreq[delta]\n        \n        minChanges = min(minChanges, changes)\n    }\n    \n    return minChanges\n}\n",
+    "submit_ts": "1721488167",
+    "subm_id": "1327413658"
+}

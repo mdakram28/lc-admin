@@ -1,0 +1,6 @@
+{
+    "username": "Abhisanku2003a",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length;\n        int[] p = new int[k + 2];\n        int i = 0, j = n - 1;\n        \n        while (i < j) {\n            int diff = Math.abs(nums[i] - nums[j]);\n            p[0] += 1;\n            p[diff] -= 1;\n            p[diff + 1] += 1;\n            \n            int lIndex = k - Math.min(nums[i], nums[j]);\n            lIndex = Math.max(nums[i], Math.max(nums[j], lIndex));\n            p[lIndex + 1] -= 1;\n\n            if (lIndex + 1 != k + 1) {\n                p[lIndex + 1] += 2;\n                p[k + 1] -= 2;\n            }\n            i++;\n            j--;\n        }\n\n        for (i = 1; i <= k + 1; i++) {\n            p[i] += p[i - 1];\n        }\n\n        int ans = Integer.MAX_VALUE;\n        for (i = 0; i <= k; i++) {\n            ans = Math.min(ans, p[i]);\n        }\n        \n        return ans;\n    }\n}",
+    "submit_ts": "1721490336",
+    "subm_id": "1327479727"
+}

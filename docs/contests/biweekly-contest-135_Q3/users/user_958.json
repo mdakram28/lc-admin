@@ -1,0 +1,6 @@
+{
+    "username": "NEXTREASON",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n\n        TreeMap<Integer, Integer> widthToCountMap = new TreeMap<>();\n        TreeMap<Integer, Integer> maxWidthToCountMap = new TreeMap<>();\n\n        for (int i = 0, j = nums.length - 1; i < j; i++, j--) {\n            int min = Math.min(nums[i], nums[j]);\n            int max = Math.max(nums[i], nums[j]);\n            widthToCountMap.merge(Math.abs(nums[i] - nums[j]), 1, Integer::sum);\n            maxWidthToCountMap.merge(Math.max(max - 0, k - min), 1, Integer::sum);\n        }\n\n        int result = nums.length;\n        int count_lower = 0, count_higher = nums.length / 2;\n\n        for (Map.Entry<Integer, Integer> entry : widthToCountMap.entrySet()) {\n            int width = entry.getKey(), count = entry.getValue();\n            Map.Entry<Integer, Integer> firstEntry;\n            while ((firstEntry = maxWidthToCountMap.firstEntry()).getKey() < width) {\n                count_lower += firstEntry.getValue();\n                count_higher -= firstEntry.getValue();\n                maxWidthToCountMap.remove(firstEntry.getKey());\n            }\n            result = Math.min(result, count_lower * 2 + (count_higher - count));\n        }\n        return result;\n\n    }\n}",
+    "submit_ts": "1721489289",
+    "subm_id": "548318171"
+}

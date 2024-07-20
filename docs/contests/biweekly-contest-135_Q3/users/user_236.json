@@ -1,0 +1,6 @@
+{
+    "username": "r32626",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        cnt = Counter()\n        n = len(nums)\n        for i in range(n//2):\n            v = abs(nums[i] - nums[~i])\n            cnt[v] += 1\n        freq = cnt.most_common()\n        if len(freq) == 1:\n            return 0\n        target1 = freq[0][0]\n        target2 = freq[1][0]\n        def helper(target):\n            ret = 0\n            for i in range(n//2):\n                v = abs(nums[i] - nums[~i])\n                if target != v:\n                    if nums[i] + target <= k or nums[i] - target >=0 or nums[~i] + target <= k or nums[~i] - target>=0:\n                        ret += 1\n                    else:\n                        ret += 2\n            return ret\n        # print(target1, target2)\n        ret1 = helper(target1)\n        ret2 = helper(target2)\n        return min(ret1, ret2)",
+    "submit_ts": "1721487488",
+    "subm_id": "1327390645"
+}

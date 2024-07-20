@@ -1,0 +1,6 @@
+{
+    "username": "suvitson17",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> pre(k+2,0);\n        int n=nums.size(),x,y;\n        for(int i=0;i<n/2;i++){\n            x=max(max(nums[i],nums[n-i-1]),k-min(nums[i],nums[n-i-1]));\n            y=abs(nums[i]-nums[n-i-1]);\n            pre[0]+=1;\n            pre[x+1]+=-1;\n            // pre[y]+=-1;\n            pre[x+1]+=2;\n        }\n        int count=0,sc=INT_MAX,ans=INT_MAX;\n        for(int i=0;i<k+2;i++){\n            count+=pre[i];\n            pre[i]=count;\n            ans=min(ans,count);\n        }\n        for(int i=0;i<n/2;i++){\n            y=abs(nums[i]-nums[n-i-1]);\n            pre[y]+=-1;\n            ans=min(ans,pre[y]);\n        }\n        // for(int i=0;i<k+2;i++) cout<<i<<\" \"<<pre[i]<<endl;\n        return ans;\n    }\n};",
+    "submit_ts": "1721490745",
+    "subm_id": "1327491502"
+}

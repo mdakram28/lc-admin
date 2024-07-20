@@ -1,0 +1,6 @@
+{
+    "username": "theyashwairagade",
+    "submission": "class Solution {\n    void print(vector<int> &vec){\n        for(auto &i: vec)\n            cout<<i<<\" \";\n        cout<<endl;\n    }\n    void print(unordered_map<int,int> &mp){\n        for(auto &pr: mp)\n            cout<<pr.first<<\"->\"<<pr.second<<endl;\n    }\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int half = n/2;\n        unordered_map<int, int> noChange, singleChange;\n        for(int i=0; i<half; i++){\n            int j = n-i-1;\n            noChange[abs(nums[i]-nums[j])]++;\n            int singleRange = max(max(nums[j], k- nums[j]), max(nums[i], k-nums[i]));\n            singleChange[singleRange]++;\n        }\n\n        // cout<<\"NoChange\"<<endl;\n        // print(noChange);\n        // cout<<\"singleChange\"<<endl;\n        // print(singleChange);\n\n        vector<int> prefix(k+1);\n        prefix[0]=half;\n\n        for(int i=1; i<=k; i++)\n            prefix[i]=prefix[i-1]-singleChange[i-1];\n\n        print(prefix);\n        int ans = n;\n        for(int i=0; i<=k; i++)\n            ans = min(ans, prefix[i]-noChange[i] + (half - prefix[i])*2);\n        return ans;\n    }\n};",
+    "submit_ts": "1721490086",
+    "subm_id": "1327472605"
+}

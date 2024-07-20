@@ -1,0 +1,6 @@
+{
+    "username": "bogdansharpy",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        hmap, n = {}, len(nums)\n        thresh = [0] * (k + 1)\n        for i in range(n // 2):\n            absDist = abs(nums[i] - nums[-i - 1])\n            thresh[max(k - nums[i], k - nums[-i-1], nums[i], nums[-i-1])] += 1\n            hmap[absDist] = 1 + hmap.get(absDist, 0)\n        for i in range(k):\n            thresh[i + 1] += thresh[i]\n        ans = n // 2 - hmap.get(0, 0)\n        for dist in hmap:\n            if dist == 0:\n                continue\n            delta = n // 2 - hmap[dist]\n            ans = min(ans, delta + thresh[dist - 1])\n        return ans",
+    "submit_ts": "1721490062",
+    "subm_id": "1327471937"
+}

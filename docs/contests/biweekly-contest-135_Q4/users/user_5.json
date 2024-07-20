@@ -1,0 +1,6 @@
+{
+    "username": "young_sean",
+    "submission": "inf = 10 ** 15\nfmax = lambda x, y: x if x > y else y\nclass Solution:\n    def maximumScore(self, grid: List[List[int]]) -> int:\n        n, m = len(grid), len(grid[0])\n        accs = [[0] * (n + 1) for _ in range(m+1)]\n        for i in range(n):\n            for j in range(m):\n                accs[j+1][i+1] = grid[i][j]\n        n, m = m, n\n        for i in range(n):\n            for j in range(m):\n                accs[i+1][j+1] += accs[i+1][j]\n        \n        dp1 = [0] * (m + 1)\n        dp2 = [-inf] * (m + 1)\n        \n        for i in range(1, n + 1):\n            ndp1 = [0] * (m + 1)\n            ndp2 = [-inf] * (m + 1)\n            \n            for j in range(m + 1):\n                for k in range(j, m + 1):\n                    ndp1[k] = fmax(ndp1[k], dp1[j] + accs[i-1][k] - accs[i-1][j])\n                    ndp1[k] = fmax(ndp1[k], dp2[0])\n                for k in range(j + 1):\n                    ndp2[k] = fmax(ndp2[k], dp2[j] + accs[i][j] - accs[i][k])\n            ndp2[m] = fmax(ndp2[m], ndp1[m])\n            dp1, dp2 = ndp1, ndp2\n        return max(max(dp1), max(dp2))",
+    "submit_ts": "1721487625",
+    "subm_id": "548310838"
+}

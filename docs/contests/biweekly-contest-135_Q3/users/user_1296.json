@@ -1,0 +1,6 @@
+{
+    "username": "NimalKuriachan",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int[] count = new int[nums.length/2];\n        Map<Integer, Integer> unique = new HashMap<>();\n        int i=0;\n        int len = nums.length-1;\n        int j=nums.length-1;\n        while(i<j){\n            int temp = Math.abs(nums[j]-nums[i]);\n            unique.put(temp,unique.getOrDefault(temp,0)+1);\n            count[i++] = temp;\n            j--;\n        }\n        int res =Integer.MAX_VALUE;\n        for(int value: unique.keySet()){\n           if(nums.length/2 - unique.get(value)>res){\n            continue;\n           }\n           int temp=0;\n           for(int m=0; m<nums.length/2; m++){\n               if(value!=count[m]){\n                  if((nums[m]+value)<=k || (nums[len-m]+value<=k) || (nums[m]-value)>=0 || (nums[len-m]-value>=0)){\n                    temp++;\n                  }else{\n                    temp+=2;\n                  }\n               }\n           }\n           res = Math.min(res, temp);\n        }\n        return res;\n        \n    }\n}",
+    "submit_ts": "1721489065",
+    "subm_id": "1327441766"
+}

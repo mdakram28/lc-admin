@@ -1,0 +1,6 @@
+{
+    "username": "Euuuureka",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int res = INT_MAX;\n        vector<pair<int,int>> diff;\n        for(int i=0, j=n-1; i<j; ++i, --j){\n            diff.emplace_back(abs(nums[i]-nums[j]), max({nums[i], nums[j], k-nums[i], k-nums[j]}));\n        }\n        sort(diff.begin(), diff.end());\n        n = diff.size();\n        priority_queue<int, vector<int>, greater<int>> pq;\n        int lcount = 0, rcount = n, lcount_less = 0;\n        for(int i=0; i<n; ++i){\n            int j = i;\n            int currentCount = 0;\n            while(pq.size() && pq.top() < diff[i].first){\n                pq.pop();\n                ++lcount_less;\n            }\n            while(j<n && diff[j].first == diff[i].first){\n                --rcount, ++currentCount;\n                pq.push(diff[j++].second);\n            }\n            int count = rcount + lcount + lcount_less;\n            res = min(res, count);\n            lcount += currentCount;\n            i = j-1;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721489952",
+    "subm_id": "1327468644"
+}

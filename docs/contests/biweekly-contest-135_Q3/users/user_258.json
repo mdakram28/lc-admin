@@ -1,0 +1,6 @@
+{
+    "username": "doanquocthinh2004",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int ans = 1e9;\n        vector<int> v(k + 1);\n        for (int i = 0; i < n>>1; ++i) v[abs(nums[i]-nums[n-i-1])]++;\n        // for (auto x: v) cout << x << ' '; cout << endl;\n        vector<int> vv(n + 1, -1);\n        for (int i = 0; i <= k; ++i) {\n            if (vv[v[i]] == -1) vv[v[i]] = i;\n        }\n        // for (auto x: vv) cout << x << ' ';\n        for (int i = n; i>-1; --i) {\n            if (vv[i] == -1) continue;\n            int anss = 0;\n            for (int j = 0; j < n>>1; ++j) {\n                if (abs(nums[j]-nums[n-j-1]) == vv[i]) continue;\n                int a = nums[j], b = nums[n-j-1];\n                if (a>b) swap(a,b);\n                if (k - a < vv[i] && b < vv[i]) anss += 2;\n                else ++anss;\n            }\n            ans = min(ans, anss);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487568",
+    "subm_id": "1327393555"
+}

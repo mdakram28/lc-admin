@@ -1,0 +1,6 @@
+{
+    "username": "sincerelyz",
+    "submission": "\nfrom sortedcontainers import SortedList\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n=len(nums)\n        ans = inf\n        b=n//2\n        cha=defaultdict(int)\n\n        k2=k+1\n\n\n        e=defaultdict(int)\n        for i in range(b):\n            if nums[i]>nums[n-i-1]:\n                a=nums[n-i-1]\n                b2=nums[i]\n            else:\n                b2=nums[n-i-1]\n                a=nums[i]\n\n\n            # print(a,b2)\n            c=b2-a\n            cha[c]+=1\n\n\n\n            bian=max(b2, k-a)\n            e[bian+1]+=1\n\n\n\n        zong=0\n        e2={}\n        for i, v in sorted(e.items(), key=lambda e:e[0]):\n            zong+=v\n            e2[i]=zong\n\n        if e2:\n            ke=list(e2.keys())\n            ke.sort()\n            zuixiao=ke[0]\n            sort_list = SortedList(ke)\n        else:\n            zuixiao=inf\n\n\n        for i,v in cha.items():\n            bb=0\n            if i>=zuixiao:\n                gg=sort_list.bisect_right(i)\n                kkk=ke[gg-1]\n\n                bb+=e2.get(kkk,0)\n\n            bb+=(b-v)\n            if bb<ans:\n                ans=bb\n\n\n        return ans",
+    "submit_ts": "1721489219",
+    "subm_id": "548317838"
+}

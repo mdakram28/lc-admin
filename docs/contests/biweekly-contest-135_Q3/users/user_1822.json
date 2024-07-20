@@ -1,0 +1,6 @@
+{
+    "username": "Nikitiwe",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> zero(k+1, 0), cost(k+1, 0);\n        cost[0]=nums.size()/2;\n        int temp;\n        for (int i=0; i!=nums.size()/2; i++)\n        {\n            zero[abs(nums[i]-nums[nums.size()-1-i])]++;\n            temp=max(max(nums[i], nums[nums.size()-1-i]), k-min(nums[i], nums[nums.size()-1-i]));\n            if (temp<k) cost[temp+1]++;\n        }\n        for (int i=1; i!=k+1; i++)\n        {\n            cost[i]=cost[i]+cost[i-1];\n        }\n        for (int i=0; i!=k+1; i++)\n        {\n            cost[i]-=zero[i];\n        }\n        return *min_element(cost.begin(), cost.end());\n    }\n};",
+    "submit_ts": "1721489853",
+    "subm_id": "1327465797"
+}

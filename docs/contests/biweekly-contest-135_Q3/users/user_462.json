@@ -1,0 +1,6 @@
+{
+    "username": "vhlpZARocz",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        lookup = defaultdict(int)\n        for i in range(n//2):\n            lookup[abs(nums[i] - nums[n-i-1])] += 1\n        c = sorted([(-val, key) for key, val in lookup.items()])\n        j = 0\n        res = float('inf')\n        # print(lookup)\n        while j < len(c):\n            count, key = c[j]\n            count = - count\n            if key <= k // 2:\n                res = min(res, n//2 - count)\n                return res\n            else:\n                cnt = 0\n                for i in range(n//2):\n                    if abs(nums[i] - nums[n-i-1]) != key:\n                        if abs(nums[i]) >= key or abs(nums[n-i-1]) >= key or abs(nums[i] - k) >= key or abs(nums[n-1-i] - k) >= key:\n                            cnt += 1\n                        else:\n                            cnt += 2\n                res = min(res, cnt)\n            j += 1\n        return res\n        ",
+    "submit_ts": "1721488168",
+    "subm_id": "548313161"
+}

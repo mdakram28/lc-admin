@@ -1,0 +1,6 @@
+{
+    "username": "leek2008",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        diffs_without_changes = Counter()\n        max_diffs_with_one_change = []\n        for i in range(n // 2):\n            first, last = nums[i], nums[n - i - 1]\n            diffs_without_changes[abs(first - last)] += 1\n            max_diffs_with_one_change.append(max(max(k, first, last) - min(first, last), max(first, last)))\n\n        ans = inf\n        max_diffs_with_one_change.sort()\n        # print(diffs_without_changes, max_diffs_with_one_change)\n        for i in range(k + 1):\n            two_changes_cnt = bisect_left(max_diffs_with_one_change, i)\n            zero_changes_cnt = diffs_without_changes[i]\n            # print(i, two_changes_cnt, zero_changes_cnt, n)\n            ans = min(ans, two_changes_cnt * 2 + n // 2 - two_changes_cnt - zero_changes_cnt)\n        return ans\n\n\n",
+    "submit_ts": "1721488647",
+    "subm_id": "548315414"
+}

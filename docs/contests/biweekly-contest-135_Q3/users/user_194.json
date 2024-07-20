@@ -1,0 +1,6 @@
+{
+    "username": "sellie50759",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, int> mp;\n        vector<int> ivec;\n        for(int i=0;i<nums.size()/2;i++){\n            mp[abs(nums[i]-nums[nums.size()-1-i])]++;\n            if(nums[i]>nums[nums.size()-1-i])\n                swap(nums[i], nums[nums.size()-1-i]);\n            ivec.push_back(max(max(nums[i], k-nums[i]), max(nums[nums.size()-1-i], k-nums[nums.size()-1-i])));\n        }\n        sort(ivec.begin(), ivec.end());\n        /*\n        for(auto &num : ivec)\n            cout<<num<<\" \";\n        cout<<\"\\n\";\n        for(auto &it : mp){\n            cout<<it.first<<\" \"<<it.second<<\"\\n\";\n        }\n        */\n        int ans = INT_MAX, cur = 0;\n        for(int i=0;i<=k;i++){\n            while(cur<ivec.size() && ivec[cur] < i)\n                cur++;\n            ans = min(ans, int(ivec.size())-cur + cur*2 - mp[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487598",
+    "subm_id": "1327394543"
+}

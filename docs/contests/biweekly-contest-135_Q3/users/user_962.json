@@ -1,0 +1,6 @@
+{
+    "username": "qqwrv",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        const int n = a.size();\n\n        std::map<int, int> cnt;\n        for (int i = 0; i < n / 2; ++i) {\n            ++cnt[std::abs(a[i] - a[n - i - 1])];\n        }\n\n        int C = 0;\n        std::vector<int> c(n / 2);\n        std::set<std::pair<int, int>> A;\n        for (int i = 0; i < n / 2; ++i) {\n            int mn = std::min(a[i], a[n - i - 1]);\n            int mx = std::max(a[i], a[n - i - 1]);\n            int v = std::max(k - mn, mx);\n            A.insert({v, i});\n            // std::cout << v << \" \" << i << std::endl;\n        }\n\n        int ans = INT_MAX;\n        for (int x = 0; x <= k; ++x) {\n            while (!A.empty() && A.begin()->first < x) {\n                auto [v, i] = *A.begin();\n                A.erase(A.begin());\n                ++C;\n            }\n\n            int cost = (n / 2) + C;\n            if (cnt.contains(x)) cost -= cnt[x];\n            ans = std::min(ans, cost);\n\n            // std::cout << x << \": \" << cost << \" \" << C << \" \" << cnt[x] << std::endl;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488392",
+    "subm_id": "1327420827"
+}

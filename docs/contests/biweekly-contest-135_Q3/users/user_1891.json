@@ -1,0 +1,6 @@
+{
+    "username": "brianchan-2",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int, int> c0;\n        map<int, int> c1;\n        for(int i = 0; i < n / 2; ++i) {\n            int a = abs(nums[i] - nums[n-i-1]);\n            c0[a]++;\n            int mn = min(nums[i], nums[n-i-1]);\n            int mx = max(nums[i], nums[n-i-1]);\n            c1[max(k-mn, mx)]++;\n            //c2[max(k-mn, mx)+1]++;\n        }\n        // for(auto [k,v] : c1) {\n        //     cout << k << \" \" << v << endl;\n        // }\n        auto it = c1.rbegin();\n        int ans = n / 2;\n        int need = n / 2;\n        for(auto iter = c0.rbegin(); iter != c0.rend(); iter = next(iter)) {\n            int x = iter->first, v = iter->second;\n            while(it != c1.rend() && it->first >= x) {\n                need -= it->second;\n                it = next(it);\n            }\n            // if(it != c1.rend()) {\n            //     cout << it->first << \" \" << it->second << \" \";\n            // }\n            // cout << x << \" \" << v << \" \" << need << endl;\n            ans = min(ans, 2 * need + (n / 2 - need - v));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489614",
+    "subm_id": "548319516"
+}

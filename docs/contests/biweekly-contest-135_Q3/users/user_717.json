@@ -1,0 +1,6 @@
+{
+    "username": "Code-O-Maniac",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int mid = n / 2;\n        \n        int ans = INT_MAX;\n        \n        vector<int> dp(k + 1, 0);\n        vector<int> diff(k + 1, 0);\n        \n        for(int i = 0; i < mid; i++) {\n            int d = abs(nums[i] - nums[n - i - 1]);\n            diff[d] += 1;\n            \n            int first = nums[i];\n            int second = nums[n - i - 1];\n            \n            int value1 = max(k - first, first);\n            int value2 = max(k - second, second);\n            \n            dp[max(value1, value2)] += 1;\n        }\n        \n        for(int i = k; i >= 0; i--) {\n            int opr0 = diff[i];\n            int opr1 = dp[i] - opr0;\n            int opr2 = mid - dp[i];\n            \n            int small = opr1 + 2 * opr2;\n            \n            ans = min(ans, small);\n            \n            // cout << i << \":\" << small << \":\" << diff[i] << \":\" << dp[i] << \"\\n\";\n            if(i > 0) dp[i - 1] +=dp[i]; \n        }\n        return ans;\n    }\n};\n// 6 5 4 3 4 5 6\n// 0 1 2 3 4 5 6 7\n// 7 6 5 4 4 5 6 7\n",
+    "submit_ts": "1721488632",
+    "subm_id": "1327428401"
+}

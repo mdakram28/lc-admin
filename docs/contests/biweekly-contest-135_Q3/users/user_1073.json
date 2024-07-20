@@ -1,0 +1,6 @@
+{
+    "username": "cklzzz",
+    "submission": "func minChanges(nums []int, k int) int {\n    a := []int{}\n    n := len(nums)\n    for i, v := range nums[:n/2] {\n        var temp int\n        if v > temp {\n            temp = v\n        }\n        if k-v > temp {\n            temp = k - v\n        }\n        if nums[n-1-i] > temp {\n            temp = nums[n-1-i]\n        }\n        if k-nums[n-1-i] > temp {\n            temp = k-nums[n-1-i]\n        }\n        a = append(a, temp)\n    }\n    sort.Ints(a)\n    // fmt.Println(a)\n    mp := map[int]int{}\n    for i, v := range nums[:n/2] {\n        diff := v - nums[n-1-i]\n        if diff < 0 {\n            diff = -diff\n        }\n        mp[diff]++\n    }\n    // fmt.Println(mp)\n    var tempCount int\n    for diff, count := range mp {\n        p := sort.Search(len(a), func(i int) bool {\n            return a[i] >= diff\n        })\n        count -= p\n        if count > tempCount {\n            tempCount = count\n        }\n    }\n    return n/2 - tempCount\n}",
+    "submit_ts": "1721488834",
+    "subm_id": "548316173"
+}

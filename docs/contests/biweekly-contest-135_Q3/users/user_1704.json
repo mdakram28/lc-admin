@@ -1,0 +1,6 @@
+{
+    "username": "ManasSingh7",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        HashMap<Integer,Integer> freq=new HashMap<>();\n        int[] max=new int[nums.length/2];\n        for(int i=0;i<nums.length/2;i++){\n            int diff=(int)Math.abs(nums[i]-nums[nums.length-i-1]);\n            int high=(int)Math.max(nums[i],nums[nums.length-i-1]);\n            int low=(int)Math.min(nums[i],nums[nums.length-i-1]);\n            int a=high;\n            int b=k-low;\n            int maximum=(int)Math.max(a,b);\n            max[i]=maximum;\n            freq.put(diff,freq.getOrDefault(diff,0)+1);\n        }\n        Arrays.sort(max);\n        int answer=Integer.MAX_VALUE;\n        for(int i:freq.keySet()){\n            int low=0;\n            int high=(nums.length/2)-1;\n            int ans=nums.length/2-1;\n            while(low<=high){\n                int mid=(low+high)/2;\n                if(max[mid]>=i){\n                    ans=mid;\n                    high=mid-1;\n                }\n                else{\n                    low=mid+1;\n                }\n            }\n            int count=ans*2+(nums.length/2-ans)-freq.get(i);\n            answer=(int)Math.min(answer,count);\n        }\n        return answer;\n    }\n}",
+    "submit_ts": "1721489758",
+    "subm_id": "1327462834"
+}

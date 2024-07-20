@@ -1,0 +1,6 @@
+{
+    "username": "yuchanhsiao",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums) // 2\n        diff = {}\n        for pnt in range(n):\n            d = abs(nums[pnt] - nums[-pnt- 1])\n            if d not in diff:\n                diff[d] = set([pnt])\n            else:\n                diff[d].add(pnt)\n        diff = sorted(diff.items(), key=lambda x:-len(x[1]))\n        #print(diff)\n        times = n - 1\n        for d, exist in diff:\n            if n - len(exist) >= times:\n                break\n            cur = 0\n            for pnt in range(n):\n                if pnt not in exist:\n                    if nums[pnt] >= d or k - nums[pnt] >= d or nums[-pnt-1] >= d or k - nums[-pnt-1] >= d:\n                        cur += 1\n                    else:\n                        cur += 2\n            times = min(times, cur)\n        return times\n            ",
+    "submit_ts": "1721489227",
+    "subm_id": "1327446890"
+}

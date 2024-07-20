@@ -1,0 +1,6 @@
+{
+    "username": "piyush2509",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, vector<int>> diffMap; \n        vector<int> xVals; \n\n        for (int i = 0; i < nums.size() / 2; ++i) {\n            int a = nums[i];\n            int b = nums[nums.size() - i - 1];\n            int d = abs(a - b);\n            int x = max({a, b, k - a, k - b});\n            diffMap[d].push_back(x);\n            xVals.push_back(x);\n        }\n\n        int minChgs = nums.size(); \n        sort(xVals.begin(), xVals.end()); \n\n        for (auto& entry : diffMap) {\n            int d = entry.first;\n            int cnt = lower_bound(xVals.begin(), xVals.end(), d) - xVals.begin();\n            cnt = cnt * 2 + (nums.size() / 2 - cnt); \n\n            for (int x : entry.second) {\n                if (x < d) {\n                    cnt -= 2; \n                } else {\n                    cnt -= 1;  \n                }\n            }\n\n            minChgs = min(minChgs, cnt); \n        }\n\n        return minChgs;\n    }\n};\n",
+    "submit_ts": "1721488967",
+    "subm_id": "1327438700"
+}

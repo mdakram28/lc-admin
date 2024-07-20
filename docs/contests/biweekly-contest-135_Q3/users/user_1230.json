@@ -1,0 +1,6 @@
+{
+    "username": "YaleChen299",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        d = {}\n        n = len(nums)\n        for i in range(n//2):\n            diff = abs(nums[i] - nums[n - i - 1])\n            if diff in d:\n                d[diff] += 1\n            else:    \n                d[diff] = 1\n        counttodiff = {}\n        for diff, val in d.items():\n            if val in counttodiff:\n                counttodiff[val] = min(counttodiff[val], diff)\n            else:\n                counttodiff[val] = diff\n        # print(n, d, counttodiff)\n        # diff = sorted(counttodiff.items(), key=lambda kv:kv[1]*k - kv[0], reverse=True)\n        mincount = n//2\n        for c,diff in counttodiff.items():\n            count = 0\n            \n            for i in range(n//2):\n                if abs(nums[i] - nums[n - i - 1]) != diff:\n                    if max(nums[i], nums[n-i-1], k-nums[n-i-1], k-nums[i]) >= diff:\n                        count += 1\n                    else:\n                        # print(k, \"second\", i, nums[i], nums[n-i-1], k-nums[n-i-1], k-nums[i])\n                        count += 2\n            mincount = min(mincount, count)\n        return mincount\n",
+    "submit_ts": "1721488986",
+    "subm_id": "1327439273"
+}

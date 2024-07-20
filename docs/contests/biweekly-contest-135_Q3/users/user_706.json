@@ -1,0 +1,6 @@
+{
+    "username": "kuddy",
+    "submission": "class Solution:\n    def minChanges(self, nums,k) :\n        n = len(nums)\n        opt = n // 2\n        cnt = Counter()\n        mx = 0\n        mx_2 = -inf\n        ans = inf\n        for i in range(opt):\n            cnt[abs(nums[i] - nums[n - i - 1])] += 1\n        cnt1 = sorted(cnt.items(),key = lambda x:(-x[1],x[0]))\n        cnt2 = []\n        s = set()\n        for i,x in enumerate(cnt1):\n            a,b = x[0],x[1]\n            if b in s:\n                continue\n            cnt2.append((a,b))\n            s.add(b)\n\n        for a,b in cnt2:\n            res = 0\n            for i in range(opt):\n                if abs(nums[i] - nums[n - i - 1]) == a:\n                    continue\n                else:\n                    if a > k // 2 and (abs(nums[i] - k) < a and  abs(nums[i]) < a) and (abs(nums[n - i - 1] - k) < a and  abs(nums[n - i - 1]) < a):\n                        res += 2\n                    else:\n                        res += 1\n            ans = min(ans,res)\n            if a <= k // 2:\n                break\n        return ans\n                    \n                    \n            \n            \n                \n",
+    "submit_ts": "1721488914",
+    "subm_id": "548316510"
+}

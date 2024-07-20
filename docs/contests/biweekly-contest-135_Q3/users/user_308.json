@@ -1,0 +1,6 @@
+{
+    "username": "Manoj_Kumar_18",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> hash(k+1,0);\n        vector<int> oneChange(k+1,0);\n        vector<int> Dup(k+1,0);\n        int size=nums.size(),ma;\n        for(int i=0;i<size/2;i++)\n        {\n           hash[abs(nums[i]-nums[size-1-i])]++;\n           ma=k-nums[i];\n           ma=max(ma,nums[i]);\n           ma=max(ma,k-nums[size-1-i]);\n           ma=max(ma,nums[size-1-i]);\n           oneChange[ma]++;\n           if(ma>=abs(nums[i]-nums[size-1-i]))Dup[abs(nums[i]-nums[size-1-i])]++;\n        }\n        int min_change=INT_MAX;\n        for(int i=k;i>=0;i--)\n        {\n            if(i!=k)oneChange[i]+=oneChange[i+1];\n            int dup=oneChange[i]-Dup[i];\n            min_change=min(min_change,dup+2*((size/2)-dup-hash[i]));\n        }\n        return min_change;\n    }\n};",
+    "submit_ts": "1721488064",
+    "subm_id": "1327410358"
+}

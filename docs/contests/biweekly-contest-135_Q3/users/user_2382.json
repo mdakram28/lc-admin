@@ -1,0 +1,6 @@
+{
+    "username": "Pikachu_007",
+    "submission": "class Solution {\npublic:\n    int change( int n, vector<int> &nums, int c, int k ){\n        int ans = 0;\n        for ( int i = 0; i<n/2; i++ ){\n            if ( abs(nums[i]-nums[n-i-1]) != c ){\n                int minNum = min(nums[i],nums[n-i-1]);\n                int maxNum = max(nums[i],nums[n-i-1]);\n                if ( maxNum >= c ) ans++;\n                else if ( k-minNum >= c ) ans++;\n                else ans += 2;\n            } \n        } return ans;\n    }\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size(), res = INT_MAX;\n        unordered_map<int,int> f; vector<pair<int,int>> vec;\n        for ( int i = 0; i<n/2; i++ ) f[abs(nums[i]-nums[n-i-1])]++;\n        for ( auto i : f ) vec.push_back({i.second,i.first});\n        sort(vec.rbegin(),vec.rend());\n        for ( int i = 0; i<vec.size(); i++ ) {\n            int ele = vec[i].second;\n            res = min(res, change(n,nums,ele,k));\n            if ( change(n,nums,ele,k) > res ) return res;\n        } return res;\n    }\n};",
+    "submit_ts": "1721488895",
+    "subm_id": "1327436515"
+}

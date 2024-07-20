@@ -1,0 +1,6 @@
+{
+    "username": "LiRenJie",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int[] diffArr = new int[k+1];\n        int[] cntArr  = new int[k+1];\n        \n        for (int i = 0; i < nums.length/2; i++) {\n            int diff = Math.abs(nums[i] - nums[nums.length-i-1]);\n            diffArr[diff]++;\n            \n            \n            int v1 = Math.max(Math.abs(k - nums[i]), Math.abs(0 - nums[i]));\n            int v2 = Math.max(Math.abs(k - nums[nums.length-i-1]), Math.abs(0 - nums[nums.length-i-1]));\n            int val = Math.max(v1, v2);\n            cntArr[val]++;\n        }\n        \n        for (int i = 1; i < cntArr.length; i++) {\n            cntArr[i] += cntArr[i-1];\n        }\n        \n        int res = nums.length;\n        for (int i = 0; i <= k; i++) {\n            if (i <= (k/2 + k % 2)) {\n                res = Math.min(res, nums.length/2-diffArr[i]);\n            }\n            else {\n                res = Math.min(res, nums.length/2 - diffArr[i] - cntArr[i-1] + 2 * cntArr[i-1]);\n            }\n        }\n        return res;\n        \n    }\n}",
+    "submit_ts": "1721489527",
+    "subm_id": "1327456003"
+}

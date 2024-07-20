@@ -1,0 +1,6 @@
+{
+    "username": "ciphercraft",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, vector<int>> diffMap; vector<int> maxVals;\n        auto solve = [&](vector<int>& nums, int k) {\n            for (int i = 0; i < nums.size() / 2; i++) {\n                int n1 = nums[i], n2 = nums[nums.size() - i - 1], diff = abs(n1 - n2), maxV = max({n1, n2, k - n1, k - n2});\n                diffMap[diff].push_back(maxV);\n                maxVals.push_back(maxV);\n            }\n            sort(maxVals.begin(), maxVals.end());\n        };\n        auto solve2 = [&](int n) {\n            int res = n;\n\n            for (auto& entry : diffMap) {\n                int diff = entry.first, aux = upper_bound(maxVals.begin(), maxVals.end(), diff - 1) - maxVals.begin();\n                aux = aux * 2 + (n / 2 - aux);\n\n                for (auto& maxV : entry.second) {\n                    aux -= (maxV < diff) ? 2 : 1;\n                }\n                res = min(res, aux);\n            }\n            return res;\n        };\n        solve(nums, k); return solve2(nums.size());\n    }\n};\n",
+    "submit_ts": "1721488685",
+    "subm_id": "1327430013"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "LarryNY",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        N = len(nums)\n        H = N // 2\n        INF = 10 ** 20\n        \n        f = collections.Counter()\n        f2 = collections.Counter()\n        for i in range(H):\n            f[abs(nums[i] - nums[N - i - 1])] += 1\n            f2[max(max(nums[i], k - nums[i]), max(nums[N - i - 1], k - nums[N - i - 1]))] += 1\n        \n        best = INF\n        extra = 0\n        for i in range(k + 1):\n            if i - 1 >= 0:\n                extra += f2[i - 1]\n            best = min(best, extra + (H - f[i]))\n        return best\n            ",
+    "submit_ts": "1721487262",
+    "subm_id": "1327382340"
+}

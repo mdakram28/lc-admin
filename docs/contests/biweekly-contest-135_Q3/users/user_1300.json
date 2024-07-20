@@ -1,0 +1,6 @@
+{
+    "username": "kamanashisroy",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        \n        N = len(nums)>>1\n        left,right = nums[:N],list(reversed(nums[N:]))\n        \n        # find the diff occurance\n        iloc = dict()\n        diff = defaultdict(int)\n        for i in range(N):\n            gap = abs(left[i]-right[i])\n            diff[gap] += 1\n            if gap not in iloc:\n                iloc[gap] = [i]\n            else:\n                iloc[gap].append(i)\n                \n        gaplist = list(diff.keys())\n\n        result = N*2\n        for gap in sorted(gaplist):\n            c = diff[gap]\n            if (N-c) > result:\n                continue # no gain\n            cost = 0\n            for i in range(N):\n                smaller,bigger = (left[i],right[i]) if left[i]<=right[i] else (right[i],left[i])\n                if (bigger-smaller) == gap:\n                    continue\n                elif (smaller+gap) <= k:\n                    cost += 1\n                elif (bigger-gap) >= 0 and (bigger-gap) <= k:\n                    cost += 1\n                else:\n                    cost += 2\n            result = min(result,cost)\n                \n        return result\n        ",
+    "submit_ts": "1721489070",
+    "subm_id": "1327441918"
+}

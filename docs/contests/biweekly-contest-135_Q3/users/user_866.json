@@ -1,0 +1,6 @@
+{
+    "username": "chibiko",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> m1s;\n        unordered_map<int, int> distCountMap;\n        int n = nums.size();\n\n        for (int i = 0; i < n / 2; ++i)\n        {\n            int a = nums[i], b = nums[n - 1 - i];\n            int dist = abs(a-b);\n            distCountMap[dist]++;\n            int m1 = max(max(max(a, b), abs(k-b)), abs(k-a));\n            m1s.push_back(m1);\n        }\n        std::sort(m1s.begin(), m1s.end());\n\n        int result{INT_MAX};\n        vector<pair<int, int>> distCounts;\n        for (auto [dist, count] : distCountMap)\n        {\n            int localResult = n/2 - count;\n\n            auto it = std::lower_bound(m1s.begin(), m1s.end(), dist);\n            int z = it - m1s.begin();\n            localResult += z;\n            // printf(\"dist %d, count %d, z %d, localResult %d\\n\", dist, count, z, localResult);\n\n            result = min(result, localResult);\n        }\n\n        return result;\n    }\n};",
+    "submit_ts": "1721489182",
+    "subm_id": "548317687"
+}

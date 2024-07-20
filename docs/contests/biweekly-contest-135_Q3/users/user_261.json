@@ -1,0 +1,6 @@
+{
+    "username": "SaiSusshanth",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        \n        arr = []\n        p1 = 0\n        p2 = len(nums) - 1\n        while p1 < p2:\n            arr.append(abs(nums[p2] - nums[p1]))\n            p1 += 1\n            p2 -= 1\n        \n        print(arr)\n        res = float('inf')\n        d = {}\n        for i in arr:\n            if i not in d: d[i] = 0\n            d[i] += 1\n        \n        n = len(nums)\n        p = len(arr)\n        keys = [(d[i], i) for i in d]\n        keys.sort(reverse = True)\n        for z, i in keys:\n            f = 0\n            temp = 0\n            for j in range(p):\n                if arr[j] == i: continue\n                if max(nums[j], nums[n - j - 1]) < i and min(nums[j], nums[n - j - 1]) + i > k:\n                    temp += 2\n                    f = 1\n                else:\n                    temp += 1\n            res = min(res, temp)\n            if f == 0: break\n            \n        \n        return res\n        \n        ",
+    "submit_ts": "1721487571",
+    "subm_id": "1327393625"
+}

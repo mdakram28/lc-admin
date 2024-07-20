@@ -1,0 +1,6 @@
+{
+    "username": "gamer37",
+    "submission": "#include <ext/pb_ds/assoc_container.hpp> \n#include <ext/pb_ds/tree_policy.hpp> \nusing namespace __gnu_pbds; \n  \n#define ordered_set tree<pair<int,int>, null_type,less<pair<int,int>>, rb_tree_tag,tree_order_statistics_node_update>\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size(),i,ma=0,ans=n/2,c=0,req,curr,tot=n/2;\n        map<int,vector<int> > b;\n        ordered_set a;\n        for(i=0;i<n/2;i++)\n        {\n            if(nums[i]>nums[n-1-i])\n                swap(nums[i],nums[n-1-i]);\n            b[nums[n-1-i]- nums[i]].push_back(nums[n-1-i]- nums[i]+max(k-nums[n-1-i],nums[i]));\n        }\n        for(auto x:b)\n        {\n            // cout<<x.first<<\" w \";\n            // for(auto z:x.second)\n            //     cout<<z<<\" \";\n            // cout<<endl;\n            curr=n/2-x.second.size();\n            pair<int,int> y = {x.first,-1};\n            req=a.order_of_key(y);\n            curr+=req;\n            ans=min(ans,curr);\n            for(auto z:x.second)\n                a.insert({z,c++});\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489089",
+    "subm_id": "1327442518"
+}

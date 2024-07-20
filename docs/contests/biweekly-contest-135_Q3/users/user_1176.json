@@ -1,0 +1,6 @@
+{
+    "username": "Swashbuckler12",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int, vector<int>> mp;\n        vector<int> temp;\n        set<int> st;\n        for (int i = 0; i < n / 2; i++) {\n            if (nums[i] > nums[n - 1 - i]) {\n                swap(nums[i], nums[n - 1 - i]);\n            }\n            int maxi = max(max({nums[i], nums[n - 1 - i]}),\n                           max({k - nums[i], k - nums[n - 1 - i]}));\n            mp[nums[n - 1 - i] - nums[i]].push_back(maxi);\n            st.insert(nums[i]);\n            temp.push_back(maxi);\n        }\n        int mini = INT_MAX;\n        sort(temp.begin(), temp.end());\n        for (auto x : mp) {\n            int d = x.first;\n            int count =\n                lower_bound(temp.begin(), temp.end(), x.first) - temp.begin();\n\n            count = (2 * count) + (n / 2 - count);\n            for (auto y : x.second) {\n                if (y >= x.first) {\n                    count--;\n                } else {\n                    count -= 2;\n                }\n            }\n            mini = min(mini, count);\n        }\n        sort(nums.begin(), nums.end());\n        return mini;\n    }\n};",
+    "submit_ts": "1721488930",
+    "subm_id": "1327437561"
+}

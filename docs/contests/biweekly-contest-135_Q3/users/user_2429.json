@@ -1,0 +1,6 @@
+{
+    "username": "shaswatgusain1",
+    "submission": "def min_changes(nums, k)\nm = Hash.new { |hash, key| hash[key] = [] }\nv = []\npopulate_map_and_vector(nums, k, m, v)\n\nans = nums.size\nv.sort!\nm.each do |diff, values|\n  t = v.bsearch_index { |x| x >= diff } || v.size\n  t = t * 2 + (nums.size / 2 - t)\n\n  values.each do |x|\n    if x < diff\n      t -= 2\n    else\n      t -= 1\n    end\n  end\n\n  ans = [ans, t].min\nend\n\nans\nend\n\nprivate\n\ndef populate_map_and_vector(nums, k, m, v)\nn = nums.size\n(0...n / 2).each do |i|\n  a = nums[i]\n  b = nums[n - i - 1]\n  diff = (a - b).abs\n\n  x = [a, b, k - a, k - b].max\n  m[diff] << x\n  v << x\nend\nend",
+    "submit_ts": "1721489759",
+    "subm_id": "1327462855"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "JeetuGupta",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> p(k+2, 0);\n        int i = 0, j = nums.size() - 1;\n        while(i < j){\n            int diff = abs(nums[i] - nums[j]);\n            p[0] += 1;\n            p[diff] -= 1;\n            p[diff + 1] += 1;\n            int lIndex = k - min(nums[i], nums[j]);\n            lIndex = max({nums[i], nums[j], lIndex});\n            p[lIndex + 1] -= 1;\n            \n            if(lIndex+1 != k+1){\n                p[lIndex+1] += 2;\n                p[k+1] -= 2;\n            }\n            i++;\n            j--;\n        }\n\n        for(int i = 1; i<=k+1; i++){\n            p[i] = p[i] + p[i-1];\n        }\n\n        int ans = INT_MAX;\n        for(int i = 0; i<=k; i++){\n            ans = min(ans,p[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721490122",
+    "subm_id": "1327473647"
+}

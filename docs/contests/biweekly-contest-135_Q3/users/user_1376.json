@@ -1,0 +1,6 @@
+{
+    "username": "vandorlot",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        diff_counter = defaultdict(int)\n        max_counter = defaultdict(int)\n        for i in range(n // 2):\n            left = nums[i]\n            right = nums[n-1-i]\n            diff_counter[abs(left - right)] += 1\n            max_counter[max(k - min(left, right), max(left, right))] += 1 # in one operation\n\n        best_options = sorted(list(zip(diff_counter.keys(), diff_counter.values())), key=lambda x: [x[1], -x[0]])\n\n        best_result = float('inf')\n        prev_evaluated = -1\n        while best_options:\n            X, count = best_options.pop()\n            if prev_evaluated == count:\n                continue\n            ret = n // 2 - count\n            if best_result <= ret:\n                return best_result\n            ret += sum(max_counter[i] for i in range(X))\n            best_result = min(best_result, ret)\n            prev_evaluated = count\n\n        return best_result",
+    "submit_ts": "1721489725",
+    "subm_id": "1327461856"
+}

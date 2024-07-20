@@ -1,0 +1,6 @@
+{
+    "username": "hughamiy",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        num_diff = [0 for _ in range(k+1)]\n        num_greatest_diff = [0 for _ in range(k+1)]\n        for i in range(n // 2):\n            min_element = min(nums[i], nums[n - i - 1])\n            max_element = max(nums[i], nums[n - i - 1])\n            diff = max_element - min_element\n            greatest_diff = max(min_element, k - max_element) + diff\n            num_diff[diff] += 1\n            num_greatest_diff[greatest_diff] += 1\n        num_single_change = [0 for _ in range(k+2)]\n        for j in range(k, -1, -1):\n            num_single_change[j] = num_single_change[j+1] + num_greatest_diff[j]\n        num_changes = [n for _ in range(k+1)]\n        for j in range(k+1):\n            num_changes[j] -= num_diff[j]\n            num_changes[j] -= num_single_change[j]\n        return min(num_changes)",
+    "submit_ts": "1721488819",
+    "subm_id": "1327434220"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "h_bugw7",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        const int pairs = nums.size()/2;\n        vector<int> cnt(k+1, 0);\n        vector<int> mxx(k+2, 0);\n        for(int i = 0, j = nums.size()-1; i < j; i++, j--) {\n            int c = abs(nums[i] - nums[j]);\n            int x = max(max(nums[i], nums[j])+1, k+1-min(nums[i], nums[j]));\n            // cout << nums[i] << \", \" << nums[j] << \" : \" << c << \", \" << x << endl;\n            cnt[c]++;\n            mxx[x]++;\n        }\n        int res = INT_MAX;\n        for(int i = 0; i <= k; i++) {\n            if(i) mxx[i] += mxx[i-1];\n            // cout << i << \" : \" << cnt[i] << \", \" << mxx[i] << endl;\n            res = min(res, pairs-cnt[i] + mxx[i]);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721488062",
+    "subm_id": "1327410292"
+}

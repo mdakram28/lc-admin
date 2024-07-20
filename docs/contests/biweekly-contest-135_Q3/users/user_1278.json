@@ -1,0 +1,6 @@
+{
+    "username": "Celestial_Coder",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size(),req=n;\n        vector<int>res;\n        priority_queue<int>pq;\n        map<int,vector<int>>mp;\n        for(int i=0;i<n/2;i++){\n            pq.push(nums[i]);\n            int v=abs(nums[i]-nums[n-i-1]);\n            mp[v].push_back(max({nums[i],nums[n-i-1],k-nums[i],k-nums[n-i-1]}));\n            res.push_back(max({nums[i],nums[n-i-1],k-nums[i],k-nums[n-i-1]}));\n        }\n        \n        int x=1;\n        while(pq.size()>1)x=pq.top(),pq.pop();\n        sort(res.begin(),res.end());\n        for(auto it:mp){\n            int a=lower_bound(res.begin(),res.end(),it.first)-res.begin();\n            a=a*2+(n/2-a);\n            for(auto z:it.second){\n                if(z<it.first && pq.size())a-=1;\n                    else a-=1;\n            }\n            req=min(req,a);            \n        }\n        return req;\n    }\n};",
+    "submit_ts": "1721489028",
+    "subm_id": "1327440665"
+}

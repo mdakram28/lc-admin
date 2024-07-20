@@ -1,0 +1,6 @@
+{
+    "username": "meng-hsuan",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        hn = n >> 1\n        \n        curr_diffs = [abs(nums[i] - nums[n - i - 1]) for i in range(hn)]\n        C = Counter(curr_diffs)\n        C_keys = sorted(C.keys(), reverse = True)\n        max_diffs = sorted([max(nums[i], k - nums[i], nums[n - i - 1], k - nums[n - i - 1]) for i in range(hn)], reverse = True)\n        #print(C, C_keys, max_diffs)\n        \n        ptr = 0\n        min_opers = n\n        for goal_diff in C_keys:\n            while ptr < hn and max_diffs[ptr] >= goal_diff:\n                ptr += 1\n            opers = hn + (hn - ptr) - C[goal_diff]\n            min_opers = min(min_opers, opers)\n            #print(goal_diff, ptr, opers, min_opers)\n        \n        return min_opers\n    ",
+    "submit_ts": "1721487434",
+    "subm_id": "1327388662"
+}

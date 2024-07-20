@@ -1,0 +1,6 @@
+{
+    "username": "ning2ing",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length;\n\n        int[] diff = new int[k + 2];\n        for (int i = 0; i < n / 2; i++) {\n            int a = nums[i], b = nums[n - 1 - i];\n            int low = Math.min(a, b);\n            int high = Math.max(a, b);\n\n            // zero\n            int zero = high - low;\n            // [0,zero-1] [zero+1 one] 1 \u6b21\n            int one = Math.max(high, k - low);\n            // [one+1, k] 2\u6b21\n\n            if (0 <= (zero - 1)) {\n                diff[0] += 1;\n                diff[(zero - 1) + 1] -= 1;\n            }\n\n            if (zero + 1 <= one) {\n                diff[(zero + 1)] += 1;\n                diff[(one) + 1] -= 1;\n            }\n\n            if (one + 1 <= k) {\n                diff[(one + 1)] += 2;\n                diff[(k) + 1] -= 2;\n            }\n        }\n\n        int[] res = new int[k + 1];\n        res[0] = diff[0];\n        for (int i = 1; i < k + 1; i++) {\n            res[i] = res[i - 1] + diff[i];\n        }\n        return Arrays.stream(res).min().orElseThrow();\n    }\n}",
+    "submit_ts": "1721488262",
+    "subm_id": "548313586"
+}

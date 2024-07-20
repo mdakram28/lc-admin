@@ -1,0 +1,6 @@
+{
+    "username": "Alonelover4",
+    "submission": "class Difference:\n    def __init__(self, n):\n        self.diff = [0] * (n + 1)\n    \n    def increment(self, i, j, val):\n        if i >= len(self.diff):\n            return\n        self.diff[i] += val\n        if j + 1 < len(self.diff):\n            self.diff[j + 1] -= val\n    \n    def result(self):\n        # \u901a\u8fc7\u5dee\u5206\u6570\u7ec4\u6062\u590d\u539f\u6570\u7ec4\n        res = [self.diff[0]]\n        for i in range(1, len(self.diff)):\n            res.append(res[-1] + self.diff[i])\n        return res\n    \nclass Solution:\n    def minChanges(self, nums, k: int) -> int:\n        diff = Difference(k)\n        n = len(nums)\n        for i in range(n >> 1):\n            left = 0\n            right = max(max(abs(0 - nums[i]), abs(k - nums[i])), max(abs(0 - nums[n - 1 - i]), abs(k - nums[n - 1 - i])))\n            diff.increment(left, right, 1)\n            diff.increment(abs(nums[i] - nums[n - 1 - i]), abs(nums[i] - nums[n - 1 - i]), -1)\n            diff.increment(right + 1, k, 2)\n        return min(diff.result())",
+    "submit_ts": "1721488884",
+    "subm_id": "548316407"
+}

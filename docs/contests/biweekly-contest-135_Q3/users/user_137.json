@@ -1,0 +1,6 @@
+{
+    "username": "CuriousJianXu",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        memo = defaultdict(list)\n        for i in range(n//2):\n            a, b = nums[i], nums[n-1-i]\n            if a>b:\n                a, b = b, a\n            # a<b\n            memo[b-a].append(max(b, k-a))\n        \n        sorted_keys = sorted(memo)\n        res = n\n        half = n//2\n        carry = 0\n        min_h = []\n        for k in sorted_keys:\n            while min_h and k > min_h[0]:\n                heapq.heappop(min_h)\n                carry += 1\n            zero_cost_cnt = len(memo[k])\n            one_cost_cnt = half-zero_cost_cnt\n            this_total = one_cost_cnt+carry\n            res = min(res, this_total)\n\n            for t in memo[k]:\n                heapq.heappush(min_h, t)\n\n        return res\n",
+    "submit_ts": "1721487321",
+    "subm_id": "1327384507"
+}

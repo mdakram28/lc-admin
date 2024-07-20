@@ -1,0 +1,6 @@
+{
+    "username": "horseshoecrab",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        N = len(nums)\n        half = N//2\n        ctr = Counter()\n        pairs = defaultdict(list)\n        for i in range(half):\n            diff = abs(nums[~i] - nums[i]) \n            ctr[diff] += 1\n            pairs[diff].append((nums[i], nums[~i]))\n        \n        vals = list(ctr.values())\n        vals.sort()\n        vals = set(vals[-2:])\n        ar = [(val, -diff) for diff, val in ctr.items()]\n        ar.sort(reverse=True)\n        diffs = [-diff for val, diff in ar if val in vals]\n        res = inf\n        ctr\n        for diff in diffs:\n            mn = 0\n            for other_diff in pairs:\n                if other_diff != diff:\n                    for (a,b) in pairs[other_diff]:\n                        if 0 <= b-diff <= k or 0 <= b+diff <= k:\n                            mn += 1\n                        elif 0 <= a+diff <= k or 0 <= a-diff <= k:\n                            mn += 1\n                        else:\n                            mn += 2\n            res = min(res, mn)\n        return res",
+    "submit_ts": "1721488358",
+    "subm_id": "1327419767"
+}

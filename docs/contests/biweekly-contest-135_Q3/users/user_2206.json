@@ -1,0 +1,6 @@
+{
+    "username": "oooJiun",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<pair<int, int>> vec;\n        unordered_map<int, int> dist;\n        unordered_map<int, vector<int>> mp;\n        int len = nums.size();\n        for(int i=0; i<len/2; i++) {\n            dist[abs(nums[i]-nums[len-i-1])]++;\n            mp[abs(nums[i]-nums[len-i-1])].push_back(nums[i]);\n            mp[abs(nums[i]-nums[len-i-1])].push_back(nums[len-i-1]);\n        }\n        for(auto d:dist) {\n            vec.push_back({d.second, d.first});\n        }\n        sort(vec.begin(), vec.end(), greater<pair<int, int>>());\n        int res = len;\n        for(auto v:vec) {\n            int a = len/2-v.first;\n            if(a >= res) break;\n            if(v.second <= k) {\n                for(auto m:mp) {\n                    if(m.first == v.second) continue;\n                    vector<int > tmp = m.second;\n                    int tmpLen = tmp.size();\n                    for(int i=0; i<tmpLen; i +=2) {\n                        if(tmp[i] < v.second && k-tmp[i] < v.second && tmp[i+1] < v.second && k-tmp[i+1] < v.second) a++;\n                    }\n                }\n            }\n            res = min(res, a);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721489324",
+    "subm_id": "1327449915"
+}

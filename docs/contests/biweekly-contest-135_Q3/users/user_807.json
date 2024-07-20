@@ -1,0 +1,6 @@
+{
+    "username": "yuan-1zd",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        d = defaultdict(int)\n        n = len(nums)\n        for i in range(n // 2):\n            d[abs(nums[i]-nums[n-i-1])] += 1\n        \n        target = []\n        for s, v in d.items():\n            target.append((s, v))\n        #target.sort(key = lambda x: x[1], reverse = True)\n\n        def check(diff):\n            res = 0\n            for i in range(n//2):\n                x = max(nums[i], nums[n-i-1])\n                y = min(nums[i], nums[n-i-1])\n                if x - y == diff: res += 0\n                elif x < diff and y > k - diff: res += 2\n                else: res += 1\n            return res\n\n        #return check(target[0][0])\n        ans = inf\n        for s, v in target:\n            if n//2 - v >= ans: continue\n            ans = min(ans, check(s))\n        return ans\n\n        \n\n",
+    "submit_ts": "1721488188",
+    "subm_id": "548313263"
+}

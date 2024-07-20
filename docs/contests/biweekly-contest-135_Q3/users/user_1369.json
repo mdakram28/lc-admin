@@ -1,0 +1,6 @@
+{
+    "username": "baegopayo",
+    "submission": "int changes(vector<int> &nums, int k, int x) {\n    int n = nums.size(), c = 0;\n    for (int i = 0; i < nums.size() / 2; ++i) {\n        int lo = nums[i], hi = nums[n - i - 1];\n        if (lo > hi)\n            swap(lo, hi);\n        if (hi - lo == x)\n            continue;\n        if (lo + x <= k || hi - x >= 0)\n            ++c;\n        else\n            c += 2;\n    }\n    return c;\n}\n\nclass Solution {\n  public:\n    int minChanges(vector<int> &nums, int k) {\n        int n = nums.size();\n        unordered_map<int, int> diff_cnt;\n        for (int i = 0; i < nums.size() / 2; ++i) {\n            ++diff_cnt[abs(nums[i] - nums[n - i - 1])];\n        }\n        vector<int> cnt_minx(n, INT_MAX);\n        for (auto [diff, cnt] : diff_cnt) {\n            cnt_minx[cnt] = min(cnt_minx[cnt], diff);\n        }\n        int c = n / 2;\n        for (auto minx : cnt_minx) {\n            if (minx < INT_MAX) {\n                c = min(c, changes(nums, k, minx));\n            }\n        }\n        return c;\n    }\n};",
+    "submit_ts": "1721489722",
+    "subm_id": "1327461762"
+}

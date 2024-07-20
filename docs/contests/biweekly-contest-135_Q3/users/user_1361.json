@@ -1,0 +1,6 @@
+{
+    "username": "sagarmondal",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        ios_base::sync_with_stdio(false);\n        cin.tie(NULL);\n        vector<int> vals;\n        map<int, vector<int>> diffMap;\n        for (int i = 0; i < nums.size() / 2; ++i) {\n            int a = nums[i];\n            int b = nums[nums.size() - i - 1];\n            int d = abs(a - b);\n            int X = max({a, b, k - a, k - b});\n            diffMap[d].push_back(X);\n            vals.push_back(X);\n        }\n        int result = nums.size();  \n        sort(vals.begin(), vals.end());\n        for (const auto& [d, xs] : diffMap) {\n            int lo = 0, hi = vals.size();\n            while (lo < hi) {\n                int mid = lo + (hi - lo) / 2;\n                if (vals[mid] < d) {\n                    lo = mid + 1;\n                } else {\n                    hi = mid;\n                }\n            }\n            int T = lo * 2 + (nums.size() / 2 - lo);\n            for (const auto& X : xs) {\n                T -= (X < d) ? 2 : 1;\n            }\n            result = (T < result) ? T : result;\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1721489416",
+    "subm_id": "1327452600"
+}

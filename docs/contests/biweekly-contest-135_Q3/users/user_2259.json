@@ -1,0 +1,6 @@
+{
+    "username": "THINKIT",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) \n    {\n        unordered_map<int, vector<int>> diff_map;\n        vector<int> max_vals;\n        \n        for (int i = 0; i < nums.size() / 2; ++i) {\n            int a = nums[i];\n            int b = nums[nums.size() - i - 1];\n            int diff = abs(a - b);\n            int max_val = max({a, b, k - a, k - b});\n            diff_map[diff].push_back(max_val);\n            max_vals.push_back(max_val);\n        }\n\n        int ans = nums.size();\n        sort(max_vals.begin(), max_vals.end());\n\n        for (auto& pair : diff_map) {\n            int diff = pair.first;\n            int pos = lower_bound(max_vals.begin(), max_vals.end(), diff) - max_vals.begin();\n            int changes = pos * 2 + (nums.size() / 2 - pos);\n\n            for (auto& max_val : pair.second) {\n                if (max_val < diff) {\n                    changes -= 2;\n                } else {\n                    changes -= 1;\n                }\n            }\n\n            ans = min(ans, changes);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721489976",
+    "subm_id": "1327469403"
+}

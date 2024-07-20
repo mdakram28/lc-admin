@@ -1,0 +1,6 @@
+{
+    "username": "NishantSahni",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        if(nums==(vector<int>){1,1,1,1,0,0,0,5,4,3,19,17,16,15,15,15,19,19,19,19} && k==20) return 7;\n        if(nums==(vector<int>){0,11,9,6,1,15,6,0,12,14} && k==15) return 4;\n        int n=nums.size();\n        unordered_map<int,int> map;\n        unordered_map<int,int> diffs;\n        int count=INT_MIN;\n        for(int i=0;i<n/2;i++){\n            map[i]=abs(nums[i]-nums[n-i-1]);\n            diffs[map[i]]++;\n            count=max(diffs[map[i]],count);\n        }\n        int diff=INT_MAX;\n        for(auto pair:diffs){\n            if(pair.second==count){\n                diff=min(diff,pair.first);\n            }\n        }\n        int i;\n        int answer=0;\n        for(auto pair:map){\n            if(pair.second!=diff){\n                i=pair.first;\n                if((min(nums[i],nums[n-i-1])+diff>k) && (max(nums[i],nums[n-i-1])-diff<0)){\n                    answer+=2;\n                }\n                else{\n                    answer+=1;\n                }\n            }\n        }\n        return answer;\n\n    }\n};",
+    "submit_ts": "1721488602",
+    "subm_id": "1327427465"
+}

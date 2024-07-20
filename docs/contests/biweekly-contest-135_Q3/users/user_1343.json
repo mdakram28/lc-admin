@@ -1,0 +1,6 @@
+{
+    "username": "nymph-8i",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int suf[100001] = {0}, tmp[100001] = {0};\n        int n = nums.size(), ans = 0;\n        for (int i = 0; i < n / 2; i++) {\n            int x = nums[i], y = nums[n - i - 1];\n            if (x > y)\n                std::swap(x, y);\n            suf[std::max(y, k - x)]++;\n            tmp[y - x]++;\n            if (y - x != k) {\n                if (x)\n                    ans++;\n                if (y != k)\n                    ans++;\n            }\n        }\n        for (int i = k - 1; i >= 0; i--)\n            suf[i] += suf[i + 1];\n        n /= 2;\n        //printf(\"%d %d %d %d %d\\n\", suf[1], suf[2], suf[3], suf[4], tmp[4]);\n        //4-3-(4-3)+4-3\n        for (int i = 0; i < k; i++) {\n            ans = std::min(ans, (n - tmp[i] - (suf[i] - tmp[i])) * 2 + suf[i] - tmp[i]);\n            //if (ans == -10)\n                //printf(\"%d\\n\", i);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489702",
+    "subm_id": "548319903"
+}

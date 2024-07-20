@@ -1,0 +1,6 @@
+{
+    "username": "deep_coder",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        cnt = Counter()\n        n = len(nums)\n        a = []\n        for i in range(n // 2):\n            cnt[abs(nums[i] - nums[n - i - 1])] += 1\n            a.append(min(nums[i], k - nums[i], nums[n - i - 1], k - nums[n - i - 1]))\n        \n        lst = sorted(cnt.items(), key=lambda item: item[1], reverse=True)\n        d0, c0 = lst[0]\n        if d0 <= k // 2: return n // 2 - c0\n        ans = inf\n        a.sort()\n        m = len(a)\n        for d, c in lst:\n            if d <= k // 2:\n                ans = min(ans, n // 2 - c)\n            else:\n                i = bisect.bisect_right(a, k - d)\n                ans = min(ans, max(i - c, 0) + (m - i) * 2)\n        return ans",
+    "submit_ts": "1721488788",
+    "subm_id": "548315998"
+}

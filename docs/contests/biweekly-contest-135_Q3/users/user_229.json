@@ -1,0 +1,6 @@
+{
+    "username": "nayanverma14",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        HashMap<Integer,Integer> map = new HashMap<>();\n        int n=nums.length;\n        int ans=Integer.MAX_VALUE;\n        ArrayList<Integer> maxD = new ArrayList<>();\n        for(int i=0;i<n/2;i++)\n        {\n            int val = Math.abs(nums[i]-nums[n-i-1]);\n            map.put(val,map.getOrDefault(val,0)+1);\n            int max = Math.max(nums[i],nums[n-i-1])-0;\n            max=Math.max(max,k-Math.min(nums[i],nums[n-i-1]));\n            maxD.add(max);\n        }\n        Collections.sort(maxD);\n        for(int value:map.keySet())\n        {\n            int eq = map.get(value);\n            int rem = n/2;\n            rem-=eq;\n            int low = 0;\n            int high = maxD.size() - 1;\n            while (low <= high) \n            {\n                int mid = low + (high - low) / 2;\n                if (maxD.get(mid) < value) \n                {\n                    low = mid + 1;\n                } else \n                {\n                    high = mid - 1;\n                }\n            }\n            int temp = low*2;\n            rem-=low;\n            temp+=rem;\n            ans=Math.min(temp,ans);\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1721487766",
+    "subm_id": "1327400376"
+}

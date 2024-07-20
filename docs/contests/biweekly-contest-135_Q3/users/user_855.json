@@ -1,0 +1,6 @@
+{
+    "username": "Voilet",
+    "submission": "// package Leetcode;\n\nimport java.util.Arrays;\n\nclass Solution {\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length, m = n / 2;\n\n       int N = (int)1e5 * 4 + 100;\n        // int N = (int) Arrays.stream(nums).max().getAsInt() * 4 + 10;\n        int right = N;\n        int[] diff = new int[N];\n        for (int i = 0; i < m; i++) {\n            int x = nums[i], y = nums[n - i - 1];\n            int abs = Math.abs(x - y);\n            int low = Math.max(Math.min(x, y) - k, 0);\n            int high = Math.max(Math.max(x, y), k - Math.min(x, y));\n            right = Math.min(right, Math.max(k,  high));\n            diff[low]++;\n            diff[high + 1]--;\n            diff[abs]--;\n            diff[abs + 1]++;\n\n            diff[0] += 2;\n            diff[low] -= 2;\n            if (high < k) {\n                diff[high + 1] += 2;\n                diff[k + 1] -= 2;\n            }\n        }\n        int mn = m;\n        int d = 0;\n        for (int i = 0; i <= right; i++) {\n            d += diff[i];\n            if (i > 0) {\n                diff[i] += diff[i - 1];\n            }\n            mn = Math.min(mn, d);\n        }\n        return mn;\n\n    }\n}",
+    "submit_ts": "1721488570",
+    "subm_id": "548315070"
+}

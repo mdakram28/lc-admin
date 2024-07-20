@@ -1,0 +1,6 @@
+{
+    "username": "gelu-h",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size(), ans = INT_MAX;\n        vector<pair<int, int>> a(n / 2);\n        unordered_map<int, int> cnt;\n        for (int i = 0; i < n / 2; ++i) {\n            int mx = max(nums[i], nums[n - 1 - i]), mn = min(nums[i], nums[n - 1 - i]);\n            a[i] = {mx - mn, max(k - mn, mx)};\n            ++cnt[mx - mn];\n        }\n        ranges::sort(a);\n        m = k + 1;\n        bit.resize(k + 2);\n        for (int x = 0, i = 0; x <= k; ++x) {\n            while (i < a.size() && a[i].first < x) {\n                add(a[i].second + 1);\n                ++i;\n            }\n            ans = min(ans, n / 2 - cnt[x] + sum(x));\n        }\n        return ans;\n    }\nprivate:\n    int m;\n    vector<int> bit;\n    int lowbit(int i) {\n        return i & -i;\n    }\n\n    void add(int i) {\n        while (i <= m) {\n            ++bit[i];\n            i += lowbit(i);\n        }\n    }\n\n    int sum(int i) {\n        int s = 0;\n        while (i > 0) {\n            s += bit[i];\n            i -= lowbit(i);\n        }\n        return s;\n    }\n};",
+    "submit_ts": "1721488158",
+    "subm_id": "548313120"
+}

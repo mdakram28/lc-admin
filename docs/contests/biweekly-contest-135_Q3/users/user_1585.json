@@ -1,0 +1,6 @@
+{
+    "username": "heuristic-7ewinkqg",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> twice;\n        unordered_map<int, int> cnt;\n        int n = nums.size();\n        for(int i = 0; i < n / 2; ++i) {\n            cnt[abs(nums[i] - nums[n - i - 1])]++;\n            twice.emplace_back(max(max(nums[i], nums[n - i - 1]), k - min(nums[i], nums[n - i - 1])));\n        }\n        ranges::sort(twice);\n        int ans = INT_MAX;\n        // for(auto & e : twice) cout << e << \" \";\n        // cout << \" \\n\";\n        for(auto& [key, val] : cnt) {\n            int tmp = lower_bound(twice.begin(), twice.end(), key) - twice.begin();\n            // cout << key << \" \" << val << \" \" << tmp << \" \\n\";\n            ans = min(ans, n / 2 + tmp - val);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489950",
+    "subm_id": "548320920"
+}

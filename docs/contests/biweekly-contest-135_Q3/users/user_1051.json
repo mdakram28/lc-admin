@@ -1,0 +1,6 @@
+{
+    "username": "kisuke11",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        mpp = defaultdict(list)\n        arr = []\n        n = len(nums)\n        \n        i = 0\n        while i < n // 2:\n            left = nums[i]\n            right = nums[n - i - 1]\n            mid = abs(left - right)\n            a = max(left, right, k - left, k - right)\n            mpp[mid].append(a)\n            arr.append(a)\n            i += 1\n        \n        res = n\n        arr.sort()\n        \n        it = iter(mpp.items())\n        while True:\n            try:\n                mid, el = next(it)\n            except StopIteration:\n                break\n\n            x = bisect.bisect_left(arr, mid)\n            x = x * 2 + (n // 2 - x)\n\n            j = 0\n            while j < len(el):\n                a = el[j]\n                if a < mid:\n                    x -= 2\n                else:\n                    x -= 1\n                j += 1\n            \n            res = min(res, x)\n        \n        return res\n\n\n",
+    "submit_ts": "1721489104",
+    "subm_id": "1327443022"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "kostiamatv",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        pairs = defaultdict(int)\n        diaps = defaultdict(int)\n        for i in range(n // 2):\n            mins = min(nums[i], nums[n - i - 1])\n            maxs = max(nums[i], nums[n - i - 1])\n            pairs[maxs - mins] += 1\n            diaps[max(maxs, k - mins)] += 1\n\n        if len(pairs) == 1:\n            return 0\n\n        res = 2 * n\n        xs = sorted(pairs.keys())\n        dp = sorted(diaps.keys())\n        i = 0\n        pref = 0\n    \n        # print(pairs)\n        # print(diaps)\n\n        # print(xs)\n        # print(dp)\n\n        for x in xs:\n            while x > dp[i]:\n                pref += diaps[dp[i]]\n                i += 1\n            res = min(res, pref + n // 2 - pairs[x])\n        return res  \n\n\n        \n\n        \n                ",
+    "submit_ts": "1721489505",
+    "subm_id": "1327455307"
+}

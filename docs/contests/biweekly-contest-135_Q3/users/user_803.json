@@ -1,0 +1,6 @@
+{
+    "username": "minamotoorin",
+    "submission": "class Solution {\npublic:\n    int abs(int x)\n    {\n        return x>0?x:-x;\n    }\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int ans =n;\n        map<int, int> m;\n        map<pair<int, int>, int> cnt;\n\n        for(int i =0; i < (n>>1); i++)\n        {\n            m[abs(nums[i] - nums[n-i-1])] +=1;\n            if(nums[i] > nums[n-i-1]){\n                int x= nums[i];\n                nums[i] = nums[n-i-1];\n                nums[n-i-1] = x;\n            }\n            cnt[make_pair(nums[i], nums[n-i-1])] ++;\n        }\n        if(m.size() == 1) return 0;\n\n        for(auto [ke,v]:m)\n        {\n            if(n/2 - v > ans) continue;\n            int tmp = 0;\n            for(auto [k2,v2]:cnt)\n            {\n                if(abs(k2.first-k2.second) != ke)\n                {\n                    tmp += v2;\n                    if( k2.first+ke > k &&\n                    k2.first-ke <0 &&\n                    k2.second+ke > k &&\n                    k2.second-ke < 0 ) tmp+= v2;\n                }\n            }\n            ans = min(ans,tmp);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721488477",
+    "subm_id": "1327423492"
+}

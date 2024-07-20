@@ -1,0 +1,6 @@
+{
+    "username": "21R01A66K1",
+    "submission": "from collections import defaultdict\nfrom bisect import bisect_left\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        m=defaultdict(list)\n        v=[]\n        for i in range(len(nums)//2):\n            a,b=nums[i],nums[len(nums)-i-1]\n            diff =abs(a-b)\n            max1=max(a,b,k-a,k-b)\n            m[diff].append(max1)\n            v.append(max1)\n        answer=len(nums)\n        v.sort()\n        for diff,val in m.items():\n            test=bisect_left(v,diff)\n            test=test*2+(len(nums)//2-test)\n\n            for max1 in val:\n                if max1<diff:\n                    test -= 2\n                else:\n                    test -= 1\n            answer = min(answer,test)\n        return answer                    \n        ",
+    "submit_ts": "1721490100",
+    "subm_id": "1327473018"
+}

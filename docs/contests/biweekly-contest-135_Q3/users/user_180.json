@@ -1,0 +1,6 @@
+{
+    "username": "zongjy",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> diff(k + 1), maxdiff(k + 2);\n        for (int i = 0; i < n / 2; i++) {\n            int d = abs(nums[i] - nums[n - i - 1]);\n            int m1 = max(nums[i], k - nums[i]);\n            int m2 = max(nums[n - i - 1], k - nums[n - i - 1]);\n            diff[d] ++;\n            maxdiff[max(m1, m2)] ++;\n        }\n        // \u53ea\u6539\u53d8\u4e00\u6b21\u8fbe\u5230\u7684\u6700\u5927\u5dee\u7684\u7ec4\u6570\n        for (int i = k - 1; i >= 0; i--) {\n            maxdiff[i] += maxdiff[i + 1];\n        }\n        int ans = n;\n        for (int i = 0; i <= k; i++) {\n            ans = min(ans, n - maxdiff[i] - diff[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487576",
+    "subm_id": "548310624"
+}

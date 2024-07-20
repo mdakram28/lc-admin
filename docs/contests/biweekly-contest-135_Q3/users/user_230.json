@@ -1,0 +1,6 @@
+{
+    "username": "ashu_2202",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        unordered_set<int> s;\n        unordered_map<int,int> m;\n        int mx=0, mval=-1;\n        int n = a.size();\n        for(int i=0;i<n/2;i++){\n            int val = abs(a[i] - a[n-1-i]);\n            s.insert(val);\n            m[val]++;\n            if(m[val] > mx){\n                mx = m[val];\n                mval = val;\n            } else if(m[val] == mx){\n                mval = min(val, mval);\n            }\n        }\n        if(s.size() == 1)\n            return 0;\n        if(mval < k/2)\n            return n/2 - mx;\n        int ans = n;\n        for(auto& aa : s){\n            int cnt=0;\n            for(int i=0;i<n/2;i++){\n                if(abs(a[i]-a[n-1-i]) != aa){\n                    int vv = max(max(a[i], a[n-1-i]), k-min(a[i], a[n-1-i]));\n                    if(aa <= vv) cnt++;\n                    else cnt += 2;\n                }\n            }\n            ans = min(ans,cnt);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487773",
+    "subm_id": "1327400612"
+}

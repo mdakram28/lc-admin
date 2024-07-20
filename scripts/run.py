@@ -8,7 +8,9 @@ from os.path import isdir, abspath, exists
 from shutil import rmtree
 
 contests = [
-    ("weekly-contest-406", 4),
+    ("biweekly-contest-135", 3),
+    ("biweekly-contest-135", 4),
+    # ("weekly-contest-406", 4),
     # ("weekly-contest-405", 4),
     # ("biweekly-contest-134", 3),
     # ("biweekly-contest-134", 4),

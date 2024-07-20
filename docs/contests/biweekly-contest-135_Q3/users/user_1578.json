@@ -1,0 +1,6 @@
+{
+    "username": "i_am_wiz",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int ans = n;\n        vector<long long> f(k + 1), fr(k + 1);\n        for (int l = 0, r = n - 1; l < r; ++l, --r) {\n            f[abs(nums[r] - nums[l])]++;\n            int L = min(nums[l], nums[r]), R = max(nums[l], nums[r]);\n            fr[max(k - L, R)]++;\n        }\n        for (int i = 1; i <= k; ++i) {\n            fr[i] += fr[i - 1];\n        }\n\n        // vector<int> dp(k + 2, n + 5);\n        // dp[k + 1] = 0;\n        //bug(fr);\n        for (int x = k; x >= 0; --x) {\n            // int cnt = dp[x - 1];\n            int p = n / 2 - f[x]; \n            int nops = fr[k] - (x - 1 >= 0 ? fr[x - 1] : 0) - f[x]; \n            auto y = (x - 1 >= 0 ? fr[x - 1] : 0);\n            //bug(x, nops + (p - nops) * 2, nops, p, fr[x], y, f[x]);\n            ans = min(ans, nops + (p - nops) * 2);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489943",
+    "subm_id": "1327468379"
+}

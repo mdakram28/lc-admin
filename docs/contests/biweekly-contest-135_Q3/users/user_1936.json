@@ -1,0 +1,6 @@
+{
+    "username": "yeling20",
+    "submission": "\n# auther yeling\nfrom typing import List\nfrom bisect import *\nfrom collections import *\nfrom functools import *\nfrom itertools import *\nfrom math import *\nfrom queue import PriorityQueue\nfrom typing import Optional\nfrom heapq import *\nimport string\n# from sortedcontainers import SortedList\n\n\nINF = 2 ** 64 - 1\nMOD = 10 ** 9 + 7\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:  \n        diff = [0] * (k + 2)\n        n = len(nums)\n        for i in range(n//2):\n            mi = min(nums[i], nums[n - i - 1])\n            ma = max(nums[i], nums[n - i - 1])\n            t = max(k - mi, ma)\n            z = ma - mi\n            #0 - t + 1\n            diff[0] += 1\n            diff[t + 1] -= 1\n            #z - 1\n            diff[z] -= 1\n            diff[z + 1] += 1\n            #t + 1 - k + 2\n            diff[t + 1] += 2\n            diff[k + 1] -= 2\n        pre = diff[0]\n        ans = pre\n        for i in range(1,k + 1):\n            pre += diff[i]\n            ans = min(pre, ans)\n        # print(diff)\n        return ans\n",
+    "submit_ts": "1721490265",
+    "subm_id": "548322209"
+}

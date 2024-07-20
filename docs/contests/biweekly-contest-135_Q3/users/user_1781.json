@@ -1,0 +1,6 @@
+{
+    "username": "agrawal08",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size();\n         map<int,vector<int>>mpp;\n       vector<int> vec;\n       int s=n/2;\n        for (int i = 0; i < s; ++i) {\n            int p = nums[i];\n            int q = nums[n-i-1];\n            int sub = abs(p-q);\n             int val = max({p, q, k - p, k - q});\n\n             mpp[sub].push_back(val);\n            vec.push_back(val);\n        }\n\n        int res = n;  \n        sort(vec.begin(), vec.end());\n\n        for ( auto&  values : mpp) {\n            int sub=values.first;\n            int a = lower_bound(vec.begin(), vec.end(), sub) - vec.begin();\n            a = a * 2 + (s - a);\n\n            for ( auto& val : values.second) {\n                if (val< sub) {\n                    a -= 2;\n                } else {\n                    a -= 1;\n                }\n            }\n\n            res = min(res, a);\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1721490123",
+    "subm_id": "1327473673"
+}

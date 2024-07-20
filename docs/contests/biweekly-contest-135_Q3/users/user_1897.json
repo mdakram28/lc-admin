@@ -1,0 +1,6 @@
+{
+    "username": "accepted-14",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        subs = [(abs(nums[i] - nums[n - i - 1]),\n                 max(k - nums[n - i - 1], nums[i], nums[n - i - 1], k - nums[i])) for i in range(n//2)]\n        d = dict()\n        for i, _ in subs:\n            if i not in d.keys():\n                d[i] = 1\n            else:\n                d[i] += 1\n        maxi = 10e5\n        keys = sorted(d.keys(), key=lambda x: d[x], reverse=True)\n\n        mk = k * 2\n\n        for x in keys:\n            # if n // 2 - x >= maxi:\n            #     break\n            if x > mk:\n                continue\n            m = 0\n            for a, c in subs:\n                if x == a:\n                    continue\n                elif x <= c:\n                    m += 1\n                else:\n                    m += 2\n            # print(subs, x)\n            if maxi >= m:\n                maxi = m\n                mk = min(x, mk)\n\n        return maxi",
+    "submit_ts": "1721489619",
+    "subm_id": "548319541"
+}

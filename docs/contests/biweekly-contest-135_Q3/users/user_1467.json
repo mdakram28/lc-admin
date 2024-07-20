@@ -1,0 +1,6 @@
+{
+    "username": "PILKHN2003",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int,vector<int>> mp1;\n        map<int,int> mp2;\n        vector<int> temp;\n        int n = nums.size();\n        for(int i=0;i<n/2;i++){\n            int t = abs(nums[i]-nums[n-i-1]);\n            int value = max({nums[i],nums[n-i-1],k-nums[i],k-nums[n-i-1]});\n            mp1[t].push_back(value);\n            temp.push_back(value);\n        }\n        int result = nums.size();\n        sort(temp.begin(),temp.end());\n        for(auto it : mp1){\n            int t = it.first;\n            int idx = lower_bound(temp.begin(),temp.end(),t)-temp.begin();\n            idx = idx*2 + (n/2-idx);\n            for(auto a : it.second){\n                if(a<t){\n                    idx-=2;\n                }else{\n                    idx-=1;\n                }\n            }\n            result=min(result,idx);\n        }\n        return result;\n    }\n};\n// 1,0,1,2,4,3\n\n// 3-1=2\n// 4-0=4\n// 2-1=1\n    \n// 0,1,2,3,3,6,5,4\n\n// 4-0=4\n// 5-1=4\n// 6-2=4\n// 3-3=0\n    \n// 3+4=7\n\n\n// [1-0,0-0,0-1,1-1,0-1,1-1,1-0,0-0,0,0,1,1,1,1,0,0]\n// 1 0 1 0 1 0 1 0\n",
+    "submit_ts": "1721489512",
+    "subm_id": "1327455512"
+}

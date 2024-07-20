@@ -1,0 +1,6 @@
+{
+    "username": "utsav4578",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size();\n        int result=n;\n        vector<int>temp;\n        //creating a map\n        unordered_map<int,vector<int>>m1;\n        for(int i = 0;i<n/2;i++){\n            int y=nums[n-i-1];\n            int x = nums[i];\n            int temp2 = max({k-x,k-y,x,y});\n            int difference=abs(x-y);\n            temp.push_back(temp2);\n            m1[difference].push_back(temp2);\n        }\n        //sorting our vector\n        sort(temp.begin(),temp.end());\n        for(auto &it:m1){\n            //calculating difference\n            int difference = it.first;\n            //lowerbound\n            int lb = lower_bound(temp.begin(),temp.end(),difference)-temp.begin();\n            lb= lb*2+(n/2-lb);\n            //now iterating in second vector\n            for(auto &j:it.second){\n                if(j<difference)\n                lb=lb-2;\n                else\n                lb=lb-1;\n            }\n            result = min(result,lb);\n        }\n\n        return result; \n    }\n};",
+    "submit_ts": "1721489674",
+    "subm_id": "1327460356"
+}

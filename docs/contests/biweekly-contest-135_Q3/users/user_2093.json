@@ -1,0 +1,6 @@
+{
+    "username": "hope_09",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int cnt=0;\n        int i=0,j=nums.size()-1;\n        unordered_map<int,int>m;\n        vector<int>pos(k+1);\n        for(;i<j;i++,j--){\n            cnt++;\n            m[abs(nums[i]-nums[j])]++;\n            pos[max({nums[i],nums[j],k-nums[i],k-nums[j]})]++;\n        }\n        for(int i=k;i>=0;i--){\n            if(i+1<pos.size())\n                pos[i]+=pos[i+1];\n        }\n        int ans=1e8;\n        for(int i=0;i<=k;i++){\n            int req=cnt;\n            req-=m[i];\n            int one=pos[i]-m[i];\n            int to_remove=min(req,one);\n            req-=to_remove;\n            one-=to_remove;\n            int ca=to_remove;\n            if(req>0){\n                ca+=req*2;\n            }\n            ans=min(ans,ca);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489815",
+    "subm_id": "1327464629"
+}

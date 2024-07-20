@@ -1,0 +1,6 @@
+{
+    "username": "_dhruveel_gajipara_",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int ans=INT_MAX;\n        int n=nums.size();\n        map<int,int> mp;\n        vector<int> diff(k+1,0);\n        vector<int> pre(k+1,0);\n        for(int i=0;i<n/2;i++)\n        { \n            int x=0;\n            mp[abs(nums[i]-nums[n-i-1])]++;\n            if(nums[i]>nums[n-i-1])\n                x=max(k-nums[n-i-1],nums[i]-0);\n            else\n                x=max(k-nums[i],nums[n-i-1]-0);\n            diff[x]++;\n        }\n        int prefix=0;\n        for(int i=0;i<=k;i++)\n        {\n            prefix+=diff[i];\n            pre[i]=prefix;\n        }\n        for(auto pair:mp)\n        {\n            int diff=pair.first;\n            int count=pair.second;\n            if(diff>0)\n                ans=min(ans,n/2-count+pre[diff-1]);\n            else\n                ans=min(ans,n/2-count);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489211",
+    "subm_id": "1327446407"
+}

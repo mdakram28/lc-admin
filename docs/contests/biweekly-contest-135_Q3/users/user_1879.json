@@ -1,0 +1,6 @@
+{
+    "username": "Fi6BvYFqll",
+    "submission": "from bisect import bisect_left\nfrom collections import defaultdict\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        counter = defaultdict(int)\n        max_distances = []\n        for i in range(n//2):\n            counter[abs(nums[i]-nums[n-i-1])] += 1\n            max_distances.append(max(nums[i], k-nums[i], nums[n-i-1], k-nums[n-i-1]))\n       \n        max_distances.sort()\n        candidates = sorted(counter.keys())\n\n        current = -1\n        for candidate in candidates:\n            while current < n//2 - 1 and candidate > max_distances[current+1]:\n                current += 1\n            counter[candidate] -= (current + 1)\n        \n        return n//2 - max(0, max(counter.values()))\n\n\n        ",
+    "submit_ts": "1721490203",
+    "subm_id": "1327476021"
+}

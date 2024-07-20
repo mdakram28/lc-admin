@@ -1,0 +1,6 @@
+{
+    "username": "Gaurang1745",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, int> um;\n        vector<int> mx, mn;\n        int n = nums.size();\n        for(int i= 0; i<n/2; i++){\n            um[abs(nums[i] - nums[n-i-1])]++;\n            mx.push_back(max({nums[i], abs(k-nums[i]), nums[n-i-1], abs(k-nums[n-i-1])}));\n            // mn.push_back(min({nums[i], abs(k-nums[i]), nums[n-i-1], abs(k-nums[n-i-1])}));\n        }\n        sort(mx.begin(), mx.end());\n        sort(mn.begin(), mn.end());\n        int ans = n;\n        // cout<<\"hello \"<<endl;\n        // for(auto x: mx) cout<<x<<\" \";\n        // cout<<endl;\n        // for(auto x: mn) cout<<x<<\" \";\n        // cout<<endl;\n        for(auto x: um){\n            int lower= lower_bound(mx.begin(), mx.end(), x.first) - mx.begin();\n            // cout<<lower<<endl;\n            int singleChange = n/2 -lower - x.second;\n            int doubleChange = lower*2;\n            // cout<<x.first<<\" \"<<x.second <<\" \"<<singleChange<<\" \"<<doubleChange<<endl;\n            ans = min(ans, singleChange + doubleChange);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721490072",
+    "subm_id": "1327472208"
+}

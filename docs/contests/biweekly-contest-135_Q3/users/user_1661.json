@@ -1,0 +1,6 @@
+{
+    "username": "oxian-sheng",
+    "submission": "import bisect\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        n_p = len(nums)//2\n        min_ = [min(nums[i], nums[n-i-1]) for i in range(n_p)]\n        max_ = [max(nums[i], nums[n-i-1]) for i in range(n_p)]\n        \n        def calculate_max_X(n1, n2):\n            return max(n2, k-n1)\n        \n        max_Xs = [calculate_max_X(min_[i], max_[i]) for i in range(n_p)]\n        max_Xs.sort()\n\n        diffs = [max_[i]-min_[i] for i in range(n_p)]\n        # diffs.sort()\n\n        counter = Counter(diffs)\n        ans = n_p\n        for d in counter:\n            lower_num = bisect.bisect_left(max_Xs, d)\n            ans = min(n_p - counter[d] + lower_num, ans)\n        return ans\n",
+    "submit_ts": "1721490009",
+    "subm_id": "548321189"
+}

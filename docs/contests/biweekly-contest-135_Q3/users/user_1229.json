@@ -1,0 +1,6 @@
+{
+    "username": "clean",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, int> count;\n        int n = nums.size();\n        int hn = n / 2;\n        for (int i = 0; i < hn; ++i) {\n            count[abs(nums[i] - nums[n-1-i])]++;\n        }\n        vector<int> spans;\n        for (int i = 0; i < hn; ++i) {\n            int span = max(max(nums[i], k - nums[i]), max(nums[n-1-i], k - nums[n-1-i]));\n            spans.push_back(span);\n        }\n        sort(spans.begin(), spans.end());\n        int ret = hn;\n        int i = 0;\n        for (auto it = count.begin(); it != count.end(); ++it, i++) {\n            int left = lower_bound(spans.begin(), spans.end(), it->first) - spans.begin();\n            int t = 2*left + hn - left - it->second;\n            ret = min(ret, t);\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1721489286",
+    "subm_id": "1327448683"
+}

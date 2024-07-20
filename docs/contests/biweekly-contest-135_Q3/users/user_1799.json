@@ -1,0 +1,6 @@
+{
+    "username": "luo-hong-zhi",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int res = n/2;\n        vector<int> t(n/2, 0);\n        for(int i = 0; i < n/2; i++) {\n            t[i] = max(max(abs(k-nums[i]), nums[i]), max(abs(k-nums[n-i-1]), nums[n-i-1]));\n        }\n        sort(t.begin(), t.end());\n        unordered_map<int, int> mp;\n        for(int i = 0; i < n/2; i++) {\n            mp[abs(nums[i]-nums[n-i-1])]++;\n        }\n        int move;\n        for(auto [x, cnt] : mp) {\n            auto it = lower_bound(t.begin(), t.end(), x);\n            int a = it - t.begin();\n            move = (n/2 - cnt - a) + a * 2;\n            res = min(res, move);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721489833",
+    "subm_id": "548320442"
+}

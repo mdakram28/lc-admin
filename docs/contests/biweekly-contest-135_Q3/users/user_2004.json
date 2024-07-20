@@ -1,0 +1,6 @@
+{
+    "username": "edward_elric_1729",
+    "submission": "#define pb push_back\n#define all(x) (x).begin(), (x).end()\n#define forn(i, a, b) for(int i = (a); i < (b); i++)\n\nusing namespace std;\n\n#include <ext/pb_ds/assoc_container.hpp> \n#include <ext/pb_ds/tree_policy.hpp> \nusing namespace __gnu_pbds; \n  \ntypedef tree<pair<int, int>, null_type,less<pair<int, int> >, rb_tree_tag,tree_order_statistics_node_update> ordered_set;\n\ntypedef long long ll;\ntypedef vector<int> vi;\ntypedef vector<vi > vvi;\ntypedef vector<ll> vl;\ntypedef vector<vl > vvl;\ntypedef vector<double> vd;\ntypedef vector<vd > vvd;\n\nconst int inf = 2e9+7;\nconst ll mod = 1e9+7;\n\n\n\n\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        int n = a.size();\n        vi atleast_one(k+2), zero(k+1);\n        forn(i, 0, n/2) {\n            int j = n-1-i;\n            zero[abs(a[i] - a[j])]++;\n            int d = max({a[i], abs(k - a[i]), a[j], abs(k - a[j])});\n            atleast_one[d]++;\n        }\n        int ans = inf;\n        for(int i = k; i >= 0; i--) {\n            atleast_one[i] += atleast_one[i+1];\n            int twos = (n/2 - atleast_one[i])*2;\n            ans = min(ans, atleast_one[i] + twos - zero[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721490338",
+    "subm_id": "1327479774"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "maybe_lelouch",
+    "submission": " def min_changes(nums, k)\n    differences = Hash.new { |hash, key| hash[key] = [] }\n    max_values = []\n\n    half_size = nums.size / 2\n    (0...half_size).each do |i|\n      a = nums[i]\n      b = nums[nums.size - i - 1]\n      diff = (a - b).abs\n      max_val = [a, b, k - a, k - b].max\n\n      differences[diff] << max_val\n      max_values << max_val\n    end\n\n    answer = nums.size\n    max_values.sort!\n\n    differences.each do |diff, values|\n      operations_count = max_values.bsearch_index { |val| val >= diff } || max_values.size\n      operations_count = operations_count * 2 + (half_size - operations_count)\n\n      values.each do |max_val|\n        if max_val < diff\n          operations_count -= 2\n        else\n          operations_count -= 1\n        end\n      end\n\n      answer = [answer, operations_count].min\n    end\n\n    answer\n  end",
+    "submit_ts": "1721489245",
+    "subm_id": "1327447424"
+}

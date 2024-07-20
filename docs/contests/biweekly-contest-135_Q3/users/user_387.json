@@ -1,0 +1,6 @@
+{
+    "username": "pandearindam",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        \n        int n=nums.size();\n        map<int,int> mp,mp2;\n        vector<int> dist(n/2);\n        for(int i=0;i<n/2;i++){\n            mp[abs(nums[i]-nums[n-i-1])]++;\n            dist[i]=max(max(nums[i]-0,k-nums[i]),max(nums[n-i-1]-0,k-nums[n-i-1]));\n            if(dist[i]>=abs(nums[i]-nums[n-i-1])) mp2[abs(nums[i]-nums[n-i-1])]++;\n        }\n        sort(dist.begin(),dist.end());\n        // for(int i=0;i<n/2;i++) cout<<dist[i]<<\" \";\n        cout<<\"\\n\";\n        int ans=INT_MAX;\n        for(auto x:mp){\n            int cnt=0;\n            int pos=dist.end()-lower_bound(dist.begin(),dist.end(),x.first);\n            int notpos=n/2-pos;\n            pos-=mp2[x.first];\n            cnt+=pos;\n            notpos-=(x.second-mp2[x.first]);\n            // cout<<x.first<<\" \"<<x.second<<\" \"<<pos<<\" \"<<notpos<<\"\\n\";\n            cnt+=2*notpos;\n            ans=min(ans,cnt);\n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1721487984",
+    "subm_id": "1327407735"
+}

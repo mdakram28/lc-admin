@@ -1,0 +1,6 @@
+{
+    "username": "saikarthikeyamiriyam",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        \n        int max_diff=k;\n\n        int n=nums.size();\n\n        map<int,int>mp;\n\n        for(int i=0;i<n/2;i++){\n\n            mp[abs(nums[i]-nums[n-1-i])]++;\n        }\n\n        int temp=0;\n        int ans;\n\n        vector<int>vec;\n        vector<pair<int,int>>v;\n\n        for(auto it:mp){\n            \n            if(it.first<=max_diff){\n\n                vec.push_back(it.first);\n                v.push_back({it.second,it.first});\n            }\n            \n        }\n\n        sort(v.begin(),v.end(),greater<pair<int,int>>());\n      \n      int val=INT_MAX;\n      \n      for(int i=0;i<vec.size();i++){\n         \n         if(val<=(n/2-(mp[v[i].second]))) break;\n\n         ans=v[i].second;\n\n        int count=0;\n\n        for(int i=0;i<n/2;i++){\n\n            if(abs(nums[i]-nums[n-1-i])==ans) continue;\n\n            else{\n\n                if(abs(nums[i]-k)>=ans || abs(nums[i]-0)>=ans ||abs(nums[n-1-i]-k)>=ans || abs(nums[n-1-i]-0)>=ans ){\n\n                    count++;\n                }\n\n                else count+=2;\n            }\n        }\n\n        val=min(val,count);\n\n      }\n\n        return val;\n    }\n};",
+    "submit_ts": "1721488156",
+    "subm_id": "1327413353"
+}

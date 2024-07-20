@@ -1,0 +1,6 @@
+{
+    "username": "dheerajmuppineti",
+    "submission": "class Solution:\n    def minChanges(self, a: List[int], k: int) -> int:\n        \n        m = defaultdict(int)\n        n = len(a)\n        \n        for i in range(n//2):\n            m[abs(a[i] - a[n - i - 1])] += 1\n\n        res = float('inf')\n        m = sorted(zip(m, m.values()), key = lambda x : x[1], reverse=True)\n        # print(m)\n        \n        for x, v in m:\n            if res < (n//2 - v):\n                break\n            changes = 0\n\n            for i in range(n//2):\n                if abs(a[i] - a[n - i - 1]) == x:\n                    continue\n\n                p, q = max(a[i], a[n - i - 1]), min(a[i], a[n - i - 1])\n\n                if x <= max(p, k - q):\n                    changes += 1\n                else:\n                    changes += 2\n                \n                if changes > res:\n                    break\n            res = min(res, changes)\n        return res",
+    "submit_ts": "1721489118",
+    "subm_id": "1327443427"
+}

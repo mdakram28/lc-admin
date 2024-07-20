@@ -1,0 +1,6 @@
+{
+    "username": "tiger212",
+    "submission": "class Solution {\npublic:\n    // int max(int x, int y) { return x>y ? x: y;}\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, int> m, mmax;\n        int n = nums.size();\n        int n2 = n >> 1;\n        for (int i = 0; i < n2; ++i) {\n            if (nums[i] > nums[n-i-1])\n                swap(nums[i], nums[n-i-1]);\n            int diff = nums[n-i-1] - nums[i];\n            int maxdiff = max(k-nums[i], nums[n-i-1]);\n            // cout << maxdiff << ' ';\n            if (!m.count(diff))\n                m[diff] = 1;\n            else\n                ++m[diff];\n            if (mmax.count(maxdiff))\n                ++mmax[maxdiff];\n            else \n                mmax[maxdiff] = 1;\n        }\n        // cout << endl;\n        int ans = n2, dup = 0;\n        for (int i = 0; i <= k; ++i) {\n            // cout << \"---\" << i << \"---\\n\";\n            int tmp = n2 - m[i] + dup;\n            // cout << m[i] << ' ' << dup << endl;\n            ans = min(ans, tmp);\n            if (mmax.count(i))\n                dup += mmax[i];\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489428",
+    "subm_id": "548318741"
+}

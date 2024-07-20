@@ -1,0 +1,6 @@
+{
+    "username": "Hardik_Aswal1303",
+    "submission": "class Solution {\n    \npublic:\n    int solve(int a,int b){\n        if(a>b){\n            return b;\n        }\n        return a;\n    }\n\n\n    int minChanges(vector<int>& nums, int k) {\n        \n        \n       unordered_map<int, int> mp;\n        vector<int> har;\n        int s = 0, e = nums.size() - 1;\n\n        while (s < e) {\n            int diff = abs(nums[s] - nums[e]);\n            mp[diff]++;\n            har.push_back(max(k - min(nums[s], nums[e]), max(nums[s], nums[e])));\n            s++;\n            e--;\n        }\n\n        sort(har.begin(), har.end());\n\n        int fans = INT_MAX;\n        for (auto it : mp) {\n            int index = lower_bound(har.begin(), har.end(), it.first) - har.begin();\n            fans = solve(fans, index * 2 + (har.size() - index - it.second));\n        }\n\n        return fans;\n    }\n};",
+    "submit_ts": "1721490208",
+    "subm_id": "1327476141"
+}

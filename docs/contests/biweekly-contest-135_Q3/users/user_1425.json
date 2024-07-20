@@ -1,0 +1,6 @@
+{
+    "username": "mayankchoudhary271",
+    "submission": "from collections import Counter\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        diffs = []\n\n        N = len(nums)\n        for i in range(N//2):\n            diffs.append(abs(nums[i] - nums[N-i-1]))\n        \n        c = Counter(diffs)\n        diffs = list(c.keys())\n        \n        diffs.sort(key=lambda x: (-c[x], x))\n\n        def check(v):\n            changes = 0\n            for i in range(N//2):\n                if (abs(nums[i] - nums[N-i-1])) == v:\n                    continue\n                if 0 <= v + nums[i] <= k or 0 <= nums[i] - v <= k:\n                    changes += 1\n                elif 0 <= v + nums[N-1-i] <= k or 0 <= nums[N-1-i] - v <= k:\n                    changes += 1\n                elif v <= k:\n                    changes += 2\n                else:\n                    return None\n            return changes\n        ans = N * 2\n        for d in diffs:\n            if ans < (N-c[d])//2:\n                break\n            v = check(d)\n            if v is not None:\n                ans= min(ans, v)\n        return ans\n        ",
+    "submit_ts": "1721488873",
+    "subm_id": "1327435831"
+}

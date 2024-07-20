@@ -1,0 +1,6 @@
+{
+    "username": "arsread",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length;\n        int[] gapCnt = new int[k + 1];\n        int[] oneChangeCnt = new int[k + 1];\n        for (int i = 0; i < n/2; i++) {\n            int a = nums[i], b = nums[n - 1 - i];\n            int gap = Math.abs(a - b);\n            int maxGap = Math.max(Math.max(a, k - a), Math.max(b, k - b));\n            gapCnt[gap]++;\n            oneChangeCnt[maxGap]++;\n        }\n        int[] ocSum = new int[k+1];\n        ocSum[k] = oneChangeCnt[k];\n        for (int i = k-1; i>=0; i--) ocSum[i] = ocSum[i+1] + oneChangeCnt[i];\n\n        int change = Integer.MAX_VALUE;\n        for (int i = 0; i <= k; i++) {\n            int noChange = gapCnt[i];\n            int oneChange = ocSum[i] - noChange;\n            int rest = n/2 - noChange - oneChange;\n            change = Math.min(change, oneChange + 2 * rest);\n        }\n\n        return change;\n    }\n}",
+    "submit_ts": "1721487537",
+    "subm_id": "1327392412"
+}

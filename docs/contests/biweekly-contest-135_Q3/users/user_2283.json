@@ -1,0 +1,6 @@
+{
+    "username": "supritnaik100",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int,int>mp;\n\n        for(int i=0; i<n/2; i++){\n            int temp = abs(nums[i] - nums[n-i-1]);\n            mp[temp]++;\n        }\n\n        int min_count=1e9;\n        for(auto i:mp){\n            int freq = i.second;\n            int x = i.first;\n            \n            if(min_count <= n/2-freq) continue;\n            \n            int count=0;\n            for(int i=0; i<n/2; i++){\n                int temp = abs(nums[i] - nums[n-i-1]);\n                if(temp!=x){\n                    if(min(nums[i],nums[n-i-1])+x <= k) count+=1;\n                    else if(max(nums[i],nums[n-i-1])-x >= 0) count+=1;\n                    else count+=2;\n                }\n            }\n            min_count=min(count,min_count);\n        }\n        \n        return min_count;\n    }\n};",
+    "submit_ts": "1721489699",
+    "subm_id": "1327461059"
+}

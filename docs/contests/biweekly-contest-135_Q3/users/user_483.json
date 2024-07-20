@@ -1,0 +1,6 @@
+{
+    "username": "luka_wish",
+    "submission": "\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        x_list = [abs(nums[i] - nums[n - 1 - i]) for i in range(n // 2)]\n        mycount = Counter(x_list)\n        x_list = list(mycount.keys())\n        x_list.sort(key=lambda x: mycount[x], reverse=True)\n        res = []\n        for x in x_list[:3]:\n            re = 0\n            for i in range(n // 2):\n                a, b = nums[i], nums[n - 1 - i]\n                if abs(a - b) == x:\n                    continue\n                else:\n                    ps = [a + x, a - x, b + x, b - x]\n                    ps = [0 <= e <= k for e in ps]\n                    if any(ps):\n                        re += 1\n                    else:\n                        re += 2\n            res.append(re)\n        return min(res)\n\n    def minimumLength(self, s: str) -> int:\n        counter = Counter(s)\n        total = len(s)\n        ns = list(counter.values())\n        for n in ns:\n            while n >= 3:\n                total -= 2\n                n -= 2\n        re = total\n        return re\n\n    def losingPlayer(self, x: int, y: int) -> str:\n        n = min(x, y // 4)\n        re = 'Alice' if n % 2 else 'Bob'\n        return re\n",
+    "submit_ts": "1721488481",
+    "subm_id": "548314652"
+}

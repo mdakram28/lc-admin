@@ -1,0 +1,6 @@
+{
+    "username": "watlereac",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size(),op=n,m=n/2; \n        vector<vector<int>>all(100001); \n        vector<int>curr; \n        for(int i=0;i<m;i++){\n            int value1 = max(nums[i],nums[n-i-1]) ; \n            int value2 = max(value1,k-value1) ;  \n            int value3= max(k-nums[i],k-nums[n-i-1]);\n          //cout<<value2<<\" \"<<value3<<\"\\n\"; \n            int value4=max(value2,value3);\n            all[abs(nums[i]-nums[n-i-1])].push_back(value4);\n            curr.push_back(value4);\n        }\n        sort(curr.begin(),curr.end()) ; \n        \n        for(int i=0;i<=100000;i++){\n            vector<int>allc = all[i] ; \n            if(allc.size()==0) continue;\n            auto it = lower_bound(curr.begin(),curr.end(),i); \n            int pos = (it-curr.begin())+m; \n            for(int j=0;j<allc.size();j++){\n                if(allc[j]>=i) pos--; \n                else pos-=2;\n            }\n        //    cout<<op<<\" \"<<pos<<\"\\n\";\n            op=min(op,pos);\n        }\n        return op;\n    }\n};",
+    "submit_ts": "1721489798",
+    "subm_id": "1327464119"
+}

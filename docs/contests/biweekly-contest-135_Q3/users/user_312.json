@@ -1,0 +1,6 @@
+{
+    "username": "jimin",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        ls = []\n        cnt = Counter()\n        for i in range(n // 2):\n            v = abs(nums[i] - nums[n - i - 1])\n            cnt[v] += 1\n            ls.append(v)\n        ans = None\n        for num, v in sorted(cnt.items(), key=lambda x: x[1], reverse=True):\n            if ans is not None and (n // 2 - v) >= ans:\n                break\n            tmp = 0\n            for i in range(n // 2):\n                if ls[i] == num:\n                    continue\n                elif nums[i] <= nums[n - i - 1] and (0 <= (nums[n - i - 1] - num) <= k or 0 <= (nums[i] + num) <= k):\n                    tmp += 1\n                elif nums[i] > nums[n - i - 1] and (0 <= (nums[i] - num) <= k or 0 <= (nums[n - i - 1] + num) <= k):\n                    tmp += 1\n                else:\n                    tmp += 2\n            if ans is None or ans > tmp:\n                ans = tmp\n        return ans",
+    "submit_ts": "1721487771",
+    "subm_id": "548311461"
+}

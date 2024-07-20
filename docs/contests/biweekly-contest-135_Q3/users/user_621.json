@@ -1,0 +1,6 @@
+{
+    "username": "yashraj_prasad",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        pairs = n // 2\n        dif, res = defaultdict(list), []\n        for i in range(pairs):\n            a = nums[i]\n            b = nums[n - i - 1]\n            diff = abs(a - b)\n            x = max(a, b, k - a, k - b)\n            dif[diff].append(x)\n            res.append(x)\n\n        res.sort()\n        ans = n\n        for diff, xl in dif.items():\n            t = bisect_left(res, diff) * 2 + (pairs - bisect_left(res, diff))\n            for x in xl:\n                if x < diff:\n                    t -= 2\n                else:\n                    t -= 1\n            ans = min(ans, t)\n        return ans\n        ",
+    "submit_ts": "1721488565",
+    "subm_id": "1327426245"
+}

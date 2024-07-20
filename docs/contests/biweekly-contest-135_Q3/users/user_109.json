@@ -1,0 +1,6 @@
+{
+    "username": "crypto_op",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> pref(100005 , 0);\n        int st = 0  , end = nums.size() - 1;\n        while(st < end)\n        {\n            int mn = min(nums[st] , nums[end]);\n            int mx = max(nums[st] , nums[end]);\n            pref[0] += 1;\n            pref[mx - mn] -= 1;\n            pref[mx - mn + 1] += 1;\n            int p = max(mx , k - mn);\n            pref[p + 1] -= 1;\n            pref[p + 1] += 2;\n            pref[k + 1] -= 2;\n            st++;\n            end--;\n        }\n        for(int i = 1 ; i <= k ; i++)\n        {\n            pref[i] += pref[i - 1];\n        }\n        int ans = 1e9;\n        for(int i = 0 ; i <= k ; i++)\n        {\n            ans = min(ans , pref[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487197",
+    "subm_id": "1327379922"
+}

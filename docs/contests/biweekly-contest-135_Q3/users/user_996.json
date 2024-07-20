@@ -1,0 +1,6 @@
+{
+    "username": "yang-guang-yu-shang-yang-guang",
+    "submission": "class Solution {\npublic:\n    typedef pair<int, int> PII;\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, int> hash;\n        int n = nums.size();\n        for (int i = 0; i < n / 2; i ++ )\n            hash[abs(nums[i] - nums[n - 1 - i])] ++ ;\n        vector<PII> pr;\n        for (auto x: hash) pr.push_back({x.second, x.first});\n        sort(pr.begin(), pr.end());\n        int t = -1, res = n / 2;\n        for (int i = 0; i < pr.size(); i ++ ) {\n            if (pr[i].first == t) continue;\n            t = pr[i].first;\n            int ans = 0, dx = pr[i].second; \n            for (int j = 0; j < n / 2; j ++ ) {\n                if (abs(nums[j] - nums[n - 1 - j]) == dx) continue;\n                int cmin = min(nums[j], nums[n - 1 - j]), cmax = max(nums[j], nums[n - 1 - j]);\n                if (dx > k - cmin && dx > cmax) ans += 2;\n                else ans += 1;\n            }\n            res = min(res, ans);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721489342",
+    "subm_id": "548318361"
+}

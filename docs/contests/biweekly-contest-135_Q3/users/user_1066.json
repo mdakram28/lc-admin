@@ -1,0 +1,6 @@
+{
+    "username": "SahasP",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, vector<int>> differenceMap;\n        vector<int> XValues;\n\n        int n = nums.size();\n        int halfSize = n / 2;\n\n        for (int i = 0; i < halfSize; i++) {\n            int a = nums[i];\n            int b = nums[n - i - 1];\n            int diff = abs(a - b);\n            int X = max({a, b, k - a, k - b});\n            differenceMap[diff].push_back(X);\n            XValues.push_back(X);\n        }\n\n        int minChanges = n;\n\n        sort(XValues.begin(), XValues.end());\n\n        for (auto& [diff, XList] : differenceMap) {\n            int T = lower_bound(XValues.begin(), XValues.end(), diff) - XValues.begin();\n            T = T * 2 + (halfSize - T);\n\n            for (int X : XList) {\n                if (X < diff) {\n                    T -= 2;\n                } else {\n                    T -= 1;\n                }\n            }\n\n            minChanges = min(minChanges, T);\n        }\n\n        return minChanges;\n    }\n};",
+    "submit_ts": "1721489128",
+    "subm_id": "1327443738"
+}

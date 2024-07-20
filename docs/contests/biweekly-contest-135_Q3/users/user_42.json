@@ -1,0 +1,6 @@
+{
+    "username": "Ivan_len",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, int> mp;\n        int n = nums.size();\n        vector<int> mx;\n        for (int i = 0; i < n / 2; i++) mx.push_back(max({nums[i], nums[n - i - 1], k - nums[i], k - nums[n - i - 1]}));\n        sort(mx.begin(), mx.end());\n        for (int i = 0; i < n / 2; i++) mp[abs(nums[i] - nums[n - i - 1])]++;\n        int ans = n;\n        for (auto [l, r] : mp) {\n            // how many need 2 moves:\n            int iter = lower_bound(mx.begin(), mx.end(), l) - mx.begin();\n            assert(n / 2 - iter >= r);\n            ans = min(ans, (int)iter * 2 + n / 2 - iter - r);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721486573",
+    "subm_id": "1327354484"
+}

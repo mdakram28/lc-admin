@@ -1,0 +1,6 @@
+{
+    "username": "Preditor",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        HashMap<Integer,Integer> data = new HashMap<>();\n        List<Integer> info = new ArrayList<>();\n        for(int i=0;i<nums.length/2;i++){\n            int op = (int)Math.abs(nums[i]-nums[nums.length-1-i]);\n            data.put(op,data.getOrDefault(op,0)+1);\n            info.add(Math.max(Math.max(nums[i],nums[nums.length-1-i]),k-Math.min(nums[i],nums[nums.length-1-i])));\n        }\n        int output = Integer.MAX_VALUE;\n        Collections.sort(info);\n        for(int i=0;i<=k;i++){\n            int op = Collections.binarySearch(info, i);\n            if (op < 0) op = -op-1;\n            while((op-1)>=0 && info.get(op-1) == i) op--;\n            //System.out.println(i+\"   \"+info+\"  \"+data+\"   \"+op+\"  \"+(info.size()-op)+\"    \"+(2*op+(info.size()-op)-data.getOrDefault(i,0)));\n            if(i<=(k/2)) output = Math.min(output,(nums.length/2-data.getOrDefault(i,0)));\n            output = Math.min(output,2*op+(info.size()-op)-data.getOrDefault(i,0));\n        }\n        return output;\n    }\n}",
+    "submit_ts": "1721489828",
+    "subm_id": "1327465021"
+}

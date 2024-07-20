@@ -1,0 +1,6 @@
+{
+    "username": "odinson776",
+    "submission": "package main\n\nimport (\n\t\"math\"\n\t\"sort\"\n)\n\nfunc minChanges(nums []int, k int) int {\n\tdiffMap := make(map[int][]int)\n\tvar maxValues []int\n\tn := len(nums)\n\n\tfor i := 0; i < n/2; i++ {\n\t\ta, b := nums[i], nums[n-i-1]\n\t\tdiff := int(math.Abs(float64(a - b)))\n\t\tmaxValue := max(a, b, k-a, k-b)\n\t\tdiffMap[diff] = append(diffMap[diff], maxValue)\n\t\tmaxValues = append(maxValues, maxValue)\n\t}\n\n\tresult := n\n\tsort.Ints(maxValues)\n\n\tfor diff, values := range diffMap {\n\t\trequiredChanges := sort.Search(len(maxValues), func(i int) bool { return maxValues[i] >= diff })\n\t\trequiredChanges = requiredChanges*2 + (n/2 - requiredChanges)\n\n\t\tfor _, maxValue := range values {\n\t\t\tif maxValue < diff {\n\t\t\t\trequiredChanges -= 2\n\t\t\t} else {\n\t\t\t\trequiredChanges -= 1\n\t\t\t}\n\t\t}\n\n\t\tif requiredChanges < result {\n\t\t\tresult = requiredChanges\n\t\t}\n\t}\n\n\treturn result\n}\n\nfunc max(nums ...int) int {\n\tmaxVal := nums[0]\n\tfor _, num := range nums {\n\t\tif num > maxVal {\n\t\t\tmaxVal = num\n\t\t}\n\t}\n\treturn maxVal\n}\n",
+    "submit_ts": "1721488740",
+    "subm_id": "1327431747"
+}

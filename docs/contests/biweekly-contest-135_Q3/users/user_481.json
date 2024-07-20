@@ -1,0 +1,6 @@
+{
+    "username": "Keetode",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        track = {}\n\n        n = len(nums)\n        half = n // 2\n\n        for i in range(n//2):\n            v = abs(nums[i] - nums[n - i - 1])\n            track[v] = track.get(v, 0) + 1\n\n        q = []\n\n        for a, v in track.items():\n            heappush(q, (-v, a))\n\n        res = math.inf\n        while q:\n            _, target = heappop(q)\n            cur = 0\n            failed = False\n            for i in range(n//2):\n                a = min(nums[i], nums[n - i - 1])\n                b = max(nums[i], nums[n - i - 1])\n\n                if b - a == target:\n                    continue\n\n                gap = target - (b - a)\n                if 0 <= b + gap <= k or 0 <= a - gap <= k:\n                    cur += 1\n                elif target <= k:\n                    cur += 2\n                else:\n                    failed = True\n                    break\n\n            if failed:\n                if res < math.inf:\n                    break\n                continue\n            if cur > res:\n                break\n            res = cur\n\n        return res",
+    "submit_ts": "1721487916",
+    "subm_id": "1327405456"
+}

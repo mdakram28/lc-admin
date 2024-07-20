@@ -1,0 +1,6 @@
+{
+    "username": "lqMImAV5Jv",
+    "submission": "class Solution {\npublic:\nint minChanges(vector<int> &nums, int k) {\n    int n = nums.size();\n    int half = n / 2;\n    map<int, int> diff;\n    for (int i = 0; i < half; ++i) {\n        diff[abs(nums[i] - nums[n - i - 1])]++;\n    }\n    int res = n;\n    for (auto &[X, v]: diff) {\n        if (res < half - v) {\n            continue;\n        }\n        int tmp = 0;\n        for (int i = 0; i < half; ++i) {\n            int d = abs(nums[i] - nums[n - i - 1]);\n            if (d != X) {\n                if (min(nums[i], nums[n - i - 1]) + X > k && max(nums[i], nums[n - i - 1]) - X < 0) {\n                    tmp += 2;\n                } else {\n                    tmp += 1;\n                }\n            }\n        }\n        res = min(tmp, res);\n    }\n    return res;\n}\n};",
+    "submit_ts": "1721487547",
+    "subm_id": "548310499"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Aditya_leet_12",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int i = 0,j=nums.size()-1,ans=INT_MAX,n=nums.size();\n        map<int,int> mp;\n        while(i < j){\n            mp[abs(nums[i]-nums[j])]++;\n            i++;\n            j--;\n        }\n        int N=1e5+1;\n        vector<int>trk(N,0);\n\n        for(int i=0;i<(n/2);i++){\n            int s = nums[i];\n            int r = max(s,k-s);\n            s = nums[n-i-1];\n            r =max(r,max(s,k-s)); \n            // cout<<r<<endl;          \n            trk[0]++;\n            if( r +1 < N  )\n            trk[r+1]--; \n        }\n        // cout<<trk[0]<<endl;\n\n        for(int i=1;i<N;i++) trk[i]+=trk[i-1];\n        for(int diff = 0 ;diff <= N;diff++){\n            if( diff > k  ) break;\n            int cnt1 = 0;\n            if( mp.find(diff) != mp.end() ) cnt1+=mp[diff];\n            int cnt2 = trk[diff];\n            // cout<<cnt2<<\"  \"<<diff<<endl;\n            cnt2-=cnt1;\n            // cout<<diff<<\"  \"<<cnt2<<endl;\n            // cout<<diff<<\" \"<<cnt1<<\" \"<<cnt2<<endl;\n            // cout<<cnt2+2*((n/2)-cnt1-cnt2)<<endl;\n            ans=min(ans,cnt2+2*((n/2)-cnt1-cnt2));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721490490",
+    "subm_id": "1327484089"
+}

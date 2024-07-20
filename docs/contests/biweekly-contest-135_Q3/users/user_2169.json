@@ -1,0 +1,6 @@
+{
+    "username": "Akash_S29",
+    "submission": "#include <ext/pb_ds/assoc_container.hpp>\n#include <ext/pb_ds/tree_policy.hpp>\nusing namespace __gnu_pbds;\n\ntypedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics_node_update> pbds; //Make less_equal for multiset\n// find_by_order(k)  returns iterator to kth element || order_of_key(k) returns count of elements smaller than k\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& v, int k) {\n        map<int, vector<int>> mp;\n        int i = 0, j = v.size() - 1, ans = 1e7;\n        vector<int> arr;\n        while(i < j) {\n            int a = v[i++], b = v[j--];\n            int d = abs(a - b);\n            int x = min(a, b), y = max(a, b);\n            mp[d].push_back(max(y, k-x));\n        }\n        int r = v.size() / 2;\n        pbds s;\n        for(auto e: mp) {\n            r -= e.second.size();\n            \n            int sz = s.size();\n            int req = s.order_of_key(e.first);\n            \n            for(auto f: e.second) s.insert(f);\n            \n            ans = min(ans, r + sz + req);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489889",
+    "subm_id": "1327466800"
+}

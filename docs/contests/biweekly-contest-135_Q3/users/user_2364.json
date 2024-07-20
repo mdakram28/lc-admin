@@ -1,0 +1,6 @@
+{
+    "username": "rajulmahto",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        h = n // 2\n        d = defaultdict(list)\n        v = []\n\n        collect_dd_and_vv = lambda: [\n            (\n                d.setdefault(diff, []).append(max_val),\n                v.append(max_val)\n            )\n            for i in range(h)\n            if (a := nums[i], b := nums[n - i - 1], \n                (diff := abs(a - b)), \n                (max_val := max(a, b, k - a, k - b)))\n        ]\n\n        calc_mm = lambda: (\n            lambda ss, dd: (\n                min(\n                    (\n                        2 * (p := bisect_left(ss, diff)) \n                        + (h - p) \n                        - (c := sum(map(lambda x: 2 if x < diff else 1, vals)))\n                    )\n                    for diff, vals in dd.items()\n                ),\n                n\n            )[0]\n        )(sorted(v), d)\n\n        collect_dd_and_vv()\n        return calc_mm()",
+    "submit_ts": "1721490679",
+    "subm_id": "1327489657"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "grainmad",
+    "submission": "template<class t,class u> ostream& operator<<(ostream& os,const pair<t,u>& p) {\n    return os<<'['<<p.first<<\", \"<<p.second<<']';\n}\ntemplate<class t> ostream& operator<<(ostream& os,const vector<t>& v) {\n    os<<'['; int s = 1;\n    for(auto e:v) { if (s) s = 0; else os << \", \"; os << e; }\n    return os<<']';\n}\ntemplate<class t,class u> ostream& operator<<(ostream& os,const map<t,u>& mp){\n    os<<'{'; int s = 1;\n    for(auto [x,y]:mp) { if (s) s = 0; else os << \", \"; os<<x<<\": \"<<y; }\n    return os<<'}';\n}\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int mx = *max_element(nums.begin(), nums.end());\n        vector<int> d(mx+2, 0);\n        auto add = [&](int l, int r, int v) {\n            d[l]+=v;\n            d[r+1]-=v;\n        };\n        for (int i=0,j=n-1; i<j; i++, j--) {\n            int a = max(nums[i], nums[j]), b = min(nums[i], nums[j]);\n            int p = max(a, mx-b);\n            add(0, p, 1);\n            add(a-b, a-b, -1);\n            add(p+1, mx, 2);\n        }\n        int ps = 0;\n        int ans = n;\n        for (int i=0; i<=mx; i++) {\n            ps += d[i];\n            ans = min(ans, ps);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488137",
+    "subm_id": "548313030"
+}

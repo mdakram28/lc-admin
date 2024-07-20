@@ -1,0 +1,6 @@
+{
+    "username": "neeleshsingh297",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size(), ans = n;\n        map<int,int>m;\n        for(int i=0;i<n/2;i++){\n            m[abs(nums[i]-nums[n-i-1])]++;\n        }\n        vector<int>freq(k+2,0);\n        freq[0] = n/2;\n        for(int i=0;i<n/2;i++){\n            int mx = max({nums[i],nums[n-i-1],k-min(nums[i],nums[n-i-1])});\n            freq[mx+1]--;\n        }\n        ans = min(ans,freq[0]-m[0]+(n/2-freq[0])*2);\n        for(int i=1;i<=k;i++){\n            freq[i] += freq[i-1];\n            ans = min(ans,freq[i]-m[i]+(n/2-freq[i])*2);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489835",
+    "subm_id": "1327465238"
+}

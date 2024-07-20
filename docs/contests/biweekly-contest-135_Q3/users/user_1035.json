@@ -1,0 +1,6 @@
+{
+    "username": "leoyang0501",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, vector<int>> diffToOneOpMaxDiffs;\n        vector<int> diffs;\n        priority_queue<int, vector<int>, greater<int>> pq;\n        int totalPairs = nums.size() / 2, diff = 0, twoOpPairs = 0, res = INT_MAX;\n\n        for (int i = 0, j = nums.size() - 1; i < j; i++, j--) {\n            diff = abs(nums[i] - nums[j]);\n\n            if (!diffToOneOpMaxDiffs.count(diff)) {\n                diffs.push_back(diff);\n            }\n\n            diffToOneOpMaxDiffs[diff].push_back(max(max(nums[i], nums[j]), k - min(nums[i], nums[j])));\n        }\n\n        sort(diffs.begin(), diffs.end());\n\n        for (const int &d : diffs) {\n            while (!pq.empty() && pq.top() < d) {\n                pq.pop();\n                twoOpPairs++;\n            }\n\n            res = min(res, totalPairs - (int)diffToOneOpMaxDiffs[d].size() + twoOpPairs);\n\n            for (const int &maxDiff : diffToOneOpMaxDiffs[d]) {\n                pq.push(maxDiff);\n            }\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1721489384",
+    "subm_id": "1327451666"
+}

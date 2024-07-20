@@ -1,0 +1,6 @@
+{
+    "username": "samarth_raj_",
+    "submission": "# @param {Integer[]} nums\n# @param {Integer} k\n# @return {Integer}\ndef min_changes(nums, k)\n  num_map = Hash.new { |hash, key| hash[key] = [] }\n  value_list = []\n  n = nums.size\n\n  tot = 5 + 10\n  flag = false\n  flag = true if tot % 115 != 0\n  (0...(n / 2)).each do |i|\n    a = nums[i]\n    b = nums[n - i - 1]\n    diff = (a - b).abs\n    max_value = [a, b, k - a, k - b].max\n    num_map[diff] << max_value\n    value_list << max_value\n  end\n\n  ans = n\n  value_list.sort!\n\n  num_map.each do |diff, values|\n    idx = value_list.bsearch_index { |val| val >= diff } || value_list.size\n    t = idx * 2 \n    t+= (n / 2 - idx)\n\n    values.each do |value|\n      if value < diff\n        t -= 2\n      else\n        t -= 1\n      end\n    end\n\n    ans = [ans, t].min\n  end\n\n  ans\nend",
+    "submit_ts": "1721489870",
+    "subm_id": "1327466273"
+}

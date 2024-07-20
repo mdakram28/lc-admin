@@ -1,0 +1,6 @@
+{
+    "username": "lthroy",
+    "submission": "class Solution:\n    def minChanges(self, A: List[int], k: int) -> int:\n        n = len(A)\n        i = 0; j = n-1\n        cnt = collections.Counter()\n        while i < j:\n            cnt[abs(A[i]-A[j])] += 1\n            i += 1; j -= 1\n        cnt = [(d,v) for d,v in cnt.items()]\n        cnt.sort(key=lambda x:(-x[1],x[0]))\n        seen = set()\n        res = float(\"inf\")\n        for d,v in cnt:\n            if v in seen:\n                continue\n            if n//2 - v > res:\n                break\n            seen.add(v)\n            if d <= (k+1)//2:\n                res = min(res,n//2-v)\n                break\n            else:\n                cur = 0\n                i,j = 0,n-1\n                while i < j:\n                    if abs(A[i]-A[j]) != d:\n                        if max(k-A[i],k-A[j],A[i],A[j]) >= d:\n                            cur += 1\n                        else:\n                            cur += 2\n                    i += 1; j-= 1\n                res = min(res,cur)\n        return res\n                ",
+    "submit_ts": "1721489104",
+    "subm_id": "1327443001"
+}

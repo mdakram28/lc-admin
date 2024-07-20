@@ -1,0 +1,6 @@
+{
+    "username": "nikesh1124",
+    "submission": "class Solution {\npublic:\n        map<int,vector<int>> m;\n        vector<int> v;\n        int solve(vector<int>& nums) {\n             int ans = nums.size(); \n             for( auto [diff,values]:m){\n            int ind = lower_bound(v.begin(), v.end(), diff) - v.begin();\n            ind = ind * 2 + (nums.size() / 2 - ind);\n            for ( auto vl : values) {\n                if (vl < diff) ind -= 2;\n                 else  ind -= 1;\n            }\n            ans = min(ans, ind);\n             }\n            return ans;\n        }\n     int minChanges(vector<int>& nums, int k) {\n        \n \n        for (int i = 0; i < nums.size() / 2; ++i) {\n            int diff = abs(nums[i] - nums[nums.size() - i - 1]);\n             int vl = max({nums[i], nums[nums.size() - i - 1], k - nums[i], k - nums[nums.size() - i - 1]});\n             m[diff].push_back(vl);\n            v.push_back(vl);\n        }\n        sort(v.begin(), v.end());\n\n \n        return solve(nums);\n    }\n};",
+    "submit_ts": "1721490729",
+    "subm_id": "1327491067"
+}

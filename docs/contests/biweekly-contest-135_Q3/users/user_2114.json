@@ -1,0 +1,6 @@
+{
+    "username": "chu-jiao-song",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        diff = [abs(nums[i] - nums[n - 1 - i]) for i in range(n // 2)]\n        count = collections.defaultdict(int)\n        for i in range(n // 2):\n            count[diff[i]] += 1\n        c = sorted(count.items(), key=lambda x:(-x[1], x[0]))\n        x_max = [0] * (n // 2)\n        for i in range(n // 2):\n            a, b = min(nums[i], nums[n - 1 - i]), max(nums[i], nums[n - 1 - i])\n            x_max[i] = max(diff[i] + a, diff[i] + k - b)\n        x_max.sort()\n        # \u51e1\u662f<= x_max[i]\u7684\u90fd\u53ea\u9700\u89811\u6b21\uff0c\u4e25\u683c\u5927\u4e8e\u7684\u9700\u89812\u6b21\n        res = n // 2\n        for x, count in c:\n            idx = bisect_left(x_max, x)\n            res = min(res, idx * 2 + (n // 2 - idx) - count)\n        return res\n        \n        # \u82e5diff[i] == x\uff0c\u4fee\u65390\u6b21\n        # \u82e5\u5dee\u503c\u548cx\u4e0d\u4e00\u6837\uff0c\u82e5diff[i] + a < x and diff[i] + (k - b) < x\uff0c\u5219\u9700\u8981\u4fee\u65392\u6b21\n        # \u5426\u5219\u53ea\u9700\u8981\u4fee\u6539\u4e00\u6b21",
+    "submit_ts": "1721490431",
+    "subm_id": "548322880"
+}

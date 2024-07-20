@@ -1,0 +1,6 @@
+{
+    "username": "leftshifted",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        def getRange(lb, rb):\n            pass\n\n        n = len(nums)\n        diffs = Counter()\n\n        ctr = Counter()\n\n        for i in range(n//2):\n            a, b = nums[i], nums[-i-1]\n            maxdiff = max(a, b, abs(a-k), abs(b-k))\n            mindiff = abs(a-b)\n            if a <= k or b <= k: mindiff = 0\n            ctr[mindiff] += 1\n            ctr[maxdiff+1] -= 1\n            # print(mindiff, maxdiff)\n            diffs[abs(a-b)] += 1\n\n        # print(\"diffs:\", diffs)\n        # print(ctr)\n\n        cnt = 0\n        res = float('inf')\n        for i in range(k+1):\n            cnt += ctr[i]\n            movesreq = cnt + ((n//2)-cnt)*2\n            res = min(res, movesreq - diffs[i])\n            # print(i, cnt, movesreq, diffs[i])\n\n        return res",
+    "submit_ts": "1721488168",
+    "subm_id": "1327413714"
+}

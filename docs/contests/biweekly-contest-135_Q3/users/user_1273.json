@@ -1,0 +1,6 @@
+{
+    "username": "tian-cheng-se-chi-lun",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        cnt = defaultdict(int)\n        dis = defaultdict(int)\n        for i in range(n // 2):\n            x, y = min(nums[i], nums[n - 1 - i]), max(nums[i], nums[n - 1 - i])\n            cnt[y - x] += 1\n            max_dis = max(k - x, y)\n            dis[max_dis] += 1\n        \n        idx = sorted(list(dis.keys()))\n        sum_ = 0\n        for x in idx:\n            sum_ += dis[x]\n            dis[x] = sum_\n        \n        ans = n\n        for k, v in cnt.items():\n            pos = bisect_left(idx, k)\n            tmp = dis[idx[pos - 1]] if pos > 0 else 0\n            ans = min(ans, n // 2 - v + tmp)\n        return ans",
+    "submit_ts": "1721489333",
+    "subm_id": "548318327"
+}

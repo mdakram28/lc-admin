@@ -1,0 +1,6 @@
+{
+    "username": "hkmaxi",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> values_pairs(k+1,0);\n        int n=nums.size();\n        vector<int> max_diff_poss(k+2,0);\n        for(int i=0;i<n/2;i++){\n            values_pairs[abs(nums[i]-nums[n-i-1])]++;\n            int max_poss=max(max(nums[i],nums[n-i-1]),k-min(nums[i],nums[n-i-1]));\n            max_diff_poss[max_poss]++;\n        }\n        \n        for(int i=k;i>=0;i--){\n            max_diff_poss[i]+=max_diff_poss[i+1];\n        }\n        \n        int ans=INT_MAX;\n        for(int i=0;i<=k;i++){\n            int one_ops=max_diff_poss[i];\n            int two_ops=n/2-one_ops;\n            int zero_ops=values_pairs[i];\n            one_ops-=zero_ops;\n           // cout<<i<<\" \"<<one_ops<<\" \"<<two_ops<<endl;\n            \n            ans=min(ans,one_ops+two_ops*2);\n        }\n        \n        return ans;\n        \n        \n    }\n};",
+    "submit_ts": "1721487094",
+    "subm_id": "1327376076"
+}

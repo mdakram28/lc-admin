@@ -1,0 +1,6 @@
+{
+    "username": "kagotpush",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n=len(nums)\n        ctr=Counter()\n        diffs=[]\n        capacity=[]\n        for i in range(len(nums)//2):\n            a,b=nums[i],nums[~i]\n            a,b=max(a,b),min(a,b)\n            ctr[abs(a-b)]+=1\n            diffs.append(a-b)\n            capacity.append(max(a,k-b))\n        \n        ctr2=defaultdict(lambda: inf)\n        for diff,cnt in ctr.items():\n            ctr2[cnt]=min(ctr2[cnt],diff)\n        ans=len(nums)\n        for cnt,diff in ctr2.items():\n            cand=0\n            for i in range(len(nums)//2):\n                if diffs[i]==diff:\n                    continue\n                if capacity[i]>=diff:\n                    cand+=1\n                else:\n                    cand+=2\n            ans=min(ans,cand)\n        return ans",
+    "submit_ts": "1721490488",
+    "subm_id": "1327484035"
+}

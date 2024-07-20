@@ -1,0 +1,6 @@
+{
+    "username": "pham_haerin",
+    "submission": "#include<bits/stdc++.h>\n#include<ext/pb_ds/assoc_container.hpp>\n#include<ext/pb_ds/tree_policy.hpp>\nusing namespace std;\nusing namespace __gnu_pbds;\n#define i64 long long\ntypedef tree<i64, null_type, less_equal<i64>, rb_tree_tag, tree_order_statistics_node_update> ordered_multiset;\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<pair<int,int>>a;\n        int n=nums.size();\n        for(int i=0;i<n/2;i++){\n            a.push_back(make_pair(max(nums[i],nums[n-i-1]),min(nums[i],nums[n-i-1])));\n        }\n        sort(a.begin(), a.end(), [](const pair<int, int>& p1, const pair<int, int>& p2) {\n            return (p1.first - p1.second) < (p2.first - p2.second);\n        });\n        ordered_multiset s;\n        multiset<int>z;\n        int res=1e9;\n        for(int i=0;i<n/2;i++){\n            int c1 = s.order_of_key(a[i].first-a[i].second);\n            int c2 = z.count(a[i].first-a[i].second);\n            int u=c1*2+s.size()-c1-c2+n/2-i-1;\n            res=min(res,u);\n            s.insert(max(k-a[i].second,a[i].first));\n            z.insert(a[i].first-a[i].second);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721488133",
+    "subm_id": "1327412600"
+}

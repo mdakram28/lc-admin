@@ -1,0 +1,6 @@
+{
+    "username": "leetcode_ravi_7",
+    "submission": "class Solution {\npublic:\n    int solve(){\n        int i=0;\n        return i;\n    }\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> vec;\n        unordered_map<int,vector<int>> mp;\n        int i = 0;\n        int n=nums.size();\n        while(i<n/2){\n            int st = nums[i],end = nums[n-i-1];\n            int df = abs(st-end);\n            int maxi = max({st,end,k-st,k-end});\n            mp[df].push_back(maxi);\n            vec.push_back(maxi);\n            i++;\n        }\n\n        sort(vec.begin(),vec.end());\n        int res = n;\n        for(auto it:mp){\n\n            int diff = it.first;\n            int temp = lower_bound(vec.begin(),vec.end(),diff)-vec.begin();\n            temp = temp*2+(n/2-temp);\n\n            for(auto jt:it.second){\n                if(jt<diff){\n                    temp-=2;\n                }\n                else{\n                    temp-=1;\n                }\n            }\n            res = min(res,temp);\n\n        }\n\n        return res;\n        \n    }\n};",
+    "submit_ts": "1721490458",
+    "subm_id": "1327483199"
+}

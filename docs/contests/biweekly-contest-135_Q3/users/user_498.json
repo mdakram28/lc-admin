@@ -1,0 +1,6 @@
+{
+    "username": "DivyanshJain2003",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        map<int,int> mp;\n        map<int,int> hs;\n        int n=a.size();\n        for(int i=0;i<n/2;i++)\n        {\n            int diff=abs(a[i]-a[n-i-1]);\n            int val=max(max(a[i],k-a[i]),max(a[n-i-1],k-a[n-i-1]));\n            hs[val]++;\n            mp[diff]++;\n        }\n        vector<pair<int,int>> vec;\n        for(auto x:mp)\n        vec.push_back({x.first,0});\n        for(auto x:hs)\n        vec.push_back({x.first,1});\n        sort(vec.begin(),vec.end());\n        int ans=n/2;\n        int x=n/2,y=0;\n        for(int i=0;i<vec.size();i++)\n        {\n            // cout<<vec[i].first<<\" \"<<vec[i].second<<endl;\n            if(vec[i].second==0)\n            {\n                // cout<<vec[i].first<<\" \"<<mp[vec[i].first]<<\" \"<<y<<endl;\n                ans=min(ans,y*2+x-mp[vec[i].first]);\n            }\n            else\n            {\n                x-=hs[vec[i].first];\n                y+=hs[vec[i].first];\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488245",
+    "subm_id": "1327416182"
+}

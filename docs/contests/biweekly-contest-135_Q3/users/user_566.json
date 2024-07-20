@@ -1,0 +1,6 @@
+{
+    "username": "jeff-o81",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        diffs = [(\n            abs(nums[i] - nums[n - i - 1]), \n            max(k - min(nums[i], nums[n - i - 1]), max(nums[i], nums[n - i - 1]))\n            ) for i in range(n//2)\n        ]\n\n        diffs = sorted(diffs, key = lambda x : x[1])\n        counts = {}\n        for item in diffs:\n            if item[0] in counts:\n                counts[item[0]] += 1\n            else:\n                counts[item[0]] = 1\n\n        ans = n * 2\n        left = 0\n        for i in range(k + 1):\n            if left < n // 2:\n                while diffs[left][1] < i:\n                    left += 1\n                    if left == n // 2:\n                        break\n            count = 0\n            if i in counts:\n                count = counts[i]\n            this_ans = left * 2 + (n // 2) - left - count\n            ans = min(ans, this_ans)\n            # print(i, count, left, this_ans)\n        return ans\n\n        print(diffs) \n",
+    "submit_ts": "1721488079",
+    "subm_id": "548312799"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "XMQUPM4Vvp",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int t) {\n        int len = nums.size() / 2;\n        int ans = len;\n        map<int, int> cnt;\n        vector<int> v;\n        for (int k = 0; k < len; k++) {\n            int a = nums[k];\n            int b = nums[nums.size() - k - 1];\n            cnt[abs(a - b)]++;\n            int tmp = max(a, b);\n            tmp = max(tmp, t - a);\n            tmp = max(tmp, t - b);\n            v.push_back(tmp);\n            // cout << a << b << \":\";\n            // cout << tmp << endl;\n        }\n        sort(v.begin(), v.end());\n        for (auto t : cnt) {\n            int tmp = count(v, t.first);\n            ans = min(ans, len + tmp - t.second);\n        }\n        return ans;\n    }\n    int count(vector<int>& v, int num) {\n        int l = 0, r = v.size() - 1;\n        int ans = 0;\n        while (l <= r) {\n            int mid = (l + r) / 2;\n            if (v[mid] >= num) {\n                r = mid - 1;\n            } else {\n                ans = mid + 1;\n                l = mid + 1;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487753",
+    "subm_id": "1327399949"
+}

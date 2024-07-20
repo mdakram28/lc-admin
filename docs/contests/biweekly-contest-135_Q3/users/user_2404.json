@@ -1,0 +1,6 @@
+{
+    "username": "vaishnaviprakash12",
+    "submission": "class Solution {\npublic:\n    int minChanges(std::vector<int>& nums, int k) {\n        unordered_map<int,vector<int>>mp;\n        vector<int> v;\n \n        for (int i = 0; i < nums.size() / 2; ++i) {\n            int a1 = nums[i];\n            int a2 = nums[nums.size() - i - 1];\n            int diff = abs(a1 - a2);\n\n             int val = max({a1,a2, k - a1, k - a2});\n\n             mp[diff].push_back(val);\n            v.push_back(val);\n        }\n\n        int ans = nums.size();  \n        sort(v.begin(), v.end());\n\n        for (const auto& [diff, values] : mp) {\n            int temp =lower_bound(v.begin(), v.end(), diff) - v.begin();\n            temp= temp * 2 + (nums.size() / 2 - temp);\n\n            for (const auto& X : values) {\n                if (X < diff) {\n                    temp -= 2;\n                } else {\n                    temp -= 1;\n                }\n            }\n\n            ans = min(ans,temp);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721490116",
+    "subm_id": "1327473492"
+}

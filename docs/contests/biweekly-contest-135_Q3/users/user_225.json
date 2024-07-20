@@ -1,0 +1,6 @@
+{
+    "username": "enthusiasm-k",
+    "submission": "class Solution {\npublic:\ntypedef long long LL;\n    int min(int a,int b){\n        return a > b ? b : a;\n    }\n    int minChanges(vector<int>& nums, int k) {\n        const int N = 100000+10;\n        int arr[N] = {0},num[N] = {0};\n        for(int i = 0; i < nums.size()/2; ++i){\n            int a = nums[i], b = nums[nums.size()-i-1];\n            num[abs(a-b)]++;\n            arr[max({a,b,abs(a-k),abs(b-k)})]++;\n            if(min(a,b) > k)arr[k - min(a,b)-1]--;\n        }\n        for(int i = 100000; i >= 0; --i)arr[i] += arr[i+1];\n        int res = (int)nums.size();\n        for(int i = 0; i <= 100000; ++i){\n            res = min(res,( arr[i] - num[i] + nums.size() - arr[i]*2));\n        }\n        return res;\n    }   \n};",
+    "submit_ts": "1721487460",
+    "subm_id": "548310053"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "leetsCodeNLearn",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<int, int> diffs;\n        vector<int> changes(100002, 0);\n        for(int i=0;i<n/2;i++) {\n            int diff = abs(nums[i] - nums[n-i-1]);\n            diffs[diff] += 1;\n            int maxP = max(nums[i], nums[n-i-1]);\n            int minP = min(nums[i] , nums[n-i-1]);\n            int maxV = max(maxP, k - minP);\n            changes[0] += 1;\n            changes[maxV+1] += 1;\n            // diffs[i] = diff;\n        }\n\n        for(int i=1;i<100002;i++) {\n            changes[i] += changes[i-1];\n        }\n\n        int result = INT_MAX;\n        for(auto it : diffs) {\n            int diff = it.first;\n            int val = it.second;\n            result = min(result, changes[diff] - val);\n        }\n\n        return result;\n    }\n};\n\n\n/*\nnums = [0,1,2,3,3,6,5,4], k = 6\ndiffs -> [{4:3}, {0:1}]\nchanges = [4, 4, 4, 4, 6, 6, 8, 12]\ndiff = 4, maxP = 4, minP = 0, maxV = 6\ndiff = 4, maxP = 5, minP = 1, maxV = 5\ndiff = 4, maxP = 6, minP = 2, maxV = 6\ndiff = 0, maxP = 3, minP = 3, maxV = 3\n\n*/",
+    "submit_ts": "1721489785",
+    "subm_id": "1327463698"
+}

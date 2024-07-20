@@ -1,0 +1,6 @@
+{
+    "username": "shivenBajpai",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        m = len(nums)//2\n        c_diff_freq = {}\n        max_diff_in_one = [0]*m\n\n        for i in range(m):\n            c = n-i-1\n\n            current_diff = abs(nums[i] - nums[c])\n\n            if current_diff not in c_diff_freq.keys():\n                c_diff_freq[current_diff] = 1\n            else:\n                c_diff_freq[current_diff] += 1\n\n            if nums[i] < nums[c]:\n                max_diff_in_one[i] = max(k-nums[i],nums[c])\n            else:\n                max_diff_in_one[i] = max(k-nums[c],nums[i])\n\n        options_list = list(c_diff_freq.items())\n        options_list.sort(key = lambda x: x[1])\n\n        current_min = m\n\n        for option, freq in options_list:\n            cost = m - freq\n\n            if cost >= current_min: continue\n\n            for e in max_diff_in_one:\n                if e < option: \n                    cost += 1\n                    if cost >= current_min: continue\n\n            if cost < current_min:\n                current_min = cost\n\n        return current_min",
+    "submit_ts": "1721488874",
+    "subm_id": "1327435850"
+}

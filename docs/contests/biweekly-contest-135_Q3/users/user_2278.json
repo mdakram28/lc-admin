@@ -1,0 +1,6 @@
+{
+    "username": "pranav_todkar",
+    "submission": "class Solution {\npublic:\n    static int cust(vector<int> fr1, vector<int> fr2){\n        if(fr1[0]==fr2[0]) return fr1[1]<fr2[1];\n        return fr1[0]>fr2[0];\n    }\n    int minChanges(vector<int>& a, int k) {\n        int n=a.size();\n        \n        unordered_map<int,int> fr;\n        for(int i=0;i<n/2;i++) fr[abs(a[i]-a[n-i-1])]++;\n        vector<vector<int>> freq;\n        for(auto el = fr.begin(); el != fr.end(); el++){\n            freq.push_back({el->second,el->first});\n        }\n        sort(freq.begin(),freq.end(), cust);\n        cout<<\"freq\\n\";\n        for(int i=0;i<freq.size();i++) cout<< freq[i][0]<<\" \"<<freq[i][1]<<\"\\n\";\n        int j=0,ans=INT_MAX;\n        \n        while(j<16 && j<freq.size()){\n            int d=freq[j][1];\n            int nans=n/2-freq[j][0];\n            for(int i=0;i<n/2;i++){\n                if(abs(a[i]-a[n-i-1]) != d){\n                    int p=a[i];\n                    int q=a[n-i-1];\n                    if(!(p+d<=k || p-d>=0 || q+d<=k || q-d>=0)) nans++;\n                }\n            }\n            ans=min(ans,nans);\n            j++;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721490596",
+    "subm_id": "1327487246"
+}

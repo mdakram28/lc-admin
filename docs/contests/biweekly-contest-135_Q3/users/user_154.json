@@ -1,0 +1,6 @@
+{
+    "username": "sonic407",
+    "submission": "class Solution:\n    def minChanges(self, s: List[int], k: int) -> int:\n        x = 0\n        n = len(s)\n        for i in range(n // 2):\n            x = max(x, abs(s[i] - s[n - i - 1]))\n        f = [0] * (x + 1)\n        c = [0] * (x + 1)\n        for i in range(n // 2):\n            a, b = s[i], s[n - i - 1]\n            if a > b:\n                a, b = b, a\n            c[b - a] += 1\n            v = max(k - a, b) + 1\n            if v <= x:\n                f[v] += 1\n        res = n\n        for i in range(x + 1):\n            if i:\n                f[i] += f[i - 1]\n            res = min(res, f[i] + n // 2 - c[i])\n        return res\n        ",
+    "submit_ts": "1721486836",
+    "subm_id": "548307148"
+}

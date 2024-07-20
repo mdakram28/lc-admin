@@ -1,0 +1,6 @@
+{
+    "username": "AgrawalAditya_03",
+    "submission": "class Solution {\npublic:\n    void check(vector<int>& nums, int val,int k, int& ans){\n        int curr = 0, n = nums.size();\n        for(int i = 0;i<n/2; i++){\n            if(abs(nums[i] - nums[n-i-1]) != val){\n                curr++;\n                if((nums[i] - val < 0 || nums[i] - val > k) && (nums[i] + val < 0 || nums[i] + val > k) &&\n                (nums[n-i-1] - val < 0 || nums[n-1-i] - val > k) && (nums[n-i-1] + val < 0 || nums[n-i-1] + val > k)){\n                    curr++;\n                }\n            }\n        }\n        ans = min(ans, curr);\n    }\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n\n        map<int,int> mp;\n        for(int i = 0;i<n/2;i++){\n            int x = abs(nums[i] - nums[n-i-1]);\n            mp[x]++;\n        }\n\n        vector<pair<int,int>> vect;\n        for(auto i : mp){\n            vect.push_back({i.second,i.first});\n        }\n        sort(vect.begin(),vect.end());\n        reverse(vect.begin(),vect.end());\n\n        int ans = 1e9;\n        for(int i = 0;i<min(10, int(vect.size())); i++){\n            check(nums, vect[i].second, k, ans);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487964",
+    "subm_id": "1327407080"
+}

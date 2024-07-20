@@ -1,0 +1,6 @@
+{
+    "username": "zephyrr",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        d1 = defaultdict(int)\n        d2 = defaultdict(int)\n        res = len(nums)//2\n\n        for i in range(len(nums)//2):\n            a,b = nums[i],nums[len(nums)-i-1]           \n            tmp = min(a,b,k-a,k-b)\n            d2[tmp] += 1\n            d1[abs(a-b)]+=1\n        arr = []\n        for n in d2:\n            arr.append([n,d2[n]])\n        arr.sort(reverse = True)\n        for i in range(1,len(arr)):\n            arr[i][1] += arr[i-1][1]\n        arr = arr[::-1]\n        for X in d1:\n            thres = [k-X+1,0]\n            ind = bisect.bisect(arr,thres)\n            #print(X, ind)\n            cur = len(nums)//2\n            if ind < len(arr):\n                cur += arr[ind][1]\n            cur -= d1[X]\n            res = min(res,cur)\n        #print(arr)\n\n\n        return res\n        ",
+    "submit_ts": "1721488395",
+    "subm_id": "1327420900"
+}

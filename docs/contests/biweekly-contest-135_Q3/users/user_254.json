@@ -1,0 +1,6 @@
+{
+    "username": "cavetr",
+    "submission": "\nfunction minChanges(nums: number[], k: number): number {\n  let ans = Infinity;\n  const nowDiff: Record<number, number> = {};\n  const maxDiff = []; // \u4e00\u6b21\u4fee\u6539, \u6700\u5927\u5dee\u503c\n  const len = nums.length;\n  const len2 = len / 2;\n  for (let i = 0; i < len2; i++) {\n    const now = Math.abs(nums[i] - nums[len - i - 1]);\n    nowDiff[now] = (nowDiff[now] ?? 0) + 1;\n    maxDiff.push(Math.max(nums[i], nums[len - i -1], k - nums[i], k - nums[len- i - 1]));\n  }\n  const nowDiffSort = Object.entries(nowDiff).sort(([a], [b]) => +b - +a);\n  const maxDiffSort = maxDiff.sort((a, b) => b - a);\n  let i = 0;\n  for (const [diff, times] of nowDiffSort) {\n    let diffNum = +diff;\n    while (diffNum <= maxDiffSort[i]) {\n      i++;\n    }\n    ans = Math.min(ans, len2 - times + len2 - i);\n  }\n  return ans;\n};",
+    "submit_ts": "1721487529",
+    "subm_id": "548310399"
+}

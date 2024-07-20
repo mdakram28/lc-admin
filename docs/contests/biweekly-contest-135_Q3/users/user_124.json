@@ -1,0 +1,6 @@
+{
+    "username": "asr1y",
+    "submission": "class Solution {\n    int preSum[100005];\n    int cnt[100005];\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int m = n / 2;\n        for(int i = 0; i < m; i ++) {\n            int l = min(nums[i], nums[n - 1 - i]), r = max(nums[i], nums[n - 1 - i]);\n            preSum[0] ++, preSum[max(k - l, r) + 1] --; \n            cnt[r - l] ++;\n        }\n        for(int i = 1; i <= k; i ++) {\n            preSum[i] += preSum[i - 1];\n        }\n        int res = n;\n        for(int x = 0; x <= k; x ++) {\n            res = min(res, preSum[x] + 2 * (m - preSum[x]) - cnt[x]);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721487276",
+    "subm_id": "1327382881"
+}

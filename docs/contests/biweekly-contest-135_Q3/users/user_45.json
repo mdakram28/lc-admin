@@ -1,0 +1,6 @@
+{
+    "username": "DylanSmith",
+    "submission": "typedef long long ll;\n \n#define pb push_back\n#define sz(x) (int)x.size()\n#define all(x) begin(x),end(x)\n#define lb(x,y) lower_bound(all(x),y)-begin(x)\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int N = (int)nums.size();\n        map<int, int> freq;\n        priority_queue<int> pq;\n        vector<int> v = {0};\n        for (int i = 0; i < N - 1 - i; i++) {\n            int j = N - 1 - i;\n            int a = abs(nums[i] - nums[j]);\n            int m = max(abs(nums[i] - k), nums[i]);\n            m = max(m, max(abs(nums[j] - k), nums[j]));\n            freq[a]++;\n            pq.push(m);\n            v.pb(a);\n        }\n        sort(all(v));\n        reverse(all(v));\n        int cur = 0;\n        int res = INT_MAX;\n        for (int i : v) {\n            while (!pq.empty() && pq.top() >= i) {\n                cur++;\n                pq.pop();\n            }\n            int one = cur - freq[i], two = N / 2 - one - freq[i];\n            res = min(res, one + two * 2);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721486642",
+    "subm_id": "1327357623"
+}

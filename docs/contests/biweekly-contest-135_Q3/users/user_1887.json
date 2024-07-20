@@ -1,0 +1,6 @@
+{
+    "username": "priceless-margulismpb",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length;\n        int res = Integer.MAX_VALUE;\n        int[] cnt = new int[k + 1];\n        Map<Integer, Integer> memo = new HashMap<>();\n        for (int i = 0; i < n / 2; i++) {\n            int a = Math.min(nums[i], nums[n - 1 - i]);\n            int b = Math.max(nums[i], nums[n - 1 - i]);\n            int max = Math.max(b, k - a);   //\u6539\u4e00\u6b21\u53ef\u5f97\u5230\u7684\u6700\u5927\u503c\n            cnt[0]++;\n            if (max + 1 <= k) {\n                cnt[max + 1]--;\n            }\n            int abs = Math.abs(nums[i] - nums[n - 1 - i]);\n            int v = memo.getOrDefault(abs, 0);\n            memo.put(abs, v + 1);\n        }\n\n        for (int i = 1; i <= k; i++) {\n            cnt[i] += cnt[i - 1];\n        }\n\n        for (int i = 0; i <= k; i++) {\n            int cost = 0;\n            cost += cnt[i];\n            cost += (n / 2 - cnt[i]) * 2;\n            cost -= memo.getOrDefault(i, 0);\n            res = Math.min(res, cost);\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1721489913",
+    "subm_id": "548320773"
+}

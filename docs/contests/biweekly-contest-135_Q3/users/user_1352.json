@@ -1,0 +1,6 @@
+{
+    "username": "qian-shu-f",
+    "submission": "class Solution {\npublic:\n    \n    int minChanges(vector<int>& nums, int k) {\n        vector<pair<int,int>>arr;\n        int n = nums.size();\n        int cnt[100005]{};\n        int pre[100005]{};\n        set<int>st;\n        for(int i = 0;i < n/2;i++){\n            int l = i,r = n-i-1;\n            \n            int m = max(max(abs(k-nums[l]),abs(k - nums[r])),max(nums[l],nums[r]));\n            cnt[abs(nums[r]  - nums[l])]++;\n            arr.push_back({m,abs(nums[r] - nums[l])});\n            st.insert(abs(nums[r] - nums[l]));\n        }\n        int ans = n / 2;\n        sort(arr.begin(),arr.end());\n        int j = 0;\n        int nn = n/2;\n        for(int t : st){\n            while(j < n/2 && arr[j].first < t){\n                pre[arr[j].second]++;\n                j++;\n            }\n            int a = j - pre[t];\n            a += (nn - cnt[t]);\n            ans = min(ans,a);\n        }\n        return ans;\n\n    }\n};",
+    "submit_ts": "1721488603",
+    "subm_id": "548315211"
+}

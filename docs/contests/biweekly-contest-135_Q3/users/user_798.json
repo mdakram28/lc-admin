@@ -1,0 +1,6 @@
+{
+    "username": "EverettTucker",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        // Keep track of the doubles\n        unordered_map<int, int> map;\n\n        int n = nums.size();\n        vector<int> collisions(k + 1, 0);\n        for (int i = 0; i < n / 2; i++) {\n            map[abs(nums[i] - nums[n - i - 1])]++;\n            collisions[max(k - min(nums[i], nums[n - i - 1]), max(nums[i], nums[n - i - 1]))]++;\n        }\n\n        for (int i = 1; i <= k; i++) {\n            collisions[i] += collisions[i - 1];\n        }\n\n        /*\n        for (auto x : collisions) {\n            std::cout << x << \" \";\n        }\n\n        std::cout << std::endl;\n\n        for (auto x : map) {\n            std::cout << x.first << \" \" << x.second << endl;\n        }\n        */\n\n        for (auto x : map) {\n            if (x.first > 0) {map[x.first] -= collisions[x.first - 1];}\n        }\n        /*\n        for (auto x : map) {\n            std::cout << x.first << \" \" << x.second << endl;\n        }\n        */\n\n        int max = 0;\n        for (auto x : map) {\n            max = std::max(max, x.second);\n        }\n\n        return n / 2 - max;\n    }\n};",
+    "submit_ts": "1721489072",
+    "subm_id": "1327441997"
+}

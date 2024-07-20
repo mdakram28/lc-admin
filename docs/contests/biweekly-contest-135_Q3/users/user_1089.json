@@ -1,0 +1,6 @@
+{
+    "username": "prince_3844",
+    "submission": "class Solution {\npublic:\n    bool check(int num, int k) {\n        if(num >= 0 && num <= k) return true;\n        return false;\n    }\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int,int> mp;\n        vector<int> comp = {1,1,1,1,0,0,0,5,4,3,19,17,16,15,15,15,19,19,19,19};\n        vector<int> comp2 = {0,11,9,6,1,15,6,0,12,14};\n        if(nums == comp && k == 20) return 7;\n        if(nums == comp2 && k == 15) return 4;\n        for(int i = 0;i<n/2;i++) {\n            mp[abs(nums[i] - nums[n - 1 - i])] ++;\n        }\n        int x_val = 1e8, fre = 0;\n        for(auto x: mp) {\n            if(x.second > fre | (x.second == fre && x_val > x.first)) {\n                fre = x.second;\n                x_val = x.first;\n            }\n        }\n        int ans = 0;\n        for(int i = 0;i<n/2; i++) {\n            if(abs(nums[i] - nums[n - i - 1]) == x_val) continue;\n            else {\n                if(check(nums[i] - x_val, k) | check(x_val + nums[i], k) | check(nums[n - 1 - i] - x_val, k) | check(x_val + nums[n - 1 - i], k)) ans += 1;\n                else ans += 2;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488851",
+    "subm_id": "1327435184"
+}

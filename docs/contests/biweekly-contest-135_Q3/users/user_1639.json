@@ -1,0 +1,6 @@
+{
+    "username": "mayank_mj1",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int,int>mpp;\n        vector<int>v;\n        int n = nums.size() , j = n-1;\n        for(int i=0;i<n/2;i++)\n        {\n            int tt = abs(nums[i] - nums[j]);\n            int tt1 = max(nums[i],nums[j]);\n            int tt2 = abs(min(nums[i],nums[j--]) - k);\n            tt1 = max(tt1,tt2);\n            v.push_back(tt1);\n            mpp[tt]++;\n        }\n        vector<pair<int,int>>mx;\n        // for\n        for(auto &x:mpp) mx.push_back({x.second,x.first});\n        sort(mx.begin(),mx.end(),greater<pair<int,int>>());\n        sort(v.begin(),v.end());\n        int ans = INT_MAX;\n        for(auto &x:v) cout<<x<<\" \";\n        // cout<<endl;\n        // cout<<mx.size()<<endl;\n        for(int i=0;i<mx.size();i++)\n        {\n            int it = lower_bound(v.begin(),v.end(),mx[i].second) - v.begin();\n            int add=0;\n            // while(v[it]<=mx[i].second) it++;\n            add = it;\n            // cout<<n/2<<\" \"<<it<<\" \"<<mx[i].second<<endl;\n            // cout<<add<<\" \";\n            int temp_ans = n/2 - mx[i].first + add;\n            ans=min(ans,temp_ans);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489689",
+    "subm_id": "1327460821"
+}

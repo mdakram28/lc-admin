@@ -1,0 +1,6 @@
+{
+    "username": "tsreaper",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int K) {\n        int n = nums.size();\n        int f[K + 2];\n        memset(f, 0, sizeof(f));\n        for (int i = 0, j = n - 1; i < j; i++, j--) {\n            int d = abs(nums[i] - nums[j]);\n            int mx = max({nums[i], K - nums[i], nums[j], K - nums[j]});\n            f[0]++; f[d]--;\n            f[d + 1]++; f[mx + 1]--;\n            f[mx + 1] += 2;\n        }\n\n        int ans = n;\n        for (int i = 0, now = 0; i <= K + 1; i++) {\n            now += f[i];\n            ans = min(ans, now);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721486285",
+    "subm_id": "548303937"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "shubhamk_1209",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int limit) {\n        \n        // all the differences\n        vector<int> events(limit+2, 0);\n\n        int n  = nums.size();\n\n        for(int i = 0; i < n/2; i++){\n\n            int a = nums[i];\n            int b = nums[n-i-1];\n\n            // 0 change\n            events[abs(a-b)] -= 1;\n            events[abs(a-b) + 1] += 1;\n\n            events[0] += 1;\n\n            int maxi = max(limit - min(a,b), max(a, b));\n\n            events[maxi + 1] += 1;\n\n        }\n\n\n        int mini = 1e9;\n        int ind = -1;\n\n        int sum_changes = 0;\n\n        for(int i = 0; i <= limit; i++){\n            sum_changes += events[i];\n\n            if(sum_changes < mini){\n                mini = sum_changes;\n                ind = i;\n            }\n        }\n        // cout <<ind << endl;\n        return mini;\n    }\n};",
+    "submit_ts": "1721489258",
+    "subm_id": "1327447839"
+}

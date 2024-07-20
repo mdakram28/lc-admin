@@ -1,0 +1,6 @@
+{
+    "username": "rs000",
+    "submission": "class Solution {\npublic:\n   int minChanges(vector<int>& arr, int tar) {\n        map<int,vector<int>> m;\n        vector<int> v;\n        for(int i = 0;i<arr.size()/2;i++){\n            int a = arr[i],b = arr[arr.size()-i-1];\n            int antar = abs(a-b);\n            int X = max({a,b,tar-a,tar-b});\n            m[antar].push_back(X);\n            v.push_back(X);\n        }\n        int slow = 0;\n        int fast = 0, uttar = arr.size();\n        sort(v.begin(),v.end());\n        for(auto &it:m){\n            int antar = it.first;\n            int T = lower_bound(v.begin(),v.end(),antar)-v.begin();\n            T = T*2+(arr.size()/2-T);\n            for(auto &X:it.second){\n                T -= (X < antar) ? 2 : 1;\n            }\n            uttar = min(uttar,T);\n        }\n      return uttar;\n    }\n};",
+    "submit_ts": "1721489622",
+    "subm_id": "1327458852"
+}

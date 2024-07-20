@@ -1,0 +1,6 @@
+{
+    "username": "anony_mousse",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int ps[k+1];\n        for(int i=0;i<=k;i++) ps[i] = 0;\n        int n = nums.size();\n        int i=0,j=n-1; \n        while(i<j){\n            int a = nums[i], b = nums[j];\n            ps[0]++;\n            int maxx_1 = max(max(b,abs(k-b)), max(a,abs(k-a)));\n            if(maxx_1<k){\n                ps[maxx_1+1]++;\n            }\n            i++;j--;\n        }\n\n        for(int i=1;i<=k;i++){\n            ps[i] = ps[i-1] + ps[i];\n        }\n\n        i=0,j=n-1;\n\n        while(i<j){\n            ps[abs(nums[i]-nums[j])]--;\n            i++;j--;\n        }\n\n        int ans = 100000000;\n\n        for(i=0;i<=k;i++){\n            ans = min(ans,ps[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489586",
+    "subm_id": "1327457742"
+}

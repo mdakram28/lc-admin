@@ -1,0 +1,6 @@
+{
+    "username": "ni-hong-ge",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size();\n        if(n&1){\n            nums.erase(nums.begin()+(n/2));\n            n--;\n        }\n        unordered_map<int,int> cnt;\n        int pre[max(n+2,k+2)];\n        memset(pre,0,sizeof(pre));\n        for(int i=0;i<n/2;i++){\n            cnt[abs(nums[i]-nums[n-1-i])]++;\n            int x=nums[i],y=nums[n-1-i];\n            int t=max(x,y);\n            t=max(t,k-x);\n            t=max(t,k-y);\n            pre[t+1]++;\n        }\n        for(int i=1;i<max(n+2,k+2);i++){\n            pre[i]+=pre[i-1];\n        }\n        int ans=INT_MAX;\n        for(int i=0;i<=k;i++){\n            int rem=n/2-cnt[i];\n            ans=min(ans,(rem-pre[i])+pre[i]*2);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487148",
+    "subm_id": "548308629"
+}

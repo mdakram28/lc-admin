@@ -1,0 +1,6 @@
+{
+    "username": "neu_wangzi",
+    "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar minChanges = function(nums, k) {\n    let dic=new Map(),n=nums.length;\n    let a=new Array(n/2);\n    let cur=new Array(n/2);\n    for(let i=0;i<n/2;i++){\n        let abs=Math.abs(nums[i]-nums[n-i-1]);\n        cur[i]=abs;\n        dic.set(abs,(dic.get(abs)??0)+1);\n        a[i]=Math.max(Math.max(nums[i],nums[n-i-1]),k-Math.min(nums[i],nums[n-i-1]));\n    }\n    a.sort((a,b)=>a-b);\n    let max=n,i=0;\n    for(let v of Array.from(dic.keys()).sort((a,b)=>a-b)){\n        let sum=n/2-dic.get(v);\n        while(i<n/2&&a[i]<v)\n            i++;\n        sum+=i;\n        max=Math.min(max,sum);\n    }\n    //console.log(a,cur)\n    return max;\n};",
+    "submit_ts": "1721487934",
+    "subm_id": "548312168"
+}

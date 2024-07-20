@@ -1,0 +1,6 @@
+{
+    "username": "Guardian-or-nothing",
+    "submission": "class Solution {\npublic:\n    int bs(vector<int> &v, int diff){\n        int l=0,r=v.size()-1,ans=-1;\n        while(l<=r){\n            int m=(l+r)/2;\n            if(diff<=v[m]){\n                // if(diff==4) cout<<diff<<\" \"<<v[m]<<\" l=m+1\"<<endl;\n                r=m-1;\n            }else{\n                // if(diff==4) cout<<diff<<\" \"<<v[m]<<\" r=m-1\"<<endl;\n                ans=max(ans,m);\n                l=m+1;\n            }\n        }\n        return ans;\n    }\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size(),ans=1e9; map<int,int> mp; vector<int> v;\n        int l=0,r=n-1,maxi=0;\n        while(l<r){\n            int diff=abs(nums[l]-nums[r]);\n            mp[diff]++;\n            int ldiff=min(nums[l],nums[r])-0; int rdiff=k-max(nums[l],nums[r]);\n            int newdiff=diff+max(ldiff,rdiff);\n            v.push_back(newdiff);\n            l++; r--;\n        }\n        sort(v.begin(),v.end());\n\n        for(int diff=0;diff<=k;diff++){\n            int cnt=bs(v,diff)+1;\n            int tans1=cnt;\n            int tans2=v.size()-cnt;\n            int tans=2*tans1+tans2 - mp[diff];\n            // cout<<cnt<<endl;\n            ans=min(ans,tans);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489209",
+    "subm_id": "1327446361"
+}

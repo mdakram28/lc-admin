@@ -1,0 +1,6 @@
+{
+    "username": "white444",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int,vector<int>> ans;\n        vector<int> v;\n\n        for (int i = 0; i < nums.size() / 2; ++i) {\n            int akku = nums[i];\n            int bakku = nums[nums.size() - i - 1];\n            int diff = abs(akku - bakku);\n\n            int X = max({akku, bakku, k - akku, k - bakku});\n\n            ans[diff].push_back(X);\n            v.push_back(X);\n        }\n\n        int res = nums.size();  \n        sort(v.begin(), v.end());\n\n        for (const auto& [diff, values] : ans) {\n            int T = lower_bound(v.begin(), v.end(), diff) - v.begin();\n            T = T * 2 + (nums.size() / 2 - T);\n\n            for (const auto& X : values) {\n                if (X < diff) {\n                    T -= 2;\n                } else {\n                    T -= 1;\n                }\n            }\n\n            res = min(res, T);\n        }\n\n\n        return res;\n    }\n};",
+    "submit_ts": "1721490094",
+    "subm_id": "1327472838"
+}

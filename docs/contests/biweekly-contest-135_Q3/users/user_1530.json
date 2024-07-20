@@ -1,0 +1,6 @@
+{
+    "username": "Vinni_codes1123",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        // int max_diff=INT_MIN,min_diff=INT_MAX;\n        // int max_close=0,min_close=0,n=nums.size();\n        // for(int i=0;i<n;i++){\n        //     if (abs(nums[i]-nums[n-i-1])>max_diff){\n        //         max_diff=abs(nums[i]-nums[n-i-1])\n        //     }\n        // }\n        map<int, vector<int>> mp;\n        vector<int> v;\n \n        for (int i = 0; i < nums.size() / 2; ++i) {\n            int a = nums[i];\n            int b = nums[nums.size() - i - 1];\n            int diff = abs(a - b);\n\n             int X = max({a, b, k - a, k - b});\n\n            mp[diff].push_back(X);\n            v.push_back(X);\n        }\n\n        int sol = nums.size();  \n        sort(v.begin(), v.end());\n\n        for (const auto& [diff, values] : mp) {\n            int F = lower_bound(v.begin(), v.end(), diff) - v.begin();\n            F = F * 2 + (nums.size() / 2 - F);\n\n            for (const auto& X : values) {\n                if (X < diff) {\n                    F -= 2;\n                } else {\n                    F -= 1;\n                }\n            }\n\n            sol = min(sol, F);\n        }\n\n        return sol;\n    }\n};",
+    "submit_ts": "1721489890",
+    "subm_id": "1327466806"
+}

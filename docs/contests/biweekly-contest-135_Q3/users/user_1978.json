@@ -1,0 +1,6 @@
+{
+    "username": "a0983208130",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int max_val = *max_element(nums.begin(), nums.end()), n = nums.size();\n        int res = INT_MAX;\n        vector<int> cnt(max_val + 2), cnt_p(max_val + 2);\n        for(int i = 0; i < n / 2; i++) {\n            int s = min(nums[i], nums[n - i - 1]), b = max(nums[i], nums[n - i - 1]);\n            // cout << b - s << endl;\n            cnt_p[b - s]++;\n            if(k - b >= s) {\n                b = k;\n            }\n            else {\n                s = 0;\n            }\n            cnt[min(max_val + 1, b - s + 1)]++;\n        }\n        for(int i = 1; i < cnt.size(); i++)\n            cnt[i] += cnt[i - 1];\n        for(int i = 0; i <= max_val; i++) {\n            int all = n / 2;\n            // if(all - cnt_p[i] + cnt[i] < res) {\n            //     cout << i << endl;\n            //     cout << cnt_p[i] << \" \" << cnt[i] << endl;\n            //     res = min(res, all - cnt_p[i] + cnt[i]);\n            // }\n            res = min(res, all - cnt_p[i] + cnt[i]);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721489406",
+    "subm_id": "1327452298"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "cha-na-yong-heng-8u",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size();\n        unordered_map<int,int> hash;\n        int x=n/2,maxval=0;\n        vector<int> ret(x);\n        for(int i=0;i<x;i++)\n        {\n            int y=abs(nums[i]-nums[n-i-1]);\n            if(nums[i]>nums[n-i-1])\n                swap(nums[i],nums[n-i-1]);\n            ret[i]=max(nums[i],k-nums[n-i-1])+y;\n            maxval=max(maxval,y);\n            hash[y]++;\n        }\n        sort(ret.begin(),ret.end());\n        int count=1e7,left=0;\n        for(int i=0;i<=maxval;i++)\n        {\n            while(left<x && ret[left]<i)\n                left++;\n            count=min(count,x+left-hash[i]);\n        }\n        return count;\n    }\n};",
+    "submit_ts": "1721487481",
+    "subm_id": "548310148"
+}

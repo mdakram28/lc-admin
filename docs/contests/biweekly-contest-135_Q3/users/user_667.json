@@ -1,0 +1,6 @@
+{
+    "username": "ahtoh_",
+    "submission": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number}\n */\nvar minChanges = function(nums, k) {\n    const obj = {};\n    const arr = Array(k + 1).fill(0);\n    for (let i = 0; i < (nums.length / 2); i += 1) {\n        const p = Math.abs(nums[i] - nums[nums.length - i - 1]);\n        const max = Math.max(nums[i], nums[nums.length - i - 1], (k - nums[i]), (k - nums[nums.length - i - 1]));\n        arr[max] += 1;\n        obj[p] = (obj[p] ?? 0) + 1;\n    }\n    const pr = [arr[0]];\n    let sum = arr[0];\n    for (let i = 1; i < arr.length; i += 1) {\n        sum += arr[i];\n        pr.push(sum);\n    }\n    let res = Infinity;\n    const en = Object.entries(obj).sort((a, b) => +a[0] - +b[0]);\n    //console.log(en, arr, pr);\n    for (let i = 0; i < en.length; i += 1) {\n        const delta = +en[i][0];\n        const cnt = en[i][1];\n        let rrr = (nums.length / 2) - cnt + (pr[delta - 1] ?? 0);\n        res = Math.min(res, rrr);\n    }\n    return res;\n};",
+    "submit_ts": "1721488867",
+    "subm_id": "1327435641"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "raunak_1611",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, vector<int>> math;\n        vector<int> phy;\n        int che = 0;\n        while (che < nums.size() / 2) {\n            int val = nums[che], tar = nums[nums.size() - che - 1];\n            int diff = abs(val - tar);\n            int x = max({val, tar, k - val, k - tar});\n            math[diff].push_back(x);\n            phy.push_back(x);\n            che++;\n        }\n        int ans = nums.size();\n        sort(phy.begin(), phy.end());\n\n        auto it = math.begin();\n        while (it != math.end()) {\n            int diff = it->first;\n            int zero = lower_bound(phy.begin(), phy.end(), diff) - phy.begin();\n            zero = zero * 2 + (nums.size() / 2 - zero);\n\n            for (auto& tar : it->second) {\n                zero -= (tar < diff) ? 2 : 1;\n            }\n\n            ans = min(ans, zero);\n            ++it;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721490039",
+    "subm_id": "1327471262"
+}

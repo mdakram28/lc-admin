@@ -1,0 +1,6 @@
+{
+    "username": "rahul_gupta_1479",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& arr, int k) {\n        int n = arr.size();\n        vector<int> res;\n        map<int, vector<int>> m;\n        for(int i=0; i<n/2; i++){\n            int d = abs(arr[i] - arr[n -i -1]);\n            int x = max({arr[i], arr[n-i-1], k-arr[i], k-arr[n-i-1]});\n            m[d].push_back(x);\n            res.push_back(x);\n        }\n        \n        \n        int val = n;\n        \n        sort(res.begin(), res.end());\n        \n        for(auto &x : m){\n            int pp = lower_bound(res.begin(), res.end(), x.first) - res.begin();\n            pp = pp * 2 + (n/2-pp);\n            for(auto &y : x.second){\n                if(y < x.first){\n                    pp -= 2;\n                }\n                else{\n                    pp -= 1;\n                }\n            }\n            \n            val = min(val, pp);\n        }\n        return val;\n    }\n};",
+    "submit_ts": "1721490241",
+    "subm_id": "1327477079"
+}

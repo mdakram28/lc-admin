@@ -1,0 +1,6 @@
+{
+    "username": "lanegue",
+    "submission": "# @param {Integer[]} nums\n# @param {Integer} k\n# @return {Integer}\ndef min_changes(nums, k)\n  diff = Array.new(nums.size / 2){\n    (nums[_1] - nums[-1 - _1]).abs\n  }\n  count = diff.tally\n  group = count.keys.group_by{count[_1]}\n  result = nums.size\n  group.keys.sort_by{-_1}.each{|key|\n    break if diff.size - key >= result\n    m = group[key].min\n    r = 0\n    diff.size.times{|i|\n      next if diff[i] == m\n      if diff[i] > m\n        r += 1\n        next\n      end\n      if [nums[i], nums[-1 - i]].max >= m || k - [nums[i], nums[-1 - i]].min >= m\n        r += 1\n        next\n      end\n      r += 2\n    }\n    result = r if result > r\n  }\n  result\nend",
+    "submit_ts": "1721489341",
+    "subm_id": "1327450438"
+}

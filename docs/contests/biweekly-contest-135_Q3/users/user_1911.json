@@ -1,0 +1,6 @@
+{
+    "username": "winston1373",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n\n        int res = nums.size();\n        unordered_map<int, int> mp;\n        int l = 0;\n        int r = nums.size() - 1;\n        while (l < r) {\n            mp[abs(nums[l] - nums[r])]++;\n            l++;\n            r--;\n        }\n        int maxCount = 0;\n        vector<int> xv;\n        for (auto& m : mp) {\n            if (maxCount <= m.second) {\n                xv.push_back(m.first);\n            }\n            maxCount = max(maxCount, m.second);\n        }\n\n        for (auto x : xv) {\n            int cur = 0;\n            l = 0;\n            r = nums.size() - 1;\n            while (l < r) {\n                if (abs(nums[l] - nums[r]) != x) {\n                    cur++;\n                    if (nums[l] < x && nums[r] < x &&\n                        max(nums[l], nums[r]) + x - abs(nums[l] - nums[r]) >\n                            k) {\n                        cur++;\n                    }\n                }\n                l++;\n                r--;\n            }\n            res = min(res, cur);\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1721489636",
+    "subm_id": "1327459250"
+}

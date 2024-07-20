@@ -1,0 +1,6 @@
+{
+    "username": "lm105013",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        g = defaultdict(list)\n        n = len(nums)\n        max_X = []\n        for i in range(n // 2):\n            j = n - i - 1\n            if nums[i] > nums[j]:\n                nums[i], nums[j] = nums[j], nums[i]\n            g[(nums[j] - nums[i])].append(max(nums[j], k - nums[i]))\n            max_X.append(max(nums[j], k - nums[i]))\n        print(nums)\n        print(nums[::-1])\n        for num in g:\n            g[num].sort()\n\n        res = inf\n        max_X.sort()\n        print(g, max_X)\n\n        for X in sorted(g.keys(), key=lambda x: -len(g[x])):\n            idx = bisect_left(max_X, X)\n            new_res = idx * 2 + (len(max_X) - idx)\n            \n            idx = bisect_left(g[X], X)\n\n            new_res -= idx * 2 + (len(g[X]) - idx)\n\n            res = min(res, new_res)\n                \n        return res\n",
+    "submit_ts": "1721488681",
+    "subm_id": "1327429867"
+}

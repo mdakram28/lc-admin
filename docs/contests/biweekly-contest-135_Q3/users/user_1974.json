@@ -1,0 +1,6 @@
+{
+    "username": "Sayuyere",
+    "submission": "from collections import defaultdict\nfrom bisect import bisect_left,bisect_right\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        i = 0\n        j = len(nums)-1\n        res = []\n        ends = []\n        while i<j:\n            nums[i],nums[j] = min(nums[i],nums[j]),max(nums[i],nums[j])\n            e = [nums[j],k-nums[i],k-nums[j]]\n            ends.append(max(e))\n            res.append(nums[j]-nums[i])\n            i += 1\n            j -= 1\n        res.sort()\n        ends.sort()\n\n        def find(arr,val):\n            l = bisect_left(arr,val)\n            r = bisect_right(arr,val)\n            return r-l\n        x = float('inf')\n        def check(arr,v):\n            i = 0\n            j = len(arr)-1\n            c = 0\n            while i<j:\n                d = arr[j]-arr[i]\n                if d!=v:\n                    c += 1\n                    if v>arr[j]:\n                        c += 1\n                i += 1\n                j -= 1\n            return c\n\n        for i in range(k+1):\n            d = find(res,i)\n            v = bisect_left(ends,i)\n            a = len(ends)-v-d + 2*v\n            x = min(x,a)\n        return(x)",
+    "submit_ts": "1721489993",
+    "subm_id": "1327469916"
+}

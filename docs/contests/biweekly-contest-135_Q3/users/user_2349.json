@@ -1,0 +1,6 @@
+{
+    "username": "Sunscar-Sony",
+    "submission": "use std::collections::HashMap;\nuse std::cmp::{max, min};\nimpl Solution {\n    pub fn min_changes(nums: Vec<i32>, k: i32) -> i32 {\n        let mut map = HashMap::new();\n        let mut vec = Vec::new();\n        let mut i = 0;\n        while i < nums.len() / 2 {\n            let a = nums[i];\n            let b = nums[nums.len() - i - 1];\n            let diff = (a - b).abs();\n            let x = max(a, b).max(k - a).max(k - b);\n            map.entry(diff).or_insert_with(Vec::new).push(x);\n            vec.push(x);\n            i += 1;\n        }\n        let mut ans = nums.len() as i32;\n        vec.sort();\n        for (diff, values) in map.iter() {\n            let t = vec.iter().position(|&v| v >= *diff).unwrap_or(vec.len());\n            let mut t = t as i32 * 2 + (nums.len() / 2 - t) as i32;\n            for &x in values {\n                if x < *diff {\n                    t -= 2;\n                } else {\n                    t -= 1;\n                }\n            }\n            ans = min(ans, t);\n        }\n        ans\n    }\n}\n",
+    "submit_ts": "1721489170",
+    "subm_id": "1327445107"
+}

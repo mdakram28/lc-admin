@@ -1,0 +1,6 @@
+{
+    "username": "Shamelon",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> diffs(k + 1);\n        vector<int> poss(k + 1);\n        for (int i = 0; i < n; ++i) {\n            diffs[abs(nums[n - i - 1] - nums[i])]++;\n            poss[max(max(nums[i], nums[n - i - 1]), max(k - nums[i], k - nums[n - i - 1]))]++;\n        }\n        int res = n;\n        vector<int> prefs(k + 1);\n        prefs[0] = 0;\n        for (int i = 1; i < k + 1; ++i) {\n            prefs[i] = prefs[i - 1] + poss[i - 1];\n        }\n        for (int i = 0; i < k + 1; ++i) {\n            res = min(res, (n - diffs[i] + prefs[i]) / 2);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721488632",
+    "subm_id": "1327428399"
+}

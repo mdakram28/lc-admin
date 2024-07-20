@@ -1,0 +1,6 @@
+{
+    "username": "donaldduckwithpants",
+    "submission": "#include <ext/pb_ds/assoc_container.hpp>\nusing namespace __gnu_pbds;\ntemplate <class T>\nusing Tree = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;\n// tree\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        Tree<int> tree;\n        int n = nums.size();\n        map<int,vector<int>> mp;\n        for (int i = 0; i < n / 2; i++){\n            if (nums[i] > nums[n - 1 - i]){\n                swap(nums[i], nums[n - 1 - i]);\n            }\n            mp[nums[n - 1 - i] - nums[i]].push_back(max(nums[n - 1 - i], k - nums[i]));\n        }\n        int ans = 1e9;\n        int cnt = n / 2;\n        for (auto it: mp){\n            ans = min((unsigned long long)ans, (long long)cnt - it.second.size() + tree.order_of_key(it.first));\n            for (auto i: it.second){ \n                tree.insert(i);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488471",
+    "subm_id": "1327423302"
+}

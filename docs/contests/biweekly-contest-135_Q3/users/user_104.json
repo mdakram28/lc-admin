@@ -1,0 +1,6 @@
+{
+    "username": "zhang-yuan-long",
+    "submission": "\nconstexpr int maxn = 100010; \n\nint a[maxn];\n\nint lowbit(int x)\n{\n    return x & -x;\n}\n\nvoid add(int x, int y, int n)\n{\n    while (x <= n)\n    {\n        a[x] += y;\n        x += lowbit(x);\n    }\n}\n\nint query(int x)\n{\n    int res = 0;\n    while (x)\n    {\n        res += a[x];\n        x -= lowbit(x);\n    }\n    return res;\n}\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        memset(a, 0, sizeof a);\n        map<int, int> d;\n        for (int i = 0; 2 * i < nums.size(); i++) {\n            int a = nums[i];\n            int b =nums[nums.size() - i - 1];\n\n            d[abs(a - b)]++;\n            int v = max(a, b);\n            v = max(v, abs(k - a));\n            v = max(v, abs(k - b));\n            add(v + 1, 1, k + 1);\n        }\n\n        int m = 0x7fffffff;\n        for (auto& it : d) {\n            int r = nums.size() / 2 - it.second;\n\n            m = min(m,  r + query(it.first));\n        }\n        return m;\n    }\n};",
+    "submit_ts": "1721487178",
+    "subm_id": "548308785"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "qu-shui-liu-shang-e",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        lst = [];\n        cnt = [0 for i in range(k+1)];\n        n = len(nums);\n        for i in range(n//2):\n            maxi1 = max(nums[i],k-nums[i]);\n            maxi2 = max(nums[n-1-i],k-nums[n-1-i]);\n            lst.append(max(maxi1,maxi2));\n            cnt[abs(nums[i]-nums[n-i-1])] = cnt[abs(nums[i]-nums[n-i-1])]+1;\n        lst.sort();\n        def bisch(x):\n            l = 1;\n            r = len(lst);\n            while l<r:\n                mid = (l+r+1)//2;\n                if lst[mid-1]<x:\n                    l = mid;\n                else:\n                    r = mid-1;\n            if lst[l-1]>=x:\n                return 0;\n            return l;\n        res = 100001;\n        for i in range(k+1):\n            t = bisch(i);\n            cost = 2*t + n//2 - t -cnt[i];\n            res = min(cost,res);\n        return res;\n\n\n",
+    "submit_ts": "1721490465",
+    "subm_id": "548323005"
+}

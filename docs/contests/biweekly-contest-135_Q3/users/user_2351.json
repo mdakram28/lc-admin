@@ -1,0 +1,6 @@
+{
+    "username": "Mohana_Manikanta_Reddy_Padala",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        x, li = dict(), []\n        for i in range(len(nums) // 2):\n            if abs(nums[i] - nums[-i-1]) in x:\n                x[abs(nums[i] - nums[-i-1])] += 1\n            else:\n                x[abs(nums[i] - nums[-i-1])] = 1\n            li.append(max(k - nums[i], nums[i], k - nums[-i-1], nums[-i-1]))\n        li.sort()\n        frq = []\n        for i in x:\n            frq.append((x[i], i))\n        frq.sort()\n        arr = li\n        ans = len(arr)\n        while frq:\n            f, ele = frq.pop()\n            left, right = 0, len(arr) - 1\n            result = len(arr)  \n            target = ele\n            while left <= right:\n                mid = (left + right) // 2\n                if arr[mid] < target:\n                    left = mid + 1\n                else:\n                    right = mid - 1\n                    if arr[mid] == target:\n                        result = mid  \n\n            i = result if result != len(arr) else left\n            ans = min(ans, i * 2 + len(li) - f - i)\n        return ans",
+    "submit_ts": "1721490070",
+    "subm_id": "1327472146"
+}

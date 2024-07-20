@@ -1,0 +1,6 @@
+{
+    "username": "callmepandey",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector <int> prefix;\n        map < int , int > frq;\n        for(int i = 0;i<n/2;++i) {\n            int a = min(nums[i] , nums[n - i - 1]);\n            int b = max(nums[i] , nums[n - i - 1]);\n            int mx = max(k - a , b);\n            prefix.push_back(mx);\n            frq[b - a]++;\n        } \n        sort(prefix.begin() , prefix.end());\n        auto find = [&](int v) {\n            int low = 0 , high = n/2 - 1;\n            int ans = 0;\n            while(low <= high) {\n                int mid = (low + high)/2;\n                if(prefix[mid] >= v) {\n                    ans = mid;\n                    high = mid - 1;\n                } else {\n                    low = mid + 1;\n                }\n            }\n            return ans;\n        };\n        int ans = n * 3;\n        for(auto &a : frq) {\n            int needTwo = find(a.first);\n            int needMore = n/2 - needTwo;\n            needMore -= a.second;\n            ans = min(ans , needTwo * 2 + needMore);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487093",
+    "subm_id": "1327376028"
+}

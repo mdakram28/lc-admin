@@ -1,0 +1,6 @@
+{
+    "username": "ks27",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n\n        count = defaultdict(list)\n        poss_X = []\n   \n        l, r = 0, n - 1\n        while l <= r:\n            a, b = nums[l], nums[r]\n            diff = abs(a - b)\n            x = max(a, b, k - a, k - b)\n            count[diff].append(x)\n            poss_X.append(x)\n            l += 1\n            r -= 1\n        \n        res = n\n        poss_X.sort()\n        \n        for diff, X_values in count.items():\n            ind = bisect_left(poss_X, diff)\n            ind = ind * 2 + (n // 2 - ind)\n            \n            for x in X_values:\n                if x < diff:\n                    ind -= 2\n                else:\n                    ind -= 1\n            \n            res = min(res, ind)\n        \n        return res",
+    "submit_ts": "1721490576",
+    "subm_id": "1327486630"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "KartikSharma99",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<int> oneChange(k+2,0),twoChange(k+2,0);\n\n        for (int i=0;i<n/2;i++){\n            int change=abs(nums[i]-nums[n-1-i]);\n            if (change!=0){\n                oneChange[0]++;\n                \n                oneChange[change]--;\n            }\n\n            int maxDiff=max(k-min(nums[i],nums[n-1-i]),max(nums[i],nums[n-1-i])-0);\n            if (change!=k){\n                oneChange[change+1]++;\n                oneChange[maxDiff+1]--;\n            }\n\n            if (maxDiff!=k){\n                twoChange[maxDiff+1]++;\n                twoChange[k+1]--;\n            }\n        }\n\n        int minOp=1e7;\n        \n        for (int i=0;i<=k;i++){\n            if (i!=0){\n                oneChange[i]+=oneChange[i-1];\n                twoChange[i]+=twoChange[i-1];\n            }\n            minOp=min(oneChange[i]+2*twoChange[i],minOp);\n        }\n        return minOp;\n    }\n};",
+    "submit_ts": "1721489051",
+    "subm_id": "1327441384"
+}

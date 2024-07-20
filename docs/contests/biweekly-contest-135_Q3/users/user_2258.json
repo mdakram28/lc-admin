@@ -1,0 +1,6 @@
+{
+    "username": "sundar_mgs",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        l, r= 0, len(nums) -1\n        new = []\n        while l < r:\n            new.append(abs(nums[r] - nums[l]))\n            l += 1\n            r -= 1\n        cnt = Counter(new)\n        temp = max(cnt.values())\n        keeps = [key for key in cnt if cnt[key] == temp or cnt[key] == temp - 1]\n        # keeps = set(new)\n        n = len(nums)\n        # print(new)\n        # print(keeps)\n        final = float(\"inf\")\n        for keep in keeps:\n            ans = 0\n            for i in range(len(new)):\n                if new[i] != keep:\n                    high, low = max(nums[i],nums[n-i-1]), min(nums[i],nums[n-i-1])\n                    # print('s')\n                    # print(high, low)\n                    diff = high - low\n                    need = keep - diff\n                    # print(high + need, low - need)\n                    if high + need > k and low - need < 0:\n                        ans += 2\n                        # print('change',2)\n                    else:\n                        ans += 1\n                        # print('change',1)\n            final = min(final, ans)\n        return final\n\n        ",
+    "submit_ts": "1721489076",
+    "subm_id": "1327442105"
+}

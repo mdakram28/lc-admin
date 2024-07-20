@@ -1,0 +1,6 @@
+{
+    "username": "singh_deopa",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = (int) nums.size();\n        int N = k + 10;\n        vector<int> dp(N);\n        \n        auto update = [&] (int l, int r, int diff, int val) {\n            assert(r + 1 < N);\n            dp[l] += val;\n            dp[r + 1] -= val;\n            \n            if (l <= diff && diff <= r) {\n                dp[diff] -= val;\n                dp[diff + 1] += val;\n            }\n        };\n        \n        for (int i = 0, j = n - i - 1; i < j; i++, j--) {\n            assert(nums[i] <= k);\n            assert(nums[j] <= k);\n            \n            int diff = abs(nums[i] - nums[j]);\n            int mx = max(max(nums[i], nums[j]), k - min(nums[i], nums[j]));\n            \n            update(0, mx, diff, 1);\n            update(mx + 1, k, diff, 2);\n            \n            // cout << nums[i] << \"  \"<< nums[j] << \" \" << mx << \" \" << diff << \"\\n\";\n        }\n        \n        int res = INT_MAX;\n        \n        for (int i = 0; i <= k; i++) {\n            if (i) dp[i] += dp[i - 1];\n            // cout << dp[i] << \" \";\n            res = min(res, dp[i]);\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": "1721487240",
+    "subm_id": "1327381537"
+}

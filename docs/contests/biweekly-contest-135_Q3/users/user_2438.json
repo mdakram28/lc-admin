@@ -1,0 +1,6 @@
+{
+    "username": "sha-shank",
+    "submission": "func abs(a int) int {\n    if a > 0 {\n        return a\n    }\n    return -a\n}\n\nfunc minChanges(nums []int, k int) int {\n    n := len(nums)\n    ans := n\n    dict := make(map[int][]int)\n    v := make([]int, 0)\n    var diff, X, lid int\n    for l:=0; l<n/2; l++ {\n        diff = abs(nums[l]-nums[n-l-1])\n        X = max(nums[l], nums[n-l-1], k-nums[l], k-nums[n-l-1])\n        dict[diff] = append(dict[diff], X)\n        v = append(v, X)\n    }\n\n    sort.Ints(v)\n\n\n    for key, val := range dict {\n        lid = n\n        for i, t := range v {\n            if t>=key {\n                lid = i\n                break\n            }\n        }\n        lid = lid*2 +(n/2-lid)\n\n        for _, j := range val {\n            if j < key {\n                lid-=2\n            } else {\n                lid-=1\n            }\n        }\n        ans = min(ans, lid)\n\n    }\n\n\n    return ans\n}\n",
+    "submit_ts": "1721490439",
+    "subm_id": "1327482677"
+}

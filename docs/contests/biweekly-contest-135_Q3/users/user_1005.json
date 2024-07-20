@@ -1,0 +1,6 @@
+{
+    "username": "aumjadhav",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int,vector <int>> countofDifference;\n        vector<int> ans;\n        int n = nums.size();\n        int mid = n / 2;\n        int result = n;\n        for (int i = 0; i < mid; ++i) {\n            int r = nums[n - i - 1];\n            int l = nums[i];\n            int diff = abs(l - r);\n            int x = max({l,r,k-l,k-r});\n            countofDifference[diff].push_back(x);\n            ans.push_back(x);\n        }\n        sort(ans.begin(),ans.end());\n        for(auto &value : countofDifference){\n            int diff = value.first;\n            int y = lower_bound(ans.begin(),ans.end(),diff)-ans.begin();\n            y = y*2+(mid-y);\n\n            for(auto &num:value.second){\n                if(num<diff){\n                    y = y-2;\n                }else{\n                    y = y-1;\n                }\n            }\n            result = min(result,y);\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1721489346",
+    "subm_id": "1327450581"
+}

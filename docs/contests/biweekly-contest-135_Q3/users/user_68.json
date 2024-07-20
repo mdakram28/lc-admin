@@ -1,0 +1,6 @@
+{
+    "username": "theabbie",
+    "submission": "from collections import Counter\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        ops = []\n        ctr = Counter()\n        for i in range(n // 2):\n            a, b = nums[i], nums[n - i - 1]\n            a, b = min(a, b), max(a, b)\n            maxdiff = max(b, k - a)\n            ops.append(maxdiff)\n            ctr[b - a] += 1\n        ops.sort(reverse = True)\n        res = float('inf')\n        i = 0\n        for diff in range(k, -1, -1):\n            while i < len(ops) and ops[i] >= diff:\n                i += 1\n            res = min(res, i + 2 * (len(ops) - i) - ctr[diff])\n        return res",
+    "submit_ts": "1721486394",
+    "subm_id": "1327345936"
+}

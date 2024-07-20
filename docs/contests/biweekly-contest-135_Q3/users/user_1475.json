@@ -1,0 +1,6 @@
+{
+    "username": "BorisSherman",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        p_count = len(nums) // 2\n\n        accs = defaultdict(int)\n\n        for i in range(p_count):\n            j = len(nums) - 1 - i\n\n            a = min(nums[i], nums[j])\n            b = max(nums[i], nums[j])\n            old = b - a\n\n            accs[0] -= 1\n\n            accs[old] -= 1\n            accs[old + 1] += 1\n\n            c = max(max(b, k - b), max(a, k - a))\n            accs[c + 1] += 1\n\n        ans = 2 * p_count\n        count = 2 * p_count\n        s_keys = sorted(list(accs.keys()))\n\n        # Sweep line\n        for sl in s_keys:\n            count += accs[sl]\n\n            ans = min(ans, count)\n       \n\n        return ans\n",
+    "submit_ts": "1721489520",
+    "subm_id": "1327455766"
+}

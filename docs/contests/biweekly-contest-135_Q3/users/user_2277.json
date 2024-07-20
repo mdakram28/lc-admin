@@ -1,0 +1,6 @@
+{
+    "username": "singhjk03",
+    "submission": "#include<bits/stdc++.h>\n\nclass Solution {\npublic:\n    int minChanges(std::vector<int>& nums, int k) {\n        map<int,vector<int>> umap;\n        vector<int> arr;\n \n        for (int i = 0; i < nums.size() / 2; i++) {\n            int x = nums[i];\n            int y = nums[nums.size()-i-1];\n            \n            \n            int diff = abs(x - y);\n            int X = max({x, y, k - x, k - y});\n\n            umap[diff].push_back(X);\n            arr.push_back(X);\n        }\n\n        \n        int ans = nums.size();  \n        sort(arr.begin(), arr.end());\n\n        \n        for (auto [diff, values] : umap) {\n            int lb = lower_bound(arr.begin(), arr.end(), diff) - arr.begin();\n            lb = lb * 2 + (nums.size() / 2 - lb);\n\n            \n            for (auto X : values) {\n                if (X < diff) {\n                    lb -= 2;\n                } else {\n                    lb--;\n                }\n            }\n\n            \n            ans = min(ans, lb);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721490594",
+    "subm_id": "1327487178"
+}

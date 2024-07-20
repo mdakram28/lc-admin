@@ -1,0 +1,6 @@
+{
+    "username": "lebron87",
+    "submission": "class Solution:\n    def g(self, u,v, key, k):\n        if v-u == key:\n            return 0\n\n        if v-u < key:\n            if v >= key:\n                return 1\n            if k - u >= key:\n                return 1\n        if v-u > key:\n            return 1\n        return 2\n    def f(self, key , a, b, k):\n        ans = 0\n        for u,v in zip(a,b):\n            if u > v:\n                u,v = v,u\n            ans += self.g(u,v,key, k)\n        return ans\n\n    def minChanges(self, nums: List[int], k: int) -> int:\n        a = nums[:len(nums)//2]\n        b = nums[len(nums)//2:][::-1]\n        cc = collections.Counter()\n        for u,v in zip(a,b):\n            if u > v: u,v = v,u\n            cc[v-u]+=1\n\n        vv = max(cc.values())\n        #print (cc)\n        r = [key +delta for key in cc if cc[key] == vv for delta in range(-10,10) if 0<=key + delta <=k] \n        return min(self.f(key, a,b, k) for key in r)            ",
+    "submit_ts": "1721488664",
+    "subm_id": "1327429378"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "cyber_knight_28",
+    "submission": "class Solution {\npublic:\n    int abs(int k){return k>0?k:-1*k;}\n    \n    int check(vector<int>&v,int z,int k){\n        int n=v.size(),ans=0;\n        for(int i=0;i<n/2;i++){\n            int a=v[i],b=v[n-1-i];\n            if(abs(a-b)==z){continue;}\n            if(a+z<=k||a-z>=0||b+z<=k||b-z>=0)\n            {ans++;}\n            else{ans+=2;}\n        }\n        return ans;\n    }\n\n    int minChanges(vector<int>& v, int k) {\n        map<int,int> mp;\n        int n=v.size();\n        for(int i=0;i<n/2;i++){\n            mp[abs(v[i]-v[n-1-i])]++;\n        }\n        vector<pair<int,int>> vp;\n        for(auto x:mp){\n            vp.push_back({x.second,x.first});\n        }\n        sort(vp.rbegin(),vp.rend());\n        int ans=n/2;\n        for(auto x:vp){\n            int p=n/2-x.first;\n            if(ans<=p){return ans;}\n            p=check(v,x.second,k);\n            ans=min(ans,p);\n        }\n        return ans;\n\n    }\n};",
+    "submit_ts": "1721488525",
+    "subm_id": "1327425006"
+}

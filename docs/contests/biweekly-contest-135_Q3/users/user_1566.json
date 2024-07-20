@@ -1,0 +1,6 @@
+{
+    "username": "wengong",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int ans = 1e9;\n        int n = nums.size();\n        map<int, int> mp;\n        vector<int> res;\n        for (int i=0;i<n/2;i++) {\n            // cout << \"\\t\"<<nums[i]<<\" \"<<nums[n-i-1]<<endl;\n            int t = abs(nums[i]-nums[n-i-1]);\n            mp[t]++;\n            int md = max(min(nums[i], nums[n-i-1]), k - max(nums[i], nums[n-i-1]));\n            // cout<<t<<\" \"<<md<<endl;\n            res.push_back(md+t);\n        }\n        if (mp.size() == 1) {\n            return 0;\n        }\n        // for (int i=0;i<res.size();i++) {\n        //     cout<<res[i]<<endl;\n        // }\n        sort(res.begin(), res.end());\n        for (auto [x, v]: mp) {\n            int t = lower_bound(res.begin(), res.end(), x) - res.begin();\n            int now = t * 2 + (n/2-t)*1 - v;\n            // cout<<x<<\" \"<<v<<\" \"<<t<<\" \"<<now<<endl;\n            ans = min(ans, now);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489635",
+    "subm_id": "548319597"
+}

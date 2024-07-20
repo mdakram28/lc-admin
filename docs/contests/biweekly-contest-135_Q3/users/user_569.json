@@ -1,0 +1,6 @@
+{
+    "username": "shashwatshrma",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int, int> um;\n        int n=nums.size();\n        vector<pair<int, int>> diff(n/2);\n        for(int i=0;i<n/2;i++)\n        {\n            // um.insert(abs(nums[i]-nums[n-1-i]));\n            um[abs(nums[i]-nums[n-1-i])]++;\n            diff[i].first = abs(nums[i]-nums[n-1-i]);\n            diff[i].second = max(nums[i], nums[n-1-i]);\n            diff[i].second = max(diff[i].second, k-nums[n-1-i]);\n            diff[i].second = max(k-nums[i], diff[i].second);\n        }\n        int cost=n;\n        for(auto x:um)\n        {\n            int curr=0;\n            if(n/2 - x.second >= cost) continue;\n            for(int i=0;i<n/2;i++)\n            {\n                if(diff[i].first != x.first)\n                {\n                    if(x.first<=diff[i].second) curr++;\n                    else curr+=2;\n                }\n                if(curr>=cost) break;\n            }\n            cost = min(cost, curr);\n        }\n        return cost;\n    }\n};",
+    "submit_ts": "1721488383",
+    "subm_id": "1327420545"
+}

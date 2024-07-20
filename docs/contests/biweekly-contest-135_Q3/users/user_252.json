@@ -1,0 +1,6 @@
+{
+    "username": "smilences",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n2 = len(nums)\n        n = n2 // 2\n        l = []\n        for i in range(n):\n            x,y = nums[i],nums[n2-i-1]\n            mx = max(y,k - y,x,k-x)\n            l.append((abs(y-x),mx))\n\n        d_cnt = defaultdict(int)\n        c = defaultdict(int)\n        for x,y in l:\n            d_cnt[x] += 1\n            c[y] += 1\n\n        ans = inf\n        c_key = sorted(c.keys())\n        c_num = 0\n        c_len = len(c_key)\n        idx = 0\n        for num in sorted(d_cnt.keys()):\n            while idx < c_len and c_key[idx] < num:\n                c_num += c[c_key[idx]]\n                idx += 1\n            res = c_num + n - d_cnt[num]\n            if res < ans:\n                ans = res\n        return ans\n\n\n\n",
+    "submit_ts": "1721487544",
+    "subm_id": "548310480"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "magical-margulis9t5",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int l = 0, r = n - 1;\n        vector<int> change(k + 10, 0);\n        while(l < r) {\n            int x = max(nums[l], nums[r]);\n            int y = min(nums[l], nums[r]);\n            int t = x - y;\n            int mx = max(x, k - y);\n            // [0, t) (t, mx] 1\n            // (mx, k] \u53d8 2\n            // \u5411\u524d\u5e73\u79fb\n            // [1, t] [t + 2, mx + 1]\n            // [mx + 2, k + 1]\n            change[0] ++;\n            change[t] --;\n            change[t + 1] ++;\n            change[mx + 1] --;\n            change[mx + 1] += 2;\n            change[k + 1] -= 2;\n            l ++, r --;\n        }\n        int res = INT_MAX;\n        for(int i = 1; i < k + 2; i ++) change[i] += change[i-1];\n        for(int i = 0; i <= k; i ++) res = min(res, change[i]);\n        return res;\n    }\n};",
+    "submit_ts": "1721487464",
+    "subm_id": "548310071"
+}

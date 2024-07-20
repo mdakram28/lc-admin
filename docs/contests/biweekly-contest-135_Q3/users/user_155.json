@@ -1,0 +1,6 @@
+{
+    "username": "ajxu2",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = (int)nums.size();\n        vector<int> cur(n/2), mxd(n/2);\n        for (int i = 0; i < n/2; i++) {\n            cur[i] = abs(nums[i] - nums[n-i-1]);\n            mxd[i] = max(max(nums[i], k - nums[i]), max(nums[n-i-1], k - nums[n-i-1]));\n        }\n        map<int, int> freq;\n        for (int i : cur) freq[i]++;\n        int ans = 1e9;\n        sort(begin(mxd), end(mxd));\n        int ptr = 0;\n        for (pair<int, int> i : freq) {\n            int tmp = n/2 - i.second;\n            while (ptr < n/2 && mxd[ptr] < i.first) ptr++;\n            tmp += ptr;\n            ans = min(ans, tmp);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487439",
+    "subm_id": "1327388872"
+}

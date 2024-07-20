@@ -1,0 +1,6 @@
+{
+    "username": "adoring-stonebrakerr7q",
+    "submission": "class Solution {\n    // 2 4 1 \n    // 4 4 4 0\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length;\n        int[] diff = new int[k + 2];\n        for(int i = 0; i < n / 2; i++){\n            int cur = Math.abs(nums[n - i - 1] - nums[i]);\n            \n            diff[cur] -= 1;\n            diff[cur + 1] += 1;\n            int a = nums[i], b = nums[n - i - 1];\n            int m = max(Math.abs(max(a, b) - 0), Math.abs(k - min(a, b)));\n            //System.out.println(i + \" \" + cur + \" \" + m);\n            if(m < k){\n                diff[m + 1] += 1;\n                diff[k + 1] -= 1;\n            }\n        }\n        for(int i = 1; i <= k; i++){\n            diff[i] += diff[i - 1];\n        }\n        int ans = n;\n        //System.out.println(Arrays.toString(diff));\n        for(int i = 0; i <= k; i++){\n            ans = Math.min(ans, n / 2 + diff[i]);\n        }\n        return ans;\n    }\n\n    public int max(int a, int b){\n        return a > b ? a : b;\n    }\n    public int min(int a, int b){\n        return a > b ? b : a;\n    }\n    \n}",
+    "submit_ts": "1721489569",
+    "subm_id": "548319315"
+}

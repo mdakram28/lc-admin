@@ -1,0 +1,6 @@
+{
+    "username": "Varun1205",
+    "submission": "class Solution {\npublic:\n    static bool compare(const pair<int,int>& a,const pair<int,int>& b){\n        return a.second > b.second;\n    }\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<int,int> diff;\n\n        for(int i=0;i<=n/2;i++){\n            int val = abs(nums[i] - nums[n-i-1]);\n            diff[val]++;\n        }\n\n        int totalcnt = n/2;\n\n        vector<pair<int,int>> mp(diff.begin(),diff.end());\n        sort(mp.begin(),mp.end(),compare);\n\n        int minOp = INT_MAX;\n        for(auto& [differ,value]: mp){\n            int min_req_op = totalcnt - value;\n            if(min_req_op >= minOp) break;\n            int op = 0;\n            for(int i=0;i<n/2;i++){\n                if(abs(nums[i] - nums[n-i-1]) == differ) continue;\n                if(abs(k - min(nums[i],nums[n-i-1])) >= differ || abs(max(nums[i],nums[n-i-1])) >= differ) op++;\n                else op += 2;\n            }\n\n            minOp = min(minOp, op);\n        }\n\n        \n\n        return minOp;\n    }\n};",
+    "submit_ts": "1721488930",
+    "subm_id": "1327437532"
+}

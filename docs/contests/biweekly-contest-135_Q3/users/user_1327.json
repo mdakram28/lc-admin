@@ -1,0 +1,6 @@
+{
+    "username": "darkenigma",
+    "submission": "def comparator(a,b):\n    if(a[0]>b[0]):return 1\n    if(a[0]==b[0] and a[0]<b[0]):return 1\n    return 0\n\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        arr=[]\n        n=len(nums)\n        d={}\n        for i in range(n//2):\n            a=abs(nums[i]-nums[n-1-i])\n            t=max(max(nums[i],nums[n-1-i]),max(k-nums[i],k-nums[n-i-1]))\n            arr.append([a,t])\n            d[a]=d.get(a,0)+1\n        l=[]\n        for a,b in d.items():\n            l.append([-1*b,a])\n        l.sort()\n        arr.sort()\n        have=[0 for i in range(k+1)]\n        need=[0 for i in range(k+1)]\n        for a in arr:\n            have[a[0]]+=1\n            need[a[1]]+=1\n        for i in range(k-1,-1,-1):\n            need[i]+=need[i+1]\n        # print(arr)\n        # print(have)\n        # print(need)\n        ans=n//2\n        no=n//2\n        for i in range(k+1):\n            zero=have[i]\n            one=need[i]-have[i]\n            two=no-zero-one\n            ans=min(ans,one+(two*2))\n        # print(l)\n        return ans\n    # 0 1 2 3 4",
+    "submit_ts": "1721489390",
+    "subm_id": "1327451841"
+}

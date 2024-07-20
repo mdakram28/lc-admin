@@ -1,0 +1,6 @@
+{
+    "username": "curtain-stronger",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length;\n        int ans = n / 2;\n        HashMap<Long, Integer> map = new HashMap<>();\n        for (int i = 0; i < n/2; i++) {\n            long key = Math.abs(nums[i]-nums[n-1-i]);\n            map.put(key, map.getOrDefault(key, 0) + 1);\n        }\n        HashMap<Integer, Long> mm = new HashMap<>();\n        for (Map.Entry<Long, Integer> entry : map.entrySet()) {\n            long key = entry.getKey();\n            int value = entry.getValue();\n            if(mm.containsKey(value)){\n                if(mm.get(value)>key) mm.put(value,key);\n            }else mm.put(value,key);\n        }\n        for (long entry : mm.values()) {\n            int oo=0;\n            for (int i=0;i<n/2;i++){\n                long o1=Math.abs(nums[i]-nums[n-1-i]);\n                if(o1==entry) continue;\n                if(entry+Math.min(nums[i],nums[n-1-i])<=k) oo++;\n                else if(entry<=Math.max(nums[i],nums[n-1-i])) oo++;\n                else oo+=2;\n            }\n            ans=Math.min(ans,oo);\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1721487817",
+    "subm_id": "548311651"
+}

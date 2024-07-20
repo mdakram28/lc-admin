@@ -1,0 +1,6 @@
+{
+    "username": "joy32812",
+    "submission": "class Solution {\nfun minChanges(nums: IntArray, k: Int): Int {\n    val n = nums.size\n    val halfN = n / 2\n    val freqMap = mutableMapOf<Int, Int>()\n\n    for (i in 0 until halfN) {\n        val a = nums[i]\n        val b = nums[n - i - 1]\n        val x = Math.abs(a - b)\n        freqMap[x] = freqMap.getOrDefault(x, 0) + 1\n    }\n\n    val maxFreq = freqMap.values.maxOrNull() ?: 0\n\n\n    fun getAns(x: Int): Int {\n        var ans = 0\n        for (i in 0 until halfN) {\n            val a = nums[i]\n            val b = nums[n - i - 1]\n            if (Math.abs(a - b) != x) {\n\n                if (a + x <= k || a - x >= 0 || b + x <= k || b - x >= 0) {\n                    ans += 1\n                } else {\n                    ans += 2\n                }\n\n            }\n        }\n        return ans\n    }\n\n    val keys = if (freqMap.keys.size <= 20) {\n        freqMap.keys\n    } else {\n        freqMap.filterValues { it == maxFreq }.keys\n    }\n\n\n\n\n    return keys.minOfOrNull { getAns(it) } ?: 0\n}\n\n\n}",
+    "submit_ts": "1721488294",
+    "subm_id": "1327417754"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Mash9",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        hMap = {}\n        i=0\n        j=len(nums)-1\n        while i<j:\n            dif = abs(nums[j]-nums[i])\n            hMap[dif] = hMap.get(dif,0)+1\n            i+=1\n            j-=1\n        arr = sorted([(hMap[k],k) for k in hMap.keys()], reverse=True)\n        def helper(mindif):\n            i=0\n            j=len(nums)-1\n            ans2 = 0\n            while i<j:\n                if abs(nums[j]-nums[i])!=mindif:\n                    if 0<=nums[j]-mindif<=k or 0<=nums[j]+mindif<=k:\n                        ans2+=1\n                    elif 0<=nums[i]-mindif<=k or 0<=nums[i]+mindif<=k:\n                        ans2+=1\n                    else:\n                        ans2+=2\n                i+=1\n                j-=1\n            return ans2\n\n\n        minCnt = arr[0][0]\n        ans = len(nums)\n        # print(arr)\n        chance = True\n        for kk in arr:\n            if kk[0]==minCnt or chance:\n                if kk[0]!=minCnt: chance = False\n                temp = helper(kk[1])\n                # print(kk,temp)\n                ans = min(ans,temp)\n            else:\n                break\n        return ans",
+    "submit_ts": "1721488482",
+    "subm_id": "1327423662"
+}

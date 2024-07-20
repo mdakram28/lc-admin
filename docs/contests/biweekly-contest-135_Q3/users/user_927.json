@@ -1,0 +1,6 @@
+{
+    "username": "oamuuvyi",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length;\n        int[] diffs = new int[k + 2];\n        Map<Integer, Integer> counts = new HashMap<>();\n        for (int i = 0; i < n / 2; i++) {\n            counts.merge(Math.abs(nums[i] - nums[n - 1 - i]), 1, Integer::sum);\n            diffs[Math.max(Math.max(nums[i], nums[n - 1 - i]), k - Math.min(nums[i], nums[n - 1 - i])) + 1]++;\n        }\n        int ans = n;\n        for (int i = 0, sum = 0; i <= k; i++) {\n            sum += diffs[i];\n            ans = Math.min(ans, n / 2 - counts.getOrDefault(i, 0) + sum);\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1721489268",
+    "subm_id": "548318073"
+}

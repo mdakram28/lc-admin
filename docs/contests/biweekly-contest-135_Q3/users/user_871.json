@@ -1,0 +1,6 @@
+{
+    "username": "leena_05_02",
+    "submission": "#include <vector>\n\n#include <map>\n\n#include <algorithm>\n\n#include <cmath>\n\n#include <limits>\n\nclass Solution {\n\npublic:\n\n    int minChanges(std::vector<int>& nums, int k) {\n\n        std::map<int, std::vector<int>> m;\n\n        std::vector<int> v;\n\n        for (int i = 0; i < nums.size() / 2; ++i) {\n\n            int a = nums[i];\n\n            int b = nums[nums.size() - i - 1];\n\n            int diff = std::abs(a - b);\n\n             int X = std::max({a, b, k - a, k - b});\n\n             m[diff].push_back(X);\n\n            v.push_back(X);\n\n        }\n\n        int ans = nums.size();  \n\n        std::sort(v.begin(), v.end());\n\n        for (const auto& [diff, values] : m) {\n\n            int T = std::lower_bound(v.begin(), v.end(), diff) - v.begin();\n\n            T = T * 2 + (nums.size() / 2 - T);\n\n            for (const auto& X : values) {\n\n                if (X < diff) {\n\n                    T -= 2;\n\n                } else {\n\n                    T -= 1;\n\n                }\n\n            }\n\n            ans = std::min(ans, T);\n\n        }\n\n        return ans;\n\n    }\n\n};\n\n\n",
+    "submit_ts": "1721489187",
+    "subm_id": "1327445658"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "jiu-ren-36",
+    "submission": "class Solution {\npublic:\n\n    int minChanges(vector<int>& a, int k) {\n        int n = a.size();\n        map<int, int> mp;\n        int y = 0;\n        vector<int> cha(100005, 0);\n        for(int i = 0; i < n / 2; i++) {\n            if(a[i] > a[n - i - 1]) swap(a[i], a[n - i - 1]);\n            mp[a[n - i - 1] - a[i]]++;\n            int l = a[i], r = k - a[n - i - 1];\n            l = min(l, r);\n            if(l == 0) continue;\n            cha[k - l + 1]++;\n            cha[k+1]--;\n        }\n        for(int i = 1; i <= k; i++) {\n            cha[i] += cha[i - 1];\n        }\n        int res = 1e9;\n        n /= 2;\n        for(int i = 0; i <= k; i++) {\n            int zero = mp[i], two = cha[i]; \n            res = min(res, n - zero - two + 2 * two);\n        }     \n        return res;\n    }\n};",
+    "submit_ts": "1721488928",
+    "subm_id": "548316581"
+}

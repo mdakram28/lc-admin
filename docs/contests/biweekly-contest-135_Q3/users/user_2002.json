@@ -1,0 +1,6 @@
+{
+    "username": "Lightning_Mc_Queen",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        d = defaultdict(list)\n        n = len(nums)\n        for i in range(n//2):\n            d[abs(nums[i]-nums[n-i-1])].append(i)\n        items = d.items()\n        items = sorted(d.items(), key = lambda x:[len(x[1]), -x[0]])\n        outres = 1e16\n        while items:\n            maxi = items[-1][0]\n            if n//2-len(items[-1][1]) >= outres:\n                break\n            # print(maxi)\n            # print(items)\n            fl = 1\n            res = 0\n            # print(f'maxi {maxi}')\n            for i in d:\n                # print(f'i {i}, d[i] {d[i]}')\n                if i == maxi and fl:\n                    fl = 0\n                else:\n                    for j in d[i]:\n                        if maxi+nums[j] <= k or (0 <= -maxi+nums[j] <= k) or maxi+nums[n-j-1] <=k or (0 <= -maxi+nums[n-j-1] <= k):\n                            # print(f'caught {nums[j], -maxi+nums[j]}')\n                            res += 1\n                        else:\n                            res += 2\n            items.pop()\n            outres = min(res, outres)\n        return res",
+    "submit_ts": "1721489734",
+    "subm_id": "1327462123"
+}

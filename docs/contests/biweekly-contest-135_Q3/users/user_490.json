@@ -1,0 +1,6 @@
+{
+    "username": "i3rave-darwinbl8",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        // array<int, 100002> diff{};\n        // ranges::fill(diff, 0);\n        vector<int> diff(k+2, 0);\n        const int n = nums.size();\n        const int m = n >> 1;\n        for (int i = 0; i < m; ++i) {\n            int ni = nums[i];\n            int nj = nums[n-i-1];\n            int d = abs(ni - nj);\n            int max_d = max({ni, nj, k - ni, k - nj});\n            if (d == 0) {\n                diff[1]++;\n                diff[max_d+1]++;\n            } else if (d <= max_d) {\n                diff[0]++;\n                diff[d]--;\n                diff[d+1]++;\n                diff[max_d+1]++;\n            }\n        }\n        int min_c = INT_MAX;\n        int cur_c = 0;\n        for (int d : diff) {\n            // cout << d << ' ';\n            cur_c += d;\n            min_c = min(min_c, cur_c);\n        }\n        // cout << '\\n';\n        return min_c;\n    }\n};",
+    "submit_ts": "1721488525",
+    "subm_id": "548314862"
+}

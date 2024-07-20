@@ -1,0 +1,6 @@
+{
+    "username": "nguyenducloc2",
+    "submission": "class Solution {\n   public:\n    int minChanges(vector<int>& nums, int k) {\n        int n = (int)nums.size();\n        map<int, int> mp;\n        vector<int> v;\n        for (int i = 0; i < n / 2; i++) {\n            mp[abs(nums[i] - nums[n - i - 1])]++;\n            v.push_back(max(\n                {nums[i], k - nums[i], nums[n - i - 1], k - nums[n - i - 1]}));\n        }\n        sort(v.begin(), v.end());\n        int ans = INT_MAX;\n        for (int i = 0; i <= k; i++) {\n            auto it = lower_bound(v.begin(), v.end(), i);\n            int dis = it - v.begin();\n            int cnt = 2 * dis + (n - 2 * dis - 2 * mp[i]) / 2;\n            ans = min(ans, cnt);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488774",
+    "subm_id": "1327432803"
+}

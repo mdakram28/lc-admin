@@ -1,0 +1,6 @@
+{
+    "username": "dongjiangeng",
+    "submission": "from collections import defaultdict\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        diff_freq = defaultdict(int)\n        max_diff_freq = defaultdict(int)\n        for i in range(n // 2):\n            l = nums[i]\n            r = nums[n-1-i]\n            diff = abs(l-r)\n            max_diff = max(l, k-l, r, k-r)\n            diff_freq[diff] += 1\n            max_diff_freq[max_diff] += 1\n        \n        diff_freq = sorted(item for item in diff_freq.items())\n        max_diff_freq = sorted(item for item in max_diff_freq.items())\n        \n        ans = n\n        max_diff_idx = 0\n        two_change_count = 0\n        for (diff, freq) in diff_freq:\n            while max_diff_idx < len(max_diff_freq) and diff > max_diff_freq[max_diff_idx][0]:\n                two_change_count += max_diff_freq[max_diff_idx][1]\n                max_diff_idx += 1\n            \n            zero_change_count = freq\n            one_change_count = n // 2 - freq - two_change_count\n            change_count = one_change_count + 2 * two_change_count\n            ans = min(ans, change_count)\n        \n        return ans\n            ",
+    "submit_ts": "1721489450",
+    "subm_id": "1327453610"
+}

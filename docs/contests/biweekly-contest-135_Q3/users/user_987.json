@@ -1,0 +1,6 @@
+{
+    "username": "owenhelios",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        cnt = Counter()\n        dist = Counter()\n        hf = n // 2\n        for i in range(hf):\n            dist[max(nums[i], k - nums[i], nums[n - i - 1], k - nums[n - i - 1])] += 1\n            cnt[abs(nums[i] - nums[n - i - 1])] += 1\n        ans = n\n        j = 0\n        dist = sorted(dist.items(), reverse=True)\n        l = len(dist)\n        acc = 0\n        for kk, v in sorted(cnt.items(), reverse=True):\n            while j < l and dist[j][0] >= kk:\n                acc += dist[j][1]\n                j += 1\n            if j == l:\n                ans = min(ans, hf - v)\n            else:\n                ans = min(ans, (hf - acc) * 2 + acc - v)\n        return ans",
+    "submit_ts": "1721489323",
+    "subm_id": "548318287"
+}

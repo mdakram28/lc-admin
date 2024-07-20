@@ -1,0 +1,6 @@
+{
+    "username": "musing-noyce8ft",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        # Greedy?\n        n = len(nums)\n        cnt = collections.defaultdict(list)\n        for i in range(len(nums) // 2):\n            cnt[abs(nums[i] - nums[n - i - 1])].append(i)\n\n        \n        def helper(d: int) -> int:\n            res = 0\n            for cd in cnt:\n                if cd == d:\n                    continue\n                for i in cnt[cd]:\n                    a, b = nums[i], nums[n - i - 1]\n                    if 0 <= a + d <= k or 0 <= b + d <= k or 0 <= a - d <= k or 0 <= b - d <= k:\n                        res += 1\n                    else:\n                        res += 2\n\n            return res\n\n        res = len(nums)\n        for d in cnt:\n            if (len(nums) // 2) - len(cnt[d]) > res:\n                continue\n            else:\n                res = min(res, helper(d))\n\n        return res",
+    "submit_ts": "1721488522",
+    "subm_id": "548314852"
+}

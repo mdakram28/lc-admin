@@ -1,0 +1,6 @@
+{
+    "username": "NarayanShanky",
+    "submission": "class Solution {\npublic:\n\n    void mark(int a,int b,int k,vector<int> &pre){\n        int maxi=max(max(a,b),k-min(a,b));\n        pre[0]++;\n        pre[maxi+1]--;\n    }\n\n    int minChanges(vector<int>& arr, int k) {\n        vector<int> orig(k+1,0);\n        vector<int> pre(k+2,0);\n        \n        int i=0,j=arr.size()-1;\n        while(i<j){\n            int diff=abs(arr[i]-arr[j]);\n            orig[diff]++;\n            mark(arr[i],arr[j],k,pre);\n            i++;\n            j--;\n        }\n\n        for(int i=1;i<pre.size();i++){\n            pre[i]+=pre[i-1];\n        }\n\n        int ans=INT_MAX;\n        for(int i=0;i<=k;i++){\n            int n=arr.size()/2;\n            int rem=n-pre[i];\n            int curr=pre[i]-orig[i]+(2*rem);\n            ans=min(ans,curr);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721489856",
+    "subm_id": "1327465864"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "ashuthe1",
+    "submission": "#include<ext/pb_ds/assoc_container.hpp>\n#include<ext/pb_ds/tree_policy.hpp>\nusing namespace __gnu_pbds;\ntemplate<class T> using ordered_set = tree<T, null_type,less_equal<T>,rb_tree_tag,tree_order_statistics_node_update>;\nclass Solution {\npublic:\n    int minChanges(vector<int>& arr, int k) {\n    int n = arr.size(), minKharcha = n;\n    vector<vector<int>> v;\n    map<int, vector<int>> freq;\n\n    for(int i = 0; i < n/2; i++) {\n        int dif = abs(arr[i] - arr[n - i - 1]);\n        int mi = min(arr[i], arr[n - i - 1]), mx = max(arr[i], arr[n - i - 1]);\n        freq[dif].push_back(max(mx, k - mi));\n    }\n\n    ordered_set<int> st;\n    int badeLog = n/2, choteLog = 0;\n\n    for(auto &e: freq) {\n        int curDif = e.second.size();\n        choteLog = st.size();\n        badeLog = n/2 - curDif - choteLog;\n\n        // deb(e.first, e.second, badeLog, choteLog);\n        int doOperationWale = st.order_of_key(e.first);\n\n        int curCost = badeLog + doOperationWale + (choteLog);\n        minKharcha = min(minKharcha, curCost);\n        \n        for(auto &x: e.second) {\n            st.insert(x);\n        }\n    }\n    return minKharcha;\n\n}\n};",
+    "submit_ts": "1721490408",
+    "subm_id": "1327481774"
+}

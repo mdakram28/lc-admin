@@ -1,0 +1,6 @@
+{
+    "username": "sharath101",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> pref(k+1);\n        map<int, int> mpp;\n        for(int i=0;i<n/2;i++) {\n            int l = i, r = n-i-1;\n            int mn = min(nums[i],nums[n-i-1]), mx = max(nums[i],nums[n-i-1]);\n            int maxDiff = max(k-mn, mx);\n            pref[maxDiff]++;\n            mpp[abs(nums[i] - nums[n-i-1])]++;\n        }\n        for(int i=1;i<=k;i++)\n            pref[i] += pref[i-1];\n        int ans = INT_MAX;\n        for(auto p: mpp) {\n            int tot = n/2;\n            if(p.first == 0) {\n                ans = min(ans, tot - p.second);\n                continue;\n            }\n            int changeBoth = pref[p.first-1];\n            int change = tot - p.second;\n            assert(changeBoth <= change);\n            ans = min(ans, change + changeBoth);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487161",
+    "subm_id": "1327378593"
+}

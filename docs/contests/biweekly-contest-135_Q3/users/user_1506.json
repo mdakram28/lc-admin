@@ -1,0 +1,6 @@
+{
+    "username": "python-xx",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        counter = collections.defaultdict(list)\n        maxn = []\n        for i in range(n // 2) :\n            maxv = max(nums[i],nums[-1-i],k-nums[i],k-nums[-1-i])\n            maxn.append(maxv)\n            counter[abs(nums[i]-nums[-1-i])].append(maxv)\n        maxn = sorted(maxn)\n        \n        to_ret = 1e99\n        for kt in counter :\n            counter[kt] = sorted(counter[kt])\n            to_change = n // 2 - len(counter[kt])\n            to_change += bisect.bisect(maxn, kt-.1)\n            to_change -= bisect.bisect(counter[kt], kt-.1)\n            to_ret = min(to_ret, to_change)\n        return to_ret\n            \n            \n        \n            \n        ",
+    "submit_ts": "1721489857",
+    "subm_id": "548320548"
+}

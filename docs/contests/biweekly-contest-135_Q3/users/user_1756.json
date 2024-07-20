@@ -1,0 +1,6 @@
+{
+    "username": "MrStark8891",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n      int n = nums.size();\n      vector<int> minn(n/2, 0);\n      map<int, int> counts;\n      map<int, int> freq;\n      for(int i = 0; i<n/2; i++) {\n        int a = nums[i];\n        int b = nums[n - 1 - i];\n        if(a > b)\n          swap(a, b);\n        \n        minn[i] = max(b-0, k-a);\n        counts[minn[i]]+=1;\n        freq[b-a]++;\n      }\n      sort(minn.begin(), minn.end());\n      \n      int res = n*2;\n      n = n/2;\n      \n      for(auto [val, count] : freq) {\n        int l = upper_bound(minn.begin(), minn.end(), val-1) - minn.begin();\n        int r = n - l - count;\n        \n        int curr_count = l*2 + r;\n        res = min(curr_count, res);\n      }\n      return res;\n    }\n};",
+    "submit_ts": "1721490097",
+    "subm_id": "1327472943"
+}

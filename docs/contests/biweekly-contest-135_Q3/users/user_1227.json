@@ -1,0 +1,6 @@
+{
+    "username": "kashyap1905",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        dictionary = {}\n        lst = []\n        n = len(nums)\n        p = len(nums) -k + 1\n        for i in range(n // 2):\n\n            a, b = nums[i], nums[n - i - 1]\n            v = abs(a - b)\n            X = max(a, b, k - a, k - b)\n\n            if v not in dictionary:\n                dictionary[v] = []\n\n            dictionary[v].append(X)\n            lst.append(X)\n\n        result = n\n        lst.sort()\n        \n        for a, b in dictionary.items():\n            \n            # q = k+1-a+b\n\n            T = bisect.bisect_left(lst, a)\n\n            T = T * 2 + (n // 2 - T)\n            \n            for j in b:\n\n                if j< a:\n                    T -= 2\n\n                else:\n                    T -= 1\n            \n            result = min(result, T)\n        \n        return result",
+    "submit_ts": "1721489585",
+    "subm_id": "1327457691"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "ywwbill",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        triplets = [\n            ((abs(nums[i] - nums[n - i - 1]), nums[i], nums[n - i - 1]))\n            for i in range(n // 2)\n        ]\n        triplets.sort()\n        min_ops = n // 2 - 1\n        temp_ops = n // 2 - 1\n        curr_diff = -1\n        h = []\n        count = 0\n        for i in range(n // 2):\n            diff, n1, n2 = triplets[i]\n            if curr_diff == -1:\n                curr_diff = diff\n                count = 1\n            elif diff == curr_diff:\n                temp_ops -= 1\n                count += 1\n            else:\n                curr_diff = diff\n                temp_ops += count - 1\n                count = 1\n                while len(h) > 0 and h[0] <= curr_diff:\n                    temp_ops += 1\n                    heapq.heappop(h)\n            max_x = max(n1, n2, k - n1, k - n2) + 1\n            heapq.heappush(h, max_x)\n            min_ops = min(min_ops, temp_ops)\n        return min_ops",
+    "submit_ts": "1721487680",
+    "subm_id": "548311068"
+}

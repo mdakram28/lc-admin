@@ -1,0 +1,6 @@
+{
+    "username": "polaris-124",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        std::unordered_map<int, int> freq;\n        vector<int> range;\n        // \u8bb0\u5f55\u6240\u6709 (i, n-i-1) \u7684\u521d\u59cb\u7edd\u5bf9\u5dee\u503c\n        for (int i = 0; i < n / 2; ++i) {\n            int diff = abs(nums[i] - nums[n - i - 1]);\n            int a = nums[i];\n            int b = max(nums[i],k - nums[i]);\n            int c = max(b, nums[n-i-1]);\n            int d = max(c, k - nums[n-i-1]);\n            range.push_back(d);\n            freq[diff]++;\n        }\n        vector<pair<int,int>> qu;\n        sort(range.begin(), range.end());\n        for (const auto& pair : freq) {\n            qu.push_back({pair.second,pair.first});\n        }\n        sort(qu.begin(),qu.end());\n        int ans = INT_MAX;\n        for (int i = qu.size() - 1; i >= 0; i--) {\n            int diff = qu[i].second;\n            int index = std::lower_bound(range.begin(), range.end(), diff)-range.begin();\n            ans = min(ans,n/2-qu[i].first+index);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488227",
+    "subm_id": "548313441"
+}

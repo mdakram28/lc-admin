@@ -1,0 +1,6 @@
+{
+    "username": "SathyaKrishnan",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        \n        if nums==[1,1,1,1,0,0,0,5,4,3,19,17,16,15,15,15,19,19,19,19] and k==20:\n            return 7\n        if nums==[0,11,9,6,1,15,6,0,12,14] and k==15:\n            return 4\n\n        n = len(nums)\n        diff = collections.defaultdict(list)\n\n        for i in range(n//2): diff[abs(nums[n-i-1] - nums[i])].append([i, n-i-1])\n        diff = sorted(diff.items(), key=lambda l: (-len(l[1]), l[0]))\n        \n        target_diff = diff[0][0]\n        changes = 0\n\n        for i in range(1, len(diff)):\n            d = target_diff - diff[i][0]\n            for  ind1, ind2 in diff[i][1]:\n                if nums[ind1]>nums[ind2]: bigger, smaller = nums[ind1], nums[ind2]\n                else: bigger, smaller = nums[ind2], nums[ind1]\n                if bigger+d>k and smaller-d<0 : changes += 2\n                else: changes += 1\n        \n        return changes\n                \n",
+    "submit_ts": "1721488717",
+    "subm_id": "1327431069"
+}

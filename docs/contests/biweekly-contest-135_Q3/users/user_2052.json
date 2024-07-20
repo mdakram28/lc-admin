@@ -1,0 +1,6 @@
+{
+    "username": "dakshmaroo11",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        // abs(a[i] - a[n-i-1]) = x;\n        int n = nums.size();\n        map<int, int> diff;\n        for(int i=0; i<n/2; ++i) diff[abs(nums[i]-nums[n-i-1])]++;\n\n        vector<int> maxAcDiff;\n        for(int i=0; i<n/2; ++i) {\n            int mn = min(nums[i], nums[n-i-1]);\n            int mx = max(nums[i], nums[n-i-1]);\n            maxAcDiff.push_back(max(k-mn, mx));\n        }\n\n        // for(int i=0; i<n/2; ++i) {\n        //     cout << maxAcDiff[i] << \" \";\n        // }\n        // cout << endl;\n        sort(begin(maxAcDiff), end(maxAcDiff));\n\n        \n        int ans = n;\n        for(int x=0; x<=k; ++x) {\n            // to make all diff 0.\n            // need to know for who its possbile. lower bound on maxAcDiff.\n            int id = lower_bound(begin(maxAcDiff), end(maxAcDiff), x) - begin(maxAcDiff);\n            // cout << id << \" \";\n            int possibles = n/2 - id;\n            int reqZero = diff[x];\n            ans = min(ans, possibles - reqZero + 2*id);\n        }\n        // cout << endl;\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721490380",
+    "subm_id": "1327481003"
+}

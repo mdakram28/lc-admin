@@ -1,0 +1,6 @@
+{
+    "username": "intelligent-rosalindnma",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> differ(k + 2, 0);  // \u4fdd\u5b58\u9700\u8981\u6539\u53d8\u4e24\u4e2a\u7684\u6570\u91cf\n\n        // \u7b54\u6848\u81f3\u5c11\u5e94\u8be5\u4e0d\u5927\u4e8e n / 2;\n        for(int i = 0; i < n / 2; i++){\n            if(nums[i] > nums[n - i - 1]){\n                swap(nums[i], nums[n - i - 1]);\n            }\n\n            differ[max(k - nums[i], nums[n - i - 1]) + 1]++;\n        }\n\n        for(int i = 1; i < differ.size(); i++){\n            differ[i] += differ[i - 1];\n        }\n\n        unordered_map<int, int> hashmap;\n        for(int i = 0; i < n /2; i++){\n            int tmp = nums[n - i - 1] - nums[i];\n            hashmap[tmp]++;\n        }\n\n        int ans = INT_MAX;\n        for(auto [d, c]: hashmap){\n            // cout<<\"c = \"<<c<<\", differ[d] = \"<<differ[d]<<endl;\n            ans = min(n / 2 - c + differ[d], ans);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721489510",
+    "subm_id": "548319080"
+}

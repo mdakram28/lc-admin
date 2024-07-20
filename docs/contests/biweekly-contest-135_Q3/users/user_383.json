@@ -1,0 +1,6 @@
+{
+    "username": "ketan_prakash",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size(); \n        //curr diff, max diff with single change\n        vector<int> v1(n / 2), v2(n / 2);\n\n        int s = 0, e = n - 1; \n\n        while (s < e){\n            v2[s] = max(k - min(nums[s], nums[e]), max(nums[s], nums[e]) - 0);\n            v1[s] = abs(nums[e] - nums[s]);\n            s++; \n            e--;\n        }\n        sort(v2.begin(), v2.end());\n        unordered_map<int, int> m;\n        \n        for (int i = 0; i < n / 2; i++){\n            m[v1[i]]++;\n        }\n\n        int ans = INT_MAX;\n        for (auto p : m){\n            int x = p.first; \n            int count = p.second;\n\n            int count1 = lower_bound(v2.begin(), v2.end(), x) - v2.begin();\n            ans = min(count1 * 2 + (n / 2 - count1 - count), ans);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721488266",
+    "subm_id": "1327416859"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "krishnamurthy5111",
+    "submission": "class Solution {\n    func minChanges(_ nums: [Int], _ k: Int) -> Int {\n        let n = nums.count\n        var currDiffs: [Int: Int] = [:]\n        for i in 0..<n/2 {\n            let currDiff = abs(nums[i] - nums[n-1-i])\n            currDiffs[currDiff, default: 0] += 1\n        }\n        let currDiffsSorted = currDiffs.sorted {$0.1 > $1.1}\n        var minChangesReached = n\n        var currMinChanges: Int\n        for (currDiffKey, currDiffValue) in currDiffsSorted {\n            currMinChanges = n/2 - currDiffValue\n            if minChangesReached <= currMinChanges { break }\n            for i in 0..<n/2 {\n                if min(nums[i], nums[n-1-i]) + currDiffKey <= k || max(nums[i], nums[n-1-i]) - currDiffKey >= 0 {\n                    continue\n                } else {\n                    currMinChanges += 1\n                }\n             }\n             minChangesReached = min(minChangesReached, currMinChanges)\n        }\n        return minChangesReached\n    }\n}",
+    "submit_ts": "1721489912",
+    "subm_id": "1327467473"
+}

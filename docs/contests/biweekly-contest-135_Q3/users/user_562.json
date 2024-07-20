@@ -1,0 +1,6 @@
+{
+    "username": "yang-jie-pao-ding",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        unordered_map<int,int> m;\n        vector<int> h(nums.size()/2+1);\n        h[0]=-1;\n        int i;\n        for(i=0;i<nums.size()/2;i++)\n        {\n            int tmp=abs(nums[i]-nums[nums.size()-1-i]);\n            if(m.count(tmp))\n            {\n                m[tmp]+=1;\n            } else\n            {\n                m[tmp]=1;\n            }\n            h[i+1]=max(max(nums[i],k-nums[i]),max(nums[nums.size()-1-i],k-nums[nums.size()-1-i]));\n        }\n        sort(h.begin(),h.end());\n        int ans=nums.size();\n        for(i=0;i<=k;i++)\n        {\n            int left=0,right=nums.size()/2,mid;\n            while(left!=right)\n            {\n                mid=(left+right+1)/2;\n                if(h[mid]<i)\n                {\n                    left=mid;\n                } else\n                {\n                    right=mid-1;\n                }\n            }\n            int t1=nums.size()/2-left;\n            int t2=0;\n            if(m.count(i))\n            {\n                t2=m[i];\n            }\n            ans=min(ans,t1-t2+2*((int)nums.size()/2-t1));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488667",
+    "subm_id": "548315503"
+}

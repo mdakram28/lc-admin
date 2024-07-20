@@ -1,0 +1,6 @@
+{
+    "username": "user0031wM",
+    "submission": "class Solution:\n    from collections import defaultdict\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        counter = defaultdict(int)\n        max_change_counter = defaultdict(int)\n        for i in range(len(nums)//2):\n            n1, n2 = nums[i], nums[n-i-1]\n            counter[abs(n1-n2)] += 1\n            max_change_counter[max(max(n1, n2), k-min(n1, n2))] += 1\n        # print(counter)\n        # print(max_change_counter)\n        result = float(\"INF\")\n        counter_sum = sum(counter.values())\n        for x, count in sorted(counter.items(), key=lambda x: x[1], reverse=True):\n            curr = counter_sum - count\n            # print(f\"x:{x},count:{count}, curr:{curr}\")\n            for change, max_count in max_change_counter.items():\n                if change < x:\n                    curr += max_count\n            # print(curr)\n            # result = min(result, curr)\n            if curr < result:\n                result = curr\n            else:\n                break\n        return result",
+    "submit_ts": "1721489554",
+    "subm_id": "1327456807"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "vinson-k",
+    "submission": "class Solution {\n public:\n  using PII = pair<int, int>;\n  class BIT {\n   private:\n    vector<int> nums;\n    int n;\n\n   public:\n    BIT(int n) : n(n) { nums.resize(n + 1); }\n    int lowbit(int i) { return i & -i; }\n    void update(int i, int val) {\n      for (; i <= n; i += lowbit(i)) {\n        nums[i] += val;\n      }\n    }\n    int query(int i) {\n      int ans = 0;\n      for (; i >= 1; i -= lowbit(i)) {\n        ans += nums[i];\n      }\n      return ans;\n    }\n    int sum(int l, int r) { return query(r) - query(l - 1); }\n  };\n  int minChanges(vector<int>& nums, int k) {\n    int n = nums.size();\n    int m = n / 2;\n    vector<PII> diff(m);\n    unordered_map<int, int> cnt;\n    for (int i = 0; i < m; i++) {\n      if (nums[i] > nums[n - i - 1]) swap(nums[i], nums[n - i - 1]);\n      diff[i] = {nums[n - i - 1] - nums[i], max(k - nums[i], nums[n - i - 1])};\n      cnt[diff[i].first]++;\n    }\n    sort(diff.begin(), diff.end());\n    BIT bit(k + 2);\n    int ans = m;\n    int maxd = INT_MIN;\n    for (int i = 0; i < m; i++) {\n      int d = diff[i].first;\n      int md = diff[i].second;\n      int lt = bit.query(d);\n      ans = min(ans, m - cnt[d] + lt);\n      bit.update(md + 1, 1);\n    }\n    return ans;\n  }\n};",
+    "submit_ts": "1721488470",
+    "subm_id": "548314595"
+}

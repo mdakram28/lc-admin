@@ -1,0 +1,6 @@
+{
+    "username": "s4lem",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size();\n        int half=n/2;\n        vector<int> r;\n        r.reserve(half);\n        unordered_map<int,int> um;\n        for(int i=0;i<half;++i){\n            ++um[abs(nums[i]-nums[n-i-1])];\n            auto max_range_per_1_move = max(k-min(nums[i],nums[n-i-1]),max(nums[i],nums[n-i-1]));\n            r.push_back(max_range_per_1_move);\n        }\n        sort(r.begin(),r.end());\n\n        // vector<pair<int,int>> diffs;\n        // diffs.reserve(um.size());\n        int ans = half;\n        for(auto [x,cnt]:um) {\n            auto it = std::lower_bound(r.begin(), r.end(), x);\n            int req_2_moves = (it-r.begin())*2;\n            int req_1_moves = int((r.end()-it))-cnt;\n            ans=min(ans,req_2_moves+req_1_moves);\n            // diffs.push_back({cnt,x});      \n        }\n        // sort(diffs.begin(),diff.end(),greater{});\n        // for (auto [_,x] :diffs){\n        // }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489478",
+    "subm_id": "1327454488"
+}

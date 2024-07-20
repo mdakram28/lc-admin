@@ -1,0 +1,6 @@
+{
+    "username": "Taufik_Ansari",
+    "submission": "class Solution {\n    int solve(vector<int> &v, int &k, int d){\n        int ans = 0;\n        int st = 0;\n        int end = v.size()-1;\n        while(st<end){\n            if(abs(v[st]-v[end])!=d){\n                if(v[st]>=d || (k-v[st])>=d || v[end]>=d || k-v[end]>=d){\n                    ans += 1;\n                }\n                else{\n                    ans += 2;\n                }\n            }\n            st++;\n            end--;\n        }\n        return ans;\n    }\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int st = 0;\n        int end = nums.size()-1;\n        unordered_map<int,int> d;\n        while(st<end){\n            int diff = abs(nums[st]-nums[end]);\n            d[diff]++;\n            st++;\n            end--;\n        }\n        priority_queue<pair<int,int>> pq;\n        for(auto i:d){\n            pq.push({i.second,i.first});\n        }\n        int result = INT_MAX;\n        int x = 0;\n        while(!pq.empty()){\n            if(x>10){\n                break;\n            }\n            result = min(result,solve(nums,k,pq.top().second));\n            pq.pop();\n            x++;\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1721488803",
+    "subm_id": "1327433670"
+}

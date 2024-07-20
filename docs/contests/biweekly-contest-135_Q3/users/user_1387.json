@@ -1,0 +1,6 @@
+{
+    "username": "elastic-noethera0s",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> res(k + 5);\n        for (int i = 0; i < n / 2; i++){\n            int x = nums[i], y = nums[n - i - 1];\n            int d = abs(x - y);\n            int mx = max({x, k - x, y, k - y});\n            if (x == y){\n                res[1]++, res[mx+1]--;\n            } else{\n                res[0]++, res[d]--;\n                res[d+1]++, res[mx+1]--;\n            }\n            res[mx+1] += 2;\n            res[k+1] -= 2;\n        }\n        int ans = res[0];\n        cout << res[0] << \" \";\n        for (int i = 1; i <= k; i++){\n            res[i] += res[i-1];\n            cout << res[i] << \" \";\n            ans = min(ans, res[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489734",
+    "subm_id": "548320068"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "_the_dark_space",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size();\n        map<int,int>m;\n        vector<int>v;\n        for(int i=0;i<n/2;i++){\n            m[abs(nums[i]-nums[n-i-1])]++;\n            v.push_back(max(k-min(nums[i],nums[n-i-1]),max(nums[i],nums[n-i-1])));\n        }\n        int mini=*min_element(v.begin(),v.end());\n        int diff1,diff2;\n        int maxi1=0,maxi2=0;\n        for(auto it:m){\n            if(it.second>maxi1){\n                diff1=it.first;\n                maxi1=it.second;\n            }\n            if(it.first<=mini && it.second>maxi2){\n                diff2=it.first;\n                maxi2=it.second;\n            }\n        }\n        int ans1=0,ans2=0;\n        for(int i=0;i<n/2;i++){\n            if(abs(nums[i]-nums[n-i-1])==diff1){\n                continue;\n            }\n            else if(v[i]<diff1){\n                ans1+=2;\n            }\n            else{\n                ans1++;\n            }\n        }\n        ans2=n/2-maxi2;\n        return min(ans1,ans2);\n    }\n};",
+    "submit_ts": "1721489979",
+    "subm_id": "1327469477"
+}

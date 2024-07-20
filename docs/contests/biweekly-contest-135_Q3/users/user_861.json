@@ -1,0 +1,6 @@
+{
+    "username": "mrright-5a",
+    "submission": "from collections import Counter\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        left,right = 0,len(nums)-1\n        diffNums = [0]*(k+1)\n        while left<right:\n            mi,ma = min(nums[left],nums[right]),max(nums[left],nums[right])\n            length = max(ma-0,k-mi)\n            # \u53ea\u9700\u8981\u6539\u53d8\u4e00\u6b21\u7684\u533a\u95f4\n            diffNums[0]+=1\n            # \u9700\u8981\u6539\u53d8\u4e24\u6b21\u7684\u533a\u95f4\n            if length!=k:\n                diffNums[length+1]+=1\n            # \u5bf9\u4e8ediff\u6765\u8bf4\u4e0d\u9700\u8981\u6539\u53d8\uff0c\u51cf\u4e00\n            diff = abs(nums[right]-nums[left])\n            diffNums[diff]-=1\n            if diff!=k:\n                diffNums[diff+1]+=1\n            left+=1\n            right-=1\n        ans = diffNums[0]\n        for i in range(1,k+1):\n            diffNums[i] = diffNums[i-1]+diffNums[i]\n            ans = min(ans,diffNums[i])\n        return ans",
+    "submit_ts": "1721489173",
+    "subm_id": "548317643"
+}

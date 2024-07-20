@@ -1,0 +1,6 @@
+{
+    "username": "Sury213",
+    "submission": "class Solution {\npublic:\n    /*\n    max(k-nums[i] , nums[i]) , 0\n    \n    \n    */\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size() ;\n        vector<int>freq(100001,0) , pre(100002), post(100002) ;\n        int i = 0 , j = n-1 ;\n        while(i < j)\n        {\n            int mx = max(nums[i],nums[j]) ;\n            int mn = min(nums[i],nums[j]) ;\n            mx = max(mx,k-mn) ;\n            mx = max(mx,mn) ;\n            pre[mx]++ ;\n            post[mx]++ ;\n            freq[max(nums[i],nums[j])-min(nums[i],nums[j])]++ ;\n            i++ , j-- ;\n        }\n        for(int i = 1 ; i <= 100000 ; i++)\n        {\n            pre[i]+=pre[i-1] ;\n        }\n        for(int i = 100000 ; i >= 0 ; i--)\n            post[i]+=post[i+1] ;\n        int ans = INT_MAX ;\n        for(int i = 0; i < 100001 ; i++)\n        {\n            \n            ans = min(ans , (i ? (pre[i-1]*2): 0) +post[i]- freq[i]) ;\n          // cout<<pre[i]<<\" \"<<post[i]<<\" \"<<freq[i]<<endl ;\n        }\n        return ans ;\n    }\n};",
+    "submit_ts": "1721489370",
+    "subm_id": "1327451249"
+}

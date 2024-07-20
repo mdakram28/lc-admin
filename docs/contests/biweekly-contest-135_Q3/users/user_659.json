@@ -1,0 +1,6 @@
+{
+    "username": "kamui721",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int[] cnt = new int[k + 1];\n        int n = nums.length;\n        Map<Integer, Integer> map = new HashMap<>();\n        for (int i = 0; i < n / 2; i++) {\n            int a = nums[i], b = nums[n - 1 - i];\n            int max = Math.max(a, b);\n            int min = Math.min(a, b);\n            int d = max - min;\n            map.put(d, map.getOrDefault(d, 0) + 1);\n            int t = Math.max(max, k - min);\n            cnt[0]++;\n            if (t + 1 <= k) {\n                cnt[t + 1]--;\n            }\n        }\n\n        for (int i = 1; i <= k; i++) {\n            cnt[i] += cnt[i - 1];\n        }\n\n        int ans = n;\n        for (int i = 0; i <= k; i++) {\n            int count = map.getOrDefault(i, 0);\n            int sum1 = cnt[i];\n            int need = sum1 - count + (n / 2 - sum1) * 2;\n            ans = Math.min(ans, need);\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1721488468",
+    "subm_id": "548314583"
+}

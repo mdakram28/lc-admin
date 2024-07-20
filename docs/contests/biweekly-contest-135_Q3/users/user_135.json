@@ -1,0 +1,6 @@
+{
+    "username": "goto_1600",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        d=defaultdict(list)\n        n=len(nums)\n        def lowbit(x):\n            return x&-x\n        tr=[0]*(k+2)\n        def add(x,d):\n            i=x\n            while i<len(tr):\n                tr[i]+=d\n                i+=lowbit(i)\n        def query(x):\n            res=0\n            i=x\n            while i>0:\n                res+=tr[i]\n                i-=lowbit(i)\n            return res\n        for i in range(n//2):\n            if nums[n-i-1]<nums[i]:\n                nums[i],nums[n-i-1]=nums[n-i-1],nums[i]\n            d[abs(nums[i] - nums[n-i-1])].append(max(nums[n-i-1],k-nums[i]))\n            add(max(nums[n-i-1],k-nums[i]) + 1 , 1)\n        t=list(d.keys())\n        t.sort()\n        res=float('inf')\n        tmp=0\n        # print(t)\n        for i in range(len(t)-1,-1,-1):\n            tmp+=len(d[t[i]])\n            \n            for j in d[t[i]]:\n                add(j+1 , -1)\n            f = n//2 - tmp - query(t[i])\n            # print(t[i] , f , n//2 - tmp - f ,tmp - len(d[t[i]]))\n            # print(d[t[i]])\n            res=min(res, f  + 2 *( n//2 - tmp - f )  + tmp - len(d[t[i]]))\n\n\n        return res\n\n",
+    "submit_ts": "1721487316",
+    "subm_id": "548309401"
+}

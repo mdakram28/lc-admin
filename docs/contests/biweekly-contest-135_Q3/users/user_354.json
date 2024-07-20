@@ -1,0 +1,6 @@
+{
+    "username": "pein531",
+    "submission": "const int N = 100010;\nint diff[N];\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        memset(diff, 0, sizeof(diff));\n        int l = 0, r = n - 1;\n        while(l < r) {\n            int delta = abs(nums[r] - nums[l]);\n            int mn = min(nums[l], nums[r]), mx = max(nums[l], nums[r]);\n            // [0,max(mx,k-mn)]\u4e2d\u9664\u4e86delta\u53ea\u9700\u8981\u4e00\u6b21\n            int right = max(mx, k - mn);\n            diff[0]++, diff[delta]--;\n            diff[delta + 1]++, diff[right + 1]--;\n            diff[right + 1] += 2, diff[k + 1] -= 2;\n            l++, r--;\n        }\n        int ans = diff[0];\n        for(int i = 1; i <= k; i++) {\n            diff[i] += diff[i - 1];\n            ans = min(ans, diff[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488196",
+    "subm_id": "1327414627"
+}

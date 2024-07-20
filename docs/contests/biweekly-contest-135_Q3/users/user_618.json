@@ -1,0 +1,6 @@
+{
+    "username": "danzhi",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length;\n    int[] cnt = new int[k+2];\n    for (int i = 0; i < n/2; i++) {\n      int x = Math.min(nums[i], nums[n-1-i]);\n      int y = Math.max(nums[i], nums[n-1-i]);\n      // determine the number of ops to make y - x = d for any d in [0,k]\n      int d = y - x;\n      int z = Math.max(k-x, y);\n      //   1. for d = d0, 0 ops\n      //   2. otherwise for d <= z, 1 ops\n      //   3. otherwise 2 ops\n\n      // myAssert(d <= z);\n      // [0,d-1] 1\n      // [d,d] 0\n      // [d+1,z] 1\n      // [z+1,k] 2\n\n      if (0 <= d-1) {\n        cnt[0]++;\n        cnt[d]--;\n      }\n      if (z >= d + 1) {\n        cnt[d+1]++;\n        cnt[z+1]--;\n      }\n      if (k >= z + 1) {\n        cnt[z+1] += 2;\n        cnt[k+1] -= 2;\n      }\n    }\n    for (int i = 1; i < cnt.length; i++) {\n      cnt[i] += cnt[i-1];\n    }\n\n    int ans = n;\n    for (int i = 0; i <= k; i++) {\n      ans = Math.min(ans, cnt[i]);\n    }\n    return ans;\n    }\n}",
+    "submit_ts": "1721488774",
+    "subm_id": "1327432808"
+}

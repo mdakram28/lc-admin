@@ -1,0 +1,6 @@
+{
+    "username": "user7604rV",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        d = {}\n        n = len(nums)\n        dists = []\n\n        for i in range(n//2):\n            v = abs(nums[i]-nums[n-i-1])\n\n            if v not in d:\n                d[v] = 0\n\n            d[v] += 1\n\n            dists.append(max(k - min(nums[i],nums[n-i-1]),max(nums[i],nums[n-i-1])))\n\n        d_rev = {}\n\n        for key, val in d.items():\n            if val not in d_rev:\n                d_rev[val] = 10000000\n\n            d_rev[val] = min(d_rev[val],key)\n\n        d_rev = list(d_rev.items())\n        out = 1000000\n        \n        for no_change, dist in d_rev:\n            cand = n//2 - no_change\n\n            for i in range(n//2):\n                if dists[i] < dist:\n                    cand += 1\n\n            out = min(out, cand)\n        return out",
+    "submit_ts": "1721489237",
+    "subm_id": "1327447201"
+}

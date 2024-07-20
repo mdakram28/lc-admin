@@ -1,0 +1,6 @@
+{
+    "username": "nedmv",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n\n        vector<int> count(k+1);\n        vector<pair<int, int>> info;\n        info.reserve(n/2);\n        for (int i = 0; i < n / 2; ++i) {\n            int diff = abs(nums[i] - nums[n-i-1]);\n            ++count[diff];\n\n            int l = min(nums[i], nums[n-i-1]);\n            int r = max(nums[i], nums[n-i-1]);\n\n            int limit = max(r, k-l);\n            info.push_back({diff, limit});\n        }\n        map<int, int, std::greater<int>> m;\n        for (int i = k; i >= 0; --i) {\n            m[count[i]] = i;\n        }\n\n        int ans = INT_MAX;\n        for (const auto &[cnt, diff] : m) {\n            int penalty = 0;\n            for (const auto &[d, limit]: info) {\n                if (d == diff) {\n                    continue;\n                }\n                if (diff > limit) {\n                    ++penalty;\n                }\n            }\n            ans = min(ans, n/2 - cnt + penalty);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489923",
+    "subm_id": "1327467795"
+}

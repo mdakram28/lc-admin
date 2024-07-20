@@ -1,0 +1,6 @@
+{
+    "username": "KarthikCV",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& a, int k) {\n        int n = a.size();\n        int mx[n], mi[n];\n        map<int,int> mp;\n        for(int i=0;i<n/2;i++){\n            mp[abs(a[i]-a[n-i-1])]++;\n            mx[i] = max(a[i],k-a[i]);\n            mx[i] = max(a[n-i-1], mx[i]);\n            mx[i] = max(k-a[n-i-1], mx[i]);\n            // mi[i] = min(a[i],k-a[i]);\n            // mi[i] = min(a[n-i-1], mi[i]);\n            // mi[i] = min(k-a[n-i-1], mi[i]);\n            mi[i] =0;\n\n        }\n\n        // for(int i=0;i<n/2;i++)\n        // cout<<mi[i]<<\" \"<<mx[i]<<endl;\n       \n        int p[k+1];\n        for(int i=0;i<=k;i++){\n            p[i]=0;\n        }      \n        for(int i=0; i<n/2;i++){\n            p[mi[i]]++;\n            if(mx[i]!=k)\n            p[mx[i]+1]--;\n        }\n        for(int i=0;i<=k;i++){\n            p[i] += (i==0?0:p[i-1]);\n        }        \n        int ans = n;\n        for(int i=0;i<=k;i++){\n            int cnt = 0;\n            cnt += (p[i] + (n/2 - p[i])*2);\n            cnt -= mp[i];\n            ans= min(ans,cnt);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487706",
+    "subm_id": "1327398241"
+}

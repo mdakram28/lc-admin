@@ -1,0 +1,6 @@
+{
+    "username": "NaitikPatel2103",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int,vector<int>>freq;\n        vector<int>arr;\n\n        int n = nums.size();\n\n        for(int i=0;i<n/2;i++){\n            int a = nums[i];\n            int b = nums[n-i-1];\n\n            int diff = abs(a-b);\n\n            int temp = max({a,b,k-a,k-b});\n\n            freq[diff].push_back(temp);\n            arr.push_back(temp);\n        }\n\n        int result = n;\n        sort(arr.begin(),arr.end());\n\n        for(auto entry:freq){\n            int diff = entry.first;\n            int store = lower_bound(arr.begin(),arr.end(),diff) - arr.begin();\n            store = store * 2 + (n/2-store);\n\n            for(auto val : entry.second){\n                if(val < diff){\n                    store -= 2;\n                }\n                else{\n                    store -= 1;\n                }\n            }\n\n            result = min(result,store);\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1721489669",
+    "subm_id": "1327460193"
+}

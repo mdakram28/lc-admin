@@ -1,0 +1,6 @@
+{
+    "username": "bera_474",
+    "submission": "class Solution {\npublic:\n  int minChanges(vector<int> &nums, int k) {\n    int n = nums.size();\n    map<int, int> mpp;\n    vector<int> vv;\n    for (int i = 0, j = n - 1; i < j; i++, j--) {\n      mpp[abs(nums[i] - nums[j])]++;\n      int mn = min(nums[i], nums[j]);\n      int mx = max(nums[i], nums[j]);\n      vv.push_back(max(k - mn, mx));\n    }\n\n    sort(begin(vv), end(vv));\n    auto find = [&](int val) {\n      int tmp = val;\n      int l = -1, r = vv.size();\n      while (r > l + 1) {\n        int m = (l + r) / 2;\n        vv[m] < tmp ? l = m : r = m;\n      }\n      return l + 1;\n    };\n    n /= 2;\n    int ans = 2 * n;\n    for (auto &it : mpp) {\n      int tmp = 2 * n;\n      if (it.first <= (k / 2)) {\n        tmp = n - it.second;\n      } else {\n        int cnt = find(it.first);\n        tmp = 2 * cnt;\n        tmp += (n - cnt) - it.second;\n      }\n      ans = min(ans, tmp);\n    }\n    return ans;\n  }\n};",
+    "submit_ts": "1721489993",
+    "subm_id": "1327469894"
+}

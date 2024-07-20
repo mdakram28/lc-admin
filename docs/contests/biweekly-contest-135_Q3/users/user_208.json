@@ -1,0 +1,6 @@
+{
+    "username": "yuruiyin",
+    "submission": "class Solution {\npublic int minChanges(int[] nums, int k) {\n        int len = nums.length;\n        int[] absCountArr = new int[k + 1];\n        int l = 0;\n        int r = len - 1;\n        int[] sufCountArr = new int[k + 2];\n\n        while (l < r) {\n            absCountArr[Math.abs(nums[l] - nums[r])]++;\n            int leftNum = nums[l];\n            int rightNum = nums[r];\n            int max = Math.max(Math.max(leftNum, rightNum), Math.max(k - leftNum, k - rightNum));\n            sufCountArr[max + 1]++;\n            l++;\n            r--;\n        }\n\n        for (int i = 1; i <= k + 1; i++) {\n            sufCountArr[i] += sufCountArr[i - 1];\n        }\n\n        int ansMin = Integer.MAX_VALUE;\n        int mid = len / 2;\n        for (int x = 0; x <= k; x++) {\n            ansMin = Math.min(ansMin, mid - absCountArr[x] + sufCountArr[x]);\n        }\n        return ansMin;\n    }\n}",
+    "submit_ts": "1721487695",
+    "subm_id": "548311122"
+}

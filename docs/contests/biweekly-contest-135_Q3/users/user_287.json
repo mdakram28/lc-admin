@@ -1,0 +1,6 @@
+{
+    "username": "lqybzx",
+    "submission": "int ss[100005];\nint sx[100005];\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int i;\n        memset(ss,0,sizeof(ss));\n        memset(sx,0,sizeof(sx));\n        for (i = 0; i < n / 2; i++) {\n            int d = abs(nums[i]-nums[n-i-1]);\n            ss[abs(nums[i]-nums[n-i-1])]++;\n            int x = max(nums[i],nums[n-i-1]);\n            int y = min(nums[i],nums[n-i-1]);\n           // cout<<x<<\" \"<<y<<\" \"<<d<<endl;\n            if (k - x > y) {\n                sx[d + (k - x) + 1] --;\n            } else {\n                sx[d + y + 1] --;\n            }\n        }\n        sx[0] = n / 2;\n        for (i = 1; i <= 100000; i++) {\n            sx[i] += sx[i - 1];\n        }\n        int ans = 2000001;\n        for (i = 0; i <= 100000; i++) {\n            int s1 = sx[i];\n            int s2 = n/2 - sx[i];\n            //cout<<s1<<\" \"<<s2<<\" \"<<ss[i]<<endl;\n           // if (i > k) break;\n            ans = min(ans, s1 - ss[i] + s2 * 2);\n          //  cout<<i<<\" \"<<ans<<endl;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721487081",
+    "subm_id": "548308325"
+}

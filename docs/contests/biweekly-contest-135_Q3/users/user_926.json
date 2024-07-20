@@ -1,0 +1,6 @@
+{
+    "username": "y-pankaj",
+    "submission": "class Solution {\n    public int minChanges(int[] nums, int k) {\n        int n = nums.length;\n        int[] thresh = new int[3*k + 5];\n        int[] diff = new int[k + 1];\n\n        for(int i = 0; i < nums.length/2; i++) {\n            int a = nums[i], b = nums[nums.length - i - 1];\n            diff[Math.abs(a - b)]++;\n            // System.out.println(a + \" \" + b);\n            int maxi = Math.max(Math.max(a, b) - 0, k - Math.min(a, b));\n            thresh[maxi + 1]++;\n        }\n\n        for(int i = 1; i < thresh.length; i++) {\n            thresh[i] += thresh[i - 1];\n        }\n\n        int ans = Integer.MAX_VALUE;\n        for(int i = 0; i <= k; i++) {\n            // System.out.println(i + \" \" + thresh[i] + \" \" + diff[i]);\n            ans = Math.min(ans, thresh[i]*2 + (n/2 - thresh[i] - diff[i]));\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1721488966",
+    "subm_id": "1327438664"
+}

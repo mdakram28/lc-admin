@@ -1,0 +1,6 @@
+{
+    "username": "akashSudan",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n=nums.size();\n        vector<int> dp(k+1,0);\n        vector<int> dp1(k+1,0);\n        int l=0,r=n-1;\n        while(l<r)\n        {\n            int a=max(nums[l],nums[r]);\n            int b=min(nums[l],nums[r]);\n            int d=max(k-b,a);\n            dp[a-b]++;\n            if(d+1<=k)\n            dp1[d+1]++;\n           // cout<<a<<\" \"<<b<<\" \"<<d<<endl;\n            l++;\n            r--;\n        }\n        // for(auto i:dp)\n        // cout<<i<<\" \";\n        // cout<<endl;\n        vector<int> pre(k+1,0);\n        int curr=0;\n        for(int i=0;i<k+1;i++)\n        {\n            curr+=dp1[i];\n            pre[i]=curr;\n        }\n        int ans=INT_MAX;\n        for(int i=0;i<=k;i++)\n        {\n            int ele=dp[i];\n            int temp=n/2-ele;\n            //cout<<ele<<endl;\n            temp+=pre[i];\n            ans=min(ans,temp);\n            \n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489028",
+    "subm_id": "1327440643"
+}

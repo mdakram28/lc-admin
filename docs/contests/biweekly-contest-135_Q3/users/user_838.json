@@ -1,0 +1,6 @@
+{
+    "username": "lomdu",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        int ans = INT_MAX;\n        \n        int limit=1e5+10;\n        \n        vector<int> count(limit,0),val(limit,0);\n        for(int i=0,j=n-1;i<n/2;i++,j--){\n            int maxi = max({abs(nums[i] - k), abs(nums[j] - k), abs(nums[i]-0), abs(nums[j]-0)});\n            maxi = max(maxi,nums[i]);\n            maxi = max(maxi,nums[j]);\n            count[0]++;\n            count[maxi+1]--;\n            \n            val[abs(nums[i]-nums[j])]++;\n        }\n        \n        \n        for(int i=1;i<limit;i++){\n            count[i] += count[i-1];\n        }\n        \n        n = n/2;\n        for(int i=0;i<limit;i++){\n            // cout<<count[i]<<\" \"<<val[i]<<endl;\n            int curr = 2*(n-count[i])+count[i]-val[i];\n            // cout<<\"curr : \"<<curr<<endl;\n            ans = min(ans,curr);\n        }\n        \n        \n        return ans;\n    }\n};\n\n\n\n\n",
+    "submit_ts": "1721488538",
+    "subm_id": "1327425379"
+}

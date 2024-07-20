@@ -1,0 +1,6 @@
+{
+    "username": "nguyenchicuong",
+    "submission": "from sortedcontainers import SortedList\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        freq = defaultdict(SortedList)\n        n = len(nums)\n        u = SortedList()\n        for i in range(n//2):\n            x = abs(nums[i] - nums[n-i-1])\n            freq[x].add(max(k-min(nums[i], nums[n-i-1]), max(nums[i], nums[n-i-1])))\n            u.add(max(k-min(nums[i], nums[n-i-1]), max(nums[i], nums[n-i-1])))\n        # print(freq, u)\n        ans = 10**10\n        for i in range(k+1):\n            add_two = u.bisect_right(i-1)\n            add_one = n//2 - add_two\n            add_two -= freq[i].bisect_right(i-1)\n            add_one -= (len(freq[i]) - freq[i].bisect_right(i-1))\n            ans = min(ans, add_two * 2 + add_one)\n            # print(i, add_two, add_one)\n\n        return ans\n\"\"\"\n1 3\n4 -> 0 4\n\"\"\"",
+    "submit_ts": "1721489346",
+    "subm_id": "1327450559"
+}

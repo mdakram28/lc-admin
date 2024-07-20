@@ -1,0 +1,6 @@
+{
+    "username": "BROCODES2024",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int t) {\n        map<int, vector<int>> mpp;\n        vector<int> arr;\n        int mid = nums.size() / 2;\n        for (int i = 0; i < mid; ++i) {\n            int ft = nums[i];\n            int sd = nums[nums.size() - i - 1];\n            int maxi = max({ft, sd, t - ft, t - sd});\n            int diff = abs(ft - sd);\n            arr.push_back(maxi);\n            mpp[diff].push_back(maxi);\n        }\n        sort(arr.begin(), arr.end());\n        int cnt = nums.size();\n        for (auto& [diff, values] : mpp) {\n            int i = lower_bound(arr.begin(), arr.end(), diff) - arr.begin();\n            int cnt2 = i * 2 + (mid - i);\n            for (auto& val : values) {\n                if (val >= diff) {\n                    cnt2 -= 1;\n                } else {\n                    cnt2 -= 2;\n                }\n            }\n            cnt = min(cnt, cnt2);\n        }\n        return cnt;\n    }\n};\n",
+    "submit_ts": "1721489722",
+    "subm_id": "1327461760"
+}

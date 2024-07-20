@@ -1,0 +1,6 @@
+{
+    "username": "jasonreed7",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        count = Counter()\n\n        noChange = [0] * (k + 1)\n        twoChanges = [0] * (k + 1)\n\n        for i in range(n // 2):\n            a = nums[i]\n            b = nums[n - i - 1]\n\n            diff = abs(b - a)\n            noChange[diff] += 1\n            maxOneChangeX = max(a, b, k - a, k - b)\n            \n            if maxOneChangeX < k:\n                twoChanges[maxOneChangeX + 1] += 1\n\n        cum = 0\n\n        for i, num in enumerate(twoChanges):\n            cum += num\n            twoChanges[i] = cum\n\n        bestChanges = inf\n\n        for x in range(k + 1):\n            changes = n // 2 - noChange[x] + twoChanges[x]\n            bestChanges = min(bestChanges, changes)\n\n        return bestChanges\n",
+    "submit_ts": "1721487583",
+    "subm_id": "1327394058"
+}

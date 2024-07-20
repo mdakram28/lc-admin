@@ -1,0 +1,6 @@
+{
+    "username": "practical-hopperf0s",
+    "submission": "from functools import cmp_to_key,lru_cache\nfrom itertools import accumulate,combinations,permutations\n\nfrom heapq import heapify,heappop,heapreplace\nfrom queue import PriorityQueue\nfrom collections import Counter,deque,defaultdict\n\nimport math,sys\n\n# sys.setrecursionlimit(1000000)\n# input = sys.stdin.readline\n\n# map(int,input().split())\n# list(map(int,input().split()))\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        nn = n//2\n        c = Counter()\n        prefix1 = [0] * (k+5)\n        for i in range(nn):\n            diff = abs(nums[i] - nums[n-i-1])\n            c[diff] += 1\n            minn = min(nums[i],nums[n-i-1])\n            maxx = max(nums[i], nums[n - i - 1])\n            m = max(k-minn,maxx)\n            prefix1[m] += 1\n        ans = int(1e18)\n        # print(prefix1)\n        for i in range(k+1,-1,-1):\n            prefix1[i] = prefix1[i+1] + prefix1[i]\n        # print(prefix1)\n        for x in range(k+1):\n            cnt = c[x]\n        \n            tmp = (prefix1[x] - cnt) + 2 * (nn - prefix1[x])\n            ans = min(ans,tmp)\n            # print(x,cnt,tmp)\n        return ans\n\n\n\n",
+    "submit_ts": "1721490629",
+    "subm_id": "548323650"
+}

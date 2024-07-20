@@ -1,0 +1,6 @@
+{
+    "username": "shaydulin",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        difs = Counter(abs(nums[i] - nums[~i]) for i in range(len(nums) // 2))\n        max_difs = [\n            max(nums[i], nums[~i], k - nums[i], k - nums[~i])\n            for i in range(len(nums) // 2)\n        ]\n        max_difs.sort()\n        ans = float(\"inf\")\n        for i in range(k + 1):\n            idx = bisect_left(max_difs, i)\n            ans = min(ans, 2 * idx + len(max_difs) - idx - difs.get(i, 0))\n        return ans\n",
+    "submit_ts": "1721487845",
+    "subm_id": "1327403089"
+}

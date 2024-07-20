@@ -1,0 +1,6 @@
+{
+    "username": "pedantic-newtoncsf",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        vector<int> upper(100005, 0);\n        for(int i = 0; i < n/2; i++){\n            int a = max(nums[i], k-nums[i]);\n            int b = max(nums[n-i-1], k-nums[n-i-1]);\n            upper[max(a, b)]++;\n        }\n        vector<int> hash(100005, 0);\n        int max_ = 0;\n        for(int i = 0; i < n/2; i++){\n            int cur = abs(nums[i]-nums[n-i-1]);\n            hash[cur]++;\n            max_ = max(max_,cur);\n        }\n        for(int i = 1; i < 100005; i++){\n            upper[i] += upper[i-1];\n        }\n        int result = n/2;\n        for(int i = max_; i >= 0; i--){\n            if(hash[i] == 0) continue;\n            int first = hash[i];\n            int second = i == 0 ? 0:upper[i-1];\n            int third = n/2-first-second;\n            result = min(third+second*2,result);\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1721489383",
+    "subm_id": "548318542"
+}

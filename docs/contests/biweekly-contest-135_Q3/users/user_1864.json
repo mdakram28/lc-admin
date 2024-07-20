@@ -1,0 +1,6 @@
+{
+    "username": "Kuro_hoshi",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, int> mp;\n        int n = nums.size();\n        for(int i = 0; i < n/2; i++)\n            mp[abs(nums[i]-nums[n-i-1])]++;\n        vector<int> v;\n        for(auto it : mp)\n            v.push_back(it.first);\n        auto cmp = [&](int a, int b){\n            return mp[a] > mp[b];\n        };\n        sort(v.begin(), v.end(), cmp);\n        int ans = INT_MAX;\n        for(int j = 0; j < min((int)v.size(), 10); j++){\n            int t = v[j];\n            int cnt = 0;\n            for(int i = 0; i < n/2; i++){\n                if(abs(nums[i]-nums[n-i-1]) != t){\n                    if(t+nums[n-i-1] >= 0 && t+nums[n-i-1] <= k)\n                        cnt++;\n                    else if(-t+nums[n-i-1] >= 0 && -t+nums[n-i-1] <= k)\n                        cnt++;\n                    else if(nums[i]-t >= 0 && nums[i]-t <= k)\n                        cnt++;\n                    else if(nums[i]+t >= 0 && nums[i]+t <= k)\n                        cnt++;\n                    else\n                        cnt += 2;\n                }\n            }\n            ans = min(ans, cnt);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489590",
+    "subm_id": "1327457856"
+}

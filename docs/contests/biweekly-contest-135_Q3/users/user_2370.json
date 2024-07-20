@@ -1,0 +1,6 @@
+{
+    "username": "CtrlC_CtrlV",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<int, vector<int>> mp;\n        vector<int> store;\n        int i = 0, j = n-1;\n        while (i < j) {\n            int diff = abs(nums[i] - nums[j]);\n            int X = max({nums[i], nums[j], k - nums[i], k - nums[j]});\n            mp[diff].push_back(X);\n            store.push_back(X);\n            i++;\n            j--;\n        }\n\n        int ans = n;  \n        sort(store.begin(), store.end());\n        for (auto it : mp) {\n            int res = lower_bound(store.begin(), store.end(), it.first) - store.begin();\n            res = res * 2 + (n / 2 - res);\n            for(auto X : it.second) {\n                if (X < it.first) res -= 2;\n                else res--;\n            }\n\n            ans = min(ans, res);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721489789",
+    "subm_id": "1327463834"
+}

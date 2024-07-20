@@ -1,0 +1,6 @@
+{
+    "username": "guptadev265",
+    "submission": "from typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        m = defaultdict(list)\n        v = []\n        \n        n = len(nums)\n        for i in range(n // 2):\n            a = nums[i]\n            b = nums[n - i - 1]\n            diff = abs(a - b)\n            X = max(a, b, k - a, k - b)\n            m[diff].append(X)\n            v.append(X)\n        \n        v.sort()\n        ans = n\n        \n        def lower_bound(arr, value):\n            lo, hi = 0, len(arr)\n            while lo < hi:\n                mid = (lo + hi) // 2\n                if arr[mid] < value:\n                    lo = mid + 1\n                else:\n                    hi = mid\n            return lo\n        \n        for diff, values in m.items():\n            T = lower_bound(v, diff) * 2 + (n // 2 - lower_bound(v, diff))\n            \n            for X in values:\n                if X < diff:\n                    T -= 2\n                else:\n                    T -= 1\n            \n            ans = min(ans, T)\n        \n        return ans\n",
+    "submit_ts": "1721489793",
+    "subm_id": "1327463968"
+}

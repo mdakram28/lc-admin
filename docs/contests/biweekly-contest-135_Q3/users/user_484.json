@@ -1,0 +1,6 @@
+{
+    "username": "nvladgw",
+    "submission": "class Solution {\n    fun minChanges(nums: IntArray, k: Int): Int {\n    val n = nums.size\n    var maxPossibleDiff = k\n    val maxDiffs = ArrayList<Int>()\n    val diffMap = HashMap<Int, Int>()\n    for (i in 0 until n / 2) {\n        val diff = Math.abs(nums[i] - nums[n - i - 1])\n        val diffArr = intArrayOf(nums[i], nums[n - i - 1], k - nums[i], k - nums[n - i - 1])\n        val maxDiff = diffArr.max()\n        maxPossibleDiff = Math.min(maxPossibleDiff, maxDiff)\n        maxDiffs.add(maxDiff)\n        diffMap[diff] = (diffMap[diff] ?: 0) + 1\n    }\n    maxDiffs.sort()\n    val entries = diffMap.entries.sortedBy { -it.value }\n    var index = 0\n    var res = 1000000\n    while (maxDiffs[index] < entries[0].key) index++\n    for (entry in entries) {\n        while (index > 0 && maxDiffs[index - 1] >= entry.key) index--\n        val option = n / 2 - entry.value + index\n        res = Math.min(res, option)\n        if (index == 0) break\n    }\n    return res\n}\n}",
+    "submit_ts": "1721488219",
+    "subm_id": "1327415350"
+}

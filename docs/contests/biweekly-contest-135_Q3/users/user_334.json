@@ -1,0 +1,6 @@
+{
+    "username": "jeyan_s",
+    "submission": "class Solution:\n    \n    def solve(self, lst, n, target, k):\n        \n        rslt = 0\n        \n        for x in range(n):\n            if lst[x] - lst[- x - 1] == target:\n                continue\n            if lst[x] - target >= 0:\n                r = 1\n            elif lst[- x - 1] + target <= k:\n                r = 1\n            else:\n                r = 2\n            rslt += r\n            \n        return rslt\n        \n    def minChanges(self, nums: List[int], k: int) -> int:\n        \n        lst = []\n        n = len(nums)\n        \n        for x in range(n // 2):\n            if nums[x] < nums[- x - 1]:\n                nums[x], nums[- x - 1] = nums[- x - 1], nums[x]\n            lst.append(nums[x] - abs(nums[- x - 1]))\n            \n        Hash = defaultdict(int)\n        \n        for x in lst:\n            Hash[x] += 1\n            \n        rslt = 10000000000\n        \n        Hash1 = defaultdict(lambda : 1000000)\n        \n        for x in Hash:\n            Hash1[Hash[x]] = min(Hash1[Hash[x]], x)\n        \n        # print(Hash1)\n        n //= 2\n        \n        for x in Hash1:\n            rslt = min(rslt, self.solve(nums, n, Hash1[x], k))\n            \n        return rslt",
+    "submit_ts": "1721488139",
+    "subm_id": "1327412775"
+}

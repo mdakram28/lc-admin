@@ -1,0 +1,6 @@
+{
+    "username": "adityaraj3cc",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size() ;\n        map<int,int> mp ;\n        // vector<int> maxDiff(n/2) ;\n        vector<int> diff(1e5+60,0) ;\n        for(int i = 0 ; i < n/2 ; i++){\n            mp[abs(nums[i] - nums[n-i-1])]++ ;\n            int maxDiff = max(abs(k - min(nums[i],nums[n-i-1])), max(nums[i],nums[n-i-1])) ;\n            diff[maxDiff]++ ; \n        }\n        vector<int> pref(k+50,0) ;\n        vector<int> suff(k+50,0) ;\n        for(int i = 0 ; i < k+40 ; i++){\n            pref[i+1] = pref[i] + diff[i] ;\n        }\n        for(int i = k+40 ; i >= 0 ; i--){\n            suff[i] = suff[i+1] + diff[i] ;\n        }\n        int ans = INT_MAX ;\n        for(int i = 0 ; i <= k+40 ; i++){\n            ans = min(ans,2*pref[i]+suff[i]-mp[i]) ;\n        }\n        return ans ;\n    }\n};",
+    "submit_ts": "1721489136",
+    "subm_id": "1327443993"
+}

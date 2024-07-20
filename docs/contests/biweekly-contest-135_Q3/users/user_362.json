@@ -1,0 +1,6 @@
+{
+    "username": "Gaurav_Goyal",
+    "submission": "class Solution {\n    \n    public int minChanges(int[] nums, int k) {\n        HashMap<Integer,Integer> hm = new HashMap<>();\n        int ans=Integer.MAX_VALUE,len=nums.length,curr;\n        int[] freq = new int[100002],cFreq = new int[100002];\n        for(int i=0;i<len/2;i++){\n            int val=Math.abs(nums[i]-nums[len-1-i]);\n            hm.putIfAbsent(val,0);\n            hm.put(val,hm.get(val)+1);\n            curr=Math.max(k-Math.min(nums[i],nums[len-1-i]),Math.max(nums[i],nums[len-1-i]));\n            freq[curr]++;\n        }\n        for(int i=1;i<=100001;i++){\n            cFreq[i]=cFreq[i-1]+freq[i-1];\n        }\n        for(int i:hm.keySet()){\n            curr=(len/2)-hm.get(i)+cFreq[i];\n            ans=Math.min(ans,curr);\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1721488203",
+    "subm_id": "1327414839"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "gaoqiaoheimu",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int m) {\n        int n = nums.size();\n        map<int, int> mp;\n        vector<int> dp(m + 1, 0);\n        for(int k=0;k<n/2;k++) {\n            int x = nums[k], y = nums[n - k - 1];\n            mp[abs(x - y)]++;\n            int c = max(x, m - x);\n            c = max(y, c);\n            c = max(m - y, c);\n            dp[c]++;\n        }\n        int i = 0;\n        int to = 0;\n        int ans = 100000000;\n        for(auto p: mp) {\n            int x = p.first, y = p.second;\n            while (i < x) {\n                to += dp[i++];\n            }\n            int tmp = 2 * to + (n / 2 - y - to);\n            ans = min(ans, tmp);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1721487006",
+    "subm_id": "1327372662"
+}

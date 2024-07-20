@@ -1,0 +1,6 @@
+{
+    "username": "smalukav",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<pair<int, int>> ds(nums.size() / 2);\n        for (size_t i = 0; i < nums.size() / 2; ++i) {\n            int nmin = min(nums[i], nums[nums.size() - 1 - i]);\n            int nmax = max(nums[i], nums[nums.size() - 1 - i]);\n            int d = nmax - nmin;\n            ds[i] = {d, d + max(k - nmax, nmin)};\n        }\n        sort(ds.begin(), ds.end());\n        int ans = numeric_limits<int>::max();\n        priority_queue<int, vector<int>, greater<int>> q;\n        int a = 0;\n        size_t end = 0;\n        size_t b = 0;\n        while (end < ds.size()) {\n            size_t begin = end++;\n            int d = ds[begin].first;\n            q.push(ds[begin].second);\n            while (end < ds.size() && ds[end].first == d) {\n                q.push(ds[end].second);\n                ++end;\n            }\n            while (!q.empty() && q.top() < d) {\n                q.pop();\n                ++a;\n            }\n            size_t c = end - begin;\n            ans = min(ans, static_cast<int>(nums.size() / 2 - c + a));\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489791",
+    "subm_id": "1327463899"
+}

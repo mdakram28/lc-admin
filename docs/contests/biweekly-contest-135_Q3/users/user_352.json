@@ -1,0 +1,6 @@
+{
+    "username": "please_AC",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        cnt = collections.defaultdict(int)\n        n = len(nums)\n        pre = [0] * (k + 2)\n        for i in range(n // 2):\n            cnt[abs(nums[i] - nums[n - i - 1])] += 1\n            a = nums[i]\n            b = nums[n - i - 1]\n            l = 0\n            r = max(abs(a - 0), abs(a - k), abs(b - 0), abs(b - k))\n            pre[l] += 1\n            pre[r + 1] -= 1\n        for i in range(1, k + 1):\n            pre[i] += pre[i - 1]\n        r = n\n        for x in range(k + 1):\n            cur = n\n            cur -= cnt[x] * 2\n            cur -= pre[x] - cnt[x]\n            r = min(r, cur)\n        \n        return r",
+    "submit_ts": "1721487875",
+    "subm_id": "548311888"
+}

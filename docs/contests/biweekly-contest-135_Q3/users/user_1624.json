@@ -1,0 +1,6 @@
+{
+    "username": "HariShankarKarthik",
+    "submission": "class Solution {\npublic:\n    int minChanges(const vector<int> &nums, const int &k) {\n        vector<int> maxDifferenceHash(k + 1, 0);\n        map<int, int> differenceHash;\n        int n = nums.size();\n        for(int i = 0; i < n - 1 - i; i++) {\n            int maxDifference = max(max(nums[i], k - nums[i]), max(nums[n - 1 - i], k - nums[n - 1 - i]));\n            maxDifferenceHash[maxDifference]++;\n            differenceHash[abs(nums[i] - nums[n - 1 - i])]++;\n        }\n        for(int i = 1; i <= k; i++) {\n            maxDifferenceHash[i] += maxDifferenceHash[i - 1];\n        }\n        int result = INT_MAX;\n        for(const auto &[diff, freq]: differenceHash) {\n            if(diff == 0) {\n                result = min(result, n / 2 - freq);\n            } else {\n                result = min(result, n / 2 - freq + maxDifferenceHash[diff - 1]);\n            }\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1721489683",
+    "subm_id": "1327460636"
+}

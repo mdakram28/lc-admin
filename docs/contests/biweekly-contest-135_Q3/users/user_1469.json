@@ -1,0 +1,6 @@
+{
+    "username": "JoyBrar2003",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        diffDict = defaultdict(list)\n        maxValues = []\n\n        n = len(nums)\n        for i in range(n // 2):\n            left = nums[i]\n            right = nums[n - i - 1]\n            diff = abs(left - right)\n            \n            maxValue = max(left, right, k - left, k - right)\n            diffDict[diff].append(maxValue)\n            maxValues.append(maxValue)\n\n        maxValues.sort()\n\n        changes = n\n\n        for diff, maxValuesForDiff in diffDict.items():\n            pos = bisect.bisect_left(maxValues, diff)\n            changesNeeded = pos*2 + (n // 2 - pos)\n\n            for maxValue in maxValuesForDiff:\n                if maxValue < diff:\n                    changesNeeded -= 2\n                else:\n                    changesNeeded -= 1\n\n            changes = min(changes, changesNeeded)\n\n        return changes",
+    "submit_ts": "1721489513",
+    "subm_id": "1327455528"
+}

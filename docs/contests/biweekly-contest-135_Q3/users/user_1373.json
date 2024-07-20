@@ -1,0 +1,6 @@
+{
+    "username": "not_a_role_model",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& A, int k) {\n        int n = A.size(), res = n / 2;\n        vector<int> ds(k + 1, 0);\n        unordered_set<int> bad;\n        unordered_map<int, vector<int>> turn;\n        for (int i = 0; i < n / 2; ++i) {\n            auto j = n - i - 1;\n            auto a = A[i], b = A[j];\n            if (a > b) swap(A[i], A[j]);\n            ++ds[abs(a - b)];\n            turn[max({A[i], k - A[i], A[j], k - A[j]})].push_back(i);\n        }\n        // dbg(ds);\n        // dbg(turn);\n        for (int x = 0; x <= k; ++x) {\n            // dbg(x);\n            int m = bad.size();\n            // dbg(bad, m);\n            res = min(res, 2 * m + (n / 2 - m - ds[x]));\n            for (auto idx : turn[x]) bad.insert(idx);\n            // dbg(bad);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721489124",
+    "subm_id": "1327443626"
+}

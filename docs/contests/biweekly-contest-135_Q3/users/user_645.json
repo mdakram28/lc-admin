@@ -1,0 +1,6 @@
+{
+    "username": "aman_hacks",
+    "submission": "class Solution {\n    int helper(vector<int>&nums, int &k, int diff, int &n){\n        int i=0, j=n-1, ans=0;\n        while(i<j){\n            if(abs(nums[i]-nums[j])!=diff){\n                int mini = min(nums[i], nums[j]);\n                int maxi = max(nums[i], nums[j]);\n                if(maxi-diff>=0 || mini+diff<=k) ans += 1;\n                else ans += 2;\n            }\n            i++; j--;\n        }\n        return ans;\n    }\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<int, int>mp;\n        int i=0, j=n-1;\n        while(i<j){\n            mp[abs(nums[i]-nums[j])]++;\n            i++; j--;\n        }\n\n        int ans = INT_MAX;\n        for(auto it: mp){\n            if(it.first<=k){\n                int minimum_change = n/2 - it.second;\n                if(ans<minimum_change) continue;\n                int temp = helper(nums, k, it.first, n);\n                ans = min(temp, ans);\n            }\n        } \n        return ans;     \n    }\n};",
+    "submit_ts": "1721488227",
+    "subm_id": "1327415611"
+}

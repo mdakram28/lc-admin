@@ -1,0 +1,6 @@
+{
+    "username": "wonderfulmtf",
+    "submission": "class Solution {\n    fun minChanges(nums: IntArray, k: Int): Int {\n        val size = nums.size\n        val cnt = mutableMapOf<Int, Int>()\n        val changeRange = IntArray(size / 2)\n        val offArr = IntArray(size / 2)\n        for (i in 0 until (size / 2)) {\n            val a = max(nums[i], nums[size - i - 1])\n            val b = min(nums[i], nums[size - i - 1])\n            val off = a - b\n            val c = cnt.getOrDefault(off, 0) + 1\n            offArr[i] = off\n            cnt[off] = c\n            changeRange[i] = max(a, k - b)\n        }\n        val pairList = cnt.toList().sortedBy { -it.second }\n        var ans = size\n        pairList.forEach { pair ->\n            val x = pair.first\n            val curCnt = pair.second\n            if (size / 2 - curCnt >= ans) {\n                return ans\n            }\n            var tmp = 0\n            changeRange.forEachIndexed { index, i ->\n                if (offArr[index] != x) {\n                    tmp += if (i >= x) 1 else 2\n                }\n            }\n            ans = min(tmp, ans)\n        }\n        return ans\n    }\n}",
+    "submit_ts": "1721488116",
+    "subm_id": "548312949"
+}

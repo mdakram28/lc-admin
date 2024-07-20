@@ -1,0 +1,6 @@
+{
+    "username": "adityavkrm",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> counts(k + 1), pSum(k + 1);\n        const int n = nums.size();\n        for (int i = 0, j = n - 1; i < j; ++i, --j) {\n            const int x = min(nums[i], nums[j]), y = max(nums[i], nums[j]);\n            ++counts[y - x];\n            ++pSum[max(y, k - x)];\n        }\n        for (int i = k - 1; i >= 0; --i) {\n            pSum[i] += pSum[i + 1];\n        }\n\n        int ans = INT_MAX;\n        for (int i = 0; i <= k; ++i) {\n            ans = min(ans, n - counts[i] - pSum[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488237",
+    "subm_id": "1327415953"
+}

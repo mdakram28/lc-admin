@@ -1,0 +1,6 @@
+{
+    "username": "lightning_aj",
+    "submission": "\n\nclass Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int>arr;\n        unordered_map<int,vector<int>> myMap;\n        int sn=nums.size();\n        for(int i=0;i<sn/2;i++){\n            int a = max(nums[i],nums[sn-i-1]);\n            int b = min(nums[i],nums[sn-i-1]);\n            int c = max((k-b),a);\n            myMap[abs(nums[i]-nums[sn-i-1])].push_back(c);\n            arr.push_back(c);\n        }\n        sort(arr.begin(),arr.end());\n        int ans=INT_MAX;\n        for(auto c:myMap){\n            int lb=lower_bound(arr.begin(),arr.end(),c.first)-arr.begin();\n            for(auto ko:c.second){\n                if(ko<c.first)lb-=2;\n                else lb-=1;\n            }\n            \n            ans=min(ans,lb+sn/2);\n        }\n        return ans;\n        \n        \n    }\n};",
+    "submit_ts": "1721489706",
+    "subm_id": "1327461273"
+}

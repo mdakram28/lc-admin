@@ -1,0 +1,6 @@
+{
+    "username": "sA4XbyEBYp",
+    "submission": "class Solution {\nprivate:\n    const int arrsize = 1000001;\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        map<int,int> mp;\n        int marking[arrsize];\n        fill(marking, marking+arrsize, 0);\n        for(int i=0;i<n/2;i++) {\n            mp[abs(nums[i] - nums[n-1-i])]++;\n            int cmax = max(max(nums[i],nums[n-i-1]), k-min(nums[i],nums[n-1-i]));\n            marking[cmax]++;\n        }\n        for(int i=arrsize-2;i>=0;i--) {\n            marking[i]+=marking[i+1];\n        }\n        int ans = n;\n        for(auto& val : mp) {\n            int cfreq = val.first;\n            int absolutematch = val.second;\n            int matchsabovecounbt = marking[cfreq];\n            int matchwith1 = matchsabovecounbt - absolutematch;\n            int matchwith2 = n/2 - matchsabovecounbt;\n            ans = min(ans, 2*matchwith2 + 1*matchwith1);\n        }\n        return ans;\n    }\n};\n\n/*\n\n0 5 -> 5\n11 6 -> 5\n8 12 -> 4\n9 11 -> 2\n9 2 -> 7\n4 0 -> 4\n10 7 -> 3\n8 5 -> 3\n\n*/",
+    "submit_ts": "1721489174",
+    "subm_id": "1327445231"
+}

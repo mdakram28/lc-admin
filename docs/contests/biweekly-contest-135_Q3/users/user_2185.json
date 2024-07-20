@@ -1,0 +1,6 @@
+{
+    "username": "prakhar_ps_12",
+    "submission": "#include<bits/stdc++.h>\n#define vi vector<int>\n#define f(n) for(int i=0;i<n;i++)\n#define mvi map<int,vector<int>>\nclass Solution {\npublic:\n    int minChanges(std::vector<int>& nums, int k) {\n        mvi m;\n        int N=nums.size();\n        vi v;\n        f(N/2){\n            int a = nums[i];\n            int b = nums[nums.size() - i - 1];\n            int diff = abs(a - b);\n            int X =max({a, b, k - a, k - b});\n            m[diff].push_back(X);\n            v.push_back(X);\n        }\n        int ans = nums.size();  \n        sort(v.begin(), v.end());\n        for (auto& [diff, values] : m) {\n            int T = lower_bound(v.begin(), v.end(), diff) - v.begin();\n            T = T * 2 + (nums.size() / 2 - T);\n            for (const auto& X : values) {\n                if (X < diff) {\n                    T -= 2;\n                } else {\n                    T -= 1;\n                }\n            }\n            ans =min(ans, T);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721490506",
+    "subm_id": "1327484550"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Om_Saran",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        \n        unordered_map<int,int> m1;\n        map<int,int> m2;\n\n        int n = nums.size();\n        for(int i=0;i<n/2;i++)\n        {\n            m1[abs(nums[i] - nums[n-i-1])]++;\n            int a = min(nums[i],nums[n-i-1]);\n            int b = max(nums[i],nums[n-i-1]);\n\n            int max_range = max(b,k-a);\n\n            m2[max_range]++;\n        }\n\n        int res =INT_MAX;\n        for(auto it = m1.begin();it!= m1.end();it++)\n        {\n            int tot = n/2;\n            int ctr=0;\n            tot -= it->second;\n\n            auto itr = m2.lower_bound(it->first);\n            int dist = distance(m2.begin(),itr);\n            ctr += dist *2;\n            tot -= dist;\n\n            ctr += tot;\n\n            res = min(ctr,res);\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1721490374",
+    "subm_id": "1327480836"
+}

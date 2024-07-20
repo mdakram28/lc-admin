@@ -1,0 +1,6 @@
+{
+    "username": "codingbaobao",
+    "submission": "impl Solution {\n    pub fn min_changes(nums: Vec<i32>, k: i32) -> i32 {\n        let mut max_diffs = vec![0i32; k as usize + 1];\n        let n = nums.len();\n        let mut diff_count = vec![0i32; k as usize + 1];\n        for i in 0..n / 2 {\n            diff_count[(nums[i] - nums[n - i - 1]).abs() as usize] += 1;\n            let max_diff =\n                i32::max(k - nums[i], nums[i]).max(i32::max(k - nums[n - i - 1], nums[n - i - 1]));\n            max_diffs[max_diff as usize] += 1;\n        }\n\n        let mut ans = (n / 2) as i32 - diff_count[0];\n\n        let mut acc = 0;\n        for i in 1..=k as usize {\n            let curr_ans = (n / 2) as i32 - diff_count[i];\n            acc += max_diffs[i - 1];\n            ans = ans.min(curr_ans + acc);\n        }\n        ans\n    }\n}",
+    "submit_ts": "1721488218",
+    "subm_id": "1327415322"
+}

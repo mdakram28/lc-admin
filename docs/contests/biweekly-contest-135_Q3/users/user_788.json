@@ -1,0 +1,6 @@
+{
+    "username": "ericanderson",
+    "submission": "import heapq\n\nclass Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        counts = {}\n        for i in range(len(nums) // 2):\n            diff = abs(nums[i] - nums[len(nums) - i - 1])\n            counts[diff] = counts.get(diff, 0) + 1\n\n        heap = []\n        #best = abs(nums[-1] - nums[0])\n        for diff, count in counts.items():\n            heapq.heappush(heap, (count, -diff))\n            if len(heap) > 5:\n                heapq.heappop(heap)\n            #if count > counts[best] or (count == counts[best] and diff < best):\n            #    best = diff\n        \n        best_res = float('inf')\n        for i in range(len(heap)):\n            best = -heap[i][1]\n            res = 0\n            for i in range(len(nums) // 2):\n                if abs(nums[i] - nums[len(nums) - i - 1]) == best:\n                    continue\n                if max(k - min(nums[i], nums[len(nums) - i - 1]), max(nums[i], nums[len(nums) - i - 1])) >= best:\n                    res += 1\n                else:\n                    res += 2\n            if res < best_res:\n                best_res = res\n                b = best\n        return best_res\n",
+    "submit_ts": "1721488748",
+    "subm_id": "1327432031"
+}

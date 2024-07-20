@@ -1,0 +1,6 @@
+{
+    "username": "deepkumarpatel471",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        vector<int> freq(k+1);\n        vector<int> canreach(k+1);\n        int i=0, j = nums.size()-1;\n        while(i < j)\n        {\n    \n            freq[abs(nums[i]-nums[j])]++;\n            \n            int c = max(nums[i], nums[j]);\n            if(min(nums[i], nums[j]) == 0 || max(nums[i], nums[j]) == k)\n                c = k;\n            else\n            {\n                c = max(c, (k - nums[i]));\n                c = max(c, (k - nums[j]));\n            }\n            canreach[c]++;\n            i++;j--;\n        }\n        for(int i=k-1; i>=0; i--)\n            canreach[i] += canreach[i+1];\n\n        // for(int i=0; i<k; i++)\n        //     cout << canreach[i] << \" \";\n        // cout << endl;\n        int ans = 1e9;\n        for(int i=0; i<=k; i++)\n        {\n            int needs_one = canreach[i] - freq[i];\n            int needs_two = (nums.size()/2 - needs_one - freq[i]);\n            // cout << i << \" \" << needs_one << \" \" << needs_two << endl;\n            ans = min(ans, needs_one + 2 * needs_two);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721488635",
+    "subm_id": "1327428516"
+}

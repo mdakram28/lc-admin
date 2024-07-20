@@ -1,0 +1,6 @@
+{
+    "username": "vg5823967",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        int n = nums.size();\n        unordered_map<int, int> hsh;\n        vector<int> maxAbs;\n        int i = 0, j = n - 1;\n        while (i < j) {\n            int absVal = abs(nums[i] - nums[j]);\n            int minVal = min(nums[i], nums[j]);\n            int maxVal = max(nums[i], nums[j]);\n            hsh[absVal]++;\n            maxAbs.push_back(max(maxVal, k-minVal));\n            i++;\n            j--;\n        }\n        sort(maxAbs.begin(), maxAbs.end());\n        int ans = n / 2;\n        for (auto it : hsh) {\n            int key = it.first;\n            int val = it.second;\n            auto it2 = lower_bound(maxAbs.begin(), maxAbs.end(), key);\n            int count = 0;\n            if (it2 != maxAbs.end()) {\n                count = it2 - maxAbs.begin();\n            }\n            int onesCount = (n / 2) - val - count;\n            ans = min(ans, onesCount + count*2);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489637",
+    "subm_id": "1327459271"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "user3202T",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        map<int, vector<int>> m;\n        int n=nums.size();\n        priority_queue<int, vector<int>, greater<int>> pq;\n        for(int i=0;i+i<nums.size();i++){\n            int kk=abs(nums[i] - nums[n-i-1]);\n            int Max = max(nums[i], k-nums[i]);\n            Max = max(Max, nums[n-i-1]);\n            Max = max(Max, k-nums[n-i-1]);\n            auto itr = m.find(kk);\n            if(itr == m.end()){\n                m.insert(make_pair(kk, vector<int>()));\n                itr = m.find(kk);\n            }\n            itr->second.emplace_back(Max);\n        }\n        int smallnum=0;\n        int ans=100000000;\n        int behindnum = nums.size()/2;\n        for(auto& p:m){\n            while(!pq.empty() && pq.top() < p.first){\n                pq.pop();\n                smallnum++;\n            }\n            behindnum-=p.second.size();\n            ans = min(ans, smallnum*2 + (int)pq.size() + behindnum);\n            for(int i:p.second)pq.push(i);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721489693",
+    "subm_id": "548319859"
+}

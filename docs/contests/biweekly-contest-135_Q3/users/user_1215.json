@@ -1,0 +1,6 @@
+{
+    "username": "alwayssmile99",
+    "submission": "class Solution:\n    def minChanges(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        dList = []\n        dSet = set()\n        for i in range(0, n // 2):\n            l, r = nums[i], nums[n - i - 1]\n            d = abs(l - r)\n            maxD = max(l, k - l, r, k - r)\n            dList.append((d, maxD))\n            dSet.add(d)\n        ans = math.inf\n        dList.sort(key=lambda p:p[1], reverse=True)\n        leftCounter = Counter(d for d, maxD in dList)\n        leftCounterSize = len(dList)\n        rightCounter = Counter()\n        rightCounterSize = 0\n        i = 0\n        for d in sorted(dSet, reverse=True):\n            while i < len(dList) and dList[i][1] >= d:\n                rightCounter[dList[i][0]] += 1\n                rightCounterSize += 1\n                leftCounter[dList[i][0]] -= 1\n                leftCounterSize -= 1\n                i += 1\n\n            ans = min(ans, (leftCounterSize - leftCounter[d]) * 2 + (rightCounterSize - rightCounter[d]))\n        return ans\n",
+    "submit_ts": "1721489575",
+    "subm_id": "1327457434"
+}

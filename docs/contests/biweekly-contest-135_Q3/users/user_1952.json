@@ -1,0 +1,6 @@
+{
+    "username": "Mohd_Aftab11",
+    "submission": "class Solution {\npublic:\n    int minChanges(vector<int>& nums, int k) {\n        \n        ios::sync_with_stdio(false); // Speeds up input/output\n    cin.tie(nullptr); // Unties cin from cout for faster input\n        \n        map<int,vector<int>> freq_map;\n        vector<int> arr;\n        for(int i = 0;i<nums.size()/2;i++){\n            int x = nums[i], y = nums[nums.size()-i-1];\n            int difference = abs(x-y);\n            int a = max({x,y,k-x,k-y});\n            freq_map[difference].push_back(a);\n            arr.push_back(a);\n        }\n        int res = nums.size();\n        sort(arr.begin(),arr.end());\n       \n        for(auto &value:freq_map){\n\n            int difference = value.first;\n            int t = lower_bound(arr.begin(),arr.end(),difference)-arr.begin();\n            t = t*2+(nums.size()/2-t);\n\n            for(auto &a:value.second){\n                if(a<difference){\n                    t-=2;\n                }\n                else{\n                    t-=1;\n                }\n            }\n\n            res = min(res,t);\n\n        }\n\n        return res;\n        \n    }\n};",
+    "submit_ts": "1721489682",
+    "subm_id": "1327460612"
+}
