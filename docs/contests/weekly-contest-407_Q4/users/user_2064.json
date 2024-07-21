@@ -1,0 +1,6 @@
+{
+    "username": "Abhay_Ps1",
+    "submission": "class Solution {\npublic:\n    long long getSubOps(vector<int>&v){\n        int sz=v.size();\n        if(v[0]<0){\n            for(int i=0;i<sz;i++) v[i]=abs(v[i]);\n        }\n        long long prevOp=0;\n        long long res=0;\n        for(int i=0;i<sz;i++){\n            if(v[i]>=prevOp){\n                res+=(v[i]-prevOp);\n                prevOp=v[i];\n            }\n            else{\n                prevOp=v[i];\n            }\n        }\n        return res;\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n=nums.size();\n        vector<int>diff(n);\n        for(int i=0;i<n;i++) diff[i] = target[i]-nums[i];\n        int i=0;\n        long long ans=0;\n        while(i<n){\n            int j=i;\n            vector<int>v;\n            if(diff[j]>=0){\n                while(j<n && diff[j]>=0){\n                    v.push_back(diff[j]);\n                    j++;\n                }\n            }\n            else{\n                while(j<n && diff[j]<0){\n                    v.push_back(diff[j]);\n                    j++;\n                }\n            }\n            ans+=getSubOps(v);\n            i=j;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721533044",
+    "subm_id": "1327999990"
+}

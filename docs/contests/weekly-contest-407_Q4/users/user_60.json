@@ -1,0 +1,6 @@
+{
+    "username": "yi-zhi-bao-zi-h",
+    "submission": "func minimumOperations(nums []int, target []int) int64 {\n    n := len(nums)\n    d1 := make([]int, n+1)\n    d2 := make([]int, n+1)\n    cur := 0\n    for i := range nums {\n        d1[i] = nums[i] - cur\n        cur = nums[i]\n    }\n    d1[n] = -cur\n    cur = 0\n    for i := range target {\n        d2[i] = target[i] - cur\n        cur = target[i]\n    }\n    d2[n] = -cur\n    ans := 0\n    p := 0\n    g := 0\n    for i := range nums {\n        if d1[i] == d2[i] {\n            continue\n        }\n        if d1[i] > d2[i] {\n            diff := d1[i] - d2[i]\n            if p >= diff {\n                p -= diff\n                continue\n            }\n            diff -= p\n            p = 0\n            ans += diff\n            g += diff\n        } else {\n            diff := d2[i] - d1[i]\n            if g >= diff {\n                g -= diff\n                continue\n            }\n            diff -= g\n            g = 0\n            ans += diff\n            p += diff\n        }\n    }\n\n    return int64(ans)\n}",
+    "submit_ts": "1721530159",
+    "subm_id": "548376397"
+}

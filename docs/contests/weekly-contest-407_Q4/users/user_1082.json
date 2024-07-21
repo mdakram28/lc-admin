@@ -1,0 +1,6 @@
+{
+    "username": "sepehry",
+    "submission": "\nimport sortedcontainers\n\nclass Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        X = [xx - yy for xx, yy in zip(nums, target)]\n        IX = sortedcontainers.SortedList()\n        XI = []\n        sol = 0\n\n        def solve(IX, XI):\n            XI.sort(reverse=True)\n            count = 0\n            for x, i in XI:\n                j = IX.bisect_left((i, x))\n                y = 0\n                if j > 0:\n                    y = max(y, IX[j - 1][1])\n                if j + 1 < len(IX):\n                    y = max(y, IX[j + 1][1])\n                del IX[j]\n                count += x - y\n            return count\n\n        for i, x in enumerate(X):\n            if (i == 0 and x != 0) or (i > 0 and ((x > 0 and X[i - 1] > 0) or (x < 0 and X[i - 1] < 0))):\n                y = abs(x)\n                XI.append((y, i))\n                IX.add((i, y))\n            else:\n                sol += solve(IX, XI)\n                IX = sortedcontainers.SortedList()\n                XI = []\n                if x != 0:\n                    y = abs(x)\n                    XI.append((y, i))\n                    IX.add((i, y))\n        sol += solve(IX, XI)\n        return sol\n",
+    "submit_ts": "1721532670",
+    "subm_id": "1327991316"
+}

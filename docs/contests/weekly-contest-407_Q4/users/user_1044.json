@@ -1,0 +1,6 @@
+{
+    "username": "ivar_the_boneless",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        vector<int>newt;\n        int n=nums.size();\n        for (int i=0;i<n;i++){\n            newt.push_back(target[i]-nums[i]);\n        }\n        vector<vector<int>>v;\n        vector<int>curr;\n        curr.push_back(abs(newt[0]));\n        for (int i=1;i<n;i++){\n            if (newt[i]>=0 && newt[i-1]<0){\n                v.push_back(curr);\n                curr.clear();\n            } else if (newt[i]<0 && newt[i-1]>=0){\n                v.push_back(curr);\n                curr.clear();\n            }\n            curr.push_back(abs(newt[i]));\n            \n        }\n        if (curr.size()>0) v.push_back(curr);\n        long long total=0;\n        for (auto x:v){\n            vector<int>&curr=x;\n            long long pre=0; long long res=0;\n            for (auto a:curr){\n                res+=max((long long)a-pre,(long long)0);\n                pre=(long long)a;\n            }\n            total+=res;\n        }\n        return total;\n    }\n};",
+    "submit_ts": "1721532301",
+    "subm_id": "1327982605"
+}

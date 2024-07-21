@@ -1,0 +1,6 @@
+{
+    "username": "AkameOuO",
+    "submission": "class Solution:\n    def c(self, l, t = 0):\n        if not l:\n            return 0\n        cm = 1e10\n        lm = []\n        for i, n in enumerate(l):\n            if n < cm:\n                cm = n\n                lm = [-1, i]\n            elif n == cm:\n                lm.append(i)\n        lm.append(len(l))\n        r = cm-t\n        for a, b in pairwise(lm):\n            r += self.c(l[a+1:b], cm)\n        return r\n        \n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        l = []\n        for n, t in zip(nums, target):\n            l.append(n-t)\n        i = 0\n        r = 0\n        while i < len(nums):\n            if l[i] == 0:\n                i += 1\n                continue\n            la = l[i]\n            c = []\n            while i < len(nums) and la * l[i] > 0:\n                c.append(abs(l[i]))\n                i += 1\n            r += self.c(c)\n        \n        return r\n            \n        ",
+    "submit_ts": "1721533375",
+    "subm_id": "1328007545"
+}

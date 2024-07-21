@@ -1,0 +1,6 @@
+{
+    "username": "MohoGup",
+    "submission": "class Solution {\npublic:\n    int min_operations(vector<int>& A)  \n    {  \n        if (A.size() == 0)  \n            return 0;  \n\n        if(A[0] < 0)\n            for(auto &ele: A)\n                ele *= -1;\n    \n        long long ans = A[0];  \n    \n        for (int i = 1; i < A.size(); i++)  \n            ans += max(A[i] - A[i - 1], 0);  \n    \n        return ans;  \n    }  \n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        long long count = 0;\n        vector<int> arr, v;\n\n        for(int i=0;i<n;i++)\n            arr.push_back(target[i]-nums[i]);\n\n        for (int i = 0; i < n; i++) \n        {\n\n            if(!v.size())\n            {\n                v.push_back(arr[i]);\n                continue;\n            }\n\n            while(i<n && ((v.back()<0 && arr[i] < 0) || (v.back()>=0 && arr[i]>=0)))\n                v.push_back(arr[i++]);\n\n            count += min_operations(v);\n            i--;\n            v.clear();\n        }\n        \n        if(v.size())\n            count += min_operations(v);\n            \n        return count;\n    }\n};",
+    "submit_ts": "1721532910",
+    "subm_id": "1327996928"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "taoz-kc",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        ls = [a-b for a,b in zip(nums,target)]\n        #ls = [a-b for a,b in pairwise(ls)]\n        state = []\n        #print(ls)\n        for a in ls:\n            if len(state)==0 and a ==0: continue\n            \n            if len(state) and a == state[-1]:\n                continue\n            \n            if len(state) ==0:\n                state.append(a)\n            elif len(state) ==1:\n                state.append(a)\n            else:\n                while len(state)>=2 and (a-state[-1]) *(state[-1]-state[-2]) >0:\n                    state.pop()\n                state.append(a)\n        sm = 0\n        #print(state)\n        for a in state:\n            sm += abs(a)\n        n = len(state)\n        for i in range(n-1):\n            if state[i] * state[i+1] >=0:\n                sm -= min(abs(state[i]), abs(state[i+1]))\n        return sm",
+    "submit_ts": "1721533029",
+    "subm_id": "548395682"
+}

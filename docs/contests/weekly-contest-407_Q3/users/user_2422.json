@@ -1,0 +1,6 @@
+{
+    "username": "assasineagle",
+    "submission": "class Solution {\npublic:\n    int maxOperations(string str) {\n        int idx = str.length() - 1;\n        unordered_map<int, int> segments;\n\n        while (idx >= 0 && str[idx] == '1') {\n            idx--;\n        }\n        while (idx >= 0) {\n            if (str[idx] == '1') {\n                segments[idx] = 1;\n                int tempIdx = idx;\n                while (idx > 0 && str[idx - 1] == '1') {\n                    segments[tempIdx]++;\n                    idx--;\n                }\n            }\n            idx--;\n        }\n        vector<int> positions;\n        for (const auto& pair : segments) {\n            positions.push_back(pair.first);\n        }\n        sort(positions.begin(), positions.end());\n\n        int result = 0;\n        for (int j = positions.size() - 1; j >= 0; --j) {\n            result += (positions.size() - j) * segments[positions[j]];\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1721534048",
+    "subm_id": "1328022373"
+}

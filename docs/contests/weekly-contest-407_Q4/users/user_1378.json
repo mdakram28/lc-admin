@@ -1,0 +1,6 @@
+{
+    "username": "05_aditya_aggarwal_03",
+    "submission": "class Solution {\npublic:\n\n    long long solve(vector<long long> diff){\n        if(diff.size() == 0) return 0;\n\n        long long int n = diff.size();\n        long long int ans= diff[0];\n\n        for(int i=1;i<n;i++){\n            if(diff[i] > diff[i-1]) ans+=diff[i]-diff[i-1];\n        }\n        return ans;\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int sign = 0;\n        long long int ans = 0;\n        vector<long long> diff;\n\n        for(int i = 0;i < nums.size();i++){\n\n            if(sign  == 0 && nums[i] > target[i]){\n                ans += solve(diff);\n                diff.clear();\n                sign = 1;\n            }\n\n            if(sign == 1 && nums[i] < target[i]){\n                ans += solve(diff);\n                diff.clear();\n                sign = 0;\n            }\n\n          diff.push_back(abs(target[i] - nums[i]));\n        }\n        ans += solve(diff);\n    return ans;\n    }\n};",
+    "submit_ts": "1721532787",
+    "subm_id": "1327994059"
+}

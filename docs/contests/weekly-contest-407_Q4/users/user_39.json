@@ -1,0 +1,6 @@
+{
+    "username": "tsreaper",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        long long det[n];\n        for (int i = 0; i < n; i++) det[i] = target[i] - nums[i];\n\n        auto sgn = [&](long long x) {\n            if (x == 0) return 0;\n            if (x > 0) return 1;\n            return -1;\n        };\n\n        auto gao = [&](int l, int r) {\n            long long ret = 0, last = 0;\n            for (int i = l; i <= r; i++) {\n                long long x = abs(det[i]);\n                if (x > last) ret += x - last;\n                last = x;\n            }\n            return ret;\n        };\n\n        long long ans = 0;\n        for (int i = 0, j = 0; i < n; i++) {\n            if (i == n - 1 || sgn(det[i + 1]) != sgn(det[j])) {\n                ans += gao(j, i);\n                j = i + 1;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721530007",
+    "subm_id": "548375182"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "hakonleung",
+    "submission": "/**\n * @param {number[]} nums\n * @param {number[]} target\n * @return {number}\n */\nvar minimumOperations = function(nums, target) {\n    const diff = []\n    // const diff = [-1,-2,0,-3,4,5,1,2] // 11\n    nums.forEach((v, i) => diff.push(v - target[i]))\n    let ans = 0\n    let stack = []\n    const consume = () => {\n        const asc = stack[0] > 0\n        const t = []\n        for (const v of stack) {\n            let minOrMax = v\n            while (t.length && (\n                asc ? v <= t[t.length - 1] : v >= t[t.length - 1]\n            )) {\n                const pre = t.pop()\n                if (minOrMax === v) minOrMax = pre\n            }\n            ans += Math.abs(minOrMax - v)\n            t.push(v)\n        }\n        if (t.length) ans += Math.abs(t[t.length - 1])\n        stack = []\n    }\n    for (let i = 0; i < diff.length; i += 1) {\n        if (stack.length && diff[i] * stack[stack.length - 1] <= 0) consume()\n            if (!diff[i]) continue\n        if (!stack.length || stack[stack.length - 1] !== diff[i]) stack.push(diff[i])\n    }\nconsume()\n    return ans\n};\n",
+    "submit_ts": "1721532452",
+    "subm_id": "548392447"
+}

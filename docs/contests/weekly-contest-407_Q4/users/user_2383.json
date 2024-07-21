@@ -1,0 +1,6 @@
+{
+    "username": "killua-8",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int n = nums.length;\n        int[] diff = new int[n];\n\n        for (int i = 0; i < n; i++) {\n            diff[i] = target[i] - nums[i];\n        }\n\n        int i = 0;\n        long ans = 0;\n        while (i < n) {\n            while (i < n && diff[i] == 0) i++;\n            if (i == n) break;\n            int x = diff[i];\n            int j = i;\n            int min = Integer.MAX_VALUE;\n            while (j < n && x > 0 && diff[j] > 0) {\n                min = Math.min(min, diff[j]);\n                j++;\n            }\n            while (j < n && x < 0 && diff[j] < 0) {\n                min = Math.min(min, -diff[j]);\n                j++;\n            }\n            if (x > 0){\n                for (int k = i; k < j; k++) {\n                    diff[k] -= min;\n                }\n            } else {\n                for (int k = i; k < j; k++) {\n                    diff[k] += min;\n                }\n            }\n\n            ans += min;\n        }\n        return ans;\n    }\n}\n",
+    "submit_ts": "1721533104",
+    "subm_id": "548396088"
+}

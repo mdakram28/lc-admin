@@ -1,0 +1,6 @@
+{
+    "username": "kumarnikhil94058",
+    "submission": "#include <vector>\n#include <cstdlib>  // for std::abs\n\nclass Solution {\npublic:\n    long long minimumOperations(std::vector<int>& nums, std::vector<int>& target) {\n        // Calculate the difference array\n        std::vector<long long> diff(nums.size());\n        for (size_t i = 0; i < nums.size(); ++i) {\n            diff[i] = static_cast<long long>(target[i]) - static_cast<long long>(nums[i]);\n        }\n\n        long long total_operations = 0;\n        long long current_segment_diff = 0;\n\n        for (size_t i = 0; i < diff.size(); ++i) {\n            if (i == 0 || (diff[i - 1] > 0 && diff[i] > 0) || (diff[i - 1] < 0 && diff[i] < 0)) {\n                long long additional_operations = std::abs(diff[i]) - std::abs(current_segment_diff);\n                if (additional_operations > 0) {\n                    total_operations += additional_operations;\n                }\n                current_segment_diff = diff[i];\n            } else {\n                total_operations += std::abs(diff[i]);\n                current_segment_diff = diff[i];\n            }\n        }\n\n        return total_operations;\n    }\n};\n",
+    "submit_ts": "1721532673",
+    "subm_id": "1327991401"
+}

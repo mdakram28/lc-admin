@@ -1,0 +1,6 @@
+{
+    "username": "SkinnySnakeLimb",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff = [nums[i] - target[i] for i in range(len(nums))]\n        return self.recursiveOperations(diff)\n    \n    def recursiveOperations(self, arr: List[int]) -> int:\n        if not arr:\n            return 0\n        \n        operations = 0\n        i = 0\n        \n        while i < len(arr):\n            if arr[i] == 0:\n                i += 1\n                continue\n            \n            start = i\n            sign = 1 if arr[i] > 0 else -1\n            while i < len(arr) and (arr[i] * sign) > 0:\n                i += 1\n            \n            subarray = arr[start:i]\n            min_abs_value = min(abs(x) for x in subarray)\n            for j in range(start, i):\n                arr[j] -= sign * min_abs_value\n            \n            operations += min_abs_value\n            operations += self.recursiveOperations(arr[start:i])\n        \n        return operations",
+    "submit_ts": "1721530678",
+    "subm_id": "1327940685"
+}

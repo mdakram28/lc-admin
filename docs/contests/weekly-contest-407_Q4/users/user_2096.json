@@ -1,0 +1,6 @@
+{
+    "username": "redmastic",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int n = nums.length;\n        \n        long[] changes = new long[n];\n\n        for(int i = 0; i < n; i++) {\n            changes[i] = (long) target[i] - nums[i];\n        }\n\n        long operationCount = 0;\n        long segmentDiff = 0;\n\n        for (int i = 0; i < n; i++) {\n            if (i == 0 || (changes[i - 1] > 0 && changes[i] > 0) || (changes[i - 1] < 0 && changes[i] < 0)) {\n                long neededOperations = Math.abs(changes[i]) - Math.abs(segmentDiff);\n                if (neededOperations > 0) {\n                    operationCount += neededOperations;\n                }\n                segmentDiff = changes[i];\n            } \n            else {\n                operationCount += Math.abs(changes[i]);\n                segmentDiff = changes[i];\n            }\n        }\n\n        return operationCount;\n    }\n}",
+    "submit_ts": "1721533392",
+    "subm_id": "1328007956"
+}

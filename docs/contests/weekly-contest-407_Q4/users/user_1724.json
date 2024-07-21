@@ -1,0 +1,6 @@
+{
+    "username": "RGcodes1405",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        std::vector<long> differences(n);\n\n        for (int i = 0; i < n; ++i) {\n            differences[i] = static_cast<long>(target[i]) - nums[i];\n        }\n\n        long totalOps = 0;\n        long segmentDiff = 0;\n\n        for (int i = 0; i < n; ++i) {\n            long currentDiff = differences[i];\n            if (i == 0 || (segmentDiff > 0 && currentDiff > 0) || (segmentDiff < 0 && currentDiff < 0)) {\n                long requiredOps = std::abs(currentDiff) - std::abs(segmentDiff);\n                if (requiredOps > 0) {\n                    totalOps += requiredOps;\n                }\n                segmentDiff = currentDiff;\n            } else {\n                totalOps += std::abs(currentDiff);\n                segmentDiff = currentDiff;\n            }\n        }\n\n        return totalOps;\n    }\n};",
+    "submit_ts": "1721532938",
+    "subm_id": "1327997577"
+}

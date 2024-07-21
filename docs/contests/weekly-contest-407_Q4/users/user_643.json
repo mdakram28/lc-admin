@@ -1,0 +1,6 @@
+{
+    "username": "lucky-boy-c9",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff = [y - x for x, y in zip(nums, target)]\n        ans = 0\n        n = len(diff)\n        d = [0] * (n + 1)\n        do_change = True\n        while do_change:\n            i = 0\n            do_change = False\n            cur = 0\n            while i < n:\n                cur += d[i]\n                x = diff[i] - cur\n                if x == 0:\n                    i += 1\n                    continue\n                do_change = True\n                start = i\n                i += 1\n                sign = 1 if x > 0 else -1\n                mi = abs(x)\n                while i < n and diff[i] - cur - d[i] != 0 and (1 if diff[i] - cur - d[i] > 0 else -1) == sign:\n                    cur += d[i]\n                    x = diff[i] - cur\n                    mi = min(mi, abs(x))\n                    i += 1\n                d[start] += sign * mi\n                cur += sign * mi\n                d[i] += -sign * mi\n                ans += mi\n        return ans",
+    "submit_ts": "1721531900",
+    "subm_id": "548389227"
+}

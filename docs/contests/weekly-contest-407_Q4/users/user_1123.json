@@ -1,0 +1,6 @@
+{
+    "username": "harshilpatel4603",
+    "submission": "class Solution:\n    def find (self, n, diffArr):\n        prevMin = [0]*n\n        st = []\n        for i in range(n):\n            if diffArr[i] == 0:\n                st = []\n                continue\n            while len(st) and diffArr[i] <= diffArr[st[-1]]:\n                prevMin[st[-1]] = max(prevMin[st[-1]], diffArr[i])\n                st.pop()\n            \n            if len(st):\n                prevMin[i] = max(prevMin[i], diffArr[st[-1]])\n            st.append(i)\n\n        # print(diffArr)\n        # print(prevMin)\n\n        ans = 0\n        for i in range(n):\n            ans += diffArr[i] - prevMin[i]\n        return ans\n        \n\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        st = []\n        incrDiff = [0]*n\n        for i in range(n):\n            incrDiff[i] = max(0, target[i]-nums[i])\n\n        ans = self.find (n, incrDiff)\n\n        decrDiff = [0]*n\n        for i in range(n):\n            decrDiff[i] = max(0, nums[i]-target[i])\n        ans += self.find (n, decrDiff)\n        return ans",
+    "submit_ts": "1721532716",
+    "subm_id": "1327992366"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "kartikeyaangara",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        diff = []\n        for i,j in zip(nums, target):\n            diff.append(j-i)\n        nums = diff\n        def helper(i):\n            if i == n:return 0\n            if nums[i] == 0:\n                return helper(i+1)\n            res = 0\n            if nums[i] > 0:\n                while i+1 < n and nums[i+1] >= nums[i]:\n                    i += 1\n                res = nums[i]\n                while i+1 < n and nums[i+1] <= nums[i] and nums[i+1] > 0:\n                    i += 1\n                if i >= n-1: return res\n                if nums[i] > nums[i+1]: return helper(i+1)+res\n                return helper(i+1) - nums[i] + res\n            else:\n                while i+1 < n and nums[i+1] <= nums[i]:\n                    i += 1\n                res = -nums[i]\n                while i+1<n and nums[i+1] >= nums[i] and nums[i+1] < 0:\n                    i += 1\n                if i >= n-1: return res\n                if nums[i] < nums[i+1]: return helper(i+1)+res\n                return helper(i+1) + nums[i] + res\n        return helper(0)",
+    "submit_ts": "1721532968",
+    "subm_id": "1327998260"
+}

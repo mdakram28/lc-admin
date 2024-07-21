@@ -1,0 +1,6 @@
+{
+    "username": "tiger2005",
+    "submission": "class Solution {\npublic:\n  long long minimumOperations(vector<int>& nums, vector<int>& target) {\n    int n = nums.size();\n    vector<int> x(n);\n    for (int i = 0; i < n; i ++)\n      x[i] = nums[i] - target[i] - (i == 0 ? 0 : nums[i - 1] - target[i - 1]);\n    long long ans = 0;\n    int pre = 0;\n    \n    auto seg = [&] (int x) {\n      if (x > 0)\n        return 1;\n      if (x == 0)\n        return 0;\n      return -1;\n    };\n    \n    for (auto e: x) {\n      int np = pre + e;\n      if (seg(np) != seg(pre))\n        ans += abs(np);\n      else if (abs(np) > abs(pre))\n        ans += abs(np) - abs(pre);\n      pre = np;\n    }\n    return ans;\n  }\n};",
+    "submit_ts": "1721529634",
+    "subm_id": "548372008"
+}

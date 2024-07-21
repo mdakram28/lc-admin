@@ -1,0 +1,6 @@
+{
+    "username": "SSD9797",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n     \n        n = len(nums)\n        diff = [0]*n\n        for i in range(n):\n            diff[i] =  target[i]-nums[i]\n        \n    \n\n        def help(l, r) -> int:\n            res = abs(diff[l])\n            for i in range(l+1, r+1):\n                if abs(diff[i]) >= abs(diff[i - 1]):\n                    res -= abs(diff[i - 1])\n                    res += abs(diff[i])\n\n            return res\n        \n        #print(diff)\n        sn, l = diff[0], 0\n        ans = 0\n        for j in range(n):\n            if sn*diff[j] <= 0:\n                ans += help(l, j-1)\n                l = j\n                sn = diff[j]\n        ans += help(l, n-1)\n        return ans\n                ",
+    "submit_ts": "1721531171",
+    "subm_id": "1327954125"
+}

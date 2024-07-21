@@ -1,0 +1,6 @@
+{
+    "username": "old_rookie",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        arr = [target[i]-nums[i] for i in range(n)]\n        l = 0\n        def get(i:int,j:int,flag:bool)->int:\n            res = 0\n            shift = 0\n            for k in range(i,j):\n                if flag:res+=max(arr[k]-shift,0)\n                else:res+=abs(arr[k]-shift) if arr[k]<shift else 0\n                shift = arr[k]\n            return res\n        ans = 0\n        while l<n:\n            while l<n and arr[l]<=0:l+=1\n            r = l\n            while r<n and arr[r]>0:r+=1\n            ans+=get(l,r,True)\n            l = r+1\n        l = 0\n        while l<n:\n            while l<n and arr[l]>=0:l+=1\n            r = l\n            while r<n and arr[r]<0:r+=1\n            ans+=get(l,r,False)\n            l = r+1\n        return ans",
+    "submit_ts": "1721533091",
+    "subm_id": "548396026"
+}

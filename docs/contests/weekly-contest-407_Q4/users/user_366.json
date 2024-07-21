@@ -1,0 +1,6 @@
+{
+    "username": "Homie_Lander7",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        const int n=nums.size();\n        vector<long long >diff(n+1,0);\n        for(int i=0;i<n;i++)\n        {\n            diff[i+1]=target[i]-nums[i];\n        }\n        long long ans=0;\n        auto get=[&](vector<int>vec){\n            for(auto &x:vec)x=abs(x);\n            long long ans=vec[0];\n            for(int i=1;i<vec.size();i++){\n                if(vec[i]<=vec[i-1]){\n                  continue;\n                }else{\n                    ans+=vec[i]-vec[i-1];\n                }\n            }\n            return ans;\n        };\n        for(int i=1;i<=n;i++){\n           if(diff[i]==0)continue;\n           vector<int>vec;\n           int j=i;\n           while(j<=n and diff[j]*diff[i]>0){\n               vec.push_back(diff[j]);\n               j++;\n           }\n           ans+=get(vec);\n           i=j-1;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721531275",
+    "subm_id": "1327956815"
+}

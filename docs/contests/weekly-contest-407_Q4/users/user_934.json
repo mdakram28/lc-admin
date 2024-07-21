@@ -1,0 +1,6 @@
+{
+    "username": "JackM_leetcode",
+    "submission": "class Solution:\n    def help(self, array):\n        if not array:\n            return 0\n        \n        operations = array[0]\n        \n        for i in range(1, len(array)):\n            if array[i] > array[i - 1]:\n                operations += array[i] - array[i - 1]\n        \n        return operations\n    \n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        ans = 0\n        diff = [nums[i] - target[i] for i in range(len(nums))]\n\n        i = 0\n        while i < len(diff):\n            if diff[i] > 0:\n                tmp = []\n                while i < len(diff) and diff[i] > 0:\n                    tmp.append(diff[i])\n                    i += 1\n                ans += self.help(tmp)\n            elif diff[i] < 0:\n                tmp = []\n                while i < len(diff) and diff[i] < 0:\n                    tmp.append(-diff[i])\n                    i += 1\n                ans += self.help(tmp)\n            else:\n                i += 1\n\n        return ans",
+    "submit_ts": "1721531813",
+    "subm_id": "1327970456"
+}

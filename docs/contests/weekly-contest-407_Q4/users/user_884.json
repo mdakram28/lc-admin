@@ -1,0 +1,6 @@
+{
+    "username": "junruiw",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<int> diff(n);\n        int prev = 0;\n        for(int i = 0; i < n; i++){\n            diff[i] = target[i] - nums[i];\n            int temp = diff[i];\n            diff[i] = diff[i] - prev;\n            prev = temp;\n        }\n        long long ops = 0;\n        long long offset = 0;\n        for(int i = 0; i < n; i++){\n            if(diff[i] * offset < 0){\n                if(abs(diff[i]) >= abs(offset)){\n                    ops += abs(diff[i] + offset);\n                    offset = diff[i] + offset;\n                }else{\n                    offset += diff[i];\n                }\n            }else{\n                ops += abs(diff[i]);\n                offset += diff[i];\n            }\n        }\n        return ops;\n    }\n};",
+    "submit_ts": "1721532023",
+    "subm_id": "1327975766"
+}

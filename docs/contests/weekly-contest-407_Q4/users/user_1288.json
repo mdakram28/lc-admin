@@ -1,0 +1,6 @@
+{
+    "username": "yge2",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int n = nums.length;\n        long ans = 0;\n        long[] a = new long[n];\n        for (int i=0; i<n; i++)\n            a[i] = (long) target[i] - (long) nums[i];\n        long p = 0;\n        int i = 0;\n        while (i < n && a[i] == 0)\n            i++;\n        while (i < n) {\n            long z = a[i] / Math.abs(a[i]);\n            int j = i+1;\n            while (j < n && a[j] != 0 && a[j] / Math.abs(a[j]) == z && a[j]*z >= a[j-1]*z)\n                j++;\n            if (j == n || a[j] == 0 || a[j] / Math.abs(a[j]) != z) {\n                ans += Math.abs(a[j-1] - p);\n                p = 0;\n            } else {\n                int k = j;\n                while (k < n && a[k] != 0 && a[k] / Math.abs(a[k]) == z && a[k]*z <= a[k-1]*z)\n                    k++;\n                ans += Math.abs(a[j-1] - p);\n                if (k == n || a[k] == 0 || a[k] / Math.abs(a[k]) != z) {\n                    p = 0;\n                } else {\n                    p = a[k-1];\n                }\n                j = k;\n            }\n            while (j < n && a[j] == 0)\n                j++;\n            i = j;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1721532367",
+    "subm_id": "1327984127"
+}

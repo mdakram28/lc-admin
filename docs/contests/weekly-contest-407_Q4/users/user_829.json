@@ -1,0 +1,6 @@
+{
+    "username": "ruo2019",
+    "submission": "class Solution {\n    fun minimumOperations(nums: IntArray, target: IntArray): Long {\n        var arr = IntArray(nums.size)\n        for(i in target.indices) {\n            arr[i]=target[i]-nums[i]\n        }\n        var list = mutableListOf<MutableList<Long>>()\n        var neg = arr[0]<0\n        var currList = mutableListOf<Long>()\n        for (i in arr.indices) {\n            if ((arr[i]<0)!=neg) {\n                neg = !neg\n                list.add(currList)\n                currList = mutableListOf(arr[i].toLong())\n            }\n            else {\n                currList.add(arr[i].toLong())\n            }\n        }\n        list.add(currList)\n        println(list)\n        var count = 0L\n        for (i in list) {\n            count+=Math.abs(i[0])\n            for (j in 1 until i.size) {\n                count+=Math.max(Math.abs(i[j])-Math.abs(i[j-1]),0)\n            }\n        }\n        return count\n    }\n}",
+    "submit_ts": "1721531919",
+    "subm_id": "1327973176"
+}

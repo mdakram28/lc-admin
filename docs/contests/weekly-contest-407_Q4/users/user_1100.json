@@ -1,0 +1,6 @@
+{
+    "username": "navi1419naveen",
+    "submission": "class Solution {\npublic:\n    bool sign(int number){\n        return number >= 0; \n    }\n    int solve(int last,int current){\n        if(sign(last) == sign(current)){\n            current = abs(current);\n            last = abs(last);\n\n            if(last > current) return 0;\n            return current - last;\n        }else{\n            return abs(current);\n        }\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        vector<int> variance(nums.size());\n        for(int index=0; index < nums.size() ; index++){\n            variance[index] = target[index] - nums[index];\n        }\n        // for(auto ele : variance) cout<<ele<<\" \";\n        vector<int> pos(nums.size());\n        pos[0] = abs(variance[0]);\n        for(int index=1;index<pos.size();index++){\n            pos[index] = solve(variance[index-1],variance[index]);\n        }\n        long long operations=0;\n        for(auto oper : pos) operations += oper;\n        return operations;\n    }\n};",
+    "submit_ts": "1721532393",
+    "subm_id": "1327984779"
+}

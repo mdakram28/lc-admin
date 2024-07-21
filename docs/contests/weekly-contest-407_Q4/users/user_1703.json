@@ -1,0 +1,6 @@
+{
+    "username": "zhang-yong-lin",
+    "submission": "long long f(vector<int>& v, int l, int r, int t) {\n\tlong long ans = 0;\n\tint t0;\n\tif (v[l] > 0) {\n\t\tt0 = *min_element(v.begin() + l, v.begin() + r + 1);\n\t\tans += t0 - t;\n\t}\n\telse {\n\t\tt0 = *max_element(v.begin() + l, v.begin() + r + 1);\n\t\tans += t - t0;\n\t}\n\tint l0 = l;\n\tfor (int i = l; i <= r; i++) {\n\t\tif (v[i] == t0) {\n\t\t\tif (i > l && v[i - 1] != t0)\n\t\t\t\tans += f(v, l0, i - 1, t0);\n\t\t\tl0 = i + 1;\n\t\t}\n\t}\n\tif (l0 <= r)\n\t\tans += f(v, l0, r, t0);\n\treturn ans;\n}\n\nclass Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n\t\tint n = nums.size();\n\t\tlong long ans = 0;\n\t\tvector<int> v(n);\n\t\tfor (int i = 0; i < n; i++)\n\t\t\tv[i] = nums[i] - target[i];\n\t\tint l = 0;\n\t\tfor (int i = 0; i < n; i++) {\n\t\t\tif (i && (v[i] >= 0 && v[i - 1] < 0 || v[i] <= 0 && v[i - 1] > 0)) {\n\t\t\t\tans += f(v, l, i - 1, 0);\n\t\t\t\tl = i;\n\t\t\t}\n\t\t\tif (v[i] == 0)\n\t\t\t\tl = i + 1;\n\t\t}\n\t\tif (l < n)\n\t\t\tans += f(v, l, n - 1, 0);\n\t\treturn ans;\n    }\n};\n",
+    "submit_ts": "1721532603",
+    "subm_id": "548393309"
+}

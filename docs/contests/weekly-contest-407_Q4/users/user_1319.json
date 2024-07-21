@@ -1,0 +1,6 @@
+{
+    "username": "ahong107",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        stack<int> diffs;\n        bool positive = true;\n        long long res = 0;\n        for (int i = 0; i < nums.size(); ++i) {\n            int diff = target[i] - nums[i];\n            if (positive && diff < 0 || !positive && diff > 0) {\n                diffs = {};\n            }\n            bool found = false;\n            while (diffs.size() && (positive && diffs.top() > diff || !positive && diffs.top() < diff)) {\n                diffs.pop();\n                found = true;\n            }\n            int prev = diffs.empty() ? 0 : diffs.top();\n            if (!found)\n                res += abs(prev - diff);\n            diffs.push(diff);\n            positive = diff >= 0;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721531810",
+    "subm_id": "1327970404"
+}

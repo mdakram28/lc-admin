@@ -1,0 +1,6 @@
+{
+    "username": "xls-u",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<long long> s1(n + 1), s2(n + 1);\n        for (int i = 0; i < n; i++) {\n            s1[i] += nums[i]; s1[i + 1] -= nums[i];\n            s2[i] += target[i]; s2[i + 1] -= target[i];\n        }\n        vector<long long> a(n);\n        for (int i = 0; i < n; i++) {\n            a[i] = s1[i] - s2[i];\n        }\n        long long ans = 0;\n        long long add = 0, sub = 0;\n        for (int i = 0; i < n; i++) {\n            if (a[i] == 0) continue;\n            if (a[i] > 0) {\n                if (a[i] >= sub) {\n                    ans += a[i] - sub;\n                    add += a[i] - sub;\n                    sub = 0;\n                } else {\n                    sub -= a[i];\n                }\n            } else {\n                a[i] = -a[i];\n                if (a[i] >= add) {\n                    ans += a[i] - add;\n                    sub += a[i] - add;\n                    add = 0;\n                } else {\n                    add -= a[i];\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721530917",
+    "subm_id": "548381871"
+}

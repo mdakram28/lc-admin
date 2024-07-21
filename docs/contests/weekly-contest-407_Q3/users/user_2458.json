@@ -1,0 +1,6 @@
+{
+    "username": "khushisinha20",
+    "submission": "class Solution {\npublic:\n    vector<int> clusterLengths(string s) {\n        vector<int> lengths;\n        int count = 0;\n\n        for (char c : s) {\n            if (c == '1') {\n                count++;\n            } else {\n                if (count > 0) {\n                    lengths.push_back(count);\n                    count = 0;\n                }\n            }\n        }\n\n        if (count > 0) \n            lengths.push_back(count);\n\n        return lengths;\n    }\n    \n    int maxOperations(string s) {\n        int n = s.length();\n        vector<int> lengths = clusterLengths(s);\n        \n        if (lengths.empty() or (lengths.size() == 1 and s.back() == '1'))\n            return 0;\n        \n        if (s.back() == '1')\n            lengths.pop_back();\n        \n        for (int i = 1; i < lengths.size(); ++i)\n            lengths[i] += lengths[i - 1];\n        \n        return accumulate(lengths.begin(), lengths.end(), 0);\n    }\n};",
+    "submit_ts": "1721531659",
+    "subm_id": "1327966600"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "kirya2604",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        for (int i = 0; i < n; i ++)\n            nums[i] = target[i] - nums[i];\n        \n        long long answer = 0;\n        vector<long long> dif(n + 1, 0);\n\n        dif[0] = nums[0];\n        answer = abs(dif[0]);\n        for (int i = 1; i < n; i ++)\n        {\n            if ( ((nums[i - 1] > 0) ^ (nums[i] > 0)) == 1 )\n            {\n                dif[i] = nums[i];\n                answer += abs(dif[i]);\n                continue;\n            }\n\n            if (nums[i] > 0)\n            {\n                dif[i] = min(1ll * nums[i], dif[i - 1]);\n                if (nums[i] > dif[i])\n                    answer += abs(nums[i] - dif[i]), dif[i] = nums[i];\n            }\n            else\n            {\n                dif[i] = max(1ll * nums[i], dif[i - 1]);\n                if (nums[i] < dif[i])\n                    answer += abs(dif[i] - nums[i]), dif[i] = nums[i];\n            }\n        }\n\n        return answer;\n    }\n};",
+    "submit_ts": "1721530270",
+    "subm_id": "1327928251"
+}

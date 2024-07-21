@@ -1,0 +1,6 @@
+{
+    "username": "Khangnh",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        diff = [nums[i] - target[i] for i in range(n)]\n\n        inter = [[diff[0]]]\n        for i in range(1, len(diff)):\n            if diff[i] * inter[-1][0] > 0:\n                inter[-1].append(diff[i])\n            else:\n                inter.append([diff[i]])\n\n        def countOps(arr: List[int]) -> int:\n            arr = [(abs(arr[i]), i) for i in range(len(arr))]\n            arr.sort()\n            \n            removed = set([-1, len(arr)])\n\n            ans = 0\n            for val, idx in arr:\n                if idx - 1 in removed or idx + 1 in removed:\n                    if idx - 1 in removed and idx + 1 in removed:\n                        ans += val\n                else:\n                    ans -= val\n                removed.add(idx)\n            \n            return ans\n\n        ans = 0\n        for arr in inter:\n            ans += countOps(arr)\n\n        return ans",
+    "submit_ts": "1721532988",
+    "subm_id": "1327998715"
+}

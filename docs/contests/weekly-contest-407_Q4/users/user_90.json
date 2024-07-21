@@ -1,0 +1,6 @@
+{
+    "username": "rain-sure",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        nums.insert(begin(nums), 0);\n        target.insert(begin(target), 0);\n        vector<int> tmp(n + 1);\n        vector<int> v(n + 1);\n        for(int i = 1; i <= n; i ++) {\n            tmp[i] = target[i] - nums[i];\n        }\n        for(int i = 1; i <= n; i ++) v[i] = tmp[i] - tmp[i - 1];\n        long long s1 = 0, s2 = 0;\n        long long res = 0;\n        for(int i = 1; i <= n; i ++) {\n            if(v[i] > 0) {\n                if(s2 >= v[i]) s2 -= v[i];\n                else {\n                    res += v[i] - s2;\n                    s1 += v[i] - s2;\n                    s2 = 0;\n                }\n            } else if(v[i] < 0) {\n                v[i] = -v[i];\n                if(s1 >= v[i]) s1 -= v[i];\n                else {\n                    res += v[i] - s1;\n                    s2 += v[i] - s1;\n                    s1 = 0;\n                }\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721530292",
+    "subm_id": "548377476"
+}

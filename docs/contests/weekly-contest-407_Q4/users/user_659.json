@@ -1,0 +1,6 @@
+{
+    "username": "noojeff",
+    "submission": "# [i, j)\ndef count(arr, i, j):\n    # size 0\n    if i == j:\n        return 0\n    # size 1\n    if j - i == 1:\n        return abs(arr[i])\n\n    ans = abs(arr[i])\n    for k in range(i + 1, j):\n        # if current < last, dont add\n        # if current > last, add current - last\n        diff = abs(arr[k]) - abs(arr[k - 1])\n        if diff > 0:\n            ans += diff\n    \n    return ans\n\nclass Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        arr = [0] * len(nums)\n        for i, (a, b) in enumerate(zip(nums, target)):\n            arr[i] = b - a\n\n        # print(arr)\n        ans = 0\n        i = 0\n        for j in range(len(arr)):\n            # Break if sign is different or j is zero\n            if arr[j] == 0:\n                ans += count(arr, i, j)\n                i = j\n                continue\n            sign_i, sign_j = arr[i] > 0, arr[j] > 0\n            if sign_i != sign_j:\n                ans += count(arr, i, j)\n                i = j\n        ans += count(arr, i, len(arr))\n        return ans",
+    "submit_ts": "1721531329",
+    "subm_id": "1327958194"
+}

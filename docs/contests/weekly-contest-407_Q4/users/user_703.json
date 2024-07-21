@@ -1,0 +1,6 @@
+{
+    "username": "rishendra2003",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<int> num(n+1),tar(n+1);\n        num[0] = 0;\n        tar[0] = 0;\n        num[1] = nums[0];\n        tar[1] = target[0];\n        for(int i=1; i<n; i++){\n            num[i+1] = nums[i] - nums[i-1];\n            tar[i+1] = target[i] - target[i-1];\n        }\n        long long presum = 0;\n        long long ans = 0;\n        for(int i=1; i<=n; i++){\n            if(num[i]!=tar[i]){\n                int diff = num[i] - tar[i];\n                if(diff * presum >= 0){\n                    ans += abs(diff);\n                    presum += diff;\n                }else{\n                    presum += diff;\n                    if(diff * presum >0){\n                        ans += abs(presum);\n                    }\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721531700",
+    "subm_id": "1327967652"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Pisces311",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        dif = [i - j for i, j in zip(nums, target)]\n\n        ans = 0\n        stk = []\n        for num in dif:\n            if stk and stk[-1] == 0:\n                stk.pop()\n            if not stk:\n                stk.append(num)\n                continue\n            if num > 0 and stk[-1] < 0:\n                ans += -stk[-1]\n                stk = [num]\n                continue\n            if num < 0 and stk[-1] > 0:\n                ans += stk[-1]\n                stk = [num]\n                continue\n            if stk[-1] >= 0:\n                if stk[-1] >= num:\n                    ans += stk[-1] - num\n                    while stk and stk[-1] >= num:\n                        stk.pop()\n                stk.append(num)\n            if stk[-1] < 0:\n                if stk[-1] <= num:\n                    ans += num - stk[-1]\n                    while stk and stk[-1] <= num:\n                        stk.pop()\n                stk.append(num)\n        ans += abs(stk[-1])\n        return ans",
+    "submit_ts": "1721530977",
+    "subm_id": "1327948884"
+}

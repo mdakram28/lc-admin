@@ -1,0 +1,6 @@
+{
+    "username": "iyerke",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diffs = [a - b for a, b in zip(nums, target)]\n        sign_f = lambda x: 1 if x > 0 else 0 if x == 0 else -1\n        sign = 0\n        direction = None\n        _max = res = 0\n        for i, x in enumerate(diffs):\n            if sign != sign_f(x) or direction is not None and ((direction == 'inc' and x < diffs[i - 1]) or (direction == 'dec' and x > diffs[i - 1])):\n                if sign == sign_f(x):\n                    res -= min(abs(diffs[i - 1]), abs(x))\n                res += _max\n                _max = abs(x)\n                sign = sign_f(x)\n                direction = None\n            else:\n                if direction is None:\n                    direction = 'inc' if x > diffs[i - 1] else 'dec' if x < diffs[i - 1] else None\n                _max = max(_max, abs(x))\n        return res + _max",
+    "submit_ts": "1721532064",
+    "subm_id": "1327976699"
+}

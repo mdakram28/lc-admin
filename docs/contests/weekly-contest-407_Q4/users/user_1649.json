@@ -1,0 +1,6 @@
+{
+    "username": "wufengxuan1230",
+    "submission": "class Solution {\npublic:\n    // 4 5 6 5 3\n    //  4 5 6 +6\n    // +6 5\n    // +6 3\n    \n    // 4 5 6 \n    // +6 3\n    // +6 3 4 1 2\n    // +6 +\uff084 - 1)\n    \n    \n    // 1 2 3 2 1\n    long long calc(vector<int>& nums) {\n        long long res = 0;\n        stack<int> stk;\n        for (int i = 0; i < nums.size(); ++i) {\n            int v = max(0, nums[i]);\n            // cout << v << ',';\n            if (!stk.empty() && stk.top() >= v) {\n                res += stk.top() - v;\n                while (!stk.empty() && stk.top() >= v) {\n                    stk.pop();\n                }\n            }\n            stk.push(nums[i]);\n        }\n        // cout << endl;\n        // cout << res << endl;\n        return res;\n    }\n    \n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        for (int i = 0; i < target.size(); ++i) {\n            target[i] -= nums[i];\n        }\n        target.push_back(0);\n\n        long long a = calc(target);\n        for (int i = 0; i < target.size(); ++i) {\n            target[i] = -target[i];\n        }\n        return a + calc(target);\n    }\n};",
+    "submit_ts": "1721533426",
+    "subm_id": "1328008697"
+}

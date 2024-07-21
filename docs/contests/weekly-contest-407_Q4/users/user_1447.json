@@ -1,0 +1,6 @@
+{
+    "username": "1014jack",
+    "submission": "class Solution:\n    def partition(self, nums):\n        prev = 0\n        for n in nums:\n            if n > 0 and prev <= 0:\n                self.groups.append([n])\n            elif n < 0 and prev >= 0:\n                self.groups.append([n])\n            elif n > 0 and prev > 0:\n                self.groups[-1].append(n)\n            elif n < 0 and prev < 0:\n                self.groups[-1].append(n)\n            prev = n\n        \n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff = [ori-tar for ori, tar in zip(nums, target)]\n        self.groups = []\n        self.partition(diff)\n        ans = 0\n        while self.groups:\n            group = self.groups.pop()\n            if group[0]>0:\n                min_x = min(group)\n                self.partition([x-min_x for x in group])\n                ans += min_x\n                # print(min_x, group)\n            else:\n                max_x = max(group)\n                self.partition([x-max_x for x in group])\n                ans += -max_x\n                # print(max_x, group)\n            # print(self.groups)\n        return ans",
+    "submit_ts": "1721532280",
+    "subm_id": "1327982078"
+}

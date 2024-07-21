@@ -1,0 +1,6 @@
+{
+    "username": "sagsango",
+    "submission": "\n\n\nlong long solve(int l, int r, vector<int>&arr, int h) {\n    if (l>r) return 0;\n    while (l < r && arr[l] == h) ++l;\n    while (l > r && arr[r] == h) --r;\n    \n    if (l>r) return 0;\n    \n    \n    int mn_i = l;\n    for (int i=l; i<=r; ++i) {\n        if (abs(arr[i]) < abs(arr[mn_i])) {\n            mn_i = i;\n        }\n    }\n    \n    return abs(arr[mn_i]) - h + solve(l, mn_i-1, arr, abs(arr[mn_i])) + solve(mn_i+1, r, arr, abs(arr[mn_i]));\n    \n}\nclass Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector <int> arr(n);\n        for (int i=0; i<n; ++i) {\n            arr[i] = target[i] - nums[i];\n            //cout << arr[i] <<\" \";\n        }\n        \n        #define same(x,y) ((x < 0 && y < 0) || (x > 0 && y > 0) || (x == 0 && y == 0))\n        \n        long long ans = 0;\n        int i = 0;\n        while ( i < n ) {\n            int j = i;\n            while (j<n && same(arr[i], arr[j])) {\n                ++j;\n            }\n        \n            ans += solve(i, j-1, arr, 0);\n            \n            i = j;\n            \n            \n        }\n        return ans;\n        \n    }\n    \n};",
+    "submit_ts": "1721531169",
+    "subm_id": "1327954087"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "user9218i",
+    "submission": "class Solution {\npublic:\n    int go(int ind , int t, string& s, vector<vector<int>>& dp) {\n        if(ind == s.length())   return 0;\n        \n        if(dp[ind][t] != -1)    return dp[ind][t];\n        int ans = go(ind+1, t, s, dp);\n        if((s[ind] - '0') == t)\n            ans = max(ans, 1 + go(ind+1, 1 - t, s, dp));\n        return dp[ind][t] = ans;\n    }\n    int maxOperations(string s) {\n        int n = s.length();\n        vector<vector<int>> dp(n, vector<int> (2, -1));\n        int ans = 0;\n        for(int i = 0; i < s.length(); i ++) {\n            if(s[i] == '1') {\n                int len = go(i+1, 0, s, dp);\n                //cout << i << \" \"<< len << endl;\n                if(len != -1)\n                    ans += (len + 1) / 2;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721530417",
+    "subm_id": "1327932791"
+}

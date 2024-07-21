@@ -1,0 +1,6 @@
+{
+    "username": "groupbuilder",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        ar = [nums[i] - target[i] for i in range(n)]\n        \n        def getm(arr, dd=0):\n            m = len(arr)\n            F = arr[:]\n            S = []\n            for i, x in enumerate(arr):\n                while S and S[-1] > x - dd:\n                    S.pop()\n                if S:\n                    F[i] = min(F[i], x - S[-1])\n                S.append(x)\n            return F\n        \n        def solve(arr):\n            arr = [abs(i) for i in arr]\n            #print(arr)\n            m = len(arr)\n            F1 = getm(arr)\n            F2 = getm(arr[::-1], 1)\n            ans = 0\n            for i in range(m):\n                ans += min(F1[i], F2[m - 1 - i])\n            #print(ans)\n            return ans\n            \n        ans = 0\n        cur = []\n        for x in ar:\n            if x == 0:\n                ans += solve(cur)\n                cur = []\n            elif cur and cur[-1] * x < 0:\n                ans += solve(cur)\n                cur = [x]\n            else:\n                cur.append(x)\n        ans += solve(cur)\n        return ans",
+    "submit_ts": "1721531961",
+    "subm_id": "1327974189"
+}

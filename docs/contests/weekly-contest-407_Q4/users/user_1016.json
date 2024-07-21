@@ -1,0 +1,6 @@
+{
+    "username": "wenboz",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int n = nums.length;\n        int[] diff = new int[n];\n        for(int i = 0; i < n; i++){\n            diff[i] = nums[i] - target[i];\n        }\n        long res = 0;\n        int i = 0;\n        while(i < n){\n            while(i < n && diff[i] == 0)\n                i++;\n            if(i == n)\n                break;\n            int j = i;\n            while(j < n && ((diff[j] < 0 && diff[i] < 0) || (diff[j] > 0 && diff[i] > 0)))\n                j++;\n            res += compute(diff, i, j - 1);\n            i = j;\n        }\n        return res;\n    }\n    \n    long compute(int[] diff, int s, int e){\n        var dq = new ArrayDeque<Integer>();\n        long res = 0;\n        for(int i = s; i <= e; i++){\n            int val = Math.abs(diff[i]);\n            if(!dq.isEmpty() && dq.peek() <= val){\n                res += val - dq.peek();\n                while(!dq.isEmpty() && dq.peek() <= val)\n                    dq.pop();\n            }\n            else if(dq.isEmpty()){\n                res += val;\n            }\n            dq.push(val);\n        }\n        return res;\n        \n    }\n}",
+    "submit_ts": "1721531356",
+    "subm_id": "1327958874"
+}

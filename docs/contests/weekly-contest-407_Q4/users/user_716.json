@@ -1,0 +1,6 @@
+{
+    "username": "user3517H",
+    "submission": "class Solution:\n  def minimumOperations(self, nums: List[int], target: List[int]) -> int: \n    def f(lo, hi):\n      s = -1 if d[lo] < 0 else 1\n      stack = []\n      res = 0\n      for i in range(lo, hi):\n        j = s * d[i]\n        if stack and stack[-1] >= j:\n          res += stack.pop() - j\n          while stack and stack[-1] >= j:\n            stack.pop()\n        stack.append(j)\n      if stack:\n        res += stack.pop()\n      # print(lo, hi, res)\n      return res\n\n    d = [j - i for i, j in zip(nums, target)]\n    # print(d)\n    n = len(d)\n    res = lo = 0\n    while lo < n:\n      while lo < n and d[lo] == 0:\n        lo += 1\n      if lo == n:\n        break\n      hi = lo + 1\n      while hi < n and d[hi] * d[lo] > 0:\n        hi += 1\n      res += f(lo, hi)\n      lo = hi\n    return res\n",
+    "submit_ts": "1721531412",
+    "subm_id": "1327960294"
+}

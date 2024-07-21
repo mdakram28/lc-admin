@@ -1,0 +1,6 @@
+{
+    "username": "7oving-euler7ib",
+    "submission": "class Solution {\n    public int maxOperations(String s) {\n        // \u7edf\u8ba1\u6709\u591a\u5c111\u548c\u4e00\u5f00\u59cb\u80fd\u64cd\u4f5c\u76841\n        char[] chs = s.toCharArray();\n        List<Integer> list = new ArrayList<>();\n        for(int i = 0; i < chs.length; i++){\n            if(chs[i] == '1'){\n                list.add(i);\n            }\n        }\n        int n = list.size();\n        int m = chs.length;\n        if(list.size() == 0)\n            return 0;\n        if(n == 1){\n            if(list.get(0) < m - 1)\n                return 1;\n            return 0;\n        }\n        int[] dp = new int[n];\n        dp[0] = list.get(1) == list.get(0) + 1 ? 0 : 1;\n        for(int i = 1; i < n; i++){\n            if(i < n - 1){\n                if(list.get(i+1) == list.get(i)+1){\n                    dp[i] = dp[i-1];\n                }\n                else{\n                    dp[i] = dp[i-1] + i + 1;\n                }\n            }\n            else{\n                if(list.get(i) == m - 1){\n                    dp[i] = dp[i-1];\n                }\n                else{\n                    dp[i] = dp[i-1] + i + 1;\n                }\n            }\n        }\n        return dp[n-1];\n    }\n}",
+    "submit_ts": "1721530851",
+    "subm_id": "548381444"
+}

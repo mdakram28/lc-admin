@@ -1,0 +1,6 @@
+{
+    "username": "leftshifted",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n\n        def getTot(arr):\n            arr = [abs(val) for val in arr]\n            tot = 0\n            for i in range(1, len(arr)):\n                if arr[i] < arr[i-1]: tot += arr[i-1]-arr[i]\n            \n            return tot + arr[-1]\n\n        diffs = [a-b for a, b in zip(nums, target)]\n\n        tot = 0\n        group = [diffs[0]]\n        for i in range(1, len(diffs)):\n            a, b = diffs[i-1], diffs[i]\n            pa, pb = a < 0, b < 0\n            if pa != pb: \n                tot += getTot(group)\n                group = [b]\n            else: group.append(b)\n        tot += getTot(group)\n\n        return tot",
+    "submit_ts": "1721532042",
+    "subm_id": "1327976215"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "drfish",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int[] numsDiff = new int[nums.length+1];\n        int[] targetDiff = new int[nums.length+1];\n        numsDiff[0] = nums[0];\n        targetDiff[0] = target[0];\n        for(int i=1;i<nums.length;i++){\n            numsDiff[i] = nums[i]-nums[i-1];\n            targetDiff[i] = target[i]-target[i-1];\n        }\n        long cnt = 0;\n        long positive = 0;\n        for(int i=0;i<nums.length;i++){\n            if(numsDiff[i]<targetDiff[i]){\n                int c = targetDiff[i]-numsDiff[i];\n                if(positive<0){\n                    positive+=c;\n                    if(positive>0){\n                        cnt+=positive;\n                    }\n                }else{\n                    cnt+=c;\n                    positive+=c;\n                }\n            } else {\n                int c = numsDiff[i]-targetDiff[i];\n                if(positive >0){\n                    positive-=c;\n                    if(positive<0){\n                        cnt-=positive;\n                    }\n                }else{\n                    cnt+=c;\n                    positive-=c;\n                }\n            }\n        }\n        return cnt;\n    }\n}",
+    "submit_ts": "1721532143",
+    "subm_id": "1327978750"
+}

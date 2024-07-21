@@ -1,0 +1,6 @@
+{
+    "username": "delphih",
+    "submission": "class Solution:\n    def minimumOperations(self, A: List[int], T: List[int]) -> int:\n        def f(ds):\n            # print(ds)\n            m = len(ds)\n            res, t = 0, 1\n            prev = 0\n            s = set()\n            for i, x in sorted(enumerate(ds), key=lambda x: x[1]):\n                res += (x - prev) * t\n                t += (i-1 >= 0 and i-1 not in s) + (i+1<m and i+1 not in s) - 1\n                s.add(i)\n                prev = x\n            return res\n        ds = []\n        d = 1\n        res = 0\n        for x, y in zip(A, T):\n            if (t := (y - x) * d) > 0:\n                ds.append(t)\n            else:\n                res += f(ds)\n                d *= -1\n                ds.clear()\n                if t != 0: ds.append(-t)\n        if ds: res += f(ds)\n        return res",
+    "submit_ts": "1721530258",
+    "subm_id": "1327927917"
+}

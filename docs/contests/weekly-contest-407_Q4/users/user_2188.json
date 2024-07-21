@@ -1,0 +1,6 @@
+{
+    "username": "reyawake",
+    "submission": "class Solution:\n    # all positive ints. (take absval for neg sections)\n    def minSame(self, L: list[int]) -> int:\n        res = 0\n        prev = 0\n        for n in L:\n            res += max(0, n - prev)\n            prev = n\n        return res\n    def minimumOperations(self, nums: list[int], target: list[int]) -> int:\n        diff = [a - b for a, b in zip(nums, target)]\n        listOfLists = []\n        currList = []\n        biggest = 0\n        state = 0\n        for n in diff:\n            if n > 0:\n                newstate = 1\n            elif n < 0:\n                newstate = -1\n            else: # n = 0\n                newstate = 0\n            if newstate != state:\n                if len(currList) > 0:\n                    listOfLists.append(currList)\n                currList = []\n                state = newstate\n            if n != 0:\n                currList.append(abs(n))\n        if len(currList) > 0:\n            listOfLists.append(currList)\n        \n        res = 0\n        for L in listOfLists:\n            res += self.minSame(L)\n        return res\n",
+    "submit_ts": "1721533786",
+    "subm_id": "1328016633"
+}

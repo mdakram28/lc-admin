@@ -1,0 +1,6 @@
+{
+    "username": "heal",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<int> a(n + 2);\n        for (int i = 1; i <= n; i++) a[i] = nums[i-1] - target[i-1];\n        vector<int> d(n + 1);\n        for (int i = 1; i <= n; i++) d[i] = a[i] - a[i-1];\n        long long ret = 0, pre = 0;\n        auto sgn = [&](long long x) -> int {\n            return x < 0? -1: x > 0;\n        };\n        for (int i = 1; i <= n; i++) {\n            if (sgn(pre) == sgn(d[i])) ret += abs(d[i]), pre += d[i];\n            else if (abs(pre) >= abs(d[i])) pre += d[i];\n            else ret += abs(d[i]) - abs(pre), pre += d[i];\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1721529703",
+    "subm_id": "548372622"
+}

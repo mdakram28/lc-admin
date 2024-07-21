@@ -1,0 +1,6 @@
+{
+    "username": "spaceandtimecomp",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        for (int i = 0; i < n; i++)\n        {\n            nums[i] -= target[i];\n        }\n        long long ans = 0;\n        auto caculate = [&](int l, int r, int flag)\n        {\n            if (flag < 0)\n                for (int i = l; i <= r; i++) nums[i] = -nums[i];\n            ans += nums[l];\n            for (int i = l + 1; i <=r; i++)\n            {\n                if (nums[i] > nums[i - 1]) ans += nums[i] - nums[i - 1];\n            }\n        };\n        int l = 0;;\n        while (l < n)\n        {\n            int r = l;\n            if (nums[l] < 0) while (r < n && nums[r] < 0) r++;\n            else while (r < n && nums[r] >= 0) r++;\n            caculate(l, r - 1, nums[l] < 0 ? -1 : 1);\n            l = r;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721532377",
+    "subm_id": "548392014"
+}

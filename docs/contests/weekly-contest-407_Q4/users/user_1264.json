@@ -1,0 +1,6 @@
+{
+    "username": "daulatojha17",
+    "submission": "class Solution {\npublic:\n    long long helper(vector<int> &v, bool cond) {\n        if(cond) {\n            for(auto &x : v) x =-x;\n        }\n        long long ret = 0, prev = 0;\n        for(auto& it : v) ret += max(it - prev, 0ll), prev = it;\n        return ret;\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n  = nums.size();\n        vector<int> v(n + 1);\n        for(int i = 0; i < n; i++) {\n            v[i] = (nums[i] - target[i]);\n        }\n        long long ans = 0;\n        vector<int> tmp;\n        for(int i=0; i<n+1; i++)\n        {\n            if(tmp.size() == 0) {\n                tmp.push_back(v[i]);\n                continue;\n            }\n            if(v[i]==0){\n                ans+=helper(tmp,tmp.back()<0);\n                tmp.clear();\n            }\n            else if((tmp.back()<0 && v[i]<0) || (tmp.back()>0 && v[i]>0))\n            {\n                tmp.push_back(v[i]);\n            }\n            else{\n                ans+=helper(tmp,tmp.back()<0);\n                tmp.clear();\n                tmp.push_back(v[i]);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721532941",
+    "subm_id": "1327997654"
+}

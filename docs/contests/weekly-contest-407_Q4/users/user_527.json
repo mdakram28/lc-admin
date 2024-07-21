@@ -1,0 +1,6 @@
+{
+    "username": "brianchan-2",
+    "submission": "class Solution {\npublic:\n    int sign(int num) {\n        return num > 0 ? 1 : (num == 0 ? 0 : -1);\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = target.size();\n        for(int i = 0; i < n; ++i) {\n            target[i] -= nums[i];\n        }\n        long long ans = 0;\n        int cur = 0;\n        auto cal = [&](int l, int r) {\n            long long cnt = abs(target[l]);l++;\n            while(l <= r) {\n                if(abs(target[l]) > abs(target[l-1])) {\n                    cnt+= abs(target[l-1] - target[l]);\n                }\n                l++;\n            }\n            return cnt;\n        };\n        while(cur < n) {\n            if(target[cur] == 0) {\n                cur++;\n                continue;\n            }\n            int s = sign(target[cur]);\n            int l = cur;\n            while(cur < n && sign(target[cur]) == s) {\n                cur++;\n            }\n            ans += cal(l, cur - 1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721531668",
+    "subm_id": "548387792"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Dilpreetsingh_411",
+    "submission": "class Solution {\npublic:\n    long long noofop(vector<int> need){\n        long long op=0;\n        int n=need.size();\n        for(int i=1;i<n;i++){\n            if(need[i]>=need[i-1])continue;\n            op+=need[i-1]-need[i];\n        }\n        op+=need.back();\n        return op;\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n= nums.size();\n        vector<int> need;\n        long long ans=0;\n        for(int i=0;i<n;i++){\n            int diff=target[i]-nums[i];\n            if(need.empty()){need.push_back(diff);continue;}\n            if((need.back()>0 && diff<=0)){\n                ans+=noofop(need);\n                need.clear();\n            }\n            if(!need.empty() &&need.back()<0 && diff>=0){\n                for(int j=0;j<need.size();j++)need[j]=abs(need[j]);\n                ans+=noofop(need);\n                need.clear();\n            }\n            need.push_back(diff);\n        }\n        for(int j=0;j<need.size();j++)need[j]=abs(need[j]);\n        ans+=noofop(need);\n        return ans;\n    }\n};",
+    "submit_ts": "1721532327",
+    "subm_id": "1327983208"
+}

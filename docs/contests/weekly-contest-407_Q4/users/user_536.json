@@ -1,0 +1,6 @@
+{
+    "username": "weirdsmoothie",
+    "submission": "class Solution {\n    int idx[100005];\n    long long st[200005];\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int i, j = 0, n = nums.size();\n        long long sum = 0, ans = 0;\n        for (i = n; i--;) nums[i] -= target[i];\n        for (i = 1; i < n; i++) {\n            if (~(nums[i] ^ nums[i - 1]) >> 31) continue;\n            ans += calc(&nums[j], i - j), j = i;\n        }\n        return ans + calc(&nums[j], n - j);\n    }\n    \n    long long calc(int arr[], int n) {\n        bool flag = arr[0] >> 31;\n        long long res = minNumberOperations(arr, n);\n        if (flag) arr[n - 1] = - arr[n - 1];\n        return res;\n    }\n    \n    long long minNumberOperations(int target[], int n) {\n        int i, k = 1;\n        long long ans = 0;\n        for (i = n; i--;) target[i] = abs(target[i]);\n        for (i = 1; i < n; i++) {\n            ans += max(0, target[k - 1] - target[i]);\n            while (k && target[k - 1] >= target[i]) k--;\n            target[k++] = target[i];\n        }\n        return ans + target[k - 1];\n    }\n};",
+    "submit_ts": "1721531697",
+    "subm_id": "1327967581"
+}

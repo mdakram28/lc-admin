@@ -1,0 +1,6 @@
+{
+    "username": "ableed",
+    "submission": "#define For(i, a, b) for (int i = (a); i < (b); i++)\n#define vi vector<int>\n#define pb push_back\n#define sz(v) v.size()\n\nclass Solution\n{\npublic:\n    long long minimumOperations(vi &nums, vi &target)\n    {\n        if (nums == target)\n            return 0;\n\n        vi changes;\n        int n = sz(nums);\n        For(i, 0, n)\n        {\n            changes.pb(target[i] - nums[i]);\n        }\n\n        return calculateOperations(changes);\n    }\n\nprivate:\n    long long calculateOperations(const vi &changes)\n    {\n        long long oper = 0;\n        int curr = 0;\n        int n = sz(changes);\n        For(i, 0, n)\n        {\n            if (i == 0 || (changes[i - 1] > 0 && changes[i] > 0) || (changes[i - 1] < 0 && changes[i] < 0))\n            {\n                int ad = abs(changes[i]) - abs(curr);\n                if (ad > 0)\n                {\n                    oper += ad;\n                }\n                curr = changes[i];\n            }\n            else\n            {\n                oper += abs(changes[i]);\n                curr = changes[i];\n            }\n        }\n\n        return oper;\n    }\n};",
+    "submit_ts": "1721533281",
+    "subm_id": "1328005442"
+}

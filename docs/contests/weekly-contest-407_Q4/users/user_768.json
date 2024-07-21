@@ -1,0 +1,6 @@
+{
+    "username": "jiangjinjinyxt",
+    "submission": "def run(target):\n    n = len(target)\n    dp = [0] * n\n    for idx, val in enumerate(target):\n        if not idx:\n            dp[idx] = val\n        elif target[idx] <= target[idx - 1]:\n            dp[idx] = dp[idx - 1]\n        else:\n            dp[idx] = dp[idx - 1] + target[idx] - target[idx-  1]\n    \n    return dp[-1]\n\nclass Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        dp = []\n        for i, j in zip(nums, target):\n            dp.append(j - i)\n        cost = 0\n        lo = 0\n        n = len(dp)\n        while lo < n:\n            while lo < n and dp[lo] == 0:\n                lo += 1\n            hi = lo\n            curr = []\n            while hi < n and ((dp[hi] > 0) == (dp[lo] > 0)):\n                curr.append(abs(dp[hi]))\n                hi += 1\n            lo = hi\n            while lo < n and dp[lo] == 0:\n                lo += 1\n            if curr:\n                cost += run(curr)\n        return cost\n            ",
+    "submit_ts": "1721531822",
+    "subm_id": "548388746"
+}

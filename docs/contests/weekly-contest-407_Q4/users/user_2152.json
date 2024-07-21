@@ -1,0 +1,6 @@
+{
+    "username": "harshal31718",
+    "submission": "class Solution {\npublic:\n    long long find(vector<int> temp){\n        long long ans = temp[0];\n        for(int i=0;i<temp.size()-1;i++){\n            if(temp[i+1]>temp[i]) ans+=temp[i+1]-temp[i];\n        }\n        return ans;\n    }\n\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long ans=0;\n        int n=nums.size();\n        for(int i=0;i<n;i++){\n            nums[i]=target[i]-nums[i];\n        }\n        \n        int i=0;\n        while(i<n){\n            vector<int> temp={};\n            if(nums[i]<0){\n                while(i<n && nums[i]<0){\n                    if(!temp.size() || nums[i]!=temp[temp.size()-1]) temp.push_back(abs(nums[i]));\n                    i++;\n                } \n                ans+=find(temp);\n            }\n            else if(nums[i]>0){\n                while(i<n && nums[i]>0){\n                    if(!temp.size() || nums[i]!=temp[temp.size()-1]) temp.push_back(abs(nums[i]));\n                    i++;\n                }\n                ans+=find(temp);\n            }\n            else i++;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721532813",
+    "subm_id": "1327994676"
+}

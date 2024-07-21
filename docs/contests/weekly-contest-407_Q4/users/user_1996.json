@@ -1,0 +1,6 @@
+{
+    "username": "Anshul_027",
+    "submission": "class Solution {\npublic:\n\n    long long fun(int start,int end,vector<int>&diff){\n        // cout<<start<<\" \"<<end<<endl;\n        if(start==end){\n            return abs(diff[start]);\n        }\n        long long ans=0;\n        for(int i=start;i<=end;i++)diff[i]=abs(diff[i]);\n        \n        ans=diff[start];\n        for(int i=start+1;i<=end;i++){\n            if(diff[i]>diff[i-1]){\n                ans+=(diff[i]-diff[i-1]);\n            }\n        }\n        return ans;\n\n    }\n\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long ans=0;\n        vector<int> diff(nums.size());\n        for(int i=0;i<nums.size();i++){\n            diff[i]=target[i]-nums[i];\n        }\n        int start=0,end=0;\n        while(start<diff.size()){\n            if(end==diff.size()){\n                ans+=fun(start,end-1,diff);\n                break;\n            }\n            if(diff[start]>=0 && diff[end]>=0){\n                end++;\n            }\n            else if(diff[start]<0 && diff[end]<0){\n                end++;\n            }else{\n                ans+=fun(start,end-1,diff);\n                start=end;\n                // end=end+1;\n            }\n\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721533852",
+    "subm_id": "1328018073"
+}

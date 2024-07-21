@@ -1,0 +1,6 @@
+{
+    "username": "lhz960904",
+    "submission": "/**\n * @param {number[]} nums\n * @param {number[]} target\n * @return {number}\n */\nvar minimumOperations = function(nums, target) {\n    \n    // \u64cd\u4f5c\u6b21\u6570\u8d8a\u591a\uff0c\u8d8a\u80fd\u5b8c\u6210\u3002\n    \n    // \u6700\u5c11 \u64cd\u4f5c\u6b21\u6570\u3002\u64cd\u4f5c\u7684\u5b50\u6570\u7ec4\u8d8a\u957f\u8d8a\u597d\uff0c\u627e\u5230\u5b50\u6570\u7ec4\u6ee1\u8db3\u90fd\u5c0f\u4e8etarget\n    const n = nums.length\n    \n    const diff = Array.from({ length: n }, (_, i) => target[i] - nums[i])\n    \n    // console.log('diff', diff)\n    let ans = Math.abs(diff[0])\n    for (let i = 1; i < n; i++) {\n        if (diff[i] === 0) {\n            continue\n        }\n        if (diff[i] > 0 && diff[i - 1] > 0) { // \u53ef\u4ee5\u8ddf\u4e0a\u4e00\u4e2a\u4e00\u8d77-\n            ans += Math.max(diff[i] - diff[i - 1], 0)\n        } else if (diff[i] < 0 && diff[i - 1] < 0) { // \u53ef\u4ee5\u8ddf\u4e0a\u4e00\u4e2a\u4e00\u8d77+\n            if (diff[i] < diff[i - 1]) {\n                ans += diff[i - 1] - diff[i]\n            } \n            // ans += Math.max(diff[i] - diff[i - 1], 0)\n        } else {\n            // \n            ans += Math.abs(diff[i])\n        }\n        // console.log(ans)\n    }\n    return ans\n};",
+    "submit_ts": "1721532644",
+    "subm_id": "548393517"
+}

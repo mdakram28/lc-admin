@@ -1,0 +1,6 @@
+{
+    "username": "MOHITRAWAT061",
+    "submission": "class Solution {\n    func minimumOperations(_ nums: [Int], _ target: [Int]) -> Int {\n        let diff = calculateDiff(nums, target)\n        return calculateOperations(diff)\n    }\n    private func calculateDiff(_ nums: [Int], _ target: [Int]) -> [Int] {\n        return zip(target, nums).map { $0 - $1 }\n    }\n    private func calculateOperations(_ diff: [Int]) -> Int {\n        var totalOps = 0\n        var segDiff = 0\n        \n        for i in 0..<diff.count {\n            let d = diff[i]\n            if isSameSegment(i, diff, d) {\n                let addOps = calculateAdditionalOps(d, segDiff)\n                if addOps > 0 {\n                    totalOps += addOps\n                }\n                segDiff = d\n            } else {\n                totalOps += abs(d)\n                segDiff = d\n            }\n        }\n        \n        return totalOps\n    }\n    private func isSameSegment(_ i: Int, _ diff: [Int], _ d: Int) -> Bool {\n        return i == 0 || (diff[i-1] > 0 && d > 0) || (diff[i-1] < 0 && d < 0)\n    }\n    private func calculateAdditionalOps(_ d: Int, _ segDiff: Int) -> Int {\n        return abs(d) - abs(segDiff)\n    }\n}",
+    "submit_ts": "1721534136",
+    "subm_id": "1328024256"
+}

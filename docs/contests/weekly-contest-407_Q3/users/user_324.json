@@ -1,0 +1,6 @@
+{
+    "username": "jackle",
+    "submission": "class Solution {\npublic:\n    int maxOperations(string s) {\n        int n = s.size();\n        std::vector<std::array<int, 3>> v;\n        for (int i = 0; i < n; i++) {\n            if (s[i] == '1') {\n                int j = i;\n                while (j < n && s[j] == '1') {\n                    j++;\n                }\n                v.push_back({i, j - 1, j - i});\n                i = j - 1;\n            }\n        }\n        v.push_back({n, n, 0});\n        // for (int i = 0; i < v.size(); i++) {\n        //     std::cout << v[i].first << ' ' << v[i].second << '\\n';\n        // }\n        int ans = 0;\n        for (int i = 1; i < v.size(); i++) {\n            ans += ((v[i][0] - v[i - 1][1] - 1) != 0) * v[i - 1][2];\n            v[i][2] += v[i - 1][2];\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721530248",
+    "subm_id": "548377123"
+}

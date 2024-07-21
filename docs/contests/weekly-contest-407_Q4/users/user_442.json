@@ -1,0 +1,6 @@
+{
+    "username": "tompan_1901",
+    "submission": "package main\n\nimport \"fmt\"\n\nfunc minimumOperations(nums []int, target []int) int64 {\n\t// 1, 1, 1, 2\n\t// 1, -2, 2\n\tdec := make([]bool, len(nums))\n\tdp := make([]int, len(nums))\n\tif nums[0]-target[0] > 0 {\n\t\tdp[0] = nums[0] - target[0]\n\t\tdec[0] = true\n\t} else {\n\t\tdp[0] = -(nums[0] - target[0])\n\t\tdec[0] = false\n\t}\n\tfor i := 1; i < len(nums); i++ {\n\t\tif nums[i-1]-target[i-1] > 0 {\n\t\t\tif nums[i]-target[i] > nums[i-1]-target[i-1] {\n\t\t\t\tdp[i] = dp[i-1] + nums[i] - target[i] - (nums[i-1] - target[i-1])\n\t\t\t} else if nums[i]-target[i] >= 0 {\n\t\t\t\tdp[i] = dp[i-1]\n\t\t\t} else {\n\t\t\t\tdp[i] = target[i] - nums[i] + dp[i-1]\n\t\t\t}\n\t\t} else {\n\t\t\tif (target[i] - nums[i]) > (target[i-1] - nums[i-1]) {\n\t\t\t\tdp[i] = dp[i-1] + (target[i] - nums[i]) - (target[i-1] - nums[i-1])\n\t\t\t} else if nums[i]-target[i] <= 0 {\n\t\t\t\tdp[i] = dp[i-1]\n\t\t\t} else {\n\t\t\t\tdp[i] = nums[i] - target[i] + dp[i-1]\n\t\t\t}\n\t\t}\n\t}\n\treturn int64(dp[len(dp)-1])\n}",
+    "submit_ts": "1721531181",
+    "subm_id": "548383633"
+}

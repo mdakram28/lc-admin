@@ -1,0 +1,6 @@
+{
+    "username": "lm105013",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        pos = [[]]\n        neg = [[]]\n        for a, b in zip(nums, target):\n            diff = a - b\n            if diff > 0:\n                if neg[-1]: neg.append([])\n                pos[-1].append(diff)\n            elif diff == 0:\n                if pos[-1]: pos.append([])\n                if neg[-1]: neg.append([])\n            else:\n                if pos[-1]: pos.append([])\n                neg[-1].append(-diff)\n\n        def find(arr):\n            if not arr: return 0\n            arr = [0] + arr + [0]\n            ans = 0\n            min_n = 0\n            for i in range(1, len(arr)-1):\n                if arr[i] >= arr[i-1] and arr[i] >= arr[i+1]:\n                    ans += arr[i] - min_n\n                    min_n = arr[i]\n                else:\n                    min_n = min(min_n, arr[i])\n            return ans\n\n\n\n        return sum(find(arr) for arr in pos) + sum(find(arr) for arr in neg)",
+    "submit_ts": "1721532897",
+    "subm_id": "1327996627"
+}

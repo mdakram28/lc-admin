@@ -1,0 +1,6 @@
+{
+    "username": "Pras28",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff = [target[i] - nums[i] for i in range(len(nums))]\n        \n        pref = [0]\n        prev = 0\n        \n        for i in diff:\n            pref.append(i - prev)\n            prev = i\n        print(pref)\n            \n        negs = []\n        pos = []\n        for i in pref:\n            if i < 0:\n                negs.append(abs(i))\n            else:\n                pos.append(i)\n        ops = 0\n        while len(negs) and len(pos):\n            x = negs.pop()\n            y = pos.pop()\n            if x > y:\n                ops += y\n                negs.append(x - y)\n            elif y > x:\n                ops += x\n                pos.append(y - x)\n            else:\n                ops += x\n        negs.append(0)\n        pos.append(0)\n        return ops + sum(negs) + sum(pos)",
+    "submit_ts": "1721531044",
+    "subm_id": "1327950716"
+}

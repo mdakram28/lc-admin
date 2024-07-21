@@ -1,0 +1,6 @@
+{
+    "username": "enryuxbt",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n       \n        n=len(target)\n        A = [target[i]-nums[i] for i in range(n)]\n        maxp,minp = 0,0\n        grps = []\n        for i in range(len(A)):\n            if grps and grps[-1] and grps[-1][-1] > 0 and A[i]>0: grps[-1].append(A[i])\n            elif grps and grps[-1] and grps[-1][-1] <0 and A[i]<0: grps[-1].append(A[i])\n            else: grps.append([A[i]])\n\n        grps = [[ abs(x) for x in grp ] for grp in grps if grp]\n        \n        def solve(grp):\n            curmax = 0 \n            ans = 0\n            for x in grp:\n                if x<curmax: \n                    curmax=x\n                else:\n                    ans+=x-curmax\n                    curmax=x\n            return ans\n                    \n            \n        return sum(solve(grp) for grp in grps)            \n                \n                \n            \n            ",
+    "submit_ts": "1721533065",
+    "subm_id": "1328000472"
+}

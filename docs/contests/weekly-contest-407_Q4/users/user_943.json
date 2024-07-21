@@ -1,0 +1,6 @@
+{
+    "username": "litang_dingzhen",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        \n        posi = [0]\n        neg = [0]\n        for x, y in zip(nums, target):\n            if y >= x:\n                posi.append(y-x)\n                neg.append(0)\n            else:\n                posi.append(0)\n                neg.append(x - y)\n        \n        posi.append(0)\n        neg.append(0)\n        n = len(posi)\n        ans = 0\n        \n        \n        def do(arr):\n            nonlocal ans\n            st = []\n            for i in range(n):\n                while len(st) > 1 and arr[st[-1]] > arr[i]:\n                    ans += arr[st[-1]] - max(arr[st[-2]], arr[i])\n                    st.pop()\n                st.append(i)\n        \n        do(posi)\n        do(neg)\n        return ans",
+    "submit_ts": "1721531823",
+    "subm_id": "548388759"
+}

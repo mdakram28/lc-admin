@@ -1,0 +1,6 @@
+{
+    "username": "jwpassion1",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long ans = 0;\n        int N = (int)nums.size();\n        vector<int> sta(1);\n        for (int i = 0; i < N; i++){\n            if (target[i] == nums[i]){\n                sta.clear();\n                sta.push_back(0);\n            }\n            else if (target[i] < nums[i]){\n                bool flag = true;\n                while (sta.size() && (sta.back() > 0 || sta.back() < target[i] - nums[i])){\n                    if (sta.back() < target[i] - nums[i]) flag = false;\n                    sta.pop_back();\n                }\n                if (flag) ans += sta.back() - target[i] + nums[i];\n                sta.push_back(target[i] - nums[i]);\n            }\n            else{\n                bool flag = true;\n                while (sta.size() && (sta.back() < 0 || sta.back() > target[i] - nums[i])){\n                    if (sta.back() > target[i] - nums[i]) flag = false;\n                    sta.pop_back();\n                }\n                if (flag) ans += target[i] - nums[i] - sta.back();\n                sta.push_back(target[i] - nums[i]);\n            }\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1721531018",
+    "subm_id": "1327949994"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "tonghuikang",
+    "submission": "def remove_consecutive_duplicates(lst):\n    res = []\n    for x in lst:\n        if res and x == res[-1]:\n            continue\n        res.append(x)\n    return res\n\n\nclass Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff = [a-b for a,b in zip(nums, target)]\n        \n        # print()\n        # print(diff)\n        \n        if diff.count(0) == len(diff):\n            print('exit')\n            return 0\n        \n        diff = remove_consecutive_duplicates(diff)\n        # print(diff)\n        \n        diff = [0,0,0,0] + diff + [0,0,0,0]\n        \n        res = 0\n        \n        arr = [0]\n        for a,b,c,d in zip(diff, diff[1:], diff[2:], diff[3:]):\n            if a < b and b > c:\n                arr.append(b)\n            if a > b and b < c:\n                arr.append(b)\n        arr.append(0)\n        \n        # print(arr)\n        \n        for a,b in zip(arr[1::2], arr[2::2]):\n            if a < b:\n                res += b-a\n            else:\n                res += a-b\n        return res            \n\n            \n        \n",
+    "submit_ts": "1721530716",
+    "subm_id": "548380534"
+}

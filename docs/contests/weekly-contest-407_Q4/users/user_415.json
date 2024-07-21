@@ -1,0 +1,6 @@
+{
+    "username": "qVUuOvFdPa",
+    "submission": "int cmp(const void*a,const void*b)\n{\n    int x=(*(int**)a)[0];\n    int y=(*(int**)b)[0];\n    return abs(y)-abs(x);\n}\nbool same(int a,int b)\n{\n    if(a>0&&b>0)\n        return true;\n    if(a<0&&b<0)\n        return true;\n    return false;\n}\nclass Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long ans=0;\n        int n=nums.size();\n        int **a=(int**)malloc(sizeof(int*)*n);\n        for(int i=0;i<n;i++)\n        {\n            a[i]=(int*)malloc(sizeof(int)*2);\n            a[i][0]=target[i]-nums[i];\n            a[i][1]=i;\n        }\n        int get[n];\n        memset(get,-1,sizeof get);\n        qsort(a,n,sizeof(int*),cmp);\n        for(int i=0;i<n;i++)\n        {\n            int x=a[i][0],index=a[i][1];\n            int t=abs(x);\n            if(index-1>=0&&get[index-1]!=-1)\n            {\n                if(same(x,target[index-1]-nums[index-1]))\n                    t-=abs(x);\n            }\n            if(index+1<n&&get[index+1]!=-1)\n            {\n                if(same(x,target[index+1]-nums[index+1]))\n                    t-=abs(x);\n            }\n            get[index]=1;\n            ans+=t;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721531400",
+    "subm_id": "548385084"
+}

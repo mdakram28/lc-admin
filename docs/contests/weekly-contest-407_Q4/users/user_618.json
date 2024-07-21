@@ -1,0 +1,6 @@
+{
+    "username": "windbbt",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        def sgn(x):\n            if x == 0:\n                return 0\n            if x > 0:\n                return 1\n            if x < 0:\n                return -1\n\n        def abs(x):\n            if x >= 0:\n                return x\n            else:\n                return -x\n\n        def f(x, y):\n            for i in range(x, y):\n                a[i] = abs(a[i])\n            if a[i] == 0:\n                return 0\n            if y - x < 3:\n                return max(a[x:y])\n            b = a[x:y]\n            ans = 0\n            for i in range(1, len(b)):\n                if b[i] < b[i - 1]:\n                    ans += b[i - 1] - b[i]\n            ans += b[-1]\n            return ans\n\n\n        a = [nums[i] - target[i] for i in range(len(nums))]\n        #print(a)\n        res = 0\n        l = 0\n        for i in range(len(a) - 1):\n            if sgn(a[i])== sgn(a[i + 1]):\n                continue\n            else:\n                res += f(l, i+1)\n                l = i + 1\n        return res + f(l, len(a))\n        ",
+    "submit_ts": "1721531252",
+    "subm_id": "1327956261"
+}

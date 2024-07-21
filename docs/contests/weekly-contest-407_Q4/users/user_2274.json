@@ -1,0 +1,6 @@
+{
+    "username": "TejasChalke",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int n = nums.length;\n        for(int i=0; i<n; i++) nums[i] = target[i] - nums[i];\n\n        System.out.println(Arrays.toString(nums));\n        long ans = 0;\n        for(int i=0, j=0; i<n; i=j) {\n            while(i < n && nums[i] == 0) i++;\n            if(i == n) break;\n            j = i;\n            while(j < n && (nums[i] > 0) == (nums[j] > 0)) j++;\n            ans += solve(nums, i++, j-1);\n        }\n\n        return ans;\n    }\n\n    long solve(int[] nums, int start, int end) {\n        Stack<Integer> stk = new Stack<>();\n        if(nums[start] < 0)\n            for(int i=start; i<=end; i++) if(nums[i] < 0) nums[i] = -nums[i];\n\n        long ans = 0;\n        for(int i=start; i<=end; i++) {\n            int curr = nums[i];\n            if(!stk.isEmpty() && curr <= stk.peek()) {\n                ans += stk.peek() - curr;\n                while(!stk.isEmpty() && curr <= stk.peek()) stk.pop();\n            }\n\n            stk.push(curr);\n        }\n\n        int prev = stk.pop();\n        while(!stk.isEmpty()) {\n            ans += prev - stk.peek();\n            prev = stk.pop();\n        }\n        return ans + prev;\n    }\n}",
+    "submit_ts": "1721532982",
+    "subm_id": "1327998598"
+}

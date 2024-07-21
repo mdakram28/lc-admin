@@ -1,0 +1,6 @@
+{
+    "username": "virajchandra51",
+    "submission": "class Solution {\npublic:\n    long long cc(vector<int> target)\n    {\n        int count = target[0];\n        for (int i = 1; i < target.size(); i++)\n            count += max(target[i] - target[i - 1], 0);\n        return count;\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        for(int i=0;i<n;i++) target[i]-=nums[i];\n        vector<int> a;\n        long long c = 0;\n        vector<vector<int>> aa;\n        for(int i=0;i<n;i++)\n        {\n            if(a.size()==0) a.push_back(target[i]);\n            else if(a.back()<0 && target[i]<0) a.push_back(target[i]);\n            else if(a.back()>=0 && target[i]>=0) a.push_back(target[i]);\n            else \n            {\n                aa.push_back(a);\n                a.clear();\n                a.push_back(target[i]);\n            }\n        }\n        if(a.size()>0) \n            aa.push_back(a);\n        for(auto &it:aa)\n        {\n            for(auto &i:it) i=abs(i);\n        }\n        for(auto &it:aa)\n        {\n            c+=cc(it);\n        }\n        return c;\n    }\n};",
+    "submit_ts": "1721530948",
+    "subm_id": "1327948119"
+}

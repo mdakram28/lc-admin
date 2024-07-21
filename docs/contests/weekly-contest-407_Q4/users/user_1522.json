@@ -1,0 +1,6 @@
+{
+    "username": "haruhiui",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        delta = [target[i] - nums[i] for i in range(n)]\n        diff = [delta[0]] + [delta[i] - delta[i - 1] for i in range(1, n)]\n        print(diff)\n        res = 0\n        i = 0\n        last_num = n - 1\n        while i < n:\n            curr = diff[i]\n            res += abs(curr)\n            while last_num > 0 and diff[last_num] == 0:\n                last_num -= 1\n            j = last_num\n            while j > i and curr != 0:\n                if curr * diff[j] < 0:\n                    if abs(curr) < abs(diff[j]):\n                        diff[j] += curr\n                        curr = 0\n                    else:\n                        curr += diff[j]\n                        diff[j] = 0\n                # print(j, diff[j], curr)\n                j -= 1\n            diff[i] = 0\n            i += 1\n            # print(diff, res)\n        res = min(res, sum(abs(x) for x in delta))\n        return res",
+    "submit_ts": "1721531172",
+    "subm_id": "548383564"
+}

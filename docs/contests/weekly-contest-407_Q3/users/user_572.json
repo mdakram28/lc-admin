@@ -1,0 +1,6 @@
+{
+    "username": "sagsango",
+    "submission": "class Solution {\npublic:\n    int maxOperations(string s) {\n        vector<pair<int,int>> arr;\n        int n = s.length();\n        int i = 0;\n        while (i<n) {\n            int j = i;\n            while (j < n && s[i] == s[j]) {\n                ++j;\n            }\n            arr.push_back({s[i]-'0', j-i});\n            i = j;\n        }\n        //return 0;\n        n = arr.size();\n        int end = n-1, ans = 0;\n        vector<int>dp(n);\n        if (n <= 1 ) return 0;\n        if (arr[n-1].first == 1) {\n            end = n - 1 - 2;\n            dp[n-1] = 0;\n        } else {\n            dp[n-2] = 1;\n            ans = dp[n-2] * arr[n-2].second;\n            end = n - 2 - 2;\n        }\n        \n        while (end >= 0) {\n            dp[end] = dp[end+2] + 1;\n            ans += dp[end] * arr[end].second;\n            end -= 2;\n        }\n        \n        return ans;\n        \n    }\n};",
+    "submit_ts": "1721530217",
+    "subm_id": "1327926595"
+}

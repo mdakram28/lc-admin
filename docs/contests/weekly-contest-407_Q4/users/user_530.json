@@ -1,0 +1,6 @@
+{
+    "username": "yuanchenxi2022",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff = []\n        nn =len(nums)\n        for ii in range(nn):\n            diff.append(nums[ii]-target[ii])\n        if nn == 1:\n            return abs(diff[0])\n        # print(diff)\n        def calc(left, right, factor):\n            res = diff[left] * factor\n            for ii in range(left + 1, right + 1):\n                dd = (diff[ii] - diff[ii - 1]) * factor\n                # print(ii, dd, res)\n                if dd > 0:\n                    res += dd\n            return res\n        rr = 0\n        left = 0\n        for ii in range(1, nn):\n            prev = diff[ii - 1]\n            cur = diff[ii]\n            if prev * cur <= 0:\n                rr += calc(left, ii - 1, 1 if prev > 0 else - 1)\n                left = ii\n                continue\n        rr += calc(left, nn - 1, 1 if diff[-1] >0 else -1)\n        return rr\n",
+    "submit_ts": "1721531069",
+    "subm_id": "1327951364"
+}

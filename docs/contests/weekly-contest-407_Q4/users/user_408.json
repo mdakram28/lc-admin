@@ -1,0 +1,6 @@
+{
+    "username": "mp1256",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        using ll = long long;\n        int n = nums.size();\n        vector<int> diff(n);\n        for (int i = 0; i < n; ++i) {\n            diff[i] = target[i] - nums[i];\n        }\n        stack<int> st;\n        bool fu = 0;\n        ll res = 0;\n        for (int x : diff) {\n            if (x == 0) {\n                fu = 0;\n                while (st.size()) st.pop();\n            } else if (x > 0) {\n                if (fu) {\n                    fu = 0;\n                    while (st.size()) st.pop();\n                }\n            } else {\n                if (!fu) {\n                    fu = 1;\n                    while (st.size()) st.pop();\n                }\n            }\n            x = abs(x);\n            bool p = 0;\n            while (st.size() && st.top() > x) {\n                p = 1;\n                st.pop();\n            }\n            if (!p) {\n                int y = st.size() ? st.top() : 0;\n                res += x - y;\n            }\n            st.push(x);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721531079",
+    "subm_id": "548382950"
+}

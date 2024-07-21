@@ -1,0 +1,6 @@
+{
+    "username": "j10926jacky",
+    "submission": "public class Solution {\n    public long MinimumOperations(int[] nums, int[] target)\n    {\n        int n = nums.Length;\n        var arr = new int[n];\n        for (int i = 0; i < n; i++)\n        {\n            arr[i] = target[i] - nums[i];\n        }\n        return Dfs(arr, 0, arr.Length - 1, 0);\n    }\n\n    long Dfs(int[] arr, int start, int end, long pre)\n    {\n        if (start > end)\n            return 0;\n        if (arr[start] == pre)\n            return Dfs(arr, start + 1, end, pre);\n        if (arr[end] == pre)\n            return Dfs(arr, start, end - 1, pre);\n        if (arr[start] > pre && arr[end] > pre)\n        {\n            int min = Math.Min(arr[start], arr[end]);\n            return min - pre + Dfs(arr, start, end, min);\n        }\n        else if (arr[start] < pre && arr[end] < pre)\n        {\n            int max = Math.Max(arr[start], arr[end]);\n            return pre - max + Dfs(arr, start, end, max);\n        }\n        else\n        {\n            int firstDiff = start;\n            while ((pre - arr[firstDiff]) * (pre - arr[end]) < 0)\n            {\n                firstDiff++;\n            }\n            return Dfs(arr, start, firstDiff - 1, pre) + Dfs(arr, firstDiff, end, pre);\n        }\n    }\n}",
+    "submit_ts": "1721533718",
+    "subm_id": "1328015164"
+}

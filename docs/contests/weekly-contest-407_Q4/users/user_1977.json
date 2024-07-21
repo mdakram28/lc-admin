@@ -1,0 +1,6 @@
+{
+    "username": "vikky4321",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        vector<int> diff = calcDiff(nums, target);\n        return countOps(diff);\n    }\nprivate:\n    vector<int> calcDiff(const vector<int>& nums, const vector<int>& target) {\n        vector<int> diff(nums.size());\n        for (int i = 0; i < nums.size(); ++i) {\n            diff[i] = target[i] - nums[i];\n        }\n        return diff;\n    }\n\n    long long countOps(const vector<int>& diff) {\n        long long ops = 0;\n        int curSeg = 0;\n\n        for (int i = 0; i < diff.size(); ++i) {\n            if (i == 0 || (diff[i - 1] > 0 && diff[i] > 0) || (diff[i - 1] < 0 && diff[i] < 0)) {\n                int addOps = abs(diff[i]) - abs(curSeg);\n                if (addOps > 0) {\n                    ops += addOps;\n                }\n                curSeg = diff[i];\n            } else {\n                ops += abs(diff[i]);\n                curSeg = diff[i];\n            }\n        }\n\n        return ops;\n    }\n};",
+    "submit_ts": "1721533228",
+    "subm_id": "1328004253"
+}

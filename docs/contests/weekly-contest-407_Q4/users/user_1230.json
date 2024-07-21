@@ -1,0 +1,6 @@
+{
+    "username": "rocky_d",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        ans = 0\n        # diffs = [a - b for a, b in zip(nums, target)]\n        # print(diffs)\n        for negative, group in groupby((a - b for a, b in zip(nums, target)), key = lambda num: num < 0):\n            stk = deque([0])\n            for val in chain((map(neg, group) if negative else group), [0]):\n                ls = []\n                while val < stk[-1]:\n                    ls.append(stk.pop() - val)\n                ls.append(0)\n                # cnt = 1\n                for i in range(1, len(ls)):\n                    if ls[i - 1] == ls[i]:\n                        # cnt += 1\n                        pass\n                    else:\n                        ans += ls[i - 1] - ls[i]\n                        # cnt = 1\n                stk.append(val)\n        return ans\n",
+    "submit_ts": "1721532890",
+    "subm_id": "548394904"
+}

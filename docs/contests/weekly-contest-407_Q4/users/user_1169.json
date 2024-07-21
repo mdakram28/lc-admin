@@ -1,0 +1,6 @@
+{
+    "username": "LeviAckerman616",
+    "submission": "void fun1(int* n, int ns, int* t, int* d) {\n    int i = 0;\n    while (i < ns) {\n        d[i] = t[i] - n[i];\n        i++;\n    }\n}\n\nint fun2(int* d, int i, int csd) {\n    return abs(d[i]) - abs(csd);\n}\n\nvoid fun3(int* d, int* csd, long long* to, int i) {\n    int ao = fun2(d, i, *csd);\n    *to += ao > 0 ? ao : 0;\n    *csd = d[i];\n}\n\nvoid fun4(int* d, int* csd, long long* to, int i) {\n    *to += abs(d[i]);\n    *csd = d[i];\n}\n\nlong long minimumOperations(int* n, int ns, int* t, int ts) {\n    int* d = (int*)malloc(ns * sizeof(int));\n    fun1(n, ns, t, d);\n    long long to = 0;\n    int csd = 0;\n    int i = 0;\n    while (i < ns) {\n        ((i == 0) || ((d[i - 1] > 0) && (d[i] > 0)) || ((d[i - 1] < 0) && (d[i] < 0))) \n            ? fun3(d, &csd, &to, i) \n            : fun4(d, &csd, &to, i);\n        i++;\n    }\n    free(d);\n    return to;\n}",
+    "submit_ts": "1721532789",
+    "subm_id": "1327994101"
+}

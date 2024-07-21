@@ -1,0 +1,6 @@
+{
+    "username": "math_pi",
+    "submission": "class Solution {\npublic:\n    long long solve(vector<int> &x) {\n        long long ans = abs(x[0]);\n        for(int i=1;i<x.size();i++){\n            ans+=max(abs(x[i])-abs(x[i-1]),0);\n        }\n        return ans;\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<int> diff(n);\n        for(int i=0; i<n; i++)diff[i]=nums[i]-target[i];\n        \n        vector<vector<int>> neg, pos;\n        vector<int> tmp;\n        \n        for(int i=0; i<n; i++) {\n            if(diff[i]<0) {\n                tmp.clear();\n                while(i<n&&diff[i]<0) tmp.push_back(diff[i++]);\n                neg.push_back(tmp);\n                i--;\n            }else if(diff[i]>0){\n                tmp.clear();\n                while(i<n&&diff[i]>0) tmp.push_back(diff[i++]);\n                pos.push_back(tmp);\n                i--;\n            }\n        }\n        long long tot=0;\n        for(auto x: pos) {\n            // for(auto c: x)cout<<c<<' ';cout<<'\\n';\n            tot+=solve(x);\n        }\n        for(auto y: neg){\n            // for(auto c: y)cout<<c<<' ';cout<<'\\n';\n            tot+=solve(y);\n        }\n        return tot;\n        \n        \n    }\n};",
+    "submit_ts": "1721530581",
+    "subm_id": "1327937775"
+}

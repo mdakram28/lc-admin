@@ -1,0 +1,6 @@
+{
+    "username": "maxi32",
+    "submission": "class Solution {\npublic:\n\n    long long solve(vector<int>& nums,int left,int right) {\n        long long ans=0;\n        ans=abs(nums[left]);\n        for(int i=left+1;i<=right;i++) {\n            ans+=max(0,abs(nums[i])-abs(nums[i-1]));\n        }\n        return ans;\n    }\n\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n=nums.size();\n        long long ans=0;\n        int left=0;\n        int right=0;\n        vector<int> values(n);\n\n        for(int i=0;i<n;i++) {\n            values[i]=target[i]-nums[i];\n        }\n\n        int i=0;\n        while(i<n) {\n            if(values[i]>=0) {\n                while(i<n and values[i]>=0) {\n                    i++;\n                }\n                ans+=solve(values,left,i-1);\n                left=i;\n            }\n            else {\n                while(i<n and values[i]<0) {\n                    i++;\n                }\n                ans+=solve(values,left,i-1);\n                left=i;\n            }\n        }\n        return ans;\n\n\n    }\n};",
+    "submit_ts": "1721532385",
+    "subm_id": "1327984562"
+}

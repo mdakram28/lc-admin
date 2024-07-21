@@ -1,0 +1,6 @@
+{
+    "username": "heyPaarth",
+    "submission": "class Solution {\nprivate:\n    bool samesign(int a, int b){\n        if(a==0 || b== 0) return false;\n        return (a>=0 && b>=0) || (a<=0) && (b<=0);\n    }\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<int> difference(n);\n\n        for(int i=0; i<n; i++){\n            difference[i] = target[i] - nums[i];\n        }\n\n        int ind = 0;\n        while(ind < n && difference[ind] == 0) ind++;\n        if(ind >= n) return 0;\n        int prevdiff = difference[ind];\n        long long ans = abs(difference[ind]);\n\n        for(int i=ind+1; i<n; i++){\n            int currdiff = difference[i];\n            if(samesign(prevdiff,currdiff)){\n                if(abs(currdiff) > abs(prevdiff)){\n                    ans += abs(currdiff-prevdiff);\n                }\n            }\n            else{\n                ans += abs(currdiff);\n            }\n            prevdiff = currdiff;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721532584",
+    "subm_id": "1327989311"
+}

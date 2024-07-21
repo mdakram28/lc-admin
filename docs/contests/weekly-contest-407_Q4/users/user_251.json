@@ -1,0 +1,6 @@
+{
+    "username": "changeme",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        long res = 0;\n\n        var s = new Stack<Integer>();\n        s.add(target[0] - nums[0]);\n        for (int i = 1; i < nums.length; i++) {\n            int d = target[i] - nums[i];\n            if ((s.peek() >= 0 && d <= 0) || (s.peek() <= 0 && d >= 0)) {\n                res += Math.abs(s.pop());\n                s.clear();\n                s.add(d);\n            } else if (d >= 0) {\n                if (d < s.peek()) {\n                    res += s.peek() - d;\n                }\n                while (s.size() > 0 && d < s.peek()) {\n                    s.pop();\n                }\n                s.add(d);\n            } else {\n                if (d > s.peek()) {\n                    res += d - s.peek();\n                }\n                while (s.size() > 0 && d > s.peek()) {\n                    s.pop();\n                }\n                s.add(d);\n            }\n        }\n        res += Math.abs(s.pop());\n\n        return res;\n    }\n}",
+    "submit_ts": "1721530910",
+    "subm_id": "1327947098"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "xiao-liu-nu-li-zai-xue-xi",
+    "submission": "func minimumOperations(nums []int, target []int) int64 {\n    n:=len(nums)\n    //\n    // 0,3,-1,-9,3,1,5,3,\n    for i:=range target{\n        target[i] -= nums[i]\n    }\n    dp:=make([]int,n)\n    dp[0] = abs(target[0])\n    for i:=1;i<n;i++{\n        if check(target[i],target[i-1]) {\n            if target[i-1] >0 {\n                if target[i-1] >= target[i]{\n                    dp[i] = dp[i-1]\n                }else{\n                    dp[i] = dp[i-1] + target[i] - target[i-1]\n                }  \n            }else{\n                if target[i-1] <= target[i]{\n                    dp[i] = dp[i-1]\n                }else{\n                    dp[i] = dp[i-1] + target[i-1] - target[i]\n                }              \n            }\n        }else{\n                dp[i] = dp[i-1]+abs(target[i])\n                }\n    }\n   return int64(dp[n-1])\n}\nfunc abs(x int)int{\n    if x<0{\n        return -x\n    }\n    return x\n}\nfunc check(x int, y int)bool{\n    return x*y>0\n}",
+    "submit_ts": "1721532663",
+    "subm_id": "548393645"
+}

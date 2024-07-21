@@ -1,0 +1,6 @@
+{
+    "username": "pedantic-newtoncsf",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long result = 0;\n        int n = nums.size();\n        vector<int> difference(n,0);\n        for(int i = 0; i < n; i++) difference[i] = target[i] - nums[i];\n        int l = 0;\n        while(l < n){\n            int base = difference[l];\n            int r = l;\n            if(base > 0){\n                while(r < n && difference[r] > 0) {\n                    base = min(difference[r], base);\n                    r++;\n                }\n                while(r > l) difference[--r] -= base;\n                result += base;\n            }\n            else if(base < 0){\n                while(r < n && difference[r] < 0) {\n                    base = max(difference[r], base);\n                    r++;\n                }\n                while(r > l) difference[--r] -= base;\n                result -= base;\n            }\n            else l++;\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1721532696",
+    "subm_id": "548393831"
+}

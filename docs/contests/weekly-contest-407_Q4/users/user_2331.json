@@ -1,0 +1,6 @@
+{
+    "username": "zzjjbb",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        def calc(di):\n            out = 0\n            n = len(di)\n            i = 0\n            pre = 0\n            pv = 0\n            peak = 0\n            inc = True\n            while i < n:\n                if di[i] == pre:\n                    i += 1\n                elif di[i] > pre:\n                    if inc:\n                        peak = pre = di[i]\n                        i += 1\n                    else:\n                        # print(peak, pv, pre)\n                        out += peak - pv\n                        pv = pre\n                        inc = True\n                else:\n                    inc = False\n                    pre = di[i]\n                    i += 1\n            out += peak - pv\n            return out\n\n        ans = 0\n        dif = [i - j for i, j in zip(nums, target)]\n        for k, g in groupby(dif, key=lambda x: x > 0):\n            if k:\n                ans += calc(list(g))\n            else:\n                ans += calc([-gi for gi in g])\n        # print(calc([1,2,3,5,2,4,6,1,8,4]))\n        \n        return ans\n                \n\n",
+    "submit_ts": "1721534251",
+    "subm_id": "1328026789"
+}

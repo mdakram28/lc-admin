@@ -1,0 +1,6 @@
+{
+    "username": "Jorah",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        long res = 0;\n        Stack<Integer> stack = new Stack<>();\n        for (int i = 0; i < nums.length; i++) {\n            int diff = target[i] - nums[i];\n            if (diff >= 0) {\n                while (!stack.isEmpty() && stack.peek() < 0) {\n                    res += Math.abs(stack.pop());\n                }\n                while (!stack.isEmpty() && diff >= stack.peek() && stack.peek() >= 0) {\n                    stack.pop();\n                }\n                if (!stack.isEmpty()) {\n                    res += Math.abs(diff - stack.pop());\n                }\n            } else {\n                while (!stack.isEmpty() && stack.peek() > 0) {\n                    res += Math.abs(stack.pop());\n                }\n                while (!stack.isEmpty() && diff <= stack.peek() && stack.peek() <= 0) {\n                    stack.pop();\n                }\n                if (!stack.isEmpty()) {\n                    res += Math.abs(diff - stack.pop());\n                }\n            }\n            stack.push(diff);\n        }\n        while (!stack.isEmpty()) {\n            res += Math.abs(stack.pop());\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1721534051",
+    "subm_id": "548402265"
+}

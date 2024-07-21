@@ -1,0 +1,6 @@
+{
+    "username": "SaiSusshanth",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        pref = [0]*(n + 1)\n        res = 0\n        \n        temp = [nums[i] - target[i] for i in range(n)]\n        maxi, mini = -1, float('inf')\n        \n        f = 0\n        for i in temp:\n            if i >= 0:\n                if f == -1:\n                    res += abs(mini)\n                    mini = float('inf')\n                    f = 1\n                    maxi = i\n                else:\n                    if maxi > i:\n                        res += maxi - i\n                    maxi = i\n                    f = 1\n            else:\n                if f == 1:\n                    res += maxi\n                    maxi = -1\n                    f = -1\n                    mini = i\n                else:\n                    if mini < i:\n                        res += abs(mini - i)\n                    mini = i\n                    f = -1\n            # print(nums, res, maxi, mini)\n        \n        if maxi > -1:\n            res += maxi\n        if mini < float('inf'):\n            res += abs(mini)\n        return res\n        ",
+    "submit_ts": "1721531496",
+    "subm_id": "1327962397"
+}

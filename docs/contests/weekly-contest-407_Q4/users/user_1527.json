@@ -1,0 +1,6 @@
+{
+    "username": "coderkb",
+    "submission": "class Solution {\n    long long solve(vector<long long>& diff, int n, int i, long long canAdd) {\n        if(i == n) return 0;\n\n        long long curr = diff[i];\n        // cout << i << \" \" << curr << \" \" << canAdd << endl;\n        if(canAdd == 0 || curr == 0) {\n            return abs(curr) + solve(diff, n, i + 1, curr);\n        } else if(canAdd > 0) {\n            if(curr > 0) {\n                return max(curr - canAdd, 0ll) + solve(diff, n, i + 1, curr);\n            } else {\n                return abs(curr) + solve(diff, n, i + 1, curr);\n            }\n        } else {\n            if(curr < 0) {\n                return max(canAdd - curr, 0ll) + solve(diff, n, i + 1, curr);\n            } else {\n                return curr + solve(diff, n, i + 1, curr);\n            }\n        }\n        return 0;\n    }\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<long long> diff(n);\n        for(int i = 0; i < n; ++i) {\n            diff[i] = target[i] - nums[i];\n        }\n        // now cnt the operations to make diff array 0\n        long long ans = solve(diff, n, 0, 0L);\n        return ans;\n    }\n};",
+    "submit_ts": "1721532677",
+    "subm_id": "1327991475"
+}

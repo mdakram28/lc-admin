@@ -1,0 +1,6 @@
+{
+    "username": "1abhi",
+    "submission": "class Solution {\npublic:\n    int solve(int i, int j, const std::vector<int>& diff) {\n        int x = diff[i];\n        \n        for (int itr = i+1; itr <= j && itr < diff.size(); itr++) {\n            x += max(0, diff[itr]-diff[itr-1]);\n        }\n        return x;\n    }\n\n    long long minimumOperations(std::vector<int>& nums, std::vector<int>& target) {\n        int n = nums.size();\n        long long ans = 0; \n        vector<int> diff(n);\n        \n       \n        for (int i = 0; i < n; i++) {\n            diff[i] = abs(target[i] - nums[i]);\n        }\n        \n        for (int i = 0; i < n; ) {\n  \n            int temp = target[i] - nums[i];\n            bool pos = (temp > 0);\n            int j = i;\n            for (j = i + 1; j < n; j++) {\n                if ((pos && target[j] - nums[j] < 0) || (!pos && target[j] - nums[j] > 0)) {\n                    j--;\n                    break;\n                }\n            }\n            cout<<i<<\" \"<<j<<endl;\n            ans += solve(i, j, diff); \n            i = j+1 ; \n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721533853",
+    "subm_id": "1328018097"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "frixxxer",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        t = [0]\n        diff = [b - a for a, b in zip(nums, target)]\n        def sign(x):\n            if x < 0:\n                return -1\n            if x > 0:\n                return 1\n            return 0\n        def div(arr, parity = None):\n            if not arr:\n                return 0\n            t = 0\n            if parity is not None:\n                m = -min(arr) if parity == 1 else -max(arr)\n                t += abs(m)\n                for i in range(len(arr)):\n                    arr[i] += m\n            parity_idx = None\n            parity = None\n            for i in range(0, len(arr) + 1):\n                if parity_idx is not None and (i == len(arr) or sign(arr[i]) != parity):\n                    t += div(arr[parity_idx:i], parity)\n                    parity_idx, parity = None, None\n                if i < len(arr) and parity_idx is None and sign(arr[i]) != 0:\n                    parity_idx = i\n                    parity = sign(arr[i])\n            return t\n        p = [sign(x) for x in diff]\n        parity = p[0] if all([q == p[0] for q in p]) else None\n        return div(diff, parity=parity)",
+    "submit_ts": "1721531585",
+    "subm_id": "1327964735"
+}

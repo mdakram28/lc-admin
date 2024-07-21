@@ -1,0 +1,6 @@
+{
+    "username": "mishai",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<int> diff(n);\n        for (int i = 0; i < n; i++) {\n            diff[i] = target[i] - nums[i];\n        }\n        vector<int> pfx(n);\n        pfx[0] = diff[0];\n        for (int i = 1; i < n; i++) {\n            pfx[i] = diff[i] - diff[i - 1];\n        }\n        // for (auto x : pfx) cout << x << \" \";\n        // cout << \"\\n\";\n        long long ans = 0;\n        long long pos = 0;\n        long long neg = 0;\n        for (auto x : pfx) {\n            if (x > 0) {\n                if (x >= pos) {\n                    neg += (x - pos);\n                    ans += (x - pos);\n                    pos = 0;\n                } else {\n                    pos -= x;\n                }\n            } else {\n                if (-x >= neg) {\n                    pos += -x - neg;\n                    ans += (-x - neg);\n                    neg = 0;\n                } else {\n                    neg += x;\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721531914",
+    "subm_id": "1327973077"
+}

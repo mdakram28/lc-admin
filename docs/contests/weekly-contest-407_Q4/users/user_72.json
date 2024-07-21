@@ -1,0 +1,6 @@
+{
+    "username": "mangoqwq",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int N = nums.size();\n        vector<int> a = nums;\n        for (int i = 0; i < N; ++i) {\n            a[i] -= target[i];\n        }\n\n        long long ans = 0;\n        auto process = [&](vector<int> vec) {\n            for (int &x : vec) x = abs(x);\n            vector<int> stk;\n            for (int x : vec) {\n                // cout << x << \" \";\n                if (!stk.empty() && stk.back() > x) {\n                    ans += stk.back() - x;\n                    while (!stk.empty() && stk.back() > x) {\n                        stk.pop_back();\n                    }\n                }\n                stk.push_back(x);\n            }\n            if (!stk.empty()) ans += stk.back();\n        };\n\n        vector<int> cur;\n        for (int x : a) {\n            if (!cur.empty() && 1LL * x * cur.back() <= 0) {\n                process(cur);\n                cur.clear();\n            }\n            if (x == 0) continue;\n            cur.push_back(x);\n        }\n        if (!cur.empty()) process(cur);\n        return ans;\n    }\n};",
+    "submit_ts": "1721529865",
+    "subm_id": "1327915376"
+}

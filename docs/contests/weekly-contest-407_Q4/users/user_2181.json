@@ -1,0 +1,6 @@
+{
+    "username": "abhijeetmourya6",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        vector<long long> dif;\n        long long ans = 0;\n        int n = nums.size();\n        for(int i=0;i<n;i++){\n            dif.push_back(target[i]-nums[i]);\n        }\n        int i = 0;\n        long long p=0;\n        while(i!=n){\n            long long maxi=0;\n            if(dif[i]>0){\n                if(p>0)ans-=p;\n                int prev = dif[i];\n                while(i!=n && dif[i]>0 && dif[i]>=prev) maxi=max(dif[i],maxi),prev=dif[i],i++;\n                while(i!=n && dif[i]>0 && dif[i]<=prev) maxi=max(dif[i],maxi),prev=dif[i],i++;\n                ans+=maxi;\n                p=prev;\n            }\n            else if(dif[i]<0){\n                if(p<0) ans+=p;\n                int prev = dif[i];\n                while(i!=n && dif[i]<0 && dif[i]<=prev) maxi=min(dif[i],maxi),prev=dif[i],i++;\n                while(i!=n && dif[i]<0 && dif[i]>=prev) maxi=min(dif[i],maxi),prev=dif[i],i++;\n                ans-=maxi;\n                p=prev;\n            }\n            else i++,p=0;\n        }\n        // for(auto i:dif) cout<<i<<\" \";\n        return ans;\n        // return 0;\n    }\n};",
+    "submit_ts": "1721532885",
+    "subm_id": "1327996324"
+}

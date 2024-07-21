@@ -1,0 +1,6 @@
+{
+    "username": "suyash21__",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<int> diff(n, 0);\n        for(int i=0;i<n;i++)\n            diff[i] = target[i] - nums[i];\n        vector<pair<int, int>> seggs;\n        int st = 0;\n        for(int i=1;i<n;i++){\n            if((diff[i] >= 0 && diff[st] >= 0) || (diff[i] < 0 && diff[st] < 0))\n                continue;\n            else{\n                seggs.push_back({st, i-1});\n                st = i;\n            }\n        }\n        seggs.push_back({st, n-1});\n        long long ans = 0;\n        for(auto [x,y] : seggs){\n            if(diff[x] < 0) diff[x] = -diff[x];\n            ans += diff[x];\n            for(int i=x+1;i<=y;i++){\n                if(diff[i] < 0) diff[i] = -diff[i];\n                ans += max(diff[i] - diff[i-1], 0);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721533259",
+    "subm_id": "1328004941"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "e7x0pbWqIm",
+    "submission": "typedef long long ll;\nll f(vector<ll>&v){\n    ll ans = v[0],n = v.size();\n\n    ll op = ans;\n\n    for(int i = 1;i<n;i++){\n        if(v[i] > op){\n            ans += v[i] - op;\n\n            op = v[i];\n        }else op = v[i];\n    }\n\n    return ans;\n\n}\nclass Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        ll ans = 0,n = nums.size();\n\n        vector<ll>diff;\n\n        for(int i = 0;i<n;i++)diff.push_back(nums[i] - target[i]);\n\n        for(int i = 0;i<n;i++){\n            if(diff[i] == 0){\n                int j = i;\n                while(j < n && diff[j] == diff[i])j++;\n                i = j;\n            }\n\n            if(i == n)break;\n\n            vector<ll>d;\n            int j = i;\n\n            while(j < n && (diff[i] * 1ll * diff[j]) >= 0){\n                if(diff[j] == 0)break;\n                d.push_back(abs(diff[j]));\n                j++;\n            }\n\n            ans += f(d);\n\n            i = j - 1;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721532843",
+    "subm_id": "1327995368"
+}

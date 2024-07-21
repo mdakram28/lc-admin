@@ -1,0 +1,6 @@
+{
+    "username": "SkookumChoocher",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diffs = map(sub, target, nums)\n        total = 0\n        for sign, group in groupby(diffs, key=signfunc):\n            if sign == 1:\n                lo = hi = count = next(group)\n                total += count\n                for x in group:\n                    if x > hi:\n                        total += x - hi\n                    if x < lo:\n                        lo = x\n                    hi = x\n            elif sign == -1:\n                lo = hi = count = next(group)\n                total -= count\n                for x in group:\n                    if x < lo:\n                        total += lo - x\n                    if x > hi:\n                        hi = x\n                    lo = x\n        return total\n\ndef signfunc(a):\n    return (a > 0) - (a < 0)",
+    "submit_ts": "1721532317",
+    "subm_id": "1327982976"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Lezhka",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int n = nums.length;\n        for (int i = 0; i < n; ++i) {\n            nums[i] -= target[i];\n        }\n\n\n        long a = 0;\n\n        for (int i0 = 0; i0 < n;) {\n            while (i0 < n && nums[i0] == 0) {\n                ++i0;\n            }\n\n            if (i0 == n) {\n                break;\n            }\n\n            boolean s = nums[i0] < 0;\n            int i1 = i0;\n\n            while (i1 < n && (nums[i1] < 0) == s) {\n                nums[i1] = Math.abs(nums[i1]);\n                ++i1;\n            }\n\n            a += recurse(nums, i0, i1);\n\n            //System.out.println(i0 + \" \" + i1);\n            i0 = i1;\n        }\n\n        return a;\n    }\n\n    public long recurse(int[] nums, int i0, int i1) {\n        long a = 0;\n        int max = 0;\n\n        for (int i = i0; i < i1 - 1; ++i) {\n            max = Math.max(nums[i], max);\n            if (nums[i] < nums[i + 1]) {\n                a += max - nums[i];\n                max = nums[i];\n            }\n        }\n\n        a += Math.max(max, nums[i1 - 1]);\n        return a;\n    }\n}",
+    "submit_ts": "1721533623",
+    "subm_id": "1328013095"
+}

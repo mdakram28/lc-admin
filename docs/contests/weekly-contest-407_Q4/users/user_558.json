@@ -1,0 +1,6 @@
+{
+    "username": "MichaelWheeler202",
+    "submission": "from typing import List\nimport numpy\n\nclass Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        ans = 0\n\n        diffList = []\n        for a, b in zip(nums, target):\n            diffList.append(a-b)\n\n        diff = numpy.array(diffList)\n\n        # print(nums)\n        # print(target)\n        # print(diff)\n\n        i = 0\n        while i < len(diff):\n\n            j = 0\n            triggered = False\n            while i + 1 < len(diff) and diff[i] == 0:\n                i += 1\n                triggered = True\n\n            if not triggered and i == len(diff) - 1:\n                ans += abs(diff[-1])\n                break\n\n            j = i\n            minVal = diff[i]\n            if diff[i] > 0:\n                while j < len(diff) - 1 and diff[j+1] > 0:\n                    j += 1\n                    minVal = min(diff[j], minVal)\n            else:\n                while j < len(diff) - 1 and diff[j+1] < 0:\n                    j += 1\n                    minVal = max(diff[j], minVal)\n\n            diff[i:j+1] -= minVal\n            ans += abs(minVal)\n            # print(diff)\n\n        return ans\n",
+    "submit_ts": "1721531445",
+    "subm_id": "1327961128"
+}

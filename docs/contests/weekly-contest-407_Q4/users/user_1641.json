@@ -1,0 +1,6 @@
+{
+    "username": "chelsea-s",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        for(int i = 0; i < n; ++i){\n            target[i] -= nums[i];\n        }\n        long long ans = 0;\n        for(int i = 0; i < n; ){\n            int j = i;\n            while(j + 1 < n && ((target[j] >= 0 && target[j + 1] >= 0)||(target[j] < 0 && target[j + 1] < 0 ))){\n                ++j;\n            }\n            target[i] = abs(target[i]);\n            ans += target[i];\n            // cout << i << \" \" << j << endl;\n            for(int k = i + 1; k <= j; ++k){\n                if(target[k] < 0)target[k] = -target[k];\n                ans += max(0, target[k] - target[k - 1]);\n            }\n            i = j + 1;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721532520",
+    "subm_id": "548392834"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "mqin5",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff = [n - t for n, t in zip(nums, target)]\n        stack = deque([abs(diff[0])]) # monotonic decreasing stack\n        prev_sign = diff[0] < 0\n        offset = 0\n        res = 0\n        for d in diff[1:]:\n            curr_sign = d < 0\n            if curr_sign != prev_sign: # changing sign\n                res += stack[0] - offset\n                stack = deque([abs(d)])\n                offset = 0\n            else:\n                if stack and stack[-1] < abs(d):\n                    res += stack[0] - offset\n                    offset = stack[-1]\n                    stack = deque([abs(d)])\n                else:\n                    stack.append(abs(d))\n            prev = d\n            prev_sign = curr_sign\n        res += stack[0] - offset\n        return res\n",
+    "submit_ts": "1721532738",
+    "subm_id": "1327992867"
+}

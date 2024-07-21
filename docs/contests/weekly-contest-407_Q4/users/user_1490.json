@@ -1,0 +1,6 @@
+{
+    "username": "Prahil6109",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        for(int i=0;i<n;i++){\n            nums[i]-=target[i];\n        }\n        nums.push_back(0);\n        reverse(nums.begin(),nums.end());\n        long long res=0;\n        stack<int> stk;\n        int last=0;\n        for(auto num: nums){\n            if((num>=0 && last<0) || (num<=0 && last>0)){\n                while(!stk.empty()){\n                    stk.pop();\n                }\n            }\n            if(stk.empty()){\n                stk.push(num);\n                res+=abs(num);\n            }\n            else if(abs(stk.top())>abs(num)){\n                stk.push(num);\n            }\n            else{\n                res+=(abs(num)-abs(stk.top()));\n                stk.pop();\n                while(!stk.empty() && abs(stk.top())<abs(num)){\n                    stk.pop();\n                }\n                stk.push(num);\n            }\n            last=num;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721532633",
+    "subm_id": "1327990480"
+}

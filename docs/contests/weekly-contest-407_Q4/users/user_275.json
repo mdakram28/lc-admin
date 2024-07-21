@@ -1,0 +1,6 @@
+{
+    "username": "ddoudle",
+    "submission": "class Solution:\n    def minimumOperations(self, A: List[int], B: List[int]) -> int:\n        \n        def cal(arr):\n            if arr == []:\n                return 0\n            if arr[0] < 0:\n                arr = [-a for a in arr]\n            arr = [0] + arr\n            res = 0\n            for x, y in zip(arr[1:], arr):\n                if x - y > 0:\n                    res += x - y\n            return res\n            \n        A = [a-b for a,b in zip(A, B)]\n        A.append(0)\n        cur = []\n        res = 0\n        for i, a in enumerate(A):\n            if a == 0:\n                res += cal(cur)\n                cur = []\n            elif cur == []:\n                cur.append(a)\n            elif a * cur[-1] > 0:\n                cur.append(a)\n            else:\n                res += cal(cur)\n                cur = [a]\n        return res\n                ",
+    "submit_ts": "1721531002",
+    "subm_id": "548382428"
+}

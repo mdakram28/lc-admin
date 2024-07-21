@@ -1,0 +1,6 @@
+{
+    "username": "hsueh_fei",
+    "submission": "func minimumOperations(nums []int, target []int) int64 {\n\tif len(nums) == 0 {\n\t\treturn 0\n\t}\n\tl := len(nums)\n\ttmp := make([]int, l)\n\tfor i := 0; i < l; i++ {\n\t\ttmp[i] = nums[i] - target[i]\n\t}\n\treturn minimum(tmp)\n}\n\nfunc minimum(tmp []int) int64 {\n\tvar ans int64\n\tleft := 0\n\tright := left + 1\n\tfor right < len(tmp) {\n\t\tif sameOp(tmp[left], tmp[right]) {\n\t\t\tright++\n\t\t} else {\n\t\t\tans += cal(tmp[left:right])\n\t\t\tleft = right\n\t\t\tright = right + 1\n\t\t}\n\t}\n\tans += cal(tmp[left:right])\n\treturn ans\n}\n\nfunc cal(arr []int) int64 {\n\tvar ans int64\n\tif len(arr) == 0 {\n\t\treturn ans\n\t}\n\tif arr[0] < 0 {\n\t\tarr[0] = -arr[0]\n\t}\n\tdp := make([]int64, len(arr))\n\tdp[0] = int64(arr[0])\n\tfor i := 1; i < len(arr); i++ {\n\t\tif arr[i] < 0 {\n\t\t\tarr[i] = -arr[i]\n\t\t}\n\t\tif arr[i] <= arr[i-1] {\n\t\t\tdp[i] = dp[i-1]\n\t\t} else {\n\t\t\tdp[i] = dp[i-1] + int64(arr[i]) - int64(arr[i-1])\n\t\t}\n\t}\n\treturn dp[len(dp)-1]\n}\n\nfunc sameOp(x, y int) bool {\n\tif x >= 0 && y >= 0 {\n\t\treturn true\n\t}\n\tif x < 0 && y < 0 {\n\t\treturn true\n\t}\n\treturn false\n}\n",
+    "submit_ts": "1721533340",
+    "subm_id": "548397233"
+}

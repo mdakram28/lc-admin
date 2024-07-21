@@ -1,0 +1,6 @@
+{
+    "username": "leolee2020",
+    "submission": "class Solution {\npublic:\nlong long minimumOperations(vector<int> &nums, vector<int> &target) {\n    nums.push_back(0);\n    target.push_back(0);\n    int n = nums.size();\n    long long ans = 0;\n    queue<vector<int>> q;\n    vector<int> a;\n    for (int i = 0; i < n; i++) {\n        nums[i] -= target[i];\n        if (a.size() && (nums[i] == 0 || nums[i] > 0 && a.back() < 0 || nums[i] < 0 && a.back() > 0)) {\n            for (int &num : a)\n                num = abs(num);\n            q.push(a);\n            a.clear();\n        }\n        if (nums[i])\n            a.push_back(nums[i]);\n    }\n\n    while (q.size()) {\n        vector<int> b = q.front();\n        q.pop();\n        \n        int minO = INT_MAX;\n        for (int num : b)\n            minO = min(minO, num);\n        ans += minO;\n        a.clear();\n\n        for (int num : b) {\n            num -= minO;\n            if (num == 0 && a.size()) {\n                q.push(a);\n                a.clear();\n            }\n            if (num)\n                a.push_back(num);\n        }\n        if (a.size())\n            q.push(a);\n    }\n\n    return ans;\n}\n};",
+    "submit_ts": "1721534042",
+    "subm_id": "1328022244"
+}

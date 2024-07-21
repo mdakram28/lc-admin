@@ -1,0 +1,6 @@
+{
+    "username": "Maruzensky",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        def seg(arr):\n            stack = [0]\n            answer = 0\n            \n            for x in arr:\n                answer += max(0, x - stack[-1])\n                while stack and stack[-1] <= x:\n                    stack.pop()\n                stack.append(x)\n            return answer\n        \n        diff = [x - y for x, y in zip(nums, target)]\n        answer = 0\n        \n        while diff:\n            if diff[-1] == 0:\n                diff.pop()\n            elif diff[-1] > 0:\n                seq = []\n                while diff and diff[-1] > 0:\n                    seq.append(diff.pop())\n                    \n                answer += seg(seq)\n            else:\n                seq = []\n                while diff and diff[-1] < 0:\n                    seq.append(-diff.pop())\n                    \n                answer += seg(seq)\n                \n        return answer",
+    "submit_ts": "1721530558",
+    "subm_id": "1327937052"
+}

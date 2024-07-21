@@ -1,0 +1,6 @@
+{
+    "username": "hty50",
+    "submission": "class Solution:\n    def minimumOperations(self, xx, yy):\n        n = len(xx)\n        x = [0] * (n + 5)\n        y = [0] * (n + 5)\n        \n        for i in range(1, n+1):\n            x[i] = xx[i-1]\n            y[i] = yy[i-1]\n        \n        for i in reversed(range(1, n+1)):\n            x[i] -= x[i-1]\n            y[i] -= y[i-1]\n        \n        ans, s1, s2, MIN = 0, 0, 0, 99999999999\n        for i in range(1, n+1):\n            if x[i] >= y[i]:\n                t = x[i] - y[i]\n                MIN = min(s2, t)\n                t -= MIN\n                s1 += t\n                s2 -= MIN\n                ans += MIN\n            else:\n                t = y[i] - x[i]\n                MIN = min(s1, t)\n                t -= MIN\n                s1 -= MIN\n                s2 += t\n                ans += MIN\n\n        ans += s1 + s2\n        return ans",
+    "submit_ts": "1721529898",
+    "subm_id": "1327916459"
+}

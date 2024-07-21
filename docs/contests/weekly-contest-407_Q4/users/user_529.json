@@ -1,0 +1,6 @@
+{
+    "username": "clean",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        long long ret = 0;\n        vector<int> diffs;\n        for (int i = 0; i < n; ++i) {\n            diffs.push_back(target[i] - nums[i]);\n        }\n        for (int i = 0; i < n; ++i) {\n            if (diffs[i] == 0) continue;\n            ret += abs(diffs[i]);\n            if (diffs[i] > 0) {\n                int now = diffs[i];\n                for (int j = i + 1; j < n && diffs[j] > 0; ++j) {\n                    now = min(now, diffs[j]);\n                    diffs[j] -= now;\n                }\n            } else {\n                int now = diffs[i];\n                for (int j = i + 1; j < n && diffs[j] < 0; ++j) {\n                    now = max(now, diffs[j]);\n                    diffs[j] -= now;\n                }\n            }\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1721531388",
+    "subm_id": "1327959676"
+}

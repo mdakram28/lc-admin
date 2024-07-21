@@ -1,0 +1,6 @@
+{
+    "username": "ciphercraft",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll minimumOperations(vector<int>& nums, vector<int>& target) {\n        ll res = 0, aux = 0, n = nums.size();\n        map<int, int> mp;\n        function<void()> solve = [&]() {\n            for (int i = 0; i < n; ++i) {\n                mp[i] = target[i] - nums[i];\n            }\n        };\n        function<void()> solve2 = [&]() {\n            for (int i = 1; i <= n; ++i) {\n                if (i - 1 == 0 || (mp[i - 2] > 0 && mp[i - 1] > 0) || (mp[i - 2] < 0 && mp[i - 1] < 0)) {\n                    ll x = abs(mp[i - 1]) - abs(aux);\n                    res += (x > 0) ? x : 0;\n                    aux = mp[i - 1];\n                } else {\n                    res += abs(mp[i - 1]);\n                    aux = mp[i - 1];\n                }\n            }\n        };\n        solve(); solve2();\n        return res;\n    }\n};",
+    "submit_ts": "1721533707",
+    "subm_id": "1328014923"
+}

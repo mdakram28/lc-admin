@@ -1,0 +1,6 @@
+{
+    "username": "xi-jun-xiao-zi",
+    "submission": "from typing import List\n\n\nclass Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff = [t - n for t, n in zip(target, nums)]\n        new = [0]\n        pre = 0\n        for d in diff:\n            if d * pre < 0:\n                new.append(0)\n            new.append(abs(d))\n            pre = d\n        new.append(0)\n        ans = 0\n        up = True\n        pre = 0\n        memo = 0\n        for num in new:\n            if num > pre:\n                if up:\n                    pre = num\n                else:\n                    memo = pre\n                    up = True\n                    pre = num\n            elif num < pre:\n                if not up:\n                    pre = num\n                else:\n                    ans += pre - memo\n                    up = False\n                    pre = num\n        return ans\n            \n",
+    "submit_ts": "1721530468",
+    "subm_id": "548378816"
+}

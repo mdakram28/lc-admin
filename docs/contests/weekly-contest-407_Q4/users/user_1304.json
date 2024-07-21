@@ -1,0 +1,6 @@
+{
+    "username": "ddd-a",
+    "submission": "class Solution {\npublic:\n    int cal(int a,int b){\n        if(a > 0)return a-b;\n        return b-a;\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        vector<int>dis(nums.size());\n        for(int i = 0;i<nums.size();++i){\n            dis[i] = target[i] - nums[i];\n        }\n        vector<int>stk;\n        long long res = 0;\n        for(int i = 0;i<nums.size();++i){\n            while(!stk.empty() && 1ll * stk.back() * dis[i] <= 0)stk.pop_back();\n            if(stk.empty()){\n                res += abs(dis[i]);\n            }else if(cal(dis[i], stk.back())>=0){\n                res += abs(dis[i] - stk.back());\n                while(!stk.empty() && cal(dis[i], stk.back())>=0)stk.pop_back();\n            }\n            // cout<<res<<\"??\"<<endl;\n            stk.push_back(dis[i]);\n        }\n        // 0 3 -1 -9 3 1 5 3 4 2\n        return res;\n    }\n};",
+    "submit_ts": "1721532093",
+    "subm_id": "548390369"
+}

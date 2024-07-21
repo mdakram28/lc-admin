@@ -1,0 +1,6 @@
+{
+    "username": "sleepy-4",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        diff = [0] * n\n        for i, x in enumerate(nums):\n            diff[i] = target[i] - x\n\n        def get_op_count(arr):\n            if arr[0] < 0:\n                arr = [-v for v in arr]\n            res = arr[0]\n            for i in range(1, len(arr)):\n                res += max(arr[i] - arr[i - 1], 0)\n            return res\n\n        ans = 0\n        i = 0\n        while i < n:\n            if diff[i] == 0:\n                i += 1\n                continue\n            start = i\n            i += 1\n            while i < n and (diff[i] > 0) == (diff[start] > 0):\n                i += 1\n            ans += get_op_count(diff[start: i])\n        return ans",
+    "submit_ts": "1721532502",
+    "subm_id": "548392721"
+}

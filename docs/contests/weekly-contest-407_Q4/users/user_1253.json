@@ -1,0 +1,6 @@
+{
+    "username": "SamaelW",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        lst = [target[i] - nums[i] for i in range(len(nums))]\n        lst_pos, lst_neg = [], []\n        for x in lst:\n            if x >= 0:\n                lst_pos.append(x)\n                lst_neg.append(0)\n            else:\n                lst_pos.append(0)\n                lst_neg.append(-x)\n\n        def comp(l):\n            mono_stack = []\n            op = 0\n            for x in l:\n                if len(mono_stack) == 0:\n                    mono_stack.append(x)\n                    op += x\n                    continue\n                else:\n                    if x < mono_stack[-1]:\n                        mono_stack.append(x)\n                    else:\n                        op += (x - mono_stack[-1])\n                        while len(mono_stack) > 0 and x >= mono_stack[-1]:\n                            mono_stack.pop()\n                        mono_stack.append(x)\n            return op\n\n        return comp(lst_pos) + comp(lst_neg)",
+    "submit_ts": "1721532624",
+    "subm_id": "1327990252"
+}

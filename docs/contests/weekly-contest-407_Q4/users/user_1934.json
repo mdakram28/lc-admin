@@ -1,0 +1,6 @@
+{
+    "username": "rv01",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        diffs = [target[i] - nums[i] for i in range(n)]\n        ret = 0\n\n        stack = []\n        for diff in diffs:\n            \n            if diff == 0 or (stack and stack[-1] * diff < 0):\n                ret += self.computeNumOps(stack)\n                stack = []\n\n            popped = None\n            while stack and abs(stack[-1]) > abs(diff):\n                curr = abs(stack.pop())\n                if popped:\n                    ret += popped - curr\n                popped = curr\n\n            if popped:\n                ret += popped - abs(diff)\n\n            if diff != 0:\n                stack.append(diff)\n\n        ret += self.computeNumOps(stack)\n\n        return ret\n\n    def computeNumOps(self, asc):\n        ret = 0\n\n        total = 0\n        for i in range(len(asc)):\n            curr = abs(asc[i])\n            if curr > total:\n                ret += curr - total\n                total = curr\n\n        return ret",
+    "submit_ts": "1721533778",
+    "subm_id": "1328016442"
+}

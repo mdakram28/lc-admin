@@ -1,0 +1,6 @@
+{
+    "username": "jesen16869",
+    "submission": "# class Solution:\n#     def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n\nfrom typing import List\n\nclass Solution:\n    def solve(self, a: List[int]) -> int:\n        n = len(a)\n        if a[0] < 0:\n            a = [-x for x in a]\n        answer = a[0]\n        for i in range(1, n):\n            if a[i] > a[i - 1]:\n                answer += a[i] - a[i - 1]\n        return answer\n\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        v = []\n        def ok(a, b):\n            if a < 0:\n                return b < 0\n            if a > 0:\n                return b > 0\n            return b == 0\n        \n        for i in range(n):\n            diff = target[i] - nums[i]\n            if v and ok(v[-1][-1], diff):\n                v[-1].append(diff)\n            else:\n                v.append([diff])\n        \n        answer = 0\n        for a in v:\n            answer += self.solve(a)\n        return answer\n",
+    "submit_ts": "1721530569",
+    "subm_id": "1327937400"
+}

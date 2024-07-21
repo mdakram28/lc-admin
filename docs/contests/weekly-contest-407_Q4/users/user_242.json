@@ -1,0 +1,6 @@
+{
+    "username": "jiu-zhe-yang-er-yi",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) \n    {\n        int n=nums.size();\n        for(int i=0;i<n;i++)\n        {\n            nums[i]-=target[i];\n        }\n        vector<long long>dif(n,0);\n        dif[0]=nums[0];\n        for(int i=1;i<n;i++)\n        {\n            dif[i]=nums[i]-nums[i-1];\n        }\n        long long ans=0,cnt1=0,cnt0=0;\n        for(int i=n-1;i>=0;i--)\n        {\n            if(dif[i]>0)\n            {\n                if(dif[i]>cnt0)\n                {\n                    dif[i]-=cnt0;\n                    cnt0=0;\n                    ans+=dif[i];\n                    cnt1+=dif[i];\n                }\n                else cnt0-=dif[i];\n            }\n            if(dif[i]<0)\n            {\n                if(-dif[i]>cnt1)\n                {\n                    dif[i]+=cnt1;\n                    cnt1=0;\n                    ans+=-dif[i];\n                    cnt0+=-dif[i];\n                }\n                else cnt1+=dif[i];\n            }\n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1721530597",
+    "subm_id": "548379721"
+}

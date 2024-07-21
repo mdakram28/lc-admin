@@ -1,0 +1,6 @@
+{
+    "username": "bufferjjh",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff=[target[i]-nums[i] for i in range(len(target))]\n        segs=[]\n        l=0\n        for i in range(1, len(nums)):\n            if(not ((diff[i] > 0) == (diff[l] > 0))):\n                segs.append([l, i - 1])\n                l = i\n        segs.append([l, len(nums) - 1])\n        ans=0\n        def f(arr):\n            arr=[abs(i) for i in arr]\n            arr2=arr.copy()\n            ops=0\n            ops=arr[0]\n            store=arr[0]\n            for i in range(1, len(arr)):\n                if(arr[i] >= store):\n                    ops+=arr[i]-store\n                    store=arr[i]\n                else:\n                    store=arr[i]\n            print(arr2,ops)\n            return ops\n                \n        for seg in segs:\n            ans+=f(diff[seg[0]: seg[1] + 1])\n        #print(segs,diff)\n        return ans\n\n            \n                \n        ",
+    "submit_ts": "1721531536",
+    "subm_id": "1327963451"
+}

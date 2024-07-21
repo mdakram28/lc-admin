@@ -1,0 +1,6 @@
+{
+    "username": "wyt2000",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        dn = [0] * (n + 1)\n        dn[0] = nums[0]\n        nums.append(0)\n        for i in range(1, n + 1):\n            dn[i] = nums[i] - nums[i - 1]\n\n        m = len(target)\n        dt = [0] * (n + 1)\n        dt[0] = target[0]\n        target.append(0)\n        for i in range(1, n + 1):\n            dt[i] = target[i] - target[i - 1]\n\n        # print(dn)\n        # print(dt)\n\n        add = 0\n        minus = 0\n        ans = 0\n        for x, y in zip(dn, dt):\n            if x == y:\n                continue\n            if x < y:\n                z = y - x \n                if add <= z:\n                    z -= add\n                    add = 0\n                else:\n                    add -= z\n                    z = 0\n                ans += z\n                minus += z\n            else:\n                z = x - y \n                if minus <= z:\n                    z -= minus\n                    minus = 0\n                else:\n                    minus -= z\n                    z = 0\n                ans += z\n                add += z\n            # print(x, y, add, minus, ans)\n        return ans\n",
+    "submit_ts": "1721533340",
+    "subm_id": "548397224"
+}

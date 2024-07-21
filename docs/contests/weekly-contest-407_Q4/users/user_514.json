@@ -1,0 +1,6 @@
+{
+    "username": "quasicompact",
+    "submission": "class Solution {\npublic:\n\tlong long f(vector<int> &A){\n\t\tA.push_back(0);\n\t\t// for(auto x : A){printf(\"%d \",x);}printf(\"\\n\");\n\t\tvector<int> B = {0};\n        long long ans = 0;\n\t\tint n = 0;\n\t\tfor(int i=0;i<A.size();i++){\n\t\t\twhile(B.back() > A[i]){\n\t\t\t\tn = max(n,A[i]);\n\t\t\t\tB.pop_back();\n\t\t\t}\n\t\t\t// printf(\"%d %d %d\\n\",n,i,A[i]);\n\t\t\tif(n > A[i]){ans += n-A[i];}\n\t\t\tif(B.back() < A[i]){\n\t\t\t\tB.push_back(A[i]);\n\t\t\t}\n\t\t\tn = A[i];\n\t\t}\n\t\treturn ans;\n\t}\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n\t\tint i, j;\n\t\tfor(i=0;i<nums.size() && nums[i]==target[i]; i++){}\n\t\tlong long ans=0;\n\t\tfor(;i<nums.size();){\n\t\t\tvector<int> A = {0};\n\t\t\tfor(j=i;j<nums.size() && ((nums[i]>target[i] && nums[j]>target[j]) || (nums[i]<target[i] && nums[j]<target[j]));j++){\n\t\t\t\tA.push_back(abs(nums[j]-target[j]));\n\t\t\t}\n\t\t\tans += f(A);\n\t\t\tfor(i=j;i<nums.size() && nums[i]==target[i];i++){}\n\t\t}\n\t\treturn ans;\n    }\n};",
+    "submit_ts": "1721531641",
+    "subm_id": "1327966155"
+}

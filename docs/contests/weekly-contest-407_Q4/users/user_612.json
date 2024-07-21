@@ -1,0 +1,6 @@
+{
+    "username": "nan-xin-da-xun-meng-long",
+    "submission": "using LL = long long;\nclass Solution {\npublic:\n    long long minimumOperations(vector<int>& a, vector<int>& b) {\n        int n = a.size();\n        vector<int> f(n);\n        vector<bool> st(n);\n        for(int i = 0; i < n; i ++ ){\n            f[i] = b[i] - a[i];\n            if(f[i] < 0){\n                st[i] = 1;\n                f[i] = -f[i];\n            }\n        }\n        int i, j = 0;\n        bool fg = st[0];\n        LL ans = 0;\n        auto ck = [&](){\n            ans += f[j];\n            for(int k = j + 1; k < i; k ++ ){\n                if(f[k] > f[k - 1]) ans += f[k] - f[k - 1];\n            }\n        };\n\n        for(i = 1; i < n; i ++ ){\n            if(st[i] != fg){\n                ck();\n                j = i;\n                fg = st[i];\n            }\n        }\n        ck();\n        return ans;\n    }\n};",
+    "submit_ts": "1721531545",
+    "subm_id": "548386946"
+}

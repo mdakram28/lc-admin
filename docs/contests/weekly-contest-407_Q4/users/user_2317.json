@@ -1,0 +1,6 @@
+{
+    "username": "ironwol",
+    "submission": "class Solution {\npublic:\nbool check(int inc[],int dec[],int n){\n    for(int i=0;i<n;i++){\n        if(inc[i] || dec[i])return 0;\n    }return 1;\n}\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n=nums.size();\n        int inc[n];long long ans=0;\n        int dec[n];\n        for(int i=0;i<n;i++){\n            inc[i]=0;dec[i]=0;\n        }\n        for(int i=0;i<n;i++){\n            if(nums[i]<target[i])inc[i]=target[i]-nums[i];\n            else{dec[i]=-target[i]+nums[i];}\n        }\n        while(!check(inc,dec,n)){\n            for(int i=0;i<n;i++){int j,k;\n                if(inc[i]){j=i;\n                int mi=INT_MAX;\n                for(int l=j;l<=n-1 && inc[l];l++){k=l;mi=min(mi,inc[l]);}\n                for(int l=j;l<=k;l++)inc[l]-=mi;\n                ans+=mi;i=k+1;\n                }\n            }\n            for(int i=0;i<n;i++){int j,k;\n                if(dec[i]){j=i;k=i;\n                int mi=INT_MAX;\n                for(int l=j; l<=n-1 && dec[l];l++){k=l;mi=min(mi,dec[l]);}\n                for(int l=j;l<=k;l++)dec[l]-=mi;\n                ans+=mi;i=k+1;\n                }\n            }   \n    }return ans;}\n};",
+    "submit_ts": "1721533635",
+    "subm_id": "1328013304"
+}

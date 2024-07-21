@@ -1,0 +1,6 @@
+{
+    "username": "soupboy",
+    "submission": "\nclass Solution {\npublic:\n    long long calc(int start, int end, vector<long long>& arr) {\n        for(int i=start;i<end;i++) {\n            arr[i] = abs(arr[i]);\n        }\n        long long ret = arr[start];\n        for (int i=(start+1);i<end;i++) {\n            long long v = max(arr[i] - arr[i - 1], 0LL);\n            ret += v;\n        }\n            \n        return ret;\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<long long> diff(n);\n        for(int i=0;i<n;i++) {\n            diff[i]=nums[i]-target[i];\n        }\n        \n        long long ret = 0;\n        for(int i=0;i<n;) {\n            if(diff[i] == 0) {\n                i++;\n                continue;\n            }\n            int start = i;\n            if(diff[i] < 0) {\n                while(i<n && diff[i] < 0) {\n                    i++;\n                }\n                ret += calc(start, i, diff);\n            } else {\n                while(i<n && diff[i] > 0) {\n                    i++;\n                }\n                ret += calc(start, i, diff);\n            }\n        }\n        \n        return ret;\n        \n        \n    }\n};",
+    "submit_ts": "1721533074",
+    "subm_id": "1328000680"
+}

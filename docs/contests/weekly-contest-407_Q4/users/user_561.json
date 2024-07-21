@@ -1,0 +1,6 @@
+{
+    "username": "homeless_man",
+    "submission": "#define ll long long\n\nclass Solution {\n    \npublic:\n    \n    ll eat(vector<ll>& st){\n        if(st.size() == 0)\n            return 0;\n        for(ll& i : st){\n            i = abs(i);\n        }\n        ll res = st[0];\n        for(int i = 1;i<st.size();i++){\n            res += max((ll)0,st[i] - st[i-1]);\n        }\n        return res;\n    }\n    \n    bool opp(int a, int b) {\n        return (a < 0 && b > 0) || (a > 0 && b < 0);\n    }\n    \n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        vector<ll> st;\n        int n = nums.size();\n        ll res = 0;\n        for(int i = 0;i<n;i++){\n            ll val = nums[i] - target[i];\n            if((val == 0) || st.size() && opp(val,st[0])){\n                res += eat(st);\n                st.clear();\n            }\n            if(val)\n                st.push_back(val);\n        }\n        res += eat(st);\n        return res;\n    }\n};",
+    "submit_ts": "1721531157",
+    "subm_id": "1327953760"
+}

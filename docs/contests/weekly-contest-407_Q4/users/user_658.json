@@ -1,0 +1,6 @@
+{
+    "username": "womogenes",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        def delta_arr(arr):\n            n = len(arr)\n            res = [0] * n\n            res[0] = arr[0]\n            for i in range(1, n):\n                res[i] = arr[i] - arr[i - 1]\n            return res\n\n        n = len(nums)\n        dn = delta_arr(nums)\n        dt = delta_arr(target)\n\n        d = [dn[i] - dt[i] for i in range(n)]\n        pos = []\n        neg = []\n        for i in range(n):\n            if d[i] > 0:\n                pos.append(d[i] + (0 if i == 0 else pos[i-1]))\n                neg.append(0 if i == 0 else neg[i-1])\n            else:\n                neg.append(-d[i] + (0 if i == 0 else neg[i-1]))\n                pos.append(0 if i == 0 else pos[i-1])\n\n        tot_pos = pos[-1]\n        tot_neg = neg[-1]\n\n        ans = max(tot_pos, tot_neg)\n        for i in range(n):\n            ans = min(ans,\n                max(pos[i], tot_neg - neg[i]) +\n                max(neg[i], tot_pos - pos[i])\n            )\n\n        return ans",
+    "submit_ts": "1721531027",
+    "subm_id": "1327950262"
+}

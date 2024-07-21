@@ -1,0 +1,6 @@
+{
+    "username": "kind-vvrighteky",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = target.size();\n        vector<int> diff1(n), diff2(n);\n        diff1[0] = nums[0];\n        diff2[0] = target[0];\n        for (int i = 1; i < n; i++) {\n            diff1[i] = nums[i] - nums[i - 1];\n            diff2[i] = target[i] - target[i - 1];\n        }\n        long long d = 0, ans = 0;\n        for (int i = 0; i < n; i++) {\n            if (diff1[i] < diff2[i]) {\n                if (d <= 0) {\n                    ans += (long long) diff2[i] - diff1[i] - min((long long) diff2[i] - diff1[i], -d);\n                } else {\n                    ans += (long long) diff2[i] - diff1[i];\n                }\n                d += diff2[i] - diff1[i];\n                \n            } else {\n                if (d >= 0) {\n                    ans += (long long) diff1[i] - diff2[i] - min(d, (long long) diff1[i] - diff2[i]);\n                } else {\n                    ans += (long long) diff1[i] - diff2[i];\n                }\n                d -= diff1[i] - diff2[i];\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721532310",
+    "subm_id": "548391597"
+}

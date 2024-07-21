@@ -1,0 +1,6 @@
+{
+    "username": "aypatrl",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        diffs = [nums[i] - target[i] for i in range(n)]\n\n        def all_zero(arr):\n            return all(x == 0 for x in arr)\n\n        operations = 0\n\n        while not all_zero(diffs):\n            i = 0\n            while i < n:\n                if diffs[i] == 0:\n                    i += 1\n                    continue\n\n                j = i\n                curminabs = abs(diffs[j])\n                while j < n and diffs[j] != 0 and (diffs[j] > 0) == (diffs[i] > 0):\n                    curminabs = min(curminabs, abs(diffs[j]))\n                    j += 1\n                    \n                operation_value = 1 if diffs[i] > 0 else -1\n                for k in range(i, j):\n                    diffs[k] -= operation_value * curminabs\n\n                operations += curminabs\n                i = j\n\n        return operations",
+    "submit_ts": "1721532205",
+    "subm_id": "548391008"
+}

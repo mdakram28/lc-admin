@@ -1,0 +1,6 @@
+{
+    "username": "kg_codex",
+    "submission": "class Solution {\npublic:\n     vector<int> calculateDifferenceArray(const vector<int>& nums, const vector<int>& target) {\n        int n = nums.size();\n        vector<int> diff(n);\n        for (int i = 0; i < n; ++i) {\n            diff[i] = target[i] - nums[i];\n        }\n        return diff;\n    }\n\n    long long computeMinimumOperations(const vector<int>& diff) {\n        \n        long long op = 0;\n        long long seg = 0;\n\n        for (int i = 0; i < diff.size(); ++i) {\n            if (!i || (1ll*diff[i - 1] * diff[i] > 0)){\n                long long temp = abs(diff[i]) - seg;\n                \n                seg = abs(diff[i]);\n                if (temp >= 1) {\n                    op += temp;\n                }\n                \n                continue;\n            } \n            seg = abs(diff[i]);\n            op += diff[i]>=0?diff[i]:-diff[i];\n           \n            \n        }\n\n        return op;\n    }\n\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        vector<int> diff = calculateDifferenceArray(nums, target);\n        return computeMinimumOperations(diff);\n    }\n};",
+    "submit_ts": "1721533200",
+    "subm_id": "1328003565"
+}

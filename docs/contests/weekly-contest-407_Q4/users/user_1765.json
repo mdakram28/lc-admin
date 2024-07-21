@@ -1,0 +1,6 @@
+{
+    "username": "snowfoxy",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff = [t - num for num, t in zip(nums, target)]\n        #print(diff)\n        \n        answer = 0\n        stack = []\n        for i, d in enumerate(diff):\n            if d <= 0:\n                stack = []\n                continue\n            if not stack:\n                answer += d\n            elif stack[-1] < d:\n                answer += d - stack[-1]\n                \n            while stack and stack[-1] > d:\n                stack.pop()\n            stack.append(d)\n            #print(i, stack, answer)\n                \n        stack = []\n        for i, d in enumerate(diff):\n            if d >= 0:\n                stack = []\n                continue\n            if not stack:\n                answer += -d\n            elif stack[-1] > d:\n                answer += stack[-1] - d\n                \n            while stack and stack[-1] < d:\n                stack.pop()\n            stack.append(d)\n            #print(i, stack, answer)\n            \n        return answer\n        ",
+    "submit_ts": "1721532978",
+    "subm_id": "1327998505"
+}

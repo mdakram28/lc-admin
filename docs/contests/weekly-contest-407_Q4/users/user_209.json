@@ -1,0 +1,6 @@
+{
+    "username": "angellim",
+    "submission": "using ll=long long;\n\nclass Solution {\npublic:\n\n    ll solve(vector<ll> c) {\n        int n=c.size();\n        ll lo = *min_element(c.begin(), c.end());\n        ll res=lo;\n        for (int i=0; i<n; i++) {\n            res += max(0ll, c[i]-(i-1>=0 ? c[i-1] : lo));\n        }\n        return res;\n    }\n    long long minimumOperations(vector<int>& a, vector<int>& b) {\n        int n=a.size();\n        vector<ll> c(n);\n        for (int i=0; i<n; i++) {\n            c[i]=b[i]-a[i];\n        }\n\n        // for (ll x: c) cout<<x<<\" \";\n        // cout<<endl;\n\n        ll res=0;\n        for (int i=0; i<n; ) {\n            if (c[i]==0) {\n                i++; continue;\n            }\n            int j=i;\n            vector<ll> buf;\n            while (j<n && c[i]*c[j]>0) {\n                buf.push_back(abs(c[j]));\n                j++;\n            }\n            ll cur=solve(buf);\n            // cout<<\"cur: \"<<cur<<endl;\n            res += cur;\n            i=j;\n        }\n        return res;\n\n    }\n};",
+    "submit_ts": "1721530482",
+    "subm_id": "1327934858"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "samyakhappy9",
+    "submission": "class Solution:\n    def minimumOperations(self, a: List[int], t: List[int]) -> int:\n        from itertools import groupby\n        n = len(a)\n        d = [t[i] - a[i] for i in range(n)]\n        \n        sm,op,i,b = d[0],0,1,[d[0]]\n        for i in range(1,n):\n            if d[i]!=d[i-1]:\n                b.append(d[i])\n            sm = min(sm,d[i])\n        # print(b,sm)\n\n        count  = 0\n        while any(b):\n            groups = (list(g) for _,g in groupby(b,lambda n:(n>0)-(n<0)))\n            b = []\n            for group in groups:\n                moves = min(group,key=abs)\n                count += abs(moves)\n                b.extend(n-moves for n in group)\n        return count",
+    "submit_ts": "1721532948",
+    "subm_id": "1327997827"
+}

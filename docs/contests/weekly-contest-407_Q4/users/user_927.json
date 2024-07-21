@@ -1,0 +1,6 @@
+{
+    "username": "kl649",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int n = nums.length;\n        long[] delta = new long[n];\n        for (int i = 0; i < n; i++) {\n            delta[i] = nums[i] - target[i];\n        }\n        List<int[]> index = new ArrayList<>();\n        for (int i = 0; i < n; i++) {\n            int j = i;\n            while (j < n && delta[i] * delta[j] > 0) {\n                j++;\n            }\n            if (j > i) {\n                index.add(new int[]{i, j - 1});\n                i = j - 1;\n            }\n        }\n        long res = 0L;\n        for (int[] pair : index) {\n            int l = pair[0];\n            int r = pair[1];\n            // System.out.println(l + \" \" + r);\n            List<Long> list = new ArrayList<>();\n            for (int i = l; i <= r; i++) {\n                list.add(Math.abs(delta[i]));\n            }\n            res += minNumber(list);\n        }\n        return res;\n    }\n    \n    public long minNumber(List<Long> list) {\n        long res = 0;\n        long pre = 0;\n        for (long num: list) {\n            res += Math.max(num - pre, 0);\n            pre = num;\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1721532105",
+    "subm_id": "1327977751"
+}

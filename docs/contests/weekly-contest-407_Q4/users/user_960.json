@@ -1,0 +1,6 @@
+{
+    "username": "incognito123",
+    "submission": "#define ll long long\n\n\nclass Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        ll n=nums.size();\n        ll diff[n];\n        for(int i=0;i<n;i++){\n            diff[i]=target[i]-nums[i];\n        }\n        vector<pair<ll,ll>> vp;\n        ll ans=0;\n        for(ll i=0;i<n;i++){\n            ll vs=0;\n            ll j=i;\n            while(j<n&&diff[j]>0){\n                j+=1;\n            }\n            if(i!=j) vp.push_back({i,j}) ,i=j-1;\n        }\n        \n        for(auto [x,y]:vp){\n            ll last=0;\n            for(ll i=x;i<y;i++){\n                if(diff[i]>last) ans+=(diff[i]-last);\n                last=diff[i];\n            }\n        }\n        vp.clear();\n        for(int i=0;i<n;i++){\n            ll vs=0;\n            ll j=i;\n            while(j<n&&diff[j]<0){\n                j+=1;\n            }\n            if(i!=j) vp.push_back({i,j}) ,i=j-1;\n        }\n        for(auto [x,y]:vp){\n            ll last=0;\n            for(ll i=x;i<y;i++){\n                if(diff[i]<last) ans+=abs(diff[i]-last);\n                last=diff[i];\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721531846",
+    "subm_id": "1327971328"
+}

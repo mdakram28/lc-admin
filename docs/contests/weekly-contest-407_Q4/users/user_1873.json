@@ -1,0 +1,6 @@
+{
+    "username": "urimaj",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long ans = 0;\n        int n = nums.size();\n        vector<int> diff(n);\n        for (int i = 0; i < n; i++) diff[i] = target[i] - nums[i];\n        int i1 = 0, maxval = 0;\n        vector<vector<int>> v;\n        vector<int> temp;\n        for (int i = 0; i < n; i++) {\n            temp.push_back(abs(diff[i]));\n            if (i + 1 == n || diff[i] > 0 && diff[i + 1] <= 0 || diff[i] < 0 && diff[i + 1] >= 0) {\n                v.push_back(temp);\n                temp.clear();\n            }\n        }\n        for (auto& x : v) {\n            long long sum = 0;\n            for (int i = 0; i < x.size(); i++) {\n                sum += max(0, x[i] - (i - 1 < 0 ? 0 : x[i - 1]));\n            }\n            ans += sum;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721532214",
+    "subm_id": "1327980491"
+}

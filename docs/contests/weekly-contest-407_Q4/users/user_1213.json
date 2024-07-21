@@ -1,0 +1,6 @@
+{
+    "username": "rozhkov",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        def evalSS(ss):\n            ss = [abs(val) for val in ss]\n            prev = cnt = 0\n            for x in ss:\n                if x >= prev:\n                    cnt += x - prev\n                prev = x\n            return cnt\n\n        D = [x - y for x, y in zip(nums, target)]\n        res = 0\n        ss = []\n        #print (D)\n        for x in D:\n            if x == 0:\n                if ss:\n                    res += evalSS(ss)\n                ss = []\n            elif not ss or ss[-1] * x > 0:\n                ss.append(x)\n            else:\n                res += evalSS(ss)\n                ss = [x]\n\n        if ss:\n            res += evalSS(ss)\n\n        return res\n        ",
+    "submit_ts": "1721532256",
+    "subm_id": "1327981510"
+}

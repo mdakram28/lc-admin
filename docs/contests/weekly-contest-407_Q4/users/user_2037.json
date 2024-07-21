@@ -1,0 +1,6 @@
+{
+    "username": "whoawhoawhoa",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        for (int i = 0; i < nums.length; i++) {\n            nums[i] -= target[i];\n        }\n        return split(nums, 0, nums.length - 1);\n    }\n    \n    static long split(int[] diff, int start, int end) {\n        if (start > end) {\n            return 0L;\n        }\n        if (start == end) {\n            return Math.abs(diff[start]);\n        }\n        int mid = (end - start) / 2 + start;\n        long l = split(diff, start, mid);\n        long r = split(diff, mid + 1, end);\n        long res = l + r;\n        if ((diff[mid] >= 0 && diff[mid + 1] >= 0) || (diff[mid] < 0 && diff[mid + 1] < 0)) {\n            res -= Math.min(Math.abs(diff[mid]), Math.abs(diff[mid + 1]));\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1721533607",
+    "subm_id": "1328012745"
+}

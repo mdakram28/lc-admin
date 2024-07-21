@@ -1,0 +1,6 @@
+{
+    "username": "T1N",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        def split(d):\n            q = []\n            mq = []\n            for n in d:\n                if q and n * q[-1] <= 0:\n                    mq.append(q)\n                    q = []\n                q.append(n)\n            if q:\n                mq.append(q)\n            return mq\n        \n        def move(x):\n            # print('x', x)\n            if not x:\n                return 0\n            if x[0] < 0:\n                x = [-n for n in x]\n            # print('x', x)\n            if len(x) == 1:\n                return x[0]\n            \n            m = min(x)\n            y = [n - m for n in x]\n            mq = split(y)\n            # print(\"x, mq\", x, mq)\n            for q in mq:\n                m += move(q)\n            return m\n        \n        d = [x - y for x, y in zip(nums, target)]\n        mq = split(d)\n        # print('mq', mq)\n        op = 0\n        for q in mq:\n            op += move(q)\n        return op\n",
+    "submit_ts": "1721533992",
+    "subm_id": "1328021172"
+}

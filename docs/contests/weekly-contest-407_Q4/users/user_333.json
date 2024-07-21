@@ -1,0 +1,6 @@
+{
+    "username": "unique-30",
+    "submission": "class Solution(object):\n    def minimumOperations(self, nums, target):\n        \"\"\"\n        :type nums: List[int]\n        :type target: List[int]\n        :rtype: int\n        \"\"\"\n        diff = []\n        length = len(nums)\n        for i in range(length):\n            diff.append(target[i] - nums[i])\n        now_index = 0\n        results = 0\n        while now_index < length: #\u5904\u7406\u5230\u7684\u76ee\u524d\u7b2c\u4e00\u4e2a\u975e0\u7684\n            if diff[now_index] == 0: #0\u5c31\u4e0d\u7528\u505a\u4e86\n                now_index += 1\n                continue\n            last_index = now_index\n            small_sum = abs(diff[now_index])\n            while last_index+1 < length and diff[now_index] * diff[last_index+1] > 0:\n                small_sum = min(small_sum, abs(diff[last_index+1]))\n                last_index += 1\n            #\u8fdb\u884c\u4e00\u6b21\u64cd\u4f5c\n            results += small_sum\n            if diff[now_index] > 0:\n                for i in range(now_index, last_index+1):\n                    diff[i] -= small_sum\n            else:\n                for i in range(now_index, last_index+1):\n                    diff[i] += small_sum    \n        return results          \n\n",
+    "submit_ts": "1721531183",
+    "subm_id": "548383644"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "pein531",
+    "submission": "class Solution {\npublic:\n    vector<int> p, sz;\n    int maxOperations(string s) {\n        int n = s.size();\n        p.resize(n);\n        sz.resize(n);\n        for(int i = 0; i < n; i++) {\n            p[i] = i;\n            sz[i] = 1;\n        }\n        for(int i = 0; i < n; i++) {\n            if(s[i] == '1' && i + 1 < n && s[i + 1] == '1') {\n                merge(i, i + 1);\n            }\n        }\n        int ans = 0, cnt = 0;\n        for(int i = 0; i < n;) {\n            if(s[i] == '1') {\n                if(find(i) != n - 1) {\n                    cnt += sz[find(i)];\n                    ans += cnt;\n                }\n                i = find(i) + 1;\n            }else {\n                i++;\n            }\n        }\n        return ans;\n    }\n\n    int find(int x) {\n        return x == p[x]? x: p[x] = find(p[x]);\n    }\n\n    void merge(int x, int y) {\n        int rx = find(x), ry = find(y);\n        if(rx != ry) {\n            sz[ry] += sz[rx];\n            p[rx] = ry;\n        }\n    }\n};",
+    "submit_ts": "1721530556",
+    "subm_id": "1327937023"
+}

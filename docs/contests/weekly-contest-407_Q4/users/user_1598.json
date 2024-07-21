@@ -1,0 +1,6 @@
+{
+    "username": "NPgreatest",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        tar = [nums[i] - target[i] for i in range(len(nums))]\n\n        def monostk(tars) -> int:\n            stk =  []\n            ans = 0\n            for i,v in enumerate(tars):\n                if v < 0: v= -v\n                if not stk or v > stk[-1]:\n                    ans += v - (stk[-1] if stk else 0)\n                while stk and stk[-1] > v:\n                    stk.pop()\n                if stk and stk[-1] == v:\n                    continue\n                stk.append(v)\n            return ans\n        flag = False if tar[0]<0 else True\n        cur = []\n        ret = 0\n        for item in tar:\n            if item == 0 or (item > 0 and not flag) or (item < 0 and flag):\n                ret += monostk(cur)\n                cur = [item]\n                flag = not flag\n            else:\n                cur.append(item)\n        ret += monostk(cur)\n        return ret",
+    "submit_ts": "1721533367",
+    "subm_id": "1328007385"
+}

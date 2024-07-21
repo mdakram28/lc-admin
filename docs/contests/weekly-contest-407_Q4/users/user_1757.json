@@ -1,0 +1,6 @@
+{
+    "username": "btspicy",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long count = 0;\n        size_t n = nums.size();\n        vector<int> diff(n);\n        vector<int> invDiff(n);\n        \n        for (int i = 0; i < n; i++) {\n            diff[i] = max(nums[i] - target[i], 0);\n            invDiff[i] = max(target[i] - nums[i], 0);\n        }\n        count += minOp(diff);\n        count += minOp(invDiff);\n        \n        return count;\n        \n    }\n    \n    long long minOp(vector<int>& arr) {\n        long long ops = 0;\n        vector<int> prevs = {0};\n        for (int val : arr) {\n            ops += max(val - prevs.back(), 0);\n            while (!prevs.empty() && val <= prevs.back()) {\n                prevs.pop_back();\n            }\n\n            prevs.push_back(val);\n        }\n        return ops;\n    }\n};",
+    "submit_ts": "1721533271",
+    "subm_id": "1328005228"
+}

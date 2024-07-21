@@ -1,0 +1,6 @@
+{
+    "username": "Akksharvan",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations (vector<int> &A, vector<int> &B) {\n        long long R = 0; int N = size(A); vector<long long> C(N);\n        for (int i = 0; i < N; i++) C[i] = B[i] - A[i];\n\n        function<bool (int, int)> F = [] (int i, int j) {\n            if (i < 0 && j >= 0) return 0;\n            if (i > 0 && j <= 0) return 0;\n            if (i == 0 && j != 0) return 0;\n\n            return 1;\n        };\n\n        function<bool (int, int)> G = [] (int i, int j) {\n            if (i < 0) return (j <= i);\n            else return (j >= i);\n        };\n\n        for (int i = 0; i < N; i++) {\n            int j = i; while (j + 1 < N && F(C[i], C[j + 1])) j++;\n            if (C[i] == 0) { i = j; continue; } R += abs(C[i]);\n\n            for (int k = i; k <= j; k++) {\n                if (k + 1 > j || !G(C[k], C[k + 1])) continue;\n                R += abs(C[k + 1] - C[k]);\n            }\n\n            i = j;\n        }\n\n        return R;\n    }\n};",
+    "submit_ts": "1721531295",
+    "subm_id": "1327957354"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "peterpark121",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n\n        def minNumberOperations(A):\n            res = pre = 0\n            for a in A:\n                res += max(a - pre, 0)\n                pre = a\n            return res\n        diff = [t - num for num, t in zip(nums, target)]\n        output = []\n        temp = [diff[0]]\n        for num in diff[1:]:\n            if num * temp[-1] < 0:\n                output.append(temp[:])\n                temp = [num]\n            else:\n                temp.append(num)\n        output.append(temp)\n        res = 0\n        for arr in output:\n            res += minNumberOperations([abs(i) for i in arr])\n        return res\n\n        # diff = [0] + [t - num for num, t in zip(nums, target)]\n        # res = pre = 0\n        # print(diff)\n        # for i in range(1,len(diff)):\n        #     if diff[i] == 0 or diff[i] == diff[i - 1]:\n        #         continue\n        #     res += min(abs(diff[i] - pre), abs(diff[i]))\n        #     print(min(abs(diff[i] - pre), abs(diff[i])))\n        #     pre = diff[i]\n        # return res",
+    "submit_ts": "1721532854",
+    "subm_id": "1327995639"
+}

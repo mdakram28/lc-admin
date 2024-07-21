@@ -1,0 +1,6 @@
+{
+    "username": "owenhelios",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        diff = [0] * n\n        for i in range(n):\n            diff[i] = nums[i] - target[i]\n        dp = [0] * (n + 1)\n        dp[1] = abs(diff[0])\n        l, c = diff[0], 1\n        for i in range(2, n + 1):\n            if diff[i - 1] == l:\n                dp[i] = dp[i - 1]\n                c += 1\n            else:\n                if diff[i - 1] <= 0 and diff[i - 2] <= 0:\n                    val = max(diff[i - 2] - diff[i - 1], 0)\n                elif diff[i - 1] > 0 and diff[i - 2] > 0:\n                    val = max(diff[i - 1] - diff[i - 2], 0)\n                else:\n                    val = abs(diff[i - 1])\n                dp[i] = dp[i - 1] + val\n                c = 1\n                l = diff[i - 1]\n        return dp[n]",
+    "submit_ts": "1721531750",
+    "subm_id": "548388330"
+}

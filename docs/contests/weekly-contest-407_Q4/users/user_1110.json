@@ -1,0 +1,6 @@
+{
+    "username": "phungthienphuoc",
+    "submission": "from sortedcontainers import SortedList\nclass Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n=len(nums)\n        \n        def process(l,r):\n            if l==r:\n                return 0\n            a=[]\n            for i in range(l,r):\n                if a and a[-1]==abs(nums[i]):\n                    continue\n                a.append(abs(nums[i]))\n            if len(a)<=2:\n                return max(a)\n            m=min(a)\n            res=0\n            p=[(0,a[0]),(len(a)-1,a[-1])]\n            for i in range(1,len(a)-1):\n                if a[i]<min(a[i-1],a[i+1]) or a[i]>max(a[i-1],a[i+1]):\n                    p.append((i,a[i]))\n            p.sort(key=lambda x:x[1])\n            d=SortedList([(-1,0),(len(a),0)])\n            for i,x in p:\n                d.add((i,x))\n                vt=d.bisect_left((i,x))\n                res+=x-max(d[vt-1][1],d[vt+1][1])\n            return res\n        \n        l=res=0\n        for r in range(n):\n            nums[r]-=target[r]\n            if nums[l]*nums[r]<=0:\n                res+=process(l,r)\n                l=r\n        else:\n            res+=process(l,n)\n        return res",
+    "submit_ts": "1721532098",
+    "subm_id": "1327977576"
+}

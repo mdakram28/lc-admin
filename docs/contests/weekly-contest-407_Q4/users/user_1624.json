@@ -1,0 +1,6 @@
+{
+    "username": "t-a-n-m-a-y",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long count=0;        \n        int l=0, r=0, n = nums.size();\n        while (l<=r and r<n) {\n            int curr = nums[r] - target[r];\n            if (curr == 0) {\n                l++;\n                r++;\n                continue;\n            }\n            int sign = (curr>0) ? 1 : -1;\n            long long minval = abs(curr);\n            r++;\n            if (curr>0) {\n                while (r<n and nums[r]-target[r]>0) {\n                    minval = min(minval, 1LL*abs(nums[r]-target[r]));\n                    r++;\n                }\n            }\n            else {\n                while (r<n and nums[r]-target[r]<0) {\n                    minval = min(minval, 1LL*abs(nums[r]-target[r]));\n                    r++;\n                }\n            }\n            r--;\n            while (l!=r) {\n                nums[r] -= sign*minval;\n                r--;\n            }\n            nums[r] -= sign*minval;\n            r = l;       \n            count += minval;     \n        }\n        \n        return count;\n    }\n};",
+    "submit_ts": "1721533398",
+    "subm_id": "1328008082"
+}

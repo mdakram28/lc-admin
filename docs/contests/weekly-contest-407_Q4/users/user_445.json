@@ -1,0 +1,6 @@
+{
+    "username": "danieljkeyes",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        vector<int64_t> diffs(nums.size());\n        for (int i=0; i < nums.size(); ++i) {\n            diffs[i] = target[i] - nums[i];\n        }\n\n        int i=0;\n        for (; i < diffs.size() && diffs[i] == 0; ++i);\n        if (i == diffs.size()) {\n            return 0;\n        }\n\n        int64_t min_ops = abs(diffs[i]);\n        int64_t prev = diffs[i];\n        ++i;\n\n        for (; i < diffs.size(); ++i) {\n            if (diffs[i] * prev > 0) {\n                if (abs(diffs[i]) > abs(prev)) {\n                    // extend\n                    min_ops += abs(diffs[i]) - abs(prev);\n                }\n            } else {\n                // pay whole cost\n                min_ops += abs(diffs[i]);\n            }\n            prev = diffs[i];\n        }\n\n        return min_ops;      \n    }\n};",
+    "submit_ts": "1721531186",
+    "subm_id": "1327954544"
+}

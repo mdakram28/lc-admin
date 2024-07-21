@@ -1,0 +1,6 @@
+{
+    "username": "KLatitude",
+    "submission": "class Solution {\npublic:\n    long long cal(vector<int>& a) {\n        long long ans = 0;\n        int n = a.size();\n        int i = 1;\n        while (i < n) {\n            if (a[i] > a[i - 1])\n                ans += a[i] - a[i - 1];\n            i ++ ;\n        }\n        return ans;\n    }\n\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long res = 0;\n        int n = nums.size();\n        for (int i = 0; i < n; i ++ )\n            nums[i] -= target[i];\n\n        int i = 0;\n        while (i < n) {\n            if (nums[i] == 0) {\n                i ++ ;\n                continue;\n            }\n\n            vector<int> cur = {0};\n            int flag = 1;\n            if (nums[i] < 0)\n                flag = -1;\n            int j = i;\n            while (j < n && flag * nums[j] > 0) {\n                cur.push_back(flag * nums[j]);\n                j ++ ;\n            }\n\n            res += cal(cur);\n            i = j;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1721531053",
+    "subm_id": "548382798"
+}

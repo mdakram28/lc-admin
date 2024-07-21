@@ -1,0 +1,6 @@
+{
+    "username": "Deepanshu_30",
+    "submission": "import java.util.Arrays;\n\npublic class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int n = nums.length;\n        int[] einstein = new int[n];\n        for (int i = 0; i < n; ++i) {\n            einstein[i] = target[i] - nums[i];\n        }\n        \n        long totalOperations = 0;\n        long currentNewton = 0;\n        \n        for (int i = 0; i < n; ++i) {\n            boolean isContinuousSegment = (i > 0) && ((einstein[i - 1] > 0 && einstein[i] > 0) || (einstein[i - 1] < 0 && einstein[i] < 0));\n            \n            long additionalOperations = isContinuousSegment \n                ? max(0, customAbs(einstein[i]) - customAbs(currentNewton))\n                : customAbs(einstein[i]);\n                \n            totalOperations += additionalOperations;\n            currentNewton = einstein[i];\n        }\n        \n        return totalOperations;\n    }\n\n    private long customAbs(long value) {\n        return (value < 0) ? -value : value;\n    }\n\n    private long max(long a, long b) {\n        return (a > b) ? a : b;\n    }\n}\n",
+    "submit_ts": "1721533126",
+    "subm_id": "1328001887"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "knarf",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int n = nums.length;\n        int[] arr = new int[n];\n        for(int i=0;i<n;i++) arr[i] = target[i]-nums[i];\n        long sum = 0;\n        for(int i=0;i<n;i++) {\n            int f = b(arr[i]);\n            if(f==0) continue;\n            int p = i;\n            while(p<n && b(arr[p]) == f) p++;\n            if(f==1) {\n                sum += arr[i];\n                for(int j=i+1;j<p;j++) {\n                    if(arr[j]>arr[j-1]) sum += arr[j]-arr[j-1];\n                }\n            } else {\n                sum -= arr[i];\n                for(int j=i+1;j<p;j++) {\n                    if(arr[j]<arr[j-1]) sum += arr[j-1]-arr[j];\n                }\n            }\n            i = p-1;\n        }\n        return sum;\n    }\n    int b(int a) {\n        if(a>0) {\n            return 1;\n        } else if (a==0) {\n            return 0;\n        } else {\n            return -1;\n        }\n    }\n}",
+    "submit_ts": "1721531392",
+    "subm_id": "548385033"
+}

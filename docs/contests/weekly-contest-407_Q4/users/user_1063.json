@@ -1,0 +1,6 @@
+{
+    "username": "CodeRover",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& v, vector<int>& t) \n    {\n        vector<int> target;\n        int n = v.size();\n        for(int i=0;i<n;i++) target.push_back(t[i] - v[i]);\n        long long ans = 0;\n        int i = 0;\n        while(i<n)\n        {\n            int j = i;\n            vector<int> cur = { target[i] };\n            if( target[i] > 0 )\n            {\n                while(j+1<n && target[j+1] >= 0) {\n                    cur.push_back( target[j+1] );\n                    j++;\n                }\n                \n            }else \n            {\n                while(j+1<n && target[j+1] < 0) {\n                    cur.push_back( target[j+1] );\n                    j++;\n                }\n                for(int i=0;i<cur.size();i++) cur[i] *= -1;\n            }\n            \n            \n            int res = cur[0];\n            for(int i=1;i<cur.size();i++)\n            {\n                res += max(0, cur[i] - cur[i-1]);\n            }\n            ans += res;\n            i = j+1;\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1721531357",
+    "subm_id": "1327958899"
+}

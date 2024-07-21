@@ -1,0 +1,6 @@
+{
+    "username": "linyao-o",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int n=nums.length;\n        int[] minus = new int[n];\n        for(int i=0;i<n;++i) minus[i]=target[i]-nums[i];\n        \n        long[] dp = new long[n];\n        dp[0]=Math.abs(minus[0]);\n        // long ans=dp[0];\n        for(int i=1;i<n;++i){\n            if(minus[i]>=0 && minus[i-1]>=0){\n                if(minus[i]<=minus[i-1]) dp[i]=dp[i-1];\n                else dp[i]=dp[i-1]+minus[i]-minus[i-1];\n            } else if(minus[i]<=0 && minus[i-1]<=0){\n                if(minus[i]>=minus[i-1]) dp[i]=dp[i-1];\n                else dp[i]=dp[i-1]+minus[i-1]-minus[i];\n            } else {\n                dp[i]=dp[i-1]+Math.abs(minus[i]);\n            }\n            // ans+=dp[i];\n        }\n        return dp[n-1];\n    }\n}",
+    "submit_ts": "1721531937",
+    "subm_id": "548389455"
+}

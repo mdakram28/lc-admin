@@ -1,0 +1,6 @@
+{
+    "username": "shonu_monu",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<long long> diffs(n);\n        \n        diff(nums, target, diffs);\n\n        long long ans = 0;\n        long long prev = 0;\n        \n        for (auto x : diffs) {\n            ans += f(x, prev);\n            prev = x;\n        }\n\n        return ans;\n    }\n\nprivate:\n    void diff(vector<int>& nums, vector<int>& target, vector<long long>& diffs) {\n        int n = nums.size();\n        for (int i = 0; i < n; ++i) {\n            diffs[i] = (target[i] - nums[i])*1ll;\n        }\n    }\n\n    long long f(long long currDiff, long long prev) {\n        if (currDiff > 0 && prev > 0) {\n            if (currDiff > prev) {\n                return (currDiff - prev);\n            } else {\n                return 0;\n            }\n        } else if (currDiff < 0 && prev < 0) {\n            if (currDiff < prev) {\n                return (prev - currDiff);\n            } else {\n                return 0;\n            }\n        } else {\n            return abs(currDiff);\n        }\n    }\n};\n",
+    "submit_ts": "1721533333",
+    "subm_id": "1328006637"
+}

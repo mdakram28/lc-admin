@@ -1,0 +1,6 @@
+{
+    "username": "neerajsolanki",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n         int n = nums.size();\n\n        int i = 0;\n        long long ans = 0;\n        vector<int> v(n,0);\n\n        for(int i=0;i<n;i++){\n            v[i] = nums[i]-target[i];\n        }\n\n        while(i<n){\n            if(v[i]==0){\n                i++;\n                continue;\n            }\n            if(v[i]>0){\n                int mini = v[i];\n                int j = i+1;\n\n                while(j<n && v[j]>0){\n                    mini = min(mini,v[j]);\n                    j++;\n                }\n                \n                for(int k=i;k<j;k++){\n                    v[k]-=mini;\n                }\n                ans+=mini;\n            }else{\n                int maxi = v[i];\n                int j = i+1;\n                while(j<n && v[j]<0){\n                    maxi = max(maxi,v[j]);\n                    j++;\n                }\n\n                for(int k=i;k<j;k++){\n                    v[k]-=maxi;\n                }\n                ans+=abs(maxi);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721532013",
+    "subm_id": "1327975510"
+}

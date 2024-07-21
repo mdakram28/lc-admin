@@ -1,0 +1,6 @@
+{
+    "username": "ruoqiu",
+    "submission": "class Solution {\npublic:\n\n    using ll = long long;\n    int n;\n    \n    ll helper(vector<int>& nums, vector<int>& target, int l, int r, int val) {\n        if (l > r) return 0;\n        else if (l == r) {\n            return abs(nums[l] + val - target[l]);\n        }\n        int i = l;\n        ll tmp = 0;\n        ll ans = 0;\n        while (i <= r) {\n            tmp = nums[i] + val - target[i];\n            if (tmp == 0) {\n                i++;\n                continue;\n            }\n            int j;\n            for (j = i; j <= r; j++) {\n                ll cur = nums[j] + val - target[j];\n                if (cur * tmp > 0) {\n                    if (tmp > 0) {\n                        tmp = min(tmp, cur);\n                    } else {\n                        tmp = max(tmp, cur);\n                    }\n                } else {\n                    break;\n                }\n            }\n            ans += abs(tmp) + helper(nums, target, i, j - 1, val - tmp);\n            i = j;\n        }\n        return ans;\n\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        n = nums.size();\n        return helper(nums, target, 0, n - 1, 0);\n    }\n};",
+    "submit_ts": "1721531244",
+    "subm_id": "548384046"
+}

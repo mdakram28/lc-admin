@@ -1,0 +1,6 @@
+{
+    "username": "Vallen2023",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long result = 0;\n        int left = 0;\n        int n = nums.size();\n\n        while (left < n) {\n            if (nums[left] == target[left]) {\n                left++;\n                continue;\n            }\n            long long tmp = target[left] - nums[left];\n            int i = left;\n            if (tmp > 0) {\n                while (i < n && target[i] - nums[i] > 0) {\n                    tmp = min(tmp, (long long)(target[i] - nums[i]));\n                    i++;\n                }\n                for (int j = left; j < i; j++) {\n                    nums[j] += tmp;\n                }\n                result += tmp;\n            } else {\n                while (i < n && target[i] - nums[i] < 0) {\n                    tmp = max(tmp, (long long)(target[i] - nums[i]));\n                    i++;\n                }\n                for (int j = left; j < i; j++) {\n                    nums[j] += tmp;\n                }\n                result -= tmp;\n            }\n        }\n\n        return result;\n    }\n};",
+    "submit_ts": "1721532154",
+    "subm_id": "1327979024"
+}

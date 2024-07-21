@@ -1,0 +1,6 @@
+{
+    "username": "dong-fang-hr",
+    "submission": "class Solution {\npublic:\n\n    long long check(vector<int>& a){\n        int n = a.size();\n        if(a[0] < 0){\n            for(int i = 0;i <a.size();++i)a[i] *= -1;\n        }\n        //for(int i = 0;i <a.size();++i)cout << a[i] << ' ';\n        //cout <<'\\n';\n        long long res = 0;\n        res += a[0];\n        for (int i = 1; i < n; i++)\n            if (a[i] > a[i - 1])\n                res += a[i] - a[i-1];\n        return res;\n    }\n\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long ans = 0;\n        vector<vector<int>> p;\n        vector<int> dif(nums.size());\n        for(int i = 0;i < nums.size();++i){\n            dif[i] = nums[i] - target[i];\n        }\n        p.push_back({});\n        for(int i = 0;i < nums.size();++i){\n            if(i != 0 && ((dif[i] >= 0 && dif[i-1] <= 0) || (dif[i] <= 0 && dif[i-1] >= 0)))p.push_back({});\n            p.back().push_back(dif[i]);\n        }\n        for(int i = 0;i < p.size();++i){\n            ans += check(p[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721532003",
+    "subm_id": "548389831"
+}

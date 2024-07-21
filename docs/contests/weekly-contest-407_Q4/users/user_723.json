@@ -1,0 +1,6 @@
+{
+    "username": "VimT",
+    "submission": "impl Solution {\n    pub fn minimum_operations(nums: Vec<i32>, target: Vec<i32>) -> i64 {\n        let diff: Vec<i64> = target.into_iter().zip(nums).map(|(a, b)| (a - b) as i64).collect();\n    \n        let len = diff.len();\n        let mut i = 0;\n        let mut result = 0;\n        while i < len {\n            if diff[i] == 0 {\n                i += 1;\n                continue;\n            }\n            let sig = diff[i].signum();\n            let mut s = vec![];\n            while i < len && diff[i].signum() == sig {\n                let mut need = true;\n                while !s.is_empty() && s.last().unwrap() >= &diff[i].abs() {\n                    need = false;\n                    s.pop();\n                }\n                if need { result += diff[i].abs() - s.last().copied().unwrap_or(0); }\n                s.push(diff[i].abs());\n                i += 1;\n            }\n    \n        }\n        result\n    }\n}",
+    "submit_ts": "1721531731",
+    "subm_id": "548388211"
+}

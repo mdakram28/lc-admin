@@ -1,0 +1,6 @@
+{
+    "username": "fsyun",
+    "submission": "class Solution {\n    public long minimumOperations(int[] nums, int[] target) {\n        int n = nums.length, p = 0;\n        long ans = 0;\n        for (int i = 0; i < n; i++)\n            nums[i] = target[i] - nums[i];\n        while (p < n) {\n            if (nums[p] == 0) {\n                p++;\n                continue;\n            }\n            int q = p + 1;\n            while (q < n && ((nums[p] > 0 && nums[q] > 0) || (nums[p] < 0 && nums[q] < 0)))\n                q++;\n            int len = q - p;\n            int[] a = new int[len];\n            for (int i = p; i < q; i++)\n                a[i - p] = nums[i] > 0 ? nums[i] : -nums[i];\n            for (int i = len - 1; i >= 0; i--)\n                if (i == 0)\n                    ans += a[i];\n                else if (a[i] > a[i - 1])\n                    ans += a[i] - a[i - 1];\n            p = q;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1721531967",
+    "subm_id": "1327974330"
+}

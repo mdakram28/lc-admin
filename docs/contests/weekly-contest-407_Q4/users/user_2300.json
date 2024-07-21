@@ -1,0 +1,6 @@
+{
+    "username": "yuruiyin",
+    "submission": "class Solution {\n public long minimumOperations(int[] nums, int[] target) {\n        int len = nums.length;\n        if (len == 1) {\n            return Math.abs(nums[0] - target[0]);\n        }\n        long[] diff = new long[len];\n        for (int i = 0; i < len; i++) {\n            diff[i] = target[i] - nums[i];\n        }\n\n        // \u6b63\u6570\uff1a\u6240\u6709\u7684\u5347\u5e8f\u6bb5\n        // \u8d1f\u6570\uff1a\u6240\u6709\u7684\u964d\u5e8f\u6bb5\n        long ans = 0;\n        long preMin = 0;\n        for (int i = 1; i < len; i++) {\n            if (diff[i] * diff[i - 1] <= 0) {\n                ans += Math.abs(diff[i - 1]) - Math.abs(preMin);\n                preMin = 0;\n            } else {\n                if (diff[i] > 0) {\n                    if (diff[i] < diff[i - 1]) {\n                        ans += diff[i - 1] - preMin;\n                        preMin = diff[i];\n                    }\n                } else {\n                    if (diff[i] > diff[i - 1]) {\n                        ans += -diff[i - 1] + preMin;\n                        preMin = diff[i];\n                    }\n                }\n            }\n        }\n\n        ans += Math.abs(diff[len - 1]) - Math.abs(preMin);\n        return ans;\n    }\n}",
+    "submit_ts": "1721533622",
+    "subm_id": "548400147"
+}

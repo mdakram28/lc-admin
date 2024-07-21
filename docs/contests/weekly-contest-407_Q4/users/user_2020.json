@@ -1,0 +1,6 @@
+{
+    "username": "yelnatz",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diffs = []\n        n = len(nums)\n        \n        for i in range(n):\n            diffs.append(target[i]-nums[i])\n            \n            \n        def countMount(arr):\n            minim = min(arr)\n            out = minim\n            \n            temp = []\n            for x in arr:\n                curr = x-minim\n                if curr > 0:\n                    temp.append(curr)\n                elif curr == 0 and temp:\n                    out += countMount(temp)\n                    temp = []\n                elif curr == 0:\n                    pass\n            \n            if temp:\n                out += countMount(temp)\n        \n            return out                    \n                \n            \n        out = 0\n        for k,v in groupby(diffs, key = lambda x: x >= 0):\n            v = list(v)\n            temp_v = [abs(x) for x in v]\n            # print(k, list(v))\n            maxnum = max(v)\n            minim = min(v)\n            out += countMount(temp_v)\n            \n        return out\n            ",
+    "submit_ts": "1721532383",
+    "subm_id": "1327984523"
+}

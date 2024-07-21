@@ -1,0 +1,6 @@
+{
+    "username": "Wilsano",
+    "submission": "class Solution {\npublic:\n    long long helper(vector<int>& nums){\n        for(int& num : nums){\n            num = abs(num);\n        }\n\n        long long count = nums[0];\n        for(int i = 1; i < nums.size(); ++i){\n            count += max(0, nums[i] - nums[i - 1]);\n        }\n        return count;\n    }\n\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long count = 0;\n        vector<int> intervals;\n        for(int i = 0; i < nums.size(); ++i){\n            long long diff = target[i] - nums[i];\n            if(!intervals.empty() && intervals.back() * diff < 0){\n                count += helper(intervals);\n                intervals.clear();\n            }\n            intervals.push_back(diff);\n        }\n        count += helper(intervals);\n        return count;\n    }\n};",
+    "submit_ts": "1721530459",
+    "subm_id": "1327934142"
+}

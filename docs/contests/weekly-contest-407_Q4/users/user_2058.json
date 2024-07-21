@@ -1,0 +1,6 @@
+{
+    "username": "yahoo010206",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        arr1, arr2 = [], []\n        for i, (a, b) in enumerate(zip(nums, target)):\n            diff, arr = (a-b, arr1) if a>b else  (b-a, arr2)\n            if diff:\n                if arr and arr[-1][2]+1==i:\n                    arr[-1][0].append(diff)\n                    arr[-1][2] = i\n                else:\n                    arr.append([[diff], i, i])\n        # print(arr1)\n        # print(arr2)\n        # print([a-b for i, (a, b) in enumerate(zip(nums, target))])\n        \n        def solve(arr):\n            res = 0\n            \n            for values, _, _ in arr:\n                stack = []\n                for value in values:\n                    diff = 0\n                    while stack and stack[-1]>=value:\n                        diff = max(diff, stack.pop()-value)\n                    # print(value, diff)\n                    res+=diff\n                    stack.append(value)\n                if stack:\n                    res+=stack.pop()\n                # print(res, stack)\n            return res\n        return solve(arr1)+solve(arr2)\n        \n            \n",
+    "submit_ts": "1721532740",
+    "subm_id": "1327992914"
+}

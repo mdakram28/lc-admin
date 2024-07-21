@@ -1,0 +1,6 @@
+{
+    "username": "pbmessi",
+    "submission": "class Solution {\npublic:\n    int minNumberOperations(vector<long long>& target) {\n        long long ans=target[0]; int n=target.size();\n        for(int i=1;i<n;i++){\n            if(target[i]>target[i-1]) ans+=target[i]-target[i-1];\n        }\n        \n        return ans;\n    }\n    \n    long long minimumOperations(vector<int>& nums, vector<int>& t) {\n        long long ans=0,n=nums.size();\n        vector<long long> target(n);\n        for(int i=0;i<n;i++) target[i]=(t[i]-nums[i])*1ll;\n        int i=0;\n        while(i<n){\n            if(target[i]==0){\n                i++; continue;\n            }\n            int j=i;\n            while(j<n && (target[j]*target[i]>0)) j++;\n            vector<long long> v;\n            for(int k=i;k<j;k++) v.push_back(abs(target[k]));\n            ans=ans+minNumberOperations(v);\n            i=j;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721530446",
+    "subm_id": "1327933728"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "utpal_busa",
+    "submission": "class Solution {\npublic:\n    \n    long long fun(int i, int j, vector<int> &nums, vector<int> &tar)\n    {\n        vector<int> v;\n\n        for(int k=i; k<=j; k++)\n        {\n            v.push_back(abs(nums[k]-tar[k]));\n        }        \n\n        long long sz=v.size(), cnt=v[0];\n\n        for(int k=1; k<sz; k++)\n        {\n            if(v[k]>v[k-1])\n            {\n                cnt+=v[k]-v[k-1];\n            }\n        }\n\n        return cnt;\n    } \n    \n    long long minimumOperations(vector<int>& nums, vector<int>& tar) {\n        \n        long  long opr=0;\n        int mx=0, flag=-1, ind=0, n=nums.size();\n\n        for(int i=0; i<n; i++)\n        {\n            if(nums[i]>=tar[i])\n            {\n                if(flag==1)\n                {\n                    opr+=fun(ind, i-1, nums, tar);\n                    ind=i;\n                }\n\n                flag=0;\n            }\n            else\n            {\n                if(flag==0)\n                {\n                    opr+=fun(ind, i-1, nums, tar);\n                    ind=i;\n                }\n\n                flag=1;\n            }\n        }\n\n        opr+=fun(ind, n-1, nums, tar);\n\n        return opr;\n    }\n};",
+    "submit_ts": "1721534017",
+    "subm_id": "1328021696"
+}

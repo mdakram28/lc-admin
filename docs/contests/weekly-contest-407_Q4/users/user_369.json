@@ -1,0 +1,6 @@
+{
+    "username": "alex391a",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        a = [nums[i] - target[i] for i in range(n)]\n        clust = [[a[0]]]\n        # print(a)\n        for i in range(1, n):\n            if (a[i] >= 0) == (clust[-1][-1] >= 0):\n                clust[-1].append(a[i])\n            else:\n                clust.append([a[i]])\n        ret = 0\n        # print(clust)\n        for cnums in clust:\n            if cnums[0] < 0:\n                cnums = [-i for i in cnums]\n            stk = [0]\n            res = 0\n            for i in cnums:\n                ch = 0\n                while stk and stk[-1] > i:\n                    stk.pop()\n                    ch = 1\n                if ch == 0:\n                    res += i - stk[-1]\n                stk.append(i)\n            #     print(res, stk)\n            # print(res, ret)\n            ret += res\n        return ret\n",
+    "submit_ts": "1721530977",
+    "subm_id": "1327948864"
+}

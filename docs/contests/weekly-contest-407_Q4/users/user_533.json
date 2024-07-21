@@ -1,0 +1,6 @@
+{
+    "username": "nevergiveup",
+    "submission": "class Solution {\n\n    private boolean sameSign(int val1 , int val2) {\n        if (val1 > 0 && val2 > 0) {\n            return true;\n        } else if (val1 < 0 && val2 < 0) {\n            return true;\n        } else {\n            return false;\n        }\n    }\n\n    private long getResult(List<Integer> values) {\n        long result = 0 , prev = 0;\n        for (long value : values) {\n            if (value > prev) {\n                result += (value - prev);\n            }\n            prev = value;\n        }\n        return result;\n    }\n\n    public long minimumOperations(int[] nums, int[] target) {\n        int i , n = nums.length;\n        long ans = 0;\n        for (i = 0;i < n;i ++) {\n            int diff = nums[i] - target[i];\n            if (diff != 0) {\n                List<Integer> values = new ArrayList<>();\n                while (i < n && (nums[i] - target[i]) != 0 && sameSign(diff, nums[i] - target[i])) {\n                    values.add(Math.abs(nums[i] - target[i]));\n                    i++;\n                }\n                i--;\n                ans += getResult(values);\n            }\n        }\n        return ans;\n    }\n\n}",
+    "submit_ts": "1721531388",
+    "subm_id": "1327959682"
+}

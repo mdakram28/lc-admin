@@ -1,0 +1,6 @@
+{
+    "username": "weiyinfu",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        nums=[j-i for i,j in zip(nums,target)]\n        @cache\n        def solve(ind,z,inc,dec):\n            if ind==len(nums):\n                return 0\n            need=abs(nums[ind])\n            if nums[ind]==0:\n                z=0\n                inc=0\n                dec=0\n            elif nums[ind]>0:\n                need-=inc\n                need=max(0,need)\n                inc=abs(nums[ind])\n                dec=0\n                z=0\n            else:\n                need-=dec\n                need=max(0,need)\n                dec=abs(nums[ind])\n                inc=0\n                z=0\n            return need+solve(ind+1,z,inc,dec)\n\n        ans=solve(0,0,0,0)\n        solve.cache_clear()\n        return ans",
+    "submit_ts": "1721532110",
+    "subm_id": "548390476"
+}

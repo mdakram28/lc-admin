@@ -1,0 +1,6 @@
+{
+    "username": "nikhil_paul",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        from sortedcontainers import SortedList\n        def process(arr):\n            if not arr: return 0\n            arr = sorted([(i, ix) for ix, i in enumerate(arr)])\n            l, n, ans = SortedList(), len(arr), 0\n            l.add([n, 0])\n            for i, j in arr:\n                ele = l[l.bisect([j, i])]\n                ans += i - ele[1]\n                ele[1] = i\n                l.add([j, i])\n            return ans\n\n        prev, ans, arr = 1, 0, []\n        for ix, i in enumerate(nums):\n            if i-target[ix] <= 0 and prev:\n                ans += process(arr)\n                arr, prev = [], 0\n            if i-target[ix] > 0 and not prev:\n                ans += process(arr)\n                arr, prev = [], 1\n            arr.append(abs(i-target[ix]))\n        ans += process(arr)\n        return ans\n\n            ",
+    "submit_ts": "1721533339",
+    "subm_id": "1328006782"
+}

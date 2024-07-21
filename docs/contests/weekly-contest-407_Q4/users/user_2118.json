@@ -1,0 +1,6 @@
+{
+    "username": "PlumYu",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long ans = 0;\n        int n = nums.size();\n        vector<int> res(n, 0);\n        for(int i = 0; i < n; ++i){\n            res[i] = nums[i] - target[i];\n        }\n        int l = 0, r = 1, s = 0;\n        while(r <= n){\n            for(; r < n; ++r){\n                if((long long)res[r - 1] * (long long)res[r] <= 0) break;\n                else continue;\n            }\n            // cout << r << endl;\n            int c = 0;\n            int sl = l, maxidx = l;\n            for(; l < n && l < r; l++){\n                int x = abs(res[l]);\n                if(x > c){\n                    maxidx = l;\n                    c = x;\n                }\n            }\n            // cout << maxidx << \" \" << n << endl;\n            for(int i = sl + 1; i < n && i < maxidx; i++){\n                if(abs(res[i - 1]) - abs(res[i]) > 0) ans += abs(res[i - 1] - res[i]);\n            }\n            for(int i = maxidx + 1;i < n && i < l; i++){\n                if(abs(res[i - 1]) - abs(res[i]) < 0) ans += abs(res[i - 1] - res[i]);\n            }\n            r++;\n            ans += c;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721533117",
+    "subm_id": "548396140"
+}

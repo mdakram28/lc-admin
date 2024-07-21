@@ -1,0 +1,6 @@
+{
+    "username": "tylerfft",
+    "submission": "func minimumOperations(nums []int, target []int) int64 {\n\tn := len(nums)\n\tfor i := range target {\n\t\ttarget[i] -= nums[i]\n\t}\n\td := make([]int, n)\n\td[0] = target[0]\n\tfor i := 1; i < n; i++ {\n\t\td[i] = target[i] - target[i-1]\n\t}\n    //fmt.Println(target,d)\n\trst := 0\n\tprev, back := 0, n-1\n\tfor prev < back {\n\t\tfor prev < back && d[prev] <= 0 {\n\t\t\tprev++\n\t\t}\n\t\tfor prev < back && d[back] >= 0 {\n\t\t\tback--\n\t\t}\n\t\tif prev == back {\n\t\t\tbreak\n\t\t}\n\t\ttmp := min(Abs(d[prev]), Abs(d[back]))\n\t\td[prev] -= tmp\n\t\td[back] += tmp\n\t\trst += tmp\n\t}\n\tprev, back = 0, n-1\n\tfor prev < back {\n\t\tfor prev < back && d[prev] >= 0 {\n\t\t\tprev++\n\t\t}\n\t\tfor prev < back && d[back] <= 0 {\n\t\t\tback--\n\t\t}\n\t\tif prev == back {\n\t\t\tbreak\n\t\t}\n\t\ttmp := min(Abs(d[prev]), Abs(d[back]))\n\t\td[prev] += tmp\n\t\td[back] -= tmp\n\t\trst += tmp\n\t}\n\tfor _, v := range d {\n\t\trst += Abs(v)\n\t}\n\treturn int64(rst)\n}\nfunc Abs(a int) int {\n\tif a >= 0 {\n\t\treturn a\n\t}\n\treturn -a\n}\n ",
+    "submit_ts": "1721531894",
+    "subm_id": "548389184"
+}

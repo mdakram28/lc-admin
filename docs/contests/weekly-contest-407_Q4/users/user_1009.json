@@ -1,0 +1,6 @@
+{
+    "username": "convective-rain",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<int> b(n);\n        for (int i = 0; i < n; ++i) {\n            b[i] = target[i] - nums[i];\n        }\n        long long ans = 0, cut = 0;\n        int st = 0;\n        int pos = -1;\n        for (int i = 0; i < n; ++i) {\n            if (b[i] == 0) {\n                pos = -1;\n                ans += st - cut;\n                cut = st = 0;\n                continue;\n            }\n            if (pos == -1) {\n                pos = b[i] > 0 ? 1 : 0;\n                st = abs(b[i]);\n            } else if (pos == 1 && b[i] > 0 || pos == 0 && b[i] < 0) {\n                if (abs(b[i]) >= st) {\n                    st = abs(b[i]);\n                } else {\n                    ans += st - cut;\n                    st = cut = abs(b[i]);\n                }\n            } else {\n                ans += st - cut;\n                pos ^= 1;\n                st = abs(b[i]);\n                cut = 0;\n            }\n        }\n        return ans + st - cut;\n    }\n};",
+    "submit_ts": "1721531639",
+    "subm_id": "548387573"
+}

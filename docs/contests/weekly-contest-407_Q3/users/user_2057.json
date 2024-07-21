@@ -1,0 +1,6 @@
+{
+    "username": "davidtonderski",
+    "submission": "class Solution:\n    def maxOperations(self, s: str) -> int:\n        # 1 00 1 00 1\n        # 111 0 11 0 1\n        #  11111 0 1\n        \n        # trim ending 1s\n        last_zero = len(s) - 1\n        while last_zero >= 0:\n            if s[last_zero] == \"0\":\n                break\n            last_zero -= 1\n        \n        \n        # we only care about the string up until the last zero! all ones after that dont matter.\n        \n        # no zeros or only one zero in the very beginning => no moves possible!!\n        if last_zero == -1 or last_zero == 0:\n            return 0\n        \n        total = 0\n        cur_ones = 0\n        i = 0\n        while i <= last_zero:\n            if s[i] == \"1\":\n                cur_ones += 1\n                i += 1\n\n            # encountered a 0! \n            elif s[i] == \"0\":\n                total += cur_ones\n                # skip all following zeros => they dont add anything\n                while i <= last_zero and s[i] == \"0\":\n                    i += 1\n        \n        return total\n                    ",
+    "submit_ts": "1721531169",
+    "subm_id": "1327954073"
+}

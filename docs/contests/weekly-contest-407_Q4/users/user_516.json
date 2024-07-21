@@ -1,0 +1,6 @@
+{
+    "username": "FSmisaka",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        ans = 0\n        left, right = 0, 0\n        while left < n:\n            while nums[left] < target[left]:\n                right = left+1\n                while right < n and nums[right] < target[right]:\n                    right += 1\n                max_add = target[left] - nums[left]\n                for i in range(left, right):\n                    max_add = min(max_add, target[i]-nums[i])\n                ans += max_add\n                for i in range(left, right):\n                    nums[i] += max_add\n            left += 1\n        left, right = 0, 0\n        while left < n:\n            while nums[left] > target[left]:\n                right = left+1\n                while right < n and nums[right] > target[right]:\n                    right += 1\n                max_minus = - target[left] + nums[left]\n                for i in range(left, right):\n                    max_minus = min(max_minus, -target[i]+nums[i])\n                ans += max_minus\n                for i in range(left, right):\n                    nums[i] -= max_minus\n            left += 1\n        return ans",
+    "submit_ts": "1721531047",
+    "subm_id": "548382749"
+}

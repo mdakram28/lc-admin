@@ -1,0 +1,6 @@
+{
+    "username": "deeper-red",
+    "submission": "class Solution {\npublic:\n    #define ll long long int\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        ll ans = 0, mi = 0, ma = 0;\n        vector<ll> diff(n,0);\n        for(int i=0;i<n;i++) diff[i] = (ll)target[i]-(ll)nums[i];\n        for(int i=0;i<n;i++){\n            int j = i;\n            if(diff[i]>=0){\n                while(j<n && diff[j]>=0) j++;\n                j--;\n                ans+=diff[i];\n                for(int k=i+1;k<=j;k++){\n                    ans+=max(diff[k]-diff[k-1],0LL);\n                }\n            }\n            else{\n                while(j<n && diff[j]<0) j++;\n                j--;\n                ans+=abs(diff[i]);\n                for(int k=i+1;k<=j;k++){\n                    ans+=max(abs(diff[k])-abs(diff[k-1]),0LL);\n                }\n            }\n            i = j;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721532311",
+    "subm_id": "1327982851"
+}

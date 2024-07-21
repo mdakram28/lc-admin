@@ -1,0 +1,6 @@
+{
+    "username": "typical_soul",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long ans = 0;\n        int n = nums.size(), dec = 0, inc = 0;\n        if(nums[0] < target[0])\n            inc += target[0]-nums[0];\n        else\n            dec += nums[0]-target[0];\n\n        ans += max(inc, dec);\n\n        for(int i = 1; i < n; i++) {\n            if(nums[i] < target[i]) {\n                int dif = target[i]-nums[i];\n                ans += max(dif-inc, 0);\n                if(inc > dif) {\n                    dec = min(dec, inc-dif);\n                    inc = dif+dec;\n                } else {\n                    inc = dif;\n                    dec = 0;\n                }\n            } else if(nums[i] > target[i]) {\n                int dif = nums[i]-target[i];\n                ans += max(dif-dec, 0);\n                if(dec > dif) {\n                    inc = min(inc, dec-dif);\n                    dec = dif+inc;\n                } else {\n                    dec = dif;\n                    inc = 0;\n                }\n            } else {\n                inc = min(inc, dec);\n                dec = inc;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721532389",
+    "subm_id": "1327984679"
+}

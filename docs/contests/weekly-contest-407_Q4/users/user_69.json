@@ -1,0 +1,6 @@
+{
+    "username": "abhishek21ee10003kgp",
+    "submission": "#define ll long long int\nclass Solution {\nll minNumberOperations2(vector<int>& target) {\n        vector<int> stack;\n        ll res = 0;\n\n        stack.push_back(target[0]);\n        for (int i = 1; i < target.size(); i++) {\n            if (target[i] > stack.back()) {\n                stack.push_back(target[i]);\n                continue;\n            } \n            if (target[i] == stack.back())\n                continue;\n\n            int top = stack.back();\n\n            while (!stack.empty() && target[i] < stack.back())\n                stack.pop_back();\n\n            res += top - target[i];\n            stack.push_back(target[i]);\n        }\n        \n        if (!stack.empty())\n            res += stack.back();\n\n        return res;\n    }\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n=nums.size();\n        vector<int>temp1(n,0),temp2(n,0);\n        for(int i=0;i<n;i++){\n            if(nums[i]-target[i]>0) temp1[i]=nums[i]-target[i];\n            else temp2[i]=-(nums[i]-target[i]);\n        }\n        return minNumberOperations2(temp1)+minNumberOperations2(temp2);\n    }\n};",
+    "submit_ts": "1721530185",
+    "subm_id": "1327925551"
+}

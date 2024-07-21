@@ -1,0 +1,6 @@
+{
+    "username": "i2omantic-agnesimlp",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        long long sub[n], diff[n];\n        for(int i = 0; i < n; i++) sub[i] = nums[i]-target[i];\n        diff[0] = sub[0];\n        for(int i = 0; i < n - 1; i++){\n            diff[i+1] = sub[i+1] - sub[i];\n        }\n        // for(auto x:diff) cout << x << \" \";\n        // cout << endl;\n        long long ans = abs(diff[0]), ch = diff[0];\n        // cout << diff[0] << \" \" << ch << endl;\n        for(int i = 1; i < n; i++){\n            if(diff[i] == 0) continue;\n            int t = ch + diff[i];\n            if((diff[i] > 0) && (ch < 0)){\n                diff[i] += max(-diff[i], ch);\n            } else if((diff[i] < 0) && (ch > 0)){\n                diff[i] += min(-diff[i], ch);\n                // cout << i << endl;\n            }\n            cout << diff[i] << \" \" << t << endl;\n            ans += abs(diff[i]);\n            ch = t;\n        }\n        // ans += abs(ch);\n        return ans;\n    }\n};",
+    "submit_ts": "1721533012",
+    "subm_id": "548395577"
+}

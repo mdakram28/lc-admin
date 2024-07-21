@@ -1,0 +1,6 @@
+{
+    "username": "user0224B",
+    "submission": "/*\n-1 2 -2\ndiff = nums - target\n- +1 on [i:j] only makes sence if numPos(i,j) < 2 * (j-i+1 - numPos(i,j))\n- process range i to j, k = index of abs min, currSub\n    - dp[k] := op to make nums[i:k] zeros\n    - dp[i] = nums[i]\n    - dp[k] = dp[k-1] + max(nums[k] - nums[k-1], 0)\n- dp[i] := op to make nums[:i] zeros\n    - dp[0] = abs(nums[0])\n    - dp[i] = \n        - if nums[i] and nums[i-1] have different sign\n            - dp[i-1] + abs(nums[i])\n        - else\n            - dp[i-1] + max(abs(nums[i]) - abs(nums[i-1]), 0)\n*/\n\nclass Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        nums[0] -= target[0];\n        long dp = abs(nums[0]);\n        for (int i = 1; i < n; ++i) {\n            nums[i] -= target[i];\n            if ((nums[i] > 0) ^ (nums[i-1] > 0)) {\n                dp += abs(nums[i]);\n            }\n            else {\n                dp += max(abs(nums[i]) - abs(nums[i-1]), 0);\n            }\n        }\n        return dp;\n    }\n};",
+    "submit_ts": "1721532671",
+    "subm_id": "1327991337"
+}

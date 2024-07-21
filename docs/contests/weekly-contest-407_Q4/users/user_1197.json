@@ -1,0 +1,6 @@
+{
+    "username": "zzczzc004",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        s = []\n        for x, y in zip(nums, target):\n            s.append(x-y)\n        ans = 0\n        n = len(s)\n        print(s)\n        l = 0\n\n        def find(s, f):\n            ans = 0\n            last = 0\n            for i in s:\n                t = i * f\n                if t > last:\n                    ans += t - last\n                last = t\n            return ans\n\n\n        while l < n:\n            if s[l] == 0:\n                l += 1\n                continue\n            r = l + 1\n            t = abs(s[l])\n            while r < n and s[r] * s[l] > 0:\n                t = max(t, abs(s[r]))\n                r += 1\n            ans += find(s[l:r], 1 if s[l] > 0 else -1)\n            # print(l, r, ans)\n            l = r\n        return ans\n            \n\n\n            ",
+    "submit_ts": "1721531629",
+    "subm_id": "548387496"
+}

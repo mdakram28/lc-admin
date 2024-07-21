@@ -1,0 +1,6 @@
+{
+    "username": "lyronly",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    ll get(vector<int>& diff, int x, int y)\n    {\n        int ans = abs(diff[x]);\n        for (int i = x + 1; i < y; i++)\n        {\n            int b = abs(diff[i]);\n            int a = abs(diff[i - 1]);\n            ans += max(b - a, 0);\n        }\n        //cout << x << \",\" << y << \",\" << ans << endl;\n        return ans;\n    }\n    bool same(ll a, ll b)\n    {\n        if (a > 0 && b < 0) return false;\n        if (b > 0 && a < 0) return false;\n        return true;\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<int> diff(n);\n        for (int i = 0; i < n; i++) diff[i] = target[i] - nums[i];\n        int i = 0;\n        ll ans = 0;\n        while (i < n)\n        {\n            int x = i;\n            int c = diff[x];\n            while (i < n && same(c, diff[i]))\n            {\n                if (c == 0) c = diff[i];\n                i++;\n            }\n            //cout << i << endl;\n            ll cur = get(diff, x, i);\n            ans += cur;\n        }\n        return ans;\n        \n            \n    }\n};",
+    "submit_ts": "1721532794",
+    "subm_id": "1327994256"
+}

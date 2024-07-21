@@ -1,0 +1,6 @@
+{
+    "username": "abhishek_k11",
+    "submission": "#define VECTOR_TYPE std::vector<int>\ntypedef VECTOR_TYPE IntVector;\n\nclass Solution {\npublic:\n    long long minimumOperations(const IntVector& nums, const IntVector& target) {\n        const size_t n = nums.size();\n        IntVector diff(n);\n\n        for (size_t i = 0; i < n; ++i) {\n            diff[i] = target[i] - nums[i];\n        }\n\n        long long total_operations = 0;\n        long long current_segment_diff = 0;\n\n        for (size_t i = 0; i < n; ++i) {\n            if (i == 0 || (diff[i - 1] > 0 && diff[i] > 0) || (diff[i - 1] < 0 && diff[i] < 0)) {\n                long long additional_operations = std::abs(diff[i]) - std::abs(current_segment_diff);\n                if (additional_operations > 0) {\n                    total_operations += additional_operations;\n                }\n                current_segment_diff = diff[i];\n            } else {\n                total_operations += std::abs(diff[i]);\n                current_segment_diff = diff[i];\n            }\n        }\n        return total_operations;\n    }\n};\n\nauto init = []() {\n    std::ios::sync_with_stdio(false);\n    std::cin.tie(nullptr);\n    std::cout.tie(nullptr);\n    return 0;\n}();",
+    "submit_ts": "1721533327",
+    "subm_id": "1328006494"
+}

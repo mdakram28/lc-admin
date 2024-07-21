@@ -1,0 +1,6 @@
+{
+    "username": "martin0327",
+    "submission": "using ll = long long ;\nusing vi = vector<ll>;\nusing vvi = vector<vi>;\n\nclass Solution {\npublic:\n    long long minimumOperations(vector<int>& a, vector<int>& b) {\n        int n = a.size();\n        vi c(n);\n        for (int i=0; i<n; i++) {\n            c[i] = b[i] - a[i];\n        }\n        vvi d;\n        for (auto x : c) {\n            if (x == 0) d.push_back({});\n            else if (d.empty() || d.back().empty()) d.push_back({x});\n            else {\n                int y = d.back().back();\n                if (x * y < 0) d.push_back({x});\n                else d.back().push_back(x);\n            }\n        }\n        ll ans = 0;\n        for (auto &v : d) {\n            if (v.empty()) continue;\n            auto f = [&] (vi &a) {\n                int n = a.size();\n                int ans = 0, last = 0;\n                for (auto x : a) {\n                    x = abs(x);\n                    ans += max(0ll,x-last);\n                    last = x;\n                }\n                return ans;\n            };\n            ans += f(v);\n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1721530973",
+    "subm_id": "1327948789"
+}

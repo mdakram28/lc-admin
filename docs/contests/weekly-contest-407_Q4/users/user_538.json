@@ -1,0 +1,6 @@
+{
+    "username": "Nelson84",
+    "submission": "using LL = long long;\nclass Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        int diff[n];\n        for(int i=0; i<n; i++) diff[i] = target[i]-nums[i];\n\n        LL min_oper = 0;\n        for(int l=0; l<n; l++){\n            if(diff[l]==0) continue;\n            if(diff[l]>0){\n                int r = l;\n                while(r<n && diff[r]>0) r++;\n\n                int prev = 0;\n                for(int i=l; i<r; i++){\n                    if(diff[i]>prev) min_oper += diff[i]-prev;\n                    prev = diff[i];\n                }\n                l = r-1;\n            }\n            else{\n                int r = l;\n                while(r<n && diff[r]<0) r++;\n\n                int prev = 0;\n                for(int i=l; i<r; i++){\n                    if(abs(diff[i])>prev) min_oper += abs(diff[i])-prev;\n                    prev = abs(diff[i]);\n                }\n                l = r-1;\n            }\n        }\n        return min_oper;\n    }\n};",
+    "submit_ts": "1721531395",
+    "subm_id": "1327959853"
+}

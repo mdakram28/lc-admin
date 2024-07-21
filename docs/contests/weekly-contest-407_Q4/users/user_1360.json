@@ -1,0 +1,6 @@
+{
+    "username": "sanori",
+    "submission": "/**\n * @param {number[]} nums\n * @param {number[]} target\n * @return {number}\n */\nvar minimumOperations = function(nums, target) {\n  const n = nums.length;\n  const diff = target.map((x, i) => x - nums[i]);\n  // console.log({diff})\n  let res = 0, mode = 0, last = 0;\n  for (let i = 0; i < n; i++) {\n    if (mode > 0) {\n      if (diff[i] <= 0) {\n        mode = diff[i];\n        last = diff[i];\n        res -= diff[i];\n      } else {\n        if (diff[i] > last) {\n          res += diff[i] - last;\n          last = diff[i];\n        } else if (diff[i] < last) {\n          last = diff[i];\n        }\n      }\n    } else if (mode < 0) {\n      if (diff[i] >= 0) {\n        mode = diff[i];\n        last = diff[i];\n        res += diff[i];\n      } else {\n        if (diff[i] < last) {\n          res += last - diff[i];\n          last = diff[i];\n        } else if (diff[i] > last) {\n          last = diff[i];\n        } \n      }\n    } else {\n      mode = diff[i];\n      last = diff[i];\n      res += Math.abs(diff[i]);\n    }\n    // console.log({i, mode, last, res})\n  }\n  return res;\n};",
+    "submit_ts": "1721533060",
+    "subm_id": "1328000351"
+}

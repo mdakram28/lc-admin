@@ -1,0 +1,6 @@
+{
+    "username": "ccinv",
+    "submission": "int f1[100005],f2[100005];\n\nclass Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        f1[0]=nums[0];\n        f2[0]=target[0];\n        // nums.push_back(0);target.push_back(0);\n        int n=nums.size();\n        long long ans=0,neg=0,pos=0;\n        for (int i=0;i<n;++i){\n            if (i>0){\n                f1[i]=nums[i]-nums[i-1],\n                f2[i]=target[i]-target[i-1];\n            }\n            if (f1[i]<f2[i]){\n                if (f1[i]+pos>=f2[i]){\n                    pos-=f2[i]-f1[i];\n                    f1[i]=f2[i];\n                }else{\n                    int res=f2[i]-f1[i]-pos;\n                    ans+=res;\n                    pos=0;neg+=res;\n                }\n            }\n            if (f1[i]>f2[i]){\n                if (f1[i]-neg<=f2[i]){\n                    neg-=f1[i]-f2[i];\n                    f1[i]=f2[i];\n                    // cout<<neg<<endl;\n                }else{\n                    int res=f1[i]-f2[i]-neg;\n                    ans+=res;\n                    pos+=res;neg=0;\n                }\n            }\n        }\n        // 4 -3 2 1\n        // 4 -3 2 -1\n        return ans;\n    }\n};",
+    "submit_ts": "1721531491",
+    "subm_id": "548385669"
+}

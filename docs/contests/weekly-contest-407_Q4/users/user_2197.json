@@ -1,0 +1,6 @@
+{
+    "username": "abhinav200146",
+    "submission": "#include <vector>\n#include <cmath>\n#include <algorithm>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    long long minimumOperations(vector<int>& initial, vector<int>& desired) {\n        int length = initial.size();\n        vector<int> differences(length);\n        \n        for (int idx = 0; idx < length; ++idx) {\n            differences[idx] = desired[idx] - initial[idx];\n        }\n        \n        long long operations_count = 0;\n        long long segment_difference = 0;\n\n        for (int idx = 0; idx < length; ++idx) {\n            if (idx == 0 || (differences[idx - 1] > 0 && differences[idx] > 0) || (differences[idx - 1] < 0 && differences[idx] < 0)) {\n                long long extra_operations = abs(differences[idx]) - abs(segment_difference);\n                if (extra_operations > 0) {\n                    operations_count += extra_operations;\n                }\n                segment_difference = differences[idx];\n            } else {\n                operations_count += abs(differences[idx]);\n                segment_difference = differences[idx];\n            }\n        }\n        \n        return operations_count;\n    }\n};",
+    "submit_ts": "1721533197",
+    "subm_id": "1328003490"
+}

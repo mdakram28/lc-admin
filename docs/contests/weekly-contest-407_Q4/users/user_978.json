@@ -1,0 +1,6 @@
+{
+    "username": "wyj20154348",
+    "submission": "class Solution {\npublic:\n    vector<int> diff;\n    int calsign(int s){\n        if (s>0) return 1;\n        else if (s==0) return 0;\n        else return -1;\n    }\n    long long res=0;\n    int n;\n    long long cal(int l,int r){\n        long long sum=abs(diff[l]);\n        for (int i=l+1;i<=r;i++){\n            if (diff[i]==0) continue;\n            else if(diff[i]>0){\n                if (diff[i]<diff[i-1]) continue;\n                else sum+=(diff[i]-diff[i-1]);\n            } else{\n                if (abs(diff[i])<abs(diff[i-1])) continue;\n                else sum+=(abs(diff[i])-abs(diff[i-1]));\n            }\n        }\n        return sum;\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        res=0;\n        int l=0;\n        int r=0;\n        n=nums.size();\n        \n        for (int i=0;i<n;i++) diff.emplace_back(target[i]-nums[i]);\n        int sign = calsign(diff[0]);\n        for (int i=1;i<n;i++){\n            if (calsign(diff[i])!=sign){\n                res+=cal(l,r);\n                l = r = i;\n                sign = calsign(diff[i]);\n            } else{\n                r++;\n            }\n        }\n        res+=cal(l,r);\n        return res;\n    }\n};  ",
+    "submit_ts": "1721531686",
+    "subm_id": "548387930"
+}

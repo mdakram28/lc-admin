@@ -1,0 +1,6 @@
+{
+    "username": "chamoli2k2",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        long long n = nums.size(), ans = 0;\n        vector<long long> dp(n, 0);\n\n        for(int i=0; i<n; i++){\n            dp[i] = (target[i] - nums[i])*1LL;\n        }\n\n        long long prev = 0;\n        for(int i=0; i<n; i++){\n            int currDiff = dp[i];\n            if(currDiff > 0 && prev > 0){\n                if(currDiff > prev){\n                    ans += (currDiff-prev);\n                    prev += (currDiff-prev);\n                }\n                else{\n                    prev = currDiff;\n                }\n            }\n            else if(currDiff < 0 && prev < 0){\n                if(currDiff < prev){\n                    ans += (prev - currDiff);\n                    prev -= (prev - currDiff);\n                }\n                else{\n                    prev = currDiff;\n                }\n            }\n            else{\n                ans += abs(currDiff);\n                prev = currDiff;\n            }\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1721532836",
+    "subm_id": "1327995185"
+}

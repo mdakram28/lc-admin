@@ -1,0 +1,6 @@
+{
+    "username": "joshuadlima",
+    "submission": "#define ll long long\n\nclass Solution {\npublic:\n    ll get_ans(vector<int>& nums, vector<int>& target, int s, int e){\n        if(e - s <= 0)\n            return 0;\n\n        ll ans = 0;\n        int tg[e - s + 1];\n\n        for(int i = s; i < e; i++)\n            tg[i - s] = abs(target[i] - nums[i]);\n        \n        ll total = tg[0];\n        for (int i = 1; i < e - s; ++i) {\n            if (tg[i] > tg[i-1]) {\n                total += tg[i] - tg[i-1];\n            }\n        }\n\n        return total;\n    }\n\n    ll minimumOperations(vector<int>& nums, vector<int>& target) {\n        ll ix = 0, ans = 0, par = nums[0] - target[0];\n\n        for(int i = 0; i < nums.size(); i++){\n            if((par >= 0 && nums[i] - target[i] >= 0) || (par <= 0 && nums[i] - target[i] <= 0))\n                par = nums[i] - target[i];\n            else\n                ans += get_ans(nums, target, ix, i), ix = i, par = nums[i] - target[i];\n        } \n        \n        ans += get_ans(nums, target, ix, nums.size());\n        return ans;\n    }\n};",
+    "submit_ts": "1721532881",
+    "subm_id": "1327996227"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "han-yan-qi",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        nums = [x - y for x, y in zip(target, nums)]\n        diff = [0] * n\n        diff[0] = nums[0]\n        pos = 0\n        ng = 0\n        if diff[0] > 0:\n            pos += diff[0]\n        else:\n            ng += diff[0]\n        for i in range(1, n):\n            diff[i] = nums[i] - nums[i - 1]\n            if diff[i] > 0:\n                pos += diff[i]\n            else:\n                ng += diff[i]\n        ans = 0\n        for x in diff:\n            if x > 0:\n                if pos > 0:\n                    r = min(x, pos)\n                    ans += r\n                    pos -= r\n                    ng += r\n                    ng = min(ng, 0)\n                else:\n                    pass\n            elif x < 0:\n                if ng < 0:\n                    r = max(x, ng)\n                    ans -= r\n                    pos += r\n                    ng -= r\n                    pos = max(pos, 0)\n                else:\n                    pass\n        return ans",
+    "submit_ts": "1721531470",
+    "subm_id": "548385526"
+}

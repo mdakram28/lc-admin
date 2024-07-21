@@ -1,0 +1,6 @@
+{
+    "username": "uzairfassi",
+    "submission": "class Solution:\n  def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n    diff = []\n    for a, b in zip(nums, target): diff.append(a - b)\n    \n    pieces, curr, polarity = [], [], None\n    for n in diff:\n      if n == 0: \n        if curr: pieces.append(curr)\n        curr, polarity = [], None\n        continue \n      \n      if polarity == None:\n        polarity = n > 0\n        curr.append(abs(n))\n        continue\n      \n      if (n > 0) == polarity: curr.append(abs(n))\n      else:\n        if curr: pieces.append(curr)\n        curr = [abs(n)]\n        polarity = n > 0\n    \n    if curr: pieces.append(curr)\n\n    count = 0\n    for piece in pieces:\n      operations = piece[0]\n\n      for i in range(1, len(piece)):\n          if piece[i] > piece[i - 1]:\n              operations += piece[i] - piece[i - 1]\n      count += operations\n    return count",
+    "submit_ts": "1721532904",
+    "subm_id": "1327996762"
+}

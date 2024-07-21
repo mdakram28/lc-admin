@@ -1,0 +1,6 @@
+{
+    "username": "sarvagya2545",
+    "submission": "class Solution {\npublic:\n    long long solve(vector<int> curr) {\n        if(curr.size() == 0) return 0LL;\n        if(curr[0] < 0) for(int &x: curr) x *= -1;\n        \n        long long ops = 0;\n        int prev = 0;\n        for(int i = 0; i < curr.size(); i++) {\n            if(curr[i] > prev) {\n                ops += curr[i] - prev;\n            }\n            prev = curr[i];\n        }\n        \n        return ops;\n    }\n    \n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<int> diff(n);\n        for(int i = 0; i < n; i++) {\n            diff[i] = target[i] - nums[i];\n        }\n        \n        int pos = 0;\n        vector<int> curr;\n        long long ops = 0;\n        for(int x: diff) {\n            if(((pos == 1 and x < 0) or (pos == 0 and x > 0)) or x == 0) {\n                ops += solve(curr);\n                curr = {};\n            }\n            if(x < 0) pos = 0;\n            else pos = 1;\n            curr.push_back(x);\n        }\n        \n        ops += solve(curr);\n        \n        return ops;\n    }\n};",
+    "submit_ts": "1721530905",
+    "subm_id": "1327946951"
+}

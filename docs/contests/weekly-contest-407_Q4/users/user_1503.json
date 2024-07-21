@@ -1,0 +1,6 @@
+{
+    "username": "Sathwik004",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n\n        def helper(arr):\n            stack = []\n            print(arr)\n            ans = 0\n            stack.append(arr[0])\n            for i in range(1,len(arr)):\n                while arr[i] < stack[-1]:\n                    val = stack.pop()\n                    ans += val - max(stack[-1],arr[i])\n                if stack[-1] == arr[i]:\n                    continue\n                stack.append(arr[i])\n            # return min operation\n            return ans\n\n        pos = [0]\n        neg = [0]\n\n        for i in range(len(nums)):\n            val = target[i] - nums[i]\n            if val >= 0:\n                if neg[-1] != 0:\n                    neg.append(0)\n                pos.append(val)\n            else:\n                if pos[-1] != 0:\n                    pos.append(0)\n                neg.append(-val)\n        \n        if neg[-1] != 0:\n            neg.append(0)\n        if pos[-1] != 0:\n            pos.append(0)\n\n        ans = helper(pos) + helper(neg)\n        return ans\n        ",
+    "submit_ts": "1721533253",
+    "subm_id": "1328004820"
+}

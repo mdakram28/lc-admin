@@ -1,0 +1,6 @@
+{
+    "username": "shiv-codes",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff = [0] * len(nums)\n        for i in range(len(nums)):\n            diff[i] = target[i] - nums[i]\n        heap = []\n        for id, d in enumerate(diff):\n            heappush(heap, (abs(d), id))\n        res = 0\n        while heap:\n            _, id = heappop(heap)\n            print(id)\n            if diff[id] == 0: continue\n            curr = -1 * diff[id]\n            res += abs(curr)\n\n            l = id - 1\n            while l >= 0 and diff[l] * diff[id] > 0:\n                diff[l] += curr\n                l -= 1\n\n            r = id + 1\n            while r < len(diff) and diff[r] * diff[id] > 0:\n                diff[r] += curr\n                r += 1\n                \n            diff[id] = 0\n            print(id, l, r)\n\n        return res\n",
+    "submit_ts": "1721532575",
+    "subm_id": "1327989101"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "optorz",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\ntypedef long long ll;\ntypedef double db;\ntypedef pair<int, int> pii;\n\nclass Solution {\npublic:\n    ll solve(vector<ll> vec){\n        ll res = 0, ope = 0;\n        int n = vec.size();\n        int o = 1;\n        if(vec[0] < 0 )\n            o = -1;\n        for (int i = 0; i < n;i++){\n            vec[i] *= o;\n            if(vec[i] <= ope)\n            {\n                ope = vec[i];\n            } else if(vec[i] > ope){\n                res += vec[i] - ope;\n                ope = vec[i];\n            }\n        }\n        return res;\n    }\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<long long> vec(n);\n\n        for (int i = 0; i < n;i++){\n            vec[i] = target[i] - nums[i];\n        }\n        ll res = 0, ope = 0;\n        vector<ll> temp;\n        temp.push_back(vec[0]);\n        for (int i = 1; i < n;i++){\n            if(vec[i] * temp[temp.size() - 1] > 0){\n                temp.push_back(vec[i]);\n            } else {\n                res += solve(temp);\n                temp.clear();\n                temp.push_back(vec[i]);\n            }\n        }\n        return res + solve(temp);\n    }\n};",
+    "submit_ts": "1721532285",
+    "subm_id": "548391453"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "tomarint",
+    "submission": "impl Solution {\n    pub fn minimum_operations(nums: Vec<i32>, target: Vec<i32>) -> i64 {\n        let n = nums.len();\n        let mut diff = (0..n)\n            .map(|i| target[i] as i64 - nums[i] as i64)\n            .collect::<Vec<i64>>();\n        let mut ans = 0;\n        // println!(\"diff={:?}\", diff);\n        for i in 0..n {\n            if i == 0 {\n                if diff[i] >= 0 {\n                    ans += diff[i];\n                } else {\n                    ans -= diff[i];\n                }\n                continue;\n            }\n            if diff[i] >= 0 {\n                if diff[i-1] >= 0 {\n                    if diff[i] >= diff[i-1] {\n                        ans += diff[i] - diff[i-1];\n                    }\n                } else {\n                    ans += diff[i];\n                }\n            } else {\n                if diff[i-1] >= 0 {\n                    ans -= diff[i];\n                } else {\n                    if diff[i] <= diff[i-1] {\n                        ans += diff[i-1] - diff[i];\n                    }\n                }\n            }\n            // println!(\"i={}, diff[i]={}, ans={}\", i, diff[i], ans);\n        }\n        ans\n    }\n}",
+    "submit_ts": "1721531405",
+    "subm_id": "1327960120"
+}

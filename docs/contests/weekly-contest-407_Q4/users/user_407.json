@@ -1,0 +1,6 @@
+{
+    "username": "zonda-30",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diff = [t - n for (t, n) in zip(target, nums)]\n        st = []\n        ans = 0\n        def differentSign(m, n):\n            return (m and n < 0) or (not m and n >= 0)\n        for d in diff:\n            if st and differentSign(st[-1][0], d):\n                ans += st[-1][1]\n                st = []\n            elif st and abs(d) < st[-1][1]:\n                ans += st[-1][1] - abs(d)\n                while st and abs(d) < st[-1][1]:\n                    st.pop()\n            st.append((d >= 0, abs(d)))\n        return ans + (st[-1][1] if st else 0)\n                    ",
+    "submit_ts": "1721531081",
+    "subm_id": "548382961"
+}

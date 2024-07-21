@@ -1,0 +1,6 @@
+{
+    "username": "lee0560",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        \n        def solve(ar):\n            if not ar:\n                return 0\n            st = []\n            res = 0\n            for val in ar:\n                val = abs(val)\n                if not st:\n                    res += val\n                elif st[-1] < val:\n                    res += val - st[-1]\n                while st and st[-1] >= val:\n                    st.pop()\n                st.append(val)\n            return res                \n        \n        n = len(nums)\n        res = 0\n        start = 0\n        while start < n:\n            delta = target[start] - nums[start]\n            if not delta:\n                start += 1\n                continue\n            ar = [delta]\n            end = start + 1\n            while end < n:\n                val = target[end] - nums[end]\n                if delta * val <= 0:\n                    break\n                ar.append(val)\n                end += 1\n            res += solve(ar)\n            start = end\n        return res\n",
+    "submit_ts": "1721530700",
+    "subm_id": "548380428"
+}

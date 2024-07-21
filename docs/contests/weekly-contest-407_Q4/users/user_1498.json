@@ -1,0 +1,6 @@
+{
+    "username": "abhishekharkar",
+    "submission": "class Solution {\npublic:\n    int rec(long long k, vector<int> &u, vector<int> &v){\n        long long t=0, r=0;\n        for(int i=0; i<u.size(); i++) {\n            if(u[i]<=v[i]){\n                if(t==0) t=1, r=0;\n                if(r>=v[i]-u[i]) r=v[i]-u[i];\n                else k+=r, r=v[i]-u[i], k-=r;\n                // if(t==-1) t=1;\n            } \n            else if(v[i]<u[i] ) {\n                if(t==1) t=0, r=0;\n                if(r>=u[i]-v[i]) r=u[i]-v[i];\n                else  k+=r, r=u[i]-v[i], k-=r;\n                // if(t==-1) t=0;\n            }\n            if(k<0) return 0;\n        }\n        return 1;\n    }\n    long long minimumOperations(vector<int>& u, vector<int>& v) {\n        long long r, l=0, m, t=0;\n        for(int i=0; i<u.size(); i++) t+=abs(v[i]-u[i]); r=t;\n        while(l<=r){\n            m=(l+r)/2;\n            if(rec(m, u, v)) r=m-1, t=m; else l=m+1;\n        }\n        return t;\n    }\n};",
+    "submit_ts": "1721532649",
+    "subm_id": "1327990829"
+}

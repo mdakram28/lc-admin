@@ -1,0 +1,6 @@
+{
+    "username": "icherniukh",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        diff = [(val[1] - val[0]) for val in zip(nums, target)]\n\n        ans = 0\n        for gr in groupby(diff, lambda x: (-1 if x < 0 else (1 if x > 0 else 0))):\n            a = list(gr[1])\n            if a[0] == 0:\n                continue\n            ans += self.subSolve(a)\n        \n        return ans\n\n    def subSolve(self, a):\n        for i in range(len(a)):\n            a[i] = abs(a[i])\n        ans = 0\n        st = [0]\n\n        a.append(0)\n        \n        for x in a:\n            if x == st[-1]:\n                continue\n            elif x > st[-1]:\n                st.append(x)\n                continue\n\n            while st[-1] > x:\n                ans += st[-1] - max(x, st[-2])\n                # print(f'updating: {x=} {st=} {ans=}')\n                st.pop()\n            st.append(x)\n\n        return ans\n",
+    "submit_ts": "1721532716",
+    "subm_id": "1327992359"
+}

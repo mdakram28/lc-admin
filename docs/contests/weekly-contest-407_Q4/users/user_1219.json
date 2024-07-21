@@ -1,0 +1,6 @@
+{
+    "username": "1piece",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        def func(c, i, j):\n            if c[i] < 0:\n                for t in range(i, j+1):\n                    c[t]*=-1\n            ans = c[i]\n            for t in range(i+1, j+1):\n                if c[t] > c[t-1]:\n                    ans += c[t]-c[t-1]\n            return ans\n            \n        c = []\n        for i in range(len(nums)):\n            c.append(target[i]-nums[i])\n        ans = 0            \n        f = c[0]>=0\n        i = 0\n        for j in range(len(c)):\n            if f:\n                if c[j]<0:\n                    ans += func(c, i, j-1)\n                    f = False\n                    i = j\n            else:\n                if c[j]>=0:\n                    ans += func(c, i, j-1)\n                    f = True\n                    i = j\n        return ans+func(c, i, j)\n            ",
+    "submit_ts": "1721532570",
+    "subm_id": "1327988981"
+}

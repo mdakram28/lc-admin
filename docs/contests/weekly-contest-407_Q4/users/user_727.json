@@ -1,0 +1,6 @@
+{
+    "username": "wanderingCicada",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        diffs = [target[i] - nums[i] for i in range(len(target))]\n\n\n        def calculate(diffs, startIndex, endIndex, positive):\n            ans = 0\n            for i in range(startIndex, endIndex + 1):\n                diff = diffs[i]\n                prevDiff = 0\n                if i > startIndex:\n                    prevDiff = diffs[i - 1]\n                if positive and diff > prevDiff:\n                    ans += diff - prevDiff\n                if not positive and diff < prevDiff:\n                    ans += prevDiff - diff\n            return ans\n\n        ans = 0\n\n        startIndex = 0\n        endIndex = 1\n        currSign = diffs[startIndex] > 0\n        for endIndex in range(1, len(nums)):\n            if (diffs[endIndex] > 0) != currSign:\n                ans += calculate(diffs, startIndex, endIndex - 1, currSign)\n                currSign = not currSign\n                startIndex = endIndex\n        \n        ans += calculate(diffs, startIndex, len(nums) - 1, currSign)\n        return ans",
+    "submit_ts": "1721531734",
+    "subm_id": "1327968584"
+}

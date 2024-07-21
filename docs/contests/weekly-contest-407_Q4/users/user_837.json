@@ -1,0 +1,6 @@
+{
+    "username": "Bhaumil_18",
+    "submission": "class Solution {\npublic:\n    long long minimumOperations(vector<int>& nums, vector<int>& target) {\n        int n = nums.size();\n        vector<int> diff(n);\n        for(int i = 0;i < n;i++)\n        {\n            diff[i] = nums[i] - target[i];\n        }\n        int ind = 0;\n        long long inc = 0,dec = 0;\n        long long ans = 0;\n        while(ind < n)\n        {\n            if(diff[ind] >= 0)\n            {\n                inc = diff[ind];\n                ind++;\n                while(ind < n && diff[ind] >= 0)\n                {\n                    inc += max(0,diff[ind]-diff[ind-1]);\n                    ind++;\n                }\n                ans += inc;\n                inc = 0;\n            }else\n            {\n                dec = abs(diff[ind]);\n                ind++;\n                while(ind < n && diff[ind] < 0)\n                {\n                    dec += max(0,diff[ind-1]-diff[ind]);\n                    ind++;\n                }\n                ans += dec;\n                dec = 0;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1721531947",
+    "subm_id": "1327973835"
+}

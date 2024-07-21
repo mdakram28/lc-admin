@@ -1,0 +1,6 @@
+{
+    "username": "fatalerror-i",
+    "submission": "class Solution:\n    def minimumOperations(self, nums: List[int], target: List[int]) -> int:\n        n = len(nums)\n        d1 = [0] * (n+1)\n        d2 = [0] * (n+1)\n        for i in range(n):\n            d1[i] = nums[i] if i == 0 else nums[i] - nums[i-1]\n            d2[i] = target[i] if i == 0 else target[i] - target[i-1]\n        d = [a-b for a, b in zip(d1, d2)]\n        p, m = 0, 0\n        ans = 0\n        for x in d:\n            if x == 0:\n                continue\n            if x > 0:\n                if m <= x:\n                    x -= m\n                    m = 0\n                else:\n                    m -= x\n                    x = 0\n                ans += x\n                p += x\n            else:\n                if p <= -x:\n                    x += p\n                    p = 0\n                else:\n                    p += x\n                    x = 0\n                ans -= x\n                m -= x\n        # ans += abs(p) + abs(m)\n        return ans\n            \n                    ",
+    "submit_ts": "1721530224",
+    "subm_id": "548376950"
+}

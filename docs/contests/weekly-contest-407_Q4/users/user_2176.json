@@ -1,0 +1,6 @@
+{
+    "username": "upmannidhi09",
+    "submission": "#include <vector>\n#include <cmath>  // For std::abs\n#include <algorithm>  // For std::max\n\nclass Solution {\npublic:\n    long long minimumOperations(std::vector<int>& nums, std::vector<int>& target) {\n        long long total_operations = 0;\n        long long prev_diff = 0;  // Use long long to match total_operations\n\n        for (size_t i = 0; i < nums.size(); ++i) {\n            long long current_diff = static_cast<long long>(target[i]) - nums[i];\n            \n            // Check if the current segment continues or starts a new one\n            if (i > 0 && ((prev_diff > 0 && current_diff > 0) || (prev_diff < 0 && current_diff < 0))) {\n                // Same segment; compute additional operations needed\n                total_operations += std::max(0LL, std::abs(current_diff) - std::abs(prev_diff));\n            } else {\n                // New segment; add the absolute difference\n                total_operations += std::abs(current_diff);\n            }\n\n            prev_diff = current_diff;\n        }\n\n        return total_operations;\n    }\n};\n",
+    "submit_ts": "1721533479",
+    "subm_id": "1328009922"
+}
