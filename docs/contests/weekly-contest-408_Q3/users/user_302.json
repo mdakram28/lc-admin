@@ -1,0 +1,6 @@
+{
+    "username": "virinci",
+    "submission": "class Solution {\npublic:\n\tint numberOfSubstrings(string s) {\n\t\tint n = ssize(s);\n\t\tvector<int> z(n + 1, 0), zi;\n\n\t\tfor (int i = 0; i < n; ++i) {\n\t\t\tz[i + 1] = z[i] + (s[i] == '0');\n\t\t\tif (s[i] == '0') zi.emplace_back(i);\n\t\t}\n\n\t\tint ans = 0;\n\t\tint m = ssize(zi);\n\n\t\tfor (int l = 0; l < n; ++l) {\n\t\t\tint i = int(lower_bound(zi.cbegin(), zi.cend(), l) - zi.cbegin());\n\t\t\tif (i >= m) continue;\n\t\t\tfor (int j = i; j < m; ++j) {\n\t\t\t\tauto r = min(n - 1, zi[j]);\n\t\t\t\tauto nx = j + 1 < ssize(zi) ? zi[j + 1] : n;\n\n\t\t\t\tauto zeros = z[r + 1] - z[l];\n\t\t\t\tauto len = r - l + 1;\n\t\t\t\tauto start = r + max(0, zeros * (zeros + 1) - len);\n\t\t\t\tans += max(0, nx - start);\n\t\t\t\tif (start > n) break;\n\t\t\t\t// dbg(tuple{l, r, nx, zeros, len, start, ans});\n\t\t\t}\n\t\t}\n\n\t\tint last_one = -1;\n\t\tfor (int i = 0; i < n; ++i) {\n\t\t\tif (s[i] == '0') {\n\t\t\t\tlast_one = i;\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\tans += i - last_one;\n\t\t}\n\n\t\treturn ans;\n\t}\n};\n",
+    "submit_ts": "1722139152",
+    "subm_id": "1335809290"
+}

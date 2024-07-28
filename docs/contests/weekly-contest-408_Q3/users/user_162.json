@@ -1,0 +1,6 @@
+{
+    "username": "ankan2526",
+    "submission": "int numberOfSubstrings(char* s) {\n    int n = strlen(s);\n    int *prefOnes = (int *)malloc((n + 1) * sizeof(int));\n    prefOnes[0] = 0;\n\n    for (int i = 0; i < n; ++i) {\n        prefOnes[i + 1] = prefOnes[i] + (s[i] == '1' ? 1 : 0);\n    }\n\n    int ans = 0;\n\n    for (int i = 0; i < n; ++i) {\n        int r = i - 1;\n        while (r + 1 < n) {\n            r += 1;\n            int ones = prefOnes[r + 1] - prefOnes[i];\n            int zeroes = (r + 1 - i) - ones;\n            if (ones >= zeroes * zeroes) {\n                ans += 1;\n                int skip = (int)sqrt(ones) - zeroes;\n                ans += (skip < (n - r - 1)) ? skip : (n - r - 1);\n                r += skip;\n            } else {\n                int skip = zeroes * zeroes - ones - 1;\n                r += skip;\n            }\n        }\n    }\n\n    free(prefOnes);\n    return ans;\n}",
+    "submit_ts": "1722136834",
+    "subm_id": "1335746319"
+}

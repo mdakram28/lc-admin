@@ -1,0 +1,6 @@
+{
+    "username": "LouisCheng",
+    "submission": "import math\nfrom collections import Counter\nclass Solution:\n    def solve(self, num0, nums, zero_places):\n        p1 = 0\n        numbers = [0, 0]\n        res = 0\n        p2 = 0\n        for i in range(len(nums)):\n            numbers[nums[i]] += 1\n            while numbers[0] > num0:\n                numbers[nums[p1]] -= 1\n                p1 += 1\n            while p1 > zero_places[p2]: p2 += 1\n            if numbers[0] == num0 and numbers[1] >= numbers[0] ** 2 and p1 - 1 != i:\n                res += min(numbers[1] - numbers[0] ** 2 + 1, min(zero_places[p2], i) - p1 + 1)\n        return res\n\n    def numberOfSubstrings(self, s: str) -> int:\n        s = [int(x) for x in s]\n        zero_places = []\n        for i in range(len(s)):\n            if s[i] == 0: zero_places.append(i)\n        zero_places.append(len(s))\n\n        count1 = Counter(s)\n        res = 0\n        for i in range(0, min(count1[0], math.ceil(math.sqrt(count1[1]))) + 1):\n            res += self.solve(i, s, zero_places)\n            # print(res)\n        return res\n\n# print(Solution().numberOfSubstrings(\"00011\"))",
+    "submit_ts": "1722138716",
+    "subm_id": "1335797849"
+}

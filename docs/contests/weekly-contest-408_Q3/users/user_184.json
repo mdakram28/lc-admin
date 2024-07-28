@@ -1,0 +1,6 @@
+{
+    "username": "dmlocdmloc",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.length();\n        vector<int> p0;\n        for(int i = 0; i < n; ++i) if (s[i] == '0') p0.push_back(i);\n        if (p0.size() == 0) {\n            return (long long) n * (n + 1) / 2;\n        }\n        \n        long long ret = 0;\n        int first_p0 = 0;\n        for(int i = 0; i < n; ++i) {\n            if (i > p0[first_p0]) {\n                if (first_p0 == p0.size() - 1) {\n                    ret += n - i;\n                    continue;\n                } \n                ++first_p0;\n            }\n            ret += p0[first_p0] - i;\n            for(int j = first_p0; j < p0.size(); ++j) {\n                int num0 = j - first_p0 + 1;\n                if (num0 * num0 > n) break; \n                \n                int cap = n - i;\n                int sub = n - p0[j];\n                if (j != p0.size() - 1) {\n                    cap = p0[j + 1] - i; \n                    sub = p0[j + 1] - p0[j];\n                }\n                cap -= num0;\n                \n                ret += max(0, min(sub, cap - num0 * num0 + 1));         \n            }\n        }\n        \n        return ret;\n    }\n};",
+    "submit_ts": "1722135990",
+    "subm_id": "1335720221"
+}

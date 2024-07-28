@@ -1,0 +1,6 @@
+{
+    "username": "nipun753",
+    "submission": "class Solution {\n\n    public int numberOfSubstrings(String s) {\n        int n = s.length();\n        int[] zeros = new int[n + 1];\n        zeros[0] = 1;\n        int cntOnes = 0;\n        int cntZeros = 0;\n        int ans = 0;\n        Map < Integer , List < Integer > > mp = new HashMap<>();\n        mp.computeIfAbsent(0 , t -> new ArrayList<>()).add(0);\n\n        for (int  i = 0 ; i < n; i++){\n            if (s.charAt(i)=='1')\n                cntOnes+=1;\n            else\n                cntZeros+=1;\n            \n\n            for (int z =cntZeros  ; (cntZeros - z)*(cntZeros - z)<=cntOnes; z--){\n                int d = cntOnes - (cntZeros - z)*(cntZeros - z);\n                if (mp.getOrDefault(z , new ArrayList<>()).size()==0)\n                    continue;\n                int idx = Collections.binarySearch(mp.get(z) , d);\n                if (idx<0){\n                    idx=-(idx + 1);\n                    ans = ans + idx;\n                }\n                else\n                    ans = ans + (idx + 1);\n\n            }\n            mp.computeIfAbsent(cntZeros , t -> new ArrayList<>()).add(cntOnes);\n            \n\n        }\n        return ans;\n\n\n        \n    }\n}",
+    "submit_ts": "1722138543",
+    "subm_id": "1335793437"
+}

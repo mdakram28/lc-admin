@@ -1,0 +1,6 @@
+{
+    "username": "Ma_Lin",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int pos[40050], l, r, n = s.size(), i, j, ge, res = 0, sum[40050], st, ed;\n        s = \" \" + s;\n        sum[0] = 0;\n        for (i = 1; i <= n; ++i) sum[i] = sum[i - 1] + (s[i] - '0');\n        l = r = n + 1; \n        pos[n + 1] = n + 1;\n        for (i = n; i >= 1; --i){\n            if (s[i] == '0') pos[--l] = i;\n            r = min(r, l + 203);\n            for (j = l; j <= r; ++j){\n                ge = j - l;\n                if (j > l) st = pos[j - 1];\n                else st = i;\n                ed = pos[j] - 1;\n                if (sum[ed] - sum[i - 1] < ge * ge) continue;\n                if (sum[st] - sum[i - 1] >= ge * ge){\n                    res += ed - st + 1;\n                    continue;\n                }\n                \n                st = i + ge + ge * ge - 1;\n                res += ed - st + 1;\n            }\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": "1722135191",
+    "subm_id": "1335693077"
+}

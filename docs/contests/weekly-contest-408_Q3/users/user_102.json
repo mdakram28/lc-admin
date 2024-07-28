@@ -1,0 +1,6 @@
+{
+    "username": "yge2",
+    "submission": "class Solution {\n    public int numberOfSubstrings(String s) {\n        int n = s.length();\n        int m = (int) Math.sqrt(n) + 1;\n        int[][] a = new int[n][m];\n        int ans = 0;\n        if (s.charAt(0) == '0')\n            a[0][1] = 1;\n        else {\n            a[0][0] = 1;\n            ans++;\n        }\n        for (int i=1; i<n; i++) {\n            int x = s.charAt(i) - '0';\n            if (x == 1) {\n                a[i][0] = 1;\n                int t = 0;\n                for (int j=0; j<m; j++) {\n                    a[i][j] += a[i-1][j];\n                    t += a[i][j];\n                    ans += j == 0 ? t : Math.min(a[i][j], Math.max(0, t - j - j * j + 1));\n                }\n            } else {\n                int t = 0;\n                a[i][1] = 1;\n                for (int j=1; j<m; j++) {\n                    a[i][j] += a[i-1][j-1];\n                    t += a[i][j];\n                    ans += Math.min(a[i][j], Math.max(0, t - j - j * j + 1));\n                }\n            }\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1722138507",
+    "subm_id": "1335792510"
+}

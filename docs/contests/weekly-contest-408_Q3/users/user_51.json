@@ -1,0 +1,6 @@
+{
+    "username": "ashish_sprinklr",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n=s.length();\n        vector<int>dp(n+1);\n        vector<int>v;\n        dp[0]=0;\n        for(int i=0;i<n;i++) {\n            if(s[i]=='0')v.push_back(i);\n            dp[i+1]=dp[i]+(s[i]=='1');\n        }\n        v.push_back(n);\n        int ans=0;\n        for(int i=0;i<n;i++)\n        {\n            for(int j=i;j<n;)\n            {\n                int cnt1=dp[j+1]-dp[i];\n                int cnt0=j-i+1-cnt1;\n                if(cnt1>=cnt0*cnt0) {\n                    int newJ = lower_bound(v.begin(),v.end(),j+1)-v.begin();\n                    newJ=v[newJ];\n                    ans+=(newJ-j);\n                    j=newJ;\n                } else {\n                    int miniOnes = cnt0*cnt0-cnt1;\n                    int req = dp[j+1]+miniOnes;\n                    int newJ = lower_bound(dp.begin(),dp.end(),req)-dp.begin();\n                    j=newJ-1;\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722135177",
+    "subm_id": "1335692498"
+}

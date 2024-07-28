@@ -1,0 +1,6 @@
+{
+    "username": "sidsrivas112",
+    "submission": "class Solution {\npublic:\nint findp(vector<vector<int>>& st, int s, int t1, int t2, int n) {\nqueue<int> q;\nq.push(s);\nvector<bool> vv(n + 4, false);\nvv[s] = true;\nwhile (!q.empty()) {\nint u = q.front();\nq.pop();\nfor (int v : st[u]) {\nif (!vv[v]) {\nq.push(v);\nvv[v] = true;\n}\n}\n}\nreturn (vv[t1] || vv[t2]);\n}\nbool canReachCorner(int X, int Y, vector<vector<int>>& circles) {\nvector<vector<int>> c=circles;\nint count = c.size();\nvector<vector<int>> st(count + 4);\nfor (int i = 0; i < count; i++) {\nif (c[i][0] <= c[i][2]) {\nst[count].push_back(i);\nst[i].push_back(count);\n}\nif (X - c[i][0] <= c[i][2]) {\nst[count + 2].push_back(i);\nst[i].push_back(count + 2);\n}\nif (c[i][1] <= c[i][2]) {\nst[count + 1].push_back(i);\nst[i].push_back(count + 1);\n}\nif (Y - c[i][1] <= c[i][2]) {\nst[count + 3].push_back(i);\nst[i].push_back(count + 3);\n}\nfor (int j = i + 1; j < count; ++j) {\ndouble d = sqrt(pow(c[i][0] - c[j][0], 2) + pow(c[i][1] - c[j][1], 2));\nint r = c[i][2] + c[j][2];\nif (r >= d) {\nst[i].push_back(j);\nst[j].push_back(i);\n}\n}\n}\nint is = 0;\nis = max(is, findp(st, count, count + 1, count + 2, count + 4));\nis = max(is, findp(st, count + 3, count + 2, count + 1, count + 4)); \nreturn is == 0;\n}\n};",
+    "submit_ts": "1722138988",
+    "subm_id": "1335804877"
+}

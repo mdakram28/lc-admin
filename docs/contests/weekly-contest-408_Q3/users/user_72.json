@@ -1,0 +1,6 @@
+{
+    "username": "jwseph",
+    "submission": "using ll = long long;\n\nclass Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        vector<int> ones, zeros;\n        ones.push_back(0);\n        zeros.push_back(0);\n        for (char c: s) {\n            ones.push_back(ones.back() + (c == '1'));\n            zeros.push_back(zeros.back() + (c == '0'));\n        }\n        vector<int> lo, hi;\n        for (int z = 0; z <= s.size(); ++z) {\n            lo.push_back(lower_bound(zeros.begin(), zeros.end(), z) - zeros.begin());\n            hi.push_back(upper_bound(zeros.begin(), zeros.end(), z) - zeros.begin());\n        }\n        vector<int> pos;\n        for (int o = 0; o <= s.size(); ++o) {\n            pos.push_back(lower_bound(ones.begin(), ones.end(), o) - ones.begin());\n        }\n\n        int res = 0;\n        for (int l = 0; l < s.size(); ++l) {\n            for (int z = 0; z*z <= s.size(); ++z) {\n                int j = max(l+1, hi[zeros[l]+z]);\n                int i = max(l+1, lo[zeros[l]+z]);\n                if (ones[l]+z*z >= pos.size()) continue;\n                res += j - max(i, min(j, pos[ones[l]+z*z]));\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722136594",
+    "subm_id": "1335739280"
+}

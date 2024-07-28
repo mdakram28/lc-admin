@@ -1,0 +1,6 @@
+{
+    "username": "h_bugw7",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        const int len = s.length();\n        int res = 0;\n        vector<int> zs(len+1, 0);\n        vector<int> os(len+1, 0);\n        for(int i = 0; i < len; i++) {\n            if(s[i] == '0') zs[i+1] = zs[i] + 1, os[i+1] = os[i];\n            else zs[i+1] = zs[i], os[i+1] = os[i] + 1;\n        }\n        for(int l = 1; l <= len; l++) {\n            for(int r = l; r <= len; r++) {\n                int z = zs[r] - zs[l-1];\n                int o = os[r] - os[l-1];\n                int z2 = z*z;\n                // cout << l << \", \" << r << endl;\n                if(z2 <= o) {\n                    int j = int(sqrt(o)) - z;\n                    // cout << \"+ \" << j + 1 << endl;\n                    // cout << \"j \" << j << endl;\n                    res += j + 1;\n                    r += j;\n                    if(r > len) res -= r - len;\n                } else {\n                    r += z2 - o - 1;\n                    // cout << \"j \" << z2 - o - 1 << endl;\n                }\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722135724",
+    "subm_id": "1335711561"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "gaoyf1235",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n        int res = 0;\n        vector<int> pfs(n + 1, 0);\n        for(int i = 0; i < n; i++){\n            pfs[i+1] = pfs[i];\n            if(s[i]== '0'){\n                pfs[i+1]++;\n            }\n        }\n        unordered_map<int, vector<int>> zpos;\n        for(int i = 1;i <= n; i++){\n            zpos[pfs[i]].push_back(i);\n        }\n        // i zeros\n        for(int i = 0; i * i < n; i++){\n            int ones = i * i;\n            int cnt = 0;\n            for(int l = 0; l + i + ones <= n; l++){\n                int zl = pfs[l];\n                const auto& pos = zpos[zl + i];\n                int rmin = max(l + ones + i, l + 1);\n                auto it = lower_bound(pos.begin(), pos.end(), rmin);\n                cnt += pos.end() - it;\n            }\n            //cout << i << \" \" << cnt << endl;\n            res += cnt;\n        }\n        //cout <<res << endl;\n        return res;\n    }\n};",
+    "submit_ts": "1722136596",
+    "subm_id": "1335739352"
+}

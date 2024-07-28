@@ -1,0 +1,6 @@
+{
+    "username": "user2349xl",
+    "submission": "class Solution {\npublic:\n    typedef long long ll;\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n        ll a = 0;\n        ll b = 0;\n        ll res = 0;\n        \n        unordered_map<int, vector<int>> data;\n        \n        data[0].push_back(0);\n        \n        for (int i = 0; i < n; i++) {\n            int x = s[i] - '0';\n            \n            if (x) {\n                a += 1;\n            } else {\n                b += 1;\n            }\n            \n            for (ll c = 0; c <= b && c * c <= a; c++) {\n                ll tb = b - c; // c = b - tb\n                ll ta = a - (c * c); // c * c <= a - ta \n                \n                auto f = lower_bound(data[tb].begin(), data[tb].end(), ta+1);\n                \n                int sub = f - data[tb].begin();\n                \n                res += sub;\n            }\n            \n            \n            data[b].push_back(a);\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": "1722136636",
+    "subm_id": "1335740550"
+}

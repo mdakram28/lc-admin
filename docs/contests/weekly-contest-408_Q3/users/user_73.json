@@ -1,0 +1,6 @@
+{
+    "username": "DedsecKnight",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        // given x, y\n        // find number of pairs of x', y' such that (y-y') >= (x-x')*(x-x') = x^2 - 2x*x' + x'^2\n        int c0 = 0, c1 = 0;\n        int n = int(s.size());\n        int ret = 0;\n        unordered_map<int, vector<int>> bucket;\n        bucket[c0].push_back(c1);\n        for (int i = 0; i<n; i++) {\n            if (s[i] == '1') c1++;\n            else c0++;\n            for (int v0 = 0; v0 * v0 <= c1 && v0 <= c0; v0++) {\n                int t0 = c0 - v0;\n                // count number of elements x in bucket[t0] (c1 - x) >= v0 * v0 => x <= c1 - v0*v0\n                if (bucket.find(t0) == bucket.end()) continue;\n                int pos = upper_bound(bucket[t0].begin(), bucket[t0].end(), c1 - v0 * v0) - bucket[t0].begin() - 1;\n                ret += pos + 1;\n            }\n            bucket[c0].push_back(c1);\n        }   \n        return ret;\n    }\n};",
+    "submit_ts": "1722136950",
+    "subm_id": "1335749717"
+}

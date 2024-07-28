@@ -1,0 +1,6 @@
+{
+    "username": "ryanwong0127",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        idx0 = []\n        n = len(s)\n        idx0.append(-1)\n        for i in range(n):\n            if s[i] != '0':\n                continue\n            idx0.append(i)\n        idx0.append(n)\n        \n        res = 0\n        \n        for i in range(len(idx0) - 1):\n            cnt = idx0[i + 1] - idx0[i] - 1\n            cur = (cnt + 1) * cnt\n            cur //= 2\n            res += cur\n        \n        for cnt in range(1, 200 + 1):\n            for i in range(1, len(idx0) - cnt):\n                j = i + cnt - 1\n                minLen = cnt + cnt * cnt \n                for x in range(idx0[i], idx0[i-1], -1):\n                    rmost = x + minLen - 1\n                    if rmost >= idx0[j + 1]:\n                        continue\n                    res += idx0[j + 1] - max(rmost, idx0[j])\n        \n        return res",
+    "submit_ts": "1722136979",
+    "subm_id": "1335750617"
+}

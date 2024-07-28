@@ -1,0 +1,6 @@
+{
+    "username": "user5976fh",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int ans = 0;\n        vector<int> zeroes = {-1};\n        for (int i = 0; i < s.size(); ++i){\n            if (s[i] == '0') zeroes.push_back(i);\n            int totalOnes = i - zeroes.back();\n            ans += totalOnes;\n            int curZeroes = 0;\n            for (int y = zeroes.size() - 1; y > 0; --y){\n                ++curZeroes;\n                if (curZeroes * curZeroes > i + 1) break;\n                int newOnes = zeroes[y] - zeroes[y - 1] - 1;\n                int requiredOnes = curZeroes * curZeroes;\n                if (totalOnes >= requiredOnes) ans += newOnes + 1;\n                else ans += max(0, totalOnes + newOnes - requiredOnes + 1);\n                totalOnes += newOnes;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722136570",
+    "subm_id": "1335738540"
+}

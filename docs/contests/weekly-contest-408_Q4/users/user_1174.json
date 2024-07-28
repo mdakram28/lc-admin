@@ -1,0 +1,6 @@
+{
+    "username": "boriswilliams",
+    "submission": "class Solution:\n    def canReachCorner(self, X: int, Y: int, circles: List[List[int]]) -> bool:\n        n = len(circles)\n        root = [i for i in range(n+2)]\n        def find(i):\n            if i != root[i]:\n                root[i] = find(root[i])\n            return root[i]\n        def union(x, y):\n            x, y = find(x), find(y)\n            if x == y: return 0\n            root[x] = y\n            return 1\n        for i in range(n):\n            for j in range(i+1, n):\n                if (circles[i][0] - circles[j][0])**2 + (circles[i][1] - circles[j][1])**2 <= (circles[i][2] + circles[j][2])**2:\n                    union(i, j)\n            if circles[i][0] <= circles[i][2] or Y - circles[i][1] <= circles[i][2]:\n                union(i, n)\n            if circles[i][1] <= circles[i][2] or X - circles[i][0] <= circles[i][2]:\n                union(i, n+1)\n        print(root)\n        return find(n) != find(n+1)",
+    "submit_ts": "1722136523",
+    "subm_id": "1335737108"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "minhnguyenxuan60",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        s = \"*\" + s;\n        int n = s.size();\n        vector<int> pre0(n), pre1(n), pos0, next(n);\n        pos0.push_back(0);\n        int last = n;\n        for (int i = n - 1; i; i--) {\n            next[i] = last;\n            if (s[i] == '0') last = i;\n        }\n        for (int i = 1; i < n; i++) {\n            pre0[i] = pre0[i - 1];\n            pre1[i] = pre1[i - 1];\n            if (s[i] == '0') {\n                pos0.push_back(i);\n                pre0[i]++;\n            }\n            else {\n                pre1[i]++;\n            }\n        }\n        int ans = 0;\n        for (int i = 1; i < n; i++) {\n            int j = i;\n            int cur0 = s[i] == '0';\n            while(cur0 + cur0 * cur0 <= n && j < n) {\n                int nextj = next[j];\n                int length = cur0 + cur0 * cur0;\n                int r = max(i + length - 1, j);\n                if (r < nextj) ans += nextj - r;\n                j = nextj;\n                cur0++;\n                if (i == 3) cout << \" wassup \" << nextj << \" \" << r << \"\\n\";\n            }\n            cout << ans << '\\n';\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722138810",
+    "subm_id": "1335800262"
+}

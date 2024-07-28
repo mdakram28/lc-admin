@@ -1,0 +1,6 @@
+{
+    "username": "yzkkai",
+    "submission": "class Solution {\npublic:\n\n    int numberOfSubstrings(string s) {\n        int n = size(s);\n\n        vector<int> pos(1, -1);\n        for (int i = 0; i < n; ++i)\n            if (s[i] == '0') pos.emplace_back(i);\n            \n        int ans = n * (n - 1) / 2 + n;\n        for (int i = 0; i < n; ++i) {\n            int st = upper_bound(pos.begin(), pos.end(), i) - pos.begin() - 1;\n            for (int j = st; j >= 1; --j) {\n                int a = i, b = pos[j], len = a - b + 1, cnt = st - j + 1;\n                if (cnt * cnt > (a + 1) - cnt) {\n                    ans -= b + 1;\n                    break;\n                }\n\n                if (cnt * cnt > len - cnt) {\n                    int dif = cnt * cnt - (len - cnt);\n                    int pre = pos[j] - pos[j - 1] - 1;\n                    ans -= min(pre, dif - 1) + 1;\n                }\n            }\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722136129",
+    "subm_id": "1335724698"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "BattlerRein",
+    "submission": "class Solution {\n    public int numberOfSubstrings(String s) {\n        int[] zeroIndex = new int[203];\n        int zeroCount = 0;\n        int nonDominantCount = 0;\n        for (int i = 0; i < zeroIndex.length; i++) {\n            zeroIndex[i] = -1;\n        }\n\n        for (int i = 0; i < s.length(); i++) {\n            char c = s.charAt(i);\n            if (c == '0') {\n                for (int j = Math.min(201, zeroCount+1); j > 1; j--) {\n                    zeroIndex[j] = zeroIndex[j-1];\n                }\n                zeroIndex[1] = i;\n                zeroCount += 1;\n            }\n            int currIndex = i;\n            for (int zCount = 0; zCount <= Math.min(201, zeroCount); zCount++) {\n                int validLength = zCount * zCount + zCount - 1;\n                int nextIndex = zeroIndex[zCount+1];\n                nonDominantCount += Math.max(0, currIndex - Math.max(nextIndex + 1, i - validLength + 1) + 1);\n                // System.out.println(String.format(\"nDCount=%s, zCount=%s, zeroIndex[zCount+1]=%s, i=%s\", nonDominantCount, zCount, zeroIndex[zCount+1], i));\n                currIndex = nextIndex;\n            }\n        }\n        return ((s.length() + 1) * (s.length())) / 2 - nonDominantCount;\n    }\n}",
+    "submit_ts": "1722137083",
+    "subm_id": "1335753652"
+}

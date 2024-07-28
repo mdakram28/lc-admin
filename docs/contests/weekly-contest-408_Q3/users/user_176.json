@@ -1,0 +1,6 @@
+{
+    "username": "NerdyCoder",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        const int n = s.size();\n        vector<int> one_cnts(n + 1);\n        deque<int> zeros;\n        zeros.push_back(n);\n        int result = 0;\n        for (int i = n - 1; i >= 0; --i) {\n            one_cnts[i] = one_cnts[i + 1];\n            if (s[i] == '1') {\n                ++one_cnts[i];\n            } else {\n                zeros.push_front(i);\n            }\n            int last = i;\n            int zero_cnt = 0;\n            for (int zero : zeros) {\n                int min_index = max(last, i + zero_cnt + zero_cnt * zero_cnt - 1);\n                if (min_index < zero) {\n                    result += zero - min_index;\n                }\n                last = zero;\n                ++zero_cnt;\n                if (zero_cnt * zero_cnt > n - i - zero_cnt) {\n                    break;\n                }\n            }\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1722135319",
+    "subm_id": "1335697669"
+}

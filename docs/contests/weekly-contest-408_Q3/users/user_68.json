@@ -1,0 +1,6 @@
+{
+    "username": "Pras28",
+    "submission": "from collections import deque\n\nclass Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        n = len(s)\n        result = 0\n        \n        for k in range(1, int(n**0.5) + 1):\n            zeros = deque()\n            lastzero = -1\n            ones = 0\n            \n            for right in range(n):\n                if s[right] == '0':\n                    zeros.append(right)\n                    while len(zeros) > k:\n                        ones -= (zeros[0] - lastzero - 1) \n                        lastzero = zeros.popleft()\n                else:\n                    ones += 1\n                if len(zeros) == k and ones >= k**2:\n                    result += min(zeros[0] - lastzero , ones - k**2 + 1)\n        \n        i = 0\n        while i < n:\n            if s[i] == '0':\n                i += 1\n                continue\n            sz = 0\n            while i < n and s[i] == '1':\n                sz += 1\n                i += 1\n            result += (sz * (sz + 1)) // 2\n        print()\n        return result",
+    "submit_ts": "1722137414",
+    "subm_id": "1335763079"
+}

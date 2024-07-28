@@ -1,0 +1,6 @@
+{
+    "username": "goats_9",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n        int ans = 0;\n        vector<int> v;\n        v.push_back(-1);\n        for (int i = 0; i < n; i++) if (s[i] == '0') v.push_back(i);\n        int m = v.size();\n        for (int i = 0; i < n; i++) {\n            int pos = upper_bound(v.begin(), v.end(), i) - v.begin() - 1;\n            for (int c = 0; c + c*c <= n && pos >= c; c++) {\n                int mx = i - v[pos - c];\n                int mn = c?(i - v[pos - c + 1]):0;\n                if (mx < c + c*c) continue;\n                if (mn < c + c*c) ans += mx + 1 - c - c*c;\n                else ans += mx - mn;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722137002",
+    "subm_id": "1335751276"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "sheepforever",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        vector<int> zeros;\n        int ans = 0;\n        for (int i = 0; i < s.size(); ++i) {\n            if (s[i] == '0') {\n                zeros.push_back(i);\n            }\n            \n            for (int j = 0; j <= 200 && j <= zeros.size(); ++j) {\n                int right = i;\n                if (j > 0) right = zeros[zeros.size() - j];\n                int left = 0;\n                if (j + 1 <= zeros.size()) left = zeros[zeros.size() - j - 1] + 1;\n                \n                int left0 = left;\n                \n                if (left > right) continue;\n                int ones = i - left + 1 - j;\n                if (ones < j * j) continue;\n                \n                while (left < right) {\n                    int mid = ((left + right) >> 1) + 1;\n                    int ones = i - mid + 1 - j;\n                    if (ones < j * j) {\n                        right = mid - 1;\n                    } else {\n                        left = mid;\n                    }\n                }\n                ans += right - left0 + 1;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722135240",
+    "subm_id": "1335694874"
+}

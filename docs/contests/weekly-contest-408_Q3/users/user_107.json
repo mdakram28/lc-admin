@@ -1,0 +1,6 @@
+{
+    "username": "sobols",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n\n        int zbefore = 0;\n        vector<int> zpos;\n        int ans = 0;\n\n        for (int i = 0; i < n; ++i) {\n            if (s[i] == '0') {\n                zbefore++;\n                zpos.push_back(i);\n            }\n            //cerr << i << '\\n';\n\n            for (int zc = 0; zc <= zbefore; ++zc) {\n                // [lb, ub]\n                int lb = (zc < zbefore) ? (zpos[zbefore - 1 - zc] + 1) : 0;\n                int ub = (zc > 0) ? zpos[zbefore - zc] : (i);\n                //cerr << \"zc=\" << zc << \" \" << lb << \" \" << ub << '\\n';\n                int minLen = zc * zc + zc;\n                if (minLen > i + 1) {\n                    break;\n                }\n                int b = i - minLen + 1;\n\n                // [lb, b]\n                if (ub >= lb && b >= lb) {\n                    ans += min(ub, b) - lb + 1;\n                }\n            }\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": "1722136952",
+    "subm_id": "1335749777"
+}

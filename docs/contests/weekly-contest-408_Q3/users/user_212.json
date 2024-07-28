@@ -1,0 +1,6 @@
+{
+    "username": "1v9n418vn51",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        \n        def atmost(s, zeroCount, minLen):\n            if minLen > len(s):\n                return 0\n            n = len(s)\n            left = 0\n            c = 0\n            ans = 0\n            for i in range(n):\n                if s[i] == '0':\n                    c += 1\n                while left <= i and c > zeroCount:\n                    if s[left] == '0':\n                        c -= 1\n                    left += 1\n                if i - left + 1 >= minLen:\n                    ans += i - left + 1 - minLen + 1\n            return ans\n                \n        z = 1\n        oc = s.count('1')\n        ret = atmost(s, 0, 1)\n        while z * z <= oc:\n            l = z + z * z\n            ret += atmost(s, z, l) - atmost(s, z-1, l)\n            z += 1\n        return ret\n        ",
+    "submit_ts": "1722136974",
+    "subm_id": "1335750436"
+}

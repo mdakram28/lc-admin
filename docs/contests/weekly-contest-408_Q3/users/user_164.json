@@ -1,0 +1,6 @@
+{
+    "username": "trchen",
+    "submission": "class Solution {\n public:\n  int numberOfSubstrings(string& s) {\n    int n = s.size();\n    vector<int> next_zero(n, n);\n    for (int i = n - 2; i >= 0; --i) {\n      next_zero[i] = next_zero[i + 1];\n      if (s[i + 1] == '0') {\n        next_zero[i] = i + 1;\n      }\n    }\n    int ret = 0;\n    for (int l = 0; l < n; ++l) {\n      int cnt_zero = 0;\n      if (s[l] == '0') {\n        cnt_zero++;\n      }\n      int r;\n      if (cnt_zero == 0) {\n        r = next_zero[l];\n        ret += r - l;\n        ++cnt_zero;\n      } else {\n        r = next_zero[l];\n        ret += r - l - 1;\n        ++cnt_zero;\n      }\n      while (r < n) {\n        // if (l == 0) {\n        //   cout << r << \": \" << ret << endl;\n        // }\n        int start_idx = max(cnt_zero * (cnt_zero + 1) - 1 + l, r);\n        if (start_idx >= n) {\n          break;\n        }\n        if (start_idx >= next_zero[r]) {\n          r = next_zero[r];\n          ++cnt_zero;\n          continue;\n        }\n        ret += next_zero[r] - start_idx;\n        r = next_zero[r];\n        ++cnt_zero;\n      }\n      //  cout << l << \": \" << ret << endl;\n    }\n    return ret;\n  }\n};",
+    "submit_ts": "1722136062",
+    "subm_id": "1335722564"
+}

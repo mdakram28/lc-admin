@@ -1,0 +1,6 @@
+{
+    "username": "zaforf",
+    "submission": "class Solution {\npublic:\n    bool canReachCorner(int x, int y, vector<vector<int>>& cs) {\n        int n = cs.size();\n        vector<int> touches(n);\n        for (int i=0;i<n;i++) {\n            for (int j=0;j<i;j++) {\n                if (j==i) continue;\n                if (circlesTouch(cs[i],cs[j])) touches[i] |= touches[j];\n            }\n            touches[i] |= touchEdge(cs[i],x,y);\n            if (touches[i]==3) return false;\n        }\n        return true;\n    }\n    int touchEdge(vector<int>& c, int x, int y) {\n        int cx = c[0], cy = c[1], r = c[2];\n        int ret = 0;\n        if (abs(cx-0)<=r && !(cy+r<0 || cy-r>y)) ret |= 2;\n        if (abs(cy-y)<=r && !(cx+r<0 || cx-r>x)) ret |= 2;\n\n        if (abs(cx-x)<=r && !(cy+r<0 || cy-r>y)) ret |= 1;\n        if (abs(cy-0)<=r && !(cx+r<0 || cx-r>x)) ret |= 1;\n        return ret;\n    }\n    bool circlesTouch(vector<int>& c1, vector<int>& c2) {\n        long long dist = (c2[0]-c1[0])*1ll*(c2[0]-c1[0])+(c2[1]-c1[1])*1ll*(c2[1]-c1[1]);\n        return dist <= (c1[2]+c2[2])*1ll*(c1[2]+c2[2]);\n    }\n};",
+    "submit_ts": "1722136382",
+    "subm_id": "1335732685"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "skyinde2",
+    "submission": "\nclass Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        n = len(s)\n        pos = [-1]\n\n        for i in range(n):\n            if s[i] == '0':\n                pos.append(i)\n\n        pos.append(n)\n\n        ret = 0\n        for i in range(1, len(pos)):\n            count = pos[i] - pos[i - 1] - 1\n            ret += count * (count + 1) // 2\n\n        max_zeros = math.floor(math.sqrt(n))\n        for k in range(max_zeros + 1):\n            for i in range(1, len(pos) - 1 - k):\n                j = i + k\n                l = pos[i] - pos[i - 1] - 1\n                r = pos[j + 1] - pos[j] - 1\n                req = (k + 1) * (k + 1) - (pos[j] - pos[i] - k)\n\n                start = max(0, req - r)\n                for a in range(start, l + 1):\n                    ret += max(0, r - max(0, req - a) + 1)\n\n        return ret",
+    "submit_ts": "1722136582",
+    "subm_id": "1335738876"
+}

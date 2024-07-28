@@ -1,0 +1,6 @@
+{
+    "username": "giaminh8368",
+    "submission": "using ll=long long;\n\nusing namespace std;\n\nclass Solution {\npublic:\n\n    int numberOfSubstrings(string a){\n        int n=a.size();\n        a=' '+a;\n        vector<int> v;\n        for(int i=1; i<=n; i++){\n            if(a[i]=='0'){\n                v.push_back(i);\n            }\n        }\n        v.push_back(n+1);\n        int res=0;\n        for(int i=1; i<=n; i++){\n            //cout << \"---- \" << i << '\\n';\n            int id=lower_bound(begin(v), end(v), i)-begin(v);\n            res+=max(0, v[id] - (i));\n            //cout << i << ' ' << id << ' ' << v[id] << ' ' << v[id]-i << '\\n';\n            int s=1;\n            while(id+1 < v.size() &&  s*s+s<=(n-i+1)){\n                res+=max(0, v[id+1] - max(v[id], (i+s*s+s-1)));\n                //cout << v[id+1] << ' ' << s << ' ' << id << ' ' << max(v[id], (i+s*s+s-1)) << ' ' << v[id+1] - max(v[id], (i+s*s+s-1)) << '\\n';\n                ++id;\n                ++s;\n            }\n        }\n        return res;\n    }\n};\n",
+    "submit_ts": "1722138158",
+    "subm_id": "1335783633"
+}

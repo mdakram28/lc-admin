@@ -1,0 +1,6 @@
+{
+    "username": "vskesha",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        sacc = list(accumulate([1 if c == \"0\" else 0 for c in s], initial=0))\n        ls = len(s)\n\n        ans = 0\n        for beg in range(ls):\n            end = beg + 1\n            while end <= ls:\n                zeros = sacc[end] - sacc[beg]\n                blocked_to = beg + zeros * (zeros + 1)\n                if blocked_to <= end:\n                    next_zero = bisect_left(sacc, sacc[beg] + zeros + 1)\n                    ans += next_zero - end\n                    end = next_zero\n                else:\n                    end = blocked_to\n\n        return ans",
+    "submit_ts": "1722139092",
+    "subm_id": "1335807648"
+}

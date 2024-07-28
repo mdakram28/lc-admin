@@ -1,0 +1,6 @@
+{
+    "username": "timetoai",
+    "submission": "class Solution:\n    def canReachCorner(self, X: int, Y: int, circles: List[List[int]]) -> bool:\n        n = len(circles)\n        uf = list(range(n))\n        \n        def find(x):\n            if uf[x] == x:\n                return x\n            uf[x] = find(uf[x])\n            return uf[x]\n        \n        for i in range(n):\n            x1, y1, r1 = circles[i]\n            for j in range(i + 1, n):\n                x2, y2, r2 = circles[j]\n                if (x2 - x1) ** 2 + (y2 - y1) ** 2 <= (r1 + r2) ** 2:\n                    ui, uj = find(i), find(j)\n                    uf[ui] = uf[uj] = min(ui, uj)\n        \n        g = defaultdict(int)\n        for i in range(n):\n            x, y, r = circles[i]\n            if r >= x:\n                g[find(i)] |= 1\n            if r >= y:\n                g[find(i)] |= 2\n            if X - x <= r:\n                g[find(i)] |= 4\n            if Y - y <= r:\n                g[find(i)] |= 8\n        # print(uf, g)\n        return not any(v & 3 == 3 or v & 12 == 12 or v & 5 == 5 or v & 10 == 10 for v in g.values())\n        ",
+    "submit_ts": "1722135062",
+    "subm_id": "1335688406"
+}

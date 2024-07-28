@@ -1,0 +1,6 @@
+{
+    "username": "Sandeep_P",
+    "submission": "class Solution:\n    def canReachCorner(self, X: int, Y: int, circles: List[List[int]]) -> bool:\n        def dist(x,y,xx,yy):\n            return sqrt((x-xx)**2+(y-yy)**2)\n        g=defaultdict(set)\n        lt=set()\n        rb=set()\n        for i,(x,y,r) in enumerate(circles):\n            if x-r<=0 or y+r>=Y:\n                lt.add(i)\n            if x+r>=X or y-r<=0:\n                rb.add(i)\n            for j,(x2,y2,r2) in enumerate(circles):\n                if dist(x,y,x2,y2)<=r+r2:\n                    g[i].add(j)\n        q=lt\n        seen=set(q)\n        while q:\n           # print(q)\n            q2=set()\n            for x in q:\n                if x in rb:\n                    return False\n                for y in g[x]:\n                    if y not in seen:\n                        q2.add(y)\n                        seen.add(y)\n            q=q2\n        return True",
+    "submit_ts": "1722136856",
+    "subm_id": "1335746970"
+}

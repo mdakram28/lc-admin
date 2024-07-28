@@ -1,0 +1,6 @@
+{
+    "username": "NatapongS",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        vector<int> qs(s.length() + 1);\n        int n = s.length();\n        s = '#' + s;\n        int ans = 0;\n        vector<int> pos(1);\n        for (int i = 1; i <= n; ++i) {\n            qs[i] = qs[i -1] + (s[i] == '1');\n            if (s[i] == '0') {\n                pos.push_back(i);\n            }\n            int cur = i, sz = pos.size(); \n            for (int j = 0; j < min(sz, 201); ++j) {\n                int r = pos[sz -j -1] + 1;\n                if (r > cur) {\n                    cur = pos[sz -j -1];\n                    continue;\n                }\n                int mi = qs[i] - qs[cur -1], ma = qs[i] - qs[r -1];\n                if (ma >= j * j) {\n                    ans += ma - max(j * j, mi) + 1;\n                    // cout << i << \" \" << j << ma - max(j * j, mi) +1 << \"\\n\";\n                }\n                cur = pos[sz -j -1];\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722135282",
+    "subm_id": "1335696365"
+}

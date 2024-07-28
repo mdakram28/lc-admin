@@ -1,0 +1,6 @@
+{
+    "username": "pein531",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int len = s.size();\n        vector<int> one(len + 1);\n        for(int i = 0; i < len; i++){\n            one[i + 1] = one[i] + (s[i] == '1'? 1: 0);\n        }\n        int ans = 0;\n        for(int i = 0; i < len; i++) {\n            int j = i;\n            while(j < len) {\n                int ocnt = one[j + 1] - one[i];\n                int zcnt = j - i + 1 - ocnt;\n                if(ocnt >= zcnt*zcnt) {\n                    int n = 0;\n                    n = min(len - j, (int)sqrt(ocnt) - zcnt);\n                    n = max(n, 1);\n                    ans += n;\n                    j += n;\n                }else {\n                    j += zcnt*zcnt - ocnt;\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722138517",
+    "subm_id": "1335792746"
+}

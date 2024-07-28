@@ -1,0 +1,6 @@
+{
+    "username": "alxwen711",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int: \n        \"\"\"\n        1111110011 would fail in sliding window\n        DO NOT O(n^2)\n        for 40000 chr string, cannot be more than 200 0's in the string\n        O(n^1.5) by running through string 200 times\n        200 0's -> len 202\n        \"\"\"\n        n = len(s)\n        index = 0\n        ar = [-1]\n        ans = 0\n        c = 0\n        for i in range(n):\n            if s[i] == \"0\": \n                ar.append(i)\n                ans += (c*c+c)//2\n                c = 0\n            else: c += 1\n        ans += (c*c+c)//2\n        ar.append(n)\n        print(ar)\n        for j in range(1,min(201,len(ar)-1)):\n            for a in range(1,len(ar)-j):\n                li = ar[a]\n                ri = ar[a+j-1]\n                llimit = ar[a-1]+1\n                rlimit = ar[a+j]-1\n                distreq = j*j+j\n                #print(llimit,li,ri,rlimit,distreq,ans)\n                for b in range(llimit,li+1):\n                    req = max(b+distreq-1,ri)\n                    if rlimit-req+1 > 0: ans += rlimit-req+1\n                    else: break\n        return ans\n            ",
+    "submit_ts": "1722136905",
+    "subm_id": "1335748444"
+}

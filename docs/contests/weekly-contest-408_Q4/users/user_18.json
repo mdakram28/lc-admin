@@ -1,0 +1,6 @@
+{
+    "username": "flashmt",
+    "submission": "struct DisjointSet\n{\n  int n;\n  vector<int> ds, sz;\n\n  DisjointSet(int n): n(n)\n  {\n    ds = sz = vector<int>(n);\n    for (int i = 0; i < n; i++)\n    {\n      ds[i] = i;\n      sz[i] = 1;\n    }\n  }\n\n  int get(int x)\n  {\n    return x == ds[x] ? x : ds[x] = get(ds[x]);\n  }\n\n  int join(int x, int y)\n  {\n    int dx = get(x), dy = get(y);\n    if (dx == dy)\n      return 0;\n    if (sz[dx] < sz[dy])\n      swap(dx, dy);\n    ds[dy] = dx;\n    sz[dx] += sz[dy];\n    return 1;\n  }\n};\n\nclass Solution {\npublic:\n  bool canReachCorner(int X, int Y, vector<vector<int>>& circles) {\n    int n = size(circles), s = n, t = n + 1;\n    DisjointSet ds(n + 2);\n    for (int i = 0; i < n; i++)\n    {\n      int x = circles[i][0], y = circles[i][1], r = circles[i][2];\n      if (x <= r || y >= Y - r)\n        ds.join(s, i);\n\n      if (x >= X - r || y <= r)\n        ds.join(t, i);\n\n      for (int j = 0; j < i; j++)\n      {\n        int xx = circles[j][0], yy = circles[j][1], rr = circles[j][2];\n        if (1LL * (x - xx) * (x - xx) + 1LL * (y - yy) * (y - yy) <= 1LL * (r + rr) * (r + rr))\n          ds.join(i, j);\n      }\n    }\n    return ds.get(s) != ds.get(t);\n  }\n};",
+    "submit_ts": "1722136032",
+    "subm_id": "1335721565"
+}

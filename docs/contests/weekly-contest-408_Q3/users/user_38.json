@@ -1,0 +1,6 @@
+{
+    "username": "rejudge_thiz",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        vector<int> v{-1};\n        int n = s.size();\n        for(int i=0;i<n;i++) if(s[i]=='0') v.push_back(i);\n        v.push_back(n);\n        int re = 0;\n        for(int i=1;i<v.size();i++) {\n            int k = v[i]-v[i-1]-1;\n            re+=k*(k+1)/2;\n        }\n        // cout << v.size() << '\\n';\n        for(int i=1;i<=min((int)v.size()-2,200);i++){\n            for(int j=1;j+i<v.size();j++){\n                int l = v[j]-v[j-1]-1, r=v[j+i]-v[j+i-1]-1,m=v[j+i-1]-v[j]+1-i;\n                int req = i*i-m;\n                if(l>r) swap(l,r);\n                // cout << i << ' ' << j << ' ' << req << ' ' << l << ' ' << r << ' ' << re << ' ';\n                if(req<=0){\n                    re+=(l+1)*(r+1);\n                } else if(req<=l){\n                    re+=(l+1)*(r+1)-req*(req+1)/2;\n                } else if(req<=r){\n                    re+=(l+1)*(r+1)-l*(l+1)/2-(req-l)*(l+1);\n                } else if(req<=r+l){\n                    int k = r+l-req+1;\n                    re+=k*(k+1)/2;\n                }\n                // cout << re << '\\n';\n            }\n        }\n        return re;\n    }\n};",
+    "submit_ts": "1722136597",
+    "subm_id": "1335739380"
+}

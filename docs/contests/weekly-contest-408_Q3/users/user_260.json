@@ -1,0 +1,6 @@
+{
+    "username": "jason7708",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.size(), ans = 0;\n\n        for(int z=0; z*z <= n-z; z++) {\n            ans += find(s, z);\n        }\n        return ans;\n    }\n    int find(const string& s, int zero) {\n        int n = s.size(), l = 0, res = 0;\n        vector<int> cnt(2, 0);\n        deque<int> dq;\n        for(int r=0; r<n; r++) {\n            int c = s[r] - '0';\n            cnt[c]++;\n            if(c == 0) {\n                dq.push_back(r);\n            }\n            while(cnt[0] > zero) {\n                cnt[s[l] - '0']--;\n                if(!dq.empty() && dq.front() == l) {\n                    dq.pop_front();\n                }\n                l++;\n            }\n            if(l <= r && cnt[0] == zero && cnt[1] >= zero * zero) {\n                int j = dq.empty() ? r : dq.front();\n                res += min(j - l, cnt[1] - zero * zero) + 1;\n            }\n        }\n        // cout << res << ' ';\n        return res;\n    }\n};",
+    "submit_ts": "1722138052",
+    "subm_id": "1335780858"
+}

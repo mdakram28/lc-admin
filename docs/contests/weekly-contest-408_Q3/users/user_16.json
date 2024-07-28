@@ -1,0 +1,6 @@
+{
+    "username": "scanhex",
+    "submission": "class Solution {\npublic:\n  int numberOfSubstrings(string s) {\n    vector<int> zeros = {-1};\n    int n = s.size();\n    int res = 0;\n    for (int i = 0; i < n; ++i) {\n      if (s[i] == '0') {\n        zeros.push_back(i);\n      }\n      int prev = i;\n      for (int j = (int)zeros.size() - 1; j >= 0; --j) {\n        // all where r = i + 1 and l > zeros[j], l <= zeros[j + 1]\n        // l <= minind\n        int cz = zeros.size() - j - 1;\n        int minones = cz * cz;\n        int minind = i + 1 - cz - minones;\n        if (minind < 0) break;\n        res += max(0, min(prev, minind) - zeros[j]);\n//        cerr << i << ' ' << zeros[j] << ' ' << cz << ' ' << minind << ' ' << prev << ' '\n//             << res << '\\n';\n        prev = zeros[j];\n      }\n//      cerr << i << ' ' << res << '\\n';\n    }\n    return res;\n  }\n};\n\n",
+    "submit_ts": "1722135391",
+    "subm_id": "1335700170"
+}

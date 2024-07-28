@@ -1,0 +1,6 @@
+{
+    "username": "wangdh15",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        vector<int> idx0;\n        const int n = s.size();\n        idx0.push_back(-1);\n        for (int i = 0; i < n; ++i) {\n            if (s[i] == '0') idx0.push_back(i);\n        }\n        idx0.push_back(n);\n        int ans = 0;\n        for(int i = 0; i + 1 < idx0.size(); ++i) {\n            int tt = idx0[i+1] - idx0[i] - 1;\n            ans += tt * (tt + 1) / 2;\n        }\n        // cout << ans << endl;\n        for (int cnt = 1; cnt <= 200; ++cnt) {\n            for (int i = 1; i + cnt < idx0.size(); ++i) {\n                int j = i + cnt - 1;\n                int min_len = cnt * cnt + cnt;\n                for (int k = idx0[i]; k > idx0[i-1]; --k) {\n                    int rr = k + min_len - 1;\n                    if (rr < idx0[j+1]) {\n                        ans += idx0[j+1] - max(rr, idx0[j]);\n                        // cout << k << ' ' << rr << endl;\n                    }\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722136261",
+    "subm_id": "1335728815"
+}

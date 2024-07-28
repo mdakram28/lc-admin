@@ -1,0 +1,6 @@
+{
+    "username": "green_pig",
+    "submission": "class dsu:\n    def __init__(self, n):\n        self.e = [-1] * n\n    def rep(self, i):\n        if self.e[i] < 0:\n            return i\n        self.e[i] = self.rep(self.e[i])\n        return self.e[i]\n    def unite(self, i, j):\n        i, j = self.rep(i), self.rep(j)\n        if i == j:\n            return\n        if self.e[i] < self.e[j]:\n            i, j = j, i\n        self.e[i] += self.e[j]\n        self.e[j] = i\n\nclass Solution:\n    def canReachCorner(self, X: int, Y: int, circles: List[List[int]]) -> bool:\n        n = len(circles)\n        d = dsu(n + 4)\n        for i in range(n):\n            x1, y1, r1 = circles[i]\n            for j in range(n):\n                x2, y2, r2 = circles[j]\n                if (x1-x2)**2+(y1-y2)**2 <= (r1+r2)**2:\n                    d.unite(i, j)\n            if abs(x1 - 0) <= r1: d.unite(i, n)\n            if abs(y1 - 0) <= r1: d.unite(i, n+1)\n            if abs(x1 - X) <= r1: d.unite(i, n+2)\n            if abs(y1 - Y) <= r1: d.unite(i, n+3)\n        for i, j in [(0, 1), (0, 2), (1, 3), (2, 3)]:\n            if d.rep(n+i) == d.rep(n+j):\n                return 0\n        return 1\n",
+    "submit_ts": "1722136817",
+    "subm_id": "1335745816"
+}

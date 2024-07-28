@@ -1,0 +1,6 @@
+{
+    "username": "tungduong150105",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = (int) s.size();\n        std::vector<std::vector<int>> f(2);\n        for (int i = 0; i < n; ++i) {\n            f[s[i] - '0'].push_back(i);\n        }\n        f[0].push_back(n);\n        int ans = 0;\n        for (int i = 0; i < n; ++i) {\n            int g[2] = {0, 0};\n            for (int j = i; j < n; ++j) {\n                ++g[s[j] - '0'];\n                if (g[0] * g[0] <= g[1]) {\n                    int l = std::lower_bound(f[0].begin(), f[0].end(), j + 1) - f[0].begin();\n                    ans += f[0][l] - j;\n                    g[1] += f[0][l] - j - 1;\n                    j = f[0][l] - 1;\n                } else if (g[0] * g[0] + g[0] > n) {\n                    break;\n                }\n            }\n            // std::cout << ans << \"\\n\";\n        }\n        // std::cout << \"\\n\";\n        return ans;\n    }\n};",
+    "submit_ts": "1722137594",
+    "subm_id": "1335768260"
+}

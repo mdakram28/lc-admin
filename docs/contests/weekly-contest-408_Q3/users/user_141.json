@@ -1,0 +1,6 @@
+{
+    "username": "Tinky1224",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        n = len(s)\n        pre = [[0, 0] for _ in range(n+1)]\n        inds = [-1]\n        res = 0\n        for i, c in enumerate(s):\n            if c == '0':\n                inds.append(i)\n            pre[i][0] = pre[i-1][0] + (c=='0')\n            pre[i][1] = pre[i-1][1] + (c=='1')\n            cur = i+1\n            accu1 = 0\n            j = 0\n            while j < len(inds) and j**2 <= pre[i][1] and pre[i][1] > 0:\n                nxt = inds[-j-1]\n                ones = cur - nxt - 1\n                if accu1 + ones >= j**2:\n                    remain = max(0, j**2 - accu1)\n                    res += ones - remain + (j > 0 or accu1 > 0)\n                accu1 += ones\n                cur = nxt\n                j += 1\n        return res",
+    "submit_ts": "1722137361",
+    "subm_id": "1335761556"
+}

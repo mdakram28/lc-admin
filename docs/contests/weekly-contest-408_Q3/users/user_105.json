@@ -1,0 +1,6 @@
+{
+    "username": "nevergiveup",
+    "submission": "class Solution {\n\n    private int solve(List<Integer> oneList , int expect) {\n        int l = 0 , r = oneList.size();\n        while (l < r) {\n            int mid = (l + r) / 2;\n            if (oneList.get(mid) > expect) {\n                r = mid;\n            } else {\n                l = mid + 1;\n            }\n        }\n        return r;\n    }\n\n    public int numberOfSubstrings(String s) {\n        // zero to ones\n        Map<Integer , List<Integer>> zeroMap = new HashMap<>();\n        int i , j , zero = 0 , one = 0;\n        int ans = 0;\n        for (i = 0;i < s.length();i ++) {\n            if (s.charAt(i) == '1') {\n                one ++;\n            } else {\n                zero ++;\n            }\n            // single\n            if (one >= zero * zero) {\n                ans ++;\n            }\n            for (j = zero;j >= zero - 200 && j >= 0;j --) {\n                List<Integer> oneList = zeroMap.getOrDefault(j , new ArrayList<>());\n                int expect = one - (zero - j) * (zero - j);\n                ans += solve(oneList , expect);\n            }\n            zeroMap.putIfAbsent(zero , new ArrayList<>());\n            zeroMap.get(zero).add(one);\n        }\n        return ans;\n    }\n\n}",
+    "submit_ts": "1722136423",
+    "subm_id": "1335734022"
+}

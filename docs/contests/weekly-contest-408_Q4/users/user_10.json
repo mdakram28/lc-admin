@@ -1,0 +1,6 @@
+{
+    "username": "danielchandg",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    bool canReachCorner(int X, int Y, vector<vector<int>>& v) {\n        int n=v.size();\n        vector<vector<int>> adj(n+2);\n        for(int i=0; i<n; i++){\n            for(int j=i+1; j<n; j++){\n                ll dx = v[i][0]-v[j][0];\n                ll dy = v[i][1]-v[j][1];\n                ll r = v[i][2]+v[j][2];\n                if(dx*dx + dy*dy <= r * r){\n                    adj[i].push_back(j);\n                    adj[j].push_back(i);\n                }\n            }\n            ll x = v[i][0], y = v[i][1], r = v[i][2];\n            if(y-r<=0 || x+r>=X){\n                adj[n].push_back(i);\n                adj[i].push_back(n);\n            }\n            if(x-r<=0 || y+r>=Y){\n                adj[n+1].push_back(i);\n                adj[i].push_back(n+1);\n            }\n        }\n        vector<bool> vis(n+2);\n        queue<int> q;\n        q.push(n);\n        vis[n]=1;\n        while(!q.empty()){\n            int u=q.front(); q.pop();\n            for(int a : adj[u]){\n                if(!vis[a]){\n                    vis[a]=1;\n                    q.push(a);\n                }\n            }\n        }\n        return !vis[n+1];\n    }\n};",
+    "submit_ts": "1722135828",
+    "subm_id": "1335714930"
+}

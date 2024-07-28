@@ -1,0 +1,6 @@
+{
+    "username": "rajesh_sv",
+    "submission": "class Solution:\n    def canReachCorner(self, X: int, Y: int, circles: List[List[int]]) -> bool:\n        n = len(circles)\n        graph = [[] for _ in range(n)]\n        q = deque()\n        visited = set()\n        for i in range(n):\n            xi, yi, ri = circles[i]\n            if (xi + ri >= X and yi + ri >= Y) or (xi + yi <= ri):\n                return False\n            if xi + ri >= X or yi <= ri:\n                visited.add(i)\n                q.append(i)\n            for j in range(i):\n                xj, yj, rj = circles[j]\n                if abs(ri - rj) <= sqrt(abs(xi - xj) ** 2 + abs(yi - yj) ** 2) <= ri + rj:\n                    graph[i].append(j)\n                    graph[j].append(i)\n        # print(q, graph)\n        while q:\n            i = q.popleft()\n            x, y, r = circles[i]\n            if y + r >= Y or x <= r:\n                return False\n            for j in graph[i]:\n                if j not in visited:\n                    visited.add(j)\n                    q.append(j)\n        return True",
+    "submit_ts": "1722137804",
+    "subm_id": "1335774210"
+}

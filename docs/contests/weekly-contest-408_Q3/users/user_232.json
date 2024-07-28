@@ -1,0 +1,6 @@
+{
+    "username": "killer-whale",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        r = 0\n        for num_zeros in range(min(s.count('0')+1, int(len(s)**.5)+1)):\n            window = deque()\n            z = ones = 0\n            start_idx = 0\n            for i, c in enumerate(s):\n                z += c == '0'\n                ones += c == '1'\n                window.append(i)\n                while z > num_zeros:\n                    idx = window.popleft()\n                    z -= s[idx] == '0'\n                    ones -= s[idx] == '1'\n                    start_idx = idx + 1\n                if z == num_zeros and ones>=z*z:\n                    while window and s[window[0]] == '1' and (ones-1)>=z*z:\n                        #print(ones)\n                        window.popleft()\n                        ones -= 1\n                        #print('popped',ones)\n                    if window:\n                        #print(start_idx, window[0], window)\n                        r += window[0] - start_idx + 1\n                    else:\n                        r += i - start_idx + 1\n        return r",
+    "submit_ts": "1722137763",
+    "subm_id": "1335773027"
+}

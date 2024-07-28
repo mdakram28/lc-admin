@@ -1,0 +1,6 @@
+{
+    "username": "hanbro0112",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        arr = [-1] + [i for i, c in enumerate(s) if c == '0']\n        \n        res = 0\n        cnt = Counter()\n        \n        for i, c in enumerate(s):\n            cnt[c] += 1\n            \n            if c == '1':\n                res += i - arr[cnt['0']]\n            \n            # \u7576\u524d j \u5f80\u524d\u52a0\u5230 prej + 1\n            for t in range(cnt['0'], 0, -1):\n                j = arr[t]\n                zero_sum = cnt['0'] - t + 1\n                one_sum = (i - j + 1) - zero_sum\n                \n                if zero_sum ** 2 > cnt['1']:\n                    break\n                \n                prej = arr[t - 1]\n                res += max(0, (j - prej) - max(0, zero_sum ** 2 - one_sum))\n            \n        return res",
+    "submit_ts": "1722137123",
+    "subm_id": "1335754849"
+}

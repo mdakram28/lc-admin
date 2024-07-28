@@ -1,0 +1,6 @@
+{
+    "username": "mliafol",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        n = len(s)\n        prev = [-1 for i in range(n + 1)]\n        result = 1 if s[0] == '1' else 0\n        prev[0] = -1 if s[0] == '1' else 0\n        for k in range(1, n):\n            i = k\n            t = 1 if s[k] == '0' else 0\n            prev[k] = k if s[k] == '0' else prev[k - 1]\n            while i >= 0:\n                j = prev[i - 1]\n                # print(k, ' ', i, ' ', j, ' ', t)\n                if t * t < k - i + 1 - t:\n                    result = result + (i - j)\n                elif t * t <= k - j - t:\n                    result = result + (k - j - t) - t * t + 1\n                i = j\n                t += 1\n                if (t * t > k):\n                    break\n        return result\n\n        ",
+    "submit_ts": "1722137338",
+    "subm_id": "1335760903"
+}

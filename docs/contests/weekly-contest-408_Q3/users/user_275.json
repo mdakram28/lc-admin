@@ -1,0 +1,6 @@
+{
+    "username": "xyfernx",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int ans = 0;\n        int nextzero[40001];\n        for (int i = 0; i <= 40000; i++) nextzero[i] = -1;\n        for (int i = 0; i < s.size(); i++) {\n            if (s[i] == '0') {\n                for (int j = i - 1; j >= 0; j--) if (nextzero[j] == -1) nextzero[j] = i; \n            }\n        }\n        for (int i = 0; i < s.size(); i++) if (nextzero[i] == -1) nextzero[i] = s.size();\n        //for (int i = 0; i < s.size(); i++) cout << nextzero[i] << \" \";\n        //cout << \"\\n\";\n        for (int i = 0; i < s.size(); i++) {\n            int zeros = 0;\n            int needuntil = i;\n            if (s[i] == '0') {\n                zeros++;\n                needuntil = i + zeros * zeros + zeros - 1;\n            }\n            for (int j = nextzero[i]; j < s.size(); ) {\n                ans += max(j - needuntil, 0);\n                zeros++;\n                needuntil = max(i + zeros * zeros + zeros - 1, j);\n                j = nextzero[j];\n                if (needuntil >= s.size()) break;\n            }\n            ans += max((int)s.size() - min(needuntil, (int)s.size()), 0);\n            cout << ans << \"\\n\";\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722137893",
+    "subm_id": "1335776612"
+}

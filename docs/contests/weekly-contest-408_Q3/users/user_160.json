@@ -1,0 +1,6 @@
+{
+    "username": "yisongluo",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.length();\n        vector<int> ones(n + 1), zeros(n + 1), nearestzero(n + 1);\n        for(int i = 1; i <= s.length(); i++){\n            ones[i] = ones[i-1];\n            zeros[i] = zeros[i-1];\n            nearestzero[i] = nearestzero[i-1];\n            if(s[i-1] == '1'){\n                ones[i]++;\n            }else{\n                zeros[i]++;\n                nearestzero[i] = i;\n            }\n        }\n        int ans = 0;\n        for(int i = 1; i <= n; i++){\n            for(int j = i; j >= 1;){\n                int o = ones[i] - ones[j - 1], z = zeros[i] - zeros[j - 1];\n                if(z > 205){\n                    break;\n                }\n                if(o >= z * z){\n                    // stays true until next zero\n                    ans += j - nearestzero[j - 1];\n                    j = nearestzero[j - 1];\n                }else{\n                    j = i - (z * (z + 1)) + 1;\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722134785",
+    "subm_id": "1335678291"
+}

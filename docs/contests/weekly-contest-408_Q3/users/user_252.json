@@ -1,0 +1,6 @@
+{
+    "username": "TheZwischenzug",
+    "submission": "class Solution {\n\n    public int numberOfSubstrings(String s) {\n//        Map<Integer, List<Integer>> map = new HashMap<>();\n        List<Integer>[] map = new List[s.length()+1];\n        for (int i = 0; i <= s.length(); i++) map[i] = new ArrayList<>();\n        long cnt = 0;\n        int pfSum = 0;\n        int idx = 0;\n\n        map[0].add(-1);\n        for (char c : s.toCharArray()){\n            if (c == '0') pfSum += 1;\n            for (int zero = 0;  zero <= 200 && pfSum-zero >= 0; zero++){\n                List<Integer> list = map[pfSum-zero];\n                if (list == null) continue;\n                cnt += countValid(list, idx, zero);\n            }\n            map[pfSum].add(idx);\n            idx++;\n        }\n        return (int)cnt;\n    }\n\n    private int countValid(List<Integer> list, int idx, int zero) {\n        int oneMin = zero*zero;\n        int sizeMin = oneMin+zero;\n        int idxMin = idx-sizeMin;\n\n        int bsRes = Collections.binarySearch(list, idxMin);\n        int retVal;\n        if (bsRes >= 0) {\n            retVal =  bsRes+1;\n        }\n        else{\n            int i = -bsRes-1;\n            retVal =  i;\n\n        }\n\n        return retVal;\n    }\n}",
+    "submit_ts": "1722137547",
+    "subm_id": "1335766910"
+}

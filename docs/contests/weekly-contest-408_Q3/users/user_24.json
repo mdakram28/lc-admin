@@ -1,0 +1,6 @@
+{
+    "username": "Silken",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n        int nx = n;\n        vector<int> next(n);\n        for(int i = n-1; i>=0; i--) {\n            next[i] = nx;\n            if(s[i]=='0') {\n                nx = i;\n            }\n        }\n\n        int ans = 0;\n\n        for(int i=0; i < n; i++) {\n            // printf(\"i = %d\\n\", i);\n            int ind = s[i]=='0' ? i : next[i];\n            int z=0, o=ind-i;\n            ans += ind-i;\n            while(z*z <= n-z && ind < n) {\n                assert(s[ind]=='0');\n                z++;\n                if(z*z <= o) {\n                    ans += next[ind]-ind;\n                }\n                else {\n                    int diff = z*z-o;\n                    if(next[ind]-ind-1 >= diff) {\n                        ans += next[ind]-ind-diff;\n                    }\n                }\n                // printf(\"ind = %d, zero = %d, ones = %d\\tans = %d\\n\", ind, z, o, ans);\n                o += next[ind]-ind-1;\n                ind = next[ind];\n            }\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722135066",
+    "subm_id": "1335688561"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "rejudge_thiz",
+    "submission": "class Solution {\npublic:\n    bool canReachCorner(int X, int Y, vector<vector<int>>& c) {\n        int n = c.size();\n        vector<int> p(n+4);\n        iota(p.begin(),p.end(),0);\n        auto f = [&](auto self,int u)->int{\n            if(p[u]!=u) p[u]=self(self,p[u]);\n            return p[u];\n        };\n        auto join = [&](int x,int y){\n            x=f(f,x),y=f(f,y);\n            if(x!=y) p[x]=y;\n        };\n        using ll = long long;\n        for(int i=0;i<n;i++){\n            for(int j=0;j<i;j++){\n                ll dx = c[j][0]-c[i][0],dy=c[j][1]-c[i][1],tr = c[j][2]+c[i][2];\n                if(dx*dx+dy*dy<=tr*tr) join(i,j);\n            }\n        }\n        for(int i=0;i<n;i++){\n            int x = c[i][0],y=c[i][1],r=c[i][2];\n            if(x-r<=0&&x+r>=0) join(i,n);\n            if(x-r<=X&&x+r>=X) join(i,n+2);\n            if(y-r<=0&&y+r>=0) join(i,n+1);\n            if(y-r<=Y&&y+r>=Y) join(i,n+3);\n        }\n        int a = f(f,n),b=f(f,n+1),d=f(f,n+2),e=f(f,n+3);\n        if(a==b || d==e || a==d || b==e) return false;\n        return true;\n    }\n};",
+    "submit_ts": "1722137147",
+    "subm_id": "1335755532"
+}

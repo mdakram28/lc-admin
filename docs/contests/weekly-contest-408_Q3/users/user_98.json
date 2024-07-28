@@ -1,0 +1,6 @@
+{
+    "username": "sveng101",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        res = 0\n        z_inds = []\n        for i, num in enumerate(s):\n            if num == \"0\": z_inds.append(i)\n            #else:\n            #    res += (i - z_inds[-1]) if z_inds else (i + 1)\n            one_cnt = 0\n            z_val = 0\n            n_z = len(z_inds)\n            for z_idx in reversed(range(n_z)):\n                z_val = (n_z - 1 - z_idx) ** 2\n                if z_val > i - n_z + 1: break\n                n_new_ones = z_inds[z_idx + 1] - z_inds[z_idx] - 1 if z_idx < n_z - 1 else i - z_inds[z_idx]\n                \n                res += max(0, min(n_new_ones + one_cnt - z_val, n_new_ones) + (z_idx < n_z - 1))\n                #print(z_idx, z_val, n_new_ones, n_new_ones + one_cnt - z_val + (z_idx < n_z - 1), res)\n                one_cnt += n_new_ones\n            else:\n                z_val = n_z ** 2\n                n_new_ones = z_inds[0] if z_inds else i + 1\n                #print(n_new_ones)\n                res += max(0, min(n_new_ones + one_cnt - z_val, n_new_ones) + bool(z_inds))\n                #print(n_new_ones, min(n_new_ones + one_cnt - z_val, n_new_ones) + bool(z_inds))\n            #print(i, z_inds, res)\n        return res",
+    "submit_ts": "1722138390",
+    "subm_id": "1335789549"
+}

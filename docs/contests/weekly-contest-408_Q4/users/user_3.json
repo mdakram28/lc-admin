@@ -1,0 +1,6 @@
+{
+    "username": "arignote",
+    "submission": "class Solution {\n\n    public boolean canReachCorner(int X, int Y, int[][] circles) {\n        ArrayDeque<int[]> deque = new ArrayDeque<>();\n        for (int i = 0; i < circles.length; i++) {\n            if (circles[i][0] - circles[i][2] <= 0 || circles[i][1]  + circles[i][2] >= Y) {\n                deque.offer(circles[i]);\n                circles[i] = null;\n            }\n        }\n        for (int[] circle; !deque.isEmpty();) {\n            if ((circle = deque.poll())[0] + circle[2] >= X || circle[1] - circle[2] <= 0) {\n                return false;\n            }\n            for (int i = 0; i < circles.length; i++) {\n                if (circles[i] != null && Math.abs(circle[0] - circles[i][0]) * Math.abs(circle[0] - circles[i][0]) + Math.abs(circle[1] - circles[i][1]) * Math.abs(circle[1] - circles[i][1]) <= (circle[2] + circles[i][2]) * (circle[2] + circles[i][2])) {\n                    deque.offer(circles[i]);\n                    circles[i] = null;\n                }\n            }\n        }\n        return true;\n    }\n}",
+    "submit_ts": "1722135257",
+    "subm_id": "1335695503"
+}

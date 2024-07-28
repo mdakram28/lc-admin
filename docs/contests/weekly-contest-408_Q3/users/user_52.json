@@ -1,0 +1,6 @@
+{
+    "username": "OTTFF",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.length();\n        \n        int mx = 0;\n        while (mx * mx <= n) mx++;\n        \n        vector<int> l(mx + 2, -1);\n        \n        int ans = 0;\n        for (int i = 0; i < n; i++) {\n            if (s[i] == '0') {\n                for (int j = mx; j > 0; j--) {\n                    l[j] = l[j - 1];\n                }\n                l[1] = i;\n            } else {\n                // 0 0s\n                ans += i - l[1];\n            }\n            \n            for (int j = 1; j <= mx; j++) {\n                if (l[j] == -1) break;\n                \n                // [l[j + 1] + 1, l[j]] -> has j 0s\n                int tar = j * j;\n                int need = max(tar - (i - l[j] + 1 - j), 0);\n                ans += max(l[j] - need - (l[j + 1]), 0);\n            }\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1722134966",
+    "subm_id": "1335684929"
+}

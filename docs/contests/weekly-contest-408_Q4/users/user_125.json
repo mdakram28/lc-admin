@@ -1,0 +1,6 @@
+{
+    "username": "svxvdp",
+    "submission": "class Solution:\n    def canReachCorner(self, X: int, Y: int, circles: List[List[int]]) -> bool:\n        V = len(circles)\n        G = [[] for _ in range(V)]\n        for i in range(V):\n            x1, y1, r1 = circles[i]\n            for j in range(i + 1, V):\n                x2, y2, r2 = circles[j]\n                if (x1 - x2) ** 2 + (y1 - y2) ** 2 <= (r1 + r2) ** 2:\n                    G[i].append(j)\n                    G[j].append(i)\n\n        \n        S1 = set()\n        S2 = set()\n\n        for i in range(V):\n            x, y, r = circles[i]\n            if abs(y - Y) <= r or abs(x) <= r:\n                S1.add(i)\n            if abs(x - X) <= r or abs(y) <= r:\n                S2.add(i)\n\n        if S1 & S2:\n            return False\n\n        visited = [False for _ in range(V)]\n        q = []\n        for i in S1:\n            visited[i] = True\n            q.append(i)\n        \n        while q:\n            i = q.pop()\n            for j in G[i]:\n                if visited[j]:\n                    continue\n                \n                if j in S2:\n                    return False\n                \n                visited[j] = True\n                q.append(j)\n        return True\n\n        ",
+    "submit_ts": "1722139163",
+    "subm_id": "1335809669"
+}

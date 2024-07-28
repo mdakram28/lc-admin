@@ -1,0 +1,6 @@
+{
+    "username": "namanagrawal6517",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n        long long ans = 0;\n        vector<int> prefix(n+1,0);\n        for(int i = 1; i <= n; i++)\n            prefix[i]=prefix[i-1]+(s[i-1]=='1' ? 1:0);\n\n        for(int i = 0; i < n; i++){\n            int r = i;\n            while(r < n){\n                int num = prefix[r+1]-prefix[i];\n                int sz = r+1-i;\n                if(num >= (sz-num)*(sz-num))\n                {\n                    if ((int)sqrt(num) > (sz-num))\n                    {\n                        ans += min(n-r,(int)sqrt(num)-sz+num);\n                        r += min(n-r,(int)sqrt(num)-sz+num);\n                    }\n                    else\n                    {\n                        ans++;\n                        r++;\n                    }\n                }\n\n                else\n                    r+=(sz-num)*(sz-num)-num;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722137639",
+    "subm_id": "1335769538"
+}

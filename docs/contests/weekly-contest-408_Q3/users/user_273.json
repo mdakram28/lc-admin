@@ -1,0 +1,6 @@
+{
+    "username": "ard001",
+    "submission": "class Solution {\npublic:\n    int solve(const vector<int>&pre, const vector<int>&idx,const int r){\n        int ans = 0 , sz = idx.size(), z=0;\n        for(int k=sz-1,j=r-1;k>=0 && k>=sz-201 && z*z<=pre[r];--k){\n            int i = idx[k];\n            // [i...j] , p[t] <= p[r]-z*z\n            int tt = pre[r]-z*z;\n            int ub = upper_bound(begin(pre), begin(pre)+r, tt)- begin(pre)-1;\n            if(i<=ub) ans += min(j,ub)-i+1;\n            j = i-1,++z;\n        }\n        return ans;\n    }\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n        vector<int> p(n+1,0);\n        vector<int> idx = {0};\n        int ans = 0;\n\n        for(int i=1;i<=n;++i){\n            int d = s[i-1]-'0';\n            if(d==0) idx.push_back(i);\n            p[i] = p[i-1] + d;\n            ans += solve(p, idx,i);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722138408",
+    "subm_id": "1335790000"
+}

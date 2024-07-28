@@ -1,0 +1,6 @@
+{
+    "username": "stupidRR",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        long long ans=0ll;\n        int ones=0;\n        vector< pair<int,int> > curr;\n        curr.push_back({0,0});\n        for(auto ele : s)\n        {\n            if(ele=='1')\n            {\n                ones++;\n                curr.back().second=ones;\n\n            }\n            else\n                curr.push_back({ones,ones});\n        }\n        \n        if(curr.back().second!=ones)\n            curr.back().second=ones;\n        \n        for(int i=0;i<curr.size();i++)\n        {\n            long long sz=curr[i].second-curr[i].first;\n            \n            ans=ans+(sz*sz+sz)/2ll;\n            \n            for(int j=i-1;j>=0;j--)\n            {\n                int rem=(i-j)*(i-j);\n                if(rem>s.size())\n                    break;\n                for(int val=curr[i].first;val<=curr[i].second;val++)\n                {\n                    int need=val-rem;\n                    if(curr[j].first>need)\n                        continue;\n                    \n                    ans=ans+std::min(need,curr[j].second)-curr[j].first+1;\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722136812",
+    "subm_id": "1335745698"
+}

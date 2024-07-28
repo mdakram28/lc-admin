@@ -1,0 +1,6 @@
+{
+    "username": "xyzabcdef",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n        vector<int>zero(n, 0);\n        for(int i = 0; i < n; i++){\n            zero[i] = (s[i] == '0');\n            if(i > 0)\n                zero[i] += zero[i-1];\n        }\n        set<int>st{n};\n        for(int i = 0; i < n; i++){\n            if(s[i] == '0')\n                st.insert(i);\n        }\n        int ans = 0, c = 0;\n        for(int i = 0; i < n; i++){\n            if(s[i] == '1')c++;\n            else c = 0;\n            ans += c;\n        }\n        for(int i = 0; i < n; i++){\n            auto iter1 = st.lower_bound(i);\n            for(int j = 1; j <= n; j++){\n                int min_pos = i + j + j*j - 1;\n                if(((*iter1) == n) || (min_pos >= n))break;\n                int p1 = *iter1, p2 = *next(iter1)-1;\n                p1 = max(p1, min_pos);\n                if(p1 <= p2){\n                    ans += (p2 - p1 + 1);\n                } \n                iter1 = next(iter1);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722137638",
+    "subm_id": "1335769494"
+}

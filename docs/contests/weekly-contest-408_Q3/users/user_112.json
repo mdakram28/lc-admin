@@ -1,0 +1,6 @@
+{
+    "username": "colicon",
+    "submission": "#include <bits/stdc++.h>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int ans = 0;\n\n        int n = size(s);\n        vector<int> zero = {-1};\n        for (int i = 0; i < n; i++) {\n            if (s[i] == '0') {\n                zero.push_back(i);\n            }\n        }\n        zero.push_back(n);\n\n        for (int i = 1; i < size(zero); i++) {\n            int x = zero[i] - zero[i-1] - 1;\n            ans += x*(x+1)/2;\n        }\n\n        for (int i = 1; i <= 200; i++) {\n            for (int j = 1; j+i-1 < size(zero)-1; j++) {\n                int a = zero[j] - zero[j-1] - 1;\n                int b = zero[j+i] - zero[j+i-1] - 1;\n                int c = i*i - (zero[j+i-1] - zero[j] + 1 - i);\n\n                int l = max(0, c-a), r = b;\n                if (l > r) continue;\n                int sa = min(a+1, a-(c-l)+1);\n\n                int move = min(r-l, a+1-sa);\n                ans += (sa + sa+move) * (move+1) / 2;\n\n                if (move < r-l) {\n                    ans += (r-l-move) * (a+1);\n                }\n            }\n        }\n\n        return ans;\n    }\n};\n",
+    "submit_ts": "1722136831",
+    "subm_id": "1335746226"
+}

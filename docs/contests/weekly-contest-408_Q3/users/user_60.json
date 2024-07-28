@@ -1,0 +1,6 @@
+{
+    "username": "cybsbbbb",
+    "submission": "from sortedcontainers import SortedList\n\nclass Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        n = len(s)\n        cur = 0\n        stat = []\n        for c in s:\n            if c == '1':\n                cur += 1\n            stat.append(cur)\n        zeros = collections.deque()\n        zeros.appendleft(collections.deque())\n        max_zero = int(math.sqrt(n))\n\n        ans = 0\n        for i in range(n)[::-1]:\n            cur = stat[i]\n            for zero in range(min(len(zeros), max_zero + 1)):\n                if len(zeros[zero]) == 0:\n                    continue\n                ans += len(zeros[zero]) - bisect.bisect_left(zeros[zero], cur + zero ** 2)\n            if s[i] == '1':\n                zeros[0].appendleft(stat[i])\n            else:\n                zeros[0].appendleft(stat[i])\n                zeros.appendleft(collections.deque())\n        \n        cur = 0\n        for zero in range(min(len(zeros), max_zero + 1)):\n            if len(zeros[zero]) == 0:\n                continue\n            ans += len(zeros[zero]) - bisect.bisect_left(zeros[zero], cur + zero ** 2)\n\n        return ans\n\n",
+    "submit_ts": "1722136203",
+    "subm_id": "1335726926"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "runtime_tterror",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n        long long ans=0;\n        vector<int>v(n+10,0);\n        int c=0;\n        for(int i=n-1;i>=0;i--){\n            if(s[i]=='1')c+=1;\n            else c=0;\n            v[i]=c;\n            ans+=c;\n        }\n\n        for(int ct=1;ct<=sqrt(n)+1;ct++){\n\n            int one=0;int zero=0;int j=0;\n\n            for(int i=0;i<n;i++){\n                if(s[i]=='0')zero+=1;\n\n                if(zero==ct){\n\n                    int k=j;\n\n                    while(s[j]!='0')j++;\n                    while(s[k]=='0' && k<j)k++;\n\n                    one = i-j+1-ct;\n\n                    while(k<=j){\n                        \n                        int x = j-k+one;\n\n                        if(x+v[i+1]>= ct*ct){\n\n                            int y  = ct*ct - x;\n                            if(y<0)y=0;\n                            ans += v[i+1]-y+1;\n\n                        }\n                        k++;\n                    }\n                    zero--;j++;\n                }\n\n            }\n\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722138035",
+    "subm_id": "1335780411"
+}

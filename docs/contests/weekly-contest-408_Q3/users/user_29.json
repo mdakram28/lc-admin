@@ -1,0 +1,6 @@
+{
+    "username": "Yawn_Sean",
+    "submission": "fmin = lambda x, y: x if x < y else y\nfmax = lambda x, y: x if x > y else y\n\nclass Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        n = len(s)\n        pos = [i for i in range(n) if s[i] == '0']\n        ans = 0\n        for i in range(n):\n            j = bisect.bisect_left(pos, i)\n            l = i\n            for v in range(j, len(pos)):\n                r = pos[v] - 1\n                mi = i + v - j + (v - j) * (v - j) - 1\n                if mi >= n: break\n                mi = fmax(mi, l)\n                ans += fmax(0, r - mi + 1)\n                l = r + 1\n            else:\n                r = n - 1\n                v = len(pos)\n                mi = fmax(l, i + v - j + (v - j) * (v - j) - 1)\n                ans += fmax(0, r - mi + 1)\n        return ans",
+    "submit_ts": "1722136385",
+    "subm_id": "1335732790"
+}

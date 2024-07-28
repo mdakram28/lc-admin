@@ -1,0 +1,6 @@
+{
+    "username": "4dalols",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    vector<int> p,l;\n    int get(int n) {\n        if (p[n]==n) return n;\n        return p[n]=get(p[n]); \n    }\n    void uni(int a, int b){\n        a=get(a); b=get(b);\n        if (a==b) return;\n        if (l[a]<l[b]) swap(a,b); \n        p[b]=a; \n        l[a]+=l[b]; \n    }\n    ll f(ll x) {\n        return x*x;\n    }\n    bool chk(int i, int j, vector<vector<int>>& v) {\n        return f(v[i][0]-v[j][0])+f(v[i][1]-v[j][1])<=f(v[i][2]+v[j][2]); \n    }\n    bool canReachCorner(int X, int Y, vector<vector<int>>& v) {\n        int n=v.size(); \n        for (int i = 0; i < n+2; i++) {\n            l.push_back(1);\n            p.push_back(i); \n        }\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < i; j++) {\n                if (chk(i,j,v)) uni(i,j); \n            }\n        }\n        for (int i = 0; i < n; i++) {\n            if (v[i][0]+v[i][2]>=X||v[i][1]<=v[i][2]) uni(i,n);\n            if (v[i][0]<=v[i][2]||v[i][1]+v[i][2]>=Y) uni(i,n+1);\n        }\n        return get(n)!=get(n+1); \n    }\n};",
+    "submit_ts": "1722134341",
+    "subm_id": "1335663057"
+}

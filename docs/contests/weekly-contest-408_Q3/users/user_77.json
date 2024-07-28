@@ -1,0 +1,6 @@
+{
+    "username": "jfantasy90",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        const int n = s.length();\n        vector<int> p;\n        for (int i = 0; i < n; ++i) {\n            if (s[i] == '0') p.push_back(i);\n        }\n        \n        const int m = p.size();\n        int h = 0;\n        int cnt = 0;\n        for (int i = 0; i < n; ++i) {\n            while (h < m && p[h] < i) ++h;\n            if (h == m) break;\n            for (int j = h; j < m; ++j) {\n                int c = j - h + 1;\n                int d = p[j] - i + 1 - c;\n                \n                if (c > 250) {\n                    cnt += n - p[j];\n                    break;\n                }\n                \n                int next = n - 1;\n                if (j + 1 < m) next = min(next, p[j + 1] - 1);\n                int q = next - p[j];\n                q = min(q, max(0, (c * c) - d - 1));\n                if ((c * c) - d > 0) ++q;\n                \n                //cout << i << \" \" << j << \" \" << q << endl;\n                cnt += q;\n            }\n        }\n        \n        return (n + 1) * n / 2 - cnt;\n    }\n};",
+    "submit_ts": "1722137050",
+    "subm_id": "1335752664"
+}

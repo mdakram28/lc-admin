@@ -1,0 +1,6 @@
+{
+    "username": "Three_Wayne",
+    "submission": "class Solution(object):\n    def numberOfSubstrings(self, s):\n        \"\"\"\n        :type s: str\n        :rtype: int\n        \"\"\"\n        n = len(s)\n        v = deque()\n        for i in range(n):\n            if s[i] == '0':\n                v.append(i)\n        ans = 0\n        for i in range(n):\n            while v and v[0] < i:\n                v.popleft()\n            prev = i - 1\n            cnt1 = 0\n            cnt0 = 0\n            for x in v:\n                if x - prev - 1 >= max(0, cnt0 * cnt0 - cnt1):\n                    ans += x - prev - 1 - max(0, cnt0 * cnt0 - cnt1)\n                    if max(0, cnt0 * cnt0 - cnt1) != 0:\n                        ans += 1\n                cnt1 += x - prev - 1\n                prev = x\n                cnt0 += 1\n                if cnt0 * cnt0 <= cnt1:\n                    ans += 1\n                if cnt0 * cnt0 > cnt1 + n - x - 1:\n                    break\n                prev = x\n            if n - prev - 1 >= max(0, cnt0 * cnt0 - cnt1):\n                ans += n - prev - 1 - max(0, cnt0 * cnt0 - cnt1)\n                if max(0, cnt0 * cnt0 - cnt1) != 0:\n                    ans += 1\n        return ans",
+    "submit_ts": "1722134770",
+    "subm_id": "1335677723"
+}

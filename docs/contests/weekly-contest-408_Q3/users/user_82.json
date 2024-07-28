@@ -1,0 +1,6 @@
+{
+    "username": "VILLANOVA_ECON",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        prefix = [0]\n        for char in s:\n            prefix.append(prefix[-1] + int(char == '1'))\n        \n        ans = 0\n        from sortedcontainers import SortedList\n        graph = collections.defaultdict(SortedList)\n        \n        graph[0].add(0)\n        \n        a = 0\n        b = 0\n        \n        for i,char in enumerate(s):\n            if char == '1':\n                a += 1\n            else:\n                b += 1\n            \n            for prior_b in range(max(0,b-(int((i+1)**0.5))),b+1):\n                curr = a - b**2 + 2*b*prior_b\n                #print(curr,graph[prior_b])\n                #if curr <= 0:\n                ans += graph[prior_b].bisect_right(curr)\n                # else:\n                #     ans += graph[prior_b].bisect_left(curr) #len(graph[prior_b])\n                \n            graph[b].add(a+b**2)\n            #print(ans)\n        #print(graph)\n        return ans\n            \n        \n        \n        ",
+    "submit_ts": "1722136286",
+    "subm_id": "1335729621"
+}

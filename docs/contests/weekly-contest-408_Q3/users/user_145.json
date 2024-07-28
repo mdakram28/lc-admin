@@ -1,0 +1,6 @@
+{
+    "username": "Atma_",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int ans=0,n=s.size();\n        vector<int> zeroes;\n        zeroes.push_back(-1);\n        for(int i=0;i<n;++i){\n            if(s[i]=='0') zeroes.push_back(i);\n        }\n        zeroes.push_back(n);\n        vector<int> prev(n),next(n);\n        for(int i=0;i<n;++i){\n            auto it=lower_bound(zeroes.begin(),zeroes.end(),i);\n            it--;\n            prev[i]=*it;\n            it=upper_bound(zeroes.begin(),zeroes.end(),i);\n            next[i]=*it;\n        }\n        for(int i=0;i<n;++i){\n            int index=i;\n            if(s[index]=='1') index=next[index];\n            for(int j=1;1ll*j*j<=n;++j){\n                if(index==n) break;\n                int o=index-i+1-j+next[index]-index-1;\n                if(j*j<=o){\n                    int mini=max(index,i+j+j*j-1);\n                    ans+=max(0,next[index]-mini);\n                }\n                index=next[index];\n            }\n        }\n        int val=0;\n        for(int i=0;i<n;++i){\n            if(s[i]=='0'){\n                ans+=1ll*val*(val+1)/2;\n                val=0;\n            }\n            else val++;\n        }\n        ans+=1ll*val*(val+1)/2;\n        return ans;\n    }\n};",
+    "submit_ts": "1722138898",
+    "subm_id": "1335802536"
+}

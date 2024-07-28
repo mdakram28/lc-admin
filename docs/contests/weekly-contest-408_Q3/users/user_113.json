@@ -1,0 +1,6 @@
+{
+    "username": "dirigibility",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        z = [-1]\n        for i,c in enumerate(s):\n            if c == '0':\n                z.append(i)\n        z.append(len(s))\n        total = sum(comb(j-i,2) for i,j in pairwise(z))\n        for k in range(1,min(isqrt(len(s))+1,len(z)-1)):\n            for i in range(1,len(z)-k):\n                if z[i+k]-z[i-1]-1-k >= k*k:\n                    a = z[i]-z[i-1]-1\n                    b = z[i+k]-z[i+k-1]-1\n                    c = z[i+k-1]-z[i]-k+1\n                    n = max(k*k-c,0)\n                    d = min(n,a)-max(0,n-b)\n                    m = min(n,a)+max(0,n-b)\n                    if d >= 0:\n                        total += (1+d)*(2+2*b-2*n+m)//2\n                    if a > n:\n                        total += (b+1)*(a-n)\n        return total\n                ",
+    "submit_ts": "1722137672",
+    "subm_id": "1335770453"
+}

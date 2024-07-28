@@ -1,0 +1,6 @@
+{
+    "username": "srikkanthr",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n        vector<int> pre(n, -1);\n        int loc = -1, sqrtN = sqrt(n);\n        while (sqrtN * 1LL * sqrtN <= n) ++sqrtN;\n        for (int i=0;i<n;++i) {\n            pre[i] = loc;\n            if (s[i] == '0') {\n                loc = i;\n            }\n        }\n        long long ans = 0;\n        for (int i=0;i<n;++i) {\n            // int zzc = 0, ooc = 0;\n            // for (int j=i;j>=0;--j) {\n            //     zzc += s[j] == '0';\n            //     ooc += s[j] == '1';\n            //     ans += (zzc * 1LL * zzc <= ooc);\n            // }\n            // continue;\n\n            int j = i, zc = (s[i] == '0');\n            int oc = 1 - zc;\n            while (zc < sqrtN && j >= 0) {\n                int ell = pre[j];\n                int need = max(0, zc * zc - oc);\n                int have = (j - ell - 1);\n                int add = max(0, have - need + 1);\n                ans += add;\n                zc++;\n                oc += j - ell - 1;\n                j = ell;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722135943",
+    "subm_id": "1335718639"
+}

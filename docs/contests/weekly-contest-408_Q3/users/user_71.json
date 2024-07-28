@@ -1,0 +1,6 @@
+{
+    "username": "Homie_Lander7",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        const int n=s.size();\n        int z=sqrtl(n)+1;\n        long long ans=0;\n        s=\" \"+s;\n        vector<int> pf(n+1),prev0(n+1);\n        int p=0;\n        for(int i=1;i<=n;i++){\n            pf[i]=pf[i-1]+((s[i]=='1')?1:0);\n            prev0[i]=p;\n            if(s[i]=='0') p=i;\n        }\n        for(int i=1;i<=n;i++){\n           int zeros=0;\n           for(int j=i;j>0;j=prev0[j]){\n              zeros+=(s[j]=='0');\n              int ones=pf[i]-pf[j-1];\n              int need=zeros*zeros-ones;\n              int can_add=pf[j]-pf[prev0[j]];\n              if(need<=can_add){\n                 if(need<=0)ans+=(j-prev0[j]);\n                 else{\n                   ans+=(j-prev0[j]-need);\n                 }\n              }\n              if(zeros>z) break;\n           }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722137823",
+    "subm_id": "1335774738"
+}

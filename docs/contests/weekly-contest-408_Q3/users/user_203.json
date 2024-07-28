@@ -1,0 +1,6 @@
+{
+    "username": "Chandraprabhu",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int ans = 0;\n        int n = s.size();\n        int nxt[n+1];\n        nxt[n] = n;\n        for(int i =n-1;i>=0;i--){\n            if(s[i]=='0'){\n                nxt[i] = i;\n            }\n            else{\n                nxt[i] = nxt[i+1];\n            }\n        }\n        for(int i = 0 ;i<n;i++){\n            int lst = i;\n            int cur = nxt[i];\n            int itr = 0;\n            while(1){\n                int ones = cur-i-itr;\n                int diff = ones-itr*itr+1;\n                if(diff<-n*2)break;\n                int cur_ans = min(diff,cur-lst);\n                \n                ans+=max(0,cur_ans);\n                // cout<<i<<' '<<cur<<' '<<cur_ans<<' '<<diff<<endl;\n                \n                lst = cur;\n                itr++;\n                if(cur==n)break;\n                else{\n                    cur = nxt[cur+1];\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722136967",
+    "subm_id": "1335750227"
+}

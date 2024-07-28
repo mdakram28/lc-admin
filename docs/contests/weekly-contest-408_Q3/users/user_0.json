@@ -1,0 +1,6 @@
+{
+    "username": "IceKnight1093",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int ans = 0, n = s.size();\n        vector<int> pref(n);\n        for (int i = 0; i < n; ++i) {\n            pref[i] = s[i] == '1';\n            if (i) pref[i] += pref[i-1];\n        }\n        \n        vector<int> zeros;\n        for (int i = 0; i < n; ++i) {\n            if (s[i] == '0') zeros.push_back(i);\n            \n            for (int k = 1; k <= size(zeros); ++k) {\n                if (k*k >= i+2) break;\n                \n                int R = zeros[size(zeros) - k];\n                int L = -1;\n                if (k < size(zeros)) L = zeros[size(zeros) - k - 1];\n                \n                // number of positions in [L, R) such that pref[i] - pref[j] >= k^2 -> pref[j] <= pref[i] - k^2\n                int lo = 0;\n                if (L >= 0) lo = pref[L];\n                \n                int hi = pref[R];\n                ans += max(0, min(hi, pref[i] - k*k) - lo + 1);\n            }\n            \n            if (s[i] == '1') {\n                if (size(zeros) == 0) ans += i+1;\n                else ans += i - zeros.back();\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722134696",
+    "subm_id": "1335675152"
+}

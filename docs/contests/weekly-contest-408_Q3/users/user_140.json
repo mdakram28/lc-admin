@@ -1,0 +1,6 @@
+{
+    "username": "M-Manas-s",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        \n        int n = s.length();\n        vector<int> ones(n),poss(n);\n        ones.back() = s.back() == '1';\n        poss.back() = ones.back();\n        \n        for(int i = n-2; i>=0; i--) {\n            ones[i] = ones[i+1] + 1;\n            if ( s[i] == '0' )\n                ones[i] = 0;\n            poss[i] = poss[i+1] + ( s[i] == '1' );\n        }\n\n        int ans = 0;\n\n        for ( int i = 0; i < n; i++ ) {\n\n            int z = 0;\n            int o = 0;\n\n\n            for ( int j = i; j < n ; j++ ) {\n\n                if ( z * z > o + poss[j] )\n                    break;\n\n                if ( s[j] == '1' ) {\n                    \n                    if ( z * z <= o )\n                        ans += ones[j];\n                    else\n                        ans += max( 0 , ones[j] + o - z * z + 1) ;\n                    o += ones[j];\n                    j += ones[j] - 1;\n\n                } else {\n                    z++;\n                    if ( z * z <= o )\n                        ans++;\n                }\n\n            }\n\n        }\n\n        return ans;\n\n    }\n};",
+    "submit_ts": "1722135896",
+    "subm_id": "1335717090"
+}

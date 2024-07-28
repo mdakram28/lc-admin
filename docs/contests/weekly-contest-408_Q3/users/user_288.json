@@ -1,0 +1,6 @@
+{
+    "username": "bluerose73",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        if (s.length() == 0) return 0;\n\n        vector<int> prefix_sum(s.length(), 0);\n        prefix_sum[0] = s[0] - '0';\n        for (int i = 1; i < s.length(); i++) {\n            prefix_sum[i] = prefix_sum[i - 1] + s[i] - '0';\n        }\n\n        vector<int> next_zero(s.length());\n        int last_zero = s.length();\n        for (int i = s.length() - 1; i >= 0; i--) {\n            next_zero[i] = last_zero;\n            if (s[i] == '0') last_zero = i;\n        }\n\n        int ans = 0;\n        for (int i = 0; i < s.length(); i++) {\n            int j = i;\n            while (j < s.length()) {\n                int ones = prefix_sum[j];\n                if (i > 0) ones -= prefix_sum[i - 1];\n                int zeros = j - i + 1 - ones;\n\n                if (ones >= zeros * zeros) {\n                    ans += next_zero[j] - j;\n                    j = next_zero[j];\n                }\n                else {\n                    j += max(1, zeros * zeros - ones);\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722138766",
+    "subm_id": "1335799080"
+}

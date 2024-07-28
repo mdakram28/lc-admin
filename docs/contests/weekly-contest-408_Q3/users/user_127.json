@@ -1,0 +1,6 @@
+{
+    "username": "wanghy012",
+    "submission": "import numpy as np\nclass Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        ones = []\n        c = 0\n        for n in s:\n            if n == '0':\n                ones.append(c)\n                c = 0\n            else:\n                c += 1\n        ones.append(c)\n        print(ones)\n        n = len(s)\n        cusum = np.cumsum([0] + ones)\n        res = 0\n        for i in ones:\n            res += i*(i+1) / 2\n        for i in range(1,int(np.sqrt(cusum[-1])) + 1):\n            for j in range(len(cusum)-i-1):\n                nones = cusum[j+i+1] - cusum[j]\n                if nones >= i**2:\n                    l = ones[j]\n                    r = ones[j+i]\n                    slack = nones - i**2\n                    for l1 in range(l+1):\n                        if l1 > slack:\n                            break\n                        res += min(r,slack - l1) + 1\n        return int(res)\n\n",
+    "submit_ts": "1722138930",
+    "subm_id": "1335803422"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "mishai",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n        int m = 0;\n        while (m * m < n) ++m;\n        deque<int> ones = {0};\n        int ans = 0;\n        for (int i = 0; i < n; i++) {\n            if (s[i] == '0') {\n                ones.push_front(0);\n            } else {\n                ones.front()++;\n            }\n            ans += ones[0];\n            int sm = ones[0];\n            for (int j = 1; j < min(m, (int)ones.size()); j++) {\n                // have sm before\n                // have 0\n                // then ones[j]\n                // say sum = 5, j = 2, ones = 3\n                // then should just add 4?\n                // \n                // cout << \"on block \" << j << \" with \" << ones[j] << \" and \" << sm << \"\\n\";\n                if (j * j <= sm) {\n                    ans += ones[j] + 1;\n                } else {\n                    ans += max(0, 1 + sm + ones[j] - j * j);\n                }\n                sm += ones[j];\n                // 1, 10\n                // 1, 11, 110\n            }\n            // cout << \"current ans: \" << ans << \"\\n\";\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722136477",
+    "subm_id": "1335735679"
+}

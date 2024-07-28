@@ -1,0 +1,6 @@
+{
+    "username": "Turkhuu",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int ans = 0, n = s.size();\n        vector<int> nxt(n + 1, n), cnt(n + 1);\n        for (int i = n - 1; i >= 0; i--) {\n            nxt[i] = (s[i] == '0') ? i : nxt[i + 1];\n            if (s[i] == '1') ans += nxt[i] - i;\n        }\n        for (int i = 0; i < n; i++) {\n            cnt[i + 1] = cnt[i] + s[i] - '0';\n        }\n        for (int z = 1; z * (z + 1) <= n; z++) {\n            for (int l = 0, r = 0, x = 0; l < n; l++) {\n                while (r < n && x < z) x += s[r++] == '0';\n                if (x < z) break;\n                int one = cnt[r] - cnt[l];\n                int need = max(0, z * z - one);\n                ans += max(0, nxt[r] + 1 - (r + need));\n                x -= s[l] == '0';\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722135326",
+    "subm_id": "1335697937"
+}

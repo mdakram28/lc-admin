@@ -1,0 +1,6 @@
+{
+    "username": "STARs_56789",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.size();\n        vector<int> next_pos(n + 1, n);\n        int prev = n;\n        for(int i = n - 1; i >= 0; i--){\n            next_pos[i] = prev;\n            if(s[i] == '0') prev = i;\n        }\n        int ret = 0;\n        for(int i = 0; i < n; i++){\n            int cnt = 0, prev = i, cnt_ = 0;\n            if(s[i] == '0') cnt++;\n            else prev = next_pos[i], cnt_ += prev - i, cnt = 1;\n            if(prev == n) break;\n            for(int j = next_pos[prev]; j <= n; j = next_pos[j]){\n                if(s[prev] == '1') cnt_++;\n                if(cnt_ >= cnt * cnt) cnt_ += j - prev - 1;\n                else{\n                    cnt_ += j - prev - 1;\n                    if(cnt_ >= cnt * cnt) {\n                        ret += (j - prev) - (cnt_ - cnt * cnt + 1);\n                    }\n                    else ret += (j - prev);\n                }\n                cnt++;\n                if(cnt > sqrtl(n)) {\n                    ret += (n - j);\n                    break;\n                } \n                prev = j;\n            }\n        }\n        \n        return (n * (n + 1)) / 2 - ret;\n    }\n};",
+    "submit_ts": "1722137750",
+    "subm_id": "1335772664"
+}

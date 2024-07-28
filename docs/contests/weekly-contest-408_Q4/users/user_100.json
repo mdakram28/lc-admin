@@ -1,0 +1,6 @@
+{
+    "username": "sveng101",
+    "submission": "class Solution:\n    def canReachCorner(self, X: int, Y: int, circles: List[List[int]]) -> bool:\n        n = len(circles)\n        adj = [set() for _ in range(n + 2)]\n        for i1, c1 in enumerate(circles):\n            if c1[2] ** 2 >= c1[0] ** 2 + c1[1] ** 2:\n                return False\n            elif c1[2] ** 2 >= (c1[0] - X) ** 2 + c1[1] ** 2:\n                return False\n            \n            if abs(c1[0]) <= c1[2] or abs(c1[1] - Y) <= c1[2]:\n                adj[i1].add(n)\n                adj[n].add(i1)\n            if abs(c1[1]) <= c1[2] or abs(c1[0] - X) <= c1[2]:\n                adj[i1].add(n + 1)\n                adj[n + 1].add(i1)\n            for i2 in range(i1):\n                c2 = circles[i2]\n                if abs((c1[0] - c2[0]) ** 2 + (c1[1] - c2[1]) ** 2) <= (c1[2] + c2[2]) ** 2:\n                    adj[i1].add(i2)\n                    adj[i2].add(i1)\n        #print(adj)\n        seen = {n}\n        stk = [n]\n        while stk:\n            i1 = stk.pop()\n            for i2 in adj[i1]:\n                if i2 in seen: continue\n                elif i2 == n + 1: return False\n                seen.add(i2)\n                stk.append(i2)\n        return True\n\n",
+    "submit_ts": "1722135986",
+    "subm_id": "1335720074"
+}

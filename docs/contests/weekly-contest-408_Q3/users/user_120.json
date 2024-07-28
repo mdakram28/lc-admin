@@ -1,0 +1,6 @@
+{
+    "username": "green_pig",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        f = lambda a, b: (a + b) * (b - a + 1) // 2\n        n = len(s)\n        z = [-1] + [i for i in range(n) if s[i] == '0'] + [n]\n        t = n * (n+1) // 2\n        for c in range(1, isqrt(n) + 1):\n            for i in range(1, len(z) - c):\n                l = z[i] - z[i-1] - 1\n                r = z[i+c] - z[i+c-1] - 1\n                a = c*c-(z[i+c-1]+1-z[i]-c)\n                l = min(l, a)\n                r = min(r, a)\n                l, r = sorted([l, r])\n                if a <= 0: continue\n                t -= (r+1) * (l+1)\n                if r + 1 > a - l:\n                    t += f(max(0, r+1-a), r+1-(a-l))\n        c = isqrt(n) + 1\n        for i in range(1, len(z) - c):\n            l = z[i] - z[i-1] - 1\n            r = z[-1] - z[i+c-1] - 1\n            t -= (l+1) * (r+1)\n        return t",
+    "submit_ts": "1722138134",
+    "subm_id": "1335783006"
+}

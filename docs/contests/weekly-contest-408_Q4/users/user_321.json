@@ -1,0 +1,6 @@
+{
+    "username": "b03201008",
+    "submission": "class Solution:\n    def canReachCorner(self, X: int, Y: int, circles: List[List[int]]) -> bool:\n        def leader(x):\n            if p[x] != x:\n                p[x] = leader(p[x])\n            return p[x]\n\n        def merge(x, y):\n            p[leader(y)] = leader(x)\n\n        n = len(circles)\n        up = []\n        down = []\n        left = []\n        right = []\n        for i in range(n):\n            a, b, r = circles[i]\n            if (a + r >= X and b + r >= Y) or (a - r <= 0 and b - r <= 0):\n                return False\n            if a + r >= X:\n                right.append(i)\n            if b + r >= Y:\n                up.append(i)\n            if a - r <= 0:\n                left.append(i)\n            if b - r <= 0:\n                down.append(i)\n        p = [*range(n + 1)]\n        for i in range(n):\n            a, b, r = circles[i]\n            for j in range(i):\n                c, d, w = circles[j]\n                if (a - c) ** 2 + (b - d) ** 2 <= (r + w) ** 2:\n                    if leader(i) != leader(j):\n                        merge(i, j)\n        for i in up + left:\n            for j in right + down:\n                if leader(i) == leader(j):\n                    return False\n        return True",
+    "submit_ts": "1722136363",
+    "subm_id": "1335732078"
+}

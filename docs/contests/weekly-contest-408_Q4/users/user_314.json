@@ -1,0 +1,6 @@
+{
+    "username": "atulkumarmaurya201",
+    "submission": "class Solution {\npublic:\n    double dist(vector<int> &circle1, vector<int> &circle2) {\n        long long x1 = circle1[0], y1 = circle1[1];\n        long long x2 = circle2[0], y2 = circle2[1];\n        return sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));\n    }\n    bool canReachCorner(int X, int Y, vector<vector<int>>& circles) {\n        int n = circles.size();\n        queue<int> q;\n        vector<bool> vis(n);\n        for(int i = 0; i < n; i++) {\n            if(circles[i][1] - circles[i][2] <= 0 || circles[i][0] + circles[i][2] >= X) {\n                q.push(i);\n                vis[i] = 1;\n            }\n        }\n        while(!q.empty()) {\n            int i = q.front();\n            q.pop();\n            if(circles[i][1] + circles[i][2] >= Y || circles[i][0] - circles[i][2] <= 0) {\n                return false;\n            }\n            for(int j = 0; j < n; j++) {\n                if(!vis[j] && dist(circles[i], circles[j]) <= double(circles[i][2] + circles[j][2])) {\n                    q.push(j);\n                    vis[j] = 1;\n                }\n            }\n        } \n        return true;\n    }\n};",
+    "submit_ts": "1722136607",
+    "subm_id": "1335739686"
+}

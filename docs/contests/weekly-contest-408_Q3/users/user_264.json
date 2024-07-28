@@ -1,0 +1,6 @@
+{
+    "username": "forasssk",
+    "submission": "class Solution {\n    using ll = long long;\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.length();\n        s = '#' + s;\n        vector <int> zeroes(n + 1), last(n + 1), first(n + 1);\n        zeroes[0] = 0;\n        last[0] = 0;\n        for (int i = 1; i <= n; i ++) {\n            if (s[i] == '0') {\n                zeroes[i] = 1;\n            }\n            else {\n                zeroes[i] = 0;\n            }\n            zeroes[i] += zeroes[i - 1];\n            last[zeroes[i]] = i;\n        }\n        for (int i = n; i >= 0; i --) {\n            first[zeroes[i]] = i;\n        }\n        ll ans = 0;\n        for (int l = 0; l < n; l ++) {\n            for (int val = zeroes[l]; val <= min(zeroes[l] + 200, zeroes[n]); val ++) {\n                int z = val - zeroes[l];\n                int o = z * z;\n                int t = z + o;\n                int start = max(l + t, first[val]);\n                if (start == l) ans += max(0, last[val] - l);\n                else ans += max(0, last[val] - start + 1);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722138412",
+    "subm_id": "1335790099"
+}

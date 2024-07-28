@@ -1,0 +1,6 @@
+{
+    "username": "singhpriya_23",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        int n = s.length();\n        int prefix_sum[n+1];\n        int ans = 0;\n        memset(prefix_sum,0, sizeof(prefix_sum));\n        for(int i=0;i<n;i++){\n            prefix_sum[i+1] = prefix_sum[i]+ int(s[i]-'0');\n        }\n        for(int i=0;i<n;i++){\n            for(int j=i;j<n;j++){\n                int r = (j-i+1)-(prefix_sum[j+1]-prefix_sum[i]);\n                if((prefix_sum[j+1]-prefix_sum[i])>=(r*r)){\n                    int g = int(sqrt(prefix_sum[j+1]-prefix_sum[i])) - r;\n                    ans+=(min(n-j,g+1));\n                    // cout<<i<<\" \"<<j<<\" \"<<ans<<\"\\n\";\n                    // cout<<sqrt(prefix_sum[j+1]-prefix_sum[i])<<\" \"<< r<<\"\\n\";\n                    j+=(g);\n                }\n                else{\n                    j+=(r*r - (prefix_sum[j+1]-prefix_sum[i]) - 1);\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722139108",
+    "subm_id": "1335808078"
+}

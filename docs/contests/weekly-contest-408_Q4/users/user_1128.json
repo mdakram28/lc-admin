@@ -1,0 +1,6 @@
+{
+    "username": "ryanbenjaminlin",
+    "submission": "class Solution:\n    def canReachCorner(self, X: int, Y: int, circles: List[List[int]]) -> bool:\n        graph = []\n        for i in range(1002):\n            graph.append(dict())\n        for i in range(len(circles)):\n            for j in range(i):\n                if (circles[j][2] + circles[i][2]) >= sqrt((circles[i][0] - circles[j][0])**2 + (circles[i][1] - circles[j][1])**2):\n                    graph[i][j] = True\n                    graph[j][i] = True\n            if abs(X - circles[i][0]) <= circles[i][2] or abs(0 - circles[i][1]) <= circles[i][2]:\n                graph[i][-1] = True\n                graph[-1][i] = True\n            if abs(Y - circles[i][1]) <= circles[i][2] or abs(0 - circles[i][0]) <= circles[i][2]:\n                graph[i][-2] = True\n                graph[-2][i] = True\n\n        visited = dict()\n        def dfs(node):\n            if node in visited:\n                return\n            visited[node] = True\n\n            for neighbor in graph[node].keys():\n                dfs(neighbor)\n        dfs(-1)\n        if -2 in visited:\n            return False\n        return True",
+    "submit_ts": "1722138278",
+    "subm_id": "1335786645"
+}

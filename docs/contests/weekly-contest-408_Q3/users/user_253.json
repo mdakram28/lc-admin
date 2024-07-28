@@ -1,0 +1,6 @@
+{
+    "username": "CuriousJianXu",
+    "submission": "lookup = [0] * 201\nfor i in range(1, 201):\n    lookup[i] = i*(i+1)\n\nclass Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        n = len(s)\n        seen_zero_idx = []\n        res = 0\n        for i in range(n):\n            if s[i] == \"0\":\n                seen_zero_idx.append(i)\n            else:\n                next = seen_zero_idx[-1] if seen_zero_idx else -1\n                res += i-next\n            \n            m = len(seen_zero_idx)\n\n            for j in range(m-1, max(-1, m-201), -1):\n                cur = seen_zero_idx[j]\n                next = seen_zero_idx[j-1] if j else -1\n                cur_zero_cnt = m-j\n                target = lookup[cur_zero_cnt]\n                target_index = min(cur, i-target+1)\n                res += max(0, target_index-next)\n            \n        return res",
+    "submit_ts": "1722137790",
+    "subm_id": "1335773803"
+}

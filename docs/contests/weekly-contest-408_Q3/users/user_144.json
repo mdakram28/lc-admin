@@ -1,0 +1,6 @@
+{
+    "username": "yumichael",
+    "submission": "class Solution:\n    def numberOfSubstrings(self, s: str) -> int:\n        max_zeros_count = min(s.count('0'), floor(sqrt(s.count('1'))))\n        ones_between = deque([0])\n\n        answer = 0\n\n        for x in s:\n            if x == '1':\n                ones_between[-1] += 1\n            else:\n                ones_between.append(0)\n                if len(ones_between) > max_zeros_count + 1:\n                    ones_between.popleft()\n\n            ones_count = 0\n            for zeros_count, ones_group_count in enumerate(reversed(ones_between)):\n                ones_count += ones_group_count\n                if zeros_count == 0:\n                    answer += ones_group_count\n                else:\n                    # NOTE 2: Didn't have the `max(..., 0)` clause at first.\n                    answer += min(ones_group_count + 1, max(ones_count - zeros_count ** 2 + 1, 0))\n        return answer # NOTE 1: Totally minor typo, forgot to unindent this.",
+    "submit_ts": "1722136858",
+    "subm_id": "1335747031"
+}

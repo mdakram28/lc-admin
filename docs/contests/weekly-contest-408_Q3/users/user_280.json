@@ -1,0 +1,6 @@
+{
+    "username": "wivole4747",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(std::string s) {\n        deque<int> q;\n        int n = s.size();\n        q.push_back(-1);\n        int res = 0;\n        \n        for (int i = 0; i < n; ++i) {\n            if (s[i] == '0') {\n                q.push_back(i);\n            }\n            int m = q.size();\n            int zeros = 0;\n            if (s[i] == '1') {\n                res += i - q.back();\n            }\n            for (int j = m - 1; j > 0; --j) {\n                int dist = i - q[j] + 1;\n                zeros += 1;\n                int ones = dist - zeros;\n                if (ones >= zeros * zeros) {\n                    res += 1;\n                }\n                int prepreToPre = q[j] - q[j - 1] - 1;\n                int missing = std::max(0, zeros * zeros - ones);\n                if (missing) {\n                    res += std::max(prepreToPre - missing + 1, 0);\n                } else {\n                    res += prepreToPre;\n                }\n            }\n            if (q.size() > 200) {\n                q.pop_front();\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722138308",
+    "subm_id": "1335787406"
+}

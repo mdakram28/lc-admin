@@ -1,0 +1,6 @@
+{
+    "username": "Sambhav-Jain",
+    "submission": "#include \"ext/pb_ds/assoc_container.hpp\"\n#include \"ext/pb_ds/tree_policy.hpp\"\nusing namespace __gnu_pbds;\ntemplate<typename T,class C=std::less_equal<T>>\nusing ordered_set=tree<T,null_type,C,rb_tree_tag,tree_order_statistics_node_update>; \n\nclass Solution {\npublic:\n    int numberOfSubstrings(string s) \n    {\n        int ans=0;\n        vector<ordered_set<int>>oset_map(s.size()+1);\n        oset_map[0].insert(0);\n        int max0=sqrt(s.size()+1);\n        for(int a=0,b=0,i=0;i<s.size();i++)\n        {\n            if(s[i]=='1')\n            {\n                a++;\n            }\n            else\n            {\n                b++;\n            }\n            for(int y=b;y>=0&&y>=b-max0;y--)\n            {\n                ans+=oset_map[y].order_of_key(a-(y-b)*(y-b)+1);\n            }\n            oset_map[b].insert(a);\n        }\n        return ans;    \n    }\n};",
+    "submit_ts": "1722138758",
+    "subm_id": "1335798893"
+}

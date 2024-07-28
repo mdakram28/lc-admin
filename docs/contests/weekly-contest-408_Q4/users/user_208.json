@@ -1,0 +1,6 @@
+{
+    "username": "yuandrew923",
+    "submission": "class Solution:\n    def canReachCorner(self, X: int, Y: int, circles: List[List[int]]) -> bool:\n        L1, L2 = set(), set()\n        g = defaultdict(list)\n        for c in circles:\n            x1, y1, r1 = c\n            c1 = tuple(c)\n            if x1 - r1 <= 0 or y1 + r1 >= Y:\n                L1.add(c1)\n            if y1 - r1 <= 0 or x1 + r1 >= X:\n                L2.add(c1)\n\n            for x2, y2, r2 in circles:\n                d = sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)\n                if d <= r1 + r2:\n                    c2 = (x2, y2, r2)\n                    g[c1].append(c2)\n                    g[c2].append(c1)\n\n        q = deque(L1)\n        while q:\n            c = q.pop()\n            if c in L2: return False\n\n            for c2 in g[c]:\n                if c2 not in L1:\n                    L1.add(c2)\n                    q.appendleft(c2)\n        return True",
+    "submit_ts": "1722135810",
+    "subm_id": "1335714373"
+}

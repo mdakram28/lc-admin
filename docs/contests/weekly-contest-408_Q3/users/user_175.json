@@ -1,0 +1,6 @@
+{
+    "username": "looking_for_swe_internships",
+    "submission": "class Solution {\npublic:\n    int numberOfSubstrings(string s) {\n        vector<int> z;\n        int ind = 0;\n        for(char c : s) {\n            if(c == '0') z.push_back(ind);\n            ++ind;\n        }\n        int n = s.size();\n        int ans = 0;\n        for(int i = 0; i < n; ++i) {\n            auto lb = lower_bound(z.begin(), z.end(), i);\n            int prev = i;\n            int amt = 0;\n            while(lb != z.end()) {\n                ind = *lb;\n                int cur_ones = ind - i - amt;\n                if(cur_ones >= amt * amt) {\n                    int diff = cur_ones - amt * amt;\n                    ans += min(diff + 1, ind - prev);\n                }\n                prev = ind;\n                ++amt;\n                ++lb;\n                if(amt * amt > n) break;\n            }\n            if(lb == z.end()) {\n                int cur_ones = n - i - amt;\n                if(cur_ones >= amt * amt) {\n                    int diff = cur_ones - amt * amt;\n                    ans += min(diff + 1, n - prev);\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722135269",
+    "subm_id": "1335695921"
+}
