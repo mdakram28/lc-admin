@@ -1,0 +1,6 @@
+{
+    "username": "meng-hsuan",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        m = len(grid)\n        n = len(grid[0])\n        hm = m >> 1\n        hn = n >> 1\n        \n        center = 1 if m & 1 and n & 1 and grid[hm][hn] == 1 else 0\n        axes_ttl = (sum(grid[hm][i] + grid[hm][~i] for i in range(hn)) if m & 1 else 0) + \\\n                   (sum(grid[i][hn] + grid[~i][hn] for i in range(hm)) if n & 1 else 0)\n        axes = (sum(grid[hm][i] != grid[hm][~i] for i in range(hn)) if m & 1 else 0) + \\\n               (sum(grid[i][hn] != grid[~i][hn] for i in range(hm)) if n & 1 else 0)\n        if axes == 0 and axes_ttl % 4:\n            axes = 2\n        other = sum(min(tmp := grid[i][j] + grid[i][~j] + grid[~i][j] + grid[~i][~j], 4 - tmp) for i in range(hm) for j in range(hn))\n        #print(center, axes_ttl, axes, other)\n        \n        return center + axes + other\n    ",
+    "submit_ts": "1722696507",
+    "subm_id": "1343110635"
+}

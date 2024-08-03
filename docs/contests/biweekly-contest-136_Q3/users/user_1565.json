@@ -1,0 +1,6 @@
+{
+    "username": "fei_meng",
+    "submission": "func minFlips(grid [][]int) int {\n    ans := 0\n    m, n := len(grid), len(grid[0])\n    x, y := m/2, n/2\n    for i := 0; i < x; i++ {\n        for j := 0; j < y; j++ {\n            cnt := grid[i][j]+grid[i][n-1-j]+grid[m-1-i][j]+grid[m-1-i][n-1-j]\n            ans += min(cnt, 4-cnt)\n        }\n    }\n    curr := 0\n    can := 0\n    if m & 1 != 0 {\n        for j := 0; j < y; j++ {\n            if grid[x][j] == grid[x][n-1-j] {\n                curr += grid[x][j]+grid[x][j]\n            } else {\n                ans++\n                can += 2\n            }\n        }\n    }\n    if n & 1 != 0 {\n        for i := 0; i < x; i++ {\n            if grid[i][y] == grid[m-1-i][y] {\n                curr += grid[i][y]+grid[i][y]\n            } else {\n                ans++\n                can += 2\n            }\n        }\n    }\n    if m & 1 != 0 && n & 1 != 0 {\n        if grid[x][y] == 1 {\n            ans++\n        }\n    }\n    if curr % 4 == 0 || can >= 2 {\n        return ans\n    }\n    return ans+2\n}",
+    "submit_ts": "1722699145",
+    "subm_id": "552274312"
+}

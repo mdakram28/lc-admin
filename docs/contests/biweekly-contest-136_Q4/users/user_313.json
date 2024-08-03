@@ -1,0 +1,6 @@
+{
+    "username": "yoochun",
+    "submission": "class Solution {\n  vector<vector<int>> e;\n  int n;\n  vector<int> r;\n  void dfs(int u, int f = -1, int t = 0) {\n    r[u] = max(r[u], t);\n    for (int v : e[u]) if (v != f) dfs(v, u, t + 2 - (v & 1));\n  }\n  void rdfs(int u, int f = -1, int t = 0) {\n    r[u] = max(r[u], t);\n    for (int v : e[u]) if (v != f) rdfs(v, u, t + 2 - (u & 1));\n  }\npublic:\n  vector<int> timeTaken(vector<vector<int>>& edges) {\n    n = edges.size() + 1;\n    e.clear();\n    e.resize(n);\n    for (auto& ee : edges) {\n        e[ee[0]].push_back(ee[1]);\n        e[ee[1]].push_back(ee[0]);\n    }\n    r.assign(n, 0);\n    dfs(0, 0);\n    dfs(1, 0);\n    vector<bool> vis(n, false);\n    for (int tm = 5, s = n; tm-- && s; ) {\n        int k[2] = {-1, -1};\n        for (int i = 0; i < n; ++i) if (!vis[i] && (k[i & 1] == -1 || r[i] > r[k[i & 1]]))\n            k[i & 1] = i;\n        for (int j : {0, 1}) if (k[j] != -1) {\n            rdfs(k[j]);\n            --s;\n        }\n    }\n    return r;\n  }\n};",
+    "submit_ts": "1722700092",
+    "subm_id": "552278374"
+}

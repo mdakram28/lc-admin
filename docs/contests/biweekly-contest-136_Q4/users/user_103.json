@@ -1,0 +1,6 @@
+{
+    "username": "vibrant-mayerhct",
+    "submission": "class Solution {\npublic:\n    vector<int> timeTaken(vector<vector<int>>& es) {\n        int n=es.size()+1;\n        vector<vector<int>> e(n);\n        vector<int> f(n,0);\n        vector<int> g(n,0);\n        for(auto &v:es){\n            auto x=v[0];\n            auto y=v[1];\n            e[x].push_back(y);\n            e[y].push_back(x);\n        }\n        auto dfs=[&](auto &&dfs,int x,int fa)->void{\n            for(auto v:e[x]){\n                if(v==fa)\n                    continue;\n                dfs(dfs,v,x);\n                g[x]=max(g[x],f[v]+2-v%2);\n                if(g[x]>f[x])\n                    swap(f[x],g[x]);\n            }\n        };\n        dfs(dfs,0,-1);\n        auto dfs2=[&](auto &&dfs2,int x,int fa)->void{\n            for(auto v:e[x]){\n                if(v==fa)\n                    continue;\n                int tmp=f[v]+2-v%2;\n                int fk=tmp==f[x]?g[x]:f[x];\n                g[v]=max(g[v],fk+2-x%2);\n                if(g[v]>f[v])\n                    swap(g[v],f[v]);\n                dfs2(dfs2,v,x);\n            }\n        };\n        dfs2(dfs2,0,-1);\n        return f;\n    }\n};",
+    "submit_ts": "1722697846",
+    "subm_id": "552268090"
+}

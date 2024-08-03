@@ -1,0 +1,6 @@
+{
+    "username": "bingyan2",
+    "submission": "def helper(lst):\n    n = len(lst)\n    a = n // 2\n    flipct = 0\n    ones = 0\n    for i in range(a):\n        if lst[i]==lst[n-1-i]:\n            ones += lst[i]\n        else:\n            flipct += 1\n    return flipct,ones\n\n\nclass Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        n,m = len(grid),len(grid[0])\n        a,b = n//2,m//2\n        main = 0\n        for i in range(a):\n            for j in range(b):\n                symsum = (grid[i][j] + grid[n-i-1][j] + grid[i][m-j-1] + grid[n-i-1][m-j-1])\n                main += min(symsum,4-symsum)\n        partial = 0\n        ones = 0\n        if n != a*2:\n            row = grid[a]\n            flipct, onect = helper(row)\n            partial += flipct\n            ones += onect\n        if m != b*2:\n            col = list(zip(*grid))[b]\n            flipct, onect = helper(col)\n            partial += flipct\n            ones += onect\n        center = 0\n        if n!= a*2 and m!=b*2:\n            center = grid[a][b]\n        return main + partial + 2*(partial==0 and ones%2==1)+ center ",
+    "submit_ts": "1722699121",
+    "subm_id": "1343202081"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "park6",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        g = defaultdict(list)\n        for u, v in edges:\n            g[u].append(v)\n            g[v].append(u)\n        n = len(edges)+1\n        dist = [0]*n \n        dist2 = [0]*n  \n        def dfs(cur,pre):\n            for nxt in g[cur]:\n                if nxt == pre: continue\n                dfs(nxt,cur)\n                d = 1 if nxt%2 else 2\n                if dist[nxt]+d > dist[cur]:\n                    dist2[cur] = dist[cur]\n                    dist[cur] = dist[nxt]+d  \n                elif dist[nxt]+d > dist2[cur]:\n                    dist2[cur] = dist[nxt]+d \n            return \n        dfs(0,0)\n        ans = [0]*n \n        def dfs2(cur,pre,up):\n            ans[cur] = max(dist[cur],up)\n            for nxt in g[cur]:\n                if nxt == pre: continue\n                tmp = up\n                d = 1 if nxt%2 else 2\n                if dist[cur] == dist[nxt]+d:\n                    tmp = max(tmp,dist2[cur])\n                else:\n                    tmp = max(tmp,dist[cur])\n                d = 1 if cur%2 else 2\n                dfs2(nxt,cur,tmp+d)\n        dfs2(0,0,0)\n        return ans \n\n",
+    "submit_ts": "1722698797",
+    "subm_id": "552272564"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Alonelover4",
+    "submission": "class Solution:\n    def timeTaken(self, edges):\n        n = len(edges) + 1\n        adj = [[] for _ in range(n)]\n        for i, j in edges:\n            adj[i].append((j, 1 + (j + 1) % 2))\n            adj[j].append((i, 1 + (i + 1) % 2))\n        down1 = [0] * n\n        down2 = [0] * n\n        up = [0] * n\n        need = [0] * n\n\n        def dfs1(x, fa):\n            for y, cost in adj[x]:\n                if y != fa:\n                    sub = dfs1(y, x)\n                    if sub + cost > down1[x]:\n                        down1[x], down2[x] = sub + cost, down1[x]\n                        need[x] = y\n                    elif sub + cost > down2[x]:\n                        down2[x] = sub + cost\n            return down1[x]\n\n        def dfs2(x, fa):\n            for y, _ in adj[x]:\n                cost = 1 + (x + 1) % 2\n                if y != fa:\n                    up[y] = up[x] + cost\n                    if need[x] != y:\n                        up[y] = max(up[y], down1[x] + cost)\n                    else:\n                        up[y] = max(up[y], down2[x] + cost)\n                    dfs2(y, x)\n            return up[x]\n\n        dfs1(0, -1)\n        dfs2(0, -1)\n        return [max(down1[i], up[i]) for i in range(n)]",
+    "submit_ts": "1722700085",
+    "subm_id": "552278339"
+}

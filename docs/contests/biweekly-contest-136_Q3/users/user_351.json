@@ -1,0 +1,6 @@
+{
+    "username": "eatfood",
+    "submission": "class Solution:\n    def minFlips(self, g: List[List[int]]) -> int:\n        def cost(a, b, c, d):\n            cnt = a + b + c + d\n            return min(cnt, 4-cnt)\n\n        # normal cells first\n        n = len(g)\n        m = len(g[0])\n        ans = 0\n        for i in range(n//2):\n            for j in range(m//2):\n                ans += cost(g[i][j], g[n-1-i][j], g[i][m-1-j], g[n-1-i][m-1-j])\n        \n        # middle rows\n        bad = 0\n        ones = 0\n        if n % 2 == 1:\n            for i in range(m // 2):\n                if g[n//2][i] != g[n//2][m-1-i]:\n                    bad += 1\n                ones += g[n//2][i]\n                ones += g[n//2][m-1-i]\n\n        if m % 2 == 1:\n            for i in range(n // 2):\n                if g[i][m//2] != g[n-1-i][m//2]:\n                    bad += 1\n                ones += g[i][m//2]\n                ones += g[n-1-i][m//2]\n        # print('bad', bad)\n        # print('ones', bad)\n        if bad == 0 and ones % 4 != 0:\n            bad = 2\n        \n        ans += bad\n\n        # check middle\n        if n % 2 == 1 and m % 2 == 1 and g[n//2][m//2] == 1:\n            ans += 1\n        return ans\n\n        \n                    ",
+    "submit_ts": "1722697132",
+    "subm_id": "1343135365"
+}

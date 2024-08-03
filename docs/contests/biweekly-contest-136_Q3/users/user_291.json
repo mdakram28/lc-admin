@@ -1,0 +1,6 @@
+{
+    "username": "maybe_lelouch",
+    "submission": "# @param {Integer[][]} grid\n# @return {Integer}\ndef min_flips(grid)\n  n = grid.length\n  m = grid[0].length\n  \n  ans = 0\n  \n  (0...(n / 2)).each do |i|\n    (0...(m / 2)).each do |j|\n      elements = [\n        grid[i][j],\n        grid[n - i - 1][j],\n        grid[i][m - j - 1],\n        grid[n - i - 1][m - j - 1]\n      ]\n      \n      ones = elements.sum\n      \n      ans += [ones, 4 - ones].min\n    end\n  end\n  \n  possible = 0\n  count = 0\n  \n \n  if n % 2 != 0\n    (0...(m / 2)).each do |j|\n      if grid[n / 2][j] != grid[n / 2][m - j - 1]\n        ans += 1\n        possible += 1\n      else\n        count += 1 if grid[n / 2][j] == 1\n      end\n    end\n  end\n  \n  if m % 2 != 0\n    (0...(n / 2)).each do |i|\n      if grid[i][m / 2] != grid[n - i - 1][m / 2]\n        ans += 1\n        possible += 1\n      else\n        count += 1 if grid[i][m / 2] == 1\n      end\n    end\n  end\n  \n  if n % 2 != 0 && m % 2 != 0 && grid[n / 2][m / 2] == 1\n    ans += 1\n  end\n  \n  if possible == 0 && count % 2 != 0\n    ans += 2\n  end\n  \n  ans\nend\n",
+    "submit_ts": "1722699663",
+    "subm_id": "1343218518"
+}

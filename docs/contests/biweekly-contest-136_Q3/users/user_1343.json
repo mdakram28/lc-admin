@@ -1,0 +1,6 @@
+{
+    "username": "zombiemutant",
+    "submission": "class Solution:\n    def minFlips(self, grid):\n        width = len(grid[0])\n        height = len(grid)\n        result = 0\n\n        # corners\n        for x, y in itertools.product(range(width//2), range(height//2)):\n            cell_sum = sum((grid[y][x], grid[y][-x-1], grid[-y-1][x], grid[-y-1][-x-1]))\n            result += min(cell_sum, 4-cell_sum)\n\n        # midlines\n        flips = 0\n        total = 0\n        if height%2==1:\n            mid_row = grid[height//2]\n            first_half = mid_row[:width//2]\n            second_half = list(reversed(mid_row[(width+1)//2:]))\n            total += sum(first_half) + sum(second_half)\n            flips += sum(1 for a,b in zip(first_half, second_half) if a!=b)\n        if width%2==1:\n            mid_col = [row[width//2] for row in grid]\n            first_half = mid_col[:height//2]\n            second_half = list(reversed(mid_col[(height+1)//2:]))\n            total += sum(first_half) + sum(second_half)\n            flips += sum(1 for a,b in zip(first_half, second_half) if a!=b)\n\n        if flips==0 and total%4!=0: flips += 2\n        result += flips\n\n        # center\n        if width%2==1 and height%2==1 and grid[height//2][width//2]==1: result += 1\n\n        return result",
+    "submit_ts": "1722698907",
+    "subm_id": "1343195601"
+}

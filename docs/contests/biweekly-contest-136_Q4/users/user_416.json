@@ -1,0 +1,6 @@
+{
+    "username": "aaryadeep21122003",
+    "submission": "class Solution {\n  public:\n   vector<int> timeTaken(vector<vector<int>>& edges) {\n      int n = edges.size() + 1;\n      vector<vector<int>> adj(n);\n      for (auto a : edges) {\n         int u = a[0], v = a[1];\n         adj[u].emplace_back(v);\n         adj[v].emplace_back(u);\n      }\n      const int inf = 1e9;\n      vector<pair<int, int>> f(n);\n      auto dfs = [&](auto&& self, int v, int p) -> void {\n         for (auto u : adj[v]) {\n            if (u == p) continue;\n            self(self, u, v);\n            int ad = 1 + (u % 2 == 0);\n            if (f[u].first + ad > f[v].second) f[v].second = f[u].first + ad;\n            if (f[v].first < f[v].second) swap(f[v].first, f[v].second);\n         }\n      };\n      dfs(dfs, 0, -1);\n      vector<int> ans(n);\n      auto rero = [&](auto&& self, int v, int p, int pa) -> void {\n         ans[v] = max(pa, f[v].first);\n         for (auto u : adj[v]) {\n            if (u == p) continue;\n            int gv = (f[u].first + 1 + (u % 2 == 0) == f[v].first ? f[v].second : f[v].first);\n            gv = max(gv, pa);\n            gv += 1 + (v % 2 == 0);\n            self(self, u, v, gv);\n         }\n      };\n      rero(rero,0,-1,0);\n      return ans;\n   }\n};",
+    "submit_ts": "1722697352",
+    "subm_id": "1343143492"
+}

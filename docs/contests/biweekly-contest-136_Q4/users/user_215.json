@@ -1,0 +1,6 @@
+{
+    "username": "wkingyu",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        n = len(edges) + 1\n        g = defaultdict(list)\n        def weight(u, v):\n            return 1 + (v & 1 == 0)\n        for u, v in edges:\n            g[u].append(v)\n            g[v].append(u)\n        f1 = [0] * n\n        f2 = [0] * n\n        def dfs(u, fa):\n            for v in g[u]:\n                if v != fa:\n                    dfs(v, u)\n                    tmp = f1[v] + weight(u, v)\n                    if tmp > f1[u]:\n                        f1[u], f2[u] = tmp, f1[u]\n                    elif tmp > f2[u]:\n                        f2[u] = tmp\n        dfs(0, -1)\n        h = [0] * n\n        def reroot(u, fa):\n            for v in g[u]:\n                if v != fa:\n                    if f1[v] + weight(u, v) == f1[u]:\n                        h[v] = max(h[u], f2[u]) + weight(v, u)\n                    else:\n                        h[v] = max(h[u], f1[u]) + weight(v, u)\n                    reroot(v, u)\n        reroot(0, -1)\n        ans = [0] * n\n        for i in range(n):\n            ans[i] = max(f1[i], h[i])\n        return ans",
+    "submit_ts": "1722699282",
+    "subm_id": "552274957"
+}

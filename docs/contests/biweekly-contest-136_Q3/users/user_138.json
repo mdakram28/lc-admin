@@ -1,0 +1,6 @@
+{
+    "username": "grainmad",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& g) {\n        int n = g.size(), m = g[0].size();\n        int ans = 0;\n        for (int i=0; i<n/2; i++) {\n            for (int j=0; j<m/2; j++) {\n                int c1 = 0;\n                if (g[i][j]) c1++;\n                if (g[i][m-1-j]) c1++;\n                if (g[n-1-i][j]) c1++;\n                if (g[n-1-i][m-1-j]) c1++;\n                ans += min(c1, 4-c1);\n            }\n        }\n        int c11 = 0, c01 = 0;\n        if (n%2) {\n            int l = 0, r = m-1;\n            while (l<r) {\n                if (g[n/2][l] != g[n/2][r]) c01++;\n                else if (g[n/2][l] == 1) c11++;\n                l++;\n                r--;\n            }\n        }\n        if (m%2) {\n            int l = 0, r = n-1;\n            while (l<r) {\n                if (g[l][m/2] != g[r][m/2]) c01++;\n                else if (g[l][m/2] == 1) c11++;\n                l++;\n                r--;\n            }\n        }\n        if (c01) {\n            ans += c01;\n        } else if (c11%2) {\n            ans += 2;\n        }\n        if (n%2 && m%2 && g[n/2][m/2]) {\n            ans++;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722696734",
+    "subm_id": "552262563"
+}

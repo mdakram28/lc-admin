@@ -1,0 +1,6 @@
+{
+    "username": "NotFisrt",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& g) {\n        int n = g.size(), m = g[0].size(), res = 0;\n        if (n % 2 && m % 2 && g[n / 2][m / 2]) res += 1;\n        vector<int> cnt(3, 0);\n        if (n % 2) {\n            int x = 0, y = m - 1;\n            while (x < y) {\n                int c = g[n / 2][x] + g[n / 2][y];\n                cnt[c] += 1;\n                x += 1;\n                y -= 1;\n            }\n        }\n        if (m % 2) {\n            int x = 0, y = n - 1;\n            while (x < y) {\n                int c = g[x][m / 2] + g[y][m / 2];\n                cnt[c] += 1;\n                x += 1;\n                y -= 1;\n            }\n        }\n        if (cnt[2] % 2) res += (cnt[1] > 0) ? cnt[1] : 2;\n        else res += cnt[1];\n        for (int i = 0; i < n / 2; ++i) {\n            for (int j = 0; j < m / 2; ++j) {\n                int c1 = g[i][j], c2 = g[n - 1 - i][j];\n                int c3 = g[i][m - 1 - j], c4 = g[n - 1 - i][m - 1 - j];\n                int t = c1 + c2 + c3 + c4;\n                if (t && t != 4) res += min(t, 4 - t);\n            }\n        }\n        return res;\n    }\n};\n",
+    "submit_ts": "1722699865",
+    "subm_id": "1343224729"
+}

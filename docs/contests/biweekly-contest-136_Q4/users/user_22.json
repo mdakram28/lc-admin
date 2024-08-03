@@ -1,0 +1,6 @@
+{
+    "username": "darrenhp",
+    "submission": "class Solution {\npublic:\n  int n;\n  vector<vector<int>> G;\n  vector<int> D;\n  vector<int> D2;\n  void dfs(int s, int f) {\n    for (auto t: G[s]) if (t != f) {\n      dfs(t, s);\n      D[s] = max(D[s], D[t]+1+(t%2==0));\n    }\n    // cout << s << \" \" << D[s] << endl;\n  }\n  void dfs2(int s, int f, int d) {\n    D2[s] = max(D[s], d);\n    vector<pair<int, int>> A;\n    for (int i = 0; i < G[s].size(); i++) A.push_back({G[s][i] == f?d:D[G[s][i]]+1+(G[s][i]%2==0), G[s][i]});\n    A.push_back({-1, -1});\n    sort(A.begin(), A.end(), greater<>());\n    for (auto t: G[s]) if (t != f) {\n      for (auto [w, v]: A) if (v != t) {\n        dfs2(t, s, max(w, d)+1+(s%2==0));\n        break;\n      }\n    }\n  }\n  vector<int> timeTaken(vector<vector<int>>& edges) {\n    n = edges.size()+1;\n    G.clear(); G.resize(n);\n    D.clear(); D.resize(n);\n    D2.clear(); D2.resize(n);\n    for (auto e: edges) G[e[0]].push_back(e[1]), G[e[1]].push_back(e[0]);\n    dfs(0, -1);\n    dfs2(0, -1, 0);\n    return D2;\n  }\n};",
+    "submit_ts": "1722697563",
+    "subm_id": "552266722"
+}

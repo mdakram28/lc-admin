@@ -1,0 +1,6 @@
+{
+    "username": "Dimitrovsd",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int ans = 0;\n        int n = grid.size();\n        int m = grid[0].size();\n        for (int i = 0; i < n / 2; i++) {\n            for (int j = 0; j < m / 2; j++) {\n                int cnt = grid[i][j] + grid[i][m - 1 - j] + grid[n - 1 - i][j] + grid[n - 1 - i][m - 1 - j];\n                ans += min(cnt, 4 - cnt);\n            }\n        }\n\n        int del = 0;\n        int curr = 0;\n        if (n & 1) {\n            for (int i = 0; i < m / 2; i++) del += (grid[n / 2][i] != grid[n / 2][m - 1 - i]);\n            for (int i = 0; i < m; i++) curr += grid[n / 2][i];\n        }\n        if (m & 1) {\n            for (int i = 0; i < n / 2; i++) del += (grid[i][m / 2] != grid[n - 1 - i][m / 2]);\n            for (int i = 0; i < n; i++) curr += grid[i][m / 2];\n        }\n        if ((n & 1) && (m & 1)) {\n            curr -= 2 * grid[n / 2][m / 2];\n            ans += grid[n / 2][m / 2];\n        }\n\n        for (int i = curr - del; i <= curr + del; i++) {\n            if (i % 4 == 0) {\n                return ans + del;\n            }\n        }        \n\n        return ans + del + 2;\n    }\n};\n",
+    "submit_ts": "1722697065",
+    "subm_id": "1343132891"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "heal",
+    "submission": "class Solution {\npublic:\n    vector<int> timeTaken(vector<vector<int>>& edges) {\n        int n = edges.size() + 1;\n        vector<vector<int>> g(n);\n        for (auto &e: edges) {\n            g[e[0]].emplace_back(e[1]);\n            g[e[1]].emplace_back(e[0]);\n        }\n        vector<int> dp1(n), dp2(n);\n        auto update = [&](int u, int x) -> void {\n            if (x > dp1[u]) dp2[u] = dp1[u], dp1[u] = x;\n            else if (x > dp2[u]) dp2[u] = x;\n        };\n        auto dfs = [&](auto&& dfs, int u, int p) -> void {\n            for (int v: g[u]) {\n                if (v == p) continue;\n                dfs(dfs, v, u);\n                update(u, dp1[v] + 2 - (v % 2));\n            }\n        };\n        dfs(dfs, 0, -1);\n        auto change = [&](auto&& change, int u, int p) -> void {\n            for (int v: g[u]) {\n                if (v == p) continue;\n                int dpu = (dp1[u] == dp1[v] + 2 - (v % 2)? dp2[u]: dp1[u]);\n                update(v, dpu + 2 - (u % 2));\n                change(change, v, u);\n            }\n        };\n        change(change, 0, -1);\n        return dp1;\n    }\n};",
+    "submit_ts": "1722696630",
+    "subm_id": "552261980"
+}

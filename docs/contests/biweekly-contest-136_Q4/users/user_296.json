@@ -1,0 +1,6 @@
+{
+    "username": "leat14536",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        n = len(edges) + 1\n        g = [[] for _ in range(n)]\n\n        for u, v in edges:\n            g[u].append(v)\n            g[v].append(u)\n        mx = [(0, 0) for _ in range(n)]\n\n        @cache\n        def dfs1 (node, par):\n            mx1 = mx2 = 0\n            for nxt in g[node]:\n                if nxt != par:\n                    dis = dfs1(nxt, node)\n                    if dis > mx2:\n                        if dis > mx1:\n                            mx1, mx2 = dis, mx1\n                        else:\n                            mx2 = dis\n            mx[node] = (mx1, mx2)\n            return mx1 + int(node % 2 == 0) + 1\n\n        dfs1(0, -1)\n        # print(mx) \n        ans = [0] * n\n        def dfs2 (node, par, oth):\n            mx1, mx2 = mx[node]\n            ans[node] = max([mx1, mx2, oth])\n            for nxt in g[node]:\n                if nxt == par: continue\n                if dfs1(nxt, node) == mx1:\n                    dfs2(nxt, node, max(mx2, oth) + int(node % 2 == 0) + 1)\n                else:\n                    dfs2(nxt, node, max(mx1, oth) + int(node % 2 == 0) + 1)\n        dfs2(0, -1, 0)\n        return ans\n",
+    "submit_ts": "1722700300",
+    "subm_id": "552279229"
+}

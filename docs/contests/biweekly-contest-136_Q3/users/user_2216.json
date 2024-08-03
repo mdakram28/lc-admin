@@ -1,0 +1,6 @@
+{
+    "username": "chill_bro",
+    "submission": "class Solution {\npublic:\n    int solve(vector<vector<int>>&grid,vector<vector<int>>&vis,int i,int j,int n,int m,int& p,int& pp){\n        set<pair<int,int>>s;\n        s.insert({i,j});\n        s.insert({i,m-j});\n        s.insert({n-i,j});\n        s.insert({n-i,m-j});\n        int o=0,z=0;\n        for(auto x:s){\n            if(grid[x.first][x.second]==0) z++;\n            else o++;\n            vis[x.first][x.second]=1;\n        }\n        if(o==2 && z==0){\n                p=!p;\n        }\n        if(s.size()==2 && o==1) pp=1;\n        if(s.size()==1 && o==1) return 1;\n        return min(o,z);\n        \n    }\n    int minFlips(vector<vector<int>>& grid) {\n        int n=grid.size()-1,m=grid[0].size()-1,ans=0,p=0,pp=0;\n        vector<vector<int>>vis(n+1,vector<int>(m+1,0));\n        // for(int i=0;i<=n;i++){\n        //     for(int j=0;j<=m;j++){\n        //         if(grid[i][j]==1) one++;\n        //     }\n        // }\n        for(int i=0;i<=n;i++){\n            for(int j=0;j<=m;j++){\n                if(!vis[i][j]) ans+=solve(grid,vis,i,j,n,m,p,pp);\n            }\n        }\n        cout<<p<<endl;\n        return ans+2*(p && !pp);\n        \n    }\n};",
+    "submit_ts": "1722698894",
+    "subm_id": "1343195191"
+}

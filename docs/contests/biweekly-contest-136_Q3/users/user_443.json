@@ -1,0 +1,6 @@
+{
+    "username": "Asagi",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int m = grid.size();\n        int n = grid[0].size();\n        bool lo = m % 2;\n        bool ro = n % 2;\n        int ans = 0, f = 0, cnt = 0;\n        for (int i = 0; i < m/2; i++) \n            for (int j = 0; j < n/2; j++) {\n                int s = grid[i][j] + grid[m-1-i][j] + grid[i][n-1-j] + grid[m-1-i][n-1-j];\n                ans += min(4 - s , s);\n            }\n        \n        if (lo && ro) {\n            ans += grid[m/2][n/2] == 1;\n        }\n        if (lo) {\n            for (int i = 0, j = n - 1; i < j; ++i, --j) {\n                if (grid[m/2][i] != grid[m/2][j]) {\n                    f++;\n                } else if (grid[m/2][i] == 1) {\n                    cnt++;\n                }\n            }\n        }\n        if (ro) {\n            for (int i = 0, j = m - 1; i < j; ++i, --j) {\n                if (grid[i][n/2] != grid[j][n/2]) {\n                    f++;\n                } else if (grid[i][n/2] == 1) {\n                    cnt++;\n                }\n            }\n        }\n        ans += f;\n        if (cnt % 2 != 0 && f == 0) {\n            ans += 2;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722696868",
+    "subm_id": "1343125352"
+}

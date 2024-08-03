@@ -1,0 +1,6 @@
+{
+    "username": "chromate00",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        const int inf=1e9;\n        int n=size(grid),m=size(grid[0]);\n        int ans=0;\n        vector<int>twos;\n        for(int i=0;i*2<=n-1;i++)\n        {\n            for(int j=0;j*2<=m-1;j++)\n            {\n                set<pair<int,int>>idx;\n                idx.emplace(i,j);\n                idx.emplace(n-1-i,j);\n                idx.emplace(i,m-1-j);\n                idx.emplace(n-1-i,m-1-j);\n                int cnt=0;\n                vector<int>vv(2);\n                for(auto[a,b]:idx)\n                {\n                    vv[grid[a][b]]++;\n                }\n                //ans+=(int)size(idx)-max(vv[0],vv[1]);\n                if(size(idx)==1)ans+=vv[1];\n                if(size(idx)==2)twos.push_back(vv[1]);\n                if(size(idx)==4)ans+=(int)size(idx)-max(vv[0],vv[1]);\n            }\n        }\n        array<int,2>dp{0,inf};\n        for(int i:twos)\n        {\n            array<int,2>dp1{inf,inf};\n            dp1[1]=min(dp1[1],dp[0]+2-i);\n            dp1[0]=min(dp1[0],dp[1]+2-i);\n            dp1[1]=min(dp1[1],dp[1]+i);\n            dp1[0]=min(dp1[0],dp[0]+i);\n            dp=dp1;\n        }\n        return ans+dp[0];\n    }\n};",
+    "submit_ts": "1722696791",
+    "subm_id": "1343122340"
+}

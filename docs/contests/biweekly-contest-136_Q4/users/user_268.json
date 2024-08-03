@@ -1,0 +1,6 @@
+{
+    "username": "LeetCoach",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        n = len(edges) + 1\n        graph = [[] for _ in range(n)]\n        for u, v in edges:\n            graph[u].append(v)\n            graph[v].append(u)\n        fir = [0] * n\n        sec = [0] * n\n        res = [0] * n\n        def dfs1(node=0, parent=-1):\n            for i in graph[node]:\n                if i != parent:\n                    dfs1(i, node)\n                    if fir[i] + 2 - i % 2 > fir[node]:\n                        sec[node] = fir[node]\n                        fir[node] = fir[i] + 2 - i % 2\n                    elif fir[i] + 2 - i % 2 > sec[node]:\n                        sec[node] = fir[i] + 2 - i % 2\n        def dfs2(node=0, parent=-1, to_p=0):\n            res[node] = max(to_p, fir[node])\n            for i in graph[node]:\n                if i != parent:\n                    if fir[i] + 2 - i % 2 == fir[node]:\n                        dfs2(i, node, max(to_p, sec[node]) + 2 - node % 2)\n                    else:\n                        dfs2(i, node, res[node] + 2 - node % 2)\n        dfs1()\n        dfs2()\n\n        return res\n        ",
+    "submit_ts": "1722698473",
+    "subm_id": "1343181746"
+}

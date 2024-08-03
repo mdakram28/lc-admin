@@ -1,0 +1,6 @@
+{
+    "username": "chuan-chih",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        n = len(edges) + 1\n        adj = [[] for _ in range(n)]\n        for i, j in edges:\n            adj[i].append(j)\n            adj[j].append(i)\n        sub_time = [None] * n\n        def dfs(prev, i):\n            res = 0\n            for j in adj[i]:\n                if j != prev:\n                    res = max(res, 2 - (j % 2) + dfs(i, j))\n            sub_time[i] = res\n            return res\n        ans = [None] * n\n        dfs(None, 0)\n        # print(sub_time)\n        \n        def reroot(prev, i, t):\n            ans[i] = max(t, sub_time[i])\n            stem = 2 - (i % 2)\n            subtree = [(t, prev)]\n            for j in adj[i]:\n                if j != prev:\n                    subtree.append((2 - (j % 2) + sub_time[j], j))\n            subtree = heapq.nlargest(2, subtree)\n            \n            # print(i, t, stem, subtree)\n            \n            for j in adj[i]:\n                if j != prev:\n                    largest = subtree[1][0] if subtree[0][1] == j else subtree[0][0]\n                    reroot(i, j, stem + largest)\n                    \n        reroot(-1, 0, 0)\n        return ans\n        ",
+    "submit_ts": "1722700536",
+    "subm_id": "1343244921"
+}

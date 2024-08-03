@@ -1,0 +1,6 @@
+{
+    "username": "skywalkert",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& mat) {\n        int r = mat.size(), c = mat[0].size(), ans[3] = {};\n        ans[1] = r * c + 1;\n        for(int x = 0; x < r; ++x)\n            for(int y = 0; y < c; ++y) {\n                int tx = r - 1 - x, ty = c - 1 - y;\n                if(x > tx || y > ty)\n                    continue;\n                int c = mat[x][y] + mat[x][ty] + mat[tx][y] + mat[tx][ty];\n                if(x == tx && y == ty) {\n                    ans[2] += c == 4;\n                } else if(x != tx && y != ty) {\n                    ans[2] += min(c, 4 - c);\n                } else {\n                    c >>= 1;\n                    tie(ans[0], ans[1]) = make_tuple(min(ans[0] + c, ans[1] + 2 - c), min(ans[1] + c, ans[0] + 2 - c));\n                }\n            }\n        return ans[0] + ans[2];\n    }\n};",
+    "submit_ts": "1722697821",
+    "subm_id": "1343160096"
+}

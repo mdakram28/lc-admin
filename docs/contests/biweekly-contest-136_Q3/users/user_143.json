@@ -1,0 +1,6 @@
+{
+    "username": "gupta_gopal",
+    "submission": "class Solution {\npublic:\n\n    int solve(int cur,int rem,int n,vector<vector<int>>&p,vector<vector<int>>&dp){\n        if(cur>=n){\n            if(rem) return 1e9;\n            return 0;\n        }\n        if(dp[cur][rem]!=-1) return dp[cur][rem];\n        return dp[cur][rem]=min((p[cur][0]-p[cur][1])+solve(cur+1,(rem+p[cur][0])%4,n,p,dp),\n                                (p[cur][1])+solve(cur+1,rem,n,p,dp));\n    }\n\n    int minFlips(vector<vector<int>>& v){\n        ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);\n        int n=v.size(),m=v[0].size();\n        vector<vector<int>>vis(n,vector<int>(m,0));\n        vector<vector<int>>p;\n        for(int a=0,b=n-1;a<=b;a++,b--){\n            for(int l=0,r=m-1;l<=r;l++,r--){\n                if(vis[a][l]) continue;\n                set<pair<int,int>>s;\n                s.insert({a,l}); s.insert({a,r});\n                s.insert({b,l}); s.insert({b,r});\n                int cnt=0;\n                for(auto i:s) cnt+=v[i.first][i.second];\n                int tot=s.size();\n                p.push_back({tot,cnt});\n            }\n        }\n        int nx=p.size();\n        vector<vector<int>>dp(nx,vector<int>(4,-1));\n        return solve(0,0,nx,p,dp);\n    }\n};",
+    "submit_ts": "1722697332",
+    "subm_id": "1343142718"
+}

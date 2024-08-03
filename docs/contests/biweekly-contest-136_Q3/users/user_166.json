@@ -1,0 +1,6 @@
+{
+    "username": "AndyLead",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int result = 0;\n        int n = grid.size(), m = grid[0].size();\n        if(m % 2 == 1 and n % 2 == 1) if(grid[n/2][m/2] == 1) result++;\n\n        for(int row_s = 0, row_f = n - 1; row_s < row_f; row_s++, row_f--)\n            for(int col_s = 0, col_f = m - 1; col_s < col_f; col_s++, col_f--) {\n                int total = grid[row_s][col_s] + grid[row_f][col_s] + grid[row_s][col_f] + grid[row_f][col_f];\n                result += min(total, 4 - total);\n            }\n\n        bool needAdd = false;\n        bool canAdd = false;\n        if(n % 2 == 1) {\n            int row = n / 2;\n            for(int i = 0, j = m - 1; i < j; i++, j--) \n                if(grid[row][i] != grid[row][j]) result++, canAdd = true;\n                else if(grid[row][i] == 1) needAdd = !needAdd;\n        }\n        if(m % 2 == 1) {\n            int col = m / 2;\n            for(int i = 0, j = n - 1; i < j; i++, j--) \n                if(grid[i][col] != grid[j][col]) result++, canAdd = true;\n                else if(grid[i][col] == 1) needAdd = !needAdd;\n        }\n     \n        if(needAdd and not canAdd) result += 2;\n        return result;\n    }\n};",
+    "submit_ts": "1722697852",
+    "subm_id": "1343161217"
+}

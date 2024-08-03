@@ -1,0 +1,6 @@
+{
+    "username": "AKMi01",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int m = grid.size();\n        int n = grid[0].size();\n        vector<vector<int>> rc(m, vector<int> (n, 0));\n        map<int, int> mp;\n        int ans = 0, temp; \n        for(int i=0; i<(m/2); i++){\n            for(int j=0; j<(n/2); j++){\n                temp = grid[i][j]+grid[i][n-j-1]+grid[m-i-1][j]+grid[m-i-1][n-j-1];\n                ans += min(temp,4-temp);\n            }\n        }\n        int rans = 0;\n        int onec = 0;\n        if(m%2==1){\n            for(int j=0; j<(n/2); j++){\n                rans += (grid[m/2][j]^grid[m/2][n-j-1]);\n                onec += (grid[m/2][j]+grid[m/2][n-j-1]);\n            }\n        }\n        if(n%2==1){\n            for(int i=0; i<(m/2); i++){\n                rans += (grid[i][n/2]^grid[m-i-1][n/2]);\n                onec += (grid[i][n/2]+grid[m-i-1][n/2]);\n            }\n        }\n    \n        onec %=4;\n        rans = max(min(onec,4-onec), rans);\n        if(n%2==1 && m%2==1 && grid[m/2][n/2]) rans++;\n        return ans+rans;\n    }\n};",
+    "submit_ts": "1722698696",
+    "subm_id": "1343188838"
+}

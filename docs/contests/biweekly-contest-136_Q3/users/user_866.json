@@ -1,0 +1,6 @@
+{
+    "username": "cskrisz",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        m = len(grid)\n        n = len(grid[0])\n        flips = 0\n        for row in range(m // 2):\n            for col in range(n // 2):\n                ones = grid[row][col] + grid[row][-1-col] + grid[-1-row][col] + grid[-1-row][-1-col]\n                flips += min(ones, 4 - ones)\n        \n        flips += m % 2 == 1 and n % 2 == 1 and grid[m // 2][n // 2]\n        \n        mid_flips = 0\n        one_pairs = 0\n        if m % 2 == 1:\n            for col in range(n // 2):\n                one_pairs += grid[m // 2][col] and grid[m // 2][-1-col]\n                mid_flips += grid[m // 2][col] != grid[m // 2][-1-col]\n        if n % 2 == 1:\n            for row in range(m // 2):\n                one_pairs += grid[row][n // 2] and grid[-1-row][n // 2]\n                mid_flips += grid[row][n // 2] != grid[-1-row][n // 2]\n        if mid_flips == 0 and one_pairs % 2 == 1:\n            flips += 2\n        flips += mid_flips\n        return flips",
+    "submit_ts": "1722698277",
+    "subm_id": "1343175445"
+}

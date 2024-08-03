@@ -1,0 +1,6 @@
+{
+    "username": "a_good_loser",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size();\n        int B = 0, A = 0;\n        \n        // 2: 1 1 a\n        //.   0 0 b\n        //.   0 1 c\n        \n        // 4  0 0 0 0 X\n        //    0 0 0 1\n        //.   0 0 1 1\n        //    0 1 1 1\n        //.   1 1 1 1 X\n        \n        map<int, int> mp;\n        \n        for (int i = 0; i < n; ++i) {\n            for (int j = 0; j < m; ++j) {\n                if (j == m-1-j && i == n-1-i) {\n                    A += grid[i][j];\n                } else if (j == m-1-j) {\n                    mp[grid[i][j] + grid[n-1-i][j]]++;\n                } else if (i == n-1-i) {\n                    mp[grid[i][j] + grid[i][m-1-j]]++;\n                } else {\n                    int t = (4 - (grid[i][j] + grid[n-1-i][j] + grid[n-1-i][m-1-j] + grid[i][m-1-j])) % 4;\n                    B += min(t, 4 - t);\n                }\n            }\n        }\n        // cout << mp[2] << \"\\n\";\n        \n        int C = mp[1], D = 0;\n        if (mp[2] % 4 != 0 && mp[1] == 0) D = 2;\n        \n        // cout << A << \" \" << B << \" \" << C << \" \" << D << \"\\n\";\n        \n        return A + B/4 + C/2 + D;\n    }\n};",
+    "submit_ts": "1722697022",
+    "subm_id": "552264055"
+}

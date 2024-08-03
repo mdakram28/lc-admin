@@ -1,0 +1,6 @@
+{
+    "username": "nguyenquocthao00",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        n=len(edges)+1\n        m=[[] for _ in range(n)]\n        for a,b in edges:\n            m[a].append(b)\n            m[b].append(a)\n        res=[0]*n\n        @lru_cache(None)\n        def dp(i,prev):\n            res=0\n            for j in m[i]:\n                if j==prev: continue\n                res = max(res, dp(j,i))\n            res += 2-(i%2)\n            # print(i, res)\n            return res\n        dp(0,0)\n        def dp2(i,prev,an):\n            x,y = (-1,an), (-2,0)\n            for j in m[i]:\n                if j==prev: continue\n                z = dp(j,i)\n                # if i!=0: z+=(2-(prev%2))\n                if z>=x[1]: x,y = (j, z), x\n                elif z>= y[1]: y = (j,z)\n            # print(i, an, x, y)\n            res[i] = x[1]\n            for j in m[i]:\n                if j==prev: continue\n                if j!=x[0]: dp2(j, i, x[1] + (2-i%2))\n                else: dp2(j, i, y[1] + (2-i%2))\n        dp2(0,0,0)\n        return res\n\n        ",
+    "submit_ts": "1722697637",
+    "subm_id": "1343153510"
+}

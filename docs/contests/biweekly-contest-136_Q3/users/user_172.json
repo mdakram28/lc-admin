@@ -1,0 +1,6 @@
+{
+    "username": "Chasey",
+    "submission": "#define ll long long\n#define REP(i,n)        FOR(i,0,n)\n#define SORT(v)         sort((v).begin(),(v).end())\n#define FOR(i,a,b)      for(ll i=(a);i<(b);i++)\n\nclass Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size();\n        int total = 0;\n        REP(i, n/2) REP(j, m/2) {\n            int sum = grid[i][j] + grid[i][m-1-j] + grid[n-1-i][j] + grid[n-1-i][m-1-j];\n            total += min(4-sum, sum);\n        }\n        int diff = 0;\n        int same = 0;\n        if (n%2 == 1 && m%2 == 1) total += grid[n/2][m/2];\n        if (n%2 == 1) REP(j, m/2) {\n            if (grid[n/2][j] != grid[n/2][m-1-j]) total++;\n            grid[n/2][j] == grid[n/2][m-1-j] ? same += grid[n/2][j]*2 : diff++;\n        }\n        if (m%2 == 1) REP(i, n/2) {\n            if (grid[i][m/2] != grid[n-1-i][m/2]) total++;\n            grid[i][m/2] == grid[n-1-i][m/2] ? same += grid[i][m/2]*2 : diff++;\n        }\n        if (same%4 == 2 && diff == 0) {\n            total += 2;\n        }\n\n        return total;\n    }\n};",
+    "submit_ts": "1722696758",
+    "subm_id": "1343120993"
+}

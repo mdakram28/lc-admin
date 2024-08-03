@@ -1,0 +1,6 @@
+{
+    "username": "truongphamminh17",
+    "submission": "/**\n * @param {number[][]} grid\n * @return {number}\n */\nvar minFlips = function (grid) {\n  const n = grid.length;\n  const m = grid[0].length;\n  const INF = 10 ** 6\n  let count = 0;\n  let oneDoubleCount = 0\n  let mixedCount = 0\n  for (let i = 0; i < n / 2; i++) {\n    for (let j = 0; j < m / 2; j++) {\n      const ii = n - 1 - i\n      const jj = m - 1 - j\n      let oneCount = 0;\n      let zeroCount = 0;\n      const a = new Set([[i, j], [ii, j], [i, jj], [ii, jj]].map(([i, j]) => i * INF + j))\n      for (const x of a.keys()) {\n        const j = x % INF\n        const i = (x - x % INF) / INF\n        if (grid[i][j] === 1) {\n          oneCount++\n        } else {\n          zeroCount++\n        }\n      }\n      if (a.size === 2 && oneCount === 2) {\n        oneDoubleCount++\n      }\n      if (a.size === 2 && oneCount === 1) {\n        mixedCount++\n      }\n      count += Math.min(oneCount, zeroCount)\n    }\n  }\n  if (n % 2 === 1 & m % 2 === 1) {\n    if (grid[n >> 1][m >> 1] === 1) {\n      count++\n    }\n  }\n  if (oneDoubleCount % 2 === 1) {\n    if (mixedCount === 0) {\n      count += 2\n    }\n  }\n\n  return count\n};",
+    "submit_ts": "1722699137",
+    "subm_id": "1343202550"
+}

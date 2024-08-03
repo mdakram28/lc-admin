@@ -1,0 +1,6 @@
+{
+    "username": "tmb85",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        \n        m, n = len(grid), len(grid[0])\n        \n        ans = 0\n        for ii in range(m//2):\n            for jj in range(n//2):\n                tt = 0\n                tt += grid[ii][jj]+grid[-(ii+1)][jj]+grid[ii][-(jj+1)]+grid[-(ii+1)][-(jj+1)]\n                ans += min(tt, 4-tt)\n            \n        \n        if m % 2 == 1 and n%2 == 1:\n            ans += grid[m//2][n//2]\n        \n        tot, cnt = 0, 0\n        if m % 2 == 1:\n            for ii in range(n//2):\n                tot += grid[m//2][ii] + grid[m//2][-(ii+1)]\n                if grid[m//2][ii] != grid[m//2][-(ii+1)]:\n                    cnt += 1\n        \n        if n % 2 == 1:\n            for ii in range(m//2):\n                tot += grid[ii][n//2] + grid[-(ii+1)][n//2]\n                if grid[ii][n//2] != grid[-(ii+1)][n//2]:\n                    cnt += 1\n    \n        #print(tot, cnt)\n       # print(ans, tot, cnt)\n        lower = 4*(tot//4)\n        upper = 4*(1+(tot//4))\n        temp = max(cnt, tot-lower)\n        if upper <= m*n:\n            temp = min(temp, max(cnt,upper-tot))\n        \n        return(ans + temp)\n        \n            \n            ",
+    "submit_ts": "1722698551",
+    "subm_id": "1343184290"
+}

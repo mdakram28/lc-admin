@@ -1,0 +1,6 @@
+{
+    "username": "LQnVRuiNVr",
+    "submission": "class Solution:\n    def minFlips(self, g: List[List[int]]) -> int:\n        r, c = len(g), len(g[0])\n        f = 0\n        \n        if r % 2 == 1 and c % 2 == 1:\n            if g[r // 2][c // 2] == 1:\n                f += 1\n\n        sc = [0] * 3\n        if r % 2 == 1:\n            l, ri = 0, c - 1\n            while l < ri:\n                scr = g[r // 2][l] + g[r // 2][ri]\n                sc[scr] += 1\n                l += 1\n                ri -= 1\n\n        if c % 2 == 1:\n            t, b = 0, r - 1\n            while t < b:\n                scc = g[t][c // 2] + g[b][c // 2]\n                sc[scc] += 1\n                t += 1\n                b -= 1\n\n        if sc[2] % 2 == 1:\n            if sc[1] > 0:\n                f += sc[1]\n            else:\n                f += 2\n        else:\n            f += sc[1]\n\n        for i in range(r // 2):\n            for j in range(c // 2):\n                tl = g[i][j]\n                bl = g[r - 1 - i][j]\n                tr = g[i][c - 1 - j]\n                br = g[r - 1 - i][c - 1 - j]\n\n                scn = tl + bl + tr + br\n\n                if scn != 0 and scn != 4:\n                    f += min(scn, 4 - scn)\n\n        return f\n",
+    "submit_ts": "1722699710",
+    "subm_id": "1343219926"
+}

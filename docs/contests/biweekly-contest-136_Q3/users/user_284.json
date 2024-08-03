@@ -1,0 +1,6 @@
+{
+    "username": "timetoai",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        n, m = len(grid), len(grid[0])\n        funcs = [\n            lambda x, y: (x, m - y - 1),\n            lambda x, y: (n - x - 1, y)\n        ] * 2\n        prv = [inf] * 4\n        prv[0] = 0\n        for i in range(sum(divmod(n, 2))):\n            for j in range(sum(divmod(m, 2))):\n                if grid[i][j] == - 1:\n                    continue\n                ci, cj = i, j\n                cnt = 0\n                tot = 0\n                for func in funcs:\n                    if grid[ci][cj] == - 1:\n                        ci, cj = func(ci, cj)\n                        continue\n                    cnt += grid[ci][cj]\n                    tot += 1\n                    grid[ci][cj] = - 1\n                    ci, cj = func(ci, cj)\n                cur = [inf] * 4\n                for p in range(4):\n                    cur[p] = min(cur[p], prv[p] + cnt)\n                    cur[(p + tot) % 4] = min(cur[(p + tot) % 4], prv[p] + tot - cnt)\n                prv = cur\n                # print(prv)\n                # for row in grid:\n                #     print(*row)\n        return prv[0]\n        ",
+    "submit_ts": "1722696985",
+    "subm_id": "1343129842"
+}

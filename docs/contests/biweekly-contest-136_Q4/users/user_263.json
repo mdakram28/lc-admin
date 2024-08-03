@@ -1,0 +1,6 @@
+{
+    "username": "Hanafubuki",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        d = defaultdict(lambda: [0, 0])\n        g = defaultdict(set)\n        res = [0] * (len(edges) + 1)\n\n        for x, y in edges:\n            g[x].add(y)\n            g[y].add(x)\n\n        def dfs(u, p):\n            # if not u:\n            #     return 0\n            for v in g[u]:\n                if v != p:\n                    heappush(d[u], dfs(v, u) + 2 - (v & 1))\n                    if len(d[u]) > 2:\n                        heappop(d[u])\n            return d[u][-1]\n\n        def dfs2(u, p, l):\n            res[u] = max(d[u][-1], l)\n            for v in g[u]:\n                if v != p:\n                    if d[v][-1] + 2 - (v & 1) == d[u][-1]:\n                        dfs2(v, u, max(l, d[u][0]) + 2 - (u & 1))\n                    else:\n                        dfs2(v, u, max(l, d[u][1]) + 2 - (u & 1))\n        \n        \n        dfs(0, 0)\n        dfs2(0, 0, 0)\n        return res\n\n        ",
+    "submit_ts": "1722700070",
+    "subm_id": "1343230780"
+}

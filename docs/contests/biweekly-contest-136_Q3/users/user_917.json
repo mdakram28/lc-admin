@@ -1,0 +1,6 @@
+{
+    "username": "user0031wM",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        rows, cols = len(grid), len(grid[0])\n        twos = []\n        result = 0\n        for r in range((rows+1)//2):\n            for c in range((cols+1)//2):\n                curr = []\n                curr.append(grid[r][c])\n                if c != cols-c-1:\n                    curr.append(grid[r][cols-c-1])\n                if r != rows-r-1:\n                    curr.append(grid[rows-r-1][c])\n                if r != rows-r-1 and c != cols-c-1:\n                    curr.append(grid[rows-r-1][cols-c-1])\n                if len(curr) == 2:\n                    twos.append(curr)\n                elif len(curr) == 4:\n                    if len(set(curr)) != 1:\n                        result += min(Counter(curr).values())\n                elif len(curr) == 1:\n                    result += 1 if curr[0] == 1 else 0\n        diff = 0\n        ones = 0\n        for a, b in twos:\n            if a != b:\n                diff += 1\n            else:\n                if a == 1:\n                    ones += 2\n        if diff == 0 and ones % 4 == 2:\n            result += 2\n        else:\n            result += diff\n        return result",
+    "submit_ts": "1722698689",
+    "subm_id": "1343188598"
+}

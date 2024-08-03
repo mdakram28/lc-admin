@@ -1,0 +1,6 @@
+{
+    "username": "qkk",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        m, n = len(grid), len(grid[0])\n\n        ans = 0\n        for i in range(m // 2):\n            for j in range(n // 2):\n                corners = grid[i][j] + grid[i][-j - 1] + grid[-i - 1][j] + grid[-i - 1][-j - 1]\n                if corners == 1 or corners == 3:\n                    ans += 1\n                elif corners == 2:\n                    ans += 2\n\n        axes = 0\n        parity = 0\n        if m % 2 == 1:\n            for j in range(n // 2):\n                axes += 1 if grid[m // 2][j] != grid[m // 2][-j - 1] else 0\n                if grid[m // 2][j] == grid[m // 2][-j - 1] == 1:\n                    parity += 1\n\n        if n % 2 == 1:\n            for i in range(m // 2):\n                axes += 1 if grid[i][n // 2] != grid[-i - 1][n // 2] else 0\n                if grid[i][n // 2] == grid[-i - 1][n // 2] == 1:\n                    parity += 1\n\n        if m % 2 == 1 and n % 2 == 1 and grid[m // 2][n // 2] == 1:\n            centre = 1\n        else:\n            centre = 0\n\n        if parity % 2 == 1 and axes == 0:\n            return ans + axes + centre + 2\n        else:\n            return ans + axes + centre\n",
+    "submit_ts": "1722697232",
+    "subm_id": "1343139084"
+}

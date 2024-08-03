@@ -1,0 +1,6 @@
+{
+    "username": "ding-fei-5",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        dc = defaultdict(list)\n        n = len(edges) + 1\n        for i,j in edges:\n            dc[i].append(j)\n            dc[j].append(i)\n        def dfs(node, far):\n            s,t = 0,0\n            for i in dc[node]:\n                if i != far:\n                    x = dfs(i, node)\n                    if x > s:\n                        s, t = x, s\n                    elif x > t:\n                        t = x\n            has[node] = [s + (1 if node%2 else 2), s,t]\n            return s + (1 if node%2 else 2)\n            \n        def gfs(node, far, x):\n            p, mx0, mx1 = has[node]\n            ans[node] = max(x,mx0)\n            for i in dc[node]:\n                if i != far:\n                    q = max(x, (mx1 if has[i][0] == mx0 else mx0)) + (1 if node%2 else 2)\n                    # print(node, far, x, i, mx0, mx1, q)\n                    gfs(i, node, q)\n\n\n\n\n\n\n        has = [0] * n\n        ans = [0] * n\n        dfs(0,-1)\n        gfs(0,-1,0)\n        return ans",
+    "submit_ts": "1722699148",
+    "subm_id": "552274325"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Akash0P",
+    "submission": "class Solution {\npublic:\n  vector<int> timeTaken(vector<vector<int>>& edges) {\n\n    int n = edges.size() + 1;\n\n    vector<vector<int>> adj(n);\n\n    for(auto &i: edges) {\n\n      int u = i[0], v = i[1];\n\n      adj[u].push_back(v), adj[v].push_back(u);\n\n    }\n\n    vector<int> dp(n);\n\n    auto dfs = [&](int u, int p, auto && dfs) -> void {\n\n      for(auto v: adj[u]) if(v != p) {\n\n        dfs(v, u, dfs);\n\n        dp[u] = max(dp[u], dp[v] + (v & 1 ? 1 : 2));\n\n      }\n\n    };\n    dfs(0, -1, dfs);\n\n    vector<int> ans(n);\n\n    auto dfs1 = [&](int u, int p, int par_sum, auto && dfs1) -> void {\n\n      ans[u] = max(dp[u], par_sum);\n\n      multiset<int> st;\n\n      for(auto v: adj[u]) if(v != p) st.insert(dp[v] + (v & 1 ? 1 : 2));\n\n      for(auto v: adj[u]) if(v != p) {\n\n        st.erase(st.find(dp[v] + (v & 1 ? 1 : 2)));\n\n        int x = (st.empty() ? 0 : *st.rbegin());\n\n        dfs1(v, u, max(x + (u & 1 ? 1 : 2), par_sum + (u & 1 ? 1 : 2)), dfs1);\n\n        st.insert(dp[v] + (v & 1 ? 1 : 2));\n\n      }\n\n    };\n    dfs1(0, -1, 0, dfs1);\n\n    return ans;\n  }\n};",
+    "submit_ts": "1722699565",
+    "subm_id": "1343215578"
+}

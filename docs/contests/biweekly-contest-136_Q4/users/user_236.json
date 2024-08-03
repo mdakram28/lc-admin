@@ -1,0 +1,6 @@
+{
+    "username": "ddd-a",
+    "submission": "class Solution {\npublic:\n    static const int maxn = 2e5+10;\n    vector<array<int,2>>edge[maxn];\n    int mx[maxn][2];\n    vector<int>res;\n    int dfs(int u,int fa){\n        for(auto w:edge[u]){\n            int v = w[0];\n            if(w[0] == fa)continue;\n            int tmp = dfs(w[0],u) + (v % 2 ? 1 : 2);\n            mx[u][1] = max(mx[u][1],tmp);\n            if(mx[u][1] > mx[u][0])swap(mx[u][1],mx[u][0]);\n        }\n        return mx[u][0];\n    }\n    void solve(int u,int fa,int maxLen){\n        res[u] = max(mx[u][0],maxLen);\n        for(auto w:edge[u]){\n            if(w[0] == fa)continue;\n            int tmp;\n            int v = w[0];\n            if(mx[u][0] == mx[v][0] + (v%2?1:2))\n                tmp = max(maxLen,mx[u][1]) + (u % 2?1:2);\n            else tmp = max(maxLen,mx[u][0]) + (u % 2?1:2);\n            solve(w[0],u,tmp);\n        }\n    }\n    vector<int> timeTaken(vector<vector<int>>& edges) {\n        int n = 0;\n        for(auto e:edges){\n            edge[e[0]].push_back({e[1],e[1]%2?1:2});\n            edge[e[1]].push_back({e[0],e[0]%2?1:2});\n            n = max(n,max(e[0],e[1]));\n        }\n        dfs(0,-1);\n        res = vector<int>(n + 1);\n        solve(0,-1,0);\n        return res;\n    }\n};",
+    "submit_ts": "1722698849",
+    "subm_id": "552272829"
+}

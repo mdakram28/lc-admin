@@ -1,0 +1,6 @@
+{
+    "username": "r06922157",
+    "submission": "class Solution {\npublic:\nint minFlips(vector<vector<int>>& grid) {\n    int m = grid.size();\n    int n = grid[0].size();\n    int result = 0;\n    for (int i = 0; i < m/2; ++i) {\n      for (int j = 0; j < n/2; ++j) {\n        int one = (grid[i][j]==1) + (grid[i][n-1-j]==1) + (grid[m-1-i][j]==1) + (grid[m-1-i][n-1-j]==1); \n        result += min(one,4-one);\n      }\n    }\n    if (m%2 && n%2 && grid[m/2][n/2]==1) {\n      ++result;\n    }\n    int oneCounter = 0;\n    int diffCounter = 0;\n    if (m%2) {\n      int row = m/2;\n      for (int i = 0; i < n/2; ++i) {\n        if (grid[row][i] != grid[row][n-1-i]) {\n          ++diffCounter;\n          ++oneCounter;\n        }\n        else if (grid[row][i] == 1) {\n          oneCounter += 2;\n        }\n      }\n    }\n    if (n%2) {\n      int column = n/2;\n      for (int i = 0; i < m/2; ++i) {\n        if (grid[i][column] != grid[m-1-i][column]) {\n          ++diffCounter;\n          ++oneCounter;\n        }\n        else if (grid[i][column] == 1) {\n          oneCounter += 2;\n        }\n      }\n    }\n    int r = min(oneCounter%4,4-oneCounter%4);\n    if (diffCounter < r) {\n      result += r;\n    }\n    else {\n      result += diffCounter;\n    }\n    return result;\n  }\n};",
+    "submit_ts": "1722698473",
+    "subm_id": "1343181759"
+}

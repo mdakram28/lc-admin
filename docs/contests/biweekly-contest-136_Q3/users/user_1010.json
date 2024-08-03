@@ -1,0 +1,6 @@
+{
+    "username": "eager-zhukovskybmg",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int m=grid.size(),n=grid[0].size();\n        int u=0,d=m-1;\n        int cnt=0,loc=0,num=0;\n        while(u<d){\n            int l=0,r=n-1;\n            while(l<r){\n                int sum=grid[u][l]+grid[u][r]+grid[d][l]+grid[d][r];\n                cnt+=min(sum,4-sum);\n                l++;\n                r--;\n            }\n            if(l==r&&grid[u][l]!=grid[d][l]){\n                loc++;\n                cnt++;\n            }\n            if(l==r&&grid[u][l]==1&&grid[d][l]==1) num+=2;\n            u++;\n            d--;\n        }\n        if(u==d){\n            if(n%2==1&&grid[u][n/2]==1) cnt++;\n            int left=0,right=n-1;\n            while(left<right){\n                if(grid[u][left]!=grid[u][right]){\n                    loc++;\n                    cnt++;\n                }\n                else{\n                    if(grid[u][left]) num+=2;\n                }\n                left++;\n                right--;\n            }\n        }\n        num=num%4;\n        num/=2;\n        if(loc>=num) return cnt;\n        else return cnt+2;\n    }\n};",
+    "submit_ts": "1722698877",
+    "subm_id": "552272959"
+}

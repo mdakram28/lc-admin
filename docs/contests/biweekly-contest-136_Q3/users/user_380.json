@@ -1,0 +1,6 @@
+{
+    "username": "Sayuyere",
+    "submission": "class Solution:\n    def minFlips(self, arr: List[List[int]]) -> int:\n        from functools import lru_cache\n        def get_jmp(i,j):\n            return sorted([i for i in set([(i,j),(i,len(arr[i])-1-j),(len(arr)-1-i,j),(len(arr)-1-i,len(arr[i])-1-j)]) if 0<=i[0]<len(arr) and 0<=i[1]<len(arr[0])])\n        vis = set()\n        vals = []\n        for i in range(len(arr)):\n            for j in range(len(arr[i])):\n                if (i,j) in vis:continue\n                res = 0\n                d = get_jmp(i,j)\n                for v in d:\n                    res += arr[v[0]][v[1]]\n                    vis.add(v)\n                vals.append((len(d),res))\n        @lru_cache(None)\n        def dp(i=0,c=0):\n            if i>=len(vals):return 0 if c==0 else float('inf')\n            a = dp(i+1,c)+vals[i][1]\n            b = dp(i+1,(c+vals[i][0])%4)+vals[i][0]-vals[i][1]\n            return min(a,b)\n        return(dp())",
+    "submit_ts": "1722697577",
+    "subm_id": "1343151517"
+}

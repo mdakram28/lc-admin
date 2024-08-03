@@ -1,0 +1,6 @@
+{
+    "username": "22501A4460",
+    "submission": "class Solution:\n    def minFlips(self, G: List[List[int]]) -> int:\n        N,M = len(G), len(G[0])\n        Ans = 0\n        if N%2 == 1 and M%2 == 1 and G[N//2][M//2] == 1:\n            Ans += 1\n        S = [0]*3\n        def PL(M,L,is_row=True):\n            A,B = 0, L - 1\n            while A < B:\n                sM = G[M][A]+G[M][B] if is_row else G[A][M]+G[B][M]\n                S[sM] += 1\n                A += 1\n                B -= 1\n        if N%2 == 1:\n            PL(N//2,M)\n        if M%2 == 1:\n            PL(M//2,N, is_row=False)\n        if S[2]%2 == 1:\n            Ans += S[1] if S[1]>0 else 2\n        else:\n            Ans += S[1]\n        for i in range(N//2):\n            for j in range(M//2):\n                SM = G[i][j]+G[N-1-i][j]+G[i][M-1-j]+G[N-1-i][M-1-j]\n                if SM not in {0,4}:\n                    Ans += min(SM,4-SM)\n        return Ans",
+    "submit_ts": "1722699882",
+    "subm_id": "1343225202"
+}

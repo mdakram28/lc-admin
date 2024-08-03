@@ -1,0 +1,6 @@
+{
+    "username": "vskesha",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        m, n = len(grid), len(grid[0])\n\n        ans = 0\n        for r in range(m // 2):\n            for c in range(n // 2):\n                ts = grid[r][c] + grid[~r][c] + grid[r][~c] + grid[~r][~c]\n                ans += min(ts, 4 - ts)\n        oddcols, oddrows = n % 2, m % 2\n        \n        if oddcols and oddrows:\n            ans += grid[m // 2][n // 2]\n        \n        mrow = grid[m // 2]\n        mcol = [grid[r][n // 2] for r in range(m)]\n        \n        mans = 0\n        if oddrows:\n            mans += sum(mrow[c] != mrow[~c] for c in range(n // 2))\n        if oddcols:\n            mans += sum(mcol[r] != mcol[~r] for r in range(m // 2))\n        if mans:\n            return ans + mans\n        \n        msum = 0\n        if oddrows:\n            msum += sum(mrow)\n        if oddcols:\n            msum += sum(mcol)\n        if oddrows and oddcols:\n            msum -= 2 * grid[m // 2][n // 2]\n            \n        return ans if msum % 4 == 0 else ans + 2",
+    "submit_ts": "1722700082",
+    "subm_id": "1343231196"
+}

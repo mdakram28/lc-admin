@@ -1,0 +1,6 @@
+{
+    "username": "daoqi",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>> &grid) {\n        int n = grid.size(), m = grid[0].size();\n        int l = 0, r = 0, ans = 0;\n        std::set<std::pair<int, int>> se;\n        for (int i = 0; i < (n + 1) / 2; i++) {\n            for (int j = 0; j < (m + 1) / 2; j++) {\n                se.clear();\n                se.emplace(i, j);\n                se.emplace(i, m - j - 1);\n                se.emplace(n - i - 1, j);\n                se.emplace(n - i - 1, m - j - 1);\n                int tl = 0, tr = 0;\n                for (auto [x, y]: se) {\n                    if (grid[x][y] == 0) tl++;\n                    else tr++;\n                }\n                if (se.size() == 4) {\n                    ans += std::min(4 - tl, 4 - tr);\n                } else if (se.size() == 2) {\n                    if (tr == 2) l++;\n                    else if(tr==1) r++;\n                } else {\n                    ans += 1 - tl;\n                }\n            }\n        }\n        \n        l%=2;\n        if(l&&r>=1) l=0,r-=1,ans++;\n        ans+=l*2+r;\n        return ans;\n    }\n};",
+    "submit_ts": "1722699029",
+    "subm_id": "552273711"
+}

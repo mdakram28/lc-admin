@@ -1,0 +1,6 @@
+{
+    "username": "VIBE09",
+    "submission": "class Solution {\npublic:\n    vector<int> timeTaken(vector<vector<int>>& edges) {\n        int n=(int)edges.size()+1;\n        multiset<int> s[n];\n\n\n        vector<vector<int>> g(n);\n\n        for(auto x:edges){\n            g[x[0]].push_back(x[1]);\n            g[x[1]].push_back(x[0]);\n        }\n\n\n\n        auto dfs=[&](auto&&dfs,int i,int p)->void{\n            s[i].insert(0);\n            for(auto j:g[i]){\n                if(j==p) continue;\n                dfs(dfs,j,i);\n                s[i].insert(*s[j].rbegin()+1+(j%2==0));\n            }\n        };\n\n\n        dfs(dfs,0,-1);\n        vector<int> ans(n,0);\n\n        auto dfs1=[&](auto&&dfs1,int i,int p)->void{\n            ans[i]=*s[i].rbegin();\n            for(auto j:g[i]){\n                if(j==p) continue;\n                int contri=*s[j].rbegin()+1+(j%2==0);\n                s[i].erase(s[i].find(contri));\n                s[j].insert(*s[i].rbegin()+1+(i%2==0));\n                s[i].insert(contri);\n                dfs1(dfs1,j,i);\n            }\n        };\n\n        dfs1(dfs1,0,-1);\n        return ans;\n\n    }\n};",
+    "submit_ts": "1722697835",
+    "subm_id": "1343160611"
+}

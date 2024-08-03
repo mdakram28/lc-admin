@@ -1,0 +1,6 @@
+{
+    "username": "MrSup1998",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n    int row = grid.size(), col = grid[0].size(); int ans = 0;\n\n    if ((row%2) && (col%2) && (grid[row/2][col/2])){\n        ans++;\n    }\n    vector<int>pc = {0,0,0}; \n    if (row%2) {\n        for (int i = 0; i < col/2;i++) {\n            pc[grid[row/2][i] + grid[row/2][col-i-1]]++;\n        }\n    }\n    if (col%2) {\n        for (int i = 0; i < row/2;i++) {\n            pc[grid[i][col/2] + grid[row-i-1][col/2]]++;\n        }\n    }\n    if (pc[2]%2) {\n        ans += pc[1]>0?pc[1]:2;\n    } else {\n        ans += pc[1];\n    }\n\n    for (int i = 0; i<row/2;i++) {\n        for (int j = 0; j < col/2;j++) {\n            int qsum = grid[i][j] + grid[row-1-i][j] + grid[i][col-1-j] + grid[row-1-i][col-1-j];\n            if (qsum != 0 && qsum != 4) {\n                ans += min(qsum,4-qsum);\n            }\n        }\n    }\n    return ans;\n    }\n};",
+    "submit_ts": "1722700311",
+    "subm_id": "1343238000"
+}

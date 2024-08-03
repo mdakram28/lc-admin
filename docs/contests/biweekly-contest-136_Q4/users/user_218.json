@@ -1,0 +1,6 @@
+{
+    "username": "cheng-liang-yu",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        n = len(edges) + 1\n        e = [[] for _ in range(n)]\n        for x, y in edges:\n            e[x].append(y)\n            e[y].append(x)\n        d = [-1] * n\n        def dfs0(x, p):\n            mx = 0\n            for y in e[x]:\n                if y == p: continue\n                mx = max(mx, dfs0(y, x) + (y + 1) % 2 + 1)\n            d[x] = mx\n            return mx\n        dfs0(0, -1)\n        res = [-1] * n\n        def dfs(x, p, u):\n            t = (x + 1) % 2 + 1\n            a = [d[y] + (y + 1) % 2 + 1 for y in e[x] if y != p]\n            if len(a) >= 2: mx1, mx2 = nlargest(2, a)\n            elif len(a) == 1: mx1, mx2 = a[0], 0\n            else: mx1 = mx2 = 0\n            for y in e[x]:\n                if y == p: continue\n                mx = mx2 if d[y] + (y + 1) % 2 + 1 == mx1 else mx1\n                dfs(y, x, t + max(u, mx))\n            res[x] = max(u, d[x])\n        dfs(0, -1, 0)\n        return res",
+    "submit_ts": "1722698115",
+    "subm_id": "552269416"
+}

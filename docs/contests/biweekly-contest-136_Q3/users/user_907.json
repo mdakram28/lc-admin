@@ -1,0 +1,6 @@
+{
+    "username": "drunkenButterfly",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        ROWS, COLS = len(grid), len(grid[0])\n        res = 0\n        # normal cases: 4 corners\n        for r in range(ROWS//2):\n            for c in range(COLS//2):\n                count = grid[r][c] + grid[ROWS-r-1][c] + grid[r][COLS-c-1] + grid[ROWS-r-1][COLS-c-1]\n                res += 2 - abs(count - 2)\n        # center row (odd number of rows)\n        diff = one_pair = zero_pair = 0\n        if ROWS % 2:\n            r = ROWS // 2\n            for c in range(COLS//2):\n                if grid[r][c] != grid[r][COLS-c-1]: diff += 1\n                elif grid[r][c] == 1: one_pair += 1\n                else: zero_pair += 1\n        # center col (odd number of cols)\n        if COLS % 2:\n            c = COLS // 2\n            for r in range(ROWS//2):\n                if grid[r][c] != grid[ROWS-r-1][c]: diff += 1\n                elif grid[r][c] == 1: one_pair += 1\n                else: zero_pair += 1\n        # deal with diff and pair\n        res += diff\n        if one_pair % 2 and diff == 0:\n            res += 2\n        # center\n        if ROWS % 2 and COLS % 2 and grid[ROWS//2][COLS//2] == 1:\n            res += 1\n        return res",
+    "submit_ts": "1722698362",
+    "subm_id": "1343178241"
+}

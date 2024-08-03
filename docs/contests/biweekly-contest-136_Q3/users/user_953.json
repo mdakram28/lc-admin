@@ -1,0 +1,6 @@
+{
+    "username": "hanjuTsai",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n      m, n = len(grid), len(grid[0])\n      res = 0\n      twos = []\n      seen = set()\n      for i in range(m):\n        for j in range(n):\n          arr = set([(i, j), (i, n - j - 1), (m - i - 1, j), (m - i - 1, n - j -1)])\n          s = sum(grid[i][j] for i, j in arr)\n          #1\n          if len(arr) == 1:\n            res += s * 4\n            continue\n          #2\n          if len(arr) == 2:\n            if arr not in seen:\n              twos.append(s)\n              seen.add(frozenset(arr))\n            continue\n          #4\n          if s == 1 or s == 3:\n            res += 1\n          if s == 2:\n            res += 2\n      \n      res = res // 4\n      cnt = Counter(twos)\n      cnt[2] = cnt[2] % 2\n      if cnt[1] and cnt[2]:\n        cnt[1] -= 1\n        cnt[2] -= 1\n        res += 1\n      res += cnt[1] + cnt[2] * 2\n        \n      \n      \n      return res",
+    "submit_ts": "1722698462",
+    "subm_id": "1343181373"
+}

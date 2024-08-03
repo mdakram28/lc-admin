@@ -1,0 +1,6 @@
+{
+    "username": "rui_er",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size(), ans = 0;\n        vector<int> cnta(5), cntb(3);\n        for(int u = 0, d = n - 1; u <= d; ++u, --d) {\n            for(int l = 0, r = m - 1; l <= r; ++l, --r) {\n                if(u == d && l == r) {\n                    int sum = grid[u][l];\n                    if(sum == 0) continue;\n                    ++ans;\n                }\n                else if(u == d || l == r) {\n                    int sum = grid[u][l] + grid[d][r];\n                    if(sum == 0) continue;\n                    ++cntb[sum];\n                }\n                else {\n                    int sum = grid[u][l] + grid[u][r] + grid[d][l] + grid[d][r];\n                    if(sum == 0 || sum == 4) continue;\n                    ++cnta[sum];\n                }\n            }\n        }\n        ans += cnta[1] + 2 * cnta[2] + cnta[3];\n        if(cntb[1]) ans += cntb[1];\n        else if(cntb[2] & 1) ans += 2;\n        return ans;\n    }\n};",
+    "submit_ts": "1722696709",
+    "subm_id": "552262432"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Ricky-Daxia",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size();\n        vector<int> f(4, 1e9);\n        f[0] = 0;\n        for (int i = 0; i < (n + 1) / 2; i++) {\n            for (int j = 0; j < (m + 1) / 2; j++) {\n                int t = grid[i][j], cnt = 1;\n                if (j != m - 1 - j) {\n                    t += grid[i][m - 1 - j], cnt ++;\n                }\n                if (i != n - 1 - i) {\n                    t += grid[n - 1 - i][j], cnt ++;\n                }\n                if (i != n - 1 - i && j != m - 1 - j) {\n                    t += grid[n - 1 - i][m - 1 - j], cnt ++;\n                }\n                int ones = cnt - t, zeros = t;\n                vector<int> g(4);\n                for (int k = 0; k < 4; k++) {\n                    g[k] = f[k] + zeros;\n                }\n                for (int k = 0; k < 4; k++) {\n                    g[(k + cnt) % 4] = min(g[(k + cnt) % 4], f[k] + ones);\n                }\n                f = std::move(g);\n            }\n        }\n        return f[0];\n    }\n};",
+    "submit_ts": "1722699523",
+    "subm_id": "1343214259"
+}

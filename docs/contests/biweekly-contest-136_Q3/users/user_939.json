@@ -1,0 +1,6 @@
+{
+    "username": "hungry-sammetzf9",
+    "submission": "class Solution {\n    public int minFlips(int[][] grid) {\n        int m = grid.length, n = grid[0].length;\n        int flips = 0;\n        for (int i = 0; i < m / 2; ++i) {\n            for (int j = 0; j < n / 2; ++j) {\n                int a = grid[i][j] + grid[i][n-1-j] + grid[m-1-i][j] + grid[m-1-i][n-1-j];\n                flips += Math.min(a, 4 - a);\n            }\n        }\n        if (m % 2 == 1 && n % 2 == 1 && grid[m/2][n/2] == 1) ++flips;\n        int one = 0, f = 0;\n        if (m % 2 == 1) {\n            int[] r = grid[m/2];\n            int i = 0, j = n - 1;\n            while (i < j) {\n                if (r[i] != r[j]) ++f;\n                else if (r[i] == 1 && r[j] == 1) one += 2;\n                ++i; --j;\n            }\n        }\n        if (n % 2 == 1) {\n            int i = 0, j = m - 1, c = n / 2;\n            while (i < j) {\n                if (grid[i][c] != grid[j][c]) ++f;\n                else if (grid[i][c] == 1 && grid[j][c] == 1) one += 2;\n                ++i; --j;\n            }\n        }\n        flips += f;\n        if (one % 4 == 2 && f == 0) flips += 2;\n        return flips;\n    }\n}",
+    "submit_ts": "1722698733",
+    "subm_id": "552272260"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Sandeep_P",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        n=len(grid)\n        m=len(grid[0])\n        c=sum(x for row in grid for x in row)\n        options=[]\n        for i in range(n-n//2):\n            for j in range(m-m//2):\n                if n%2==1 and m%2==1 and i==n//2 and j==m//2:\n                    x=[grid[i][j]]\n                elif n%2==1 and i==n//2:\n                    x=[grid[i][j],grid[i][m-j-1]]\n                elif m%2==1 and j==m//2:\n                    x=[grid[i][j],grid[n-i-1][j]]\n                else:\n                    x=[grid[i][j],grid[n-i-1][j],grid[i][m-j-1],grid[n-i-1][m-j-1]]\n                ct=Counter(x)\n                options.append((ct[0],ct[1]))\n        @cache\n        def dp(i,rem=c%4):\n            if i==len(options):\n                if rem==0:\n                    return 0\n                return inf\n            x,y=options[i]\n            return min(dp(i+1,(rem+x)%4)+x,dp(i+1,(rem-y)%4)+y)\n        return dp(0)",
+    "submit_ts": "1722699475",
+    "subm_id": "1343212804"
+}

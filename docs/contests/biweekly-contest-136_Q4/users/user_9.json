@@ -1,0 +1,6 @@
+{
+    "username": "w285714",
+    "submission": "class Solution {\npublic:\n    vector<vector<int>> e;\n    int n;\n    vector<int> a,r;\n    vector<bool> col;\n    int dfs(int x){\n        col[x]=1;\n        int res=0;\n        for(int q:e[x]){\n            if(!col[q]){\n                int t=dfs(q);\n                t+=q&1?1:2;\n                res=max(res,t);\n            }\n        }\n        return a[x]=res;\n    }\n    void dfs2(int x, int t){\n        col[x]=1;\n        int v=x&1?1:2;\n        multiset<int> s;\n        s.insert(t);\n        for(int q:e[x]){\n            if(!col[q]){\n                s.insert(a[q]+(q&1?1:2));\n            }\n        }\n        r[x]=*s.rbegin();\n        for(int q:e[x]){\n            if(!col[q]){\n                int t=a[q]+(q&1?1:2);\n                s.erase(s.find(t));\n                dfs2(q,v+*s.rbegin());\n                s.insert(t);\n            }\n        }\n    }\n    vector<int> timeTaken(vector<vector<int>>& edges) {\n        n=edges.size()+1;\n        e.resize(n);\n        col.resize(n);\n        for(auto& q:edges){\n            e[q[0]].push_back(q[1]);\n            e[q[1]].push_back(q[0]);\n        }\n        a.resize(n);\n        dfs(0);\n        col=vector<bool>(n);\n        r.resize(n);\n        dfs2(0,0);\n        return r;\n    }\n};",
+    "submit_ts": "1722696907",
+    "subm_id": "552263463"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "dovhonosyk",
+    "submission": "# @param {Integer[][]} grid\n# @return {Integer}\ndef min_flips(g)\n  m0 = g.size; n0 = g[0].size\n  m = g.size - 1; n = g[0].size - 1\n  h = (m - 1)/2; p = (n - 1)/2\n\n  res = 0\n\n  for i in 0..h\n    for j in 0..p\n      # puts \"i: #{i} j: #{j}\"\n      s = g[i][j] + g[i][n - j] + g[m - i][j] + g[m - i][n - j]\n      # puts \"i: #{i} j: #{j} s: #{s}\"\n      res += [s, 4 - s].min\n    end\n  end\n\n  if m0.odd? && n0.odd?\n    c = g[h + 1][p + 1]\n    row = g[h + 1]\n    col = g.transpose[p + 1]\n\n    zamin1 = (0..n/2).count { |j| row[j] != row[n - j] }\n    zamin2 = (0..m/2).count { |j| col[j] != col[m - j] }\n    zamin = zamin1 + zamin2\n\n    if (zamin == 0 && ((row.sum + col.sum - 2*c) % 4) != 0)\n      res += 2\n    end\n\n    res += zamin\n    res += c\n\n  elsif m0.odd?\n    row = g[h + 1]\n    zamin = (0..n/2).count { |j| row[j] != row[n - j] }\n\n    if (zamin == 0 && (row.sum % 4) != 0)\n      res += 2\n    end\n\n    res += zamin\n\n  elsif n0.odd?\n    col = g.transpose[p + 1]\n    zamin = (0..m/2).count { |j| col[j] != col[m - j] }\n    if (zamin == 0 && (col.sum % 4) != 0)\n      res += 2\n    end\n    res += zamin\n  end\n  \n  res\nend",
+    "submit_ts": "1722698444",
+    "subm_id": "1343180807"
+}

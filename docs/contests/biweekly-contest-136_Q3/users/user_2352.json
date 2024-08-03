@@ -1,0 +1,6 @@
+{
+    "username": "lsqu",
+    "submission": "class Solution {\n    public int minFlips(int[][] grid) {\n        int m = grid.length, n = grid[0].length;\n        int[][] cnt = new int[(m + 1) / 2][(n + 1) / 2], \n                one = new int[(m + 1) / 2][(n + 1) / 2];\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                int x = Math.min(i, m - 1 - i), y = Math.min(j, n - 1 - j);\n                cnt[x][y]++;\n                one[x][y] += grid[i][j];\n            }\n        }\n        int ans = 0, t1 = 0, cc = 0;\n        for (int i = 0; i < cnt.length; i++) {\n            for (int j = 0; j < cnt[0].length; j++) {\n                if (cnt[i][j] == 4) {\n                    ans += Math.min(one[i][j], 4 - one[i][j]);\n                } else if (cnt[i][j] == 2) {\n                    if (one[i][j] == 2 || one[i][j] == 0) {\n                        t1 += one[i][j];\n                    } else {\n                        t1 += one[i][j];\n                        cc++;\n                    }\n                } else if (cnt[i][j] == 1) {\n                    ans += one[i][j];\n                }\n            }\n        }\n        \n        t1 %= 4;\n        t1 = Math.min(t1, 4 - t1);\n        \n        return ans + Math.max(t1, cc);\n    }\n}",
+    "submit_ts": "1722699863",
+    "subm_id": "552277450"
+}

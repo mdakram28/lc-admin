@@ -1,0 +1,6 @@
+{
+    "username": "odinson776",
+    "submission": "package main\n\nimport (\n\t\"math\"\n)\n\nfunc minFlips(grid [][]int) int {\n\trows := len(grid)\n\tcols := len(grid[0])\n\tresult := 0\n\n\tif rows%2 == 1 && cols%2 == 1 {\n\t\tif grid[rows/2][cols/2] == 1 {\n\t\t\tresult += 1\n\t\t}\n\t}\n\n\tcounts := [3]int{}\n\tif rows%2 == 1 {\n\t\tleft, right := 0, cols-1\n\t\tfor left < right {\n\t\t\tsum := grid[rows/2][left] + grid[rows/2][right]\n\t\t\tcounts[sum] += 1\n\t\t\tleft++\n\t\t\tright--\n\t\t}\n\t}\n\n\tif cols%2 == 1 {\n\t\ttop, bottom := 0, rows-1\n\t\tfor top < bottom {\n\t\t\tsum := grid[top][cols/2] + grid[bottom][cols/2]\n\t\t\tcounts[sum] += 1\n\t\t\ttop++\n\t\t\tbottom--\n\t\t}\n\t}\n\n\tif counts[2]%2 == 1 {\n\t\tif counts[1] > 0 {\n\t\t\tresult += counts[1]\n\t\t} else {\n\t\t\tresult += 2\n\t\t}\n\t} else {\n\t\tresult += counts[1]\n\t}\n\n\tfor i := 0; i < rows/2; i++ {\n\t\tfor j := 0; j < cols/2; j++ {\n\t\t\tval1 := grid[i][j]\n\t\t\tval2 := grid[rows-1-i][j]\n\t\t\tval3 := grid[i][cols-1-j]\n\t\t\tval4 := grid[rows-1-i][cols-1-j]\n\n\t\t\ttotal := val1 + val2 + val3 + val4\n\n\t\t\tif total != 0 && total != 4 {\n\t\t\t\tresult += int(math.Min(float64(total), float64(4-total)))\n\t\t\t}\n\t\t}\n\t}\n\n\treturn result\n}\n",
+    "submit_ts": "1722699365",
+    "subm_id": "1343209440"
+}

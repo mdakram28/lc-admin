@@ -1,0 +1,6 @@
+{
+    "username": "dfomin",
+    "submission": "impl Solution {\n    pub fn min_flips(grid: Vec<Vec<i32>>) -> i32 {\n        let n = grid.len();\n        let m = grid[0].len();\n        let mut result = 0;\n        for i in 0..n / 2 {\n            for j in 0..m / 2 {\n                let v = grid[i][j] + grid[i][m - 1 - j] + grid[n - 1 - i][j] + grid[n - 1 - i][m - 1 - j];\n                result += v.min(4 - v);\n            }\n        }\n        if n % 2 == 1 && m % 2 == 1 && grid[n / 2][m / 2] == 1 {\n            result += 1;\n        }\n        let mut hor = 0;\n        let mut ver = 0;\n        let mut ones = 0;\n        if n % 2 == 1 {\n            for i in 0..m / 2 {\n                if grid[n / 2][i] != grid[n / 2][m - 1 - i] {\n                    hor += 1;\n                }\n                ones += grid[n / 2][i] + grid[n / 2][m - 1 - i];\n            }\n        }\n        if m % 2 == 1 {\n            for i in 0..n / 2 {\n                if grid[i][m / 2] != grid[n - 1 - i][m / 2] {\n                    ver += 1;\n                }\n                ones += grid[i][m / 2] + grid[n - 1 - i][m / 2]\n            }\n        }\n        ones %= 4;\n        let rest = ones.min(4 - ones);\n        result += rest.max(hor + ver);\n        result\n    }\n}",
+    "submit_ts": "1722697351",
+    "subm_id": "1343143460"
+}

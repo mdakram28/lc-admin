@@ -1,0 +1,6 @@
+{
+    "username": "bu-yao-xiang-bei",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int n = grid.size();\n        int m = grid[0].size();\n        int ans = 0;\n        function<int(int, int)> run = [&](int x, int y) {\n            int cnt = grid[x][y] + grid[x][m - 1 - y] + grid[n - 1 - x][y] + grid[n - 1 - x][m - 1 - y];\n            return min(cnt, 4 - cnt);\n        };\n        for (int i = 0; i < n / 2; ++i)\n            for (int j = 0; j < m / 2; ++j)\n                ans += run(i, j);\n        \n        int cntOld = 0, cntCnange = 0;\n        if (n % 2 == 1)\n        {\n            for (int j = 0; j < m / 2; ++j)\n            {\n                if (grid[n / 2][j] != grid[n / 2][m - 1 - j]) ++cntCnange;\n                else if (grid[n / 2][j] == 1) ++cntOld;\n            }\n        }\n        if (m % 2 == 1)\n        {\n            for (int i = 0; i < n / 2; ++i)\n            {\n                if (grid[i][m / 2] != grid[n - 1 - i][m / 2]) ++cntCnange;\n                else if (grid[i][m / 2] == 1) ++cntOld;\n            }\n        }\n        ans += (cntOld % 2 == 1 && cntCnange == 0) ? 2 : cntCnange;\n        if (n % 2 == 1 && m % 2 == 1 && grid[n / 2][m / 2] == 1) ++ans;\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722697903",
+    "subm_id": "552268370"
+}

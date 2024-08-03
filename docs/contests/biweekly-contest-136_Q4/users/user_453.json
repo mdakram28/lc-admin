@@ -1,0 +1,6 @@
+{
+    "username": "lyj617",
+    "submission": "class Solution {\n public:\n  vector<int> timeTaken(vector<vector<int>>& edges) {\n    int n = edges.size() + 1;\n    vector<int> graph[n];\n    for (auto& edge : edges) {\n      int u = edge[0], v = edge[1];\n      graph[u].emplace_back(v);\n      graph[v].emplace_back(u);\n    }\n    int d1[n], d2[n], h[n];\n    auto dp = [&](auto&& dp, int u, int p) -> void {\n      d1[u] = d2[u] = 0;\n      for (int v : graph[u]) {\n        if (v == p) continue;\n        dp(dp, v, u);\n        int t = d1[v] + (v & 1 ? 1 : 2);\n        if (t > d1[u])\n          d2[u] = d1[u], d1[u] = t;\n        else if (t > d2[u])\n          d2[u] = t;\n      }\n    };\n    auto dfs = [&](auto&& dfs, int u, int p) -> void {\n      h[u] = d1[u];\n      for (int v : graph[u]) {\n        if (v == p) continue;\n        int du = d1[v] + (v & 1 ? 1 : 2) < d1[u] ? d1[u] : d2[u];\n        int t = du + (u & 1 ? 1 : 2);\n        if (t > d1[v])\n          d2[v] = d1[v], d1[v] = t;\n        else if (t > d2[v])\n          d2[v] = t;\n        dfs(dfs, v, u);\n      }\n    };\n    dp(dp, 0, -1), dfs(dfs, 0, -1);\n    vector<int> ans(n);\n    for (int i = 0; i < n; i++) ans[i] = h[i];\n    return ans;\n  }\n};",
+    "submit_ts": "1722699646",
+    "subm_id": "552276541"
+}

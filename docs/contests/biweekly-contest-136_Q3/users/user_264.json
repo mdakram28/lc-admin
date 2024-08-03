@@ -1,0 +1,6 @@
+{
+    "username": "virinci",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        n, m = len(grid), len(grid[0])\n        inf = 10**10\n        ans = [[inf] * 4 for _ in range(2)]\n        p = 1\n        ans[p][0] = 0\n\n        for i in range((n + 1) // 2):\n            for j in range((m + 1) // 2):\n                p ^= 1\n                ix = {(i, j), (i, m - j - 1), (n - i - 1, j), (n - i - 1, m - j - 1)}\n                cz = sum(grid[i][j] == 1 for i, j in ix)\n                co = len(ix) - cz\n                for ones in range(4):\n                    ans[p][ones] = min(inf, ans[1 - p][ones] + cz)\n                for ones in range(4):\n                    ans[p][ones] = min(ans[p][ones], ans[1 - p][(ones - len(ix)) % 4] + co)\n\n        return ans[p][0]",
+    "submit_ts": "1722700081",
+    "subm_id": "1343231137"
+}

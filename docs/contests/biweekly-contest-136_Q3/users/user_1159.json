@@ -1,0 +1,6 @@
+{
+    "username": "nguyenddong90",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        m,n = len(grid),len(grid[0])\n        ans = 0\n        for i in range(m//2):\n            for j in range(n//2):\n                tmp = grid[i][j] + grid[-i-1][j] + grid[i][-j-1] + grid[-i-1][-j-1]\n                ans += min(tmp%4,4-tmp%4)\n        opt = 0\n        cnt_one = 0\n        # Handle mid line\n        if m%2:\n            for j in range(n//2):\n                cnt_one += (grid[m//2][j] + grid[m//2][-j-1])\n                opt += (grid[m//2][j] != grid[m//2][-j-1])\n            ans += opt\n        # Handle mid row\n        if n%2:\n            opt_col = 0\n            for i in range(m//2):\n                cnt_one += (grid[i][n//2] + grid[-i-1][n//2])\n                opt_col += (grid[i][n//2] != grid[-i-1][n//2])\n            ans += opt_col\n            opt += opt_col\n            if m%2 and grid[m//2][n//2]: ans += 1\n        if cnt_one%4==2 and opt==0: ans += 2 # we need to flip 2 cells\n        return ans\n",
+    "submit_ts": "1722698934",
+    "subm_id": "1343196415"
+}

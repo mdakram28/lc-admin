@@ -1,0 +1,6 @@
+{
+    "username": "wang-jing-oh",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& a) {\n        int n = a.size(), m = a[0].size();\n        int inf = 1e9;\n        vector<int> f(4, inf);\n        f[0] = 0;\n        for(int i = 0; i <= n - i - 1; ++i)\n        {\n            for(int j = 0; j <= m - j - 1; ++j)\n            {\n                auto g = f;\n                f.assign(4, inf);\n                set<pair<int,int>> st;\n                st.insert({i, j}), st.insert({n - i - 1, j}), st.insert({n - i - 1, m - j - 1}), st.insert({i, m - j - 1});\n                for(int x = 0; x < 4; ++x)\n                {\n                    for(int t = 0; t < 2; ++t)\n                    {\n                        int c = 0, v = 0;\n                        for(auto [x, y] : st)\n                        {\n                            c++;\n                            v+=(t != a[x][y]);\n                        }\n                        f[(x + c * t)%4] = min(f[(x + c * t)%4], g[x] + v);\n                    }\n                }\n            }\n        }\n        return  f[0];\n    }\n};",
+    "submit_ts": "1722696718",
+    "subm_id": "552262482"
+}

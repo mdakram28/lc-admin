@@ -1,0 +1,6 @@
+{
+    "username": "stupidRR",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        map< pair<int,int> ,int > total,ones;\n        int n=grid.size();\n        int m=grid[0].size();\n        for(int i=0;i<n;i++)\n        {\n            for(int j=0;j<m;j++)\n            {\n                int a=std::min(i,n-1-i);\n                int b=std::max(j,m-1-j);\n                total[ {a,b} ]++;\n                if(grid[i][j]==1)\n                    ones[{a,b}]++;\n            }\n        }\n        \n        vector<int> dp(4,1e9);\n        dp[0]=0;\n        for(auto &[cell,cnt] : total)\n        {\n            vector<int> ndp(4,1e9);\n            int oneWay=ones[cell];\n            int otherWay=cnt-oneWay;\n            for(int i=0;i<4;i++)\n            {\n                ndp[ (i+cnt)%4 ]=std::min( ndp[ (i+cnt)%4 ],dp[i]+otherWay);\n                ndp[i]=std::min(ndp[i],dp[i]+oneWay);\n            }\n            swap(ndp,dp);\n        }\n        \n        return dp[0];\n    }\n};",
+    "submit_ts": "1722696276",
+    "subm_id": "1343100157"
+}

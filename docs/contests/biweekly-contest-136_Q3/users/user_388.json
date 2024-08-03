@@ -1,0 +1,6 @@
+{
+    "username": "jskhirtladze",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int n=grid.size();\n        int m=grid[0].size();\n        \n        int ans=0;\n\n        for (int i=0;i<n/2;i++)\n            for (int j=0;j<m/2;j++) {\n                int I=n-i-1;\n                int J=m-j-1;\n                int s = grid[i][j]+grid[I][j]+grid[i][J]+grid[I][J];\n                ans+=min(s,4-s);\n            }\n        \n\n        if ((n%2) && (m%2) && grid[n/2][m/2]==1) {\n            ans++;\n            grid[n/2][m/2]=0;\n        }\n\n        int all2=0;\n        int ops=0;\n\n        if (n%2) {\n            for (int j=0;j<m/2;j++) {\n                int s=grid[n/2][j]+grid[n/2][m-1-j];\n                if (s==2) all2++;\n                ops+=min(s,2-s);\n            }\n        };\n\n        if (m%2) {\n            for (int i=0;i<n/2;i++) {\n                int s=grid[i][m/2]+grid[n-1-i][m/2];\n                if (s==2) all2++;\n                ops+=min(s,2-s);\n            }\n        };\n\n        ans+=ops;\n\n        if (all2 % 2) {\n            if (ops==0)\n                ans+=2;\n        };\n        return ans;\n    }\n};",
+    "submit_ts": "1722696695",
+    "subm_id": "1343118402"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "AyuAnchor",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        n = len(edges) + 1\n        adj = [[] for _ in range(n)]\n        for u, v in edges:\n            adj[u] += [v]\n            adj[v] += [u]\n\n        dis = [0]*n\n\n        def dfs(u, p):\n            st = [(u, p)]\n            dis[u] = 0\n            while st:\n                u, p = st.pop()\n                for v in adj[u]:\n                    if v != p:\n                        st += [(v, u)]\n                        dis[v] = dis[u] + 1 + (v & 1 == 0)\n\n            return dis[:]\n\n        def dfs2(u, p):\n            st = [(u, p)]\n            dis[u] = 0\n            while st:\n                u, p = st.pop()\n                for v in adj[u]:\n                    if v != p:\n                        st += [(v, u)]\n                        dis[v] = dis[u] + 1 + (u & 1 == 0)\n\n            return dis[:]\n\n        d0 = dfs(0, 0)    # distance from root\n\n        u = d0.index(max(d0))\n        d1 = dfs(u, u)    # distance from the farthest point from root\n\n        v = d1.index(max(d1))\n        d1 = dfs2(u, u)\n        d2 = dfs2(v, v)    # distance from the diamter end\n\n        ans = [max(d1[i], d2[i]) for i in range(n)]\n        return ans",
+    "submit_ts": "1722700544",
+    "subm_id": "1343245195"
+}

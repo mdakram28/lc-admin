@@ -1,0 +1,6 @@
+{
+    "username": "ghj123h",
+    "submission": "public class Solution {\n    public int MinFlips(int[][] grid) {\n        int m = grid.Length, n = grid[0].Length;\n        int ans = 0;\n        for (int i = 0; i < m / 2; ++i) for (int j = 0; j < n / 2; ++j) {\n            int v = grid[i][j] + grid[m-i-1][j] + grid[i][n-j-1] + grid[m-i-1][n-j-1];\n            ans += Math.Min(v, 4-v);\n        }\n        if (m % 2 == 1 && n % 2 == 1 && grid[m/2][n/2] == 1) { grid[m/2][n/2] = 0; ++ans; }\n        int c = 0, one = 0, t = 0;\n        if (m % 2 == 1) {\n            for (int j = 0; j < n / 2; ++j) {\n                if (grid[m/2][j] != grid[m/2][n-j-1]) ++one;\n                c += grid[m/2][j];\n                ++t;\n            }\n        }\n        if (n % 2 == 1) {\n            for (int i = 0; i < m / 2; ++i) {\n                if (grid[i][n/2] != grid[m-i-1][n/2]) ++one;\n                c += grid[i][n/2];\n                ++t;\n            }\n        }\n        if (one == 0 && c % 2 == 1) ans += 2;\n        else if (t <= 1) ans += Math.Max(one, c);\n        else ans += one;\n        return ans;\n    }\n}",
+    "submit_ts": "1722697860",
+    "subm_id": "552268156"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "vermachakshu",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& a) {\n        int n = a.size();\n        int m = a[0].size();\n        int ans = 0;\n\n        for(int i=0; i<n/2; i++){\n            for(int j=0; j<m/2; j++){\n                int cnt = a[i][j] + a[n - 1 - i][j] + a[i][m - 1 - j] + a[n - 1 - i][m - 1 - j];\n                ans += min(cnt, 4 - cnt);\n            }\n        }\n\n        int c = 0;\n        bool ok = false;\n        if(n & 1){\n            for(int j=0; j<m/2; j++){\n                ans += a[n / 2][j] != a[n / 2][m - 1 - j];\n                ok |= (a[n / 2][j] != a[n / 2][m - 1 - j]);\n                if(a[n / 2][j] == 1 && a[n / 2][m - 1 - j] == 1)   c++; \n            }\n        }\n\n        if(m & 1){\n            for(int i=0; i<n/2; i++){\n                ans += a[i][m / 2] != a[n - 1 - i][m / 2];\n                ok |= (a[i][m / 2] != a[n - 1 - i][m / 2]);\n                if(a[i][m / 2] && a[n - 1 - i][m / 2])  c++;\n            }\n        }\n\n        if(c & 1){\n            if(!ok) ans += 2;\n        }\n        \n        if((n&1) && (m&1) && (a[n / 2][m / 2])) ans++;\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722696442",
+    "subm_id": "1343107777"
+}

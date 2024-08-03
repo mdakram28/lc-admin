@@ -1,0 +1,6 @@
+{
+    "username": "ard001",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        const int n = grid.size(), m = grid[0].size();\n        int ans = 0;\n        vector<int> cnt(4,0);\n        for(int r1=0,r2=n-1;r1<=r2;++r1,--r2){\n            for(int c1=0,c2=m-1;c1<=c2;++c1,--c2){\n               if(r1==r2){\n                    if(c1==c2){\n                        ans += grid[r1][c1] == 1;\n                    } else {\n                        cnt[2*(grid[r1][c1]==1) + (grid[r1][c2]==1)]++;\n                    }\n               } else {\n                    if(c1==c2){\n                        cnt[2*(grid[r1][c1]==1) + (grid[r2][c1]==1)]++;\n                    } else {\n                        int c = grid[r1][c1]+grid[r2][c1] + grid[r1][c2] + grid[r2][c2];\n                        ans += min(c,4-c);\n                    }\n               } \n            }\n        }\n        int x = cnt[1] + cnt[2];\n        if(cnt[3]%2==0) return ans + x;\n        else if(x) return ans + x;\n        else return ans + 2; \n    }\n};",
+    "submit_ts": "1722697165",
+    "subm_id": "1343136577"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "glendonhu",
+    "submission": "class Solution {\npublic:\n  vector<int> timeTaken(vector<vector<int>>& g) {\n    int n = g.size()+1;\n    vector<vector<int>> co(n);\n    vector<int> out(n);\n    for(vector<int>&e:g) co[e[0]].push_back(e[1]), co[e[1]].push_back(e[0]);\n    function <void(int, int)> dfs = [&](int x, int f) {\n      for(int s:co[x]) if(s!=f){\n        // out[x] = 2-(s%2);\n        // ans[0] = max(ans[0], out[x]);\n        // in[x] = 2-(x%2);\n        dfs(s, x);\n        out[x] = max(out[x], out[s]+ 2-s%2);\n      }\n      // printf(\"out[%d] %d\\n\", x, ans[x]);\n    };\n    dfs(0, 0);\n    function <void(int, int, int)> dfs2 = [&](int x, int f, int v) {\n      // printf(\"v[%d] %d\\n\", x, v);\n      out[x] = max(out[x], v);\n      int to_x = 2- x%2;\n      int mxi = -1, mx1 = v, mx2=0;\n      for(int ss: co[x]) if(ss!=f) {\n        int cur = 2-ss%2+out[ss];\n        if(cur > mx1) {\n          mxi = ss;\n          mx2 = mx1;\n          mx1 = cur;\n        }\n        else if(cur>mx2){\n          mx2 = cur;\n        }\n      }\n      for(int s:co[x]) if(s!=f){\n        int mx = s==mxi? mx2:mx1;\n        dfs2(s, x, mx + to_x);\n      }\n    };\n    dfs2(0, -1, 0);\n    return out;\n  }\n};",
+    "submit_ts": "1722699731",
+    "subm_id": "552276919"
+}

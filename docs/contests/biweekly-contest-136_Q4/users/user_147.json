@@ -1,0 +1,6 @@
+{
+    "username": "sonic407",
+    "submission": "class Solution:\n    def timeTaken(self, e: List[List[int]]) -> List[int]:\n        n = len(e) + 1\n        g = [[] for i in range(n)]\n        for a, b in e:\n            g[a].append(b)\n            g[b].append(a)\n        s = [0] * n\n        t = [0] * n\n        q = [-1] * n\n        def dfs(x, fa):\n            for y in g[x]:\n                if y != fa:\n                    v = 2 - y % 2\n                    dfs(y, x)\n                    if s[y] + v > s[x]:\n                        t[x] = s[x]\n                        s[x] = s[y] + v\n                        q[x] = y\n                    elif s[y] + v > t[x]:\n                        t[x] = s[y] + v\n        dfs(0, -1)\n        f = [0] * n\n        f[0] = s[0]\n        def reroot(x, fa, w):\n            w += 2 - fa % 2\n            if w > s[x]:\n                t[x] = s[x]\n                s[x] = w\n                q[x] = fa\n            elif w > t[x]:\n                t[x] = w\n            for y in g[x]:\n                if y != fa:\n                    reroot(y, x, t[x] if y == q[x] else s[x])\n        for i in g[0]:\n            reroot(i, 0, t[0] if i == q[0] else s[0])\n        return s",
+    "submit_ts": "1722698638",
+    "subm_id": "552271767"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Heltion",
+    "submission": "class Solution {\n public:\n  vector<int> timeTaken(vector<vector<int>>& edges) {\n    int n = edges.size() + 1;\n    vector<vector<int>> adj(n + 1);\n    for (auto& v : edges) {\n      int x = v[0], y = v[1];\n      adj[x].push_back(y);\n      adj[y].push_back(x);\n    }\n    vector<int> f(n), g(n), h(n);\n    auto up = [&](auto& up, int u) -> void {\n      for (int v : adj[u]) {\n        adj[v].erase(ranges::find(adj[v], u));\n        up(up, v);\n        h[u] = max(h[u], h[v] + 2 - v % 2);\n      }\n    };\n    auto down = [&](auto& down, int u) -> void {\n      int fi = g[u], se = 0;\n      for (int v : adj[u]) {\n        int w = h[v] + 2 - v % 2;\n        if (w >= fi) {\n          se = exchange(fi, w);\n        } else if (w >= se) {\n          se = w;\n        }\n      }\n      for (int v : adj[u]) {\n        int w = h[v] + 2 - v % 2;\n        g[v] = (w == fi ? se : fi) + 2 - u % 2;\n        down(down, v);\n      }\n    };\n    up(up, 0);\n    down(down, 0);\n    for (int i = 0; i < n; i += 1) f[i] = max(g[i], h[i]);\n    return f;\n  }\n};",
+    "submit_ts": "1722696523",
+    "subm_id": "552261414"
+}

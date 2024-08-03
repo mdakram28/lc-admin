@@ -1,0 +1,6 @@
+{
+    "username": "goto_1600",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        n=len(edges)+1\n        v=[[]for i in range(n)]\n        for x,y in edges:\n            v[x].append(y)\n            v[y].append(x)\n        mx1=[0]*n\n        mx2=[0]*n\n        def dfs(u,fa):\n            for j in v[u]:\n                if j==fa:\n                    continue\n                dfs(j,u)\n                t=mx1[j]  +(1 if j%2==1 else 2)\n                if t>mx1[u]:\n                    mx2[u],mx1[u] = mx1[u],t\n                else:\n                    mx2[u] = max(mx2[u] , t)\n        dfs(0,-1)\n        ans=[0]*n\n        print(mx1,mx2)\n        def dfs2(u,fa,fat):\n            ans[u]=max(fat,mx1[u])\n            # fat+=(2 if u%2==0 else 1)\n            for j in v[u]:\n                if j==fa:\n                    continue\n                k = (2 if j%2==0 else 1)\n                t=mx1[j]  +(1 if j%2==1 else 2)\n                dfs2(j,u,max(fat + (2 if u%2==0 else 1) ,(mx1[u] if t < mx1[u] else mx2[u] ) + (2 if u%2==0 else 1) ))\n        dfs2(0,-1,0)\n        return ans\n\n                ",
+    "submit_ts": "1722698243",
+    "subm_id": "552270015"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "cpp20",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        n, m = len(grid), len(grid[0])\n        if n*m == 1:\n            return grid[0][0]\n        \n        res = 0\n        for i in range(n//2):\n            for j in range(m//2):\n                ii, jj = n-1-i, m-1-j\n                cnt = Counter([grid[i][j], grid[i][jj], grid[ii][j], grid[ii][jj]])\n                res += 4-max(cnt.values())\n        \n        if n % 2 == 1 and m % 2 == 1:\n            res += grid[n//2][m//2]\n        \n        cur = 0\n        c1 = 0\n        if n % 2:\n            nmid = n//2\n            for j in range(m//2):\n                c1 += grid[nmid][j] + grid[nmid][m-1-j]\n                if grid[nmid][j] != grid[nmid][m-1-j]:\n                    #print('row',nmid,j)\n                    cur += 1\n        if m % 2:\n            mmid = m//2\n            for i in range(n//2):\n                c1 += grid[i][mmid] + grid[n-1-i][mmid]\n                if grid[i][mmid] != grid[n-1-i][mmid]:\n                    print('col',i,mmid)\n                    cur += 1\n        \n        if cur == 0 and c1 % 4 == 2:\n            #print('add')\n            cur += 2\n        #print(res, cur)\n        return cur + res",
+    "submit_ts": "1722697042",
+    "subm_id": "552264155"
+}

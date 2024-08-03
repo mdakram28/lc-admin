@@ -1,0 +1,6 @@
+{
+    "username": "Acquiesce",
+    "submission": "\n\nclass Solution\n{\npublic:\n    int minFlips(vector<vector<int>> &grid, int ans = 0)\n    {\n        int n = size(grid), m = size(grid[0]);\n        ans += grid[n / 2][m / 2] and ((n & 1) and (m & 1));\n\n        vector<int> shift(3, 0);\n        if (n & 1)\n        {\n            int a = 0, b = m - 1;\n            while (a < b) shift[grid[n / 2][a++] + grid[n / 2][b--]]++;\n        }\n\n        if (m & 1)\n        {\n            int a = 0, b = n - 1;\n            while (a < b) shift[grid[a++][m / 2] + grid[b--][m / 2]] ++;\n        }\n\n        if (shift[2] & 1)\n        {\n            if (shift[1] > 0) ans += shift[1];\n            else ans += 2;\n        }\n        else ans += shift[1];\n\n        for (int i = 0; i < n / 2; i++)\n        {\n            for (int j = 0; j < m / 2; j++)\n            {\n                int x = (grid[i][j] + grid[n - 1 - i][j] + grid[i][m - 1 - j] + grid[n - 1 - i][m - 1 - j]);\n                if (x != 0 and x != 4) ans += min(x, 4 - x);\n            }\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722699600",
+    "subm_id": "1343216603"
+}

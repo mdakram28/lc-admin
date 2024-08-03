@@ -1,0 +1,6 @@
+{
+    "username": "fxf111",
+    "submission": "/**\n * @param {number[][]} grid\n * @return {number}\n */\nvar minFlips = function(grid) {\n    let m = grid.length, n = grid[0].length;\n    let ans = 0;\n    for(let i = 0, j = m - 1; i < j; i++, j--) {\n        for(let x = 0, y = n - 1; x < y; x++, y--) {\n            let cnt = grid[i][x] + grid[i][y] + grid[j][x] + grid[j][y];\n            \n            ans += Math.min(cnt, 4 - cnt);\n        }\n    }\n     if(m%2 && n%2) {\n        if(grid[Math.floor(m/2)][Math.floor(n/2)]) {\n            ans++;\n        }\n    }\n    \n    let cnt = 0, sum = 0;\n    \n    if(m%2) {\n        let mid = Math.floor(m/2);\n        for(let i = 0, j = n - 1; i < j; i++, j--) {\n            if(grid[mid][i] !== grid[mid][j]) {\n                cnt++;\n                sum += 2;\n            } else {\n                sum += grid[mid][i]*2\n            }\n        }\n    }\n    if(n%2) {\n        let mid = Math.floor(n/2);\n        for(let i = 0, j = m - 1; i < j; i++, j--) {\n            if(grid[i][mid] !== grid[j][mid]) {\n                cnt++;\n                sum += 2;\n            } else {\n                sum += grid[j][mid]*2\n            }\n        }\n    }\n    if(sum%4 && !cnt) {\n        cnt = 2;\n    }\n   \n    return ans + cnt;\n};",
+    "submit_ts": "1722698696",
+    "subm_id": "552272069"
+}

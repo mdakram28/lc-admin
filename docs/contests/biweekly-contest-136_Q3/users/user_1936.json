@@ -1,0 +1,6 @@
+{
+    "username": "harshonn",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& nums) {\n        int row = nums.size(), col = nums[0].size();\n        int x =0, y =0, res=0;\n        for(int i=0;i<(row+1)/2;i++){\n            for(int j=0;j<(col+1)/2;j++){\n                map<pair<int,int>,int> m;\n                m[{i,j}]++; m[{i,col-1-j}]++; m[{row-1-i,j}]++; m[{row-1-i,col-1-j}]++;\n                int a=0, b=0;\n                for(auto it:m){\n                    if(nums[it.first.first][it.first.second]==0) a++;\n                    else b++;\n                }\n                if(m.size()==4) res += min(a,b);\n                else if(m.size()==2){\n                    if(a==0) x++;\n                    else{\n                        if(a==1 && b==1){\n                            res++; y++;\n                        }\n                    }\n                }\n                else if(m.size()==0 || m.size()==1 || m.size()==3){\n                    res += b;\n                }\n            }\n        }\n        if(x%2!=0){\n            if(y>0) return res;\n            else{\n                res = res + 2;\n                return res;\n            }\n        }\n        else return res;\n        throw;\n    }\n};",
+    "submit_ts": "1722700076",
+    "subm_id": "1343230973"
+}

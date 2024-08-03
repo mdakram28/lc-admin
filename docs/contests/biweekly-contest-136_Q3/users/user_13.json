@@ -1,0 +1,6 @@
+{
+    "username": "paigulong",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size(), ans = 0, ones = 0;\n        map<pair<int,int>, int>cnt; \n        for (int i = 0; i < n; i ++) {\n            for (int j = 0; j < m; j ++) {\n                int x = n - 1 - i, y = m - 1 - j;\n                if (i <= x and j <= y) {\n                    set<pair<int,int>> s;\n                    s.insert({i, j});\n                    s.insert({x, j});\n                    s.insert({i, y});\n                    s.insert({x, y});\n                    int c = 0;\n                    for (auto [a, b]: s) {\n                        if (grid[a][b] == 1) c ++;\n                    }\n                    cnt[{s.size(), c}] ++;\n                    ans += min(c, (int)s.size() - c);\n                    if (c >= s.size() - c) ones += (int)s.size(); \n                }\n            }\n        }\n        if (n % 2 == 1 and m % 2 == 1 and grid[n/2][m/2] == 1) {\n            ans ++; ones --;\n        }\n        if (ones % 4 != 0) {\n            if (cnt[{2, 1}] == 0) ans += 2;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722697042",
+    "subm_id": "552264157"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Yawn_Sean",
+    "submission": "fmax = lambda x, y: x if x > y else y\n\nclass Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        n = len(edges) + 1\n        path = [[] for _ in range(n)]\n        for u, v in edges:\n            path[u].append(v)\n            path[v].append(u)\n        value = [(i + 1) % 2 + 1 for i in range(n)]\n        ans = [0] * n\n        def f(u, p=-1):\n            for v in path[u]:\n                if v != p:\n                    f(v, u)\n                    ans[u] = fmax(ans[u], ans[v] + value[v])\n        f(0)\n        \n        ans1 = [0] * n\n        def f1(u, p=-1):\n            x1, x2 = ans1[u], 0\n            for v in path[u]:\n                if v != p:\n                    if ans[v] + value[v] >= x1: x1, x2 = ans[v] + value[v], x1\n                    elif ans[v] + value[v] > x2: x2 = ans[v] + value[v]\n            for v in path[u]:\n                if v != p:\n                    if ans[v] + value[v] == x1: ans1[v] = x2 + value[u]\n                    else: ans1[v] = x1 + value[u]\n                    f1(v, u)\n        \n        f1(0)\n        return [fmax(x, y) for x, y in zip(ans, ans1)]\n",
+    "submit_ts": "1722696614",
+    "subm_id": "552261897"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "summerdaway",
+    "submission": "class Solution:\n    def minFlips(self, a: List[List[int]]) -> int:\n        n = len(a)\n        m = len(a[0])\n        ret = 0\n        for i in range(n//2):\n            for j in range(m//2):\n                s = sum([a[i][j], a[n-i-1][j], a[i][m-j-1], a[n-i-1][m-j-1]])\n                ret += min(s, 4-s)\n        \n        ct = defaultdict(int)\n        if n&1:\n            for i in range(m//2):\n                x, y = a[n//2][i], a[n//2][m-i-1]\n                if x > y: x, y = y, x\n                ct[(x, y)] += 1\n        if m&1:\n            for i in range(n//2):\n                x, y = a[i][m//2], a[n-i-1][m//2]\n                if x > y: x, y = y, x\n                ct[(x, y)] += 1\n\n\n        if (n&1) and (m&1) and a[n//2][m//2]:\n            ret += 1\n        \n        def calc(ct):\n            if ct[(1, 1)]%2 == 0:\n                return ct[(0, 1)]\n            if ct[(0, 1)] > 0:\n                return ct[(0, 1)]\n            return 2\n\n        return calc(ct) + ret\n            ",
+    "submit_ts": "1722698405",
+    "subm_id": "552270688"
+}

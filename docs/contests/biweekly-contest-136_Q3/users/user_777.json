@@ -1,0 +1,6 @@
+{
+    "username": "sanori",
+    "submission": "/**\n * @param {number[][]} grid\n * @return {number}\n */\nvar minFlips = function(grid) {\n  const m = grid.length;\n  const n = grid[0].length;\n  \n  let res = 0;\n  for (let r = 0; r * 2 < m - 1; r++) {\n    for (let c = 0; c * 2 < n - 1; c++) {\n      const ones = grid[r][c] + grid[r][n-c-1] +\n                   grid[m-r-1][c] + grid[m-r-1][n-c-1];\n      res += Math.min(ones, 4-ones);\n    }\n  }\n\n  let parity = 0, modified = false;\n  if (m % 2) {\n    const r = Math.floor(m/2);\n    for (let c = 0; c * 2 < n - 1; c++) {\n      if (grid[r][c] !== grid[r][n-c-1]) {\n        res++;\n        modified = true;\n      } else if (grid[r][c]) {\n        parity = 1 - parity;\n      }\n    }\n  }\n  if (n % 2) {\n    const c = Math.floor(n/2);\n    for (let r = 0; r * 2 < m - 1; r++) {\n      if (grid[r][c] !== grid[m-r-1][c]) {\n        res++;\n        modified = true;\n      } else if (grid[r][c]) {\n        parity = 1 - parity;\n      }\n    }\n  }\n\n  if (!modified && parity) {\n    res += 2;\n  }\n\n  if ((m % 2) && (n % 2)) {\n    res += grid[Math.floor(m/2)][Math.floor(n/2)];\n  }\n  return res;\n};",
+    "submit_ts": "1722698380",
+    "subm_id": "1343178831"
+}

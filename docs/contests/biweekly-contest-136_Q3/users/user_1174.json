@@ -1,0 +1,6 @@
+{
+    "username": "kagotpush",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        m,n=len(grid),len(grid[0])\n        ans=0\n        a,b=m//2,n//2\n        for i in range(a):\n            for j in range(b):\n                x=grid[i][j]+grid[i][~j]+grid[~i][j]+grid[~i][~j]\n                ans+=2-abs(x-2)\n        sm=mflips=0\n        if m&1:\n            if n&1:\n                if grid[a][b]==1:\n                    ans+=1\n                    grid[a][b]=0\n            sm=sum(grid[a])%4\n            mflips=0\n            for j in range(b):\n                if grid[a][j]!=grid[a][~j]:\n                    #print(a,j,'flipm')\n                    mflips+=1\n        sn=nflips=0\n        if n&1:\n            sn=sum(grid[i][b] for i in range(m))%4\n            nflips=0\n            for i in range(a):\n                if grid[i][b]!=grid[~i][b]:\n                    #print(i,b,'flipn')\n                    nflips+=1\n        totalflips=nflips+mflips\n        totalsum=sn+sm\n        #print('preans',ans,totalsum,totalflips)\n        ans+=totalflips\n        if totalflips==0:\n            ans+=2-abs(totalsum%4-2)\n        else:\n            #print((totalsum+totalflips)%2)\n            ans+=(totalsum+totalflips)%2\n        return ans",
+    "submit_ts": "1722698664",
+    "subm_id": "1343187867"
+}

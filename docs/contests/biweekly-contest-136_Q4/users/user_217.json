@@ -1,0 +1,6 @@
+{
+    "username": "SirTechnical",
+    "submission": "int N;\nvector<vector<int>> adj;\nvector<multiset<int>> st;\nvector<int> dist, ans;\n\nvoid dfs(int c, int p) {\n    for (int t : adj[c]) {\n        if (t == p) continue;\n        dfs(t, c);\n        st[c].insert(dist[t]+(t%2==0?2:1));\n    }\n    dist[c] = *st[c].rbegin();\n}\n\nvoid dfs2(int c, int p) {\n    int rm = dist[c]+(c%2==0?2:1);\n    int add;\n    if (c != p) {\n        st[p].erase(st[p].find(rm));\n        add = *st[p].rbegin()+(p%2==0?2:1);\n        st[c].insert(add);\n    }\n    ans[c] = *st[c].rbegin();\n    \n    for (int t : adj[c]) {\n        if (t == p) continue;\n        dfs2(t, c);\n    }\n    \n    if (c != p) {\n        st[p].insert(rm);\n        st[c].erase(st[c].find(add));\n    }\n    \n}\n\nclass Solution {\npublic:\n    vector<int> timeTaken(vector<vector<int>>& edges) {\n        N = edges.size()+1;\n        adj.assign(N, vector<int>());\n        st.assign(N, multiset<int>({0}));\n        dist.assign(N, 0x3f3f3f3f);\n        ans.assign(N, 0x3f3f3f3f);\n        for (auto& v : edges) {\n            int a = v[0], b = v[1];\n            adj[a].push_back(b);\n            adj[b].push_back(a);\n        }\n        dfs(0, 0);\n        dfs2(0, 0);\n        return ans;\n    }\n};",
+    "submit_ts": "1722698708",
+    "subm_id": "1343189205"
+}

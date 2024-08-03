@@ -1,0 +1,6 @@
+{
+    "username": "ssayzx",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int ans = 0;\n        int n = grid.size(), m = grid[0].size();\n\n        for (int i = 0; i < n / 2; i++) {\n            for (int j = 0; j < m / 2; j++) {\n                int sum = grid[i][j] + grid[i][m - 1 - j] + grid[n - 1 - i][j] + grid[n - 1 - i][m - 1 -  j];\n                ans += min(sum, 4 - sum);\n            }\n        }\n        \n        // cout << \"ans 1 \" << ans << endl;\n\n        int cnt[3] = {0};\n        if (n % 2) for (int j = 0; j < m / 2; j++) cnt[grid[n / 2][j] + grid[n / 2][m - 1 - j]]++;\n        if (m % 2) for (int i = 0; i < n / 2; i++) cnt[grid[i][m / 2] + grid[n - 1 - i][m / 2]]++;\n        \n        ans += cnt[1];\n        // cout << \"ans 2 \" << ans << endl;\n        if (cnt[2] % 2) ans += cnt[1] != 0 ? 0 : 2;\n        // cout << \"ans 3 \" << ans << endl;\n        \n        if ((n % 2) && (m % 2)) ans += (grid[n / 2][m / 2] == 1);\n        \n        // cout << \"ans 4 \" << ans << endl;\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722697870",
+    "subm_id": "552268201"
+}

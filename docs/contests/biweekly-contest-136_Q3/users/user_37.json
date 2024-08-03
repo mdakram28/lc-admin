@@ -1,0 +1,6 @@
+{
+    "username": "Ujimatsu_Chiya",
+    "submission": "from sortedcontainers import SortedList\nfrom collections import defaultdict, deque, Counter\nfrom bisect import bisect_left, bisect_right\nfrom typing import List, Set\nfrom itertools import pairwise\n\n\nclass Solution:\n    def minFlips(self, a: List[List[int]]) -> int:\n        n, m = len(a), len(a[0])\n        cnt = [[0, 0, 0, 0, 0] for _ in range(5)]\n        for i in range(n):\n            for j in range(m):\n                if i <= n - i - 1 and j <= m - j - 1:\n                    st = {(i, j), (i, m - j - 1), (n - i - 1, j), (n - i - 1, m - j - 1)}\n                    c1 = 0\n                    for x, y in st:\n                        c1 += a[x][y]\n                    cnt[len(st)][c1] += 1\n        ans = 0\n        for i in range(5):\n            ans += min(i, 4 - i) * cnt[4][i]\n        ans += cnt[1][1]\n        v = cnt[2]\n        if v[1] > 0:\n            ans += v[1]\n        else:\n            if v[2] & 1:\n                ans += 2\n        return ans\n        ",
+    "submit_ts": "1722696363",
+    "subm_id": "552260512"
+}

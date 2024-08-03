@@ -1,0 +1,6 @@
+{
+    "username": "lthroy",
+    "submission": "class Solution:\n    def minFlips(self, A: List[List[int]]) -> int:\n        m,n = len(A),len(A[0])\n        csum = changes = zeroones = 0\n        for i in range((m+1)//2):\n            for j in range((n+1)//2):\n                I = m-1-i; J = n-1-j\n                if i < m-1-i and j < n-1-j:\n                    ones = A[i][j] + A[I][j] + A[i][J] + A[I][J]\n                    changes += min(ones,4-ones)\n                elif i < I and j == J:\n                    ones = A[i][j] + A[I][j]\n                    changes += 1 if ones == 1 else 0\n                    csum += 2 if ones == 2 else 0\n                    if ones == 1:\n                        zeroones += 1\n                elif i == I and j < J:\n                    ones = A[i][j] + A[i][J]\n                    changes += 1 if ones == 1 else 0\n                    csum += 2 if ones == 2 else 0\n                    if ones == 1:\n                        zeroones += 1\n                else:\n                    changes += A[i][j]\n        if csum % 4 == 0:\n            return changes\n        if zeroones > 0:\n            return changes\n        return changes+2",
+    "submit_ts": "1722699226",
+    "subm_id": "1343205245"
+}

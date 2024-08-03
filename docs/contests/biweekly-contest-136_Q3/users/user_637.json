@@ -1,0 +1,6 @@
+{
+    "username": "lone17",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        m = len(grid)\n        n = len(grid[0])\n        ans = 0\n        \n        cnt22 = 0\n        cnt21 = 0\n        cnt11 = 0\n        for r in range(ceil(m / 2)):\n            for c in range(ceil(n / 2)):\n                pos = set()\n                pos.add((r, c))\n                pos.add((m - r - 1, c))\n                pos.add((m - r - 1, n - c - 1))\n                pos.add((r, n - c - 1))\n\n                val = sum(grid[r][c] for r, c in pos)\n                cnt = len(pos)\n                if cnt == 4:\n                    ans += min(val, 4 - val)\n                elif cnt == 2:\n                    if val == 0:\n                        continue\n                    if val == 1:\n                        cnt21 += 1\n                    if val == 2:\n                        cnt22 += 1\n                elif cnt == 1:\n                    if val == 1:\n                        ans += 1\n        \n        print(ans, cnt21, cnt22)\n        ans += cnt21\n\n        if cnt21 == 0 and cnt22 % 2 == 1:\n            ans += 2\n\n        return ans\n",
+    "submit_ts": "1722697441",
+    "subm_id": "1343146685"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "bluez-2",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        m, n, res = len(grid), len(grid[0]), 0\n\n        for i in range(m//2):\n            for j in range(n//2):\n                s = grid[i][j] + grid[m-1-i][j] + grid[i][n-1-j] + grid[m-1-i][n-1-j]\n                res += min(s, 4-s)\n        \n        if (m&1) and (n&1) and grid[m//2][n//2]:\n            res += 1\n\n        same, diff = 0, 0\n        if m & 1:\n            x, y = 0, n-1\n            while x < y:\n                same += grid[m//2][x] & grid[m//2][y]\n                diff += grid[m//2][x] ^ grid[m//2][y]\n                x += 1\n                y -= 1\n        \n        if n & 1:\n            x, y = 0, m-1\n            while x < y:\n                same += grid[x][n//2] & grid[y][n//2]\n                diff += grid[x][n//2] ^ grid[y][n//2]\n                x += 1\n                y -= 1\n        \n        res += diff\n\n        if diff == 0 and (same & 1):\n            res += 2\n\n        return res",
+    "submit_ts": "1722698072",
+    "subm_id": "552269186"
+}

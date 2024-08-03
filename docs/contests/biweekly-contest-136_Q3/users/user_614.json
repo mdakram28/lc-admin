@@ -1,0 +1,6 @@
+{
+    "username": "i2omantic-agnesimlp",
+    "submission": "class Solution {\npublic:\n    int minFlips(vector<vector<int>>& grid) {\n        int n = grid.size(), m = grid[0].size();\n        int ans = 0;\n        for(int i = 0; i < n/2; i++){\n            for(int j = 0; j < m/2; j++){\n                int cnt[2]{};\n                cnt[grid[i][j]]++;\n                cnt[grid[i][m-j-1]]++;\n                cnt[grid[n-i-1][j]]++;\n                cnt[grid[n-i-1][m-j-1]]++;\n                ans += min(cnt[0], cnt[1]);\n            }\n        }\n\n        int tmp = 0, cnt = 0;\n        if(n%2){\n            for(int j = 0; j < m/2; j++){\n                tmp += (grid[n/2][j]!=grid[n/2][m-j-1]);\n                cnt += grid[n/2][j] + grid[n/2][m-j-1];\n            }\n        }\n        if(m%2){\n            for(int i = 0; i < n/2; i++){\n                tmp += (grid[i][m/2]!=grid[n-i-1][m/2]);\n                cnt += (grid[i][m/2] + grid[n-i-1][m/2]);\n            }\n        }\n        if(n%2 && m%2){\n            // cnt += grid[n/2][m/2];\n            if(grid[n/2][m/2] == 1)\n                ans++;\n        }\n        // cout << ans << \" \" << tmp << \" \" << cnt << endl;\n        if(tmp == 0) ans += cnt%4;\n        return tmp + ans;\n    }\n};",
+    "submit_ts": "1722697657",
+    "subm_id": "552267198"
+}

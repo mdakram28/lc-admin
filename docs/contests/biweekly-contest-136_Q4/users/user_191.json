@@ -1,0 +1,6 @@
+{
+    "username": "hanbro0112",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        n = len(edges) + 1\n        adj = [[] for _ in range(n)]\n        for a, b in edges:\n            adj[a].append(b)\n            adj[b].append(a)\n        \n        t = [2, 1]\n        cost = [0] * n \n        def dfs1(x, prev):\n            res = t[x % 2]\n            mx = 0\n            for y in adj[x]:\n                if y != prev:\n                    mx = max(mx, dfs1(y, x))\n                \n            res += mx\n                    \n            cost[x] = res\n            return res\n        \n        time = [0] * n\n        def dfs2(x, prev, upValue):\n            arr = [[upValue, -1]]\n            for y in adj[x]:\n                if y != prev:\n                    arr.append([cost[y], y])   \n                            \n            arr.sort()\n            time[x] = arr[-1][0]\n            \n            for y in adj[x]:\n                if y != prev:\n                    if y == arr[-1][1]:\n                        dfs2(y, x, arr[-2][0] + t[x % 2])  \n                    else:\n                        dfs2(y, x, arr[-1][0] + t[x % 2])\n                        \n        dfs1(0, 0)\n        dfs2(0, 0, 0)\n        return time\n    ",
+    "submit_ts": "1722699630",
+    "subm_id": "1343217522"
+}

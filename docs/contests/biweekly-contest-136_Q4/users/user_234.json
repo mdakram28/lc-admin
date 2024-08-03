@@ -1,0 +1,6 @@
+{
+    "username": "sishenzhimu",
+    "submission": "class Solution:\n    def timeTaken(self, edges: List[List[int]]) -> List[int]:\n        n = len(edges) + 1\n        \n        nei = [[] for _ in range(n)]\n        for u, v in edges:\n            nei[u].append(v)\n            nei[v].append(u)\n            \n        maxList = [[(0, i)] for i in range(n)]\n        \n        def dfs(u, fa):\n            for v in nei[u]:\n                if v == fa: continue\n                heappush(maxList[u], (dfs(v, u) - 2 + v % 2, v))\n            return maxList[u][0][0]\n        \n        dfs(0, -1)\n        \n        # print(maxList)\n\n        d = deque([(0, -1)])\n        while d:\n            u, fa = d.popleft()\n            (v1, n1), (v2, _) = nsmallest(2, maxList[u])\n            for v in nei[u]:\n                if v == fa: continue\n                \n                if n1 == v:\n                    heappush(maxList[v], (v2 - 2 + u % 2, u))\n                else:\n                    heappush(maxList[v], (v1 - 2 + u % 2, u))\n                \n                d.append((v, u))\n                \n        \n        \n        return [-maxList[u][0][0] for u in range(n)]",
+    "submit_ts": "1722699419",
+    "subm_id": "552275542"
+}

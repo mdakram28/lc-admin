@@ -1,0 +1,6 @@
+{
+    "username": "varkatkl",
+    "submission": "class Solution:\n    def minFlips(self, grid: List[List[int]]) -> int:\n        R = len(grid)\n        C = len(grid[0])\n        \n        R2 = (R + 1) // 2\n        C2 = (C + 1) // 2\n        \n        # Top left R2 x C2 rectangle\n        colors = [[[0, 0] for _ in range(C2)] for i in range(R2)]\n        for r in range(R):\n            for c in range(C):\n                r2 = r if r < R2 else R - 1 - r\n                c2 = c if c < C2 else C - 1 - c\n                colors[r2][c2][grid[r][c]] += 1\n\n        dp = [[0] * 4 for _ in range(R2 * C2 + 1)]\n        BIG = 1 << 30\n        \n        dp[R2 * C2] = [0, BIG, BIG, BIG]\n        for i in range(R2 * C2 - 1, -1, -1):\n            for rem in range(4):\n                # to 0\n                total = 0\n                change = colors[i//C2][i%C2][1]\n                total += change\n                dp[i][rem] = change + dp[i + 1][rem]\n                change = colors[i//C2][i%C2][0]\n                total += change\n                dp[i][rem] = min(dp[i][rem], change + dp[i + 1][(rem + 4 - total) % 4])\n        \n        return dp[0][0]\n",
+    "submit_ts": "1722698355",
+    "subm_id": "1343177991"
+}
