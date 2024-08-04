@@ -1,0 +1,6 @@
+{
+    "username": "d2s2",
+    "submission": "import java.util.*;\nclass Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] q) {\n        int m = q.length;\n        int [] ans = new int[m];\n        TreeMap<Integer,Integer> h = new TreeMap<>();\n        for(int i= 0;i<n-1;i++){\n            h.put(i,i+1);\n        }\n//        LeetCodeTesting.pl(h);\n        int res = n-1;\n        int k =0;\n        for(int [] e : q){\n            Integer low = h.ceilingKey(e[0]);\n//            LeetCodeTesting.pl(low);\n            boolean del = false;\n            while(low!=null && h.get(low)<=e[1]){\n                res--;\n                del = true;\n                h.remove(low);\n                low = h.higherKey(e[0]);\n            }\n            low = h.floorKey(e[0]);\n            if(low ==null || h.get(low)<=e[0]){\n                h.put(e[0],e[1]);\n            }\n            ans[k++] = h.size();\n//            LeetCodeTesting.pl(h);\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1722743406",
+    "subm_id": "1343791213"
+}

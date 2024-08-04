@@ -1,0 +1,6 @@
+{
+    "username": "sad-hodgkin23h",
+    "submission": "using pii = pair<int,int>;\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        auto ans = vector<int>{};\n\n        auto st = set<pii>{};\n        for(int i=0; i+1<n; i++) {\n            st.insert({i,1});\n        }\n\n        for(auto q:queries) {\n            int u = q[0], v = q[1];\n            int len = v - u;\n\n            auto iter = st.lower_bound({u,0});\n            if(iter!=st.begin()) {\n                iter--;\n                auto pre = iter;\n                iter++;\n                // cout<<pre->first<<\" \"<<pre->second<<\" \"<<iter->first<<\" \"<<iter->second<<endl;\n                if(pre->first+pre->second>u) {\n                    ans.push_back(st.size());\n                    continue;\n                }\n            }\n            while(true) {\n                if(iter==st.end() || iter->first>=v) break;\n                iter = st.erase(iter);\n            }\n            st.insert({u,len});\n\n            ans.push_back(st.size());\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722741763",
+    "subm_id": "552340308"
+}

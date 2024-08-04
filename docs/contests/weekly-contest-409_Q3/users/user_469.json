@@ -1,0 +1,6 @@
+{
+    "username": "dimlight1998",
+    "submission": "class Solution {\n  public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n    var next = new int[n];\n    var dnc = new boolean[n]; // do not consider\n    for (var i = 0; i < n; i++) {\n      next[i] = i + 1;\n    }\n    var steps = n - 1;\n    var ret = new int[queries.length];\n    for (var i = 0; i < queries.length; i++) {\n      var query = queries[i];\n      var start = query[0];\n      var stop = query[1];\n      if (dnc[start] || stop < next[start]) {\n        ret[i] = steps;\n        continue;\n      }\n      var onext = next[start];\n      next[start] = stop;\n      while (onext != stop) {\n        dnc[onext] = true;\n        onext = next[onext];\n        steps -= 1;\n      }\n      ret[i] = steps;\n    }\n    return ret;\n  }\n}\n",
+    "submit_ts": "1722741324",
+    "subm_id": "1343742129"
+}

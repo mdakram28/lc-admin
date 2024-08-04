@@ -1,0 +1,6 @@
+{
+    "username": "greg100",
+    "submission": "class Solution {\npublic:\nvector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> visited(n);\n        vector<int> vec(n);\n        iota(vec.begin(), vec.end(), 0);\n        list<int> lst(vec.begin(), vec.end());\n        map<int, list<int>::iterator> mp;\n        auto it = lst.begin();\n        while (it != lst.end()) {\n            mp[*it] = it;\n            it++;\n        }\n        int cnt = n - 1;\n        vector<int> res;\n        for (vector<int> q : queries) {\n            int u = q[0];\n            int v = q[1];\n            auto it = mp.lower_bound(u + 1);\n            auto it2 = mp.lower_bound(v);\n            while (it != it2) {\n                list<int>::iterator ii = it->second;\n                int x = *ii;\n  \n                lst.erase(ii);\n                it = mp.erase(it);\n                // it++;\n            }\n\n                // for (int x = u + 1; x <= v - 1; x++) {\n\n                //     if (mp.contains(x)) {\n                //         auto it = mp[x];\n\n                //     }\n                // }\n            \n\n            res.push_back(lst.size() - 1);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722742872",
+    "subm_id": "1343779036"
+}

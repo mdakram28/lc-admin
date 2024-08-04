@@ -1,0 +1,6 @@
+{
+    "username": "nhho",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& q) {\n        int m = q.size();\n        vector<int> par(n), ans(m);\n        iota(par.begin(), par.end(), 0);\n        function<int(int)> f = [&](int a) {\n            return par[a] == a ? a : par[a] = f(par[a]);\n        };\n        for (int i = 0; i < m; i++) {\n            ans[i] = i ? ans[i - 1] : n - 1;\n            int ta = f(q[i][0]), tb = f(q[i][1]);\n            if (ta == tb)\n                continue;\n            while (tb != q[i][0] + 1) {\n                ans[i]--;\n                int tc = f(tb - 1);\n                par[tb] = tc;\n                tb = tc;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722739953",
+    "subm_id": "1343707431"
+}

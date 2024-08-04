@@ -1,0 +1,6 @@
+{
+    "username": "charming-mestorfexl",
+    "submission": "func shortestDistanceAfterQueries(n int, queries [][]int) []int {\n    rss := make([]int, len(queries))\n    nextArr := make([]int, n)\n    prevArr := make([]int, n+1)\n    for i := 0; i<n; i++ {\n        nextArr[i] = i+1\n        prevArr[i+1] = i\n    }\n    var rs = n - 1\n    doneMap := make([]bool, n+1)\n    for idx, req := range queries {\n        // 1 6 2 5\n        if doneMap[req[0]] {\n            rss[idx] = rs\n            continue\n        }\n        if nextArr[req[0]] < req[1] && prevArr[req[1]] > req[0] {\n            var cnt int\n            cur := nextArr[req[0]]\n            for cur < req[1] {\n                cnt++\n                //fmt.Println(\"cur\", cur, cnt)\n                doneMap[cur] = true\n                cur = nextArr[cur]\n            }\n            nextArr[req[0]] = req[1]\n            prevArr[req[1]] = req[0]\n            rs = rs - cnt\n        } \n        rss[idx] = rs\n    }\n    return rss\n}",
+    "submit_ts": "1722743337",
+    "subm_id": "552350221"
+}

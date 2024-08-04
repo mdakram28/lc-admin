@@ -1,0 +1,6 @@
+{
+    "username": "fangh77",
+    "submission": "class ListNode:\n    def __init__(self, idx, next_node=None):\n        self.idx = idx\n        self.next = next_node\n    def set_next(self, next_node):\n        self.next = next_node\n        \n\nclass Solution:\n    # def remove_nodes(self, u, v, removed ):\n    #     while u.next is not v:\n    #         removed.add(  )\n    \n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        # Construct a value to node map, construct a linkedlist.\n        value2node = {}\n        for i in range( n ):\n            value2node[i] = ListNode( i )\n        for i in range( n - 1 ):\n            value2node[i].set_next( value2node[i+1] )\n        removed = set([])\n            \n        res = []\n        num_removal = 0\n        # Loop over queries.\n        for u, v in queries:\n            if u not in removed and v not in removed:\n                node_u = value2node[u]\n                node_v = value2node[v]\n                while( node_u.next is not node_v ):\n                    assert node_u.next is not None\n                    removed.add( node_u.next.idx )\n                    node_u.next = node_u.next.next\n            res.append( n - 1 - len(removed) )\n        return res\n                ",
+    "submit_ts": "1722741936",
+    "subm_id": "1343757025"
+}

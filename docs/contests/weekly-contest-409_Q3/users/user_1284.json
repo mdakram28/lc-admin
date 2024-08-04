@@ -1,0 +1,6 @@
+{
+    "username": "ansarifaizan85742",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int numNodes, vector<vector<int>>& updates) {\n        // Initialize distances where each node's distance is its index value\n        vector<int> distances(numNodes, 0);\n        for (int i = 1; i < numNodes; ++i) {\n            distances[i] = distances[i - 1] + 1;\n        }\n\n        // Set to keep track of current active nodes\n        set<int> activeNodes;\n        for (int i = 0; i < numNodes; ++i) {\n            activeNodes.insert(i);\n        }\n\n        vector<int> results;\n        for (const auto& query : updates) {\n            int startIndex = query[0];\n            int endIndex = query[1];\n\n            // Determine the range of nodes to be removed\n            auto beginIt = activeNodes.lower_bound(startIndex + 1);\n            auto endIt = activeNodes.lower_bound(endIndex);\n\n            // Remove nodes within the specified range\n            activeNodes.erase(beginIt, endIt);\n\n            \n            results.push_back(activeNodes.size() - 1);\n        }\n\n        return results;\n    }\n};",
+    "submit_ts": "1722743982",
+    "subm_id": "1343804324"
+}

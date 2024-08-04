@@ -1,0 +1,6 @@
+{
+    "username": "i3eautiful-wo2niakowy",
+    "submission": "class Solution {\npublic:\n    int pr[100010];\n    int ne[100010];\n    int find (int a)\n    {\n        if (pr[a] != a) pr[a] = find(pr[a]);\n        return pr[a];\n    }\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        for (int i = 0; i < n; i ++ ) {\n            pr[i] = i;\n            ne[i] = i + 1;\n        }\n        int num = n - 1;\n        vector<int> v;\n        for (int i = 0; i < queries.size(); i ++ ) {\n            int a = queries[i][0], b = queries[i][1];\n            int pa = find(a), pb = find(b);\n            while (pa != pb && ne[pa] != pb) {\n                pr[ne[a]] = pr[a];\n                ne[a] = ne[ne[a]];\n                num --;\n            }\n            v.push_back(num);\n        }\n        return v;\n    }\n};",
+    "submit_ts": "1722742446",
+    "subm_id": "552344685"
+}

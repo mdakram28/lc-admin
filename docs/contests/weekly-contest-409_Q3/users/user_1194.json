@@ -1,0 +1,6 @@
+{
+    "username": "arya267",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n         set<int> availablePoints;\n        \n        // Initialize the set with points from 1 to n-1\n        for (int i = 1; i < n; ++i) {\n            availablePoints.insert(i);\n        }\n        \n        vector<int> results;\n        \n        // Process each query\n        for (int i=0; i<queries.size(); i++) {\n            int start = queries[i][0];\n            int end = queries[i][1];\n            \n            // Remove points in the range (start, end) from the set\n            start = start + 1;\n\n            for (auto it = availablePoints.lower_bound(start), nextIt = it; it != availablePoints.upper_bound(end-1); it = nextIt) {\n                nextIt = next(it);\n                availablePoints.erase(it);\n            }\n            \n            // Store the current size of the set\n            results.push_back(availablePoints.size());\n        }\n        \n        return results;\n\n    }\n};\n",
+    "submit_ts": "1722742448",
+    "subm_id": "1343769201"
+}

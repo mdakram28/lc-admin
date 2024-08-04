@@ -1,0 +1,6 @@
+{
+    "username": "user9539",
+    "submission": "class Solution {\n    fun shortestDistanceAfterQueries(n: Int, queries: Array<IntArray>): IntArray {\n\n        val map = mutableMapOf<Int, Node>()\n        for (i in 0 ..n-1) {\n            val node = Node(i)\n            map[i-1]?.next = node\n            map[i] = node\n        }\n        var head: Node? = map[0]\n        var size = n-1\n        val ans = IntArray(queries.size)\n\n        for (index in queries.indices) {\n            val q = queries[index]\n            val a = q[0]\n            val b = q[1]\n            if (map[a] == null || map[b] == null) {\n                ans[index] = size\n                continue\n            } \n            val nodeA = map[a]!!\n\n            var node = map[a]?.next\n            while (node != null && node!!.i != b) {\n                map.remove(node!!.i)\n                //println(\"remove ${node!!.i}\")\n                node = node.next\n                size--\n            }\n            nodeA!!.next = map[b]\n\n            ans[index] = size\n        }\n\n        return ans\n    }\n}\n\nclass Node(\n    val i : Int,\n    var next: Node? = null\n)",
+    "submit_ts": "1722743168",
+    "subm_id": "1343785931"
+}

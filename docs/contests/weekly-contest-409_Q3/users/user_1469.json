@@ -1,0 +1,6 @@
+{
+    "username": "xiyang0405",
+    "submission": "class Solution {\nstruct ListNode{\n    int val;\n    ListNode* next;\n    ListNode(int v): val(v), next(nullptr){}\n};\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        ListNode* preHead = new ListNode(-1);\n        ListNode* pre = preHead;\n        vector<ListNode*> map;\n        for(int i = 0; i < n; i++) {\n            ListNode* curr = new ListNode(i);\n            pre->next = curr;\n            map.push_back(curr);\n            pre = curr;\n        }\n        \n        vector<int> res;\n        int path = n-1;\n        for(auto q: queries) {\n            int from = q[0];\n            int to = q[1];\n            auto toNode = map[from]->next;\n            while(toNode && toNode->val < to) {\n                path--;\n                auto next = toNode->next;\n                toNode->next = nullptr;\n                toNode = next;\n            }\n            \n            map[from]->next = toNode;\n            res.push_back(path);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722743892",
+    "subm_id": "1343802035"
+}

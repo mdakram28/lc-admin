@@ -1,0 +1,6 @@
+{
+    "username": "ToTea",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        auto nextNodes = vector<int>(n); // -1 for no next, -2 for removed node\n        iota(nextNodes.begin(), nextNodes.end(), 1);\n        nextNodes.back() = -1;\n        int dist = n-1;\n        auto ans = vector<int>();\n        ans.reserve(queries.size());\n        for (const auto& query : queries) {\n            const int from = query[0];\n            const int to = query[1];\n            if (nextNodes[from] == -2 || nextNodes[to] == -2) {\n                ans.push_back(dist);\n                continue;\n            }\n\n            int cur = nextNodes[from];\n            while (cur != to) {\n                int next = nextNodes[cur];\n                nextNodes[cur] = -2;\n                cur = next;\n                dist -= 1;\n            }\n            nextNodes[from] = to;\n            ans.push_back(dist);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722742121",
+    "subm_id": "1343761492"
+}

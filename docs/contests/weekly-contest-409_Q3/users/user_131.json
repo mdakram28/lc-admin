@@ -1,0 +1,6 @@
+{
+    "username": "0x3f66616e",
+    "submission": "impl Solution {\n    pub fn shortest_distance_after_queries(n: i32, queries: Vec<Vec<i32>>) -> Vec<i32> {\n        let mut dist = n - 1;\n        let n = n as usize;\n        let mut segs = std::collections::BTreeMap::new();\n        queries.iter().map(|q| {\n            let (u, v) = (q[0] as usize, q[1] as usize);\n            if let Some((&l, &r)) = segs.range(0..=u).next_back() {\n                if r >= v {\n                    return dist;\n                }\n            }\n            let mut rm = vec![];\n            for (&l, &r) in segs.range(u..n) {\n                if r <= v {\n                    dist += (r - l) as i32 - 1;\n                    rm.push(l);\n                } else {\n                    break;\n                }\n            }\n            for key in rm {\n                segs.remove(&key);\n            }\n            dist -= (v - u) as i32 - 1;\n            segs.insert(u, v);\n            dist\n        }).collect()\n    }\n}",
+    "submit_ts": "1722740223",
+    "subm_id": "552330045"
+}

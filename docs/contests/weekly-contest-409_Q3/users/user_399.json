@@ -1,0 +1,6 @@
+{
+    "username": "sepehry",
+    "submission": "import sortedcontainers\n\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        q = sortedcontainers.SortedList()\n        for i in range(n - 1):\n            q.add((i, i + 1))\n        sol = []\n\n        def overlap(l1, r1, l2, r2):\n            if r1 <= l2 or r2 <= l1:\n                return False\n            return True\n\n        for l, r in queries:\n            j0 = q.bisect_right((l,))\n            if j0 < len(q):\n                j = max(0, j0 - (q[j0][0] > l))\n            else:\n                j = j0 - 1\n            lmin = l\n            rmax = r\n            while j < len(q) and overlap(l, r, q[j][0], q[j][1]):\n                lmin = min(lmin, q[j][0])\n                rmax = max(rmax, q[j][1])\n                del q[j]\n            q.add((lmin, rmax))\n            sol.append(len(q))\n\n        return sol\n",
+    "submit_ts": "1722741326",
+    "subm_id": "1343742198"
+}

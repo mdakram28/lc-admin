@@ -1,0 +1,6 @@
+{
+    "username": "sreehithsanam",
+    "submission": "class Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        HashSet<Integer> set = new HashSet<>();\n        HashMap<Integer,Integer> map = new HashMap<>();\n        List<List<Integer>> nums = new ArrayList<>();\n        for(int i=0;i<n;i++){\n            nums.add(new ArrayList<>());\n            nums.get(i).add(i+1);\n            set.add(i);\n        }\n        int[] res = new int[queries.length];\n        for(int i=0;i<queries.length;i++){\n            if(set.contains(queries[i][0])){\n                int max = Math.max(queries[i][1],nums.get(queries[i][0]).get(0));\n                nums.get(queries[i][0]).set(0,max);\n                for(int j=queries[i][0]+1;j<max;j++){\n                    if(map.containsKey(j)) j = map.get(j);\n                    if(set.contains(j)) set.remove(j);\n                }\n                if(queries[i][0]+1<=max-1)\n                    map.put(queries[i][0]+1,max-1);\n            }\n            res[i] = set.size()-1;\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1722743045",
+    "subm_id": "1343783055"
+}

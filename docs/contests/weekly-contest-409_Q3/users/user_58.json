@@ -1,0 +1,6 @@
+{
+    "username": "lydxlx",
+    "submission": "import bisect\nfrom typing import *\nfrom functools import *\nfrom collections import namedtuple\nfrom sortedcontainers import SortedList, SortedDict\nfrom collections import Counter\nfrom math import inf\nfrom math import gcd\nimport string\nimport random\nimport itertools\nimport random\n\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        A = SortedList()\n        for i in range(1, n):\n            A.add((i - 1, i))\n        ans = []\n        for query in queries:\n            u, v = query\n            idx = A.bisect_right((u, inf))\n            # print(\"hi\", idx)\n            idx -= 1\n            if idx >= 0:\n                x, y = A[idx]\n                # print(\"hi\", x, y)\n                assert x <= u\n                if y >= v:\n                    ans.append(len(A))\n                    continue\n                if x == u:\n                    while idx < len(A) and A[idx][1] <= v:\n                        A.pop(idx)\n                    A.add((u, v))\n            # print(A)\n            ans.append(len(A))\n\n        return ans\n\n",
+    "submit_ts": "1722743861",
+    "subm_id": "1343801299"
+}

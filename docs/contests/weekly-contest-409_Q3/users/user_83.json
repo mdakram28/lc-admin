@@ -1,0 +1,6 @@
+{
+    "username": "zrts",
+    "submission": "class Solution {\n    int nxt[100005];\n    int del[100005];\n    int now;\n    int add(int n, int x, int y){\n        if(del[x] || nxt[x]>=y) return now;\n        int p = nxt[x];\n        int cnt = 0;\n        while(p!=y){\n            // printf(\"%d %d %d\\n\", p, x, y);\n            del[p] = true;\n            cnt ++;\n            p = nxt[p];\n            // if(cnt > 100) break;\n        }\n        now -= cnt;\n        nxt[x] = y;\n        return now;\n    }\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& qs) {\n        for(int i=0;i<n-1;i++){\n            nxt[i] = i+1;\n        }\n        now = n-1;\n        vector<int> ret;\n        for(auto q: qs){\n            ret.push_back(add(n, q[0], q[1]));\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1722739829",
+    "subm_id": "552327261"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "user0224B",
+    "submission": "/*\ndp[j] = \n*/\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> res;\n        res.reserve(queries.size());\n        map<int, int> qs;\n        int curr = n-1;\n        for (auto& q : queries) {\n            \n            // check if included by other range\n            if (auto it = qs.upper_bound(q[0]); it != begin(qs)) {\n                it = prev(it);\n                if (it->first <= q[0] && it->second >= q[1]) {\n                    res.push_back(curr);\n                    continue;\n                }\n            }\n            \n            // check if including other range\n            auto it = qs.lower_bound(q[0]);\n            while (it != end(qs) && it->second <= q[1]) {\n                curr += it->second - it->first - 1;\n                it = qs.erase(it);\n            }\n            \n            curr -= q[1] - q[0] - 1;\n            qs[q[0]] = q[1];\n            \n            res.push_back(curr);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722742388",
+    "subm_id": "1343767795"
+}

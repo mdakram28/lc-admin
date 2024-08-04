@@ -1,0 +1,6 @@
+{
+    "username": "hope_ma",
+    "submission": "class Solution {\n public:\n  vector<int> shortestDistanceAfterQueries(const int n, const vector<vector<int>> &queries) {\n    list<int> l;\n    unordered_map<int, list<int>::iterator> i_to_litr;\n    for (int i = 0; i < n; ++i) {\n      auto litr = l.insert(l.end(), i);\n      i_to_litr[i] = litr;\n    }\n    \n    bool removed[n];\n    memset(removed, 0, sizeof(removed));\n    const int n_queries = static_cast<int>(queries.size());\n    vector<int> ret(n_queries);\n    for (int i = 0; i < n_queries; ++i) {\n      const int u = queries[i].front();\n      const int v = queries[i].back();\n      if (removed[u] || removed[v]) {\n        ret[i] = static_cast<int>(l.size()) - 1;\n        continue;\n      }\n      auto itr_u = i_to_litr[u];\n      auto itr_v = i_to_litr[v];\n      //cout << *itr_u << \", \" << *itr_v << endl;\n      //cout << i << endl;\n      for (auto itr = next(itr_u); itr != itr_v; ) {\n        //cout << \"--\" << *itr << endl;\n        auto nitr = next(itr);\n        removed[*itr] = true;\n        l.erase(itr);\n        itr = nitr;\n      }\n      ret[i] = static_cast<int>(l.size()) - 1;\n    }\n    return ret;\n  }\n};",
+    "submit_ts": "1722742344",
+    "subm_id": "1343766767"
+}

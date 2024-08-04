@@ -1,0 +1,6 @@
+{
+    "username": "ting-ting-28",
+    "submission": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\n    def __repr__(self):\n        return f\"{self.val}->{self.next}\"\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        d = {}\n        a = ListNode(n-1)\n        d[n-1] = a\n        for i in range(n-2, -1, -1):\n            a = ListNode(i, a)\n            d[i] = a\n        res = []\n        for i, j in queries:\n            if i in d and j in d:\n                l, r = d[i].next, d[j]\n                while l != r:\n                    del d[l.val]\n                    l = l.next\n                d[i].next = d[j]\n            res.append(len(d)-1)\n        return res\n        # d = {i: [i+1] for i in range(n-1)}\n        # d[n-1] = []\n        # res = []\n        # for i, j in queries:\n        #     d[i].append(j)\n        #     a = {0}\n        #     for cnt in range(10000000):\n        #         if n-1 in a:\n        #             res.append(cnt)\n        #             break\n        #         new = set()\n        #         for k in a:\n        #             new |= set(d[k])\n        #         a = new\n        # return res",
+    "submit_ts": "1722740007",
+    "subm_id": "552328638"
+}

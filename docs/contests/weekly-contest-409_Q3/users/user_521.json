@@ -1,0 +1,6 @@
+{
+    "username": "clean",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        int now = n - 1;\n        vector<int> jumps(n - 1), ret, valid(n, 1);\n        for (int i = 0; i < n - 1; ++i) {\n            jumps[i] = i + 1;\n        }\n        for (vector<int> &q: queries) {\n            int l = q[0], r = q[1];\n            if (valid[l] == 0 || valid[r] == 0) {\n                ret.push_back(now);\n                continue;\n            }\n            int i = l, count = 0;\n            while(i < r) {\n                i = jumps[i];\n                count++;\n                if (i == r) break;\n                valid[i] = 0;\n            }\n            //if (i == r) {\n                now -= count - 1;\n                jumps[l] = r;\n            //}\n            ret.push_back(now);\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1722741832",
+    "subm_id": "1343754543"
+}

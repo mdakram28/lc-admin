@@ -1,0 +1,6 @@
+{
+    "username": "lunat",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> dye(n), zero(n);\n        for(int i = 0; i < n; i++) zero[i] = i + 1;\n        vector<int> ans;\n        int cnt = n;\n        for(auto &q : queries) {\n            int i = q[0], j = q[1];\n            if(dye[i] == true || dye[j] == true) {\n                ans.emplace_back(cnt - 1);\n            } else {\n                for(int k = zero[i]; k < j; k = zero[k]) {\n                    if(dye[k] == false) {\n                        cnt--;\n                        dye[k] = true;\n                    }\n                    else break;\n                }\n                zero[i] = j;\n                ans.emplace_back(cnt - 1);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722743355",
+    "subm_id": "552350315"
+}

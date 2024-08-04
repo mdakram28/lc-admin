@@ -1,0 +1,6 @@
+{
+    "username": "mzhaodev",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> sols;\n        map<int,int> next;\n        for (int i = 0; i < n-1; ++i)\n            next[i] = i+1;\n        int time = n-1;\n        for (int i = 0; i < queries.size(); ++i) {\n            int from = queries[i][0];\n            int to = queries[i][1];\n            if (next.count(from)) {\n                if (next[from] < to) {\n                    int x = from;\n                    int old_time = 0;\n                    while (x != to) {\n                        int tmp = next[x];\n                        old_time++;\n                        next.erase(x);\n                        x = tmp;\n                    }\n                    next[from] = to;\n                    time -= old_time - 1;\n                }\n            }\n            sols.push_back(time);\n        }\n        return sols;\n    }\n};\n",
+    "submit_ts": "1722742412",
+    "subm_id": "1343768381"
+}

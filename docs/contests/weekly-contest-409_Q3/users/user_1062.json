@@ -1,0 +1,6 @@
+{
+    "username": "Mrityuanjaya123",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<pair<int, int>> roads;\n        \n        for(int i=0; i < n - 1; i++) {\n            roads.insert({i, i + 1});\n        }\n        vector<int> ans;\n        for(auto query: queries) {\n            auto it = roads.upper_bound({query[0], 1e9});\n            if(it != roads.begin()) {\n                it--;\n                if(it->second >= query[1]) {\n                    ans.push_back(roads.size());\n                    continue;\n                }\n                else {\n                    it++;\n                    while(it != roads.end() && it->second <= query[1]) {\n                        auto it2 = it;\n                        it++;\n                        roads.erase(it2);\n                    }\n                    ans.push_back(roads.size());\n                    continue;\n                }\n            }\n            // ans.push_back(roads.size());\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722743026",
+    "subm_id": "1343782630"
+}

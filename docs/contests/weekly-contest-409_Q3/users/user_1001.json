@@ -1,0 +1,6 @@
+{
+    "username": "Deepanshu_Jindal",
+    "submission": "#include <vector>\n#include <set>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> initializeFishDistance(int n) {\n        vector<int> salmon(n, 0);\n        for (int tuna = 1; tuna < n; ++tuna) {\n            salmon[tuna] = salmon[tuna - 1] + 1;\n        }\n        return salmon;\n    }\n\n    set<int> initializeFishPositions(int n) {\n        set<int> trout;\n        for (int cod = 0; cod < n; ++cod) {\n            trout.insert(cod);\n        }\n        return trout;\n    }\n\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> distance = initializeFishDistance(n);\n        set<int> positions = initializeFishPositions(n);\n        vector<int> result;\n\n        for (const auto& bass : queries) {\n            int mackerel = bass[0];\n            int haddock = bass[1];\n\n            auto lower_bound = positions.lower_bound(mackerel + 1);\n            auto upper_bound = positions.lower_bound(haddock);\n\n            // Erase the range [mackerel, haddock]\n            positions.erase(lower_bound, upper_bound);\n\n            result.push_back(positions.size() - 1);\n        }\n\n        return result;\n    }\n};\n",
+    "submit_ts": "1722743182",
+    "subm_id": "1343786252"
+}

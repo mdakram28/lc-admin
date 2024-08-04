@@ -1,0 +1,6 @@
+{
+    "username": "Ravi_2021",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int numCities, vector<vector<int>>& queries) {\n        vector<int> distances(numCities, 0), results;\n        set<int> cityPositions;\n        cityPositions.insert(0);\n        \n        for (int i = 1; i < numCities; ++i) {\n            distances[i] = distances[i - 1] + 1;\n            cityPositions.insert(i);\n        }\n        \n        for (const auto& query : queries) {\n            int start = query[0];\n            int end = query[1];\n\n            auto startPos = cityPositions.lower_bound(start + 1);\n            auto endPos = cityPositions.lower_bound(end);\n            \n            cityPositions.erase(startPos, endPos);\n            \n            results.push_back(cityPositions.size() - 1);\n        }\n\n        return results;\n    }\n};",
+    "submit_ts": "1722743945",
+    "subm_id": "1343803291"
+}

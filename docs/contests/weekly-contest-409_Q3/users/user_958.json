@@ -1,0 +1,6 @@
+{
+    "username": "sampleaccountpage",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        map<int, int> ranges;\n\n        for (int i = 0; i < n - 1; i++) {\n            ranges[i] = i + 1;\n        }\n\n        vector<int> result;\n        for (auto & query: queries) {\n            auto left = query[0];\n            if (ranges.find(left) == ranges.end()) {\n                result.push_back(ranges.size());\n                continue;\n            }\n            auto right = query[1];\n            auto existing = ranges.lower_bound(left);\n            while (existing->second < right) {\n                existing->second = next(existing)->second;\n                ranges.erase(next(existing));\n            }\n            result.push_back(ranges.size());\n        }\n        return result;\n    }\n};\n",
+    "submit_ts": "1722742771",
+    "subm_id": "1343776773"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Tinky1224",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        g = [i for i in range(n)]\n        rank = [0]*n\n        r = [i+1 for i in range(n)]\n        def find(x):\n            if g[x] != g[g[x]]:\n                g[x] = find(g[x])\n            return g[x]\n        def union(x, y):\n            X, Y = find(x), find(y)\n            if X != Y:\n                if rank[X] < rank[Y]:\n                    g[X] = Y\n                elif rank[X] == rank[Y]:\n                    g[X] = Y\n                    rank[Y] += 1\n                else:\n                    g[Y] = X\n        m = len(queries)\n        res = []\n        cur = n-1\n        for u, v in queries:\n            if find(u) == find(v-1):\n                res.append(cur)\n                continue\n            nxt = r[u]\n            while nxt < v:\n                union(u, nxt)\n                cur -= 1\n                nxt = r[nxt]\n            r[u] = v\n            res.append(cur)\n        return res",
+    "submit_ts": "1722740318",
+    "subm_id": "1343716695"
+}

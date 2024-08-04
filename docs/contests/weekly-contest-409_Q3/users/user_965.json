@@ -1,0 +1,6 @@
+{
+    "username": "SihangWang",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        lst = []\n        res = []\n        dist = n-1\n        def handle(a, b):\n            nonlocal dist\n            if not lst:\n                lst.append([a, b])\n                dist -= b-a-1\n            else:\n                idx = get_idx(a)\n                if idx == 0 or lst[idx-1][1] <= a:\n                    while len(lst) > idx and b >= lst[idx][1]:\n                        dist += lst[idx][1]-lst[idx][0]-1\n                        lst.pop(idx)\n                    lst.insert(idx, [a, b])\n                    dist -= b-a-1\n            res.append(dist)\n\n        def get_idx(x):\n            l, r = 0, len(lst)-1\n            while l <= r:\n                mid = (l+r)//2\n                if lst[mid][0] == x:\n                    return mid\n                elif lst[mid][0] < x:\n                    l = mid + 1\n                else:\n                    r = mid - 1\n            return l\n\n        for u, v in queries:\n            if dist == 1:\n                res.append(1)\n            else:\n                handle(u, v)\n        return res",
+    "submit_ts": "1722743386",
+    "subm_id": "1343790799"
+}

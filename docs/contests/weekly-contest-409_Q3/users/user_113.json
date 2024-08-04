@@ -1,0 +1,6 @@
+{
+    "username": "NinjaSatish",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& q) {\n        vector<int> far(n, 0);\n        for(int i = 0 ; i < n - 1; i ++) far[i] = i + 1 ;\n        \n        vector<int> ans ;\n        set<int> avail ;\n        for(int i = 0 ; i < n; i ++) avail.insert(i);\n        \n        for(auto i: q){\n            int u = i[0], v = i[1];\n            if(far[u] < v){\n                auto it = avail.upper_bound(u);\n                while(it != avail.end() and *it < v){\n                    avail.erase(it);\n                    it = avail.upper_bound(u);\n                }\n                far[u] = v ;\n            }\n            \n            ans.push_back(avail.size() - 1);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1722740085",
+    "subm_id": "1343710873"
+}

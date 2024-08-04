@@ -1,0 +1,6 @@
+{
+    "username": "8symbols",
+    "submission": "from sortedcontainers import SortedList\n\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        roads = SortedList([(i, i + 1) for i in range(n - 1)], key=lambda x: (x[0], -x[1]))\n\n        distances = []\n        for u, v in queries:\n            roads.add((u, v))\n            road_index = roads.bisect_left((u, v))\n\n            if road_index != 0 and roads[road_index - 1][1] >= v:\n                roads.remove(roads[road_index])\n            else:\n                next_road_index = road_index + 1\n                while next_road_index != len(roads) and roads[next_road_index][0] < v:\n                    roads.remove(roads[next_road_index])\n\n            distances.append(len(roads))\n\n        return distances",
+    "submit_ts": "1722740733",
+    "subm_id": "1343727410"
+}

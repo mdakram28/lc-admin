@@ -1,0 +1,6 @@
+{
+    "username": "afakeusername",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> next(n);\n        iota(next.begin(), next.end(), 1);\n        set<int> possible;\n        for (int i = 0; i < n; i++)\n            possible.insert(i);\n\n        vector<int> ans;\n        int total = n - 1;\n        for (vector<int> query : queries) {\n            int a = query[0], b = query[1];\n\n            if (possible.count(a) && possible.count(b)) {\n                int temp = 0;\n                for (int i = a; i < b; i = next[i]) {\n                    temp++;\n                }\n                total -= temp - 1;\n                next[a] = b;\n                auto it = possible.find(a);\n                it++;\n                for (; it != possible.end() && *it < b;) {\n                    possible.erase(it++);\n                }\n                ans.push_back(total);\n            }\n            else {\n                ans.push_back(ans.back());\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722743047",
+    "subm_id": "1343783106"
+}

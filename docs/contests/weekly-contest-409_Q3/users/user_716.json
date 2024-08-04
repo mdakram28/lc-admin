@@ -1,0 +1,6 @@
+{
+    "username": "zinzin281",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<pair<int, int>> path;\n        for (int i = 1; i < n; ++i)\n        {\n            path.insert({ i - 1,i });\n        }\n        int resval = n - 1;\n        vector<int> ret;\n\n        for (auto& it : queries)\n        {\n            auto res = path.lower_bound({ it[0], it[0] - 1 });\n            if (res == path.end())\n            {\n                ret.push_back(resval);\n            }\n            else\n            {\n                bool inserted = false;\n                while (res != path.end() && res->second <= it[1])\n                {\n                    inserted = true;\n                    resval -= 1;\n                    auto temp = res;\n                    ++res;\n                    path.erase(temp);\n                }\n                if (inserted)\n                {\n                    path.insert({ it[0], it[1] });\n                    resval += 1;\n                }\n                ret.push_back(resval);\n            }\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1722742519",
+    "subm_id": "1343770848"
+}

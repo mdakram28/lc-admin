@@ -1,0 +1,6 @@
+{
+    "username": "lu_1005_lu",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        // no intersect\n        map<int, int> next;\n        for(int i = 0; i < n-1; i++) next[i] = i+1;\n        vector<int> res;\n        int dis = n-1;\n        for(auto& q: queries){\n            int a = q[0], b = q[1];\n            if(next.count(a) && b > next[a]){\n                int cur = next[a], prev;\n                while(cur != b){\n                    dis--;\n                    prev = cur;\n                    cur = next[cur];\n                    next.erase(prev);\n                }\n                next[a] = b;\n            }\n            res.push_back(dis);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722741685",
+    "subm_id": "1343750962"
+}

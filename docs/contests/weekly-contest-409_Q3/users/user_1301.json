@@ -1,0 +1,6 @@
+{
+    "username": "latstars",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        int m = queries.size();\n        vector<int> ans(m, n - 1);\n        vector<int> next_pos(n, -1);\n        for(int i = 0; i < n; i ++ ) {\n            next_pos[i] = i + 1;\n        }\n        int res = n - 1;\n        vector<int> dp(n, 1);\n        for(int i = 0; i < m; i ++ ) {\n            int u = queries[i][0];\n            int v = queries[i][1];\n            if(v <= next_pos[u]) {\n                ans[i] = res;\n                continue;\n            }\n            int pv = next_pos[u];\n            bool flag = false;\n            for(int j = u; j < v; j = next_pos[j] ) {\n                if(dp[j] == 1) {\n                    flag = true;\n                }\n                else{\n                    break;\n                }\n                res -= dp[j];\n                dp[j] = 0;\n            }\n            next_pos[u] = v;\n            if(flag) {\n                dp[u] = 1;\n                res += 1;\n            }\n            ans[i] = res;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722742857",
+    "subm_id": "552347342"
+}

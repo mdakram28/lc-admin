@@ -1,0 +1,6 @@
+{
+    "username": "azhan0222",
+    "submission": "class DSU:\n    def __init__(self, n):\n        self.p = list(range(n))\n        self.r = [0] * n\n\n    def find(self, a):\n        if a == self.p[a]:\n            return a\n        self.p[a] = self.find(self.p[a])\n        return self.p[a]\n\n    def union(self, a, b):\n        a, b = self.find(a), self.find(b)\n        if a == b:\n            return\n        # if self.r[a] > self.r[b]:\n        #     a, b = b, a\n        self.p[a] = b\n        # if self.r[a] == self.r[b]:\n        #     self.r[b] += 1\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        dsu = DSU(n)\n        ans = []\n        ct = n - 1\n        for i, j in queries:\n            k = dsu.find(i + 1)\n            while k < j:\n                ct -= dsu.p[k] != j\n                dsu.union(k, j)\n                k += 1\n                k = dsu.p[k]\n                # print(dsu.p)\n            ans.append(ct)\n            # print('ans', ans)\n        return ans\n        ",
+    "submit_ts": "1722741314",
+    "subm_id": "1343741868"
+}

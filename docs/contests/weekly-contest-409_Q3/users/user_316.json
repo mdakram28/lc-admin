@@ -1,0 +1,6 @@
+{
+    "username": "Sagar_Goel",
+    "submission": "class Solution {\npublic:\n    class LL{\n        public:\n        int val;\n        LL*next;\n        LL(int num){\n            val = num;\n            next=nullptr;\n        }\n    };\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        unordered_map<int,int> u;\n        vector<LL*> nodes;\n        int dist=n-1;\n        vector<int> ans;\n        for(int i=0;i<n;i++){\n            LL* now = new LL(i);\n            if(i>0){\n                nodes.back()->next = now;\n            }\n            nodes.push_back(now);\n        }\n        for(int i=0;i<queries.size();i++){\n            if(u[queries[i][0]] || u[queries[i][1]]){\n                ans.push_back(dist);\n                continue;\n            }\n            int num1=queries[i][0],num2=queries[i][1];\n            int less=0;\n            while(nodes[num1]->next!=nodes[num2]){\n                less++;\n                u[nodes[num1]->next->val]++;\n                nodes[num1]->next = nodes[num1]->next->next;\n            }\n            dist-=less;\n            ans.push_back(dist);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722741249",
+    "subm_id": "1343740314"
+}

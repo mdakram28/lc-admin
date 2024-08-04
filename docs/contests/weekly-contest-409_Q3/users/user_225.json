@@ -1,0 +1,6 @@
+{
+    "username": "Unicorn1_5",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<int> activeCities;\n        for (int i = 0; i < n; ++i) {\n            activeCities.insert(i);\n        }\n        \n        vector<int> answer;\n        \n        for (const auto& query : queries) {\n            int u = query[0], v = query[1];\n            \n            // Remove all cities in the range (u, v) from the set\n            auto it = activeCities.upper_bound(u); // Get the first element greater than u\n            while (it != activeCities.end() && *it < v) {\n                it = activeCities.erase(it);\n            }\n            \n            // The shortest path is the size of the set minus 1\n            answer.push_back(activeCities.size() - 1);\n        }\n        \n        return answer;\n    }\n};\n",
+    "submit_ts": "1722740816",
+    "subm_id": "1343729416"
+}

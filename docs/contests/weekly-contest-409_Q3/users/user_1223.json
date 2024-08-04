@@ -1,0 +1,6 @@
+{
+    "username": "rgilhe98",
+    "submission": "class Solution:\n\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n\n        # Definition for singly-linked list.\n        class ListNode:\n            def __init__(self, val=0, next=None, prev = None):\n                self.val = val\n                self.next = next\n                self.prev = prev\n        \n        dummy = ListNode(-1)\n        prev = dummy\n\n        d = {}\n\n        for i in range(n):\n            node = ListNode(i)\n            d[i] = node\n            prev.next = node\n            node.prev = prev\n            prev = node\n        \n        head = dummy.next\n        size = n\n        ans = []\n        for a,b in queries:\n            if a in d and b in d:\n                \n                prev = d[a]\n                \n                node = d[a].next\n                while node.next and node.val < b:\n                    del d[node.val]\n                    node = node.next\n                    size-=1\n                prev.next = node\n\n            ans.append(size-1)\n        return ans\n\n        \n        ",
+    "submit_ts": "1722743773",
+    "subm_id": "1343799331"
+}

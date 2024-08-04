@@ -1,0 +1,6 @@
+{
+    "username": "jordan322",
+    "submission": "class Solution {\nprivate:\n    int bs(int val, vector<int>&nums){\n        int start = 0, end = nums.size()-1;\n        while(start <= end){\n            int mid = start + (end-start)/2;\n            if(val > nums[mid]) start = mid + 1;\n            else end = mid - 1;\n        }\n        return start;\n    }\npublic:\n    int inf = 10000000;\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> ans;\n        vector<int> nums(n,0);\n        \n        for(int i=0; i<n; i++){\n            nums[i] = i;\n        }\n\n        int cnt = 0;\n        for(auto& q: queries){\n            int start = bs(q[0],nums);\n            int end = bs(q[1],nums);\n            \n            int cnt = end-start-1;\n            for(int i=0; i<cnt; i++){\n                nums.erase(nums.begin()+start+1);\n            }\n            ans.push_back(nums.size()-1);\n        }\n\n        return ans;\n\n    }\n};",
+    "submit_ts": "1722741763",
+    "subm_id": "1343752922"
+}

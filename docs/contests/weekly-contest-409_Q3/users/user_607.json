@@ -1,0 +1,6 @@
+{
+    "username": "brinuke",
+    "submission": "class Solution {\n\tprivate static class City {\n\t\tboolean hidden;\n\t\tCity next;\n\n\t\tCity(City next) {\n\t\t\tthis.next = next;\n\t\t}\n\n\t\tCity hide() {\n\t\t\thidden = true;\n\t\t\treturn next;\n\t\t}\n\t}\n\n\tpublic static int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n\t\tCity[] cities = new City[n];\n\t\tCity firstCity = null;\n\t\tfor (int i = n - 1; i >= 0; i--)\n\t\t\tcities[i] = firstCity = new City(firstCity);\n\t\tint distance = n - 1;\n\t\tint m = queries.length;\n\t\tint[] answer = new int[m];\n\t\tfor (int i = 0; i < m; i++) {\n\t\t\tint[] query = queries[i];\n\t\t\tCity u = cities[query[0]];\n\t\t\tCity v = cities[query[1]];\n\t\t\tif (!(u.hidden || v.hidden)) {\n\t\t\t\tCity city = u.next;\n\t\t\t\twhile (city != v) {\n\t\t\t\t\tdistance--;\n\t\t\t\t\tcity = city.hide();\n\t\t\t\t}\n\t\t\t\tu.next = v;\n\t\t\t}\n\t\t\tanswer[i] = distance;\n\t\t}\n\t\treturn answer;\n\t}\n}",
+    "submit_ts": "1722741623",
+    "subm_id": "1343749430"
+}

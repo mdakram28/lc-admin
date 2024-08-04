@@ -1,0 +1,6 @@
+{
+    "username": "bloxblox",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        unordered_map<int, int> mp;\n        set<int> se;\n        vector<int> ans;\n        int cur = n - 1;\n        for (auto &q : queries) {\n            auto it = se.lower_bound(q[0]);\n            if (it != se.begin()) {\n                auto it0 = prev(it);\n                if (mp[*it0] >= q[1]) {\n                    ans.push_back(cur);\n                    continue;\n                }\n            }\n            if (*it == q[0] && mp[*it] > q[1]) {\n                ans.push_back(cur);\n                continue;\n            }\n            vector<set<int>::iterator> rem;\n            while (it != se.end() && mp[*it] <= q[1]) {\n                rem.push_back(it);\n                cur += mp[*it] - *it - 1;\n                it++;\n            }\n            cur -= q[1] - q[0] - 1;\n            mp[q[0]] = q[1];\n            for (auto &x : rem) {\n                se.erase(x);\n            }\n            se.insert(q[0]);\n            ans.push_back(cur);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722741669",
+    "subm_id": "1343750589"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "oalad-zro",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> ans;\n        int m = queries.size();\n        ans.reserve(m);\n        set<pair<int, int>> segments;\n        int tot = 0;\n        for (auto &q: queries) {\n            int l = q[0], r = q[1];\n            auto last = segments.lower_bound(make_pair(l, INT_MAX));\n            if (last != segments.begin()) {\n                --last;\n                if (last->second >= r) {\n                    ans.push_back(n - 1 - tot + segments.size());\n                    continue;\n                }\n            }\n            auto now = make_pair(l, INT_MIN);\n            auto it = segments.lower_bound(now);\n           // cout << it->first << \" \" << it->second << \"\\n\";\n           \n            while (it != segments.end() && it->first < r) {\n                auto tmp = it;\n                ++it;\n                tot -= tmp->second - tmp->first;\n                segments.erase(tmp);\n            }\n            segments.emplace(l, r);\n            tot += r - l;\n            ans.push_back(n - 1 - tot + segments.size());\n        } \n        return ans;\n    }\n};",
+    "submit_ts": "1722739612",
+    "subm_id": "552325774"
+}

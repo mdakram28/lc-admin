@@ -1,0 +1,6 @@
+{
+    "username": "Kalomidin",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        d = {}\n        ans = []\n        right = None\n        for i in reversed(range(n)):\n            nn = Node(right, i)\n            right = nn\n            d[i] = nn\n        for q in queries:\n            if not q[0] in d:\n                ans.append(len(d) - 1)\n                continue\n            node = d[q[0]]\n            if node.right != None and node.right.val < q[1]:\n                nnn = node.right\n                while nnn != d[q[1]]:\n                    del d[nnn.val]\n                    nnn = nnn.right\n                node.right = d[q[1]]\n            ans.append(len(d) - 1)\n        return ans\n\nclass Node:\n    def __init__(self, right, val):\n        self.right = right\n        self.val = val\n",
+    "submit_ts": "1722743527",
+    "subm_id": "1343793948"
+}

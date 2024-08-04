@@ -1,0 +1,6 @@
+{
+    "username": "zephyrr",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        res = []\n        q = []\n        cur = n-1\n        for a,b in queries:\n            ind = bisect.bisect(q,[a,0])\n            #print(ind)\n            if ind == len(q):\n                if (not q) or (q and a >= q[-1][1]):\n                    q.append([a,b])\n                    cur -= (b-a-1)\n                res.append(cur)\n            else:\n                if (a == q[ind][0] and b <= q[ind][1]) or (ind-1>=0 and a>=q[ind-1][0] and b <= q[ind-1][1]):\n                    res.append(cur)\n                    continue\n                if a < q[ind][0] and b <= q[ind][0]:\n                    q.insert(ind,[a,b])\n                    cur -= (b-a-1)\n                else:\n                    curind = ind\n                    while curind<len(q) and q[curind][1]<=b:\n                        cur += (q[curind][1]-q[curind][0]-1)\n                        q.pop(curind)\n                    q.insert(curind,[a,b])\n                    cur -= (b-a-1)\n                res.append(cur)\n            #print(q)\n        return res\n        \n\n\n        ",
+    "submit_ts": "1722740385",
+    "subm_id": "1343718441"
+}

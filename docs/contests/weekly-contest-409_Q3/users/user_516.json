@@ -1,0 +1,6 @@
+{
+    "username": "chintsai",
+    "submission": "class Solution {\n    void display(set<pair<int,int>> &S) {\n        // for (auto &p: S) {\n        //     printf(\"%d %d\\n\", p.first, p.second);\n        // }\n        // puts(\"\");\n    }\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n       \n        int m = queries.size();\n        vector<int> res(m);\n\n        set<pair<int, int>> S;\n        for (int i = 0; i + 1 < n; i++) {\n            S.emplace(i, i);\n        }\n\n        display(S);\n       \n        for (int it = 0; it < m; it++) {\n            int u = queries[it][0], v = queries[it][1] - 1;\n\n            auto IT = S.lower_bound({u, -1});\n            if (IT != S.end() && (*IT).second <= v) {\n                vector<pair<int,int>> temp;\n                while (IT != S.end() && (*IT).second <= v) {\n                    temp.emplace_back((*IT).first, (*IT).second);\n                    IT++;\n                }\n                for (auto &p: temp) {\n                    S.erase({p.first, p.second});\n                }\n                S.emplace(u, v);\n            }\n            display(S);\n            res[it] = S.size();\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722741810",
+    "subm_id": "552340595"
+}

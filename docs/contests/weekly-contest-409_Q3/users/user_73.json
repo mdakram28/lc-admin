@@ -1,0 +1,6 @@
+{
+    "username": "milesian-c",
+    "submission": "int fa[100020];\nclass Solution {\npublic:\n    int getfa(int x){\n        if(fa[x] == x)return fa[x];\n        fa[x] = getfa(fa[x]);\n        return fa[x];\n    }\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> ret;\n        int m = queries.size();\n        for(int i=0;i<n;++i){\n            fa[i] = i;\n        }\n        int nowans = n-1;\n        for(int i=0;i<m;++i){\n            int x = queries[i][0];\n            int y = queries[i][1];\n            int aug = 0;\n            while(x < y){\n                x = getfa(x);\n                if(x < y-1) {\n                    fa[x] = y-1;\n                    ++ aug;\n                    x ++;\n                }else break;\n                \n            }\n            nowans -= aug;\n            ret.push_back(nowans);\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1722739632",
+    "subm_id": "552325915"
+}

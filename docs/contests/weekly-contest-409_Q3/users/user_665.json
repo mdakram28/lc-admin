@@ -1,0 +1,6 @@
+{
+    "username": "quochungbuile",
+    "submission": "class ListNode:\n    def __init__(self, val):\n        self.val = val\n        self.next = None\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        m = len(queries)\n        \n        dikt = {}\n        root = tail = None\n        for i in range(n):\n            if not tail:\n                root = tail = ListNode(i)\n                dikt[i] = root\n            else:\n                tail.next = ListNode(i)\n                tail = tail.next\n                dikt[i] = tail\n        \n        res = []\n        for u, v in queries:\n            if u in dikt and v in dikt:\n                s = dikt[u]\n                e = dikt[v]\n\n                while s.next != e:\n                    dikt.pop(s.next.val)\n                    s.next = s.next.next\n            \n            res.append(len(dikt) - 1)\n        return res",
+    "submit_ts": "1722742017",
+    "subm_id": "1343758962"
+}

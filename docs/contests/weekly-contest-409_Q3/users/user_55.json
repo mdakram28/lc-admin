@@ -1,0 +1,6 @@
+{
+    "username": "Ma_Lin",
+    "submission": "class Solution {\npublic:\n    int fa[100005];\n    \n    int find_fa(int p){\n        int j, k;\n        j = p;\n        while (fa[j] != -1) j = fa[j];\n        while (p != j){\n            k = fa[p];\n            fa[p] = j;\n            p = k;\n        }\n        \n        return j;\n    }\n    \n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& Q) {\n        int i, j, x, y, ge = n - 1, prev;\n        vector<int> res;\n        for (i = 0; i + 1 < n; ++i) fa[i] = -1; \n        for (auto q : Q){\n            x = find_fa(q[0]); y = find_fa(q[1] - 1);\n            if (x != y){\n                prev = -1;\n                while (true){\n                    if (prev == -1) prev = x;\n                    else{\n                        fa[prev] = x;\n                        --ge;\n                    }\n                    if (x == y) break;\n                    prev = x;\n                    x = find_fa(x + 1);\n                }\n            }\n                \n            res.push_back(ge);\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": "1722739733",
+    "subm_id": "1343701819"
+}

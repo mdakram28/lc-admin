@@ -1,0 +1,6 @@
+{
+    "username": "vigilant-i2oentgennwa",
+    "submission": "class Solution {\npublic:\n    int fa[100005];\n    int Find(int u) {\n        if (fa[u] == u) return u;\n        return fa[u] = Find(fa[u]);\n    }\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> answer;\n        for (int i = 0; i < n; i++) {\n            fa[i] = i;\n        }\n        int ans = n - 1;\n        for(auto vec : queries) {\n            int l = vec[0], r = vec[1] - 1;\n            if (r > l) {\n                while (Find(l) != Find(r)) {\n                    int fl = Find(l), fl1 = Find(fl + 1);\n                    fa[fl] = fl1;\n                    l = fl1;\n                    ans--;\n                }\n            }\n            answer.push_back(ans);\n        }\n        return answer;\n    }\n};",
+    "submit_ts": "1722739316",
+    "subm_id": "552323816"
+}

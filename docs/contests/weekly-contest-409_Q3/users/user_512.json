@@ -1,0 +1,6 @@
+{
+    "username": "Isaac_Netero333",
+    "submission": "#include <ext/pb_ds/assoc_container.hpp> \n#include <ext/pb_ds/tree_policy.hpp> \nusing namespace __gnu_pbds; \n  \n#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> \nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        int temp=n-1;\n        vector<int>ans;\n        ordered_set st;\n        for(int i=0;i<n;i++) st.insert(i);\n        for(auto it:queries){\n            int l=it[0],r=it[1];\n            int ind=st.order_of_key(l);\n            //cout<<ind<<endl;\n            int mm=*(st.find_by_order(ind));\n            if(mm!=l){\n                ind--;\n            }\n            for(int j=0;;j++){\n                int val=*(st.find_by_order(ind+1)) ;\n                \n                //cout<<val<<\" \";\n                if(val>=r) break;\n                st.erase(val);\n            }\n            \n            ans.push_back(st.size()-1);\n        }\n        return ans;\n    }\n};\n// 18\n// [[1,14],[7,9]]\n// 5\n// [[1,4],[2,4]]",
+    "submit_ts": "1722741478",
+    "subm_id": "1343746011"
+}

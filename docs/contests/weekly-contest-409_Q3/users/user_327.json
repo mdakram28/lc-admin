@@ -1,0 +1,6 @@
+{
+    "username": "jszqlew",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> pointers(n); // {prev, next}\n        vector<bool> touches(n, true);\n        for (int i=0; i<n; ++i) pointers[i] = i + 1;\n\n        int path = n - 1;\n        vector<int> ans;\n        for (int i=0; i<queries.size(); ++i) {\n            int p = queries[i][0];\n            int q = queries[i][1];\n            if (!touches[p]) {\n                ans.push_back(path);\n                continue;\n            }\n            int org = p;\n            p = pointers[p];\n            while (p < q) {\n                --path;\n                touches[p] = false;\n                p = pointers[p];\n            }\n            // for (int j=0; j<n; ++j) cout << pointers[j] << \" \\n\"[j==n-1];\n            // cout << org << ' ' << q << endl;\n            pointers[org] = q;\n            ans.push_back(path);\n        }\n        return ans;\n\n\n    }\n};",
+    "submit_ts": "1722740255",
+    "subm_id": "1343715138"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "np__45",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& q) {\n        vector<vector<int>> g(n);\n        for (int i = 0; i < n - 1; ++i) {\n            g[i].push_back(i+1);\n        }\n        \n        int ans = n-1;\n        vector<int> d(n, 0);\n        auto update1 = [&](int u, int v) {\n            if(d[u]+d[v] >= 1) return ans;\n            int j = u;\n            int k = 0;\n            while(j < v) {\n                for(int i=g[j].size()-1; i>=0; i--) {\n                    j = g[j][i];\n                    k++;\n                    break;\n                }\n                d[j] = 1;\n            }\n            d[j] = 0;\n            ans = ans - k + 1;\n            return ans;\n        };\n\n        vector<int> a;\n        for (auto& r : q) {\n            int u = r[0], v = r[1];\n            a.push_back(update1(u, v));\n            g[u].push_back(v);\n        }\n        \n        return a;\n    }\n};",
+    "submit_ts": "1722743510",
+    "subm_id": "1343793555"
+}

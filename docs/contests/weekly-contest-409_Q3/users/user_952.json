@@ -1,0 +1,6 @@
+{
+    "username": "thienan175",
+    "submission": "type node struct {\n    val int\n    next *node\n}\n\nfunc shortestDistanceAfterQueries(n int, queries [][]int) []int {\n    list := &node{}\n    cur := list\n    m := make(map[int]*node)\n\n    for i := 0; i < n; i++ {\n        cur.next = &node{val: i}\n        cur = cur.next\n        m[i] = cur\n    }\n\n    // for c := list.next; c != nil; c = c.next {\n    //     fmt.Println(c.val, m[c.val].val)\n    // }\n\n    l := n-1\n    ans := make([]int, len(queries))\n    for i, q := range queries {\n        u, v := q[0], q[1]\n        start := m[u]\n        end := m[v]\n\n        if start == nil || end == nil {\n            ans[i] = l\n            continue\n        }\n\n        // fmt.Println(start.val, end.val)\n\n        for start.next.val < v {\n            delete(m, start.next.val)\n            start.next = start.next.next\n            l -= 1 \n        }   \n\n        ans[i] = l\n    }\n\n    return ans\n}",
+    "submit_ts": "1722743341",
+    "subm_id": "1343789762"
+}

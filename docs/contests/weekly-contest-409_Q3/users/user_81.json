@@ -1,0 +1,6 @@
+{
+    "username": "srikkanthr",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> rt(n);\n        vector<int> alive(n, 1);\n        rt[n-1] = -1;\n        for (int i=0;i+1<n;++i) rt[i] = i + 1;\n        int edges = n-1;\n        auto add_edge = [&](int u, int v) {\n            if (!alive[u] || !alive[v]) return;\n            int cur = u, cnt = 0;\n            while (cur != v) {\n                cur = rt[cur];\n                if (cur == v) break;\n                alive[cur] = 0;\n                cnt++;\n            }\n            edges -= max(0, cnt);\n            rt[u] = v;\n        };\n        vector<int> ret;\n        for (auto &vec : queries) {\n            int x = vec[0], y = vec[1];\n            add_edge(x, y);\n            ret.push_back(edges);\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1722739754",
+    "subm_id": "1343702337"
+}

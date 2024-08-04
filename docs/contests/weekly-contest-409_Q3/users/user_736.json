@@ -1,0 +1,6 @@
+{
+    "username": "abb10000y",
+    "submission": "class Solution {\npublic:\n    int size;\n    vector<int> uf;\n    vector<int> last;\n    int root(int i) {\n        if (uf[i] < 0) { return i; }\n        int tmp = root(uf[i]);\n        last[tmp] = max(last[i], last[tmp]);\n        last[i] = max(last[i], last[tmp]);\n        uf[i] = tmp;\n        return uf[i];\n    }\n    void connect(int i, int j) {\n        int r1 = root(i), r2 = root(j);\n        if (r1 == r2) { return; }\n        last[r1] = max(last[r1], last[r2]);\n        last[r2] = max(last[r1], last[r2]);\n        uf[r1] += uf[r2];\n        uf[r2] = r1;\n        size--;\n        //cout << \"here\\n\";\n    }\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> ans;\n        size = n-1;\n        uf.assign(n-1, -1);\n        last.assign(n-1, -1);\n        for (int i = 1; i < n; i++) { // )\n            last[i-1] = i;\n        }\n        for (auto q :queries) {\n            int s = q[0], d = q[1];\n            for (int i = s; i < d; i++) {\n                if (root(s) == root(i)) {\n                    i = last[root(i)]-1;\n                }\n                    connect(s, i);\n                \n            }\n            ans.push_back(size);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722742878",
+    "subm_id": "1343779168"
+}

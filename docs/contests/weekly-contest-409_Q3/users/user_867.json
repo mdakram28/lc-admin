@@ -1,0 +1,6 @@
+{
+    "username": "sad-villaniktr",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        int cur = n - 1;\n        vector<int> ans;\n        typedef pair<int, int> pii;\n        set<pii> s;\n        for (const auto& q:queries) {\n            const int u = q[0], v = q[1];\n            auto it1 = s.lower_bound(pii(u + 1, 0));\n            if (it1 != s.begin()) {\n                it1--;\n                if (it1 -> second >= v) {\n                    ans.push_back(cur);\n                    continue;\n                }\n            }\n            auto it2 = s.lower_bound(pii(u, 0));\n            while (it2 != s.end() && it2 -> second <= v) {\n                cur += it2 -> second - it2 -> first - 1;\n                s.erase(it2);\n                it2 = s.lower_bound(pii(u, u));\n            }\n            s.insert(pii(u, v));\n            cur -= v - u - 1;\n            ans.push_back(cur);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722743369",
+    "subm_id": "552350399"
+}

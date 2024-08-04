@@ -1,0 +1,6 @@
+{
+    "username": "arsread",
+    "submission": "class Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        TreeSet<int[]> ts = new TreeSet<>((a,b)->a[0] == b[0]? b[1] - a[1]: a[0] - b[0]);\n        int p = 0;\n        int[] res = new int[queries.length];\n        for (int[] q: queries) {\n            res[p] = p == 0? n - 1: res[p-1];\n            int[] prev = ts.floor(q);\n            if (prev != null && prev[1] >= q[1]) {\n                p++;\n                continue;\n            }\n            res[p] -= q[1] - q[0] - 1;\n\n            int[] nxt = ts.ceiling(q);\n            // boolean add = nxt != null && nxt[1] <= q[0];\n            while (nxt != null && nxt[1] <= q[1]) {\n                ts.remove(nxt);\n                res[p] += nxt[1] - nxt[0] - 1;\n                nxt = ts.ceiling(q);\n            }\n            ts.add(q);\n\n            p++;\n        }\n        return res;\n    }\n}",
+    "submit_ts": "1722743456",
+    "subm_id": "1343792324"
+}

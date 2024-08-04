@@ -1,0 +1,6 @@
+{
+    "username": "mble6125",
+    "submission": "class Solution {\n    vector<int> tree;\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> res;\n        tree.resize(n*4);\n        \n        for (auto& q : queries) {\n            update(0, 0, n-1, q[0]+1, q[1]-1);\n            //cout<<tree[0]<<\" \";\n            res.push_back(n-1-tree[0]);\n        }\n        \n        return res;\n    }\n    \n    void update(int cur, int l, int r, int a, int b) {\n        if (a>r || b<l || tree[cur]==r-l+1) return;\n        if (a<=l && r<=b) {\n            tree[cur]=r-l+1;\n            return;\n        }\n        if (l>=r) {\n            tree[cur]=1;\n            return;\n        }\n        int left=cur*2+1;\n        int right=cur*2+2;\n        int mid=((l+r)>>1);\n        update(left, l, mid, a, b);\n        update(right, mid+1, r, a, b);\n        tree[cur]=tree[left]+tree[right];\n    }\n};",
+    "submit_ts": "1722742779",
+    "subm_id": "1343776945"
+}

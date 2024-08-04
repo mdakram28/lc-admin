@@ -1,0 +1,6 @@
+{
+    "username": "huanglanzhiguan",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        list<int> l;\n        unordered_map<int, list<int>::iterator> mp;\n        for (int i = 0; i < n; ++i) {\n            l.push_back(i);\n            mp[i] = --l.end();\n        }\n        \n        int cnt = n - 1;\n        int m = queries.size();\n        vector<int> ans(m);\n        \n        for (int i = 0; i < m; ++i) { \n            auto &q = queries[i];\n            int a = q[0], b = q[1];\n            // cout << i << ' ' << a << ' ' << b << endl;\n            auto it1 = mp.find(a);\n            auto it2 = mp.find(b);\n            if (it1 == mp.end() || it2 == mp.end()) {\n                ans[i] = cnt;\n            } else {\n                auto start = it1->second;\n                auto end = it2->second;\n                // remove nodes between it1 and it2\n                for (auto it = next(start); it != end;) {\n                    mp.erase(*it);\n                    it = l.erase(it);\n                    cnt--;\n                }\n                ans[i] = cnt;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722740751",
+    "subm_id": "552333469"
+}

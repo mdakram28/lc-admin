@@ -1,0 +1,6 @@
+{
+    "username": "tonyli00000",
+    "submission": "class Solution {\npublic:\n\tvector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n\t\tint m = queries.size();\n\t\tint curr = 0;\n\t\tvector<int>ret(m);\n\t\tmap<int, int>maxx;\n\t\tfor (int i = 0; i < m; i++) {\n\t\t\tint x = queries[i][0], y = queries[i][1];\n\t\t\t// check if in edge\n\t\t\tauto it = maxx.upper_bound(x);\n\t\t\tbool in = false;\n\t\t\tif (it == maxx.begin())in = false;\n\t\t\telse {\n\t\t\t\tit--;\n\t\t\t\tif (it->second + it->first >= y)in = true;\n\t\t\t}\n\t\t\tif (in) {\n\t\t\t\tret[i] = n - 1 - curr;\n\t\t\t\tcontinue;\n\t\t\t}\n\t\t\tit = maxx.lower_bound(x);\n\t\t\tvector<int>bad;\n\t\t\twhile (it != maxx.end() && it->first + it->second <= y) {\n\t\t\t\tbad.push_back(it->first);\n\t\t\t\tit++;\n\t\t\t}\n\t\t\tfor (auto& it : bad) {\n\t\t\t\tcurr -= (maxx[it] - 1);\n\t\t\t\tmaxx.erase(it);\n\t\t\t}\n\t\t\tcurr += y - x - 1;\n\t\t\tmaxx[x] = y - x;\n\t\t\tret[i] = n - 1 - curr;\n\t\t}\n\t\treturn ret;\n\t}\n};",
+    "submit_ts": "1722740532",
+    "subm_id": "1343722189"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "pinker-6",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        unordered_set<int> st;\n        vector<int> nxt(n);\n        for (int i=0; i<n; i++){\n            st.insert(i);\n            nxt[i] = i+1;\n        }\n\n        vector<int> ans;\n        for (auto &query: queries){\n            int from = query[0], to = query[1];\n            int idx = nxt[from];\n            while (idx<=to-1){\n                if (!st.count(idx)) break;\n                st.erase(idx);\n                idx = nxt[idx];\n            }\n            nxt[from] = max(nxt[from], to);\n            ans.push_back(st.size()-1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722741429",
+    "subm_id": "552338146"
+}

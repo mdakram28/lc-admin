@@ -1,0 +1,6 @@
+{
+    "username": "sourav_suku",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        // Nothing crosses\n        set<int> st;\n        for(int i=0;i<n;++i)st.insert(i);\n        vector<int> res;\n        for(auto &q:queries){\n            if(!st.count(q[0])||!st.count(q[1])){\n                res.push_back((int)st.size()-1);\n                continue;\n            }else{\n                auto it=st.lower_bound(q[0]);\n                vector<int> toErase;    ++it;\n                for(auto it2=it;it2!=st.end();++it2){\n                    if(*it2==q[1])break;\n                    else{\n                        toErase.push_back(*it2);\n                    }\n                }\n                for(auto &e:toErase)st.erase(e);\n                res.push_back((int)st.size()-1);\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722741642",
+    "subm_id": "1343749910"
+}

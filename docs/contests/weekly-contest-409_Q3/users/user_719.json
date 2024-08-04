@@ -1,0 +1,6 @@
+{
+    "username": "yuan-hao-k",
+    "submission": "class Solution {\npublic:\n    void shutdown(int o,int left,int right,int mid,vector<vector<int>>&a){\n        if(a[o][1]==true){\n            a[o*2][0]=mid-left+1;\n            a[o*2][1]=true;\n            a[o*2+1][0]=right-mid;\n            a[o*2+1][1]=true;\n        }\n    }\n    void shutup(int o,vector<vector<int>>&a){\n        a[o][0]=a[o*2][0]+a[o*2+1][0];\n    }\n    void set(int o,int left,int right,int L,int R,vector<vector<int>>&a){\n        if(L<=left&&right<=R){\n            a[o][0]=right-left+1;\n            a[o][1]=true;\n            return;\n        }\n        int mid=(left+right)/2;\n        shutdown(o,left,right,mid,a);\n        if(L<=mid){\n            set(o*2,left,mid,L,R,a);\n        }\n        if(mid<R){\n            set(o*2+1,mid+1,right,L,R,a);\n        }\n        shutup(o,a);\n        return;\n    }\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<vector<int>>a(4*n,vector<int>(2,0));\n        vector<int>ans;\n        for(auto& q:queries){\n            set(1,1,n,q[0]+2,q[1],a);\n            ans.push_back(n-a[1][0]-1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722742224",
+    "subm_id": "552343254"
+}

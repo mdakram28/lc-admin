@@ -1,0 +1,6 @@
+{
+    "username": "axoder",
+    "submission": "use std::collections::BTreeSet;\nimpl Solution {\n    pub fn shortest_distance_after_queries(n: i32, queries: Vec<Vec<i32>>) -> Vec<i32> {\n        let mut distances = vec![0; n as usize];\n        for i in 1..n as usize {\n            distances[i] = distances[i - 1] + 1;\n        }\n\n        let mut city_set: BTreeSet<i32> = (0..n).collect();\n        let mut result = Vec::new();\n        for query in queries {\n            let start = query[0];\n            let end = query[1];\n            let to_remove: Vec<i32> = city_set.range((start + 1)..end).cloned().collect();\n            for city in to_remove {\n                city_set.remove(&city);\n            }\n\n            result.push(city_set.len() as i32 - 1);\n        }\n        result\n    }\n}",
+    "submit_ts": "1722743558",
+    "subm_id": "1343794649"
+}

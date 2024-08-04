@@ -1,0 +1,6 @@
+{
+    "username": "fjzzq2002",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n#define SZ 1333333\n#define fi first\n#define se second\ntypedef long long ll;\n#define mp make_pair\n#define pb push_back\n#define pii pair<int,int>\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        int ans=0;\n        map<int,int> pr;\n        vector<int> aa;\n        for(auto q:queries) {\n            int a=q[0],b=q[1];\n            auto s=pr.upper_bound(a);\n            if(s!=pr.begin()) {\n                auto u=--s;\n                // check if (a,b) is covered\n                if(u->se>=b) goto skip;\n            }\n            // remove all the covered\n            s=pr.lower_bound(a);\n            while(s!=pr.end()&&s->se<=b)\n                ans-=s->se-s->fi-1,\n                s=pr.erase(s);\n            pr[a]=b;\n            ans+=b-a-1;\n            skip:;\n            aa.pb(n-1-ans);\n        }\n        return aa;\n    }\n};",
+    "submit_ts": "1722739175",
+    "subm_id": "1343687940"
+}

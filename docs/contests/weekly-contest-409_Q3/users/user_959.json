@@ -1,0 +1,6 @@
+{
+    "username": "yin-jing-song",
+    "submission": "impl Solution {\n    pub fn shortest_distance_after_queries(n: i32, queries: Vec<Vec<i32>>) -> Vec<i32> {\n        let mut cnt = std::collections::HashMap::new();\n        let mut res = n - 1;\n        let mut ans = vec![0; queries.len()];\n        let mut vis = vec![false; n as usize];\n        for (i, q) in queries.iter().enumerate() {\n            let u = q[0];\n            let v = q[1];\n            if !vis[u as usize] && !vis[v as usize] {\n                if let Some(&t) = cnt.get(&u) {\n                    if t < v {\n                        cnt.insert(u, v);\n                        for j in t..v {\n                            if !vis[j as usize] {\n                                vis[j as usize] = true;\n                                res -= 1;\n                            }\n\n                        }\n                    }\n                } else {\n                    cnt.insert(u, v);\n                    for j in u + 1..v {\n                        if !vis[j as usize] {\n                            vis[j as usize] = true;\n                            res -= 1;\n                        }\n                    }\n                }\n            }\n            ans[i] = res;\n        }\n        ans\n    }\n}",
+    "submit_ts": "1722743081",
+    "subm_id": "552348639"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "sky_walker-x",
+    "submission": "from sortedcontainers import SortedKeyList\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        ans = []\n        curr = n - 1\n        intervals = SortedKeyList(key=lambda x: x[0])\n        for l, r in queries:\n            i = intervals.bisect_right((l, r))\n            i1 = i - 1\n            if i1 != -1 and r <= intervals[i1][1]:\n                ans.append(curr)\n                continue\n            i = intervals.bisect_left((l, r))\n            while i < len(intervals) and r >= intervals[i][1]:\n                curr += intervals[i][1] - intervals[i][0] - 1\n                intervals.remove(intervals[i])\n            intervals.add((l, r))\n            curr -= r - l - 1\n            ans.append(curr)\n        return ans\n\n",
+    "submit_ts": "1722740188",
+    "subm_id": "552329804"
+}

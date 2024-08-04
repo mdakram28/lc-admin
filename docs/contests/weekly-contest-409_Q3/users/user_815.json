@@ -1,0 +1,6 @@
+{
+    "username": "rushilv_",
+    "submission": "class Solution {\n    void updateDist(vector<int> &g, vector<int> &dist, int src, int n) {\n        queue<int> q;\n        q.push(src);\n\n        while(!q.empty()) {\n            int node = q.front(); q.pop();\n            int nei = g[node];\n\n            dist[nei] = min(dist[nei], dist[node]+1);\n            if(nei == n-1)\n                return;\n            \n            q.push(nei);\n        }\n    }\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<int> nodes;\n        for(int i = 0; i < n; i++) {\n            nodes.insert(i);\n        }\n\n        vector<int> ans(queries.size());\n        for(int i = 0; i < queries.size(); i++) {\n            auto it1 = nodes.upper_bound(queries[i][0]);\n            auto it2 = nodes.find(queries[i][1]);\n\n            if(!(it1 == nodes.end() || it2 == nodes.end()) && *it1 < *it2) {\n                nodes.erase(it1, it2);\n            }\n                \n            ans[i] = nodes.size()-1;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722742895",
+    "subm_id": "1343779550"
+}

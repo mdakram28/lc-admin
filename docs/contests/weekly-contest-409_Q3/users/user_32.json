@@ -1,0 +1,6 @@
+{
+    "username": "ethanrao",
+    "submission": "class Solution {\npublic:\n    int fa[100005];\n    int fd(int x){\n        return x == fa[x] ? x : fa[x] = fd(fa[x]);\n    }\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        int ans = n - 1;\n        std::vector <int> res;\n        std::set <int> ext;\n        for(int i = 1; i <= n - 1; ++i) ext.insert(i);\n        for(int i = 1; i <= n - 1; ++i) fa[i] = i;\n        for(int i = 0; i < queries.size(); ++i){\n            int x = queries[i][0], y = queries[i][1];\n            x++, y++;\n            if(fd(x) != fd(y - 1)){\n                auto it = ext.lower_bound(x + 1);\n                while(it != ext.end()){\n                    int t = *it;\n                    if(t > y - 1) break;\n                    if(fd(t) != fd(x)){\n                        ans -= 1;\n                        fa[t] = fd(x);\n                    }\n                    ++it;\n                    ext.erase(t);\n                }\n            }\n            res.push_back(ans);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722739686",
+    "subm_id": "1343700654"
+}

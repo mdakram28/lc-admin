@@ -1,0 +1,6 @@
+{
+    "username": "ANU_find_a_job",
+    "submission": "int p[100010],sz[100010];\nclass Solution {\npublic:\n    int find(int x){\n        if(p[x]!=x) p[x]=find(p[x]);\n        return p[x];\n    }\n    \n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        int tans=n-1;\n        vector<int> ans;\n        for(int i=0;i<n-1;i++) p[i]=i,sz[i]=1;\n        for(int i=0;i<queries.size();i++){\n            int l=queries[i][0],r=queries[i][1];\n            int pl=find(l);\n            if(sz[pl]>r-l) ans.push_back(tans);\n            else{\n                while(sz[l]<r-l){\n                    int ne=l+sz[l];\n                    p[ne]=p[l];\n                    sz[l]+=sz[ne];\n                    tans--;\n                }\n                ans.push_back(tans);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722743501",
+    "subm_id": "1343793331"
+}

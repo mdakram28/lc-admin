@@ -1,0 +1,6 @@
+{
+    "username": "uf21-2",
+    "submission": "#include <vector>\n#include <set>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int numElements, vector<vector<int>>& queries) {\n        vector<int> distances(numElements, 0);\n        for (int i = 1; i < numElements; ++i) {\n            distances[i] = distances[i - 1] + 1;\n        }\n\n        set<int> elementsSet;\n        for (int i = 0; i < numElements; ++i) {\n            elementsSet.insert(i);\n        }\n\n        vector<int> result;\n\n        for (const auto& query : queries) {\n            int leftBound = query[0];\n            int rightBound = query[1];\n\n            auto lowerBound = elementsSet.lower_bound(leftBound + 1);\n            auto upperBound = elementsSet.lower_bound(rightBound);\n\n            elementsSet.erase(lowerBound, upperBound);\n\n            result.push_back(elementsSet.size() - 1);\n        }\n\n        return result;\n    }\n};\n",
+    "submit_ts": "1722743613",
+    "subm_id": "1343795829"
+}

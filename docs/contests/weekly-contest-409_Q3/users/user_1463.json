@@ -1,0 +1,6 @@
+{
+    "username": "Mrinal_kanti",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector < int > v;\n        map < int, int > mp; mp[-1] = 0;\n        int ans = n-1; n = queries.size();\n        for(int i = 0; i < n; i++){\n            int x = queries[i][0], y = queries[i][1];\n            auto uu = mp.upper_bound(x); uu--;\n            if(uu->first != -1 && uu->first+uu->second > x && uu->second >= (y-x-1)){\n                v.push_back(ans); continue;\n            }\n            auto u = mp.lower_bound(x);\n            set < int > s;\n            while(!mp.empty() && u != mp.end() && u->first < y){\n                ans += u->second;\n                s.insert(u->first);\n                u++;\n            }\n            for(auto u : s) mp.erase(u);\n            ans -= (y-x-1);\n            mp[x] = (y-x-1);\n            v.push_back(ans);\n        }\n        return v;\n    }\n};",
+    "submit_ts": "1722741347",
+    "subm_id": "1343742721"
+}

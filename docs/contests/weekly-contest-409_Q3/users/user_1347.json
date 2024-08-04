@@ -1,0 +1,6 @@
+{
+    "username": "Eun_ha",
+    "submission": "class Solution {\npublic:\n    class node{\n        public:\n            int val = -1;\n            node*next = NULL;\n            node(int val){\n                this->val = val;\n            }\n            node(int val,node*next){\n                this->val = val;\n                this->next = next;\n            }\n    };\n\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries){\n        vector<int> v(n);\n        vector<bool> Index(n,true);\n\n        for(int i=n-1;i>=0 ;i--) {\n            v[i] = i+1;\n        }\n\n        int size = n-1;\n        vector<int> ans;\n    \n        for(vector<int> query:queries){\n            if(!Index[query[0]]){\n                ans.push_back(size);\n            }\n            else{\n                if( v[query[0]] < query[1]){\n                    for(int i= v[query[0]] ;i<query[1];){\n                        Index[i] = false;\n                        size --;\n                        i = v[i];\n                    }\n                    v[query[0]] = query[1];\n                }\n                ans.push_back(size);\n            }\n        }    \n        return ans;\n    }\n};",
+    "submit_ts": "1722743772",
+    "subm_id": "1343799317"
+}

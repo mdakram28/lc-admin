@@ -1,0 +1,6 @@
+{
+    "username": "MvKaio",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> ans;\n        \n        set<pair<int, int>> st; \n        for (int i = 0; i + 1 < n; i++)\n            st.emplace(i, i + 1);\n        \n        for (auto v : queries) {\n            int a = v[0], b = v[1];\n            \n            auto it = st.lower_bound({a, -1});\n            vector<pair<int, int>> rem;\n            while (it != st.end() && it->second <= b) {\n                rem.push_back(*it);\n                it = next(it);\n            }\n            \n            for (auto p : rem)\n                st.erase(p);\n            if (rem.size())\n                st.emplace(a, b);\n            \n            ans.push_back(st.size());\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722742117",
+    "subm_id": "1343761396"
+}

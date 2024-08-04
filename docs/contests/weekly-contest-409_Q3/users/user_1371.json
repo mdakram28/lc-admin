@@ -1,0 +1,6 @@
+{
+    "username": "Snorch",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> graph(n, 0);\n        for (int i = 1; i < n; i++)\n            graph[i - 1] = i;\n        int cnt = 0;\n\n        vector<int> result;\n\n        for (vector<int> &querie: queries) {\n            int a = querie[0];\n            int b = querie[1];\n\n            if (graph[a] != -1 && b > graph[a]) {\n                int _cnt = 0;\n                int x = a;\n\n                while (x != b) {\n                    int tmp = x;\n                    _cnt++;\n                    x = graph[x];\n                    if (tmp != a)\n                        graph[tmp] = -1;\n                }\n                cnt += _cnt - 1;\n                graph[a] = b;\n            }\n\n            result.push_back(n - 1 - cnt);\n        }\n\n        return result;\n    }\n};",
+    "submit_ts": "1722743931",
+    "subm_id": "1343802957"
+}

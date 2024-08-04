@@ -1,0 +1,6 @@
+{
+    "username": "Nowhereman",
+    "submission": "impl Solution {\n    pub fn shortest_distance_after_queries(n: i32, queries: Vec<Vec<i32>>) -> Vec<i32> {\n        let mut ret = Vec::new();\n        let mut tmp_ans = n - 1;\n\n        let mut path = Vec::new();\n        // init path\n        for i in 0..n - 1 {\n            path.push((i as usize, (i + 1) as usize));\n        }\n\n        for q in queries.iter() {\n            // do deletion\n            let left = q[0] as usize;\n            let right = q[1] as usize;\n            let mut deletions = 0;\n            let mut it = path[left].1;\n            path[left].1 = right;\n            while it < right {\n                let next_it = path[it].1;\n                path[it].1 = right;\n                if path[it].0 != 0 {\n                    deletions += 1;\n                }\n                path[it].0 = 0;\n                it = next_it;\n            }\n\n            tmp_ans -= deletions;\n            ret.push(tmp_ans);\n        }\n\n        ret\n    }\n}",
+    "submit_ts": "1722742535",
+    "subm_id": "1343771230"
+}

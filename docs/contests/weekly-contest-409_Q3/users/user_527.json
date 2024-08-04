@@ -1,0 +1,6 @@
+{
+    "username": "Chandraprabhu",
+    "submission": "const int UL5 = 2e5;\nclass DSU{\n    public:\n    int ed[UL5],k1,k2;\n    int co[UL5];\n    void init(int n){\n        n++;\n        memset(ed,-1,(n<<2));\n        fill(co,co+n,1);\n    }\n    int find(int val){\n        if(ed[val]==-1)\n            return val;\n        return ed[val] = find(ed[val]);\n    }\n    inline bool un(int a, int b){\n        k1 = find(a);\n        k2 = find(b);\n        // if(co[k1]>co[k2])\n        //     swap(k1,k2);\n        if(k1!=k2){\n            ed[k1] = k2; // Now the leader is b\n            co[k2]+=co[k1];\n            return 1;\n        }\n        return 0;\n    }\n};\nDSU dsu;\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        dsu.init(n);\n        int tot = n-1;\n        vector<int> ans;\n        for(auto &i: queries){\n            int a = i[0],b = i[1];\n            a = dsu.find(a+1);\n            while(a<b){\n                dsu.un(a,b);\n                tot--;\n                a = dsu.find(a+1);\n            }\n            ans.push_back(tot);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722740901",
+    "subm_id": "1343731605"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "leolee2020",
+    "submission": "class Solution {\npublic:\n    struct Node{\n        int idx;\n        Node *next;\n        Node(int i): idx(i), next(nullptr) {}\n    };\n\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<Node*> a(n);\n        for(int i = 0; i < n; i++){\n            a[i] = new Node(i);\n            if(i)\n                a[i - 1]->next = a[i];\n        }\n        vector<int> ans;\n        int cnt = n;\n        for(auto &q: queries){\n            int u = q[0], v = q[1];\n            if(a[u] && a[v]){\n                while(a[u]->next != a[v]){\n                    Node* next = a[u]->next->next;\n                    a[a[u]->next->idx] = nullptr;\n                    a[u]->next = next;\n                    --cnt;\n                }\n            }\n            ans.push_back(cnt - 1);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722742239",
+    "subm_id": "1343764293"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "ahtoh_",
+    "submission": "/**\n * @param {number} n\n * @param {number[][]} queries\n * @return {number[]}\n */\nvar shortestDistanceAfterQueries = function(n, queries) {\n    const ans = [];\n    const nn = (n  - 2).toString(2).length;\n    const len = 2 ** nn;\n    const seg = Array(2 * len - 1).fill(0);\n    \n    for (let i = 0; i < (n - 1); i += 1) {\n        seg[len - 1 + i] = 1;\n    }\n    for (let j = (len - 2); j >= 0; j -= 1) {\n        seg[j] = seg[2 * j + 1] + seg[2 * j + 2];\n    }\n    //console.log(seg);\n      const add = (l, r, x, lx, rx) => {\n        if (r <= lx || l >= rx) {\n          return;\n        }\n        if (r >= rx && l <= lx) {\n          seg[x] = 0;\n          return;\n        }\n        const mid = Math.floor((lx + rx) / 2);\n        add(l, r, (2 * x + 1), lx, mid);\n        add(l, r, (2 * x + 2), mid, rx);\n          const vvv = seg[2 * x + 1] + seg[2 * x + 2];\n          seg[x] = Math.min(seg[x], vvv);\n      };\n    for (let i = 0; i < queries.length; i += 1) {\n        const [u, v] = queries[i];\n        add(u, (v - 1), 0, 0, len);\n        ans.push(seg[0]);\n        //console.log(seg)\n    }\n    return ans;\n};",
+    "submit_ts": "1722741299",
+    "subm_id": "1343741523"
+}

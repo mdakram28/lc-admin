@@ -1,0 +1,6 @@
+{
+    "username": "JKL001",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        res = [0 for i in range(len(queries))]\n        prevRes = -1\n        pathNodes = set()\n\n        edges = dict()\n        \n        for i in range(n):\n            pathNodes.add(i)\n\n        i = 0\n        for (u,v) in queries:\n            if ((u not in pathNodes) or (v not in pathNodes)):\n                res[i] = prevRes\n                i+=1\n                continue\n\n            startDelete = u+1\n\n            if (u in edges):\n                startDelete = edges[u]\n            edges[u] = v\n                \n            for w in range(startDelete, v):\n                if (w in pathNodes):\n                    pathNodes.remove(w)\n\n            res[i] = len(pathNodes) - 1\n            prevRes = len(pathNodes) - 1\n\n            # print(f\"u: {u}, v: {v}, path: {pathNodes}\\n\\tres: {res}\")\n\n\n            i += 1\n\n        return res\n            ",
+    "submit_ts": "1722743624",
+    "subm_id": "1343796102"
+}

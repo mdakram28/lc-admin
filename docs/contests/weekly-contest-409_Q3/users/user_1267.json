@@ -1,0 +1,6 @@
+{
+    "username": "andychen422",
+    "submission": "import java.util.HashSet;\nimport java.util.TreeSet;\n\nclass Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        HashSet<Integer> nodeSet = new HashSet<>();\n        TreeSet<Integer> nodeTree = new TreeSet<>();\n        \n        for (int i = 0; i < n; i++) {\n            nodeSet.add(i);\n            nodeTree.add(i);\n        }\n        \n        int[] ans = new int[queries.length];\n        \n        for (int i = 0; i < queries.length; i++) {\n            int u = queries[i][0];\n            int v = queries[i][1];\n            \n            // Get the range of nodes to remove using TreeSet\n            Integer next = nodeTree.higher(u);\n            while (next != null && next < v) {\n                nodeSet.remove(next);\n                nodeTree.remove(next);\n                next = nodeTree.higher(next);\n            }\n            \n            ans[i] = nodeSet.size() - 1;\n        }\n        \n        return ans;\n    }\n}",
+    "submit_ts": "1722742754",
+    "subm_id": "1343776403"
+}

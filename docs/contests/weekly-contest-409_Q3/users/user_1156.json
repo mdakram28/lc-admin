@@ -1,0 +1,6 @@
+{
+    "username": "oiybhio",
+    "submission": "class Solution {\n    int n;\n\n    void modify(vector<int> &c, int x, int delta)\n    {\n        while (x <= n)\n        {\n            c[x] += delta;\n            x += x & -x;\n        }\n    }\n\n    int sum(vector<int> &c, int x)\n    {\n        int ret = 0;\n        while (x)\n        {\n            ret += c[x];\n            x -= x & -x;\n        }\n        return ret;\n    }\n\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        this -> n = n;\n        vector<int> flag(n + 1);\n        vector<int> dist(n + 1);\n        vector<int> ret;\n        for (auto &query: queries) {\n            int v1 = query[0] + 1;\n            int v2 = query[1] + 1;\n            int flag1 = sum(flag, v1);\n            int flag2 = sum(flag, v2);\n            if (!flag1 && !flag2) {\n                modify(flag, v1 + 1, 1);\n                modify(flag, v2, -1);\n                int dist1 = sum(dist, v1);\n                int dist2 = sum(dist, v2);\n                modify(dist, v2, dist1 + (v2 - v1 - 1) - dist2);\n            }\n            ret.push_back(n - 1 - sum(dist, n));\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1722743859",
+    "subm_id": "1343801266"
+}

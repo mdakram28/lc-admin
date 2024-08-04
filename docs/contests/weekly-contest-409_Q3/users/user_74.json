@@ -1,0 +1,6 @@
+{
+    "username": "awang11",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> fwd(n);\n        vector<bool> alive(n+1);\n        for (int i = 0; i < n; i++) {\n            fwd[i] = i+1;\n            alive[i] = 1;\n        }\n        alive[n] = 1;\n        int ans = n-1;\n        vector<int> ret;\n        for (vector<int>& x : queries) {\n            int st = x[0];\n            int ed = x[1];\n            if (alive[st] && alive[ed]) {\n                int pt = st;\n                while (pt != ed) {\n                    pt = fwd[pt];\n                    if (pt != ed) alive[pt] = 0;\n                    --ans;\n                }\n                fwd[st] = ed;\n                ++ans;\n            }\n            ret.push_back(ans);\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1722739666",
+    "subm_id": "1343700141"
+}

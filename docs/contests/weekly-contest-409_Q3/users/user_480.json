@@ -1,0 +1,6 @@
+{
+    "username": "pengtsen",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        list<int> l;\n        vector<int> res;\n        unordered_map<int, list<int>::iterator> pos;\n        for (int i = 0; i < n; i++) {\n            l.push_back(i);\n            auto it = l.end();\n            it--;\n            pos[i] = it;\n        }\n        for (vector<int> query: queries) {\n            int from = query[0], to = query[1];\n            //cout << from << \" -> \" << to << endl;\n            if (pos.find(from) != pos.end()) {\n                auto it = pos[from];\n                it++;\n                while (it != l.end() && *it < to) {\n                    auto it2 = it;\n                    it2++;\n                    //cout << \"Remove node \" << *it << endl;\n                    pos.erase(*it);\n                    l.erase(it);\n                    it = it2;\n                }\n            }\n            res.push_back(l.size() - 1);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722741649",
+    "subm_id": "1343750066"
+}

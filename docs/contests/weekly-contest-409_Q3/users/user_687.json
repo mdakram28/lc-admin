@@ -1,0 +1,6 @@
+{
+    "username": "sammer1107",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> answer, next(n - 1);\n        int dist = n - 1;\n\n        for (int i = 0; i < n - 1; ++i) {\n            next[i] = i + 1;\n        }\n\n        for (auto& path : queries) {\n            int from = path[0], to = path[1];\n            if (to > next[from]) {\n                int current = from, steps = 0;\n                do  {\n                    ++steps;\n                    int tmp2 = next[current];\n                    next[current] = INT_MAX;\n                    current = tmp2;\n                } while (current != to);\n                next[from] = to;\n                dist = dist - steps + 1;\n            }\n\n            // for (int i = 0; i < n - 1; ++i)\n            //     printf(\"%d \", next[i]);\n            // printf(\"\\n\");\n\n            // printf(\"%d %d => %d\\n\", from , to, steps);\n            answer.push_back(dist);\n        }\n\n        return answer;\n    }\n};",
+    "submit_ts": "1722741789",
+    "subm_id": "1343753548"
+}

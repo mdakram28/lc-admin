@@ -1,0 +1,6 @@
+{
+    "username": "sergey_chebotarev",
+    "submission": "class Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        Map<Integer, Integer> path = new HashMap<>(); // node -> nextNode\n        for (int i = 0; i < n; i++) {\n            path.put(i, i+1);\n        }\n\n        int m = queries.length;\n        int[] answer = new int[m];\n        for (int i = 0; i < m; i++) {\n            int[] q = queries[i];\n            // v1, TLE\n            // for (int midNode = q[0] + 1; midNode < q[1]; midNode++) {\n            //     path.remove(midNode);\n            // }\n            if (path.containsKey(q[0])) {\n                int nextNode = path.get(q[0]);\n                for (int midNode = nextNode; midNode < q[1]; midNode++) {\n                    path.remove(midNode);\n                }\n                path.put(q[0], Math.max(nextNode, q[1]));\n            }\n            answer[i] = path.size() - 1;\n        }\n        return answer;\n    }\n}",
+    "submit_ts": "1722740479",
+    "subm_id": "1343720838"
+}

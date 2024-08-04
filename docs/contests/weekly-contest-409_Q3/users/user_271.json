@@ -1,0 +1,6 @@
+{
+    "username": "MoggleToggles",
+    "submission": "import java.util.*\nimport kotlin.math.max\n\nclass Solution {\n    fun shortestDistanceAfterQueries(n: Int, queries: Array<IntArray>): IntArray {\n        val adjacencyList = IntArray(n)\n        for (i in 0 until n - 1) {\n            adjacencyList[i] = i + 1\n        }\n\n        var distanceToEnd = n - 1\n        val remainingNodes = TreeSet<Int>()\n        for (node in 0 until n) {\n            remainingNodes.add(node)\n        }\n\n        val shortestDistances = IntArray(queries.size) { it }\n        for (i in queries.indices) {\n            val (source, dest) = queries[i]\n            adjacencyList[source] = max(dest, adjacencyList[source])\n\n            var nextNodeFromSource = remainingNodes.ceiling(source + 1)\n            while (nextNodeFromSource != null && nextNodeFromSource < dest) {\n                remainingNodes.remove(nextNodeFromSource)\n                distanceToEnd--\n                nextNodeFromSource = remainingNodes.ceiling(source + 1)\n            }\n            \n            shortestDistances[i] = distanceToEnd\n        }\n\n        return shortestDistances\n    }\n}",
+    "submit_ts": "1722741045",
+    "subm_id": "1343735214"
+}

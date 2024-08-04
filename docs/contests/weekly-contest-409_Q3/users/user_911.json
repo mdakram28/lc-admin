@@ -1,0 +1,6 @@
+{
+    "username": "ZephyrYau",
+    "submission": "class Solution {\n    int[] p;\n    int set;\n\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        p = new int[n - 1];\n        for (int i = 0; i < n - 1; i++) {\n            p[i] = i;\n        }\n        set = n - 1;\n        int[] res = new int[queries.length];\n        for (int i = 0; i < queries.length; i++) {\n            int u = queries[i][0];\n            int v = queries[i][1] - 1;\n            while (v >= u && u != find(v)) {\n                int nextV = find(v) - 1;\n                connect(u, v);\n                v = nextV;\n            }\n            res[i] = set;\n        }\n        return res;\n    }\n\n    private int find(int x) {\n        if (p[x] != x) {\n            p[x] = find(p[x]);\n        }\n        return p[x];\n    }\n\n    private void connect(int x, int y) {\n        int xp = find(x);\n        int yp = find(y);\n        if (xp != yp) {\n            if (xp < yp) {\n                p[yp] = xp;\n            } else {\n                p[xp] = yp;\n            }\n            set--;\n        }\n    }\n}",
+    "submit_ts": "1722742908",
+    "subm_id": "1343779835"
+}

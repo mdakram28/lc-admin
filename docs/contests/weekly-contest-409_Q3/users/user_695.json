@@ -1,0 +1,6 @@
+{
+    "username": "jawaherul",
+    "submission": "class Solution {\n    private static class Node {\n        public int val;\n        //public int distFromStart;\n        //public int distToEnd;\n        public boolean valid;\n        public Node next;\n        \n        public Node(int v, int n) {\n            val = v;\n            //distFromStart = v;\n            //distToEnd = n-1-v;\n            valid = true;\n        }\n    }\n    \n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        Node[] nodes = new Node[n];\n        nodes[0] = new Node(0, n);\n        for(int i=1; i<n; i++) {\n            nodes[i] = new Node(i, n);\n            nodes[i-1].next = nodes[i];\n        }\n        int total = n-1;\n        int q = queries.length;\n        int[] answer = new int[q];\n        for(int i=0; i<q; i++) {\n            int u = queries[i][0];\n            int v = queries[i][1];\n            if(nodes[u].valid && nodes[v].valid) {\n                for(Node x = nodes[u].next; x.val!=v; x=x.next) {\n                    x.valid = false;\n                    total--;\n                }\n                nodes[u].next = nodes[v];\n            }\n            answer[i] = total;\n        }\n        return answer;\n    }\n}",
+    "submit_ts": "1722741209",
+    "subm_id": "1343739312"
+}

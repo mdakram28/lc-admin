@@ -1,0 +1,6 @@
+{
+    "username": "PhoenixDD",
+    "submission": "class Solution {\npublic:\n    map<int,int> intervals;\n    void addRange(int left, int right) {\n        auto l=intervals.upper_bound(left), r=intervals.upper_bound(right);\n        // Check if previous interval overlaps.\n        if(l!=intervals.begin()) {\n            l--;\n            if(l->second<left)\n                l++;\n        }\n        // Overlapping interval exists\n        if(l!=r) \n        {\n            left=min(left,l->first);\n            right=max(right,(--r)->second);\n            // Erase all intervals from min(l->first,left) && max(r->second,right)\n            intervals.erase(l,++r);\n        }\n        intervals[left]=right;\n    }\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> result;\n        for(int i=0;i<n;i++)\n            addRange(i,i);\n        for(auto &q:queries) {\n            addRange(q[0],q[1]-1);\n            result.push_back(intervals.size()-1);\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1722742415",
+    "subm_id": "1343768435"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "dnuj4097",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        \n        neighbors = [i + 1 for i in range(n - 1)]\n        roots = list(range(n))\n        ranks = [1 for _ in range(n)] \n        \n        def find(i):\n            nonlocal roots\n            if roots[i] != i:\n                roots[i] = find(roots[i])\n            return roots[i]\n        \n        def union(i,j):\n            nonlocal roots, ranks\n            ri, rj = find(i), find(j)\n            if ri != rj:\n                if ranks[ri] < ranks[rj]:\n                    roots[ri] = rj\n                elif ranks[ri] > ranks[ri]:\n                    roots[rj] = ri\n                else:\n                    roots[ri] = rj\n                    ranks[rj] += 1\n        \n        d = n - 1\n        ans = []\n        for u,v in queries:\n            if find(u) != find(v - 1):\n                i = u\n                while i < v - 1:\n                    if find(i) != find(v - 1):\n                        union(i, v - 1)\n                        d -= 1\n                    i = neighbors[i]\n            neighbors[u] = max(neighbors[u], v)\n            ans.append(d)\n            #print(neighbors)\n        return ans",
+    "submit_ts": "1722741586",
+    "subm_id": "1343748567"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "xhwlikesu",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> dists;\n        int dist = n - 1;\n        vector<int> nodes(n, -1);\n        \n        for (int node = 0; node + 1 != n; ++node) nodes[node] = node + 1;\n        \n        for (auto &query : queries) {\n            for (int node = nodes[query[0]]; node != query[1] && node != -1; ) {\n                int next = nodes[node];\n                \n                if (nodes[node] != -1) {\n                    --dist;\n                    nodes[node] = -1;\n                }\n                \n                node = next;\n            }\n            \n            nodes[query[0]] = max(nodes[query[0]], query[1]);\n            \n            dists.push_back(dist);\n        }\n        \n        return dists;\n    }\n};",
+    "submit_ts": "1722743751",
+    "subm_id": "1343798825"
+}

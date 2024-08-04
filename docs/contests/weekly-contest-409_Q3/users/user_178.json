@@ -1,0 +1,6 @@
+{
+    "username": "a_good_loser",
+    "submission": "class Solution {\npublic:\n    using pii = pair<int, int>;\n    \n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> res;\n        \n        set<pii> st;\n        int L = n-1;\n            \n        for (auto i : queries) {\n            // cout << \"----\\n\";\n            \n            int x = i[0], y = i[1]; // x -> y\n            auto it = st.lower_bound(pii(x, 0));\n            \n            if (it != st.begin() && prev(it)->second >= y || it->first <= x && it->second >= y) {\n                res.push_back(L);\n                continue;\n            }\n            \n            while (it != st.end() && it->second <= y) {\n                // cout << L << \" \" << it->second - it->first - 1 << \"\\n\";\n                \n                L += it->second - it->first - 1;\n                it = st.erase(it);\n            }\n            \n            st.emplace(x, y);\n            L -= y - x - 1;\n            \n            res.push_back(L);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722740538",
+    "subm_id": "552332135"
+}

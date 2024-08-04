@@ -1,0 +1,6 @@
+{
+    "username": "jasonreed7",
+    "submission": "from sortedcontainers import SortedSet\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        ans = []\n        ss = SortedSet()\n\n        length = n - 1\n\n        for i in range(n - 1):\n            ss.add((i, i + 1))\n\n        for [u, v] in queries:\n            index = ss.bisect_left((u, v))\n\n            toRemove = []\n            if index < len(ss) and ss[index][0] == u and ss[index][1] > u:\n                ans.append(length)\n                continue\n\n            if index > 0:\n                if ss[index - 1][0] == u:\n                    toRemove.append(ss[index - 1])\n                elif ss[index - 1][0] < u and ss[index - 1][1] > u:\n                    ans.append(length)\n                    continue\n                \n                \n            curr = index\n            while curr < len(ss) and ss[curr][0] < v:\n                toRemove.append(ss[curr])\n                curr += 1\n\n            length = length - len(toRemove) + 1\n\n            for step in toRemove:\n                ss.remove(step)\n\n            ss.add((u, v))\n\n            ans.append(length)\n\n        return ans\n\n\n            \n\n",
+    "submit_ts": "1722742819",
+    "subm_id": "1343777859"
+}

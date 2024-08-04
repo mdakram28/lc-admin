@@ -1,0 +1,6 @@
+{
+    "username": "liouzhou_101",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<pair<int, int>> H;\n        for (int i = 1; i < n; ++i)\n            H.insert(pair(i - 1, i));\n        \n        vector<int> res;\n        for (auto& e : queries)\n        {\n            int x = e[0], y = e[1];\n            \n            while (1)\n            {\n                auto it = H.lower_bound(pair(x, x));\n                if (it == H.end()) break;\n                if (it->first >= y) break;\n                H.erase(it);\n            }\n            \n            while (1)\n            {\n                auto it = H.lower_bound(pair(x, x));\n                if (it == H.begin()) break;\n                it = prev(it);\n                if (it->second <= x) break;\n                H.erase(it);\n            }\n            \n            H.insert(pair(x, y));\n            res.push_back(H.size());\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722739572",
+    "subm_id": "552325516"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Akash0P",
+    "submission": "class Solution {\npublic:\n  vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n    vector<int> dp(n);\n    set<int> st;\n\n    for(int i = 0; i + 1 < n; i++) dp[i] = i + 1, st.insert(i);\n\n    vector<int> ans;\n\n    for(auto &q: queries) {\n      int u = q[0], v = q[1];\n\n      if(dp[u] < v) {\n\n        auto it = st.lower_bound(u);\n        int cnt = 0;\n\n        while(it != st.end() && *it < v) {\n          st.erase(it), cnt++;\n          it = st.lower_bound(u);\n        }\n\n        if(cnt > 1) st.insert(u), dp[u] = v;\n      }\n\n      ans.push_back(st.size());\n\n    }\n    return ans;\n  }\n};",
+    "submit_ts": "1722740509",
+    "subm_id": "1343721545"
+}

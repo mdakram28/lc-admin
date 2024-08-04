@@ -1,0 +1,6 @@
+{
+    "username": "peedjar",
+    "submission": "#include <vector>\n#include <set>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& q) {\n        vector<int> d(n, 0);\n        for (int i = 1; i < n; ++i) {\n            d[i] = d[i - 1] + 1;\n        }\n\n        set<int> p;\n        for (int i = 0; i < n; ++i) {\n            p.insert(i);\n        }\n\n        vector<int> res;\n\n        for (const auto& qry : q) {\n            int l = qry[0];\n            int r = qry[1];\n\n            auto lb = p.lower_bound(l + 1);\n            auto ub = p.lower_bound(r);\n\n            p.erase(lb, ub);\n\n            res.push_back(p.size() - 1);\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1722743760",
+    "subm_id": "1343799032"
+}

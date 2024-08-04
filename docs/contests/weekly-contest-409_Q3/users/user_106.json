@@ -1,0 +1,6 @@
+{
+    "username": "w285714",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> res;\n        map<int,int> m;\n        int s=n;\n        for(auto& q:queries){\n            auto p=m.lower_bound(q[0]);\n            if(p!=m.begin()){\n                auto pp=p;\n                --pp;\n                if(pp->second>=q[1]){\n                    res.push_back(s-1);\n                    continue;\n                }\n            }\n            if(p!=m.end()&&p->first<=q[0]&&p->second>=q[1]){\n                res.push_back(s-1);\n                continue;\n            }\n            while(p!=m.end()&&p->first<q[1]){\n                s+=(p->second)-(p->first)-1;\n                auto pp=p;\n                ++p;\n                m.erase(pp);\n            }\n            s-=q[1]-q[0]-1;\n            m[q[0]]=q[1];\n            res.push_back(s-1);\n        }\n        \n        \n        return res;\n    }\n};",
+    "submit_ts": "1722740023",
+    "subm_id": "552328730"
+}

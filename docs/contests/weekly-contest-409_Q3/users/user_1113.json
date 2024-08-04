@@ -1,0 +1,6 @@
+{
+    "username": "phenoMenAl",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        map<int, int> conn;\n        for(int i=0;i<n-1;i++)conn[i] = i+1;\n        vector<int> ans;\n        int cur_dist = n-1;\n        for(auto it: queries){\n            if (conn.find(it[0])!=conn.end()){\n                int curr_conn = conn[it[0]];\n                if(curr_conn<it[1]){\n                    cur_dist -= (it[1]-curr_conn);\n                    auto jt = conn.find(it[0]); jt++;\n                    while(jt!=conn.end() and (jt->first < it[1])){\n                        cur_dist += (jt->second - jt->first) -1;\n                        auto kt = jt;\n                        jt++;\n                        conn.erase(kt);\n                    }\n                    conn[it[0]] = it[1];\n                }\n            }\n            ans.push_back(cur_dist);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722743762",
+    "subm_id": "1343799073"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "BrayBray123",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        map<int, int> intervals;\n        for (int i = 0; i < n - 1; i++) {\n            intervals[i] = i+1;\n        }\n        \n        vector<int> ans;\n        int curMin = n - 1;\n        \n        for (vector<int> q: queries) {\n            int l = q[0], r = q[1];\n            \n            auto lit = intervals.lower_bound(l);\n            auto rit = intervals.lower_bound(r);\n            rit--;\n            \n            if (lit == intervals.end() || lit->second >= r) {\n                ans.push_back(intervals.size());\n            } else {\n                intervals.erase(lit, ++rit);\n                intervals[l] = r;\n                ans.push_back(intervals.size());\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722741579",
+    "subm_id": "1343748370"
+}

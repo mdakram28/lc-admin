@@ -1,0 +1,6 @@
+{
+    "username": "Prahil6109",
+    "submission": "#define MAX 100000\nint tree[4 * MAX];\n\nvoid build(int node, int start, int end){\n    if (start == end) {\n        tree[node] = 1;\n        return;\n    }\n \n    int mid = (start + end) / 2;\n\n    build(2 * node, start, mid);\n    build(2 * node + 1, mid + 1, end);\n    int left= tree[2 * node];\n    int right= tree[2 * node + 1];\n \n    tree[node] = left+right;\n}\n\nbool kept;\n\nvoid query(int node, int start, int end, int l, int r){\n    if (end < l || start > r) return;\n    if (l <= start && r >= end){\n        tree[node]=(kept?0:min(1,tree[node]));\n        kept=true;\n        return;\n    }\n    int mid = (start + end) / 2;\n    query(2 * node, start, mid, l, r);\n    query(2 * node + 1, mid + 1, end, l, r);\n    tree[node]=min(tree[node],tree[2 * node]+tree[2 * node + 1]);\n}\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        build(1,0,n-2);\n        vector<int> res;\n        cout<<tree[1];\n        for(auto q: queries){\n            kept=false;\n            query(1,0,n-2,q[0],q[1]-1);\n            res.push_back(tree[1]);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722743726",
+    "subm_id": "1343798264"
+}

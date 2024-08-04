@@ -1,0 +1,6 @@
+{
+    "username": "dotuas",
+    "submission": "public class Solution {\n    public int[] ShortestDistanceAfterQueries(int n, int[][] qs) {\n        int N = qs.Length;\n        int[] ans = new int[N];\n        Dictionary<int, int> path = new Dictionary<int, int>();\n        for (int i = 0; i< n; i ++){\n            path.Add(i, i + 1);\n        }\n\n        for (int i = 0; i < N; i ++){\n            int s = qs[i][0];\n            int e = qs[i][1];\n\n            if (path.ContainsKey(s) && path.ContainsKey(e)){\n                // delete all inter nodes\n                int next = path[s];\n                while (next != e){\n                    int nn = path[next];\n                    path.Remove(next);\n                    next = nn;\n                }\n                path[s] = e;\n            }\n            ans[i] = path.Keys.Count - 1;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1722741561",
+    "subm_id": "1343747974"
+}

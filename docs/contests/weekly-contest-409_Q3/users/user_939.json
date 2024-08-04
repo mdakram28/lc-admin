@@ -1,0 +1,6 @@
+{
+    "username": "EdwardZhou1",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        map<int, int> interval;\n\n        for (int i = 0; i < n-1; i++) interval[i] = i+1;\n\n        vector<int> sol(queries.size());\n\n        for (int i = 0; i < queries.size(); i++) {\n            if (interval.count(queries[i][0]) && interval[queries[i][0]] < queries[i][1]) {\n                interval[queries[i][0]] = queries[i][1];\n                auto it = interval.find(queries[i][0]);\n                it++;\n                while(it != interval.end() && it->first  < queries[i][1]) {\n                    auto nxt = next(it, 1);\n                    interval.erase(it->first);\n                    it = nxt;\n                }\n            }\n            sol[i] = interval.size();\n        }\n        return sol;\n    }\n};\n\n\n\n\n\n\n\n",
+    "submit_ts": "1722743591",
+    "subm_id": "1343795388"
+}

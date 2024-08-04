@@ -1,0 +1,6 @@
+{
+    "username": "beta-blue",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> res;\n        map<int, int> intervals;\n        for (int i=1; i<n; ++i) {\n            intervals[i] = i-1;\n        }\n\n        // cout << \"init: \" << intervals.size() << endl;\n\n        for (auto& q: queries) {\n            int u = q[0];\n            int v = q[1];\n\n            auto b = intervals.lower_bound(v);\n            int a = b->second;\n            if (u >= a) // a __ u __ v __ b\n            {\n                res.push_back(intervals.size());\n                continue;\n            }\n\n            // u __ a ___ b == v\n            auto from = intervals.upper_bound(u);\n            intervals.erase(from, b);\n            b->second = u;\n            res.push_back(intervals.size());\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1722742563",
+    "subm_id": "1343771872"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "HaoCR123",
+    "submission": "class uf{\npublic:\n    vector<int> f;\n    uf(int n): f(n){iota(f.begin(), f.end(), 0);}\n    int get(int x) {\n        if(x == f[x]) return x;\n        return f[x] = get(f[x]);\n    }\n    void unite(int x, int y){\n        x = get(x), y = get(y);\n        f[y] = x;\n    }  \n};\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& q) {\n        vector<int> ans;\n        vector<vector<int>> g(n);\n        vector<int> dis(n);\n        set<int> ms;\n        for(int i = 0; i + 1 < n; i++) g[i].push_back(i + 1), ms.insert(i);\n      \n        for(auto& e: q) {\n            int u = e[0], v = e[1];\n            vector<int> te;\n            for(auto it = ms.lower_bound(u); it != ms.end() && *it <= v; it = next(it)) {\n                if(*it > u && *it < v) te.push_back(*it);\n                \n            }\n            for(auto& c: te) ms.erase(c);\n            ans.push_back(ms.size());\n        }\n        return ans;\n        \n        \n    }\n};",
+    "submit_ts": "1722741323",
+    "subm_id": "552337472"
+}

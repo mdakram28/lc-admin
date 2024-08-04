@@ -1,0 +1,6 @@
+{
+    "username": "nice-gateshmv",
+    "submission": "class Solution {\n    fun shortestDistanceAfterQueries(n: Int, queries: Array<IntArray>): IntArray {\n        val nextArr = IntArray(n) {\n            it + 1\n        }\n        val skipArr = BooleanArray(n)\n        var curAns = n - 1\n        val ans = IntArray(queries.size)\n        queries.forEachIndexed { i, query ->\n            val a = query[0]\n            val b = query[1]\n            if (!skipArr[b] && !skipArr[a]) {\n                if (nextArr[a] < b) {\n                    var t = a\n                    var lastCost = 0\n                    while (t != b) {\n                        lastCost++\n                        t = nextArr[t]\n                    }\n                    curAns -= (lastCost - 1)\n                    for (k in nextArr[a] until b) {\n                        skipArr[k] = true\n                    }\n                    nextArr[a] = b\n                }\n            }\n            ans[i] = curAns\n        }\n        return ans\n    }\n}",
+    "submit_ts": "1722741262",
+    "subm_id": "552337087"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "scornz",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        g = dict()\n        remaining = set(range(n))\n        for i in range(n):\n            if i != n - 1:\n                g[i] = i + 1\n\n        def traverse(u: int, v: int):\n            to_remove = set()\n            cur = u\n            while True:\n                cur = g[cur]\n                if cur != v:\n                    to_remove.add(cur)\n                else:\n                    break\n\n            return to_remove\n        \n\n        dist = n - 1\n        dists = []\n        for i, j in queries:\n            if i in remaining and j in remaining:\n                remove = traverse(i, j)\n                g[i] = j\n                dist -= len(remove)\n                for x in remove:\n                    remaining.remove(x)\n\n            dists.append(dist)\n\n        return dists",
+    "submit_ts": "1722742813",
+    "subm_id": "1343777763"
+}

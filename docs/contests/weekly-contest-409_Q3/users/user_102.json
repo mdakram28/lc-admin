@@ -1,0 +1,6 @@
+{
+    "username": "876pol",
+    "submission": "using ll = long long;\nusing pll = pair<ll, ll>;\ntemplate <class T>\nusing vec = vector<T>;\n\n#define FOR(i, s, e) for (ll i = (ll)s; i < (ll)e; i++)\n#define CFOR(i, s, e) for (ll i = (ll)s; i <= (ll)e; i++)\n#define TRAV(a, c) for (const auto &a : c)\n#define dbg(x) cerr << \"ln\" << __LINE__ << \": \" << #x << \" = \" << x << endl\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<pll> ss;\n        FOR(i, 0, n) ss.insert({i, i});\n        vec<int> ans;\n        TRAV(e, queries) {\n            auto it = ss.upper_bound({e[0], LLONG_MAX});\n            it--;\n            if (it->first <= e[0] && e[1] - 1 <= it->second) {\n                ans.push_back(ss.size() - 1);\n                continue;\n            }\n            while (it != ss.end() && it->second <= e[1] - 1) {\n                it = ss.erase(it);\n            }\n            ss.insert({e[0], e[1] - 1});\n            ans.push_back(ss.size() - 1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722740002",
+    "subm_id": "1343708719"
+}

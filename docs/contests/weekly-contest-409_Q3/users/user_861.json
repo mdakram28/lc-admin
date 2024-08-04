@@ -1,0 +1,6 @@
+{
+    "username": "Sahu_coder",
+    "submission": "from typing import List\n\nclass Node:\n    def __init__(self, val):\n        self.data = val\n        self.next = None\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        vec = [None] * (n + 1)\n\n        cnt = n\n        head = Node(0)\n        vec[0] = head\n\n        curr = head\n        for i in range(1, n):\n            curr.next = Node(i)\n            curr = curr.next\n            vec[i] = curr\n\n        ans = []\n        for start_idx, end_idx in queries:\n            start = vec[start_idx]\n            end = vec[end_idx]\n\n            if start is not None and end is not None and start_idx != end_idx:\n                curr = start.next\n                while curr is not None and curr != end:\n                    cnt -= 1\n                    temp = curr.next\n                    vec[curr.data] = None  # Mark the node as removed in the vec array\n                    curr.next = None\n                    curr = temp\n                # Link start directly to end\n                start.next = end\n\n            ans.append(cnt - 1)\n\n        return ans\n\n        ",
+    "submit_ts": "1722743047",
+    "subm_id": "1343783091"
+}

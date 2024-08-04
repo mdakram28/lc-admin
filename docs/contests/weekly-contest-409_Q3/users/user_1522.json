@@ -1,0 +1,6 @@
+{
+    "username": "na-chang-meng-zhi-shi-ge-wu-jie",
+    "submission": "class Solution {\npublic:\n    int fa[200005];\n    int find(int x){\n        while(fa[fa[x]]!=fa[x]){\n            fa[x]=fa[fa[x]];\n        }\n        return fa[x];\n    }\n    vector<int> shortestDistanceAfterQueries(int n,\n                                             vector<vector<int>>& queries) {\n        for (int i = 1; i <= n; i++) {\n            fa[i] = i;\n        }\n        vector<int> res;\n        int ans = n - 1;\n        for (int i = 0; i < queries.size(); i++) {\n            int a = queries[i][0], b = queries[i][1];\n            a++;b++;\n            a=find(a);b=find(b);\n            if(a==b){\n                res.push_back(ans);\n                continue;\n            }\n            a=find(a+1);\n            while(true){\n                if(a==b)break;\n                int f=find(a+1);\n                fa[a]=b;ans--;\n                a=f;\n            }\n            res.push_back(ans);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722743945",
+    "subm_id": "552353738"
+}

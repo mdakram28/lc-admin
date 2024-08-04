@@ -1,0 +1,6 @@
+{
+    "username": "lol34",
+    "submission": "from sortedcontainers import SortedList\ndef shortest(n,d):\n    q = []\n    heapq.heappush(q,[0,0])\n    dist = [inf]*(n)\n    dist[0] = 0\n    while(q):\n        dis,node = heapq.heappop(q)\n        for j in d[node]:\n            if dist[j]>dis+1:\n                dist[j] = dis + 1\n                heapq.heappush(q,[dist[j],j])\n    return dist[n-1]\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        s = SortedList()\n        for i in range(n-1):\n            s.add(i+1)\n        ans = []\n        for i,j in queries:\n            left = s.bisect_left(i+1)\n            right = s.bisect_right(j-1)\n            # print(left,right)\n            for k in range(right-1,left-1,-1):\n                s.pop(k)\n            # print(s)\n            ans.append(len(s))\n        return ans",
+    "submit_ts": "1722740546",
+    "subm_id": "1343722529"
+}

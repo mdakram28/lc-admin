@@ -1,0 +1,6 @@
+{
+    "username": "yashwanth73",
+    "submission": "class Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        HashSet<Integer> hs = new HashSet<>();\n        int m = queries.length;\n        int[] arr = new int[n];\n        for(int i=0;i<n;i++)\n            hs.add(i);\n        int[] ans = new int[m];\n        for(int i=0;i<n;i++)\n            arr[i] = i+1;\n        for(int i=0;i<m;i++) {\n            int u = queries[i][0], v = queries[i][1];\n            if(arr[u] > v || !hs.contains(u)) {\n                ans[i] = ans[i-1];\n                continue;\n            }\n            int curr = u;\n            while(arr[curr] != v) {\n                hs.remove(arr[curr]);\n                curr = arr[curr];\n            }\n            ans[i] = hs.size()-1;\n            arr[u] = v;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1722742289",
+    "subm_id": "1343765482"
+}

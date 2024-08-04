@@ -1,0 +1,6 @@
+{
+    "username": "athamante",
+    "submission": "class Link:\n    def __init__(self, val: int):\n        self.val = val\n        self.next = None\n        self.valid = True\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        cities = [Link(i) for i in range(n)]\n        for i in range(1, n):\n            cities[i - 1].next = cities[i]\n            \n        curr_dist = n - 1\n        results = []\n        for start, end in queries:\n            if cities[start].valid and cities[start].next.val < cities[end].val:\n                dist_saved = 0\n                curr = cities[start].next\n                while curr != cities[end]:\n                    curr.valid = False\n                    dist_saved += 1\n                    curr = curr.next\n                cities[start].next = cities[end]\n                curr_dist -= dist_saved\n            results.append(curr_dist)\n        return results",
+    "submit_ts": "1722741638",
+    "subm_id": "1343749811"
+}

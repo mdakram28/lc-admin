@@ -1,0 +1,6 @@
+{
+    "username": "apometta",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        unordered_map<int,int> next;\n        for (int i = 0; i < n - 1; i++) next[i] = i + 1;\n        vector<int> answer;\n        answer.reserve(queries.size());\n\n        for (vector<int>& query : queries) {\n            int from = query[0], to = query[1];\n            if (next.contains(from) && (to == n - 1 || next.contains(to))) {\n                int i = next[from];\n                while (i != to) {\n                    int following = next[i];\n                    next.erase(i);\n                    i = following;\n                }\n                next[from] = to;\n            }\n            answer.push_back(next.size());\n        }\n\n        return answer;\n    }\n};",
+    "submit_ts": "1722741396",
+    "subm_id": "1343744015"
+}

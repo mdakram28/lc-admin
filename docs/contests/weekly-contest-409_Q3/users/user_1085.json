@@ -1,0 +1,6 @@
+{
+    "username": "cherukuri-prasannalakshmi",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int _total_nodes_, vector<vector<int>>& _queries_list_) {\n        vector<int> _path_lengths_(_total_nodes_, 0);\n        for (int _index_ = 1; _index_ < _total_nodes_; ++_index_) {\n            _path_lengths_[_index_] = _path_lengths_[_index_ - 1] + 1;\n        }\n\n        set<int> _active_positions_;\n        for (int _index_ = 0; _index_ < _total_nodes_; ++_index_) {\n            _active_positions_.insert(_index_);\n        }\n\n        vector<int> _query_results_;\n\n        for (const auto& _query_pair_ : _queries_list_) {\n            int _start_pos_ = _query_pair_[0];\n            int _end_pos_ = _query_pair_[1];\n\n            auto _start_iter_ = _active_positions_.lower_bound(_start_pos_ + 1);\n            auto _end_iter_ = _active_positions_.lower_bound(_end_pos_);\n\n            _active_positions_.erase(_start_iter_, _end_iter_);\n\n            _query_results_.push_back(_active_positions_.size() - 1);\n        }\n\n        return _query_results_;\n    }\n};\n",
+    "submit_ts": "1722743984",
+    "subm_id": "1343804383"
+}

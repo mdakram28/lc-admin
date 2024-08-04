@@ -1,0 +1,6 @@
+{
+    "username": "vigilant-gangulyjsl",
+    "submission": "import bisect\nclass ListNode:\n    def __init__(self, value):\n        self.value = value\n        self.next = None\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        ln = [None]*n\n        for i in range(n):\n            ln[i] = ListNode(i)\n        for i in range(n-1):\n            ln[i].next = ln[i+1]\n\n        ans = []\n        cnt = n\n        for u,v in queries:\n            if ln[u] and ln[v]:\n                index = ln[u]\n                while index.next != ln[v]:\n                    tmp = index.next.value \n                    index.next = index.next.next\n                    ln[tmp] = None\n                    cnt -= 1\n            ans.append(cnt-1)\n        return ans\n            ",
+    "submit_ts": "1722740672",
+    "subm_id": "552332951"
+}

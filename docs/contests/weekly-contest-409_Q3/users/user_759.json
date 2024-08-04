@@ -1,0 +1,6 @@
+{
+    "username": "ryanlin118",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        // everyone store the furthest back arrow you have\n        /*vector<int> prev(n);\n        int curDist = n - 1;\n        for (int i = 1; i < n; i++) {\n            prev[i] = i - 1;\n        }\n        vector<int> results;\n        for (vector<int>& query: queries) {\n            if (query[0] < prev[query[1]]) {\n                curDist -= prev[query[1]] - query[0];\n                prev[query[1]] = query[0];\n            }\n            results.push_back(curDist);\n        }\n        return results;*/\n        set<int> order;\n        for (int i = 1; i < n; i++) {\n            order.insert(i);\n        }\n        vector<int> result;\n        for (vector<int>& query: queries) {\n            auto lower = order.upper_bound(query[0]);\n            auto higher = order.lower_bound(query[1])--;\n            order.erase(lower, higher);\n            result.push_back(order.size());\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1722742393",
+    "subm_id": "1343767897"
+}

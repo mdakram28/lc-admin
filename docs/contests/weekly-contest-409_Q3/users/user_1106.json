@@ -1,0 +1,6 @@
+{
+    "username": "jhfjhfj1",
+    "submission": "// #include \"common_header.h\"\n\nclass Solution {\n public:\n  set<pair<int, int>> edges;\n  vector<int> shortestDistanceAfterQueries(int n,\n                                           vector<vector<int>>& queries) {\n    for (int i = 0; i < n - 1; i++) {\n      edges.insert({i, i + 1});\n    }\n\n    int distance = n - 1;\n    vector<int> answers;\n    for (auto query : queries) {\n      int u = query[0];\n      int v = query[1];\n\n      auto start = edges.lower_bound({u, -1});\n      auto end = edges.lower_bound({v, -1});\n\n      vector<pair<int, int>> temp_vector;\n      for (auto it = start; it != end; ++it) {\n        temp_vector.push_back(*it);\n        // cout << it->first << \" , \" << it->second << endl;\n      }\n\n      if (temp_vector.size() == 0) {\n        answers.push_back(distance);\n        continue;\n      }\n      distance = distance - temp_vector.size() + 1;\n      answers.push_back(distance);\n\n      for (auto path : temp_vector) {\n        edges.erase(path);\n      }\n      edges.insert({u, v});\n    }\n    return answers;\n  }\n};",
+    "submit_ts": "1722743439",
+    "subm_id": "1343791952"
+}

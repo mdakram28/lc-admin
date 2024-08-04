@@ -1,0 +1,6 @@
+{
+    "username": "mo-shang-wei-yang-s",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int nodeCount,\n                                             vector<vector<int>>& queryList) {\n        map<int, int> distanceMap;\n        for (int i = 0; i < nodeCount; i++) {\n            distanceMap[i] = i + 1;\n        }\n        int queryCount = queryList.size();\n        vector<int> resultArray = vector<int>(queryCount, 0);\n        for (int i = 0; i < queryCount; i++) {\n            if (distanceMap.count(queryList[i][0]) && queryList[i][1] > distanceMap[queryList[i][0]]) {\n                distanceMap[queryList[i][0]] = queryList[i][1];\n                auto iterator = distanceMap.find(queryList[i][0]);\n                iterator++;\n                while (iterator != distanceMap.end() && iterator->first < queryList[i][1]) {\n                    int tempKey = iterator->first;\n                    iterator++;\n                    distanceMap.erase(tempKey);\n                }\n            }\n            resultArray[i] = distanceMap.size() - 1;\n        }\n        return resultArray;\n    }\n};\n",
+    "submit_ts": "1722741522",
+    "subm_id": "552338756"
+}

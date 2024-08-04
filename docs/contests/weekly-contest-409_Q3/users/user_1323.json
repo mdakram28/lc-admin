@@ -1,0 +1,6 @@
+{
+    "username": "0NrhY9OB81",
+    "submission": "from sortedcontainers import SortedDict\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        dis = n - 1\n        d = SortedDict({-1: -1})\n        \n        ans = []\n        \n        for a, b in queries:\n            idx = d.bisect_right(a) - 1\n            if d.values()[idx] >= b:\n                ans.append(dis)\n                continue\n            \n            if d.keys()[idx] != a:\n                idx += 1\n            \n            while idx < len(d) and d.values()[idx] <= b:\n                l, r = d.popitem(idx)\n                dis += r - l - 1\n            \n            d[a] = b\n            dis -= b - a - 1\n            ans.append(dis)\n\n        return ans\n",
+    "submit_ts": "1722743050",
+    "subm_id": "552348467"
+}

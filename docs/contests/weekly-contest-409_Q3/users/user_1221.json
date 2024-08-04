@@ -1,0 +1,6 @@
+{
+    "username": "AvinashSrivastava",
+    "submission": "class Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        int[] distances = calculateDistances(n);\n        TreeSet<Integer> positions = initializePositions(n);\n        int[] results = new int[queries.length];\n\n        for (int i = 0; i < queries.length; ++i) {\n            int left = queries[i][0];\n            int right = queries[i][1];\n            updatePositions(positions, left, right);\n            results[i] = positions.size() - 1;\n        }\n\n        return results;\n    }\n\n    private int[] calculateDistances(int n) {\n        int[] distances = new int[n];\n        for (int i = 1; i < n; ++i) {\n            distances[i] = distances[i - 1] + 1;\n        }\n        return distances;\n    }\n\n    private TreeSet<Integer> initializePositions(int n) {\n        TreeSet<Integer> positions = new TreeSet<>();\n        for (int i = 0; i < n; ++i) {\n            positions.add(i);\n        }\n        return positions;\n    }\n\n    private void updatePositions(TreeSet<Integer> positions, int left, int right) {\n        List<Integer> toRemove = new ArrayList<>(positions.subSet(left + 1, right));\n        positions.removeAll(toRemove);\n    }\n}\n",
+    "submit_ts": "1722743765",
+    "subm_id": "1343799144"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "BERNARB01",
+    "submission": "/**\n *    author:  BERNARD B.01\n**/\n#include <bits/stdc++.h>\n\nusing namespace std;\n\n#ifdef B01\n#include \"deb.h\"\n#else\n#define deb(...)\n#endif\n\nclass Solution {\n public:\n  vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& qrs) {\n    int d = n - 1;\n    set<pair<int, int>> se;\n    vector<int> ans;\n    for (const auto& e : qrs) {\n      auto it = se.lower_bound({e[0], -1});\n      while (it != se.end() && it->second <= e[1]) {\n        d += it->second - it->first - 1;\n        deb(e, *it);\n        it = se.erase(it);\n      }\n      it = se.lower_bound({e[0] + 1, -1});\n      if (it == se.begin() || prev(it)->second <= e[0]) {\n        d -= e[1] - e[0] - 1;\n        se.emplace(e[0], e[1]);\n      }\n      ans.push_back(d);\n    }\n    return ans;\n  }\n};\n\n#ifdef B01\nint main() {\n  Solution s;\n  vector<vector<int>> q = {{2,4},{0,2},{0,4}};\n  deb(s.shortestDistanceAfterQueries(5, q));\n  q = {{0,3},{0,2}};\n  deb(s.shortestDistanceAfterQueries(4, q));\n  \n}\n#endif\n",
+    "submit_ts": "1722743303",
+    "subm_id": "1343788896"
+}

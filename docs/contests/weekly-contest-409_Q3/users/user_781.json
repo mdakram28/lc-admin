@@ -1,0 +1,6 @@
+{
+    "username": "wisepig",
+    "submission": "class Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n\n        int qn = queries.length;\n        int[] r = new int[qn];\n        // length array\n        int[] s = new int[n];\n        int[] stemp = new int[n];\n        for (int i = 0; i < n; i++) {\n            s[i] = i;\n        }\n        int sn = n;\n        for (int i = 0; i < qn; i++) {\n            int[] query = queries[i];\n            int start = query[0];\n            int end = query[1];\n            int si = Arrays.binarySearch(s, 0, sn, start);\n            if (si < 0) {\n                r[i] = sn - 1;\n                continue;\n            }\n            int ei = Arrays.binarySearch(s, 0, sn, end);\n            if (ei < 0) {\n                r[i] = sn - 1;\n                continue;\n            }\n            System.arraycopy(s, 0, stemp, 0, si + 1);\n            System.arraycopy(s, ei, stemp, si + 1, sn - ei);\n            int[] ss = s;\n            s = stemp;\n            stemp = ss;\n            sn = sn - (ei - si) + 1;\n            r[i] = sn - 1;\n        }\n        return r;\n    }\n}",
+    "submit_ts": "1722742763",
+    "subm_id": "552346733"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "cjy-e",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        std::vector<int> ans, next;\n        int res = n - 1;\n        for (int i = 0; i < n - 1; i++) {\n            next.push_back(i + 1);\n        }\n        std::unordered_set<int> removed;\n        for (auto query : queries) {\n            int x = query[0], y = query[1];\n            if (removed.count(x) || removed.count(y)) {\n                ans.push_back(res);\n                continue;\n            }\n            int p = next[x];\n            while (p != y) {\n                removed.insert(p);\n                res--;\n                p = next[p];\n            }\n            next[x] = y;\n            ans.push_back(res);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722741172",
+    "subm_id": "552336474"
+}

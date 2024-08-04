@@ -1,0 +1,6 @@
+{
+    "username": "ywjameslin",
+    "submission": "class Solution {\n\n    /**\n     * @param Integer $n\n     * @param Integer[][] $queries\n     * @return Integer[]\n     */\n    function shortestDistanceAfterQueries($n, $queries) {\n        $graph = [];\n        for ($index = 0; $index < $n - 1; ++ $index) {\n            $graph[$index] = $index + 1;\n        }\n        $ans = [];\n        $count = $n - 1;\n        foreach ($queries as $query) {\n            $find = false;\n            $index = $query[0];\n            while ($index < $query[1]) {\n                if ($graph[$index] === null || $graph[$index] > $query[1]) {\n                    break;\n                }\n                $next = $graph[$index];\n                unset($graph[$index]);\n                $find = true;\n                $index = $next;\n                -- $count;\n            }\n            if ($find) {\n                $graph[$query[0]] = $query[1];\n                ++ $count;\n            }\n            $ans[] = $count;\n        }\n\n        return $ans;\n    }\n}",
+    "submit_ts": "1722742165",
+    "subm_id": "1343762547"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "xi-wen-k9",
+    "submission": "template<class T> struct BIT {\n    int n;\n    vector<T> w;\n    BIT(int n) : n(n), w(n + 1) {}\n    BIT(int n, vector<T> &in) : n(n), w(n + 1) {\n        for(int i = 1; i <= n; i++) {\n            add(i, in[i]);\n        }\n    }\n    void add(int x, T v) {\n        for(; x <= n; x += x & -x) {\n            w[x] += v;\n        }\n    }\n    T get(int x) {\n        T ans = 0;\n        for(; x; x -= x & -x) {\n            ans += w[x];\n        }\n        return ans;\n    }\n    T get(int l, int r) {\n        return get(r) - get(l - 1);\n    }\n};\n\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& q) {\n        set<int> s;\n        for(int i = 0; i < n; i++) s.insert(i);\n        vector<int> res;\n        for(int i = 0; i < q.size(); i++){\n            int a=q[i][0];\n            int b=q[i][1];\n            auto t = s.upper_bound(a);\n            while(true){\n                if(*t < b){\n                    t = s.erase(t);\n                    if(t == s.end()) break;\n                }else break;\n            }\n            res.push_back(s.size() - 1);\n        }\n\n\n        return res;\n    }\n};",
+    "submit_ts": "1722741709",
+    "subm_id": "552339947"
+}

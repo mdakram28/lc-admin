@@ -1,0 +1,6 @@
+{
+    "username": "hank55663",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> ans;\n        int sum=n-1;\n        set<pair<int,int>> s;\n        for(auto it:queries){\n            int x=it[0],y=it[1];\n            pair<int,int> p=make_pair(x,y);\n            auto it2=s.lower_bound(make_pair(p.first+1,p.second));\n            if(it2!=s.begin()&&prev(it2)->first<=p.first&&prev(it2)->second>=p.second){\n                \n            //it2=prev(it2);\n            }\n            else{\n                while(s.size()){\n                    auto it2=s.lower_bound(make_pair(p.first-1,p.second));\n                    //if(it2!=s.end())printf(\"%d %d\\n\",it2->first,it2->second);\n                    if(it2!=s.end()&&it2->first<y){\n                        sum+=it2->second-it2->first-1;\n                        s.erase(it2);\n                    }\n                    else{\n                        break;\n                    }\n                }\n                sum-=y-x-1;\n                s.insert(p);\n            }\n            ans.push_back(sum);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722739547",
+    "subm_id": "1343697166"
+}

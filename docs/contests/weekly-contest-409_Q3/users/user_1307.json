@@ -1,0 +1,6 @@
+{
+    "username": "HarshitKumarSingh_13",
+    "submission": "#include <vector>\n#include <set>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        // Initialize the distance array where each city initially connects to the next city\n        vector<int> d(n, 0);\n        for (int i = 1; i < n; ++i) {\n            d[i] = d[i - 1] + 1;\n        }\n\n        // Set to maintain the cities, initially contains all cities\n        set<int> p;\n        for (int i = 0; i < n; ++i) {\n            p.insert(i);\n        }\n\n        // Result vector to store the shortest path length after each query\n        vector<int> result;\n\n        // Process each query\n        for (const auto& query : queries) {\n            int l = query[0];\n            int r = query[1];\n\n            // Find the range of cities to remove from the set\n            auto lb = p.lower_bound(l + 1);\n            auto ub = p.lower_bound(r);\n\n            // Remove the cities in the range (l+1, r)\n            p.erase(lb, ub);\n\n            // The shortest path length is the size of the set minus 1\n            result.push_back(p.size() - 1);\n        }\n\n        return result;\n    }\n};",
+    "submit_ts": "1722743812",
+    "subm_id": "1343800212"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Turkhuu",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& qry) {\n        set<array<int, 2>> s;\n        for (int i = 0; i < n - 1; i++) {\n            s.insert({i, i + 1});\n        }\n        int sum = 0;\n        vector<int> ans;\n        for (int i = 0; i < qry.size(); i++) {\n            int a = qry[i][0], b = qry[i][1];\n            while (1) {\n                auto it = s.lower_bound({a, 0});\n                if (it != s.end() && (*it)[1] <= b) {\n                    sum -= (*it)[1] - (*it)[0] - 1;\n                    s.erase(it);\n                } else break;\n            }\n            auto it = s.upper_bound({a, n});\n            if (it == s.begin() || (*prev(it))[1] < b) {\n                s.insert({a, b});\n                sum += b - a - 1;\n            }\n            ans.push_back(n - 1 - sum);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722739505",
+    "subm_id": "1343696114"
+}

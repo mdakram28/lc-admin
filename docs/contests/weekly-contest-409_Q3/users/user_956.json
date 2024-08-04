@@ -1,0 +1,6 @@
+{
+    "username": "noobcoder1212",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& q) {\n         vector<int> ans;\n        map<int, int> mp;\n        \n        // Initialize the map with the initial range\n        for (int i = 0; i < n - 1; i++) {\n            mp[i] = i + 1;\n        }\n\n        for (auto p : q) {\n            if (p[1] - p[0] > 1) {\n                if (mp.find(p[0]) != mp.end()) {\n                    mp[p[0]] = max(mp[p[0]], p[1]);\n                }\n\n                vector<int> to_erase;\n                auto it = mp.upper_bound(p[0]);\n                while (it != mp.end() && it->first < p[1]) {\n                    to_erase.push_back(it->first);\n                    ++it;\n                }\n\n                for (auto key : to_erase) {\n                    mp.erase(key);\n                }\n            }\n            ans.push_back(mp.size());\n        }\n        \n        return ans;\n    \n    }\n};",
+    "submit_ts": "1722743059",
+    "subm_id": "1343783392"
+}

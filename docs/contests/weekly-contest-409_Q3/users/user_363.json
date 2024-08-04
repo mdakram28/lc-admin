@@ -1,0 +1,6 @@
+{
+    "username": "abhishek21ee10003kgp",
+    "submission": "#include <vector>\n#include <set>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        // Initialize the set with all the cities from 0 to n-1\n        set<int> cities;\n        for (int i = 0; i < n; ++i) {\n            cities.insert(i);\n        }\n        \n        vector<int> result;\n        for (const auto& query : queries) {\n            int u = query[0];\n            int v = query[1];\n            // Find the upper bound of u in the set\n            auto it = cities.upper_bound(u); \n            \n            // Collect cities from u to v-1\n            vector<int> toRemove;\n            while (it != cities.end() && *it < v) {\n                toRemove.push_back(*it);\n                ++it;\n            }\n            \n            // Remove these cities from the set\n            for (int city : toRemove) {\n                cities.erase(city);\n            } \n            \n            // The length of the set is the shortest path from 0 to n-1\n            result.push_back(cities.size()-1);\n        }\n        \n        return result;\n    }\n};\n",
+    "submit_ts": "1722741434",
+    "subm_id": "1343744930"
+}

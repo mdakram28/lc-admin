@@ -1,0 +1,6 @@
+{
+    "username": "ojha_akhil",
+    "submission": "/**\n * @param {number} n\n * @param {number[][]} queries\n * @return {number[]}\n */\nvar shortestDistanceAfterQueries = function(n, queries) {\n    var distance  = n - 1;\n\n    var dropped = Array(n).fill(false);\n\n    var used = new Map();\n\n    var next = Array.from({length: n}, (_, index) => index + 1);\n\n    var u;\n    var v;\n\n    var nextNode;\n\n    var output = [];\n\n    for(let i = 0; i < queries.length; i++) {\n        u = queries[i][0];\n        v = queries[i][1];\n        \n        if( dropped[u] == true ) {\n            output.push(distance);\n            continue;\n        }\n        \n        var val = used.get(u);\n        \n        if(val != undefined && v <= val) {\n            output.push(distance);\n            continue;\n        }\n        \n        nextNode = next[u];\n        \n        while( nextNode != v && nextNode < n) {\n            dropped[nextNode] = true;\n            nextNode = next[nextNode];\n            next[u] = nextNode;\n            distance--;\n        }\n        \n        used.set(u, v);\n        output.push(distance);\n    }\n\n    return output;\n};",
+    "submit_ts": "1722743678",
+    "subm_id": "1343797224"
+}

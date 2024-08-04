@@ -1,0 +1,6 @@
+{
+    "username": "kevincabbage",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        map<int, int> record;\n        vector<int> res;\n        \n        for(int i = 0; i + 1 < n; ++i) record[i] = i + 1;\n        \n        for(auto &query : queries) {\n            auto it = record.lower_bound(query[0]);\n            bool flag = false;\n            while(it != record.end() && it->first >= query[0] && it->second <= query[1]) {\n                it = record.erase(it);\n                flag = true;\n            }\n            \n            if(flag) record[query[0]] = query[1];\n            \n            res.push_back(record.size());\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": "1722742785",
+    "subm_id": "552346852"
+}

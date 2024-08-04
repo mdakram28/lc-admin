@@ -1,0 +1,6 @@
+{
+    "username": "jskhirtladze",
+    "submission": "class Solution {\npublic:\n    \n    static const int N=100000+10;\n    int p[N], next[N], val[N];\n\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        \n        for (int i=0;i<n;i++) {\n            p[i]=i;\n            next[i]=i+1;\n            val[i]=i;\n        }\n\n        vector <int> ret;\n        int ans=n-1;\n\n        for (int jj=0;jj<queries.size();jj++) {\n            int x=queries[jj][0];\n            int y=queries[jj][1];\n\n            if (p[x]==p[y]) {\n                ret.push_back(ans);\n                continue;\n            }\n\n            int j=p[x];\n            while (true) {\n\n                j=next[j];\n                if (j>=n || val[j]>=y) break;\n\n                p[val[j]]=p[x];\n                ans--;\n            }\n\n            next[p[x]]=j;\n            val[p[x]]=y-1;\n\n            ret.push_back(ans);\n        }\n\n        return ret;\n    }\n};",
+    "submit_ts": "1722741871",
+    "subm_id": "1343755505"
+}

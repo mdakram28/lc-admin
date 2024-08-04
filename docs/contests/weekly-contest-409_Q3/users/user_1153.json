@@ -1,0 +1,6 @@
+{
+    "username": "cp_boy",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<int> s;\n        for(int i=0;i<n;i++) s.insert(i);\n        vector<int> res;\n        for(auto i:queries){\n            int u=i[0],v=i[1];\n            auto start=s.upper_bound(u);\n            auto end=s.lower_bound(v);\n            if(end==s.begin()){\n                res.push_back(s.size()-1);\n                continue;\n            }\n            if(start==s.end()){\n                res.push_back(s.size()-1);\n                continue;\n            }\n            end=prev(s.lower_bound(v));\n            if(*end<*start){\n                res.push_back(s.size()-1);\n                continue;\n            }\n            int value=*end;\n            while(*start<=value){\n                auto val=next(start);\n                s.erase(start);\n                start=val;\n            }\n            res.push_back(s.size()-1);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722743160",
+    "subm_id": "1343785735"
+}

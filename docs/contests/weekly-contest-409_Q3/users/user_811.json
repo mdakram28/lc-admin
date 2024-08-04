@@ -1,0 +1,6 @@
+{
+    "username": "aterpaternaveen",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(\n        self, n: int, queries: List[List[int]]\n    ) -> List[int]:\n        path_hash = {}\n        for i in range(n - 1):\n            path_hash[i] = i + 1\n        last_minimum = n - 1\n        ans = []\n\n        def find_ans(k, j):\n            ans = 0\n            while k != j:\n                k = path_hash[k]\n                ans += 1\n            return ans\n\n        for q in queries:\n            if q[0] in path_hash:\n                prev_val = path_hash[q[0]]\n                if q[1] > prev_val:\n                    prev_dist = find_ans(q[0], q[1])\n                    last_minimum=last_minimum-(prev_dist-1)\n                    for i in range(prev_val, q[1]):\n                        if i in path_hash:\n                            del path_hash[i]\n                    path_hash[q[0]] = q[1]\n            ans.append(last_minimum)\n        return ans",
+    "submit_ts": "1722742291",
+    "subm_id": "1343765537"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "freetime430",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        val = [0] * (n<<2)\n\n        def build(idx, left, right):\n            if left == right:\n                val[idx] = 1\n                return\n            mid = (left + right) >> 1\n            build(idx<<1, left, mid)\n            build(idx<<1|1, mid+1, right)\n            val[idx] = val[idx<<1] + val[idx<<1|1]\n        \n        def update(idx, left, right, start, end):\n            if val[idx] == 0:\n                return\n            if start <= left and end >= right:\n                val[idx] = 0\n                return\n            mid = (left + right) >> 1\n            if start <= mid:\n                update(idx<<1, left, mid, start, end)\n            if end > mid:\n                update(idx<<1|1, mid+1, right, start, end)\n            val[idx] = val[idx<<1] + val[idx<<1|1]\n        \n        build(1, 0, n-1)\n        res = [0] * len(queries)\n        for i in range(len(queries)):\n            u, v = queries[i]\n            update(1, 0, n-1, u+1, v-1)\n            res[i] = val[1]-1\n        return res",
+    "submit_ts": "1722742513",
+    "subm_id": "552345109"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "pavanareti02",
+    "submission": "class Solution {\npublic:\n    class IntervalMerger {\n        map<int, int> intervals;\n\n    public:\n        int addInterval(int start, int end) {\n            auto it = intervals.upper_bound(start);\n            if (it != intervals.begin() && prev(it)->second > start) {\n                --it;\n            }\n\n            int original_end = end;\n            while (it != intervals.end() && it->first < end) {\n                start = min(start, it->first);\n                end = max(end, it->second);\n                it = intervals.erase(it);\n            }\n            intervals[start] = end;\n            return intervals.size();\n        }\n    };\n\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        IntervalMerger im;\n        vector<int> ans;\n        for(int i=0;i<n-1;i++){\n            im.addInterval(i,i+1);\n        }\n        for (auto& it : queries) {\n            int val = im.addInterval(it[0], it[1]);\n            ans.push_back(val);\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": "1722742733",
+    "subm_id": "1343775911"
+}

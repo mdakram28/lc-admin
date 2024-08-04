@@ -1,0 +1,6 @@
+{
+    "username": "krishnamurthy5111",
+    "submission": "class Solution {\n    private var roads: [Int] = []\n\n    func shortestDistanceAfterQueries(_ n: Int, _ queries: [[Int]]) -> [Int] {\n        roads = Array(1..<n)\n        var currentShortestDistance = n-1\n        var queryDistances: [Int] = []\n        for query in queries {\n            let (u, v) = (query[0], query[1])\n            let currURoad = roads[u]\n            if v > currURoad {\n                currentShortestDistance -= (distance(from: u, to: v) - 1)\n                updateRoads(from: u, to: v)\n            }\n            queryDistances.append(currentShortestDistance)\n        }\n        return queryDistances\n    }\n\n    private func distance(from u: Int, to v: Int) -> Int {\n        var curr = u, steps = 0\n        while curr != v {\n            curr = roads[curr]\n            steps += 1\n        }\n        return steps\n    }\n\n    private func updateRoads(from u: Int, to v: Int) {\n        for i in u..<v {\n            roads[i] = v\n        }\n    }\n}",
+    "submit_ts": "1722742073",
+    "subm_id": "1343760311"
+}

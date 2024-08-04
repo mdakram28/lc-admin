@@ -1,0 +1,6 @@
+{
+    "username": "033_Himanshu",
+    "submission": "class Solution {\n    vector<int> dist;\n    unordered_set<int> rem;\n    int bfs(vector<int> &G, int s, int e){\n        int cnt=0;\n        int n = G.size()-1;\n        for(int j=s;j!=e;){\n            j=G[j];\n            cnt+=1;\n            if(j!=e){\n                rem.insert(j);\n            }\n        }\n        return cnt;\n    }\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> G(n);\n        for(int i=0;i<n;++i){\n            G[i]=i+1;\n        }\n        int i=0;\n        vector<int> res(queries.size());\n        int curr=n-1;\n        for(auto  &v: queries){\n            if(v[0]>v[1]) swap(v[0], v[1]);\n            if(G[v[0]]>v[1] or rem.find(v[0])!=rem.end() or rem.find(v[1])!=rem.end()){\n                res[i++] = curr;\n                continue;\n            }\n            int prev = bfs(G, v[0], v[1]);\n            G[v[0]] = max(G[v[0]], v[1]);\n            res[i++] = curr= curr - prev +1; \n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722743677",
+    "subm_id": "1343797209"
+}

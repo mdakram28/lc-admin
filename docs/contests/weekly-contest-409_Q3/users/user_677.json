@@ -1,0 +1,6 @@
+{
+    "username": "wswartworth",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        #intervals = set([(i,i+1) for i in range(n-1)])\n        ans = []\n\n        ends = {}\n        for i in range(n-1):\n            ends[i] = i+1\n\n        #print(ends)\n\n        dist = n-1\n        for u,v in queries:\n\n            node = u\n            steps = 0\n\n            #print(f\"u:{u}, v:{v}\")\n            #print(f\"ends:{ends}\")\n\n            while node != v:\n                nextNode = ends[node]\n                if nextNode is None or nextNode > v:\n                    steps = None\n                    break\n                ends[node] = None\n                node = nextNode\n                steps += 1\n\n            if steps is not None:\n                dist = dist - steps + 1\n                ends[u] = v\n\n            ans.append(dist)\n        \n        return ans\n\n\n\n        ",
+    "submit_ts": "1722742656",
+    "subm_id": "1343774076"
+}

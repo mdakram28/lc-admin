@@ -1,0 +1,6 @@
+{
+    "username": "hasna_shaik04",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int numCities, vector<vector<int>>& updates) {\n        vector<int> distances(numCities, 0);\n        for (int i = 1; i < numCities; ++i) {\n            distances[i] = distances[i - 1] + 1;\n        }\n\n        set<int> availableCities;\n        for (int i = 0; i < numCities; ++i) {\n            availableCities.insert(i);\n        }\n\n        vector<int> results;\n\n        for (const auto& update : updates) {\n            int start = update[0];\n            int end = update[1];\n\n            auto lowerBound = availableCities.lower_bound(start + 1);\n            auto upperBound = availableCities.lower_bound(end);\n\n            availableCities.erase(lowerBound, upperBound);\n\n            results.push_back(availableCities.size() - 1);\n        }\n\n        return results;\n    }\n};\n",
+    "submit_ts": "1722743414",
+    "subm_id": "1343791400"
+}

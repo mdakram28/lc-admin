@@ -1,0 +1,6 @@
+{
+    "username": "mdakram28",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        g = defaultdict(int)\n        for at in range(n-1):\n            g[at] = at + 1\n        inpath = [True] * n\n\n        ans = n-1\n        ret = []\n\n        for start, to in queries:\n            # print(\"Query\", start, to)\n            if not inpath[start]:\n                ret.append(ans)\n                continue\n            at = g[start]\n            total = 0\n            while at < to:\n                inpath[at] = False\n                # print(f\"{at=}\")\n                total += 1\n                at = g[at]\n            \n            ans -= total\n\n            if to > g[start]:\n                g[start] = to\n\n            ret.append(ans)\n        \n        return ret\n",
+    "submit_ts": "1722741428",
+    "subm_id": "1343744793"
+}

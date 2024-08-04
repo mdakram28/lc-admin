@@ -1,0 +1,6 @@
+{
+    "username": "randle999",
+    "submission": "class Solution {\n    fun shortestDistanceAfterQueries(n: Int, queries: Array<IntArray>): IntArray {\n        val next = MutableList<Int>(n) { i -> i + 1 }\n        val ans = IntArray(queries.size)\n        val seg = TreeMap<Int, Int>()\n\n        for (i in 0 until queries.size) {\n            val (u, v) = queries[i]\n\n            // fish check\n            val lr = seg.lowerEntry(u + 1)\n            if (lr != null && (lr.value > v || (lr.value == v && lr.key < u))) {\n                ans[i] = ans[i - 1]\n                continue\n            }\n\n            val prev = if (i == 0) n - 1 else ans[i - 1]\n            var (eatenFishes, curPos) = 0 to u\n            while (curPos != v) {\n                eatenFishes++\n                seg.remove(curPos)\n                curPos = next[curPos]\n            }\n            next[u] = v\n            seg.put(u, v)\n            ans[i] = prev - eatenFishes + 1\n        }\n\n        return ans\n    }\n}",
+    "submit_ts": "1722743670",
+    "subm_id": "1343797059"
+}

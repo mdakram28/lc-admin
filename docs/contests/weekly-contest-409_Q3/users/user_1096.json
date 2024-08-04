@@ -1,0 +1,6 @@
+{
+    "username": "Vineet_sharma_9211",
+    "submission": "from typing import List\nfrom sortedcontainers import SortedSet\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        \n        distance_list = [0] * n\n        for i in range(1, n):\n            distance_list[i] = distance_list[i - 1] + 1\n\n        position_set = SortedSet(range(n))\n\n        result_list = []\n\n        for query in queries:\n            start = query[0]\n            end = query[1]\n\n            lower_bound = position_set.bisect_left(start + 1)\n            upper_bound = position_set.bisect_left(end)\n\n            to_remove = list(position_set.islice(lower_bound, upper_bound))\n            for pos in to_remove:\n                position_set.remove(pos)\n\n            result_list.append(len(position_set) - 1)\n\n        return result_list\n",
+    "submit_ts": "1722743415",
+    "subm_id": "1343791420"
+}

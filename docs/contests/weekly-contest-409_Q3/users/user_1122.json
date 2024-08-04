@@ -1,0 +1,6 @@
+{
+    "username": "oaixuroab",
+    "submission": "\nclass Solution {\n    set<pair<int, int>> st;\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& qs) {\n        vector<int> ans;\n        int cur = n - 1;\n        for (auto& q : qs)\n        {\n            int l = q[0], r = q[1];\n            auto it = st.lower_bound({l, -1}); \n            if (it != st.begin() && prev(it)->second >= r || it != st.end() && it->first == l && it->second >= r)\n            {\n                ans.push_back(cur);\n                continue;\n            }\n            while (it != st.end() && it->second <= r)\n            {\n                cur -= 1;\n                cur += it->second - it->first;\n                auto pre = it;\n                it = next(it);\n                st.erase(pre);\n            }    \n            st.insert({l, r});\n            cur -= r - l;\n            cur += 1;\n            ans.push_back(cur);\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": "1722742468",
+    "subm_id": "1343769688"
+}

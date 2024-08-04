@@ -1,0 +1,6 @@
+{
+    "username": "hhhyh",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int>ans;\n        int res=n-1;\n        vector<int>d1(n);\n        vector<int>d2(n);\n        for(int i=0;i<n;i++){\n            d1[i]=i;\n            d2[i]=n-i-1;\n        }\n        set<pair<int,int>>s;\n        for(int i=0;i<n-1;i++)s.insert({i,i+1});\n        for(auto x:queries){\n            int u=x[0],v=x[1];\n            auto it=s.lower_bound({u,0});\n            if(it!=s.begin()){\n                it--;\n            }\n            bool flag=false;\n            while(it!=s.end()){\n                int l=it->first;\n                int r=it->second;\n                if(r<=u)it++;\n                else if(l>=v)break;\n                else if(l>=u&&r<=v){\n                    it=s.erase(it);\n                }\n                else if(l<=u&&r>=v){\n                    flag=true;\n                    break;\n                }\n            }\n            if(!flag)s.insert({u,v});\n            ans.push_back(s.size());\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722739745",
+    "subm_id": "552326707"
+}

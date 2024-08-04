@@ -1,0 +1,6 @@
+{
+    "username": "tplusd",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        \n\n        R = []\n        for i in range(n-1):\n            R.append((i,i+1))\n        #print(R)\n\n        res = []\n        for q in queries:\n            q1,q2 = q[0],q[1]\n            left,right = 0,len(R)-1\n            while left <= right:\n                mid = (left+right)//2\n                if R[mid][0] <= q1:\n                    left =mid+1\n                elif R[mid][0] > q1:\n                    right = mid-1\n            Left_index = right\n            left,right = 0,len(R)-1\n            while left <= right:\n                mid = (left+right)//2\n                if R[mid][1] < q2:\n                    left = mid+1\n                elif R[mid][1] >= q2:\n                    right = mid-1\n            Right_index = left\n            #print(Left_index,Right_index)\n            if Right_index != Left_index:\n                v1,v2 = R[Left_index][0],R[Right_index][1]\n                del R[Left_index:Right_index+1]\n                R.insert(Left_index,(v1,v2))\n            res.append(len(R))\n            #print(R)\n        \n        return res\n\n\n",
+    "submit_ts": "1722741136",
+    "subm_id": "1343737497"
+}

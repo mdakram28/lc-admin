@@ -1,0 +1,6 @@
+{
+    "username": "peicd7699",
+    "submission": "from sortedcontainers import SortedList\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        l = SortedList([[i,i+1] for i in range(n)])\n        \n        curr = n-1\n        \n        res = []\n        \n        for s,e in queries:\n            inds = bisect.bisect_left(l, [s,s])\n            inde = bisect.bisect_right(l, [e,float('inf')])\n            \n            # print(curr, inds, inde, l)\n            \n            if inds >= inde -1:\n                res += [curr]\n            else:\n                curr -= inde - inds - 2\n                merged = [s,e]\n                \n                for i in range(inds, inde):\n                    if i!=inde -1:\n                        l.remove(l[inds])\n                l.add(merged)\n                res += [curr]\n            # print(l)\n                \n        return res\n                ",
+    "submit_ts": "1722740992",
+    "subm_id": "1343733885"
+}

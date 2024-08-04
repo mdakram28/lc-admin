@@ -1,0 +1,6 @@
+{
+    "username": "aprilwizard",
+    "submission": "class Solution {\npublic:\n    struct node {\n        int val;\n        node* next = 0;\n        node(int i, node* nx) {\n            val = i;\n            next = nx;\n        }\n    };\n    vector<int> shortestDistanceAfterQueries(int n,\n                                             vector<vector<int>>& queries) {\n        int distance = n - 1;\n        vector<int> res;\n        vector<node*> pointer(n, nullptr);\n        node *temp = nullptr, *temp2 = nullptr, *ptrv0 = nullptr;\n        for (int i = n - 1; i >= 0; --i) {\n            temp = new node(i, temp);\n            pointer[i] = temp;\n        }\n        for (auto& v : queries) {\n            if (pointer[v[0]] == nullptr || pointer[v[1]] == nullptr) {\n                \n            } else {\n                ptrv0 = pointer[v[0]];\n                temp = ptrv0->next;\n                while (temp->val != v[1]) {\n                    temp2 = temp;\n                    temp = temp->next;\n                    --distance;\n                    pointer[temp2->val] = nullptr;\n                    delete temp2;\n                }\n                ptrv0->next = temp;\n            }\n            res.push_back(distance);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722742759",
+    "subm_id": "552346709"
+}

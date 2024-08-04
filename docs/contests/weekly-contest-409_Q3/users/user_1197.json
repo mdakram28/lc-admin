@@ -1,0 +1,6 @@
+{
+    "username": "sourabh_bhavsar",
+    "submission": "class Solution {\n     public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        TreeMap<Integer, Integer> map = new TreeMap<>();\n        for (int i = 0; i < n - 1; i++) {\n            map.put(i, i + 1);\n        }\n        \n        int[] ans = new int[queries.length];\n        int index = 0;\n         //System.out.println(map);\n        for (int[] q : queries) {\n            ans[index++] = getValue(map, q);\n            \n        }\n        \n        return ans;\n    }\n    \n    \n    // {0=1, 1=3, 3=4}\n    int getValue(TreeMap<Integer, Integer> m, int[] q) {\n        int s = q[0];\n        int e = q[1];\n        \n        // 2 , 4\n        var L = m.floorEntry(s); // left possible overlap entry  (1. 3)\n        var R = m.floorEntry(e - 1); // right possible overlap entry (3, 4)\n\n        if (L != null && L.getValue() >= s) s = L.getKey(); // update overlap start\n        if (R != null && R.getValue() > e) e = R.getValue(); // update overlap end\n\n        m.subMap(s, e).clear(); // clear all overlapped entries\n        m.put(s, e); // save final merged entry\n        \n        // 0-1 1 -2 2- 4\n       // System.out.println(m);\n        \n        return m.size();\n    }\n    \n}",
+    "submit_ts": "1722743045",
+    "subm_id": "1343783072"
+}

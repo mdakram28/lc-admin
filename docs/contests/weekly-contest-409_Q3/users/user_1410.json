@@ -1,0 +1,6 @@
+{
+    "username": "Loretta_S",
+    "submission": "class Solution {\nprivate:\n    // far[i] records the farest city we can reach from city i\n    map<int, int> far;\n    int size;\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        // Because there doesn't exist crossing path, we could apply greedy algo;\n        // which means we will always take the path that moves 'longest' distance\n        size = n;\n\n        int len = queries.size();\n        vector<int> ans(len, -1);\n\n        vector<int> currPath(n, -1);\n        for (int i = 0; i < n - 1; ++i) {\n            currPath[i] = i + 1;\n        }\n\n        int step = n - 1;\n        for (int i = 0; i < len; ++i) {\n            int start = queries[i][0], end = queries[i][1];\n            int removed = 0;\n            if (currPath[start] != -1) {\n                int curr = currPath[start];\n                while (curr != end && curr != n - 1) {\n                    int next = currPath[curr];\n                    currPath[curr] = -1;\n                    removed++;\n                    curr = next;\n                }\n                currPath[start] = end;\n            }\n            step -= removed;\n            ans[i] = step;\n        }\n        return ans;\n    }\n\n};",
+    "submit_ts": "1722743787",
+    "subm_id": "1343799634"
+}

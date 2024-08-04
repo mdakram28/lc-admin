@@ -1,0 +1,6 @@
+{
+    "username": "louisfghbvc",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        // goal: find the shortest path after queries\n        // idea:\n        // when add a edge\n        // the distance will decrease.\n        // it will delete the node [q[0] ~ q[1]]\n        // the delete node at most n!\n        \n        set<int> st;\n        for (int i = 0; i < n; ++i)\n            st.insert(i);\n        \n        vector<int> ans;\n        for (auto &q: queries) {\n            auto l = next(st.lower_bound(q[0]));\n            auto r = st.lower_bound(q[1]);\n            if (l != st.end() && r != st.end() && *l < *r)\n                st.erase(l, r);\n            ans.push_back((int)st.size() - 1);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1722740420",
+    "subm_id": "1343719303"
+}

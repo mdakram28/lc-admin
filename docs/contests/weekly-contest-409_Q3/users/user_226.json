@@ -1,0 +1,6 @@
+{
+    "username": "BattlerRein",
+    "submission": "class Solution {\n\n\n\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        int[] flag = new int[n];\n        int[] res = new int[queries.length];\n\n        for (int i = 0; i < n; i++) {\n            flag[i] = i+1;\n        }\n\n        for (int k = 0; k < queries.length; k++) {\n            int[] query = queries[k];\n            boolean isAlreadyCovered = false;\n            int preRes = k == 0 ?  (n-1) : res[k-1];\n            if (flag[query[0]] >= query[1]) {\n                res[k] = preRes;\n                continue;\n            }\n            int subDis = 0;\n            int curr = query[0];\n            while (curr < query[1]) {\n                int next = flag[curr];\n                subDis += 1;\n                flag[curr] = query[1];\n                curr = next;\n            }\n\n            res[k] = preRes + 1 - subDis;\n        }    \n        return res;\n    }\n}",
+    "submit_ts": "1722740148",
+    "subm_id": "1343712423"
+}

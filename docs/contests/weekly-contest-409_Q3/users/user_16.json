@@ -1,0 +1,6 @@
+{
+    "username": "sheepforever",
+    "submission": "const int N = 1000007;\n\nint par[N];\n\nint get(int x) {\n    return x == par[x] ? x : (par[x] = get(par[x]));\n}\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        for (int i = 0; i < n; ++i) {\n            par[i] = i;\n        }\n        \n        int len = n - 1;\n        vector<int> ans;\n        for (auto& q : queries) {\n            int from = q[0], to = q[1];\n            int cur = from + 1;\n            while (cur < to) {\n                cur = get(cur);\n                if (cur < to) {\n                    int next = get(cur + 1);\n                    --len;\n                    par[cur] = next;\n                    cur = next;\n                }\n            }\n            ans.push_back(len);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722739522",
+    "subm_id": "1343696542"
+}

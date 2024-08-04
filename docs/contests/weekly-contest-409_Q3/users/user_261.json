@@ -1,0 +1,6 @@
+{
+    "username": "mp1256",
+    "submission": "struct ListN {\n    int val;\n    ListN* next;\n\n    ListN():val(0),next(0) {}\n    ListN(int a, ListN* b):val(a),next(b){}\n};\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& qs) {\n        int m = qs.size();\n        vector<int> res(m);\n        ListN* p;\n        ListN* q = 0;\n        map<int,ListN*> ma;\n        for (int i = n-1; i >= 0; --i) {\n            p = new ListN(i, q);\n            ma[i] = p;\n            q = p;\n            p = 0;\n        }\n\n        for (int i = 0; i < m; ++i) {\n            int a = qs[i][0];\n            int b = qs[i][1];\n            if (ma.count(a)) {\n                ListN* c = ma[a];\n                ListN* d = ma[b];\n                ListN* e = c->next;\n                while (e && e != d) {\n                    ma.erase(e->val);\n                    e = e->next;\n                }\n                c->next = e;\n            }\n            res[i] = ma.size() - 1;\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1722740731",
+    "subm_id": "552333346"
+}

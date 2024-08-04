@@ -1,0 +1,6 @@
+{
+    "username": "paradox2408",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int numCities, vector<vector<int>>& queries) {\n        // Initialize distance array with cumulative values\n        vector<int> distance(numCities, 0);\n        for (int i = 1; i < numCities; ++i) {\n            distance[i] = distance[i - 1] + 1;\n        }\n\n        // Initialize set of active cities\n        set<int> activeCities;\n        for (int i = 0; i < numCities; ++i) {\n            activeCities.insert(i);\n        }\n\n        // Vector to store results after each query\n        vector<int> result;\n\n        // Process each query\n        for (const auto& query : queries) {\n            int start = query[0];\n            int end = query[1];\n\n            // Find and erase the range of cities that need to be removed\n            auto lowerBound = activeCities.lower_bound(start + 1);\n            auto upperBound = activeCities.lower_bound(end);\n\n            activeCities.erase(lowerBound, upperBound);\n\n            // Calculate the number of remaining active cities\n            result.push_back(activeCities.size() - 1);\n        }\n\n        return result;\n    }\n};\n",
+    "submit_ts": "1722743815",
+    "subm_id": "1343800269"
+}

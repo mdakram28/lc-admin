@@ -1,0 +1,6 @@
+{
+    "username": "Keetode",
+    "submission": "class Tree:\n    def __init__(self,n):\n        self.tree = [0 for _ in range(n*5)]\n\n    def insert(self, l, r, idx, el, er):\n        if self.tree[idx] > 0:\n            return 0\n\n        if el == er:\n            if self.tree[idx] == 0:\n                self.tree[idx] = 1\n                return 1\n            return 0\n\n        mid = (er+el)//2\n        v = 0\n        if l <= mid and mid < r:\n            v = self.insert(l, mid, idx*2, el, mid) + self.insert(mid+1, r, idx*2 + 1, mid+1, er)\n        elif r <= mid:\n            v = self.insert(l, r, idx*2, el, mid)\n        elif l > mid:\n            v = self.insert(l,r, idx*2 +1, mid+1, er)\n\n        if l <= el and r >= er:\n            self.tree[idx] = v\n\n        # print(l,r,el,er,idx,v)\n\n        return v\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        tree = Tree(n)\n\n        paths = n-1\n\n        res = []\n\n        tree.insert(n-1, n-1, 1, 0, n-1)\n\n        for u,v in queries:\n            # print('---', u, v)\n            paths -= tree.insert(u+1,v-1,1, 0, n-1)\n\n            res.append(paths)\n\n        return res",
+    "submit_ts": "1722743543",
+    "subm_id": "1343794318"
+}

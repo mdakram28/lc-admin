@@ -1,0 +1,6 @@
+{
+    "username": "__yz",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        int m = queries.size();\n        map<int, int> path;\n        for (int i = 0; i < n - 1; i++) {\n            path[i] = 1;\n        } \n        int res = n - 1;\n        vector<int> ans(m);\n        for (int i = 0; i < m; i++) {\n            auto q = queries[i];\n            int s = q[0], e = q[1];\n            auto lp = path.lower_bound(s), rp = path.lower_bound(e);\n            int dis = distance(lp, rp);\n            if (dis > 1) {\n                res -= dis - 1;\n                path.erase(lp, rp);\n                path[s] = 1;\n            }\n            ans[i] = res;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722742815",
+    "subm_id": "552347046"
+}

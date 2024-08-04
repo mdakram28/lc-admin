@@ -1,0 +1,6 @@
+{
+    "username": "hongrock",
+    "submission": "const int N = 1e5 + 10;\n#define lson o<<1\n#define rson o<<1|1\n#define gmid (l[o]+r[o])>>1\n\nint l[N<<2], r[N<<2], S[N<<2];\n\nvoid build(int o, int L, int R){\n    l[o] = L;\n    r[o] = R;\n    if(L < R){\n        int mid = gmid;\n        build(lson, L, mid);\n        build(rson, mid + 1, R);\n        S[o] = S[lson] + S[rson];\n    } else {\n        S[o] = 1;\n    }\n}\n\nvoid update(int o, int L, int R){\n    if(S[o] == 0)   return;\n    if(l[o] == L && r[o] == R){\n        S[o] = 0;\n        return;\n    }\n    int mid = gmid;\n    if(R <= mid)    update(lson, L, R);\n    else if(L > mid)    update(rson, L, R);\n    else {\n        update(lson, L, mid);\n        update(rson, mid+1, R);\n    }\n    S[o] = S[lson] + S[rson];\n}\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> ret;\n        build(1, 0, n - 2);\n        for(auto &vec : queries){\n            int x = vec[0], y = vec[1];\n            update(1, x, y - 2);\n            ret.push_back(S[1]);\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1722740024",
+    "subm_id": "552328741"
+}

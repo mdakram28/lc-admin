@@ -1,0 +1,6 @@
+{
+    "username": "Sq032dEV2t",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> distances = initializeDistances(n);\n        set<int> positions = initializePositions(n);\n        vector<int> result;\n\n        for (const auto& query : queries) {\n            processQuery(query, positions, result);\n        }\n\n        return result;\n    }\n\nprivate:\n    vector<int> initializeDistances(int n) {\n        vector<int> distances(n, 0);\n        for (int i = 1; i < n; ++i) {\n            distances[i] = distances[i - 1] + 1;\n        }\n        return distances;\n    }\n\n    set<int> initializePositions(int n) {\n        set<int> positions;\n        for (int i = 0; i < n; ++i) {\n            positions.insert(i);\n        }\n        return positions;\n    }\n\n    void processQuery(const vector<int>& query, set<int>& positions, vector<int>& result) {\n        int left = query[0];\n        int right = query[1];\n\n        auto lowerBound = positions.lower_bound(left + 1);\n        auto upperBound = positions.lower_bound(right);\n\n        positions.erase(lowerBound, upperBound);\n        result.push_back(positions.size() - 1);\n    }\n};\n",
+    "submit_ts": "1722743436",
+    "subm_id": "1343791887"
+}

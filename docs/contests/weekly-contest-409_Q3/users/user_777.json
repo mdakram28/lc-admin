@@ -1,0 +1,6 @@
+{
+    "username": "rajkaustuk",
+    "submission": "#include <vector>\n#include <set>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        // Initialize distance vector with default distances\n        vector<int> distances(n, 0);\n        for (int i = 1; i < n; ++i) {\n            distances[i] = distances[i - 1] + 1;\n        }\n\n        // Initialize a set to keep track of all positions\n        set<int> posSet;\n        for (int i = 0; i < n; ++i) {\n            posSet.insert(i);\n        }\n\n        vector<int> results;\n\n        // Process each query\n        for (const auto& q : queries) {\n            int start = q[0];\n            int end = q[1];\n\n            auto itStart = posSet.lower_bound(start + 1);\n            auto itEnd = posSet.lower_bound(end);\n\n            // Remove range of positions from the set\n            posSet.erase(itStart, itEnd);\n\n            // Calculate and store the current size of the position set minus one\n            results.push_back(static_cast<int>(posSet.size()) - 1);\n        }\n\n        return results;\n    }\n};\n",
+    "submit_ts": "1722743030",
+    "subm_id": "1343782718"
+}

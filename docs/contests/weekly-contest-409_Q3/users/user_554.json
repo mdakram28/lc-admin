@@ -1,0 +1,6 @@
+{
+    "username": "Ronak9910",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<int> s;\n        unordered_map<int, int> mp;\n        for(int i = 0; i < n - 1; i++)\n        {\n            mp[i] = i + 1;\n            s.insert(i);\n        }\n        vector<int> ans;\n        int q = queries.size();\n        for(int i = 0; i < q; i++)\n        {\n            int l = queries[i][0];\n            int r = queries[i][1];\n            auto pos = s.lower_bound(l);\n            while(pos != s.end())\n            {\n                if(mp[*pos] > r)\n                    break;\n                pos = s.erase(pos);\n            }\n            auto p = s.upper_bound(l);\n            if(p == s.begin())\n            {\n                mp[l] = r;\n                s.insert(l);\n            }\n            else\n            {\n                if(p == s.end())\n                {\n                    p = prev(s.end());\n                }\n                else\n                    p--;\n                if(mp[*p] < r)\n                {\n                    mp[l] = r;\n                    s.insert(l);\n                }   \n            }\n            ans.push_back(s.size());\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722742266",
+    "subm_id": "1343764963"
+}

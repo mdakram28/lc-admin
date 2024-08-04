@@ -1,0 +1,6 @@
+{
+    "username": "pratikshsk",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int>dist(n,0);\n        for(int i=1;i<=n-1;i++)\n        {\n            dist[i]=dist[i-1]+1;\n        }\n\n        set<int>pos;\n        multiset<int>st;\n        set<int>lai;\n        for(int i=0;i<n;i++)\n        {\n            pos.insert(i);\n            st.insert(i);\n            st.insert(i+1);\n            st.insert(i-1);\n        }\n        vector<int>ans;\n        for(int i=1;i<n/2;i++)\n        {\n            st.erase(i);\n        }\n\n\n        for(auto g: queries)\n        {\n            int fro = g[0];\n            int to = g[1];\n            \n            st.erase(fro);\n            st.erase(to);\n\n            auto it1=pos.lower_bound(fro+1);\n            auto it2=pos.lower_bound(to);\n\n            lai.insert(fro);\n            lai.insert(to);\n\n\n            pos.erase(it1,it2);\n            ans.push_back(pos.size()-1);\n        }\n\n        for(int i=0;i<n;i++)\n        {\n            lai.erase(i);\n            st.erase(i);\n        }\n        return ans;\n\n    }\n};",
+    "submit_ts": "1722743457",
+    "subm_id": "1343792349"
+}

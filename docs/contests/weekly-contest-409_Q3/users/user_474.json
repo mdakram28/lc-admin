@@ -1,0 +1,6 @@
+{
+    "username": "akshai0",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> next(n);\n\n        for (int i = 0; i < n; i++)\n            next[i] = i + 1;\n\n        vector<int> ans;\n        int dist = n - 1;\n        \n        for (auto &q: queries) {\n            auto [x, y] = tie(q[0], q[1]);\n            int count = 0;\n\n            int cur = x;\n            \n            while (cur != y) {\n                int jump = next[cur];\n                next[cur] = max(next[cur], y);\n                cur = jump;\n                count++;\n\n                if(cur > y) {\n                    count = 1;\n                    break;\n                }\n            }\n\n            next[x] = max(next[x], y);\n\n            dist = dist - count + 1;\n            //cout << count << ' ' << dist << endl;\n\n            ans.push_back(dist);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722741637",
+    "subm_id": "1343749791"
+}

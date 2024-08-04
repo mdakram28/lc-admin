@@ -1,0 +1,6 @@
+{
+    "username": "saulmaldonado",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n\n        vector<int> dp(n, 0);\n\n        for (int i = 1; i < n; i++) {\n            dp[i] = dp[i - 1] + 1;\n        }\n\n        set<int> prev;\n\n        for (int i = 0; i < n; i++) {\n            prev.insert(i);\n        }\n\n        vector<int> res;\n\n        for (const auto& q : queries) {\n            int from = q[0];\n            int to = q[1];\n\n            auto first = prev.lower_bound(from + 1);\n            auto last = prev.lower_bound(to);\n\n            prev.erase(first, last);\n\n            res.push_back(prev.size() - 1);\n        }\n\n        return res;\n\n    }\n};\n\n// 2777,2773,2647,2647",
+    "submit_ts": "1722743988",
+    "subm_id": "1343804499"
+}

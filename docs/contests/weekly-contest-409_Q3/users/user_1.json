@@ -1,0 +1,6 @@
+{
+    "username": "tiger2005",
+    "submission": "class Solution {\npublic:\n  vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n    set<pair<int, int>> st;\n    int cur = n - 1;\n    vector<int> ans;\n    for (auto e: queries) {\n      int u = e[0], v = e[1];\n      // check1\n      auto p = st.lower_bound({u, 1e9});\n      bool flg = true;\n      if (p != st.begin()) {\n        -- p;\n        if (p -> second >= v)\n          flg = false;\n      }\n      if (flg) {\n        p = st.lower_bound({u, 0});\n        while (1) {\n          if (p != st.end() && p -> second <= v) {\n            cur += p -> second - p -> first - 1;\n            p = st.erase(p);\n          }\n          else\n            break;\n        }\n        st.insert({u, v});\n        cur -= v - u - 1;\n      }\n      ans.push_back(cur);\n    }\n    return ans;\n  }\n};",
+    "submit_ts": "1722739299",
+    "subm_id": "552323702"
+}

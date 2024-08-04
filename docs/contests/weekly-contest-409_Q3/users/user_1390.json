@@ -1,0 +1,6 @@
+{
+    "username": "th3_fool",
+    "submission": "#include <vector>\n#include <set>\n\nclass Solution {\npublic:\n    std::vector<int> shortestDistanceAfterQueries(int n, std::vector<std::vector<int>>& q) {\n        std::set<int> available_positions;\n        for (int i = 0; i < n; ++i) {\n            available_positions.insert(i);\n        }\n\n        std::vector<int> result;\n        for (const auto& query : q) {\n            int l = query[0];\n            int rt = query[1];\n\n            // Remove elements from l + 1 to rt - 1\n            auto lower_bound = available_positions.lower_bound(l + 1);\n            auto upper_bound = available_positions.lower_bound(rt);\n\n            // Erase the range [lower_bound, upper_bound)\n            available_positions.erase(lower_bound, upper_bound);\n\n            // Store the size of available positions after erasure\n            result.push_back(available_positions.size()-1);\n        }\n\n        return result;\n    }\n};\n",
+    "submit_ts": "1722743827",
+    "subm_id": "1343800597"
+}

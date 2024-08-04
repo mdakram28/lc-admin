@@ -1,0 +1,6 @@
+{
+    "username": "socrates1232",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        lt = [0] * (4 * n + 3)\n        def init(i, l, r):\n            lt[i] = r - l + 1\n            if l != r:\n                mid = int((l + r) >> 1)\n                init(i << 1, l, mid)\n                init((i << 1) + 1, mid + 1, r)\n        init(1, 0, n - 1)\n        def update(i, l, r, tl, tr):\n            if l > tr or r < tl or lt[i] == 0:\n                return 0\n            if l >= tl and r <= tr:\n                d = lt[i]\n                lt[i] = 0\n                return d\n            mid = int((l + r) >> 1)\n            d = update(i << 1, l, mid, tl, tr) + update((i << 1) + 1, mid + 1, r, tl, tr)\n            lt[i] -= d\n            return d\n        total = n - 1\n        ans = []\n        for q in queries:\n            total -= update(1, 0, n - 1, q[0] + 1, q[1] - 1)\n            ans.append(total)\n        return ans",
+    "submit_ts": "1722742589",
+    "subm_id": "552345605"
+}

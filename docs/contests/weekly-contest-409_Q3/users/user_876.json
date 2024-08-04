@@ -1,0 +1,6 @@
+{
+    "username": "ccbao",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n, queries):\n        par = [0] * 200005\n        for i in range(n): par[i] = i\n        ret = []\n        def p(u):\n            if par[u] == u: return u\n            par[u] = p(par[u])\n            return par[u]\n\n        c = n-1\n        for l, r in queries:\n            r -= 1\n            if l >= r: continue\n            while not p(l) == p(r):\n                fl = p(l)\n                fln = p(1+fl)\n                par[fl], l, c = fln, fln, c-1\n            ret.append(c)\n        return ret",
+    "submit_ts": "1722743392",
+    "subm_id": "552350525"
+}

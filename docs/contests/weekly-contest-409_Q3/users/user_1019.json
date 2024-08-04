@@ -1,0 +1,6 @@
+{
+    "username": "hicoder",
+    "submission": "from typing import List\nfrom sortedcontainers import SortedList\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        # Initialize SortedList with intervals from 0 to n-1\n        intervals = SortedList([(i, i + 1) for i in range(n - 1)])\n        \n        result = []\n\n        def update_intervals(start, end):\n            # Find the position to start removing intervals\n            index = intervals.bisect_left((start, start))\n            \n            # To track if the new interval is actually added\n            interval_added = False\n            \n            while index < len(intervals):\n                interval_start, interval_end = intervals[index]\n                if interval_end <= end:\n                    intervals.pop(index)  # Remove this interval\n                    interval_added = True\n                else:\n                    break\n            \n            if interval_added or not intervals:\n                intervals.add((start, end))\n\n        for ui, vi in queries:\n            update_intervals(ui, vi)\n            \n            result.append(len(intervals))\n        \n        return result\n\n\n",
+    "submit_ts": "1722743508",
+    "subm_id": "1343793507"
+}

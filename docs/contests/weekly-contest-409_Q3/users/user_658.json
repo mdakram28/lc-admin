@@ -1,0 +1,6 @@
+{
+    "username": "black-nw",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> res;\n        list<int> lis1(1, 0);\n        unordered_map<int, list<int>::iterator> mp;\n        for(int i = 1; i < n; i++) {\n            lis1.push_back(i);\n        }\n        for(list<int>::iterator it = lis1.begin(); it != lis1.end(); it++) {\n            mp[*it] = it;\n        }\n        int len = n;\n        for(auto q : queries) {\n            int l = q[0];\n            int r = q[1];\n            if(mp.count(l) == 0) {\n                res.push_back(len - 1);\n                continue;\n            }\n            list<int>::iterator it = mp[l];\n            // cout << l << ' '  << r << endl;\n            for(it++; it != lis1.end() && *it < r; ) {\n                auto t_it = it;\n                ++t_it;\n                // cout << *it << endl;\n                mp.erase(*it);\n                lis1.erase(it);\n                len--;\n                it = t_it;\n            }\n            res.push_back(len - 1);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722742612",
+    "subm_id": "552345750"
+}

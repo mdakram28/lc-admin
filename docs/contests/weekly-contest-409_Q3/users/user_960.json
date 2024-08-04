@@ -1,0 +1,6 @@
+{
+    "username": "9caiji",
+    "submission": "\ntypedef pair<int, int> pa;\nclass Solution {\npublic:\n  vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n    set<pa> s;\n    for (int i = 0; i < n - 1; i++) {\n      s.insert({ i,i + 1 });\n    }\n    vector<int>ret(queries.size());\n    for (int q = 0; q < queries.size(); q++) {\n      int l = queries[q][0];\n      int r = queries[q][1];\n      auto it = s.lower_bound({ l, 0 });\n      int cnt = 0;\n      while (it != s.end() && it->second <= r) {\n        // cout << q << \" <<\" << it->first << \" \" << it->second << endl;\n        auto nxt = it;\n        nxt++;\n        s.erase(it);\n        it = nxt;\n        cnt++;\n      }\n      if (cnt > 0) {\n        s.insert({ l, r });\n      }\n      \n      ret[q] = s.size();\n      // cout << q << \" \" << ret[q] << endl;\n    }\n    return ret;\n  }\n};",
+    "submit_ts": "1722743681",
+    "subm_id": "552352201"
+}

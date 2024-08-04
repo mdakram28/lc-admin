@@ -1,0 +1,6 @@
+{
+    "username": "ard001",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<pair<int,int>> mp;\n        for(int i=1;i<n;++i){\n            mp.emplace(i-1,i);\n        }\n        vector<int> ans;\n        for(auto query: queries){\n            int x = query[0], y = query[1],ok=0;\n            for(;true;){\n                auto it = mp.lower_bound(make_pair(x,0));\n                if(it != mp.end() && (x <= (*it).first && (*it).second <=y)){\n                    mp.erase(it);\n                    ok=1;\n                } else {\n                    break;\n                }\n            }\n            if(ok) mp.emplace(x,y);\n            ans.push_back((int)mp.size());\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722740900",
+    "subm_id": "1343731591"
+}

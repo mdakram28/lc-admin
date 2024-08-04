@@ -1,0 +1,6 @@
+{
+    "username": "polesun",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        \n        from sortedcontainers import SortedList, SortedDict\n        import numpy as np\n\n        dp = np.array([i for i in range(n)])\n        graph = {i : [i + 1] for i in range(n - 1)}\n        graph[n - 1] = []\n\n        routes = SortedDict()\n\n        res = []\n\n        for i, j in queries:\n\n            if i >= j:\n                res.append(dp[-1])\n                continue\n\n            idx = routes.bisect_right(i) - 1\n            if idx != -1:\n                a, b = routes.peekitem(idx)\n                if b >= j:\n                    res.append(dp[-1])\n                    continue\n\n            idx = routes.bisect_left(i)\n            if idx != len(routes):\n                a, b = routes.peekitem(idx)\n                if j >= b:\n                    routes.pop(a)\n\n            routes[i] = j\n\n            diff = dp[j] - (dp[i] + 1)\n            if diff <= 0:\n                res.append(dp[-1])\n                continue\n\n            dp[j:] -= diff\n\n            res.append(dp[-1])\n\n        return res\n",
+    "submit_ts": "1722742726",
+    "subm_id": "1343775744"
+}

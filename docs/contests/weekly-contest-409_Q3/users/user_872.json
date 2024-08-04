@@ -1,0 +1,6 @@
+{
+    "username": "votrubac",
+    "submission": "class Solution {\npublic:\nmap<int, int> m;\nint cnt = 0;\nvoid add(int left, int right) {\n    auto it = m.upper_bound(left);\n    if (it != begin(m) && prev(it)->second >= left)\n        it = prev(it);\n    if (it->first <= left && it->second >= right)\n        return; // already covered by a bigger interval.\n    if (it != end(m) && it->first < left)\n        ++it;\n    // cout << left << \" - \" << right << endl;\n    for (; it != end(m) && it->first < right; m.erase(it++)) {\n        cnt -= it->second - it->first - 1;\n        // cout << \"erase = \" << it->second - it->first - 1 << endl;\n    }\n    cnt += right - left - 1;\n    m[left] = right;\n}\nvector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n    vector<int> res;\n    for (const auto &q : queries) {\n        int l = q[0], r = q[1];\n        add(l, r);\n        res.push_back(n - cnt - 1);\n    }\n    return res;\n}\n};",
+    "submit_ts": "1722742479",
+    "subm_id": "1343769921"
+}

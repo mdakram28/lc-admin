@@ -1,0 +1,6 @@
+{
+    "username": "adhishkancharla",
+    "submission": "using vi = vector<int>;\nusing vvi = vector<vi>;\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        //always take the longest reaching edge\n        //for every node store the edge to the smallest previous node\n        int q = (int)queries.size();\n        set<pair<int,int>>path;\n        vi ret(q);\n        for (int i = 0;i<n - 1;i++)\n            path.insert({i, i + 1});\n        for (int i = 0;i<q;i++){\n            ret[i] = path.size();\n            int u = queries[i][0];\n            int v = queries[i][1];\n            auto it = path.lower_bound({u,0});\n            if (it == path.end())continue;\n            int j = (*it).second;\n            if (j >= v)continue;\n            while (it != path.end() and (*it).first < v){\n                auto to = it;\n                to++;\n                path.erase(it);\n                it = to;\n            }\n            path.insert({u,v});\n            ret[i] = path.size();\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1722740803",
+    "subm_id": "1343729087"
+}

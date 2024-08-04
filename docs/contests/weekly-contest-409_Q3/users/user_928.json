@@ -1,0 +1,6 @@
+{
+    "username": "hurryhao",
+    "submission": "class Solution {\n    map<int,int> m; // from->to\n    int n, l;\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        m.clear();\n        this->n = n;\n        l = 0; // total new path length\n        vector<int> res;\n        for (auto& q: queries) {\n            res.push_back(get(q));\n            // cout<<l<<\" \"<<m.size()<<endl;\n        }\n        return res;\n    }\n    int get(vector<int> &q) {\n        // update m\n        int f = q[0], t=q[1];\n        // cout<<\"q: \"<<f<<\" \"<<t<<endl;\n        auto it = m.lower_bound(f);\n        if (it!=m.begin()) {\n            auto itt=it;\n            --itt;\n            if (itt->second>f) return n-1 - l + m.size();\n        }\n        if (it != m.end() && it->first==f && it->second >=t) return n-1 - l + m.size();\n        // if (it == m.end() || it->first>=t) {\n        //     m[f]=t;\n        //     l+=t-f;\n        //     return n-1 - l + m.size();\n        // }\n        // get result\n        while (it!=m.end() && it->first < t) {\n            auto itt=it;\n            ++it;\n            l-=itt->second - itt->first;\n            m.erase(itt);\n        }\n        m[f]=t;\n        l+=t-f;\n        return n-1 - l + m.size();\n    }\n};",
+    "submit_ts": "1722743261",
+    "subm_id": "1343788010"
+}

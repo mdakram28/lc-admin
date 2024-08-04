@@ -1,0 +1,6 @@
+{
+    "username": "loliconsk",
+    "submission": "class Solution {\n    vector<int> f;\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        f.resize(n);\n        for(int i = 0;i<n;i++)f[i] = i;\n        int res = n-1;\n        vector<int> ans;\n        for(int i = 0 ;i<queries.size();i++){\n            int a = queries[i][0],b = queries[i][1];\n            int st = 0;\n            for(int i = a;i<b;){\n                st++;\n                int u = i;\n                i = DSU(i)+1;\n                if(i<b)merge(u,DSU(u)+1);\n            }\n            res-=st-1;\n            ans.push_back(res);\n        }\n        return ans;\n    }\n    void merge(int a,int b){\n        // cout<<a<<\" \"<<b<<endl;\n        int fa = DSU(a),fb = DSU(b);\n        if(fa!=fb){\n            f[fa] = fb;\n        }\n    }\n    int DSU(int x){\n        // cout<<x<<endl;\n        if(x == f[x])return x;\n        return f[x] = DSU(f[x]);\n    }\n};",
+    "submit_ts": "1722743631",
+    "subm_id": "552351912"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "zen-i2osalind",
+    "submission": "from typing import List\n\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        m = len(queries)\n        pa = list(range(n))\n        sz = n\n\n        def find(x:int) -> int:\n            if pa[x] != x:\n                pa[x] = find(pa[x])\n            return pa[x]\n        \n        def union(x:int, y:int) -> None:\n            if x>y: x,y = y,x\n            rootX = find(x)\n            rootY = find(y)\n            if rootX == rootY:\n                return\n            pa[rootX] = rootY\n            nonlocal sz\n            sz -= 1\n\n        def isConn(x: int, y: int) -> bool:\n            return find(x) == find(y)\n\n        ans = []\n        for start,end in queries:\n            x = start\n            while x < end:\n                last = find(x)+1\n                if(last >= end):\n                    break\n                union(x, last)\n                x = find(x)\n            ans.append(sz-1)\n\n        return ans\n",
+    "submit_ts": "1722743822",
+    "subm_id": "552353016"
+}

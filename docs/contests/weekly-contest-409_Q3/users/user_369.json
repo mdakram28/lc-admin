@@ -1,0 +1,6 @@
+{
+    "username": "cm_komi",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector< int > graph(n), rev_graph(n);\n        vector<int> removed(n);\n        for( int i = 0; i < n; ++i){\n            graph[i] = i + 1;\n            \n            rev_graph[i] = i-1;\n        }\n            \n        int score = n-1;\n\n        vector<int> ans;\n        for( auto i : queries){\n            int a = i[0] , b = i[1];\n            if( graph[a] >= b or rev_graph[b] < a or removed[a] or removed[b])   {\n                ans.push_back(score);\n                continue;\n            }\n            int node = graph[a];\n            \n            while( node != b ){\n                removed[node] = 1;\n                score -= 1;\n                node = graph[node];\n                \n            }\n            \n            graph[a] = b;\n            rev_graph[b] = a;\n            ans.push_back(score);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722740871",
+    "subm_id": "1343730831"
+}

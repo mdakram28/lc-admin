@@ -1,0 +1,6 @@
+{
+    "username": "rohandutta030620",
+    "submission": "#include <vector>\n#include <set>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int numCities, vector<vector<int>>& queries) {\n        vector<int> distances(numCities, 0);\n\n        // Initialize distances array\n        for (int i = 1; i < numCities; ++i) {\n            distances[i] = distances[i - 1] + 1;\n        }\n\n        set<int> availableCities;\n        for (int i = 0; i < numCities; ++i) {\n            availableCities.insert(i);\n        }\n\n        vector<int> result;\n\n        for (const auto& query : queries) {\n            int startCity = query[0];\n            int endCity = query[1];\n\n            // Find the range of cities to remove\n            auto lowerBound = availableCities.lower_bound(startCity + 1);\n            auto upperBound = availableCities.lower_bound(endCity);\n\n            // Remove cities in the specified range\n            availableCities.erase(lowerBound, upperBound);\n\n            // Calculate the remaining number of cities\n            result.push_back(availableCities.size() - 1);\n        }\n\n        return result; \n    }\n};\n",
+    "submit_ts": "1722743686",
+    "subm_id": "1343797411"
+}

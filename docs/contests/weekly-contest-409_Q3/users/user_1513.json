@@ -1,0 +1,6 @@
+{
+    "username": "alchyuan",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        fw = [0] * n\n        update(fw, 0, n - 1)\n        for i in range(1, n):\n            update(fw, i, -1)\n        \n        nxt = [0] * n\n\n\n        INF = 10**10\n        res = []\n        #nxt = [i for i in range(1, n)]\n        for u, v in queries:\n            if v > query(nxt, u):\n                e = v - query(nxt, u)\n                update(nxt, u, e)\n                update(nxt, u+1, -e)\n\n                update(nxt, u + 1, INF)\n                update(nxt, v, -INF)\n\n                d = query(fw, v) + 1 - query(fw, u)\n                update(fw, 0, +d)\n                update(fw, v, -d)\n            res.append( query(fw, 0) )\n\n        return res\n\ndef update(fw, idx, val):\n    while idx < len(fw):\n        fw[idx] += val\n        idx += (idx + 1) & -(idx + 1)\n\ndef query(fw, idx):\n    val = 0\n    while idx >= 0:\n        val += fw[idx]\n        idx -= (idx + 1) & -(idx + 1)\n    return val",
+    "submit_ts": "1722743841",
+    "subm_id": "1343800906"
+}

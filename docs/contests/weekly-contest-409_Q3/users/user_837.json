@@ -1,0 +1,6 @@
+{
+    "username": "NeoClear",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        int size = n - 1;\n\n        vector<int> ans;\n\n\n        // begin to size\n        map<int, int> jumps;\n\n        for (const auto& query : queries) {\n            int u = query.front(), v = query.back();\n\n            auto it = jumps.upper_bound(u);\n\n            if (it != jumps.begin()) {\n                --it;\n                if (it->first + it->second >= v) {\n                    // It is covered by someone\n                    // No need to change anything.\n                    ans.push_back(size);\n                    continue;\n                } else {\n                    if (it->first < u) {\n                        ++it;\n                    }\n                }\n            }\n\n            auto end = it;\n\n            while (end != jumps.end() && end->first + end->second <= v) {\n                size += end->second - 1;\n\n                ++end;\n            }\n\n            jumps.erase(it, end);\n            jumps[u] = v - u;\n\n            size -= v - u - 1;\n            ans.push_back(size);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722742687",
+    "subm_id": "1343774820"
+}

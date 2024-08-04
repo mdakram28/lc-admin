@@ -1,0 +1,6 @@
+{
+    "username": "elizafallskrly",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& q) {\n        vector<int> ans;\n        vector<int> p(n + 2, 1e9);\n        int res = n - 1;\n        for (int i = 0; i <= n; i ++ ) p[i] = i;\n        auto f = [&](auto self,int x) -> int {\n            if (p[x] != x) p[x] = self(self, p[x]);\n            return p[x];\n        };\n        for (auto e:q) {\n            int from = e[0], to = e[1];\n            int fa = f(f, from), fb = f(f, to);\n            if (fa != fb) {\n                int fc = f(f, fa + 1);\n                while(fc < n && fc != fb) {\n                    p[fa] = fc;\n                    --res;\n                    fa = fc;\n                    fc = f(f, fc + 1);\n                }\n                p[fc] = fb;\n            }\n            ans.push_back(res);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722740473",
+    "subm_id": "552331718"
+}

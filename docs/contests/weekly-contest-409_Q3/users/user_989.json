@@ -1,0 +1,6 @@
+{
+    "username": "dedhooma",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> distances(n, 0);\n        for (int i = 1; i < n; ++i) {\n            distances[i] = distances[i - 1] + 1;\n        }\n        set<int> positions;\n        for (int i = 0; i < n; ++i) {\n            positions.insert(i);\n        }\n        vector<int> results;\n\n        for (const auto& query : queries) {\n            int start = query[0];\n            int end = query[1];\n            auto lower = positions.lower_bound(start + 1);\n            auto upper = positions.lower_bound(end);\n            if (lower != positions.end() && upper != positions.end() && lower != upper) {\n                positions.erase(lower, upper);\n            } else if (lower != positions.end() && upper == positions.end() && lower != positions.end()) {\n                positions.erase(lower, positions.end());\n            }\n            results.push_back(positions.size() - 1);\n        }\n        return results;\n    }\n};",
+    "submit_ts": "1722743753",
+    "subm_id": "1343798882"
+}

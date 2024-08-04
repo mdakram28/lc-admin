@@ -1,0 +1,6 @@
+{
+    "username": "zaforf",
+    "submission": "auto init = [](){\n    ios_base::sync_with_stdio(0);\n    cin.tie(0);\n    return 0;\n}();\n\n#define pii pair<int,int>\n#define f first\n#define s second\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> ans; int best = n-1;\n        set<pii> jumps;\n        for (const auto& e : queries) {\n            auto it = jumps.lower_bound({e[0], -e[1]});\n            if (jumps.size() && it != jumps.begin()) {\n                auto prev_it = prev(it);\n                if (prev_it->f <= e[0] && -prev_it->s >= e[1]) {\n                    ans.push_back(best);\n                    continue;\n                }\n            }\n            while (it != jumps.end() && it->first >= e[0] && -it->second <= e[1]) {\n                best += (-it->second) - it->first - 1;\n                it = jumps.erase(it); \n            }\n            jumps.insert({e[0], -e[1]});\n            best -= e[1]-e[0]-1;\n            ans.push_back(best);\n        }\n        return ans;\n    \n    }\n};",
+    "submit_ts": "1722743894",
+    "subm_id": "1343802100"
+}

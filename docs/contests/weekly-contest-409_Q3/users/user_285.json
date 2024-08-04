@@ -1,0 +1,6 @@
+{
+    "username": "minamotoorin",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> ans; \n        \n        set<int> s;\n        for(int i = 0; i < n; i++)\n        {\n            s.insert(i);\n        }\n\n        for(auto &q:queries)\n        {\n            int f = q[0], t = q[1];\n\n            for(int i = f+1; i < t; i++)\n            {\n                auto it = s.find(i);\n                if (it != s.end()) {\n                    s.erase(i);\n                } else {\n                    it = s.upper_bound(i);\n                    if (it != s.end()) {\n                        i = *it;\n                        if(i < t) s.erase(i);\n                    } else {\n                        break;\n                    }\n                }\n            }\n\n            ans.push_back(s.size() - 1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722741122",
+    "subm_id": "1343737147"
+}

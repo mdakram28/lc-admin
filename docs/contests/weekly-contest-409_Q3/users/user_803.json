@@ -1,0 +1,6 @@
+{
+    "username": "rui-63s",
+    "submission": "from typing import List\nfrom sortedcontainers import SortedList\nfrom bisect import bisect_left\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        d = [i + 1 for i in range(n)]\n        d[-1] = 0\n        tmp = n - 1\n        ans = []\n        processed = SortedList()\n\n        for a, b in queries:\n            # \u68c0\u67e5 a \u662f\u5426\u5df2\u7ecf\u5728\u5904\u7406\u8fc7\u7684\u533a\u95f4\u4e2d\n            idx = bisect_left(processed, a) - 1\n            if idx >= 0 and processed[idx] < a < d[processed[idx]]:\n                ans.append(tmp)\n                continue\n            \n            # \u66f4\u65b0\u5df2\u5904\u7406\u533a\u95f4\u96c6\u5408\n            processed.add(a)\n\n            u = a\n            while u < b:\n                tmp += d[u] - u - 1\n                u = d[u]\n            d[a] = max(d[a], b)\n            tmp -= d[a] - a - 1\n            ans.append(tmp)\n\n        return ans\n\n\n",
+    "submit_ts": "1722742531",
+    "subm_id": "552345244"
+}

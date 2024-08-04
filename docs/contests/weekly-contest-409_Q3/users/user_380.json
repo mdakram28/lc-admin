@@ -1,0 +1,6 @@
+{
+    "username": "sergrom",
+    "submission": "func shortestDistanceAfterQueries(n int, queries [][]int) []int {\n\n\tans := make([]int, 0, len(queries))\n\n\tnodesMap := make(map[int]*list.Element)\n\tnodeList := list.New()\n\n\tfor i := range n {\n\t\tel := nodeList.PushBack(i)\n\t\tnodesMap[i] = el\n\t}\n\n\tfor _, q := range queries {\n\t\tif _, ok := nodesMap[q[0]]; !ok {\n\t\t\tans = append(ans, len(nodesMap)-1)\n\t\t\tcontinue\n\t\t}\n\t\tif _, ok := nodesMap[q[1]]; !ok {\n\t\t\tans = append(ans, len(nodesMap)-1)\n\t\t\tcontinue\n\t\t}\n\n\t\tn1, n2 := nodesMap[q[0]], nodesMap[q[1]]\n\t\tfor n1.Next() != n2 {\n\t\t\tdelete(nodesMap, n1.Next().Value.(int))\n\t\t\tnodeList.Remove(n1.Next())\n\t\t}\n\n\t\tans = append(ans, len(nodesMap)-1)\n\t}\n\n\t// ---------------\n\n\t// fmt.Println(\"nodesMap\", nodesMap)\n\t// for curr := nodeList.Front(); curr != nil; curr = curr.Next() {\n\t// \tfmt.Println(curr.Value.(int))\n\t// }\n\n\treturn ans\n}",
+    "submit_ts": "1722741519",
+    "subm_id": "1343746980"
+}

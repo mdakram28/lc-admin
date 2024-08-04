@@ -1,0 +1,6 @@
+{
+    "username": "muyujx",
+    "submission": "class Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n\n        int[][] dp = new int[n][2];\n        for (int i = 1; i < n; i++) {\n            dp[i][0] = i - 1;\n            dp[i][1] = i + 1;\n        }\n        dp[0][1] = 1;\n        dp[n - 1][0] = n - 2;\n\n        int cur = n - 1;\n        int[] res = new int[queries.length];\n\n\n\n\n        for (int i = 0; i < queries.length; i++) {\n            int[] item = queries[i];\n            int pre = item[0];\n            int next = item[1];\n\n            if (dp[pre][0] == -1 || dp[next][0] <= pre || dp[pre][1] >= next) {\n                res[i] = cur;\n                continue;\n            }\n\n            int node = dp[next][0];\n            while (node != pre) {\n                cur--;\n                int last = node;\n                node = dp[node][0];\n                dp[last][0] = -1;\n            }\n//            for (int j = pre + 1; j < next; j++) {\n//                dp[j][0] = -1;\n//            }\n\n            dp[next][0] = pre;\n            dp[pre][1] = next;\n\n            res[i] = cur;\n        }\n\n\n        return res;\n    }\n}",
+    "submit_ts": "1722741654",
+    "subm_id": "552339568"
+}

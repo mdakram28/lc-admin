@@ -1,0 +1,6 @@
+{
+    "username": "vijay9119y",
+    "submission": "from sortedcontainers import SortedSet\nclass Solution(object):\n    def shortestDistanceAfterQueries(self, n, queries):\n        initial_distances = [0] * n\n        for i in range(1, n):\n            initial_distances[i] = initial_distances[i - 1] + 1\n\n        active_cities = SortedSet(range(n))\n        shortest_paths = []\n\n        for start_city, end_city in queries:\n            lower_bound = active_cities.bisect_left(start_city + 1)\n            upper_bound = active_cities.bisect_left(end_city)\n\n            cities_to_remove = list(active_cities.islice(lower_bound, upper_bound))\n            for city in cities_to_remove:\n                active_cities.remove(city)\n\n            shortest_paths.append(len(active_cities) - 1)\n\n        return shortest_paths\n        ",
+    "submit_ts": "1722743869",
+    "subm_id": "1343801515"
+}

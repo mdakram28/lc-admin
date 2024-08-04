@@ -1,0 +1,6 @@
+{
+    "username": "sklamba",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> next(n);\n        for (int i = 0; i < n - 1; i++) {\n            next[i] = i + 1;\n        }\n\n        vector<int> is_present(n, 1), ans;\n        int cur = n - 1;\n\n        for (auto &uv : queries) {\n            int u = uv[0], v = uv[1];\n            if (is_present[u] == 0) {\n                ans.push_back(cur);\n                continue;\n            }\n\n            int len = 0;\n            for (int i = u; i < v; i = next[i]) {\n                len++;\n                if (i != u) is_present[i] = 0;\n            }\n            cur = cur - len + 1;\n            next[u] = v;\n\n            ans.push_back(cur);\n        }\n\n        return ans;\n    }\n\n    /*\n    0 -> 1 -> 2 -> 3 -> 4\n    */\n};",
+    "submit_ts": "1722740126",
+    "subm_id": "1343711881"
+}

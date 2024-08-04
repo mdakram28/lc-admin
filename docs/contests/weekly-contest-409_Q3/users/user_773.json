@@ -1,0 +1,6 @@
+{
+    "username": "prithwirajmitra15",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries)\n    {\n        set<int> status;\n        for (int i = 0; i < n; i++)\n            status.insert(i);\n        \n        vector<int> ans;\n        for (auto &query : queries)\n        {\n            int x = query[0], y = query[1];\n            if (status.find(x) != status.end() && status.find(y) != status.end())\n            {\n                auto ptr = status.find(x);\n                ptr++;\n\n                vector<int> delVec;\n                while (ptr != status.end() && *ptr < y)\n                {\n                    delVec.push_back(*ptr);\n                    ptr++;\n                }\n\n                for (int ele : delVec)\n                    status.erase(status.find(ele));\n            }\n            \n            // for (auto &u : status)\n            //     cout << u << \"\\t\";\n            // cout << endl;\n            ans.push_back(status.size() - 1);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1722743029",
+    "subm_id": "1343782690"
+}

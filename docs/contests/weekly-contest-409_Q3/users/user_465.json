@@ -1,0 +1,6 @@
+{
+    "username": "pikachu101",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<int> inv;\n        unordered_map<int,int> ends;\n        vector<int> res;\n        int ans = n-1;\n        for(auto &v:queries) {\n            int f = v[0], t = v[1];\n            auto it = inv.lower_bound(f);\n            // for(auto x:inv) {cout << x << \" \";}\n            // cout << endl;\n            if(it!=inv.end()) {\n                while(it!=inv.end() && ends[*it]<=t) {\n                    ans += ends[*it] - *it - 1;\n                    inv.erase(it++);\n                }\n                // cout << f << \" \" << t << \" \" << ans << \" \"<< inv.size() << endl;\n            }\n            if((it!=inv.begin()) || (it==inv.begin() && *it==f)) {\n                if(it!=inv.begin()) it--;\n                assert(*it<=f);\n                if(ends[*it]>=t) {\n                    res.push_back(ans);\n                    continue;\n                }\n            }\n            inv.insert(f);\n            ends[f] = t;\n            ans -= t-f-1;\n            res.push_back(ans);\n            // cout <<  ans << \" \"<< inv.size() << endl;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722741597",
+    "subm_id": "1343748828"
+}

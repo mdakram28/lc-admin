@@ -1,0 +1,6 @@
+{
+    "username": "xiuyu130",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> ans; \n        int dist = n - 1;\n        set<int> exist;\n        for (int i = 0; i < n; ++i)\n            exist.insert(i);\n\n        for (const auto& q: queries) {\n            const int u = q[0], v = q[1];\n            bool valid = false;\n            auto it = exist.lower_bound(v);\n            if (it != exist.end() && prev(it) != exist.begin() && *prev(it) > u)\n                valid = true;\n            if (valid) {\n                int k = 0;\n                const auto l = next(exist.lower_bound(u)), r = (exist.lower_bound(v));\n                for (auto it = l; it != exist.end(); ) {\n                    if (*it == v) break;\n                    const auto n = next(it);\n                    exist.erase(it);\n                    it = n;\n                    ++k;\n                }\n                dist -= k;\n            }\n            ans.push_back(dist);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722742270",
+    "subm_id": "1343765041"
+}

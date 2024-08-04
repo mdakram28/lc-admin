@@ -1,0 +1,6 @@
+{
+    "username": "xiohou",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& q) {\n        vector<int> dist(n, 0);\n        for (int i = 1; i < n; ++i) {\n            dist[i] = dist[i - 1] + 1;\n        }\n\n        set<int> pos;\n        for (int i = 0; i < n; ++i) {\n            pos.insert(i);\n        }\n\n        vector<int> res(q.size());\n\n        transform(q.begin(), q.end(), res.begin(), [&pos](const vector<int>& qry) {\n            int l = qry[0];\n            int r = qry[1];\n\n            auto lb = pos.lower_bound(l + 1);\n            auto ub = pos.lower_bound(r);\n\n            pos.erase(lb, ub);\n\n            return pos.size() - 1;\n        });\n\n        return res;\n    }\n};\n",
+    "submit_ts": "1722743999",
+    "subm_id": "1343804866"
+}

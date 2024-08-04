@@ -1,0 +1,6 @@
+{
+    "username": "Dg_Xzl",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        record=set(list(range(n)))\n        diff=[0]*n\n        ans=[]\n        pop=0\n        start=dict(zip(list(range(n-1)),list(range(1,n))))\n        end=dict(zip(list(range(1,n)),list(range(n-1))))\n        for u,v in queries:\n            # print(record)\n            cur_end=start[u]\n            cur_start=end[v]\n            if u in record or v in record:\n                if cur_end<=v and cur_start>=u:\n                    record.remove(cur_end)\n                    node=start[cur_end]\n                    while node!=v:\n                        record.remove(node)\n                        node=start[node]\n                    start[u]=v\n                    end[v]=u\n                # cur_start=end[v]\n                # if cur_start>u:\n                #     record.remove(cur_start)\n                #     node=end[cur_start]\n                #     while node!=u:\n                #         record.remove(node)\n                #         node=end[node]\n                #     start[u]=v\n                #     end[v]=u\n            ans.append(len(record)-1)\n        return ans\n        ",
+    "submit_ts": "1722742118",
+    "subm_id": "552342595"
+}

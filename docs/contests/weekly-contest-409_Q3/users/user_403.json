@@ -1,0 +1,6 @@
+{
+    "username": "skyinde2",
+    "submission": "from sortedcontainers import SortedDict, SortedSet\n\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        ret = []\n\n        s = SortedSet()\n        k = n - 1\n\n        for q in queries:\n            i = s.bisect_left((q[0], 9999999))\n            if i > 0 and s[i - 1][1] >= q[1]:\n                pass\n            else:\n                i = s.bisect_left((q[0], -1))\n                while i < len(s) and s[i][1] <= q[1]:\n                    k += s[i][1] - s[i][0] - 1\n                    s.pop(i)\n\n                s.add((q[0], q[1]))\n                k -= q[1] - q[0] - 1\n\n            ret.append(k)\n\n        return ret\n",
+    "submit_ts": "1722741327",
+    "subm_id": "1343742227"
+}

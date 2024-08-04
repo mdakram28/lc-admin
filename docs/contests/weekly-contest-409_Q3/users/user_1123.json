@@ -1,0 +1,6 @@
+{
+    "username": "mthirumalai29",
+    "submission": "import java.util.*;\n\npublic class Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        int[] distance = new int[n];\n        for (int i = 0; i < n; ++i) {\n            distance[i] = i;\n        }\n\n        TreeSet<Integer> positions = new TreeSet<>();\n        for (int i = 0; i < n; ++i) {\n            positions.add(i);\n        }\n\n        List<Integer> result = new ArrayList<>();\n\n        for (int[] query : queries) {\n            int left = query[0];\n            int right = query[1];\n\n            Integer lowerBound = positions.higher(left);\n            Integer upperBound = positions.ceiling(right);\n\n            if (lowerBound != null && upperBound != null) {\n                positions.subSet(lowerBound, upperBound).clear();\n            }\n\n            result.add(positions.size() - 1);\n        }\n\n        return result.stream().mapToInt(i -> i).toArray();\n    }\n\n  \n}",
+    "submit_ts": "1722743792",
+    "subm_id": "1343799727"
+}

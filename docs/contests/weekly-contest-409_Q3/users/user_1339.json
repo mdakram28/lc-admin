@@ -1,0 +1,6 @@
+{
+    "username": "rusart",
+    "submission": "public class Solution\n{\n    public int[] ShortestDistanceAfterQueries(int n, int[][] queries)\n    {\n        var cities = new LinkedList<int>();\n        var d = new Dictionary<int, LinkedListNode<int>>();\n\n        for (var i = 0; i < n; i++)\n        {\n            d[i] = cities.AddLast(i);\n        }\n\n        var res = new int[queries.Length];\n        for (int i = 0; i < queries.Length; i++)\n        {\n            var from = queries[i][0];\n            var to = queries[i][1];\n\n            if (d.TryGetValue(from, out var fromNode) && d.TryGetValue(to, out var toNode))\n            {\n                while (fromNode.Next != toNode)\n                {\n                    d.Remove(fromNode.Next.Value);\n                    cities.Remove(fromNode.Next);\n                }\n            }\n            res[i] = cities.Count - 1;\n        }\n\n        return res;\n    }\n}",
+    "submit_ts": "1722743948",
+    "subm_id": "1343803362"
+}

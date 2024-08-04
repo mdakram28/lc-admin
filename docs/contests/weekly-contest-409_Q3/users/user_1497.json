@@ -1,0 +1,6 @@
+{
+    "username": "duoki",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        std::set<std::pair<int, int>> seg;\n        seg.insert({n, n + 1});\n        seg.insert({-1, 0});\n        int cur = n - 1;\n        std::vector<int> res;\n        res.reserve(queries.size());\n        for (auto &query : queries) {\n            int x = query[0], y = query[1];\n            auto it = seg.lower_bound({x, y});\n            if (it->first == x || std::prev(it)->second >= y) {\n            } else {\n                auto itl = seg.lower_bound({x, x});\n                auto itr = seg.lower_bound({y, y});\n                for (auto it = itl; it != itr; ) {\n                    cur += it->second - it->first - 1;\n                    seg.erase(it++);\n                }\n                seg.insert({x, y});\n                cur -= y - x - 1;\n            }\n            res.push_back(cur);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722743353",
+    "subm_id": "552350307"
+}

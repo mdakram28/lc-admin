@@ -1,0 +1,6 @@
+{
+    "username": "hresy",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<pair<int, int>> ran;\n        for (int i = 0; i < n - 1; i++) {\n            ran.emplace(i, i + 1);\n        }\n        \n        vector<int> ans;\n        for (auto q : queries) {\n            int x = q[0], y = q[1];\n            auto it = --ran.upper_bound({x + 1, -1});\n            auto [a, b] = *it;\n            if (b < y) {\n                for (; it != ran.end() && it->second <= y;) {\n                    it = ran.erase(it);\n                }\n                ran.emplace(x, y);\n            }\n            ans.push_back(ran.size());\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722743103",
+    "subm_id": "552348785"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "metaphysicalist",
+    "submission": "from sortedcontainers import SortedList\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        skip = SortedList()\n        skipped = 0\n        ans = []\n        for u, v in queries:\n            p = skip.bisect_left((u, -inf))\n            if p < len(skip) and skip[p][0] == u and skip[p][1] >= v:\n                pass\n            elif p > 0 and skip[p-1][1] >= v:\n                pass\n            elif p < len(skip):\n                while p < len(skip):\n                    l, r = skip[p]\n                    if l >= u and r <= v:\n                        skipped -= (r - l - 1)\n                        skip.pop(p)\n                    else:\n                        break\n                skip.add((u, v))\n                skipped += (v - u - 1)\n            else:\n                skip.add((u, v))\n                skipped += (v - u - 1)\n            # print(skip, skipped)\n            ans.append(n-1 - skipped)\n        return ans",
+    "submit_ts": "1722743217",
+    "subm_id": "1343787008"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Dhruv_dg",
+    "submission": "int tree[400004];\n\nvoid build(int l, int r, int i){\n    if(l==r){\n        if(l==0) tree[i] = 0;\n        else tree[i] = 1;\n        return;\n    }\n    int mid = (l+r)/2;\n    build(l, mid, 2*i+1);\n    build(mid+1, r, 2*i+2);\n    tree[i] = tree[2*i+1]+tree[2*i+2];\n    return;\n}\n\nvoid upt(int x, int y, int l, int r, int i){\n    // cout<<l<<\" \"<<r<<endl;\n    // cout<<tree[i]<<endl;\n    if(tree[i]==0) return;\n    if(l>y || r<x) return;\n    if(l>=x && r<=y){\n        tree[i] = 0;\n        // cout<<tree[i]<<endl;\n        return;\n    }\n    int mid = (l+r)/2;\n    upt(x, y, l, mid, 2*i+1);\n    upt(x, y, mid+1, r, 2*i+2);\n    tree[i] = tree[2*i+1]+tree[2*i+2];\n    // cout<<tree[i]<<endl;\n    return;\n}\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& qrs) {\n        int q = qrs.size();\n        build(0, n-1, 0);\n        vector<int> ans;\n        for(int i = 0;i<q;i++){\n            int u = qrs[i][0];\n            int v = qrs[i][1];\n            upt(u+1, v-1, 0, n-1, 0);\n            ans.push_back(tree[0]);\n        }\n        return ans;\n\n    }\n};",
+    "submit_ts": "1722742046",
+    "subm_id": "1343759652"
+}

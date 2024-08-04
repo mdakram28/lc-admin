@@ -1,0 +1,6 @@
+{
+    "username": "theoden42",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        multiset<int> mst;\n        for(int i = 0; i < n; i++){\n            mst.insert(i);\n        }\n        int q = queries.size();\n        vector<int> ans(q);\n        for(int i = 0; i < q; i++){\n            int l = queries[i][0];\n            int r = queries[i][1];\n            auto it = mst.upper_bound(l);\n            vector<int> del;\n            while(it != mst.end() && *it < r){\n                del.push_back(*it);\n                it = mst.upper_bound(*it);\n            }\n            for(auto d: del){\n                mst.erase(d);\n            }\n            ans[i] = int(mst.size()) - 1;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722740367",
+    "subm_id": "1343717983"
+}

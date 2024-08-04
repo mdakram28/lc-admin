@@ -1,0 +1,6 @@
+{
+    "username": "sbian32",
+    "submission": "from sortedcontainers import SortedList\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        ans = []\n        sl = SortedList()\n        savedDist = 0\n        for u, v in queries:\n            idu = sl.bisect_left((u, float('-inf')))\n            while idu < len(sl) and sl[idu][1] <= v:\n                a, b = sl.pop(idu)\n                savedDist -= b - a - 1\n            flag = True\n            if idu < len(sl) and sl[idu][0] <= u:\n                flag = False\n            if 0 <= idu - 1 < len(sl) and sl[idu - 1][1] >= v:\n                flag = False\n            if flag:\n                sl.add((u, v))\n                savedDist += v - u - 1\n            ans.append(n - 1 - savedDist)\n        return ans",
+    "submit_ts": "1722743056",
+    "subm_id": "1343783328"
+}

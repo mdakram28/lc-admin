@@ -1,0 +1,6 @@
+{
+    "username": "fxfxxxfxx",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<pair<int,int>> I;\n        for (int i = 0; i < n-1; i++)\n            I.insert({i, i+1});\n\n        vector<int> ret;\n        int ans = n - 1;\n        for (const auto &e : queries) {\n            int u = e[0], v = e[1];\n\n            auto it = I.lower_bound({u, -1});\n            vector<pair<int,int>> RM;\n            int org = 0;\n            for (; it != I.end(); ++it) {\n                auto [x, y] = *it;\n                if (x >= v) break;\n                RM.push_back({x, y});\n                org += 1;\n            }\n            for (auto p : RM) I.erase(p);\n            if (!RM.empty()) {\n                I.insert({u, v});\n                ans -= org - 1;\n            }\n            ret.push_back(ans);\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1722741597",
+    "subm_id": "1343748827"
+}

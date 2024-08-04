@@ -1,0 +1,6 @@
+{
+    "username": "neko643",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        // no intersect.\n        set<pair<int, int> > s;\n        for(int i = 0; i < n - 1; i++) {\n            s.insert({i, i + 1});\n        }\n        vector<int> nxt(n), ans;\n        iota(nxt.begin(), nxt.end(), 1);\n\n\n        for(auto q : queries) {\n            int l = q[0], r = q[1], cur = l;\n            if(nxt[l] >= r) {\n                ans.push_back(s.size());\n                continue;\n            }\n            if(s.find({cur, nxt[cur]}) == s.end()) {\n                ans.push_back(s.size());\n                continue;\n            }\n            while(cur != r) {\n                s.erase({cur, nxt[cur]});\n                cur = nxt[cur];\n            }\n            \n            s.insert({l, r});\n            nxt[l] = r;\n            ans.push_back(s.size());\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1722739864",
+    "subm_id": "1343705141"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "hungry-sammetzf9",
+    "submission": "class Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        int m = queries.length;\n        int[] ans = new int[m];\n        int[] f = new int[n];\n        Arrays.fill(f, 1);\n        int prev = n - 1;\n        for (int k = 0; k < m; ++k) {\n            int[] q = queries[k];\n            int u = q[0], v = q[1];\n            ans[k] = prev;\n            if (f[u] == 0) continue;\n            if (v - u > f[u]) {\n                int i = u, step = 0;\n                while (i < v) {\n                    i = f[i] + i;\n                    ++step;\n                }\n                ans[k] = prev - (step - 1);\n                f[u] = v - u;\n            }\n            for (int i = u + 1; i < v && f[i] != 0; ++i) f[i] = 0;\n            for (int j = v - 1; j > u && f[j] != 0; --j) f[j] = 0;\n            prev = ans[k];\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1722743840",
+    "subm_id": "552353127"
+}

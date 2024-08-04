@@ -1,0 +1,6 @@
+{
+    "username": "aiosm",
+    "submission": "class Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        TreeSet<int[]> treeSet = new TreeSet<>(Comparator.comparingInt(value -> value[0]));\n        for(int i = 0; i < n - 1; i++) {\n            treeSet.add(new int[]{i, i + 1});\n        }\n\n        int[] res = new int[queries.length];\n        int len = n - 1;\n        for (int i = 0; i < queries.length; i++) {\n            int[] floor = treeSet.floor(queries[i]);\n            if (floor != null && floor[1] >= queries[i][1]) {\n                res[i] = len;\n                continue;\n            }\n            Set<int[]> old = new HashSet<>(treeSet.subSet(new int[]{queries[i][0], 0}, new int[]{queries[i][1], 0}));\n            int oldLength = 0;\n            for (int[] o : old) {\n                oldLength += o[1] - o[0] - 1;\n                treeSet.remove(o);\n            }\n\n            int nl = queries[i][1] - queries[i][0] - 1;\n            if (nl > oldLength) {\n                len -= nl - oldLength;\n            }\n            treeSet.add(queries[i]);\n            res[i] = len;\n        }\n\n        return res;\n    }\n}",
+    "submit_ts": "1722743874",
+    "subm_id": "1343801608"
+}

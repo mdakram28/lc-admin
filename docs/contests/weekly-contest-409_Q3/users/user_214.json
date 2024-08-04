@@ -1,0 +1,6 @@
+{
+    "username": "zhiylu528",
+    "submission": "class Solution {\npublic:\n\n    bool customCompare(vector<int>& a, vector<int>& b) {\n        return a[0] <= b[0];\n    }\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> res;\n        int steps = n - 1;\n        vector<vector<int>> vec;\n        for (vector<int>& q : queries) {\n            auto it = std::lower_bound(vec.begin(), vec.end(), q,\n            [](const vector<int>& a, const vector<int>& b) {\n                return a[0] < b[0];\n            });\n\n            int idx = it - vec.begin();\n\n            if ((idx > 0 && vec[idx - 1][1] >= q[1]) || (vec.size() > idx && vec[idx][0] == q[0] && vec[idx][1] >= q[1])) {\n                res.push_back(steps);\n                continue;\n            }\n\n            while (vec.size() > idx && vec[idx][1] <= q[1]) {\n                steps += (vec[idx][1] - vec[idx][0] - 1);\n                vec.erase(vec.begin() + idx);\n            }\n\n            vec.insert(it, q);\n            steps -= (q[1] - q[0] - 1);\n            res.push_back(steps);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1722740759",
+    "subm_id": "1343728050"
+}

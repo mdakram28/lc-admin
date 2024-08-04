@@ -1,0 +1,6 @@
+{
+    "username": "wkingyu",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        l = defaultdict(int)\n        r = defaultdict(int)\n        for i in range(n):\n            l[i] = i - 1\n            r[i] = i + 1\n        tot = n\n        ans = []\n        def delete(node):\n            r[l[node]] = r[node]\n            l[r[node]] = l[node]\n        vis = set()\n        for u, v in queries:\n            if u not in vis and v not in vis:\n                cur = r[u]\n                while cur != v:\n                    tmp = cur\n                    cur = r[cur]\n                    vis.add(tmp)\n                    delete(tmp)\n                    tot -= 1\n            ans.append(tot - 1)\n        return ans\n            ",
+    "submit_ts": "1722741543",
+    "subm_id": "552338872"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Soaper666",
+    "submission": "func shortestDistanceAfterQueries(n int, queries [][]int) []int {\n    farthestEdge := make(map[int]int, n)\n\tdist := n - 1\n\toutput := make([]int, len(queries))\n\tfor i := range n - 1 {\n\t\tfarthestEdge[i] = i + 1\n\t}\n\t// farthestEdge == 0 <=> this node is nit on current shortest path\n\n\tfor i, query := range queries {\n\t\tfarthestEdgeSoFar := farthestEdge[query[0]]\n\t\tif farthestEdgeSoFar == 0 || query[1] <= farthestEdgeSoFar {\n            output[i] = dist\n\t\t\tcontinue\n\t\t}\n\n\t\tstep := 1\n\t\tcur := farthestEdge[query[0]]\n\t\tfor cur != query[1] {\n\t\t\tstep += 1\n\t\t\tnext := farthestEdge[cur]\n\t\t\tfarthestEdge[cur] = 0\n\t\t\tcur = next\n\t\t}\n\n\t\tdist -= step - 1\n        farthestEdge[query[0]] = query[1]\n\n\t\toutput[i] = dist\n\t}\n\treturn output\n}",
+    "submit_ts": "1722741024",
+    "subm_id": "1343734681"
+}

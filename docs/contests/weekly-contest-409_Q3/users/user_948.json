@@ -1,0 +1,6 @@
+{
+    "username": "han-yan-qi",
+    "submission": "import sortedcontainers\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        m = len(queries)\n        ans = [0] * m\n        st = sortedcontainers.SortedList([i for i in range(n)])\n        for i, (u, v) in enumerate(queries):\n            p1 = st.bisect_left(u)\n            if p1 >= len(st) or st[p1] != u:\n                ans[i] = ans[i - 1]\n                continue\n            p2 = st.bisect_left(v)\n            if p2 >= len(st) or st[p2] != v:\n                ans[i] = ans[i - 1]\n                continue\n            for j in range(p2 - 1, p1, -1):\n                del st[j]\n            ans[i] = len(st) - 1\n        return ans",
+    "submit_ts": "1722742429",
+    "subm_id": "552344570"
+}

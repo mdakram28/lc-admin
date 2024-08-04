@@ -1,0 +1,6 @@
+{
+    "username": "_333_",
+    "submission": "class Solution {\npublic:\n    class Node {\n    public:\n      int data;\n      Node* next;\n      Node(int data){\n        this->data = data;\n        this->next = NULL;\n      }\n    };\n  \n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        int ans=n-1;\n        map<int,Node*> m;\n        Node* head= new Node(0);\n      m[0]=head;\n      Node* tail; tail=head;\n        for(int i=1;i<n;i++){\n          Node* temp = new Node(i);\n          m[i]=temp;\n          tail->next=temp;\n          tail=temp;\n        }\n      \n      vector<int> v;\n      \n      for(int i=0;i<queries.size();i++){\n          int a=queries[i][0];\n          int b=queries[i][1];\n        \n          if(m.find(a)==m.end() || m.find(b)==m.end()){v.push_back(ans);continue;}\n        else{\n          Node* temp= m[a];\n          temp=temp->next;\n          Node* head=m[a];\n          while(temp && temp->data!=b){\n            m.erase(temp->data);\n            ans--;\n            temp=temp->next;\n          }\n          head->next=temp;\n          v.push_back(ans);\n        }\n      }\n      \n      return v;\n      \n      \n    }\n};",
+    "submit_ts": "1722741733",
+    "subm_id": "1343752182"
+}

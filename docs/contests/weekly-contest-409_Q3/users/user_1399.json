@@ -1,0 +1,6 @@
+{
+    "username": "kundank11",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> distances(n);\n        for (int i = 1; i < n; ++i) {\n            distances[i] = distances[i - 1] + 1;\n        }\n        \n        multiset<int> milestones;\n        for (int i = 0; i < n; ++i) {\n            milestones.insert(i);\n        }\n        \n        vector<int>ans;\n        for (const auto& query : queries) {\n            int start = query[0];\n            int end = query[1];\n            \n            auto startIt = milestones.upper_bound(start);\n            auto endIt = milestones.lower_bound(end);\n            \n            milestones.erase(startIt, endIt);\n            \n            ans.push_back(milestones.size() - 1);\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1722743982",
+    "subm_id": "1343804302"
+}

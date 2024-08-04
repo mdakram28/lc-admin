@@ -1,0 +1,6 @@
+{
+    "username": "oopzzozzo",
+    "submission": "typedef pair<int, int> Pii;\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<Pii> s;\n        int acc = 0;\n        vector<int> ans;\n        for(auto q:queries){\n            auto p = make_pair(q[0], q[1]);\n            auto l = make_pair(q[0], 0), r = make_pair(q[0]+1, 0);\n            for(auto c=s.lower_bound(l); c != s.end() && c->first >= q[0] && c->second <= q[1]; c=s.lower_bound(l)){\n                acc -= c->second - c->first - 1;\n                cout << \"erase \" << c->first << \" \" << c->second << endl;\n                cout << \"acc: \" << acc << endl;\n                s.erase(c);\n            }\n            auto c = s.lower_bound(r);\n            if(c != s.begin()){\n                c = prev(c);\n                if(c->first <=q[0] && c->second >= q[1]){\n                    ans.push_back(n-1-acc);\n                    cout << \"no used\" << q[0] << \" \" << q[1] << endl;\n                    continue;\n                }\n            }\n            s.insert(p);\n            acc += q[1] - q[0] - 1;\n                cout << \"acc: \" << acc << endl;\n            ans.push_back(n - 1 - acc) ;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722741896",
+    "subm_id": "1343756069"
+}

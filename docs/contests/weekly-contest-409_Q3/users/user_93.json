@@ -1,0 +1,6 @@
+{
+    "username": "tonghuikang",
+    "submission": "LARGE = 10**9\n\nfrom sortedcontainers import SortedList\n\nclass Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        # sequence can be expressed as disjoint intervals\n        # result is the length minus the sum of the size of intervals\n        \n        sl = [(i,i+1) for i in range(-1,n)]\n        sl = SortedList(sl)\n        \n        res = []\n        for a,b in queries:\n            \n            idx = sl.bisect_left((a,LARGE))\n            idx -= 1\n            \n            # print(a,b)\n            # print(sl[idx])\n            \n            if sl[idx][0] <= a <= b <= sl[idx][1]:\n                val = len(sl)\n                res.append(val)\n                print(\"skip\")\n                continue\n            \n            # if sl[idx][0] == a and sl[idx][0] > b:\n            #     continue\n            \n            while sl[idx][1] <= b:\n                del sl[idx]\n            sl.add((a,b))\n            \n            # print(sl)\n            # print()\n            \n            val = len(sl)\n            res.append(val)\n        \n        # print()\n        return [x-2 for x in res]",
+    "submit_ts": "1722739884",
+    "subm_id": "552327649"
+}

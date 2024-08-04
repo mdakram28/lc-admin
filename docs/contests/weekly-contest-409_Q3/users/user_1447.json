@@ -1,0 +1,6 @@
+{
+    "username": "calmbanks777",
+    "submission": "#include <vector>\n#include <set>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int totalNodes, vector<vector<int>>& queries) {\n        int queryCount = queries.size();\n        vector<int> result(queryCount, 0);\n        set<int> availableNodes;\n        \n        // Initialize the availableNodes set with all points except the first one\n        for (int i = 1; i < totalNodes; i++) {\n            availableNodes.insert(i);\n        }\n        \n        int currentDistance = totalNodes - 1; // Initial distance\n        \n        for (int i = 0; i < queryCount; i++) {\n            int startNode = queries[i][0], endNode = queries[i][1];\n            auto it = availableNodes.lower_bound(startNode + 1);\n            while (it != availableNodes.end() && *it < endNode) {\n                it = availableNodes.erase(it);\n                currentDistance--;\n            }\n            result[i] = currentDistance;\n        }\n\n        return result;\n    }\n};\n",
+    "submit_ts": "1722743649",
+    "subm_id": "1343796632"
+}

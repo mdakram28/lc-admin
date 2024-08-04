@@ -1,0 +1,6 @@
+{
+    "username": "LarryNY",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, N: int, queries: List[List[int]]) -> List[int]:\n        parents = [x for x in range(N)]\n        sz = [1] * N\n        \n        def ufind(x):\n            if parents[x] != x:\n                parents[x] = ufind(parents[x])\n            return parents[x]\n        \n        def uunion(a, b):\n            # a < b\n            ua = ufind(a)\n            ub = ufind(b)\n            \n            parents[ub] = ua\n            sz[ua] += sz[ub]\n            \n        ans = []\n        distance = N - 1\n        \n        for a, b in queries:\n            ua = ufind(a)\n            s = sz[ua]\n            if ua != a:\n                ans.append(distance)\n                continue\n            \n            while ua + s < b:\n                uunion(ua, ua + s)\n                distance -= 1\n                s = sz[ua]\n\n            ans.append(distance)\n        return ans\n            \n            \n            \n        ",
+    "submit_ts": "1722740276",
+    "subm_id": "1343715662"
+}

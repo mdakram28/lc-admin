@@ -1,0 +1,6 @@
+{
+    "username": "nitin-2714",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& q) {\n        vector<int> distances(n, 0);\n        for (int i = 1; i < n; ++i) {\n            distances[i] = distances[i - 1] + 1;  // Initialize distances\n        }\n        // to keep track of available positions\n        set<int> positions;  \n        for (int i = 0; i < n; ++i) {\n            positions.insert(i);\n        }\n\n        vector<int> result;  \n\n        for (const auto& query : q) {\n            int l = query[0];  // Start index of the query\n            int r = query[1];  // End index of the query\n\n            auto lowerBound = positions.lower_bound(l + 1);\n            auto upperBound = positions.lower_bound(r);\n\n            // Remove the range of indices from the set\n            positions.erase(lowerBound, upperBound);\n\n            // Store the size of remaining positions (excluding the boundaries)\n            result.push_back(positions.size() - 1);\n        }\n\n        return result;  \n    }\n};\n",
+    "submit_ts": "1722743554",
+    "subm_id": "1343794564"
+}

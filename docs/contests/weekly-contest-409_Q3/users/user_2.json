@@ -1,0 +1,6 @@
+{
+    "username": "tsreaper",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        typedef pair<int, int> pii;\n        set<pii> st;\n        for (int i = 1; i < n; i++) st.insert(pii(i - 1, i));\n\n        vector<int> ans;\n        for (auto &qry : queries) {\n            int l = qry[0], r = qry[1];\n            auto it = st.lower_bound(pii(l, -1));\n            if (it != st.end() && it->first == l && it->second < r) {\n                while (it != st.end() && it->first < r) it = st.erase(it);\n                st.insert(pii(l, r));\n            }\n            ans.push_back(st.size());\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722739375",
+    "subm_id": "552324217"
+}

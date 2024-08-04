@@ -1,0 +1,6 @@
+{
+    "username": "you-ren-y-x",
+    "submission": "class Solution {\npublic:\n    struct DSU {\n        vector<int> fa;\n        DSU(int n) : fa(n) {\n            iota(fa.begin(), fa.end(), 0);\n        }\n        int find(int x) {\n            return fa[x] == x ? x : fa[x] = find(fa[x]);\n        }\n        bool same(int x, int y) {\n            return find(x) == find(y);\n        }\n        void merge(int x, int y) {\n            int fx = find(x), fy = find(y);\n            fa[fx] = fy;\n        }\n    };\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& qs) {\n        vector<int> ans;\n        DSU dsu(n);\n        int cnt = n - 1;\n        for (auto q : qs) {\n            int u = q[0], v = q[1] - 1;\n            if (dsu.same(u, v)) {\n                ans.push_back(cnt);\n                continue;\n            }\n            for (int i = dsu.find(u); i < v; i = dsu.find(i)) {\n                if (!dsu.same(i, i + 1)) {\n                    // cout << i << ' ' << i + 1 << '\\n';\n                    dsu.merge(i, i + 1);\n                    cnt--;\n                }\n            }\n            // cnt++;\n            ans.push_back(cnt);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722741727",
+    "subm_id": "552340071"
+}

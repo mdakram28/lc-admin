@@ -1,0 +1,6 @@
+{
+    "username": "jjliao",
+    "submission": "class Solution {\n    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {\n        TreeMap<Integer, Integer> treemap = new TreeMap<>();\n        int[] res = new int[queries.length];\n        for(int i=1; i<n; i++){\n            treemap.put(i-1, i);\n        }\n        int cur = n-1;\n        for(int i=0; i<queries.length; i++){\n            int l = queries[i][0], r = queries[i][1];\n            cur -= process(treemap, l, r);\n            res[i] = cur;\n        }\n        return res;\n    }\n\n    int process(TreeMap<Integer, Integer> t, int i, int j){\n        Integer floorKey = t.floorKey(i);\n        if(floorKey!=null && t.get(floorKey) >=j) return 0;\n        \n        int res = 0;\n        Integer key = t.ceilingKey(i);\n        while(key!=null && key<j){\n            int value = t.get(key);\n            res += 1;\n            \n\n            t.remove(key);\n            key = t.ceilingKey(value);\n            \n        }\n        t.put(i, j);\n        // System.out.println(t);\n        // System.out.println(j-i+1-res);\n        return res-1;\n    }\n}",
+    "submit_ts": "1722743862",
+    "subm_id": "1343801328"
+}

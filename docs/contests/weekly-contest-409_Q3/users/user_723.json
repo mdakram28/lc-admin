@@ -1,0 +1,6 @@
+{
+    "username": "bofeng07",
+    "submission": "class Solution:\n    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        from sortedcontainers import SortedList\n        array, ans, total = SortedList(), [], n - 1\n        for u, v in queries:\n            index = array.bisect_left([u, v])\n            if index and array.__getitem__(index - 1)[0] == u:\n                i, j = array.pop(index - 1)\n                total += j - i - 1\n                index -= 1\n            while index < len(array) and array.__getitem__(index)[1] <= v:\n                i, j = array.pop(index)\n                total += j - i - 1\n            if (\n                not index or array.__getitem__(index - 1)[1] <= u\n            ) and (\n                index == len(array) or array.__getitem__(index)[0] > u\n            ):\n                total -= v - u - 1\n                array.add([u, v])\n            ans.append(total)\n        return ans",
+    "submit_ts": "1722742227",
+    "subm_id": "1343764011"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "wivole4747",
+    "submission": "class LL {\npublic:\n    int val;\n    LL *next;\n    LL(int value): val(value), next(nullptr) {}\n};\nclass Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        LL *ph = new LL(-1);\n        map<int, LL*> pos;\n        LL *res = ph;\n        for (int i = 0; i < n; i++) {\n            res->next = new LL(i);\n            res = res->next;\n            pos[i] = res;\n        }\n\n        vector<int> ans;\n        for (auto q: queries) {\n            int s = q[0], d = q[1];\n            if (s < d && pos.find(s) != pos.end() && pos.find(d) != pos.end()) {\n                LL* source = pos[s];\n                LL* cur = source;\n                while (cur->next != nullptr && cur->next->val < d) {\n                    cur = cur->next;\n                    pos.erase(cur->val);\n                }\n                cur = cur->next;\n                source->next = cur;\n            }\n            ans.push_back(pos.size()-1);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722741870",
+    "subm_id": "1343755468"
+}

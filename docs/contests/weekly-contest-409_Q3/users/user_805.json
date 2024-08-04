@@ -1,0 +1,6 @@
+{
+    "username": "fornoreason",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        std::vector<int> next(n);\n        for (int i = 0; i < n; ++i) {\n            next[i] = i + 1;\n        }\n        \n        std::vector<int> ans;\n        int dis = n - 1;\n        for (auto& query: queries) {\n            int u = query[0], v = query[1];\n            if (v > next[u]) {\n                int d = deleteFrom(u, v, next);\n                dis -= d;\n                next[u] = v;\n            }\n            ans.push_back(dis);\n        }\n        // std::cout << std::endl;\n        return ans;\n    }\nprivate:\n    int deleteFrom(int u, int v, std::vector<int> &next) {\n        // std::cout << \"[debug]u: \" << u << \", v: \" << v << \", deleted: \";\n        int cnt = 0;\n        u = next[u];\n        while (next[u] <= v) {\n            int k = next[u];\n            next[u] = next.size();\n            // std::cout << u << \" \";\n            u = k;\n            cnt++;\n        }\n        // std::cout << std::endl;\n        return cnt;\n    }\n};",
+    "submit_ts": "1722742858",
+    "subm_id": "1343778722"
+}

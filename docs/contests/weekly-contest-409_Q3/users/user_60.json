@@ -1,0 +1,6 @@
+{
+    "username": "balakrishnan_v",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        \n        set<pair<int,int>> intervals;\n        for(int i=0;i+1<n;i++) {\n            intervals.insert({i,i+1});\n        }\n        vector<int> ans;\n        for(auto q : queries) {\n            int u = q[0];\n            int v = q[1];\n            while(1) {\n                auto it = intervals.lower_bound({u,-1});\n                if (it != intervals.end() && it ->first == u && it->second < v) {\n                    // merge this and next\n                    auto nit = intervals.lower_bound({u+1,-1});\n                    int y = nit->second;\n                    intervals.erase(it);\n                    intervals.erase(nit);\n                    intervals.insert({u,y});\n                } else {\n                    break;\n                }\n            }\n            \n            ans.push_back(intervals.size());\n        }\n        \n        return ans;\n        \n    }\n};",
+    "submit_ts": "1722739417",
+    "subm_id": "1343693927"
+}

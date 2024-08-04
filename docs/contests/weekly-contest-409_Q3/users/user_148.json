@@ -1,0 +1,6 @@
+{
+    "username": "myaltaccountsthis",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<bool> exists(n, true);\n        map<int, int> visitedMap;\n        vector<int> ans;\n        int cost = n - 1;\n        for (const auto& query : queries) {\n            int left = query[0], right = query[1];\n            if (!exists[left]) {\n                if (exists[right]) {\n                    cout << \"Why does right exist?\\n\";\n                }\n                ans.push_back(cost);\n                continue;\n            }\n            for (int i = left + 1; i < right; i++) {\n                if (visitedMap[i])\n                    i = visitedMap[i];\n                else if (exists[i]) {\n                    exists[i] = false;\n                    cost--;\n                }\n            }\n            visitedMap[left + 1] = right - 1;\n            ans.push_back(cost);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722740060",
+    "subm_id": "1343710192"
+}

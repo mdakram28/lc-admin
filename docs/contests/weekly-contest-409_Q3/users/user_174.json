@@ -1,0 +1,6 @@
+{
+    "username": "deepinc",
+    "submission": "class Solution {\npublic:\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        set<pair<int,int>>s;\n        s.insert(make_pair(-1,-1));\n        s.insert(make_pair(n,n));\n        vector<int>ans;\n        int cur=n-1;\n        for(auto q:queries) {\n            int x=q[0], y=q[1];\n            auto p=s.lower_bound(make_pair(x,0)), t=p;\n            while(p->second <= y) p++, cur+=t->second-t->first-1, s.erase(t), t=p;//, cout<<'-'<<x<<' '<<y<<endl;\n            if(p->first >= y && (--p)->second <= x) cur-=y-x-1, s.insert(make_pair(x,y));//, cout<<x<<' '<<y<<endl;\n            // else cout<<p->second<<endl;\n            ans.push_back(cur);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1722740221",
+    "subm_id": "552330029"
+}

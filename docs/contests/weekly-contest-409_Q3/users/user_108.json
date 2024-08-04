@@ -1,0 +1,6 @@
+{
+    "username": "summerdaway",
+    "submission": "#define maxn 111111\nint fa[maxn], s[maxn], m;\n\nclass Solution {\npublic:\n    int find(int x) {\n        m = 0;\n        while (x != fa[x]) {\n            s[m++] = x;\n            x = fa[x];\n        }\n        for (int i = 0; i < m; ++i) {\n            fa[s[i]] = x;\n        }\n        return x;\n    }\n\n    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {\n        vector<int> ret;\n        for (int i = 0; i <= n; ++i) {\n            fa[i] = i;\n        }\n        int x = n-1;\n        for (auto e: queries) {\n            int ct = 0;\n            for (int i = find(e[0]); i < e[1]-1; i = find(i)) {\n                fa[i] = i+1;\n                ct += 1;\n            }\n            x -= ct;\n            ret.push_back(x);\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1722740049",
+    "subm_id": "552328896"
+}
