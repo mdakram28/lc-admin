@@ -1,0 +1,6 @@
+{
+    "username": "bash_coder",
+    "submission": "class Solution {\npublic:\n    vector<int> mn;\n    vector<int> ot;\n    vector<int> val;\n    int mod=1e9 + 7;\n    void print(){\n        for(auto it: val){\n            cout<<it<<\" \";\n        }\n        cout<<\"\\n\";\n    }\n    long dp[2001][51][51];\n    long helper(vector<int> &nums, int i, int premn, int premx){\n        if(i==nums.size()){\n            // print();\n            return 1;\n        }\n        \n        if(dp[i][premn][premx]!=-1){\n            return dp[i][premn][premx];\n        }\n        long cnt=0;\n        for(int j=premn;j<=nums[i];++j){\n            int f=j, sec=nums[i]-j;\n            if(f>=premn && sec<=premx){\n                cnt+=helper(nums, i+1, f, sec);\n            }\n        }\n        cnt%=mod;\n        return dp[i][premn][premx]=cnt;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        mn=vector<int> (n+1, 0);\n        mn[n-1]=nums[n-1];\n        memset(dp, -1, sizeof(dp));\n        for(int i=n-2;i>-1;--i){\n            mn[i]=min(mn[i+1], nums[i]);\n        }\n        return helper(nums, 0, 0, nums[0]);\n    }\n};",
+    "submit_ts": "1723345020",
+    "subm_id": "1351546938"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "okbhr209",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n\n#define ll long long int\n#define INF 1000000000000000 //1e17\nconst ll mod = 1000000007;\n#define N 51 \n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        ll n =nums.size() ;\n        \n        ll dp[n][N] ;\n        memset(dp,0,sizeof(dp)) ;\n        \n        //B \n        for(ll i =0 ; i<=nums[0] ;i++ ){\n            dp[0][i] =1 ;\n        }\n        //T\n        for(ll i =1 ; i<n ;i++ ){\n            for(ll j =0 ; j<N ;j++ ){\n                ll k = nums[i]- j ;\n                if(k<0)break ;\n                \n                for(ll prev = 0 ; prev <=j ;prev++ ){\n                    ll pprev = nums[i-1] -prev ;\n                    if( pprev >= k){\n                        dp[i][j]+=dp[i-1][prev] ;\n                        dp[i][j]%=mod ;\n                    }\n                }\n            }\n        }\n        \n        ll res =0 ;\n        for(ll j=0 ; j<N ;j++ ){\n            res+=dp[n-1][j] ;\n            res%=mod ;\n        }\n        return res ; \n    }\n};",
+    "submit_ts": "1723345212",
+    "subm_id": "1351550998"
+}

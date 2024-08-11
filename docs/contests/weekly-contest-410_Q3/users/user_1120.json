@@ -1,0 +1,6 @@
+{
+    "username": "nishantgott",
+    "submission": "class Solution {\npublic:\n    int n;\n    vector<int> nums;\n    vector<vector<int>> dp;\n    int M = 1e9+7;\n\n    int fun(int i, int last){\n        if(i==n) return 1;\n        if(dp[i][last]!=-1) return dp[i][last];\n        int mini = 0;\n        if(i>0) mini = max(last, nums[i]-nums[i-1]+last);\n        int ans = 0;\n        for(int j=mini; j<=nums[i]; j++){\n            ans = (ans*1ll + fun(i+1, j))%M;\n        }\n        return dp[i][last] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        this->nums = nums;\n        int largest = *max_element(nums.begin(), nums.end());\n        dp.resize(n, vector<int> (largest+1, -1));\n        return fun(0, 0);\n    }\n};",
+    "submit_ts": "1723345534",
+    "subm_id": "1351557875"
+}

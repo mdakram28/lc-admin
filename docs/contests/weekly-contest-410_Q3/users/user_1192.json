@@ -1,0 +1,6 @@
+{
+    "username": "subham_roy7",
+    "submission": "class Solution {\npublic:\n    \nconst int MOD = 1e9 + 7;\n\nint recur(int i, int last1, const vector<int>& nums, vector<vector<int>>& dp) {\n    if (i == nums.size()) {\n        return 1;\n    }\n    \n    if (dp[i][last1] != -1) {\n        return dp[i][last1];\n    }\n\n    int res = 0;\n    for (int arr1 = last1; arr1 <= nums[i]; ++arr1) {\n        int arr2 = nums[i] - arr1;\n        if (i == 0 || arr2 <= nums[i-1] - last1) {  \n            res = (res%MOD + recur(i + 1, arr1, nums, dp)%MOD) % MOD;\n        }\n    }\n\n    return dp[i][last1] = res;\n}\n    \n    int countOfPairs(vector<int>& nums) {\n    int n = nums.size();\n    vector<vector<int>> dp(n, vector<int>(2001, -1));  \n    return recur(0, 0, nums, dp);\n        \n    }\n};",
+    "submit_ts": "1723345663",
+    "subm_id": "1351560635"
+}

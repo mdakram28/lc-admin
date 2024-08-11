@@ -1,0 +1,6 @@
+{
+    "username": "martian_18",
+    "submission": "class Solution {\n    int n=-1;\n    int mod=1000000007;\n    int dp[2002][54];\n    int util(int pos,int val, vector<int> & nums)\n    {\n        if(pos==n) return 1;\n        //cout<<pos<<\" \";\n        if(dp[pos][val]!=-1) return dp[pos][val];\n        int ans=0;\n        //cout<<pos<<endl;\n        //cout<<pos<<\" \"<<nums[pos]<<\" \"<<pos<<endl;\n        int prev=nums[pos-1]-val;\n       // cout<<prev<<\" \"<<nums[pos]-val<<\" \"<<pos<<\" \"<<val<<\" \"<<nums[pos]<<endl;\n        for(int i=val;nums[pos]-i>=0;i++)\n        {\n            //cout<<nums[pos]-i<<\" \"<<pos<<endl;\n            int t=nums[pos]-i;\n            if(t>prev) continue;\n            ans+=util(pos+1,i,nums);\n            if(ans>=mod) ans%=mod;\n        }\n        return dp[pos][val]=ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        n=nums.size();\n        memset(dp,-1,sizeof(dp));\n        int x=nums[0];\n        int res=0;\n        for(int i=0;i<=x;i++)\n        {\n            int temp=util(1,i,nums);\n            //cout<<temp<<endl;\n            res+=temp;\n            if(res>=mod) res%=mod;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723345781",
+    "subm_id": "1351563191"
+}

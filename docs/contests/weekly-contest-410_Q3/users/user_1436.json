@@ -1,0 +1,6 @@
+{
+    "username": "Gr8ful",
+    "submission": "class Solution:\n    MOD = int(1e9 + 7)\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        max_num = max(nums)  # Determine the maximum number in nums\n        dp = [[0] * (max_num + 1) for _ in range(n)]  # Adjust dp array size based on the maximum number\n\n        for j in range(nums[0] + 1):\n            dp[0][j] = 1\n\n        for i in range(1, n):\n            for j in range(nums[i] + 1):\n                arr2_i = nums[i] - j\n                dp[i][j] = 0\n\n                for k in range(min(j, 50) + 1):\n                    if arr2_i <= nums[i-1] - k and k <= 50:\n                        dp[i][j] = (dp[i][j] + dp[i-1][k]) % self.MOD\n\n        result = 0\n        for j in range(nums[n-1] + 1):\n            result = (result + dp[n-1][j]) % self.MOD\n\n        return result\n        ",
+    "submit_ts": "1723346062",
+    "subm_id": "1351569368"
+}

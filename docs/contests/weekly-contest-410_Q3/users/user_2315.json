@@ -1,0 +1,6 @@
+{
+    "username": "LOKESH_P57",
+    "submission": "class Solution {\n    private static final int MOD = 1_000_000_007;\n    public int countOfPairs(int[] nums) {\n        Map<String, Integer> mpp = new HashMap<>();\n        return helper(0, -1, -1, nums, mpp);\n    }\n\n    static int helper(int index, int prev1, int prev2, int[] nums, Map<String, Integer> memo) {\n        if (index == nums.length) return 1;\n        String key = index + \",\" + prev1 + \",\" + prev2;\n        if (memo.containsKey(key)) return memo.get(key);\n        int ans = 0;\n        for (int i = 0; i <= nums[index]; i++) {\n            int pair1 = i;\n            int pair2 = nums[index] - i;\n            if (prev1 == -1 && prev2 == -1) ans = (ans + helper(index + 1, pair1, pair2, nums, memo)) % MOD;\n            else {\n                if (pair1 >= prev1 && pair2 <= prev2) ans = (ans + helper(index + 1, pair1, pair2, nums, memo)) % MOD;\n            }\n        }\n        memo.put(key, ans);\n        return ans;\n    }\n}",
+    "submit_ts": "1723346883",
+    "subm_id": "1351587197"
+}

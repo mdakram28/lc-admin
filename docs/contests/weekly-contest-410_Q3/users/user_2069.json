@@ -1,0 +1,6 @@
+{
+    "username": "soumikdutt",
+    "submission": "class Solution {\npublic:\n    vector<vector<int>> dp_arr1;\nint max_val;\nint max_pos;\nconst long long M = 1000000007;\n\n// last_arr2 depends on last_arr1 as nums[pos - 1] - last_arr1 = last_arr2\nint dp_func(const int pos, const int last_arr1, const int last_arr2, const vector<int> &nums) {\n    if (pos > max_pos)\n        return 1;\n\n    if (dp_arr1[pos][last_arr1] != -2)\n        return dp_arr1[pos][last_arr1];\n\n    long long count = 0;\n\n    const int start_point = max(last_arr1, nums[pos] - last_arr2);\n    for (int i = start_point; i <= nums[pos]; i++) {\n        count =( count + dp_func(pos + 1, i, nums[pos] - i, nums)) %M;\n    }\n\n    return dp_arr1[pos][last_arr1] = count;\n}\n\nint countOfPairs(const vector<int> &nums) {\n    max_val = *max_element(nums.begin(), nums.end());\n    max_pos = nums.size() - 1;\n    dp_arr1 = vector<vector<int>>(max_pos + 1, vector<int>(max_val + 1, -2));\n\n    return dp_func(0, 0, INT_MAX, nums);\n}\n};",
+    "submit_ts": "1723346316",
+    "subm_id": "1351574902"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "nilay2207",
+    "submission": "class Solution {\npublic:\n    int MOD = 1e9 + 7;\n\n    int HereWeGoAgain(int i, int prev1, int prev2, vector<int>& nums, vector<vector<vector<int>>>& dp){\n        if (i == nums.size()) return 1;\n\n        if (dp[i][prev1][prev2] != -1) return dp[i][prev1][prev2];\n\n        int ways = 0;\n        for (int x = prev1; x <= nums[i]; ++x){\n            int y = nums[i] - x;\n            if (y <= prev2){\n                ways = (ways + HereWeGoAgain(i+1, x, y, nums, dp)) % MOD;\n            }\n        }\n\n        return dp[i][prev1][prev2] = ways;\n    }\n    \n    int countOfPairs(vector<int>& nums){\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(101, vector<int>(101, -1)));\n        \n        return HereWeGoAgain(0, 0, nums[0], nums, dp);\n    }\n};",
+    "submit_ts": "1723344959",
+    "subm_id": "1351545673"
+}

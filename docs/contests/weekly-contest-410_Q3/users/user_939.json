@@ -1,0 +1,6 @@
+{
+    "username": "puspendra_09",
+    "submission": "class Solution {\nprivate:\n    using ll = long long;\n    const ll mod = 1e9 + 7;\n    vector<vector<ll>> dp;\n    \n    int helper(int ind , int prevNum , vector<int>& nums) {\n        int n = nums.size();\n        if(ind >= n) return 1;\n        \n        if(dp[ind][prevNum + 1] != -1) return dp[ind][prevNum + 1];\n        ll ans = 0;\n        for(int i = 0; i <= nums[ind]; i++) {\n            int x = i;\n            int y = nums[ind] - i;\n            \n            if(prevNum == -1) {\n                ans += helper(ind + 1 , x , nums);\n                ans %= mod;\n  \n            }\n            else {\n                int prevx = prevNum;\n                int prevy = nums[ind - 1] - prevNum;\n                \n                if(x >= prevx and y <= prevy) {\n                    ans += helper(ind + 1 , x , nums);\n                    ans %= mod;\n                }\n            }\n        }\n        return dp[ind][prevNum + 1] = ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        ll n = nums.size();\n        dp.assign(n , vector<ll>(53 , -1));\n        return helper(0 , -1 , nums);\n    }\n};",
+    "submit_ts": "1723345208",
+    "subm_id": "1351550921"
+}

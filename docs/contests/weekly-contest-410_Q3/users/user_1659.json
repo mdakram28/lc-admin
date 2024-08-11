@@ -1,0 +1,6 @@
+{
+    "username": "Archit_1608",
+    "submission": "class Solution {\npublic:\n    \n    const int MOD = 1e9 + 7;\n\n    int countPairsUtil(vector<int>& nums, int i, int prevArr1, int prevArr2, vector<vector<vector<int>>>& memo) {\n    if (i == nums.size()) return 1;  \n\n    if (memo[i][prevArr1][prevArr2] != -1) return memo[i][prevArr1][prevArr2];\n\n    int count = 0;\n\n    for (int arr1Value = prevArr1; arr1Value <= nums[i]; ++arr1Value) {\n        int arr2Value = nums[i] - arr1Value;\n        if (arr2Value <= prevArr2) { \n            count = (count + countPairsUtil(nums, i + 1, arr1Value, arr2Value, memo)) % MOD;\n        }\n    }\n\n    return memo[i][prevArr1][prevArr2] = count;\n}\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> memo(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return countPairsUtil(nums, 0, 0, 50, memo);\n    }\n};",
+    "submit_ts": "1723346393",
+    "subm_id": "1351576619"
+}

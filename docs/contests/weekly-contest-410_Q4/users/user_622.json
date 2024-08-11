@@ -1,0 +1,6 @@
+{
+    "username": "AndreasHzz",
+    "submission": "class Solution {\n    long[][] dp;\n    int mod = 1000000007;\n    int[] nums;\n    public int countOfPairs(int[] nums) {\n        int max = 0;\n        this.nums = nums;\n        for(int i = 0; i<nums.length; i++){\n            max = Math.max(max, nums[i]);\n        }\n        if(nums.length==1)return nums[0]+1;\n        dp = new long[nums.length][max+1];\n        for(int i = 0; i<=nums[0]; i++){\n            dp[0][i]=1;\n        }\n        long res = 0;\n\n        for(int i = 1; i<nums.length; i++){\n            long valid = 0;\n            int diff = nums[i-1]-nums[i];\n            //we should start from diff, and sum up to cur\n            int up = Math.min(0,diff);\n            for(int j = 0; j<=up; j++){\n                valid+=dp[i-1][j];\n            }\n            for(int j = 0; j<=nums[i]; j++){\n                dp[i][j]+=valid;\n                dp[i][j]%=mod;\n                //if(i==2 && j==1)System.out.println(up);\n                if(up<max && up+1>=0)valid+=dp[i-1][up+1];\n                up++;\n                \n                if(i==nums.length-1){\n                    res+=dp[i][j];\n                    res%=mod;\n                }\n            }\n        }\n        return (int)res;\n        \n\n    }\n\n    \n}",
+    "submit_ts": "1723348096",
+    "subm_id": "1351611521"
+}

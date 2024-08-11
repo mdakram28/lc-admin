@@ -1,0 +1,6 @@
+{
+    "username": "user6140fa",
+    "submission": "func countOfPairs(nums []int) int {\n    \n    MOD := 1000000007\n    n := len(nums)\n    var dp func(startPos, prevArr1, prevArr2 int) int\n    \n    memo := make(map[int]map[int]map[int]int)\n    \n    \n    dp = func(start, prevArr1, prevArr2 int) int {\n        if start == n {\n            return 1\n        }\n        \n        if val, ok := memo[start][prevArr1][prevArr2]; ok {\n            return val\n        }\n        \n         if _, ok := memo[start]; !ok {\n            memo[start] = make(map[int]map[int]int)\n        }\n        \n        if _, ok := memo[start][prevArr1]; !ok {\n            memo[start][prevArr1] = make(map[int]int)\n        }\n        \n        ans := 0\n        for i := prevArr1; i <= nums[start]; i++ {\n            arr2Val := nums[start] - i\n            if arr2Val <= prevArr2 && arr2Val >= 0 { // array is valid\n                ans += dp(start + 1, i, arr2Val)\n                ans = ans % MOD\n            }\n        }\n        \n        memo[start][prevArr1][prevArr2] = ans % MOD\n        return memo[start][prevArr1][prevArr2]\n    }\n    \n    return dp(0, 0, math.MaxInt) % MOD\n    \n}",
+    "submit_ts": "1723346851",
+    "subm_id": "1351586522"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "randytanpty",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int n = nums.length, MOD = 1_000_000_007;\n        int[][] dp = new int[n][1001];\n        for (int l = 0; l <= nums[0]; ++l) {\n            dp[0][l]++;\n        }\n        for (int i = 1; i < n; ++i) {\n            int[] prefix = new int[nums[i - 1] + 2];\n            for (int j = 0; j <= nums[i - 1]; ++j) {\n                prefix[j + 1] = (prefix[j] + dp[i - 1][j]) % MOD;\n            }\n            // for (int j = 0; j <= nums[i - 1] + 1; ++j) {\n            //     System.out.println(prefix[j]);\n            // }\n            // System.out.println(\"----------\");\n\n            if (nums[i] > nums[i - 1]) {\n                for (int j = nums[i] - nums[i - 1], k = 1; j <= nums[i]; ++j, ++k) {\n                    dp[i][j] = (dp[i][j] + prefix[k]) % MOD;\n                }\n            } else {\n                for (int j = 0, k = 1; j <= nums[i]; ++j, ++k) {\n                    dp[i][j] = (dp[i][j] + prefix[k]) % MOD;\n                }\n            }\n        }\n\n\n        int ans = 0;\n        for (int i = 0; i <= nums[n - 1]; ++i) {\n            ans = (ans + dp[n - 1][i]) % MOD;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1723347764",
+    "subm_id": "1351605071"
+}

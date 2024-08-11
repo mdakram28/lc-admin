@@ -1,0 +1,6 @@
+{
+    "username": "pranjalsingh1702",
+    "submission": "#define ll long long\nll dp[2000][1001];\nll preDp[2000][1001];\nconst ll M=1e9+7;\nll sum(int l,int r,int i){\n    if(r<l) return 0;\n    if(l==0) return preDp[i-1][r];\n    return (preDp[i-1][r]-preDp[i-1][l-1]+M)%M;\n}\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& a) {\n        memset(dp,0,sizeof(dp));\n        memset(preDp,0,sizeof(preDp));\n        for(int i=0;i<=a[0];i++) dp[0][i]=1;\n        for(int i=0;i<=a[0];i++) preDp[0][i]=(i+1);\n        int n=a.size();\n        for(int i=1;i<n;i++){\n            for(int j=0;j<=a[i];j++){\n                int r=min(j,a[i-1]-a[i]+j);int l=0;\n                r=min(r,a[i-1]);\n                // cout<<i<<\" \"<<j<<\" \"<<l<<\" \"<<r<<'\\n';\n                dp[i][j]=sum(l,r,i);\n            }\n\n            ll sum=0;\n            for(int j=0;j<=1000;j++){\n                sum=(sum+dp[i][j])%M;\n                preDp[i][j]=sum;\n            }\n        }\n\n        ll res=0;\n        for(int j=0;j<=1000;j++) res=(res+dp[n-1][j])%M;\n\n        return res;\n    }\n};",
+    "submit_ts": "1723345443",
+    "subm_id": "1351555888"
+}

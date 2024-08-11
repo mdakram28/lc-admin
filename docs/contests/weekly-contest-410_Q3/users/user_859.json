@@ -1,0 +1,6 @@
+{
+    "username": "Juanchoki",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    ll mod = 1e9+7;\n    ll dp[2007][52];\n    int n;\n    vector<int>v;\n    ll DP(int i, int k)\n    {\n        if (v[i] < k)\n            return 0;\n        if(i == n-1)\n            return 1;\n        if(dp[i][k] != -1)\n            return dp[i][k];\n        ll suma=0;\n        ll otro=v[i]-k;\n        for (int _=k; _<=50; _++)\n        {\n            if(v[i+1]-_ > otro) continue;                \n            suma+=DP(i+1, _);\n            suma%=mod;\n        }\n        suma%=mod;\n        return (dp[i][k] = suma);\n    }\n    int countOfPairs(vector<int>& nums) \n    {\n        v=nums;\n        n=v.size();\n        for(int i=0; i<=n+1; i++)\n            for(int k = 0; k <= 51; k++)\n                dp[i][k]=-1;\n        \n        ll suma=0;\n        for(int k = 0; k <= 50; k++)\n        {\n            suma+=DP(0, k);\n            suma%=mod;\n        }\n        return suma;\n    }\n};",
+    "submit_ts": "1723345044",
+    "subm_id": "1351547432"
+}

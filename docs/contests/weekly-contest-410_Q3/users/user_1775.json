@@ -1,0 +1,6 @@
+{
+    "username": "Ishant_65",
+    "submission": "class Solution {\npublic:\n    int mod = (int)(1000000007);\n    int rec(int i, int n, int prevA, int prevB, vector<int>& nums, vector<vector<vector<int>>>& dp){\n        //base case.\n        if(i == n){\n            return 1;\n        }\n        \n        if(dp[i][prevA][prevB] != -1){ return dp[i][prevA][prevB]; }\n        int ans = 0;\n        for(int k = 0; k <= nums[i]; k++){\n            int a = k;\n            int b = nums[i]-k;\n            if(a >= prevA && b <= prevB){\n                ans = (ans + rec(i+1, n, a, b, nums, dp))%mod;\n            }\n        }\n        return dp[i][prevA][prevB] = ans;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(52, vector<int>(52, -1)));\n        return rec(0, n, 0, 51, nums, dp);\n    }\n};",
+    "submit_ts": "1723345962",
+    "subm_id": "1351567095"
+}

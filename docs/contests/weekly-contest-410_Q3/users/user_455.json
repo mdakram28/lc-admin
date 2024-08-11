@@ -1,0 +1,6 @@
+{
+    "username": "AlthafHussain",
+    "submission": "class Solution {\n    long mod = (long)1e9+7;\n    long dp[][];\n    long f(int i, int prev, int nums[]){\n        if(i == nums.length){\n            return 1;\n        }\n        if(prev != -1 && dp[i][prev] != -1) return dp[i][prev];\n        int a1 = prev == -1 ? 0 : prev;\n        int a2 = prev == -1 ? 100 : nums[i-1]-prev;\n        long cnt = 0;\n        for(int j = 0; j <= nums[i]; j++){\n            int val1 = j;\n            int val2 = nums[i]-j;\n            if(a1 <= val1 && a2 >= val2){\n                cnt = (cnt +f(i+1, j, nums))%mod;\n            }\n        }\n        return prev == -1 ? cnt : (dp[i][prev] = cnt);\n    }\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        dp = new long[n][51];\n        for(long it[] : dp){\n            Arrays.fill(it, -1);\n        }\n        return (int)f(0, -1, nums);\n    }\n}",
+    "submit_ts": "1723344679",
+    "subm_id": "1351539699"
+}

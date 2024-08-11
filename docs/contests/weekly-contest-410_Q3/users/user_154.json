@@ -1,0 +1,6 @@
+{
+    "username": "timetoai",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        mod = 10 ** 9 + 7\n        dp = [0] * 1001  # number in arr1\n        for i in range(nums[0] + 1):\n            dp[i] += 1\n        # print(dp)\n        for num_ind in range(1, len(nums)):\n            nxt = [0] * 1001\n            # dp[i] means dp[i] ways to get i at previous position in arr1\n            # which is also means dp[i] ways to get (prv_num - i) at prv pos in arr2\n            # i_cur >= i_prv; (num - i_cur) <= (prv_num - i_prv); e.g. i_cur >= i_prv + num - prv_num\n            # e.g. i_cur >= max(i_prv, i_prv + num - prv_num)\n            diff = max(0, nums[num_ind] - nums[num_ind - 1])\n            acc = 0\n            for i in range(diff, nums[num_ind] + 1):\n                acc = (acc + dp[i - diff]) % mod\n                nxt[i] = acc\n            dp = nxt\n            # print(dp)\n        return sum(dp) % mod\n        ",
+    "submit_ts": "1723345275",
+    "subm_id": "1351552288"
+}

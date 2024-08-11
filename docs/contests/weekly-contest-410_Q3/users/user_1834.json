@@ -1,0 +1,6 @@
+{
+    "username": "codecarbon",
+    "submission": "#include <vector>\n#include <cstring>\nusing namespace std;\n\nclass Solution {\npublic:\n    const int mod = 1e9 + 7;\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int dp[2005][55];\n        memset(dp, 0, sizeof(dp));\n\n        // Initialize for the first element\n        for (int i = 0; i <= nums[0]; ++i) {\n            dp[0][i] = 1;\n        }\n\n        // Fill the dp table iteratively\n        for (int i = 1; i < n; ++i) {\n            for (int l1 = 0; l1 <= nums[i-1]; ++l1) {\n                int l2 = nums[i-1] - l1;\n                for (int j = 0; j <= nums[i]; ++j) {\n                    if (j >= l1 && (nums[i] - j) <= l2) {\n                        dp[i][j] = (dp[i][j] + dp[i-1][l1]) % mod;\n                    }\n                }\n            }\n        }\n\n        // Sum up all the valid pairs\n        int ans = 0;\n        for (int i = 0; i <= nums[n-1]; ++i) {\n            ans = (ans + dp[n-1][i]) % mod;\n        }\n\n        return ans;\n    }\n};\n",
+    "submit_ts": "1723346032",
+    "subm_id": "1351568703"
+}

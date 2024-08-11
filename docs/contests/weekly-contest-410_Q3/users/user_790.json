@@ -1,0 +1,6 @@
+{
+    "username": "hR_06",
+    "submission": "class Solution {\nprivate:\n    vector<vector<vector<int>>> dp;\n    int MOD = 1e9 + 7;\n    int f(int index, int n, int min_take_1, int max_take_2, vector<int>& nums) {\n        if(index >= n) return 1;\n        if(dp[index][min_take_1][max_take_2] != -1) return dp[index][min_take_1][max_take_2];\n        int ans = 0;\n        for(int i = min_take_1; i<=nums[index]; i++) {\n            int rest_max_for_arr2 = nums[index] - i;\n            if(rest_max_for_arr2 <= max_take_2) \n                ans = (ans + f(index + 1, n, i, rest_max_for_arr2, nums)) % MOD;\n        }\n        return dp[index][min_take_1][max_take_2] = ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp = vector<vector<vector<int>>>(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        int arr_1_min = 0;\n        int arr_2_max = nums[0];\n        return f(0, n, arr_1_min, arr_2_max, nums);\n    }\n};\n",
+    "submit_ts": "1723344879",
+    "subm_id": "1351544008"
+}

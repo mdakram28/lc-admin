@@ -1,0 +1,6 @@
+{
+    "username": "CAEL0",
+    "submission": "#include <bits/stdc++.h>\n#define sz size()\n#define bk back()\n#define fi first\n#define se second\n\nusing namespace std;\ntypedef long long ll;\ntypedef pair<int, int> pii;\n\nconst int MOD = 1e9 + 7;\n\nclass Solution {\n  public:\n    int countOfPairs(vector<int> &v) {\n        int n = v.sz;\n\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        int ret = 0;\n\n        for (int i = 0; i <= v[0]; i++)\n            ret = (ret + f(1, i, v[0] - i, v, dp)) % MOD;\n\n        return ret;\n    }\n\n    int f(int idx, int x, int y, vector<int> &v, vector<vector<vector<int>>> &dp) {\n        if (idx == v.sz)\n            return 1;\n\n        if (dp[idx][x][y] != -1)\n            return dp[idx][x][y];\n\n        int ret = 0;\n\n        for (int i = max(x, v[idx] - y); i <= v[idx]; i++) {\n            int j = v[idx] - i;\n            ret = (ret + f(idx + 1, i, j, v, dp)) % MOD;\n        }\n\n        return dp[idx][x][y] = ret;\n    }\n};",
+    "submit_ts": "1723344146",
+    "subm_id": "1351527550"
+}

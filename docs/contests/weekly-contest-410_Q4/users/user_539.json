@@ -1,0 +1,6 @@
+{
+    "username": "yangwangpku",
+    "submission": "#define MOD 1000000007\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int dp[n][1024];        // the last number in arr[1] == j        \n        int prefix_sum[n][1024];        // the prefix sum of dp\n\n        memset(dp,0,n*1024*sizeof(int));\n        memset(prefix_sum,0,n*1024*sizeof(int));\n        \n        for(int j=0;j<1024;j++) {\n            dp[0][j] = (j<=nums[0]);\n            if(j>0) prefix_sum[0][j] = prefix_sum[0][j-1];\n            prefix_sum[0][j] += dp[0][j];\n        } \n        \n        for(int i=1;i<n;i++) {\n            for(int j=0;j<=nums[i];j++) {\n                if(j+min(0,nums[i-1]-nums[i]) < 0)  continue;\n                dp[i][j] = prefix_sum[i-1][j+min(0,nums[i-1]-nums[i])];\n                if(j>0) prefix_sum[i][j] = prefix_sum[i][j-1];\n                prefix_sum[i][j] += dp[i][j];\n                prefix_sum[i][j] %= MOD;\n            }\n\n        }\n        \n        int ret = 0;\n        for(int j=0;j<1024;j++) {\n            ret+=dp[n-1][j];\n            ret%=MOD;\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1723348031",
+    "subm_id": "1351610280"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "NituYadav",
+    "submission": "MOD = 10**9 + 7\n\nclass Solution:\n    def countOfPairs(self, nums):\n        n = len(nums)\n        dpp = [[[0] * 51 for _ in range(51)] for _ in range(n + 1)]\n        \n        for a1 in range(nums[0] + 1):\n            a2 = nums[0] - a1\n            dpp[1][a1][a2] = 1\n        \n        for i in range(2, n + 1):\n            for a1 in range(nums[i-1] + 1):\n                a2 = nums[i-1] - a1\n                for prev_a1 in range(a1 + 1):\n                    prev_a2 = nums[i-2] - prev_a1\n                    if prev_a2 >= a2:\n                        dpp[i][a1][a2] = (dpp[i][a1][a2] + dpp[i-1][prev_a1][prev_a2]) % MOD\n        \n        \n        res = 0\n        for a1 in range(51):\n            for a2 in range(51):\n                res = (res + dpp[n][a1][a2]) % MOD\n        \n        return res\n\n",
+    "submit_ts": "1723344474",
+    "subm_id": "1351535285"
+}

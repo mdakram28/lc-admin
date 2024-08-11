@@ -1,0 +1,6 @@
+{
+    "username": "holer",
+    "submission": "const int MOD = 1e9 + 7;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size(), mx = ranges::max(nums), dp[n][mx + 1];\n        memset(dp, -1, sizeof(dp));\n        auto dfs = [&](auto&& dfs, int i, int pre) {\n            if (i == n) return 1;\n            if (dp[i][pre] != -1) return dp[i][pre];\n            int& res = dp[i][pre]; res = 0;\n            for (int j = pre; j <= nums[i]; ++j)\n                if (i == 0 || nums[i] - j <= nums[i - 1] - pre)\n                    res = (res + dfs(dfs, i + 1, j)) % MOD;\n            return res;\n        };\n        return dfs(dfs, 0, 0);\n    }\n};",
+    "submit_ts": "1723344820",
+    "subm_id": "1351542742"
+}

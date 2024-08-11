@@ -1,0 +1,6 @@
+{
+    "username": "Aryanjiyani007",
+    "submission": "#define MOD 1000000007\nclass Solution {\npublic:\n   int n;\n    vector<int> nums;\n    long long dp[2001][51];\n\n    long long dfs(int index, int prevArr1) {\n        if (index == n) return 1;\n\n        if (dp[index][prevArr1] != -1) return dp[index][prevArr1];\n\n        long long count = 0;\n\n        for (int arr1 = prevArr1; arr1 <= nums[index]; ++arr1) {\n            int arr2 = nums[index] - arr1;\n\n            if (index == 0 || arr2 <= (nums[index-1] - prevArr1)) {\n                count = (count + dfs(index + 1, arr1)) % MOD;\n            }\n        }\n\n        return dp[index][prevArr1] = count;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        this->nums = nums;\n        this->n = nums.size();\n\n        memset(dp, -1, sizeof(dp));\n        return dfs(0, 0);\n    }\n};",
+    "submit_ts": "1723344814",
+    "subm_id": "1351542596"
+}

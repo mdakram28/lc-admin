@@ -1,0 +1,6 @@
+{
+    "username": "wanghy012",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        base = nums[0]\n        n = len(nums)\n        for i in range(1,n):\n            base -= max(nums[i-1]-nums[i],0)\n        #n+base choose k\n        k = min(base, n)\n        if k < 0:\n            return 0\n        if k == 0:\n            return 1\n        prod = list(range(n+base - k + 1, n+base + 1))\n        \n        for i in range(1,k+1):\n            for j in range(k):\n                if i == 1:\n                    break\n                c = self.gcd(i,prod[j])\n                i = i//c\n                prod[j] = prod[j]//c\n        res = 1\n        for p in prod:\n            res = (res * p) % (10**9 + 7)\n        return res\n\n    \n    def gcd(self,m,n):\n        if m==1 or n == 1:\n            return 1\n        while m > 0 and n > 0:\n            if m > n:\n                m = m%n\n            else:\n                n = n%m\n        return max(m,n)",
+    "submit_ts": "1723345660",
+    "subm_id": "1351560564"
+}

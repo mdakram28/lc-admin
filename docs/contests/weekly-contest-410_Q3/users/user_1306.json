@@ -1,0 +1,6 @@
+{
+    "username": "killerpajji",
+    "submission": "class Solution {\npublic:\n    int dp[2001][52][52];\n    int mod = 1e9+7;\n    int find(int idx,int p1,int p2,vector<int>& nums){\n        int n = nums.size();\n        \n        if(idx>=n) return 1;\n        \n        if(dp[idx][p1][p2]!=-1) return dp[idx][p1][p2];\n        \n        int ans = 0;\n        \n        int n1 = p1;\n        while(n1<=nums[idx]){\n            int n2 = nums[idx]-n1;\n            if(n2<=p2) ans += find(idx+1,n1,n2,nums);\n            ans = ans%mod;\n            if(ans<0) ans += mod;\n            \n            n1++;\n        }\n        \n        ans = ans%mod;\n        if(ans<0) ans += mod;\n        \n        return dp[idx][p1][p2] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        int ans = find(0,0,51,nums);\n        return ans;\n    }\n};",
+    "submit_ts": "1723345675",
+    "subm_id": "1351560901"
+}

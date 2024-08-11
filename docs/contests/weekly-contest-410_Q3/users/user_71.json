@@ -1,0 +1,6 @@
+{
+    "username": "omuraisu",
+    "submission": "from typing import *\n\nmodulo = int(1e9 + 7)\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        dp = [[0] * 51 for i in range(n)]\n\n        # step.1 init\n        for i in range(nums[0] + 1):\n            dp[0][i] = 1\n        \n        # step.2 dp\n        for i in range(1, n):\n            for current in range(nums[i] + 1):\n                for previous in range(nums[i - 1] + 1):\n                    prev_1, prev_2 = previous, nums[i - 1] - previous\n                    cur_1, cur_2 = current, nums[i] - current\n                    if prev_1 > cur_1 or prev_2 < cur_2:\n                        continue\n                    dp[i][current] = (dp[i][current] + dp[i - 1][previous]) % modulo\n        \n        # step.3 answer\n        return sum(dp[-1]) % modulo\n",
+    "submit_ts": "1723344238",
+    "subm_id": "1351529790"
+}

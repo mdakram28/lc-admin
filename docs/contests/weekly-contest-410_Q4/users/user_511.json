@@ -1,0 +1,6 @@
+{
+    "username": "nikhilbabar",
+    "submission": "class Solution {\n    \n    int MOD = (int)1e9 + 7;\n\n    public int mod(long a, long b){\n        return (int)((a + b) % MOD);\n    }\n\n    public int countOfPairs(int[] nums) {\n        int[] dp = new int[1002];\n        int n = nums.length;\n\n        for(int i = nums[n-1] ; i >= 0 ; i--){\n            dp[i] = dp[i+1] + 1;\n        }\n        // System.out.println(Arrays.toString(dp));\n\n        for(int i = n-2 ; i >= 0 ; i--){\n            int[] ndp = new int[1002];\n\n            for(int j = nums[i] ; j >= 0 ; j--){\n                int a = j;\n                int b = nums[i]-a;\n\n                int b2 = nums[i+1]-a;\n\n                if(b2 > b){\n                    a += b2-b;\n                }\n\n                if(a <= 1000){\n                    ndp[j] = mod(ndp[j+1], dp[a]);\n                }\n            }\n\n            dp = ndp;\n        }\n\n\n        return dp[0];\n    }\n}",
+    "submit_ts": "1723347494",
+    "subm_id": "1351599871"
+}

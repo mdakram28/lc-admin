@@ -1,0 +1,6 @@
+{
+    "username": "tianyichen",
+    "submission": "class Solution {\npublic:\n    int mem[2000][51];\n    const int m=1e9+7;\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        for(int i=1;i<n;++i)fill(mem[i],mem[i]+51,0);\n        for(int j=0;j<=nums[0];++j)mem[0][j]=1;\n        for(int i=1;i<n;++i){\n            for(int j=0;j<=nums[i];++j){\n                for(int k=0;k<=min(j,nums[i-1]-nums[i]+j);++k){\n                    mem[i][j]+=mem[i-1][k];\n                    if(mem[i][j]>=m)mem[i][j]-=m;\n                }\n               // cout<<\"mem\"<<i<<' '<<j<<' '<<mem[i][j]<<endl;\n            }\n        }\n        long long ans=0;\n        for(int j=0;j<=nums[n-1];++j)ans+=mem[n-1][j];\n        return ans%m;\n    }\n};",
+    "submit_ts": "1723345353",
+    "subm_id": "1351553946"
+}

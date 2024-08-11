@@ -1,0 +1,6 @@
+{
+    "username": "kartik_sa",
+    "submission": "class Solution {\npublic:\nint mod = 1e9 + 7;\nint ans = 0;\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int pre1 = -1, pre2 = -1;\n        vector<vector<vector<int>>>dp(n, vector<vector<int>>(55, vector<int>(55, -1)));\n        return solve(0, nums, pre1, pre2,dp);\n    }\n    int solve(int ind , vector<int>&nums, int pre1, int pre2, \n    vector<vector<vector<int>>>&dp){\n        if(ind == nums.size()){\n            return 1;\n        }   \n        if(dp[ind][pre1 + 1][pre2 + 1]!= -1)return dp[ind][pre1+1][pre2+1];\n        int cnt = 0;\n        \n        for(int a = 0; a <= nums[ind]; a++){\n            if(pre1 == -1 || pre1 <= a){\n                int b = nums[ind] - a;\n                if(pre2 == -1 || pre2 >= b){\n                    cnt = (cnt + solve(ind + 1, nums, a, b, dp)% mod) % mod;\n                }\n            }\n        }\n        return dp[ind][pre1 + 1][pre2+1] =  cnt;\n    }\n};",
+    "submit_ts": "1723346351",
+    "subm_id": "1351575648"
+}

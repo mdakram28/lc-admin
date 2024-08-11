@@ -1,0 +1,6 @@
+{
+    "username": "ayush_0077",
+    "submission": "class Solution {\n    private int mod = 1000000007;\n    long[][][] dp;\n    int n;\n\n    private long solve(int i, int prev1, int prev2, int[] nums){\n        if(i == n) return 1;\n\n        if(dp[i][prev1][prev2] != -1) return dp[i][prev1][prev2];\n\n        long count = 0;\n        if(i == 0){\n            for(int dig=0; dig<=nums[i]; dig++)\n                count = (count + solve(i+1, dig, nums[i]-dig, nums))%mod;\n        }else{\n            for(int dig=0; dig<=nums[i]; dig++){\n                int cur1 = dig, cur2 = nums[i]-dig;\n                if(cur1 >= prev1 && cur2 <= prev2){\n                    count = (count + solve(i+1, dig, nums[i]-dig, nums))%mod;\n                }\n            }\n        }\n\n        return dp[i][prev1][prev2] = count%mod;\n    }\n\n    public int countOfPairs(int[] nums) {\n        n = nums.length;\n        dp = new long[n+1][51][51];\n        for(int i=0; i<n+1; i++)\n            for(int j=0; j<51; j++)\n                for(int k=0; k<51; k++)\n                    dp[i][j][k] = -1;\n\n        return (int)solve(0, 0, 0, nums);\n    }\n}",
+    "submit_ts": "1723347325",
+    "subm_id": "1351596549"
+}

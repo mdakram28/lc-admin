@@ -1,0 +1,6 @@
+{
+    "username": "madhur2711",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    long long cop(vector<int>&nums,vector<vector<long long> >&dp,int i,int prev){\n        if(i==nums.size()){\n            return 1;\n        }\n        if(dp[i][prev+1]!=-1){\n            return dp[i][prev+1]%mod;\n\n        }\n        long long ans=0;\n        if(prev==-1){\n            \n            for(int k=0;k<=nums[i];k++){\n                ans=(ans%mod+cop(nums,dp,i+1,k)%mod)%mod;\n\n            }\n            \n\n        } else{\n            for(int k=prev;k<=nums[i];k++){\n                if((nums[i-1]-prev)>=(nums[i]-k)){\n                    ans=(ans%mod+cop(nums,dp,i+1,k)%mod)%mod;\n                }\n            }\n\n        }\n        return dp[i][prev+1]=ans%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<long long> >dp(nums.size(),vector<long long>(52,-1));\n        return cop(nums,dp,0,-1)%mod;\n\n\n    }\n};",
+    "submit_ts": "1723344698",
+    "subm_id": "1351540116"
+}

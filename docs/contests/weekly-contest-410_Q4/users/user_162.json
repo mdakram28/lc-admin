@@ -1,0 +1,6 @@
+{
+    "username": "LouisCheng",
+    "submission": "class Solution:\n    def countOfPairs(self, nums) -> int:\n        MOD = int(1e9) + 7\n        pairs = [[] for _ in range(len(nums))]\n        for i in range(len(nums)):\n            for j in range(nums[i] + 1):\n                pairs[i].append([j, nums[i] - j, 0])\n        pairs[0] = [[x[0], x[1], 1] for x in pairs[0]]\n\n        # print(pairs)\n\n        for i in range(1, len(pairs)):\n            running = [0] * (max(len(pairs[i]), len(pairs[i - 1])) + 1)\n            for j in range(len(pairs[i - 1])):\n                index = max(pairs[i - 1][j][0], len(pairs[i]) - pairs[i - 1][j][1] - 1)\n                running[index] = (running[index] + pairs[i - 1][j][2]) % MOD\n\n            sum1 = 0\n            for j in range(len(pairs[i])):\n                sum1 = (sum1 + running[j]) % MOD\n                pairs[i][j][2] = (sum1 + pairs[i][j][2]) % MOD\n\n                # for k in range(len(pairs[i])):\n                #     if pairs[i][k][0] >= pairs[i - 1][j][0] and pairs[i][k][1] <= pairs[i - 1][j][1]:\n                #         pairs[i][k][2] = (pairs[i][k][2] + pairs[i - 1][j][2]) % MOD\n        # print(pairs)\n        \n        return (sum([x[2] for x in pairs[-1]])) % MOD\n        \n# print(Solution().countOfPairs([2, 3, 2]))",
+    "submit_ts": "1723345929",
+    "subm_id": "1351566396"
+}

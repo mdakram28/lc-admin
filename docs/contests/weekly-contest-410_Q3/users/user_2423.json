@@ -1,0 +1,6 @@
+{
+    "username": "androiprogrammers",
+    "submission": "class Solution {\n    int MOD = 1_000_000_007;\n    int[][][] dp;\n    private int solve(int[] nums,int idx,int p1,int p2){\n        if(idx>=nums.length){\n            return 1;\n        }\n\n        if(dp[idx][p1][p2]!=-1){\n            return dp[idx][p1][p2];\n        }\n\n        int ans = 0;\n        for(int i=0;i<=nums[idx];i++){\n            int a1=i;\n            int a2=nums[idx]-i;\n            if(a1>=p1&&a2<=p2){\n                ans=(ans+solve(nums,idx+1,a1,a2))%MOD;\n            }\n        }\n        dp[idx][p1][p2]=ans;\n        return ans;\n    }\n\n    public int countOfPairs(int[] nums){\n        int n = nums.length;\n        dp = new int[n][51][51];\n        for(int i=0;i<n;i++){\n            for(int j=0;j<51;j++){\n                for(int k=0;k<51;k++){\n                    dp[i][j][k]=-1;\n                }\n            }\n        }\n        return solve(nums,0,0,50);\n    }\n}\n",
+    "submit_ts": "1723346696",
+    "subm_id": "1351583233"
+}

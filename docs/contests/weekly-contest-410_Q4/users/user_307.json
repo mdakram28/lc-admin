@@ -1,0 +1,6 @@
+{
+    "username": "Xiao__Jun",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int SIZE = nums.size(), MOD = 1e9 + 7;\n        vector<vector<int>> dp(SIZE,vector<int>());\n        vector<int> acc(1001, 1);\n        int res = 0;\n        \n        for(int i = 0;i < SIZE;i++)\n            dp[i] = vector<int>(nums[i] + 1);\n        \n        for(int i = 0;i < dp[0].size();i++)\n            dp[0][i] = 1;\n        \n        for(int i = 1;i <= 1000;i++)\n            acc[i]+= acc[i - 1];\n        \n        for(int i = 1;i < SIZE;i++) {\n            for(int j = 0;j <= nums[i];j++) {\n                int max1 = j, max2 = nums[i - 1] - (nums[i] - j);\n                int target = min(max1, max2);\n                if(target < 0)\n                    continue;\n                dp[i][j] = acc[target];\n            }\n            acc = vector<int>(1001,0);\n            acc[0] = dp[i][0];\n            for(int j = 1;j <= nums[i];j++)\n                acc[j] = (dp[i][j] + acc[j - 1]) % MOD;\n        }\n        \n        for(int i = 0;i <= nums.back();i++)\n            res = (res + dp.back()[i]) % MOD;\n        \n        return res;\n    }\n};\n/*\nnums[i] - t2 >= nums[i - 1] - j\nnums[i] - (nums[i - 1] - j) >= t2\n*/",
+    "submit_ts": "1723345503",
+    "subm_id": "1351557196"
+}

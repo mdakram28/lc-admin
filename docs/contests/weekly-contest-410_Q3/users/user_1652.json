@@ -1,0 +1,6 @@
+{
+    "username": "rushikesh1975kadam",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    int n;\n      unordered_map<int, unordered_map<int, unordered_map<int, int>>> memo;\n      int countPairs(int index, int last_arr1, int last_arr2, vector<int>& nums) {\n        if (index == n) {\n            return 1;\n        }\n        \n        if (memo[index][last_arr1].find(last_arr2) != memo[index][last_arr1].end()) {\n            return memo[index][last_arr1][last_arr2];\n        }\n        \n        int result = 0;\n        for (int x = last_arr1; x <= nums[index]; ++x) {\n            int y = nums[index] - x;\n            if (y <= last_arr2) {\n                result = (result + countPairs(index + 1, x, y, nums)) % MOD;\n            }\n        }\n        memo[index][last_arr1][last_arr2] = result;\n        return result;\n    }\n    int countOfPairs(vector<int>& nums) {\n          n = nums.size();\n        return countPairs(0, 0, nums[0], nums);\n    }\n};",
+    "submit_ts": "1723346381",
+    "subm_id": "1351576343"
+}

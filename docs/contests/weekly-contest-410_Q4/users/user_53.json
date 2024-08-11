@@ -1,0 +1,6 @@
+{
+    "username": "CAEL0",
+    "submission": "#include <bits/stdc++.h>\n#define sz size()\n#define bk back()\n#define fi first\n#define se second\n\nusing namespace std;\ntypedef long long ll;\ntypedef pair<int, int> pii;\n\nconst int MOD = 1e9 + 7;\n\nclass Solution {\n  public:\n    int countOfPairs(vector<int> &v) {\n        int n = v.sz;\n\n        vector<vector<int>> dp(n, vector<int>(1001));\n        vector<vector<int>> pre(n, vector<int>(1001));\n\n        for (int x = 0; x <= v[n - 1]; x++)\n            dp[n - 1][x] = 1;\n\n        for (int i = n - 2; i >= 0; i--) {\n            pre[i + 1][0] = dp[i + 1][0];\n            for (int x = 1; x <= 1000; x++)\n                pre[i + 1][x] = (dp[i + 1][x] + pre[i + 1][x - 1]) % MOD;\n\n            for (int x = 0; x <= v[i]; x++) {\n                dp[i][x] = pre[i + 1][v[i + 1]];\n\n                int k = max(x, v[i + 1] - v[i] + x);\n                if (k > 0)\n                    dp[i][x] = (dp[i][x] - pre[i + 1][k - 1] + MOD) % MOD;\n            }\n        }\n\n        int ret = 0;\n\n        for (int x = 0; x <= v[0]; x++)\n            ret = (ret + dp[0][x]) % MOD;\n\n        return ret;\n    }\n};",
+    "submit_ts": "1723344855",
+    "subm_id": "1351543455"
+}

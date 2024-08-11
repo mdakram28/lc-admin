@@ -1,0 +1,6 @@
+{
+    "username": "Sayan_2908",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n    #define vvvi vector<vector<vector<int>>>\n    \n    int zz(int ind, int preva1, int preva2, vector<int>& nums, vvvi& dp) {\n        if (ind >= nums.size()) \n        return 1;\n\n        if (dp[ind][preva1][preva2] != -1) \n        return dp[ind][preva1][preva2];\n        \n        int ans = 0;\n        for (int i = preva1; i <= nums[ind]; i++) {\n            if (i >= preva1 && (nums[ind] - i) <= preva2) {\n                ans = (ans + zz(ind + 1, i, nums[ind] - i, nums, dp)) % mod;\n            }\n        }\n        return dp[ind][preva1][preva2] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int maxval = *max_element(nums.begin(), nums.end());\n        vvvi dp(nums.size(), vector<vector<int>>(maxval + 1, vector<int>(maxval + 1, -1)));\n        return zz(0, 0, maxval, nums, dp);\n    }\n};\n",
+    "submit_ts": "1723346024",
+    "subm_id": "1351568486"
+}

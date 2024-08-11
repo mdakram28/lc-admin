@@ -1,0 +1,6 @@
+{
+    "username": "DenisGubar",
+    "submission": "static int F[2'000][51];\nstatic int const MOD = 1'000'000'007;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int const N = nums.size();\n        int const M = *max_element(nums.begin(), nums.end());\n        long long result = 0;\n        memset(F, 0, sizeof(F));\n        for (int j = 0; j <= M; ++j)\n            F[0][j] = 1;\n        for (int i = 1; i < N; ++i)\n            for (int j = 0; j <= M; ++j)\n                if (F[i - 1][j])\n                {\n                    int const k = nums[i - 1] - j;\n                    for (int nj = j, nk = nums[i] - nj; nj <= M && nk >= 0; ++nj, --nk)\n                        if (nk <= k)\n                        {\n                            F[i][nj] += F[i - 1][j];\n                            if (F[i][nj] >= MOD)\n                                F[i][nj] -= MOD;\n                        }\n                }\n        for (int j = 0; j <= M; ++j)\n            result += F[N - 1][j];\n        return result % MOD;\n    }\n};\n",
+    "submit_ts": "1723345730",
+    "subm_id": "1351562101"
+}

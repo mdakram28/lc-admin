@@ -1,0 +1,6 @@
+{
+    "username": "radhamadhab_23",
+    "submission": "class Solution {\nprivate:\n    static const int MOD = 1e9+7;;\n    vector<vector<vector<int>>> dp;\n    int search(vector<int>& nums, int idx, int previous1, int previous2) {\n        if (idx >= nums.size()) {\n            return 1;\n        }\n        if (dp[idx][previous1][previous2] != -1) {\n            return dp[idx][previous1][previous2];\n        }\n        int ans = 0;\n        for (int i = 0; i <= nums[idx]; i++) {\n            int arrvalue = i;\n            int arrvalue2 = nums[idx] - i;\n            if (arrvalue >= previous1 && arrvalue2 <= previous2) {\n                ans = (ans + search(nums, idx + 1, arrvalue, arrvalue2)) % MOD;\n            }\n        }\n        dp[idx][previous1][previous2] = ans;\n        return ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp = vector<vector<vector<int>>>(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return search(nums, 0, 0, 50);\n    }\n};\n",
+    "submit_ts": "1723347285",
+    "subm_id": "1351595728"
+}

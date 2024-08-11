@@ -1,0 +1,6 @@
+{
+    "username": "abhisri18",
+    "submission": "class Solution {\npublic:\n    vector<vector<int>> dp;\n    int mod = 1e9+7;\n    long long rec(vector<int>& nums,int index,int pG,int pL,int n) {\n        if(index == n) {\n            return 1;\n        }\n        if(dp[index][pG]!=-1) return dp[index][pG];\n\n\n        long long ans  = 0;\n        // cout<<index<<\" \"<<pG<<\" \"<<pL<<endl;\n\n        for(int i=0;i<=nums[index];i++){\n            int nG = i;\n            int nL = nums[index] - i ;\n            if(nG >= pG && nL <= pL ) {\n                ans += rec(nums,index+1,nG,nL,n);\n                ans = ans%mod;\n            }\n        }\n\n        return dp[index][pG] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n\n        dp.resize(n,vector<int>(51,-1));\n\n        return rec(nums,0,0,nums[0]+1,n)%mod;\n    }\n};",
+    "submit_ts": "1723347167",
+    "subm_id": "1351593329"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "himanshuarya3110",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1000000007;\n    vector<vector<vector<int>>> dp;\n\n    int f(const std::vector<int>& nums, int i, int p1, int p2) {\n        if (i >= nums.size()) {\n            return 1;\n        }\n        \n        if (dp[i][p1][p2] != -1) {\n            return dp[i][p1][p2];\n        }\n        \n        int res = 0;\n        for (int x = 0; x <= nums[i]; ++x) {\n            int y = nums[i] - x;\n            if (x >= p1 && y <= p2) {\n                res = (res + f(nums, i + 1, x, y)) % MOD;\n            }\n        }\n        \n        dp[i][p1][p2] = res;\n        return res;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp = vector<vector<vector<int>>>(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return f(nums, 0, 0, 50);\n    }\n};",
+    "submit_ts": "1723346773",
+    "subm_id": "1351584852"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "premsukh_2510",
+    "submission": "typedef long long int ;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        int dp[n+1][51];\n        vector<int> st(n,0);\n        int mod=1e9+7;\n        memset(dp,0,sizeof(dp));\n        int ans=0;\n        for(int i=0;i<n;i++){\n            if(i==0){\n                for(int j=0;j<=nums[i];j++){\n                    dp[i][j]=1;\n                }\n            }\n            else{\n                int diff= nums[i]-nums[i-1];\n                if(diff>=0){\n                    st[i]=st[i-1]+diff;\n                }\n                else{\n                    st[i]=st[i-1];\n                    diff=0;\n                }\n                int sum=0;\n                vector<int> fif(51,0);\n                for(int j=0;j<=50;j++){\n                    sum+=dp[i-1][j];\n                    sum%=mod;\n                    fif[j]=sum;\n                }\n                for(int j=st[i];j<=nums[i];j++){\n                    \n                    dp[i][j]=fif[j-diff];\n                   \n                }   \n            }\n        }\n        for(int i=0;i<=50;i++){\n            ans+=dp[n-1][i];\n            ans%=mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723347630",
+    "subm_id": "1351602524"
+}

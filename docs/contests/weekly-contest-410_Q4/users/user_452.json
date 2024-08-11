@@ -1,0 +1,6 @@
+{
+    "username": "dibas1",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        /*\n        \n        5 5 5 5\n              0 1\n              1 1\n              2 1\n              3 1\n              4 1\n              5 1\n              \n        \n        \n        */\n        int md = 1000000007;\n        int t = 0;\n        for(auto &c:nums) t = max(c,t);\n        t++;\n        vector<int> d(t,0);\n        for(int i=0;i<=nums.back();++i) d[i]=1;\n        for(int j=t-2;j>=0;--j) {d[j]+=d[j+1];d[j]%=md;}\n        int n = nums.size();\n        for(int i=n-2;i>=0;--i){\n            vector<int> p(t,0);\n            int k = nums[i+1]-nums[i];\n            if(k<0) k= 0;\n            for(int j=t-1-k;j>=0;--j){\n                p[j]=d[j+k];\n            }\n            \n                // cout << p[t-1] << \" \";\n            for(int j=t-2;j>=0;--j) {\n                // cout << p[j] << \" \";\n                p[j]+=p[j+1];p[j]%=md;}\n            // cout << endl;\n            d = p;\n        }\n        \n            // for(int j=t-2;j>=0;--j) {\n            //     // cout << p[j] << \" \";\n            //     d[j]+=d[j+1];d[j]%=md;}\n        return d[0];\n    }\n};",
+    "submit_ts": "1723347330",
+    "subm_id": "1351596646"
+}

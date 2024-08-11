@@ -1,0 +1,6 @@
+{
+    "username": "sparklehsr",
+    "submission": "/*\nclearly it is dp but i want to try doing iteratively but its contest so for fast maybe we can think of something else\nbasically we just need to check if the current >= prev element or current <= prev element while iterating through the indices\nprev default can be 0 and 51\n*/\nclass Solution {\npublic:\n    int mod = 1000000007;\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<long long>>> dp(n, vector<vector<long long>>(52, vector<long long>(52, -1)));\n        return dfs(0, nums, 0, nums[0], dp);\n    }\n\n    long long dfs(int ind, vector<int>& nums, int arr1, int arr2, vector<vector<vector<long long>>>& dp){\n        if(ind == nums.size()) return 1;\n        if(dp[ind][arr1][arr2] != -1) return dp[ind][arr1][arr2];\n\n        long long ans = 0;\n        for(int i = arr1; i <= nums[ind]; i++){\n            int j = nums[ind] - i;\n            if(j <= arr2)\n                ans = (ans + dfs(ind + 1, nums, i, j, dp)) % mod;\n        }\n        dp[ind][arr1][arr2] = ans;\n        return ans;\n    }\n};\n",
+    "submit_ts": "1723346237",
+    "subm_id": "1351573184"
+}

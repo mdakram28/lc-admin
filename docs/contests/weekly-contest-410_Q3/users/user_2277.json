@@ -1,0 +1,6 @@
+{
+    "username": "umarmohd",
+    "submission": "class Solution {\n\n    private static final int MOD = 1_000_000_007;\n    private static Map<String, Integer> memo;\n\n    public int countOfPairs(int[] arr) {\n        memo = new HashMap<>();\n        return generatePairs(arr, 0, 0, Integer.MAX_VALUE);\n    }\n\n    private static int generatePairs(int[] arr, int index, int prev1, int prev2) {\n        if (index == arr.length) {\n            return 1;\n        }\n\n        String key = index + \",\" + prev1 + \",\" + prev2;\n        if (memo.containsKey(key)) {\n            return memo.get(key);\n        }\n\n        int count = 0;\n        for (int i = prev1; i <= arr[index]; i++) {\n            int j = arr[index] - i;\n            if (j <= prev2) {\n                count = (count + generatePairs(arr, index + 1, i, j)) % MOD;\n            }\n        }\n\n        memo.put(key, count);\n        return count;\n    }\n}",
+    "submit_ts": "1723347141",
+    "subm_id": "1351592791"
+}

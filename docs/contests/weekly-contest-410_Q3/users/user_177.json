@@ -1,0 +1,6 @@
+{
+    "username": "bttsv",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size(), CAP = 0, MOD = 1000000007;\n        for (int x : nums)\n            CAP = max(CAP, x);\n        vector<int> a(CAP + 1, 0), s(CAP + 1, 0);\n        for (int i = 0; i <= nums[0]; i++)\n            a[i] = 1;\n        s[0] = a[0];\n        for (int i = 1; i <= CAP; i++)\n            s[i] = (s[i - 1] + a[i]) % MOD;\n        for (int i = 1; i < n; i++) {\n            a = vector<int>(CAP + 1, 0);\n            for (int j = 0; j <= nums[i]; j++) {\n                int low = nums[i - 1] - nums[i] + j;\n                a[j] = low >= 0 ? s[min(low, j)] : 0;\n            }\n            s[0] = a[0];\n            for (int j = 1; j <= CAP; j++)\n                s[j] = (s[j - 1] + a[j]) % MOD;\n        }\n        return s[CAP];\n    }\n};",
+    "submit_ts": "1723346023",
+    "subm_id": "1351568453"
+}

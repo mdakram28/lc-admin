@@ -1,0 +1,6 @@
+{
+    "username": "aditya211703",
+    "submission": "class Solution {\npublic:\n    long long int mod=1e9+7;\n    long long int f(int k,int i,int j,vector<int>&nums,vector<vector<vector<int>>>&dp){\n        if(k>=nums.size()) return 1;\n        else{\n            if(dp[k][i][j]!=-1){\n                return dp[k][i][j];\n            }\n            else{\n                dp[k][i][j]=0;\n                for(int x=i;x<=nums[k];x++){\n                    for(int y=j;y>=0;y--){\n                        if(x+y==nums[k]){\n                            dp[k][i][j]=(dp[k][i][j]%mod+f(k+1,x,y,nums,dp)%mod)%mod;\n                        }\n                    }\n                }\n            }\n            // cout<<i<<\" \"<<j<<\" \"<<k<<\" \"<<dp[k][i][j]<<endl;\n            return dp[k][i][j]%mod;\n        }\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<vector<int>>>dp(n,vector<vector<int>>(51,vector<int>(51,-1)));\n        long long int sum=f(0,0,nums[0],nums,dp);\n        return (int)(sum%mod);\n    }\n};",
+    "submit_ts": "1723346713",
+    "subm_id": "1351583555"
+}

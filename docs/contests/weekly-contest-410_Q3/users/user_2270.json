@@ -1,0 +1,6 @@
+{
+    "username": "AmolMittal",
+    "submission": "#define MOD 1000000007\nclass Solution {\npublic:\n  int helper(vector<int>& nums,int i,int prev_val,vector<vector<long long>> &dp,int n){\n    if(i==n){\n      return 1;\n    }\n    if(dp[i][prev_val]!=-1){\n      return dp[i][prev_val];\n    }\n    long long ans=0;\n    for(int j=0;j<=nums[i];j++){\n      int val1=j;\n      int val2=nums[i]-j;\n      if(i==0){\n        ans=((ans%MOD)+(helper(nums,i+1,val1,dp,n)%MOD))%MOD;\n      }\n      else{\n        if(val1>=prev_val && val2<=nums[i-1]-prev_val){\n          ans=((ans%MOD)+(helper(nums,i+1,val1,dp,n)%MOD))%MOD;\n        }\n      }\n    }\n\n    return dp[i][prev_val]=(ans%MOD);\n\n  }\n\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<long long>> dp(n,vector<long long>(51,-1));\n        return (helper(nums,0,0,dp,n)%MOD);\n    }\n};",
+    "submit_ts": "1723346534",
+    "subm_id": "1351579683"
+}

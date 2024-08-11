@@ -1,0 +1,6 @@
+{
+    "username": "anuragmudgil00",
+    "submission": "class Solution {\npublic:\n    int count(int curr, int last, vector<int> &nums, vector<vector<int>> &dp){\n        if(curr>=nums.size()){\n            return 1;\n        }\n        if(last>nums[curr]){\n            return 0 ;\n        }\n        if(dp[curr][last]!=-1){\n            return dp[curr][last] ;\n        }\n        int last2 = 10000 ;\n        if(curr>=1){\n            last2 = nums[curr-1] - last ;\n        }\n        long long int s = 0LL ;\n        int M = 1e9 + 7 ;\n        for(int i=last;i<=nums[curr];i++){\n            if(nums[curr]-i>last2){\n                continue ;\n            }\n            s = s + 1LL*count(curr+1, i, nums, dp) ;\n            s = s%M ;\n        }\n        return dp[curr][last]=s;\n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<int>> dp(nums.size()+1, vector<int>(60, -1)) ;\n        return count(0, 0, nums, dp) ;\n    }\n};",
+    "submit_ts": "1723344406",
+    "subm_id": "1351533689"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "speedcuberayush",
+    "submission": "MOD = int(1e9 + 7)\n\nclass Solution:\n    def __init__(self):\n        self.dp = []\n        self.nums = []\n        \n    def compute(self, idx, start, end):\n        if idx >= len(self.nums):\n            return 1\n        if self.dp[idx][start][end] != -1:\n            return self.dp[idx][start][end]\n\n        result = 0\n        target = self.nums[idx]\n\n        for i in range(start, target + 1):\n            j = target - i\n            if 0 <= j <= end:\n                result = (result + self.compute(idx + 1, i, j)) % MOD\n        \n        self.dp[idx][start][end] = result\n        return result\n\n    def countOfPairs(self, input):\n        self.nums = input\n        size = len(self.nums)\n        self.dp = [[[-1] * 51 for _ in range(51)] for _ in range(size)]\n        return self.compute(0, 0, self.nums[0])\n",
+    "submit_ts": "1723346927",
+    "subm_id": "1351588172"
+}

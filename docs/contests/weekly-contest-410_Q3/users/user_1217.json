@@ -1,0 +1,6 @@
+{
+    "username": "Prakash_436",
+    "submission": "class Solution {\npublic:\n\n    int MOD = 1e9+7;\n\n    long long findp(vector<int>& nums, int pre, vector<vector<long long>>&dp, int id){\n        if(id==nums.size()){\n            return 1;\n        }\n        if(dp[id][pre]!=-1){\n            return dp[id][pre];\n        }\n        long long temp = 0;\n        for(int i = pre; i<=nums[id]; i++){\n            if(nums[id]-i<=nums[id-1]-pre){\n                temp+=findp(nums,i,dp,id+1);\n                temp%=MOD;\n            }\n        }\n        return dp[id][pre] = temp;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<long long>> dp(n,vector<long long>(50+1,-1));\n        long long out = 0;\n        for(int i = 0; i<=nums[0]; i++){\n            out+=findp(nums,i,dp,1);\n            out%=MOD;\n        }\n        return out;\n    }\n};",
+    "submit_ts": "1723345399",
+    "subm_id": "1351554919"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "OceanicTrident16",
+    "submission": "class Solution {\npublic:\n    long long int mod = 1e9+7;\n    vector<vector<vector<long long int>>>dp;\n    long long int solve(int i, int pre, int pre2, vector<int> &nums){\n        int n=nums.size();\n        if(i==n) return 1;\n        if(dp[i][pre][pre2] != -1) return dp[i][pre][pre2];\n        long long int res = 0;\n        for(int curr = pre;curr <= min(50, nums[i]);curr++){\n            int rem = nums[i]-curr;\n            if(rem <= pre2){\n                res += solve(i+1, curr, rem, nums)%mod;\n            }\n        }\n        return dp[i][pre][pre2]=res%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        dp.resize(n, vector<vector<long long int>>(51, vector<long long int>(51, -1)));\n        long long int ans = solve(0, 0, 50, nums)%mod;\n        return (int)ans;\n    }\n};",
+    "submit_ts": "1723347052",
+    "subm_id": "1351590875"
+}

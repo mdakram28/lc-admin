@@ -1,0 +1,6 @@
+{
+    "username": "szoro",
+    "submission": "#define lln long long\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& a) {\n        int n = a.size();\n        lln mod = 1e9+7;\n        lln dp[n+1][1002];\n        memset(dp,0,sizeof dp);\n        for(int i=0;i<n;i++){\n\n            if(i==0){\n                for(int j=0;j<=a[i];j++){\n                    dp[0][j]++;\n                    \n                }\n            }\n            else{\n                for(int k = 0;k<=a[i];k++){\n                    // taking cur as sp, a[i]-sp, \n                    int z = a[i-1]-a[i]+k;\n                    if(z<0)continue;\n                    dp[i][k] = (dp[i][k]+dp[i-1][min(z,k)])%mod;\n                    \n                }\n                \n            }\n            for(int j=1;j<=1000;j++){\n                    dp[i][j]+=dp[i][j-1];\n                    dp[i][j]%=mod;\n            }\n\n            \n        }\n\n        \n        return dp[n-1][1000];\n    }\n};",
+    "submit_ts": "1723346145",
+    "subm_id": "1351571213"
+}

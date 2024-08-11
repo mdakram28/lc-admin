@@ -1,0 +1,6 @@
+{
+    "username": "tbharath07",
+    "submission": "class Solution {\n    int MOD = 1e9 + 7;\n    std::unordered_map<int, int> memo;\n\n// Recursive function to count valid pairs\nint countValidPairs(const std::vector<int>& nums, int index, int prevArr1) {\n    // Base case: If we processed all elements\n    if (index == nums.size()) return 1;\n\n    // Create a unique key for memoization\n    int key = index * 1000 + prevArr1;\n    if (memo.find(key) != memo.end()) return memo[key];\n\n    // Initialize count of valid pairs\n    int count = 0;\n\n    // Iterate over all possible values for arr1[index]\n    for (int arr1 = prevArr1; arr1 <= nums[index]; ++arr1) {\n        int arr2 = nums[index] - arr1;\n\n        // Check if arr2 maintains the non-increasing property\n        if (index == 0 || arr2 <= nums[index - 1] - prevArr1) {\n            count = (count + countValidPairs(nums, index + 1, arr1)) % MOD;\n        }\n    }\n\n    // Store result in memo table\n    memo[key] = count;\n    return count;\n}\npublic:\n    int countOfPairs(vector<int>& nums) {\n        return countValidPairs(nums, 0, 0);\n    }\n};",
+    "submit_ts": "1723345753",
+    "subm_id": "1351562599"
+}

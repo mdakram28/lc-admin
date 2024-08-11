@@ -1,0 +1,6 @@
+{
+    "username": "varkatkl",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, 0, sizeof dp);\n        memset(dp2, 0, sizeof dp2);\n\n        const int N = nums.size();\n        for (int a = 0;a <= nums[N - 1]; a++) {\n            dp[a] = 1;\n        }\n        compute_pref_array();\n\n        for (int i = N - 2;i >= 0;i--) {\n            memset(dp2, 0, sizeof dp2);\n            for (int a = 0;a <= nums[i]; a++) {\n                int c_min = max(a, a + nums[i + 1] - nums[i]);\n                int c_max = nums[i + 1];\n                dp2[a] = pref[c_max + 1];\n                dp2[a] += MOD - pref[c_min];\n                dp2[a] %= MOD;\n            }\n            memcpy(dp, dp2, sizeof dp2);\n            compute_pref_array();\n        }\n\n        return (int) pref[nums[0] + 1];\n    }\nprivate:\n    static const long long MOD = 1000000007LL;\n    static const int MAXN = 2048, MAXV = 1024;\n    long long dp[MAXV], dp2[MAXV], pref[MAXV];\n\n    void compute_pref_array()\n    {\n        pref[0] = 0LL;\n        for (int i = 1;i < MAXV; i++) {\n            pref[i] = (pref[i - 1] + dp[i - 1]) % MOD;\n        }\n    }\n};",
+    "submit_ts": "1723346170",
+    "subm_id": "1351571762"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "tirtheshJain",
+    "submission": "class Solution {\npublic:\n    long fun(int indx, int prev1, int prev2,vector<int>& nums,vector<vector<vector<long>>>& dp){\n        int n = nums.size();\n        \n        if(indx == n)   return 1;\n        \n        if(dp[indx][prev1][prev2] != -1)    return dp[indx][prev1][prev2];\n        \n        long res = 0;\n        int mod = 1e9 + 7;\n        \n        for(int i = prev1; i <= nums[indx]; i++)\n            if(((nums[indx]-i) >= 0) && ((nums[indx]-i) <= prev2))\n                res = (res + fun(indx+1,i,nums[indx]-i,nums,dp)) % mod;\n        \n        return (dp[indx][prev1][prev2] = res);\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        \n        vector<vector<vector<long>>> dp(n,vector<vector<long>>(51,vector<long>(51,-1)));\n        \n        return fun(0,0,50,nums,dp);\n    }\n};",
+    "submit_ts": "1723345663",
+    "subm_id": "1351560648"
+}

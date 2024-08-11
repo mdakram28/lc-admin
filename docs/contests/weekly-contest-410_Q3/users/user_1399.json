@@ -1,0 +1,6 @@
+{
+    "username": "Magagical_star",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) \n    {\n        #define ll long long\n        ll n = nums.size();\n        ll mod = 1e9+7;\n        int dp[n+3][55][55];\n        memset(dp,-1,sizeof(dp));\n        auto f = [&](int idx,int prev1,int prev2 ,auto &&f)->ll\n        {\n            if(idx>=n)\n            {\n                return 1;\n            }\n            if(dp[idx][prev1+1][prev2+1] != -1)\n                return dp[idx][prev1+1][prev2+1];\n            ll a =0;\n            if(idx==0)\n            {\n                for(int i=0;i<=nums[idx];i++)\n                {\n                    a = (a%mod+f(idx+1,i,nums[idx]-i,f)%mod)%mod;\n                }\n            }\n            else\n            {\n                 for(int i=0;i<=nums[idx];i++)\n                 {\n                     if(i>=prev1 && prev2 >= nums[idx]-i)\n                     a= (a%mod+f(idx+1,i,nums[idx]-i,f)%mod)%mod;\n                 }\n            }\n            \n            return dp[idx][prev1+1][prev2+1]= a%mod;  \n        };\n       ll ans= f(0,-1,-1,f)%mod;\n        return ans;\n    }\n};",
+    "submit_ts": "1723345692",
+    "subm_id": "1351561311"
+}

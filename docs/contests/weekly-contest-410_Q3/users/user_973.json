@@ -1,0 +1,6 @@
+{
+    "username": "quangminhdo",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        dp = [[0] * 51 for _ in range(51)]  \n    \n        for a in range(nums[0] + 1):\n            dp[a][nums[0] - a] = 1\n    \n        for i in range(1, n):\n            new_dp = [[0] * 51 for _ in range(51)]\n            for a1 in range(nums[i - 1] + 1):\n                for b1 in range(nums[i - 1] - a1 + 1):\n                    if dp[a1][b1] > 0:\n                        for a2 in range(a1, nums[i] + 1):  \n                            b2 = nums[i] - a2\n                            if b2 <= b1:  \n                                new_dp[a2][b2] += dp[a1][b1]\n            dp = new_dp\n    \n        result = 0\n        for a in range(51):\n            for b in range(51):\n                result += dp[a][b]\n    \n        return result % (10 ** 9 + 7)\n        ",
+    "submit_ts": "1723345278",
+    "subm_id": "1351552349"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "serzax_lucifer",
+    "submission": "class Solution {\npublic:\n    int MOD = 1e9 + 7;\n\n    int countOfPairs(vector<int>& nums) \n    {\n        vector<vector<vector<int>>> dp(nums.size(), vector<vector<int>>(51, vector<int>(51, -1)));\n        return recursor(nums, 0, 0, 50, dp);\n    }\n\n    int recursor(vector<int>& nums, int index, int lastOne, int lastSecond, vector<vector<vector<int>>>& dp)\n    {\n        if(index == nums.size())\n        {\n            return 1;\n        }\n\n        //cout << index << \"  \" << lastOne << \"  \" << lastSecond << endl;\n\n        if(dp[index][lastOne][lastSecond] != -1)\n        {\n            return dp[index][lastOne][lastSecond];\n        }\n\n        long long sols = 0;\n\n        for(int pairOne = lastOne; pairOne <= nums[index]; pairOne++)\n        {\n            int pairTwo = nums[index] - pairOne;\n\n            if(pairTwo < 0 || pairTwo > lastSecond)\n            {\n                continue;\n            }\n\n            sols = (sols + recursor(nums, index + 1, pairOne, pairTwo, dp)) % MOD;\n        }\n\n        return dp[index][lastOne][lastSecond] = sols;\n    }\n};",
+    "submit_ts": "1723345653",
+    "subm_id": "1351560407"
+}

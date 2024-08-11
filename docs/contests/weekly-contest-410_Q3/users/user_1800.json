@@ -1,0 +1,6 @@
+{
+    "username": "lcb2021047_iiitl",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        mod = 10**9 + 7\n        n = len(nums)\n        max_num = max(nums)  # The maximum value in nums\n        \n        # Initialize DP table\n        dp = [[[None for _ in range(max_num + 1)] for _ in range(max_num + 1)] for _ in range(n)]\n        \n        def backtrack(i, last_a, last_b):\n            if i == n:\n                return 1\n            if dp[i][last_a][last_b] is not None:\n                return dp[i][last_a][last_b]\n            \n            count = 0\n            for a in range(nums[i] + 1): \n                b = nums[i] - a  \n                if (i == 0 or last_a <= a) and (i == 0 or last_b >= b):\n                    count += backtrack(i + 1, a, b)\n                    count %= mod  \n            \n            dp[i][last_a][last_b] = count\n            return count\n        \n        return backtrack(0, 0, 0)\n",
+    "submit_ts": "1723346584",
+    "subm_id": "1351580772"
+}

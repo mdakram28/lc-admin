@@ -1,0 +1,6 @@
+{
+    "username": "birenamanta",
+    "submission": "import java.util.Arrays;\n\npublic class Solution {\n    private static final int MOD = 1_000_000_007;\n    private long[][][] memo;\n\n    public int countOfPairs(int[] values) {\n        int size = values.length;\n        memo = new long[size][51][51];\n        for (long[][] matrix : memo) {\n            for (long[] row : matrix) {\n                Arrays.fill(row, -1);\n            }\n        }\n        \n        return (int) solve(0, 0, values[0], values);\n    }\n\n    private long solve(int index, int val1, int val2, int[] values) {\n        if (index >= values.length) return 1;\n        if (memo[index][val1][val2] != -1) return memo[index][val1][val2];\n\n        long result = 0;\n        for (int i = val1; i <= values[index]; ++i) {\n            for (int j = val2; j >= 0; --j) {\n                if (i + j == values[index]) {\n                    result = (result + solve(index + 1, i, j, values)) % MOD;\n                }\n            }\n        }\n\n        return memo[index][val1][val2] = result;\n    }\n}",
+    "submit_ts": "1723346524",
+    "subm_id": "1351579480"
+}

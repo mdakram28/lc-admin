@@ -1,0 +1,6 @@
+{
+    "username": "bhavya_123",
+    "submission": "class Solution {\n    \n    private int MOD = 1000000007;\n    private int[][] memo;\n\n\n    private int countPairs(int[] nums, int i, int minVal) {\n        if (i == nums.length) {\n            return 1;\n        }\n\n        if (memo[i][minVal] != -1) {\n            return memo[i][minVal];\n        }\n\n        int count = 0;\n        for (int x = minVal; x <= nums[i]; x++) {\n            int y = nums[i] - x;\n            int val = (i > 0) ? nums[i-1] - minVal:1001;\n            \n            if (y <= val) {\n                count = (count + countPairs(nums, i + 1, x)) % MOD;\n            }\n        }\n\n        return memo[i][minVal] = count;\n    }\n    \n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        memo = new int[n][1005];\n\n        for (int[] row : memo) {\n            Arrays.fill(row, -1);\n        }\n\n        return countPairs(nums, 0, 0);\n    }\n}",
+    "submit_ts": "1723346603",
+    "subm_id": "1351581187"
+}

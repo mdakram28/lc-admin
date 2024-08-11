@@ -1,0 +1,6 @@
+{
+    "username": "runtime_tterror",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        int md=1e9+7;\n        \n        int dp[n+1][51];memset(dp,0,sizeof(dp));\n        int dp1[n+1][51];memset(dp1,0,sizeof(dp1));\n        \n        for(int i=0;i<=nums[0];i++)dp[0][i]=1;\n        \n        \n        for(int i=1;i<n;i++){\n            \n            for(int j=nums[i];j>=0;j--){\n                \n                for(int k=nums[i-1];k>=j;k--){\n                    \n                    if(nums[i-1]-k > nums[i]-j || nums[i-1]-k < 0)continue;\n                    dp[i][nums[i]-j] = (dp[i][nums[i]-j]+dp[i-1][nums[i-1]-k])%md;\n                }\n                // cout<<dp[i][nums[i]-j]<<\" \";\n            }\n            // cout<<endl;\n        }\n        int ans=0;\n        // for(int i=0;i<n;i++){\n        //     for(int j=0;j<=nums[i];j++)cout<<dp[i][j]<<\" \";cout<<endl;\n        // }\n        for(int i=0;i<=nums[n-1];i++){\n            ans=(ans+dp[n-1][i])%md;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345626",
+    "subm_id": "1351559814"
+}

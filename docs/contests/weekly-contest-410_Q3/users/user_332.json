@@ -1,0 +1,6 @@
+{
+    "username": "TheZwischenzug",
+    "submission": "class Solution {\n    private static final int mod = 1000_000_000 + 7;\n    private int[][] dp;\n    private int[] nums;\n    private int count(int last, int idx){\n        if (idx == nums.length) return 1;\n        if (dp[last+1][idx] != -1) return dp[last+1][idx];\n        int min = Math.max(last, 0);\n        min = idx > 0 ? Math.max(min, last + nums[idx]-nums[idx-1]) : min;\n        int max = nums[idx];\n        int cnt = 0;\n        for (int nextLast = min; nextLast <= max; nextLast++){\n            cnt += count(nextLast, idx+1);\n            if (cnt >= mod) cnt -= mod;\n        }\n        return dp[last+1][idx] = cnt;\n\n    }\n    public int countOfPairs(int[] nums) {\n        this.nums = nums;\n        int max = 0;\n        for (int x : nums) max = Math.max(max, x);\n        dp = new int[max+2][nums.length];\n        for (int[] row : dp ) Arrays.fill(row, -1);\n        return count(-1, 0);\n    }\n}",
+    "submit_ts": "1723344827",
+    "subm_id": "1351542892"
+}

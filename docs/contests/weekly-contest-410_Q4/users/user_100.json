@@ -1,0 +1,6 @@
+{
+    "username": "Akash0P",
+    "submission": "class Solution {\npublic:\n  int countOfPairs(vector<int>& nums) {\n      \n    int n = nums.size();\n    long long ans = 0, M = 1e9 + 7;\n\n    vector<vector<long long>> dp(n + 1, vector<long long> (2005));\n\n    vector<long long> pref(2005);\n\n    auto get = [&](int l, int r) {\n      return pref[r] - (l ? pref[l - 1] : 0LL);\n    };\n\n    for(int i = n; i >= 0; i--) {\n      for(int prev = 0; prev <= 2000; prev++) {\n\n        if(i == n) {\n          dp[i][prev] = 1;\n          continue;\n        }\n\n        long long ans = 0;\n\n        int a = prev, b = (i ? nums[i - 1] - prev: 2000);\n\n        int l = prev, r = nums[i], x = -1;\n\n        while(l <= r) {\n          int m = (l + r)/2;\n\n          int cura = m, curb = nums[i] - m;\n\n          if(cura >= a && curb <= b) x = m, r = m - 1;\n          else l = m + 1;\n        }\n\n        if(x != -1) {\n\n          ans = (ans + get(x, nums[i])) % M;\n\n        }\n\n        dp[i][prev] = ans;\n\n      }\n\n      for(int prev = 0; prev <= 2000; prev++) pref[prev] = dp[i][prev] + (prev ? pref[prev - 1] : 0);\n\n    }\n\n    return dp[0][0];\n\n  }\n};",
+    "submit_ts": "1723345459",
+    "subm_id": "1351556239"
+}

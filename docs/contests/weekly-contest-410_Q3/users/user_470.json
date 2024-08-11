@@ -1,0 +1,6 @@
+{
+    "username": "KaivinC",
+    "submission": "#define LL long long\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        LL MOD = 1e9+7;\n        int n = nums.size();\n        vector<vector<LL>> dp(n, vector<LL>(51, 0));\n\n        for(int i=0;i<=50;i++) {\n            dp[0][i] = 1;\n        }\n\n        for(int i=1;i<n;i++) {\n            for(int j=0;j<=nums[i];j++) {\n                for(int k=j;k>=0;k--) {\n                    if(nums[i]-j <= nums[i-1]-k) {\n                        dp[i][j] += dp[i-1][k];\n                        dp[i][j] %= MOD;\n                    }\n                }\n            }\n        }\n\n        LL sum = 0;\n        for(int i=0;i<=nums[n-1];i++) {\n            sum += dp[n-1][i];\n            sum %= MOD;\n        }\n\n        return sum;\n    }\n};\n\n// dp[i][j] += dp[i-1][k] if(nums[i]-j <= nums[i-1]-k)\n// ",
+    "submit_ts": "1723345058",
+    "subm_id": "1351547715"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Yashkale26",
+    "submission": "\nclass Solution {\n    long long mod=1e9+7;\n    vector<int> v;\n    vector<vector<long long>> dp;\n    int n;\n    \n    long long rec(int ind,int x)//index, value of first array at ind\n    {\n        long long ans=0;\n        int y=v[ind]-x;\n        if(x<0||y<0)return 0;\n        if(ind==n-1)return 1;\n        \n        if(dp[ind][x]!=-1)return dp[ind][x];\n        \n        for(int i=x;i<=v[ind+1];i++)\n        {\n            int j=v[ind+1]-i;\n            if(y>=j){ans+=rec(ind+1,i);}\n            ans%=mod;\n            \n        }\n       // cout<<ind<<\" \"<<x<<\" \"<<ans<<endl;\n        dp[ind][x]=ans;\n        return ans;\n    }\n    \npublic:\n    int countOfPairs(vector<int>& nums) {\n        n=nums.size();\n        v.clear();\n        for(int i=0;i<n;i++)v.push_back(nums[i]);\n        dp.clear();\n        dp.resize(n+2);\n        for(int i=0;i<n+2;i++)dp[i].assign(52,-1);\n        \n        long long ans=0;\n        for(int i=0;i<=v[0];i++)\n        {\n            ans+=rec(0,i);\n            ans%=mod;\n        }\n        return ans;\n        \n        \n    }\n};",
+    "submit_ts": "1723346901",
+    "subm_id": "1351587593"
+}

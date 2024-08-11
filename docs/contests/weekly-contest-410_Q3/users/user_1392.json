@@ -1,0 +1,6 @@
+{
+    "username": "prathamk7569",
+    "submission": "class Solution {\n    const int MOD = 1e9 + 7;\n    \n    vector<vector<int>> dp;\n    \n    int recursion(vector<int> &nums, int i, int prev, int n) {\n        if (i == n) {\n            return 1;\n        }\n\n        if (dp[i][prev + 1] != -1) {\n            return dp[i][prev + 1];\n        }\n\n        int ans = 0;\n        for (int j = 0; j <= nums[i]; j++) {\n            int x = nums[i] - j;\n            int y = j;\n            if (y >= prev && (i == 0 || nums[i - 1] - prev >= x)) {\n                ans = (ans + recursion(nums, i + 1, y, n)) % MOD;\n            }\n        }\n\n        return dp[i][prev + 1] = ans%MOD;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp.assign(n+5, vector<int>(55, -1));\n        \n        return recursion(nums, 0, 0, n);\n    }\n};\n",
+    "submit_ts": "1723345381",
+    "subm_id": "1351554530"
+}

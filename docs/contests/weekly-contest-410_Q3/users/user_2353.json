@@ -1,0 +1,6 @@
+{
+    "username": "forleet",
+    "submission": "class Solution {\npublic:\n    int MOD = 1e9 + 7;\n    vector<vector<vector<int>>> dp;\n\n    int solve(vector<int>& nums, int idx, int pr1, int pr2) {\n        if (idx >= nums.size()) return 1;\n\n        if (dp[idx][pr1][pr2] != -1) return dp[idx][pr1][pr2];\n\n        int ans = 0;\n        for (int i = 0; i <= nums[idx]; i++) {\n            int x = i;\n            int y = nums[idx] - x;\n            if (x >= pr1 && y <= pr2) {\n                ans = (ans + solve(nums, idx + 1, x, y)) % MOD;\n            }\n        }\n\n        return dp[idx][pr1][pr2] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp = vector<vector<vector<int>>>(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return solve(nums, 0, 0, 50);\n    }\n};\n",
+    "submit_ts": "1723347214",
+    "subm_id": "1351594303"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "AVIJIT_BISWAS",
+    "submission": "class Solution {\npublic:\nconst static int mod = 1e9 + 7;\n\nint f(int i, int last1, int last2, vector<int>& a, vector<vector<vector<int>>> &dp){\n    if(i >= a.size()) {\n        return 1;\n    }\n    int &ans = dp[i][last1][last2];\n    if(ans != -1) return ans;\n    ans = 0;\n    if(!i) {\n        for(int j = 0; j <= a[i]; j++) {\n            ans = (ans + f(i + 1, j, a[i] - j, a, dp)) % mod;\n        }\n    }\n    else {\n        for(int j = 0; j <= a[i]; j++) {\n            if(last1 <= j and last2 >= a[i] - j) ans = (ans + f(i + 1, j, a[i] - j, a, dp)) % mod;\n        }\n    }\n    \n    return ans;\n}\n    int countOfPairs(vector<int>& a) {\n        int n = a.size();\n        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(55, vector<int>(55, -1)));\n\n        int ans = f(0, 0, 0, a, dp);\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1723345695",
+    "subm_id": "1351561362"
+}

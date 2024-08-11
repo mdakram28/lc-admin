@@ -1,0 +1,6 @@
+{
+    "username": "Kitetsu",
+    "submission": "class Solution:\n    MOD = 1_000_000_007\n\n    def reset_dp(self, n):\n        self.dp = [[[-1] * 51 for _ in range(51)] for _ in range(n)]\n\n    def get_ans(self, nums, idx, p1, p2):\n        if idx >= len(nums):\n            return 1\n        if self.dp[idx][p1][p2] != -1:\n            return self.dp[idx][p1][p2]\n\n        total = 0\n        for i in range(nums[idx] + 1):\n            v1 = i\n            v2 = nums[idx] - i\n            if v1 >= p1 and v2 <= p2:\n                total = (total + self.get_ans(nums, idx + 1, v1, v2)) % Solution.MOD\n\n        self.dp[idx][p1][p2] = total\n        return total\n\n    def countOfPairs(self, nums):\n        n = len(nums)\n        self.reset_dp(n)\n        return self.get_ans(nums, 0, 0, 50)",
+    "submit_ts": "1723346942",
+    "subm_id": "1351588504"
+}

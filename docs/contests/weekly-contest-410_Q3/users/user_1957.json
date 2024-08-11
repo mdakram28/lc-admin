@@ -1,0 +1,6 @@
+{
+    "username": "pranav2vis",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        memo = {}\n        \n        def backtrack(i, prev1, prev2) -> int:\n            if i == len(nums):\n                return 1\n            \n            if (i, prev1, prev2) in memo:\n                return memo[(i, prev1, prev2)]\n            \n            count = 0\n            for a in range(nums[i] + 1):\n                b = nums[i] - a\n                if (i == 0 or prev1 <= a) and (i == 0 or prev2 >= b):\n                    count += backtrack(i + 1, a, b)\n                    count %= MOD\n            \n            memo[(i, prev1, prev2)] = count\n            return count\n        \n        return backtrack(0, 0, float('inf'))",
+    "submit_ts": "1723346484",
+    "subm_id": "1351578587"
+}

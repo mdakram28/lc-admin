@@ -1,0 +1,6 @@
+{
+    "username": "Technanite",
+    "submission": "class Solution {\npublic:\n    int M= 1e9+7;\n    long long solve(vector<int>&nums,long long ind,long long first,long long second,vector<vector<vector<long long>>>&dp){\n         if(ind ==nums.size()) return 1;\n         long long count=0;\n         if( dp[ind][first+1][second]!=-1) return dp[ind][first+1][second];\n         for(int i=0;i<=nums[ind];i++){\n             int f = i;\n             int s = nums[ind]-i;\n             if(first<=f && second>=s) {\n                 count =  (count %M + solve(nums,ind+1,f,s,dp)%M)%M;\n             }\n         }\n         return dp[ind][first+1][second]=count%M;\n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<vector<long long>>>dp(nums.size(),vector<vector<long long>>(55,vector<long long>(55,-1)));\n        return solve(nums,0,-1,51,dp);\n    }\n};",
+    "submit_ts": "1723345847",
+    "subm_id": "1351564596"
+}

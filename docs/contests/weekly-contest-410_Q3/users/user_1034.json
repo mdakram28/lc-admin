@@ -1,0 +1,6 @@
+{
+    "username": "user4367Y",
+    "submission": "class Solution {\npublic:\n    int dp[2001][51];\n    int n;\n    int mod = 1e9+7;\n    int rec(int level,int last,vector<int> &nums){\n        if(level==n){\n            return 1;\n        }\n        if(dp[level][last]!=-1)return dp[level][last];\n        int ans = 0;\n        for(int i=0;i<=nums[level];i++){\n            if(i>=last && (nums[level]-i)<=(nums[level-1]-last)){\n                ans = (1LL*ans + 1LL*rec(level+1,i,nums))%mod;\n            }\n        }\n        return dp[level][last]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        memset(dp,-1,sizeof(dp));\n        int ans = 0;\n        for(int i=0;i<=nums[0];i++){\n            ans = (1LL*ans + 1LL*rec(1,i,nums))%mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345074",
+    "subm_id": "1351548055"
+}

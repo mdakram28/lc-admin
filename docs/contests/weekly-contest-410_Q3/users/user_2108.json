@@ -1,0 +1,6 @@
+{
+    "username": "qn68",
+    "submission": "class Solution {\n    int[][][] mem;\n    int mod = 1000000007;\n\n    public int dp(int[] nums, int idx, int ap, int bp) {\n        if (idx >= nums.length)\n            return 1;\n\n        if (mem[idx][ap][bp] != -1)\n            return mem[idx][ap][bp];\n\n        int a = 0;\n\n        for (int i = 0; i <= nums[idx]; i++) {\n            if (ap <= i && bp >= nums[idx] - i)\n                a = (a + dp(nums, idx + 1, i, nums[idx] - i)) % mod;\n        }\n\n        mem[idx][ap][bp] = a;\n        return a;\n    }\n\n    public int countOfPairs(int[] nums) {\n        mem = new int[nums.length][51][51];\n\n        for (int i = 0; i < nums.length; i++) {\n            for (int j = 0; j < 51; j++) {\n                for (int k = 0; k < 51; k++) {\n                    mem[i][j][k] = -1;\n                }\n            }\n        }\n\n        return dp(nums, 0, 0, 50);\n    }\n}\n",
+    "submit_ts": "1723345766",
+    "subm_id": "1351562859"
+}

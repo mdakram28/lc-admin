@@ -1,0 +1,6 @@
+{
+    "username": "krishnamohansingh",
+    "submission": "class Solution {\n    int dp[2002][52][52] ;\n    int mod = 1e9+7 ;\n    int rec(int i, int last1, int last2, vector<int>& nums){\n        if(i==nums.size()){\n            return 1 ;\n        }\n        if(dp[i][last1][last2]!=-1) return dp[i][last1][last2] ;\n        int cnt=0 ;\n        for(int j=last1;j<=nums[i];j++){\n            if(last2>=nums[i]-j){\n                cnt += rec(i+1,j,nums[i]-j,nums) ;\n                cnt %= mod ;\n            }\n        }\n\n        return dp[i][last1][last2] = cnt%mod ;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp)) ;\n       int ans=0 ;\n       for(int j=0;j<=nums[0];j++){\n           ans += rec(1,j,nums[0]-j,nums) ;\n           ans %=mod ;\n       }\n\n       return ans%mod ;\n    }\n};",
+    "submit_ts": "1723346832",
+    "subm_id": "1351586121"
+}

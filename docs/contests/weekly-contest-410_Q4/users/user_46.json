@@ -1,0 +1,6 @@
+{
+    "username": "cchao",
+    "submission": "constexpr int mod = 1e9 + 7;\nconst int M = 1000;\nclass Solution {\n public:\n  int countOfPairs(vector<int>& a) {\n    const int n = a.size();\n    array<int64_t, M + 2> d{};\n    fill(d.begin(), d.begin() + a[0] + 1, 1);\n\n    for (int i = 1; i < n; ++i) {\n      array<int64_t, M + 2> nd{};\n      for (int j = 0, k = a[i - 1]; k >= 0; ++j, --k) {\n        int start = max(j, a[i] - k);\n        if (start <= a[i]) {\n          nd[start] += d[j];\n          nd[a[i] + 1] -= d[j];\n        }\n      }\n      for (int j = 1; j < nd.size(); ++j) {\n        nd[j] += nd[j - 1];\n        nd[j] %= mod;\n      }\n      d = move(nd);\n    }\n    int64_t ans = 0;\n    for (auto x : d) ans += x;\n    return ans % mod;\n  }\n};\n",
+    "submit_ts": "1723344806",
+    "subm_id": "1351542417"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "skyinde2",
+    "submission": "\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        m = max(nums)\n        MOD = 1000000007\n\n        dp = [0] * (m + 1)\n        s = [0] * (m + 2)\n\n        for i in range(nums[0] + 1):\n            dp[i] = 1\n            s[i] = i + 1\n\n        for index in range(1, len(nums)):\n            num = nums[index]\n            dp[:] = [0] * (m + 1)\n\n            for i in range(num + 1):\n                b = nums[index - 1]\n                a = max(i, nums[index - 1] - (num - i))\n                if a <= b:\n                    dp[i] = (s[b] - s[a - 1]) % MOD\n\n            for i in range(m + 1):\n                s[i] = (s[i - 1] + dp[i]) % MOD\n\n        return s[-2]\n",
+    "submit_ts": "1723345727",
+    "subm_id": "1351562024"
+}

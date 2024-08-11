@@ -1,0 +1,6 @@
+{
+    "username": "aditi_sahu21",
+    "submission": "class Solution {\n    \npublic:\n    const int MOD = 1000000007;\n    int encode(int i, int last_a, int last_b, int max_val) {\n    return i * (max_val + 1) * (max_val + 1) + (last_a + 1) * (max_val + 1) + (last_b + 1);\n}\n\n    int countOfPairs(vector<int>& nums) {\n        int max_val = *max_element(nums.begin(), nums.end());\n        vector<int> memo((nums.size() + 1) * (max_val + 1) * (max_val + 1), -1);\n        return backtrack(0, -1, -1, nums, memo, max_val);\n    }\n    private:\n    int backtrack(int i, int last_a, int last_b, vector<int>& nums, vector<int>& memo, int max_val) {\n        if (i == nums.size()) {\n            return 1;\n        }\n\n        int memo_index = encode(i, last_a, last_b, max_val);\n        if (memo[memo_index] != -1) {\n            return memo[memo_index];\n        }\n\n        int count = 0;\n        for (int a = 0; a <= nums[i]; ++a) {\n            int b = nums[i] - a;\n            if ((last_a == -1 || last_a <= a) && (last_b == -1 || last_b >= b)) {\n                count += backtrack(i + 1, a, b, nums, memo, max_val);\n                count %= MOD;\n            }\n        }\n        memo[memo_index] = count; \n        return count;\n    }\n};",
+    "submit_ts": "1723347203",
+    "subm_id": "1351594058"
+}

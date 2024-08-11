@@ -1,0 +1,6 @@
+{
+    "username": "akshar24",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        lastArr = None\n        lastPrefixSums = None\n        dp1 = [None] * n\n        dp2 = [None] * n\n        sum = lambda arr,a,b: arr[b] - (arr[a-1] if a-1 >= 0 else 0) if a <= b else 0\n        add =lambda arr,ele: arr.append(arr[-1] + ele) if arr else arr.append(ele)\n        ans =0\n        for i in range(n-1, -1, -1):\n            a = nums[i]\n            arr = []\n            prefixSums = []\n            for x in range(a+1):\n                y = a-x\n                if i == n-1:\n                    arr.append(1)\n                    add(prefixSums, 1)\n                else:\n                    one = 0 if x > nums[i+1] else sum(lastPrefixSums, x + max(0, (nums[i+1]-x-y)), nums[i+1])\n                   # print(x, y, x+(nums[i+1]-x-y), one)\n\n                    arr.append(one)\n                    add(prefixSums, one)\n\n            lastArr = arr\n            lastPrefixSums = prefixSums\n           # print(i, nums[i], arr, prefixSums)\n        mod = 1000000007\n        for a in lastArr:\n            ans = (ans % mod + a % mod) % mod\n        return ans\n\n                ",
+    "submit_ts": "1723347286",
+    "subm_id": "1351595750"
+}

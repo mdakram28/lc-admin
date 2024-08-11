@@ -1,0 +1,6 @@
+{
+    "username": "xlx2",
+    "submission": "class BIT(): # 1-indexed\n    def __init__(self, n):\n        self.n = n\n        # self.tree = [0] * (n + 1)\n    \n    def bulid(self, arr):\n        self.tree = [0] * (self.n + 1)\n        for i in range(1, self.n + 1):\n            self.tree[i] += arr[i]\n            j = i + (i & -i)\n            if j <= self.n:\n                self.tree[j] += self.tree[i]\n    \n    def add(self, i, inc):\n        while i <= self.n:\n            self.tree[i] += inc\n            i += i & (-i)\n\n    def getsum(self, i): #sum over [1,...,i]\n        ans = 0\n        while i > 0:\n            ans += self.tree[i]\n            i -= i & (-i)\n        return ans\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        M = 10**9 + 7\n        n = len(nums)\n        m = max(nums)\n        f = BIT(m+1)\n        arr = [0] * (m+2)\n        for j in range(nums[0]+1):\n            arr[j+1] = 1\n        f.bulid(arr)\n        for i in range(1, n):\n            arr = [0] * (m+2)\n            for j in range(nums[i]+1):\n                x = j if nums[i-1] >= nums[i] else (nums[i-1] - nums[i] + j)\n                arr[j+1] = f.getsum(x+1) % M\n            f.bulid(arr)\n        return f.getsum(m+1) % M",
+    "submit_ts": "1723346478",
+    "subm_id": "1351578448"
+}

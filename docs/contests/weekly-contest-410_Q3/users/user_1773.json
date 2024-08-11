@@ -1,0 +1,6 @@
+{
+    "username": "chakradhar03",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll mod=1e9+7;\n    ll f(ll ind,ll prev1,ll prev2,vector<int>&nums,vector<vector<vector<ll>>> &dp ){\n        if(ind==nums.size()) return 1;\n        ll ans=0;\n        if(dp[ind][prev1+1][prev2+1]!=-1) return dp[ind][prev1+1][prev2+1];\n        if(prev1==-1){\n            for(ll i=0;i<=nums[ind];i++){\n                ans=(ans+f(ind+1,i,nums[ind]-i,nums,dp)%mod)%mod;\n            }\n        }\n        else{\n            for(ll i=prev1;i<=nums[ind];i++){\n                if(nums[ind]-i<=prev2)\n                    ans=(ans+f(ind+1,i,nums[ind]-i,nums,dp)%mod)%mod;\n            }\n        }\n        return dp[ind][prev1+1][prev2+1]=ans%mod;\n    }\n\n\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<vector<ll>>> dp(nums.size()+1,vector<vector<ll>>(52,vector<ll>(52,-1)));\n        return f(0,-1,-1,nums,dp);\n    }\n};",
+    "submit_ts": "1723345947",
+    "subm_id": "1351566798"
+}

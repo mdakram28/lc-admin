@@ -1,0 +1,6 @@
+{
+    "username": "REED_W",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        return sln1(nums);\n    }\n\n    static int mod = 1_000_000_007;\n\n    private int sln1(int[] nums){\n        int n = nums.length;\n        int max = 51;\n        int[][] dp = new int[n][max];   //{i, j} number of monotonic array end at i with value j, \n        for(int i = 0;i<=nums[0]; i++) dp[0][i] = 1;\n        for(int i = 1;i<n;i++){\n            for(int j = 0;j<=nums[i];j++){\n                for(int k = 0;k<=nums[i-1];k++){\n                    if(k<=j && nums[i-1]-k >= nums[i]-j ) dp[i][j] = (dp[i][j]+dp[i-1][k])%mod;\n                }\n            }\n        }\n        int res = 0;\n        for(int i: dp[n-1]) res= (res+i)%mod;\n        return res;\n    }\n}",
+    "submit_ts": "1723345317",
+    "subm_id": "1351553149"
+}

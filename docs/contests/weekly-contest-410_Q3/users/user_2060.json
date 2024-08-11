@@ -1,0 +1,6 @@
+{
+    "username": "vinesh_01",
+    "submission": "import java.util.*;\n\nclass Solution {\n    public int countOfPairs(int[] nums) {\n        long[][][] dp = new long[nums.length + 1][51][51];\n        for (long[][] arr2D : dp) {\n            for (long[] arr1D : arr2D) {\n                Arrays.fill(arr1D, -1);\n            }\n        }\n        \n        return (int)(solve(nums, 0, 0, 50, dp));\n    }\n    public long solve(int[] nums, int idx, int j, int k, long[][][] dp) {\n        long count = 0;\n        if (idx >= nums.length) return 1;\n        if (dp[idx][j][k] != -1) return dp[idx][j][k];\n        long mod = (long)1e9+7;\n        \n        for (int i = 0; i <= nums[idx]; i++) {\n            if (i >= j && nums[idx] - i <= k) {\n                count = (count + solve(nums, idx + 1, i, nums[idx] - i, dp))%mod;\n            }\n        }\n        dp[idx][j][k] = count;\n        return dp[idx][j][k];\n    }\n}\n",
+    "submit_ts": "1723345408",
+    "subm_id": "1351555118"
+}

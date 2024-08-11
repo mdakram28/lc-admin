@@ -1,0 +1,6 @@
+{
+    "username": "brinuke",
+    "submission": "class Solution {\n\tprivate static final int MODULUS = (int) 1e9 + 7;\n\n\tprivate static int add(int x, int y) {\n\t\treturn (x + y) % MODULUS;\n\t}\n\n\tpublic static int countOfPairs(int[] nums) {\n\t\tint m = 0;\n\t\tfor (int x : nums)\n\t\t\tm = Math.max(m, x);\n\t\tint[] count0 = new int[m + 1];\n\t\tint[] count1 = new int[m + 1];\n\t\tcount0[0] = 1;\n\t\tint p = m;\n\t\tfor (int x : nums) {\n\t\t\tint i = Math.max(x - p, 0);\n\t\t\tint j = 0;\n\t\t\tint c = count0[0];\n\t\t\tArrays.fill(count1, 0, i, 0);\n\t\t\tcount1[i] = c;\n\t\t\twhile (++i <= x)\n\t\t\t\tcount1[i] = c = add(c, count0[++j]);\n\t\t\tArrays.fill(count1, x + 1, m + 1, 0);\n\t\t\tint[] temp = count0;\n\t\t\tcount0 = count1;\n\t\t\tcount1 = temp;\n\t\t\tp = x;\n\t\t}\n\t\tint result = 0;\n\t\tfor (int i = 0; i <= m; i++)\n\t\t\tresult = add(result, count0[i]);\n\t\treturn result;\n\t}\n}",
+    "submit_ts": "1723347808",
+    "subm_id": "1351605959"
+}

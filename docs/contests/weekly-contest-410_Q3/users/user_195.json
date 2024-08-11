@@ -1,0 +1,6 @@
+{
+    "username": "pikachu101",
+    "submission": "const long long INF = 1000;\nconst long long mod = 1e9 + 7;\ntypedef long long ll;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int  n =nums.size();\n        vector<vector<long long>> dp(n,vector<long long>(51,-1));\n        function<ll(int,int)> dfs = [&](int i,int j) {\n            if(i==n) {\n                return 1LL;\n            }\n            if(dp[i][j]!=-1) return dp[i][j];\n            int k;\n            if(i==0) k = INF;\n            else k = nums[i-1]-j;\n            long long res = 0;\n            for(int c=0;c<=nums[i];c++) {\n                if(c>=j && nums[i]-c<=k) {\n                    res += dfs(i+1,c);\n                    res %=mod;\n                }\n            }\n            return dp[i][j] = res;\n        };\n        return (int)dfs(0,0);\n    }\n};",
+    "submit_ts": "1723344570",
+    "subm_id": "1351537423"
+}

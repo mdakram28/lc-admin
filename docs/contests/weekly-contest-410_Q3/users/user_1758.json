@@ -1,0 +1,6 @@
+{
+    "username": "Vivek_Bhanuse",
+    "submission": "import java.util.Arrays;\n\nclass Solution {\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        int MOD = 1_000_000_007;\n        int[][] dp = new int[n][1001];\n        for (int[] row : dp) Arrays.fill(row, -1);\n        \n        // Function to recursively calculate the number of valid sequences\n        return countPairs(0, 0, nums, dp, MOD);\n    }\n    \n    private int countPairs(int i, int prev1, int[] nums, int[][] dp, int MOD) {\n        if (i == nums.length) return 1;\n        if (dp[i][prev1] != -1) return dp[i][prev1];\n        \n        int count = 0;\n        for (int curr1 = prev1; curr1 <= nums[i]; curr1++) {\n            int curr2 = nums[i] - curr1;\n            if (i == 0 || curr2 <= nums[i - 1] - prev1) {\n                count = (count + countPairs(i + 1, curr1, nums, dp, MOD)) % MOD;\n            }\n        }\n        \n        return dp[i][prev1] = count;\n    }\n}\n",
+    "submit_ts": "1723346519",
+    "subm_id": "1351579391"
+}

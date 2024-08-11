@@ -1,0 +1,6 @@
+{
+    "username": "agreemadhiman",
+    "submission": "class Solution {\nprivate:\n    int rec(int idx,int prev,vector<int>& nums,unordered_map<int,unordered_map<int,int>> &mp){\n        if(idx==nums.size()){\n            return 1;\n        }\n        if(mp[idx].find(prev)!=mp[idx].end()){\n            return mp[idx][prev];\n        }\n        int maxVal=nums[idx];\n        int prev2=INT_MAX;\n        if(idx!=0){prev2=nums[idx-1]-prev;}\n        int mod=1e9+7;\n        int ans=0;\n        for(int j=prev;j<=maxVal;j++){\n            if(maxVal-j<=prev2){\n                ans=(ans+rec(idx+1,j,nums,mp))%mod;\n            }\n        }\n        return mp[idx][prev]=ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        unordered_map<int,unordered_map<int,int>> mp;\n        return rec(0,0,nums,mp);\n    }\n};",
+    "submit_ts": "1723346331",
+    "subm_id": "1351575212"
+}

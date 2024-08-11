@@ -1,0 +1,6 @@
+{
+    "username": "nganha1897",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int mod = (int)1e9 + 7, n = nums.length;\n        long[] dp = new long[51];\n        for (int i=0; i<=nums[0]; i++) {\n            dp[i] = 1;\n        }\n        for (int i=1; i<n; i++) {\n            long[] newDp = new long[51];\n            for (int j=0; j<51; j++) {\n                int sec = nums[i-1] - j;\n                int ways = 0;\n                for (int curj=j; curj<=nums[i]; curj++) {\n                    if (nums[i] - curj <= sec) {\n                        ways++;\n                        newDp[curj] = (newDp[curj] + dp[j]) % mod;\n                    }\n                }\n                \n                //newDp[j] = (dp[j] * ways) % mod;\n            }\n            //System.out.println(Arrays.toString(newDp));\n            dp = newDp;\n        }\n        long ans = 0;\n        //System.out.println(Arrays.toString(dp));\n        for (int i=0; i<dp.length; i++) {\n            ans = (ans + dp[i]) % mod;\n        }\n        return (int)ans;\n    }\n}",
+    "submit_ts": "1723346410",
+    "subm_id": "1351576983"
+}

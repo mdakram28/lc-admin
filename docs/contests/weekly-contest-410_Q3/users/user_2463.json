@@ -1,0 +1,6 @@
+{
+    "username": "wdhongtw",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        return countOfPairs(nums)\n\n\ndef countOfPairs(nums: list[int]) -> int:\n    size = len(nums)\n    modulus = 10**9 + 7\n\n    @functools.cache\n    def solve(idx: int, val1: int) -> int:\n        num = nums[idx]\n        val2 = num - val1\n        # lo, hi both inclusive\n        if idx == size - 1:\n            return 1 if val1 <= num else 0\n        if val1 > num:\n            return 0\n        next_num = nums[idx + 1]\n        return (\n            sum(\n                solve(idx + 1, v)\n                for v in range(val1, next_num + 1)\n                if next_num - v <= val2\n            )\n            % modulus\n        )\n\n    nums0 = nums[0]\n    return sum(solve(0, v) for v in range(0, nums0 + 1)) % modulus\n",
+    "submit_ts": "1723346738",
+    "subm_id": "1351584109"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "karthiksharma72003",
+    "submission": "class Solution {\npublic:\n    long long compute(int idx, int prev1, int prev2, vector<int>& nums, vector<vector<vector<long long>>>& memo) {\n    if (idx >= nums.size()) return 1;\n    long long result = 0;\n    long long mod_value = 1e9 + 7;\n    \n    if (memo[idx][prev1][prev2] != -1) return memo[idx][prev1][prev2];\n    \n    for (int x = prev1; x <= nums[idx]; x++) {\n        for (int y = prev2; y >= 0; y--) {\n            if (x + y == nums[idx]) {\n                result += compute(idx + 1, x, y, nums, memo);\n                result %= mod_value;\n            }\n        }\n    }\n    return memo[idx][prev1][prev2] = result;\n}\n\nint countOfPairs(vector<int>& nums) {\n    int n = nums.size();\n    vector<vector<vector<long long>>> memo(n, vector<vector<long long>>(51, vector<long long>(51, -1)));\n    return compute(0, 0, nums[0], nums, memo);\n}\n};",
+    "submit_ts": "1723346756",
+    "subm_id": "1351584474"
+}

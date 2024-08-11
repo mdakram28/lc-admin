@@ -1,0 +1,6 @@
+{
+    "username": "kai_to_the_lynn",
+    "submission": "using ll = long long;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& A) {\n        ll dp[2001][51];\n        ll MOD = 1e9 + 7;\n        memset(dp, -1, sizeof(dp));\n        int n = A.size();\n        std::function<ll(int, int)> dfs = [&](int i, int j) {\n            if (i == n - 1) return 1LL;\n            if (dp[i][j] != -1) return 1LL * dp[i][j];\n            \n            ll res = 0;\n            for (int k = 0; k <= A[i + 1]; ++k) {\n                if ((A[i] - j >= A[i + 1] - k) && k >= j) {\n                    res += dfs(i + 1, k);\n                    res %= MOD;\n                }\n            }\n            \n            \n            dp[i][j] = res % MOD;\n            return dp[i][j];\n        };\n        ll ret = 0;\n        for (int i = 0; i <= A[0]; ++i) {\n            ret += dfs(0, i);\n            ret %= MOD;\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1723345447",
+    "subm_id": "1351555967"
+}

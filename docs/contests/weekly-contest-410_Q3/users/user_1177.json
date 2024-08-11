@@ -1,0 +1,6 @@
+{
+    "username": "sj_1520",
+    "submission": "class Solution {\npublic:\n    long long dp[2001][53][53];\n    int mod=1e9+7;\n    \n    int solve(vector<int>&nums, int i, int lasta, int lastb){\n        if(i>=nums.size())return 1;\n        \n        if(dp[i][lasta+1][lastb+1]!=-1)return dp[i][lasta+1][lastb+1];\n        \n        int ans=0;\n        for(int j=0; j<=nums[i]; j++){\n            int curra=j, currb=nums[i]-curra;\n            if(curra>=lasta && currb<=lastb){\n                ans=(ans%mod+solve(nums,i+1,curra,currb)%mod)%mod;\n            }\n        }\n        \n        return dp[i][lasta+1][lastb+1] = ans;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof dp);\n        return solve(nums,0,-1,51);\n    }\n};",
+    "submit_ts": "1723345643",
+    "subm_id": "1351560195"
+}

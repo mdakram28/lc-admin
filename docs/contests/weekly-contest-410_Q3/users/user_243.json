@@ -1,0 +1,6 @@
+{
+    "username": "pendem_2003",
+    "submission": "class Solution {\npublic:\n  \n    using ll = long long int;\n    const ll mod = 1e9+7;\n    ll dp[2010][55];\n    ll rec(ll lvl,ll prev,vector <int>&nums){\n        if(lvl==nums.size()) return 1;\n        if(dp[lvl][prev]!=-1) return dp[lvl][prev];\n        ll prev2 = nums[lvl-1]-prev;\n        ll ans = 0;\n        for(ll i = prev;i<=nums[lvl];i++){\n            ll j = nums[lvl]-i;\n            if(j>=0 and j<=prev2) (ans+= rec(lvl+1,i,nums))%=mod;\n        } \n        return dp[lvl][prev] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        ll n= nums.size();\n        for(int i = 0;i<n+1;i++){\n            for(int j = 0;j<52;j++) dp[i][j] = -1;\n        }\n        ll ans = 0;\n        for(int i = 0;i<=nums[0];i++){\n            (ans+= rec(1,i,nums))%=mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723344041",
+    "subm_id": "1351525022"
+}

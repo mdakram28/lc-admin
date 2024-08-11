@@ -1,0 +1,6 @@
+{
+    "username": "LemonDrop47",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    int dp[2005][55][55];\n    int dfs(vector<int>& nums, int id, int arr1, int arr2) {\n        if (id == nums.size()) \n            return 1;\n        if (dp[id][arr1][arr2] != -1) \n            return dp[id][arr1][arr2];\n        int res = 0;\n        for (int c1 = arr1; c1 <= nums[id]; c1++) {\n            int c2 = nums[id] - c1;\n            if (c2 <= arr2) {\n                res = (res + dfs(nums, id + 1, c1, c2)) % MOD;\n            }\n        }\n        return dp[id][arr1][arr2] = res;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int max_val = *max_element(nums.begin(), nums.end());\n        memset(dp,-1,sizeof(dp));\n        return dfs(nums, 0, 0, max_val);\n    }\n};",
+    "submit_ts": "1723346573",
+    "subm_id": "1351580531"
+}

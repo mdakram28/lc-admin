@@ -1,0 +1,6 @@
+{
+    "username": "dk3103",
+    "submission": "class Solution {\npublic:\n    #define int long long\n    const int mod=1e9+7;\n    int dp[2001][52];\n    int solve(int i,vector<int> &nums,int prev1)\n    {\n        if(i==nums.size())\n        {\n            return 1;\n        }\n        if(dp[i][prev1]!=-1)\n        {\n            return dp[i][prev1];\n        }\n        if(i==0)\n        {\n            //no need to check previous \n            int ans=0;\n            for(int j=0;j<=nums[i];j++)\n            {\n                ans=(ans + solve(i+1,nums,j))%mod;\n            }\n            return dp[i][prev1]=ans%mod;\n        }\n        int prev2=nums[i-1]-prev1;\n        int ans=0;\n        for(int j=0;j<=nums[i];j++)\n        {\n            int nval2=nums[i]-j;\n            if(j>=prev1 && nval2<=prev2)\n            {\n                ans=(ans+solve(i+1,nums,j))%mod;\n            }\n        }\n        return dp[i][prev1]=ans%mod;\n    }\n    #undef int\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        for(int i=0;i<n;i++)\n        {\n            for(int j=0;j<=50;j++)\n            {\n                dp[i][j]=-1;\n            }\n        }\n        vector<long long> Nums(nums.begin(),nums.end());\n        return solve(0,Nums,0)%mod;\n    }\n};",
+    "submit_ts": "1723344977",
+    "subm_id": "1351546046"
+}

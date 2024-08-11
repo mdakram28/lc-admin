@@ -1,0 +1,6 @@
+{
+    "username": "didwhddks",
+    "submission": "constexpr int mod = 1E9 + 7;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int n = nums.size();\n        \n        vector dp(n, vector<int>(51, -1));\n        auto dfs = [&](auto &&self, int idx, int x) -> int {\n            if (idx == n) {\n                return 1;\n            }\n            if (~dp[idx][x]) {\n                return dp[idx][x];\n            }\n            int ans = 0;\n            for (int i = 0; i <= nums[idx]; ++i) {\n                int j = nums[idx] - i;\n                if (x > i || (idx == 0 ? 50 : nums[idx - 1] - x) < j) {\n                    continue;\n                }\n                ans = (ans + self(self, idx + 1, i)) % mod;\n            }\n            return dp[idx][x] = ans;\n        };\n        int ans = dfs(dfs, 0, 0);\n        return ans;\n    }\n};",
+    "submit_ts": "1723344264",
+    "subm_id": "1351530446"
+}

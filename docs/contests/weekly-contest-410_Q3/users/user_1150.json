@@ -1,0 +1,6 @@
+{
+    "username": "coderhg",
+    "submission": "/**\n * @param {number[]} nums\n * @return {number}\n */\nlet mod = (1e9 + 7);\nvar countOfPairs = function(nums) {\n    const mem = {};\n\n    return helper(nums, 0, -1, 51, mem);\n};\n\nvar helper = (nums, index, prev1, prev2, mem) => {\n    if(index === nums.length) {\n        return 1;\n    }\n\n    const key = index + \",\" + prev1 + \",\" + prev2;\n    if(mem[key] !== undefined) {\n        return mem[key];\n    }\n\n    let ans = 0;\n    for(let i = 0; i <= nums[index]; i++) {\n        let firstValue = i;\n        let secondValue = nums[index] - firstValue;\n\n        if(firstValue >= prev1 && secondValue <= prev2) {\n            ans = (ans + helper(nums, index + 1, firstValue, secondValue, mem)) % mod;\n        }\n    }\n\n    mem[key] = ans;\n    return ans;\n}",
+    "submit_ts": "1723345582",
+    "subm_id": "1351558853"
+}

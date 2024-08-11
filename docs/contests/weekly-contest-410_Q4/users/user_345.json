@@ -1,0 +1,6 @@
+{
+    "username": "pcwuu",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int mod = 1e9 + 7;\n        \n        int dp[n + 1][1002];\n        memset(dp, 0, sizeof(dp));\n        \n        for(int i = 1000; i >= 0; i--)\n            dp[n][i] = dp[n][i + 1] + 1;; \n            \n        for(int i = n - 1; i > 0; i--) \n            for(int j = nums[i - 1]; j >= 0; j--) {\n                int lowerBound = max(j, nums[i] - nums[i - 1] + j);\n                if(lowerBound < 0)\n                    dp[i][j] = (dp[i][j + 1] + (dp[i + 1][0] - dp[i + 1][nums[i] + 1] + mod) % mod) % mod;\n                else if(lowerBound <= nums[i] + 1)\n                    dp[i][j] = (dp[i][j + 1] + (dp[i + 1][lowerBound] - dp[i + 1][nums[i] + 1] + mod) % mod ) % mod;\n            }\n        \n        return (dp[1][0] - dp[1][nums[0] + 1] + mod) % mod;\n    }\n};\n/*\nj <= k <= nums[i]\nnums[i] - k <= nums[i - 1] - j\nk >= nums[i] - nums[i - 1] + j;\n*/",
+    "submit_ts": "1723346259",
+    "subm_id": "1351573640"
+}

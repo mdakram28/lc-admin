@@ -1,0 +1,6 @@
+{
+    "username": "Devanshm23",
+    "submission": "class Solution {\npublic:\n    const int mod=1e9 + 7;\n    int solve(int i,int prev1,int prev2,vector<int> &nums,vector<vector<vector<int>>> &dp)\n    {\n        int n=nums.size();\n        if(i==n)\n        return 1;\n\n        if(dp[i][prev1][prev2]!=-1)\n        return dp[i][prev1][prev2];\n\n        int ans=0;\n        for(int k=0;k<=nums[i];k++)\n        {\n            int ele1=k;\n            int ele2=nums[i]-k;\n\n            if(ele1 >= prev1 && ele2 <= prev2)\n            {\n                int tmp=solve(i+1,ele1,ele2,nums,dp);\n                ans=(ans + tmp) % mod;\n            }\n        }\n\n        return dp[i][prev1][prev2]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        \n        int n=nums.size();\n        vector<vector<vector<int>>> dp(n,vector<vector<int>>(51,vector<int>(51,-1)));\n\n        return solve(0,0,50,nums,dp);\n    }\n};",
+    "submit_ts": "1723346620",
+    "subm_id": "1351581552"
+}

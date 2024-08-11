@@ -1,0 +1,6 @@
+{
+    "username": "mayanknichlani",
+    "submission": "class Solution {\npublic:\n    int mod = 1000000007;\n\n    int helper(vector<int>& nums, int index, int n, int prevLow, int prevHigh, vector<vector<int>>& dp) {\n        if (index == n) {\n            return 1;\n        }\n        if (dp[index][prevLow] != -1) return dp[index][prevLow];\n        int sum = 0;\n        for (int i = prevLow; i <= nums[index]; i++) {\n            if (nums[index] - i <= prevHigh) {\n                sum += helper(nums, index + 1, n, i, nums[index] - i, dp);\n                sum %= mod;\n            }\n        }\n        return dp[index][prevLow] = sum;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(n + 60, -1));\n        return helper(nums, 0, n, 0, nums[0], dp);\n    }\n};\n",
+    "submit_ts": "1723345425",
+    "subm_id": "1351555518"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "tusharrr316",
+    "submission": "class Solution {\n    int mod = 1000000007;\n    Long[][][] dp;\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        dp = new Long[n][100][100];\n        int ans = (int)helper(nums, 0, -1, Integer.MAX_VALUE, n);\n        return ans == Integer.MAX_VALUE ? 0 : ans;\n    }\n    \n    private long helper(int[] nums, int index, int p1, int p2, int n) {\n        if(index == n) {\n            return 1L;\n        }\n        if(dp[index][p1 == -1 ? 99 : p1][p2 == Integer.MAX_VALUE ? 99 : p2] != null) return dp[index][p1 == -1 ? 99 : p1][p2 == Integer.MAX_VALUE ? 99 : p2];\n        long count = 0L;\n        boolean op = true;\n        for(int i = p1 == -1 ? 0 : p1; i <= nums[index]; i++) {\n            int newP2 = nums[index] - i;\n            if(newP2 > p2) continue;\n            op = false;\n            long temp = helper(nums, index + 1, i, newP2, n);\n            if(temp == Integer.MAX_VALUE) continue;\n            count += temp;\n        }\n        if(op) return dp[index][p1 == -1 ? 99 : p1][p2 == Integer.MAX_VALUE ? 99 : p2] = Integer.MAX_VALUE * 1L;\n        count %= mod;\n        return dp[index][p1 == -1 ? 99 : p1][p2 == Integer.MAX_VALUE ? 99 : p2] = count;\n    }\n}",
+    "submit_ts": "1723345356",
+    "subm_id": "1351554015"
+}

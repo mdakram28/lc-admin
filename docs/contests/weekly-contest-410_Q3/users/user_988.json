@@ -1,0 +1,6 @@
+{
+    "username": "jordan322",
+    "submission": "class Solution {\nprivate:\n    int mod = pow(10,9) + 7;\n    long long dp(int idx, int val, vector<int>& nums, vector<vector<int>>& mem){\n        if(idx == nums.size()) return 1;\n        else if(mem[idx][val] != -1) return mem[idx][val];\n        long long ans = 0;\n        for(int i=val; i<=nums[idx]; i++){\n            if(idx == 0 || nums[idx-1] - val >= nums[idx] - i){\n                ans += dp(idx+1,i,nums,mem);\n                ans %= mod;\n            }\n        }\n        return mem[idx][val] = ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums){\n        vector<vector<int>> mem(nums.size(), vector<int>(51,-1));\n        return dp(0,0,nums,mem);\n    }\n};",
+    "submit_ts": "1723345308",
+    "subm_id": "1351552982"
+}

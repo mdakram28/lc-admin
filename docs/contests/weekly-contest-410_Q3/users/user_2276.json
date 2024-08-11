@@ -1,0 +1,6 @@
+{
+    "username": "marvaniyajay",
+    "submission": "class Solution {\npublic:\n    const int Z = 1e9 + 7;\n    vector<int> nums;\n    vector<vector<int>> dp;\n    int n;\n    int rec(int level, int x2)\n    {\n        //prunning\n\n        if(level==n)return 1;\n\n        if(dp[level][x2]!=-1)return dp[level][x2];\n        \n        int x1 = nums[level-1]-x2;\n        int ans=0;\n        for(int nx2=x2;nx2>=0;nx2--)\n        {\n            int nx1 = nums[level]-nx2;\n            if(nx1<x1)continue;\n            ans = (ans + rec(level+1,nx2))%Z;\n        }\n        return dp[level][x2]=ans;\n    }\n    int countOfPairs(vector<int>& arr) {\n        nums=arr;\n        n=arr.size();\n        dp.resize(n,vector<int>(51,-1));\n        int ans=0;\n        for(int i=0;i<=nums[0];i++)\n        {\n            ans = (ans + rec(1,i))%Z;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723346841",
+    "subm_id": "1351586312"
+}

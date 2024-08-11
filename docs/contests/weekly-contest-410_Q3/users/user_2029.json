@@ -1,0 +1,6 @@
+{
+    "username": "SilentTrack",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& a) {\n        long long modulo = 1e9 + 7;\n        int n = a.size();\n        vector<vector<long long>> f(n, vector<long long>(51, 0));\n        for (int i = 0; i <= a[0]; ++i)\n        {\n            f[0][i] = 1;\n        }\n\n        for (int i = 1; i < n; ++i)\n        {\n            for (int j = 0; j <= a[i]; ++j)\n            {\n                int kLimit = min(j, a[i - 1] - a[i] + j);\n                for (int k = 0; k <= kLimit; ++k)\n                {\n                    f[i][j] = (f[i][j] + f[i - 1][k]) % modulo;\n                }\n            }\n        }\n\n        int ans = 0;\n        for (int i = 0; i <= a[n - 1]; ++i)\n        {\n            ans = (ans + f[n - 1][i]) % modulo;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1723346871",
+    "subm_id": "1351586924"
+}

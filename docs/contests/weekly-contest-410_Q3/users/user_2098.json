@@ -1,0 +1,6 @@
+{
+    "username": "teaNcode",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9+7;\n    vector<vector<vector<int>>> dp;\n    int solve(vector<int> &nums, int ind, int firstLast, int secondLast) {\n        if (ind == nums.size()) {\n            return 1;\n        }\n        if (dp[ind][firstLast][secondLast] != -1) return dp[ind][firstLast][secondLast]; \n        long long ans = 0;\n        for (int i=min(secondLast, nums[ind]); i>=0; i--) {\n            int secondEle = i;\n            int firstEle = nums[ind]-i;\n            if (firstEle >= firstLast) {\n                ans = (ans + solve(nums, ind+1, firstEle, secondEle)) % mod;\n            }\n        }\n\n        return dp[ind][firstLast][secondLast] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        dp = vector<vector<vector<int>>>(nums.size()+1, vector<vector<int>>(51, vector<int>(51, -1)));\n        return solve(nums, 0, 0, nums[0]);\n    }\n};",
+    "submit_ts": "1723346355",
+    "subm_id": "1351575722"
+}

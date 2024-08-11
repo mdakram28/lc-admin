@@ -1,0 +1,6 @@
+{
+    "username": "MaskRay",
+    "submission": "\n#define FOR(i, a, b) for (int i = (a); i < (b); i++)\n#define REP(i, n) for (int i = 0; i < (n); i++)\n\nconst int M = 51, P = 1000000007;\n\nclass Solution {\npublic:\n  int countOfPairs(vector<int>& a) {\n    int n = a.size();\n    vector<vector<int>> s(n, vector<int>(51));\n    REP(j, a[0]+1)\n      s[0][j] = 1;\n    REP(i, n-1)\n      REP(j, a[i]+1) {\n        if (!s[i][j])\n          continue;\n        FOR(k, j, a[i+1]+1) {\n          if (a[i]-j < a[i+1]-k)\n            continue;\n          (s[i+1][k] += s[i][j]) %= P;\n        }\n      }\n    int ret = 0;\n    REP(j, M)\n      (ret += s[n-1][j]) %= P;\n    return (ret%P+P)%P;\n  }\n};\n\n",
+    "submit_ts": "1723344389",
+    "subm_id": "1351533306"
+}

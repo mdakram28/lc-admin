@@ -1,0 +1,6 @@
+{
+    "username": "TZGkPxfrU1",
+    "submission": "class Solution {\npublic:\n    \n    vector<vector<vector<int>>> dp;\n    const int MOD = 1e9 + 7;\n    \n    int helper(vector<int>& nums, int i, int prevMin, int prevMax) {\n        int n = nums.size();\n        \n        if(i == n) \n            return 1;\n        \n        if(dp[i][prevMin][prevMax] != -1) return dp[i][prevMin][prevMax];\n        \n        int res = 0;\n        int curr = nums[i];\n        for(int val1 = prevMin; val1 <= curr; val1++) {\n            int val2 = curr - val1;\n            // cout << val1 << \" \" << val2 << endl;\n            // cout << prevMin << \" \" << prevMax << endl;\n            if(prevMin <= val1 && prevMax >= val2) {\n                res += helper(nums, i+1, val1, val2);\n                res %= MOD;\n            } \n            // cout << \"returned\" << endl;\n            \n        }\n        \n        return dp[i][prevMin][prevMax] = res;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int sz = 51;\n        dp = vector<vector<vector<int>>>(n, vector<vector<int>>(sz, vector<int>(sz, -1)));\n        return helper(nums, 0, 0, 50);\n    }\n};",
+    "submit_ts": "1723344795",
+    "subm_id": "1351542192"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "AndreasHzz",
+    "submission": "class Solution {\n    long[][] dp;\n    int mod = 1000000007;\n    int[] nums;\n    public int countOfPairs(int[] nums) {\n        int max = 0;\n        this.nums = nums;\n        for(int i = 0; i<nums.length; i++){\n            max = Math.max(max, nums[i]);\n        }\n\n        dp = new long[nums.length][max+1];\n        for(long[] i:dp)Arrays.fill(i,-1);\n        long res = 0;\n        for(int i = 0; i<=nums[0]; i++){\n            int num1 = i;\n            int num2 = nums[0]-i;\n            res += helper(1, num1, num2);\n            res%=mod;\n        }\n        return (int)res;\n\n    }\n\n    public long helper(int index, int prev1, int prev2){\n        // the current number must be larger than prev1, and the remain must be less than prev2\n        if(index>=nums.length)return 1;\n        if(dp[index][prev1]!=-1)return dp[index][prev1];\n        long res = 0;\n        for(int i = 0; i<=nums[index]; i++){\n            int num1 = i;\n            int num2 = nums[index]-i;\n            if(num1>=prev1 && num2<=prev2){\n                res+=helper(index+1, num1, num2)%mod;\n                res%=mod;\n            }\n        }\n        dp[index][prev1]=res%mod;\n        return res%mod;\n    }\n}",
+    "submit_ts": "1723344293",
+    "subm_id": "1351531140"
+}

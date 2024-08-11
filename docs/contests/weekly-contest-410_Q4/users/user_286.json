@@ -1,0 +1,6 @@
+{
+    "username": "goats_9",
+    "submission": "class Solution {\npublic:\n    using ll = long long;\n    const ll MOD = 1e9 + 7;\n    const int N = 1001;\n\n    int countOfPairs(vector<int>& nums) {\n        vector<ll> dp(N);\n        for (int i = 0; i <= nums[0]; i++) dp[i] = 1;\n        for (int i = 1; i < N; i++) dp[i] = (dp[i - 1] + dp[i]) % MOD;\n        for (int i = 1; i < nums.size(); i++) {\n            vector<ll> ndp(N);\n            for (int j = 0; j < min(nums[i] + 1, N); j++) {\n                int x = min(j, nums[i - 1] - nums[i] + j);\n                if (x >= 0) ndp[j] = dp[x];\n            }\n            for (int j = 1; j < N; j++) ndp[j] = (ndp[j] + ndp[j - 1]) % MOD;\n            swap(dp, ndp);\n        }\n        return dp[nums.back()];\n    }\n};",
+    "submit_ts": "1723346768",
+    "subm_id": "1351584733"
+}

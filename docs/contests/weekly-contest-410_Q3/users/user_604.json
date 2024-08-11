@@ -1,0 +1,6 @@
+{
+    "username": "khoagoodkid",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9+7;\n    vector<vector<int>> memo;\n    int dfs(vector<int>& nums, int i, int last1, int last2) {\n        if(i == nums.size()) {\n            return 1;\n        }\n        if(memo[i][last1] !=-1)return memo[i][last1];\n        int res=0;\n        for(int j =last1; j <= 50; j++) {\n            if(nums[i] - j > last2 || nums[i] - j < 0) continue;\n            res = (res+ dfs(nums, i+1, j, nums[i] - j)) % mod;\n        }\n        memo[i][last1] = res % mod;\n        return memo[i][last1];\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memo.resize(n, vector<int>(51,-1));\n        return dfs(nums,0, 0, nums[0]);\n    }\n};",
+    "submit_ts": "1723345113",
+    "subm_id": "1351548855"
+}

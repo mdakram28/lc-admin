@@ -1,0 +1,6 @@
+{
+    "username": "SharmaJiKaLonda",
+    "submission": "#define MOD 1000000007\n#define MAX_VAL 51\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<long long>>> dp(n + 1, vector<vector<long long>>(MAX_VAL, vector<long long>(MAX_VAL, -1)));\n\n        return computePairs(nums, 0, 0, nums[0], dp);\n    }\n\nprivate:\n    long long computePairs(const vector<int>& nums, int idx, int minVal, int maxVal, vector<vector<vector<long long>>>& dp) {\n        if (idx >= nums.size()) return 1;\n        if (dp[idx][minVal][maxVal] != -1) return dp[idx][minVal][maxVal];\n\n        long long totalCount = 0;\n        for (int i = minVal; i <= nums[idx]; ++i) {\n            for (int j = maxVal; j >= 0; --j) {\n                if (i + j == nums[idx]) {\n                    totalCount = (totalCount + computePairs(nums, idx + 1, i, j, dp)) % MOD;\n                }\n            }\n        }\n\n        return dp[idx][minVal][maxVal] = totalCount;\n    }\n};\n",
+    "submit_ts": "1723346513",
+    "subm_id": "1351579233"
+}

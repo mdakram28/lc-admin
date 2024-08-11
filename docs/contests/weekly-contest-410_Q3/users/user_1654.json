@@ -1,0 +1,6 @@
+{
+    "username": "Aashrith_2002",
+    "submission": "class Solution {\npublic:\n    int dp[52][2001];\n    int mod = 1e9+7;\n    int f(int maxi, int idx, vector<int> &nums){\n        int n = nums.size();\n        if(idx == n) return 1;\n        if(dp[maxi+1][idx] != -1) return dp[maxi+1][idx];\n        int res=0;\n        for(int i=maxi; i<=nums[idx]; i++){\n            if(idx){\n                // cout << res <<  \" \" << maxi << \" \" << idx << endl;\n                if((nums[idx-1]-maxi >= nums[idx]-i) && (nums[idx]-i >= 0)){\n                    res += f(i, idx+1, nums);\n                }\n            }\n            else{\n                res += f(i, idx+1, nums);\n            }\n            res %= mod;\n        }\n        return dp[maxi+1][idx] = res;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return f(0, 0, nums);\n    }\n};",
+    "submit_ts": "1723346090",
+    "subm_id": "1351569974"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Rahul_Gupta07",
+    "submission": "class Solution {\n    vector<vector<int>> dp;\n    int mod = 1e9+7;\n    int N = 1001;\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp.assign(n+1, vector<int> (N, 1));\n        \n        vector<vector<int>> suffix(n+1, vector<int>(N,0));\n        for(int j = N-1; j >= 0; --j) suffix[n][j] += ((j == N-1) ? 0 : suffix[n][j+1]) + dp[n][j];\n        \n        for(int i = n-1; i >= 0; --i){\n            for(int j = N-1; j >= 0; --j){\n                if((i > 0 && j > nums[i-1]) || (i == 0 && j > 0)) continue;\n                \n                dp[i][j] = 0;\n                \n                int a1 = ((i == 0) ? 0 : (j + max(0,nums[i] - nums[i-1])));    // min value of arr1[i] such that arr1[i] >= arr1[i-1] && arr2[i] <= arr2[i-1]\n                if(a1 >= 0 && a1 <= nums[i]){\n                    dp[i][j] += (suffix[i+1][a1] - (nums[i]+1 < N ? suffix[i+1][nums[i]+1] : 0) + mod) % mod;\n                    dp[i][j] %= mod;\n                }\n                \n                suffix[i][j] += ((j == N-1) ? 0 : suffix[i][j+1]) + dp[i][j];\n                suffix[i][j] %= mod;\n            }\n        }\n        \n        \n        return dp[0][0];\n    }\n};",
+    "submit_ts": "1723347320",
+    "subm_id": "1351596432"
+}

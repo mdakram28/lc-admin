@@ -1,0 +1,6 @@
+{
+    "username": "simpcoder02",
+    "submission": "class Solution {\npublic:\n    using ll = long long int;\n    const ll MOD = (ll)1e9 + 7;\n    ll dp[2005][55];\n    \n    ll go(int i, int prev, int n, vector<int> &nums) {\n        if(i >= n) return 1;\n        if(dp[i][prev] != -1) return dp[i][prev];\n        ll ans = 0;\n        for(int curr = prev; curr <= nums[i]; curr ++) {\n            ll prev2 = i > 0 ? nums[i - 1] - prev : 100;\n            ll curr2 = nums[i] - curr;\n            if(prev2 >= curr2) {\n                ans += go(i + 1, curr, n, nums);\n                ans %= MOD;\n            }\n        }\n        return dp[i][prev] = ans % MOD;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        ll ans = go(0, 0, n, nums) % MOD;\n        return ans % MOD;\n    }\n};\n\n\n/*\n\nnums = [2,3,2]\n\narr1 = [0,1,2]\narr2 = [2,2,0]\n\na1[i] + a2[i] = nums[i]\n\n\n\n\n\n\n*/",
+    "submit_ts": "1723344938",
+    "subm_id": "1351545223"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "ParmeetD",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& raw) {\n        const int MOD = 1e9 + 7;\n        int n = raw.size();\n        \n        vector<int> nums(n);\n        nums[0] = raw[0];\n        for (int i = 1; i < n; ++i) {\n            nums[i] = raw[i] - raw[i-1];\n        }\n\n        vector<vector<int>> dp(n, vector<int>(1001, 0));\n        for (int j = 0; j <= nums[0]; ++j) {\n            dp[0][j] = 1;\n        }\n\n        for (int i = 1; i < n; ++i) {\n            vector<int> prefixSum(raw[i-1]+1);\n            prefixSum[0] = dp[i-1][0];\n            for (int j = 1; j <= raw[i-1]; ++j) {\n                prefixSum[j] = (prefixSum[j-1] + dp[i-1][j]) % MOD;\n            }            \n            \n            int mval = max(0, nums[i]);\n            for (int j = 0; j <= raw[i]; ++j) {\n                if (j < mval) continue;\n                int k = min(j-mval, raw[i-1]);\n                dp[i][j] = (dp[i][j] + prefixSum[k]) % MOD;\n            }\n        }\n\n        int result = 0;\n        for (int j = 0; j <= raw[n-1]; ++j) {\n            result = (result + dp[n-1][j]) % MOD;\n        }\n\n        return result;            \n    }\n};",
+    "submit_ts": "1723346521",
+    "subm_id": "1351579425"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Sushanto_das",
+    "submission": "class Solution {\npublic:\n    vector<vector<vector<int>>> dp;\n    int mod = 1e9 + 7;\n    int solve(int i, int prev_min , int prev_max , vector<int>& nums){\n        if(i == nums.size()){\n            return 1;\n        }\n        if(dp[i][prev_min + 1][prev_max] != -1){\n            return dp[i][prev_min+1][prev_max];\n        }\n        int cnt = 0;\n        int first = max(prev_min , 0) , second = min(prev_max , nums[i]);\n        while(first <= nums[i] && second >= 0){\n            if(first + second == nums[i])\n            {   \n                cnt = (solve(i + 1, first , second , nums) + cnt) % mod;\n                first ++ , second --;\n            }\n            else{\n                if(first + second < nums[i]) first ++;\n                else second --;\n            }\n        }\n        return dp[i][prev_min + 1][prev_max] = cnt;\n    }\n    int countOfPairs(vector<int>& nums) {\n        dp.resize(nums.size() + 4 , vector<vector<int>> (53 ,vector<int>(53, -1)));\n        return solve(0 , -1 , 51 , nums);\n    }\n};",
+    "submit_ts": "1723346050",
+    "subm_id": "1351569087"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "tttyyy49",
+    "submission": "class Solution {\n    static final long MOD = (long) 1e9 + 7;\n    \n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        \n        long[][] dp = new long[n][51];\n        for (int x = 0; x <= nums[0]; ++x) dp[0][x] = 1;\n        \n        for (int i = 1; i < n; ++i) {\n            for (int cur = 0; cur <= nums[i]; ++cur) {\n                for (int prev = 0; prev <= cur; ++prev) {\n                    int cur2 = nums[i] - cur;\n                    int prev2 = nums[i - 1] - prev;\n                    if (prev2 < cur2) continue;\n                    dp[i][cur] = (dp[i][cur] + dp[i - 1][prev]) % MOD;\n                }\n            }\n        }\n        \n        long res = 0;\n        for (long cnt : dp[n - 1]) res = (res + cnt) % MOD;\n        return (int) res;\n    }\n}",
+    "submit_ts": "1723345041",
+    "subm_id": "1351547368"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "luyangg",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9+7\n        ans = 0\n        @cache\n        def dp(i, val1, val2): # at least val1 for x1, at most val2 for x2\n            if i == len(nums):\n                return 1\n            if val1 > nums[i]:\n                return 0\n            res = 0\n            for x1 in range(val1, nums[i]+1):\n                if nums[i]-x1 > val2: continue\n                # if i == 1 and val1 == 0 and val2 == 3:\n                    # print(\"x\")\n                res += dp(i+1, x1, nums[i]-x1)\n            # print(i, val1, val2, res)\n            return res%MOD\n        for i in range(nums[0]+1):\n            # print(i, dp(0, i, nums[0]-i))\n            ans += dp(1, i, nums[0]-i)\n        return ans%MOD",
+    "submit_ts": "1723345455",
+    "subm_id": "1351556134"
+}

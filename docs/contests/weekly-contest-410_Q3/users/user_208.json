@@ -1,0 +1,6 @@
+{
+    "username": "mble6125",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size(), m=1e9+7;\n        \n        vector<array<int,51>> dp(n+1);\n        dp[0][0]=1;\n        \n        for (int i=0; i<n; ++i) {\n            for (int j=0; j<=nums[i]; ++j) {\n                for (int k=0; k<=j; ++k) {\n                    if (i==0 || (nums[i-1]-k >= nums[i]-j)) {\n                        dp[i+1][j] += dp[i][k];\n                        dp[i+1][j] %= m;\n                    }\n                }\n            }\n        }\n        \n        int res=0;\n        \n        for (int i=0; i<=50; ++i) {\n            res += dp[n][i];\n            res %= m;\n        }\n        \n        return res;\n    }\n};",
+    "submit_ts": "1723344449",
+    "subm_id": "1351534681"
+}

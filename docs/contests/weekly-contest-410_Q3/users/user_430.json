@@ -1,0 +1,6 @@
+{
+    "username": "LiuWeibo",
+    "submission": "using ll = long long;\nconstexpr int mod = 1e9 + 7;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& ns) {\n        vector<int> dp(64);\n        for (int i = 0; i <= ns[0]; ++i) dp[i] = 1;\n        for (int i = 1; i < ns.size(); ++i) {\n            int v = ns[i], p = ns[i - 1];\n            vector<int> ndp(64);\n            \n            /*\n            int acc = 0;\n            for (int j = 0; j <= v; ++j) {\n                acc = (acc + dp[j]) % mod;\n                ndp[j] = acc;\n            }\n            */\n            \n            for (int j = 0; j <= v; ++j) {\n                int acc = 0;\n                for (int x = 0; x <= j; ++x) {\n                    if (p - x >= v - j) {\n                        acc = (acc + dp[x]) % mod;\n                    }\n                }\n                ndp[j] = acc;\n            }\n            \n            dp.swap(ndp);\n        }\n        \n        \n        int ans = 0;\n        for (auto x: dp) ans = (ans + x) % mod;\n        return ans;\n    }\n};",
+    "submit_ts": "1723345914",
+    "subm_id": "1351566045"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "thejashreemanogaran",
+    "submission": "class Solution {\n    private static final int MOD = 1_000_000_007;\n    \n    public int countOfPairs(int[] N) {\n        int S = N.length;\n        long[][][] m= new long[S][51][51];\n        for (long[][] matrix : m) {\n            for (long[] r : matrix) {\n                Arrays.fill(r, -1);  \n            }\n        }\n        return (int) solve(N, 0, 0, N[0], m);\n    }\n\n    private long solve(int[] N, int i, int val1, int val2, long[][][] m) {\n        if (i >= N.length) return 1;  \n        if (m[i][val1][val2] != -1) return m[i][val1][val2];  \n        \n        long res = 0;\n        for (int k = val1; k <= N[i]; k++) {\n            for (int j = val2; j >= 0; j--) {\n                if (k + j == N[i]) {\n                    res = (res + solve(N, i + 1, k, j, m)) % MOD;\n                }\n            }\n        }\n        m[i][val1][val2] = res;  \n        return res;\n    }\n}\n",
+    "submit_ts": "1723347128",
+    "subm_id": "1351592497"
+}

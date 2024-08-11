@@ -1,0 +1,6 @@
+{
+    "username": "akhilvaid21",
+    "submission": "#define mod 1000000007\n\nclass Solution {\npublic:\n    int n;\n    long long int dp[2001][51][51];\n    long long int solve(vector<int>& nums, int i, int mn, int mx){\n        if(i == n-1){\n            int cnt = 0;\n            for(int j = mn;j<=nums[i];j++){\n                int k = nums[i] - j;\n                if(k <= mx){\n                    cnt++;\n                }\n            }\n            return (dp[i][mn][mx] = (cnt%mod));\n\n        }\n        if(dp[i][mn][mx]!=-1){\n            return (dp[i][mn][mx]%mod);\n        }\n\n        long long int cnt = 0;\n         for(int j = mn;j<=nums[i];j++){\n            int k = nums[i] - j;\n            if(k <= mx){\n                cnt+= solve(nums, i+1, j, k)%mod;\n            }\n        }\n        return (dp[i][mn][mx] = (cnt%mod));\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        n = nums.size();\n        return solve(nums, 0, 0, nums[0])%mod;\n    }\n};",
+    "submit_ts": "1723346158",
+    "subm_id": "1351571520"
+}

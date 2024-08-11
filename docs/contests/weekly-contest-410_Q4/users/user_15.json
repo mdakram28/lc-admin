@@ -1,0 +1,6 @@
+{
+    "username": "mbfibat",
+    "submission": "int f[2011][2011];\nbool g[2011][2011];\n\nconst int mod = 1e9 + 7;\nclass Solution {\nprivate:\n    int n;\n    vector<int> num;\npublic:\n    int dp(int pos, int p1) {\n        if (pos >= n)\n            return 0;\n        if (p1 > num[pos])\n            return 0;\n        if (g[pos][p1])\n            return f[pos][p1];\n        int ans = (pos == n - 1);\n        (ans += dp(pos, p1 + 1)) %= mod;\n        int p2 = num[pos] - p1;\n        if (pos < n - 1)\n            (ans += dp(pos + 1, max(p1, num[pos + 1] - p2))) %= mod;\n        g[pos][p1] = true;\n        return f[pos][p1] = ans;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        num = nums;\n        for (int i = 0; i <= n; i++)\n            for (int j = 0; j <= 1011; j++)\n                g[i][j] = false;\n        return dp(0, 0);\n    }\n};",
+    "submit_ts": "1723344185",
+    "subm_id": "1351528481"
+}

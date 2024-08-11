@@ -1,0 +1,6 @@
+{
+    "username": "dhruv7811",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9+7;\n    \n    int helper(int i, int pincr, vector<int>& nums,vector<vector<int>> &dp){\n        if(i==nums.size()) return 1;\n        if(dp[i][pincr]!=-1) return dp[i][pincr];\n        int ans = 0;\n        if(i==0){\n            for(int j=0;j<=nums[i];j++){\n                if(nums[i]-j>=0)\n                    ans += helper(i+1,j,nums,dp);\n                    ans = ans % MOD;\n            }\n        }\n        else{\n            int pdecr = nums[i-1] - pincr ;\n            for(int j=0;j<=50;j++){\n                if(j>=pincr and (nums[i]-j <= pdecr) and nums[i]-j>=0)\n                    ans += helper(i+1,j,nums,dp);\n                    ans = ans % MOD;\n            }\n        }\n        return dp[i][pincr] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<int>> dp(nums.size(),vector<int>(51,-1));\n        return helper(0,0,nums,dp);\n    }\n};",
+    "submit_ts": "1723345188",
+    "subm_id": "1351550557"
+}

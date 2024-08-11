@@ -1,0 +1,6 @@
+{
+    "username": "divyanshudevv",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n#define dd divyanshudev;\nconst long long MOD = 1e9 + 7;\n\nclass Solution {\npublic:\n    long long solve(int ind, int rishu, int anshu, vector<int>& nums, vector<vector<vector<long long>>>& dp) {\n        if (ind >= nums.size()) return 1;\n        if (dp[ind][rishu][anshu] != -1) return dp[ind][rishu][anshu];\n        \n        long long ans = 0;\n        \n        for (int i = rishu; i <= nums[ind]; i++) {\n            for (int j = anshu; j >= 0; j--) {\n                if (i + j == nums[ind]) {\n                    ans =(ans+solve(ind + 1, i, j, nums, dp))%MOD;\n                    ans =(ans)%MOD;\n                }\n            }\n        }\n        \n        return dp[ind][rishu][anshu] = ans;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<long long>>> dp(n, vector<vector<long long>>(56, vector<long long>(56, -1)));\n        return solve(0, 0, nums[0], nums, dp);\n    }\n};\n",
+    "submit_ts": "1723345675",
+    "subm_id": "1351560902"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "blue_beaver_259",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        # when nums[i] goes up, arr1[i] must go up same amnt at least,\n        # when nums[i] goes down, arr2[i] must go down same amnt at least\n        # total increases just has to >= totalinc, total decrease just has to <= totaldec\n        # is it bounded by the more strict one?\n        # total inc of arr1 == total dec of arr2\n        n = len(nums)\n        dp = [1] * (nums[0] + 1)\n        sign = 1\n        for i in range(n - 1):\n            temp = [0] * (nums[i + 1] + 1)\n            diff = nums[i + 1] - nums[i]\n            if (diff >= 0) != sign:\n                dp = dp[::-1]\n            if diff >= 0:\n                prefix = 0\n                for j in range(diff, nums[i + 1] + 1):\n                    prefix += dp[j - diff]\n                    temp[j] = prefix\n            else:\n                prefix = 0\n                for j in range(nums[i], -diff - 1, -1):\n                    prefix += dp[j]\n                    temp[j + diff] = prefix\n            dp = temp\n            sign = diff >= 0\n        return sum(dp) % (10 ** 9 + 7)",
+    "submit_ts": "1723347084",
+    "subm_id": "1351591534"
+}

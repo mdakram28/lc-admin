@@ -1,0 +1,6 @@
+{
+    "username": "l1cache__",
+    "submission": "class Solution {\npublic:\n    pair<int, int> dp[2005][55] = {{}}; // i, j = ways to reach index i with value j\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        for (int i = 0; i <= nums[0]; i++) {\n            dp[0][i].first = 1;\n            dp[0][i].second = nums[0]-i;\n        }\n        for (int i = 1; i < n; i++) { // ith index\n            for (int j = 0; j <= nums[i]; j++) { // arr[i] = j\n                for (int k = 0; k <= j; k++) { // sum dp[i-1][k]\n                    if (dp[i-1][k].second < nums[i]-j) continue;\n                    dp[i][j].first += dp[i-1][k].first;\n                    dp[i][j].second = nums[i]-j;\n                    dp[i][j].first %= 1000000007;\n                }\n            }\n        }\n        // return accumulate(dp[n-1], dp[n-1]+55, 0ll)%1000000007;\n        int acc = 0;\n        for (int i = 0; i < 55; i++) {\n            acc += dp[n-1][i].first;\n            acc %= 1000000007;\n        }\n        return acc;\n    }\n};",
+    "submit_ts": "1723345904",
+    "subm_id": "1351565827"
+}

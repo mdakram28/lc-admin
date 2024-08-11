@@ -1,0 +1,6 @@
+{
+    "username": "wdotmathree",
+    "submission": "class Solution {\npublic:\n\tlong long dp[2001][51];\n\tint N;\n\n\tint countOfPairs(vector<int> &nums) {\n\t\tN = nums.size();\n\t\tvector<int> a, b;\n\t\tfor (auto x : nums)\n\t\t\ta.push_back(x);\n\t\tb.resize(nums.size());\n\t\tfor (int i = nums.size() - 1; i > 0; i--) {\n\t\t\tif (a[i - 1] > a[i]) {\n\t\t\t\tint d = a[i - 1] - a[i];\n\t\t\t\ta[i - 1] -= d;\n\t\t\t\tb[i - 1] += d;\n\t\t\t}\n\t\t}\n\t\tfor (int i = nums.size() - 1; i > 0; i--) {\n\t\t\tif (b[i - 1] < b[i]) {\n\t\t\t\tint d = b[i] - b[i - 1];\n\t\t\t\ta[i - 1] -= d;\n\t\t\t\tb[i - 1] += d;\n\t\t\t}\n\t\t}\n        for (int i = 0; i < N; i++) {\n            if (a[i] < 0 || b[i] < 0)\n                return 0;\n        }\n\t\tdp[N - 1][a.back()] = 1;\n\t\tfor (int n = a.back() - 1; n >= 0; n--) {\n\t\t\tdp[N - 1][n] = dp[N - 1][n + 1] + 1;\n\t\t}\n\t\tfor (int i = N - 2; i >= 0; i--) {\n\t\t\tdp[i][a[i]] = dp[i + 1][max(a[i], nums[i + 1] - (nums[i] - a[i]))];\n\t\t\tfor (int n = a[i] - 1; n >= 0; n--) {\n\t\t\t\tdp[i][n] = (dp[i][n + 1] + dp[i + 1][max(n, nums[i + 1] - (nums[i] - n))]) % 1000000007;\n\t\t\t}\n\t\t}\n\t\treturn dp[0][0];\n\t}\n};",
+    "submit_ts": "1723348160",
+    "subm_id": "1351612703"
+}

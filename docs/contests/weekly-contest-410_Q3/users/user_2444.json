@@ -1,0 +1,6 @@
+{
+    "username": "Sri_Ram_194",
+    "submission": "public class Solution {\n    private static final int MOD = 1_000_000_007;\n    private int[][][] memo;\n\n    public Solution() {\n        memo = new int[0][][];\n    }\n\n    private int calculatePairs(int[] nums, int index, int limit1, int limit2) {\n        if (index >= nums.length) {\n            return 1;\n        }\n\n        if (memo[index][limit1][limit2] != -1) {\n            return memo[index][limit1][limit2];\n        }\n\n        int result = 0;\n        for (int x = 0; x <= nums[index]; x++) {\n            int value1 = x;\n            int value2 = nums[index] - x;\n            if (value1 >= limit1 && value2 <= limit2) {\n                result = (result + calculatePairs(nums, index + 1, value1, value2)) % MOD;\n            }\n        }\n\n        memo[index][limit1][limit2] = result;\n        return result;\n    }\n\n    public int countOfPairs(int[] nums) {\n        int length = nums.length;\n        memo = new int[length][51][51]; // nums[i] <= 50\n        for (int i = 0; i < length; i++) {\n            for (int j = 0; j <= 50; j++) {\n                for (int k = 0; k <= 50; k++) {\n                    memo[i][j][k] = -1;\n                }\n            }\n        }\n        return calculatePairs(nums, 0, 0, 50);\n    }\n}\n",
+    "submit_ts": "1723347022",
+    "subm_id": "1351590232"
+}

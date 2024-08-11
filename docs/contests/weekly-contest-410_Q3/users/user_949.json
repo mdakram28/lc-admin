@@ -1,0 +1,6 @@
+{
+    "username": "Akash_S29",
+    "submission": "int dp[2001][51][51];\nint mod = 1e9 + 7;\nclass Solution {\npublic:\n    int n;\n    vector<int> v;\n    \n    int f(int i, int p1, int p2) {\n        if(i >= n) return 1;\n        \n        if(dp[i][p1][p2] != -1) return dp[i][p1][p2];\n        \n        int ans = 0;\n        for(int x = p1; x <= v[i]; x++) {\n            int y = v[i] - x;\n            if(y >= 0 && y <= p2) {\n                ans = (ans + f(i+1, x, y)) % mod;\n            }\n        }\n        return dp[i][p1][p2] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        v = nums; n = v.size();\n        for(int i = 0; i < n; i++) {\n            for(int j = 0; j <= 50; j++) {\n                for(int k = 0; k <= 50; k++) dp[i][j][k] = -1;\n            }\n        }\n        return f(0, 0, 50);\n    }\n};",
+    "submit_ts": "1723344926",
+    "subm_id": "1351544957"
+}

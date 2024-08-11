@@ -1,0 +1,6 @@
+{
+    "username": "xiaoping3418",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size(), m = 51, mod = 1000000007;;\n        vector<int> left(n - 1), right(n - 1);\n        for (int i = 0; i + 1 < n; ++i) left[i] = max(0, nums[i + 1] - nums[i]);\n        for (int i = 0; i + 1 < n; ++i) right[i] = max(0, nums[i] - nums[i + 1]);\n        \n        vector<vector<int>> dp(n, vector<int>(m));\n        for (int j = 0; j <= nums[0]; ++j) {\n            dp[0][j] = 1;\n        }\n        for (int i = 1; i < n; ++i) {\n            int d = max(0, nums[i] - nums[i - 1]);\n            for (int j = 0; j <= nums[i]; ++j) {\n                for (int it = 0; it + d <= j; ++it) {\n                    dp[i][j] = (dp[i][j] + dp[i - 1][it]) % mod;\n                }\n            } \n        }\n        \n        int ret = 0;\n        for (int j = 0; j < m; ++j) {\n            ret = (ret + dp[n - 1][j]) % mod;\n        }\n        \n        return ret;\n    }\n};",
+    "submit_ts": "1723345788",
+    "subm_id": "1351563321"
+}

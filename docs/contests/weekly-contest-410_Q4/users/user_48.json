@@ -1,0 +1,6 @@
+{
+    "username": "cai_lw",
+    "submission": "class Solution {\n    void madd(int& x,int y){\n        constexpr int P=1'000'000'007;\n        x+=y;\n        if(x>=P)\n            x-=P;\n    }\n    void psum(vector<int>& a){\n        for(int i=1;i<a.size();i++)\n            madd(a[i],a[i-1]);\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        vector<int> dps(nums[0]+1,1);\n        psum(dps);\n        for(int t=1;t<nums.size();t++){\n            vector<int> dp2(nums[t]+1);\n            for(int i=0;i<=nums[t];i++){\n                int r=min({i,nums[t-1]-(nums[t]-i),nums[t-1]});\n                if(r>=0)\n                    dp2[i]=dps[r];\n            }\n            psum(dp2);\n            swap(dps,dp2);\n        }\n        return dps.back();\n    }\n};",
+    "submit_ts": "1723344505",
+    "subm_id": "1351536006"
+}

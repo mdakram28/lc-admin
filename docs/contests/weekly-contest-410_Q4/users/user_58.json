@@ -1,0 +1,6 @@
+{
+    "username": "megurine",
+    "submission": "p = int(1e9 + 7)\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        pre = max(nums)\n        f = [1] * (pre + 1)\n        for cur in nums:\n            h = [0] * (cur + 1)\n            for a in range(cur + 1):\n                b = cur - a\n                # x <= a and pre - x >= cur - a\n                # x <= a and x <= pre - cur + a\n                if pre - cur + a < 0:\n                    continue\n                h[a] = f[min(a, pre, pre - cur + a)]\n            # print(cur, h)\n            pre = cur\n            f = h\n            for i in range(1, cur + 1):\n                f[i] += f[i - 1]\n                f[i] %= p\n        return f[-1]",
+    "submit_ts": "1723344591",
+    "subm_id": "1351537857"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Bhaskar9143",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int length = nums.length;\n        int[][][] dp = new int[length + 1][101][101];\n        for (int i = 0; i <= length; i++) {\n            for (int j = 0; j <= 100; j++) {\n                Arrays.fill(dp[i][j], -1);\n            }\n        }\n        return findValidPairs(length, nums, 0, 0, 0, dp);\n    }\n\n    static int findValidPairs(int length, int[] numbers, int index, int prevA, int prevB, int[][][] dp) {\n        if (index == length) return 1;\n        if (dp[index][prevA][prevB] != -1) return dp[index][prevA][prevB];\n        \n        int result = 0;\n        int mod=(int)1e9+7;\n        for (int j = 0; j <= numbers[index]; j++) {\n            int complement = numbers[index] - j;\n            if (index == 0 || (prevA <= j && prevB >= complement)) {\n                result = (result%mod+findValidPairs(length, numbers, index + 1, j, complement, dp)%mod)%mod;\n            }\n        }\n        \n        dp[index][prevA][prevB] = result;\n        return result;\n    }\n}",
+    "submit_ts": "1723346076",
+    "subm_id": "1351569678"
+}

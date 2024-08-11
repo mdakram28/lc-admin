@@ -1,0 +1,6 @@
+{
+    "username": "Fkaiser7",
+    "submission": "#define lli long long\nlli mod=1e9+7;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<lli>>dp(2002,vector<lli>(1001));\n        vector<lli>seg(1001);\n        lli n=nums.size();\n        for(lli i=n;i>=0;i--){\n            //cout<<i<<endl;\n            for(lli j=1000;j>=0;j--){\n                if(i==n){\n                    if(j<=nums[n-1]){\n                        dp[i][j]=1;\n                    }\n                    continue;\n                }\n                lli ans=0;\n                if(i==0){\n                    ans+=seg[j];\n                }\n                else{\n                    lli t=max(j,j+nums[i]-nums[i-1]);\n                    if(t<=nums[i]){\n                        ans+=seg[t];\n                    }\n                }\n                ans=ans%mod;\n                //cout<<i<<\" \"<<j<<\" \"<<ans<<endl;\n                dp[i][j]=ans;\n            }\n            lli ans=0;\n            for(lli j=1000;j>=0;j--){\n                //cout<<j<<endl;\n                ans+=dp[i][j];\n                ans=ans%mod;\n                seg[j]=ans;\n            }\n        }\n        return (int)(dp[0][0]%mod);\n    }\n};",
+    "submit_ts": "1723346445",
+    "subm_id": "1351577757"
+}

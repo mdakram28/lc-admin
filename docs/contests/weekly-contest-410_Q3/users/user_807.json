@@ -1,0 +1,6 @@
+{
+    "username": "goku_2022",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    int help(vector<int>&nums, int i, int p1, int p2, vector<vector<vector<int>>>&v){\n        if(i==nums.size()){\n            return 1;\n        }\n        if(v[i][p1+1][p2]!=-1){\n            return v[i][p1+1][p2]%mod;\n        }\n        int ans=0;\n        for(int j=p2;j>=0;j--){\n            int g=nums[i]-j;\n            if(g<p1 || g<0)continue;\n            ans=(ans+help(nums,i+1,g,j,v)%mod)%mod;\n        }\n        return v[i][p1+1][p2]=ans%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int maxi=*max_element(nums.begin(),nums.end());\n        int n=nums.size();\n        vector<vector<vector<int>>>v(n+1,vector<vector<int>>(52, vector<int>(52,-1)));\n        return help(nums,0,-1,maxi,v)%mod;\n    }\n};",
+    "submit_ts": "1723344916",
+    "subm_id": "1351544756"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Om-Srivastava",
+    "submission": "class Solution {\npublic:\n    const long long M = 1e9+7;\n    int dp[2002][52];\n    long long recur(vector<int>& nums, int prev, int ind){\n        if(ind==nums.size()) return 1;\n        if(dp[ind][prev]!=-1) return dp[ind][prev];\n        int prevMin = 0, prevMax = INT_MAX;\n        if(ind>0){\n            prevMin = prev;\n            prevMax = nums[ind-1]-prev;\n        }\n        long long sum=0;\n        for(int i=prevMin;i<=nums[ind];i++){\n            if(nums[ind]-i>prevMax) continue;\n            // cout<<i<<' ';\n            sum=(sum%M+recur(nums, i, ind+1)%M)%M;\n        }\n        // cout<<'\\n';\n        return dp[ind][prev] = sum%M;\n    }\n    int countOfPairs(vector<int>& nums) {\n        for(int i=0;i<=2001;i++){\n            for(int j=0;j<=51;j++) dp[i][j]=-1;\n        }\n        long long ans = recur(nums, 0, 0);\n        return ans%M;\n    }\n};\n\n// 4 5 5 5 5\n// 1 0 0 0 0",
+    "submit_ts": "1723345251",
+    "subm_id": "1351551808"
+}

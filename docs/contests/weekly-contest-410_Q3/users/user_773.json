@@ -1,0 +1,6 @@
+{
+    "username": "somyakumar",
+    "submission": "class Solution {\npublic:\n\n    const int mod = 1e9+7;\n    int dp[2020][55][55];\n    int n;\n\n    int recur(int ind, int lastA, int lastB, vector<int>& nums){\n        if(ind == n)return 1;\n\n        if(dp[ind][lastA][lastB] != -1)return dp[ind][lastA][lastB];\n        \n        int ans = 0;\n        \n        for(int i = lastA; i<= nums[ind]; i++){\n            if(nums[ind] - i <= lastB){\n                ans = (ans% mod + recur(ind+1, i, nums[ind] - i, nums)%mod)%mod;\n            }\n        }\n        return dp[ind][lastA][lastB] = ans;\n\n\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();  \n        for(int i=0; i<n+5; i++){\n            for(int j=0; j<55; j++){\n                for(int k=0; k<55; k++)dp[i][j][k] = -1;\n            }\n        }  \n\n        return recur(0, 0, 51, nums);\n    }\n};",
+    "submit_ts": "1723344800",
+    "subm_id": "1351542307"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "ankuraj_27",
+    "submission": "class Solution {\npublic:\n    int dp[2001][2001],sp[2001][2001],mod=1e9+7;\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,0,sizeof(dp));\n        int n=nums.size();\n        for(int i=0;i<=1000;i++) dp[n][i]=1;\n        for(int i=1000;i>=0;i--) sp[n][i]=(dp[n][i]+sp[n][i+1])%mod;\n        for(int ind=n-1;ind>=0;ind--) {\n            for(int prev=1000;prev>=0;prev--) {\n                int sum=0,mx=0;\n                if(ind!=0) mx=max(nums[ind]-nums[ind-1]+prev,prev);\n                if(ind==0 && prev<=nums[ind]) \n                    sum=(sum+sp[ind+1][prev]-sp[ind+1][nums[ind]+1])%mod;\n                else if(ind!=0 && mx<=nums[ind]) \n                    sum=(sum+sp[ind+1][mx]-sp[ind+1][nums[ind]+1])%mod;\n                dp[ind][prev]=sum;\n                sp[ind][prev]=(dp[ind][prev]+sp[ind][prev+1])%mod;\n            }\n        }\n        return dp[0][0];\n    }\n};",
+    "submit_ts": "1723348242",
+    "subm_id": "1351614363"
+}

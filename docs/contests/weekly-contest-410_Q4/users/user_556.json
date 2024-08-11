@@ -1,0 +1,6 @@
+{
+    "username": "Mememtum",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n         constexpr int modulo = 1e9 + 7;\n         constexpr int max_num = 1000;\n         int dp[2][max_num+1] {};\n         int prefix[2][max_num+1] {};\n         int n = nums.size();\n         std::fill(dp[n&1], dp[n&1]+max_num+1, 1);\n         std::iota(prefix[n&1], prefix[n&1]+max_num+1, 1);\n\n         for (int i = n-1; i >= 0; --i) {\n            int prev_num = i > 0 ? nums[i-1] : max_num;\n            int acc {};\n            for (int pinc {0}; pinc <= prev_num; ++pinc) {\n               if (i == 0 && pinc > 0) continue;\n               int pdec = prev_num - pinc;\n               // sum range inclusive [min(pinc, nums[i]-pdec), nums[i]]\n               int start = max(pinc, nums[i]-pdec);\n               int psum = start > 0 ? prefix[(i+1)&1][start-1] : 0;\n               if (nums[i] >= start) \n                  dp[i&1][pinc] = (prefix[(i+1)&1][nums[i]] - psum + modulo) % modulo;\n               else \n                  dp[i&1][pinc] = 0;\n               acc = (acc + dp[i&1][pinc]) % modulo;\n               prefix[i&1][pinc] = acc;\n            }\n         }\n         return dp[0][0];\n    }\n};",
+    "submit_ts": "1723348161",
+    "subm_id": "1351612724"
+}

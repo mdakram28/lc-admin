@@ -1,0 +1,6 @@
+{
+    "username": "knight_321",
+    "submission": "#define ll long long\nclass Solution {\n    ll f(ll ind, ll prev1, ll prev2, vector<int> &nums, vector<vector<vector<ll>>> &dp, ll &m){\n        ll n = nums.size();\n        if(ind >= n) return 1;\n        ll ans = 0;\n        if(dp[ind][prev1 + 1][prev2] != -1) return dp[ind][prev1 + 1][prev2];\n        for(ll i = 0 ; i <= min(nums[ind], 50); i++){\n            ll x = i, y = nums[ind] - x;\n            if(x >= prev1 and y <= prev2){\n                ans = (ans % m + f(ind + 1, x, y, nums, dp, m) % m) % m;\n            }\n        }\n        return dp[ind][prev1 + 1][prev2] = ans % m;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        ll n = nums.size();\n        ll m = 1e9 + 7;\n        vector<vector<vector<ll>>> dp(n + 1, vector<vector<ll>> (54, vector<ll> (54, -1)));\n        ll ans = f(0, -1, 52, nums, dp, m) % m;\n        return ans; \n    }\n};",
+    "submit_ts": "1723344589",
+    "subm_id": "1351537812"
+}

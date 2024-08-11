@@ -1,0 +1,6 @@
+{
+    "username": "Addyamishra",
+    "submission": "int getKey(int ind, int ma, int mi) {\n    return ind * 1000000 + ma * 1000 + mi; // Assumes reasonable ranges for `ind`, `ma`, and `mi`\n}\n\nclass Solution {\npublic:\n    // Memoization map with integer key\n    unordered_map<int, long long> memo;\n\n    long long get(vector<int>& nums, int ind, int ma, int mi) {\n        // Base case\n        if (ind >= nums.size()) return 1;\n\n        // Create a unique integer key for the current state\n        int key = getKey(ind, ma, mi);\n\n        // Check if result is already memoized\n        if (memo.find(key) != memo.end()) {\n            return memo[key];\n        }\n\n        long long ans = 0;\n        for (int i = 0; i <= nums[ind]; i++) {\n            int frst = nums[ind] - i;\n            int scnd = i;\n            if (frst <= ma && scnd >= mi || (ma == -1 && mi == -1)) {\n                ans = (ans + get(nums, ind + 1, frst, scnd)) % 1000000007;\n            }\n        }\n\n        // Store the result in memoization map\n        memo[key] = ans;\n        return ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        return get(nums, 0, -1, -1);\n    }\n};",
+    "submit_ts": "1723344977",
+    "subm_id": "1351546056"
+}

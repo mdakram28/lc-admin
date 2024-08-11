@@ -1,0 +1,6 @@
+{
+    "username": "dong_liu",
+    "submission": "const int A=1e3+1, MOD=1e9+7;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& v) {\n        static int dp[A], ndp[A];\n        memset(dp, 0, sizeof dp);\n        for (int i=0; i<=v[0]; i++) {\n            dp[i]=1;\n        }\n        for (int i=1; i<v.size(); i++) {\n            int x=v[i-1];\n            int y=v[i];\n            for (int j=1; j<A; j++) {\n                dp[j] += dp[j-1];\n                if (dp[j] >= MOD) dp[j] -= MOD;\n            }\n            for (int j=0; j<=y; j++) {\n                int p=j;\n                p = min(p, x+j-y);\n                ndp[j] = 0;\n                if (p>=0) ndp[j] = dp[p];\n            }\n            for (int j=y+1; j<A; j++) ndp[j]=0;\n            swap(dp, ndp);\n        }\n        int s=0;\n        for (int a=0; a<A; a++) {\n            s += dp[a];\n            if (s >= MOD) s -= MOD;\n        }\n        return s;\n        \n    }\n};",
+    "submit_ts": "1723343887",
+    "subm_id": "1351520892"
+}

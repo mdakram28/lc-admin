@@ -1,0 +1,6 @@
+{
+    "username": "anujmunjal",
+    "submission": "class Solution {\npublic:\n    long long dp[2001][52][52];\n    int mod=1e9+7;\n    int solve(vector<int>&arr,int index,int prev1,int prev2)\n    {\n        if(index >=arr.size())return 1;\n        if(dp[index][prev1+1][prev2+1]!=-1)return dp[index][prev1+1][prev2+1];\n        int val=arr[index];\n        long long ans=0;\n        for(int i=0;i<=val;i++)\n        {\n            if((prev1==-1 and prev2==-1) or prev1 <= i and prev2 >= val-i)\n               ans= (ans%mod + solve(arr,index+1,i,val-i)%mod)%mod;\n        }\n        \n        return dp[index][prev1+1][prev2+1]=ans%mod;\n        \n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        return solve(nums,0,-1,-1);\n    }\n};",
+    "submit_ts": "1723344978",
+    "subm_id": "1351546068"
+}

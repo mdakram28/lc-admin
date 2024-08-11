@@ -1,0 +1,6 @@
+{
+    "username": "WA_Automaton",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        mod = int(10**9) + 7\n        cap = [nums[-1]]*len(nums)\n        for i in range(len(nums)-2, -1, -1):\n            cap[i] = min(nums[i], cap[i+1])\n        @cache\n        def dp(i, prev1, prev2):\n            if i == len(nums):\n                return 1\n            if nums[i] < prev1:\n                return 0\n            res = 0\n            for x in range(prev1, cap[i]+1):\n                y = nums[i] - x\n                if y > prev2:\n                    continue\n                res += dp(i+1, x, y)\n                res %= mod\n            return res\n        ret = dp(0, 0, float('inf'))\n        dp.cache_clear()\n        return ret",
+    "submit_ts": "1723344227",
+    "subm_id": "1351529514"
+}

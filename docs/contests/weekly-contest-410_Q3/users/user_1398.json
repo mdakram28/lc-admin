@@ -1,0 +1,6 @@
+{
+    "username": "jain05akshat",
+    "submission": "class Solution {\npublic:\n    long long int dp[2001][51][51];\n    int MOD = 1e9+7;\n    long long rec(int level, int num1, int num2, vector<int> &nums) {\n        if(level >= nums.size()) return 1;\n        long long cnt = 0;\n        if(dp[level][num1][num2] != -1) return dp[level][num1][num2];\n        for(int i=num1; i<=nums[level]; i++) {\n            for(int j=num2; j>=0; j--) {\n                int tot = i+j;\n                if(tot == nums[level]) {\n                    cnt = (cnt + rec(level+1, i, j, nums))%MOD;\n                }\n            }\n        }\n        return dp[level][num1][num2] = cnt;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        int n = nums.size();\n        return rec(0, 0, nums[0], nums);\n    }\n};",
+    "submit_ts": "1723345690",
+    "subm_id": "1351561258"
+}

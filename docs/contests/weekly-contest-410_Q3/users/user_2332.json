@@ -1,0 +1,6 @@
+{
+    "username": "mejarkumar2003",
+    "submission": "class Solution {\npublic:\n    int dp[52][52][2002];\n    int mod = 1e9+7;\n    int rec(int idx, int a, int b, vector<int>&nums,bool flag){\n        if(idx>=nums.size()){\n            return flag;\n        }\n        if(dp[a][b][idx]!=-1)return dp[a][b][idx];\n        int res=0;\n        bool not_pos=true;\n        for(int val=a;val<=nums[idx];val++){\n            if((nums[idx]-val)<=b){\n                not_pos=false;\n                res=(res+ rec(idx+1,val,nums[idx]-val,nums,flag))%mod;\n               \n            }\n        }\n        if(not_pos==true)\n        return 0;\n        return dp[a][b][idx] = res;\n    } \n    \n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int ans=0;\n       \n        memset(dp,-1,sizeof(dp));\n        for(int i=0;i<=nums[0];i++){\n            ans  = (ans+rec(1,i,nums[0]-i,nums,1))%mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723347193",
+    "subm_id": "1351593860"
+}

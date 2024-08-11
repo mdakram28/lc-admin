@@ -1,0 +1,6 @@
+{
+    "username": "cagr",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        '''\n        Since non-negative, when pick one the other one is fixed\n\n        dp(i, v) # count with index i and arr1[i] is v\n        '''\n        n = len(nums)\n        MOD = 10**9 + 7\n        @cache\n        def dp(i, prev1_v):\n            if i == n:\n                return 1 # or 0 TODO\n            if i > 0:\n                prev2_v = nums[i-1] - prev1_v\n            else:\n                prev2_v = float('inf')\n            sub_counts = 0\n\n            for v1 in range(0, nums[i]+1):\n                v2 = nums[i] - v1\n                if v1 >= prev1_v and v2 <= prev2_v:\n                    sub_counts += dp(i+1, v1) % MOD\n            return sub_counts % MOD\n        return dp(0, -float('inf'))\n\n\n\n            \n            \n\n        \n\n        ",
+    "submit_ts": "1723345074",
+    "subm_id": "1351548045"
+}

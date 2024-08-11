@@ -1,0 +1,6 @@
+{
+    "username": "sbian32",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10 ** 9 + 7\n        n, mx = len(nums), max(nums)\n        dp = [[0] * (mx + 1) for _ in range(n)]\n        dp[0][0] = 1\n        \n        for j in range(1, nums[0] + 1):\n            dp[0][j] = 1 + dp[0][j - 1]\n        for i in range(1, n):\n            if nums[i - 1] - nums[i] >= 0:\n                dp[i][0] = dp[i - 1][0]\n            for j in range(1, nums[i] + 1):\n                t = min(j, nums[i - 1] - nums[i] + j, nums[i - 1])\n                if t >= 0:\n                    dp[i][j] = (dp[i - 1][t] + dp[i][j - 1]) % MOD\n                else:\n                    dp[i][j] = dp[i][j - 1]\n        return dp[-1][nums[-1]] % MOD",
+    "submit_ts": "1723346493",
+    "subm_id": "1351578792"
+}

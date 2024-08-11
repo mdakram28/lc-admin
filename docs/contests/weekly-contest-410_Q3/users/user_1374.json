@@ -1,0 +1,6 @@
+{
+    "username": "yaamarjeet",
+    "submission": "\nstruct key{\n    int pichla1;\n    int pichla2;\n    int x;\n    bool operator==(const key&other) const{\n        return pichla1==other.pichla1&&pichla2==other.pichla2&&x==other.x;\n    }\n};\nstruct Hash{\n    size_t operator()(const key &kk) const {\n        return hash<int>()(kk.pichla1)^(hash<int>()(kk.pichla2)<<1)^(hash<int>()(kk.x)<<2);\n    }\n};\nclass Solution {\n    unordered_map<key,int,Hash>dp;\n    int modu = 1e9+7;\n    int calc(vector<int>&nums,int pichla1,int pichla2,int i){\n        if(i>=nums.size()){\n            \n            return 1;\n        }\n        key key = {pichla1,pichla2,i};\n        if(dp.find(key)!=dp.end()){\n            return dp[key];\n        }\n        int ans = 0;\n        for(int j = 0;j<=nums[i];j++){\n            if(j>=pichla1&&nums[i]-j<=pichla2){\n               ans = (ans+ calc(nums,j,nums[i]-j,i+1))%modu;\n            }\n        }\n        dp[key] = ans;\n        return ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        return calc(nums,-1,INT_MAX,0);\n    }\n};",
+    "submit_ts": "1723345950",
+    "subm_id": "1351566861"
+}

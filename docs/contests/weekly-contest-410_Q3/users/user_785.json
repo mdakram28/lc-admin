@@ -1,0 +1,6 @@
+{
+    "username": "smitrajrana57",
+    "submission": "class Solution {\nprivate:\n    int MOD = 1e9 + 7;\n    vector<vector<int>> dp;\n\n    int dfs(vector<int>& nums, int i, int prev) {\n        if(i == nums.size()) return 1;\n        if(dp[i][prev] != -1) return dp[i][prev];\n        int res = 0;\n        for(int x = prev; x <= nums[i]; x++) {\n            int y = nums[i] - x;\n            if(i != 0 && y > (nums[i - 1] - prev)) continue;\n            res = (res % MOD + dfs(nums, i + 1, x) % MOD) % MOD;\n        }\n        return dp[i][prev] = res % MOD;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int maxi = *max_element(nums.begin(), nums.end());\n        dp = vector<vector<int>>(n, vector<int>(maxi + 1, -1));\n        return dfs(nums, 0, 0);\n    }\n};",
+    "submit_ts": "1723344556",
+    "subm_id": "1351537112"
+}

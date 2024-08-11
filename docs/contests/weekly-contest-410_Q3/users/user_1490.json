@@ -1,0 +1,6 @@
+{
+    "username": "Aman12213069",
+    "submission": "class Solution {\n    int MOD = 1e9 + 7;\n    int solve(vector<int>& nums,int i,int prev1,int prev2,vector<vector<vector<int>>>& dp){\n        int n = nums.size();\n        if(i == n) return 1;\n        if(dp[i][prev1][prev2] != -1) return dp[i][prev1][prev2];\n        \n        int ways = 0;\n        for(int val1 = prev1 ; val1 <= 50 ; val1++){\n            for(int val2 = prev2 ; val2 >= 0 ; val2--){\n                if(val1 + val2 == nums[i]){\n                    ways = (ways + solve(nums,i+1,val1,val2,dp)) % MOD;\n                }\n            }\n        }\n        \n        return dp[i][prev1][prev2] = ways;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n,vector<vector<int>> (51,vector<int> (51,-1)));\n        return solve(nums,0,0,50,dp);\n    }\n};",
+    "submit_ts": "1723345829",
+    "subm_id": "1351564218"
+}

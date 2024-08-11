@@ -1,0 +1,6 @@
+{
+    "username": "3clouds8878",
+    "submission": "#define MOD 1000000007\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n    int maxNum = *max_element(nums.begin(), nums.end());\n    vector<vector<int>> dp(n, vector<int>(maxNum + 1, 0));\n\n    // Initialize base case\n    for (int j = 0; j <= nums[0]; ++j) {\n        dp[0][j] = 1; // Only one way to have arr1[0] = j and arr2[0] = nums[0] - j\n    }\n\n    // Fill the DP table\n    for (int i = 1; i < n; ++i) {\n        vector<int> prefixSum(maxNum + 1, 0);\n        for (int j = 0; j <= maxNum; ++j) {\n            prefixSum[j] = dp[i-1][j];\n            if (j > 0) {\n                prefixSum[j] = (prefixSum[j] + prefixSum[j-1]) % MOD;\n            }\n        }\n\n        for (int j = 0; j <= nums[i]; ++j) {\n            int arr2Val = nums[i] - j;\n            if (arr2Val <= nums[i-1]) {\n                dp[i][j] = prefixSum[min(j, nums[i-1] - arr2Val)];\n            }\n        }\n    }\n\n    // Calculate the final answer\n    int result = 0;\n    for (int j = 0; j <= nums[n-1]; ++j) {\n        result = (result + dp[n-1][j]) % MOD;\n    }\n\n    return result;\n    }\n};",
+    "submit_ts": "1723344958",
+    "subm_id": "1351545649"
+}

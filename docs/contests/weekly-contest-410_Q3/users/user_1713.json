@@ -1,0 +1,6 @@
+{
+    "username": "saketh163",
+    "submission": "class Solution {\n    \n    \n    public int countOfPairs(int[] nums) {\n        int n = nums.length,maxVal=-1;\n        for(int i : nums){\n            maxVal = Math.max(maxVal,i);\n        }\n        int[][][] dp = new int[n][maxVal + 1][maxVal + 1];\n\n        for (int[][] arr : dp) {\n            for (int[] row : arr) {\n                Arrays.fill(row, -1);\n            }\n        }\n\n        return countPairs(nums, 0, 0, maxVal,dp);\n    }\n\n    int countPairs(int[] nums, int i, int p1, int p2, int[][][] dp) {\n        if (i == nums.length) {\n            return 1;\n        }\n\n        if (dp[i][p1][p2] != -1) {\n            return dp[i][p1][p2];\n        }\n\n        int cnt = 0;\n        for (int arr1Val = p1; arr1Val <= nums[i]; arr1Val++) {\n            int arr2Val = nums[i] - arr1Val;\n            if (arr2Val <= p2) {\n                cnt = (cnt + countPairs(nums, i + 1, arr1Val, arr2Val, dp)) % 1000000007;\n            }\n        }\n\n        return dp[i][p1][p2] = cnt;\n    }\n}",
+    "submit_ts": "1723346463",
+    "subm_id": "1351578144"
+}

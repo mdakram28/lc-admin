@@ -1,0 +1,6 @@
+{
+    "username": "prithwirajmitra15",
+    "submission": "class Solution {\npublic:\n    int countPairs(int idx, int start, vector<int> &arr, vector<vector<long long>> &dp)\n    {\n        if (idx == arr.size())\n            return 1;\n        if (dp[idx][start] != -1)\n            return dp[idx][start];\n        \n        int prev1 = (idx - 1 >= 0) ? start : 0;\n        int prev2 = (idx - 1 >= 0) ? arr[idx - 1] - start : INT_MAX;\n        \n        long long ans = 0, mod = 1e9 + 7;\n        for (int value = start; value <= arr[idx]; value++)\n        {\n            int curr1 = value;\n            int curr2 = arr[idx] - value;\n            if (prev2 >= curr2)\n            {\n                ans += countPairs(idx + 1, value, arr, dp);\n                ans %= mod;\n            }\n        }\n        \n        return dp[idx][start] = ans;\n    }\n\n    int countOfPairs(vector<int> &arr)\n    {\n        int maxi = *max_element(arr.begin(), arr.end());\n        vector<vector<long long>> dp(arr.size(), vector<long long>(maxi + 1, -1));\n        return countPairs(0, 0, arr, dp);\n    }\n};",
+    "submit_ts": "1723344754",
+    "subm_id": "1351541345"
+}

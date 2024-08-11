@@ -1,0 +1,6 @@
+{
+    "username": "theabbie",
+    "submission": "M = 10 ** 9 + 7\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        MX = max(nums)\n        dp = [1] * (MX + 1)\n        ndp = [0] * (MX + 1)\n        pf = [0] * (MX + 2)\n        def update():\n            pf[0] = 0\n            for i in range(MX + 1):\n                pf[i + 1] = pf[i] + dp[i]\n        update()\n        for i in range(n - 1, -1, -1):\n            up = 0 if i == 0 else nums[i - 1]\n            for prev in range(up + 1):\n                prevdec = float('inf')\n                if i > 0:\n                    prevdec = nums[i - 1] - prev\n                low = max(prev, nums[i] - prevdec)\n                ndp[prev] = 0\n                if nums[i] + 1 >= low:\n                    ndp[prev] = pf[nums[i] + 1] - pf[low]\n                    ndp[prev] %= M\n            dp, ndp = ndp, dp\n            update()\n        return dp[0]",
+    "submit_ts": "1723345175",
+    "subm_id": "1351550254"
+}

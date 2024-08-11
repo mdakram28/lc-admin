@@ -1,0 +1,6 @@
+{
+    "username": "user3885IN",
+    "submission": "class Solution {\npublic:\n    static const int64_t MOD = 1'000'000'007;\n    vector<int16_t> values;\n    vector<vector<int64_t>> memo;\n    int16_t size;\n\n    int64_t calculate(int16_t level, int16_t prev_right) {\n        bool d=level == size;\n        if (d) return 1;\n        bool t=memo[level][prev_right] != -1;\n        if (t) return memo[level][prev_right];\n        \n        int16_t prev_left = values[level-1] - prev_right;\n        int64_t result = 0;\n\n        for (int16_t curr_right = prev_right; curr_right >= 0; --curr_right) {\n            int16_t curr_left = values[level] - curr_right;\n            bool x=curr_left < prev_left;\n            if (x) continue;\n            result = (result + calculate(level + 1, curr_right)) % MOD;\n        }\n\n        return memo[level][prev_right] = result;\n    }\n\n    int countOfPairs(vector<int>& arr) {\n        values = vector<int16_t>(arr.begin(), arr.end());\n        size = static_cast<int16_t>(arr.size());\n        memo.assign(size, vector<int64_t>(51, -1));\n\n        int64_t total = 0;\n        for (int16_t i = 0; i <= values[0]; ++i) {\n            total = (total + calculate(1, i)) % MOD;\n        }\n\n        return static_cast<int>(total);\n    }\n};",
+    "submit_ts": "1723347322",
+    "subm_id": "1351596489"
+}

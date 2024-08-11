@@ -1,0 +1,6 @@
+{
+    "username": "gautampulkit",
+    "submission": "class Solution {\n    Integer[][] dp;\n    int MOD = 1_000_000_007;\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        dp = new Integer[n][51];\n        return solve(nums, 0, 0) % MOD;\n    }\n    private int solve(int[] nums, int idx, int prev){\n        if(idx == nums.length) return 1;\n        if(dp[idx][prev] != null) return dp[idx][prev];\n        int count = 0;\n        for(int i = prev; i <= nums[idx]; i++){\n            if(idx == 0) count = (count + solve(nums, idx + 1, i)) % MOD;\n            else if(nums[idx] - i <= nums[idx - 1] - prev) count = (count + solve(nums, idx + 1, i)) % MOD;\n        }\n        return dp[idx][prev] = count;\n    }\n}",
+    "submit_ts": "1723346660",
+    "subm_id": "1351582403"
+}

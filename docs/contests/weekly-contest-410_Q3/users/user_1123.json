@@ -1,0 +1,6 @@
+{
+    "username": "espr3ss0",
+    "submission": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar countOfPairs = function(nums) {\n  const n = nums.length;\n  const MOD = 10 ** 9 + 7;\n  \n  const dp = new Array(n).fill().map(() => new Array(53).fill(-1));\n  const f = (i, lastY) => {\n    if (i === n) return 1;\n    if (dp[i][lastY] !== -1) return dp[i][lastY];\n    const lastX = i === 0 ? -1 : nums[i - 1] - lastY;\n    \n    let count = 0;\n    for (let num = 0; num <= nums[i]; num += 1) {\n      const potX = num;\n      const potY = nums[i] - num;\n      if (potX >= lastX && potY <= lastY) {\n        count = (count + f(i + 1, potY)) % MOD;\n      }\n    }\n    \n    return dp[i][lastY] = count;\n  }\n  \n  return f(0, 51);\n};\n\n/*\n\n[2,3,2]\n\n[x,x,x]\n[y,y,y]\n\nx0 + y0 = 2\n\n1.50 loop per i\n\nx=0, y=2\n\nf(lastX, lastY, i)\n\n*/",
+    "submit_ts": "1723345237",
+    "subm_id": "1351551507"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "vp09",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9+7;\n    int f(int ind,int l1,int l2,vector<int>& nums,int &ans,vector<vector<int>> &dp)\n    {\n\n        if(ind == nums.size())\n        {\n            return 1;\n        }\n        if(dp[ind][l1]!=-1)\n        return dp[ind][l1];\n        int temp = 0;\n        for(int i=0;i<=nums[ind];i++)\n        {\n            int p1 = i;\n            int p2 = nums[ind] - i;\n            if(p1>=l1 && p2<=l2)\n            {\n                temp+=(f(ind+1,p1,p2,nums,ans,dp)%mod);\n                temp = temp%mod;\n            }\n        }\n        dp[ind][l1] = temp%mod;\n        return dp[ind][l1];\n    }\n    int countOfPairs(vector<int>& nums) {\n        int ans = 0;\n        vector<vector<int>> dp(nums.size(),vector<int> (51,-1));\n        int val = f(0,0,50,nums,ans,dp);\n        val = val%mod;\n        return val;\n    }\n};",
+    "submit_ts": "1723346383",
+    "subm_id": "1351576362"
+}

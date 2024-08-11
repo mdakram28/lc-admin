@@ -1,0 +1,6 @@
+{
+    "username": "fxfxxxfxx",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        constexpr int M = 1000000007;\n        // dp[i][x][y] = sum dp[i-1][i in 0..x][j in y..50]\n        //               for x + y == nums[i]\n        using T = vector<tuple<int,int,int64_t>>; // x, y, c\n        T dp;\n        dp.push_back({0, 1000, 1});\n        int64_t rem = 1;\n        for (int r : nums) { // 2000\n            T curr;\n            int64_t nxtc = 0, ptr = 0;\n            for (int x = r; x >= 0; x--) { //\n                int y = r - x;\n                auto should_pop = [&]() {\n                    if (ptr == dp.size()) return false;\n                    auto [lx, ly, lc] = dp[ptr];\n                    if (x < lx || y > ly) return true;\n                    return false;\n                };\n                while (should_pop()) {\n                    auto [lx, ly, lc] = dp[ptr];\n                    ptr += 1;\n                    rem = (rem - lc + M) % M;\n                }\n                curr.push_back({x, y, rem});\n                nxtc = (nxtc + rem) % M;\n            }\n            dp = curr;\n            rem = nxtc;\n        }\n        return rem;\n    }\n};",
+    "submit_ts": "1723346423",
+    "subm_id": "1351577243"
+}

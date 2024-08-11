@@ -1,0 +1,6 @@
+{
+    "username": "Yash_Gupta2803",
+    "submission": "class Solution {\n    using ll = long long;\n    int n;\n    ll m = 1e9+7;\n    \n    ll solve(int id , int x , int y, vector<int>& nums , vector<vector<vector<ll>>>& dp){\n        if(id == n) return 1;\n        if(dp[id][x][y] != -1) return dp[id][x][y];\n        \n        ll ans = 0;\n        for(int i = x ; i <= nums[id] ; i++){\n            for(int j = y ; j >= 0 ; j-- ){\n                if(i + j != nums[id]) continue;\n                ans += solve(id+1, i , j , nums , dp);\n                ans %= m;\n            }\n        }\n        return dp[id][x][y] = ans;\n        \n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        vector<vector<vector<ll>>> dp(n , vector<vector<ll>>(55 , vector<ll>(55, -1)));\n        ll ans = solve(0 , 0 , nums[0],nums , dp);\n        ans %= m;\n        return int(ans);\n    }\n};",
+    "submit_ts": "1723347149",
+    "subm_id": "1351592950"
+}

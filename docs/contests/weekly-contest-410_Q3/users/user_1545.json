@@ -1,0 +1,6 @@
+{
+    "username": "Gaurav227",
+    "submission": "class Solution {\npublic:\n    int dp[2005][55][55];\n    int mod = 1e9 + 7;\n    long long dfs(vector<int>& nums, int idx, int prevD, int prevI){\n        if(idx==nums.size()){\n            return 1;\n        }\n\n        if(dp[idx][prevD][prevI+1]!=-1){\n            return dp[idx][prevD][prevI+1];\n        }\n\n        long long ans = 0;\n        for(int i=0;i<=50;i++){\n            for(int j=0;j<=50;j++){\n                if(i<=prevD && j>=prevI && i+j==nums[idx]){\n                    ans = (ans + dfs(nums, idx+1, i, j))%mod;\n                }\n            }\n        }\n        return dp[idx][prevD][prevI+1] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        int ans = dfs(nums, 0, 51, -1);\n        return ans;\n    }\n};",
+    "submit_ts": "1723345916",
+    "subm_id": "1351566092"
+}

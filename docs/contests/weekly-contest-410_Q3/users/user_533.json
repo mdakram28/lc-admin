@@ -1,0 +1,6 @@
+{
+    "username": "RohanBhardwaj08",
+    "submission": "class Solution {\npublic:\n    const int mod = 1000000007;\n    long solve(int last, int idx, vector<int> &nums, int n,vector<vector<long>> &dp){\n        if(idx == n){\n            return 1;\n        }\n        if(dp[last][idx] != -1) return dp[last][idx];\n        if(idx==0){\n            long long ans = 0;\n            for(int i=0;i<=nums[0];i++){\n                ans += solve(i,idx+1, nums, n,dp);\n                ans%=mod;\n            }\n            return dp[last][idx] = ans%mod;;\n        }\n        int l_inc = last;\n        int l_dec = nums[idx-1]-last;\n        long long ans = 0;\n        for(int i=0;i<=nums[idx];i++){\n            if(l_inc<= i && l_dec>=(nums[idx]-i)) ans += solve(i, idx+1, nums,n,dp);\n            ans%=mod;\n        }\n        return dp[last][idx] = ans%mod;;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<long>> dp(50+1, vector<long>(n,-1));\n        return solve(0,0,nums,n,dp)%mod;;\n    }\n};",
+    "submit_ts": "1723345620",
+    "subm_id": "1351559688"
+}

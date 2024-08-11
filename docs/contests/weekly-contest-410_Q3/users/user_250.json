@@ -1,0 +1,6 @@
+{
+    "username": "ywjameslin",
+    "submission": "class Solution {\n\n    /**\n     * @param Integer[] $nums\n     * @return Integer\n     */\n    function countOfPairs($nums) {\n        $mod = 1000000007;\n        $ans = 0;\n        $count = count($nums);\n        $mem = [];\n        for ($num = 0; $num < $nums[0] + 1; ++ $num) {\n            $mem[0][$num] = 1;\n        }\n        for ($index = 1; $index < $count; ++ $index) {\n            for ($num = 0; $num < $nums[$index] + 1; ++ $num) {\n                $sum = 0;\n                for ($l = 0; $l <= $num; ++ $l) {\n                    if ($nums[$index - 1] - $l >= $nums[$index] - $num) {\n                        $sum += $mem[$index - 1][$l];\n                        $sum %= $mod;\n                    }\n                }\n                $mem[$index][$num] = $sum;\n            }\n        }\n\n        $ans = 0;\n        foreach ($mem[$count - 1] as $num => $cnt) {\n            $ans += $cnt;\n            $ans %= $mod;\n        }\n\n        return $ans;\n    }\n}",
+    "submit_ts": "1723345558",
+    "subm_id": "1351558388"
+}

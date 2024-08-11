@@ -1,0 +1,6 @@
+{
+    "username": "srikkant",
+    "submission": "function countOfPairs(nums: number[]): number {\n    const MOD = 1e9 + 7;\n    const cache = new Array(nums.length).fill(undefined).map(() => new Array(50).fill(undefined));\n\n    function solve(idx: number, prevVal: number) {\n        if(idx === nums.length) return 1;\n        if(cache[idx][prevVal] !== undefined) return cache[idx][prevVal];\n\n        let count = 0;\n\n        for(let val = prevVal; val <= nums[idx]; val++) {\n            const val2 = nums[idx] - val;\n            if(idx === 0 || val2 <= (nums[idx - 1] - prevVal)) \n                count = (count + solve(idx + 1, val)) % MOD;\n        }\n\n        return cache[idx][prevVal] = count;\n    }\n\n    return solve(0, 0);\n};",
+    "submit_ts": "1723344811",
+    "subm_id": "1351542535"
+}

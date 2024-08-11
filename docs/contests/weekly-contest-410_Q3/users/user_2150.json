@@ -1,0 +1,6 @@
+{
+    "username": "gldnsyntax",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n\n    int countOfPairs(vector<int>& nums) {\n        int numCount = nums.size();\n        vector memo(numCount, vector(51, vector<long long>(51, -1)));\n        \n        return calculateWays(nums, 0, 0, nums[0], memo);\n    }\n\nprivate:\n    long long calculateWays(vector<int>& nums, int currentIndex, int previousValue1, int previousValue2, vector<vector<vector<long long>>>& memo) {\n        if (currentIndex >= nums.size()) return 1;\n        if (memo[currentIndex][previousValue1][previousValue2] != -1) return memo[currentIndex][previousValue1][previousValue2];\n        \n        long long totalCount = 0;\n        for (int value1 = previousValue1; value1 <= nums[currentIndex]; ++value1) {\n            for (int value2 = previousValue2; value2 >= 0; --value2) {\n                if (value1 + value2 == nums[currentIndex]) {\n                    totalCount = (totalCount + calculateWays(nums, currentIndex + 1, value1, value2, memo)) % MOD;\n                }\n            }\n        }\n        memo[currentIndex][previousValue1][previousValue2] = totalCount;\n        return totalCount;\n    }\n};\n",
+    "submit_ts": "1723347013",
+    "subm_id": "1351590016"
+}

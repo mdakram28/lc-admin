@@ -1,0 +1,6 @@
+{
+    "username": "MagicRainbow",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        max_val = max(nums)\n        \n        dp = [[[0] * (max_val + 1) for _ in range(max_val + 1)] for _ in range(n)]\n\n        for j in range(nums[0] + 1):\n            dp[0][j][nums[0] - j] = 1\n\n        for i in range(1, n):\n            for j in range(nums[i] + 1):\n                k = nums[i] - j\n                for jp in range(j + 1): \n                    kp = nums[i - 1] - jp\n                    if kp >= k:  \n                        dp[i][j][k] = (dp[i][j][k] + dp[i-1][jp][kp]) % MOD\n\n        result = 0\n        for j in range(max_val + 1):\n            for k in range(max_val + 1):\n                result = (result + dp[n-1][j][k]) % MOD\n\n        return result",
+    "submit_ts": "1723346084",
+    "subm_id": "1351569839"
+}

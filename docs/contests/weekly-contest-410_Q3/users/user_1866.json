@@ -1,0 +1,6 @@
+{
+    "username": "siddharthjoshi026",
+    "submission": "#define f first\n#define s second\n#define pb push_back\n#define all(x) x.begin(),x.end()\n#define sz(x) (long long)(x).size()\n#define pii pair<long long,long long>\n\nclass Solution {\nprivate:\n    const int mod = 1e9 + 7;\npublic:\n    long long DP(long long fir, long long idx, vector<int> &nums, vector<map<long long, long long>> &dp) {\n        long long n = sz(nums);\n        if (idx >= n) {\n            return 1;\n        }\n        if (dp[idx].find(fir) != dp[idx].end()) {\n            return dp[idx][fir];\n        }\n        long long ans = 0, sec = INT_MAX;\n        if (idx > 0) {\n            sec = nums[idx - 1] - fir;\n        }\n        for (long long i = 0; i <= nums[idx]; i++) {\n            if (fir <= i && sec >= (nums[idx] - i)) {\n                ans = (ans + DP(i, idx + 1, nums, dp)) % mod;\n            }\n        }\n        return dp[idx][fir] = ans;\n    }\n\n    int countOfPairs(vector<int>nums) {\n        vector<map<long long, long long>> dp(2000);\n        int ans = DP(-INT_MAX, 0, nums, dp);\n        return ans % mod;\n    }\n};",
+    "submit_ts": "1723346678",
+    "subm_id": "1351582830"
+}

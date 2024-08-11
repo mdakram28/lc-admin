@@ -1,0 +1,6 @@
+{
+    "username": "LGM70",
+    "submission": "class Solution {\n    private static final int limit = (int) 1e9 + 7;\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        int[][] dp = new int[n + 1][51];\n        dp[0][0] = 1;\n        for (int i = 1; i <= n; i++) {\n            for (int currNum1 = 0; currNum1 <= 50; currNum1++) {\n                if (currNum1 > nums[i - 1]) {\n                    break;\n                }\n                for (int lastNum1 = 0; lastNum1 <= currNum1; lastNum1++) {\n                    if (i > 1 && nums[i - 1] - currNum1 > nums[i - 2] - lastNum1) {\n                        continue;\n                    }\n                    dp[i][currNum1] = (dp[i][currNum1] + dp[i - 1][lastNum1]) % limit;\n                }\n            }\n        }\n        int result = 0;\n        for (int x = 0; x <= 50; x++) {\n            result = (result + dp[n][x]) % limit;\n        }\n        return result;\n    }\n}",
+    "submit_ts": "1723344851",
+    "subm_id": "1351543387"
+}

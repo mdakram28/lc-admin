@@ -1,0 +1,6 @@
+{
+    "username": "Zeus_28",
+    "submission": "#define ll long long int\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<ll>>> dp(n, vector<vector<ll>>(51, vector<ll>(51, -1)));\n\n        function<ll(int, int, int)> calculate = [&](int currentIndex, int firstValue, int secondValue) -> ll {\n            if (currentIndex >= nums.size()) return 1;\n            ll ways = 0;\n            ll mod = 1e9+7; \n            if (dp[currentIndex][firstValue][secondValue] != -1) return dp[currentIndex][firstValue][secondValue];\n            for (int first = firstValue; first <= nums[currentIndex]; first++) {\n                for (int second = secondValue; second >= 0; second--) {\n                    if (first + second == nums[currentIndex]) {\n                        ways += calculate(currentIndex + 1, first, second);\n                        ways = ways % mod;\n                    }\n                }\n            }\n            return dp[currentIndex][firstValue][secondValue] = ways;\n        };\n\n        return calculate(0, 0, nums[0]);\n    }\n};\n",
+    "submit_ts": "1723346274",
+    "subm_id": "1351573991"
+}

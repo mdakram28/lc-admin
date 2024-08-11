@@ -1,0 +1,6 @@
+{
+    "username": "LAlgorithmicMind",
+    "submission": "class Solution {\npublic:\n    int dp[2001][52][52];\n    int mod = 1000000007;\n    int helper(int start, vector<int>& nums, int last1, int last2) {\n        // cout << start << \" \" << last1 << \" \" << last2 << endl;\n        if(start == nums.size()) {\n            // cout << \"*\" << endl;\n            return 1;\n        }\n        if(dp[start][last1][last2] != -1) {\n            return dp[start][last1][last2];\n        }\n        long long ans = 0;\n        for(int i = 0; i <= 50; i++) {\n            if(i <= nums[start]) {\n                int f = i;\n                int s = nums[start] - i;\n                if(last1 <= f && s <= last2) {\n                    ans += (long long)(helper(start + 1, nums, f, s));\n                    ans = ans % mod;\n                }\n            }\n        }\n        // cout << start << \" \" << last1 << \" \" << last2 << \" \" << ans << endl;\n        return dp[start][last1][last2] = ans % mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return helper(0, nums, 0, 51);\n    }\n};",
+    "submit_ts": "1723345259",
+    "subm_id": "1351551973"
+}

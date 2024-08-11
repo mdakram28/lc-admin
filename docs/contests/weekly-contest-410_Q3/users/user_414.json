@@ -1,0 +1,6 @@
+{
+    "username": "nayan_abhi",
+    "submission": "class Solution {\npublic:\n    long long MOD = 1e9 + 7;\n    long long f(int i, int n, int last1, int last2, vector<int> &nums, vector<vector<int>> &dp) {\n        if(i == n) {\n            return 1;\n        }\n        if(dp[i][last1] != -1) return dp[i][last1];\n        long long ans = 0;\n        for(int j = last1; j <= nums[i]; j++) {\n            if(nums[i] - j <= last2) {\n                ans += f(i + 1, n, j, nums[i] - j, nums, dp);\n                ans %= MOD;\n            }\n        }\n        return dp[i][last1] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int maxi = *max_element(nums.begin(), nums.end());\n        vector<vector<int>> dp(n, vector<int>(maxi + 1, -1));\n        return f(0, n, 0, 51, nums, dp);\n    }\n};",
+    "submit_ts": "1723344786",
+    "subm_id": "1351542007"
+}

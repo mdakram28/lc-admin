@@ -1,0 +1,6 @@
+{
+    "username": "user0102T",
+    "submission": "const int MOD = 1e9 + 7;\nclass Solution {\nprivate:\n    int solve(int idx, int prev, vector<int>& nums,vector<vector<int>>& dp) {\n        if(idx == nums.size()) {\n            return 1;\n        }\n        if(idx != 0 && dp[idx][prev] != -1) {\n            return dp[idx][prev];\n        }\n        int prev1, prev2;\n        if(idx == 0) {\n            prev1 = 0;\n            prev2 = INT_MAX;\n        }\n        else {\n            prev1 = prev;\n            prev2 = nums[idx-1] - prev;\n        }\n        long long ans = 0;\n        for(int i=0;i<=nums[idx]/2;i++) {\n            int num1 = i;\n            int num2 = nums[idx]-i;\n            if(num1 >= prev1 && num2 <= prev2) {\n                ans = (ans + solve(idx+1,num1, nums,dp))%MOD;\n            }\n            if(num2 >= prev1 && num1 <= prev2 && num1 != num2) {\n                ans = (ans + solve(idx+1,num2, nums,dp))%MOD;\n            }\n        }\n        if(idx != 0) dp[idx][prev] = ans;\n        return (int) ans;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<int>> dp(nums.size(),vector<int>(51,-1));\n        return solve(0,-1,nums,dp);\n    }\n};",
+    "submit_ts": "1723346195",
+    "subm_id": "1351572307"
+}

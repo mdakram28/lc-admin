@@ -1,0 +1,6 @@
+{
+    "username": "Harman_4",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9+7;\n\n    int solve(const vector<int>&nums,vector<vector<vector<int>>>& freq, int i, int aVal, int bVal){\n        if(i==nums.size())return 1;\n        if(freq[i][aVal][bVal]!=INT_MAX){\n            return freq[i][aVal][bVal];\n        }\n        int count =0;\n        for(int j=aVal;j<=nums[i];j++){\n            int aTemp=j;\n            int bTemp=nums[i]-aTemp;\n            if(bTemp>bVal)continue;\n            count=(count+solve(nums,freq,i+1,aTemp,bTemp))%mod;\n        }\n        // cout<<i<<\" \"<<aVal<<\" \"<<bVal<<endl;\n        freq[i][aVal][bVal]=count;\n        return count;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<vector<int>>> freq(nums.size(),vector<vector<int>>(51,vector<int>(51,INT_MAX)));\n\n        long long ans=0;\n        \n        ans=(ans+solve(nums,freq,0,0,50))%mod;\n\n\n        // for(int i=0;i<nums.size();i++){\n        //     for(int j=0;j<5;j++){\n        //         for(int k=0;k<5;k++){\n        //             if(freq[i][j][k]!=INT_MAX)cout<<freq[i][j][k]<<\" \";\n        //             else cout<<-1<<\" \";\n        //         }cout<<endl;\n        //     }\n        //     cout<<endl;\n        // }\n        return ans;\n    }\n};",
+    "submit_ts": "1723346444",
+    "subm_id": "1351577742"
+}

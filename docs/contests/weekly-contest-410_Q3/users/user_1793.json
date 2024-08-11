@@ -1,0 +1,6 @@
+{
+    "username": "tevermaashutosh",
+    "submission": "class Solution {\npublic:\n    typedef long long ll;\n    ll n, M = 1e9 + 7;\n    vector<int> a;\n    vector<vector<ll>> dp;\n    // pre1 smaller, pre2 bigger (larger)\n    ll recu(ll pre1, ll i)\n    {\n        // cout << pre1 << \" \" << i << \"\\n\";\n        ll pre2 = (i > 0 ? a[i - 1] - pre1 : 50);\n        \n        if(i == n)\n            return 1;\n        if(dp[pre1][i] != -1)\n            return dp[pre1][i];\n        \n        ll ans = 0;\n        for(ll thisA = pre1; thisA <= a[i]; thisA++)\n        {\n            ll thisB = a[i] - thisA;\n            if(pre1 <= thisA && pre2 >= thisB)\n                ans += recu(thisA, i + 1),\n                ans %= M;\n            // else\n        }\n        \n        return dp[pre1][i] = ans;\n    }\n    int countOfPairs(vector<int> &_a)\n    {\n        a = _a, n = a.size();\n        dp.resize(50 + 1, vector<ll>(n, -1));\n        return recu(0, 0);\n    }\n};",
+    "submit_ts": "1723346275",
+    "subm_id": "1351574011"
+}

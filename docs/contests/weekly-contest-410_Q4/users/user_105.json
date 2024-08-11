@@ -1,0 +1,6 @@
+{
+    "username": "LarryNY",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        N = len(nums)\n        MX = max(nums)\n        MOD = 10 ** 9 + 7\n        \n        dp = [[0] * (MX + 1) for _ in range(N + 1)]\n        dpp = [[0] * (MX + 5) for _ in range(N + 1)]\n\n        for up in range(nums[0] + 1):\n            dp[0][up] = 1\n            dpp[0][up + 1] = dp[0][up] + dpp[0][up]\n        \n        for index in range(1, N):\n            for up in range(nums[index] + 1):\n                down = nums[index] - up\n\n                right = min(nums[index - 1] - down, nums[index - 1], up)\n                #for i in range(right + 1):\n                #    dp[index][up] += dp[index - 1][i]\n                #    dp[index][up] %= MOD\n                dp[index][up] = (dpp[index - 1][right + 1]) % MOD\n                    \n                dpp[index][up + 1] = dp[index][up] + dpp[index][up]\n                dpp[index][up + 1] %= MOD\n                            \n                        \n        total = 0\n        for i in range(nums[N - 1] + 1):\n            total += dp[N - 1][i]\n        return total % MOD\n",
+    "submit_ts": "1723345182",
+    "subm_id": "1351550407"
+}

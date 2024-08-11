@@ -1,0 +1,6 @@
+{
+    "username": "zokumyoin",
+    "submission": "class Solution {\n    public int countOfPairs(int[] arr) {\n        int MOD = 1_000_000_007;\n\n        int max = 0;\n        for (int v : arr) {\n            max = Math.max(max, v);\n        }\n        int N = arr.length;\n        int[][] dp = new int[N][max + 1];\n        int[][] sum = new int[N][max + 1];\n\n        for (int idx = 0; idx < N; idx++) {\n            for (int i = 0; i <= max; i++) {\n                if (i <= arr[idx]) {\n                    if (idx == 0) {\n                        dp[idx][i] = arr[idx] - i >= 0 ? 1 : 0;\n                    } else {\n                        int minPrevI = Math.min(i, arr[idx - 1] - arr[idx] + i);\n                        if (minPrevI >= 0) {\n                            dp[idx][i] = sum[idx - 1][minPrevI];\n                        }\n                    }\n                }\n                if (i == 0) {\n                    sum[idx][i] = dp[idx][i];\n                } else {\n                    sum[idx][i] = (dp[idx][i] + sum[idx][i - 1]) % MOD;\n                }\n//                System.out.printf(\">>> idx=%d i=%d dp=%d sum=%d\\n\",idx,i, dp[idx][i],sum[idx][i]);\n            }\n        }\n        return sum[N - 1][max];\n\n\n    }\n}",
+    "submit_ts": "1723345149",
+    "subm_id": "1351549645"
+}

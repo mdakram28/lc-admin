@@ -1,0 +1,6 @@
+{
+    "username": "Rad0miR",
+    "submission": "public class Solution {\n    public int CountOfPairs(int[] nums) {\n        const int mod = 1_000_000_007;\n        \n        int[,] dp = new int[nums.Length, 1001];\n        for (int i = 0; i <= nums[^1]; ++i) \n        {\n            dp[nums.Length - 1, i] = 1;\n        }\n        \n        for (int i = nums.Length - 2; i >= 0; --i) \n        {\n            int nextM = nums[i + 1];\n            int[] sums = new int[nums[i + 1] + 1 + 1];\n            for (int j = nums[i + 1]; j >= 0; --j) \n            {\n                sums[j] = (sums[j + 1] + dp[i + 1, j]) % mod;\n            }\n                \n            for (int j = 0; j <= nums[i]; ++j) \n            {\n                int ind = Math.Max(j, nums[i + 1] - (nums[i] - j));\n                dp[i, j] = ind < 0 || ind >= sums.Length ? 0 : sums[ind];\n            }\n        }\n        \n        return (int) (Enumerable.Range(0, nums[0] + 1).Sum(cnt => (long) dp[0, cnt]) % mod);\n    }\n}",
+    "submit_ts": "1723345430",
+    "subm_id": "1351555613"
+}

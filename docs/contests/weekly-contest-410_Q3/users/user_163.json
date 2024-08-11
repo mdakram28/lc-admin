@@ -1,0 +1,6 @@
+{
+    "username": "jthuang41",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        dp = {}\n        for i in range(nums[0] + 1):\n            dp[i] = 1\n        \n        for i in range(1, len(nums)):\n            curr = nums[i]\n            newDp = {}\n            \n            s = 0\n            currIndex = 0\n            \n            for x in range(curr + 1):\n                y = curr - x\n                prevY = nums[i - 1] - currIndex\n                while currIndex <= x and prevY >= y and prevY in dp:\n                    s = (s + dp[currIndex]) % (10 ** 9 + 7)\n                    currIndex += 1\n                    prevY = nums[i - 1] - currIndex\n                newDp[x] = s\n                \n            dp = newDp\n            # print(dp)\n        \n        return sum(dp.values()) % (10 ** 9 + 7)",
+    "submit_ts": "1723345590",
+    "subm_id": "1351559039"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Jr_Murphy_05",
+    "submission": "#include <vector>\n#include <algorithm>\n\nclass Solution {\npublic:\n    int countOfPairs(std::vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n        \n        std::vector<std::vector<std::vector<long long>>> dp(n + 1, std::vector<std::vector<long long>>(51, std::vector<long long>(51, -1)));\n        \n        auto count = [&](int i, int last1, int last2, auto&& count) -> long long {\n            if (i == n) return 1;\n            \n            if (dp[i][last1][last2] != -1) return dp[i][last1][last2];\n            \n            long long result = 0;\n            for (int x1 = last1; x1 <= nums[i]; ++x1) {\n                int x2 = nums[i] - x1;\n                if (x2 <= last2) {\n                    result = (result + count(i + 1, x1, x2, count)) % MOD;\n                }\n            }\n            \n            dp[i][last1][last2] = result;\n            return result;\n        };\n        \n        return count(0, 0, 50, count); \n    }\n};\n",
+    "submit_ts": "1723344741",
+    "subm_id": "1351541029"
+}

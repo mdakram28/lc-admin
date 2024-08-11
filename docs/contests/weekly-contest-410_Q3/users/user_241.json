@@ -1,0 +1,6 @@
+{
+    "username": "Cipher_07",
+    "submission": "int mod = 1e9 + 7;\nint dp[2000][51][51];\nclass Solution {\n    int solve(vector<int> &nums, int i, int j, int k) {\n        if(i == nums.size())\n            return 1;\n\n        if(dp[i][j][k] != -1)\n            return dp[i][j][k];\n\n        long long ans = 0;\n        for(int t = 0; t <= nums[i]; t++) {\n            if(t >= j && nums[i] - t <= k)\n                ans = (ans + solve(nums, i + 1, t, nums[i] - t)) % mod;\n        }\n\n        return dp[i][j][k] = ans;\n    } \npublic:\n    int countOfPairs(vector<int>& nums) {\n        for(int i = 0; i < nums.size(); i++)\n            for(int j = 0; j < 51; j++)\n                for(int k = 0; k < 51; k++)\n                    dp[i][j][k] = -1;\n        return solve(nums, 0, 0, 50);\n    }\n};",
+    "submit_ts": "1723344146",
+    "subm_id": "1351527559"
+}

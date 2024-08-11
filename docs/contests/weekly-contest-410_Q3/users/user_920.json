@@ -1,0 +1,6 @@
+{
+    "username": "jaarvis007",
+    "submission": "class Solution {\npublic:\n    long long dp[2001][51][51];\n    long long mod=1e9+7;\n\n    long long helper(long long i,long long p1,long long p2,vector<int>& nums){\n        if(i==nums.size()) return 1;\n        if(dp[i][p1][p2]!=-1) return dp[i][p1][p2];\n        \n        long long tot=0;\n        for(long long x=p1;x<=50;x++){\n            for(long long y=0;y<=p2;y++){\n                if(x+y!=nums[i]) continue;\n                tot+=helper(i+1,x,y,nums);\n                tot=tot%mod;\n            }\n        }\n        \n        return dp[i][p1][p2]=tot%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        return helper(0,0,50,nums);\n    }\n};",
+    "submit_ts": "1723344872",
+    "subm_id": "1351543844"
+}

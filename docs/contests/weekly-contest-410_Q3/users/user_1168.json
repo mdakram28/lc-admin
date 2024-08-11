@@ -1,0 +1,6 @@
+{
+    "username": "21691A37_20",
+    "submission": "from typing import List\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        memo = {}\n        n = len(nums)\n        \n        def dfs(a1_prev, a2_prev, present_index):\n            if present_index == n:\n                return 1\n            \n            if (a1_prev, a2_prev, present_index) in memo:\n                return memo[(a1_prev, a2_prev, present_index)]\n            \n            res = 0\n            for i in range(nums[present_index] + 1):\n                j = nums[present_index] - i\n                if a1_prev <= i and a2_prev >= j:\n                    res += dfs(i, j, present_index + 1)\n                    res %= MOD\n            \n            memo[(a1_prev, a2_prev, present_index)] = res\n            return res\n        \n        return dfs(0, nums[0], 0)  # We start with the first element and set a2_prev to nums[0] since arr2 starts with the maximum possible value.\n",
+    "submit_ts": "1723345334",
+    "subm_id": "1351553518"
+}

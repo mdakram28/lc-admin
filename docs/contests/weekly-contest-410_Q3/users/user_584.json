@@ -1,0 +1,6 @@
+{
+    "username": "sonugupta27032001",
+    "submission": "class Solution {\npublic:\n    long long rec(vector<int>& nums, int i, int mini, int maxa, vector<vector<vector<long long>>>& dp) {\n        if (i == nums.size()) {\n            return 1;\n        }\n\n        if (dp[i][mini][maxa] != -1) return dp[i][mini][maxa];\n        \n        long long sum = 0;\n        for (int net = maxa; net <= nums[i]; net++) {\n            int first = net;\n            int second = nums[i] - net;\n            if (first >= maxa && second <= mini) {\n                sum += rec(nums, i + 1, second, first, dp);\n                sum %= 1000000007;\n            }\n        }\n        \n        return dp[i][mini][maxa] = sum;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<long long>>> dp(n, vector<vector<long long>>(51, vector<long long>(51, -1)));\n        long long ans = rec(nums, 0, 50, 0, dp);\n        return ans;\n    }\n};\n",
+    "submit_ts": "1723344653",
+    "subm_id": "1351539155"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Sarthak_Motwani",
+    "submission": "// no. of arrays with from idx , last entry in first array\nint dp[2001][51][51];\nconst int M = 1e9 + 7;\nlong long ctpairs(vector<int>& nums, int idx, int next1, int next2){\n    if(idx<0) return 1;\n    if(dp[idx][next1][next2]!=-1) return dp[idx][next1][next2];\n    int n = nums.size();\n    long long ans = 0;\n    for(int i=0; i<=nums[idx]; i++){\n        if(i<=next1 && nums[idx]-i>=next2){\n            ans = (ans + ctpairs(nums, idx-1, i, nums[idx]-i))%M;\n        }\n    }\n    return dp[idx][next1][next2] = (int)ans;\n}\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        for(int i=0; i<=2000; i++){\n            for(int j=0; j<=50; j++){\n                for(int k=0; k<=50; k++){\n                    dp[i][j][k] = -1;\n                }\n            }\n        }\n        return ctpairs(nums, n-1, 50, 0);\n    }\n};",
+    "submit_ts": "1723345894",
+    "subm_id": "1351565605"
+}

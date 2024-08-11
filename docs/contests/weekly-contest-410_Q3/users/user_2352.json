@@ -1,0 +1,6 @@
+{
+    "username": "_6174_P",
+    "submission": "#include <vector>\n#include <functional>\nusing namespace std;\n\n#define VL vector<long long>\n#define VVL vector<VL>\n#define VVVL vector<VVL>\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        const int MOD = 1e9 + 7;\n\n        VVVL memo(n, VVL(51, VL(51, -1)));\n\n        function<long long(int, int, int)> dp = [&](int idx, int a, int b) -> long long {\n            if (idx >= n) return 1;\n            if (memo[idx][a][b] != -1) return memo[idx][a][b];\n\n            long long res = 0;\n\n            for (int i = a; i <= nums[idx]; i++) {\n                for (int j = b; j >= 0; j--) {\n                    if (i + j == nums[idx]) {\n                        res = (res + dp(idx + 1, i, j)) % MOD;\n                    }\n                }\n            }\n\n            return memo[idx][a][b] = res;\n        };\n\n        return dp(0, 0, nums[0]);\n    }\n};\n",
+    "submit_ts": "1723347213",
+    "subm_id": "1351594288"
+}

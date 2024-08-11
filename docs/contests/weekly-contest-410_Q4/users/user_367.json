@@ -1,0 +1,6 @@
+{
+    "username": "FightEveryDay",
+    "submission": "class Solution {\n    Long[][] dp1;\n    Long[][] dp2;\n    int mod = (int)1e9 + 7;\n    \n    private long dfs1(int index, int prev, int[] nums) {\n        long res = 0;\n        if (index == nums.length) {\n            return 1;\n        }\n        if (dp1[index][prev] != null) {\n            return dp1[index][prev];\n        }\n        int minCur = prev;\n        if (index > 0) {\n            minCur = Math.max(prev, nums[index] - nums[index - 1] + prev);\n        }\n        res = (res + dfs2(index + 1, minCur, nums)) % mod;\n        return dp1[index][prev] = res;\n    }\n\n    private long dfs2(int index, int val, int[] nums) {\n        if (index == nums.length) {\n            return Math.max(0, nums[index - 1] - val + 1); \n        }\n        if (val > nums[index]) {\n            return 0;\n        }\n        if (dp2[index][val] != null) {\n            return dp2[index][val];\n        }\n        long sum = (dfs1(index, val, nums) + dfs2(index, val + 1, nums)) % mod;\n        return dp2[index][val] = sum;\n    }\n\n    public int countOfPairs(int[] nums) {\n        int m = nums.length;\n        this.dp1 = new Long[m][1001];\n        this.dp2 = new Long[m][1001];\n        long res = dfs1(0, 0, nums);\n        return (int)res;\n    }\n}\n",
+    "submit_ts": "1723347327",
+    "subm_id": "1351596582"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "volodymyr_k",
+    "submission": "class Solution {\n    private long mod = 1_000_000_007;\n    \n    public int countOfPairs(int[] nums) {\n        Map<Long, Long> memo = new HashMap<>();\n        \n        return (int) dfs(0, 0, 60, nums.length, nums, memo);\n    }\n    \n    private long dfs(int at, int p1, int p2, int n, int[] nums, Map<Long, Long> memo) {\n        if (at >= n) return 1;\n        \n        long key = getKey(at, p1, p2);\n        if (memo.containsKey(key)) return memo.get(key);\n        \n        long sum = 0;\n        \n        for (int i1 = p1, i2 = nums[at] - i1; i1 <= nums[at]; i1++, i2--) {\n            if (!(p2 >= i2)) continue;\n            sum += dfs(at + 1, i1, i2, n, nums, memo);\n            sum = sum%mod;\n        }\n        \n        memo.put(key, sum);\n        return sum;\n    }\n    \n    private long getKey(int at, int p1, int p2) {\n        long res = (at << 12) + (p1 << 6) + p2;\n        return res;\n    }\n}",
+    "submit_ts": "1723345691",
+    "subm_id": "1351561279"
+}

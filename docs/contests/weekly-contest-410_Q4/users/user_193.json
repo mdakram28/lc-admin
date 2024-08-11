@@ -1,0 +1,6 @@
+{
+    "username": "pikachu101",
+    "submission": "const long long INF = 1000;\nconst long long mod = 1e9 + 7;\ntypedef long long ll;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int  n =nums.size();\n        int mx = *max_element(nums.begin(),nums.end());\n        vector<vector<long long>> dp(n+2,vector<long long>(mx+2,0));\n        dp[0][0] = 1;\n        for(int i=1;i<=n;i++) {\n            int a=  nums[i-1];\n            for(int j=0;j<=mx;j++) {\n                dp[i][j] = (j ? dp[i][j-1] : 0); \n                if(j>a) continue;\n                int cc;\n                if(i==1) cc = 0;\n                else {\n                    int aa = nums[i-2];\n                    cc = min(j-a+aa,j);\n\n                }\n                // [0,j] & [0,j-a-a[i-1]]\n                if(cc>=0) dp[i][j] += dp[i-1][cc];\n                dp[i][j] %=mod;\n                // cout << i << \" \" << j << \" \" << cc << \" \" << dp[i][j] << endl;\n            }\n        }\n        return (int)dp[n][mx];\n        \n    }\n};",
+    "submit_ts": "1723346145",
+    "subm_id": "1351571222"
+}

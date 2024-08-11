@@ -1,0 +1,6 @@
+{
+    "username": "PlayDate",
+    "submission": "class Solution {\n    int mod = (int) (1e9+7);\n    long[][][] dp;\n    public int countOfPairs(int[] nums) {\n        dp = new long[nums.length+1][51][51];\n        for (int i = 0; i < dp.length; i++){\n            for (int j = 0; j < 51; j++) Arrays.fill(dp[i][j],-1);\n        }\n        long ans = getAns(nums,0,0,50);\n        return (int) (ans % mod);\n    }\n    \n    private long getAns(int[] nums, int ind, int bound1, int bound2){\n        if (dp[ind][bound1][bound2] != -1) return dp[ind][bound1][bound2];\n        if (ind == nums.length) return 1L;\n        long ans = 0;\n        for (int i = bound1; i <= nums[ind]; i++) {\n            int req = nums[ind] - i;\n            if (req <= bound2) ans = (ans + getAns(nums,ind+1,i,req)) % mod;\n        }\n        return dp[ind][bound1][bound2] = ans;\n    }\n}",
+    "submit_ts": "1723344771",
+    "subm_id": "1351541683"
+}

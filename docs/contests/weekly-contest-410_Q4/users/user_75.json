@@ -1,0 +1,6 @@
+{
+    "username": "leetcode_zero",
+    "submission": "class Solution {\npublic:\n    static const int NN = 1010, MM = 2020, mod = 1e9 + 7;\n    int dp[NN][MM];\n\n    int countOfPairs(vector<int>& vec) {\n        for(int i = 0; i <= vec[0]; i++) dp[i][0] = 1;\n        int n = vec.size();\n\n        for(int k = 0; k < n - 1; k++) {\n            for(int i = 0; i <= vec[k]; i++) {\n                int j = vec[k] - i;\n                int st = max(i, vec[k + 1] - j), ed = vec[k + 1];\n                dp[st][k + 1] = (dp[st][k + 1] + dp[i][k]) % mod;\n                dp[ed + 1][k + 1] = (dp[ed + 1][k + 1] - dp[i][k] + mod) % mod;\n            }\n            for(int i = 1; i <= vec[k + 1]; i++) {\n                dp[i][k + 1] = (dp[i][k + 1] + dp[i - 1][k + 1]) % mod;\n            }\n        }\n        int ans = 0;\n        for(int i = 0; i <= vec.back(); i++) {\n            ans = (ans + dp[i][n - 1]) % mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345158",
+    "subm_id": "1351549882"
+}

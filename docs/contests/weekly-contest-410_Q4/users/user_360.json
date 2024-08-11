@@ -1,0 +1,6 @@
+{
+    "username": "ayush_2800",
+    "submission": "class Solution {\npublic:\ntypedef long long ll;\nconst ll mod = 1e9+7;\n    int countOfPairs(vector<int>& a) {\n        vector<vector<ll>>dp(a.size()+1,vector<ll>(1001));\n        for(int i=0;i<=a[0];i++){\n            dp[0][i]=1;\n        }\n        for(int i=1;i<dp[0].size();i++){\n            dp[0][i]+=dp[0][i-1];\n            dp[0][i]%=mod;\n        }\n        for(int i=1;i<a.size();i++){\n            for(int j=0;j<=a[i];j++){\n                if(j-max(0,a[i]-a[i-1])>=0)\n                    dp[i][j]=dp[i-1][j-max(0,a[i]-a[i-1])];\n                dp[i][j]%=mod;\n            }\n            for(int j=1;j<dp[i].size();j++){\n                dp[i][j]+=dp[i][j-1];\n                dp[i][j]%=mod;\n            }\n        }\n        // for(int i=0;i<dp.size();i++){\n        //     for(int j=0;j<=3;j++){\n        //         cout<<dp[i][j]<<\" \";\n        //     }\n        //     cout<<endl;\n        // }\n        return dp[a.size()-1][1000];\n        \n    }\n};",
+    "submit_ts": "1723346366",
+    "subm_id": "1351575973"
+}

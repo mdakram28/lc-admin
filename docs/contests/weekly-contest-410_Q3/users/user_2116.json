@@ -1,0 +1,6 @@
+{
+    "username": "CHANDANKR7730",
+    "submission": "class Solution {\npublic:\n    int dp[2001][51][51];\n    const int pri = 1e9 +  7;\n    int n;\n    int solve(int i, int k,int l,  vector<int>&nums){\n        if(i >= n){\n            return 1;\n        }\n        if(dp[i][k][l] != -1){\n            return dp[i][k][l];\n        }\n        int ans = 0;\n        for(int j = 0; j <= 50; j++){\n            if(k + j <= nums[i] && (nums[i] - j - k) <= l){\n                ans = (ans + solve(i + 1, j + k, nums[i] - j - k,  nums) ) % pri;\n            }\n        }\n        return dp[i][k][l] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1,sizeof(dp));\n        n = nums.size();\n        int ans = solve(0, 0, nums[0], nums);\n        return ans;\n    }\n};",
+    "submit_ts": "1723346670",
+    "subm_id": "1351582640"
+}

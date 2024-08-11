@@ -1,0 +1,6 @@
+{
+    "username": "Utkarsh_27",
+    "submission": "class Solution {\n    static const int MOD = 1000000007;\n    using ll = long long;\nprivate:\n   ll pairs(vector<int>& nums, int ind, int m, int k, vector<vector<vector<ll>>>& dp) {\n        if (ind >= nums.size()) return 1;  \n        if (dp[ind][m][k] != -1) return dp[ind][m][k];  \n\n        ll Cnt_pairs = 0;\n        for (int i = m; i <= nums[ind]; i++) {\n            for (int j = k; j >= 0; j--) {\n                if (i + j == nums[ind]) {\n                    Cnt_pairs = (Cnt_pairs + pairs(nums, ind + 1, i, j, dp)) % MOD;\n                }\n            }\n        }\n        dp[ind][m][k] = Cnt_pairs;\n        return Cnt_pairs;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int size = nums.size();\n        vector<vector<vector<ll>>> dp(size, vector<vector<ll>>(51, vector<ll>(51, -1)));\n        return static_cast<int>(pairs(nums, 0, 0, nums[0], dp));\n    }\n};",
+    "submit_ts": "1723347281",
+    "subm_id": "1351595639"
+}

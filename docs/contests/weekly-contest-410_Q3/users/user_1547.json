@@ -1,0 +1,6 @@
+{
+    "username": "testingAmpish188",
+    "submission": "const int MOD = 1e9 + 7;\nclass Solution {\n    int n;\n    int dp[2001][51][51];\n    int f(int i, int a, int b, vector<int>& nums) {\n        if (i == n) return 1;\n        if (dp[i][a][b] != -1) return dp[i][a][b];\n        \n        int res = 0;\n        for (int nextA = a; nextA <= nums[i]; nextA++) {\n            int nextB = nums[i] - nextA;\n            if (nextB <= b) {\n                res += f(i + 1, nextA, nextB, nums);\n                res %= MOD;\n            }\n        }\n        \n        return dp[i][a][b] = res;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        \n        int ans = 0;\n        for (int a = 0; a <= nums[0]; ++a) {\n            int b = nums[0] - a;\n            ans += f(1, a, b, nums);\n            ans %= MOD;\n        }\n\n        return ans;\n    }\n};\n\n",
+    "submit_ts": "1723345289",
+    "subm_id": "1351552605"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "karan2310c",
+    "submission": "class Solution {\npublic:\n    int MOD = 1e9+7;\n    vector<vector<vector<int>>> dp;\n    int func(int i,int prev_arr1,int prev_arr2,vector<int> &nums){\n        // base case\n        if (i == nums.size()) return 1;\n        if(dp[i][prev_arr1][prev_arr2] != -1) return dp[i][prev_arr1][prev_arr2];\n\n        int count = 0;\n        for(int k=prev_arr1;k<=nums[i];k++){\n            if(i == 0) prev_arr2 = nums[i] - k;\n            \n            if(i != 0 && prev_arr2 < nums[i] - k) continue;\n            count = (count + func(i + 1, k, nums[i]-k , nums)) % MOD;\n        }\n        dp[i][prev_arr1][prev_arr2] = count;\n        return count;\n    }\n    int countOfPairs(vector<int>& nums) {\n        dp.resize(nums.size() ,vector<vector<int>>(51 , vector<int> (51,-1)));\n\n        return func(0,0,nums[0],nums);\n    }\n};",
+    "submit_ts": "1723346915",
+    "subm_id": "1351587909"
+}

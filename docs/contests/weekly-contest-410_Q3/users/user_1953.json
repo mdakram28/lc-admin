@@ -1,0 +1,6 @@
+{
+    "username": "0xFFFFFFFF",
+    "submission": "class Solution {\npublic:\n  int countOfPairs(const vector<int>& nums) {\n    int steps = nums.size();\n    int tears = 1 + *max_element(nums.begin(), nums.end());\n    int mod = 1e9 + 7;\n    vector<vector<int64_t>> table(tears, vector<int64_t>(steps, 0));\n    for (int i = 0; i <= nums.back(); ++i) {\n      table[i][steps - 1] = 1;\n    }\n    for (int step = steps - 2; step >= 0; --step) {\n      for (int v = 0; v <= nums[step]; ++v) {\n        for (int vn = 0; vn <= nums[step + 1]; ++vn) {\n          if (v <= vn && nums[step] - v >= nums[step + 1] - vn) {\n            table[v][step] += table[vn][step + 1];\n            table[v][step] %= mod;\n          }\n        }\n      }\n    }\n    int64_t res = 0;\n    for (int i = 0; i < tears; ++i) {\n      res += table[i][0];\n      res %= mod;\n    }\n    return res;\n  }\n};",
+    "submit_ts": "1723346782",
+    "subm_id": "1351585045"
+}

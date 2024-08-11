@@ -1,0 +1,6 @@
+{
+    "username": "hope_09",
+    "submission": "class Solution {\npublic:\nvector<vector<int>>dp;\nint mod=1e9+7;\n    int solve(vector<int>&nums,vector<int>&maxis, int i, int prev,int prev_mini){\n        if(i==nums.size())\n            return 1;\n        if(dp[i][prev]!=-1){\n            return dp[i][prev];\n        }\n        long long res=0;\n        for(int val=prev;val<=maxis[i] && val<=nums[i];val++){\n             int cur_min=nums[i]-val;\n             if(cur_min<=prev_mini){\n                res=(res+solve(nums,maxis,i+1,val,cur_min)%mod)%mod;\n             }\n        }\n        return dp[i][prev]=res;\n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<int>maxis(nums);\n        for(int i=nums.size()-2;i>=0;i--){\n            maxis[i]=min(maxis[i+1],maxis[i]);\n        }\n        dp.resize(nums.size()+1,vector<int>(51,-1));\n        return solve(nums,maxis,0,0,1e9);\n    }\n};",
+    "submit_ts": "1723346375",
+    "subm_id": "1351576196"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "MArhamAA",
+    "submission": "using ll = long long int;\nconst int MOD = 1e9+7;\n// ll dp[2001][51];\nclass Solution {\npublic:\n    int fn(int at, int lst, vector<int>&a, vector<vector<int>>& dp) {\n        // printf(\"%d %d\\n\", at, lst);\n        if (at == (int)a.size()) return 1;\n        if (dp[at][lst] != -1) return dp[at][lst];\n        ll ans = 0;\n        for (int v = lst; v <= a[at]; v++) {\n            if (a[at]-v <= a[at-1]-lst) {\n                ans += fn(at+1, v, a, dp);\n                ans %= MOD;\n            }\n        }\n        return dp[at][lst] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = (int)nums.size();\n        vector<vector<int>> dp(n+1, vector<int>(51,-1));\n        ll ans = 0;\n        for (int i = 0; i <= nums[0]; i++) {\n            ans += fn(1, i, nums, dp);\n            ans %= MOD;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345113",
+    "subm_id": "1351548849"
+}

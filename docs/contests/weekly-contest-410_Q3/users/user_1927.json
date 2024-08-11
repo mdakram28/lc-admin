@@ -1,0 +1,6 @@
+{
+    "username": "kprabhav1323",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    long long helper(int index,vector<int>&nums,int l1,int l2,long long & count, vector<vector<long long>>&dp)\n    {\n        if(index>=nums.size())\n        {\n            // cout<<l1<<\" \" <<l2<<endl;\n            // cout<<endl;\n            \n            return 1LL;\n        }\n        if(dp[index][l1]!=-1)return dp[index][l1];\n        //cout<<l1<<\" \" <<l2<<endl;\n       int val=nums[index];\n       long long sum=0;\n\n        for(int i=l1;i<=nums[index];i++)\n        {\n            int j=nums[index]-i;\n            if(j>l2 )continue;\n           sum+= helper(index+1,nums,i,j,count,dp);\n        }\n        sum%=mod;\n        return dp[index][l1]=sum;\n\n    }\n    int countOfPairs(vector<int>& nums) {\n        int sz=nums.size();\n        long long count=0;\n        vector<vector<long long>>dp(sz,vector<long long>(51,-1));\n    for(int i=0;i<=nums[0];i++)\n    {  \n       count+= helper(1,nums,i,nums[0]-i,count,dp);\n    }\n    count%=mod;\n    return count;\n        \n    }\n};",
+    "submit_ts": "1723346444",
+    "subm_id": "1351577737"
+}

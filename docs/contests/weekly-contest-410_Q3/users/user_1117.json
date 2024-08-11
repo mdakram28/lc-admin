@@ -1,0 +1,6 @@
+{
+    "username": "sutanjoypal",
+    "submission": "const int mod = 1e9+7;\nclass Solution {\npublic:\n    \n    int t[2002][52];\n    int r(vector<int>& nums,int i,int prev){\n        int n=nums.size();\n        if(i>=n) return 1;\n        \n        if(t[i][prev]!=-1) return t[i][prev];\n        \n        if(i==0){\n            int ans=0;\n            for(int j=0;j<=nums[0];++j){\n                \n                int c;\n                if(t[i+1][j]!=-1) c=t[i+1][j];\n                else c=t[i+1][j]=r(nums,i+1,j);\n                \n                ans = (ans+c)%mod;\n            }\n            return t[i][prev] = ans;\n        }\n        \n        int ans=0;\n        for(int j=prev;j<=nums[i];++j){\n            if((nums[i-1]-prev)>=(nums[i]-j)){\n                \n                int c;\n                if(t[i+1][j]!=-1) c=t[i+1][j];\n                else c=t[i+1][j]=r(nums,i+1,j);\n                \n                ans = (ans+c)%mod;\n            }\n        }\n        return t[i][prev] = ans;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        memset(t,-1,sizeof(t));\n        return r(nums,0,0);\n    }\n};",
+    "submit_ts": "1723345528",
+    "subm_id": "1351557747"
+}

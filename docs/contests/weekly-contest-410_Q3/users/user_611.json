@@ -1,0 +1,6 @@
+{
+    "username": "mkliac",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        // dp[i][k] = sum(dp[i-1][x]) where x <= k && arr[i]-x >= k\n        int n = nums.size(), maxV = *max_element(nums.begin(), nums.end()), mod = 1e9+7;\n        vector<vector<int>> dp(n, vector<int>(maxV+1, 0));\n        for (int i = 0; i <= nums[0]; i++) {\n            dp[0][i] = 1;\n        }\n\n        for (int i = 1; i < n; i++) {\n            for (int j = 0; j <= nums[i]; j++) {\n                for (int k = 0; k <= nums[i-1]; k++) {\n                    // cout << i << \" \" << j << \" \" << k << endl;\n                    if (k <= j && nums[i-1]-k >= nums[i]-j) {\n                        dp[i][j] = (dp[i][j]+dp[i-1][k])%mod;\n                    }\n                }\n                // cout << i << \" \" << j << \" \" << dp[i][j] << endl;\n            }\n        }\n        int res = 0;\n        for (int i = 0; i <= maxV; i++) {\n            res = (dp[n-1][i] + res)%mod;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723346504",
+    "subm_id": "1351579032"
+}

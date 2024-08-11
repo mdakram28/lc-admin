@@ -1,0 +1,6 @@
+{
+    "username": "abhi_perfecct007",
+    "submission": "class Solution {\npublic:\n    vector<vector<vector<long long>>> memo;\n    const int MOD = 1e9 + 7;\n\n    long long helper(int ind, int prevl, int prevr, vector<int>& nums, int n) {\n        if (ind == n) return 1;\n\n        if (memo[ind][prevl][prevr] != -1) return memo[ind][prevl][prevr];\n\n        long long count = 0;\n        for (int i = 0; i <= nums[ind]; ++i) {\n            if (prevl <= i && nums[ind] - i <= prevr) {\n                count = (count + helper(ind + 1, i, nums[ind] - i, nums, n)) % MOD;\n            }\n        }\n        \n        return memo[ind][prevl][prevr] = count;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memo = vector<vector<vector<long long>>>(n, vector<vector<long long>>(51, vector<long long>(51, -1)));\n        \n        return helper(0, 0, 50, nums, n);\n    }\n};\n",
+    "submit_ts": "1723346092",
+    "subm_id": "1351570006"
+}

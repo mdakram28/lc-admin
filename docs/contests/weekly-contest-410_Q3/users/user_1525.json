@@ -1,0 +1,6 @@
+{
+    "username": "ChillEcho",
+    "submission": "using ll = long long;\n\nclass Solution {\npublic:\n    ll findCombinations(int index, int firstValue, int secondValue, vector<int>& numbers, vector<vector<vector<ll>>>& memo) {\n        if (index >= numbers.size()) return 1;\n        ll combinations = 0;\n        ll mod = 1e9 + 7;\n        if (memo[index][firstValue][secondValue] != -1) return memo[index][firstValue][secondValue];\n        for (int i = firstValue; i <= numbers[index]; i++) {\n            for (int j = secondValue; j >= 0; j--) {\n                if (i + j == numbers[index]) {\n                    combinations += findCombinations(index + 1, i, j, numbers, memo);\n                    combinations %= mod;\n                }\n            }\n        }\n        return memo[index][firstValue][secondValue] = combinations;\n    }\n\n    int countOfPairs(vector<int>& numbers) {\n        int n = numbers.size();\n        vector<vector<vector<ll>>> memo(n, vector<vector<ll>>(51, vector<ll>(51, -1)));\n        return findCombinations(0, 0, numbers[0], numbers, memo);\n    }\n};\n",
+    "submit_ts": "1723345883",
+    "subm_id": "1351565394"
+}

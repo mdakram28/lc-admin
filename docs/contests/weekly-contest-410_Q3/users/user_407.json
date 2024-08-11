@@ -1,0 +1,6 @@
+{
+    "username": "lyronly",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    static const int mod = (int)(1e9 + 7);\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int b = nums[0];\n        for (auto v : nums) b = max(b, v);\n        vector<ll> dp(b + 1, 0);\n        for (int i = 0; i <= nums[0]; i++)\n        {\n            dp[i] = 1;\n        }\n        vector<ll> prefix(b + 1);\n        vector<ll> tmp(b + 1, 0);\n        for (int i = 1; i < n; i++)\n        {\n            int pre = 0;\n            for (int j = 0; j <= b; j++)\n            {\n                tmp[j] = 0;\n                prefix[j] = (pre + dp[j]) % mod; \n                pre = prefix[j];\n            }\n            int v = nums[i];\n            \n            for (int x = 0; x <= v; x++)\n            {\n                int y = v - x;\n                if (y < 0) break;\n                // all value <= x1\n                int x1 = nums[i - 1] - y;\n                int a = min(x, x1);\n                if (a >= 0)\n                {\n                    tmp[x] = prefix[a];\n                }\n            }\n            swap(dp, tmp);\n        }\n\n        ll sum = 0;\n        for (auto v : dp) sum = (sum + v) % mod;\n        return sum;\n    }\n};",
+    "submit_ts": "1723347591",
+    "subm_id": "1351601805"
+}

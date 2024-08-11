@@ -1,0 +1,6 @@
+{
+    "username": "helloWorld4628",
+    "submission": "class Solution {\npublic:\n\n    int solve(vector<int>&nums, int i, int last1, int last2, vector<vector<vector<int>>>&dp){\n        // cout<<i<<\" \"<<last1<<\" \"<<last2<<endl;\n        int M = 1e9 + 7;\n        if(i >= nums.size()) return 1;\n        if(dp[i][last1][last2+1] != -1) return dp[i][last1][last2+1]%M;\n        int sum = nums[i];\n        int t1 = 0;\n        for(int j=0;j<=sum;j++){\n            if(j >= last1 && (last2 == -1 || sum - j <= last2)){\n                t1 = (t1%M + solve(nums, i+1, j, sum-j, dp)%M)%M;\n                // cout<<\"t1->\"<<t1<<endl;\n            }\n        }\n        return dp[i][last1][last2+1] = t1%M;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int M = 1e9 + 7;\n        vector<vector<vector<int>>> dp(nums.size(), vector<vector<int>>(51, vector<int>(55,-1)));\n        return solve(nums, 0, 0, -1, dp)%M;\n    }\n};",
+    "submit_ts": "1723344806",
+    "subm_id": "1351542419"
+}

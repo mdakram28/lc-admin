@@ -1,0 +1,6 @@
+{
+    "username": "raman_111",
+    "submission": "class Solution {\npublic:\nint mod=1e9+7;\nint n;\nvector<int>nums;\nint dp[2001][52][52];\n    int countpossible(int ind,int ge,int le)\n    {\n        if(ind>=n)\n            return 1;\n\n        if(dp[ind][ge][le]!=-1)\n        return dp[ind][ge][le];\n        int x=nums[ind];\n        int ans=0;\n        for(int i=ge;i<=x;i++)\n        {\n            int fe=i;\n            int se=x-i;\n\n            if(se>le)\n            {\n                continue;\n            }\n            else\n            {\n                ans+=countpossible(ind+1,max(ge,fe),min(le,se));\n                ans=ans%mod;\n            }\n        }\n        dp[ind][ge][le] = ans%mod;\n        return dp[ind][ge][le];\n    }\n    int countOfPairs(vector<int>& arr) {\n        n=arr.size();\n        nums=arr;\n        for(int i=0;i<=n;i++)\n        {\n            for(int j=0;j<=50;j++)\n            {\n                for(int k=0;k<=50;k++)\n                {\n                    dp[i][j][k]=-1;\n                }\n            }\n        }\n        return countpossible(0,0,50);\n    }\n};",
+    "submit_ts": "1723345394",
+    "subm_id": "1351554817"
+}

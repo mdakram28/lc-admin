@@ -1,0 +1,6 @@
+{
+    "username": "zNuke",
+    "submission": "#include <vector>\n#include <iostream>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int mod = 1e9 + 7;\n        int n = nums.size();\n        vector<vector<int>> dp(51, vector<int>(n + 1, 0));\n        \n        for (int k = 0; k <= 50; ++k) {\n            dp[k][n] = 1;\n        }\n        \n        for (int i = n - 1; i > 0; --i) {\n            for (int prev = 0; prev <= 50; ++prev) {\n                int res = 0;\n                for (int k = prev; k <= nums[i]; ++k) {\n                    if (nums[i] - k <= nums[i - 1] - prev) {\n                        res += dp[k][i + 1];\n                        res %= mod;\n                    }\n                }\n                dp[prev][i] = res;\n            }\n        }\n\n        int res = 0;\n        for (int k = 0; k <= nums[0]; ++k) {\n            res += dp[k][1];\n            res %= mod;\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1723346054",
+    "subm_id": "1351569183"
+}

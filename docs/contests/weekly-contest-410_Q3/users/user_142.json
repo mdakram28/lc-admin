@@ -1,0 +1,6 @@
+{
+    "username": "leetcode_3604",
+    "submission": "class Solution {\npublic:\n    const int mod = 1000000007;\n    int dp[2][1010];\n    void update(int &a, int b) {\n        a += b;\n        a %= mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size(), now(1);\n        for(int i = 0; i <= 1000; ++i) {\n            dp[0][i] = (i <= nums[0] ? i+1: nums[0]+1);\n        }\n        for(int i = 1; i < n; ++i, now = !now) {\n            for(int j = 0; j <= 1000; ++j) dp[now][j] = 0;\n            for(int j = 0; j <= nums[i]; ++j) {\n                int a = j;\n                int b = nums[i] - a;\n                int min_pre_b = b;\n                int max_pre_a = min(a, nums[i-1] - min_pre_b);\n                if(max_pre_a >= 0)  dp[now][j] = dp[!now][max_pre_a];\n            }\n            for(int j = 1; j <= 1000; ++j) {\n                update(dp[now][j], dp[now][j-1]);\n            }\n        }\n        return dp[!now][1000];\n    }\n};",
+    "submit_ts": "1723344725",
+    "subm_id": "1351540694"
+}

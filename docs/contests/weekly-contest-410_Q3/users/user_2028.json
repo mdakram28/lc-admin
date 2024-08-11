@@ -1,0 +1,6 @@
+{
+    "username": "browndwarf",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        H = 50\n        H = max(nums)+1\n        modulo = 10**9 + 7\n        dp = [[0 for i in range(H)] for j in range(n+1)]\n        #dp = np.zeros((n+1, H), dtype=int)\n        for h in range(nums[n-1]+1):\n            dp[n-1][h] = 1\n        for i in reversed(range(n-1)):\n            for h in range(nums[i]+1):\n                for ht in range(h, nums[i+1]+1):\n                    if (i+1<n) and (nums[i]-h < nums[i+1]-ht):\n                        continue\n                    dp[i][h] = (dp[i][h] + dp[i+1][ht]) % modulo\n        ans = 0\n        for h in range(H):\n            ans = (ans + dp[0][h]) % modulo\n        #print(dp)\n        return ans",
+    "submit_ts": "1723345963",
+    "subm_id": "1351567133"
+}

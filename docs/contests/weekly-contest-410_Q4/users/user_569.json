@@ -1,0 +1,6 @@
+{
+    "username": "tanuj_123",
+    "submission": "class Solution {\npublic:\n    vector<vector<int>> dp;\n    int mod=(int)1e9+7;\n    \n    int countOfPairs(vector<int>& nums) {\n        int mx=*max_element(nums.begin(),nums.end());\n        int n=nums.size();\n        dp.resize(nums.size(),vector<int>(mx+1,0));\n        \n        \n        \n        for(int j=0;j<=nums[0];j++){\n            dp[0][j]=1;\n        }\n        vector<int> pfx(mx+1,0);\n        pfx=dp[0];\n        for(int i=1;i<n;i++){\n            \n            for(int j=1;j<=mx;j++){\n                pfx[j]=(pfx[j-1]+pfx[j])%mod;\n            }\n            for(int j=0;j<=nums[i];j++){\n            \n                int endj=min(nums[i-1]-nums[i]+j,j);\n              \n                if(endj>=0 && endj<=mx)\n                dp[i][j]=pfx[endj];\n                //cout<<stj<<\" \";\n            }\n            pfx=dp[i];\n            //cout<<endl;\n            \n        }\n        \n        int sum=0;\n        for(int k=0;k<=nums[n-1];k++)\n            sum=(sum+dp[n-1][k])%(mod);\n        \n        return sum;\n    }\n};",
+    "submit_ts": "1723347461",
+    "subm_id": "1351599246"
+}

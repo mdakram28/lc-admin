@@ -1,0 +1,6 @@
+{
+    "username": "suyash21__",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size(), mod = 1e9 + 7;\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        auto rec = [&](auto&& rec, int idx, int val1, int val2) -> long long {\n            if(idx >= n) return 1ll;\n            if(dp[idx][val1][val2] != -1) return dp[idx][val1][val2];\n            long long ans = 0;\n            for(int i=0;i<=nums[idx];i++){\n                int x = i, y = nums[idx] - i;\n                if(x >= val1 && val2 >= y)\n                    ans = (ans + rec(rec, idx+1, x, y)) % mod;\n            }\n            return dp[idx][val1][val2] = ans;\n        };\n        return rec(rec, 0, 0, 50);\n    }\n};",
+    "submit_ts": "1723347335",
+    "subm_id": "1351596741"
+}

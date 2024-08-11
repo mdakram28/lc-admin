@@ -1,0 +1,6 @@
+{
+    "username": "rahulguggilam",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        max_val = 50  # As given by the constraints, nums[i] <= 50\n        \n        # Initialize the dp array\n        dp = [[0] * (max_val + 1) for _ in range(n)]\n        \n        # Base case: For the first element\n        for j in range(nums[0] + 1):\n            dp[0][j] = 1\n        \n        # Fill the dp array\n        for i in range(1, n):\n            for j in range(nums[i] + 1):\n                total = 0\n                for k in range(j + 1):\n                    if nums[i] - j <= nums[i-1] - k:\n                        total += dp[i-1][k]\n                        total %= MOD\n                dp[i][j] = total\n        \n        # Sum up all valid pairs that can be formed up to the last index\n        result = sum(dp[n-1]) % MOD\n        return result\n",
+    "submit_ts": "1723343887",
+    "subm_id": "1351520919"
+}

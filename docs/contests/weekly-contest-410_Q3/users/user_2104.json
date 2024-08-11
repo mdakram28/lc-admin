@@ -1,0 +1,6 @@
+{
+    "username": "crack_leet97",
+    "submission": "class Solution {\n    static long dp[][][];\n    static int mod=1000000007;\n    \n    public static long call(int i,int nums[],int min,int max){\n        if(i>=nums.length){return 1;}\n        \n        int value=nums[i];\n        long sum=0;\n        for(int j=min;j<=value;j++){\n            \n            if(value-j>max){continue;}\n            \n            else if(dp[i][j][value-j]!=-1){\n                sum+=dp[i][j][value-j];\n                sum%=mod;\n            }\n            \n            else{\n                long r1=call(i+1,nums,j,value-j);\n                sum+=r1;\n                sum%=mod;\n                dp[i][j][value-j]=r1;\n            }\n             \n        }\n        \n        return sum%mod;\n        \n    }\n    \n    public int countOfPairs(int[] nums) {\n        int n=nums.length;\n        dp=new long[n][51][51];\n        \n        for(int i=0;i<n;i++){\n            for(int k=0;k<=50;k++){\n                for(int j=0;j<=50;j++){\n                    dp[i][k][j]=-1;\n                }\n            }\n        }\n        \n        return (int)call(0,nums,0,Integer.MAX_VALUE);\n        \n        \n    }\n}",
+    "submit_ts": "1723346656",
+    "subm_id": "1351582308"
+}

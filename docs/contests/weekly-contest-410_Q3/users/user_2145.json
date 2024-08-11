@@ -1,0 +1,6 @@
+{
+    "username": "Piyush_gpt",
+    "submission": "class Solution {\n    private int MOD = 1_000_000_007;\n    private Map<String, Long> memo;\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        memo = new HashMap<>();\n        return (int) (countPairs(nums, 0, 0, nums[0]) % MOD);\n    }\n\n    private long countPairs(int[] nums, int index, int lastArr1, int arr2Limit) {\n        if (index == nums.length) {\n            return 1;  \n        }\n        String key = index + \"-\" + lastArr1 + \"-\" + arr2Limit;\n        if (memo.containsKey(key)) {\n            return memo.get(key);\n        }\n\n        long totalWays = 0;\n        for (int arr1Value = lastArr1; arr1Value <= nums[index]; arr1Value++) {\n            int arr2Value = nums[index] - arr1Value;\n            if (arr2Value <= arr2Limit) {\n                totalWays += countPairs(nums, index + 1, arr1Value, arr2Value);\n                totalWays %= MOD;\n            }\n        }\n\n        memo.put(key, totalWays);\n        return totalWays;\n    }\n}",
+    "submit_ts": "1723346706",
+    "subm_id": "1351583433"
+}

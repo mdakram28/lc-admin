@@ -1,0 +1,6 @@
+{
+    "username": "sh_reya_1",
+    "submission": "class Solution {\n    vector<int> arr;\n    int n;\n    vector<vector<int>> dp;\n    int mod=1e9+7;\npublic:\n\n    int rec(int i,int prev){\n        if(i==n){\n            return 1;\n        }\n\n        if(dp[i][prev]!=-1)return dp[i][prev];\n    \n        int ans=0;\n        if(i==0){\n            for(int j=0;j<=arr[i];j++){\n                ans=(ans+rec(i+1,j))%mod;\n            }\n        }\n        else{\n            int ot=arr[i-1]-prev;\n            for(int j=prev;j<=arr[i];j++){\n                if(arr[i]-j<=ot)\n                ans=(ans+rec(i+1,j))%mod;\n            }\n        }\n        return dp[i][prev]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        n=nums.size();\n        arr=nums;\n        dp.assign(n+1,vector<int>(52,-1));\n        return rec(0,0);\n    }\n};",
+    "submit_ts": "1723344780",
+    "subm_id": "1351541878"
+}

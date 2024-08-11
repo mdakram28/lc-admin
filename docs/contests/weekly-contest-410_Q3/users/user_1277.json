@@ -1,0 +1,6 @@
+{
+    "username": "singh_deopa",
+    "submission": "typedef long long ll;\n\nclass Solution {\n    ll mod = 1000000007LL;\n\n    ll dfs(vector<vector<ll>>& dp, vector<int>& nums, int pos, int pre) {\n        if (pos == (int) nums.size()) {\n            return 1;\n        }\n\n        ll& cur = dp[pos][pre];\n        \n        if (cur != -1) {\n            return cur;\n        }\n\n        cur = 0;\n\n        for (int i = pre; i <= nums[pos]; i++) {\n            int rem = nums[pos] - i;\n\n            if (pos != 0 && nums[pos - 1] - pre < rem) {\n                continue;\n            }\n\n            ll tmp = dfs(dp, nums, pos + 1, i);\n            cur = (cur + tmp) % mod;\n        }\n\n        return cur;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = (int) nums.size();\n        int MX = 51;\n        vector<vector<ll>> dp(n, vector<ll>(MX, -1));\n\n        return dfs(dp, nums, 0, 0);\n    }\n};",
+    "submit_ts": "1723345793",
+    "subm_id": "1351563439"
+}

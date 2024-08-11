@@ -1,0 +1,6 @@
+{
+    "username": "simaranmaurya007",
+    "submission": "class Solution {\npublic:\nconst int MOD = 1e9 + 7;\n    int dp[2001][52][52];  // dp[ind][prev1 + 1][prev2 + 1] with adjusted dimensions\n\n    int f(int ind, int prev1, int prev2, std::vector<int>& nums) {\n        if (ind == nums.size()) {\n            return 1;\n        }\n\n        if (dp[ind][prev1 + 1][prev2 + 1] != -1) {\n            return dp[ind][prev1 + 1][prev2 + 1];\n        }\n\n        int ans = 0;\n        for (int curr1 = (prev1 == -1 ? 0 : prev1); curr1 <= 50; ++curr1) {\n            int curr2 = nums[ind] - curr1;\n            if (curr2 < 0 || (prev1 != -1 && (prev1 > curr1 || prev2 < curr2))) {\n                continue;\n            }\n\n            ans = (ans + f(ind + 1, curr1, curr2, nums)) % MOD;\n        }\n\n        return dp[ind][prev1 + 1][prev2 + 1] = ans;\n    }\n\n    int countOfPairs(std::vector<int>& nums) {\n         memset(dp, -1, sizeof(dp));\n        return f(0, -1, -1, nums);\n    }\n};",
+    "submit_ts": "1723346835",
+    "subm_id": "1351586174"
+}

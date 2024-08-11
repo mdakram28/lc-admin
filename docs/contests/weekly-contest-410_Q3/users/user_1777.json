@@ -1,0 +1,6 @@
+{
+    "username": "khush2002",
+    "submission": "class Solution {\nprivate:\n    int mod = 1e9 + 7;\n    int f(int idx, int val1, int val2, int n, auto &nums, auto& arr1,\n          auto& arr2, auto &dp) {\n\n        if(idx == n) return 1;\n\n        if (dp[idx][val1][val2] != -1) return dp[idx][val1][val2];\n\n        int ways = 0;\n        for (int i = 0; i <= nums[idx]; i++) {\n            if (val1 <= i && val2 >= nums[idx] - i) {\n                arr1[idx] = i;\n                arr2[idx] = nums[idx] - i;\n                ways = (ways + f(idx + 1, arr1[idx], arr2[idx], n, nums, arr1, arr2, dp)) % mod;\n            }\n        }\n        return dp[idx][val1][val2] = ways;;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<int> arr1(n), arr2(n);\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(52, vector<int>(52, -1)));\n\n        return f(0, 0, 51, n, nums, arr1, arr2, dp);\n    }\n};",
+    "submit_ts": "1723346266",
+    "subm_id": "1351573792"
+}

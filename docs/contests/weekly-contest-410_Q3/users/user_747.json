@@ -1,0 +1,6 @@
+{
+    "username": "retired_kid",
+    "submission": "class Solution {\n    int MOD = (int) 1e9 + 7;\n    Long[][][] dp;\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        dp = new Long[n + 1][60][60];\n        long ans = 0;\n        for (int i = 0; i <= nums[0]; i++) {\n            ans += dfs(nums, 1, i, nums[0] - i);\n            // System.out.println(ans + \" \" + i + \" \" + (nums[0] - i));\n            ans %= MOD;\n        }\n        return (int) ans;\n    }\n\n    public long dfs(int[] nums, int i, int j, int k) {\n        if (i == nums.length) {\n            return 1;\n        } else if (dp[i][j][k] != null) return dp[i][j][k];\n        long cur = 0;\n        // System.out.println(i + \" \" + j + \" \" + k);\n        for (int l = 0; l <= nums[i]; l++) {\n            if (j <= l && k >= nums[i] - l) {\n                // System.out.println(l + \" \" + (nums[i] - l));\n                cur += dfs(nums, i + 1, l, nums[i] - l);\n                cur %= MOD;\n            }\n        }\n        return dp[i][j][k] = cur;\n    }\n}",
+    "submit_ts": "1723344470",
+    "subm_id": "1351535199"
+}

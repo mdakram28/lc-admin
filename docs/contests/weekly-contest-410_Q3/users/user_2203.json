@@ -1,0 +1,6 @@
+{
+    "username": "21501a0590",
+    "submission": "class Solution {\npublic:\n    static const int M = 1'000'000'007;\n    vector<vector<vector<int>>> d;\n\n    void i(int n) {\n        d = vector<vector<vector<int>>>(n, vector<vector<int>>(51, vector<int>(51, -1)));\n    }\n\n    int f(vector<int>& a, int x, int p1, int p2) {\n        if (x >= a.size()) return 1;\n\n        if (d[x][p1][p2] != -1) return d[x][p1][p2];\n\n        int r = 0;\n        for (int i = 0; i <= a[x]; i++) {\n            int v1 = i;\n            int v2 = a[x] - i;\n            if (v1 >= p1 && v2 <= p2) {\n                r = (r + f(a, x + 1, v1, v2)) % M;\n            }\n        }\n\n        d[x][p1][p2] = r;\n        return r;\n    }\n     int countOfPairs(vector<int>& a) {\n        int n = a.size();\n        i(n);\n        return f(a, 0, 0, 50);\n    }\n};",
+    "submit_ts": "1723346760",
+    "subm_id": "1351584574"
+}

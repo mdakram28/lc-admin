@@ -1,0 +1,6 @@
+{
+    "username": "user9539",
+    "submission": "class Solution {\n    fun countOfPairs(nums: IntArray): Int {\n        val max = nums.max()\n        val dp = Array(nums.size) {\n            Array(max+1) {\n                -1 to 0L\n            }\n        }\n        \n        for (n1 in 0..nums[0]) {\n            val n2 = nums[0]-n1\n            dp[0][n1] = n2 to 1L\n        }\n\n\n        val mod = (1e9+7).toLong()\n        for (i in 1 until nums.size) {\n            val n = nums[i]\n            for (n1 in 0..n) {\n                var total = 0L\n                val n2 = n-n1\n                for (j in 0..n1) {\n                    val (recentN2, count) = dp[i-1][j]\n                    if (recentN2 >= n2) {\n                        total = (total+count) % mod\n                    }\n                }\n                dp[i][n1] = n2 to total\n            }\n        }\n       \n        var ans = 0L\n        for (n1 in dp[0].indices) {\n            val (n2, total) = dp[nums.size-1][n1]\n            ans = (ans+total) % mod\n        }\n        return ans.toInt()\n    }\n}\n/*\n[[(2, 1), (1, 1), (0, 1), (-1, 0)],\n [(3, 0), (2, 1), (1, 3), (0, 7)],\n  [(2, 0), (1, 1), (0, 5), (-1, 0)]]\n\n */",
+    "submit_ts": "1723345912",
+    "subm_id": "1351565998"
+}

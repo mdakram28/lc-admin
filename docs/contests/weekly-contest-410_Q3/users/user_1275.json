@@ -1,0 +1,6 @@
+{
+    "username": "Pluto1120",
+    "submission": "class Solution:\n    def dfs(self, cur: int, cur_arr1_last: int) -> int:\n        if cur == len(self.nums):\n            return 0\n        elif (cur, cur_arr1_last) in self.cache:\n            return self.cache[(cur, cur_arr1_last)]\n        elif cur == 0:\n            return 1\n        else:\n            total = 0\n            cur_arr2_last = self.nums[cur]-cur_arr1_last\n            for prev_arr1_last in range(cur_arr1_last+1):\n                prev_arr2_last = self.nums[cur-1]-prev_arr1_last\n                if prev_arr2_last >= cur_arr2_last and prev_arr1_last <= cur_arr1_last:\n                    res = self.dfs(cur-1, prev_arr1_last)\n                    total = (total+res)%self.mod\n            self.cache[(cur, cur_arr1_last)] = total\n            return total\n\n    def countOfPairs(self, nums: List[int]) -> int:\n        self.cache = {}\n        self.nums = nums\n        self.mod = 10**9+7\n        ans = 0\n        for i in range(0, nums[-1]+1):\n            res = self.dfs(len(nums)-1, i)\n            ans = (ans+res)%self.mod\n        return ans",
+    "submit_ts": "1723345791",
+    "subm_id": "1351563405"
+}

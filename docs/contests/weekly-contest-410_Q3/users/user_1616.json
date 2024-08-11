@@ -1,0 +1,6 @@
+{
+    "username": "anhtuanhoang0921",
+    "submission": "const MOD = 1000000007\n\nfunc countOfPairs(nums []int) int {\n\tsize := len(nums)\n\ttmp := make([][][]int64, size)\n\tfor i := range tmp {\n\t\ttmp[i] = make([][]int64, 51)\n\t\tfor j := range tmp[i] {\n\t\t\ttmp[i][j] = make([]int64, 51)\n\t\t\tfor k := range tmp[i][j] {\n\t\t\t\ttmp[i][j][k] = -1\n\t\t\t}\n\t\t}\n\t}\n\tvar solve func(index, val1, val2 int) int64\n\tsolve = func(index, val1, val2 int) int64 {\n\t\tif index >= size {\n\t\t\treturn 1\n\t\t}\n\n\t\tif tmp[index][val1][val2] != -1 {\n\t\t\treturn tmp[index][val1][val2]\n\t\t}\n\t\tresult := int64(0)\n\t\tfor i := val1; i <= nums[index]; i++ {\n\t\t\tfor j := val2; j >= 0; j-- {\n\t\t\t\tif i+j == nums[index] {\n\t\t\t\t\tresult += solve(index+1, i, j)\n\t\t\t\t\tresult %= MOD\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\ttmp[index][val1][val2] = result\n\t\treturn result\n\t}\n\treturn int(solve(0, 0, nums[0]))\n}",
+    "submit_ts": "1723346320",
+    "subm_id": "1351574995"
+}

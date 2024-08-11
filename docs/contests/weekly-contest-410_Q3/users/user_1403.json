@@ -1,0 +1,6 @@
+{
+    "username": "meetpatel2220",
+    "submission": "class Solution {\n    int mod=1_000_000_007;\n    public int countOfPairs(int[] nums) {\n        int dp[][][]=new int[nums.length][53][53];\n        for(int i=0;i<dp.length;i++)\n        for(int j=0;j<dp[0].length;j++)\n        Arrays.fill(dp[i][j],-1);\n        return call(0,0,52,nums,dp);\n    }\n    public int call(int index,int pnum1,int pnum2,int nums[],int dp[][][]){\n        if(index>=nums.length){\n            return 1;\n        }\n        if(dp[index][pnum1][pnum2]!=-1)return dp[index][pnum1][pnum2];\n        int ans=0;\n        for(int first=pnum1;first<=nums[index];first++){\n            int second=nums[index]-first;\n            if(second<=pnum2 && first+second==nums[index]){\n                ans=(ans%mod+call(index+1,first,second,nums,dp)%mod)%mod;\n            }\n        }\n        return dp[index][pnum1][pnum2]=ans%mod;\n\n    }\n}",
+    "submit_ts": "1723345696",
+    "subm_id": "1351561379"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Manmeet8287",
+    "submission": "#define ll long long \nconst ll mod=1e9+7;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& v) {\n    int n=v.size();\n\n    vector<vector<vector<ll>>> dp(n+1,vector<vector<ll>>(55,vector<ll>(55,-1)));\n    auto f=[&](const auto &self,ll idx,ll prev1,ll prev2)->ll\n    {\n        // cout<<idx<<\" \"<<prev1<<\" \"<<prev2<<endl;\n        if(idx==n) return 1;\n        if(dp[idx][prev1][prev2]!=-1) return dp[idx][prev1][prev2];\n        ll cnt=0;\n        for(int i=prev1;i<=50;i++)\n        {\n            if(i>v[idx]) break;\n            ll req_prev2=v[idx]-i;\n            if(req_prev2<0) break;\n\n            if(req_prev2<=prev2 and req_prev2<=50)\n            {\n                cnt=(cnt+self(self,idx+1,i,req_prev2))%mod;\n            }\n        }\n        return dp[idx][prev1][prev2]=cnt;\n        };\n\n        ll ans=f(f,0,0,51);\n        return ans;\n    }\n};",
+    "submit_ts": "1723345063",
+    "subm_id": "1351547829"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "gyana02",
+    "submission": "typedef long long ll;\n\nclass Solution {\npublic:\n    int mod = 1e9 + 7;\n    vector<vector<ll>> dp;\n\n    int solve(int i, int last, int last1, vector<int>& nums) {\n        if (i == nums.size()) return 1;\n        if (dp[i][last] != -1) return dp[i][last];\n        \n        ll res = 0; \n        for (int j = last; j <= nums[i]; ++j) {\n            if (j >= last && nums[i] - j <= last1) {\n                res += ll(solve(i + 1, j, nums[i] - j, nums)) % mod; \n            }\n        }\n        \n        return dp[i][last] = res%mod;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp = vector<vector<ll>>(n, vector<ll>(51, -1));\n        return solve(0, 0, 50, nums);\n    }\n};\n",
+    "submit_ts": "1723345446",
+    "subm_id": "1351555942"
+}

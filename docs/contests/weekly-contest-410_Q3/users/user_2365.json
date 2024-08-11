@@ -1,0 +1,6 @@
+{
+    "username": "adarsh_ra1",
+    "submission": "class Solution(object):\n    MOD = 1000000007\n\n    def __init__(self):\n        self.dp = None\n\n    def find_pairs(self, nums, idx, prev1, prev2):\n        if idx == len(nums):\n            return 1\n        if self.dp[idx][prev1][prev2] != -1:\n            return self.dp[idx][prev1][prev2]\n        count = 0\n        for i in range(nums[idx] + 1):\n            arr1_val = i\n            arr2_val = nums[idx] - i\n            if arr1_val >= prev1 and arr2_val <= prev2:\n                count = (count + self.find_pairs(nums, idx + 1, arr1_val, arr2_val)) % Solution.MOD\n        self.dp[idx][prev1][prev2] = count\n        return count\n\n    def countOfPairs(self, nums):\n        n = len(nums)\n        self.dp = [[[-1] * 51 for _ in range(51)] for _ in range(n)]\n        return self.find_pairs(nums, 0, 0, 50)\n",
+    "submit_ts": "1723346921",
+    "subm_id": "1351588057"
+}

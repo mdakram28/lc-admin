@@ -1,0 +1,6 @@
+{
+    "username": "sanketjaipuriar",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n    int n;\n    vector<vector<int>> dp;\n    int rec(int idx, int l1, vector<int> &nums) {\n        if (l1 > nums[idx]) {\n            return 0;\n        }\n        if (idx == n - 1) {\n            return (nums[idx] - l1 + 1);\n        }\n        if (dp[idx][l1] != -1) {\n            return dp[idx][l1];\n        }\n        int ans = 0;\n        ans = (0ll + ans + rec(idx, l1 + 1, nums)) % mod;\n        int tmp = nums[idx + 1] - nums[idx] + l1;\n        tmp = max(tmp, l1);\n        ans = (0ll + ans + rec(idx + 1, tmp, nums)) % mod;\n        return dp[idx][l1] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        dp.assign(n, vector<int> (1001, -1));\n        int ans = rec(0, 0, nums);\n        return ans;\n    }\n};",
+    "submit_ts": "1723346443",
+    "subm_id": "1351577704"
+}

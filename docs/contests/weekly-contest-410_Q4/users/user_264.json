@@ -1,0 +1,6 @@
+{
+    "username": "2499370956",
+    "submission": "class Solution {\n    private final static int MOD = 1000000007;\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        long[] dp = new long[1001];\n        for (int i = 0; i <= nums[0]; i++) {\n            dp[i] = 1;\n        }\n        long[] ps = prefixSum(dp);\n//        System.out.println(Arrays.toString(dp));\n        for (int i = 1; i < n; i++) {\n            long[] dpNext = new long[1001];\n            for (int j = 0; j <= nums[i]; j++) {\n                int ub1 = j;\n                int ub2 = nums[i - 1] - (nums[i] - j);\n                dpNext[j] = ps[Math.max(0, Math.min(ub1, ub2) + 1)];\n            }\n            dp = dpNext;\n            ps = prefixSum(dp);\n//            System.out.println(Arrays.toString(dp));\n        }\n        return (int) ps[1001];\n    }\n\n    private long[] prefixSum(long[] a) {\n        long[] out = new long[a.length + 1];\n        for (int i = 0; i < a.length; i++) {\n            out[i + 1] = out[i] + a[i];\n            out[i + 1] %= MOD;\n        }\n        return out;\n    }\n}",
+    "submit_ts": "1723346357",
+    "subm_id": "1351575765"
+}

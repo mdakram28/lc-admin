@@ -1,0 +1,6 @@
+{
+    "username": "sameerkhurd",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        cnt = 0\n        arr1 = [0] * len(nums)\n        arr2 = [nums[0]] * len(nums)\n        for i in range(1, len(nums)):\n            if arr1[i - 1] + arr2[i - 1] == nums[i]:\n                pass\n        cache = {}\n\n        def dfs(index, prev1, prev2):\n            nonlocal cnt, cache\n            # print(index, prev1,prev2)\n            if index == len(nums):\n                return 1\n            key = (index, prev1, prev2)\n            if key in cache:\n                return cache[key]\n            c = 0\n            for i in range(prev1, nums[index] + 1):\n                for j in range(prev2, nums[index] - i -1, -1):\n                    if i + j == nums[index]:\n                        c += dfs(index + 1, i, j)\n                    \n            cache[key] = c\n            return c\n\n        cnt = dfs(0, 0, nums[0])\n        return cnt % (10**9 + 7)\n",
+    "submit_ts": "1723346067",
+    "subm_id": "1351569487"
+}

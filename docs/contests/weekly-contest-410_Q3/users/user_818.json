@@ -1,0 +1,6 @@
+{
+    "username": "user9218i",
+    "submission": "typedef long long ll;\nclass Solution {\n    ll MOD = 1000000007;\npublic:\n     ll go(int l, int& x, int& y, vector<int>& nums, vector<vector<vector<ll>>>& dp) {\n        if(l == nums.size())    return 1;\n         if(dp[l][x][y] != -1)  return dp[l][x][y];\n        ll ans = 0;\n        for(int i = 0; i <= nums[l]; i++) {\n            int xx = i, yy = nums[l] - i;\n            if(xx >= x and yy <= y)\n                ans += go(l+1, xx, yy, nums, dp);\n            ans %= MOD;\n        }\n        return dp[l][x][y] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        ll ans = 0, n = nums.size();\n        vector<vector<vector<ll>>> dp(n+1, vector<vector<ll>> (51, vector<ll> (51, -1)));\n        for(int i = 0; i <= nums[0]; i++) {\n            int x = nums[0] - i;\n            ans += go(1, i, x, nums, dp);\n            ans %= MOD;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723344640",
+    "subm_id": "1351538864"
+}

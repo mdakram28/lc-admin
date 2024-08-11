@@ -1,0 +1,6 @@
+{
+    "username": "particle_fever",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int n=nums.length;\n        int dp[][][]=new int[n][51][51];\n        int mod=1000000007;\n        for(int i=0;i<n;i++)\n        {\n            int val=nums[i];\n            for(int j=0;j<=val;j++)\n            {\n                int a=j;\n                int b=val-j;\n                if(i==0)\n                {\n                    dp[i][a][b]=1;\n                }\n                else\n                {\n                    for(int k=0;k<=a;k++)\n                    {\n                        int pa=k;\n                        int pb=nums[i-1]-k;\n                        if(b<=pb)\n                        {\n                            dp[i][a][b]+=dp[i-1][pa][pb];\n                            dp[i][a][b]%=mod;\n                        }\n                    }\n                }\n               \n            }\n        }\n        int ans=0;\n        for(int i=0;i<=50;i++)\n        {\n            int a=i;\n            int b=nums[n-1]-a;\n            if(b>=0)\n            {\n                ans=ans+dp[n-1][a][b];\n                ans%=mod;\n            }\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1723346319",
+    "subm_id": "1351574948"
+}

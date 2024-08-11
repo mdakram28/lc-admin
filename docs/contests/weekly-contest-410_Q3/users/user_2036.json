@@ -1,0 +1,6 @@
+{
+    "username": "DnjZdkZnbo",
+    "submission": "class Solution {\npublic:\n    int dp[2005][55][55];\n    int mod = 1e9 + 7;\n    int rec(int idx, int a, int b, vector<int>& nums){\n        if(idx >= nums.size())return 1;\n        if(dp[idx][a][b] != -1)return dp[idx][a][b];\n        \n        int current = 0;\n        for(int i=nums[idx]; i>=a; i--){\n            int pb = nums[idx] - i;\n            if(pb < 0 || pb > b)break;\n            current = ((current%mod ) + (rec(idx+1, i, pb, nums)%mod))%mod;\n        }\n\n        return dp[idx][a][b] = current;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof dp);\n        return rec(0, 0, 52, nums);\n    }\n};",
+    "submit_ts": "1723346872",
+    "subm_id": "1351586945"
+}

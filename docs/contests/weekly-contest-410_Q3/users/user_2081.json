@@ -1,0 +1,6 @@
+{
+    "username": "majiquemantras",
+    "submission": "int MOD = 1e9 + 7;\n\nclass Solution {\n\n    \nprivate:\n    vector<vector<vector<int>>> memo;\n    int Solve(int idx, int prevA, int prevB, vector<int>& nums){\n        \n        if (idx == nums.size()) return 1;\n        if (prevA > nums[idx] || prevB < 0) return 0;       \n        if (memo[idx][prevA][prevB] != -1) return memo[idx][prevA][prevB];\n        \n        int target = nums[idx];\n        int ans = 0;\n        \n        for(int i = prevA; i <= target; i++){\n            int j = target - i;\n            if (j <= prevB && j >= 0){\n                ans = (ans + Solve(idx + 1, i, j, nums)) % MOD;\n            }\n        }\n        \n        return memo[idx][prevA][prevB] = ans;\n    }\n    \npublic:\n    int countOfPairs(vector<int>& nums) {\n        memo.resize(nums.size(), vector<vector<int>>(51, vector<int>(51, -1)));\n        return Solve(0, 0, nums[0], nums);\n    }\n};\n",
+    "submit_ts": "1723346940",
+    "subm_id": "1351588473"
+}

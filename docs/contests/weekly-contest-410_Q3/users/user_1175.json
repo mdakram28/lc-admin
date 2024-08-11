@@ -1,0 +1,6 @@
+{
+    "username": "virajchandra51",
+    "submission": "class Solution {\npublic:\n    vector<vector<int>> dp;\n    int M = 1e9+7;\n    int helper(int i, vector<int> &nums, int n, int prev)\n    {\n        if(i>=n)\n        {\n            return 1;\n        }\n        if(dp[i][prev+1]!=-1) return dp[i][prev+1];\n        int ans = 0;\n        if(prev==-1)\n        {\n            for(int l = 0; l<=nums[0]; l++)\n            {\n                ans = (ans%M+helper(i+1,nums,n,l)%M)%M;\n            }\n        }\n        else\n        {\n            for(int l = prev; l<=nums[i]; l++)\n            {\n                int curr = l;\n                if(nums[i]-curr>nums[i-1]-prev) continue;\n                ans = (ans%M+helper(i+1,nums,n,l)%M)%M;\n            }\n        }\n        return dp[i][prev+1]=ans%M;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp.resize(n+1,vector<int>(55,-1));\n        return helper(0, nums, n, -1);\n    }\n};",
+    "submit_ts": "1723345350",
+    "subm_id": "1351553869"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "ciphercraft",
+    "submission": "#define ll long long\n#define MOD 1000000007\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size(); ll res = 0;\n        vector<vector<vector<ll>>> dp(n, vector<vector<ll>>(51, vector<ll>(51, -1)));\n        auto solve = [&](int idx, int n1, int n2, auto&& solve_ref) -> ll {\n            if (idx >= n) return 1;\n            if (dp[idx][n1][n2] != -1) return dp[idx][n1][n2];\n            res = 0;\n            for (int i = n1 - 1; i < nums[idx]; i++) {\n                for (int j = n2; j >= 0; j--) {\n                    if ((i + 1) + j == nums[idx]) {\n                        res = (res + solve_ref(idx + 1, (i + 1), j, solve_ref)) % MOD;\n                    }\n                }\n            }\n            return dp[idx][n1][n2] = res;\n        };\n        \n        return solve(0, 0, nums[0], solve);\n    }\n};\n",
+    "submit_ts": "1723345458",
+    "subm_id": "1351556206"
+}

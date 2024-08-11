@@ -1,0 +1,6 @@
+{
+    "username": "_kmk_",
+    "submission": "class Solution {\npublic:\n    int help(int a,vector<int>& nums,int indx,vector<vector<int>>& dp)\n    {\n        int const mod=1e9+7;\n        int ans=0;\n        int n=nums.size();\n        if(n==indx)\n            return 1;\n        if(dp[a][indx]!=-1)\n            return dp[a][indx];\n        for(int i=0;i<=50;i++)\n        {\n            if(indx==0)\n            {\n                if((nums[indx]-i)>=0)\n                    ans=(ans%mod+help(i,nums,indx+1,dp)%mod)%mod;\n            }\n            else if((nums[indx]-i)>=0&&i>=a&&(nums[indx]-i)<=(nums[indx-1]-a))\n            {\n                ans=(ans%mod+help(i,nums,indx+1,dp)%mod)%mod;\n            }\n        }\n        return dp[a][indx]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<int>> dp(51,vector<int>(n,-1));\n        return help(0,nums,0,dp);\n    }\n};",
+    "submit_ts": "1723346662",
+    "subm_id": "1351582470"
+}

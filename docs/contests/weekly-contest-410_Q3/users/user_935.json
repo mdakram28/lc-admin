@@ -1,0 +1,6 @@
+{
+    "username": "svyas_practise",
+    "submission": "class Solution {\npublic:\n    #define md 1000000007\n    int solve(int i,vector<int>&nums,int lt,unordered_map<int,unordered_map<int,int>>&dp){\n        if(i==nums.size()){\n            return 1;\n        }\n        if(dp.find(i)!=dp.end() && dp[i].find(lt)!=dp[i].end()) return dp[i][lt];\n        int ans=0;\n        if(lt==51){\n            for(int j=0;j<=nums[i];j++){\n                ans=(ans%md+solve(i+1,nums,j,dp)%md)%md;\n            }\n        }\n        else{\n            int monod=lt;\n            int monoi=nums[i-1]-lt;\n            if(nums[i]<monoi) return 0;\n            for(int j=0;j<=lt;j++){\n                if(nums[i]-j<monoi) break;\n                ans=(ans%md+solve(i+1,nums,j,dp)%md)%md;\n            }\n        }\n        return dp[i][lt]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        unordered_map<int,unordered_map<int,int>>dp;\n        return solve(0,nums,51,dp);\n    }\n};",
+    "submit_ts": "1723345197",
+    "subm_id": "1351550708"
+}

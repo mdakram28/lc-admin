@@ -1,0 +1,6 @@
+{
+    "username": "Ankithavarma",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n\n        // dp[i][j]: number of ways to form arr1 and arr2 for nums[0...i] with arr1[i] = j\n        vector<vector<int>> dp(n, vector<int>(51, 0));\n\n        // Base case initialization\n        for (int j = 0; j <= nums[0]; ++j) {\n            dp[0][j] = 1; // arr1[0] = j, arr2[0] = nums[0] - j\n        }\n\n        // Fill dp table\n        for (int i = 1; i < n; ++i) {\n            for (int j = 0; j <= nums[i]; ++j) { // arr1[i] = j\n                for (int k = 0; k <= j; ++k) { // arr1[i-1] = k <= j\n                    int arr2i = nums[i] - j;\n                    int arr2i_1 = nums[i-1] - k;\n                    if (arr2i <= arr2i_1) { // check arr2[i] <= arr2[i-1]\n                        dp[i][j] = (dp[i][j] + dp[i-1][k]) % MOD;\n                    }\n                }\n            }\n        }\n\n        // Sum up all dp[n-1][j] for final result\n        int result = 0;\n        for (int j = 0; j <= 50; ++j) {\n            result = (result + dp[n-1][j]) % MOD;\n        }\n\n        return result;\n    }\n};",
+    "submit_ts": "1723344551",
+    "subm_id": "1351537018"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "leetcodeaug03",
+    "submission": "#include <vector>\n#include <algorithm>\n#include <cstring>\n\nclass Solution {\npublic:\n    int countOfPairs(std::vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n        // Memoization table\n        int memo[2001][55][55];\n        memset(memo, -1, sizeof(memo));\n        \n        // Recursive function with memoization\n        std::function<int(int, int, int)> countPairs = [&](int i, int last1, int last2) -> int {\n            if (i == n) return 1;\n            if (memo[i][last1][last2] != -1) return memo[i][last1][last2];\n            \n            int count = 0;\n            for (int arr1 = last1; arr1 <= nums[i]; ++arr1) {\n                int arr2 = nums[i] - arr1;\n                if (arr2 <= last2) {\n                    count = (count + countPairs(i + 1, arr1, arr2)) % MOD;\n                }\n            }\n            return memo[i][last1][last2] = count;\n        };\n        \n        return countPairs(0, 0, 50);\n    }\n};",
+    "submit_ts": "1723345110",
+    "subm_id": "1351548779"
+}

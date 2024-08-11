@@ -1,0 +1,6 @@
+{
+    "username": "ParthSali",
+    "submission": "#define ll long long int\n\nclass Solution {\npublic:\n    int solve(int position, int first, int second, vector<vector<vector<ll>>> &dp, vector<int> &nums, int n){\n        if(position >= n) return 1;\n        \n        ll total = 0;\n        ll MOD = 1e9+7;\n        \n        if (dp[position][first][second] != -1) return dp[position][first][second];\n            for (int x = first; x <= nums[position]; x++) {\n                for (int y = second; y >= 0; y--) {\n                    if (x + y == nums[position]) {\n                        total += solve(position + 1, x, y,dp, nums, n);\n                        total = total % MOD;\n                    }\n                }\n            }\n        \n        return dp[position][first][second] = total; \n        \n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        \n        vector<vector<vector<ll>>> dp(n, vector<vector<ll>>(51, vector<ll>(51, -1)));\n        \n        int result = solve(0, 0, nums[0], dp, nums, n);\n        \n        return result;\n    }\n};",
+    "submit_ts": "1723345962",
+    "subm_id": "1351567110"
+}

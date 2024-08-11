@@ -1,0 +1,6 @@
+{
+    "username": "redsmolder",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int m = 1e9 + 7;\n        vector<vector<int> >table (2, vector<int>(1001, 0));\n        for(int i = 0; i <= nums[0]; i++) table[0][i] = i+1;\n        for(int i = nums[0] + 1; i < 1001; i++) table[0][i] = nums[0]+1;\n        int x, y, k;\n        int c = 1;\n        int l;\n        for(int i = 1; i < nums.size(); i++){\n            x = nums[i - 1];\n            y = nums[i];\n            l = 0;\n            for(int j = 0; j <= y; j++){\n                table[c][j] = l;\n                k = min(j, x);\n                k = min(x - y + j, k);\n                if(k >= 0){\n                    table[c][j] = (table[c][j] + table[c^1][k])%m;\n                }\n                l = table[c][j];\n            }\n            for(int j = y + 1; j < 1001; j++) table[c][j] = l;\n            c ^= 1;\n        }\n        c ^= 1;\n        return table[c].back();      \n    }\n};",
+    "submit_ts": "1723346796",
+    "subm_id": "1351585354"
+}

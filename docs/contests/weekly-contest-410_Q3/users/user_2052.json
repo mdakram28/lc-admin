@@ -1,0 +1,6 @@
+{
+    "username": "Satyam1782",
+    "submission": "typedef long long int ll;\nconst ll mod=1e9+7;\n\nclass Solution {\n    vector<int> nums;\n    int n;\n    ll ans;\n    vector<vector<vector<ll>>> dp;\n    \n    ll func(int ind,int prev1,int prev2){\n        // cout<<ind<<\" \"<<prev1<<\" \"<<prev2<<endl;\n        if(ind==n){\n            return dp[ind][prev1][prev2]=1;\n        }\n        \n        if(dp[ind][prev1][prev2]!=-1){\n            return dp[ind][prev1][prev2];\n        }\n        \n        \n        int low=0;\n        int high=nums[ind];\n        ll ans=0;\n\n        while(high!=-1){\n            if(low>=prev1 && high<=prev2){\n                ans+=func(ind+1,low,high);\n                ans%=mod;\n            }\n            low++;\n            high--;\n        }\n        \n        return dp[ind][prev1][prev2]=ans; \n        \n    }\n        \npublic:\n    int countOfPairs(vector<int>& nums) {\n        ans=0;\n        this->nums=nums;\n        n=nums.size();\n        dp.resize(n+2,vector<vector<ll>>(52,vector<ll>(52,-1)));\n        return func(0,0,nums[0]);\n        // return ans;\n    }\n};",
+    "submit_ts": "1723346596",
+    "subm_id": "1351581038"
+}

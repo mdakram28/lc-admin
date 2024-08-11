@@ -1,0 +1,6 @@
+{
+    "username": "Akksharvan",
+    "submission": "class Solution {\npublic:\n    int countOfPairs (vector<int> &A) {\n        long long MOD = 1e9 + 7; int N = size(A);\n        vector<vector<long long>> DP(N, vector<long long> (1001));\n\n        fill(begin(DP[0]), begin(DP[0]) + A[0] + 1, 1);\n        for (int j = 1; j <= 1000; j++) DP[0][j] += DP[0][j - 1];\n\n        for (int i = 1; i < N; i++) {\n            for (int j = 0; j <= 1000; j++) {\n                if (j) DP[i][j] = DP[i][j - 1];\n                if (j > A[i]) continue;\n\n                int k = A[i - 1] - A[i] + j;\n                if (k < 0) continue; k = min(k, j);\n\n                DP[i][j] += DP[i - 1][k];\n                DP[i][j] %= MOD;\n            }\n        }\n\n        return DP[N - 1][1000];\n    }\n};",
+    "submit_ts": "1723347063",
+    "subm_id": "1351591112"
+}

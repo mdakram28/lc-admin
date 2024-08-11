@@ -1,0 +1,6 @@
+{
+    "username": "Seth_Lupo",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n\n        const int BASE = 1000000007;\n\n        const int n = nums.size();\n\n        vector<array<int, 51>> memo(n, array<int, 51>());\n\n        for (int num = 0; num <= nums[0]; num++) {\n            memo[0][num] = 1;\n        }\n\n        for (int i = 0; i < n-1; i++) {\n\n            for (int p1 = 0; p1 < 51; p1++) {\n                if (memo[i][p1] == 0) continue;\n                const int p2 = nums[i]-p1;\n\n                for (int q1 = max(p1, nums[i+1] - p2); q1 <= nums[i+1]; q1++) {\n                    // cout << q1 << endl;\n                    memo[i+1][q1] += memo[i][p1];\n                    memo[i+1][q1] %= BASE;\n                }\n            }\n            \n        }\n\n        int res = 0;\n        for (int p1 = 0; p1 < 51; p1++) {\n            res += memo[n-1][p1];\n            res %= BASE;\n        }\n\n        return res;\n        \n    }\n};",
+    "submit_ts": "1723346987",
+    "subm_id": "1351589515"
+}

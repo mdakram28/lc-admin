@@ -1,0 +1,6 @@
+{
+    "username": "do4z",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    long long monopair(vector<int>&arr,vector<vector<vector<long long>>>&dp,int fixed,int st1,int st2)\n    {\n        if(arr.size()<=st1) return 1ll;\n        long long pairs=0;\n        if(dp[st1][st2][fixed]!=-1) return dp[st1][st2][fixed];\n        for(int i=st2;i<=arr[st1];i++)\n        {\n            for(int j=fixed;j>=0;j--)\n            {\n                if(arr[st1]!=(i+j)) continue;\n                pairs=((pairs%mod)+(monopair(arr,dp,j,st1+1,i)%mod))%mod;\n            }\n        }\n        return dp[st1][st2][fixed]=pairs;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<vector<long long>>>dp(n,vector<vector<long long>>(51,vector<long long>(51,-1)));\n        int pairs=monopair(nums,dp,nums[0],0,0);\n        return pairs;\n    }\n};",
+    "submit_ts": "1723346023",
+    "subm_id": "1351568465"
+}

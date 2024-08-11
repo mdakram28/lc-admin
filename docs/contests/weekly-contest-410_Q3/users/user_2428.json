@@ -1,0 +1,6 @@
+{
+    "username": "derrick2001",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int memo[2005][52][52];\n        memset(memo, -1, sizeof(memo));\n        function<int(int,int,int)>dfs = [&](int idx, int a, int b) {\n            if (idx >=n) {\n                return 1;\n            }\n            if (memo[idx][a][b]!=-1) {\n                return memo[idx][a][b];\n            } \n            int tot = 0 ;\n            for(int i = a; i <= nums[idx]; i++) {\n                for(int j=b; j>=0;j--) {\n                    if (i+j == nums[idx]) {\n                        tot += dfs(idx+1,i,j)%1000000007;\n                        tot%=1000000007;\n                    }\n                }\n            }\n            return memo[idx][a][b] = tot;\n        };\n        return dfs(0, 0, nums[0]);\n     \n        \n    }\n};",
+    "submit_ts": "1723347299",
+    "subm_id": "1351595988"
+}

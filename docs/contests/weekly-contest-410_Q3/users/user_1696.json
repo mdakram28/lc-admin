@@ -1,0 +1,6 @@
+{
+    "username": "149_loves_15_39_90_8_7",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        \n        # Memoization dictionary\n        memo = {}\n        \n        def backtrack(index, prev1, prev2):\n            if index == len(nums):\n                return 1\n            \n            if (index, prev1, prev2) in memo:\n                return memo[(index, prev1, prev2)]\n            \n            count = 0\n            for x in range(prev1, nums[index] + 1):\n                y = nums[index] - x\n                if y <= prev2:\n                    count += backtrack(index + 1, x, y)\n                    count %= MOD\n            \n            memo[(index, prev1, prev2)] = count\n            return count\n        \n        return backtrack(0, 0, nums[0])\n\n",
+    "submit_ts": "1723345534",
+    "subm_id": "1351557879"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Varun1305",
+    "submission": "class Solution {\npublic:\n    int mod = (int)(1e9 + 7);\n    int f(int i, long long pa, long long pb, vector<int>&v, int n, vector<vector<vector<long long>>>&dp)\n    {\n        if(i == n) return dp[i][pa][pb] = 1;\n        if(dp[i][pa][pb] != -1) return (int)dp[i][pa][pb];\n        long long x = v[i];\n        long long sum = 0;\n        for(long long can = pa; can <= x; can++)\n        {\n            if(pa<= can && (x - can)<= pb) sum = ((sum % mod) +  (f(i+1, can, x - can, v, n, dp) % mod))%mod;\n        }\n        return dp[i][pa][pb] = sum;\n    }\n    int countOfPairs(vector<int>& nums) \n    {\n        int n = nums.size();\n        vector<vector<vector<long long>>>dp(n+1, vector<vector<long long>>(51, vector<long long>(51, -1)));\n        return f(0, 0, 50, nums, n, dp);\n        \n    }\n};",
+    "submit_ts": "1723346574",
+    "subm_id": "1351580554"
+}

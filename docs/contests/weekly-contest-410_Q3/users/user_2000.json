@@ -1,0 +1,6 @@
+{
+    "username": "codeanzh",
+    "submission": "class Solution {\n    vector<vector<vector<int>>> DP;\n    long mod = 1e9+7;\n\n    long solve(int ii, int a, int b, vector<int>& nums) {\n        int k = a + 1, l = b + 1;\n        if (DP[ii][k][l] != -1) return DP[ii][k][l];\n\n        if (ii == nums.size()) return DP[ii][k][l] = 1;\n        long ans = 0;\n        \n        if (a == -1) a = 0, b = nums[ii];\n\n        for (int i = a; i <= nums[ii]; i++) {\n            int j = nums[ii] - i;\n\n            if (j <= b) ans = (solve(ii + 1, i, j, nums) + ans) % mod;\n        }\n\n        return DP[ii][k][l] = ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        DP = vector<vector<vector<int>>>(n + 1, (vector<vector<int>>(52, vector<int>(52, -1))));\n        return solve(0, -1, -1, nums);\n    }\n};",
+    "submit_ts": "1723346536",
+    "subm_id": "1351579714"
+}

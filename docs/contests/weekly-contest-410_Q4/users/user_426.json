@@ -1,0 +1,6 @@
+{
+    "username": "Manoj_Kumar_18",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    int countOfPairs(vector<int>& nums) {\n        vector<long long> prev(1001,0),pres(1001,0);\n        int size=nums.size();\n        prev[0]=1;\n        for(int i=1;i<=nums[0];i++)prev[i]+=prev[i-1];\n        for(int i=1;i<size;i++)\n        {\n            for(int j=0;j<=nums[i];j++)\n            {\n               int mi=min(j,j+nums[i-1]-nums[i]);\n               if(mi>=0)\n               {\n                   pres[j]+=prev[mi];\n                   pres[j]%=mod;\n               }\n            }\n            for(int j=0;j<1001;j++)\n            {\n              prev[j]=pres[j];\n              if(j>nums[i])prev[j]=0;\n              pres[j]=0;\n            }\n            prev[0]%=mod;\n            for(int j=1;j<1001;j++)\n            {\n                prev[j]+=prev[j-1];\n                prev[j]%=mod;\n            }\n        }\n        long long sum=0;\n        for(int i=0;i<=nums[size-1];i++)\n        {\n            sum+=prev[i];\n            sum%=mod;\n        }\n        return (int)sum;\n    }\n};",
+    "submit_ts": "1723347779",
+    "subm_id": "1351605354"
+}

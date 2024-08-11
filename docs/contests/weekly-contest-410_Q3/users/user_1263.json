@@ -1,0 +1,6 @@
+{
+    "username": "VoidX1107",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    int dp[2001][52][52];\n    int solve(vector<int>& nums,int idx,int prev1,int prev2){\n        if(idx>=nums.size())return 1;\n        if(dp[idx][prev1][prev2]!=-1)return dp[idx][prev1][prev2];\n        int ways=0;\n        \n        for(int i=0;i<=nums[idx];i++){\n            int curr1=i;\n            int curr2=nums[idx]-i;\n            \n            if(curr1>=prev1 && curr2<=prev2){\n                ways=(ways+solve(nums,idx+1,curr1,curr2))%mod;\n            }\n            \n            \n        }\n        return dp[idx][prev1][prev2]= ways%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int prev1=0;\n        int prev2=51;\n        for(int i=0;i<nums.size()+1;i++){\n            for(int j=0;j<52;j++){\n                for(int k=0;k<52;k++){\n                    dp[i][j][k]=-1;\n                }\n            }\n        }\n        \n        return solve(nums,0,prev1,prev2);\n    }\n};",
+    "submit_ts": "1723345471",
+    "subm_id": "1351556516"
+}

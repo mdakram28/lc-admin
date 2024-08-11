@@ -1,0 +1,6 @@
+{
+    "username": "iamc7054",
+    "submission": "class Solution {\npublic:\n    using ll = long long;\n    const ll m = 1e9 + 7;\n    ll dp[2000][51];\n    int countOfPairs(vector<int>& nums) {\n        const int n = nums.size();\n        memset(dp, 0, sizeof(dp));\n        for(int i = 0; i <= nums[0]; i++) {\n            dp[0][i] = 1;\n        }\n        for(int i = 1; i < n; i++) {\n            int shift = nums[i] - nums[i - 1];\n            for(int sh = max(-shift, 0); sh <= 50; sh++) {\n                for(int q = 0; q <= 50 && q + sh <= 50; q++) {\n                    dp[i][q] += dp[i - 1][q + sh];\n                    dp[i][q] %= m;\n                }\n            }\n        }\n        // for(int i = 0; i < n; i++) {\n        //     for(int q = 0; q < 5; q++) {\n        //         cout << dp[i][q] << ' ';\n        //     } cout << endl;\n        // }\n        ll tot= 0 ;\n        for(int i = 0; i <= 50; i++) {\n            tot += dp[n - 1][i];\n            tot %= m;\n        }\n        return tot;\n    }\n};",
+    "submit_ts": "1723344699",
+    "subm_id": "1351540147"
+}

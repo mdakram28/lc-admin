@@ -1,0 +1,6 @@
+{
+    "username": "ghost1819",
+    "submission": "class Solution {\npublic:\n    long long mod = 1e9 + 7, n;\n    vector<vector<int>> dp;\n\n    long long helper(int idx, int last1, vector<int>& nums) {\n        if (idx == n) return 1;\n        if (dp[idx][last1] != -1) return dp[idx][last1];\n\n        int last2 = nums[idx - 1] - last1;\n        long long res = 0;\n        int i = last1;\n\n        while (i <= nums[idx]) {\n            if (nums[idx] - i <= last2) {\n                res = (res % mod + helper(idx + 1, i, nums) % mod) % mod;\n            }\n            i++;\n        }\n\n        return dp[idx][last1] = res;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        long long res = 0;\n        n = nums.size();\n        dp.resize(n + 1, vector<int>(51, -1));\n\n        int i = 0;\n        while (i <= nums[0]) {\n            res = (res % mod + helper(1, i, nums) % mod) % mod;\n            i++;\n        }\n\n        return res;\n    }\n};\n",
+    "submit_ts": "1723344553",
+    "subm_id": "1351537066"
+}

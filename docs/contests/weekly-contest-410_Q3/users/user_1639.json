@@ -1,0 +1,6 @@
+{
+    "username": "blhooker88",
+    "submission": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar countOfPairs = function(nums) {\n    const MOD = 1e9 + 7;\n    const n = nums.length;\n    let memo = new Map();\n\n    function generatePairs(index, lastArr1, lastArr2) {\n        if (index === n) {\n            return 1;\n        }\n\n        const key = `${index},${lastArr1},${lastArr2}`;\n        if (memo.has(key)) {\n            return memo.get(key);\n        }\n\n        let result = 0;\n\n        for (let a = lastArr1; a <= nums[index]; a++) {\n            let b = nums[index] - a;\n            if (b <= lastArr2) {\n                result = (result + generatePairs(index + 1, a, b)) % MOD;\n            }\n        }\n\n        memo.set(key, result);\n        return result;\n    }\n\n    return generatePairs(0, 0, nums[0]);\n};\n",
+    "submit_ts": "1723345461",
+    "subm_id": "1351556292"
+}

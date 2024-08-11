@@ -1,0 +1,6 @@
+{
+    "username": "hetpatel3245",
+    "submission": "#define f(i, a, b) for (ll i = a; i < b; i++)\n#define ll long long\n#define mod (int)(1e9 + 7)\n\nclass Solution\n{\npublic:\n    ll fun(int i, int prea, int preb, vector<vector<vector<int>>> &dp, vector<int> &nums)\n    {\n        if (i == nums.size())\n            return 1;\n\n        if (dp[i][prea][preb] != -1)\n            return dp[i][prea][preb];\n\n        ll ctn = 0;\n        for (int k = 0; k <= nums[i]; k++)\n        {   \n            if(prea<=k &&  preb>=(nums[i]-k))\n               ctn = (ctn + fun(i + 1,  k, nums[i] - k, dp, nums)) % mod;\n        }\n\n        return dp[i][prea][preb] = ctn;\n    }\n\n    int countOfPairs(vector<int> &nums)\n    {\n\n        int n = nums.size();\n\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(52, vector<int>(52, -1)));\n\n        return fun(0, 0, 51, dp, nums);\n    }\n};\n",
+    "submit_ts": "1723346011",
+    "subm_id": "1351568197"
+}

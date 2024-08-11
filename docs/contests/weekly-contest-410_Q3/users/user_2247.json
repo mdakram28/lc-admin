@@ -1,0 +1,6 @@
+{
+    "username": "CanDoFrew",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n\n        ios_base::sync_with_stdio(false);\n        cin.tie(NULL);\n\n        int M = 0;\n        for (int i : nums) M = max(i, M);\n\n        long long mod = pow(10,9) + 7;\n        long long n = nums.size();\n        vector<vector<vector<long long>>> dp(n+1, vector<vector<long long>>(M+1, vector<long long>(M+1)));\n\n        for (long long x = 0; x <= nums[0]; x++) {\n            dp[0][x][nums[0]-x] = 1;\n        }\n\n        for (long long i = 1; i < n; i++) {\n            long long subject = nums[i];\n\n            for (long long t1 = 0; t1 <= nums[i-1]; t1++) {\n                long long t2 = nums[i-1] - t1;\n                for (long long x = t1; x <= subject; x++) {\n                    if (subject-x <= t2) {\n                        dp[i][x][subject-x] += dp[i-1][t1][t2];\n                        dp[i][x][subject-x] %= mod;\n                    }\n                }\n            }\n        }\n\n        long long ans = 0;\n        for (long long x = 0; x <= nums[n-1]; x++) {\n            ans += dp[n-1][x][nums[n-1]-x];\n            ans %= mod;\n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1723346206",
+    "subm_id": "1351572544"
+}

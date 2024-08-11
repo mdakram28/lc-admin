@@ -1,0 +1,6 @@
+{
+    "username": "dl720125",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    int dp[2010][55];\n\n    int rec(int idx,int prev, vector<int> &a, int n){\n        if(idx==n) return 1;\n        if(dp[idx][prev]!=-1) return dp[idx][prev];\n\n        long long ans=0;\n\n        if(prev==52){\n            for(int i=0;i<=a[idx];i++){\n                ans+=rec(idx+1,i,a,n);\n                ans%=mod;\n            }\n        }\n        else{\n            for(int i=prev;i<=a[idx];i++){\n                if(a[idx]-i > a[idx-1]-prev) continue;\n\n                ans+= rec(idx+1,i,a,n);\n                ans %=mod;\n            }\n        }\n    ans %=mod;\n    return dp[idx][prev]= ans;\n    }\n    int countOfPairs(vector<int>& a ) {\n        int n=a.size();\n        memset(dp,-1,sizeof(dp));\n\n        return rec(0,52,a,n);\n    }\n};",
+    "submit_ts": "1723345813",
+    "subm_id": "1351563893"
+}

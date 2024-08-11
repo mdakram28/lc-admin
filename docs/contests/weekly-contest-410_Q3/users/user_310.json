@@ -1,0 +1,6 @@
+{
+    "username": "Googlehsiehh",
+    "submission": "class Solution {\n    int[] nums;\n    Long[][] dp;\n    public int countOfPairs(int[] nums) {\n        this.nums = nums;\n        int m = nums.length;\n        int max = 0;\n        for (int num : nums) {\n            max = Math.max(max, num);\n        }\n        dp = new Long[m][max + 1];\n        long res = dfs(0, 0);\n        return (int)res;\n    }\n    \n    private long dfs(int index, int prev) {\n        if (index == nums.length) {\n            return 1;\n        }\n        if (dp[index][prev] != null) {\n            return dp[index][prev];\n        }\n        long res = 0;\n        for (int i = prev; i <= nums[index]; i++) {\n            if (index > 0 && (nums[index] - i > nums[index - 1] - prev)) {\n                continue;\n            }\n            res = (res + dfs(index + 1, i)) % 1000000007;\n        }\n        return dp[index][prev] = res;\n    }\n}",
+    "submit_ts": "1723345008",
+    "subm_id": "1351546678"
+}

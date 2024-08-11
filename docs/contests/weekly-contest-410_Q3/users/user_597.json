@@ -1,0 +1,6 @@
+{
+    "username": "zxxxxy1998",
+    "submission": "long long mod = pow(10, 9) + 7;\n\nclass Solution {\npublic:\n    vector<vector<int>> dp;\n    \n    int countOfPairs(vector<int>& nums) {\n        long long ans = 0;\n        \n        dp = vector<vector<int>>(nums.size(), vector<int>(51));\n        \n        for(int idx = 0; idx < nums.size(); idx++) {\n            for(int gap = 0; gap <= nums[idx]; gap++) {\n                if(idx == 0) {\n                    dp[idx][gap] = 1;\n                } else {\n                    for(int prevGap = 0; prevGap <= gap && prevGap <= nums[idx - 1] && nums[idx - 1] - prevGap >= nums[idx] - gap; prevGap++) {\n                        dp[idx][gap] = (dp[idx][gap] + dp[idx - 1][prevGap]) % mod;\n                    }\n                }\n                \n                if(idx + 1 == nums.size()) {\n                    ans = (ans + dp[idx][gap]) % mod;\n                }\n            }\n        }\n        \n        // for(auto i : dp) {\n        //     for(auto j : i) {\n        //         cout<<j<<\" \";\n        //     }\n        //     cout<<endl;\n        // }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1723347298",
+    "subm_id": "1351595968"
+}

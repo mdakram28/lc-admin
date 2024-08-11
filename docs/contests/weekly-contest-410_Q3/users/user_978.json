@@ -1,0 +1,6 @@
+{
+    "username": "hulot",
+    "submission": "class Solution {\n    private static final int MOD = 1_000_000_007;\n    public int countOfPairs(int[] nums) {\n        Integer[][][] memo = new Integer[nums.length][51][51];\n        return dfs(0, 0, nums[0], nums, memo);\n    }\n    \n    private int dfs(int i, int last1, int last2, int[] nums, Integer[][][] memo) {\n        if (i == nums.length) return 1;\n        if (memo[i][last1][last2] != null) return memo[i][last1][last2];\n        int val = nums[i];\n        long res = 0L;\n        for (int l1 = last1; l1 <= val; l1++) {\n            for (int l2 = Math.min(val - l1, last2); l2 >= 0; l2--) {\n                if (l1 + l2 == val) {\n                    res += dfs(i+1, l1, l2, nums, memo); \n                    res %= MOD;\n                }\n            }\n        }\n        return memo[i][last1][last2] = (int)res;\n    }\n}",
+    "submit_ts": "1723345290",
+    "subm_id": "1351552630"
+}

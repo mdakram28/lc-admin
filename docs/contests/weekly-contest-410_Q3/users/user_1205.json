@@ -1,0 +1,6 @@
+{
+    "username": "australis_d",
+    "submission": "class Solution:\n    def __init__(self):\n        self.mod = 10**9 + 7\n        self.n = 0\n        self.v = []\n        self.dp = []\n\n    def rec(self, i, prev):\n        if i == self.n:\n            return 1\n        \n        if self.dp[i][prev] != -1:\n            return self.dp[i][prev]\n        \n        ans = 0\n        for k in range(prev, self.v[i] + 1):\n            if i == 0:\n                ans = (ans + self.rec(i + 1, k)) % self.mod\n            else:\n                if self.v[i - 1] - prev >= self.v[i] - k:\n                    ans = (ans + self.rec(i + 1, k)) % self.mod\n        \n        self.dp[i][prev] = ans\n        return ans\n\n    def countOfPairs(self, nums):\n        self.n = len(nums)\n        self.v = nums[:]\n        maxm = max(nums)\n        self.dp = [[-1] * (maxm + 10) for _ in range(self.n)]\n        \n        return self.rec(0, 0)\n",
+    "submit_ts": "1723345684",
+    "subm_id": "1351561104"
+}

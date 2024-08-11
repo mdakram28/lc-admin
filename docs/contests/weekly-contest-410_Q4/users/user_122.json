@@ -1,0 +1,6 @@
+{
+    "username": "Decision",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        final int MODE = 1000000007, n = nums.length;\n        int m = 0;\n        for(int a : nums){\n            m = Math.max(m, a);\n        }\n        final long[][] dp = new long[n][m+1];\n        for(int i=0;i<n;++i){\n            for(int j=0;j<=m;++j){\n                if(j > nums[i]){\n                    dp[i][j] = dp[i][j-1];\n                }else{\n                    if(i == 0){\n                        dp[i][j] = 1L;\n                    }else{\n                        final int k = nums[i] - j;\n                        int pre1 = Math.min(nums[i-1]-k, j);\n                        if(pre1 >= 0){\n                            dp[i][j] = dp[i-1][pre1];\n                        }\n                    }\n                    if(j > 0){\n                        dp[i][j] = (dp[i][j] + dp[i][j-1]) % MODE;\n                    }\n                }\n            }\n        }\n        return (int)dp[n-1][m];\n    }\n}",
+    "submit_ts": "1723345621",
+    "subm_id": "1351559699"
+}

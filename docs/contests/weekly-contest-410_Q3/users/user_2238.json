@@ -1,0 +1,6 @@
+{
+    "username": "nitishh205",
+    "submission": "class Solution {\n    int n;\n    vector<vector<vector<int>>> dp;\n    long long MODULO = 1e9 + 7;\n\n    int rec(vector<int>& nums, int inc, int dec, int idx) {\n        if (idx == n) {\n            return 1;\n        }\n\n        // Use 0-based indexing for dp\n        int incIndex = inc + 1;\n        int decIndex = dec + 1;\n\n        if (dp[idx][incIndex][decIndex] != -1) {\n            return dp[idx][incIndex][decIndex];\n        }\n\n        int ans = 0;\n\n        for (int a = 0; a <= nums[idx]; a++) {\n            int b = nums[idx] - a;\n\n            if (idx == 0 || (a >= inc && b <= dec)) {\n                ans = (ans + rec(nums, a, b, idx + 1)) % MODULO;\n            }\n        }\n        return dp[idx][incIndex][decIndex] = ans;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        dp.resize(n, vector<vector<int>>(52, vector<int>(52, -1)));  // Adjust size to handle -1 index shift\n        return rec(nums, -1, -1, 0);\n    }\n};\n",
+    "submit_ts": "1723346802",
+    "subm_id": "1351585491"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "user8521cP",
+    "submission": "class Solution {\npublic:\n    int pm = 1e9+7 ; \n    int n ; \n    int dp[2020][51] ;\n    \n    int add(int a , int b){\n        int ans = (a%pm + b%pm)%pm ; \n        if(ans > pm){\n            ans%= pm ; \n        }\n        if(ans < 0){\n            ans += pm ; \n        }\n        return ans ; \n    }\n    \n    int rec(int level , int last , vector <int> &arr){\n        if(level == n){\n            return 1 ; \n        }\n        if(dp[level][last] != -1){\n            return dp[level][last] ; \n        }\n        int ans = 0 ; \n        for(int i = last ; i <= 50 ; i++){\n            if(i >= last && ((arr[level] - i) <= (arr[level-1] - last)) && ((arr[level] - i) >= 0)   ){\n            ans = add(ans , rec(level +1 , i , arr)) ; \n            }\n        }\n        return dp[level][last] = ans ;\n    }\n    \n    \n    \n    int countOfPairs(vector<int>& arr) {\n        n = (int)arr.size() ; \n        memset(dp , -1 , sizeof(dp)) ;\n        int ans = 0 ; \n        for(int i = 0 ; i <= 50 ; i++){\n            if(i <= arr[0] && ((arr[0] - i) >= 0) ){\n            ans = add(ans , rec(1 , i , arr)) ; \n            }\n        }\n        return ans  ; \n            \n    }\n};",
+    "submit_ts": "1723345589",
+    "subm_id": "1351559018"
+}

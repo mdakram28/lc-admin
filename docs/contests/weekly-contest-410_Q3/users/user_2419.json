@@ -1,0 +1,6 @@
+{
+    "username": "suminwal007",
+    "submission": "class Solution {\npublic:\n    int findAns(int a1, int a2, int ind, int n,vector<int> &nums,vector<vector<vector<int> > > &dp) {\n        if(ind==n) {\n            dp[ind][a1][a2] = 1;\n            return 1;\n        }\n        if(dp[ind][a1][a2]!=-1) {\n            return dp[ind][a1][a2];\n        }\n        int ans = 0;\n        for(int i=a1;i<=nums[ind];i++) {\n            if(nums[ind]-i>a2) {\n                continue;\n            }\n            int x = findAns(i,nums[ind]-i,ind+1,n,nums,dp);\n            ans = (ans%1000000007 + x%1000000007)%1000000007;\n        }\n        return dp[ind][a1][a2] = ans%1000000007;\n\n    }\n    int countOfPairs(vector<int>& nums) {\n        int ans = 0;\n        vector<vector<vector<int> > > dp(nums.size()+1,vector<vector<int> > (51,vector<int> (51,-1)));\n        for(int i=0;i<=nums[0];i++) {\n            int x = findAns(i,nums[0]-i,1,nums.size(),nums,dp);\n            ans = (ans%1000000007 + x%1000000007)%1000000007;\n        }\n        return ans%1000000007;\n    }\n};",
+    "submit_ts": "1723346684",
+    "subm_id": "1351582974"
+}

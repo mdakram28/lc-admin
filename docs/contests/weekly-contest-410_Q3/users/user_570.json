@@ -1,0 +1,6 @@
+{
+    "username": "tanuj_123",
+    "submission": "class Solution {\npublic:\n    vector<vector<long long>> dp;\n    int mod=(int)1e9+7;\n    long long rec(vector<int>&nums,int i,int pv1){\n        if(i>=nums.size()){\n            return 1;\n        }\n        int pv2=INT_MAX;\n        if(i>0){\n            pv2=nums[i-1]-pv1;\n        }\n        if(pv1!=-1 && dp[i][pv1]!=-1){\n            return dp[i][pv1];\n        }\n        //cout<<i<<\" \"<<pv1<<\" \"<<pv2<<endl;\n        long long ans=0;\n        for(int j=max(0,pv1);j<=nums[i];j++){\n            if(nums[i]-j<=pv2)\n            ans=(ans+rec(nums,i+1,j))%mod;\n        }\n         if(pv1!=-1){\n             dp[i][pv1]=ans;\n        }\n        return ans%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        dp.resize(nums.size(),vector<long long>(51,-1));\n        return rec(nums,0,-1);\n    }\n};",
+    "submit_ts": "1723345023",
+    "subm_id": "1351546988"
+}

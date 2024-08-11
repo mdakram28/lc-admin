@@ -1,0 +1,6 @@
+{
+    "username": "jayeshgokhale",
+    "submission": "/*\n2,3,2\n\n2 - 0 to 2 (3)\n3 - 0 to 3 (4)\n2 - 0 to 2 (2)\n\n\ni = 0, pick 0 for arr1[0], arr2[0] = nums[0]\ni = 1, arr1[1] can go from arr1[i-1] to nums[i], arr2[1] can go from arr2[0] to 0\n\narr1[i] from arr1[i-1] (prev1) to nums[i]\narr2[i] from 0 to arr2[i-1] (prev2)\n\nif you reach final dest, then add 1\n*/\n\nclass Solution {\nprivate:\n/*\narr1[i] from arr1[i-1] (prev1) to nums[i]\narr2[i] from 0 to arr2[i-1] (prev2)\n50*50 = 2500*2000 = 50e5 = 5e6\n\n2000*50*50*50\n\n2*5*5*5 e6\n250e6\n2.5e8\n\n*/\n    vector<vector<vector<int>>> DP;\n    int solve(vector<int>& nums, int i, int prev1, int prev2) {\n        if (i >= nums.size()) return 1;\n        if (DP[i][prev1][prev2] != -1) return DP[i][prev1][prev2];\n        long long rv = 0, mod = 1e9+7;\n        for (int curr1 = nums[i]; curr1 >= prev1; curr1--) {\n            int curr2 = nums[i] - curr1;\n            if (curr2 > prev2) break;\n                rv += solve(nums, i+1, curr1, curr2); rv %= mod;\n        }\n        return (DP[i][prev1][prev2] = rv);\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        DP.resize(n,vector<vector<int>> (51, vector<int> (51,-1)));\n        return solve(nums,0,0,50);\n    }\n};",
+    "submit_ts": "1723346047",
+    "subm_id": "1351569035"
+}

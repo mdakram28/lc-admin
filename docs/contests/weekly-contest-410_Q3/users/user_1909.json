@@ -1,0 +1,6 @@
+{
+    "username": "justforfun21",
+    "submission": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar countOfPairs = function(nums) {\n    const modi = 1e9+7;\n    let res = 0;\n    const memo = new Map();\n    \n    const rec = (i,prev1,prev2) => {\n        if(i===nums.length) return 1;\n        \n        const key = `${i}_${prev1}_${prev2}`;\n        if (memo.has(key)) {\n            return memo.get(key);\n        }\n        \n        let count = 0;\n        for (let p = prev1;p<=nums[i];p++) {\n            let q = nums[i]-p;\n            if (q<=prev2) {\n                count=(count+rec(i+1,p,q)) % modi;\n            }\n        }\n        \n        memo.set(key,count);\n        return count;\n    }\n    \n    res = rec(0,0,Infinity);\n    \n    return res;\n};",
+    "submit_ts": "1723346428",
+    "subm_id": "1351577387"
+}

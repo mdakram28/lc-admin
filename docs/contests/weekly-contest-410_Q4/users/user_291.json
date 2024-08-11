@@ -1,0 +1,6 @@
+{
+    "username": "__Beginner_",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& a) {\n        int n = a.size();\n        vector<long long> dp(1005);\n        for(long long i = 0; i <= a[0]; i++) dp[a[0] - i] = 1;\n        const long long M = 1E9 + 7;\n        for(long long i = 1; i < n; i++){\n            vector<long long> ndp(a[i] + 1);\n            queue<long long> q;\n            long long cur = 0;\n            for(long long x = 0; x <= a[i]; x++){\n                q.push(a[i - 1] - x);\n                while(!q.empty() && q.front() >= a[i] - x){\n                    if(q.front() <= a[i - 1]) cur = (cur + dp[q.front()]) % M;\n                    q.pop();\n                }\n                ndp[a[i] - x] = cur;\n            }\n            dp = ndp;\n        }\n        long long ans = 0;\n        for(auto i : dp) ans = (ans + i) % M;\n        return ans;\n    }\n};",
+    "submit_ts": "1723345809",
+    "subm_id": "1351563794"
+}

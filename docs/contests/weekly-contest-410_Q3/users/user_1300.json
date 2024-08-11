@@ -1,0 +1,6 @@
+{
+    "username": "absolute-mess",
+    "submission": "class Solution {\npublic:\n    int ans=0,mod=1e9+7;\n    vector<vector<vector<int>>> dp;\n    int calc(int i, int la, int lb, vector<int> &nums) {\n        if(i==nums.size()) {\n            return 1;\n        }\n        int c = 0;\n        if(dp[i][la][lb]!=-1) return dp[i][la][lb];\n        for (int j = la; j <= nums[i]; j++) {\n            int temp = nums[i] - j;\n            if (temp <= lb) { \n                c += calc(i + 1, j, temp, nums);\n                c %= mod;\n            }\n        }\n        return dp[i][la][lb]=c%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        dp = vector<vector<vector<int>>>(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return calc(0,0,50,nums)%mod;\n    }\n};",
+    "submit_ts": "1723345544",
+    "subm_id": "1351558081"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "JerryGu1",
+    "submission": "class Solution {\n    int m = 1000000007;\n    int n;\n    int[] num;\n    int[][] dp;\n    boolean[][] vis;\n    public int countOfPairs(int[] nums) {\n        num=nums;\n        n=num.length;\n        dp=new int[n][51];\n        vis=new boolean[n][51];\n        int ans = 0;\n        for (int i=0; i<=nums[0]; i++) {\n            ans+=f(0,i);\n            ans%=m;\n        }\n        return ans;\n    }\n    public int f(int idx, int val) {\n        if (idx==n-1) return 1;\n        if (vis[idx][val]) return dp[idx][val];\n        vis[idx][val]=true;\n        \n        int val2 = num[idx]-val;\n        int lo = Math.max(val,num[idx+1]-num[idx]+val);\n        for (int i=lo; i<=num[idx+1]; i++) {\n            dp[idx][val]+=f(idx+1, i);\n            dp[idx][val]%=m;\n        }\n        return dp[idx][val];\n    }\n}",
+    "submit_ts": "1723346235",
+    "subm_id": "1351573157"
+}

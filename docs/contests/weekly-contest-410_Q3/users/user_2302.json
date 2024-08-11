@@ -1,0 +1,6 @@
+{
+    "username": "tejpratapp468",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    const int mod = 1e9 + 7;\n    ll dp[2001][51][51];\n    ll helper(int idx, vector<int>& incr, vector<int>& decr, vector<int>& nums) {\n        if(idx == nums.size()) return 1;\n        ll curr = 0;\n        if(idx > 0 && dp[idx][incr[idx - 1]][decr[idx - 1]] != -1) return dp[idx][incr[idx - 1]][decr[idx - 1]];\n        for(int i = 0; i <= nums[idx]; i++) {\n            if(idx > 0 && i >= incr[idx - 1]) incr[idx] = i;\n            else if(idx == 0) incr[idx] = i;\n            else continue;\n            \n            int rem = nums[idx] - i;\n            if(idx > 0 && rem <= decr[idx - 1]) decr[idx] = rem;\n            else if(idx == 0) decr[idx] = rem;\n            else continue;\n            \n            curr = (curr + helper(idx + 1, incr, decr, nums)) % mod;\n        }\n        //cout << curr << \" curr\" <<endl;\n        if(idx == 0) return curr;\n        return dp[idx][incr[idx - 1]][decr[idx - 1]] = curr;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        ll ans = 0;\n        vector<int> incr(n, -1), decr(n, -1);\n        return helper(0, incr, decr, nums);\n    }\n};",
+    "submit_ts": "1723346867",
+    "subm_id": "1351586845"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "donpaul299",
+    "submission": "#define ll long long\nll mod = 1e9 + 7;\n\n\nll dp[2001][53][53];\n\nll find(int pos, int p1, int p2, vector<int> &nums)\n{\n\n    if(pos == nums.size())\n        return 1;\n        \n    ll curr = nums[pos];\n    \n    ll ans = 0;\n    \n    if(dp[pos][p1+1][p2] != -1)\n        return dp[pos][p1+1][p2];\n        \n    for(int i=0; i<=curr; ++i)\n    {\n        ll cp1 = i;\n        ll cp2 = curr-i;\n        \n        if(cp1>=p1 && cp2<=p2)\n        {\n            ans += find(pos+1, cp1, cp2, nums);  \n            ans %= mod;\n        }\n    }\n        \n    ans %= mod;\n    return dp[pos][p1+1][p2] = ans;\n}\n\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        \n        memset(dp, -1, sizeof(dp));\n        ll ans = find(0, -1, 51, nums);\n        return ans;    \n        \n    }\n};",
+    "submit_ts": "1723344125",
+    "subm_id": "1351527030"
+}

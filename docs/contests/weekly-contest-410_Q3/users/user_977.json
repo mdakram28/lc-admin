@@ -1,0 +1,6 @@
+{
+    "username": "pratik_8696",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    ll sum(ll idx,ll prev1,ll prev2,vector<int> &nums,vector<vector<vector<ll>>> &dp) {\n        if(idx==nums.size()) {\n            return 1;\n        }\n        auto &x=dp[idx][prev1][prev2];\n        if(x!=-1) {\n            return x;\n        }\n        ll ans=0;\n        for(int i=0;i<=nums[idx];i++) {\n            if(i>=prev1&&nums[idx]-i<=prev2) {\n                ans+=sum(idx+1,i,nums[idx]-i,nums,dp);   \n                ans%=MOD;\n            }\n        }\n        ans%=MOD;\n        return x = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        ll ans=0;\n        vector<vector<vector<ll>>> dp(nums.size()+10,vector<vector<ll>>(51,vector<ll>(51,-1)));\n        for(int i=0;i<=nums[0];i++) {\n            ans+=sum(1,i,nums[0]-i,nums,dp);\n            ans%=MOD;\n        }\n        ans%=MOD;\n        return ans;\n    }\n};",
+    "submit_ts": "1723344983",
+    "subm_id": "1351546157"
+}

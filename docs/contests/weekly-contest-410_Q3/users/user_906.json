@@ -1,0 +1,6 @@
+{
+    "username": "yumkam",
+    "submission": "namespace modarith {\n    static constexpr unsigned modulo = 1000000000+7;\n    //static constexpr unsigned modulo = 998244353;\n    // a, b \\in [0, modulo)\n    static constexpr void addmod(unsigned &a, unsigned b) { // a += b\n        static_assert(modulo - 1 <= std::numeric_limits<decltype(b)>::max() - (modulo - 1));\n        if ((a += b) >= modulo)\n            a -= modulo;\n    }\n}\nclass Solution {\npublic:\n    int countOfPairs(const vector<int>& nums) {\n        using namespace modarith;\n        vector<unsigned> dp(nums[0] + 1, 1);\n        vector<unsigned> next;\n        for (unsigned i = 1; i < nums.size(); ++i) {\n            auto num = nums[i];\n            next.clear(); next.resize(num + 1);\n            for (unsigned n1 = 0; n1 <= num; ++n1) {\n                auto n2 = num - n1;\n                unsigned dpij = 0;\n                for (unsigned p1 = n1; p1 < dp.size(); ++p1) {\n                    auto p2 = dp.size() - p1 - 1;\n                    if (p2 <= n2)\n                        addmod(dpij, dp[p1]);\n                }\n                next[n1] = dpij;\n            }\n            swap(next, dp);\n        }\n        unsigned res = 0;\n        for (auto r: dp)\n            addmod(res, r);\n        return res;\n    }\n};",
+    "submit_ts": "1723345149",
+    "subm_id": "1351549662"
+}

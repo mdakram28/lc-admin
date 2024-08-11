@@ -1,0 +1,6 @@
+{
+    "username": "a-dimitri",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9+7;\n    int countOfPairs(vector<int>& nums) {\n        // dp[i][x] = number of good pairs of nums[0..i] with arr1[i] == x\n        // dp[i][x] = sum(dp[i-1][y < x]) with (nums[i-1] - y) >= (nums[i] - x)\n        // O(nM^2)\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(51));\n        for ( int x = 0; x <= nums[0]; ++x ) dp[0][x] = 1;\n        for ( int i = 1; i < n; ++i ) {\n            for ( int x = 0; x <= nums[i]; ++x ) {\n                int sum = 0;\n                for ( int y = 0; y <= x; ++y ) {\n                    if ( (nums[i-1]-y) >= (nums[i]-x) ) sum = (sum + dp[i-1][y])%MOD;\n                }\n                dp[i][x] = sum;\n            }\n        }        \n        int res = 0;\n        for ( int x = 0; x <= nums[n-1]; ++x ) res = (res + dp[n-1][x])%MOD;\n        return res;\n    }\n};",
+    "submit_ts": "1723345640",
+    "subm_id": "1351560131"
+}

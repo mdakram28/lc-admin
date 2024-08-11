@@ -1,0 +1,6 @@
+{
+    "username": "pradhyumn_srathore",
+    "submission": "class Solution {\npublic:\n    int mod = pow(10, 9) + 7;\n    int dfs(int inc, int index, vector<int>& nums, vector<vector<int>>& dp) {\n        int result = 0;\n        if (index == nums.size()) {\n            return 1;\n        }\n        if (dp[inc][index] != -1) {\n            return dp[inc][index];\n        }\n        int dec = nums[index - 1] - inc;\n        for (int x = 0; x <= nums[index]; x++) {\n            int newInc = x;\n            int newDec = nums[index] - x;\n            if (newInc >= inc && newDec <= dec) {\n                result = (result + dfs(newInc, index + 1, nums, dp)) % mod;\n            }\n        }\n        return dp[inc][index] = result;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int result = 0;\n        int maxValue = 0;\n        int n = nums.size();\n        for (auto num : nums) {\n            maxValue = max(num, maxValue);\n        }\n        vector<vector<int>> dp(maxValue + 1, vector<int> (n, -1));\n        for (int x = 0; x <= nums[0]; x++) {\n            int inc = x;\n            int dec = nums[0] - x;\n            result = (result + dfs(inc, 1, nums, dp)) % mod;\n        }\n    \n        return result;\n    }\n};",
+    "submit_ts": "1723346131",
+    "subm_id": "1351570890"
+}

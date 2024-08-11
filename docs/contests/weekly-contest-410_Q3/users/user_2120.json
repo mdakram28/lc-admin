@@ -1,0 +1,6 @@
+{
+    "username": "megatron44",
+    "submission": "class Solution {\nvector<vector<vector<int>>> dp;\nint MOD=1e9+7;\nprivate:\n    int f(const vector<int>& nums, int pos, int p1, int p2,int& n) {\n        if (pos==n) {\n            return 1;\n        }\n\n        if (dp[pos][p1][p2] != -1) {\n            return dp[pos][p1][p2];\n        }\n\n        int ans = 0;\n        for (int i = 0; i <= nums[pos]; ++i) {\n            int l = i;\n            int h = nums[pos] - i;\n            if (l >= p1 && h <= p2) {\n                ans = (ans + f(nums, pos + 1, l, h,n)) % MOD;\n            }\n        }\n\n        dp[pos][p1][p2] = ans;\n        return ans;\n    }\npublic:\n    int countOfPairs(const vector<int>& nums) {\n        int n = nums.size();\n        dp.resize(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return f(nums, 0, 0, 50,n);\n    }\n};",
+    "submit_ts": "1723346973",
+    "subm_id": "1351589199"
+}

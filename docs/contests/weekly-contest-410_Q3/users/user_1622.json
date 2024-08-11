@@ -1,0 +1,6 @@
+{
+    "username": "MaCTaN",
+    "submission": "class Solution {\n\n    int mod = 1e9+7;\n    int getCountOfPairs(vector<int>& nums,int curr,int& n,int last_arr1_value,int last_arr2_value, vector<vector<vector<int>>>& memo){\n        if(n==curr) return 1;\n        if(last_arr2_value!=INT_MAX && memo[curr][last_arr1_value][last_arr2_value]!=-1) return memo[curr][last_arr1_value][last_arr2_value];\n        int count_pairs = 0;\n        // cout << curr << \" \" << last_arr1_value << \" \" << last_arr2_value << endl;\n        for(int i=last_arr1_value;i<=nums[curr];i++){\n            if(nums[curr]-i<=last_arr2_value){\n                count_pairs=(count_pairs+getCountOfPairs(nums,curr+1,n,i,nums[curr]-i,memo))%mod;\n            }\n        }\n        if(last_arr2_value!=INT_MAX) memo[curr][last_arr1_value][last_arr2_value] = count_pairs%mod;\n        return count_pairs%mod; \n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> memo(n,vector<vector<int>>(51,vector<int>(51,-1)));\n        return getCountOfPairs(nums,0,n,0,INT_MAX,memo);\n    }\n};",
+    "submit_ts": "1723346032",
+    "subm_id": "1351568702"
+}

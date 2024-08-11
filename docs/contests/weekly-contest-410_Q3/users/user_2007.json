@@ -1,0 +1,6 @@
+{
+    "username": "LeetCoder-25",
+    "submission": "class Solution {\npublic:\n    int n;\n    const int mod = 1e9 + 7;\n    vector<vector<vector<int>>> dp;\n    int f(int index, int prev1, int prev2, vector<int>& nums) {\n        if (index >= n) return 1;\n        if (prev1 >= 0 && prev1 <= 50 && prev2 >= 0 && prev2 <= 50 && dp[index][prev1][prev2] != -1)\n            return dp[index][prev1][prev2];\n\n        int curr = nums[index];\n        int ans = 0;\n        for (int i = 0; i <= curr; i++) {\n            int curr1 = i;\n            int curr2 = curr - i;\n            if (prev1 == -1 && prev2 == 51 || curr1 >= prev1 && curr2 <= prev2) {\n                ans = (ans + f(index + 1, curr1, curr2, nums)) % mod;\n            }\n        }\n\n        if (prev1 >= 0 && prev1 <= 50 && prev2 >= 0 && prev2 <= 50) {\n            dp[index][prev1][prev2] = ans;\n        }\n\n        return ans;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        dp = vector<vector<vector<int>>>(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return f(0, -1, 51, nums);\n    }\n};\n",
+    "submit_ts": "1723346542",
+    "subm_id": "1351579843"
+}

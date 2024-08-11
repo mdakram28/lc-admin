@@ -1,0 +1,6 @@
+{
+    "username": "xli137",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        self.mod = 10 ** 9 + 7\n        record = collections.defaultdict(int)\n        return self.dp(nums, -1, -1, 0, record)\n    \n    def dp(self, nums, path1, path2, index, record):\n        hash_ = tuple([index, -1, -1])\n        if path1 >= 0 and path2 >= 0:\n            hash_ = tuple([index, path1, path2])\n        if index == len(nums):\n            return 1\n        elif hash_ in record:\n            return record[hash_]\n        \n        res = 0\n        for n in range(nums[index] + 1):\n            n1 = n\n            n2 = nums[index] - n1\n            if path1 == -1 and path2 == -1:\n                res = (res + self.dp(nums, n1, n2, index + 1, record)) % self.mod\n            elif n1 >= path1 and n2 <= path2:\n                res = (res + self.dp(nums, n1, n2, index + 1, record)) % self.mod\n\n        record[hash_] = res\n        return record[hash_]\n                ",
+    "submit_ts": "1723345345",
+    "subm_id": "1351553752"
+}

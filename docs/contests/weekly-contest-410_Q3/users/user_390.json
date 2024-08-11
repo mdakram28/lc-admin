@@ -1,0 +1,6 @@
+{
+    "username": "yh157612",
+    "submission": "const M: i32 = 1000000007;\n\nimpl Solution {\n    pub fn count_of_pairs(nums: Vec<i32>) -> i32 {\n        let n = nums.len();\n        let mut dp = vec![vec![0; 51]; n];\n        for j in 0..=nums[0] as usize {\n            dp[0][j] = 1;\n        }\n        for i in 1..n {\n            for j in 0..=nums[i] as usize {\n                for k in 0..=j as usize {\n                    if nums[i - 1] - k as i32 >= nums[i] - j as i32 {\n                        dp[i][j] = (dp[i][j] + dp[i - 1][k]) % M;\n                    }\n                }\n            }\n        }\n\n        let mut result = 0;\n        for j in 0..=50 {\n            result = (result + dp[n - 1][j]) % M;\n        }\n        result\n    }\n}",
+    "submit_ts": "1723345614",
+    "subm_id": "1351559542"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "PeterChenX",
+    "submission": "class Solution {\n    int mod = 1e9 + 7;\n    vector<vector<int>> dp;\n    int helper(vector<int>& nums, int idx, int prev1){\n        int n = nums.size();\n        if(idx == n)\n            return 1;\n        if(dp[idx][prev1] != -1)\n            return dp[idx][prev1];\n        //update prev2\n        int prev2 = INT_MAX;\n        if(idx - 1 >= 0)\n            prev2 = nums[idx - 1] - prev1;\n        //tarverse all\n        int res = 0;\n        for(int i = 0; i <= nums[idx]; i++){\n            int curr1 = i;\n            int curr2 = nums[idx] - i;\n            if(curr1 >= prev1 && curr2 <= prev2){\n                // res += helper(nums, idx + 1, curr1);\n                res = (res + helper(nums, idx + 1, curr1)) % mod;\n            }\n        }\n        return dp[idx][prev1] = res;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        dp.resize(nums.size(), vector<int>(51, -1));\n        return helper(nums, 0, 0);\n    }\n};",
+    "submit_ts": "1723346238",
+    "subm_id": "1351573198"
+}

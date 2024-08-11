@@ -1,0 +1,6 @@
+{
+    "username": "inversionpeter",
+    "submission": "#define MOD 1000000007\nint DP[2001][1001], prefixSums[1005];\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int length = nums.size(), counts = 0;\n        for (int i = 0; i <= nums[0]; ++i) {\n            DP[0][i] = 1;\n            prefixSums[i + 1] = prefixSums[i] + 1;\n        }\n        for (int i = 1; i < length; ++i) {\n            for (int j = nums[i], k = min(nums[i], nums[i - 1]); j >= 0; --j) {\n                DP[i][j] = prefixSums[k + 1];\n                if (k >= 0) {\n                    --k;\n                }\n            }\n            for (int j = 0; j <= nums[i]; ++j) {\n                prefixSums[j + 1] = prefixSums[j] + DP[i][j];\n                if (prefixSums[j + 1] >= MOD) {\n                    prefixSums[j + 1] -= MOD;\n                }\n            }\n            cout << prefixSums[nums[i] + 1] << '\\n';\n        }\n        /*for (int i = 0; i <= nums.back(); ++i) {\n            counts += DP[length - 1][i];\n            if (counts >= MOD) {\n                counts -= MOD;\n            }\n        }*/\n        return prefixSums[nums.back() + 1];\n    }\n};",
+    "submit_ts": "1723345504",
+    "subm_id": "1351557219"
+}

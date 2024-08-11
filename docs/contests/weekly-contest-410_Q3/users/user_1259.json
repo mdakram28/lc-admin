@@ -1,0 +1,6 @@
+{
+    "username": "Atma_",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size(),mod=1e9+7;\n        vector<vector<vector<long long>>> dp(n, vector<vector<long long>>(51,vector<long long>(51,0)));\n        for(int i=0;i<=50;++i){\n            for(int j=0;j<=50;++j){\n                if(i+j==nums[n-1]){\n                    dp[n-1][i][j]++;\n                }\n            }\n        }\n        for(int i=n-2;i>=0;--i){\n            vector<long long> suff(51);\n            long long suff2=0;\n            for(int j=50;j>=0;--j){\n                suff2=0;\n                for(int k=0;k<=50;++k){\n                    suff[k]+=dp[i+1][j][k];\n                    suff[k]%=mod;\n                    suff2+=suff[k];\n                    suff2%=mod;\n                    if(j+k==nums[i]){\n                        dp[i][j][k]+=suff2;\n                        dp[i][j][k]%=mod;\n                    }\n                }\n            }\n        }\n        long long ans=0;\n        for(int i=0;i<=50;++i){\n            for(int j=0;j<=50;++j){\n                if(i+j==nums[0]){\n                    ans+=dp[0][i][j]%mod;\n                    ans%=mod;\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345768",
+    "subm_id": "1351562891"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "du0san84",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        dp = [[0]*1001 for _ in range(n)]\n        for i in range(1001): dp[0][i]=(1 if i <= nums[0] else 0)+ (dp[0][i-1] if i>0 else 0)\n\n        for i in range(1, n):\n            for j in range(1001):\n                if j >0: dp[i][j] = dp[i][j-1]\n                if j > nums[i]: continue\n                last = min(j, nums[i-1]-nums[i]+j)\n                if last>=0:\n                    dp[i][j] = (dp[i][j]+dp[i-1][last])%(int(1e9)+7)\n        # print(dp)\n        return dp[n-1][1000]",
+    "submit_ts": "1723348038",
+    "subm_id": "1351610387"
+}

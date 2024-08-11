@@ -1,0 +1,6 @@
+{
+    "username": "SamChen856",
+    "submission": "class Solution:\n    # DP, time O(nM^2), space O(nM^2), n = len(nums), M = max(nums)\n    '''\ndp[i][j][k] = the number of valid ways to form arr1 and arr2 up to index i such that arr1[i] = j and arr2[i] = k = nums[i] - j\n    '''\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        M = max(nums)\n\n        dp = [[[0] * (M + 1) for _ in range(M + 1)] for _ in range(n)]\n        for j in range(nums[0] + 1): \n            dp[0][j][nums[0] - j] = 1\n\n        for i in range(1, n):\n            for j in range(nums[i] + 1):\n                k = nums[i] - j\n                for j_pre in range(j + 1):\n                    k_pre = nums[i - 1] - j_pre\n                    if k_pre >= k:\n                        dp[i][j][k] += dp[i - 1][j_pre][k_pre]\n                        dp[i][j][k] %= MOD\n\n        return sum(dp[-1][j][nums[-1] - j] for j in range(nums[-1] + 1)) % MOD",
+    "submit_ts": "1723346586",
+    "subm_id": "1351580825"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "maxi24",
+    "submission": "class Solution {\npublic:\n\n    const int MOD = 1e9 + 7;\n\t\n\tint countWays(vector<int> &nums, int idx, int prevVal1, int prevVal2, vector<vector<vector<int>>> &dp) {\n\t\tint n = nums.size();\n\t\tif (idx == n) return 1;\n\t\tif (dp[idx][prevVal1][prevVal2] != -1) return dp[idx][prevVal1][prevVal2];\n\t\t//prevVal1 <= val1\n\t\t//prevVal2 >= val2\n\t\tint ways = 0;\n\t\tfor (int val1 = prevVal1; nums[idx] - val1 >= 0; val1++) {\n\t\t\tint val2 = nums[idx] - val1;\n\t\t\tif (prevVal2 >= val2) {\n\t\t\t\tways = (ways + countWays(nums, idx + 1, val1, val2, dp)) % MOD;\n\t\t\t}\n\t\t}\n\n\t\treturn dp[idx][prevVal1][prevVal2] = ways;\n\t}\n\n\n    int countOfPairs(vector<int>& nums) {\n\t\tint n = nums.size();\n\t\tvector<vector<vector<int>>> dp(n, vector<vector<int>>(51, vector<int>(51, -1)));\n\t\treturn countWays(nums, 0, 0, 50, dp);\n    }\n};\n\n",
+    "submit_ts": "1723346461",
+    "subm_id": "1351578091"
+}

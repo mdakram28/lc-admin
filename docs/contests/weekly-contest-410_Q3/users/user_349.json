@@ -1,0 +1,6 @@
+{
+    "username": "Krypton99",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& a) {\n        vector<int> dp(51);\n        int n = a.size();\n        for (int i = 0; i <= a[0]; i++) {\n            dp[i]++;\n        }\n        int MOD = 1e9 + 7;\n        for(int i = 1; i < n; i++) {\n            vector<int> nxt(51);\n            for (int j = 0; j <= a[i]; j++) {\n                for (int k = 0; k <= a[i - 1]; k++) {\n                    if (dp[k] > 0) {\n                        if (j >= k && a[i] - j <= a[i - 1] - k) {\n                            nxt[j] += dp[k];\n                            nxt[j] %= MOD;\n                        }\n                    }\n                }\n            }\n            dp = nxt;\n        }\n        int res = 0;\n        for (int i = 0; i <= 50; i++) {\n            res += dp[i];\n            res %= MOD;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723344652",
+    "subm_id": "1351539133"
+}

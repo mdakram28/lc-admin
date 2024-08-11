@@ -1,0 +1,6 @@
+{
+    "username": "rishabh_ag17",
+    "submission": "class Solution {\npublic:\n    int dp[2001][52];\n    const int mod = 1e9+7;\n    int rec(int idx,int n,vector<int>&nums,int prev1){\n        if(idx==n){\n            return 1;\n        }\n        if(dp[idx][prev1+1]!=-1)return dp[idx][prev1+1];\n        int ans = 0;\n        int num = nums[idx];\n        int prev2 = -1;\n        if(idx>0){\n            prev2 = nums[idx-1] - prev1;\n        }\n        if(prev1==-1){\n            for(int i=0;i<=num;i++){\n                int first = i;\n                int sec = num - i;\n                ans = (ans + rec(idx+1,n,nums,first))%mod;\n            }\n        }\n        else{\n            for(int i=prev1;i<=num;i++){\n                int first = i;\n                int sec = num-i;\n                if(first>=prev1 && sec<=prev2){\n                    ans = (ans + rec(idx+1,n,nums,first))%mod;\n                }\n            }\n        }\n        return dp[idx][prev1+1] = ans%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        return rec(0,nums.size(),nums,-1);\n    }\n};",
+    "submit_ts": "1723345262",
+    "subm_id": "1351552027"
+}

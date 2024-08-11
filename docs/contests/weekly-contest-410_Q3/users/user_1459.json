@@ -1,0 +1,6 @@
+{
+    "username": "MoggleToggles",
+    "submission": "class Solution {\n\n    private val MAX_VALUE = 50\n    private val MODULUS = 1_000_000_007\n\n    fun countOfPairs(nums: IntArray): Int {\n        if (nums.size == 1) return nums[0] + 1\n        val pairCounts = Array(nums.size) { IntArray(MAX_VALUE + 1) }\n\n        for (value in 0 .. MAX_VALUE) {\n            pairCounts[0][value] = 1\n        }\n\n        for (i in 1 until nums.size) {\n            for (previousValue in 0 .. nums[i - 1]) {\n                val previousOtherValue = nums[i - 1] - previousValue\n                for (nextValue in previousValue .. nums[i]) {\n                    val previousCurrentValue = nums[i] - nextValue\n                    if (previousCurrentValue > previousOtherValue) continue\n                    // println(\"i: $i, previousValue: $previousValue, nextValue: $nextValue\")\n\n                    pairCounts[i][nextValue] += pairCounts[i - 1][previousValue]\n                    pairCounts[i][nextValue] %= MODULUS\n                }\n            }\n        }\n\n        var pairCountSum = 0\n        for (value in 0 .. MAX_VALUE) {\n            pairCountSum = (pairCountSum + pairCounts.last()[value]) % MODULUS\n        }\n\n        return pairCountSum\n    }\n}",
+    "submit_ts": "1723345788",
+    "subm_id": "1351563331"
+}

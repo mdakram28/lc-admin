@@ -1,0 +1,6 @@
+{
+    "username": "deepbansal",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1000000007;\n    int dp[2002][52][52];\n\n    int solve(vector<int>& nums, int index, int next1, int next2) {\n        if (index < 0) return 1; // Base case: if all elements are processed\n        int n = nums[index];\n        if (dp[index][next1 + 1][next2 + 1] != -1) return dp[index][next1 + 1][next2 + 1]; // Use offset for -1 check\n\n        int count = 0;\n\n        for (int i = 0; i <= n; i++) {\n            int a = n - i; // first part\n            int b = i; // second part\n\n            if (next1 == -1 && next2 == -1) {\n                count = (count + solve(nums, index - 1, a, b)) % MOD;\n            } else if (a <= next1 && b >= next2) {\n                count = (count + solve(nums, index - 1, a, b)) % MOD;\n            }\n        }\n\n        return dp[index][next1 + 1][next2 + 1] = count; // Store result with offset\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size() - 1;\n        memset(dp, -1, sizeof(dp));\n        return solve(nums, n, -1, -1);\n    }\n\n};",
+    "submit_ts": "1723345575",
+    "subm_id": "1351558724"
+}

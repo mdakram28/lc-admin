@@ -1,0 +1,6 @@
+{
+    "username": "Unknown_AC",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n    long long solve(int i, long long prevnum1, long long prevnum2, vector<int>& nums, vector<vector<vector<long long>>>& dp){\n        int n = nums.size();\n        if(i == n){\n            return 1;\n        }\n        if(dp[i][prevnum1][prevnum2]!= -1){\n            return dp[i][prevnum1][prevnum2];\n        }\n        long long ans = 0;\n        for(int j = 0; j<=nums[i]; j++){\n            if(j >= prevnum1 && nums[i] - j <= prevnum2){\n                ans += solve(i + 1, j, nums[i] - j, nums, dp);\n                ans %= mod;\n            }\n        }\n        return dp[i][prevnum1][prevnum2] =  ans;\n        \n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<long long>>>dp(n, vector<vector<long long>>(60, vector<long long>(60, -1)));\n        long long ans = solve(0, 0, 55, nums, dp);\n        ans %= mod;\n        return ans;\n    }\n};",
+    "submit_ts": "1723344860",
+    "subm_id": "1351543579"
+}

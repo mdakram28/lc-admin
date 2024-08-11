@@ -1,0 +1,6 @@
+{
+    "username": "Saurabh_1602",
+    "submission": "class Solution {\npublic:\n    const long long MOD = 1e9 + 7;\n    vector<vector<vector<long long>>> memo;\n\n    long long solve(int ind, long long mn, long long mx, vector<int>& nums) {\n        if (ind >= nums.size()) {\n            return 1;      }\n        \n        \n        if (memo[ind][mn][mx] != -1) {\n            return memo[ind][mn][mx];\n        }\n\n        long long ans = 0;\n        int a = nums[ind];\n\n        for (long long i = mn; i <= a; i++) {\n            long long b = a - i;\n            if (b <= mx) {\n                ans = (ans + solve(ind + 1, i, b, nums)) % MOD;\n            }\n        }\n\n        memo[ind][mn][mx] = ans;\n        return ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n      \n        memo.resize(n, vector<vector<long long>>(51, vector<long long>(51, -1)));\n        \n        long long ct = 0;\n        for (int i = 0; i <= nums[0]; i++) {\n            ct = (ct + solve(1, i, nums[0] - i, nums)) % MOD;\n        }\n        return ct;\n    }\n};\n",
+    "submit_ts": "1723346300",
+    "subm_id": "1351574532"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "NerdyCoder",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int n = nums.size();\n        const long long mod = 1'000'000'007LL;\n        vector<vector<long long>> dp(51, vector<long long>(51));\n        vector<vector<long long>> prev_dp(51, vector<long long>(51));\n        for (int i = 0; i < dp.size() && i <= nums[0]; ++i) {\n            dp[i][nums[0] - i] = 1;\n        }\n        for (int index = 1; index < n; ++index) {\n            swap(dp, prev_dp);\n            for (auto &row : prev_dp) {\n                for (int j = row.size() - 2; j >= 0; --j) {\n                    row[j] = (row[j] + row[j + 1]) % mod;\n                }\n            }\n            for (auto &row : dp) {\n                fill(row.begin(), row.end(), 0);\n            }\n            for (int i = 0, j = nums[index]; j >= 0; ++i, --j) {\n                for (int ii = 0; ii <= i; ++ii) {\n                    dp[i][j] = (dp[i][j] + prev_dp[ii][j]) % mod;\n                }\n            }\n        }\n        long long result = 0;\n        for (const auto &row : dp) {\n            for (long long col : row) {\n                result = (result + col) % mod;\n            }\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1723345112",
+    "subm_id": "1351548817"
+}

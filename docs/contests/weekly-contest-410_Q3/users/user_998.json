@@ -1,0 +1,6 @@
+{
+    "username": "codewithease4",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n  int countPairs(int idx, int prev_a, int prev_b, const vector<int>& nums, vector<vector<vector<int>>>& dp) {\n    int n = nums.size();\n    if (idx == n) {\n        return 1;\n    }\n\n    if (dp[idx][prev_a][prev_b] != -1) {\n        return dp[idx][prev_a][prev_b];\n    }\n\n    int count = 0;\n    for (int a = prev_a; a <= nums[idx]; ++a) {\n        int b = nums[idx] - a;\n        if (b >= 0 && b <= prev_b) {\n            count = (count + countPairs(idx + 1, a, b, nums, dp)) % MOD;\n        }\n    }\n\n    dp[idx][prev_a][prev_b] = count;\n    return count;\n}\n\n\nint countOfPairs(vector<int>& nums) {\n       int n = nums.size();\n    int max_val = *max_element(nums.begin(), nums.end());\n    vector<vector<vector<int>>> dp(n, vector<vector<int>>(max_val + 1, vector<int>(max_val + 1, -1)));\n\n    return countPairs(0, 0, max_val, nums, dp);\n\n}\n\n};",
+    "submit_ts": "1723345037",
+    "subm_id": "1351547274"
+}

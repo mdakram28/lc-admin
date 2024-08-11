@@ -1,0 +1,6 @@
+{
+    "username": "ameynaik09",
+    "submission": "class Solution {\npublic:\n    const int MOD=1e9+7;\n    int dp[2001][52][52];\n    int f(int ind, vector<int>& nums, int prev1, int prev2) {\n        int n = nums.size();\n        if (ind == n) return 1;\n        if (dp[ind][prev1 + 1][prev2] != -1)return dp[ind][prev1 + 1][prev2];\n        int ans = 0;       \n        for (int i = 0; i <= nums[ind]; i++){\n            int arr1_val = i;\n            int arr2_val = nums[ind] - i;\n            if (arr1_val >= prev1 && arr2_val <= prev2) {\n                ans = (ans + f(ind + 1, nums, arr1_val, arr2_val)) % MOD;\n            }\n        }   \n        return dp[ind][prev1 + 1][prev2] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof dp);\n        return f(0, nums, -1, 50);\n    }\n};\n",
+    "submit_ts": "1723345564",
+    "subm_id": "1351558486"
+}

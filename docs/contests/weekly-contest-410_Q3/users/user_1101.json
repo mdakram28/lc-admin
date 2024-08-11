@@ -1,0 +1,6 @@
+{
+    "username": "txycodelc",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        mod = 10**9 + 7\n        n = len(nums)\n        @cache\n        def dfs(i, b):\n            \n            if i == n:\n                return 1\n            \n            if nums[i] < b:\n                return 0\n            a = nums[i - 1] - b\n            \n            sz = 0\n            for x in range(min(a, nums[i]) + 1):\n                if nums[i] - x < b:\n                    break\n                sz += dfs(i + 1, nums[i] - x) % mod\n            \n            return sz % mod\n        \n        ans = sum(dfs(1, x) for x in range(nums[0] + 1)) % mod\n        dfs.cache_clear()\n        return ans",
+    "submit_ts": "1723345486",
+    "subm_id": "1351556829"
+}

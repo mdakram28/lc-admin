@@ -1,0 +1,6 @@
+{
+    "username": "honestmineroflccoins",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    int solve(int ind,int n,vector<int>&nums,int arr1,int arr2){\n         if(ind>=n){\n             return 1;\n         }\n        int num=nums[ind], cnt=0;\n        for(int i=0;i<=num;i++){\n            if(i>=arr1 and (num-i)<=arr2){\n                cnt+=solve(ind+1,n,nums,i,num-i)%mod;\n            }\n        }\n        return cnt%mod;\n    }\n    int memoization(int ind,int n,vector<int>&nums,int arr1,int arr2,vector<vector<vector<long long>>>&dp){\n         if(ind>=n){\n             return 1;\n         }\n        if(dp[ind][arr1][arr2]!=-1) return dp[ind][arr1][arr2];\n        int num=nums[ind], cnt=0;\n        for(int i=0;i<=num;i++){\n            if(i>=arr1 and (num-i)<=arr2){\n                cnt=(cnt+memoization(ind+1,n,nums,i,num-i,dp)%mod)%mod;\n            }\n        }\n        return dp[ind][arr1][arr2]=(cnt%mod);\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        int arr1=0,arr2=51;\n        // return solve(0,n,nums,arr1,arr2);\n        \n        vector<vector<vector<long long>>>dp(n+1,vector<vector<long long>>(52,vector<long long>(52,-1)));\n        \n        return memoization(0,n,nums,arr1,arr2,dp)%mod;\n    }\n};",
+    "submit_ts": "1723346190",
+    "subm_id": "1351572187"
+}

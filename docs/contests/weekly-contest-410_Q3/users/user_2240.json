@@ -1,0 +1,6 @@
+{
+    "username": "AnujG12",
+    "submission": "class Solution {\nprivate:\n    static const int MOD = 1'000'000'007;\n\npublic:\n    int countOfPairs(std::vector<int>& values) {\n        int n  = values.size();\n        \n        long long m[n][51][51];\n        \n        memset(m, -1, sizeof(m));\n        \n        \n        return (int) solve(values, 0, 0, values[0], m);\n    }\n\nprivate:\n    long long solve(std::vector<int>& values, int k, int v1, int v2, long long m[][51][51]) {\n        if (k >= values.size()) return 1; \n        if (m[k][v1][v2] != -1) return m[k][v1][v2];  \n        \n        long long ans = 0;\n        for (int i = v1; i <= values[k]; i++) {\n            for (int j = v2; j >= 0; j--) {\n                if (i + j == values[k]) {\n                    ans = (ans + solve(values, k + 1, i, j, m)) % MOD;\n                }\n            }\n        }\n        m[k][v1][v2] = ans;  \n        return ans;\n    }\n};",
+    "submit_ts": "1723347103",
+    "subm_id": "1351591929"
+}

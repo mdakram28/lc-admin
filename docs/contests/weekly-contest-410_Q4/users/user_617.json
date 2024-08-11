@@ -1,0 +1,6 @@
+{
+    "username": "zhuang1992",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int modulo = 1e9 + 7;\n        int n = nums.size();\n        vector<vector<long long>> dp(n, vector<long long>(1005, 0));\n        vector<long long> presum(1002, 0);\n        for(int i = 0; i <= nums[0]; ++i) {\n            dp[0][i] = 1;\n            presum[i+1] += presum[i] + dp[0][i];\n        }\n        for(int i = 1; i < n; ++i) {\n            vector<long long>nxt_presum(1005,0);\n            auto diff = max(0, nums[i]-nums[i-1]);\n            for(int j = 0; j <= nums[i]; ++j) {\n                if (j-diff < 0) dp[i][j] = 0;\n                else dp[i][j] = presum[j-diff+1];\n                nxt_presum[j+1] = (nxt_presum[j] + dp[i][j])%modulo;\n            }\n            swap(presum, nxt_presum);\n        }\n        long long ans = 0;\n        for(int i = 0; i < 1005; ++i) {\n            ans += dp[n-1][i];\n            ans %= modulo;\n        }\n        return ans;\n    }\n};\n/*\nauto diff = max(0, nums[i]-nums[i-1]);\nfor(int k = 0;  k <= j-diff; ++k) {\n    dp[i][j] += dp[i-1][k];\n    dp[i][j] %= modulo;\n}*/",
+    "submit_ts": "1723348319",
+    "subm_id": "1351615868"
+}

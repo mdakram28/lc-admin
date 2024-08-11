@@ -1,0 +1,6 @@
+{
+    "username": "Lakshay-1626",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& values) {\n        const int MOD = 1000000007;\n        int size = values.size();\n        \n        vector<vector<vector<long long>>> memo(size, vector<vector<long long>>(51, vector<long long>(51, -1)));\n        \n        return solve(values, 0, 0, values[0], memo, MOD);\n    }\n\nprivate:\n    long long solve(const vector<int>& values, int index, int val1, int val2,vector<vector<vector<long long>>>& memo, int MOD) {\n        if (index >= values.size()) return 1;  \n        if (memo[index][val1][val2] != -1) return memo[index][val1][val2];  \n        \n        long long lakshay = 0;\n        for (int i = val1; i <= values[index]; i++) {\n            for (int j = val2; j >= 0; j--) {\n                if (i + j == values[index]) {\n                    lakshay = (lakshay + solve(values, index + 1, i, j, memo, MOD)) % MOD;\n                }\n            }\n        }\n        memo[index][val1][val2] = lakshay;  \\\n        return lakshay;\n    }\n};\n\n\n",
+    "submit_ts": "1723346997",
+    "subm_id": "1351589707"
+}

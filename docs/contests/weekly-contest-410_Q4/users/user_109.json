@@ -1,0 +1,6 @@
+{
+    "username": "vanshkunwarji41",
+    "submission": "class Solution {\npublic:\n    static const int M=1e9+7;\n    int countOfPairs(vector<int>& nums) {\n        int dp[1001][2];\n        int n=nums.size();\n        for(int i=0;i<n;i++){\n            for(int j=0;j<=1000;j++){\n                if(j>nums[i]){\n                    dp[j][i&1]=dp[j-1][i&1];continue;\n                }\n                if(i==0){\n                    if(j<=nums[i]){\n                        dp[j][i&1]=1;\n                    }\n                    else{\n                        dp[j][i&1]=0;\n                    }\n                    if(j!=0){\n                        dp[j][i&1]+=dp[j-1][i&1];\n                    }\n                    continue;\n                }\n                int u=min(nums[i],min(j,nums[i-1]-nums[i]+j));\n                if(u>=0){\n                    dp[j][i&1]=dp[u][(i^1)&1];\n                }\n                else{\n                    dp[j][i&1]=0;\n                }\n                if(j!=0){\n                    dp[j][i&1]+=dp[j-1][i&1];\n                }\n                if(dp[j][i&1]>=M){\n                    dp[j][i&1]-=M;\n                }\n            }\n        }\n        return dp[1000][(n^1)&1];\n    }\n};",
+    "submit_ts": "1723345549",
+    "subm_id": "1351558196"
+}

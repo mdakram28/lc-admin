@@ -1,0 +1,6 @@
+{
+    "username": "lydiazhang233",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        int maxElement=*max_element(nums.begin(),nums.end());\n        int mod=1e9+7;\n        \n        vector<vector<vector<int>>> dp(n,vector<vector<int>>(maxElement+1,vector<int>(maxElement+1,-1)));\n        function<int(int,int,int)> dfs=[&](int i,int arr1Pre,int arr2Pre){\n            if(i==n){\n                return 1;\n            }\n            \n            if(dp[i][arr1Pre][arr2Pre]!=-1){\n                return dp[i][arr1Pre][arr2Pre];\n            }\n            \n            int res=0;\n            for(int j=arr1Pre;j<=nums[i];j++){\n                if(nums[i]-j<=arr2Pre){\n                    res=(res+dfs(i+1,j,nums[i]-j))%mod;;\n                }else{\n                    continue;\n                }\n            }\n            \n            dp[i][arr1Pre][arr2Pre]=res;\n            return res;\n        };\n        \n        return dfs(0,0,maxElement);\n        \n    }\n};",
+    "submit_ts": "1723345593",
+    "subm_id": "1351559121"
+}

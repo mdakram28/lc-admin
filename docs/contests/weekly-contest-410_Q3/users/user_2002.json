@@ -1,0 +1,6 @@
+{
+    "username": "deadline_exceeded",
+    "submission": "class Solution {\n    int memo[51][51][2001];\n    int mod;\npublic:\n    int countOfPairs(vector<int>& nums) {\n        mod = 1000000007;\n        for(int i=0;i<51;++i){\n            for(int j=0;j<51;++j){\n                for(int k=0;k<2001;++k){\n                    memo[i][j][k]=-1;\n                }\n            }\n        }\n        int x = nums[0];\n        int result=0;\n        for(int i=0;i<=x;++i){\n            result=(result+(tell(i, x-i, 1, nums))%mod)%mod;\n        }\n        return result;\n    }\n\n    int tell(int preInc, int preDec, int index, vector<int>& nums){\n        if(index>=nums.size()){\n            return 1;\n        }\n        if(memo[preInc][preDec][index]!=-1){\n            return memo[preInc][preDec][index];\n        }\n        int target = nums[index];\n        int result = 0;\n        for(int i=preInc;i<=target;++i){\n            int nextInc = i;\n            int nextDec = target-i;\n            if(preInc<=nextInc && preDec>=nextDec){\n                int temp = tell(nextInc, nextDec, index+1, nums);\n                if(temp!=0){\n                    result=(result+(temp)%mod)%mod;\n                }\n            }\n        }\n        return memo[preInc][preDec][index]=result;\n    }\n};",
+    "submit_ts": "1723346235",
+    "subm_id": "1351573151"
+}

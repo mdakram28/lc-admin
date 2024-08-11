@@ -1,0 +1,6 @@
+{
+    "username": "Ahbar",
+    "submission": "#define ll long long\n\nclass Solution {\npublic:\n    const int mod = 1e9 + 7;\n    int memo[51][20001];\n    int rec(int prev, int i, vector<int>& nums) {\n        if (i == nums.size()) return 1;\n        ll count = 0;\n        if (memo[prev][i] != -1) return memo[prev][i];\n        for (int curr = prev; curr <= nums[i]; curr++) {\n            if (i != 0 && nums[i - 1] - prev < nums[i] - curr) continue;\n            count = (count + rec(curr, i + 1, nums)) % mod;\n        }\n\n        return memo[prev][i] = count;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(memo, -1, sizeof(memo));\n\n        return rec(0, 0, nums); \n    }\n};",
+    "submit_ts": "1723346499",
+    "subm_id": "1351578935"
+}

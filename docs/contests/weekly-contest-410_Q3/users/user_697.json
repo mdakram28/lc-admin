@@ -1,0 +1,6 @@
+{
+    "username": "sohelH",
+    "submission": "class Solution {\npublic:\n    \n    int dp[2001][55];\n    int n;\n    vector<int> v;\n    const int mod = 1e9 + 7;\n    \n    int memo(int u, int last) {\n        if (u == n) {\n            return 1;\n        }\n        if (last != -1 && dp[u][last] != -1) return dp[u][last];\n        \n        int start;\n        if (last == -1) start = 0;\n        else start = last;\n        \n        int res = 0;\n        \n        for (int i = start; i <= v[u]; i++) {\n            int other = v[u] - i;\n            if (last != -1 && other > (v[u-1] - last)) continue;\n            res += memo(u + 1, i);\n            res %= mod;\n        }\n        if (last != -1) dp[u][last] = res;\n        return res;\n        \n    }\n    \n    int countOfPairs(vector<int>& _v) {\n        v = _v;\n        n = v.size();\n        int res = 0;\n        for (int i = 0; i <=n; i++)\n            for (int j = 0; j <= 50; j++)\n                dp[i][j] = -1;\n        res = memo(0, -1);\n        return res;\n        \n    }\n};",
+    "submit_ts": "1723344596",
+    "subm_id": "1351537954"
+}

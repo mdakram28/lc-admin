@@ -1,0 +1,6 @@
+{
+    "username": "ajeet_shukla",
+    "submission": "class Solution {\npublic:\n    int n;\n    int dp[2020][51][51];\n    int mod=1e9+7;\n\n    int helper(vector<int>& nums,int level,int prev,int prev1){\n        if(level==n){\n            return 1;\n        }\n        if(dp[level][prev][prev1]!=-1)return dp[level][prev][prev1]%mod;\n        int ans=0;\n        for(int i=prev;i<=nums[level];i++){\n          if(i>=prev and nums[level]-i<=prev1){\n          ans=((ans%mod)+(helper(nums,level+1,i,nums[level]-i)%mod))%mod;\n          }\n        }\n        \n        return dp[level][prev][prev1]=ans%mod;\n        \n    }\n    int countOfPairs(vector<int>& nums) {\n        n=nums.size();\n        memset(dp,-1,sizeof(dp));\n        return helper(nums,0,0,nums[0]);\n    }\n};",
+    "submit_ts": "1723346330",
+    "subm_id": "1351575204"
+}

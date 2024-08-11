@@ -1,0 +1,6 @@
+{
+    "username": "suraj365311",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(2001, 0));\n\n        for (int j = 0; j <= nums[0]; ++j) {\n            dp[0][j] = 1;  \n        }\n\n        for (int i = 1; i < n; ++i) {\n            vector<int> new_dp(2001, 0);\n            vector<int> prefix_sum(2001, 0);\n\n            prefix_sum[0] = dp[i-1][0];\n            for (int k = 1; k <= 2000; ++k) {\n                prefix_sum[k] = (prefix_sum[k-1] + dp[i-1][k]) % MOD;\n            }\n\n            for (int j = 0; j <= nums[i]; ++j) {\n                int arr2_i = nums[i] - j;\n                if (arr2_i <= nums[i-1]) {\n                    int max_k = min(j, nums[i-1] - arr2_i);\n                    new_dp[j] = prefix_sum[max_k];\n                }\n            }\n\n            dp[i] = new_dp;\n        }\n\n        int result = 0;\n        for (int j = 0; j <= nums[n-1]; ++j) {\n            result = (result + dp[n-1][j]) % MOD;\n        }\n\n        return result;\n    }\n};",
+    "submit_ts": "1723344778",
+    "subm_id": "1351541847"
+}

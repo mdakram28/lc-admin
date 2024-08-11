@@ -1,0 +1,6 @@
+{
+    "username": "Quar",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        \n        n = len(nums)\n        min_suffix = list(accumulate(reversed(nums), min))[::-1]\n        \n        # print(min_suffix)\n        \n        MODULO = 10**9 + 7\n        \n        @cache\n        def dp(i, prev):\n            if i >= n:\n                return 1\n            xmin = max(prev, nums[i] - nums[i - 1] + prev) if i - 1 >= 0 else prev\n            xmax = min_suffix[i]\n            ret = 0\n            for x in range(xmin, xmax + 1):\n                ret = (ret + dp(i + 1, x)) % MODULO\n            return ret\n        \n        return dp(0, 0)\n",
+    "submit_ts": "1723345268",
+    "subm_id": "1351552154"
+}

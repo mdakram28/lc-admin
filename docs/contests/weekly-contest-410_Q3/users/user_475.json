@@ -1,0 +1,6 @@
+{
+    "username": "subrat0018",
+    "submission": "#define ll long long\nconst int M = 1e9 + 7;\nll dp[2002][1001];\nclass Solution {\npublic:\n    ll func(int i, int last, vector<int> &nums){\n        if(i == nums.size())return 1;\n        int p1, p2;\n        if(dp[i][last] != -1)return dp[i][last];\n        if(i == 0){\n            ll ans = 0;\n            for(int j=0;j<=nums[i];j++){\n                ans = (ans + func(i + 1, j, nums)) % M;\n            }\n            return dp[i][last] = ans;\n        }\n        p1 = last;\n        p2 = nums[i - 1] - last;\n        ll ans = 0;\n        for(int j=last;j<=nums[i];j++){\n            if(nums[i] - j <= p2){\n                ans = (ans + func(i + 1, j, nums)) % M;\n            }\n        }\n        return dp[i][last] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        for(int i=0;i<=nums.size();i++){\n            for(int j=0;j<=1000;j++){\n                dp[i][j] = -1;\n            }\n        }\n        return func(0, 0, nums);\n    }\n};",
+    "submit_ts": "1723343941",
+    "subm_id": "1351522425"
+}

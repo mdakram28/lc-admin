@@ -1,0 +1,6 @@
+{
+    "username": "leetcoderr_1225",
+    "submission": "#include <vector>\n#include <cstring>\n\nclass Solution {\npublic:\n    int countOfPairs(std::vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        const int MAX_VAL = 50;  \n\n        int n = nums.size();\n        std::vector<std::vector<std::vector<int>>> dp(n + 1, std::vector<std::vector<int>>(MAX_VAL + 1, std::vector<int>(MAX_VAL + 1, -1)));\n\n        std::function<int(int, int, int)> solve = [&](int index, int minArr1, int maxArr2) -> int {\n            if (index == n) {\n                return 1; \n            }\n            if (dp[index][minArr1][maxArr2] != -1) {\n                return dp[index][minArr1][maxArr2];  \n            }\n\n            int count = 0;\n            for (int i = minArr1; i <= nums[index]; ++i) {\n                int arr2Value = nums[index] - i;\n                if (arr2Value <= maxArr2) {\n                    count = (count + solve(index + 1, i, arr2Value)) % MOD;\n                }\n            }\n\n            dp[index][minArr1][maxArr2] = count;  \n            return count;\n        };\n\n        return solve(0, 0, 50);  \n    }\n};\n",
+    "submit_ts": "1723345256",
+    "subm_id": "1351551916"
+}

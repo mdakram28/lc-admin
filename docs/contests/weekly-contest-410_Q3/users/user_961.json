@@ -1,0 +1,6 @@
+{
+    "username": "Code-O-Maniac",
+    "submission": "class Solution {\n    int dp[2005][55][55];\n    int MOD = 1000000007;\n    \n    long long gogo(vector<int>& nums, int mini, int maxi, int i = 0) {\n        if(i == nums.size())\n            return 1;\n        \n        if(dp[i][mini][maxi] != -1)\n            return dp[i][mini][maxi];\n        \n        long long ans = 0;\n        for(int j = mini; j <= nums[i]; j++) {\n            if(nums[i] - j > maxi) {\n                continue;\n            }\n\n            ans += gogo(nums, j, nums[i] - j, i + 1);\n            ans %= MOD;\n        }\n        \n        return dp[i][mini][maxi] = ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        \n        int maxi = *max_element(nums.begin(), nums.end());\n        \n        int ans = gogo(nums, 0, maxi);\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1723345249",
+    "subm_id": "1351551756"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "iswitch",
+    "submission": "class Solution {\npublic:\n    int MOD = 1000000007;\n    int findWays(int i, int lb, int ub, vector<int>& nums, vector<vector<vector<int>>> &dp) {\n        if(i == nums.size()) return 1;\n        if(dp[i][lb][ub] != -1) return dp[i][lb][ub];\n        int num = nums[i], ways = 0;\n        for(int k = 0; k <= num; k++) {\n            int a  = k;\n            if(a < lb) continue;\n            int b = num - a;\n            if(b > ub) continue;\n            ways = ((ways%MOD) + (findWays(i+1, a, b, nums, dp)%MOD))%MOD;\n        }\n        return dp[i][lb][ub] = ways;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(55, vector<int>(55, -1)));\n        return findWays(0, 0, 51, nums, dp);\n    }\n};",
+    "submit_ts": "1723345983",
+    "subm_id": "1351567579"
+}

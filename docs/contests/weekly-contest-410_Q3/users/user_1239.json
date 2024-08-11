@@ -1,0 +1,6 @@
+{
+    "username": "noobron",
+    "submission": "class Solution {\npublic:\n    \n    int mod = 1e9+7;\n    \n    int dp[2000][51];\n    \n    int help(int idx, int p, vector<int>& nums)\n    {\n        if (idx == nums.size())\n            return 1;\n        \n        if (p > nums[idx])\n            return 0;\n        \n        if (dp[idx][p] != -1)\n            return dp[idx][p];\n        \n        int res = 0;\n        \n        for(int i = p; i <= nums[idx]; i++)\n        {\n            if (idx == 0 || nums[idx-1] - p >= nums[idx] - i)\n                res = (res + help(idx+1, i, nums))%mod;\n        }\n        \n        return dp[idx][p] = res;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        fill_n(dp[0], 2000*51, -1);   \n        return help(0, 0, nums);\n    }\n};",
+    "submit_ts": "1723344140",
+    "subm_id": "1351527398"
+}

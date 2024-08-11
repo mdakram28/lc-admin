@@ -1,0 +1,6 @@
+{
+    "username": "adiya_nmit",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        ll n=nums.size(), i, j, k, s, res=0, M=1e9+7;\n    \n        ll dp[n][51][51];\n        for(i=0;i<n;i++){\n            for(j=0;j<51*51;j++){\n                dp[i][j/51][j%51]=0;\n            }\n        }\n        for(i=0;i<=nums[0];i++){\n            dp[0][i][nums[0]-i]=1;\n        }\n        for(i=1;i<n;i++){\n            for(j=0;j<=nums[i];j++){\n                for(int l=0;l<=nums[i-1];l++){\n                    if(l<=j && nums[i-1]-l>=nums[i]-j){\n                        dp[i][j][nums[i]-j] = (dp[i-1][l][nums[i-1]-l]+dp[i][j][nums[i]-j])%M;\n                    }\n                }\n            }\n        }\n        for(i=0;i<51*51;i++){\n            res=(res+dp[n-1][i/51][i%51])%M;\n        }\n        return res;\n        \n    }\n};",
+    "submit_ts": "1723344911",
+    "subm_id": "1351544655"
+}

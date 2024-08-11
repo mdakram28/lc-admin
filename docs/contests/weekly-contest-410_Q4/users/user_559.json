@@ -1,0 +1,6 @@
+{
+    "username": "KaiNguyenVN",
+    "submission": "class Solution {\npublic:\n    int f[2001][1001];\n    int countOfPairs(vector<int>& nums) {\n        int mod = 1e9 + 7;\n        int n = nums.size();\n        int maxNum = *max_element(nums.begin(), nums.end());\n        for(int i = 0; i < n; i++)\n            for(int j = 0; j < maxNum; j++)\n                    f[i][j] = 0;\n        \n        \n        for(int i = 0; i < n; i++)\n        {\n            if(i == 0)\n                for(int j = 0; j <= nums[i]; j++)\n                    f[i][j]= 1;\n            else\n            {\n                int tmp = 0;\n                int cnt = 0;\n                for(int j = 0; j <= nums[i]; j++)\n                {\n                    if(nums[i - 1] - nums[i] + j >= 0)\n                    {\n                        tmp =  (tmp + f[i - 1][cnt++] % mod) % mod;\n                        f[i][j] = (f[i][j] + tmp) % mod;\n                    }\n                }\n            }\n        }\n        cout << f[1][1] << ' ' << f[1][2] << ' ' << f[1][3];\n        int result = 0;\n        for (int j = 0; j <= nums[n - 1]; ++j) {\n            result = (result + f[n - 1][j]) % mod;\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1723348480",
+    "subm_id": "1351619124"
+}

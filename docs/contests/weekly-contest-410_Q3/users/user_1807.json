@@ -1,0 +1,6 @@
+{
+    "username": "coder_ankush",
+    "submission": "class Solution {\npublic:\n    int mx=0;\n    int cnt(vector<int>&nums,int idx,int prevFirst,int prevSecond,vector<vector<vector<int>>>&dp)\n    {\n        if(idx==nums.size())\n        {\n            return 1;\n        }\n        if(dp[idx][prevFirst][prevSecond]!=-1)\n        {\n            return dp[idx][prevFirst][prevSecond];\n        }\n        long long int ans=0;\n        for(int i=prevFirst;i<=mx;i++)\n        {\n            if(nums[idx]-i<=prevSecond && nums[idx]-i>=0)\n            ans=(ans+cnt(nums,idx+1,i,nums[idx]-i,dp))%1000000007;\n        }\n        return dp[idx][prevFirst][prevSecond]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        mx=0;\n        for(int i:nums)\n        {\n            mx=max(mx,i);\n        }\n        vector<vector<vector<int>>>dp(n,vector<vector<int>>(mx+1,vector<int>(mx+1,-1)));\n        return cnt(nums,0,0,nums[0],dp);\n    }\n};",
+    "submit_ts": "1723346296",
+    "subm_id": "1351574441"
+}

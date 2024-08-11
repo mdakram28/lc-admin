@@ -1,0 +1,6 @@
+{
+    "username": "nasaheck",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n    vector<vector<vector<int>>> dp;\n\n    int cnt_pairs(vector<int>& nums, int n, int ind, int maxi, int prev1, int prev2) {\n        if (ind >= n) {\n            return 1; \n        }\n\n        // Check if the result is already computed\n        if (dp[ind][prev1][prev2] != -1) {\n            return dp[ind][prev1][prev2];\n        }\n\n        int ans = 0; \n        for (int i = prev1; i <= maxi; i++) {\n            if (nums[ind] - i <= prev2 && nums[ind] - i >= 0) {\n                ans = (ans + cnt_pairs(nums, n, ind + 1, maxi, i, nums[ind] - i)) % mod;\n            }\n        }\n\n        // Store the result in dp array\n        return dp[ind][prev1][prev2] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int maxi = 0; \n\n        for (int i = 0; i < n; i++) {\n            maxi = max(nums[i], maxi);\n        }\n\n        // Adjust dp array size to accommodate possible values of prev2\n        dp = vector<vector<vector<int>>>(n + 1, vector<vector<int>>(maxi + 1, vector<int>(maxi + 2, -1)));\n\n        return cnt_pairs(nums, n, 0, maxi, 0, maxi + 1);\n    }\n};\n",
+    "submit_ts": "1723344970",
+    "subm_id": "1351545897"
+}

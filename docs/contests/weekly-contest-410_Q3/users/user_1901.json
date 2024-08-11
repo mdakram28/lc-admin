@@ -1,0 +1,6 @@
+{
+    "username": "rjayswal",
+    "submission": "from typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        mod = 10**9 + 7\n        \n        @lru_cache(None)\n        def backtrack(i, last_a, last_b):\n            if i == len(nums):\n                return 1  \n            count = 0\n            for a in range(nums[i] + 1): \n                b = nums[i] - a  \n                if (i == 0 or last_a <= a) and (i == 0 or last_b >= b):\n                    count += backtrack(i + 1, a, b)\n                    count %= mod  \n            return count\n        \n        return backtrack(0, 0, nums[0])\n",
+    "submit_ts": "1723346420",
+    "subm_id": "1351577200"
+}

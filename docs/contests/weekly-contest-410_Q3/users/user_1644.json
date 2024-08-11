@@ -1,0 +1,6 @@
+{
+    "username": "Crobbit",
+    "submission": "class Solution {\n    int MOD = 1e9+7;\n    map<pair<int,int>,int> cache;\npublic:\n    int countOfPairs(vector<int>& nums) {\n        long long ans1 = dp(nums,0,0);\n        return (ans1) % MOD;\n    }\nprivate: \n    long long dp(vector<int>&nums, int ind,int prev) {\n        if (ind == nums.size()) \n            return 1;\n        if (cache.count({ind,prev}))\n            return cache[{ind,prev}];\n        long long ans = 0;\n        int inversePrev = (ind == 0) ? 2000 : nums[ind-1] - prev;\n        for (int k=prev;k<=nums[ind];k++) {\n            int newI = nums[ind] - k;\n            if (k >= prev && inversePrev >= newI) {\n                ans += dp(nums,ind+1,k);\n                ans %= MOD;\n            }\n        }\n        return cache[{ind,prev}] = ans % MOD;\n    }\n};",
+    "submit_ts": "1723345770",
+    "subm_id": "1351562947"
+}

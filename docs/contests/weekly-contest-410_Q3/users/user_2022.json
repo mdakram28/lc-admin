@@ -1,0 +1,6 @@
+{
+    "username": "Rishi-Poswal",
+    "submission": "class Solution {\npublic:\n\n    int mod=1e9+7;\n    \n    long solve(int idx, int prev1, int prev2, vector<vector<vector<long>>>& dp, vector<int>& nums){\n\n        if(idx<0){\n            return 1;\n        }\n\n        if(dp[idx][prev1][prev2]!=-1) return dp[idx][prev1][prev2];\n        \n        \n        long res=0;\n\n        for(int i=0;i<=prev1;i++){\n            if(nums[idx]-i >= prev2){\n                res+= (solve(idx-1, i, nums[idx]-i, dp, nums)%mod);\n                res=res%mod;\n            }\n        }\n\n        return dp[idx][prev1][prev2]= (res%mod);\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int maxi=nums[0];\n        for(auto it:nums){\n            maxi=max(maxi,it);\n        }\n        int n=nums.size();\n        vector<vector<vector<long>>> dp(n, vector<vector<long>>(maxi+1, vector<long>(maxi+1,-1)));\n\n        int res=0;\n\n        for(int i=0;i<=nums[n-1];i++){\n                res+= (solve(n-2, i, nums[n-1]-i, dp, nums)%mod);\n                res=res%mod;\n        }\n\n        return res;\n\n    }\n};",
+    "submit_ts": "1723346559",
+    "subm_id": "1351580204"
+}

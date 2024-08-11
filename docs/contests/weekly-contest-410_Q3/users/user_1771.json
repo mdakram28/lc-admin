@@ -1,0 +1,6 @@
+{
+    "username": "manideepkaparthi",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n#define vii vector<vector<int>>\n#define vi vector<int>\n#define pb push_back\n#define fi first\n#define se second\n#define s(v) sort(v.begin(), v.end())\n#define r(v) reverse(v.begin(), v.end())\nclass Solution {\nprivate:\n\nint fun(int i, vi &v, int ap, int bp, vii &dp,int mod) {\n        if (i == v.size()) {\n            return 1;\n        }\n        if (dp[i][ap] != -1) {\n            return dp[i][ap]; \n        }\n        int ans = 0;\n        for (int j = 0; j <= v[i]; j++) {\n            if (j >= ap && v[i] - j <= bp) {\n                ans = (ans + fun(i + 1, v, j, v[i] - j, dp,mod)) % mod;\n            }\n        }\n        return dp[i][ap] = ans;\n    }\npublic:\n\n    int countOfPairs(vector<int>& nums) {\n        vector<int> v=nums;\n        int n=v.size();\n        int mx=INT_MIN;\n        for(int i=0;i<n;i++){\n            mx=max(mx,v[i]);\n        }\n        int mod=1e9+7;\n        int ans=0;\n        vector<vector<int>> dp(n+1,vi(mx+1,-1));\n        return fun(0,v,0,1e9,dp,mod);\n        \n    }\n};",
+    "submit_ts": "1723346543",
+    "subm_id": "1351579866"
+}

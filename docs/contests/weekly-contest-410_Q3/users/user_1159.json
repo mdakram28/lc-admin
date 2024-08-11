@@ -1,0 +1,6 @@
+{
+    "username": "lets_go_boys",
+    "submission": "class Solution {\npublic:\n    \n    const int MOD = 1e9 + 7;\n    const int MAX_VAL = 50;\n\n    int countMonotonicPairsHelper(int i, int prev1, int prev2, const vector<int>& nums, vector<vector<vector<int>>>& dp) {\n        if (i == nums.size()) return 1;\n\n        if (dp[i][prev1][prev2] != -1) return dp[i][prev1][prev2];\n\n        int count = 0;\n        for (int j = 0; j <= nums[i]; ++j) {\n            int k = nums[i] - j;\n            if (j >= prev1 && k <= prev2) {\n                count = (count + countMonotonicPairsHelper(i + 1, j, k, nums, dp)) % MOD;\n            }\n        }\n\n        dp[i][prev1][prev2] = count;\n        return count;\n    }\n\n    int countOfPairs(const vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(MAX_VAL + 1, vector<int>(MAX_VAL + 1, -1)));\n        return countMonotonicPairsHelper(0, 0, MAX_VAL, nums, dp);\n    }\n};",
+    "submit_ts": "1723345613",
+    "subm_id": "1351559524"
+}

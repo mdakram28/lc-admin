@@ -1,0 +1,6 @@
+{
+    "username": "aayushraturi",
+    "submission": "class Solution {\npublic:\n    static const int MOD = 1000000007;\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp = vector<vector<vector<int>>>(\n            n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return findPairs(nums, 0, 0, 50);\n    }\n\nprivate:\n    vector<vector<vector<int>>> dp;\n\n    int findPairs(vector<int>& nums, int index, int p1, int p2) {\n        if (index >= nums.size()) {\n            return 1;\n        }\n\n        if (dp[index][p1][p2] != -1) {\n            return dp[index][p1][p2];\n        }\n\n        int ans = 0;\n        for (int i = 0; i <= nums[index]; ++i) {\n            int a = i;\n            int b = nums[index] - i;\n            if (a >= p1 && b <= p2) {\n                ans = (ans + findPairs(nums, index + 1, a, b)) % MOD;\n            }\n        }\n\n        dp[index][p1][p2] = ans;\n        return ans;\n    }\n};",
+    "submit_ts": "1723347101",
+    "subm_id": "1351591891"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "peterrockwave",
+    "submission": "MOD = 1000000007\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        # how prefixes are there to end up with arr1[j-1] = k\n        lastvalcounts = []\n        for i in range(1001):\n            if i<=nums[0]:\n                lastvalcounts.append(1)\n            else:\n                lastvalcounts.append(0)\n        \n        for j in range(1,len(nums)):\n            # print(lastvalcounts)\n            newlastvalcounts = [0]*1001\n            for old1 in range(nums[j]+1):\n                # first determine the smallest new value of arr1\n                old2 = nums[j-1] - old1\n                new1 = max(old1, nums[j]-old2)\n                if new1 <= nums[j]:\n                    newlastvalcounts[new1] += lastvalcounts[old1]\n            for i in range(1,nums[j]+1):\n                newlastvalcounts[i] = (newlastvalcounts[i] + newlastvalcounts[i-1]) % MOD\n            lastvalcounts = newlastvalcounts\n        return sum(lastvalcounts) % MOD",
+    "submit_ts": "1723345249",
+    "subm_id": "1351551774"
+}

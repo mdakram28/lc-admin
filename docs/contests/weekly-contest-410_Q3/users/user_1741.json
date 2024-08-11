@@ -1,0 +1,6 @@
+{
+    "username": "him_anshu_yadav",
+    "submission": "#define ll long long\nll mod = 1e9+7;\nclass Solution {\npublic:\n    long long f(int i,int j1,int j2,vector<int> &nums,vector<vector<vector<int>>> &dp,int &n,int &maxi){\n        if(i >= n) return 1; \n        if(dp[i][j1][j2] != -1) return dp[i][j1][j2]; \n        long long ans = 0; \n        for(int i1 = j1; i1 <= maxi ; i1++){\n            for(int i2 = j2; i2 >= 0; i2--){\n                if(i1 + i2 == nums[i]){\n                    ans += f(i+1,i1,i2,nums,dp,n,maxi); \n                    ans %= mod; \n                }else if(i1+i2 < nums[i])break; \n            }\n        }\n        return dp[i][j1][j2] = ans%mod; \n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size(); \n        int maxi = *max_element(nums.begin(),nums.end()); \n        vector<vector<vector<int>>> dp(n,vector<vector<int>>(maxi+1,vector<int>(maxi+1,-1))); \n        return f(0,0,maxi,nums,dp,n,maxi); \n    }\n};",
+    "submit_ts": "1723346207",
+    "subm_id": "1351572566"
+}

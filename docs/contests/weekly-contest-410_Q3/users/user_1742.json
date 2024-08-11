@@ -1,0 +1,6 @@
+{
+    "username": "raghibh2004",
+    "submission": "#define ll long long\n#define mod 1000000007\nclass Solution {\npublic:\n    ll dp[55][2005];\n    int n;\n    ll ans(ll last,ll i,vector<int>&nums)\n    {\n        if(i==n+1)\n            return 1;\n        if(dp[last][i]!=-1)\n            return dp[last][i];\n        ll final=0;\n        if(i==1)\n        {\n            for(int j=0;j<=nums[i];j++)\n            {\n                final+=ans(j,i+1,nums);\n                final%=mod;\n            }\n        }\n        else\n        {\n             ll x=last;\n            ll y=nums[i-1]-last;\n            for(int j=0;j<=y;j++)\n            {\n                if(x+y-j<=nums[i]&&nums[i]-y+j>=x)\n                {\n                    final+=ans(nums[i]-y+j,i+1,nums);\n                    final%=mod;\n                }\n                \n            }\n\n        }\n        return dp[last][i]=final;   \n        \n    }\n    int countOfPairs(vector<int>& nums) {\n        n=nums.size();\n        memset(dp,-1,sizeof(dp));\n        vector<int>ee;\n        ee.push_back(0);\n        for(auto x:nums)\n            ee.push_back(x);\n        return ans(0,1,ee);   \n    }\n};",
+    "submit_ts": "1723346503",
+    "subm_id": "1351579012"
+}

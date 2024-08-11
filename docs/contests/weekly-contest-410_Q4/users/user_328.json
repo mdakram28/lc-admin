@@ -1,0 +1,6 @@
+{
+    "username": "billy_tngo",
+    "submission": "#define MOD 1000000007\n\nclass Solution {\nprivate:\n    int A[2000][1001];\n    int S[2000][1001];\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = (int)nums.size();\n        for(int i=0;i<n;i++){\n            fill(A[i],A[i]+1001,0);\n        }\n        \n        for(int i=0;i<=nums[0];i++){\n            A[0][i] = 1;\n        }\n        \n        S[0][0] = A[0][0];\n        for(int j=1;j<=1000;j++){\n            S[0][j] = S[0][j-1] + A[0][j];\n            S[0][j] %= MOD;\n        }\n        \n        for(int i=1;i<n;i++){\n            for(int j=0;j<=nums[i];j++){\n                int j1 = nums[i] - j;\n                int m = min(min(j,nums[i-1]),nums[i-1]-j1);\n                if(m >= 0){\n                    A[i][j] = S[i-1][m];\n                }\n            }\n            \n            S[i][0] = A[i][0];\n            for(int j=1;j<=1000;j++){\n                S[i][j] = S[i][j-1] + A[i][j];\n                S[i][j] %= MOD;\n            }\n        }\n            \n        int ret = 0;\n        for(int i=0;i<=nums[n-1];i++){\n            ret += A[n-1][i];\n            ret %= MOD;\n        }\n        \n        return ret;\n    }\n};",
+    "submit_ts": "1723346440",
+    "subm_id": "1351577635"
+}

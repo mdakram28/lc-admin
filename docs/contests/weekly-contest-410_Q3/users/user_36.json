@@ -1,0 +1,6 @@
+{
+    "username": "_kevinyang",
+    "submission": "class Solution {\npublic:\n     int countOfPairs(vector<int>& nums) {\n        const int mod = (int)1e9+7;\n        int n = nums.size();\n        vector<int>a(n+1);\n        for(int i = 1; i<=n; i++){\n            a[i] = nums[i-1];\n        }\n        vector<vector<int>>dp(n+1,vector<int>(1005));\n        vector<vector<int>>psa(n+1,vector<int>(1005));\n        if(n==1){\n            return a[1]+1;\n        }\n        for(int j = 0; j<=a[1]; j++){\n            dp[1][j] = 1;\n            psa[1][j] = j+1;\n        }\n        for(int i = 2; i<=n; i++){\n            int dif = a[i] - a[i-1];\n            \n            for(int j = 0; j<=a[i]; j++){\n                if(j-dif>=0)\n                    dp[i][j] += psa[i-1][min(j-dif,j)];\n                dp[i][j]%=mod;\n            }\n            int s = 0;\n            for(int j = 0; j<1005; j++){\n                s+=dp[i][j];\n                s%=mod;\n                psa[i][j] = s;\n            }\n        }\n        return psa[n][1004];\n    }\n};",
+    "submit_ts": "1723344351",
+    "subm_id": "1351532447"
+}

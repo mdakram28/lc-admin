@@ -1,0 +1,6 @@
+{
+    "username": "vermachakshu",
+    "submission": "const int MOD = 1e9 + 7;\ntypedef long long ll;\nconst int UB = 51;\nclass Solution {\npublic:\n\n    int countOfPairs(vector<int>& a) {\n        int n = a.size();\n        ll dp[n][UB];\n        ll sum[UB];\n\n        for(int i=0; i<n; i++){\n            for(int j=0; j<UB; j++){\n                dp[i][j] = 0;\n            }\n        }\n\n        for(int i=0; i<n; i++){\n            for(int j=0; j<=a[i]; j++){\n                int k = a[i] - j;\n                if(i == 0){\n                    dp[i][j] = 1;\n                }\n                else{\n                    // int l = max(0, a[i] - j);\n                    int l = 0;\n                    int r = min({j, a[i - 1], a[i - 1] - a[i] + j});\n                    if(l <= r)\n                    dp[i][j] = (sum[r] - (l ? sum[l - 1] : 0) + MOD) % MOD;\n                }\n            }\n            for(int j=0; j<UB; j++){\n                sum[j] = dp[i][j];\n                if(j)   sum[j] = (sum[j - 1] + sum[j]) % MOD;\n            }\n        }\n\n        ll ans = 0;\n        for(int j=0; j<=a.back(); j++){\n            ans = (ans + dp[n - 1][j]) % MOD;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1723345973",
+    "subm_id": "1351567370"
+}

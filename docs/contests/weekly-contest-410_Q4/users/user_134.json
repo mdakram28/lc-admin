@@ -1,0 +1,6 @@
+{
+    "username": "nhho",
+    "submission": "#define MOD 1000000007\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& v) {\n        int n = v.size();\n        vector<vector<int>> dp(n, vector<int>(1002));\n        for (int i = 0; i <= 1000; i++)\n            dp[0][i + 1] = dp[0][i] + (i <= v[0]);\n        for (int i = 0; i + 1 < n; i++) {\n            vector<int> tv(1002);\n            for (int j = 0; j <= 1000; j++) {\n                int ta = j + max(0, v[i + 1] - v[i]);\n                int tb = v[i + 1];\n                if (ta <= tb) {\n                    int tc = (dp[i][j + 1] + MOD - dp[i][j]) % MOD;\n                    (tv[ta] += tc) %= MOD;\n                    (tv[tb + 1] += MOD - tc) %= MOD;\n                }\n            }\n            int tmp = 0;\n            for (int j = 0; j <= 1000; j++) {\n                (tmp += tv[j]) %= MOD;\n                dp[i + 1][j + 1] = (dp[i + 1][j] + tmp) % MOD;\n            }\n        }\n        // for (int i = 0; i < n; i++) {for (int j = 0; j <= 20; j++) printf(\"%d \", dp[i][j]); puts(\"\");}\n        return dp.back().back();\n    }\n};",
+    "submit_ts": "1723345135",
+    "subm_id": "1351549351"
+}

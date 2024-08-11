@@ -1,0 +1,6 @@
+{
+    "username": "cswizardry",
+    "submission": "class Solution {\n    int mod = 1e9 + 7;\n    int dfs(int index, vector<int>& nums, int prevArr1, int prevArr2, vector<vector<vector<int>>>& dp) {\n        // returns the number of pairs with this set up...\n        if (index == nums.size()) {\n            return 1;\n        }\n        if (dp[index][prevArr1][prevArr2] != -1) {\n            return dp[index][prevArr1][prevArr2];\n        }\n        int numOfPairs = 0;\n        for (int num1 = prevArr1; num1 <= nums[index]; num1++) {\n            int num2 = nums[index] - num1;\n            if (num2 <= prevArr2) {\n                numOfPairs = (numOfPairs + dfs(index + 1, nums, num1, num2, dp)) % mod;\n            } \n        }\n        return dp[index][prevArr1][prevArr2] = numOfPairs;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        // nums[i] between 1 and 50 ..nums and nums 2 are also non-negative\n        // arr1 = increasing, arr2 = dcreasing\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return dfs(0, nums, 0, 50, dp);\n    }\n};",
+    "submit_ts": "1723345568",
+    "subm_id": "1351558567"
+}

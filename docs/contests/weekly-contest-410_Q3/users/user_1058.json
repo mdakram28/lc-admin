@@ -1,0 +1,6 @@
+{
+    "username": "maxuanquang",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        \"\"\"\n\n        2 3 2\n\n        0 1 1\n\n        2 2 1\n\n        -------\n\n        1 <= n == nums.length <= 2000\n        1 <= nums[i] <= 50\n\n        ----\n\n        arr1[i] <= nums[i]\n        arr2[i] <= nums[i]\n\n        arr1[i] + arr2[i] = nums[i]\n\n        ----\n        dp\n\n        2 3\n\n        0 1\n        1\n        2\n\n        2 2\n        1\n        0\n\n        50 * 50 * 50\n        125000\n        2000\n        250 e6\n\n        f(i, prev_increaase, prev_decreaase)\n\n        \"\"\"\n        MOD = 10**9 + 7\n\n        @cache\n        def dfs(i: int, pi: int, pd: int) -> int:\n            if i == len(nums):\n                return 1\n            \n            answer = 0\n            for npi in range(max(pi, 0), nums[i] + 1):\n                npd = nums[i] - npi\n                if pd >= npd:\n                    answer = (answer + dfs(i + 1, npi, npd) % MOD) % MOD\n            \n            return answer\n\n        return dfs(0, -inf, inf)\n\n            ",
+    "submit_ts": "1723345423",
+    "subm_id": "1351555455"
+}

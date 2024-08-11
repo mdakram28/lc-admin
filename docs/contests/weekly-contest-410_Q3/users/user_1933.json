@@ -1,0 +1,6 @@
+{
+    "username": "agaltsovd",
+    "submission": "class Solution {\n    int MOD = 1_000_000_007;\n    Integer[][][] memo;\n    public int countOfPairs(int[] nums) {\n        // memo = new int[nums.length][]\n        memo = new Integer[nums.length][51][51];\n        return helper(0, nums, 0, nums[0]);\n    }\n    private int helper(int index, int[] nums, int prev1, int prev2) {\n        if(index == nums.length) {\n            return 1;\n        }\n        // System.out.println(index + \" \" + prev1 + \" \" + prev2);\n        if(memo[index][prev1][prev2] != null) {\n            return memo[index][prev1][prev2];\n        }\n        int sum = nums[index];\n        int res = 0;\n        for(int i = 0; i <= sum; i++) {\n            int num1 = i;\n            int num2 = sum - i;\n            if(num1 >= prev1 && num2 <= prev2) {\n                int nextRes = helper(index + 1, nums, num1, num2);\n                res = (res + nextRes) % MOD;\n            }\n            \n        }\n        memo[index][prev1][prev2] = res;\n        return res;\n    }\n}",
+    "submit_ts": "1723345859",
+    "subm_id": "1351564841"
+}

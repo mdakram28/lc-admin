@@ -1,0 +1,6 @@
+{
+    "username": "Yashwanth18",
+    "submission": "#include <cstring> // for memset\n#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    long solve(int index, int val1, int val2, vector<int>& values,\n               vector<vector<vector<long>>>& dp) {\n        if (index >= values.size())\n            return 1;\n        if (dp[index][val1][val2] != -1)\n            return dp[index][val1][val2];\n        long res = 0;\n        for (int i = val1; i <= values[index]; i++) {\n            for (int j = val2; j >= 0; j--) {\n                if (i + j == values[index]) {\n                    res = (res + solve( index + 1, i, j,values, dp)) % MOD;\n                }\n            }\n        }\n        dp[index][val1][val2] = res;\n        return res;\n    }\n    int countOfPairs(vector<int>& values) {\n        int size = values.size();\n        vector<vector<vector<long>>> dp(\n            size, vector<vector<long>>(51, vector<long>(51, -1)));\n        return (int)solve(0, 0, values[0], values, dp);\n    }\n};\n",
+    "submit_ts": "1723347022",
+    "subm_id": "1351590229"
+}

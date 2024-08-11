@@ -1,0 +1,6 @@
+{
+    "username": "kenCHLEE",
+    "submission": "/*\nn = nums.length\nm = max(nums[i])\n\ndp[i][x] := number of pairs in nums[0, i], arr1[i] == x\ndp[0][x] = 1, 0 <= x <= nums[0]\ndp[i][x] = sum(dp[i-1][y])\ny <= x <= nums[i]\nnums[i-1] - y >= nums[i] - x >= 0\n=> y <= min(x, nums[i-1] - nums[i] + x)\n=> TC: O(nmm), SC: O(nm) or O(m)\n*/\nclass Solution {\n    public int countOfPairs(int[] nums) {\n        final int MOD = (int) Math.pow(10, 9) + 7;\n        int n = nums.length;\n        int m = 0;\n        for (int num : nums) {\n            m = Math.max(m, num);\n        }\n        int[] dp = new int[m + 1];\n        for (int x = 0; x <= nums[0]; x++) {\n            dp[x] = 1;\n        }\n        for (int i = 1; i < n; i++) {\n            int[] nextDp = new int[m + 1];\n            for (int x = 0; x <= nums[i]; x++) {\n                for (int y = 0; y <= Math.min(x, nums[i - 1] - nums[i] + x); y++) {\n                    nextDp[x] += dp[y];\n                    nextDp[x] %= MOD;\n                }\n            }\n            dp = nextDp;\n        }\n        int ans = 0;\n        for (int cnt : dp) {\n            ans += cnt;\n            ans %= MOD;\n        }\n        return ans;\n    }\n}",
+    "submit_ts": "1723346117",
+    "subm_id": "1351570552"
+}

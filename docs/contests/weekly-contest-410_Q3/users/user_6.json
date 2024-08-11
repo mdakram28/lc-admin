@@ -1,0 +1,6 @@
+{
+    "username": "watashi",
+    "submission": "class Solution {\npublic:\n  int countOfPairs(vector<int>& nums) {\n    static const int MAXN = 1001;\n    static constexpr int64_t MOD = 1000000007;\n    vector<int64_t> dp(MAXN, 0);\n    vector<int64_t> ps(MAXN, 0);\n    fill(dp.data(), dp.data() + nums[0] + 1, 1);\n\n    for (int i = 1; i < (int)nums.size(); ++i) {\n      const int pre = nums[i - 1], cur = nums[i];\n      partial_sum(dp.begin(), dp.end(), ps.begin());\n      for (auto& j : ps) {\n        j %= MOD;\n      }\n      fill(dp.begin(), dp.end(), 0);\n      for (int i = 0; i <= cur; ++i) {\n        // j <= i\n        // pre - j >= cur - i ==> j <= pre - cur + i\n        const int j = min(i, pre - cur + i);\n        dp[i] = j < 0 ? 0 : ps[j];\n      }\n    }\n\n    int64_t ret = accumulate(dp.begin(), dp.end(), 0LL);\n    ret %= MOD;\n    return (int)ret;\n  }\n};",
+    "submit_ts": "1723344344",
+    "subm_id": "1351532286"
+}

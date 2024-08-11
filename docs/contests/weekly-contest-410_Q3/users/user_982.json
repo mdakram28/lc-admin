@@ -1,0 +1,6 @@
+{
+    "username": "kinthor257as",
+    "submission": "#include <vector>\n#include <iostream>\n#include <cstring>  // for memset\n\nusing namespace std;\n\nclass Solution \n{\npublic:\n    int dp[2001][51];  // Memoization table\n\n    int countOfPairs(vector<int>& nums) \n    {\n        memset(dp, -1, sizeof(dp));  // Initialize the memoization table with -1\n        return countPairs(0, 0, nums);\n    }\n    \nprivate:\n    int countPairs(int i, int last, vector<int>& nums) \n    {\n        if (i == nums.size()) \n        {\n            return 1;  // Base case: If we've processed all elements, this is a valid sequence\n        }\n        \n        if (dp[i][last] != -1) \n        {\n            return dp[i][last];  // Return the stored result if already computed\n        }\n        \n        int result = 0;\n        const int MOD = 1e9 + 7;\n\n        // Iterate over all possible values for arr1[i]\n        for (int arr1_i = last; arr1_i <= nums[i]; ++arr1_i) \n        {\n            int arr2_i = nums[i] - arr1_i;\n            if (i == 0 || arr2_i <= nums[i-1] - last) \n            {\n                result = (result + countPairs(i + 1, arr1_i, nums)) % MOD;\n            }\n        }\n\n        return dp[i][last] = result;  // Store the result in the memoization table\n    }\n};\n",
+    "submit_ts": "1723344992",
+    "subm_id": "1351546344"
+}

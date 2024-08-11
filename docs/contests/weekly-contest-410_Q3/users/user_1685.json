@@ -1,0 +1,6 @@
+{
+    "username": "_codebot",
+    "submission": "class Solution {\npublic:\n    long long mod=1000000007;\n    long long totalArrays(int curId,int prevNumber,vector<int> &nums,vector<vector<long long>> &dp){\n\n        if(nums.size()==curId){\n            return 1;\n        }\n\n        if(prevNumber!=-1 && dp[curId][prevNumber]!=-1){\n            return dp[curId][prevNumber];\n        }\n        int curNumber=nums[curId];\n        int ans=0;\n        \n        for(int num=0;num<=curNumber;num++){\n            \n\n            if(prevNumber==-1 || (prevNumber<=num && nums[curId-1]-prevNumber >=nums[curId]-num)){\n                int next=totalArrays(curId+1,num,nums,dp);\n                ans=(ans%mod+next%mod)%mod;\n            }\n        }\n        if(prevNumber!=-1){\n            dp[curId][prevNumber]=ans;\n        }\n        return ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int prevNumber=-1;\n        int total=nums.size();\n        vector<vector<long long>> dp(total,vector<long long>(52,-1));\n        long long ans=totalArrays(0,prevNumber,nums,dp);\n        return ans;\n    }\n};",
+    "submit_ts": "1723346124",
+    "subm_id": "1351570704"
+}

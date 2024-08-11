@@ -1,0 +1,6 @@
+{
+    "username": "tzhuan",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int N = nums.size(), M = 1000000007;\n        vector<unordered_map<int, unordered_map<int, int>>> cache(N);\n        function<int(int, int, int)> dfs = [&](int min, int max, int i) -> int {\n            if (i == N) return 1;\n            if (cache[i].find(min) != cache[i].end() and cache[i][min].find(max) != cache[i][min].end()) return cache[i][min][max];\n            int ans = 0;\n            ans = 0;\n            auto n = nums[i];\n            for (int n1 = 0; n1 <= n; ++n1) {\n                auto n2 = n - n1;\n                if (n1 >= min and n2 <= max) {\n                    ans = (1LL * ans + dfs(std::max(min, n1), std::min(max, n2), i + 1)) % M;\n                }\n            }\n            // cout << min << \" \" << max << \" \" << i << \": \" << ans << endl;\n            return cache[i][min][max] = ans;\n        };\n        return dfs(0, 50, 0);\n    }\n};",
+    "submit_ts": "1723345446",
+    "subm_id": "1351555935"
+}

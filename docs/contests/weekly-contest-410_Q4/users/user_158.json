@@ -1,0 +1,6 @@
+{
+    "username": "mastoori1234",
+    "submission": "typedef long long int ll;\n\nconst ll mod = 1e9+7;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& arr) {\n        \n        \n        ll n = arr.size();\n        \n        ll val1[1001];\n        ll nxt[1001];\n\n        for( ll i=0; i<=1000; i++) {\n            val1[i] = nxt[i] = 0;\n        }\n        \n        for( ll i=0; i<=arr[0]; i++) {\n            val1[i] = 1;\n        } \n        \n        for( ll ii=1; ii<n; ii++) {\n            if(arr[ii]>=arr[ii-1]) {\n                ll d = arr[ii]-arr[ii-1];\n                ll tot = 0;\n                for( ll i=0, j=d; i<=arr[ii-1]; i++, j++) {\n                    tot = (tot+val1[i])%mod;\n                    nxt[j] = tot;\n                }\n            } else {\n                ll tot = 0;\n                for( ll i=0; i<=arr[ii]; i++) {\n                    tot = (tot+val1[i])%mod;\n                    nxt[i] = tot;\n                }\n            }\n            for( ll i=0; i<=max( arr[ii-1], arr[ii]); i++) {\n                val1[i] = nxt[i];\n                nxt[i] = 0;\n            }\n        }\n        \n        ll ans = 0;\n        for( ll i=0; i<=1000; i++) {\n            ans = (ans+val1[i])%mod;\n        }\n        \n        return ans;\n    }\n};",
+    "submit_ts": "1723345527",
+    "subm_id": "1351557729"
+}

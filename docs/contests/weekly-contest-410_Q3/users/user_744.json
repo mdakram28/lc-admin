@@ -1,0 +1,6 @@
+{
+    "username": "IamAho",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector memo(2001, vector<int>(2001, -1));\n        const int MOD = 1E9 + 7;\n        auto dfs = [&](auto self, int i, int lst_x) -> int64_t {\n            if (i == n) {\n                return 1;\n            }\n            if (memo[i][lst_x] != -1) {\n                return memo[i][lst_x];\n            }\n            int lst_y = nums[i - 1] - lst_x;\n            // cout << i << \" \" << lst_x << \" \" << lst_y << \"?\\n\";\n            int64_t ans = 0;\n            for (int x = lst_x; x <= nums[i]; x++) {\n                int y = nums[i] - x;\n                if (y > lst_y) {\n                    continue;\n                }\n                ans += self(self, i + 1, x);\n                ans %= MOD;\n            }\n            // cout << i << \" \" << lst_x << \" \" << lst_y << \"==end?\\n\";\n            memo[i][lst_x] = ans;\n            return ans;\n        };\n        int64_t ans = 0;\n        for (int x = 0; x <= nums[0]; x++) {\n            ans += dfs(dfs, 1, x);\n            ans %= MOD;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723344446",
+    "subm_id": "1351534611"
+}

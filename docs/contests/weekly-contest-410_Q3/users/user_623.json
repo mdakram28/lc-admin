@@ -1,0 +1,6 @@
+{
+    "username": "alfazick",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        \n        mod = 10**9 + 7\n        \n        \n        @lru_cache(maxsize=None)\n        def count(idx,non_decrease,non_increase):\n            if idx == len(nums):\n                return 1\n            \n            cur_num = nums[idx]\n            \n            res = 0\n            \n            for lower in range(cur_num+1):\n                higher = cur_num - lower\n                \n                if lower >= non_decrease and higher <= non_increase:\n                    res += count(idx+1,max(lower,non_decrease),min(higher,non_increase))\n                    res %= mod\n            return res % mod\n        \n                    \n        return count(0,-inf,inf)\n        \n        ",
+    "submit_ts": "1723345646",
+    "subm_id": "1351560271"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "prathmeshcodes13",
+    "submission": "class Solution {\npublic:\n    int N=1e9+7;\n    int solve(int ind,int prev,vector<int>& nums,vector<vector<int>>&dp){\n        if(ind==nums.size()){\n            return 1;\n        }\n        if(dp[ind][prev+1]!=-1)return dp[ind][prev+1];\n        int ans=0;\n        if(prev!=-1){\n            for(int curr=prev;curr<=nums[ind];curr++){\n                int currsecond=nums[ind]-curr;\n                int prevsecond=nums[ind-1]-prev;\n                if(currsecond<=prevsecond and curr>=prev){\n                    ans=(ans%N+solve(ind+1,curr,nums,dp)%N)%N;\n                }\n            }\n        }\n        else{\n            for(int curr=0;curr<=nums[ind];curr++){\n                ans=(ans%N+solve(ind+1,curr,nums,dp)%N);\n            }\n        }\n        return dp[ind][prev+1]=ans;\n            \n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<int>>dp(nums.size(),vector<int>(53,-1));\n        return solve(0,-1,nums,dp);\n    }\n};",
+    "submit_ts": "1723346131",
+    "subm_id": "1351570883"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "priyadumka_03",
+    "submission": "#include <vector>\n#include <functional>\nusing namespace std;\n\n#define ll long long int\n\nclass Solution {\nprivate:\n    static const int MOD = 1'000'000'007;\n\npublic:\n    int countOfPairs(vector<int>& values) {\n        int size = values.size();\n        vector<vector<vector<ll>>> dpCache(size, vector<vector<ll>>(51, vector<ll>(51, -1)));\n\n        function<ll(int, int, int)> solve = [&](int idx, int prev1, int prev2) -> ll {\n            if (idx == size) return 1;\n            if (dpCache[idx][prev1][prev2] != -1) return dpCache[idx][prev1][prev2];\n\n            ll result = 0;\n            for (int x1 = prev1; x1 <= values[idx]; x1++) {\n                int x2 = values[idx] - x1;\n                if (x2 >= 0 && x2 <= prev2) {\n                    result = (result + solve(idx + 1, x1, x2)) % MOD;\n                }\n            }\n\n            return dpCache[idx][prev1][prev2] = result;\n        };\n\n        return solve(0, 0, values[0]);\n    }\n};\n",
+    "submit_ts": "1723346247",
+    "subm_id": "1351573391"
+}

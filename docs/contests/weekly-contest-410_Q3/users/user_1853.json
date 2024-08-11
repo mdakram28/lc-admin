@@ -1,0 +1,6 @@
+{
+    "username": "nisargganatra13",
+    "submission": "from functools import lru_cache\nfrom typing import List\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        \n        @lru_cache(None)\n        def dp(i, last1, last2):\n            if i == n:\n                return 1  \n            \n            total_count = 0\n            for arr1_val in range(last1, nums[i] + 1):  # arr1 must be non-decreasing\n                arr2_val = nums[i] - arr1_val\n                if arr2_val <= last2:  # arr2 must be non-increasing\n                    total_count += dp(i + 1, arr1_val, arr2_val)\n                    total_count %= MOD\n            \n            return total_count\n        \n        return dp(0, 0, nums[0])\n\n",
+    "submit_ts": "1723346670",
+    "subm_id": "1351582618"
+}

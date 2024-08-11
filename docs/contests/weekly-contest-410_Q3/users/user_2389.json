@@ -1,0 +1,6 @@
+{
+    "username": "dheeraj049",
+    "submission": "class Solution {\npublic:\n\n\nconst int mod = 1e9 + 7;\nint n;\n\n\nconst int max_val = 51; \nvector<vector<vector<int>>> memo;\n\nint rec(int idx, int prev1, int prev2, vector<int>& nums) {\n    if (idx == n) return 1;\n    \n    if (memo[idx][prev1][prev2] != -1) \n        return memo[idx][prev1][prev2];\n    \n    int ans = 0;\n    \n    for (int i = 0; i <= nums[idx]; i++) {\n        if (i >= prev1 && (nums[idx] - i) <= prev2) {\n            ans = (ans + rec(idx + 1, i, nums[idx] - i, nums)) % mod;\n        }\n    }\n    \n    memo[idx][prev1][prev2] = ans;\n    return ans;\n}\n\nint countOfPairs(vector<int>& nums) {\n    n = nums.size();\n    if (n == 0) return 0;\n    \n\n    memo = vector<vector<vector<int>>>(n, vector<vector<int>>(max_val, vector<int>(max_val, -1)));\n    \n    return rec(0, 0, 50, nums);\n}\n\n\n};",
+    "submit_ts": "1723346644",
+    "subm_id": "1351582029"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "smeshah28",
+    "submission": "class Solution {\n    int ans = 0;\n    int n = 0;\n    int MOD = 1000000007;\n    int[][][] dp;\n    \n    public int countOfPairs(int[] nums) {\n        n = nums.length;\n        dp = new int[n][51][51];\n        for (int[][] arr : dp) {\n            for (int[] subArr : arr) {\n                Arrays.fill(subArr, -1);\n            }\n        }\n        int index = 0;\n        int start = 0;\n        ans = helper(index, start, 50, nums);\n        return ans;\n    }\n    \n    public int helper(int index, int start, int prevNums2El, int nums[]) {\n        if (index == n) {\n            return 1;\n        }\n\n        if (dp[index][start][prevNums2El] != -1) {\n            return dp[index][start][prevNums2El];\n        }\n        \n        int count = 0;\n        \n        for (int i = start; i < 51; i++) {\n            int nums1El = i;\n            int currentDiff = nums[index] - nums1El;\n\n            if (currentDiff >= 0 && currentDiff <= prevNums2El) {\n                count = (count + helper(index + 1, i, currentDiff, nums)) % MOD;\n            }\n        }\n\n        dp[index][start][prevNums2El] = count;\n        return count;\n    }\n}",
+    "submit_ts": "1723345405",
+    "subm_id": "1351555062"
+}

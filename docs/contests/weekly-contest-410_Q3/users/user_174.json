@@ -1,0 +1,6 @@
+{
+    "username": "ocavue",
+    "submission": "from typing import List\nfrom functools import cache\n\n\nMOD = 10**9 + 7\n\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        @cache\n        def dfs(i: int, num1: int) -> int:\n            num = nums[i]\n            num2 = num - num1\n            if num1 < 0 or num2 < 0:\n                return 0\n\n            if i == n - 1:\n                return 1\n\n            next_num = nums[i + 1]\n            result = 0\n            for next_num1 in range(0, num1 + 1):\n                next_num2 = next_num - next_num1\n                if next_num2 >= num2:\n                    result += dfs(i + 1, next_num1)\n            return result % MOD\n\n        result = 0\n        for num1 in range(0, nums[0] + 1):\n            result += dfs(0, num1)\n        return result % MOD\n\n ",
+    "submit_ts": "1723344329",
+    "subm_id": "1351531952"
+}

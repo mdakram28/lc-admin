@@ -1,0 +1,6 @@
+{
+    "username": "SHERMA_THANGAM_S",
+    "submission": "class Solution {\n    private static final int MOD = 1_000_000_007;\n    private int[][] memo;\n    \n    private int countPairs(int i, int prev, int[] nums) {\n        if (i == nums.length) {\n            return 1;\n        }\n        if (memo[i][prev] != -1) {\n            return memo[i][prev];\n        }\n\n        int count = 0;\n        for (int arr1_i = prev; arr1_i <= nums[i]; arr1_i++) {\n            int arr2_i = nums[i] - arr1_i;\n\n            if (i == 0 || arr2_i <= nums[i - 1] - prev) {\n                count = (count + countPairs(i + 1, arr1_i, nums)) % MOD;\n            }\n        }\n        \n        memo[i][prev] = count;\n        return count;\n    }\n\n    public int countOfPairs(int[] nums) {\n        memo = new int[nums.length][51]; \n        for (int[] row : memo) {\n            Arrays.fill(row, -1);\n        }\n        \n        return countPairs(0, 0, nums);\n    }\n}\n",
+    "submit_ts": "1723346940",
+    "subm_id": "1351588481"
+}

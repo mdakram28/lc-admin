@@ -1,0 +1,6 @@
+{
+    "username": "fg_junior",
+    "submission": "#include <vector>\n\nclass Solution {\npublic:\n    static const int MOD = 1000000007;\n    int dp[51][51][2001];\n    int countOfPairs(std::vector<int>& nums) {\n        int n = nums.size();\n        for (int i = 0; i < 51; ++i) {\n            for (int j = 0; j < 51; ++j) {\n                for (int k = 0; k < 2001; ++k) {\n                    dp[i][j][k] = -1;\n                }\n            }\n        }\n        return countPairs(nums, 0, 0, 50, n);\n    }\n\n    int countPairs(vector<int>& nums, int idx, int minA, int maxB, int n) {\n        if (idx == n) return 1;\n        if (dp[minA][maxB][idx] != -1) return dp[minA][maxB][idx];\n        \n        int count = 0;\n        for (int a = minA; a <= nums[idx]; ++a) {\n            int b = nums[idx] - a;\n            if (b <= maxB) {\n                count = (count + countPairs(nums, idx + 1, a, b, n)) % MOD;\n            }\n        }\n        \n        dp[minA][maxB][idx] = count;\n        return count;\n    }\n};\n",
+    "submit_ts": "1723346322",
+    "subm_id": "1351575040"
+}

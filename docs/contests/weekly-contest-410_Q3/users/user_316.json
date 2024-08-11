@@ -1,0 +1,6 @@
+{
+    "username": "anishmajumdar_",
+    "submission": "class Solution(object):\n    MODULO = int(1e9 + 7)\n    \n    def __init__(self):\n        self.memo = []\n        self.elements = []\n    \n    def dfs(self, index, prev_sum):\n        if index == len(self.elements):\n            return 1  # Base case: If we've processed all elements\n        \n        if self.memo[index][prev_sum] != -1:\n            return self.memo[index][prev_sum]  # Return already computed result\n\n        result = 0\n        max_allowed = 50 if index == 0 else self.elements[index - 1] - prev_sum\n        \n        for current_sum in range(prev_sum, self.elements[index] + 1):\n            remaining = self.elements[index] - current_sum\n            if remaining <= max_allowed:\n                result = (result + self.dfs(index + 1, current_sum)) % self.MODULO\n\n        self.memo[index][prev_sum] = result\n        return result\n\n    def countOfPairs(self, nums):\n        \"\"\"\n        :type nums: List[int]\n        :rtype: int\n        \"\"\"\n        self.elements = nums\n        n = len(nums)\n        self.memo = [[-1] * 2001 for _ in range(n)]\n        \n        return self.dfs(0, 0)\n",
+    "submit_ts": "1723344404",
+    "subm_id": "1351533646"
+}

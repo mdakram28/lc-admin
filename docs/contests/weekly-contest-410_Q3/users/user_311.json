@@ -1,0 +1,6 @@
+{
+    "username": "oiybhio",
+    "submission": "class Solution {\n    const int mm = 1e9 + 7;\n    \npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<int>> f(2, vector<int>(1001));\n        vector<vector<int>> sum(2, vector<int>(1001));\n        int h = 0;\n        for (int i = 0; i <= nums[0]; i++) {\n            f[0][i] = 1;\n            sum[0][i] = i + 1;\n        }\n        for (int i = 1; i < n; i++) {\n            h = 1 - h;\n            for (int j = 0; j <= nums[i]; j++) {\n                int k = min(j, j + nums[i - 1] - nums[i]);\n                f[h][j] = k >= 0? sum[1 - h][k]: 0;\n                sum[h][j] = ((j? sum[h][j - 1]: 0) + f[h][j]) % mm;\n            }\n        }\n        return sum[h][nums[n - 1]];\n    }\n};\n",
+    "submit_ts": "1723346943",
+    "subm_id": "1351588528"
+}

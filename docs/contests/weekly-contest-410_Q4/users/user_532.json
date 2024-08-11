@@ -1,0 +1,6 @@
+{
+    "username": "Sarthak2509Agarwal",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(1001, 0));\n\n        for(int i = 0; i <= nums[n-1]; i++) {\n            dp[n-1][i] = 1;\n        }\n\n        for(int i = n-2; i >= 0; i--) {\n            vector<int> suffixSum(1001, 0);\n            suffixSum[1000] = dp[i+1][1000];\n            for(int k = 999; k >= 0; k--) {\n                suffixSum[k] = (suffixSum[k+1] + dp[i+1][k]) % MOD;\n            }\n            if(nums[i] <= nums[i+1]) {\n                int temp = nums[i+1] - nums[i];\n                for(int j = 0; j <= nums[i]; j++) {\n                    dp[i][j] = suffixSum[temp++];\n                }\n            } else {\n                for(int j = 0; j <= nums[i]; j++) {\n                    dp[i][j] = suffixSum[j];\n                }\n            }\n        }\n\n        int ans = 0;\n        for(int i = 0; i <= nums[0]; i++) {\n            ans = (ans + dp[0][i]) % MOD;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1723348000",
+    "subm_id": "1351609697"
+}

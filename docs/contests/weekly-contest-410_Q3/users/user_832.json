@@ -1,0 +1,6 @@
+{
+    "username": "k487237",
+    "submission": "class Solution {\npublic:\n    int dfs(vector<vector<vector<int>>>& dp, vector<int>& nums, int idx, int prev_1, int prev_2) {\n        if (idx >= nums.size()) {\n            return 1;\n        }\n        if (dp[idx][prev_1][prev_2] != -1) {\n            return dp[idx][prev_1][prev_2];\n        }\n        int n = nums.size(), mod = 1e9 + 7, res = 0;\n        for (int v = max(prev_1, 0); v <= nums[idx]; v++) {\n            if (v >= prev_1 && (nums[idx] - v) <= prev_2) {\n                res += dfs(dp, nums, idx + 1, v, nums[idx] - v) % mod;\n                res %= mod;\n            }\n        }\n        res %= mod;\n        dp[idx][prev_1][prev_2] = res % mod;\n        return res % mod;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int mod = 1e9 + 7, n = nums.size(), res = 0;\n        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(51, vector<int>(51, -1)));\n        return dfs(dp, nums, 0, 0, 50);\n    }\n};\n\n/*\n[2,3,2]\n[5,5,5,5]\n[40,40,40,40,41,42,43,44,45,45]\n\n*/",
+    "submit_ts": "1723344681",
+    "subm_id": "1351539743"
+}

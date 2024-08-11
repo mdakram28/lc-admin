@@ -1,0 +1,6 @@
+{
+    "username": "codingarshi",
+    "submission": "MOD = 10**9 + 7\n\nclass Solution:\n    def countOfPairs(self, nums: list[int]) -> int:\n        n = len(nums)\n        max_num = 50  # Given constraint\n\n        # dp[i][j]: number of valid ways to fill arr1 and arr2 for the first i elements, where arr1[i-1] = j\n        dp = [[0] * (max_num + 1) for _ in range(n + 1)]\n        \n        # Initialize for the first element\n        for j in range(nums[0] + 1):\n            dp[1][j] = 1\n\n        # Fill dp table for each element in nums\n        for i in range(2, n + 1):\n            for j in range(nums[i-1] + 1):\n                for k in range(j + 1):\n                    if nums[i-1] - j <= nums[i-2] - k:\n                        dp[i][j] = (dp[i][j] + dp[i-1][k]) % MOD\n\n        # The result is the sum of all dp[n][j] for j in range(51)\n        result = sum(dp[n][j] for j in range(max_num + 1)) % MOD\n        return result\n\n\n\n\n\n        ",
+    "submit_ts": "1723343660",
+    "subm_id": "1351513338"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "AdityaRaj_cpp",
+    "submission": "class Solution\n{\npublic:\n    const int mod = 1e9 + 7;\n    vector<int> nums;\n    int pre[2002][51][51];\n    int solve(int idx, int end1, int end2)\n    {\n        if (idx == nums.size())\n            return 1;\n\n        if (pre[idx][end1][end2] != -1)\n            return pre[idx][end1][end2];\n\n        int res = 0;\n        for (int i = end1; i <= nums[idx]; i++)\n            if (nums[idx] - i <= end2)\n                res += solve(idx + 1, i, nums[idx] - i) % mod, res %= mod;\n\n        return pre[idx][end1][end2] = res;\n    }\n\n    int countOfPairs(vector<int> &arr)\n    {\n        nums = arr;\n        memset(pre, -1, sizeof(pre));\n        return solve(0, 0, 50);\n    }\n};",
+    "submit_ts": "1723346215",
+    "subm_id": "1351572737"
+}

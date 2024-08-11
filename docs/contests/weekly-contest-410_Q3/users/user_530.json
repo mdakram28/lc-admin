@@ -1,0 +1,6 @@
+{
+    "username": "ho_chung",
+    "submission": "_DEBUG = False\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MODULUS = 10 ** 9 + 7\n\n        n = len(nums)\n        A_B_dict = {\n            (i, nums[-1] - i): 1\n            for i in range(nums[-1] + 1)\n        }\n        for idx in range(n-2, -1, -1):\n            num = nums[idx]\n            new_A_B_dict = defaultdict(int)\n            for (a, b), cnt in A_B_dict.items():\n                for i in range(min(a, num-b) + 1):\n                    new_A_B_dict[(i, num - i)] += cnt\n\n            A_B_dict = {\n                k: v % MODULUS\n                for k, v in new_A_B_dict.items()\n            }\n\n            if _DEBUG:\n                print(A_B_dict)\n        \n        return sum(A_B_dict.values()) % MODULUS\n\n        ",
+    "submit_ts": "1723345650",
+    "subm_id": "1351560340"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "viatsevskyi",
+    "submission": "class Solution {\n    Integer[][][] dp;\n    public int countOfPairs(int[] nums) {\n       dp = new Integer[nums.length][52][52];\n       return dfs(nums, 0, 0, 51);   \n    }\n    int dfs(int[] nums, int index, int prevAsc, int prevDesc) {\n        if (nums.length == index) {\n            return 1;\n        }\n        if (dp[index][prevAsc][prevDesc] != null) {\n            return dp[index][prevAsc][prevDesc];\n        }\n        int r = 0;\n        int value = nums[index];\n        for (int i = prevAsc; i <= value; ++i) {\n            int v1 = i;\n            int v2 = value - i; \n            if (prevAsc <= v1 && prevDesc >= v2) {\n                r = add(r, dfs(nums, index + 1, v1, v2));\n            }\n        }\n        return dp[index][prevAsc][prevDesc] = r;\n    }\n    int add(long a, long b) {\n        return (int) ((a + b) % 1_000_000_007);\n        \n    }\n}",
+    "submit_ts": "1723345681",
+    "subm_id": "1351561033"
+}

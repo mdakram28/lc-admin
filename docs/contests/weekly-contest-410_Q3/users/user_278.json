@@ -1,0 +1,6 @@
+{
+    "username": "regina8023",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<long>> v;\n        v.push_back({}); v.push_back({});\n        long m = 1e9+7;\n        for (int i = 0; i <= nums[0]; i++){\n            v[0].push_back(1);\n        }\n        for (int i = 1; i < nums.size(); i++) {\n            int cur = i % 2;\n            int prev = 1 - cur;\n            vector<long> my;\n            for (int j = 0; j <= nums[i]; j++) {\n                long tot = 0;\n                for (int k = 0; k <= min(j, nums[i-1]); k++) {\n                    if (nums[i-1]-k >= nums[i]-j) tot = (tot+v[prev][k]) % m;\n                }\n                my.push_back(tot);\n            }\n            v[cur] = my;\n        }\n        long ans = 0;\n        int k = (nums.size()-1)%2;\n        for (int i = 0; i < v[k].size(); i++) {\n            ans = (ans + v[k][i]) % m;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345872",
+    "subm_id": "1351565137"
+}

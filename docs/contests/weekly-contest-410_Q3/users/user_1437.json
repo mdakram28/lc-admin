@@ -1,0 +1,6 @@
+{
+    "username": "ASPII",
+    "submission": "#include <vector>\n#include <unordered_map>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    int mod = 1e9 + 7;\n\n    int solve(int p, int q, int i, vector<int>& nums, unordered_map<int, unordered_map<int, unordered_map<int, int>>>& dp) {\n        if (i == nums.size()) return 1;  \n        if (dp[p][q].count(i)) return dp[p][q][i];  \n\n        int tk = 0;\n\n        for (int k = 0; k <= 50; k++) {\n            if (k >= p && (nums[i] - k) <= q && (nums[i] - k) >= 0) {\n                tk = (tk + solve(k, nums[i] - k, i + 1, nums, dp)) % mod;\n            }\n        }\n\n        return dp[p][q][i] = tk % mod;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        unordered_map<int, unordered_map<int, unordered_map<int, int>>> dp; \n        return solve(0, 50, 0, nums, dp);\n    }\n};\n",
+    "submit_ts": "1723345757",
+    "subm_id": "1351562693"
+}

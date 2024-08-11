@@ -1,0 +1,6 @@
+{
+    "username": "tony0x00",
+    "submission": "class Solution {\n    private Map<String, Integer> memo = new HashMap<>();\n\n    public int countOfPairs(int[] nums) {\n        return backtrack(nums, 0, 0, nums[0]);\n    }\n\n    private int backtrack(int[] nums, int index, int e1, int e2) {\n        if (index == nums.length) {\n            return 1;\n        }\n\n        String key = index + \":\" + e1 + \":\" + e2;\n        if (memo.containsKey(key)) {\n            return memo.get(key);\n        }\n\n        int count = 0;\n        for (int ary1 = e1; ary1 <= nums[index]; ary1++) {\n            int ary2 = nums[index] - ary1;\n            if (ary2 <= e2) {\n                count = (count + backtrack(nums, index + 1, ary1, ary2)) % 1000000007;\n            }\n        }\n\n        memo.put(key, count);\n        return count;\n    }\n}",
+    "submit_ts": "1723346398",
+    "subm_id": "1351576722"
+}

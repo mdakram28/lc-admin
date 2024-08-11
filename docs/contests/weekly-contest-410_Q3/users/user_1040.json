@@ -1,0 +1,6 @@
+{
+    "username": "Rajdeep_Nagar",
+    "submission": "/*\narr1 is increasing\n\narr2 is decreasing\n\n\narr1[i]+arr2[i]==nums[i]\n\nnums[i]<=50\n\n2000*50\n\n10*10000\n\n10^5\n\n\ndp[i][p1] = count of monotonic pairs in [i...n-1] if arr1[i-1]=p1 and arr2[i-1]=nums[i]-p2, than at index i, arr1[i] >=p1 and arr2[i]<=p2 and arr1[i]+arr2[i]==nums[i] \n\n\ne.g [5,5,5,5]\n\n[5,5,5,5]\n[0,0,0,0]\n\n[5,4,4,4]\n[0,1,1,1]\n\n\n*/\n\n\n#define lln long long int\n\nint mod=1e9+7;\n\nlln dp[2001][51];\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n       \n        memset(dp,-1,sizeof(dp));\n        \n        return find(0,0,nums)%mod;\n        \n    }\n    \n    \n    lln find(int i, int p1, vector<int>&nums){\n        \n        if(i>=nums.size())\n            return 1;\n        \n        if(dp[i][p1]!=-1)\n            return dp[i][p1];\n        \n        lln count=0;\n        \n        int p2=60;\n        \n        if(i!=0){\n            p2=nums[i-1]-p1;    \n        }\n        \n        for(int x=nums[i];x>=0;x--){\n            if(x>=p1 && (nums[i]-x)<=p2){\n                count+=find(i+1,x,nums);\n                count%=mod;\n            }\n        }\n        \n        return dp[i][p1]=count%mod;\n    }\n};",
+    "submit_ts": "1723345386",
+    "subm_id": "1351554623"
+}

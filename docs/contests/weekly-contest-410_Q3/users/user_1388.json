@@ -1,0 +1,6 @@
+{
+    "username": "axoder",
+    "submission": "class Solution {\npublic:\n    int MOD = 1e9 + 7;\n    int dp[2010][2010];\n    int n;\n    int rec(int i, int prev, vector<int>& nums) {\n        if (i == n) return 1;\n        if (dp[i][prev] != -1) return dp[i][prev];\n\n        int ans = 0;\n        for (int j = prev; j <= nums[i]; ++j) {\n            int arr2i = nums[i] - j;\n            if (i == 0 || arr2i <= nums[i - 1] - prev) {\n                ans = (ans + rec(i + 1, j, nums)) % MOD;\n            }\n        }\n        \n        return dp[i][prev] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        n = nums.size();\n        return rec(0, 0, nums);\n    }\n};",
+    "submit_ts": "1723345975",
+    "subm_id": "1351567405"
+}

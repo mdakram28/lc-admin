@@ -1,0 +1,6 @@
+{
+    "username": "crackiv",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<long long>> cnts(n, vector<long long>(51));\n        for(int i = 0; i <= nums[0]; ++i)\n          cnts[0][i] =  1;\n        constexpr int M = 1e9 + 7;\n        for(int i = 1; i < n; ++i) {\n          int curr  = nums[i];\n          int prev = nums[i-1];\n          for(int v = 0; v <= curr; ++v) {\n            int b_curr = curr - v;\n            for(int p = 0; p <= v; ++p) {\n              int b_prev = prev - p;\n              if (cnts[i-1][p] == 0 || b_curr > b_prev) continue;\n              cnts[i][v] = (cnts[i][v] + cnts[i-1][p]) % M;\n            }\n          }\n        }\n\n        return accumulate(cnts.back().begin(), cnts.back().end(), 0ll) % M;\n    }\n};",
+    "submit_ts": "1723346424",
+    "subm_id": "1351577270"
+}

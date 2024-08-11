@@ -1,0 +1,6 @@
+{
+    "username": "jl203",
+    "submission": "class Solution {\n    // arr2[i] == nums[i] - arr1[i]\n    // arr1[i] <= arr1[i + 1]\n    // nums[i] - arr1[i] >= nums[i] - nums[i + 1];\n    const int MOD = 1e9 + 7;\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int max_val = *max_element(nums.begin(), nums.end());\n        vector<vector<long>> f(n, vector<long>(max_val + 1, 0));\n        for(int j = 0; j <= nums[0]; ++j){\n            f[0][j] = 1;\n        }\n\n        for(int i = 1; i < n; ++i){\n            for(int j = 0; j <= nums[i]; ++j){\n                // k <= j\n                // nums[i - 1] - \n                for(int k = 0; k <= j; ++k){\n                    if(nums[i - 1] - k >= nums[i] - j){\n                        f[i][j] += f[i - 1][k];\n                        f[i][j] %= MOD;\n                    }\n                } \n            }\n        }\n\n        long res = 0;\n        for(int j = 0; j <= max_val; ++j){\n            res += f[n - 1][j];\n            res %= MOD;\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1723345455",
+    "subm_id": "1351556138"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "fxfxxxfxx",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        constexpr int M = 1000000007;\n        // dp[i][x][y] = sum dp[i-1][i in 0..x][j in y..50]\n        //               for x + y == nums[i]\n        using T = map<pair<int,int>, int>;\n        T dp;\n        dp[{0,50}] = 1;\n        for (int r : nums) { // 2000\n            T curr;\n            for (int x = 0; x <= r; x++) { // 50\n                int y = r - x;\n                int cnt = 0;\n                for (auto &[p, c] : dp) { // 50\n                    auto [i, j] = p;\n                    if (i > x || j < y) continue;\n                    auto &toadd = curr[{x,y}];\n                    toadd = (toadd + c) % M;\n                }\n            }\n            dp = curr;\n        }\n        int ans = 0;\n        for (auto &[_, c] : dp)\n            ans = (ans + c) % M;\n        return ans;\n    }\n};",
+    "submit_ts": "1723344828",
+    "subm_id": "1351542928"
+}

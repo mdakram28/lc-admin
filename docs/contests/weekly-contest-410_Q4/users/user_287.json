@@ -1,0 +1,6 @@
+{
+    "username": "ujjwalagrawal29102001",
+    "submission": "class Solution {\n    int mod = 1e9 + 7;\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<int>> v(n);\n        v[n - 1] = vector<int>(nums[n - 1] + 1, 1);\n        for(int i = n - 2; i >= 0; i--)\n        {\n            v[i] = vector<int>(nums[i] + 1, 0);\n            int diff = max(0, nums[i + 1] - nums[i]);\n            vector<int> temp = v[i + 1];\n            for(int j = temp.size() - 2; j >= 0; j--)\n                temp[j] = (temp[j] + temp[j + 1]) % mod;\n            for(int j = 0; j <= nums[i]; j++)\n            {\n                if(j + diff <= nums[i + 1])\n                    v[i][j] = temp[j + diff];\n                // for(int k = j + diff; k <= nums[i + 1]; k++)\n                // {\n                //     v[i][j] = ((long) v[i][j] + v[i + 1][k]) % mod;\n                // }\n            }\n        }\n        int sum = 0;\n        for(int val : v[0])\n            sum = (sum + val) % mod;\n        return sum;\n    }\n};",
+    "submit_ts": "1723346776",
+    "subm_id": "1351584913"
+}

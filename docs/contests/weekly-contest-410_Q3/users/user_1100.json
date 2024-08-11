@@ -1,0 +1,6 @@
+{
+    "username": "Wzsssss",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int mod = 1e9 + 7;\n        int n = nums.size();\n        // dp[i][j] = the number of good integer arrays with nums[i]\n        // exactly j using numbers up to nums[i]\n        // = dp[i-1][]\n        vector<vector<int>> dp(n, vector<int>(51));\n        for (int x = 0; x <= nums[0]; x++) {\n            dp[0][x] = 1;\n        }\n\n        for (int i = 1; i < n; i++) {\n            for (int x = 0; x <= nums[i]; x++) {\n                for (int y = 0; y <= nums[i-1]; y++) {\n                    if (x >= y && (nums[i] - x) <= (nums[i-1] - y)) {\n                        dp[i][x] += dp[i-1][y];\n                        dp[i][x] %= mod;\n                    }\n                }\n            }\n        }\n\n        long long ans = 0;\n        for (long long x : dp[n-1]) {\n            ans += x;\n            ans %= mod;\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": "1723345202",
+    "subm_id": "1351550803"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "CompileErrorAutomaton",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        mod = int(10**9) + 7\n        cap = [nums[-1]]*len(nums)\n        for i in range(len(nums)-2, -1, -1):\n            cap[i] = min(nums[i], cap[i+1])\n        mx = max(nums)\n        n = len(nums)\n        dp = [[0 for _ in range(mx+1)] for _ in range(n+1)]\n        for x in range(cap[n-1]+1):\n            dp[-1][x] = 1\n        prefix = [0]*(mx+1)\n        acc = 0\n        for x in range(cap[n-1], -1, -1):\n            acc += dp[-1][x]\n            prefix[x] = acc\n        for i in range(n-1, -1, -1):\n            for prev1 in range(nums[i], -1, -1):\n                start = prev1\n                if i > 0 and nums[i] - nums[i - 1] + prev1 > start:\n                    start = nums[i] - nums[i - 1] + prev1\n                if start < len(prefix):\n                    dp[i][prev1] += prefix[start]\n                    dp[i][prev1] %= mod\n            prefix = [0]*(mx+1)\n            acc = 0\n            for x in range(cap[i], -1, -1):\n                acc += dp[i][x]\n                prefix[x] = acc\n        return dp[0][0]\n",
+    "submit_ts": "1723347848",
+    "subm_id": "1351606706"
+}

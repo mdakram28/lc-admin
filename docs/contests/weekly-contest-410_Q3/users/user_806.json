@@ -1,0 +1,6 @@
+{
+    "username": "sazzysaturn",
+    "submission": "class Solution {\npublic:\n    int MOD = 1e9+7;\n    int help(vector<int>& nums, int idx, int prev_arr1, int prev_arr2,vector<vector<vector<int>>>& dp){\n        int n = nums.size();\n        if(idx==n) return 1;\n        if(dp[idx][prev_arr1][prev_arr2]!=-1) return dp[idx][prev_arr1][prev_arr2];\n        long long output = 0;\n        if(idx==0){\n            for(int i=0;i<=nums[idx];i++){\n                output += help(nums,idx+1,nums[idx]-i,i,dp);\n                output %= MOD;\n            }\n        }\n        else{\n            for(int i=0;i<=nums[idx];i++){\n                if(nums[idx]-i>=prev_arr1 && i<=prev_arr2){\n                    output += help(nums,idx+1,nums[idx]-i,i,dp);\n                    output %= MOD;\n                }\n            }\n        }\n        return dp[idx][prev_arr1][prev_arr2] = output%MOD;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n,vector<vector<int>>(51,vector<int>(51,-1)));\n        return help(nums,0,0,0,dp);\n    }\n};",
+    "submit_ts": "1723344913",
+    "subm_id": "1351544687"
+}

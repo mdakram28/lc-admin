@@ -1,0 +1,6 @@
+{
+    "username": "Jai_Marothiya",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    int dp[2002][55];\n    int solve(int i, int aval, vector<int>&nums){\n        int n=nums.size();\n        if(i>=n)return 1;\n        if(dp[i][aval+1]!=-1)return dp[i][aval+1];\n\n        int ans=0;\n        for(int k=0;k<=nums[i];k++){\n            int x=nums[i]-k;\n            int aprev=aval;\n            int bprev=0;\n            if(i!=0)\n                bprev=nums[i-1]-aval;\n            if(i==0 || (aprev<=k && bprev>=x)){\n                ans=(ans+solve(i+1, k, nums))%mod;\n            }\n        }\n\n        return dp[i][aval+1]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        int n=nums.size();\n        return solve(0,-1,nums);\n    }\n};",
+    "submit_ts": "1723345748",
+    "subm_id": "1351562503"
+}

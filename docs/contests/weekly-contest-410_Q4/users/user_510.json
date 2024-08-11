@@ -1,0 +1,6 @@
+{
+    "username": "yonkoamit",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        int mod=1e9+7;\n        int dp[n][1001];\n        int pref[n][1001];\n        memset(dp,0,sizeof(dp));\n        memset(pref,0,sizeof(pref));\n        for(int i=0;i<n;i++){\n            int val=nums[i];\n            for(int j=0;j<=val;j++){\n                int cur1=j,cur2=(val-j);\n                if(i>0){\n                    int prev2L=(nums[i-1]-j);\n                    int leftL=-1;\n                    int rightR=j;\n                    if(prev2L<cur2) {\n                        int diff=(cur2-prev2L);\n                        rightR-=diff;\n                    }\n                    if(rightR>=0){\n                    dp[i][j]=(pref[i-1][rightR]-(leftL>=0 ? pref[i-1][leftL]: 0));\n                    dp[i][j]%=mod;\n                    }                    \n                }\n                else{\n                    dp[i][j]=1;\n                }\n            }\n            for(int j=0;j<=val;j++) {pref[i][j]=dp[i][j]+(j==0 ? 0 : pref[i][j-1]);pref[i][j]%=mod;}\n        }\n        int ans=0;\n        for(int i=0;i<=1000;i++) {ans+=(dp[n-1][i]);ans%=mod;}\n        return ans;\n    }\n};",
+    "submit_ts": "1723348061",
+    "subm_id": "1351610822"
+}

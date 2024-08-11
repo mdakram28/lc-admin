@@ -1,0 +1,6 @@
+{
+    "username": "Lightning_Mc_Queen",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        # res = [0]\n        n = len(nums)\n        def solve(i, last):\n            # print(i, last)\n            if i == n:\n                # res[0] += 1\n                # print(\"caught\")\n                return 1\n            if (i, last) in dp:\n                return dp[(i, last)]\n            cur = 0\n            if last == None:\n                for k in range(nums[i]+1):\n                    # print(f'from {i} called {i+1, k}')\n                    cur += solve(i+1, k)\n            else:\n                seclast = nums[i-1]-last\n                # print(f'for index {i} seclast is {seclast}')\n                # print(f'index {i}, last {last}, seclast {seclast}')\n                for k in range(nums[i]+1):\n                    if k >= last and nums[i]-k <= seclast:\n                        # print(f'from {i}, called {i+1, k}')\n                        cur += solve(i+1, k)\n            dp[(i, last)] = cur\n            return cur\n        dp = {}\n        res = solve(0, None)%(10**9+7)\n        return res",
+    "submit_ts": "1723346314",
+    "subm_id": "1351574844"
+}

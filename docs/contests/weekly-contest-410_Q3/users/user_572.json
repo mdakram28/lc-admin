@@ -1,0 +1,6 @@
+{
+    "username": "coderchamp07",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int mod = 1e9 + 7;\n        int n = nums.size();\n        vector<int> A, B;\n        \n        vector<vector<int>> dp(2010, vector<int>(51, -1));\n        \n        auto recur = [&](auto&& recur, vector<int>& a, vector<int>& b) -> int {\n            int at = a.size();\n            if(at == n)\n                return 1;\n            \n            int al = (at == 0 ? 0 : a.back());\n            if(dp[at][al] != -1)\n                return dp[at][al];\n            \n            int ans = 0;\n            int ar = nums[at];\n            for(int i = al; i <= ar; i++) {\n                int j = nums[at] - i;\n                if(at > 0 && b.back() < j)\n                    continue;\n                a.push_back(i);\n                b.push_back(j);\n                ans = (ans + recur(recur, a, b)) % mod;\n                a.pop_back();\n                b.pop_back();\n            }\n            return dp[at][al] = ans;\n        };\n        \n        return recur(recur, A, B);\n    }\n};",
+    "submit_ts": "1723344613",
+    "subm_id": "1351538301"
+}

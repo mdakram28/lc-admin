@@ -1,0 +1,6 @@
+{
+    "username": "leoyu0813",
+    "submission": "class Solution {\npublic:\n    const int M = 1e9+7;\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        std::vector<std::vector<long long>> dp(n, std::vector<long long>(55, 0));\n        // Initialize for the first element\n        for (int x = 0; x <= nums[0]; ++x) {\n            dp[0][x] = 1; // Only one valid pair (x, nums[0] - x)\n        }\n\n        // dp [i][x] = dp [i-1][0:x] while arr1 and arr2 is OK\n        // j <= nums[i-1] && nums[i-1]-j >= y\n        for (int i = 1; i < n; ++i)\n        {\n            for (int x = 0, y = nums[i]; x <= nums[i]; ++x, --y) {\n                long long cum_sum = 0;\n                for (int x2 = 0, y2 = nums[i-1]; x2 <= x && y2 >= y ; ++x2, --y2){\n                    cum_sum = (cum_sum + dp[i-1][x2]) % M;\n                }\n                dp[i][x] = cum_sum;\n            }\n        }\n        long long result = 0;\n        for (int x = 0; x < 51; ++x) {\n            result = (result + dp[n-1][x]) % M;\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1723346385",
+    "subm_id": "1351576433"
+}

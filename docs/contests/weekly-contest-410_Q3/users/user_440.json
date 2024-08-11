@@ -1,0 +1,6 @@
+{
+    "username": "astthecoder",
+    "submission": "class Solution {\npublic:\n    long long dp[2001][51], n, mod=1000000007;\n    long long solve(int pos, int prev1, vector<int>& nums){\n        if(pos >= n) return 1;\n        if(dp[pos][prev1]!=-1) return dp[pos][prev1];\n        dp[pos][prev1]=0;\n        for(int i=prev1;i<=nums[pos];i++){\n            int x=nums[pos]-i;\n            // int y = -1;\n            // if(pos)\n            //     y = nums[pos-1]-prev1;\n            // cout<<pos<<\" \"<<prev1<<\" \"<<i<<\" \"<<y<<\" \"<<x<<endl;\n            if(pos && x>nums[pos-1]-prev1) continue;\n            dp[pos][prev1] += solve(pos+1, i, nums);\n            dp[pos][prev1] %= mod;\n        }\n        return dp[pos][prev1];\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        n=nums.size();\n        int ans=solve(0, 0, nums);\n        return ans;\n    }\n};",
+    "submit_ts": "1723346047",
+    "subm_id": "1351569020"
+}

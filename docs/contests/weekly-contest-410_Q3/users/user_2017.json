@@ -1,0 +1,6 @@
+{
+    "username": "Kronos_1066",
+    "submission": "#include <vector>\nusing namespace std;\n\nclass Solution {\n        const long long MOD = 1e9 + 7;\n        long long countPairs(int index, int arr1Value, int arr2Value , vector<vector<vector<long long>>> &dp , vector<int> &values) {\n        int n = dp.size();\n        if (index >= n) return 1;\n        if (dp[index][arr1Value][arr2Value] != -1) return dp[index][arr1Value][arr2Value];\n        long long result = 0;  \n        for (int i = arr1Value; i <= values[index]; i++) {\n            for (int j = arr2Value; j >= 0; --j) {\n                if (i + j == values[index]) {\n                    result += countPairs(index + 1, i, j , dp , values);\n                    result %= MOD;\n                }\n            }\n        }\n        return dp[index][arr1Value][arr2Value] = result;\n    }\n\npublic:\n    long long countOfPairs(vector<int>& values) {\n        int n = values.size();\n        vector<vector<vector<long long>>> dp(n, vector<vector<long long>>(51, vector<long long>(51, -1)));\n        int ans = countPairs(0, 0, values[0] , dp , values);\n        return ans;\n    }\n};\n",
+    "submit_ts": "1723346550",
+    "subm_id": "1351580004"
+}

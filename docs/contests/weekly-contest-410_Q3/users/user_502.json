@@ -1,0 +1,6 @@
+{
+    "username": "cybsbbbb",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        MOD = 10 ** 9 + 7\n        dp_cur = collections.defaultdict(int)\n        for i in range(nums[0] + 1):\n            dp_cur[(i, nums[0] - i)] += 1\n        \n        for j in range(1, n):\n            dp_nxt = collections.defaultdict(int)\n            for i in range(nums[j] + 1):\n                for (front, end), val in dp_cur.items():\n                    if i >= front and (nums[j] - i) <= end:\n                        dp_nxt[(i, nums[j] - i)] += val\n                        dp_nxt[(i, nums[j] - i)] %= MOD\n            dp_cur = dp_nxt\n\n        ans = 0\n        for (front, end), val in dp_cur.items():\n            ans += val\n            ans %= MOD\n        return ans\n        ",
+    "submit_ts": "1723344860",
+    "subm_id": "1351543576"
+}

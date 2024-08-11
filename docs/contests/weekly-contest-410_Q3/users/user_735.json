@@ -1,0 +1,6 @@
+{
+    "username": "Parzival_01",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    ll hell = 1e9+7;\n    ll dp[2001][60];\n    int f(int i,int pre,vector<int>&v){\n        int n = v.size();\n        if(i==n){\n            return 1;\n        }\n        if(dp[i][pre+1]!=-1)return dp[i][pre+1];\n        ll ways = 0;\n        if(i==0){\n            for(int j=0;j<=v[i];j++){\n                ways = (ways+f(i+1,j,v))%hell;\n            }\n        }else{\n            for(int j=0;j<=v[i];j++){\n                if(j>=pre && v[i]-j<=v[i-1]-pre)\n                    ways = (ways + f(i+1,j,v))%hell;\n            }\n        }\n        \n        return dp[i][pre+1]=ways;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        return f(0,-1,nums);\n    }\n};",
+    "submit_ts": "1723344729",
+    "subm_id": "1351540767"
+}

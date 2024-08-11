@@ -1,0 +1,6 @@
+{
+    "username": "pikapika123",
+    "submission": "from typing import List\nimport functools\n\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        inf = float(\"inf\")\n        mod = 10 ** 9 + 7\n\n        @functools.lru_cache(None)\n        def dp(i, pre1):\n            if i == n:\n                return 1\n            pre2 = inf\n            if i > 0:\n                pre2 = nums[i - 1] - pre1\n            ans = 0\n            for x in range(nums[i] + 1):\n                v1, v2 = x, nums[i] - x\n                if v1 >= pre1 and v2 <= pre2:\n                    ans = (ans + dp(i + 1, v1)) % mod\n            return ans\n\n        return dp(0, 0)\n",
+    "submit_ts": "1723344981",
+    "subm_id": "1351546121"
+}

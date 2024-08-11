@@ -1,0 +1,6 @@
+{
+    "username": "IbanKang",
+    "submission": "class Solution {\n       private static final int MOD = 1000000007;\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        int[][] dp = new int[n][51];  // dp[i][x] => number of valid pairs up to index i with arr1[i] = x\n\n        // Initialize dp for the first element\n        for (int x = 0; x <= nums[0]; x++) {\n            int y = nums[0] - x;\n            dp[0][x] = 1;\n        }\n\n        // Fill the dp table\n        for (int i = 1; i < n; i++) {\n            int[][] newDp = new int[n][51];\n            for (int x = 0; x <= nums[i]; x++) {\n                for (int y = 0; y <= nums[i - 1]; y++) {\n                    if (x >= y && (nums[i] - x) <= (nums[i - 1] - y)) {\n                        dp[i][x] = (dp[i][x] + dp[i - 1][y]) % MOD;\n                    }\n                }\n            }\n        }\n\n        // Sum up all valid pairs for the last element\n        int result = 0;\n        for (int x = 0; x <= nums[n - 1]; x++) {\n            result = (result + dp[n - 1][x]) % MOD;\n        }\n\n        return result;\n    }\n}",
+    "submit_ts": "1723345236",
+    "subm_id": "1351551497"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "saikrishna17394",
+    "submission": "class Solution {\n    vector<vector<int>> dp;\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int mod = 1e9 + 7;\n        int lim = 1001;\n\n        dp = vector<vector<int>>(n, vector<int>(lim, 0));\n\n        for (int i = 0; i <= nums[0]; i++) {\n            dp[0][i] = 1;\n        }\n\n        vector<int> cum(lim);\n\n        for (int i = 1; i < n; i++) {\n            \n            for (int val = 0; val <= nums[i]; val++) {\n                cum[val] = 0;\n            }\n\n\n            for (int prev = 0; prev <= nums[i - 1]; prev++) {\n                int cur = prev + max(nums[i] - nums[i - 1], 0);\n\n                if (cur > nums[i]) {\n                    break;\n                }\n\n                cum[cur] += dp[i - 1][prev];\n                cum[cur] %= mod;\n            }\n\n            dp[i][0] = cum[0];\n\n            for (int val = 1; val <= nums[i]; val++) {\n                dp[i][val] = (dp[i][val - 1] + cum[val]) % mod;\n            }\n        }\n\n        int ans = 0;\n\n        for (int cur = 0; cur <= nums[n - 1]; cur++) {\n            ans += dp[n - 1][cur];\n            ans %= mod;\n        }\n\n        return ans;\n\n    }\n};",
+    "submit_ts": "1723345936",
+    "subm_id": "1351566541"
+}

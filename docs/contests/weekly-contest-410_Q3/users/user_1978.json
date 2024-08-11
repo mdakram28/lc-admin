@@ -1,0 +1,6 @@
+{
+    "username": "vansh060605",
+    "submission": "class Solution {\nprivate:\n    vector<vector<vector<long long>>> memo;\n    vector<int> values;\n    const long long mod_val = 1e9 + 7;\n    \n    long long solve(int index, int val1, int val2) {\n        if (index >= values.size()) return 1;\n        if (memo[index][val1][val2] != -1) return memo[index][val1][val2];\n        \n        long long result = 0;\n        for (int i = val1; i <= values[index]; i++) {\n            for (int j = val2; j >= 0; j--) {\n                if (i + j == values[index]) {\n                    result += solve(index + 1, i, j);\n                    result %= mod_val;\n                }\n            }\n        }\n        return memo[index][val1][val2] = result;\n    }\n    \npublic:\n    int countOfPairs(vector<int>& inputValues) {\n        values = inputValues;\n        int size = values.size();\n        memo = vector<vector<vector<long long>>>(size, vector<vector<long long>>(51, vector<long long>(51, -1)));\n        return solve(0, 0, values[0]);\n    }\n};",
+    "submit_ts": "1723346232",
+    "subm_id": "1351573106"
+}

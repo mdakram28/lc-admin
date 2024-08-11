@@ -1,0 +1,6 @@
+{
+    "username": "rashid_sid",
+    "submission": "class Solution {\n    using ll = long long;\n    ll mod = 1e9 + 7;\n    ll solve(vector<int>& nums, vector<vector<vector<ll>>>& dp, int pos,\n              int num1, int num2) {\n        int n = nums.size();\n        if (pos == n) {\n            return 1;\n        }\n        if(dp[pos][num1][num2]!=-1){\n            return dp[pos][num1][num2];\n        }\n        int currnum = nums[pos];\n        ll ans = 0;\n        if (pos == 0) {\n            for (int i = 0; i <= currnum; i++) {\n                ans += (ll)solve(nums, dp, pos + 1, i, currnum - i) % mod;\n            }\n        } else {\n            for (int i = 0; i <= currnum; i++) {\n                if (num1 <= i && num2 >= (currnum - i))\n                    ans += (ll)solve(nums, dp, pos + 1, i, currnum - i) % mod;\n            }\n        }\n        return dp[pos][num1][num2]= (ll)ans % mod;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) { \n        int n = nums.size();\n        vector<vector<vector<ll>>> dp(\n            n, vector<vector<ll>>(52, vector<ll>(52, -1ll)));\n        ll ans = solve(nums, dp, 0, 0, 51) % mod;\n        return (int) ans;\n        // return ans;\n    }\n};",
+    "submit_ts": "1723345860",
+    "subm_id": "1351564859"
+}

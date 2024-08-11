@@ -1,0 +1,6 @@
+{
+    "username": "ableed",
+    "submission": "#define ll long long\n#define vi vector<ll>\nclass Solution\n{\npublic:\n    const ll MOD = 1e9 + 7;\n    const int N = 51;\n    ll f(int posn, vector<int> &v, vector<vector<vi>> &dp, int v1, int v2, ll ans)\n    {\n        // Base Case\n        if (posn >= v.size())\n        {\n            return 1;\n        }\n        // Memo Check\n        if (dp[posn][v1][v2] != -1)\n        {\n            return dp[posn][v1][v2];\n        }\n\n        for (int i = v1; i <= v[posn]; i++)\n        {\n            int sum = 0;\n            for (int j = v2; j >= 0; j--)\n            {\n                sum = i + j;\n                if (v[posn] == sum)\n                {\n                    ans += f(posn + 1, v, dp, i, j, 0);\n                    ans %= MOD;\n                }\n            }\n        }\n\n        return dp[posn][v1][v2] = ans;\n    }\n\n    int countOfPairs(vector<int> &v)\n    {\n        int n = v.size();\n        vector<vector<vi>> dp(n, vector<vi>(N, vi(N, -1)));\n        int res = f(0, v, dp, 0, v[0], 0);\n        return res;\n    }\n};\n",
+    "submit_ts": "1723346300",
+    "subm_id": "1351574539"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "puppy955101",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9+7;\n    int dp[2000][70][70]={};\n    int MAX[2010]={};\n    int cal(vector<int>& nums, int now, int l, int r){\n        if(now>=nums.size())return 1;\n        if(dp[now][l][r])return dp[now][l][r];\n        if(l>MAX[now])return 0;\n        int i;\n        int ct = 0;\n        for(i=0;i<=nums[now] && i<=MAX[now];i++){\n            if(i<l||nums[now]-i>r)continue;\n            ct += cal(nums, now+1, i, nums[now]-i) % mod;\n            ct %= mod;\n        }\n        // cout << now << ' ' << l << ' ' << r << ' ' << ct << endl;\n        dp[now][l][r] = ct;\n        return ct;\n    }\n    int countOfPairs(vector<int>& nums) {\n        // cout << endl;\n        int i;\n        MAX[nums.size()-1] = nums.back();\n        for(i=nums.size()-2;i>=0;i--){\n            MAX[i] = min(MAX[i+1], nums[i]);\n        }\n        // if(nums.size()>500)cout << MAX[0] << endl << endl;\n        int ct = 0;\n        for(i=0;i<=nums[0]&& i<=MAX[0];i++){\n            ct += cal(nums, 1, i, nums[0] - i)% mod;\n            ct %= mod;\n        }\n        return ct;\n    }\n};",
+    "submit_ts": "1723346211",
+    "subm_id": "1351572647"
+}

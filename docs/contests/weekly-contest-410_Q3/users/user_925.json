@@ -1,0 +1,6 @@
+{
+    "username": "faizanhussain2310",
+    "submission": "#define ll long long\n\nclass Solution {\npublic:\n    ll dp[2005][55];\n    ll mod=1e9+7;\n\n    ll helper(ll idx,ll arr1,vector<int> &nums) {\n        if(idx>=(ll)nums.size()) {\n            return 1;\n        }\n\n        if(dp[idx][arr1]!=-1) {\n            return dp[idx][arr1];\n        }\n\n        ll count=0;\n        if(idx==0) {\n            for(int i=0; i<=nums[idx]; i++) {\n                count=(count+helper(idx+1,i,nums))%mod;;\n            }\n        }\n        else {\n            ll lastx=arr1;\n            ll lasty=nums[idx-1]-lastx;\n\n            for(int i=lastx; i<=nums[idx]; i++) {\n                ll newy=nums[idx]-i;\n                if(newy<=lasty) {\n                    count=(count+helper(idx+1,i,nums))%mod;\n                }\n            }\n        }\n\n        return dp[idx][arr1]=count;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        ll n=nums.size();\n        for(int i=0; i<=n; i++) {\n            for(int j=0; j<=52; j++) {\n                dp[i][j]=-1;\n            }\n        }\n\n        ll ans=helper(0,0,nums);\n\n        return ans;\n    }   \n};",
+    "submit_ts": "1723345182",
+    "subm_id": "1351550406"
+}

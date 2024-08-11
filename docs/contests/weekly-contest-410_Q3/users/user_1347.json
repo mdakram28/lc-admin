@@ -1,0 +1,6 @@
+{
+    "username": "ptulugu",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int[][] dp = new int[nums.length][51];\n        int mod = (int)(1e9 + 7);\n\n        for(int i = 0; i < 51; i++) {\n            if(i > nums[0]) break;\n            dp[0][i] = 1;\n        }\n\n        for(int i = 1; i < nums.length; i++) {\n            for(int j = 0; j < 51; j++) {\n                if(j > nums[i]) break;\n                for(int k = 0; k <= j; k++) {\n                    if((nums[i - 1] - k) >= (nums[i] - j)) {\n                        dp[i][j] += dp[i - 1][k] % mod;\n                        dp[i][j] = dp[i][j] % mod;\n                    }\n                }\n            }\n        }\n\n        int total = 0;\n        for(int i = 0; i < 51; i++) {\n            total += dp[nums.length - 1][i];\n            total = total % mod;\n        }\n        return total;\n    }\n}",
+    "submit_ts": "1723345612",
+    "subm_id": "1351559502"
+}

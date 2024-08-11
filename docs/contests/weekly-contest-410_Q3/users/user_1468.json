@@ -1,0 +1,6 @@
+{
+    "username": "CS_MONKS",
+    "submission": "\nclass Solution {\n    const int MOD = 1e9 + 7;\npublic:\n    int solve(vector<int>& nums, int ind, int pa, int pb, int& n, vector<vector<vector<int>>>& dp) {\n        if (ind == n) return 1;\n        if (dp[ind][pa][pb] != -1) return dp[ind][pa][pb];\n        \n        int ans = 0;\n        for (int ca = pa; ca <= nums[ind]; ++ca) {\n            int cb = nums[ind] - ca;\n            if (cb <= pb) {\n                ans = (ans + solve(nums, ind + 1, ca, cb, n, dp)) % MOD;\n            }\n        }\n        return dp[ind][pa][pb] = ans;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return solve(nums, 0, 0, nums[0], n, dp);\n    }\n};",
+    "submit_ts": "1723345802",
+    "subm_id": "1351563641"
+}

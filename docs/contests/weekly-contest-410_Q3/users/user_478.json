@@ -1,0 +1,6 @@
+{
+    "username": "alexzhang13",
+    "submission": "#define ll long long\n\nclass Solution {\npublic:\n    const ll MOD = 1e9 + 7;\n    const int MAXK = 51;\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n\n        vector<vector<ll>> dp(n, vector<ll>(MAXK, 0));\n\n        for (int k = 0; k <= nums[0]; k++) {\n            dp[0][k] = 1;\n        }\n\n        for (int i = 1; i < n; i++) {\n            for (int k = 0; k <= nums[i]; k++) {\n                for (int ki = 0; ki <= nums[i-1]; ki++) {\n                    if (k >= ki && (nums[i] - k <= nums[i-1] - ki)) {\n                        dp[i][k] = (dp[i][k] + dp[i-1][ki]) % MOD;\n                    }\n                }\n            }\n        }\n\n        ll total = 0;\n        for (int i = 0; i < MAXK; i++) {\n            total = (total + dp[n-1][i]) % MOD;\n        }\n\n        return (int) total;\n    }\n};\n",
+    "submit_ts": "1723346411",
+    "subm_id": "1351576997"
+}

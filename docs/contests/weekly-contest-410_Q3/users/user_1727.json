@@ -1,0 +1,6 @@
+{
+    "username": "thisUnkn0wn",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        modulo = 1000000007\n        ans_dct = {}\n        def go(idx, a, b):\n            if idx == len(nums):\n                return 1\n            if (idx, a, b) in ans_dct:\n                return ans_dct[(idx, a, b)]\n            val = nums[idx]\n            if a > val:\n                return 0\n            min_a = max(a,val-b)\n            tot = 0\n            for i in range(min_a, val+1):\n                if val-i <= b:\n                    tot += go(idx+1, i, val-i)\n            ans_dct[(idx, a, b)] = tot\n            return tot\n        count = 0    \n        for i in range(nums[0]+1):\n            count += go(1, i, nums[0]-i)\n        return count % modulo",
+    "submit_ts": "1723346176",
+    "subm_id": "1351571891"
+}

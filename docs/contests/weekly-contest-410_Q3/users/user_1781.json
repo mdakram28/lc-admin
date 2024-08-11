@@ -1,0 +1,6 @@
+{
+    "username": "sushanth24",
+    "submission": "class Solution {\npublic:\n    int m = 1e9+7;\n    int recurr(vector<vector<int>> &dp, vector<int> &nums, int ind,int prev){\n        if(ind == nums.size()){\n            return 1;\n        }\n        \n        if(dp[ind][prev] != -1) return dp[ind][prev];\n        int ans = 0;\n        int sarr = INT_MAX;\n        if(ind > 0) {\n            sarr = nums[ind-1] - prev;\n        }\n        for(int i = prev;i <= nums[ind];i++) {\n            if(sarr < (nums[ind] - i)) {\n                continue;\n            }\n            int temp = recurr(dp,nums,ind+1,i);\n            ans = ( (temp%m) + (ans%m) )%m;\n        }\n        return dp[ind][prev] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        \n        vector<vector<int>> dp(n , vector<int>(51,-1));\n        recurr(dp,nums,0,0);\n        // for(int i = 0;i<n;i++) {\n        //     for(int j = 0;j<=10;j++) {\n        //         cout << dp[i][j] << \" \";\n        //     }\n        //     cout << endl;\n        // }\n        return dp[0][0];\n    }\n};",
+    "submit_ts": "1723346567",
+    "subm_id": "1351580372"
+}

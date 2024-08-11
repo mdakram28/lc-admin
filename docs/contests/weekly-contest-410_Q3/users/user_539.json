@@ -1,0 +1,6 @@
+{
+    "username": "yangwangpku",
+    "submission": "#define MOD 1000000007\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int dp[n][51];        // the last number in arr[1] == j\n        \n        memset(dp,0,n*51*sizeof(int));\n        \n        for(int j=0;j<=50;j++)  dp[0][j] = (j<=nums[0]);\n        \n        for(int i=1;i<n;i++) {\n            for(int j=0;j<=nums[i-1];j++) {\n                for(int k=j;k<=nums[i];k++) {\n                    if(nums[i-1]-j >= nums[i]-k) {\n                        dp[i][k] += dp[i-1][j];\n                        dp[i][k] %= MOD;\n                    }\n                }\n            }\n        }\n        \n        int ret = 0;\n        for(int j=0;j<=50;j++) {\n            ret+=dp[n-1][j];\n            ret%=MOD;\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1723347483",
+    "subm_id": "1351599670"
+}

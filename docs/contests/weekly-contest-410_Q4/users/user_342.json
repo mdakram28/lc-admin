@@ -1,0 +1,6 @@
+{
+    "username": "mazinkarjikar",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        dp = []\n        pref = []\n        m = int(1e9+7)\n        for i in range(len(nums)):\n            dp.append([0 for _ in range(nums[i]+1)])\n            pref.append([0 for _ in range(nums[i]+2)])\n            if i == 0:\n                for j in range(nums[i]+1):\n                    dp[0][j] = 1\n            else:\n                for j in range(nums[i]+1):\n                    min_j = j\n                    y = nums[i] - j\n                    min_top = nums[i-1] - y\n                    lower_bound = min(min_top, j)\n                    # if i == 1 and j == 3: print(lower_bound, j, min_top)\n                    if lower_bound < 0: continue\n                    lower_bound = min(lower_bound, nums[i-1])\n                    if lower_bound+1 <= nums[i-1]+1: dp[i][j] = (dp[i][j] + pref[i-1][lower_bound+1]) % m\n            # populate prefix sum\n            for j in range(nums[i]+1):\n                pref[i][j+1] = pref[i][j] + dp[i][j]\n            \n        # print(dp)\n        # print(pref)\n        tot = 0\n        for x in dp[-1]:\n            tot = (tot + x) % m\n        return tot",
+    "submit_ts": "1723346842",
+    "subm_id": "1351586337"
+}

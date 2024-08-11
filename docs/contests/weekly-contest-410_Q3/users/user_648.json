@@ -1,0 +1,6 @@
+{
+    "username": "SUVU01",
+    "submission": "class Solution {\n#define ll long long\n#define mod (long long)(pow(10, 9) + 7)\n    ll solve(int i, int prev, int &n, vector<int> &nums, vector<vector<ll>> &dp)\n    {\n        if(i == n)\n            return 1;\n        if(dp[i][prev] != -1)\n            return dp[i][prev];\n        ll curr = 0;\n        if(i == 0)\n        {\n            for(int j = 0; j <= nums[i]; j++)\n                curr += solve(i + 1, j, n, nums, dp) % mod, curr %= mod;\n            return dp[i][prev] = curr;\n        }\n        else\n        {\n            for(int j = prev; j <= nums[i]; j++)\n            {\n                ll second_prev = nums[i - 1] - prev;\n                if(nums[i] - j <= second_prev)\n                    curr += solve(i + 1, j, n, nums, dp) % mod, curr %= mod;\n            }\n            return dp[i][prev] = curr;\n        }\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<ll>> dp(n, vector<ll> (51, -1));\n        return solve(0, 0, n, nums, dp);\n    }\n};",
+    "submit_ts": "1723344224",
+    "subm_id": "1351529441"
+}

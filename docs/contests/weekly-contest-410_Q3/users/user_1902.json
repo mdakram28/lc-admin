@@ -1,0 +1,6 @@
+{
+    "username": "azanulhaque",
+    "submission": "const MOD int64 = 1e9 + 7\n\nfunc countOfPairs(nums []int) int {\n    n := len(nums)\n    \n    dp := make([][][]int64, n)\n    for i := range dp {\n        dp[i] = make([][]int64, 51)\n        for j := range dp[i] {\n            dp[i][j] = make([]int64, 51)\n            for k := range dp[i][j] {\n                dp[i][j][k] = -1\n            }\n        }\n    }\n\n    return int(computePairs(0, 0, nums[0], nums, dp))\n}\n\nfunc computePairs(currentIndex, prevValue1, prevValue2 int, nums []int, dp [][][]int64) int64 {\n    if currentIndex >= len(nums) {\n        return 1\n    }\n\n    if dp[currentIndex][prevValue1][prevValue2] != -1 {\n        return dp[currentIndex][prevValue1][prevValue2]\n    }\n\n    var result int64 = 0\n    for i := prevValue1; i <= nums[currentIndex]; i++ {\n        for j := prevValue2; j >= 0; j-- {\n            if i+j == nums[currentIndex] {\n                result += computePairs(currentIndex+1, i, j, nums, dp)\n                result %= MOD\n            }\n        }\n    }\n\n    dp[currentIndex][prevValue1][prevValue2] = result\n    return result\n}\n",
+    "submit_ts": "1723346722",
+    "subm_id": "1351583769"
+}

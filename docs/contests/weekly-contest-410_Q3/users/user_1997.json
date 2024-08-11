@@ -1,0 +1,6 @@
+{
+    "username": "pathToPro",
+    "submission": "\npublic class Solution {\n    private static final int MOD = 1000000007;\n    private Map<String, Integer> memo = new HashMap<>();\n    public int countOfPairs(int[] nums) {\n        return backtrack(0, -1, Integer.MAX_VALUE, nums);\n    }\n    private int backtrack(int i, int s, int e, int[] nums) {\n        if (i == nums.length) {\n            return 1;\n        }\n        String key = i + \",\" + s + \",\" + e;\n        if (memo.containsKey(key)) {\n            return memo.get(key);\n        }\n\n        int count = 0;\n        for (int a = 0; a <= nums[i]; a++) {\n            int b = nums[i] - a;\n            if ((i == 0 || s<= a) && (i == 0 || e >= b)) {\n                count = (count + backtrack(i + 1, a, b, nums)) % MOD;\n            }\n        }\n        memo.put(key, count);\n        return count;\n    }\n}\n",
+    "submit_ts": "1723346831",
+    "subm_id": "1351586082"
+}

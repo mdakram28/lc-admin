@@ -1,0 +1,6 @@
+{
+    "username": "0x2c7",
+    "submission": "func countOfPairs(nums []int) int {\n    maxNum := slices.Max(nums)\n    counts := make([][]int, maxNum + 1)\n    for n := 0; n <= maxNum; n++ {\n        counts[n] = make([]int, len(nums))\n        counts[n][0] = 1\n    }\n    m := 1000000007\n    for i := 1; i < len(nums); i++ {\n        for x := 0; x <= nums[i]; x++ {\n            y := nums[i] - x\n            j := min(x, nums[i - 1] - y)\n            for j >= 0 {\n                counts[x][i] = (counts[x][i] + counts[j][i - 1] % m) % m\n                j--\n            }\n        }\n    }\n    total := 0\n    for x := 0; x <= nums[len(nums) - 1]; x++ {\n        total = (total + counts[x][len(nums) - 1] % m) % m\n    }\n    return total\n}",
+    "submit_ts": "1723346576",
+    "subm_id": "1351580610"
+}

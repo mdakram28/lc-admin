@@ -1,0 +1,6 @@
+{
+    "username": "pankaj_777",
+    "submission": "const int mod = 1e9 + 7;\nconst int N = 2001;\nclass Solution {\npublic:\n    int dp[N][55];\n    int fun(int idx, int prev1, int n, vector<int>& nums) {\n        if (idx == nums.size()) return 1;\n        if (dp[idx][prev1] >= 0) return dp[idx][prev1];\n        \n        int res = 0;\n        if (idx == 0) {\n            for (int num1 = 0; num1 <= nums[idx]; num1++) {\n                res += fun(idx + 1, num1, n, nums);\n                res %= mod;\n            }\n        } else {\n            int prev2 = nums[idx - 1] - prev1;\n            for (int num1 = prev1; num1 <= nums[idx]; num1++) {\n                if (nums[idx] - num1 <= prev2) {\n                    res += fun(idx + 1, num1, n, nums);\n                    res %= mod;\n                }\n            }\n        }\n        return dp[idx][prev1] = res;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        return fun(0, 0, n, nums);\n    }\n};",
+    "submit_ts": "1723344452",
+    "subm_id": "1351534760"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "sethish_123",
+    "submission": "class Solution {\npublic:\n    int dp[2001][51];\n    int mod = 1e9+7;\n    int func(vector<int>&nums, int i, int last) {\n        if (i == nums.size()) return 1;\n        if (last != -1 && dp[i][last] != -1) return dp[i][last];\n        if (last != -1 && (nums[i] < last)) return 0;\n        long long ans = 0;\n        if (last == -1) {\n            for(int k = 0; k <= nums[i]; ++k) {\n                ans += (func(nums, i+1, k)%mod);\n            }\n        } else {\n            for(int k = last; k <= nums[i]; ++k) {\n                if (nums[i]-k > nums[i-1]-last) continue;\n                ans += (func(nums, i+1, k)%mod);\n            }\n        }\n        if (last != -1) dp[i][last] = ans%mod;\n        return ans%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return func(nums, 0, -1)%mod;\n    }\n};",
+    "submit_ts": "1723346594",
+    "subm_id": "1351581006"
+}

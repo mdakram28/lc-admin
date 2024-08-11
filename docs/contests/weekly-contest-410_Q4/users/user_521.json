@@ -1,0 +1,6 @@
+{
+    "username": "qingzhi2012",
+    "submission": "public class Solution {\n    public int CountOfPairs(int[] nums) {\n                    const int mode = 1_000_000_007;\n            long[] dp1 = new long[1001], dp2 = new long[1001];\n            for (int i = 0; i < 1001; i++)\n            {\n                dp1[i] = 1;\n            }\n\n            var n = nums.Length;\n            for (int i = 0; i < n; i++)\n            {\n                var pre = i > 0 ? nums[i - 1] : nums[0];\n                for (int j = 0; j < 1001; j++)\n                {\n                    var cur = Math.Min(pre - nums[i] + j, j);\n                    if (cur < 0)\n                        dp2[j] = 0;\n                    else\n                    {\n                        dp2[j] = dp1[cur];\n                    }\n\n                    if (j > 0)\n                        dp2[j] = (dp2[j] + dp2[j - 1]) % mode;\n                }\n\n                (dp1, dp2) = (dp2, dp1);\n            }\n\n            return (int) dp1[nums[n - 1]];\n    }\n}",
+    "submit_ts": "1723348481",
+    "subm_id": "1351619152"
+}

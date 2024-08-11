@@ -1,0 +1,6 @@
+{
+    "username": "mohitsharma55337",
+    "submission": "#include <vector>\n\nclass Solution {\n    const int MOD = 1e9 + 7;\n    int dp[2001][51];\npublic:\n    int countValidPairs(int i, int pv, const vector<int>& nums) {\n        if (i == nums.size()) {\n            return 1; \n        }\n        if(dp[i][pv]!=-1)return dp[i][pv];\n        int totalCount = 0;\n        int maxPossibleValue = (i == 0) ? 1e9 : nums[i - 1] - pv;\n\n        for (int currentValue = pv; currentValue <= nums[i]; ++currentValue) {\n            int difference = nums[i] - currentValue;\n            if (difference >= 0 && difference <= maxPossibleValue) {\n                totalCount = (totalCount + countValidPairs(i + 1, currentValue, nums)) % MOD;\n            }\n        }\n        return dp[i][pv]=totalCount;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        return countValidPairs(0, 0, nums);\n    }\n};\n",
+    "submit_ts": "1723346626",
+    "subm_id": "1351581662"
+}

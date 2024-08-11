@@ -1,0 +1,6 @@
+{
+    "username": "WRWRW",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        mod = int(1e9 + 7)\n        @lru_cache(None)\n        def go(i, p1, p2):\n            # print('  '* i, p1, p2)\n            if i == n:\n                return 1\n            res = 0\n            for pp1 in range(p1, nums[i] + 1):\n                pp2 = nums[i] - pp1\n                # print('  '* i, p1, p2, pp1, pp2)\n                if pp2 <= p2: \n                    res = (res + go(i + 1, pp1, pp2)) % mod\n            # print('  '* i, p1, p2, 'res', res)\n            return res\n\n        res = 0\n        for p1 in range(nums[0] + 1):\n            res = (res + go(1, p1, nums[0] - p1)) % mod\n        return res",
+    "submit_ts": "1723345292",
+    "subm_id": "1351552667"
+}

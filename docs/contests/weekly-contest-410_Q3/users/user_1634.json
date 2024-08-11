@@ -1,0 +1,6 @@
+{
+    "username": "Sixtycat",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        visited = dict()\n        result = self.dfs(nums, 0, 0, nums[0], visited)\n\n        # print(visited)\n        return result % (10 **9 + 7)\n\n    def dfs(self, nums, cur_idx, arr1_min, arr2_max, visited):\n        cur_key = (cur_idx, arr1_min, arr2_max)\n        if cur_key in visited:\n            return visited[cur_key]\n\n        if cur_idx == len(nums) - 1:\n            tgt = nums[cur_idx]\n            result = 0\n            for val1 in range(arr1_min, tgt + 1):\n                val2 = tgt - val1\n                if 0 <= val2 <= arr2_max:\n                    result += 1\n\n            visited[cur_key] = result\n            return visited[cur_key]\n\n        else:\n            tgt = nums[cur_idx]\n            result = 0\n            for val1 in range(arr1_min, tgt + 1):\n                val2 = tgt - val1\n                if 0 <= val2 <= arr2_max:\n                    result += self.dfs(nums, cur_idx + 1, val1, val2, visited)\n\n            visited[cur_key] = result\n            return visited[cur_key]",
+    "submit_ts": "1723345748",
+    "subm_id": "1351562505"
+}

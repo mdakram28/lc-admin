@@ -1,0 +1,6 @@
+{
+    "username": "kalawategopal25",
+    "submission": "class Solution {\npublic:\n    int m = 1e9 + 7;\n    int dp[2001][51];\n    int solve(int currIdx,int prev1,vector <int> &nums){\n        if(currIdx==nums.size()){\n            return 1;\n        }\n        int prev2 = INT_MAX;\n        if(currIdx!=0){\n            prev2 = nums[currIdx-1] - prev1;\n        } \n\n        if(dp[currIdx][prev1]!=-1){\n            return dp[currIdx][prev1]%m;\n        }  \n\n        int ans = 0;\n\n        for(int i=0;i<=nums[currIdx];i++){ // we shall give i to prev1\n            if(i >= prev1 && nums[currIdx]-i <= prev2){\n                ans = ((ans%m) + (solve(currIdx+1,i,nums)%m))%m;\n            }\n        }\n\n        return dp[currIdx][prev1] = ans%m;\n    }\n    int countOfPairs(vector<int>& nums) {\n        for(int i=0;i<2001;i++){\n            for(int j=0;j<51;j++){\n                dp[i][j] = -1;\n            }\n        }\n        return solve(0,0,nums);\n    }\n};",
+    "submit_ts": "1723347050",
+    "subm_id": "1351590836"
+}

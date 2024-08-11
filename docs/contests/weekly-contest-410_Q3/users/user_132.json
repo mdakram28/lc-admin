@@ -1,0 +1,6 @@
+{
+    "username": "BtwdkEHOy2",
+    "submission": "const int N = 2e3 + 3;\nconst int MOD = 1e9 + 7;\n    \nclass Solution {\npublic:\n    int dp[N][55], a[N];\n    int countOfPairs(vector<int>& nums) {\n        \n        int n = (int)nums.size();\n        for(int i = 0; i < (int)nums.size(); i++)\n            a[i + 1] = nums[i];\n\n        for(int i = 0; i <= a[1]; i++)\n            dp[1][i] = 1;\n        \n        for(int i = 2; i <= n; i++)\n        {\n            for(int cur = 0; cur <= a[i]; cur++)\n            {\n                for(int prev = 0; prev <= min(cur, a[i - 1]); prev++)\n                {\n                    int prev2 = a[i - 1] - prev;\n                    int cur2 = a[i] - cur;\n                    if(cur2 <= prev2)\n                    {\n                        (dp[i][cur] += dp[i - 1][prev]) %= MOD;\n                    }\n                }\n            }\n        }\n        int ans = 0;\n        for(int i = 0; i <= a[n]; i++)\n            (ans += dp[n][i]) %= MOD;\n        return ans;\n    }   \n};",
+    "submit_ts": "1723344472",
+    "subm_id": "1351535247"
+}

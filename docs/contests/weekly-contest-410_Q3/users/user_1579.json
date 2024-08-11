@@ -1,0 +1,6 @@
+{
+    "username": "_r0ot_",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        md = 10**9 + 7\n        dp = {}\n        def helper(i, p1, p2):\n            if i == n:\n                return 1\n            if (i, p1, p2) in dp:\n                return dp[(i, p1, p2)]\n            ans = 0\n            st = max(0, p1)\n            end = nums[i] + 1\n            for opt in range(max(p1, 0), end):\n                np1 = opt\n                np2 = nums[i] - np1\n                \n                sub = 0\n                if np1 >= p1 and np2 <= p2:\n                    sub = helper(i + 1, np1, np2)\n                    \n                    ans += sub\n                    ans %= md\n            dp[(i, p1, p2)] = ans\n            return ans\n        return helper(0, -1, float('inf'))",
+    "submit_ts": "1723345966",
+    "subm_id": "1351567208"
+}

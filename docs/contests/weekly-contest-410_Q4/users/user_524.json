@@ -1,0 +1,6 @@
+{
+    "username": "satyamshrma",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        m = max(nums)+1\n        n = len(nums)\n        dp = [0]*m\n        dp2 = [0]*m\n        for i in range(nums[0]+1):\n            dp[i]=1\n            dp2[nums[0]-i]=1\n        # print(dp,dp2)\n        for j in range(1,m):\n            dp[j]+=dp[j-1]\n            dp2[m-1-j]+=dp2[m-j]\n        # print(dp,dp2)\n        for i in range(1,n):\n            dpp = [0]*m\n            dpp2 = [0]*m\n            for j in range(nums[i]+1):\n                dpp[j] += min(dp[j], dp2[nums[i]-j])\n                dpp2[j] += min(dp[nums[i]-j], dp2[j])\n\n            for j in range(1,m):\n                dpp[j]+=dpp[j-1]\n                dpp2[m-1-j]+=dpp2[m-j]\n            dp, dp2 = dpp, dpp2\n                \n        # print(dp,dp2)\n        return dp[nums[-1]]%(10**9+7)",
+    "submit_ts": "1723347317",
+    "subm_id": "1351596377"
+}

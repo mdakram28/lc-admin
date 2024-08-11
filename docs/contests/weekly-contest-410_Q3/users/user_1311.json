@@ -1,0 +1,6 @@
+{
+    "username": "gtzafw",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        # when nums[i] - nums[i-1] > 0, the non-increasing array should decrease by at least nums[i] - nums[i-1]\n        mod = 10**9 + 7\n        n = len(nums)\n        @cache\n        def dfs(p, last):\n            ans = 0\n            if p == n or last < 0:\n                return 1\n            if p == 0 or nums[p] >= nums[p-1]:\n                for i in range(last + 1):\n                    ans += dfs(p+1, i)\n                return ans\n            else:\n                for i in range(last - (nums[p-1] - nums[p]) + 1):\n                    ans += dfs(p+1, i)\n                return ans\n            \n        return dfs(0, nums[0]) % mod",
+    "submit_ts": "1723345858",
+    "subm_id": "1351564815"
+}

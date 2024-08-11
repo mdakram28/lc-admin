@@ -1,0 +1,6 @@
+{
+    "username": "randle999",
+    "submission": "class Solution {\n    fun countOfPairs(nums: IntArray): Int {\n        val n = nums.size\n        val N = 50\n        val MOD = 1_000_000_007\n\n        val dp = MutableList(n) { MutableList(N + 1) { 0 } }\n        for (i in 0..nums[0]) {\n            dp[0][i] = 1\n        }\n\n        for (pos in 1 until n) {\n            for (last in 0..nums[pos]) {\n                for (x in 0..last) {\n                    val y = nums[pos - 1] - x\n                    val otherLast = nums[pos] - last\n                    if (y < otherLast) continue\n                    dp[pos][last] += dp[pos - 1][x]\n                    dp[pos][last] %= MOD\n                }\n            }\n        }\n\n        var ans = 0\n        for (i in 0..N) {\n            ans += dp.last()[i]\n            ans %= MOD\n        }\n        return ans\n    }\n}",
+    "submit_ts": "1723345176",
+    "subm_id": "1351550279"
+}

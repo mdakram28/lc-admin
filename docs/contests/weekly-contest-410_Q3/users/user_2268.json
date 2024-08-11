@@ -1,0 +1,6 @@
+{
+    "username": "whateverrudra",
+    "submission": "class Solution {\n    public int countOfPairs(int[] values) {\n        int size = values.length;\n        long[][][] dp = new long[size][51][51];\n        for (long[][] res : dp) {\n            for (long[] low : res) Arrays.fill(low, -1);\n        }\n        return (int) helper(0, 0, values[0], values, dp);\n    }\n    \n   public long helper(int idx, int p1, int p2, int[] values, long[][][] dp) {\n        if (idx >= values.length) return 1;\n    \n        long res = 0;\n        long Val = 1000000007L;\n        \n        if (dp[idx][p1][p2] != -1) return dp[idx][p1][p2];\n\n        for (int i = p1; i <= values[idx]; i++) {\n            for (int j = p2; j >= 0; j--) \n                if (i + j == values[idx]) {\n                    res += helper(idx + 1, i, j, values, dp);\n                    res %= Val;\n                }\n        }\n            return dp[idx][p1][p2] = res;\n    }\n}\n",
+    "submit_ts": "1723347129",
+    "subm_id": "1351592514"
+}

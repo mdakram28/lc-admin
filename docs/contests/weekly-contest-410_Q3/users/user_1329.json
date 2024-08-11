@@ -1,0 +1,6 @@
+{
+    "username": "akshit_vashishtha",
+    "submission": "class Solution {\npublic:\n\n    const int MOD=1000000007;\n\n    int solve(vector<int>& nums, int n, int i, int prev_ai, int prev_bi, vector<vector<vector<int>>>& memo) {\n        if (i == n) {\n            return 1;\n        }\n\n        if (memo[i][prev_ai][prev_bi] != -1) {\n            return memo[i][prev_ai][prev_bi];\n        }\n\n        int count = 0;\n        for (int j = 0; j <= nums[i]; ++j) {\n            int ai = j;\n            int bi = nums[i] - j;\n            if (i == 0 || (prev_ai <= ai && prev_bi >= bi)) {\n                count = (count+(solve(nums, n, i + 1, ai, bi, memo)%MOD))%MOD;\n            }\n        }\n\n\n        memo[i][prev_ai][prev_bi] = count;\n        return count;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int max_val = *max_element(nums.begin(), nums.end());\n        \n        vector<vector<vector<int>>> memo(n, vector<vector<int>>(max_val + 1, vector<int>(max_val + 1, -1)));\n        \n        return solve(nums, n, 0, 0, 0, memo);\n    }\n};\n",
+    "submit_ts": "1723345882",
+    "subm_id": "1351565372"
+}

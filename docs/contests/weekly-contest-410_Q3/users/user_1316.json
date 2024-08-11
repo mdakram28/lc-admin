@@ -1,0 +1,6 @@
+{
+    "username": "itsakashjha",
+    "submission": "class Solution {\npublic:\n    int dp[2001][51];\n    int solve(vector<int>& nums, int n, int i, int prev){\n        if(i==n){\n            return 1;\n        }else if(dp[i][prev]!=-1){\n            return dp[i][prev];\n        }\n        int ans=0,mod=1e9+7;\n        for(int cur=prev;cur<=nums[i];cur++){\n            if(i!=0&&nums[i]-cur<=nums[i-1]-prev){\n                (ans+=solve(nums,n,i+1,cur))%=mod;\n            }else if(i==0){\n                (ans+=solve(nums,n,i+1,cur))%=mod;\n            }\n        }\n        return dp[i][prev]=ans%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        return solve(nums,nums.size(),0,0);\n    }\n};",
+    "submit_ts": "1723345864",
+    "subm_id": "1351564960"
+}

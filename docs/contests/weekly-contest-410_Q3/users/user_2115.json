@@ -1,0 +1,6 @@
+{
+    "username": "surendrapokala111",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int maxVal = *max_element(nums.begin(), nums.end());\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(maxVal + 1, vector<int>(maxVal + 1, -1)));\n        return solve(0, 0, maxVal, nums, n, dp);\n    }\n\nprivate:\n    int solve(int j, int prev1, int prev2, vector<int>& nums, int n, vector<vector<vector<int>>>& dp) {\n        if (j == n) return 1;\n\n        if (dp[j][prev1][prev2] != -1) return dp[j][prev1][prev2];\n\n        int res = 0;\n        for (int i = 0; i <= nums[j]; ++i) {\n            int arr1_j = i;\n            int arr2_j = nums[j] - i;\n\n            if (arr1_j >= prev1 && arr2_j <= prev2) {\n                res = (res + solve(j + 1, arr1_j, arr2_j, nums, n, dp)) % mod;\n            }\n        }\n\n        return dp[j][prev1][prev2] = res;\n    }\n};",
+    "submit_ts": "1723346969",
+    "subm_id": "1351589094"
+}

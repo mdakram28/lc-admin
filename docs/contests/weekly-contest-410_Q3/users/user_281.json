@@ -1,0 +1,6 @@
+{
+    "username": "sanketjaipuriar",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n    int n;\n    vector<vector<int>> dp;\n    int rec(int idx, int l1, vector<int> &nums) {\n        if (idx == n) {\n            return 1;\n        }\n        if (dp[idx][l1] != -1) {\n            return dp[idx][l1];\n        }\n        int l2 = nums[idx];\n        if (idx != 0) {\n            l2 = nums[idx - 1] - l1;\n        }\n        int t1 = l1;\n        int t2 = nums[idx] - l2;\n        int t = max(t1, t2);\n        int ans = 0;\n        for (int i = t; i <= nums[idx]; i++) {\n            ans = (0ll + ans + rec(idx + 1, i, nums)) % mod;\n        }\n        return dp[idx][l1] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        dp.assign(n, vector<int> (51, -1));\n        int ans = rec(0, 0, nums);\n        return ans;\n    }\n};",
+    "submit_ts": "1723345290",
+    "subm_id": "1351552633"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "yuvrajsahni3",
+    "submission": "#include <vector>\n#include <functional>\nusing namespace std;\n\n#define MOD 1000000007\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& values) {\n        int size = values.size();\n        vector<vector<vector<long long>>> memo(size, vector<vector<long long>>(51, vector<long long>(51, -1)));\n        \n        function<long long(int, int, int)> solve = [&](int index, int val1, int val2) -> long long {\n            if (index >= size) return 1;\n            \n            if (memo[index][val1][val2] != -1) return memo[index][val1][val2];\n            \n            long long result = 0;\n            for (int i = val1; i <= values[index]; i++) {\n                for (int j = val2; j >= 0; j--) {\n                    if (i + j == values[index]) {\n                        result = (result + solve(index + 1, i, j)) % MOD;\n                    }\n                }\n            }\n            \n            return memo[index][val1][val2] = result;\n        };\n\n        return solve(0, 0, values[0]);\n    }\n};\n",
+    "submit_ts": "1723347012",
+    "subm_id": "1351590007"
+}

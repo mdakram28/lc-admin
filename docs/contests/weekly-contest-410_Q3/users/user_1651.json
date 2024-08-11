@@ -1,0 +1,6 @@
+{
+    "username": "harsh17trada",
+    "submission": "class Solution {\npublic:\n    int func(int ind, int prev, vector<vector<int>>& dp, vector<int>& nums) {\n        if (ind >= nums.size()) {\n            return 1;\n        }\n        if (dp[ind][prev + 1] != -1) {\n            return dp[ind][prev + 1];\n        }\n        \n        int ans = 0;\n        int n = nums[ind];\n        const int MOD = 1e9 + 7;\n        \n        for (int i = 0; i <= n; i++) {\n            if (prev==-1 || ((prev>=(n-i)&&(i>=(nums[ind-1]-prev))))) {\n                ans = (ans + func(ind + 1, n - i, dp, nums)) % MOD;\n            }\n        }\n        \n        return dp[ind][prev + 1] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int max_num = *max_element(nums.begin(), nums.end());\n        vector<vector<int>> dp(nums.size()+1, vector<int>(max_num + 2, -1));\n        return func(0, -1, dp, nums);\n    }\n    \n};",
+    "submit_ts": "1723346377",
+    "subm_id": "1351576240"
+}

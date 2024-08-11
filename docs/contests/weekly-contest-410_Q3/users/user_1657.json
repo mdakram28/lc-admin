@@ -1,0 +1,6 @@
+{
+    "username": "Samrach",
+    "submission": "#define MOD 1000000007\n\nint countOfPairs(int* nums, int numsSize) {\n    int dp[numsSize][51];\n    int result = 0;\n\n    for (int i = 0; i < numsSize; i++) {\n        for (int j = 0; j <= 50; j++) {\n            dp[i][j] = 0;\n        }\n    }\n\n    for (int j = 0; j <= nums[0]; j++) {\n        dp[0][j] = 1;\n    }\n\n    // Fill the DP table\n    for (int i = 1; i < numsSize; i++) {\n        for (int j = 0; j <= nums[i]; j++) {\n            int arr2_val = nums[i] - j;\n            if (arr2_val >= 0 && arr2_val <= 50) {\n                for (int k = 0; k <= j; k++) {  // ensure arr1[i-1] <= arr1[i]\n                    if (arr2_val <= nums[i-1] - k) {  // ensure arr2[i] <= arr2[i-1]\n                        dp[i][j] = (dp[i][j] + dp[i-1][k]) % MOD;\n                    }\n                }\n            }\n        }\n    }\n\n    for (int j = 0; j <= 50; j++) {\n        result = (result + dp[numsSize-1][j]) % MOD;\n    }\n\n    return result;\n}",
+    "submit_ts": "1723346095",
+    "subm_id": "1351570078"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "zeningc",
+    "submission": "class Solution {\n    Long[][][] mem;\n    int[] nums;\n    int mod = (int)1e9 + 7;\n    public int countOfPairs(int[] nums) {\n        this.nums = nums;\n        mem = new Long[52][52][nums.length];\n        return (int)(dfs(0, 50, 0) % mod);\n    }\n    \n    long dfs(int start1, int start2, int i) {\n        if (i >= nums.length)\n            return 1;\n        \n        if (mem[start1][start2][i] != null)\n            return mem[start1][start2][i];\n        long ans = 0;\n        for (int j = 0; j <= nums[i]; j++)  {\n            if (j < start1)\n                continue;\n            if (nums[i] - j > start2)\n                continue;\n            ans = (ans + dfs(j, nums[i] - j, i + 1)) % mod;\n        }\n        mem[start1][start2][i] = ans;\n        return ans;\n    }\n}",
+    "submit_ts": "1723344698",
+    "subm_id": "1351540134"
+}

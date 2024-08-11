@@ -1,0 +1,6 @@
+{
+    "username": "dream_boy",
+    "submission": "const int M = 1e9 + 7;\n\nclass Solution {\n    void madd(int& a, int b) {\n        a += b;\n        if (a >= M) a -= M;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        auto f = [&](auto& self, int p, int a, int b) -> int {\n            if (p == n) return 1;\n            if (dp[p][a][b] != -1) return dp[p][a][b];\n\n            int res = 0;\n            for (int i = a; i <= nums[p]; i++)\n                if (nums[p] - i <= b)\n                    madd(res, self(self, p + 1, i, nums[p] - i));\n            return dp[p][a][b] = res;\n            };\n\n        return f(f, 0, 0, 50);\n    }\n};",
+    "submit_ts": "1723343905",
+    "subm_id": "1351521424"
+}

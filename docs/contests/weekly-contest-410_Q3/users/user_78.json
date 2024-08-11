@@ -1,0 +1,6 @@
+{
+    "username": "Sanath_Kulla",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n         int n = nums.size();\n         int N = 0;\n        for(auto it:nums)N = max(N , it);\n        N++;\n        nums.push_back(0);\n        using ll = long long;\n        vector<ll> dp(N , 0) , suf(N , 0);\n        const int mod = 1e9 + 7;\n        for(int a = 0 ; a <= nums[n-1] ; a++){\n            dp[a] = 1;\n        }\n        suf[N-1] = dp[N-1];\n        for(int i = N-2;i>=0;i--)suf[i] = dp[i] ,suf[i] += suf[i+1] , suf[i] %= mod;\n        for(int i = n-2;i>=0;i--){\n            vector<ll> ndp(N , 0);\n            for(int a = 0 ; a <= nums[i] ; a++){\n                 ll bh = nums[i] - a;\n                 ll bn = bh;\n                 ll an = nums[i+1] - bn;\n                 ll ind = max<ll>(a , an);\n                 \n                 if(ind < N)ndp[a] = suf[ind];\n            }\n            for(int j = N-1;j>=0;j--){\n                 suf[j] = ndp[j];\n                 if(j+1 < N)suf[j] += suf[j+1] , suf[j] %= mod;\n            }\n        dp = ndp;\n        }\n        ll ans = 0;\n        return suf[0];\n        \n    }\n};",
+    "submit_ts": "1723345193",
+    "subm_id": "1351550633"
+}

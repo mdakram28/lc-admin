@@ -1,0 +1,6 @@
+{
+    "username": "Conrad_123",
+    "submission": "class Solution {\npublic:\n    \n    long long Count(std::vector<int>& nums, int idx, int arr_1_min, int arr_2_max, std::vector<std::vector<std::vector<int>>>& cache){\n        \n        if(idx >= nums.size()){\n            return 1;\n        }\n        \n        int mod = 1e9 + 7;\n        long long result = 0;\n        \n        if(cache[idx][arr_1_min][arr_2_max] != -1){\n            return cache[idx][arr_1_min][arr_2_max];\n        }\n        \n        for(int i = max(arr_1_min, nums[idx] - arr_2_max); i <= nums[idx]; i++){\n            \n            if(nums[idx] - i > arr_2_max) continue;\n            \n            long long current = (Count(nums, idx+1, i, nums[idx] - i, cache))%mod;\n            \n            result += current;\n            result %= mod;\n        }\n        \n        return cache[idx][arr_1_min][arr_2_max] = result;\n    }\n    \n    int countOfPairs(std::vector<int>& nums) {\n        \n        std::vector<std::vector<std::vector<int>>> cache(nums.size(), std::vector<std::vector<int>>(51, std::vector<int>(51, -1))); \n        \n        \n        return Count(nums, 0, 0, 50, cache);\n    }\n    \n    \n};",
+    "submit_ts": "1723344729",
+    "subm_id": "1351540770"
+}

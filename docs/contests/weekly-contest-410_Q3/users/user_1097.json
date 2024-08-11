@@ -1,0 +1,6 @@
+{
+    "username": "Abhijeet_Singh2002",
+    "submission": "class Solution {\npublic:\n    const int MOD=1e9+7;\n    int dp[2002][54][54];\n    int solve(int index,int prev1,int prev2,vector<int>&nums) {\n        if(index >= nums.size())\n        return 1;\n\n        if(dp[index][prev1][prev2]!=-1)\n        return dp[index][prev1][prev2];\n\n        int ans=0;\n        for(int i=0;i<=nums[index];i++) {\n            if(prev1==0 || i >= prev1) {\n                int diff=nums[index]-i;\n                if(prev2==52 || prev2 >= diff) {\n                    ans=(ans+solve(index+1,i,diff,nums))%MOD;\n                }\n            }\n        }\n        return dp[index][prev1][prev2]= ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        memset(dp,-1,sizeof(dp));\n        return solve(0,0,52,nums);\n    }\n};",
+    "submit_ts": "1723345481",
+    "subm_id": "1351556736"
+}

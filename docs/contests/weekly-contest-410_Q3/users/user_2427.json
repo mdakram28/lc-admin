@@ -1,0 +1,6 @@
+{
+    "username": "shubham3",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        self.ans = 0\n        n = len(nums)\n        self.memo = {}\n        def dfs(start, last_i, last_j):\n            if start>=n:\n                self.ans+=1\n                # print(\"FOUND\")\n                return 1\n            if (start, last_i, last_j) in self.memo:\n                self.ans+= self.memo[(start, last_i, last_j)]\n                return self.memo[(start, last_i, last_j)]\n            curr = nums[start]\n            cnt = 0\n            for i in range(last_i, curr+1):\n                j = curr-i\n                if j>last_j:\n                    continue\n                # print (\"CHECKING INSIDE\", (i, curr-i))\n                cnt += dfs(start+1, i, curr-i)\n            self.memo[(start, last_i, last_j)]=cnt\n            return cnt\n        j = max(nums)\n        MOD = (10**9)+7\n        dfs(0, 0, j)\n        return self.ans%MOD",
+    "submit_ts": "1723347297",
+    "subm_id": "1351595946"
+}

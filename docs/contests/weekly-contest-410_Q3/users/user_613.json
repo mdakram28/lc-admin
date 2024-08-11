@@ -1,0 +1,6 @@
+{
+    "username": "snerond",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        \n        long long dp[2002][51] = {0};\n        \n        for(int j = 0;j <= nums[0];j ++){\n            dp[0][j] = 1;\n        }\n        \n        long long ans = 0, mod = 1e9 + 7;\n        for(int i = 1;i < nums.size();i ++){\n            for(int j = nums[i];j >= 0; j --){\n                int val = min(j, nums[i - 1] - (nums[i] - j));\n                for(int y = 0;y <= max(val, -1);y ++){\n                    dp[i][j] += dp[i - 1][y];\n                    dp[i][j] %= mod;\n                }\n            }\n        }\n        for(int i = 0; i<= 50;i ++){\n            ans = (ans + dp[nums.size() - 1][i]) % mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723347607",
+    "subm_id": "1351602102"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "samliu12",
+    "submission": "#include <bits/stdc++.h>\n#ifdef DEBUG\n#include \"debug.h\"\n#else\n#define dbg(x...)\n#endif\nusing namespace std;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& a) {\n        int n = a.size();\n\t\tconst int mod = 1e9+7;\n\t\tconst int MAX_K = 1001;\n\n\t\t// dp[i][j]=# of pairs of length i where a[i]<=j\n\t\tvector<vector<int>> dp(n, vector<int>(MAX_K+5, 0));\n\t\tfor (int i = 0; i <= a[0]; ++i) dp[0][i] = 1;\n\t\tfor (int i = 1; i < n; ++i) {\n\t\t\tfor (int j = 1; j <= MAX_K; ++j) {\n\t\t\t\tdp[i-1][j] += dp[i-1][j-1];\n\t\t\t\tdp[i-1][j] %= mod;\n\t\t\t}\n\t\t\tfor (int j = 0; j <= MAX_K; ++j) {\n\t\t\t\t// arr2[i] = a[i]-j, so we need a[i]-j<=a[i-1]-k => k<=a[i-1]-a[i]+j\n\t\t\t\tif (j > a[i]) continue;\n\t\t\t\tint up = min(j, a[i-1]-a[i]+j);\n\t\t\t\tif (up >= 0) {\n\t\t\t\t\t// for (int k = 0; k <= up; ++k) {\n\t\t\t\t\t// \tdp[i][j] += dp[i-1][k];\n\t\t\t\t\t// \tdp[i][j] %= mod;\n\t\t\t\t\t// }\n\t\t\t\t\tdp[i][j] += dp[i-1][up];\n\t\t\t\t\tdp[i][j] %= mod;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tint ans = 0;\n\t\tfor (int i = 0; i < MAX_K; ++i) {\n\t\t\tans += dp[n-1][i];\n\t\t\tans %= mod;\n\t\t}\n\t\tdbg(dp);\n\t\treturn ans;\n    }\n};",
+    "submit_ts": "1723345170",
+    "subm_id": "1351550130"
+}

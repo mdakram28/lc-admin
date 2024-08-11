@@ -1,0 +1,6 @@
+{
+    "username": "mittaludit768",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    \n    int solve(int idx, int prev1, int prev2, vector<int> &nums,vector<vector<vector<int> > > &dp) {\n        if (idx == nums.size()) return 1; \n        \n        if (dp[idx][prev1][prev2] != -1) \n            return dp[idx][prev1][prev2];  \n        \n        int c = 0;\n        for (int i = prev1; i <= nums[idx]; i++) { \n            int j = nums[idx] - i;\n            if (j <= prev2) {\n                c = (c + solve(idx + 1, i, j, nums,dp)) % MOD;\n            }\n        }\n        \n        return dp[idx][prev1][prev2] = c;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        vector<vector<vector<int> > > dp(nums.size()+1,vector<vector<int> >(51,vector<int>(51,-1)));\n        return solve(0, 0, 50, nums,dp);  \n    }\n};\n",
+    "submit_ts": "1723345194",
+    "subm_id": "1351550656"
+}

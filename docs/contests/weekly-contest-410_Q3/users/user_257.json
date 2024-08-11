@@ -1,0 +1,6 @@
+{
+    "username": "ToTea",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        constexpr int kMod = 1e9 + 7;\n        auto modAdd = [](int a, int b) { return (a+b) % kMod; };\n        constexpr int kNumMax = 50;\n        vector<int> dp(kNumMax+1); // arr1 size count\n        for (int i = 0; i <= nums[0]; ++i) {\n            dp[i] += 1;\n        }\n        for (int i = 1; i < nums.size(); ++i) {\n            vector<int> dp2(kNumMax+1);\n            int num = nums[i];\n            for (int arr1Num = 0; arr1Num <= num; ++arr1Num) {\n                int arr2Num = num - arr1Num;\n                for (int preArr1Num = 0; preArr1Num <= arr1Num; ++preArr1Num) {\n                    int preArr2Num = nums[i-1] - preArr1Num;\n                    if (preArr2Num < arr2Num) continue;\n                    dp2[arr1Num] = modAdd(dp2[arr1Num], dp[preArr1Num]);\n                }\n            }\n            swap(dp, dp2);\n        }\n        return accumulate(dp.begin(), dp.end(), 0, modAdd);\n    }\n};",
+    "submit_ts": "1723345130",
+    "subm_id": "1351549205"
+}

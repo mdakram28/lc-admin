@@ -1,0 +1,6 @@
+{
+    "username": "LittleboyBK99",
+    "submission": "const mod = 1000000007;\n\nfunction add(u: number, v: number) {\n  return Number((BigInt(u) + BigInt(v)) % BigInt(mod));\n}\nfunction countOfPairs(nums: number[]): number {\n  const n = nums.length;\n  const max_a = 52;\n  const dp: number[][] = new Array(n).fill(0).map(() => new Array(max_a + 1).fill(0));\n\n  for (var i = 0; i <= nums[0]; i++) {\n    dp[0][i] = 1;\n  }\n  for (var i = 1; i < n; i++) {\n    for (var t2 = 0; t2 <= nums[i]; t2++) {\n      for (var t1 = 0; t1 <= nums[i - 1]; t1++) {\n        // arr1: tang dan\n        if (t2 < t1) {\n          continue;\n        }\n\n        // arr2: giam dan\n        if (nums[i] - t2 > nums[i - 1] - t1) {\n          continue;\n        }\n        dp[i][t2] = add(dp[i][t2], dp[i - 1][t1]);\n      }\n    }\n  }\n  var res = dp[n - 1].reduce((s, u) => (s = add(s, u)), 0);\n  return res;\n}\n",
+    "submit_ts": "1723344615",
+    "subm_id": "1351538339"
+}

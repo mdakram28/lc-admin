@@ -1,0 +1,6 @@
+{
+    "username": "amsraman",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n    int countOfPairs(vector<int>& nums) {\n        int n = (int) nums.size();\n        vector<vector<int>> dp(n, vector<int>(1001, 0));\n        for(int i = 0; i <= nums[0]; i++) dp[0][i] = 1;\n        for(int i = 0; i < n - 1; i++) {\n            for(int j = 0; j <= nums[i]; j++) {\n                int at_least = max(j, nums[i + 1] - (nums[i] - j));\n                if(at_least <= nums[i + 1]) {\n                    dp[i + 1][at_least] = (dp[i + 1][at_least] + dp[i][j]) % mod;\n                }\n            }\n            for(int j = 1; j <= nums[i + 1]; j++) {\n                dp[i + 1][j] = (dp[i + 1][j] + dp[i + 1][j - 1]) % mod;\n            }\n        }\n        int ans = 0;\n        for(int i = 0; i <= nums[n - 1]; i++) ans = (ans + dp[n - 1][i]) % mod;\n        return ans;\n    }\n};\n/*\nImmediately: dp[index][first_value][second_value]\n\nfirst + second = nums[i]. don't need to store both\ndp[index][first_value]\n\nfirst_value can go up. can't go too high up\n*/",
+    "submit_ts": "1723344071",
+    "subm_id": "1351525756"
+}

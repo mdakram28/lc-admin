@@ -1,0 +1,6 @@
+{
+    "username": "Shyam-Vishwakarma",
+    "submission": "class Solution {\npublic:\n    vector<int> nums;\n    int MOD = 1e9 + 7;\n    vector<vector<vector<int>>> tbl;\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int offset = 50;\n\n        tbl.resize(n + 1, vector<vector<int>>(51, vector<int>(101, -1)));\n\n        this->nums = nums;\n        return f1(0, 0, -1 + offset);\n    }\n\n    int f1(int i, int p1, int p2) {\n        if (tbl[i][p1][p2] != -1) return tbl[i][p1][p2];\n        if (i == nums.size()) return 1;\n\n        int count = 0;\n        for (int x1 = p1; x1 <= nums[i]; x1++) {\n            int x2 = nums[i] - x1;\n            int adjustedP2 = x2 + 50;\n\n            if (p2 == 49) {\n                count = (count + f1(i + 1, x1, adjustedP2)) % MOD;\n            } else {\n                if (x2 <= p2 - 50) {\n                    count = (count + f1(i + 1, x1, adjustedP2)) % MOD;\n                }\n            }\n        }\n\n        return tbl[i][p1][p2] = count;\n    }\n};\n",
+    "submit_ts": "1723346984",
+    "subm_id": "1351589446"
+}

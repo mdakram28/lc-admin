@@ -1,0 +1,6 @@
+{
+    "username": "Sameer_Ranjan_17",
+    "submission": "class Solution {\npublic:\n    const int MOD=1000000007;\n    vector<vector<vector<int>>> dp;\n\n    int solve(vector<int>& nums, int id, int p1, int p2) \n    {\n        if (id == nums.size()) \n        {\n            return 1;\n        }\n\n        if (dp[id][p1 + 1][p2] != -1) \n        {\n            return dp[id][p1 + 1][p2];\n        }\n\n        int ans = 0;\n\n        for (int i = 0; i <= nums[id]; i++) \n        {\n            if (i >= p1 && nums[id] - i <= p2) \n            {\n                ans = (ans + solve(nums, id + 1, i, nums[id] - i)) % MOD;\n            }\n        }\n\n        return dp[id][p1 + 1][p2] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        dp.resize(nums.size(), vector<vector<int>>(52, vector<int>(52, -1)));\n        return solve(nums, 0, -1, 51);\n    }\n};",
+    "submit_ts": "1723346535",
+    "subm_id": "1351579700"
+}

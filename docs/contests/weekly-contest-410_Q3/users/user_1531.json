@@ -1,0 +1,6 @@
+{
+    "username": "upmannidhi09",
+    "submission": "#include <vector>\n#include <cstdint>\n\nclass Solution {\n    using ll = int64_t;\n    static constexpr ll MOD = 1e9 + 7;\n    std::vector<int> nums;\n    std::vector<std::vector<std::vector<ll>>> dp;\n\n    ll count(int i, int v1, int v2) {\n        if (i == nums.size()) return 1;\n        if (dp[i][v1][v2] != -1) return dp[i][v1][v2];\n        \n        ll res = 0;\n        for (int x = v1; x <= nums[i]; ++x)\n            for (int y = std::min(v2, nums[i] - x); y >= 0; --y)\n                if (x + y == nums[i])\n                    res = (res + count(i + 1, x, y)) % MOD;\n        \n        return dp[i][v1][v2] = res;\n    }\n\npublic:\n    int countOfPairs(std::vector<int>& numbers) {\n        nums = numbers;\n        dp.assign(nums.size(), std::vector<std::vector<ll>>(51, std::vector<ll>(51, -1)));\n        return static_cast<int>(count(0, 0, nums[0]));\n    }\n};",
+    "submit_ts": "1723346197",
+    "subm_id": "1351572339"
+}

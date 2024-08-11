@@ -1,0 +1,6 @@
+{
+    "username": "ceetcode",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        max_num = 50\n        min_num = 0\n        n = len(nums)\n\n        @cache\n        def dp(i, prev1_lb, prev2_up):\n            if i == n: return 1\n            res = 0\n            for x in range(prev1_lb, max_num+1):\n                if x > nums[i]: break\n                y = nums[i] - x\n                if 0 <= y <= prev2_up:\n                    res = (res + dp(i+1, x, y)) % MOD\n                # for y in range(min_num, prev2_up+1):\n                #     if x+y > nums[i]: break\n                #     if x+y == nums[i]:\n                #         res = (res + dp(i+1, x, y)) % MOD\n            return res % MOD\n        \n        return dp(0, min_num, max_num)\n\n\n\n",
+    "submit_ts": "1723344506",
+    "subm_id": "1351536031"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "sahil20000706",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    vector<vector<long long>>dp;\n    \n    int countOfPairs(vector<int>& nums) {\n        int max_val = *max_element(nums.begin(), nums.end());\n        int n = nums.size();\n        \n        dp.resize(n, vector<long long>(max_val + 1, -1));\n\n        long long ans = 0;\n        for (int j = 0; j <= min(max_val, nums[0]); ++j) {\n            ans += helper(0, j, nums[0] - j, nums, n);\n            ans %= MOD;\n        }\n        \n        return static_cast<int>(ans);\n    }\n    \nprivate:\n    long long helper(int i, int a, int b, const vector<int>& nums, int n) {\n        // poora khatam kr diya\n        if (i == n - 1) {\n            return 1;\n        }\n\n        if (dp[i][a] != -1) return dp[i][a];\n\n        long long res = 0;\n        for (int k = a; k <= nums[i + 1]; ++k) {\n            int next2 = nums[i + 1] - k;\n            if (next2 <= b) {\n                res += helper(i + 1, k, next2, nums, n);\n                res %= MOD;\n            }\n        }\n        \n        dp[i][a] = res;\n        return res;\n    }\n    \n};",
+    "submit_ts": "1723345930",
+    "subm_id": "1351566400"
+}

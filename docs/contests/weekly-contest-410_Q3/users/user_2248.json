@@ -1,0 +1,6 @@
+{
+    "username": "Cmes",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n    \n        vector<vector<long>> dp(n, vector<long>(51)); // dp[i][j] represents count of pairs ending with nums[i] where arr1[i] == j\n\n        for (int j = 0; j <= nums[0]; ++j) {\n            dp[0][j] = 1;\n        }\n\n        for (int i = 1; i < n; ++i) {\n            for (int a = 0; a <= nums[i - 1]; ++a) {\n                if (a > nums[i]) break;\n                for (int b = a; b <= nums[i]; ++b) {\n                    if (nums[i - 1] - a >= nums[i] - b)\n                        dp[i][b] = (dp[i][b] + dp[i - 1][a]) % MOD;\n                }\n            }\n        }\n\n        // Calculate the count of monotonic pairs\n        int count = 0;\n        for (int j = 0; j <= 50; ++j) {\n            count = (count + dp[n - 1][j]) % MOD;\n        }\n\n        return count;\n    }\n};",
+    "submit_ts": "1723346810",
+    "subm_id": "1351585640"
+}

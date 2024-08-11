@@ -1,0 +1,6 @@
+{
+    "username": "Rudranil_Acharya",
+    "submission": "class Solution {\npublic:\n    int dp[2001][51];\n    int rec(int index,int last,vector<int>& nums){\n        if(index==nums.size()){\n            return 1;\n        }\n        if(dp[index][last]!=-1){\n            return dp[index][last];\n        }\n        int mx=nums[index];\n        int res=0;\n        int mod=(int)1e9+7;\n        for(int i=last;i<=mx;i++){\n            \n            int counter=nums[index]-i;\n            int prevCounter=nums[index-1]-last;\n            if(counter>=0 and counter<=prevCounter){\n                res=(res%mod+(rec(index+1,i,nums)))%mod;\n                \n                \n            }\n        }\n        return dp[index][last]=res;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int mx=nums[0];\n        int ans=0;\n        int mod=(int)1e9+7;\n        memset(dp,-1,sizeof(dp));\n        \n        for(int i=0;i<=mx;i++){\n            ans=(ans%mod)+(rec(1,i,nums)%mod);\n            ans=ans%mod;\n            \n            \n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1723345256",
+    "subm_id": "1351551915"
+}

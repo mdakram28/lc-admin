@@ -1,0 +1,6 @@
+{
+    "username": "leetgoat_dot_dev",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        \n        @cache\n        def dp(prevUp, i):\n            # print(f'dp called on prevUp={prevUp}, i={i}')\n            if i == len(nums):\n                # print(f'base case, ret 1')\n                return 1\n            \n            resThis = 0\n            \n            if prevUp > nums[i]:\n                return 0\n            \n            prevDown = nums[i - 1] - prevUp if i else nums[0]\n            \n            for up in range(prevUp, nums[i] + 1):\n                down = nums[i] - up\n                if down > prevDown:\n                    continue\n                # print(f'trying new up: {up}')\n                resThis += dp(up, i + 1)\n            resThis %= MOD\n            return resThis\n        \n        res = dp(0, 0)\n        dp.cache_clear()\n        return res\n                \n            \n        ",
+    "submit_ts": "1723344471",
+    "subm_id": "1351535221"
+}

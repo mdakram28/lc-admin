@@ -1,0 +1,6 @@
+{
+    "username": "srikkanthr",
+    "submission": "const int N = 1005;\nconst int MOD = (int)1e9 + 7;\nint dp[N], odp[N], sdp[N];\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size(), pre = (int)1e9+5;\n        for (int i=0;i<N;++i) dp[i] = 0;\n        dp[0] = 1;\n        for (auto x : nums) {\n            sdp[0] = dp[0];\n            dp[0] = 0;\n            for (int j=1;j<N;++j) {\n                sdp[j] = sdp[j-1] + dp[j];\n                if (sdp[j] >= MOD) sdp[j] -= MOD;\n                dp[j] = 0;\n            }\n            for (int i=0;i<=x;++i) {\n                // (i, x - i)\n                // j <= i; pre - j >= x - i;\n                // j <= i and j <= pre + i - x\n                int arr = min(i, pre + i - x);\n                int ell = 0;\n                if (ell <= arr) {\n                    dp[i] = sdp[arr] - (ell > 0 ? sdp[ell-1] : 0);\n                    if (dp[i] < 0) dp[i] += MOD;\n                }\n                // cout << dp[i] << \" \";\n            }\n            // cout << '\\n';\n            pre = x;\n        }\n        int ans = 0;\n        for (int j=0;j<N;++j) {\n            ans += dp[j];\n            if (ans >= MOD) ans -= MOD;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723344555",
+    "subm_id": "1351537094"
+}

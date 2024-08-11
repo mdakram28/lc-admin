@@ -1,0 +1,6 @@
+{
+    "username": "Akash_singh11",
+    "submission": "int dp[2002][52];\nconst int mod = 1e9 + 7;\nclass Solution {\n    long long fun(vector<int>& nums, int i, int prev) {\n        if (i == nums.size()) return 1;\n        if (dp[i][prev] != -1) return dp[i][prev];\n        \n        long long ans = 0;\n        if (i == 0) {\n            for (int j = 0; j <= nums[0]; j++) {\n                ans += fun(nums, i + 1, j);\n                ans %= mod;\n            }\n        }\n        else {\n            int prev2 = nums[i - 1] - prev;\n            for (int j = prev; j <= nums[i]; j++) {\n                int now = nums[i] - j;\n                if (now <= prev2) {\n                    ans += fun(nums, i + 1, j);\n                    ans %= mod;\n                }\n            }\n        }\n        return dp[i][prev] = ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j <= 50; j++) {\n                dp[i][j] = -1;\n            }\n        }\n        return fun(nums, 0, 0) % mod;\n    }\n};",
+    "submit_ts": "1723345041",
+    "subm_id": "1351547358"
+}

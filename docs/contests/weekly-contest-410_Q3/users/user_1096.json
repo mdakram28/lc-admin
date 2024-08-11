@@ -1,0 +1,6 @@
+{
+    "username": "swapnilbarai149",
+    "submission": "int mod=(1e9)+7;\nint dp[2000][51][51];\nint add(long long a,long long b){\n    return (a+b)%mod;\n}\n\nint solve(vector<int>& nums,int ind,int prev1,int prev2){\n    if(ind==nums.size()){\n        return 1;\n    }\n    int ans=0;\n    if(dp[ind][prev1][prev2]!=-1){\n        return dp[ind][prev1][prev2];\n    }\n    if(ind==0){\n        for(int i=0;i<=nums[ind];i++){\n            int j=nums[ind]-i;\n            \n             ans=add(ans,solve(nums,ind+1,i,j));\n        }\n    }else{\n        for(int i=prev1;i<=nums[ind];i++){\n            int j=nums[ind]-i;\n            if(j<=prev2){\n               ans=add(ans,solve(nums,ind+1,i,j)); \n            }\n        }\n    }\n\n   dp[ind][prev1][prev2]=ans;\n   return ans;\n}\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        return solve(nums,0,0,0);\n    }\n};",
+    "submit_ts": "1723345479",
+    "subm_id": "1351556692"
+}

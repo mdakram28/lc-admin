@@ -1,0 +1,6 @@
+{
+    "username": "partyush_22",
+    "submission": "const int MOD = 1000000007;\nconst int MAX_VAL = 60;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& values) {\n        int size = values.size();\n        vector<vector<vector<long long>>> dppp(size, vector<vector<long long>>(MAX_VAL + 1, vector<long long>(MAX_VAL + 1, -1)));\n        return solve(values, 0, 0, values[0], dppp);\n    }\n\n\n    long long solve(vector<int>& values, int ind, int v1, int v2, vector<vector<vector<long long>>>& dppp) {\n        if (ind >= values.size()) return 1;\n        if (dppp[ind][v1][v2] != -1) return dppp[ind][v1][v2];\n        \n        long long res = 0;\n        for (int i = v1; i <= values[ind]; i++) {\n            for (int j = v2; j >= 0; j--) {\n                if (i + j == values[ind]) {\n                    res = (res + solve(values, ind + 1, i, j, dppp)) % MOD;\n                }\n            }\n        }\n        dppp[ind][v1][v2] = res;\n        return res;\n    }\n};\n",
+    "submit_ts": "1723346805",
+    "subm_id": "1351585539"
+}

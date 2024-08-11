@@ -1,0 +1,6 @@
+{
+    "username": "Wilsano",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int max_val = *max_element(nums.begin(), nums.end());\n        int n = nums.size();\n        vector<vector<long>> dp(n, vector<long>(max_val + 1, 0));\n        for(int val = 0; val <= max_val; ++val){\n            dp[0][val] = 1;\n        }\n\n        int mod = 1e9 + 7;\n        for(int i = 1; i < n; ++i){\n            for(int val = 0; val <= nums[i]; ++val){\n                // x1 = val, x2 = max_val - val;\n                for(int k = 0; k <= nums[i - 1]; ++k){\n                    // prev_x1 = k, prev_x2 = max_val - k\n                    if(val >= k && (nums[i] - val) <= (nums[i - 1] - k)){\n                        dp[i][val] += dp[i - 1][k];\n                        dp[i][val] %= mod;\n                    }\n                }\n            }\n        }\n\n        long res = accumulate(dp[n - 1].begin(), dp[n - 1].end(), 0LL);\n        res %= mod;\n\n        return res;\n    }\n};",
+    "submit_ts": "1723345385",
+    "subm_id": "1351554597"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "cheetah_code",
+    "submission": "class Solution {\n    int[][] dp;\n    int mod = 1000000007;\n    public int countOfPairs(int[] nums) {\n        dp = new int[nums.length][51];\n        for(int i = 0; i < nums.length; i++)\n            Arrays.fill(dp[i], -1);\n        return backtrack(nums, 0, 0, nums[0]);\n    }\n\n    private int backtrack(int[] nums, int index, int onePrev, int twoPrev){\n        \n        if(index >= nums.length)\n            return 1;\n        int pairs = 0;\n        if(dp[index][onePrev] != -1)\n            return dp[index][onePrev];\n        for(int i = onePrev; i <= nums[index]; i++){\n            if(i >= onePrev && nums[index]-i <= twoPrev)\n                pairs+= (backtrack(nums, index+1, i, nums[index]-i)%mod);\n                pairs = pairs%mod;\n        }\n        dp[index][onePrev] = pairs;\n        return pairs;\n    }\n}",
+    "submit_ts": "1723346096",
+    "subm_id": "1351570107"
+}

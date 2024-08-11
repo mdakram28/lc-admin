@@ -1,0 +1,6 @@
+{
+    "username": "priyanshi_158",
+    "submission": "class Solution {\npublic:\nint ans=0;\nint mod=1e9+7;\n   int f(int ind, vector<int>& nums, int n, int prev, vector<vector<int>>& dp) {\n    if (ind == n) {\n        return 1; \n    }\n\n    if (dp[ind][prev+1] != -1) {\n        return dp[ind][prev+1]; \n    }\n\n    int result = 0;\n    int st = max(0, prev);\n    for (int st = max(0, prev); st <= nums[ind]; st++) {\n        if (prev == -1 || (nums[ind] - st <= nums[ind - 1] - prev)) {\n            result = (result + f(ind + 1, nums, n, st, dp)) % mod;\n        }\n    }\n        dp[ind][prev+1] = result; \n    \n    return result;\n}\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int maxi=0;\n        for(auto e:nums)\n        {\n            maxi=max(maxi,e);\n        }\n    vector<vector<int>> dp(n, vector<int>(maxi + 2, -1));\n    return f(0, nums, n, -1, dp);\n    }\n};",
+    "submit_ts": "1723346710",
+    "subm_id": "1351583504"
+}

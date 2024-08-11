@@ -1,0 +1,6 @@
+{
+    "username": "Dengxj",
+    "submission": "const int MOD = 1e9 + 7;\n\nint madd(int x, int y) {\n    return x + y >= MOD ? x + y - MOD : x + y;\n}\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        unordered_map<int, int> mem;\n        function<int(int,int,int)> dfs = [&](int pos, int p1, int p2) {\n            if (pos == n) return 1;\n            int key = pos << 6 | p1;\n            if (mem.count(key)) return mem[key];\n            auto& res = mem[key];\n            int val = nums[pos];\n            for (int i = max(p1, val - p2); i <= val; ++i) {\n                res = madd(res, dfs(pos + 1, i, val - i));\n            }\n            return res;\n        };\n        return dfs(0, 0, nums[0]);\n    }\n};",
+    "submit_ts": "1723345194",
+    "subm_id": "1351550654"
+}

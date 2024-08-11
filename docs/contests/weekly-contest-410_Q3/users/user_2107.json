@@ -1,0 +1,6 @@
+{
+    "username": "rbritik",
+    "submission": "class Solution(object):\n\n    def solve(self, nums, i, prev1, prev2, memo):\n        # pass\n        if i == len(nums):\n            return 1 \n        if prev1 > nums[i]:\n            return 0\n        key = str(i) + ',' + str(prev1)\n        if key in memo:\n            return memo[key]\n        # print(\"\\n\")\n        # print(i, prev1)\n        count = 0\n        for j in range(prev1, nums[i]+1):\n            curr2 = nums[i] - j\n            # print(j, curr2, nums[i], i)\n            # if i == 0 or (nums[i-1] - prev >= curr2):\n            #     self.solve(nums, i+1, j)\n            if (curr2 <= prev2):\n                count += self.solve(nums, i+1, j, curr2, memo)\n        memo[key] = count\n        return memo[key]\n\n    def countOfPairs(self, nums):\n        \"\"\"\n        :type nums: List[int]\n        :rtype: int\n        \"\"\"\n        mod1 = 10**9 + 7\n\n        prev = 0\n        # self.count = 0\n        ans = self.solve(nums, 0, 0, float('infinity'), {})\n        return ans % mod1\n",
+    "submit_ts": "1723346361",
+    "subm_id": "1351575867"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "tripathypratik3",
+    "submission": "\nclass Solution {\npublic:\n    int mod = 1e9 + 7;\n    vector<vector<vector<int>>> dp;\n\n    int solve(vector<int>& nums, int ind, int pre1, int pre2) {\n        if (ind == nums.size()) {\n            return 1; // Base case: valid configuration found\n        }\n\n        // Check if this state has already been computed\n        if (dp[ind][pre1 + 1][pre2] != -1) {\n            return dp[ind][pre1 + 1][pre2]; // Return cached result\n        }\n\n        int ans = 0;\n\n        // Try all possible values for arr1[ind]\n        for (int i = 0; i <= nums[ind]; i++) {\n            if (i >= pre1 && nums[ind] - i <= pre2) {\n                ans = (ans + solve(nums, ind + 1, i, nums[ind] - i)) % mod;\n            }\n        }\n\n        return dp[ind][pre1 + 1][pre2] = ans; // Store the result in dp\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        // Initialize dp with -1 for memoization\n        dp.resize(nums.size(), vector<vector<int>>(52, vector<int>(52, -1)));\n        return solve(nums, 0, -1, 51); // Start with index 0 and invalid previous values\n    }\n};",
+    "submit_ts": "1723345354",
+    "subm_id": "1351553969"
+}

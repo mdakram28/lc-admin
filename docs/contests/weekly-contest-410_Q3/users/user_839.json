@@ -1,0 +1,6 @@
+{
+    "username": "pratik_rockstar",
+    "submission": "class Solution {\npublic:\n    long long int mod=1e9+7;\n    \n    int doit(int ind, int prea1, vector<int>& nums, vector<vector<int>> &dp, int n){\n        \n        if (dp[ind][prea1]!=-1) return dp[ind][prea1];\n\n        \n        if (ind==n){\n            return dp[ind][prea1]=1;\n        }\n        \n        \n        \n        int prea2=INT_MAX;\n        if (ind){\n            prea2=nums[ind-1]-prea1;\n        }\n        \n        int tot=0;\n        for (int i=0; i<=nums[ind]; i++){\n            if (i>=prea1 and nums[ind]-i<=prea2){\n                tot = (tot + doit(ind+1, i, nums, dp, n))%mod;\n            }\n        }\n        \n        return dp[ind][prea1]=tot;\n        \n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<int>> dp(n+1, vector<int> (1001, -1));\n        \n        return doit(0, 0, nums, dp, n);\n    }\n};",
+    "submit_ts": "1723344992",
+    "subm_id": "1351546348"
+}

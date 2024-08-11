@@ -1,0 +1,6 @@
+{
+    "username": "richweiwei",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n\n        int n = nums.size();\n\n        long long mod = 1000000007;\n\n        vector<vector<long long>> memo(n, vector<long long>(1001, 0));\n        \n        memo[0][0] = 1;\n\n        for (int i = 0; i < n-1; ++i) {\n            long long v = 0;\n            // cout<<i<<endl;\n            for (int j = 0; j <= nums[i]; ++j) {\n                v += memo[i][j];\n                v %= mod;\n                if (v > 0) {\n                    if (nums[i+1] > nums[i]) {\n                        memo[i+1][nums[i+1] - (nums[i] - j)] += v;\n                        memo[i+1][nums[i+1] - (nums[i] - j)] %= mod;\n                    } else {   \n                        memo[i+1][j] += v;\n                        memo[i+1][j] %= mod;\n                    }\n                }\n                // cout<<v<<\" \";\n            }\n            // cout<<endl;\n        }\n\n        long long sol = 0;\n\n        long long vv = 0;\n\n        for (int i = 0; i <= nums[n-1]; ++i) {\n            vv += memo[n-1][i];\n            vv %= mod;\n            sol += vv;\n            sol %= mod;\n        }\n\n        return sol;\n\n    }\n};",
+    "submit_ts": "1723346553",
+    "subm_id": "1351580079"
+}

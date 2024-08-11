@@ -1,0 +1,6 @@
+{
+    "username": "mudit_2904",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n\n    int helper(int idx, int prev, vector<int>& nums, int &n, vector<vector<int>>& dp){\n        if(idx >= n)\n            return 1;\n        if(dp[idx][prev] != -1)\n            return dp[idx][prev] % mod;\n\n        long long int ans = 0;\n    \n        // The below for loop ensures that the new val for arr1 will be increasing\n        for(int i = prev; i <= nums[idx]; ++i){\n            int arr2_val = nums[idx] - i;\n\n            if(idx == 0)\n                ans += helper(idx + 1, i, nums, n, dp);\n            else{\n                // extracting prev arr2 val\n                int arr2_prev = nums[idx - 1] - prev;\n                if(arr2_prev >= arr2_val)\n                    ans += helper(idx + 1, i, nums, n, dp);\n            }\n\n            ans %= mod;\n        }\n\n        return dp[idx][prev] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(51, -1));\n\n        int ans = helper(0, 0, nums, n, dp);\n        return ans;\n    }\n};",
+    "submit_ts": "1723345206",
+    "subm_id": "1351550890"
+}

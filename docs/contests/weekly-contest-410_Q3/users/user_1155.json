@@ -1,0 +1,6 @@
+{
+    "username": "lucifer_84",
+    "submission": "\n\nclass Solution {\npublic:\n    long long int solve(int idx, int val1, int val2, vector<int>& values, vector<vector<vector<long long int>>>& dp) {\n        if (idx >= values.size()) return 1;\n\n        long long int ans = 0;\n        long long int M = 1e9 + 7;\n\n        if (dp[idx][val1][val2] != -1) return dp[idx][val1][val2];\n\n        for (int i = val1; i <= values[idx]; i++) {\n            for (int j = val2; j >= 0; j--) {\n                if (i + j == values[idx]) {\n                    ans += solve(idx + 1, i, j, values, dp);\n                    ans = ans % M;\n                }\n            }\n        }\n\n        return dp[idx][val1][val2] = ans;\n    }\n\n    int countOfPairs(vector<int>& values) {\n        int n = values.size();\n        vector<vector<vector<long long int>>> dp(n, vector<vector<long long int>>(51, vector<long long int>(51, -1)));\n        return solve(0, 0, values[0], values, dp);\n    }\n};",
+    "submit_ts": "1723345598",
+    "subm_id": "1351559215"
+}

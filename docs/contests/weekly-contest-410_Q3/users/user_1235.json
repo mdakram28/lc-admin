@@ -1,0 +1,6 @@
+{
+    "username": "nitingoyal4321",
+    "submission": "class Solution {\n    int MOD = (int)1e9 + 7;\n    int solve(int[] nums, int ind, int last, int[][] dp) {\n\n        if (ind == nums.length) return 1;\n\n        if (dp[ind][last+1] != -1) return dp[ind][last+1];\n\n        int ans = 0;\n\n        for (int i=0;i<=nums[ind];i++) {\n            if (ind == 0) {\n                ans = (ans + solve(nums, ind+1, i, dp))%MOD;\n            } else {\n                if (i >= last && nums[ind-1]-last >= nums[ind]-i) {\n                    ans = (ans + solve(nums, ind+1, i, dp))%MOD;\n                }\n            }\n        }\n\n        return dp[ind][last+1] = ans;\n\n    }\n\n    public int countOfPairs(int[] nums) {\n        int[][] dp = new int[2001][52];\n        for (int[] it : dp) Arrays.fill(it, -1);\n        return solve(nums, 0, -1, dp);\n    }\n}",
+    "submit_ts": "1723345734",
+    "subm_id": "1351562184"
+}

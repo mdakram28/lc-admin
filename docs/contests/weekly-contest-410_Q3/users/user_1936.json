@@ -1,0 +1,6 @@
+{
+    "username": "sumit_2048",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9+7;\n    int rec(int ind,int i,int j,vector<int>&v,int n,vector<vector<vector<int>>>&dp){\n        if(ind==n-1){\n            return 1;\n        }\n        if(dp[ind][i][j]!=-1){return dp[ind][i][j];}\n        int sum=0;\n        for(int ii=0;ii<=v[ind+1];ii++){\n            if(ii >= i && v[ind+1]-ii <= j){\n                sum = (sum + rec(ind +1, ii,v[ind+1]-ii,v,n,dp)) % mod  ;\n            }\n        }\n        return dp[ind][i][j] = sum% mod ;\n    }\n    int countOfPairs(vector<int>& v) {\n        int n=v.size();\n        int sum=0;\n        vector<vector<vector<int>>>dp(n+1,vector<vector<int>>(55,vector<int>(55,-1)));\n        for(int i=0;i<=v[0];i++){\n            sum = (sum + rec(0,i,v[0]-i,v,n,dp)) % mod;\n        }\n        return sum %mod;\n    }\n};",
+    "submit_ts": "1723346456",
+    "subm_id": "1351577980"
+}

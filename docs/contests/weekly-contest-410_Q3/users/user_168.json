@@ -1,0 +1,6 @@
+{
+    "username": "NinjaSatish",
+    "submission": "class Solution {\npublic:\n    #define ll long long\n    #define mod 1000000007\n    \n    int countOfPairs(vector<int>& a) {\n        int n = a.size() ;\n        vector<vector<int>> dp(n + 1, vector<int>(51, 0));\n        \n        dp[0][0] = 1 ;\n        \n        for(int i = 1 ; i <= n; i ++){\n            for(int j = 0 ;  j <= 50; j ++){\n                int el = a[i - 1] - j ;\n                if(el < 0) break;\n                \n                for(int k = 0 ; k <= j; k ++){\n                    int prev = 1e9 ;\n                    if(i > 1) prev = a[i - 2] - k ;\n                    \n                    if(prev < el) continue;\n                    \n                    dp[i][j] += dp[i - 1][k] ;\n                    dp[i][j] %= mod ;\n                }\n            }\n        }\n        \n        int ans = 0 ;\n        for(int i = 0 ; i <= 50; i ++) ans = (ans + dp[n][i]) % mod ;\n        \n        return ans ;\n    }\n};",
+    "submit_ts": "1723345184",
+    "subm_id": "1351550460"
+}

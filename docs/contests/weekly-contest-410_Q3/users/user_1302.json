@@ -1,0 +1,6 @@
+{
+    "username": "raikat105",
+    "submission": "#include <vector>\n#include <cstring>  // for memset\n\nclass Solution {\npublic:\n    int countOfPairs(std::vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n        int dp[n+1][101][101];\n        memset(dp, -1, sizeof(dp));\n        \n        std::function<int(int, int, int)> dfs = [&](int i, int prev1, int prev2) -> int {\n            if (i == n) return 1; // Base case: valid configuration found\n            if (dp[i][prev1][prev2] != -1) return dp[i][prev1][prev2];\n            \n            int sum = nums[i];\n            int count = 0;\n            for (int x = prev1; x <= sum; ++x) {\n                int y = sum - x;\n                if (y <= prev2) {\n                    count = (count + dfs(i + 1, x, y)) % MOD;\n                }\n            }\n            return dp[i][prev1][prev2] = count;\n        };\n        \n        return dfs(0, 0, 100);\n    }\n};\n",
+    "submit_ts": "1723345545",
+    "subm_id": "1351558100"
+}

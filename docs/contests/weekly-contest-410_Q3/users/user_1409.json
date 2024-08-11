@@ -1,0 +1,6 @@
+{
+    "username": "adiipareek",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    int dp[2001][51];\n    \n    int countPairs(int ind, int prevVal, vector<int>& nums) {\n        if (ind == nums.size()) {\n            return 1;\n        }\n        \n        if (dp[ind][prevVal] != -1)\n            return dp[ind][prevVal];\n        \n        int totalWays = 0;\n        for (int x = prevVal; x <= nums[ind]; ++x) {\n            int y = nums[ind] - x;\n            if (y <= nums[ind-1]-prevVal) {\n                totalWays = (totalWays + countPairs(ind + 1, x, nums)) % MOD;\n            }\n        }\n        \n        return dp[ind][prevVal] = totalWays;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        int ans = 0;\n        for (int i = 0; i <= nums[0]; ++i) {\n            ans = (ans + countPairs(1, i, nums)) % MOD;\n        }\n        return ans;\n    }\n};\n",
+    "submit_ts": "1723346006",
+    "subm_id": "1351568083"
+}

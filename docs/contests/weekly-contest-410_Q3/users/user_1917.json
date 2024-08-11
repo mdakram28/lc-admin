@@ -1,0 +1,6 @@
+{
+    "username": "Vansh_Rana_611",
+    "submission": "int dp[2001][52][52];\nint ans=0,mod=1e9+7;\nclass Solution {\nprivate:\nint solve(int i,int prea,int preb,int n,vector<int> &nums){\n    if(i==n) return 1;\n    if(dp[i][prea+1][preb+1]!=-1) return dp[i][prea+1][preb+1]%mod;\n    int s=max(prea,0),ans=0;\n    for(int a=s;a<=nums[i];a++){\n        if(prea==-1 && preb==-1){\n            int tmp=solve(i+1,a,nums[i]-a,n,nums);\n            ans=(ans%mod+tmp%mod)%mod;\n        } \n        else if(nums[i]-a<=preb){\n            int tmp=solve(i+1,a,nums[i]-a,n,nums);\n            ans=(ans%mod+tmp%mod)%mod;\n        }\n    }\n    return dp[i][prea+1][preb+1]=ans%mod;\n}\npublic:\n    int countOfPairs(vector<int>& nums) {\n        ans=0;\n        int a=-1,b=-1,n=nums.size();\n        memset(dp,-1,sizeof(dp));\n        int ans=solve(0,a,b,n,nums);\n        return ans;\n    }\n};",
+    "submit_ts": "1723346735",
+    "subm_id": "1351584050"
+}

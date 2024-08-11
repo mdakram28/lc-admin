@@ -1,0 +1,6 @@
+{
+    "username": "hemantpatil10125",
+    "submission": "class Solution {\npublic:\n    int M = 1e9 + 7;\n    map<pair<int,int>,int> mp;\n    long long solve(int in,int prev,vector<int> &nums)\n    {\n        if(in >= nums.size())\n        return 1;\n\n        if(nums[in] < prev)\n        return 0;\n        \n        pair<int,int> key = {in,prev};\n        if(mp.find(key)!=mp.end())\n        return mp[key];\n\n        int lo = (in == 0 ? 0 : max(prev,nums[in] - (nums[in - 1] - prev)));\n        int hi = nums[in];\n        \n        long long ans = 0;\n        for(int i=lo;i<=hi;i++)\n        {\n            ans = (solve(in + 1,i,nums) + ans) % M;\n        }\n\n        return mp[key] = ans;\n    }\n    int countOfPairs(vector<int>& nums) \n    {\n        return solve(0,0,nums);\n    }\n};",
+    "submit_ts": "1723345480",
+    "subm_id": "1351556715"
+}

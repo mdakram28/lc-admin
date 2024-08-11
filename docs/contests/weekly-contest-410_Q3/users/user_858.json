@@ -1,0 +1,6 @@
+{
+    "username": "dark_coder_47",
+    "submission": "class Solution\n{\n    public:\n    const int mod = 1e9 + 7;\n    vector<vector<vector< int>>> dp;\n    int rec(int i, int prev1, int prev2, vector<int> &nums)\n    {\n        if (i == nums.size()) return 1;\n        if (dp[i][prev1][prev2] != -1) return dp[i][prev1][prev2];\n\n        int res = 0;\n        for (int x = prev1; x <= nums[i]; x++)\n        {\n            int y = nums[i] - x;\n            if (y <= prev2)\n            {\n                res = (res + rec(i + 1, x, y, nums)) % mod;\n            }\n        }\n\n        dp[i][prev1][prev2] = res;\n        return res;\n    }\n\n    int countOfPairs(vector<int> &nums)\n    {\n        int n = nums.size();\n        dp.resize(n, vector<vector<int>> (51, vector<int> (51, -1)));\n        int ans = rec(0, 0, 50, nums);\n        return ans;\n    }\n};",
+    "submit_ts": "1723345039",
+    "subm_id": "1351547316"
+}

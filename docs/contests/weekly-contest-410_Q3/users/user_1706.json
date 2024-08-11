@@ -1,0 +1,6 @@
+{
+    "username": "dhruvg04",
+    "submission": "class Solution {\npublic:\n    int MOD = 1e9 + 7;\n\n    int rec(vector<int>& nums, vector<vector<vector<int>>>& dp, int i, int last, int revlast) {\n        if (i == nums.size()) {\n            return 1;\n        }\n        if (dp[i][last][revlast] != -1) {\n            return dp[i][last][revlast];\n        }\n\n        int ans = 0;\n        for (int x = last; x <= nums[i]; ++x) {\n            if (revlast >= nums[i] - x) {\n                ans = (ans + rec(nums, dp, i + 1, x, nums[i] - x)) % MOD;\n            }\n        }\n        return dp[i][last][revlast] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        // Initialize DP table with -1 (indicating uncomputed state)\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return rec(nums, dp, 0, 0, 50);\n    }\n};",
+    "submit_ts": "1723346453",
+    "subm_id": "1351577923"
+}

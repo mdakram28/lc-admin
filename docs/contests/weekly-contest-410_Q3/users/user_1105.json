@@ -1,0 +1,6 @@
+{
+    "username": "nktps40",
+    "submission": "class Solution {\n    const int MOD = 1e9 + 7;\n    vector<vector<vector<int>>> memo; \n\n    int solveRec(int ind, int prev1, int prev2, vector<int>& nums) {\n        if (ind == nums.size()) {\n            return 1;\n        }\n\n        if (memo[ind][prev1 + 1][prev2 + 1] != -1) {\n            return memo[ind][prev1 + 1][prev2 + 1];\n        }\n\n        int cnt = 0;\n        for (int i = 0; i <= nums[ind]; i++) {\n            int cur1 = i;\n            int cur2 = nums[ind] - i;\n            if (cur1 >= prev1 && cur2 <= prev2) {\n                cnt = (cnt + solveRec(ind + 1, cur1, cur2, nums)) % MOD;\n            }\n        }\n\n        return memo[ind][prev1 + 1][prev2 + 1] = cnt;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n\n        memo.assign(n + 1, vector<vector<int>>(53, vector<int>(53, -1)));\n        return solveRec(0, 0, 51, nums); \n    }\n};",
+    "submit_ts": "1723345212",
+    "subm_id": "1351551007"
+}

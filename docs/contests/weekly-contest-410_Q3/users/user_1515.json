@@ -1,0 +1,6 @@
+{
+    "username": "aadarshaheb_singh",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        const int MOD = 1e9 + 7;\n        vector<vector<int>> memo(n, vector<int>(1001, -1));\n        return helper(0, 0, nums, memo, MOD);\n    }\n    static int helper(int i, int prev, const vector<int>& nums, vector<vector<int>>& memo, int MOD) {\n        if (i == nums.size()) return 1;\n        if (memo[i][prev] != -1) return memo[i][prev];\n\n        int temp = 0;\n        for (int j = prev; j <= nums[i]; ++j) {\n            int y = nums[i] - j; // arr2[i] value\n            if (i == 0 || y <= (nums[i-1] - prev)) {\n                temp = (temp + helper(i + 1, j, nums, memo, MOD)) % MOD;\n            }\n        }\n\n        return memo[i][prev] = temp;\n    }\n};\n",
+    "submit_ts": "1723345563",
+    "subm_id": "1351558475"
+}

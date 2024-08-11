@@ -1,0 +1,6 @@
+{
+    "username": "dmlocdmloc",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int md = 1e9 + 7;\n        vector<vector<long long>> f(nums.size(), vector<long long>(1e3 + 1));\n        vector<vector<long long>> g(nums.size(), vector<long long>(1e3 + 1));\n        for(int i = 0; i <= nums[0]; ++i) f[0][i] = 1;\n        g[0][0] = 1;\n        for(int i = 1; i <= 1e3; ++i) g[0][i] = g[0][i - 1] + f[0][i];\n        for(int i = 1; i < nums.size(); ++i) {\n            for(int j = 0; j <= nums[i]; ++j) {\n                // nums[i - 1] - nums[i] + j >= k\n                int k = min(j, nums[i - 1] - nums[i] + j);\n                if (k < 0) continue;\n                f[i][j] = (f[i][j] + g[i - 1][k]) % md;\n            }\n            \n            g[i][0] = f[i][0];\n            for(int j = 1; j <= 1e3; ++j) g[i][j] = (g[i][j - 1] + f[i][j]) % md;\n                \n\n        }\n        \n        long long ret = 0;\n        for(int i = 0 ; i <= nums.back(); ++i) ret = (ret + f.back()[i]) % md;\n        return ret;\n    }\n};",
+    "submit_ts": "1723345453",
+    "subm_id": "1351556091"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "LittleboyBK99",
+    "submission": "\nconst mod = 1000000007;\n\nfunction add(u: number, v: number) {\n  return Number((BigInt(u) + BigInt(v)) % BigInt(mod));\n}\n\nfunction countOfPairs(nums: number[]): number {\n  const n = nums.length;\n  const max_a = 1002;\n  const dp: number[][] = new Array(n).fill(0).map(() => new Array(max_a + 1).fill(0));\n\n  for (var i = 0; i <= nums[0]; i++) {\n    dp[0][i] = 1;\n  }\n\n  var sum: number[] = new Array(max_a + 1).fill(0);\n  sum[0] = dp[0][0];\n  for (var i = 1; i <= nums[0]; i++) {\n    sum[i] = sum[i - 1] + dp[0][i];\n  }\n\n  for (var i = 1; i < n; i++) {\n    for (var t2 = 0; t2 <= nums[i]; t2++) {\n      var a1 = nums[i - 1];\n      var a2 = nums[i];\n      var max_t1 = Math.min(a1, t2, a1 - a2 + t2);\n      if (max_t1 < 0) {\n        continue;\n      }\n      dp[i][t2] = add(dp[i][t2], sum[max_t1]);\n    }\n    sum[0] = dp[i][0];\n    for (var t2 = 1; t2 <= nums[i]; t2++) {\n      sum[t2] = sum[t2 - 1] + dp[i][t2];\n    }\n  }\n  var res = dp[n - 1].reduce((s, u) => (s = add(s, u)), 0);\n  return res;\n}",
+    "submit_ts": "1723345471",
+    "subm_id": "1351556521"
+}

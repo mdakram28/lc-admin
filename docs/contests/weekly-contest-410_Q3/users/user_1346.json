@@ -1,0 +1,6 @@
+{
+    "username": "VisheshGarg",
+    "submission": "class Solution {\npublic:\n    vector<vector<long long>> dp;\n    long long helper(vector<int> &nums, int i, int prev){\n        if(i==nums.size()){\n            return (long long)1;\n        }\n        if(prev!=-1 && dp[i][prev]!=-1){\n            return dp[i][prev];\n        }\n\n        long long res=0;\n        if(prev==-1){\n            for(int j=0; j<=nums[i]; j++){\n                res += helper(nums,i+1,j)%(long long)(1e9+7);\n            }\n        }else{\n            for(int j=prev; j<=nums[i]; j++){\n                if((nums[i]-j)>=0 && (nums[i]-j)<=(nums[i-1]-prev)){\n                    res += helper(nums,i+1,j)%(long long)(1e9+7);\n                }\n            }\n        }\n        if(prev!=-1){\n            dp[i][prev]=res%(long long)(1e9+7);\n        }\n        return res%(long long)(1e9+7);\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        \n        int n = nums.size();\n        dp.resize(n,vector<long long>(51,-1));\n\n        return helper(nums,0,-1)%(long long)(1e9+7);\n    }\n};",
+    "submit_ts": "1723345603",
+    "subm_id": "1351559300"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "BrayBray123",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        // dp[i][j] = number of monotonic pairs for nums from 0 to i with arr1 ending with j or lower (arr2 ended with nums[i] - j)\n        int MOD = 1e9 + 7;\n        \n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(1001));\n        \n        for (int j = 0; j <= nums[0]; j++) {\n            dp[0][j] = 1;\n        }\n        \n        int ans = 0;\n        for (int i = 1; i < n; i++) {\n            for (int j = 0; j <= nums[i]; j++) {\n                int other = nums[i] - j;\n                int k = min(j, nums[i-1] - other);\n                \n                if (k >= 0) {\n                    dp[i][j] = (dp[i][j] + dp[i-1][k]) % MOD;\n                }\n                if (j != 0) {\n                    dp[i][j] = (dp[i][j] + dp[i][j-1]) % MOD;\n                }\n                \n                // for (int k = 0; k <= min(j, nums[i-1] - other); k++) {\n                //     dp[i][j] = (dp[i][j] + dp[i-1][k]) % MOD;\n                // }\n            }\n        }\n        \n        for (int j = 0; j <= 1000; j++) {\n            ans = (ans + dp[n-1][j]) % MOD;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345515",
+    "subm_id": "1351557460"
+}

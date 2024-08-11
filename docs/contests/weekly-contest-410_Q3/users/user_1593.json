@@ -1,0 +1,6 @@
+{
+    "username": "kunal0612",
+    "submission": "class Solution {\npublic:\n    int dp[2005][52][52];\n    int mod=1e9+7;\n    int fn(int prevx,int prevy,int i,vector<int> &nums){\n        if(i>=nums.size()) return 1;\n        int ans=0;\n        if(dp[i][prevx+1][prevy+1]!=-1) return dp[i][prevx+1][prevy+1];\n        if(prevx==-1 and prevy==-1){\n            for(int j=0;j<=nums[i];j++){\n                ans=(ans+fn(j,nums[i]-j,i+1,nums))%mod;\n            }\n        }\n        else{\n            for(int j=0;j<=nums[i];j++){\n                if(j>=prevx and prevy>=nums[i]-j) ans=(ans+fn(j,nums[i]-j,i+1,nums))%mod;\n            }\n        }\n        return dp[i][prevx+1][prevy+1]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        memset(dp,-1,sizeof(dp));\n        int ans=fn(-1,-1,0,nums);\n        return ans;\n    }\n};",
+    "submit_ts": "1723345984",
+    "subm_id": "1351567613"
+}

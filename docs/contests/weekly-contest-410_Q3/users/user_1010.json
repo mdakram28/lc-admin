@@ -1,0 +1,6 @@
+{
+    "username": "tsrshiv",
+    "submission": "#define ll long long int\n\nclass Solution {\npublic:\n    ll dfs(int i, int ps, int rs, const vector<int>& a, vector<vector<vector<ll>>>& dp) {\n        if (i >= a.size()) return 1;\n        \n        ll res = 0;\n        ll mod = 1e9 + 7;\n        if (dp[i][ps][rs] != -1) return dp[i][ps][rs];\n        for (int ns = ps; ns <= a[i]; ++ns) {\n            for (int r = rs; r >= 0; --r) {\n                if (ns + r == a[i]) {\n                    res += dfs(i + 1, ns, r, a, dp);\n                    res %= mod;\n                }\n            }\n        }\n        \n        return dp[i][ps][rs] = res;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<ll>>> dp(n, vector<vector<ll>>(51, vector<ll>(51, -1)));\n        return dfs(0, 0, nums[0], nums, dp);\n    }\n};\n",
+    "submit_ts": "1723345143",
+    "subm_id": "1351549520"
+}

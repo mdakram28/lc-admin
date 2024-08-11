@@ -1,0 +1,6 @@
+{
+    "username": "changhai",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        pairs = [0] * 1001 # pairs[i] for arr1\n        for i in range(nums[0]+1):\n            pairs[i] = 1\n        prefix = self.getprefix(pairs)\n        for i in range(1, len(nums)):\n            s = nums[i]\n            pre = nums[i-1]\n            tmp = [0] * 1001\n            for a in range(s+1):\n                if prefix[a] == 0:\n                    continue\n                b = s - a\n                maxPreA = min(nums[i-1] - b, a)\n                if maxPreA < 0:\n                    continue\n                tmp[a] = prefix[maxPreA] % 1000000007\n            pairs = tmp\n            prefix = self.getprefix(pairs)\n        return sum(pairs) % 1000000007\n    \n    def getprefix(self, a):\n        b = [0] * len(a)\n        b[0] = a[0]\n        for i in range(1, len(a)):\n            b[i] = b[i-1] + a[i]\n        return b",
+    "submit_ts": "1723347912",
+    "subm_id": "1351607964"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "nickee1942",
+    "submission": "class Solution {\n    int n;\n    public int countOfPairs(int[] nums) {\n        n = nums.length;\n        int mod = (int)1e9 + 7;\n        int[][][] dp = new int[n][51][51];\n        for(int j = 0; j < n; j++){\n            for(int i = 0; i < 51; i++){\n                Arrays.fill(dp[j][i], -1);\n            }\n        }\n        \n        for(int i = 0; i <= nums[0]; i++){\n            dp[0][i][nums[0] - i] = 1;\n        }\n        for(int j = 1; j < n; j++){\n            for(int i = 0; i <= nums[j]; i++){\n                long tmp = 0;\n                for(int k = 0; k <= i; k++){\n                    if(nums[j] - i <= nums[j - 1] - k && dp[j - 1][k][nums[j - 1] - k] > 0)\n                       tmp += dp[j - 1][k][nums[j - 1] - k];\n                }\n                tmp %= mod;\n                dp[j][i][nums[j] - i] = (int)tmp;\n            }\n        }\n        long res = 0;\n        for(int i = 0; i <= nums[n - 1]; i++){\n            if(dp[n - 1][i][nums[n - 1] - i] > 0)\n                res += dp[n - 1][i][nums[n - 1] - i];\n        }\n        res %= mod;\n        return (int)res;\n    }\n}",
+    "submit_ts": "1723345196",
+    "subm_id": "1351550691"
+}

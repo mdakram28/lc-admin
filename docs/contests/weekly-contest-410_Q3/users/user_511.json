@@ -1,0 +1,6 @@
+{
+    "username": "Nelson84",
+    "submission": "class Solution {\n    int mod = 1e9+7;\n    int dp[2001][51];\npublic:\n    int countOfPairs(vector<int>& nums) {\n        /*\n            arr1 is monotonically non-decreasing, in other words, arr1[0] <= arr1[1] <= ... <= arr1[n - 1].\n            arr2 is monotonically non-increasing, in other words, arr2[0] >= arr2[1] >= ... >= arr2[n - 1].\n            arr1[i] + arr2[i] == nums[i] for all 0 <= i <= n - 1.\n            \n            nums[0], nums[1], nums[2]\n            arr1 = a0, a1, a2, ...\n            arr2 = nums[0]-a0, nums[1]-a1, nums[2]-a2, ...\n        */\n        memset(dp, -1, sizeof(dp));\n        return helper(nums, 0, 0);\n    }\n    int helper(const vector<int>& nums, int cur, int prev){\n        if(cur>=nums.size()) return 1;\n        if(dp[cur][prev]!=-1) return dp[cur][prev];\n        \n        int num = nums[cur];\n        int cnt = 0;\n        for(int i=prev; i<=num; i++){\n            int cur_arr2 = num-i;\n            if(cur>0 && nums[cur-1]-prev<cur_arr2) continue;\n            \n            cnt = (cnt + helper(nums, cur+1, i))%mod;\n        }\n        return dp[cur][prev] = cnt;\n    }\n};",
+    "submit_ts": "1723345270",
+    "subm_id": "1351552206"
+}

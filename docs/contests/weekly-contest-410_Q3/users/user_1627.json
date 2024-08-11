@@ -1,0 +1,6 @@
+{
+    "username": "sg_69",
+    "submission": "class Solution {\npublic:\n    int maxi = 0, mod = 1e9+7;\n    long long dp[2002][52][52];\n    long long rec(int i,vector<int>& nums,int prev1,int prev2){\n        if(i == nums.size()){\n            return 1LL*1;\n        }\n        if(dp[i][prev1][prev2] != -1) return dp[i][prev1][prev2];\n        long long ans = 0;\n        for (int p1 = prev1; p1 <= maxi; p1++) { \n            int p2 = nums[i] - p1;\n            if (p2 >= 0 && p2 <= prev2) {  \n                ans = (ans + rec(i + 1, nums, p1, p2)) % mod;\n            }\n        }\n        return dp[i][prev1][prev2] = ans%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        maxi = *max_element(begin(nums),end(nums));\n        memset(dp,-1,sizeof(dp));\n        return rec(0,nums,0,maxi)%mod;\n    }\n};",
+    "submit_ts": "1723345739",
+    "subm_id": "1351562316"
+}

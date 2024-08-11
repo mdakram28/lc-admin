@@ -1,0 +1,6 @@
+{
+    "username": "huangsj1996",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        length = 1001\n        dp = [0] * length\n        acc = [0] * length\n        def update_acc():\n            acc[0] = dp[0]\n            for i in range(1, length):\n                acc[i] = acc[i-1]+dp[i]\n\n        num = nums[0]\n        for x in range(num+1):\n            dp[x] = 1\n        update_acc()\n\n        # print(\"dp\", dp)\n        # print(\"acc\", acc)\n\n        prev_num = nums[0]\n        for num in nums[1:]:\n            dp_new = [0] * length\n            if num >= prev_num:\n                for x in range(num+1):\n                    if x >= num - prev_num:\n                        dp_new[x] = acc[x - (num - prev_num)]\n            else:\n                for x in range(num+1):\n                    dp_new[x] = acc[x]\n\n            dp = dp_new\n            update_acc()\n            prev_num = num\n\n            # print(\"dp\", dp)\n            # print(\"acc\", acc)\n\n\n\n        const = 10 ** 9 + 7\n        return sum(dp) % const\n        \n        ",
+    "submit_ts": "1723347528",
+    "subm_id": "1351600548"
+}

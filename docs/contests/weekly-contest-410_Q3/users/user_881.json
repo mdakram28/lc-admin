@@ -1,0 +1,6 @@
+{
+    "username": "rohanjaiswal335",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n    int dp[51][51][2001];\n\n    int fun(vector<int>& nums, int p1, int p2, int i){\n        if(i == nums.size()){\n            return 1;\n        }\n\n        int ways = 0;\n        if(p1 == -1){\n            \n            for(int j=0; j<=nums[i]; j++){\n                ways = (ways + fun(nums, j, nums[i] - j, i+1))%mod;\n            }\n\n            return ways;\n        }\n\n        if(dp[p1][p2][i] != -1){\n            return dp[p1][p2][i];\n        }\n\n\n        for(int j=0; j<=nums[i]; j++){\n            if(j >= p1 && nums[i] - j <= p2){\n                ways = (ways + fun(nums, j, nums[i] - j, i+1))%mod;\n            }\n        }\n        \n        return dp[p1][p2][i] = ways;\n        \n\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return fun(nums, -1, -1, 0);\n    }\n};",
+    "submit_ts": "1723345093",
+    "subm_id": "1351548450"
+}

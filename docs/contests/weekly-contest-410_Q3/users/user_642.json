@@ -1,0 +1,6 @@
+{
+    "username": "GolfRumors",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n        vector<vector<long long>> dp(51, vector<long long>(51, 0));\n        \n        for (int i = 0; i <= nums[0]; i++) {\n            dp[i][nums[0] - i]++;\n        }\n        \n        for (int k = 1; k < n; k++) {\n            vector<vector<long long>> new_dp(51, vector<long long>(51, 0));\n            for (int i = 0; i <= 50; i++) {\n                for (int j = 0; j <= 50; j++) {\n                    if (dp[i][j] == 0) continue;\n                    for (int x = i; x <= nums[k]; x++) {\n                        int y = nums[k] - x;\n                        if (y <= j) {\n                            new_dp[x][y] = (new_dp[x][y] + dp[i][j]) % MOD;\n                        }\n                    }\n                }\n            }\n            dp = new_dp;\n        }\n        \n        long long result = 0;\n        for (int i = 0; i <= 50; i++) {\n            for (int j = 0; j <= 50; j++) {\n                result = (result + dp[i][j]) % MOD;\n            }\n        }\n        \n        return result;\n    }\n};",
+    "submit_ts": "1723344122",
+    "subm_id": "1351526958"
+}

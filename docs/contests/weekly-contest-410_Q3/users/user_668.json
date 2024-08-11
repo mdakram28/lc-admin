@@ -1,0 +1,6 @@
+{
+    "username": "harshbardolia",
+    "submission": "typedef long long ll;\nconst ll mod = 1e9 + 7;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        ll n = (ll) nums.size();\n        vector<vector<ll>> dp(n, vector<ll>(55, -1));\n        \n        function<ll(ll, ll)> helper = [&] (ll pos, ll val) {\n            if (pos >= n) return 1ll;\n            if (dp[pos][val] != -1) return dp[pos][val];\n            \n            ll cur = nums[pos];\n            ll prev = (pos > 0 ? nums[pos - 1] - val : 100);\n            ll ans = 0;\n            \n            for (ll a1 = val; a1 <= cur; a1++) {\n                ll a2 = cur - a1;\n                if (prev < a2) continue;\n                ans += helper(pos + 1, a1);\n                ans %= mod;\n            }\n            \n            dp[pos][val] = ans;\n            return ans;\n        };\n        \n        return helper(0, 0);\n    }\n};",
+    "submit_ts": "1723344417",
+    "subm_id": "1351533950"
+}

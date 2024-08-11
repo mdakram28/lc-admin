@@ -1,0 +1,6 @@
+{
+    "username": "alokpriydarshi767",
+    "submission": "typedef long long ll;\nll M = 1e9+7;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        ll n = nums.size();\n        vector <vector <ll>> dp(n,vector <ll> (52));\n        for(ll i=0;i<=nums[n-1];i++)\n        {\n            dp[n-1][i] = 1;\n        }\n        for(ll i=51;i>0;i--)\n        {\n            dp[n-1][i-1]+=dp[n-1][i];\n            dp[n-1][i-1]%=M;\n        }\n        for(ll i=n-2;i>=0;i--)\n        {\n            for(ll j=0;j<=nums[i];j++)\n            {\n                dp[i][j] =  dp[i+1][max(j,nums[i+1]-nums[i]+j)] ;\n                // cout<<dp[i][j]<<endl;\n            }\n            for(ll j = 51;j>0;j--)\n            {\n                dp[i][j-1]+=dp[i][j];\n                dp[i][j-1]%=M;\n            }\n        }\n           \n        return dp[0][0];\n    }\n};",
+    "submit_ts": "1723348359",
+    "subm_id": "1351616677"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "gonglinyuan",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        p = 1000000007\n        n = len(nums)\n        f = [[0 for j in range(nums[i] + 1)] for i in range(n)]\n        g = [[0 for j in range(nums[i] + 1)] for i in range(n)]\n        for j in range(nums[0] + 1):\n            f[0][j] = 1\n            g[0][j] = j + 1\n        for i in range(1, n):\n            for j in range(0, nums[i] + 1):\n                t = min(j, j + nums[i - 1] - nums[i], nums[i - 1])\n                if t < 0:\n                    f[i][j] = 0\n                else:\n                    f[i][j] = g[i - 1][t]\n            g[i][0] = f[i][0]\n            for j in range(1, nums[i] + 1):\n                g[i][j] = (g[i][j - 1] + f[i][j]) % p\n            # for j in range(0, nums[i] + 1):\n            #     for k in range(0, min(j, j + nums[i - 1] - nums[i], nums[i - 1]) + 1):\n            #         f[i][j] = (f[i][j] + f[i - 1][k]) % p\n        # print(f)\n        # ans = 0\n        # for j in range(0, nums[-1] + 1):\n        #     ans = (ans + f[-1][j]) % p\n        # return ans\n        \n        return g[-1][-1]",
+    "submit_ts": "1723345103",
+    "subm_id": "1351548648"
+}

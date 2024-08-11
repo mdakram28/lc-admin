@@ -1,0 +1,6 @@
+{
+    "username": "3clouds8878",
+    "submission": "#define MOD 1000000007\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n int n = nums.size();\n    vector<vector<int>> dp(n, vector<int>(101, 0)); // dp[i][j] where arr1[i] = j\n\n    // Base case\n    for (int j = 0; j <= nums[0]; ++j) {\n        dp[0][j] = 1; // arr1[0] = j, arr2[0] = nums[0] - j\n    }\n\n    // DP transition\n    for (int i = 1; i < n; ++i) {\n        vector<int> new_dp(101, 0);\n        for (int j = 0; j <= nums[i]; ++j) {\n            for (int k = 0; k <= j; ++k) {\n                int arr2_val = nums[i] - j;\n                if (arr2_val <= nums[i-1] - k) {\n                    new_dp[j] = (new_dp[j] + dp[i-1][k]) % MOD;\n                }\n            }\n        }\n        dp[i] = new_dp;\n    }\n\n    // Sum all valid dp[n-1][j] values\n    int result = 0;\n    for (int j = 0; j <= nums[n-1]; ++j) {\n        result = (result + dp[n-1][j]) % MOD;\n    }\n\n    return result;\n    }\n};",
+    "submit_ts": "1723344802",
+    "subm_id": "1351542356"
+}

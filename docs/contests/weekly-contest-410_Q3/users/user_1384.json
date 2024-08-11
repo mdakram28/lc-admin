@@ -1,0 +1,6 @@
+{
+    "username": "ritesharah_contest",
+    "submission": "class Solution {\npublic:\n    const long long MOD = 1e9 + 7;\n\n    long long countPairsHelper(int index, int minValue, int maxValue, const vector<int>& nums, vector<vector<vector<long long>>>& dp) {\n        if (index >= nums.size()) return 1;\n        if (dp[index][minValue][maxValue] != -5) return dp[index][minValue][maxValue];\n\n        long long count = 0;\n        int lowerBound = minValue;\n        while (lowerBound <= nums[index]) {\n            int upperBound = maxValue;\n            int check=0;\n            while (upperBound >= 0) {\n                if (lowerBound + upperBound == nums[index]) {\n                    count += countPairsHelper(index + 1, lowerBound, upperBound, nums, dp);\n                    count %= MOD;\n                }\n                check++;\n                upperBound--;\n            }\n            if(check<0) lowerBound=upperBound;\n            lowerBound++;\n        }\n\n        return dp[index][minValue][maxValue] = count;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int length = nums.size();\n        vector<vector<vector<long long>>> dp(length, vector<vector<long long>>(51, vector<long long>(51, -5)));\n        return countPairsHelper(0, 0, nums[0], nums, dp);\n    }\n};",
+    "submit_ts": "1723345962",
+    "subm_id": "1351567116"
+}

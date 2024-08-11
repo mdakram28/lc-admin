@@ -1,0 +1,6 @@
+{
+    "username": "pajichhipa09",
+    "submission": "class Solution {\npublic:\n    int dp[2005][55][55];\n    int mod = (int)(1e9+7);\n    int recur(int i,int pre1,int pre2,vector<int> &nums){\n        if(i==nums.size()) return 1;\n        \n        int &d = dp[i][pre1+1][pre2];\n        if(d!=-1) return d;\n        \n        int cnt = 0;\n        for(int fir=0;fir<=nums[i];fir++){\n            int sec = nums[i]-fir;\n            if(fir>=pre1 and sec<=pre2){\n                cnt += recur(i+1,fir,sec,nums);\n                cnt %= mod;\n            }\n        }\n        return d = cnt%mod;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<int> arr1(n+1,0),arr2(n+1,55);\n        memset(dp,-1,sizeof(dp));\n        return recur(0,-1,51,nums)%mod;\n    }\n};",
+    "submit_ts": "1723346420",
+    "subm_id": "1351577188"
+}

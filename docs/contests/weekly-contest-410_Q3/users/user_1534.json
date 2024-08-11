@@ -1,0 +1,6 @@
+{
+    "username": "is720463",
+    "submission": "class Solution {\nprivate:\n    int MOD = 1e9+7;\n    int dpp[2001][51];\n    int dfs(int cur, int prev1, vector<int> &nums){\n        if(cur>=nums.size()) return 1;\n        \n        if(dpp[cur][prev1] != -1) return dpp[cur][prev1];\n        \n        int res = 0;\n        for(int j=0; j<=nums[cur]; j++){\n            int ccui1 = j, ccui2 = nums[cur]-ccui1;\n            int prev2 = (cur==0)?100:nums[cur-1]-prev1;\n            if(prev1<=ccui1 and prev2>=ccui2){\n                res = (res%MOD + dfs(cur+1,ccui1,nums)%MOD)%MOD;\n            }\n        }\n        \n        return dpp[cur][prev1] = res;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        memset(dpp,-1,sizeof(dpp));\n        return dfs(0,0,nums);\n    }\n};",
+    "submit_ts": "1723346037",
+    "subm_id": "1351568807"
+}

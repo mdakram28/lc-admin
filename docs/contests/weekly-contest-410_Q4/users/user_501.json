@@ -1,0 +1,6 @@
+{
+    "username": "cybsbbbb",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        MOD = 10 ** 9 + 7\n        dp_cur = [0] * 1002\n        dp_cur[0] += 1\n        dp_cur[nums[0] + 1] -= 1\n        for i in range(1, 1002):\n            dp_cur[i] += dp_cur[i - 1]\n        \n        for j in range(1, n):\n            dp_nxt = [0] * 1002\n            diff = nums[j] - nums[j - 1]\n            for i in range(nums[j - 1] + 1):\n                if diff >= 0:\n                    dp_nxt[i + diff] += dp_cur[i]\n                    # print(diff + nums[j - 1] + 1)\n                    dp_nxt[diff + nums[j - 1] + 1] -= dp_cur[i]\n                else:\n                    if nums[j - 1] - i + diff >= 0:\n                        dp_nxt[i] += dp_cur[i]\n                        dp_nxt[i + nums[j - 1] - i + diff + 1] -= dp_cur[i]\n\n            for i in range(1, 1002):\n                dp_nxt[i] += dp_nxt[i - 1]\n                dp_nxt[i] %= MOD\n            \n            dp_cur = dp_nxt\n        \n        ans = 0\n        for val in dp_cur:\n            ans += val\n            ans %= MOD\n        return ans\n",
+    "submit_ts": "1723347432",
+    "subm_id": "1351598664"
+}

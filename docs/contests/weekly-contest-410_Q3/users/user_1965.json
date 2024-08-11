@@ -1,0 +1,6 @@
+{
+    "username": "serioton_codes",
+    "submission": "class Solution {\npublic:\n    int dp[51][51][2001];\n    int mod=1000000007;\n    int help(int up,int down,int ind,vector<int> &nums)\n    {\n        if(ind==nums.size())\n            return 1;\n        \n        if(dp[up][down][ind]!=-1)\n            return dp[up][down][ind];\n        int ans=0;\n        for(int i=0;i<=nums[ind];i++)\n        {\n            if(up<=i&&down>=nums[ind]-i)\n                (ans+=help(i,nums[ind]-i,ind+1,nums)%mod)%=mod;\n        }\n        return dp[up][down][ind]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int ans=0;\n        memset(dp,-1,sizeof(dp));\n        for(int i=0;i<=nums[0];i++)\n            (ans+=help(i,nums[0]-i,1,nums)%mod)%=mod;\n        return ans;\n    }\n};",
+    "submit_ts": "1723346494",
+    "subm_id": "1351578825"
+}

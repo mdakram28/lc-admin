@@ -1,0 +1,6 @@
+{
+    "username": "half_blood_prince_",
+    "submission": "const int M=1e9+7;\nclass Solution {\npublic:\n    vector<int>v;\n    vector<vector<vector<int>>>dp;\n    int fun(int i,int p,int pp){\n        int n=v.size();\n        if(i==n){\n            return 1;\n        }\n        int &c=dp[i][p][pp];\n        if(c!=-1) return c;\n        int ans=0;\n        if(p==51){\n            for(int j=0;j<=v[i];j++){\n                ans+=fun(i+1,j,v[i]-j)%M;\n                ans%=M;\n            }\n        }\n        else {\n            for(int j=0;j<=v[i];j++){\n                if(p<=j && (v[i]-j)<=(pp)){\n                    ans+=fun(i+1,j,(v[i]-j))%M;\n                    ans%=M;\n                }\n            }\n        }\n        return c=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        v=nums;\n        int n=nums.size();\n        dp.clear();\n        dp.resize(n+1,vector<vector<int>>(52,vector<int>(52,-1)));\n        return fun(0,51,51);\n    }\n};",
+    "submit_ts": "1723345134",
+    "subm_id": "1351549303"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "mhi_t",
+    "submission": "class Solution {\npublic:\n    const static int MAXN = 2000;\n    const static int MAXNUM = 50;\n    int memo[MAXN+1][MAXNUM+1][MAXNUM+1];\n    \n    int dp(int pos, int l1, int l2, const vector<int>&nums) {\n        if(pos == nums.size()) {\n            return 1;\n        }\n        int &ret = memo[pos][l1][l2];\n        if(ret != -1) {\n            return ret;\n        }\n        long long res = 0;\n        for(int i = l1; i <= nums[pos]; ++i) {\n            int j = nums[pos]-i;\n            if(j > l2) {\n                continue;\n            }\n            res += dp(pos+1, i, j, nums);\n            mod(res);\n        }\n        ret = res;\n        return res;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        for(int i = 0; i <= MAXN; ++i) {\n            for(int j = 0; j <= MAXNUM; ++j) {\n                for(int k = 0; k <= MAXNUM; ++k) {\n                    memo[i][j][k] = -1;\n                }\n            }\n        }\n        return dp(0, 0, MAXNUM+1, nums);\n    }\n\nprivate:\n    void mod(long long& n) {\n        n %= 1000000007;\n    }\n};",
+    "submit_ts": "1723344485",
+    "subm_id": "1351535525"
+}

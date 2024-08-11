@@ -1,0 +1,6 @@
+{
+    "username": "varangrai",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    int countOfPairs(vector<int>& nums) {\n        // dp[i][m1][m2] NOW to get nums[0..i] s.t arr1[i-1]<=m1 and arr2[i-1] >=m2\n\n        int n = nums.size();\n        int dp[n][51][51];\n        memset(dp, 0, sizeof(dp));\n\n        int ans = 0;\n\n        for(int i = 0; i < n; i++){\n            for(int x = 0; x<=nums[i]; x++){\n                int y = nums[i] - x;\n                //this x, y pair has contri at?\n                \n                if(i == 0){\n                    dp[i][x][y]++;\n                }\n                else{\n                    for(int xP = 0; xP<=min(x, nums[i-1]); xP++){\n                        int yP = nums[i-1] - xP;\n                        if(yP<y)\n                            continue;\n                        dp[i][x][y]+=dp[i-1][xP][yP];\n                        dp[i][x][y]%=MOD;\n                    }\n                }\n\n                if(i == n-1){\n                    ans+=dp[n-1][x][y];\n                    ans%=MOD;\n                }\n            }\n        }\n\n        return ans;\n       \n    }\n};",
+    "submit_ts": "1723346389",
+    "subm_id": "1351576531"
+}

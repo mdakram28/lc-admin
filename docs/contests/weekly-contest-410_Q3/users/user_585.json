@@ -1,0 +1,6 @@
+{
+    "username": "satviksr",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        // DP[i][X][Y] = \n        int n = nums.size();\n        vector<vector<long long>> dp(51, vector<long long>(51));\n        dp[0][0] = 1;\n        accumulate(dp);\n        long long ans = 0;\n        int p = 1e9 + 7;\n        for(int i = 0; i < n; i++) {\n            int s = nums[i];\n            vector<vector<long long>> next_dp(51, vector<long long>(51));\n            long long t = 0;\n            for(int x = 0; x <= s; x++) {\n                int y = s - x;\n                next_dp[x][50 - y] = dp[x][50 - y];\n                t += dp[x][50 - y];\n            }\n            swap(next_dp, dp);\n            ans = t % p;\n            accumulate(dp);\n        }\n        return ans;\n    }\n\n    void accumulate(vector<vector<long long>> &dp) {\n        int p = 1e9 + 7;\n        for(int i = 0; i < 51; i++) {\n            for(int j = 0; j < 51; j++) {\n                long long a = i ? dp[i - 1][j] : 0;\n                long long b = j ? dp[i][j - 1] : 0;\n                long long c = i && j ? dp[i - 1][ j - 1] : 0;\n                dp[i][j] += a + b - c;\n                dp[i][j] %= p;\n            }\n        }\n    }\n};",
+    "submit_ts": "1723345469",
+    "subm_id": "1351556487"
+}

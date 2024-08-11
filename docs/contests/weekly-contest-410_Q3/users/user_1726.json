@@ -1,0 +1,6 @@
+{
+    "username": "Alex2_8468",
+    "submission": "class Solution {\npublic:\n    const int md = 1e9 + 7;\n    vector<int> nums;\n    unordered_map<int, unordered_map<int, unordered_map<int, int>>> dp;\n\n    int rec(int i, int p1, int p2) {\n        if (i == nums.size()) return 1;\n        if (dp.count(i) && dp[i].count(p1) && dp[i][p1].count(p2))return dp[i][p1][p2];\n        int res = 0;\n        int maxi = nums[i];\n        for (int x = 0; x <= maxi; ++x) {\n            int y = maxi - x;\n            if (x >= p1 && y <= p2) {\n                res = (res + rec(i + 1, x, y)) % md;\n            }\n        }\n        return dp[i][p1][p2] = res;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        this->nums = nums;\n        return rec(0, 0, 50);\n    }\n};\n",
+    "submit_ts": "1723345583",
+    "subm_id": "1351558881"
+}

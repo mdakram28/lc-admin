@@ -1,0 +1,6 @@
+{
+    "username": "mdasifhussain786",
+    "submission": "class Solution {\n    private int mod = (int)1e9 + 7;\n    private Integer[][][] dp;\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        dp = new Integer[n + 1][52][52];\n        return fun(nums, 0, nums.length, -1, -1);\n    }\n    \n    \n    private int fun(int[] nums, int ind, int n, int arr1Last, int arr2Last) {\n        if (ind == n) {\n            return 1;\n        }\n        if (dp[ind][arr1Last + 1][arr2Last + 1] != null) {\n            return dp[ind][arr1Last + 1][arr2Last + 1];\n        }\n        int ans = 0;\n        int num = nums[ind];\n        if (ind == 0) {\n            for (int i = 0; i <= num; i++) {\n                ans = (ans + fun(nums, ind + 1, n, i, num - i)) % mod;\n            }\n        } else {\n            for (int i = arr1Last; i <= num; i++) {\n                if ((num - i) <= arr2Last) {\n                    ans = (ans + fun(nums, ind + 1, n, i, num - i)) % mod;\n                }\n            }\n        }\n        \n        return dp[ind][arr1Last + 1][arr2Last + 1] = ans;\n        \n    }\n}",
+    "submit_ts": "1723345353",
+    "subm_id": "1351553939"
+}

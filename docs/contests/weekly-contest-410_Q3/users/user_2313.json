@@ -1,0 +1,6 @@
+{
+    "username": "dhiren_parekh",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    int helper(int ind,int prevl,int prevr,int N,vector<int>&nums,vector<vector<int>>&dp){\n        if(ind==N){\n            return 1;\n        }\n\n        // cout<<ind<<\" \"<<N<<\" \"<<prevl<<endl; \n        if(dp[ind][prevl+1]!=-1)return dp[ind][prevl+1];\n\n        int tot=0;\n        for(int n=0;n<=nums[ind];n++){\n            int n2=nums[ind]-n;\n            if(n>=prevl and n2<=prevr){\n                tot=(tot%mod+helper(ind+1,n,n2,N,nums,dp)%mod)%mod;\n            }\n        }\n\n        return dp[ind][prevl+1]=tot;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<int>> dp(n,vector<int>(53,-1));\n\n        return helper(0,-1,51,n,nums,dp);\n\n    }\n};",
+    "submit_ts": "1723347180",
+    "subm_id": "1351593576"
+}

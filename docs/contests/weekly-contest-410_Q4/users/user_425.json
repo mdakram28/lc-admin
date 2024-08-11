@@ -1,0 +1,6 @@
+{
+    "username": "Khegde20",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int const M = 1e9 + 7;\n        vector<vector<int>> dp(n, vector<int>(1001));\n        vector<vector<int>> pref(n, vector<int>(1001));\n        pref[0][0] = 1;\n        for(int x = 1; x <= nums[0]; x++) {\n            pref[0][x] = pref[0][x-1]+1;\n        }\n\n        for(int i = 1; i < n; i++) {\n            for(int x = 0; x <= nums[i]; x++) {\n                if(x >= nums[i] - nums[i - 1]) {\n                    if(x == 0) pref[i][x] = pref[i-1][0];\n                    else pref[i][x] = pref[i][x-1] + (pref[i-1][x - max(0, nums[i] - nums[i - 1])]);\n                    pref[i][x] %= M;\n                } else if(x > 0) {\n                    pref[i][x] = pref[i][x-1];\n                }\n            }\n        }\n        return pref[n-1][nums[n-1]];\n    }\n};",
+    "submit_ts": "1723347462",
+    "subm_id": "1351599270"
+}

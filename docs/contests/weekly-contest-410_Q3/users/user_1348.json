@@ -1,0 +1,6 @@
+{
+    "username": "UDAY_MOURYA_",
+    "submission": "import java.util.Arrays;\n\nclass Solution {\n    int dp[][][];\n    int mod = (int)1e9 + 7;\n\n    public int countOfPairs(int[] nums) {\n        dp = new int[51][51][nums.length+1];\n        for(int[][] i : dp) {\n            for(int[] j : i) {\n                Arrays.fill(j, -1);\n            }\n        }\n        return solve(0, 50, 0, nums);\n    }\n\n    public int solve(int i, int d, int ind, int[] nums) {\n        if(ind >= nums.length) return 1;\n        if(dp[i][d][ind] != -1) return dp[i][d][ind];\n\n        int ans = 0;\n        for(int num = 0; num <= nums[ind]; num++) {\n            int inc = num;\n            int dc = nums[ind] - inc;\n\n            if(inc >= i && dc <= d) {\n                ans = (ans + solve(inc, dc, ind + 1, nums)) % mod;\n            }\n        }\n\n        return dp[i][d][ind] = ans;\n    }\n}\n",
+    "submit_ts": "1723345908",
+    "subm_id": "1351565914"
+}

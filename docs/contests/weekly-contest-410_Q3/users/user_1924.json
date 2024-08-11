@@ -1,0 +1,6 @@
+{
+    "username": "MrigankMIDAS",
+    "submission": "//here I think at lib. a O(n3) solution is permissible\n//or should I say O(n2 log n)\n//actually a O(n2 * k) solution is permissible 4000000*50=2 * 10**8\n\nclass Solution {\npublic:\n    vector<vector<int>> dp;\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size(),m=50,i,j;\n        const int MOD= (int)1e9 + 7;\n        dp=vector<vector<int>>(m+1,vector<int>(n+1,0));\n        //each row correspond to a value of a[i] where a[i]+b[i]=nums[i]\n        //each col corresponds to index i\n        //nums[j][n-1]=1 for 0<=a<=nums[i] and 0 otherwise\n        //dp[i][j] = count of all monotonic subarrays [j,n-1] with a as i \n        int a,b;\n        for(j=n-1,i=0;i<=nums[j];i++){\n            dp[i][j]=1;\n        }\n        for(j=n-2;j>=0;j--){\n        for(i=0;i<=nums[j];i++){\n            a=i;\n            b=nums[j]-a;\n            for(int k=a;k<=nums[j+1];k++){\n                if (a<=k && b>=nums[j+1]-k){\n                    dp[i][j]+=dp[k][j+1];\n                    dp[i][j]%=MOD;\n                }\n            }\n        }\n        }\n        int answer=0;\n        for(j=0,i=0;i<=50;i++){\n            answer+=dp[i][j];\n            answer%=MOD;\n        }\n        return answer;\n\n    }\n};",
+    "submit_ts": "1723346444",
+    "subm_id": "1351577717"
+}

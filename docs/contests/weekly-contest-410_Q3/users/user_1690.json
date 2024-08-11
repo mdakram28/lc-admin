@@ -1,0 +1,6 @@
+{
+    "username": "Harshnikutayal2005",
+    "submission": "class Solution {\npublic:\n    \n    int mod = 1e9 + 7;\n    int t[2001][51][52];\n    long long solve(vector<int>& nums, int i, int prevA, int prevB) {\n        if(i >= nums.size()) {\n            return 1;\n        }\n        if(prevB == INT_MAX) {\n            if(t[i][prevA][51] != -1) return t[i][prevA][51];\n        } else {\n            if(t[i][prevA][prevB] != -1) return t[i][prevA][prevB];\n        }\n        \n        int num = nums[i]; // 0---num\n        long long res = 0;\n        for(int k = 0; k <= num; k++) {\n            if(k >= prevA && (num-k) <= prevB) {\n                res = (res + solve(nums, i+1, k, num-k))%mod;\n            }\n        }\n        if(prevB == INT_MAX) {\n            return t[i][prevA][51] = res%mod;\n        } \n        return t[i][prevA][prevB] = res%mod;\n        \n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        memset(t, -1, sizeof(t));\n        return solve(nums, 0, 0, INT_MAX);\n    }\n};",
+    "submit_ts": "1723346429",
+    "subm_id": "1351577413"
+}

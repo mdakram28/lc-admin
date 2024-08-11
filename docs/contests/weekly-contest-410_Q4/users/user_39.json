@@ -1,0 +1,6 @@
+{
+    "username": "SyberCage",
+    "submission": "#define ll long long \n#define fr(i,s,e) for(ll i=s;i<e;i++)\nconst ll mod=1e9+7;\nll dp[2010][1005];\nll pre[2010][1005];\nll pref(ll lvl,ll last,vector<int>&nums);\nll rec(ll lvl,ll last,vector<int>&nums){\n    if(lvl==nums.size())return 1;\n    if(dp[lvl][last]!=-1)return dp[lvl][last];\n    ll mx=max(nums[lvl]+last-nums[lvl-1],last);\n    ll ans=pref(lvl,mx,nums);\n    return dp[lvl][last]=ans;\n}\nll pref(ll lvl,ll last,vector<int>&nums){\n    if(lvl==nums.size())return 1;\n    if(last>nums[lvl])return 0;\n    if(pre[lvl][last]!=-1)return pre[lvl][last];\n    ll ans=rec(lvl+1,last,nums);\n    (ans+=pref(lvl,last+1,nums))%=mod;\n    return pre[lvl][last]=ans;\n}\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        ll n=nums.size();\n        ll mx=*max_element(nums.begin(),nums.end());\n        fr(i,0,n+1)fr(j,0,mx+1)dp[i][j]=pre[i][j]=-1;\n        ll ans=0;\n        // fr(i,0,nums.back()+1)dp[n][i]=1;\n        // fr(i,0,nums.back()+1)\n        // for(ll i=n-1;i>=0;i--){\n        //     fr(last,0,mx+1){\n        //         if()\n        //     }\n\n        // }\n        fr(i,0,nums[0]+1){\n            (ans+=rec(1,i,nums))%=mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723344750",
+    "subm_id": "1351541244"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "alexxue800",
+    "submission": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar countOfPairs = function(nums) {\n    let prev = Array(51).fill(0);\n    let next = Array(51).fill(0);\n\n    for (let x = 0; x <= nums[0]; x++) {\n        prev[x]++;\n    }\n\n    let MOD = Math.pow(10, 9) + 7;\n\n    for (let i = 1; i < nums.length; i++) {\n        if (nums[i] > nums[i-1]) {\n            for (let x = nums[i] - nums[i-1]; x <= nums[i]; x++) {\n                for (let y = 0; y <= nums[i-1] - nums[i] + x; y++) {\n                    next[x] += prev[y];\n                    next[x] %= MOD;\n                }\n            }\n        } else {\n            for (let x = 0; x <= nums[i]; x++) {\n                for (let y = 0; y <= x; y++) {\n                    next[x] += prev[y];\n                    next[x] %= MOD;\n                }\n            }\n        }\n        prev = next;\n        next = Array(51).fill(0);\n    }\n    \n    return prev.reduce((accum, cur) => (accum + cur) % (MOD), 0);\n};",
+    "submit_ts": "1723346247",
+    "subm_id": "1351573396"
+}

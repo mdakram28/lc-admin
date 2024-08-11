@@ -1,0 +1,6 @@
+{
+    "username": "Kushal1605",
+    "submission": "class Solution {\n    int Mod = (int) 1e9 + 7;\n    Integer dp [][][];\n    \n    public int helper(int [] nums, int i, int prevFirst, int prevSecond) {\n        if (i == nums.length) {\n            return 1;\n        }\n        \n        if (dp[i][prevFirst][prevSecond] != null) {\n            return dp[i][prevFirst][prevSecond];\n        }\n        \n        int start = 0, end = nums[i];\n        while(start < prevFirst || end > prevSecond) {\n            ++start; --end;\n        }\n        \n        int count = 0;\n        while (end >= 0 && start <= 50) {\n            count = (count % Mod + helper(nums, i + 1, start, end) % Mod) % Mod;\n            ++start; --end;\n        }\n        \n        return dp[i][prevFirst][prevSecond] = count % Mod;\n    }\n    public int countOfPairs(int[] nums) {\n        this.dp = new Integer[nums.length][51][51];\n        return helper(nums, 0, 0, nums[0]) % Mod;\n    }\n}",
+    "submit_ts": "1723346080",
+    "subm_id": "1351569749"
+}

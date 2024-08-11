@@ -1,0 +1,6 @@
+{
+    "username": "Akash0P",
+    "submission": "class Solution {\npublic:\n  int countOfPairs(vector<int>& nums) {\n      \n    int n = nums.size(), ans = 0, M = 1e9 + 7;\n\n    vector<vector<long long>> dp(n, vector<long long> (51, -1));\n\n    auto f = [&](int i, int prev, auto && f) -> long long {\n\n      if(i == n) return 1;\n\n      if(dp[i][prev] != -1) return dp[i][prev];\n\n      long long ans = 0;\n\n      for(int j = prev; j <= nums[i]; j++) {\n\n        int a = prev, b = (i ? nums[i - 1] - prev: 50);\n\n        int cura = j, curb = nums[i] - j;\n\n        if(cura >= a && curb <= b) ans = (ans + f(i + 1, cura, f)) % M;\n\n      }\n\n      return dp[i][prev] = ans;\n\n    };\n\n    return f(0, 0, f);\n\n  }\n};",
+    "submit_ts": "1723344463",
+    "subm_id": "1351535014"
+}

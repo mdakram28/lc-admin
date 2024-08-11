@@ -1,0 +1,6 @@
+{
+    "username": "Tiny_Snow",
+    "submission": "//\n//\n\n#include <iostream>\n#include <iso646.h>\n#include <vector>\n#include <set>\n#include <unordered_set>\n#include <map>\n#include <unordered_map>\n#include <queue>\n#include <algorithm>\n#include <numeric>\n#include <cmath>\n#include <functional>\n#include <string>\n#include <array>\n\nusing namespace std;\nusing LL = long long;\nconst int INF = 0x3f3f3f3f;\nconst LL LINF = 0x3f3f3f3f3f3f3f3f;\n\nclass Solution\n{\npublic:\n    const int MAXN = 51;\n    const int MOD = 1e9 + 7;\n\n    int countOfPairs(vector<int> &nums)\n    {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(MAXN, 0));\n        for (int i = nums[n - 1]; i >= 0; i--)\n            dp[n - 1][i] = nums[n - 1] - i + 1;\n        for (int i = n - 2; i >= 0; i--)\n        {\n            for (int x = 0; x < MAXN; x++)\n            {\n                int minx = max(x, nums[i + 1] - nums[i] + x);\n                if (minx < MAXN)\n                    dp[i][x] = dp[i + 1][minx];\n            }\n            for (int x = MAXN - 2; x >= 0; x--)\n                dp[i][x] = ((LL)dp[i][x] + (LL)dp[i][x + 1]) % MOD;\n        }\n        return dp[0][0];\n    }\n};",
+    "submit_ts": "1723345127",
+    "subm_id": "1351549142"
+}

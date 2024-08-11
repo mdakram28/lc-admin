@@ -1,0 +1,6 @@
+{
+    "username": "Vsoni27",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n    long long dp[2001][53][53];\n    int solve(vector<int> &nums, int idx, int prev1, int prev2){\n        if(idx == nums.size()) return 1;\n        if(dp[idx][prev1][prev2] != -1) return dp[idx][prev1][prev2];\n        int ans = 0;\n        for(int k = prev1; k <= nums[idx]; k++){\n            if(nums[idx] - k <= prev2) ans = (ans % mod + solve(nums, idx + 1, k, nums[idx] - k) % mod) % mod;\n        }\n        return dp[idx][prev1][prev2] = ans % mod;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return solve(nums, 0, 0, 52) % mod;\n    }\n};",
+    "submit_ts": "1723345172",
+    "subm_id": "1351550191"
+}

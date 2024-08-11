@@ -1,0 +1,6 @@
+{
+    "username": "H-R-2004",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        ll n=nums.size(),M=1e9+7;\n        vector<int> v(n+1);\n        v[0]=1000;\n        for(ll i=1;i<=n;i++)v[i]=nums[i-1];\n        vector<vector<ll>> dp(n+1,vector<ll>(1001,0));\n        for(ll i=0;i<=1000;i++)\n        {\n            if(i<=v[1])dp[1][i]=1;\n            if(i)dp[1][i]+=dp[1][i-1];\n        }\n        for(ll i=2;i<=n;i++)\n        {\n            for(ll j=0;j<=v[i];j++)\n            {\n                ll pr=v[i-1];\n                ll cx=j,cy=v[i]-j;\n                ll px=min(j,pr);\n                px=min(px,pr-cy);\n                if(px<=1000 && px>=0)dp[i][j]=(dp[i][j]+dp[i-1][px])%M;\n            }\n            for(ll j=1;j<=1000;j++)\n            {\n                dp[i][j]=(dp[i][j]+dp[i][j-1])%M;\n            }\n        }\n        return dp[n][1000];\n    }\n};",
+    "submit_ts": "1723344680",
+    "subm_id": "1351539733"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "awang11",
+    "submission": "typedef long long int ll;\nll MOD = 1000000007;\nint cap = 1001;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int N = nums.size();\n        vector<vector<ll>> DP(N,vector<ll>(cap));\n        for (int t = 0; t <= nums[0]; t++) {\n            ++DP[0][t];\n        }\n        for (int i = 1; i < N; i++) {\n            vector<ll> cumsum;\n            ll cum = 0;\n            for (int s = 0; s < cap; s++) {\n                cumsum.push_back(cum);\n                cum = (cum + DP[i-1][s]) % MOD;\n            }\n            cumsum.push_back(cum);\n            for (int t = 0; t <= nums[i]; t++) {\n                int cut = max(0, min(t+1, t - nums[i] + nums[i-1] + 1));\n                // cout << i << \" \" << \" \" << t << \" cumsum \" << cut << endl;\n                DP[i][t] = (DP[i][t] + cumsum[cut]) % MOD;\n            }\n        }\n        ll ret = 0;\n        for (int t = 0; t < cap; t++) {\n            ret = (ret + DP[N-1][t]) % MOD;\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1723344621",
+    "subm_id": "1351538473"
+}

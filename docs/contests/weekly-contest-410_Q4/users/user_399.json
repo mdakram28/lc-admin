@@ -1,0 +1,6 @@
+{
+    "username": "pankaj_777",
+    "submission": "const int mod = 1e9 + 7;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size(), m = *max_element(nums.begin(), nums.end());\n        vector<int> dp(m + 2, 1);\n        for (int i = m; i >= 0; i--) {\n            dp[i] += dp[i + 1];\n        }\n        \n        for (int i = n - 1; i >= 1; i--) {\n            vector<int> curr(m + 2, 0);\n            for (int j = m; j >= 0; j--) {\n                int k = nums[i - 1] - j;\n                if (k < 0) {\n                    continue;\n                } else {\n                    int l = max(j, nums[i] - k), r = nums[i];\n                    if (l > r) continue;\n                    curr[j] = (dp[l] - dp[r + 1] + mod) % mod;\n                }\n            }\n            \n            for (int j = m; j >= 0; j--) {\n                curr[j] += curr[j + 1];\n                curr[j] %= mod;\n            }\n            dp = curr;\n        }\n        \n        return (dp[0] - dp[nums[0] + 1] + mod) % mod;\n    }\n};",
+    "submit_ts": "1723347572",
+    "subm_id": "1351601369"
+}

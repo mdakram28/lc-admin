@@ -1,0 +1,6 @@
+{
+    "username": "Vilanel",
+    "submission": "class Solution {\npublic:\n    int dp[2000][52][52];\n    int mod= 1e9+7;\n    int solve(int i, int mn, int mx, vector<int> &nums){\n        if(i==nums.size()) return 1;\n        // if(nums[i]<mn || nums[i]>mx) return 0;\n        if(dp[i][mn][mx]!=-1) return dp[i][mn][mx];\n        int ways=0;\n        for(int val=0;val<=nums[i];val++){\n            if(val>=mn && nums[i]-val<=mx)\n                ways=(ways+solve(i+1,val, nums[i]-val, nums))%mod;\n        }\n        return dp[i][mn][mx]= ways%mod;\n\n        \n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return solve(0,0,51,nums);\n    }\n};",
+    "submit_ts": "1723345217",
+    "subm_id": "1351551101"
+}

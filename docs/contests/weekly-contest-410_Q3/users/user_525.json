@@ -1,0 +1,6 @@
+{
+    "username": "Saber2k18",
+    "submission": "#define rep(i,n) for(int i=0;i<n;i++)\n#define rng(i,a,b) for(int i=a;i<b;i++)\n#define ll long long\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = (int)nums.size();\n        vector<vector<vector<ll>>> dp(n, vector<vector<ll>>(51, vector<ll>(51, 0)));\n        ll mod = 1e9 + 7;\n        rep(i,nums[0]+1){\n            rep(j,nums[0]+1){\n                if(i+j==nums[0]){\n                    dp[0][i][j] = 1;\n                }\n            }\n        }\n        rng(i,1,n){\n            rep(j,nums[i]+1){\n                rep(k1,nums[i-1]+1){\n                    if(k1>j){\n                        break;\n                    }\n                    if(nums[i-1] - k1 >= nums[i] - j){\n                        (dp[i][j][nums[i]-j]+=dp[i-1][k1][nums[i-1]-k1])%=mod;\n                    }\n                }\n            }\n        }\n        ll ans = 0;\n        rep(i,nums[n-1]+1){\n            rep(j,nums[n-1]+1){\n                if(i+j==nums[n-1]){\n                    (ans+=dp[n-1][i][j])%=mod;\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723346185",
+    "subm_id": "1351572069"
+}

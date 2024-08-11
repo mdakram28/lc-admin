@@ -1,0 +1,6 @@
+{
+    "username": "macrohard",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        int[] dp = new int[1001];\n        for(int i = 0; i <= nums[0]; i++) {\n            dp[i] = i + 1;\n        }\n        int mod = 1_000_000_007;\n        for(int i = 1; i < n; i++) {\n            int[] dp2 = new int[1001];\n            int prev = nums[i-1];\n            int num = nums[i];\n            for(int j = 0; j <= num; j++) {\n                int j2 = num - j;\n                int k = Math.min(prev - j2, j);\n                if(k >= 0) {\n                    dp2[j] = dp[k];\n                }\n                if(j > 0) {\n                    dp2[j] = (dp2[j] + dp2[j-1]) % mod;\n                }\n            }\n            //System.out.println(Arrays.toString(dp2));\n            dp = dp2;\n        }\n        return dp[nums[n-1]];\n    }\n}",
+    "submit_ts": "1723348055",
+    "subm_id": "1351610690"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "redsmolder",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int m = 1e9 + 7;\n        vector<vector<int> >table (2, vector<int>(51, 0));\n        for(int i = 0; i <= nums[0]; i++) table[0][i] = 1;\n        int x, y, x2, y2;\n        int c = 1;\n        for(int i = 1; i < nums.size(); i++){\n            table[c] = vector<int>(51, 0);\n            x = nums[i - 1];\n            y = nums[i];\n            for(int j = 0; j <= y; j++){\n                y2 = y - j;\n                for(int k = 0; k <= j && k <= x; k++){\n                    x2 = x - k;\n                    if(x2 < y2) continue;\n                    table[c][j] = (table[c][j] + table[c^1][k])%m;\n                }\n            }\n            c ^= 1;\n        }\n        c ^= 1;\n        int ans = 0;\n        for(int i = 0; i < 51; i++){\n            ans = (ans + table[c][i])%m;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345753",
+    "subm_id": "1351562604"
+}

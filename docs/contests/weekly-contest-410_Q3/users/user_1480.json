@@ -1,0 +1,6 @@
+{
+    "username": "gauravrajput2003",
+    "submission": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n#define ll long long int\n\nclass Solution {\npublic:\n    ll solve(int ind, int ind1, int ind2, const vector<int>& nums, vector<vector<vector<ll>>>& dp) {\n        if (ind >= nums.size()) return 1;\n        ll mod = 1e9 + 7;\n        \n        // Check if the result is already computed\n        if (dp[ind][ind1][ind2] != -1) return dp[ind][ind1][ind2];\n        \n        ll ans = 0;\n        // Iterate over possible values for arr1[ind] and arr2[ind]\n        for (int i = ind1; i <= nums[ind]; ++i) {\n            for (int j = ind2; j >= 0; --j) {\n                if (i + j == nums[ind]) {\n                    ans = (ans + solve(ind + 1, i, j, nums, dp)) % mod;\n                }\n            }\n        }\n        \n        // Memoize the result\n        return dp[ind][ind1][ind2] = ans;\n    }\n\n    int countOfPairs(const vector<int>& nums) {\n        int n = nums.size();\n        // Initialize the dp table with -1 (uncomputed state)\n        vector<vector<vector<ll>>> dp(n, vector<vector<ll>>(51, vector<ll>(51, -1)));\n        // Call the solve function starting from index 0\n        return solve(0, 0, nums[0], nums, dp);\n    }\n};",
+    "submit_ts": "1723346122",
+    "subm_id": "1351570671"
+}

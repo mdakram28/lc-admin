@@ -1,0 +1,6 @@
+{
+    "username": "kd2105",
+    "submission": "class Solution {\npublic:\n    int M = 1e9 + 7;\n    int solve(int ind,vector<int>& nums,int prevInc,int prevRev,vector<vector<vector<int>>> &dp){\n        if(ind == nums.size()) return 1;\n\n        if(dp[ind][prevInc][prevRev] != -1) return dp[ind][prevInc][prevRev];\n\n        int curr = nums[ind];\n\n        int res = 0;\n\n        for(int i=0;i<=curr;i++){\n            if(i >= prevInc && (curr - i) <= prevRev){\n                long long temp = solve(ind+1,nums,i,curr-i,dp);\n                res = (res%M + temp%M)%M;\n            }\n        }\n\n        return dp[ind][prevInc][prevRev] = res;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n,vector<vector<int>>(51,vector<int>(51,-1)));\n        return solve(0,nums,0,50,dp);\n    }\n};",
+    "submit_ts": "1723346202",
+    "subm_id": "1351572445"
+}

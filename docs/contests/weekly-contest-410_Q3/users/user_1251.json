@@ -1,0 +1,6 @@
+{
+    "username": "abhimanyuparmar111",
+    "submission": "class Solution {\n    int mod = (int)(1e9) + 7;\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        int max = 0;\n        for(int d: nums) {\n            max = Math.max(max, d);\n        }\n\n        long[][] dp = new long[n][max+1];\n        for(int i  = 0;i<n;i++) {\n            Arrays.fill(dp[i], -1);\n        }\n\n        long ans = 0;\n        for(int j = 0;j<=Math.min(max, nums[0]);j++) {\n            ans += rec(0,j, nums[0] - j, dp, nums,n);\n            ans = ans%mod;\n        }\n        return (int)ans;\n    }\n\n    public long rec(int i, int val, int val2, long[][] dp, int[] nums, int n) {\n        if(i == n-1) {\n            return 1; // reached all\n        }\n\n        if(dp[i][val] != -1) return dp[i][val];\n\n        long res = 0;\n        for(int k = val;k<=nums[i+1];k++) {\n            int next2 = nums[i+1] -k;\n            if(next2<= val2) {\n                res += rec(i+1, k, next2, dp, nums,n);\n                res = res%mod;\n            }\n        }\n        dp[i][val] = res;\n        return res;\n    }\n}",
+    "submit_ts": "1723345454",
+    "subm_id": "1351556107"
+}

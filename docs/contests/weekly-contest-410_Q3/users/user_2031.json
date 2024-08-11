@@ -1,0 +1,6 @@
+{
+    "username": "linbay",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        base = int(1e9 + 7)\n        prev = {}\n        for arr1First in range(nums[0]+1):\n            arr2First = nums[0] - arr1First\n            prev[(arr1First, arr2First)] = 1\n\n        for i in range(1, len(nums)):\n            num = nums[i]\n            curr = {}\n            for arr1Next in range(num+1):\n                arr2Next = num - arr1Next\n                currCount = 0\n                for (arr1Prev, arr2Prev), count in prev.items():\n                    if arr1Prev <= arr1Next and arr2Prev >= arr2Next:\n                        currCount = (currCount + count) % base\n                \n                curr[(arr1Next, arr2Next)] = currCount\n\n            prev = curr\n        \n        res = 0\n        for count in prev.values():\n            res = (res + count) % base\n        \n        return res\n\n        ",
+    "submit_ts": "1723346567",
+    "subm_id": "1351580389"
+}

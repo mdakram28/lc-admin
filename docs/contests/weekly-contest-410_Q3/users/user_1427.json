@@ -1,0 +1,6 @@
+{
+    "username": "narangdevansh2004",
+    "submission": "class Solution {\npublic:\n    vector<vector<int>> dp;\n    int mod=1e9+7;\n    int f(vector<int> &nums,int curr,int lasti){\n        if(curr>=nums.size())return 1;\n        if(dp[curr][lasti]!=-1)return dp[curr][lasti];\n        int ans=0;\n        for(int i=lasti;i<=nums[curr];i++){\n            int arr2_curr = nums[curr] - i;\n            if(curr>0 && arr2_curr>nums[curr-1]-lasti) continue;\n            ans+=f(nums,curr+1,i);\n            ans%=mod;\n        }\n        return dp[curr][lasti]=ans%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        dp.clear();\n        int n=nums.size();\n        dp.resize(n+1,vector<int> (51,-1));\n        return f(nums,0,0)%mod;\n    }\n};",
+    "submit_ts": "1723345444",
+    "subm_id": "1351555896"
+}

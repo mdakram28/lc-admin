@@ -1,0 +1,6 @@
+{
+    "username": "kartikey071999",
+    "submission": "\nclass Solution {\npublic:\n    int countOfPairs(std::vector<int>& nums) {\n        int n = nums.size();\n        std::vector<std::vector<std::vector<long long>>> dpr(n, std::vector<std::vector<long long>>(51, std::vector<long long>(51, -1)));\n        long long mdf = 1e9 + 7;\n\n        std::function<long long(int, int, int)> rcr = [&](int idx, int a, int b) -> long long {\n            if (idx >= nums.size()) return 1;\n            long long rslt = 0;\n\n            if (dpr[idx][a][b] != -1) return dpr[idx][a][b];\n\n            for (int x = a; x <= nums[idx]; x++) {\n                for (int y = b; y >= 0; y--) {\n                    if (x + y == nums[idx]) {\n                        rslt += rcr(idx + 1, x, y);\n                        rslt %= mdf;\n                    }\n                }\n            }\n\n            return dpr[idx][a][b] = rslt;\n        };\n\n        return rcr(0, 0, nums[0]);\n    }\n};\n",
+    "submit_ts": "1723346785",
+    "subm_id": "1351585122"
+}

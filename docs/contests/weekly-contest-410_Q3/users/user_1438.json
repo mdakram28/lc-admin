@@ -1,0 +1,6 @@
+{
+    "username": "srinathb99",
+    "submission": "class Solution {\npublic:\n    const static int A = 55;\n    const static int N = 2005;\n    int dp[N][A];\n    const int MOD = 1e9 + 7;\n    void add_self(int& a, int b) {\n        a += b;\n        if(a >= MOD) a -= MOD;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        for(int i = 0; i < n; ++i) {\n            for(int j = 0; j < A; ++j) {\n                dp[i][j] = 0;\n            }\n        }\n        for(int num_a = 0; num_a <= nums[0]; ++num_a) {\n            dp[0][num_a] = 1;\n        }\n        for(int i = 1; i < n; ++i) {\n            for(int num_a = 0; num_a <= nums[i]; ++num_a) {\n                for(int prev_a = 0; prev_a <= min(num_a, nums[i - 1]); ++prev_a) {\n                    int prev_b = nums[i - 1] - prev_a;\n                    int here_b = nums[i] - num_a;\n                    assert(prev_a <= num_a);\n                    if(prev_b >= 0 && here_b >= 0 && prev_b >= here_b) {\n                        add_self(dp[i][num_a], dp[i - 1][prev_a]);\n                    }\n                }\n            }\n        }\n        int res = 0;\n        for(int i = 0; i <= nums[n - 1]; ++i) {\n            add_self(res, dp[n - 1][i]);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723345763",
+    "subm_id": "1351562814"
+}

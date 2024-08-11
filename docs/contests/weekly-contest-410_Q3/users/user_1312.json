@@ -1,0 +1,6 @@
+{
+    "username": "user0812L",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int MOD = 1e9 + 7;\n        \n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        \n        function<int(int, int, int)> recur = [&](int ind, int a1, int a2) {\n            if (ind == n) return 1;\n            if (dp[ind][a1][a2] != -1) return dp[ind][a1][a2];\n            \n            int ways = 0;\n            for (int i = 0; i <= nums[ind]; ++i) {\n                if (nums[ind] - i >= a1 && i <= a2) {\n                    ways = (ways + recur(ind + 1, nums[ind] - i, i)) % MOD;\n                }\n            }\n            return dp[ind][a1][a2] = ways;\n        };\n        \n        return recur(0, 0, nums[0]) % MOD;\n    }\n};",
+    "submit_ts": "1723345559",
+    "subm_id": "1351558407"
+}

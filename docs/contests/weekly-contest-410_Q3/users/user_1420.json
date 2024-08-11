@@ -1,0 +1,6 @@
+{
+    "username": "PeterShi0629",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        mem = {}\n        def solve(lower, upper, index):\n            if index >= len(nums):\n                return 1\n            if lower > nums[index]:\n                return 0\n            if (lower, upper, index) in mem:\n                return mem[(lower, upper, index)]\n            else:\n                res = sum(\n                    [\n                        solve(x, nums[index] - x, index + 1)\n                        for x in range(max(lower, nums[index] - upper), nums[index] + 1)\n                    ]\n                ) % (10**9 + 7)\n                mem[(lower, upper, index)] = res\n                return res\n        return solve(0, nums[0], 0)\n",
+    "submit_ts": "1723345733",
+    "subm_id": "1351562160"
+}

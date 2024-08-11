@@ -1,0 +1,6 @@
+{
+    "username": "D_Raynor",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        //solution 1\n        //\n        int preIdx = 0, curIdx = 1, md = 1e9 + 7, n = nums.size();\n        int dp[2][51]{};\n\n        //base case init\n        for(int x = 0; x <= nums[0]; ++x) dp[0][x] = 1;\n\n        for(int i = 1; i < n; ++i){\n            memset(dp[curIdx], 0, sizeof(dp[curIdx]));\n\n            for(int x = 0; x <= nums[i]; ++x){\n                int y = nums[i] - x;\n\n                for(int prex = x; prex >= 0; --prex){\n                    int prey = nums[i-1] - prex;\n                    \n                    //if(prey >= 0 && prey >= y){}\n                    if(prey >= y) dp[curIdx][x] = (dp[curIdx][x] + dp[preIdx][prex]) % md;\n                }\n            }\n\n            swap(preIdx, curIdx);\n        }\n\n        int ret = 0;\n        for(const auto &x: dp[preIdx]) ret = (ret + x) % md;\n\n        return ret;\n        //end of solution 1\n    }\n};",
+    "submit_ts": "1723346119",
+    "subm_id": "1351570614"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "jinx_vi",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    vector<vector<vector<int>>> memo;\n    vector<int> nums;\n    int n;\n\n    int dfs(int i, int prev1, int prev2) {\n        if (i == n) return 1;\n        if (memo[i][prev1][prev2] != -1) return memo[i][prev1][prev2];\n\n        long long count = 0;\n        for (int j = prev1; j <= nums[i]; ++j) {\n            int k = nums[i] - j;\n            if (k <= prev2) {\n                count = (count + dfs(i + 1, j, k)) % MOD;\n            }\n        }\n\n        return memo[i][prev1][prev2] = count;\n    }\n    int countOfPairs(vector<int>& nums) {\n        this->nums = nums;\n        n = nums.size();\n        int maxNum = 0;\n        for (int num : nums) maxNum = max(maxNum, num);\n        memo.assign(n, vector<vector<int>>(maxNum + 1, vector<int>(maxNum + 1, -1)));\n\n        return dfs(0, 0, maxNum);\n    }\n};",
+    "submit_ts": "1723344808",
+    "subm_id": "1351542469"
+}

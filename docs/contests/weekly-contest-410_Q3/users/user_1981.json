@@ -1,0 +1,6 @@
+{
+    "username": "satvik2610",
+    "submission": "class Solution {\n    int MOD = 1e9 + 7;\n    int splitPairs(vector<int>& nums, int i, int prevA, vector<vector<int>> &dp){\n        int prevB = (i > 0) ? nums[i-1]-prevA : 2001;\n        // base case\n        if(i == nums.size()) return 1;\n\n        // lookup\n        if(dp[i][prevA] != -1) return dp[i][prevA];\n\n        // recursive case\n        int cnt = 0;\n        for(int j=0;j<=nums[i];j++){\n            int num1 = j;\n            int num2 = nums[i] - j;\n            if(num1 >= prevA && num2 <= prevB){\n                cnt = (cnt + splitPairs(nums, i+1, num1, dp)) % MOD;\n            }\n        }\n        return dp[i][prevA] = cnt;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<int>> dp(n+1, vector<int>(2001,-1));\n        return splitPairs(nums, 0, 0, dp);\n    }\n};",
+    "submit_ts": "1723345911",
+    "subm_id": "1351565995"
+}

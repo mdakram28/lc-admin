@@ -1,0 +1,6 @@
+{
+    "username": "shreyans_jain2908",
+    "submission": "#define ll long long\nclass Solution {\n    ll mod = 1e9 + 7;\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<ll>>> dp(n, vector<vector<ll>> (51, vector<ll>(51, -1)));\n        \n        function<ll(int, int, int)> f = [&](int ind, int val1, int val2) -> ll {\n            if(ind >= n) return 1;\n            ll res = 0;\n            if(dp[ind][val1][val2] != -1) return dp[ind][val1][val2];\n            \n            for(int i=val1;i<=nums[ind];i++) {\n                for(int j=val2;j>=0;j--) {\n                    if(i+j == nums[ind]) {\n                        res += f(ind+1, i, j);\n                        res = res % mod;\n                    }\n                }\n            }\n            return dp[ind][val1][val2] = res;  \n        };\n        return f(0, 0, nums[0]);\n    }\n};",
+    "submit_ts": "1723346821",
+    "subm_id": "1351585843"
+}

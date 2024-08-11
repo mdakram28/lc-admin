@@ -1,0 +1,6 @@
+{
+    "username": "LGM70",
+    "submission": "import java.util.*;\n\nclass Solution {\n    private static final int limit = (int) 1e9 + 7;\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        int[][] dp = new int[n + 1][1001];\n        int[] sum = new int[1001];\n        int[] newSum = new int[1001];\n        dp[0][0] = 1;\n        Arrays.fill(sum, 1);\n        for (int i = 1; i <= n; i++) {\n            for (int currNum1 = 0; currNum1 <= 1000; currNum1++) {\n                if (currNum1 <= nums[i - 1]) {\n                    int maxLastNum1 = currNum1;\n                    if (i > 1 && nums[i - 1] - currNum1 > nums[i - 2] - maxLastNum1) {\n                        maxLastNum1 = currNum1 + nums[i - 2] - nums[i - 1];\n                    }\n                    if (maxLastNum1 >= 0) {\n                        dp[i][currNum1] = sum[maxLastNum1];\n                    }\n                }\n                if (currNum1 > 0) {\n                    newSum[currNum1] = (newSum[currNum1 - 1] + dp[i][currNum1]) % limit;\n                }\n                else {\n                    newSum[currNum1] = dp[i][currNum1];\n                }\n            }\n            sum = newSum;\n            newSum = new int[1001];\n        }\n        return sum[1000];\n    }\n}",
+    "submit_ts": "1723346005",
+    "subm_id": "1351568067"
+}

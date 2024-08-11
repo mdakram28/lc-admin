@@ -1,0 +1,6 @@
+{
+    "username": "rhythm_09",
+    "submission": "class Solution\n{\npublic:\n    long long M = 1e9 + 7;\n    long long solve(int ind, int l, int r, vector<int> &nums, vector<vector<vector<long long>>> &dp)\n    {\n        if (ind >= nums.size()){\n            return 1;\n        }\n\n        if (dp[ind][l][r] != -1){\n            return dp[ind][l][r];\n        }\n\n        long long ans = 0;\n        for (int i = l; i <= nums[ind]; i++)\n        {\n            for (int j = r; j >= 0; j--)\n            {\n                if (i + j == nums[ind])\n                {\n                    ans = (ans + solve(ind + 1, i, j, nums, dp)) % M;\n                }\n            }\n        }\n        return dp[ind][l][r] = ans;\n    }\n    int countOfPairs(vector<int> &nums)\n    {\n        vector<vector<vector<long long>>> dp(nums.size(), vector<vector<long long>>(55, vector<long long>(55, -1)));\n        return solve(0, 0, nums[0], nums, dp);\n    }\n};",
+    "submit_ts": "1723346828",
+    "subm_id": "1351586012"
+}

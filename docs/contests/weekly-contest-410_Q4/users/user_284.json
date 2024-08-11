@@ -1,0 +1,6 @@
+{
+    "username": "GoldenShadow5",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        int[][] dp = new int[n][1001];\n        dp[0][0] = 1;\n        for(int j = 1; j <= 1000; j++) {\n            dp[0][j] = dp[0][j-1];\n            if(j <= nums[0]) {\n                dp[0][j]++;\n            }\n        }\n        for(int i = 1; i < n; i++) {\n            for(int j = 0; j <= 1000; j++) {\n                if(j <= nums[i]) {\n                    int k = nums[i]-j;\n                    int maxpj = Math.min(j, nums[i-1]-k);\n                    if(maxpj >= 0) {\n                        dp[i][j] = dp[i-1][maxpj];\n                    }\n                }\n                if(j > 0) {\n                    dp[i][j] = (dp[i][j]+dp[i][j-1])%1000000007;\n                }\n            }\n        }\n        return dp[n-1][1000];\n    }\n}",
+    "submit_ts": "1723346755",
+    "subm_id": "1351584455"
+}

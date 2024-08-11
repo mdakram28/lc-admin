@@ -1,0 +1,6 @@
+{
+    "username": "Sambhav-Jain",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) \n    {\n        int n=nums.size(),ans=0;\n        constexpr int MOD=1e9+7;\n        int dp[n][51][51];\n        memset(dp,0,sizeof(dp));\n        for(int i=0;i<=nums[0];i++)\n        {\n            dp[0][i][nums[0]-i]=1;\n        }\n        for(int len=1;len<n;len++)\n        {\n            for(int i=0;i<=nums[len];i++)\n            {\n                int j=nums[len]-i;\n                for(int k=i;k<=50;k++)\n                {\n                    int l=nums[len-1]-k;\n                    if(l<0||l>j)\n                    {\n                        continue;\n                    }\n                    dp[len][i][j]+=dp[len-1][k][l];\n                    dp[len][i][j]%=MOD;\n                }\n            }\n        }\n        for(int i=0;i<=50;i++)\n        {\n            for(int j=0;j<=50;j++)\n            {\n                ans+=dp[n-1][i][j];\n                ans%=MOD;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723344725",
+    "subm_id": "1351540706"
+}

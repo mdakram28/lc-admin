@@ -1,0 +1,6 @@
+{
+    "username": "vihanagarwal",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n        vector<vector<int>> memo(n, vector<int>(51, -1));\n        return countWays(nums, 0, 0, memo, MOD,INT_MAX);\n    }\n    int countWays(const vector<int>& nums, int i, int last, vector<vector<int>>& memo, const int MOD,int lastincreasing) {\n        if (i == nums.size()) return 1; \n        if (memo[i][last] != -1) return memo[i][last]; \n        int ways = 0;\n        for (int x = last; x <= nums[i]; x++) { \n            if(nums[i]-x>lastincreasing) continue;\n            ways = (ways + countWays(nums, i + 1, x, memo, MOD,nums[i]-x)) % MOD;\n        }\n        return memo[i][last] = ways; \n    }\n};\n",
+    "submit_ts": "1723346125",
+    "subm_id": "1351570733"
+}

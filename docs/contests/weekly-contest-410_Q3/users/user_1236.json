@@ -1,0 +1,6 @@
+{
+    "username": "myselfshivams",
+    "submission": "impl Solution {\n    pub fn count_of_pairs(nums: Vec<i32>) -> i32 {\n        const MOD_VAL: i32 = 1_000_000_007;\n\n        let max_value = *nums.iter().max().unwrap_or(&0);\n        let size = nums.len();\n\n\n        let mut memo = vec![vec![vec![-1; (max_value + 1) as usize]; (max_value + 1) as usize]; size];\n\n        fn count_pairs(index: usize, min_val: i32, max_val: i32, nums: &[i32], memo: &mut Vec<Vec<Vec<i32>>>) -> i32 {\n            if index >= nums.len() {\n                return 1;\n            }\n            if memo[index][min_val as usize][max_val as usize] != -1 {\n                return memo[index][min_val as usize][max_val as usize];\n            }\n\n            let mut result = 0;\n            for i in min_val..=nums[index] {\n                for j in 0..=max_val {\n                    if i + j == nums[index] {\n                        result = (result + count_pairs(index + 1, i, j, nums, memo)) % MOD_VAL;\n                    }\n                }\n            }\n\n            memo[index][min_val as usize][max_val as usize] = result;\n            result\n        }\n\n        count_pairs(0, 0, nums[0], &nums, &mut memo)\n    }\n}\n",
+    "submit_ts": "1723345727",
+    "subm_id": "1351562027"
+}

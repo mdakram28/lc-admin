@@ -1,0 +1,6 @@
+{
+    "username": "namitnayan32",
+    "submission": "MOD = int(1e9) + 7\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        max_num = max(nums)\n        dp = [1 for _ in range(max_num + 1)]\n        ndp = [0 for _ in range(max_num + 1)]\n        ps_dp = [0 for _ in range(max_num + 1)]\n        for i in range(n - 2, -1, -1):\n            for j in range(len(ndp)):\n                ndp[j] = 0\n                ps_dp[j] = (0 if j == 0 else ps_dp[j - 1]) + dp[j]\n            for prev in range(nums[i] + 1):\n                prev2 = nums[i] - prev\n                lt, rt = max(prev, nums[i + 1] - prev2), nums[i + 1]\n                if rt >= lt:\n                    ndp[prev] = ps_dp[rt] - (0 if lt == 0 else ps_dp[lt - 1])\n            for j in range(len(dp)):\n                dp[j] = ndp[j]\n        return sum(dp) % MOD\n",
+    "submit_ts": "1723347709",
+    "subm_id": "1351604079"
+}

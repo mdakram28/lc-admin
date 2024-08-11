@@ -1,0 +1,6 @@
+{
+    "username": "akshun_007",
+    "submission": "class Solution {\npublic:\n    const int M=1e9+7;\n    int dp[2001][52][52];\n    int solve(int ind, int prev1, int prev2, vector<int> &nums, int n){\n        if(ind==n){\n            return 1;\n        }\n        if(dp[ind][prev1][prev2]!=-1){\n            return dp[ind][prev1][prev2];\n        }\n        int lb=prev1;\n        int ub=nums[ind];\n        int ans=0;\n        for(int i=lb; i<=ub; i++){\n            int one=i;\n            int two=nums[ind]-one;\n            if(two<=prev2){\n                ans=(ans%M + solve(ind+1,one,two,nums,n)%M)%M;\n            }\n        }\n        return dp[ind][prev1][prev2]=ans%M;;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        memset(dp,-1,sizeof(dp));\n        int ans=solve(0,0,nums[0],nums,n);\n        return ans;\n    }\n};",
+    "submit_ts": "1723345629",
+    "subm_id": "1351559875"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "galinskey",
+    "submission": "class Solution {\n    private static final int MOD = 1000000007;\n\n    public int countOfPairs(int[] nums) {\n        return dp(nums, 0, 0, new int[nums.length + 1][51]);\n    }\n    \n    private static int dp(int[] nums, int pos, int a1, int[][] cache) {\n        if (pos == nums.length) {\n            return 1;\n        }\n        if (cache[pos][a1] > 0) {\n            return cache[pos][a1] - 1;\n        }\n        int a2 = pos == 0 ? Integer.MAX_VALUE : nums[pos - 1] - a1;\n        int result = 0;\n        for (int v1 = a1; v1 <= nums[pos]; v1++) {\n            int v2 = nums[pos] - v1;\n            if (v2 > a2) {\n                continue;\n            }\n            result = (result + dp(nums, pos + 1, v1, cache)) % MOD;\n        }\n        cache[pos][a1] = result + 1;\n        return result;\n    }\n}",
+    "submit_ts": "1723345066",
+    "subm_id": "1351547890"
+}

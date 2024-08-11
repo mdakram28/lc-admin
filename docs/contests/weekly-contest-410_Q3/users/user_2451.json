@@ -1,0 +1,6 @@
+{
+    "username": "rashmithachiliveri",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        /*\n        0 -> 1\n        1 -> 1\n        2 -> 1\n        \n        (0 -> >=0) (3 -> <=3)\n        \n        (1 -> >=1) (2 -> <=2)\n        \n        */\n        int n=nums.size(),mod=1e9+7;\n        int maxi=*max_element(nums.begin(),nums.end());\n        vector<vector<int>> dpInc(n,vector<int>(maxi+1));\n        for(int i=0;i<=nums.back();i++)\n            dpInc[n-1][i]=1;\n        \n        for(int i=n-2;i>=0;i--){\n            int curNum=nums[i];\n            int nextNum=nums[i+1];\n            for(int x1=0;x1<=curNum;x1++){\n                int x2=curNum-x1;\n                // >=x1 and <=x2\n                for(int y1=0;y1<=nextNum;y1++){\n                    int y2=nextNum-y1;\n                    if(y1>=x1 and y2<=x2){\n                        //dp state update\n                        dpInc[i][x1]=(dpInc[i][x1]+dpInc[i+1][y1])%mod;\n                    }\n                }\n            }\n        }\n        \n        int totalCnt=0;\n        for(int i=0;i<=maxi;i++)\n            totalCnt=(totalCnt+dpInc[0][i])%mod;\n        return totalCnt;\n    }\n};",
+    "submit_ts": "1723347030",
+    "subm_id": "1351590385"
+}

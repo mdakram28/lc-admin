@@ -1,0 +1,6 @@
+{
+    "username": "JS_007",
+    "submission": "class Solution {\n    private final int mod = (int)(1e9 + 7);\n    \n    private int[][][] dp;\n    \n    private int findPairs(int index, int prevI, int prevJ, int[] nums){\n        if(index == nums.length){\n            return 1;\n        }\n        \n        if(prevI >= 0 && prevJ >= 0){\n            if(dp[index][prevI][prevJ] != -1){\n                return dp[index][prevI][prevJ];\n            }\n        }\n        \n        int limit = nums[index];\n        int total = 0;\n        \n        for(int i=(prevI == -1 ? 0 : prevI);i<=limit;i++){\n            for(int j=(prevJ == -1 ? limit : prevJ);j>=0;j--){\n                if(i + j == nums[index]){\n                    if ((prevI == -1 && prevJ == -1) || (i >= prevI && j <= prevJ))\n                        total = (total + findPairs(index+1, i, j, nums)) % mod;\n                }\n            }\n        }\n        if(prevI == -1 && prevJ == -1) return total;\n        return dp[index][prevI][prevJ] = total;\n    }\n    \n    public int countOfPairs(int[] nums) {\n        dp = new int[nums.length][51][51];\n        for(int[][] grid : dp){\n            for(int[] row : grid){\n                Arrays.fill(row, -1);\n            }\n        }\n        return findPairs(0, -1, -1, nums);\n    }\n}",
+    "submit_ts": "1723346281",
+    "subm_id": "1351574141"
+}

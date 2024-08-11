@@ -1,0 +1,6 @@
+{
+    "username": "niteshsaxena03",
+    "submission": "#define ll long long int\n\nclass Solution {\npublic:\n    ll calculate(int idx, int param1, int param2, std::vector<int>& numbers,\n                 std::vector<std::vector<std::vector<ll>>>& memo) {\n        if (idx >= numbers.size())\n            return 1;\n\n        ll result = 0;\n        ll modValue = 1e9 + 7;\n\n        if (memo[idx][param1][param2] != -1)\n            return memo[idx][param1][param2];\n\n        for (int i = param1; i <= numbers[idx]; i++) {\n            for (int j = param2; j >= 0; j--) {\n                if (i + j == numbers[idx]) {\n                    result += calculate(idx + 1, i, j, numbers, memo);\n                    result = result % modValue;\n                }\n            }\n        }\n\n        // Dummy variable to simulate additional computation\n        ll dummyValue = (idx + param1 + param2) % modValue;\n        dummyValue += result;\n\n        return memo[idx][param1][param2] = result;\n    }\n\n    int countOfPairs(std::vector<int>& numbers) {\n        int size = numbers.size();\n        std::vector<std::vector<std::vector<ll>>> memo(\n            size, std::vector<std::vector<ll>>(51, std::vector<ll>(51, -1)));\n\n        return calculate(0, 0, numbers[0], numbers, memo);\n    }\n};\n",
+    "submit_ts": "1723345213",
+    "subm_id": "1351551041"
+}

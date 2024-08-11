@@ -1,0 +1,6 @@
+{
+    "username": "hab_ee_b",
+    "submission": "class Solution {\npublic:\n    int dp[2001][51];\n    int m=1e9+7,n;\n    vector<int> nums;\n    long long int f(int i,int j){\n        if(i==n)return 1;\n        if(dp[i][j]!=-1)return dp[i][j];\n        dp[i][j]=0;\n        if(i){\n            int k=i-1;\n            for(int x=max(j,nums[i]-nums[k]+j),y=0;x<=nums[i];x++){\n                // y=nums[i]-x;\n                dp[i][j] = (dp[i][j] + f(i+1,x))%m;\n            }\n        }\n        else{\n            for(int x=0,y=0;x<=nums[i];x++){\n                dp[i][j] = (dp[i][j] + f(i+1,x))%m;\n            }\n        }\n        return dp[i][j];\n    }\n    int countOfPairs(vector<int>& num) {\n        memset(dp,-1,sizeof dp);\n        nums=num;\n        n=nums.size();\n        return f(0,0);\n    }\n};",
+    "submit_ts": "1723345760",
+    "subm_id": "1351562741"
+}

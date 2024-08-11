@@ -1,0 +1,6 @@
+{
+    "username": "_sahil_sinha_08",
+    "submission": "class Solution {\nprivate:\n    int mod=1e9+7;\n    int findCount(int ind,int greaterThan,int lessThan,vector<int>&nums,vector<vector<vector<int>>>&dp){\n        if(ind==nums.size()) return 1;\n        if(dp[ind][greaterThan][lessThan]!=-1) return dp[ind][greaterThan][lessThan];\n        int count=0;\n        for(int val=greaterThan;val<=nums[ind];val++){\n            if(val>=greaterThan && (nums[ind]-val)<=lessThan){\n                count = (count+findCount(ind+1,val,nums[ind]-val,nums,dp)%mod)%mod;\n            }\n        }\n        return dp[ind][greaterThan][lessThan]=count%mod;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<vector<int>>>dp(n,vector<vector<int>>(51,vector<int>(51,-1)));\n        return findCount(0,0,50,nums,dp);\n        //arr1=increasing\n        //arr2=decreasing\n    }\n};",
+    "submit_ts": "1723345706",
+    "subm_id": "1351561605"
+}

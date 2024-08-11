@@ -1,0 +1,6 @@
+{
+    "username": "eshaansodhi",
+    "submission": "#define ll long long\nconst ll MOD = 1e9+7;\n\nclass Solution {\npublic:\n    ll f(int i, int ar1, int ar2, vector<int>&nums,vector<vector<vector<ll>>>&dp){\n        if(i==nums.size()){\n            return 1;\n        }\n        if(dp[i][ar1][ar2]!=-1){\n            return dp[i][ar1][ar2];\n        }\n        ll cur = 0;\n        for(int j = 0 ; j <= nums[i] ; j++){\n            if(j>=ar1 && nums[i]-j<=ar2){\n                cur += f(i+1,j,nums[i]-j,nums,dp);\n                cur %= MOD; \n            }\n        }\n        return dp[i][ar1][ar2] = cur;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<ll>>>dp(n+1,vector<vector<ll>>(51,vector<ll>(51,-1)));\n        int ans = f(0,0,50,nums,dp)%MOD;\n        return ans;\n    }\n};",
+    "submit_ts": "1723344797",
+    "subm_id": "1351542252"
+}

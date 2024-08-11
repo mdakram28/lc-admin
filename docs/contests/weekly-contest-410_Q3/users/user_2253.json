@@ -1,0 +1,6 @@
+{
+    "username": "insensitive_amartya",
+    "submission": "class Solution {\n    public int function(int index,int[] nums,int prev,int[][] dp,int M){\n\n        if (index==nums.length) return 1;\n\n        int sum = 0;\n\n        for (int i=0;i<=50;i++)\n        {   \n            if (index==0)\n            {\n                if (nums[index]-i>=0)\n                {\n                    if (dp[index][i]!=-1) sum = ((sum%M) + (dp[index][i])%M)%M;\n                    else sum = ((sum%M) + (function(index+1,nums,i,dp,M)%M))%M;\n                }\n            }\n            else if (i>=prev && (nums[index]-i)<=(nums[index-1]-prev) && (nums[index]-i)>=0)\n            {\n                if (dp[index][i]!=-1) sum = ((sum%M) + (dp[index][i])%M)%M;\n                else sum = ((sum%M) + (function(index+1,nums,i,dp,M)%M))%M;\n            }\n        }\n\n        if (index!=0) dp[index-1][prev] = sum;\n        return sum;\n    }\n\n    public int countOfPairs(int[] nums) {\n        int[][] dp = new int[nums.length+1][51];\n        for (int i=0;i<=nums.length;i++)\n        {\n            Arrays.fill(dp[i],-1);\n        }\n\n        int M = 1000000007;\n\n        return function(0,nums,0,dp,M);\n    }\n}",
+    "submit_ts": "1723347115",
+    "subm_id": "1351592207"
+}

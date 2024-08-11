@@ -1,0 +1,6 @@
+{
+    "username": "eulusoy",
+    "submission": "class Solution {\npublic:\n    void fill(vector<int> &nums, vector<vector<int>> &memo, int col){\n        if(col==(nums.size()-1)){\n            for(int i=0; i<=nums[col]; ++i){\n                memo[col][i]=1;\n            }\n            return;\n        }\n        fill(nums, memo, col+1);\n        int sum=0;\n        int j=0;\n        for(int i=0; i<=nums[col]; ++i){\n            for(; j<=i; ++j){\n                if((nums[col+1]-j)<(nums[col]-i)){\n                    break;\n                }\n                sum += memo[col+1][j];\n                sum %= 1000000007;\n            }\n            memo[col][i] = sum;\n        }\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<int>> memo(n, vector<int>(1001,0));\n        fill(nums, memo, 0);\n        int ans = 0;\n        for(int i=0; i<1001; ++i){\n            ans += memo[0][i];\n            ans %= 1000000007;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723347344",
+    "subm_id": "1351596924"
+}

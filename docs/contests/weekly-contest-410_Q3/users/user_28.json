@@ -1,0 +1,6 @@
+{
+    "username": "USYDLDH",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        mod = 10 ** 9 + 7\n\n        dp = defaultdict(int)\n        dp[(-inf, inf)] = 1\n\n        for num in nums:\n            newdp = defaultdict(int)\n            for a in range(num + 1):\n                b = num - a\n                for (dpa, dpb) in dp:\n                    if dpa <= a and dpb >= b:\n                        newdp[(a, b)] += dp[(dpa, dpb)]\n                        newdp[(a, b)] %= mod\n            dp = newdp\n        \n        res = 0\n        for a, b in dp:\n            res += dp[(a, b)]\n            res %= mod\n        \n        return res\n        ",
+    "submit_ts": "1723344023",
+    "subm_id": "1351524558"
+}

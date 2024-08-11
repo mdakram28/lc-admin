@@ -1,0 +1,6 @@
+{
+    "username": "adarshleet2003",
+    "submission": "class Solution {\npublic:\n    int dp[2001][51];\n    #define mod 1000000007\n    int rec(int n, int i, int prev, vector<int>&nums){\n        if (i==n) {\n            return 1;\n        }\n        if (dp[i][prev]!=-1) return dp[i][prev];\n        int cnt=0;\n        for (int j=0; j<=nums[i]; j++){\n            if (i==0) {\n                cnt = (cnt + rec(n, i+1, j, nums))%mod;\n            } \n            else {\n                if (j>=prev and nums[i]-j<=nums[i-1]-prev) {\n                    cnt=(cnt + rec(n, i+1, j, nums))%mod;\n                }\n            }\n        }\n        return dp[i][prev]=cnt;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        memset(dp, -1, sizeof(dp));\n        return rec(n, 0, 0, nums);\n    }\n};",
+    "submit_ts": "1723344851",
+    "subm_id": "1351543380"
+}

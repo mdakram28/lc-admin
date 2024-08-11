@@ -1,0 +1,6 @@
+{
+    "username": "jayxray",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    const int mod = 1e9+7;\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<ll>> DP(nums.size(), vector<ll>(1001));\n        fill(DP[0].begin(), DP[0].begin()+nums[0]+1, 1);\n        for(int i = 1; i <= 1000; ++i) DP[0][i] += DP[0][i-1];\n        for (int i = 1; i < nums.size(); ++i) {\n            for(int j = 0; j <= 1000; ++j) {\n                // k >= j\n                // nums[i-1]+j-nums[i] <= k\n                // \n                if (j <= nums[i] && nums[i-1]+j-nums[i] <= nums[i-1]) {\n                    int llim = max(j, nums[i-1]+j-nums[i]);\n                    DP[i][j] = DP[i-1][1000]-(llim > 0 ? DP[i-1][llim-1] : 0)+mod;\n                    DP[i][j] %= mod;\n                }\n                if (j) DP[i][j] += DP[i][j-1];\n                DP[i][j] %= mod;\n            }\n        }\n        return DP[nums.size()-1][nums.back()];\n    }\n};",
+    "submit_ts": "1723344210",
+    "subm_id": "1351529069"
+}

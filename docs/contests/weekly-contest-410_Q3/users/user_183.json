@@ -1,0 +1,6 @@
+{
+    "username": "trchen",
+    "submission": "using ll = long long;\n\nclass Solution {\n public:\n  int countOfPairs(vector<int>& nums) {\n    int n = nums.size();\n    vector<ll> dp(51, 0);\n    for (int i = 0; i <= nums[0]; ++i) {\n      dp[i] = 1;\n    }\n    for (int t = 1; t < n; ++t) {\n      vector<ll> new_dp(51, 0);\n      int c = nums[t];\n      for (int i = 0; i <= c; ++i) {\n        for (int j = 0; j <= 50; ++j) {\n          if (i <= j && nums[t] - i >= nums[t - 1] - j) {\n            new_dp[i] += dp[j];\n          }\n        } \n      }\n      swap(dp, new_dp);\n      for (auto& c : dp) {\n        c %= MOD;\n      }\n    }\n    ll ret = 0;\n    for (auto c : dp) {\n      ret += c;\n    }\n    ret %= MOD;\n    return ret;\n  }\n\n  static constexpr ll MOD = 1000000007;\n};",
+    "submit_ts": "1723344612",
+    "subm_id": "1351538284"
+}

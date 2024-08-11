@@ -1,0 +1,6 @@
+{
+    "username": "saijanvi98",
+    "submission": "class Solution {\n    int MOD = (int)(1e9+7); \n    \n    HashMap<String, Long>dp = new HashMap<>(); \n    public int countOfPairs(int[] nums) {\n        int n = nums.length; \n        long total = helper(nums, 0, -1); \n        total = total % MOD; \n        return (int)(total); \n    }\n\n    public long helper(int [] nums, int pos, int prev){\n        if(pos == nums.length){\n             return 1; \n        }\n        String key = pos + \" \" + prev; \n        if(dp.containsKey(key)) return dp.get(key); \n        long total = 0; \n\n        for(int k= 0; k<=nums[pos]; k++){ \n            int val1 = k; \n            int val2 = nums[pos] - k; \n            if(pos > 0 && val1 >= prev && val2 <= (nums[pos-1] - prev)){\n                long count = helper(nums, pos + 1, k); \n                total = (total % MOD + count % MOD) % MOD; \n            }\n            else if(pos == 0){\n               long count = helper(nums, pos + 1, k); \n               total = (total % MOD + count % MOD) % MOD; \n            }\n           \n        }\n\n        dp.put(key, total); \n        return total; \n        \n    }\n   \n\n}",
+    "submit_ts": "1723345649",
+    "subm_id": "1351560331"
+}

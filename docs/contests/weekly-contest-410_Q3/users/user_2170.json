@@ -1,0 +1,6 @@
+{
+    "username": "RajeshwarKolimi",
+    "submission": "class Solution {\n    static int mod = 1000000007;\n    public static int find(int[] nums, int ind, int prevI, int prevD, Map<String, Integer> dp){\n        if(ind >= nums.length)\n            return 1;\n        String str = ind + \" \" + prevI + \" \" + prevD;\n        if(dp.containsKey(str))\n            return dp.get(str);\n        long count = 0;\n        for(int i = prevI; i <= nums[ind]; i++){\n            if(nums[ind] >= i && nums[ind] - i <= prevD){\n                // System.out.println(i + \" \" + (nums[ind] - i) + \" \" + prevI + \" \" + prevD);\n                count = (count + (long) find(nums, ind + 1, i, nums[ind] - i, dp)) % mod;\n            }\n        }\n        dp.put(str, (int) count);\n        return (int) count;\n    }\n    public int countOfPairs(int[] nums) {\n        Map<String, Integer> dp = new HashMap<>();\n        return find(nums, 0, 0, nums[0], dp);\n    }\n}\n\n// 0 \n// 3 3 2 1 0\n\n// 1\n// 2 2 1 0\n\n// 2\n// 1 1 0\n\n// 3\n// 0 0",
+    "submit_ts": "1723346125",
+    "subm_id": "1351570722"
+}

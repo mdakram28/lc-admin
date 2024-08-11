@@ -1,0 +1,6 @@
+{
+    "username": "priyansh_iitd26",
+    "submission": "const int MOD = 1e9 + 7;\nclass Solution {\n    int n;\nprivate:\n    int f(int ind, int prev1, int prev2, vector<int>& nums, vector<vector<vector<int>>>& dp){\n        if(ind == n) return 1;\n\n        if(dp[ind][prev1][prev2] != -1) return dp[ind][prev1][prev2];\n\n        int res = 0;\n\n        for(int i = prev1; i <= nums[ind]; i++){\n            int val = nums[ind] - i;\n            if(val >= 0 && val <= prev2){\n                res = (res + f(ind + 1, i, val, nums, dp)) % MOD;\n            }\n        }\n\n        return dp[ind][prev1][prev2] = res;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        \n        return f(0, 0, 50, nums, dp);\n    }\n};",
+    "submit_ts": "1723346571",
+    "subm_id": "1351580484"
+}

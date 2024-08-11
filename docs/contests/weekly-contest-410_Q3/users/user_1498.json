@@ -1,0 +1,6 @@
+{
+    "username": "2hQXFH1gD5",
+    "submission": "#define ll long long\n\nclass Solution {\npublic:\n    ll dp[2002][52];\n    const ll mod = 1e9+7;\n    ll helper(int i,vector<int> &nums,int ls){\n        if(i==nums.size()){\n            return 1;\n        }\n        ll ans = 0;\n        if(dp[i][ls]!=-1) return dp[i][ls];\n        if(i==0){\n            for(int j=0;j<=nums[i];j++){\n                ans = (ans + helper(i+1,nums,j)%mod)%mod;\n                ans %= mod;\n            }\n        }\n        else{\n            for(int j=0;j<=nums[i];j++){\n                if(j>=ls && (nums[i-1]-ls)>=(nums[i]-j)){\n                    ans = (ans + helper(i+1,nums,j)%mod)%mod;\n                    ans %= mod;\n                }\n            }\n        }\n        return dp[i][ls] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        return helper(0,nums,0);\n    }\n};",
+    "submit_ts": "1723344475",
+    "subm_id": "1351535305"
+}

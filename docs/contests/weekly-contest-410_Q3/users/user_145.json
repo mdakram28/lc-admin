@@ -1,0 +1,6 @@
+{
+    "username": "inversionpeter",
+    "submission": "#define MOD 1000000007\nint DP[2001][51];\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int length = nums.size(), counts = 0;\n        //memset(DP, 0, sizeof(DP));\n        for (int i = 0; i <= nums[0]; ++i) {\n            DP[0][i] = 1;\n        }\n        for (int i = 1; i < length; ++i) {\n            for (int j = 0; j <= nums[i]; ++j) {\n                DP[i][j] = 0;\n                for (int k = 0; k <= min(j, nums[i - 1]); ++k) {\n                    if (nums[i - 1] - k < nums[i] - j) {\n                        break;\n                    }\n                    DP[i][j] += DP[i - 1][k];\n                    if (DP[i][j] >= MOD) {\n                        DP[i][j] -= MOD;\n                    }\n                }\n            }\n        }\n        for (int i = 0; i <= nums.back(); ++i) {\n            counts += DP[length - 1][i];\n            if (counts >= MOD) {\n                counts -= MOD;\n            }\n        }\n        return counts;\n    }\n};",
+    "submit_ts": "1723344367",
+    "subm_id": "1351532798"
+}

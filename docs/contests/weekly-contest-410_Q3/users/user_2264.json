@@ -1,0 +1,6 @@
+{
+    "username": "s961206",
+    "submission": "class Solution {\n    int M = (int)1e9+7;\n    Integer[][] dp;\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        dp = new Integer[n][51];\n\n        int res = 0;\n        for(int i = 0; i <= nums[0]; ++i) {\n            res = (res + dfs(nums, 1, i)) % M;\n        }\n\n        return res;\n    }\n    int dfs(int[] nums, int pos, int pre) {\n        if(pos == nums.length) return 1;\n        if(dp[pos][pre] != null) return dp[pos][pre];\n\n        int res = 0;\n        int pre2 = nums[pos - 1] - pre;\n\n    \n        for(int nxt = pre, nxt2 = nums[pos] - pre; nxt <= nums[pos]; ++nxt, --nxt2) {\n            if(nxt2 > pre2) continue;\n            res = (res + dfs(nums, pos + 1, nxt)) % M;\n        }\n        return dp[pos][pre] = res;\n    }\n}",
+    "submit_ts": "1723347127",
+    "subm_id": "1351592488"
+}

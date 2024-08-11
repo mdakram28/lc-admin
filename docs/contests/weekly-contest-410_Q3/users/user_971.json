@@ -1,0 +1,6 @@
+{
+    "username": "Guardian-or-nothing",
+    "submission": "#include <bits/stdc++.h> \nusing namespace std;\ntypedef long long ll;\n\nclass Solution {\npublic:\n    vector<vector<vector<ll>>> dp;\n    int mod;\n    ll f(ll i, ll prev1, ll prev2, vector<int> &nums){\n        ll n=nums.size();\n        if(i>=n) return 1;\n        if(dp[i][prev1][prev2]!=-1) return dp[i][prev1][prev2];\n        ll sum=nums[i],ans=0;\n        for(int j=0;j<=50;j++){\n            ll num1=j,num2=sum-j;\n            if(num2>=0 && num2<=50 && (i==0 || (num1>=prev1 && num2<=prev2))){\n                ans+=f(i+1,num1,num2,nums)%mod;\n                ans%=mod;\n            }\n        }\n        return dp[i][prev1][prev2]=ans%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        ll n=nums.size(); mod=1e9 +7; dp.resize(n+1,vector<vector<ll>>(51,vector<ll>(51,-1)));\n        ll ans=f(0,0,0,nums)%mod;\n        return ans;\n    }\n};",
+    "submit_ts": "1723344973",
+    "subm_id": "1351545955"
+}

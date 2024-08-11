@@ -1,0 +1,6 @@
+{
+    "username": "h_bugw7",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int mx = *max_element(nums.begin(), nums.end());\n        int dp[2][mx+1];\n        memset(dp, 0, sizeof(dp));\n        int T = 0, F = 1;\n        for(int i = 0; i <= nums[0]; i++) {\n            dp[T][i] = 1;\n        }\n        for(int i = 1; i < nums.size(); i++) {\n            swap(T, F);\n            memset(dp[T], 0, sizeof(dp[T]));\n            int diff = max(0, nums[i] - nums[i-1]);\n            int sum = 0;\n            for(int j = 0; j <= nums[i-1] && j+diff <= nums[i]; j++) {\n                sum = (sum + dp[F][j]) % 1000000007;\n                dp[T][j+diff] = sum;\n                // cout << sum << ' ';\n            }\n            // cout << endl;\n        }\n        int res = 0;\n        for(int i = 0; i <= nums.back(); i++) {\n            res = (res + dp[T][i]) % 1000000007;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723345625",
+    "subm_id": "1351559777"
+}

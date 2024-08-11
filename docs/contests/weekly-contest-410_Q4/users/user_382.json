@@ -1,0 +1,6 @@
+{
+    "username": "hgwalani81",
+    "submission": "#define mod 1000000007\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int MAX = 1001;\n        int n = nums.size();\n        vector<vector<int> > dp(n+1, vector<int> (MAX+1, 0));\n        for(int i = 0; i<MAX; i++) {\n            if(i > 0)\n                dp[1][i] = dp[1][i-1];\n            if(i <= nums[0])\n                dp[1][i] += 1;\n        }\n        \n        for(int i = 1; i<n; i++) {\n            for(int j = 0; j<=MAX; j++) {\n                if(j > 0)\n                    dp[i+1][j] = dp[i+1][j-1];\n                int currentArr2 = nums[i] - j;\n                int preArr1 = min(j, nums[i-1] - currentArr2);\n                if(preArr1 < 0 || currentArr2 < 0) continue;\n                dp[i+1][j] = (dp[i+1][j] + dp[i][preArr1])%mod;\n                // for(int k = 0; k<=preArr1; k++) {\n                //     dp[i+1][j] = (dp[i+1][j] + dp[i][k])%mod;\n                // }\n            }\n        }\n        // for(int i = 0; i<=n; i++) {\n        //     for(int j = 0; j<MAX; j++) cout<<dp[i][j]<<\" \";\n        //     cout<<endl;\n        // }\n        // int ans = 0;\n        // for(int i = 0; i<MAX; i++) ans = (ans + dp[n][i])%mod;\n        return dp[n][MAX-1];\n    }\n};",
+    "submit_ts": "1723345554",
+    "subm_id": "1351558301"
+}

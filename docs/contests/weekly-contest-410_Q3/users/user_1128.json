@@ -1,0 +1,6 @@
+{
+    "username": "Aditya_leet_12",
+    "submission": "int mod = 1e9+7;\nclass Solution {\nprivate:\n    int f(int ind,int back,vector<int>& nums,vector<vector<int>>& dp){\n        if( ind == nums.size() ) return 1;\n        int ans=0;\n        if( dp[ind][back] !=-1 ) return dp[ind][back];\n        if( ind == 0 ){\n            for(int val = 0; val<=nums[ind];val++){\n                ans=(ans%mod +  f(ind+1,val,nums,dp)%mod)%mod;\n            }\n        }    \n        else{\n            int back1 = back;\n            int back2 = nums[ind-1]-back1;\n\n            for(int val=0;val<=nums[ind];val++){\n                if( val >= back1 && (nums[ind]-val)<=back2){\n                    ans=(ans%mod+(f(ind+1,val,nums,dp)%mod))%mod;\n                }\n            }\n        }\n        return dp[ind][back]=ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<int>> dp(nums.size()+1,vector<int>(51,-1));\n        return f(0,0,nums,dp)%mod;\n    }\n};",
+    "submit_ts": "1723345247",
+    "subm_id": "1351551709"
+}

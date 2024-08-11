@@ -1,0 +1,6 @@
+{
+    "username": "samsingh2004",
+    "submission": "class Solution {\n    int MOD = 1000000007;\n    int solve(vector<int>& nums , int idx , int prev1 , int prev2 , vector<vector<vector<int>>>& dp){\n        if(idx == nums.size())\n            return 1;\n        \n        if(dp[idx][prev1][prev2] != -1){\n            return dp[idx][prev1][prev2];\n        }\n        \n        int sum = 0;\n        for(int i=prev1 ; i<=nums[idx] ; i++){\n            if(nums[idx] - i <= prev2){\n                sum = (sum%MOD + (solve(nums , idx+1 , i , nums[idx]-i , dp))%MOD)%MOD;\n            }\n        }\n        \n        //cout << idx << \" \" << prev1 << \" \" << prev2 << \" \" << sum << endl;\n        return dp[idx][prev1][prev2] = sum;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        // curr value is defined by the prev value and the idx\n        vector<vector<vector<int>>> dp(nums.size() , vector<vector<int>>(51 , vector<int>(51 , -1)));\n        return solve(nums , 0 , 0 , 50 , dp);\n    }\n};",
+    "submit_ts": "1723346159",
+    "subm_id": "1351571538"
+}

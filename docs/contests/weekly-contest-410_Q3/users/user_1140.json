@@ -1,0 +1,6 @@
+{
+    "username": "samartha186",
+    "submission": "class Solution {\n    private static final int MOD = 1000000007;\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        long[][][] dp = new long[n][51][51]; // nums[i] <= 50\n\n        // Initialize for the first element\n        for (int j = 0; j <= nums[0]; j++) {\n            dp[0][j][nums[0] - j] = 1;\n        }\n\n        // Fill dp table\n        for (int i = 1; i < n; i++) {\n            for (int j = 0; j <= nums[i]; j++) {\n                int k = nums[i] - j; // arr2[i] = nums[i] - arr1[i]\n                for (int prevJ = 0; prevJ <= nums[i-1]; prevJ++) {\n                    int prevK = nums[i-1] - prevJ;\n                    if (j >= prevJ && k <= prevK) { // Ensure non-decreasing and non-increasing\n                        dp[i][j][k] = (dp[i][j][k] + dp[i-1][prevJ][prevK]) % MOD;\n                    }\n                }\n            }\n        }\n\n        // Sum all valid configurations for the last element\n        long result = 0;\n        for (int j = 0; j <= nums[n-1]; j++) {\n            for (int k = 0; k <= nums[n-1] - j; k++) {\n                result = (result + dp[n-1][j][k]) % MOD;\n            }\n        }\n\n        return (int) result;\n    }\n}",
+    "submit_ts": "1723345569",
+    "subm_id": "1351558587"
+}

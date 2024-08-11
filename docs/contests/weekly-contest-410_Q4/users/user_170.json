@@ -1,0 +1,6 @@
+{
+    "username": "looking_for_swe_internships",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1000000007;\n    int add(int x, int y) {\n        return (x + y) % MOD;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int dp[n][1005];\n        memset(dp, 0, sizeof dp);\n        for(int i = 0; i <= nums[0]; ++i) {\n            dp[0][i] = i + 1;\n        }\n        dp[0][1000] = nums[0] + 1;\n        for(int i = 1; i < n; ++i) {\n            int cur = nums[i];\n            for(int j = 0; j <= cur; ++j) {\n                int k = cur - j;\n                int prev = nums[i - 1];\n                //<= j and >= k\n                int lb = min(j, prev - k);\n                if(lb >= 0) dp[i][j] = dp[i - 1][lb];\n            }\n            for(int j = 1; j <= 1000; ++j) {\n                dp[i][j] = add(dp[i][j], dp[i][j - 1]);\n            }\n        }\n        return dp[n - 1][1000];\n    }\n};",
+    "submit_ts": "1723345355",
+    "subm_id": "1351553982"
+}

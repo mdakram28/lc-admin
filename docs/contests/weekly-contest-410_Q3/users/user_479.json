@@ -1,0 +1,6 @@
+{
+    "username": "icemore",
+    "submission": "const int mod = 1000 * 1000 * 1000 + 7;\nconst int maxn= 2500;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n\n        vector<int> d[2];\n        d[0].resize(maxn);\n        d[1].resize(maxn);\n        int t = 0;\n\n        for(int q = 0; q <= nums[0]; ++q) {\n            d[0][q] = 1;\n        }\n\n        for(int i = 1; i < n; ++i) {\n            t = 1 - t;\n            d[t].assign(maxn, 0);\n\n            for(int p = 0; p <= nums[i]; ++p) {\n                for(int q = 0; q <= min(nums[i-1], min(p, p - nums[i] + nums[i-1])); ++q) {\n                    //cout << t << \" \" << p << \" \" << q << endl;\n                    d[t][p] = (d[t][p] + d[1-t][q]) % mod;\n                }\n            }\n        }\n\n        int res = 0;\n        for (int i = 0; i < maxn; ++i) {\n            res = (res + d[t][i]) % mod;\n        }\n\n        return res;\n    }\n};",
+    "submit_ts": "1723346389",
+    "subm_id": "1351576516"
+}

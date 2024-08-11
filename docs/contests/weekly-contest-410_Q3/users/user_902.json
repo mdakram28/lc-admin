@@ -1,0 +1,6 @@
+{
+    "username": "RegexRover",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n    long long dp[2004][52];\n    long long calc(int idx,int prev,vector<int> &a)\n    {\n        long long ans = 0,n = a.size(),i,x1,x2,y1,y2;\n        if(idx == n)\n        {\n            return 1;\n        }\n        if(dp[idx][prev] != -1)\n        {\n            return dp[idx][prev];\n        }\n        for(i=prev;i<=50;i++)\n        {\n            if(idx == 0)\n            {\n                if(i <= a[idx])\n                {\n                    ans+=calc(idx+1,i,a);\n                    ans%=mod;\n                }\n            }\n            else\n            {\n                x1 = prev;\n                y1 = a[idx-1] - prev;\n                x2 = i;\n                y2 = a[idx] - i;\n                if(x2 >=0 && y2 >= 0 && x1 <= x2 && y1 >= y2)\n                {\n                    ans+=calc(idx+1,i,a);\n                    ans%=mod;\n                }\n            }\n        }\n        return dp[idx][prev] = ans;\n    }\n    int countOfPairs(vector<int>& nums) \n    {\n        memset(dp,-1,sizeof(dp));\n        return calc(0,0,nums);\n    }\n};",
+    "submit_ts": "1723345136",
+    "subm_id": "1351549364"
+}

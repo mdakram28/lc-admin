@@ -1,0 +1,6 @@
+{
+    "username": "DiabloNemesis",
+    "submission": "#define ll long long\n#define pb push_back\n#define MOD 1000000007\nclass Solution {\npublic:\n    ll f(ll index,ll sm,ll bg,vector<vector<vector<ll>>>& dp,ll n,vector<int>& nums){\n        ll tot=0;\n        if(dp[index][sm][bg]!=-1){\n            return dp[index][sm][bg];\n        }\n        if(index==n){\n            return dp[index][sm][bg]=1;\n        }\n        for(ll i=0;i<=nums[index];i++){\n            if(i>=sm && nums[index]-i<=bg && nums[index]-i>=0){\n                tot=(tot+f(index+1,i,nums[index]-i,dp,n,nums))%MOD;\n            }\n        }\n        return dp[index][sm][bg]=tot;\n    }\n    int countOfPairs(vector<int>& nums) {\n        ll n = nums.size();\n        vector<vector<vector<ll>>>dp(n+10,vector<vector<ll>>(56,vector<ll>(56,-1)));\n        ll ans = f(0,0,51,dp,n,nums);\n        return ans;\n    }\n};",
+    "submit_ts": "1723345198",
+    "subm_id": "1351550718"
+}

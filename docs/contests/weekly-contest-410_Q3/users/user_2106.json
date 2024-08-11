@@ -1,0 +1,6 @@
+{
+    "username": "tyagi_2512",
+    "submission": "class Solution {\npublic:\n    \n    int n,X;\n    \n    int countOfPairs(vector<int>& v) {\n        n=v.size();\n        X=1e9+7;\n        int mx=0;\n        for(int i=0; i<n; i++){mx=max(mx,v[i]);}\n        vector<vector<int>>t(n,vector<int>(mx+1,-1));\n        int s=0;\n        for(int j=0; j<=v[0]; j++)\n        {\n            s=(0ll+s+solve(1,j,v[0]-j,v,t))%X;\n        }\n        return s;\n    }\n    \n    int solve(int i, int pre, int diff, vector<int>&v, vector<vector<int>>&t)\n    {\n        if(i==n) return 1;\n        if(t[i-1][pre]!=-1) return t[i-1][pre];\n        int s=0;\n        for(int j=pre; j<=v[i]; j++)\n        {\n            if(v[i]-j<=diff)\n                s=(0ll+s+solve(i+1,j,v[i]-j,v,t))%X;\n        }\n        return t[i-1][pre]=s;\n    }\n};",
+    "submit_ts": "1723346356",
+    "subm_id": "1351575753"
+}

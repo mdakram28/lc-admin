@@ -1,0 +1,6 @@
+{
+    "username": "curryGoat",
+    "submission": "class Solution {\npublic:\n    int dp[2001][52][52];\n    const int mo = 1e9 + 7;\n    int sol(int i, int pre1,int pre2, int n, vector<int>&nums){\n        if(i >= n) return 1;\n        if(dp[i][pre1 + 1][pre2 + 1] != -1) return dp[i][pre1 + 1][pre2 + 1];\n        long long ans = 0;\n        for(int j=pre1; j<=50; j++){\n            if(nums[i] - j >= 0 && (nums[i] - j <= pre2 || pre2 == -1)){\n                ans += sol(i+1, j, nums[i] - j, n, nums);\n                ans = ans % mo;\n            }\n        }\n        return dp[i][pre1 + 1][pre2 + 1] = ans % mo;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        return sol(0, 0, -1, n, nums);\n    }\n};",
+    "submit_ts": "1723344602",
+    "subm_id": "1351538096"
+}

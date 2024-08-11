@@ -1,0 +1,6 @@
+{
+    "username": "judgementdey",
+    "submission": "class Solution {\n  Map<Pair<Integer, Integer>, Integer> memo = new HashMap<>();\n\n  private int dfs(int[] nums, int[] arr1, int[] arr2, int i) {\n    if (i == nums.length) return 1;\n\n    if (i > 0) {\n      var pair = new Pair(i, arr1[i-1]);\n      if (memo.containsKey(pair))\n        return memo.get(pair);\n    }\n    var cnt = 0;\n    arr1[i] = i == 0 ? 0 : arr1[i-1];\n    arr2[i] = nums[i] - arr1[i];\n\n    if (i > 0 && arr2[i] > arr2[i-1]) {\n      var x = arr2[i] - arr2[i-1];\n      arr2[i] = arr2[i-1];\n      arr1[i] += x;\n    }  \n    while (arr1[i] <= nums[i]) {\n      cnt = (cnt + dfs(nums, arr1, arr2, i+1)) % 1000000007;;\n      arr1[i]++;\n      arr2[i]--;\n    }\n    if (i > 0)\n      memo.put(new Pair(i, arr1[i-1]), cnt);\n\n    return cnt;\n  }\n\n  public int countOfPairs(int[] nums) {\n    var n = nums.length;\n    return dfs(nums, new int[n], new int[n], 0);\n  }\n}",
+    "submit_ts": "1723345854",
+    "subm_id": "1351564753"
+}

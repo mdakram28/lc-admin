@@ -1,0 +1,6 @@
+{
+    "username": "fsyun",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int n = nums.length, MAXN = 1000, MOD = 1000000007;\n        int[] dp = new int[MAXN + 1], sum = new int[MAXN + 1];\n        for (int i = 0; i <= nums[0]; i++)\n            dp[i] = 1;\n        sum[0] = dp[0];\n        for (int i = 1; i <= MAXN; i++)\n            sum[i] = (sum[i - 1] + dp[i]) % MOD;\n        for (int i = 1; i < n; i++) {\n            Arrays.fill(dp, 0);\n            for (int x = 0; x <= nums[i]; x++)\n                dp[x] = nums[i - 1] - nums[i] + x >= 0 ? sum[Math.min(nums[i - 1] - nums[i] + x, x)] : 0;\n            sum[0] = dp[0];\n            for (int j = 1; j <= MAXN; j++)\n                sum[j] = (sum[j - 1] + dp[j]) % MOD;\n        }\n        return sum[MAXN];\n    }\n}",
+    "submit_ts": "1723345461",
+    "subm_id": "1351556280"
+}

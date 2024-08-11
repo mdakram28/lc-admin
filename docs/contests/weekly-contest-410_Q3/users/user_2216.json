@@ -1,0 +1,6 @@
+{
+    "username": "karthiksankar2211",
+    "submission": "func countOfPairs(nums []int) int {\n    n := len(nums)\n    arr := make([][][]int64, n)\n    for i,_ := range arr {\n        arr[i] = make([][]int64, 51)\n        for j,_ := range arr[i] {\n            arr[i][j] = make([]int64, 51)\n            for k,_ := range arr[i][j] {\n                arr[i][j][k] = -1\n            }\n        }\n    } \n    return int(find(nums, 0, 0, nums[0], arr))\n}\n\nfunc find(nums []int, ind int, v1 int, v2 int, arr [][][]int64) int64 {\n    if ind >= len(nums) {\n        return int64(1)\n    }\n    if arr[ind][v1][v2] != -1 {\n        return int64(arr[ind][v1][v2])\n    }\n    var answer int64 = 0\n    for i:=v1; i<=nums[ind]; i++ {\n        for j:=v2; j>=0; j-- {\n            if i + j == nums[ind] {\n                answer = (answer + find(nums, ind+1, i, j, arr) )% 1000000007\n            }\n        }\n    }\n    arr[ind][v1][v2] = answer\n    return answer\n}",
+    "submit_ts": "1723347073",
+    "subm_id": "1351591330"
+}

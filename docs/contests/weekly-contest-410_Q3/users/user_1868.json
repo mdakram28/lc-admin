@@ -1,0 +1,6 @@
+{
+    "username": "jebronlames32",
+    "submission": "class Solution {\npublic:\n\n    int n;\n    int mod = 1e9+7;\n\n    int rec(int pos, vector<vector<int>> &dp, int previous, vector<int>&nums){\n        if(pos == n)return 1;\n        if(dp[pos][previous]!=-1){\n            return dp[pos][previous];\n        }\n        // you have to recurse through all possible answers\n        int previousb = nums[pos-1] - previous;\n        // always have to make sure next>=previous and nextb <= previousb\n        int total = 0;\n        for(int i=previous;i<=nums[pos];i++){\n            if(nums[pos] - i <= previousb){\n                total+=(rec(pos+1, dp, i, nums))%mod;\n                total %= mod;\n            }\n            \n        }\n        return dp[pos][previous] = total;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(51, -1));\n        int answer = 0;\n        for(int i = 0;i<=nums[0];i++){\n            answer += (rec(1,dp, i, nums))%(mod);\n            answer %= mod;\n        }\n        return answer;\n    }\n};",
+    "submit_ts": "1723346680",
+    "subm_id": "1351582882"
+}

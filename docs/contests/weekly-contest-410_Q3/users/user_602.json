@@ -1,0 +1,6 @@
+{
+    "username": "Advaita_Soni",
+    "submission": "class Solution {\npublic:\n    int M;\n    int countOfPairs(vector<int>& nums) {\n        M = 1e9+7;\n        int n = nums.size(); \n        vector<vector<int>> dp(n,vector<int>(51,0));\n        for(int ai = 0;ai<=nums[n-1];ai++){\n            dp[n-1][ai] = 1;\n        };\n        for(int i =n-2;i>=0;i--){\n            for(int ai = 0;ai<=nums[i];ai++){\n                int bi = nums[i]-ai;\n                int start = max(ai,nums[i+1]-bi);\n                int sum = 0;\n                for(int s = start;s<=50;s++){\n                    sum = (sum%M + dp[i+1][s]%M)%M;\n                };              \n                //we have to find the number of sequences that are less than \n                dp[i][ai] = sum;\n            };\n        };\n        int ans = 0;\n        for(int i = 0;i<=50;i++){\n            ans =(ans%M + dp[0][i]%M)%M;\n        };\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1723346238",
+    "subm_id": "1351573218"
+}

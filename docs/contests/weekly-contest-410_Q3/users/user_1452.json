@@ -1,0 +1,6 @@
+{
+    "username": "waster",
+    "submission": "class Solution {\npublic:\n    int MOD = 1e9+7;\n    int dp[51][2005];\n    int dfs(vector<int>& nums, int i, int j){\n        if(j == nums.size())\n            return 1;\n        if(dp[i][j] == -1){\n            dp[i][j] = 0;\n            for(int x = i; x <= nums[j]; x++){\n                int y = nums[j] - x;\n                if(j > 0 && y > nums[j-1]-i)\n                    continue;\n                //cout << j << \" \" << x << y << endl;\n                dp[i][j] = (dp[i][j] + dfs(nums, x, j + 1))  % MOD;\n            }\n        }\n        return dp[i][j];\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        return dfs(nums, 0, 0);\n    }\n};",
+    "submit_ts": "1723345777",
+    "subm_id": "1351563098"
+}

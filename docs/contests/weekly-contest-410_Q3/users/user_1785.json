@@ -1,0 +1,6 @@
+{
+    "username": "yogeshrathee_",
+    "submission": "const int MOD = 1e9 + 7;\nclass Solution {\npublic:\n\n    int solve(int index, int prevOne, int prevTwo, vector<int>& nums, vector<vector<vector<int>>>& dp) {\n        if (index == nums.size()) {\n            return 1; // Reached the end, valid configuration\n        }\n\n        if (dp[index][prevOne][prevTwo] != -1) {\n            return dp[index][prevOne][prevTwo];\n        }\n\n        int ans = 0;\n\n        for (int i = prevOne; i <= nums[index]; i++) {\n            int numOne = i;\n            int numTwo = nums[index] - i;\n\n            if (numTwo <= prevTwo) {\n                ans = (ans + solve(index + 1, numOne, numTwo, nums, dp)) % MOD;\n            }\n        }\n\n        return dp[index][prevOne][prevTwo] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(51, vector<int>(51, -1)));\n\n        return solve(0, 0, 50, nums, dp); // Start with 0 for prevOne and 50 for prevTwo\n    }\n};",
+    "submit_ts": "1723345971",
+    "subm_id": "1351567332"
+}

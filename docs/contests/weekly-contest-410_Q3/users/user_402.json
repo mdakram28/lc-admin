@@ -1,0 +1,6 @@
+{
+    "username": "GothamVigilante",
+    "submission": "#include <vector>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        const int mod = 1e9 + 7;\n        vector<vector<long long>> dp(n, vector<long long>(51, 0));\n        vector<long long> prefix(52, 0);\n\n        for (int j = 0; j <= nums[0]; j++) {\n            dp[0][j] = 1;\n            prefix[j + 1] = (prefix[j] + dp[0][j]) % mod;\n        }\n\n        for (int i = 1; i < n; i++) {\n            vector<long long> prefix2(52, 0);\n            for (int j = 0; j <= nums[i]; j++) {\n                int prevmax = min(j, nums[i-1] - (nums[i] - j));\n                if (prevmax >= 0) {\n                    dp[i][j] = prefix[prevmax + 1];\n                } else {\n                    dp[i][j] = 0;\n                }\n                prefix2[j + 1] = (prefix2[j] + dp[i][j]) % mod;\n            }\n            prefix = prefix2;\n        }\n\n        long long ans = 0;\n        for (int j = 0; j <= 50; j++) {\n            ans = (ans + dp[n-1][j]) % mod;\n        }\n        \n        return ans;\n    }\n};\n",
+    "submit_ts": "1723346500",
+    "subm_id": "1351578958"
+}

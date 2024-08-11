@@ -1,0 +1,6 @@
+{
+    "username": "ansh_1012",
+    "submission": "class Solution {\npublic:\n    const int M = 1e9 + 7;\n    int countOfPairs(vector<int>& n) {\n        int s = n.size();\n        vector<vector<vector<int>>> d(s, vector<vector<int>>(51, vector<int>(51, 0)));\n        for (int j=0;j<=n[0];j++) {\n            int k =n[0]- j;\n            d[0][j][k] = 1;\n        }\n        for (int i=1;i<s;i++) {\n            for (int j = 0; j<= n[i];j++) {\n                int k = n[i]-j;\n                for (int pj =0;pj<=n[i-1]; ++pj) {\n                    int pk=n[i-1]-pj;\n                    if (pk>=0&&pj<=j&&pk>=k)\n                        d[i][j][k]=(d[i][j][k]+d[i-1][pj][pk])%M;\n                }\n            }\n        }\n        int r = 0;\n        for (int j=0;j<=n[s-1];j++) {\n            int k=n[s-1]-j;\n            r=(r+d[s-1][j][k]) % M;\n        }\n        return r;\n    }\n};\n\n",
+    "submit_ts": "1723346700",
+    "subm_id": "1351583295"
+}

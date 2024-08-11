@@ -1,0 +1,6 @@
+{
+    "username": "ZergWang",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& a) {\n        int n = a.size();\n        vector<vector<long long>> f(n, vector<long long>(51));\n\n        for (int i=0; i<=a[0]; ++i)\n            f[0][i] = 1;\n        \n\n        for (int i=1; i<n; ++i) {\n            for (int a1=0; a1<=a[i]; ++a1) {\n                int a2 = a[i] - a1;\n                for (int last_a1=0; last_a1<=a1; ++last_a1) {\n                    int last_a2 = a[i-1] - last_a1;\n                    if (last_a2 >= a2)\n                        f[i][a1] = (f[i][a1] + f[i-1][last_a1])% 1000000007;\n                }\n            }\n        }\n\n\n        long long ans = 0;\n        for (int i=0; i<=50; ++i)\n            ans = (ans + f[n-1][i]) % 1000000007;\n        return ans;\n    }\n};",
+    "submit_ts": "1723345804",
+    "subm_id": "1351563706"
+}

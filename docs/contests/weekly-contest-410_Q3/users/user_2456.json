@@ -1,0 +1,6 @@
+{
+    "username": "TonyStark_666",
+    "submission": "    \npackage main\n\nimport \"fmt\"\n\nconst MOD = 1000000007\n\nfunc findPairs(nums []int, idx, prev1, prev2 int, dp [][][]int) int {\n\n\tif idx >= len(nums) {\n\n\t\treturn 1\n\n\t}\n\n\tif dp[idx][prev1][prev2] != -1 {\n\n\t\treturn dp[idx][prev1][prev2]\n\n\t}\n\n\tans := 0\n\n\tfor i := 0; i <= nums[idx]; i++ {\n\n\t\tarr1Val := i\n\n\t\tarr2Val := nums[idx] - i\n\n\t\tif arr1Val >= prev1 && arr2Val <= prev2 {\n\n\t\t\tans = (ans + findPairs(nums, idx+1, arr1Val, arr2Val, dp)) % MOD\n\n\t\t}\n\n\t}\n\n\tdp[idx][prev1][prev2] = ans\n\n\treturn ans\n\n}\n\nfunc countOfPairs(nums []int) int {\n\n\tn := len(nums)\n\n\tdp := make([][][]int, n)\n\n\tfor i := range dp {\n\n\t\tdp[i] = make([][]int, 51)\n\n\t\tfor j := range dp[i] {\n\n\t\t\tdp[i][j] = make([]int, 51)\n\n\t\t\tfor k := range dp[i][j] {\n\n\t\t\t\tdp[i][j][k] = -1\n\n\t\t\t}\n\n\t\t}\n\n\t}\n\n\treturn findPairs(nums, 0, 0, 50, dp)\n\n}",
+    "submit_ts": "1723347105",
+    "subm_id": "1351591981"
+}

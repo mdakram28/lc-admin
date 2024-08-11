@@ -1,0 +1,6 @@
+{
+    "username": "thakurAbhishek",
+    "submission": "#include <vector>\n#include <algorithm>\n\nclass Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    std::vector<std::vector<int>> dp;\n    std::vector<int> nums;\n\n    int recurse(int idx, int p) {\n        if (idx == nums.size()) return 1; // Base case: If we've processed all elements\n        \n        if (dp[idx][p] != -1) return dp[idx][p]; // Return already computed result\n\n        int ans = 0;\n        int other=(idx==0?50:nums[idx-1]-p);\n        // Try all possible values for arr1[idx]\n        for (int q = p; q <= nums[idx]; ++q) {\n            int newOther=nums[idx]-q;\n            if(newOther<=other)\n            ans = (ans + recurse(idx + 1, q)) % MOD;\n        }\n\n        return dp[idx][p] = ans;\n    }\n\n    int countOfPairs(std::vector<int>& nums) {\n        this->nums = nums;\n        int n = nums.size();\n        dp = std::vector<std::vector<int>>(n, std::vector<int>(2001, -1));\n\n        // Start the recursion with the first index and arr1[-1] = 0 (handled as 0th case)\n        return recurse(0, 0);\n    }\n};\n",
+    "submit_ts": "1723344115",
+    "subm_id": "1351526806"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Ink12",
+    "submission": "class Solution {\npublic:\n    int MOD = 1000000007;\n\n    int countOfPairs2(vector<int> &nums, int i, int p, vector<vector<int>> &cache) {\n        int p2 = i == 0 ? nums[i] : nums[i - 1] - p;\n        if (i == nums.size() - 1) {\n            return max(0, min(nums[i] - p, p2) + 1);\n        }\n        if (cache[i][p] >= 0) {\n            return cache[i][p];\n        }\n        long long pairs = 0;\n        for (int n = max(p, nums[i] - p2); n <= nums[i]; n++) {\n            pairs = (pairs + countOfPairs2(nums, i + 1, n, cache)) % MOD;\n        }\n        cache[i][p] = pairs;\n        return pairs;\n    }\n\n    int countOfPairs(vector<int> &nums) {\n        vector<vector<int>> cache(nums.size(), vector<int>(51, -1));\n        return countOfPairs2(nums, 0, 0, cache);\n    }\n};",
+    "submit_ts": "1723346702",
+    "subm_id": "1351583342"
+}

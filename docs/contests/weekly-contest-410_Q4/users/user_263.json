@@ -1,0 +1,6 @@
+{
+    "username": "AndyLead",
+    "submission": "class Solution {\n    long long mod = 1e9 + 7;\npublic:\n    int countOfPairs(vector<int>& nums) {\n        vector<long long> prev(1, 1);\n        int prevN = -1;\n        for(auto n: nums) {\n            vector<long long> curr(n + 1);\n            long long prevSum = 0;\n            int nextJ = 0;\n            for(int i = 0; i <= n; i++) {\n                if(prevN == -1) curr[i] += prev[0];\n                else {\n                    int end = min((int)prev.size() - 1, i);\n                    while(nextJ <= end and prevN - nextJ >= n - i) prevSum += prev[nextJ++];\n                    curr[i] = prevSum;\n                }\n                curr[i] %= mod;\n            }\n            swap(curr, prev);\n            prevN = n;\n        }\n        return accumulate(prev.begin(), prev.end(), 0LL) % mod;\n    }\n};",
+    "submit_ts": "1723346656",
+    "subm_id": "1351582316"
+}

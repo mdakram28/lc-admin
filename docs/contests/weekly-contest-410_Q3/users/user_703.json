@@ -1,0 +1,6 @@
+{
+    "username": "anna-hcj",
+    "submission": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar countOfPairs = function(nums) {\n  let n = nums.length, max = Math.max(...nums);\n  let memo = Array(n).fill(0).map(() => Array(max + 1).fill(0).map(() => Array(max + 1).fill(-1)));\n  let MOD = 1000000007;\n  return dp(0, 0, max);\n  \n  function dp(i, lastOne, lastTwo) {\n    if (i === n) return 1;\n    if (memo[i][lastOne][lastTwo] !== -1) return memo[i][lastOne][lastTwo];\n    \n    let pairs = 0;\n    for (let j = Math.max(lastOne, nums[i] - lastTwo); j <= nums[i]; j++) {\n      // arr1 = increasing or equal\n      // arr2 = decreasing or equal\n      let dec = nums[i] - j;\n      pairs = (pairs + dp(i + 1, j, nums[i] - j)) % MOD;\n    }\n    return memo[i][lastOne][lastTwo] = pairs;\n  }\n};",
+    "submit_ts": "1723344599",
+    "subm_id": "1351538021"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "wangdh15",
+    "submission": "class Solution {\npublic:\n\n    int dp[2005][55];\n\n    int countOfPairs(vector<int>& nums) {\n        for (int i = 0; i <= nums[0]; ++i) dp[0][i] = 1;\n        const int n = nums.size();\n        for (int i = 1; i < nums.size(); ++i) {\n            int diff = nums[i] - nums[i-1];\n            for (int j = 0; j <= nums[i]; ++j) {\n                int ll = max(j + diff, j);\n                int rr = nums[i];\n                for (int k = ll; k <= rr; ++k) {\n                    dp[i][k] += dp[i-1][j];\n                    dp[i][k] %= 1000000007;\n                }\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i < 55; ++i) {\n            ans += dp[n-1][i];\n            ans %= 1000000007;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723344832",
+    "subm_id": "1351543002"
+}

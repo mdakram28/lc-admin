@@ -1,0 +1,6 @@
+{
+    "username": "Rajesh_coder_mafia",
+    "submission": "class Solution {\npublic:\n    int dp[2001][100];\n    int mod=1e9+7;\n    int helper(int i, vector<int> & arr, int pre_val){\n        \n        \n        if(i==arr.size()){\n            return 1;\n        }\n        \n        int limit1=pre_val;\n        int limit2=arr[i];\n        int ans=0;\n        \n        if(i!=0){\n            limit2=arr[i-1]-pre_val;\n        }\n        \n        if(dp[i][pre_val] !=-1){\n            return dp[i][pre_val];\n        }\n        \n        for(int k= limit1; k<=arr[i]; k++){\n            \n            int val2= arr[i]-k;\n            \n            if(val2<=limit2 && val2>=0){\n                ans+= helper(i+1, arr, k);\n                ans%=mod;\n            }\n        }\n        return dp[i][pre_val]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        \n        for(int i=0; i<nums.size();i++){\n            \n            for(int j=0; j<=50;j++){\n                dp[i][j]=-1;\n            }\n        }\n        return helper(0, nums, 0);\n    }\n};",
+    "submit_ts": "1723345194",
+    "subm_id": "1351550648"
+}

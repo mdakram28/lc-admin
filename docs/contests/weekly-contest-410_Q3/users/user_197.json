@@ -1,0 +1,6 @@
+{
+    "username": "salyu",
+    "submission": "constexpr int base = 1e9 + 7;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        auto memo = vector(n, vector<int>(1001));\n        for (int v = 0; v <= nums[0]; ++v) {\n            memo[0][v] = 1;\n        }\n        for (int i = 1; i < n; ++i) {\n            int l0 = 0;\n            int l1 = max(0, nums[i] - nums[i - 1]);\n            int s = 0;\n            for (int v = l1; v <= nums[i]; ++v, ++l0) {\n                s = (s + memo[i - 1][l0]) % base;\n                memo[i][v] = s;\n            }\n        }\n        int res = 0;\n        for (int v = 0; v <= nums[n - 1]; ++v) {\n            res = (res + memo[n - 1][v]) % base;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723345869",
+    "subm_id": "1351565073"
+}

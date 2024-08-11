@@ -1,0 +1,6 @@
+{
+    "username": "VikramDongare",
+    "submission": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(51, 0));\n        \n        // Initialize for the first element\n        for (int x = 0; x <= nums[0]; ++x) {\n            dp[0][x] = 1;\n        }\n        \n        // Fill dp table\n        for (int i = 1; i < n; ++i) {\n            for (int x = 0; x <= nums[i]; ++x) {\n                dp[i][x] = 0;\n                for (int y = 0; y <= x; ++y) {\n                    if (y + (nums[i] - x) <= nums[i-1]) {\n                        dp[i][x] = (dp[i][x] + dp[i-1][y]) % MOD;\n                    }\n                }\n            }\n        }\n        \n        // Sum up all valid end states\n        int result = 0;\n        for (int x = 0; x <= nums[n-1]; ++x) {\n            result = (result + dp[n-1][x]) % MOD;\n        }\n        \n        return result;\n    }\n};\n",
+    "submit_ts": "1723345148",
+    "subm_id": "1351549629"
+}

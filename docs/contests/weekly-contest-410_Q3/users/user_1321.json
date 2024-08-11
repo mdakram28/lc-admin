@@ -1,0 +1,6 @@
+{
+    "username": "Indomie",
+    "submission": "const MOD = 1e9 + 7\n\nfunc countOfPairs(nums []int) int {\n\tn := len(nums)\n\tdp := make([][]int, 51)\n\tfor i := range dp {\n\t\tdp[i] = make([]int, 51)\n\t}\n\t\n\tfor i := 0; i <= nums[0]; i++ {\n\t\tdp[i][nums[0]-i] = 1\n\t}\n\t\n\tfor k := 1; k < n; k++ {\n\t\tnextDp := make([][]int, 51)\n\t\tfor i := range nextDp {\n\t\t\tnextDp[i] = make([]int, 51)\n\t\t}\n\n\t\tfor i := 0; i <= 50; i++ {\n\t\t\tfor j := 0; j <= 50; j++ {\n\t\t\t\tif dp[i][j] == 0 {\n\t\t\t\t\tcontinue\n\t\t\t\t}\n\t\t\t\tfor x := i; x <= nums[k]; x++ {\n\t\t\t\t\ty := nums[k] - x\n\t\t\t\t\tif y <= j {\n\t\t\t\t\t\tnextDp[x][y] = (nextDp[x][y] + dp[i][j]) % MOD\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tdp = nextDp\n\t}\n\t\n\tresult := 0\n\tfor i := 0; i <= 50; i++ {\n\t\tfor j := 0; j <= 50; j++ {\n\t\t\tresult = (result + dp[i][j]) % MOD\n\t\t}\n\t}\n\n\treturn result\n}\n",
+    "submit_ts": "1723345268",
+    "subm_id": "1351552156"
+}

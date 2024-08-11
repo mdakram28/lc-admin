@@ -1,0 +1,6 @@
+{
+    "username": "__keep_it_simple__",
+    "submission": "#define ll long long\nconst ll mod = 1e9 + 7;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        vector<ll> dp(51);\n        ll res = 0;\n        for (int i = 0; i <= nums[0]; i++) {\n            dp[i] = 1;\n        }\n        for (int i = 1; i < nums.size(); i++) {\n            vector<ll> ndp(51);\n            for (int j = 0; j <= 50; j++) for (int k = j; k <= min(50, nums[i]); k++) {\n                int prv = nums[i - 1] - j, nxt = nums[i] - k;\n                if (prv >= 0 && nxt >= 0 && prv >= nxt) {\n                    ndp[k] = (ndp[k] + dp[j]) % mod;\n                }\n            }\n            dp = ndp;\n        }\n        for (auto x: dp) res = (res + x) % mod;\n        return res;\n    }\n};",
+    "submit_ts": "1723344512",
+    "subm_id": "1351536144"
+}

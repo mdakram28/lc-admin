@@ -1,0 +1,6 @@
+{
+    "username": "sisyphus3",
+    "submission": "#define sz(x) int(x.size())\n#define all(x) x.begin(), x.end()\n#define db double\n#define ll long long\n#define ar array\ntemplate<typename T> bool ckmin(T& a, const T& b) { return a > b ? a = b, 1 : 0; }\ntemplate<typename T> bool ckmax(T& a, const T& b) { return a < b ? a = b, 1 : 0; }\n\nclass Solution {\npublic:\n    const int N = 50, mod = 1e9+7;\n    void fadd(int &a, int b) {\n        a += b;\n        if (a >= mod) a -= mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<int>> dp(N+1, vector<int>(N+1));\n        fill(all(dp[0]), 1);\n        for (int i = 0; i < sz(nums); i++) {\n            vector<vector<int>> dp2(N+1, vector<int>(N+1));\n            for (int j = 0; j <= nums[i]; j++) {\n                int k = nums[i] - j;\n                for (int l = 0; l <= j; l++) {\n                    fadd(dp2[j][k], dp[l][k]);\n                }\n            }\n            swap(dp, dp2);\n            for (int j = 0; j <= N; j++) for (int k = N-1; k >= 0; k--) fadd(dp[j][k], dp[j][k+1]);\n        }\n        int ans = 0;\n        for (int i = 0; i <= N; i++) fadd(ans, dp[i][0]);\n        return ans;\n    }\n};",
+    "submit_ts": "1723344133",
+    "subm_id": "1351527232"
+}

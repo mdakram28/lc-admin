@@ -1,0 +1,6 @@
+{
+    "username": "technique_god",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        #dp[i][a] = # of valid mon seq of length i w/ max element 'a'\n        dp = [ {} for j in range(len(nums))]\n        \n        print(dp[0])\n\n        for i in range(len(nums) ):\n            for a in range(1+nums[i]):\n                b = nums[i] - a\n                dp[i][(a,b)] = 0\n                if i == 0:\n                    dp[i][(a,b)] = 1\n                    continue\n                for c in range(1+nums[i-1]):\n                    d = nums[i-1]-c\n                    if a >= c and b <= d:\n                        if (c,d) in dp[i-1]:\n                            dp[i][(a,b)] += dp[i-1][(c,d)]\n                dp[i][(a,b)] %= 10**9+7\n            #print(dp[i])\n\n        return sum(dp[-1].values()) % (10**9+7)\n\n",
+    "submit_ts": "1723346655",
+    "subm_id": "1351582298"
+}

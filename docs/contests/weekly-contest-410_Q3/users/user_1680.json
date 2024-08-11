@@ -1,0 +1,6 @@
+{
+    "username": "akwan84",
+    "submission": "class Solution {\n    int[][][] memo;\n    public int countOfPairs(int[] nums) {\n        int max = 0;\n        for(int n : nums) {\n            max = Math.max(n, max);\n        }\n\n        memo = new int[max + 1][max + 1][nums.length];\n        for(int[][] mat : memo) {\n            for(int[] row : mat) {\n                Arrays.fill(row, -1);\n            }\n        }\n\n        return search(nums, Integer.MIN_VALUE, Integer.MAX_VALUE, 0);\n    }\n\n    private int search(int[] nums, int lastDec, int lastInc, int index) {\n        if(index == nums.length) return 1;\n        if(index > 0 && memo[lastDec][lastInc][index] != -1) return memo[lastDec][lastInc][index];\n\n        int total = 0;\n\n        for(int i = 0; i <= nums[index]; i++) {\n            int a = i;\n            int b = nums[index] - i;\n\n            if(a >= lastDec && b <= lastInc) {\n                total = (total + search(nums, a, b, index + 1)) % 1000000007;\n            }\n        }\n        if(index > 0) memo[lastDec][lastInc][index] = total;\n        return total;\n    }\n}\n\n/*\n\n\n\n*/",
+    "submit_ts": "1723346121",
+    "subm_id": "1351570639"
+}

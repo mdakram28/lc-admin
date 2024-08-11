@@ -1,0 +1,6 @@
+{
+    "username": "guiguia",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        int mod = 1000000007;\n        int maxValue = 50;\n        long[][] counts = new long[n][maxValue + 1];\n        for(int j = 0; j <= maxValue && j <= nums[0]; j++) {\n            counts[0][j] = 1;\n        }\n        //System.out.println(Arrays.toString(counts[0]));\n        for(int i = 1; i < n; i++) {\n            for(int j = 0; j <= maxValue && j <= nums[i]; j++) {\n                for(int k = 0; k <= j; k++) {\n                    if(nums[i] - j <= nums[i - 1] - k)\n                    counts[i][j]  = (counts[i][j] + counts[i - 1][k]) % mod;\n                }\n            }\n           // System.out.println(Arrays.toString(counts[i]));\n        }\n        long ans = 0;\n\n        for(int i = 0; i <= maxValue; i++) {\n            ans = (ans + counts[n - 1][i]) % mod;\n        }\n\n        return (int) ans;\n\n    }\n}\n\n/*\n\ndp[i][j]: maximum pairs of values for nums[0, i] when arr1[i] is j\n\n\nvalue at i is xi, value at i + 1 is xi to nums[i];\n\n\n\n*/",
+    "submit_ts": "1723346202",
+    "subm_id": "1351572448"
+}

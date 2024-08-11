@@ -1,0 +1,6 @@
+{
+    "username": "Aryan287",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9+7;\n\n    int solve(vector<int> &nums, int n, int i, int num, int pDec, vector<vector<vector<int>>> &dp){\n        //base case\n        if(i == n)\n            return 1;\n\n        if(dp[i][num][pDec] != -1)\n            return dp[i][num][pDec];\n\n        int cnt = 0;\n\n        int val = nums[i];\n\n        for(int v=num; v<=val; v++){\n            if((val-v) <= pDec){\n                cnt = ((cnt%mod) + (solve(nums, n, i+1, v, val-v, dp)%mod))%mod;\n            }\n        }\n\n        return dp[i][num][pDec] = cnt;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n\n        vector<vector<vector<int>>> dp(n+1, vector<vector<int>> (52, vector<int> (52, -1)));\n\n        return solve(nums, n, 0, 0, 51, dp);\n    }\n};",
+    "submit_ts": "1723345793",
+    "subm_id": "1351563443"
+}

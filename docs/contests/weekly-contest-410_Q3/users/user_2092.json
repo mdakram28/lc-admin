@@ -1,0 +1,6 @@
+{
+    "username": "Dhruv_369",
+    "submission": "class Solution {\npublic:\n    long long solve(vector<vector<vector<long long>>> &dp, vector<int>& nums, int ind, int mini, int maxi){\n        if(ind == nums.size()) return 1;\n        if(dp[ind][mini][maxi] != -1) return dp[ind][mini][maxi];\n\n        long long count = 0;\n        long long mod = 1e9+7;\n        for(int val1=mini;val1<=nums[ind];val1++){\n            int val2 = nums[ind] - val1;\n            if(val1 >= mini && val2 <= maxi){\n                count += (solve(dp,nums,ind+1,val1, val2)%mod);\n                count %= mod;\n            }\n        }\n\n        return dp[ind][mini][maxi] = count;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<long long>>> dp(n + 1, vector<vector<long long>>(55, vector<long long>(55, -1)));\n        return solve(dp, nums, 0, 0, 51);\n    }\n};",
+    "submit_ts": "1723346649",
+    "subm_id": "1351582137"
+}

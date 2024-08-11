@@ -1,0 +1,6 @@
+{
+    "username": "pennywise6003",
+    "submission": "class Solution {\npublic:\n    \n    const int N = 1e9 + 7;\n    \n    int f(vector<vector<int>>&dp, vector<int>&nums, int idx = 0, int prev_num = 0){\n        if (idx == nums.size()) return 1;\n        if (dp[idx][prev_num] != -1) return dp[idx][prev_num];\n        int res=0;\n        for (int i=prev_num; i<51;i++){\n            if (i > nums[idx]) break;\n            if (idx != 0){\n                if (nums[idx] - i > nums[idx-1] - prev_num) continue;\n            }\n            res += f(dp,nums,idx+1,i);\n            res %= N;\n        }\n        return dp[idx][prev_num] = res;\n        \n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<int>>dp(nums.size(),vector<int>(51,-1));\n        int x = f(dp,nums);\n        return x % N;\n    }\n};",
+    "submit_ts": "1723346075",
+    "subm_id": "1351569649"
+}

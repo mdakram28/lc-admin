@@ -1,0 +1,6 @@
+{
+    "username": "QuantumMIT",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll mod = 1e9 + 7, n;\n    vector <ll> v;\n    vector <vector<ll>> dp;\n    \n    ll rec(int i, int prev){\n        if(i == n) return 1;\n        ll ans = 0;\n        if(dp[i][prev] + 1) return dp[i][prev];\n        for(int k = prev; k<=v[i]; k++){\n            if(i == 0){\n                ans = (ans + rec(i+1, k)) % mod;\n            }\n            else{\n                if(v[i-1] - prev >= v[i] - k) ans = (ans + rec(i+1, k)) % mod;\n            }\n        }\n        return dp[i][prev] = ans;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        n = nums.size(); for(auto i : nums) v.push_back(i);\n        int maxm = 0; for(auto i : nums) maxm = max(maxm, i);\n        dp.clear(); dp.resize(n); for(int i = 0; i<n; i++) dp[i].resize(maxm+10, -1);\n        return rec(0, 0);\n    }\n};",
+    "submit_ts": "1723345269",
+    "subm_id": "1351552185"
+}

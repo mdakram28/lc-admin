@@ -1,0 +1,6 @@
+{
+    "username": "Nirwan_Gupta",
+    "submission": "class Solution {\nprivate:\n    int MOD = 1e9 + 7;\n    int support(vector<int>& nums, int index, int incprev, int decprev, vector<vector<vector<int>>>& memo) {\n        if(index >= nums.size()) {\n            return 1;\n        }\n        if(memo[index][incprev][decprev] != -1) {\n            return memo[index][incprev][decprev];\n        }\n        int ans = 0;\n        for(int i=0; i<=nums[index]; i++) {\n            if(i >= incprev && nums[index]-i <= decprev) {\n                ans += support(nums, index+1, i, nums[index]-i, memo);\n                ans %= MOD;\n            }\n        }\n        return memo[index][incprev][decprev] = ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int minimum = INT_MAX, maximum = INT_MIN;\n        for(int i=0; i<nums.size(); i++) {\n            minimum = min(minimum, nums[i]);\n            maximum = max(maximum, nums[i]);\n        }\n        vector<vector<vector<int>>> memo(nums.size(), vector<vector<int>> (maximum+1, vector<int> (maximum+1, -1)));\n        return support(nums, 0, 0, maximum, memo);\n    }\n};",
+    "submit_ts": "1723346918",
+    "subm_id": "1351587973"
+}

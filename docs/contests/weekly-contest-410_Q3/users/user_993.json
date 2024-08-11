@@ -1,0 +1,6 @@
+{
+    "username": "Qianqian2018",
+    "submission": "class Solution {\npublic:\n    int f[2010][52][52];\n    int countOfPairs(vector<int>& nums) {\n        memset(f,0,sizeof f);\n        int n=nums.size();\n        int mod=1e9+7;\n        f[0][0][0]=1;\n        for(int i=1; i<=n; i++){\n            for(int a=0; a<=nums[i-1]; a++){\n                int b=nums[i-1]-a;\n                if(i==1){\n                    f[i][a][b]=1;\n                    continue;\n                }\n                for(int pa=0; pa<=nums[i-2]; pa++){\n                    int pb=nums[i-2]-pa;\n                    if(a<pa || b>pb){\n                        continue;\n                    }\n                    f[i][a][b]+=f[i-1][pa][pb];\n                    f[i][a][b]%=mod;\n                }\n            }\n        }\n        int res=0;\n        for(int i=0; i<=nums[n-1]; i++){\n            int j=nums[n-1]-i;\n            res=(res+f[n][i][j])%mod;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723345317",
+    "subm_id": "1351553136"
+}

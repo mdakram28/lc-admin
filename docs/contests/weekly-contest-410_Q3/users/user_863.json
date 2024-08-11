@@ -1,0 +1,6 @@
+{
+    "username": "samael135",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    vector<vector<vector<int>>> dp;\n    int rec(int level,int prev1,int prev2,vector<int>& nums){ //number of ways from level to end if prev1 and prev2 are previous values\n        //pruning\n        //base case\n        if(level==nums.size()){\n            return 1;\n        }\n        //cache check\n        if(dp[level][prev1][prev2]!=-1){\n            return dp[level][prev1][prev2];\n        }\n        //compute\n        int ans=0;\n        for(int curr1=prev1;curr1<=50;curr1++){\n            int curr2 = nums[level] - curr1;\n            if(curr2>=0 && curr2<=prev2){\n                ans=(ans+rec(level+1,curr1,curr2,nums))%mod;\n            }\n        }\n        //save and return\n        return dp[level][prev1][prev2]=ans;\n\n    }\n    int countOfPairs(vector<int>& nums) {\n        int ans=0;\n        dp=vector<vector<vector<int>>>(nums.size()+1,vector<vector<int>>(51,vector<int>(51,-1)));\n        for(int curr1=0;curr1<=50;curr1++){\n            int curr2 = nums[0] - curr1;\n            if(curr2>=0){\n                ans=(ans+rec(1,curr1,curr2,nums))%mod;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723344758",
+    "subm_id": "1351541430"
+}

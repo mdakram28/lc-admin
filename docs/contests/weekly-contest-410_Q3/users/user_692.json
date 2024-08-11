@@ -1,0 +1,6 @@
+{
+    "username": "h_vohra06",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10 ** 9 + 7\n        N = len(nums)\n        memo = {}\n        \n        def solve(pos, n1, n2):\n            if pos == N:\n                return 1\n            \n            key = (pos, n1, n2)\n            if key in memo:\n                return memo[key]\n            \n            ans = 0\n            for option in range(n1, nums[pos] + 1):\n                if nums[pos] - option <= n2:\n                    ans += solve(pos + 1, option, nums[pos] - option)\n                    ans %= MOD\n                    \n            memo[key] = ans\n            return ans\n        \n        result = 0\n        for i in range(0, nums[0] + 1):\n            result += solve(1, i, nums[0] - i)\n            result %= MOD\n            \n        return result",
+    "submit_ts": "1723344554",
+    "subm_id": "1351537082"
+}

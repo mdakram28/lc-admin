@@ -1,0 +1,6 @@
+{
+    "username": "sarvagyaraut334",
+    "submission": "class Solution {\npublic:\n    int helper(int i, int last1, int last2, vector<int>& nums, vector<vector<int>>& dp){\n        if(i == nums.size()) return 1;\n        if(dp[i][last1] != -1) return dp[i][last1];\n        int s = 0, e = nums[i];\n        int ans = 0;\n        while(s <= e){\n            if(s >= last1 && e <= last2){\n                 ans = (ans + helper(i + 1, s, e, nums, dp)) % 1000000007;\n            }\n            if(s <= last2 && e >= last1 && s != e){\n                ans = (ans + helper(i + 1, e, s, nums, dp)) % 1000000007;\n            }\n            s++;\n            e--;\n        }\n        return dp[i][last1] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<int>> dp(2001, vector<int>(51, -1));\n        return helper(0, 0, 50, nums, dp);\n    }\n};",
+    "submit_ts": "1723346571",
+    "subm_id": "1351580462"
+}

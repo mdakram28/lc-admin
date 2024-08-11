@@ -1,0 +1,6 @@
+{
+    "username": "deepaksingh_2614",
+    "submission": "class Solution {\npublic:\n    long long helper(int i, vector<int>& nums, int n, int l, int h, int mod, vector<vector<vector<int>>>& memo) {\n        if (i == n) {\n            return 1;\n        }\n      \n        if (memo[i][l][h] != -1) {\n            return memo[i][l][h];\n        }\n        \n        long long ways = 0;\n        for (int k = l; k <= nums[i]; k++) {\n            int a = k;\n            int b = nums[i] - k;\n            if (b >= 0 && b <= h) {\n                ways = (ways + helper(i + 1, nums, n, a, nums[i] - k, mod, memo)) % mod;\n            }\n        }\n        return memo[i][l][h] = ways;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int mod = 1e9+7;\n        vector<vector<vector<int>>> memo(n, vector<vector<int>>(102, vector<int>(102, -1))); // 3D memoization table\n        long long ans = helper(0, nums, n, 0, nums[0], mod, memo);\n        return ans;\n    }\n};\n",
+    "submit_ts": "1723345784",
+    "subm_id": "1351563238"
+}

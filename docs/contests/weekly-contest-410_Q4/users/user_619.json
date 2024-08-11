@@ -1,0 +1,6 @@
+{
+    "username": "blueyefish",
+    "submission": "class Solution {\n    int MOD = 1e9 + 7;\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int n = nums.size();\n        vector<vector<int>> f(n, vector<int>(1001));\n        for(int i = 0; i <= nums[0]; ++i) f[0][i] = 1;\n        for(int i = 1; i < n; ++i) {\n            int t = max(0, nums[i] - nums[i - 1]);\n            for(int k = t; k <= nums[i]; ++k) {\n                if(k == t) f[i][k] = f[i - 1][0];\n                else f[i][k] = (f[i][k - 1] + f[i - 1][k - t]) % MOD;\n\n                // for(int j = 0; j <= min(k, k - nums[i] + nums[i - 1]); ++j) {\n                //     f[i][k] = (f[i][k] + f[i - 1][j]) % MOD;\n                // }\n            }\n        }\n        int res = 0;\n        for(int i = 0; i < 1001; ++i) {\n            res = (res + f[n - 1][i]) % MOD;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723348303",
+    "subm_id": "1351615550"
+}

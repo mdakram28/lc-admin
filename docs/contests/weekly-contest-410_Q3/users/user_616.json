@@ -1,0 +1,6 @@
+{
+    "username": "weihongsam2002",
+    "submission": "class Solution {\npublic:\n    int memo[2010][60];\n    int mod = 1e9+7;\n\n    int dp(vector<int> &nums, int i, int j) {\n        if (i == nums.size()-1) return (j <= nums[i] ? 1 : 0);\n        int &res = memo[i][j];\n        if (res != -1) return res;\n\n        res = 0;\n        for (int k = j-min(0, (nums[i]-nums[i+1])); k <= nums[i+1]; k++) {\n            res = (res + dp(nums, i+1, k)) % mod;\n        }\n        return res;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(memo, -1, sizeof memo);\n        int res = 0;\n        for (int i = 0; i <= nums[0]; i++) {\n            res = (res + dp(nums, 0, i)) % mod;\n        }\n        return res;\n    }\n};\n",
+    "submit_ts": "1723346884",
+    "subm_id": "1351587231"
+}

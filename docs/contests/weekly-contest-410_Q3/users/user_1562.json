@@ -1,0 +1,6 @@
+{
+    "username": "riddhimanghatak",
+    "submission": "\n\nclass Solution {\npublic:\n    int mod = 1000000007;\n    int dp[2001][52][52];\n    \n    int helper(int ind, int prev1, int prev2, vector<int>& nums) {\n        if (ind >= nums.size()) return 1;\n        \n        if (dp[ind][prev1][prev2] != -1) return dp[ind][prev1][prev2];\n        \n        int ways = 0;\n        \n        for (int i = prev1; i <= nums[ind]; i++) {\n            if ((nums[ind] - i) <= prev2) {\n                ways = (ways + helper(ind + 1, i, nums[ind] - i, nums)) % mod;\n            }\n        }\n        \n        return dp[ind][prev1][prev2] = ways;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp)); \n        return helper(0, 0, 51, nums); \n    }\n};\n",
+    "submit_ts": "1723345948",
+    "subm_id": "1351566804"
+}

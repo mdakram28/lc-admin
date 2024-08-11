@@ -1,0 +1,6 @@
+{
+    "username": "parasnagpal100",
+    "submission": "class Solution {\npublic:\n    #define ll long long \n    ll mod = 1e9 + 7 ;\n    \n    ll func(int indx , int currFirst , vector<int>&nums , vector<vector<int>>&dp){\n       ll currSecond = nums[indx] - currFirst ;\n       if(currSecond < 0) return 0 ;\n       if(indx >= nums.size() - 1) return 1 ;\n       if(dp[indx][currFirst] != -1) return dp[indx][currFirst]; \n        \n       ll ans = 0 ;\n        \n       for(int i = max(0 , currFirst) ; i <= nums[indx + 1] ; ++i){\n            int nextSecond = nums[indx + 1] - i ;\n            if(nextSecond <= currSecond){\n                 ans += func(indx + 1 , i , nums , dp);\n                 ans %= mod ;\n            } \n       }\n        \n       return dp[indx][currFirst] = ans ; \n    }\n    \n    \n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size() ;\n        vector<vector<int>> dp(n + 1 , vector<int>(55 , -1));\n        \n        ll ans = 0 ;\n        \n        for(int i = 0 ; i <= nums[0] ; ++i){\n            ans += func(0 , i , nums , dp);\n            ans %= mod ;\n        }\n        \n        return ans ;\n    }\n};",
+    "submit_ts": "1723346685",
+    "subm_id": "1351582985"
+}

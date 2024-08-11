@@ -1,0 +1,6 @@
+{
+    "username": "RamKumarSharma",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    int dp[2000][52];\n    int solve(int i,int prev,int n,vector<int> &nums){\n        if(i==n) return 1;\n        if(dp[i][prev+1]!=-1) return dp[i][prev+1];\n        long long ans=0;\n        if(prev==-1){\n            for(int j=0;j<=nums[i];j++){\n                ans+=solve(i+1,j,n,nums);\n                ans%=mod;\n            }\n        }\n        else{\n            for(int j=prev;j<=nums[i];j++){\n                \n                int b=nums[i]-j;\n                if(b<=nums[i-1]-prev) ans+=solve(i+1,j,n,nums);\n                ans%=mod;\n            }\n        }\n        return dp[i][prev+1]=ans%mod;\n    }\n    int countOfPairs(vector<int>& nums){\n        \n        int n=nums.size();\n        memset(dp,-1,sizeof dp);\n        return solve(0,-1,n,nums);\n    }\n};",
+    "submit_ts": "1723344154",
+    "subm_id": "1351527728"
+}

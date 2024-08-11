@@ -1,0 +1,6 @@
+{
+    "username": "xy-li",
+    "submission": "from functools import cache\nfrom itertools import accumulate\nM = 10**9 + 7\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # a[i+1] >= a[i]\n        # nums[i+1] - a[i+1] <= nums[i] - a[i]\n        # a[i+1] - a[i] >= nums[i+1] - nums[i]\n        dp = [1] * (nums[0]+1)\n        presum = list(accumulate(dp, lambda x,y: (x+y)%M))\n        for i in range(1, n):\n            diff = nums[i] - nums[i-1]\n            dp = []\n            for j in range(nums[i]+1):\n                if diff <= 0:\n                    dp.append(presum[min(j,len(presum)-1)])\n                elif j - diff < 0:\n                    dp.append(0)\n                else:\n                    dp.append(presum[min(j-diff, len(presum)-1)])\n            presum = list(accumulate(dp, lambda x,y: (x+y)%M))\n            # print(dp)\n        return presum[-1]",
+    "submit_ts": "1723346853",
+    "subm_id": "1351586560"
+}

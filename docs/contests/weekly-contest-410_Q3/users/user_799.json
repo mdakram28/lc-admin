@@ -1,0 +1,6 @@
+{
+    "username": "kingkohlii",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int MOD = 1e9 + 7;\n        int n = nums.size();\n        vector<vector<int>> memo(n, vector<int>(51, -1));\n\n        auto dp = [&](auto& dp, int i, int p) -> int {\n            if (i == nums.size()) {\n                return 1;\n            }\n            if (memo[i][p] != -1) {\n                return memo[i][p];\n            }\n            int lim = nums[i];\n            int ans = 0;\n            for (int k = p; k <= nums[i]; ++k) {\n                int a = k;\n                int b = nums[i] - a;\n\n                if (i == 0 || (a >= p && nums[i - 1] - p >= b)) {\n                    ans = (ans + dp(dp, i + 1, a)) % MOD;\n                }\n            }\n            return memo[i][p] = ans;\n        };\n\n        return dp(dp, 0, 0);\n    }\n};\n",
+    "submit_ts": "1723344369",
+    "subm_id": "1351532836"
+}

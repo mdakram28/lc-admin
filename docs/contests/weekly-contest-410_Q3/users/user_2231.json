@@ -1,0 +1,6 @@
+{
+    "username": "helloamj",
+    "submission": "class Solution {\npublic:\nunordered_map<int,unordered_map<int,unordered_map<int,int>>> dp;\nint M = 1e9+7;\n    long long solveDP(int i, vector<int>& nums, int prv1 , int prv2){\n        if( i == nums.size())return 1;\n        if(dp.count(i) and dp[i].count(prv1) and dp[i][prv1].count(prv2))return dp[i][prv1][prv2];\n        long long ans =0;\n        for(int k = 0 ;  k <= nums[i] ; k++){\n            int p1 = k;\n            int p2 = nums[i] - k;\n            if(p1 >= prv1 and p2 <= prv2){\n                ans = (ans%M + solveDP(i+1,nums,p1,p2)%M)%M;\n            }\n        }\n        return dp[i][prv1][prv2] = ans%M;\n    }\n    int countOfPairs(vector<int>& nums) {\n        return solveDP(0,nums,0,50)%M;\n    }\n};",
+    "submit_ts": "1723346491",
+    "subm_id": "1351578751"
+}

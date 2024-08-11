@@ -1,0 +1,6 @@
+{
+    "username": "recodesunny",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n\n        int n = nums.size() ;\n\n\n        vector<vector<vector<int>>> dp(n , vector<vector<int>>(51 , vector<int>(51 , -1))) ;\n        int mod = 1e9 + 7 ;\n        return numWays(0 , 0 , nums[0] , nums, dp, mod) ;\n        \n    }\n\nprivate:\n    int numWays(int index , int prevValueA , int prevValueB , vector<int>& nums, vector<vector<vector<int>>> &dp, int &mod ){\n\n        if(index >= nums.size()) return 1 ;\n\n        if(dp[index][prevValueA][prevValueB] != -1) return dp[index][prevValueA][prevValueB] ;\n\n\n        long long int ways =0 ;\n        for(int i = prevValueA ; i <= nums[index] ; i++){\n            if(nums[index] - i <= prevValueB){\n                // cout << index << i << \" \"  << nums[index] - i << endl ;\n                ways += (0LL + numWays(index + 1 , i , nums[index] - i , nums, dp, mod)) % mod ;\n            }\n        }\n\n        return dp[index][prevValueA][prevValueB] = ways % mod;\n    }\n};",
+    "submit_ts": "1723346427",
+    "subm_id": "1351577362"
+}

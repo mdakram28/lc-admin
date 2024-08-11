@@ -1,0 +1,6 @@
+{
+    "username": "MinhBaoSoCool",
+    "submission": "class Solution {\npublic:\n    \n    long long F[2003][1003];\n    long long P[2003][1003];\n    long long MOD=1000000007ll;\n    \n    void addPrefixSum(int i){\n        P[i][0]=F[i][0];\n        for(int j=1;j<=1000;++j){\n            P[i][j]=(P[i][j-1]+F[i][j])%MOD;\n        }\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        for(int i=0;i<=1000;++i){\n            if(i<=nums[0]) F[0][i]=1;\n            else F[0][i]=0;\n        }\n        addPrefixSum(0);\n        for(int i=1;i<nums.size();++i){\n            for(int j=0;j<=1000;++j){\n                F[i][j]=0ll;\n                if(j>nums[i]) continue;\n                int maxj=min(j, nums[i-1]-nums[i]+j);\n                if(maxj<0) continue;\n                F[i][j]=P[i-1][maxj];\n            }\n            addPrefixSum(i);\n        }\n        long long ans=0;\n        for(int i=0;i<=1000;++i){\n            ans=(ans+F[n-1][i])%MOD;\n        }\n        return (int)ans;\n    }\n};",
+    "submit_ts": "1723345246",
+    "subm_id": "1351551683"
+}

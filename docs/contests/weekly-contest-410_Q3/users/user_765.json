@@ -1,0 +1,6 @@
+{
+    "username": "dotuas",
+    "submission": "public class Solution {\n    int M = 1000000007;\n    public int CountOfPairs(int[] nums) {\n        int max = 0;\n        foreach (var n in nums){\n            max = Math.Max(max, n);\n        }\n        return (int)DP(nums, max, 0, 0, new Dictionary<long, long>());\n    }\n\n    long DP(int[] nums, int max, int cur, int pre, Dictionary<long, long> dp){\n        if (cur >= nums.Length){\n            return 1;\n        }\n\n        long key = cur * 1024 + pre;\n        if (!dp.ContainsKey(key)){\n            long ans = 0;\n            if (cur == 0){\n                for (int i = pre; i <= nums[cur]; i ++){\n                    ans += DP(nums, max, cur + 1, i, dp);\n                    ans %= M;\n                }\n            }else{\n                int pre2 = nums[cur-1] - pre;\n                int pre2Max = nums[cur] - pre2;\n                for (int i = Math.Max(pre, pre2Max); i <= nums[cur]; i ++){\n                    ans += DP(nums, max, cur + 1, i, dp);\n                    ans %= M;\n                } \n            }\n\n            dp.Add(key, ans);\n        } \n        return dp[key];\n    }\n}",
+    "submit_ts": "1723344792",
+    "subm_id": "1351542137"
+}

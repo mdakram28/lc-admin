@@ -1,0 +1,6 @@
+{
+    "username": "rp3601",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9+7;\n    int n;\n    int sol(int i, int prev, vector<int> &nums, vector<vector<int>> &dp){\n        if(i==n) return 1;\n        if(dp[i][prev] != -1) return dp[i][prev];\n        int prev2 = 50, cnt = 0;\n        if(i-1 >= 0) prev2 = nums[i-1] - prev;\n        for(int j=max(prev,0);j<=nums[i];j++){\n            if(prev2 >= (nums[i]-j)) cnt = (cnt + sol(i+1,j,nums,dp)%mod)%mod;\n        }\n        return dp[i][prev] = cnt;\n    }\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(51,-1));\n        return sol(0,0,nums,dp);\n    }\n};",
+    "submit_ts": "1723345373",
+    "subm_id": "1351554355"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Shubham-30",
+    "submission": "class Solution {\npublic:\n    int dp[52][2001];\n    int mod = 1e9 + 7;\n    int rec(int idx,int last_arr1,vector<int> &nums)\n    {\n        if(idx >= nums.size())\n            return 1;\n        else if(dp[last_arr1+1][idx] != -1)\n            return dp[last_arr1+1][idx];\n        else \n        {\n            int last_arr2 = idx == 0 ? 1e9 : nums[idx - 1] - last_arr1;\n            int cur_arr2;\n            int ans = 0;\n            //cout<<idx<<\" \"<<last_arr1<<\" \"<<last_arr2<<endl;\n            int lim = last_arr1 == -1 ? 0 : last_arr1;\n            for(int i = lim;i<=nums[idx];i++)\n            {\n                cur_arr2 = nums[idx] - i;\n                if(cur_arr2 > last_arr2)\n                    continue;\n                else if(cur_arr2 < 0)\n                    break;\n              //  cout<<\"idx = \"<<idx<<\" \"<<i<<\" \"<<cur_arr2<<endl;\n                ans = (ans + rec(idx+1,i,nums)%mod)%mod;\n            }\n            return dp[last_arr1+1][idx] = ans;\n        }\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        return rec(0,-1,nums);\n    }\n};",
+    "submit_ts": "1723347283",
+    "subm_id": "1351595701"
+}

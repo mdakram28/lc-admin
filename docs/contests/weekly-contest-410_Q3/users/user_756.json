@@ -1,0 +1,6 @@
+{
+    "username": "avishaan",
+    "submission": "#define ll long long\nll mod = 1e9 + 7;\nclass Solution {\npublic:\n    ll helper(ll index, ll mx, ll mn, vector<vector<vector<ll>>> &dp, vector<int> &nums){\n        if(index < 0)\n            return 1;\n        if(dp[index][mx][mn] != -1)\n            return dp[index][mx][mn];\n        dp[index][mx][mn] = 0;\n        for(ll i = 0; i <= min(mx, (ll)nums[index]); i++){\n            ll val = nums[index] - i;\n            if(val >= mn)\n                dp[index][mx][mn] = (dp[index][mx][mn] + helper(index - 1, i, val, dp, nums)) % mod;\n        }\n        return dp[index][mx][mn];\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        ll n = nums.size();\n        vector<vector<vector<ll>>> dp(n, vector<vector<ll>>(51, vector<ll>(51, -1)));\n        return (int)(helper(n - 1, 50, 0, dp, nums) % mod);\n    }\n};",
+    "submit_ts": "1723344774",
+    "subm_id": "1351541772"
+}

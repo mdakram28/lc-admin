@@ -1,0 +1,6 @@
+{
+    "username": "sarveshhase2020",
+    "submission": "class Solution {\nprivate:\n    long long int MOD = 1e9 + 7; \n    \n    long long int compute(int idx, int firstVal, int secondVal, vector<int>& nums, vector<vector<vector<long long int>>>& dp) {\n            if (idx >= nums.size()) return 1;\n            if (dp[idx][firstVal][secondVal] != -1) return dp[idx][firstVal][secondVal];\n            \n            long long int res = 0;\n            for (int x = firstVal; x <= nums[idx]; x++) {\n                for (int y = secondVal; y >= 0; y--) {\n                    if (x + y == nums[idx]) {\n                        res += compute(idx + 1, x, y, nums, dp);\n                        res = res % MOD;\n                    }\n                }\n            }\n            return dp[idx][firstVal][secondVal] = res;\n        }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<long long int>>> dp(n, vector<vector<long long int>>(51, vector<long long int>(51, -1)));\n\n        return compute(0, 0, nums[0], nums, dp);\n    }\n};\n",
+    "submit_ts": "1723346587",
+    "subm_id": "1351580856"
+}

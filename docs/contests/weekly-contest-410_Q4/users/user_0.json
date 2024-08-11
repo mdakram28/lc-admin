@@ -1,0 +1,6 @@
+{
+    "username": "juliany2",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        using ll = long long;\n        const int mod = 1e9 + 7;\n        int lst = 1e9;\n        vector<ll> dp(1001);\n        dp[0] = 1;\n        for (int x : nums) {\n            vector<ll> pref = dp;\n            for (int i = 1; i <= 1000; i++)\n                (pref[i] += pref[i - 1]) %= mod;\n\n            vector<ll> ndp(1001);\n            for (int j = 0; j <= x; j++) {\n                int k = x - j;\n                int r = min(j, lst - k);\n                ndp[j] = (r >= 0 ? pref[r] : 0);\n                //cout << dp[j] << \" \\n\"[j == x];\n            }\n            lst = x;\n\n            swap(dp, ndp);\n        }\n\n        ll ans = 0;\n        for (int i = 0; i <= 1000; i++)\n            (ans += dp[i]) %= mod;\n        return ans;\n    }\n};",
+    "submit_ts": "1723343788",
+    "subm_id": "1351517836"
+}

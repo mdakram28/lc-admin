@@ -1,0 +1,6 @@
+{
+    "username": "Lallanbhai",
+    "submission": "class Solution {\n    int mod = 1e9 + 7;\npublic:\n    long long solve(vector<int> &nums, long long i ,long long s , long long e, vector<vector<vector<long long>>> &dp){\n        if(i == nums.size()){\n            // cout<<s<<\" \"<<e<<endl;\n            return 1;\n        }\n        // cout<<nums[i]<<\" \"<<s<<\" \"<<e<<endl;\n        // if(nums[i] < s || nums[i] < e) return 0;\n\n        if(dp[i][s][e]!=-1) return dp[i][s][e];\n\n        long long res = 0;\n        for(long long k = s; k <= (nums[i]); k++ ){\n            if(nums[i] - k > e) continue;\n            res += solve(nums, i+1, k, nums[i] - k ,dp);\n        }\n\n        return dp[i][s][e] = res%mod;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        long long n = nums.size();\n        vector<vector<vector<long long>>> dp(n , vector<vector<long long>> (52, vector<long long> (52, -1)));\n        return solve(nums, 0, 0, 51, dp);\n    }\n};",
+    "submit_ts": "1723345357",
+    "subm_id": "1351554032"
+}

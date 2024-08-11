@@ -1,0 +1,6 @@
+{
+    "username": "tanishp_16",
+    "submission": "class Solution {\npublic:\n    static const int m=1e9+7;\n    int dp[51][51][2001];\n    int solve(int p1, int p2, int ind, vector<int>& nums){\n        if(ind==nums.size()){\n            return 1;\n        }\n        \n        if(dp[p1][p2][ind]!=-1)\n            return dp[p1][p2][ind];\n        \n        int ans=0;\n        for(int i=0; i<=nums[ind]; ++i){\n            if(i>=p1 && nums[ind]-i>=0 && nums[ind]-i<=p2){\n                ans=(ans%m+solve(i, nums[ind]-i, ind+1, nums)%m)%m;\n            }\n        }\n        return dp[p1][p2][ind]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        int ans=0;\n        for(int i=0; i<=nums[0]; ++i){\n            if(nums[0]-i>=0){\n                ans=(ans%m+solve(i, nums[0]-i, 1, nums)%m)%m;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723346699",
+    "subm_id": "1351583277"
+}

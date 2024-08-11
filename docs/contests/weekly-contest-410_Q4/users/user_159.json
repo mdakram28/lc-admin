@@ -1,0 +1,6 @@
+{
+    "username": "sobols",
+    "submission": "constexpr int MOD = 1'000'000'007;\n\nint Add(int x, int y) {\n    int s = x + y;\n    if (s >= MOD) {\n        s -= MOD;\n    }\n    return s;\n}\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int n = nums.size();\n        const int mx = *max_element(nums.begin(), nums.end());\n        reverse(nums.begin(), nums.end());\n        \n        vector<int> f(mx+1);\n        for (int i = 0; i <= nums[0]; ++i) {\n            f[i] = 1;\n        }\n        \n        for (int i = 1; i < n; ++i) {\n            vector<int> g(mx+1);\n            \n            vector<int> sf(mx+1);\n            for (int j = 0; j <= mx; ++j) {\n                sf[j] = Add(j > 0 ? sf[j-1] : 0, f[j]);\n            }\n            \n            for (int j = 0; j <= nums[i]; ++j) {\n                int sj = nums[i] - j;\n                int p = min(j, nums[i-1] - sj);\n                if (p >= 0) {\n                    g[j] = sf[p];\n                }\n            }\n            f.swap(g);\n        }\n        \n        int ans = 0;\n        for (int i = 0; i <= mx; ++i) {\n            ans = Add(ans, f[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345917",
+    "subm_id": "1351566128"
+}

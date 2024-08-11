@@ -1,0 +1,6 @@
+{
+    "username": "vinayaksinhaclg",
+    "submission": "class Solution {\npublic:\n    // int solv(vector<int> &nums,int previ,int prevj,int ind){\n    //     if(ind == nums.size()) return 1;\n    //     int anshere = 0;\n    //     for(int i=previ;i<=50;i++){\n    //         for(int j=prevj;j>=0;j--){\n    //             if(i+j == nums[ind]){\n    //                 anshere += solv(nums,i,j,ind+1);\n    //             }\n    //         }\n    //     }\n    //     return anshere;\n    // }\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(51, vector<int>(51, -1)));\n\n        function<int(int, int, int)> solv = [&](int ind, int previ, int prevj) {\n            if (ind == n) return 1;\n            if (dp[ind][previ][prevj] != -1) return dp[ind][previ][prevj];\n            \n            int anshere = 0;\n            for (int i = previ; i <= 50; ++i) {\n                int j = nums[ind] - i;\n                if (j >= 0 && j <= prevj) {\n                    anshere = (anshere + solv(ind + 1, i, j)) % MOD;\n                }\n            }\n            return dp[ind][previ][prevj] = anshere;\n        };\n\n        return solv(0, 0, 50);\n    }\n};",
+    "submit_ts": "1723345282",
+    "subm_id": "1351552435"
+}

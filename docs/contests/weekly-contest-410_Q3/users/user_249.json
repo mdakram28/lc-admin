@@ -1,0 +1,6 @@
+{
+    "username": "arsread",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        final int MOD = 1_000_000_007;\n\n        long[] dp = new long[51];\n        for (int i = 0; i <= nums[0]; i++) dp[i] = 1;\n\n        for (int i = 1; i < nums.length; i++) {\n            long[] nxt = new long[51];\n            for (int a1 = 0; a1 <= nums[i]; a1++) {\n                int a2 = nums[i] - a1;\n                for (int p1 = 0; p1 <= nums[i-1]; p1++) {\n                    int p2 = nums[i-1] - p1;\n                    if (p1 <= a1 && p2 >= a2) {\n                        nxt[a1] = (nxt[a1] + dp[p1]) % MOD;\n                    }\n                }\n            }\n            dp = nxt;\n        }\n\n        long ans = 0;\n        for (long i: dp) ans = (ans + i) % MOD;\n        return (int)ans;\n    }\n}",
+    "submit_ts": "1723345081",
+    "subm_id": "1351548198"
+}

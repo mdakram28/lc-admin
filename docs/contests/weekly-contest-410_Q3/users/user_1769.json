@@ -1,0 +1,6 @@
+{
+    "username": "stevengongg",
+    "submission": "class Solution {\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n\n    int n = nums.size();\n    int max_num = 1;\n    for (auto& num: nums) {\n        max_num = max(num, max_num);\n\n    }\n        int dp[n][max_num+1];\n        for (int num=0;num<=max_num;num++) {\n            dp[n-1][num] = 1;\n        }\n        for (int i=n-2;i>=0;i--) {\n            for (int num=0;num<=nums[i];num++) {\n                int sum = 0;\n                for (int n_num=num;n_num<=nums[i+1];n_num++) {\n                    if (nums[i] - num >= nums[i+1] - n_num) { // only consider if decreasing\n                        sum += dp[i+1][n_num];\n                        sum %= (int)(1e9 + 7);\n                    }\n                }\n                dp[i][num] = sum;\n                // cout << i << \" \" << num << \" \" << sum << endl;\n            }\n        }\n        int ans =0;\n        for (int num=0;num<=nums[0];num++) {\n            ans += dp[0][num];\n            ans  %= (int) (1e9 + 7);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345944",
+    "subm_id": "1351566722"
+}

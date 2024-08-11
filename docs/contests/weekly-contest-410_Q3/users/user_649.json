@@ -1,0 +1,6 @@
+{
+    "username": "Mohamed_Hamed",
+    "submission": "# class Solution:\n#     def countOfPairs(self, nums: List[int]) -> int:\nfrom functools import lru_cache\nfrom typing import List\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        \n        @lru_cache(None)\n        def count_pairs(i: int, prev1: int, prev2: int) -> int:\n            # Base case: if we've filled all positions, return 1 (one valid sequence)\n            if i == n:\n                return 1\n            \n            total = 0\n            \n            # Iterate through all possible values of arr1[i]\n            for arr1_i in range(prev1, nums[i] + 1):\n                arr2_i = nums[i] - arr1_i\n                if arr2_i <= prev2:\n                    total += count_pairs(i + 1, arr1_i, arr2_i)\n                    total %= MOD\n            \n            return total\n        \n        # Start recursion with initial values: first index, prev1=0, prev2=nums[0] or any maximum possible value\n        return count_pairs(0, 0, 50)\n",
+    "submit_ts": "1723344229",
+    "subm_id": "1351529587"
+}

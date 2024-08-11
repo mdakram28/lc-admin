@@ -1,0 +1,6 @@
+{
+    "username": "ard001",
+    "submission": "class Solution {\npublic:\n    static constexpr int mod = 1e9+7;\n    int add(int x,int y){\n        if((x+=y)>=mod)x-=mod;\n        return x;\n    }\n    int countOfPairs(vector<int>& nums) {\n        const int n = nums.size(), mxn = 1010;\n        vector<int> pre1(mxn,0), pre2(mxn,0);\n        for(int i=0;i<=nums[0];++i) pre1[i] = 1;\n\n        for(int i=1;i<n;++i){\n            for(int j=0;j<mxn;++j) pre2[j] = 0;\n            for(int j=0,tt=0,it=0;j<=nums[i];++j){\n                for(;it<=min(j,nums[i-1]) && j-it >= max(0, nums[i] - nums[i-1]);++it){\n                    tt = add(tt, pre1[it]);\n                }\n                pre2[j] = tt;\n            }\n            pre1.swap(pre2);\n        }\n        int ret=0;\n        for(int i=0;i<mxn;++i) ret = add(ret, pre1[i]);\n        return ret;\n    }\n};",
+    "submit_ts": "1723347892",
+    "subm_id": "1351607570"
+}

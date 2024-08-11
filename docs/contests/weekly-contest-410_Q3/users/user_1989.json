@@ -1,0 +1,6 @@
+{
+    "username": "ss_sks_4851",
+    "submission": "class Solution {\npublic:\n    int n;\n    int memo[2000][51][51];\n    long long mod = 1e9+7;\n    int recursion(vector<int>& nums,int idx,int prev1, int prev2){\n        if(idx>=n) return 1;\n        if(memo[idx][prev1][prev2]!=-1) return memo[idx][prev1][prev2];\n        long long  ans = 0;\n        for(int i=prev1;i<=nums[idx];i++){\n            if(nums[idx]-i>prev2) continue;\n            ans += recursion(nums,idx+1,i,nums[idx]-i);\n            ans %= mod;\n        }\n        return memo[idx][prev1][prev2] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        memset(memo,-1,sizeof(memo));\n        return recursion(nums,0,0,50);\n    }\n};",
+    "submit_ts": "1723346821",
+    "subm_id": "1351585842"
+}

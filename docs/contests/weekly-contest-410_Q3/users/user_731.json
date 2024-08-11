@@ -1,0 +1,6 @@
+{
+    "username": "Errrror404",
+    "submission": "class Solution {\npublic:\n    int dp[2002][52][52];\n    int mod = 1e9 + 7;\n    int memo(int i, int pA, int pB, vector <int> &nums) {\n        if(i == (int) nums.size()) return 1;\n        if(dp[i][pA + 1][pB + 1] != -1) return dp[i][pA + 1][pB + 1];\n        int ways = 0;\n        for(int j = 0; j < nums[i] + 1; j++) {\n            if(pA == -1 or pA <= j) {\n                int r = nums[i] - j;\n                if(pB == -1 or pB >= r) {\n                    ways += memo(i + 1, j, r, nums);\n                    ways %= mod;\n                }\n            }\n        }\n        return dp[i][pA + 1][pB + 1] = ways % mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        return memo(0, -1, -1, nums);\n    }\n};",
+    "submit_ts": "1723344717",
+    "subm_id": "1351540522"
+}

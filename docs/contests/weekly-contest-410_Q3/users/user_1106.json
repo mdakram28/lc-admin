@@ -1,0 +1,6 @@
+{
+    "username": "FighterNanReborn",
+    "submission": "using ll = long long;\n\nll alg[2005][60];\n\nconstexpr ll kMod = 1000'000'007;\n\nclass Solution {\npublic:\n  \n//   ll Dfs(int i, int last_1) {\n//     if ()\n//   }\n  \n  int countOfPairs(vector<int>& nums) {\n    memset(alg, 0, sizeof(alg));\n    \n    int n = nums.size();\n    for (int last_1 = 0; last_1 <= 50; ++last_1) {\n      alg[n][last_1] = 1;\n    }\n    \n    for (int i = n - 1; i >= 1; --i) {\n      for (int last_1 = 0; last_1 <= nums[i - 1]; ++last_1) {\n        int last_2 = nums[i - 1] - last_1;\n        alg[i][last_1] = 0;\n        for (int num = 0; num <= nums[i]; ++num) {\n          if (num >= last_1 && (nums[i] - num) <= last_2) {\n            alg[i][last_1] += alg[i + 1][num];\n            alg[i][last_1] %= kMod;\n          }\n        }\n      }\n    }\n    \n    ll res = 0;\n    for (int last_1 = 0; last_1 <= nums[0]; ++last_1) {\n      res += alg[1][last_1];\n      res %= kMod;\n    }\n    \n    return res;\n  }\n};",
+    "submit_ts": "1723344912",
+    "subm_id": "1351544673"
+}

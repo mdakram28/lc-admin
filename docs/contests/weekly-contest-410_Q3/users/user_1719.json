@@ -1,0 +1,6 @@
+{
+    "username": "mkaif2196",
+    "submission": "class Solution {\npublic:\n    int MOD = 1000000007;\n\n    int solve(vector<int>& nums, int i, int incVal, int decVal, vector<vector<vector<long long>>>& dp) {\n        if (i == nums.size()) return 1;\n        if (dp[i][incVal][decVal] != -1) {\n            return dp[i][incVal][decVal];\n        }\n\n        long long ans = 0;\n        for (int a = incVal; a <= nums[i]; a++) {\n            int b = nums[i] - a;\n            if (b >= 0 && b <= decVal) {\n                ans = (ans%MOD + solve(nums, i+1, a, b, dp)%MOD)%MOD;\n            }\n            \n        }\n\n        return dp[i][incVal][decVal] = ans;\n    }\n \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<long long>>> dp(n, vector<vector<long long>> (51, vector<long long> (51, -1)));\n\n        return solve(nums, 0, 0, nums[0], dp);\n    }\n};",
+    "submit_ts": "1723346476",
+    "subm_id": "1351578402"
+}

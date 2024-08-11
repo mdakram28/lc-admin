@@ -1,0 +1,6 @@
+{
+    "username": "Romulus-Hong",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        memo = {}\n\n        def traverse(idx, prev_num):\n            if idx == len(nums):\n                return 1\n\n            key = (idx, prev_num)\n            if key in memo:\n                return memo[key]\n\n            cnt = 0\n            for num1 in range(nums[idx], prev_num - 1, -1):\n                num2 = nums[idx] - num1\n                if num1 >= prev_num and (idx == 0 or num2 <= nums[idx - 1] - prev_num):\n                    cnt += traverse(idx + 1, num1)\n                else:\n                    break\n\n            return memo.setdefault(key, cnt)\n\n        return traverse(0, 0) % (10**9 + 7)\n",
+    "submit_ts": "1723345095",
+    "subm_id": "1351548490"
+}

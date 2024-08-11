@@ -1,0 +1,6 @@
+{
+    "username": "adithyag1",
+    "submission": "typedef long long ll;\n\nclass Solution {\npublic:\n    ll mod=(1e+9)+7;\n    ll solve(int i,int prev,vector<int> &nums,vector<vector<ll>> &dp){\n        if(i==nums.size()){\n            return 1LL;\n        }\n        if(dp[i][prev]!=-1){\n            return dp[i][prev];\n        }\n        ll ans=0;\n        ll prev2=(i>0?nums[i-1]-prev:INT_MAX);\n        for(int curr=prev;curr<=nums[i];curr++){\n            if(nums[i]-curr<=prev2){\n                (ans+=solve(i+1,curr,nums,dp))%=mod;\n            }\n        }\n        return dp[i][prev]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<ll>> dp(n,vector<ll>(51,-1));\n        return (int)solve(0,0,nums,dp);\n    }\n};",
+    "submit_ts": "1723344925",
+    "subm_id": "1351544950"
+}

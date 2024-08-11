@@ -1,0 +1,6 @@
+{
+    "username": "StellaYJ",
+    "submission": "class Solution {\n    \n    int MOD = (int)1e9 + 7;\n    public int countOfPairs(int[] nums) {\n    \n        int n = nums.length;\n        Integer[][] memo = new Integer[n][51];\n        return recursion(nums, 0, 0, 50, memo);\n    }\n    \n    private int recursion(int[] nums, int index, int val1, int val2, Integer[][] memo){\n        \n        if(index == nums.length){\n            return 1;\n        }\n        \n        if(memo[index][val1] != null){\n            return memo[index][val1];\n        }\n        \n        int result = 0;\n        for(int i = val1; i <= nums[index]; i++){\n            int j = nums[index] - i;\n            \n            if(i < val1 || j > val2){\n                continue;\n            }\n            result = (result + recursion(nums, index + 1, i, j, memo)) % MOD;\n        }\n        memo[index][val1] = result;\n        return result;\n    }\n}",
+    "submit_ts": "1723345564",
+    "subm_id": "1351558494"
+}

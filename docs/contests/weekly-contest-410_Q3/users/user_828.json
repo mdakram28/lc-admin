@@ -1,0 +1,6 @@
+{
+    "username": "_batman__",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n    int dp[2001][52];\n    int solve(int ind , int last , vector<int>&nums){\n          if(ind==nums.size()) return 1;\n          if(dp[ind][last+1]!=-1) return dp[ind][last+1];\n        \n          int ans = 0;\n        \n          for(int i=max(last,0);i<=nums[ind];i++){\n                 int second = nums[ind] - i;\n                 \n                 if(ind==0){\n                     ans +=solve(ind+1,i,nums);\n                     ans%=mod;\n                 }\n                 else {\n                     if(second <= nums[ind-1] - last) ans += solve(ind+1,i,nums);\n                     ans %=mod;\n                 }\n          }\n        return dp[ind][last+1] =  ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n          memset(dp,-1,sizeof(dp));\n          return solve(0,-1,nums);\n    }\n};",
+    "submit_ts": "1723344974",
+    "subm_id": "1351545974"
+}

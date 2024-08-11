@@ -1,0 +1,6 @@
+{
+    "username": "mintujupally",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        int mx=50;\n        vector<long long> dp1(51, 1), dp2(51, 0);\n        vector<long long> suff1(52, 1), suff2(52, 0);\n        suff1[51]=0;\n        int mod=1e9+7;\n        \n        for(int i=0; i<n; i++)\n        {\n            // cout<<i<<endl;\n            for(int j=50; j>=0; j--)\n            {\n                dp2[j]=0;\n                if(j<=nums[i])\n                {\n                    int x=j;\n                    if(i==0 || nums[i-1]-j<=nums[i]-j) x=j;\n                    else\n                    {\n                        x=j+nums[i-1]-nums[i];\n                    }\n                    dp2[j]=suff1[x];\n                }\n                suff2[j]=suff2[j+1]+dp2[j];\n                suff2[j]%=mod;\n            }\n            suff1=suff2;\n            dp1=dp2;\n            // cout<<\"i = \"<<i<<endl;\n            // for(int i=0; i<51; i++) cout<<dp1[i]<<\" \";\n            // cout<<endl;\n            // for(int i=0; i<51; i++) cout<<suff1[i]<<\" \";\n            // cout<<endl;\n        }\n\n        return suff1[0];\n    }\n};",
+    "submit_ts": "1723346853",
+    "subm_id": "1351586565"
+}

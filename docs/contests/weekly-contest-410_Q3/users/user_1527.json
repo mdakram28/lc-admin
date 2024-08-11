@@ -1,0 +1,6 @@
+{
+    "username": "bikashsahh",
+    "submission": "class Solution {\n    int MOD = 1000000007;\n    int[][] dp;\n    private int solve(int[] nums, int idx, int last,int prevI,int prevD){\n        if (idx == nums.length) {\n            return 1;\n        }\n        if (dp[idx][last] != -1) {\n            return dp[idx][last];\n        }\n\n        int cnt = 0;\n        for (int arr1 = last; arr1 <= nums[idx]; arr1++) {\n            int arr2 = nums[idx] - arr1; \n            \n            if(arr1 >= prevI && arr2<=prevD){\n                if (arr2 >= 0) {\n                    cnt = (cnt + solve(nums, idx + 1, arr1,arr1,arr2)) % MOD;\n                }\n            }\n        }\n\n        return dp[idx][last] =cnt;\n    }\n   \n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        dp = new int[n][51];\n        for (int i = 0; i < n; i++) {\n            Arrays.fill(dp[i], -1);\n        }\n        return solve(nums, 0, 0,Integer.MIN_VALUE,Integer.MAX_VALUE);\n    }\n}",
+    "submit_ts": "1723346190",
+    "subm_id": "1351572195"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "sachinrana1827",
+    "submission": "class Solution {\npublic:\n    int h(vector<int>& nums, vector<int>& arr1, vector<int>& arr2, int i, vector<vector<int>>& dp) {\n        if(i == nums.size()) return 1;\n        int s;\n        if(i == 0) {\n            s = 0;\n        } else {\n            if(nums[i] <= nums[i-1]) {\n                s = arr1[i-1];\n            } else {\n                s = arr1[i-1] + (nums[i]-nums[i-1]);\n            }\n        }\n        int ans = 0;\n        while(s <= nums[i]) {\n            arr1[i] = s;\n            arr2[i] = nums[i]-s;\n            int a = dp[i][s] != -1 ? dp[i][s] : h(nums, arr1, arr2, i+1, dp);\n            dp[i][s] = a;\n            ans += a;\n            ans %= 1'000'000'007;\n            s++;\n        }\n        return ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(51, -1));\n        vector<int> arr1(n), arr2(n);\n        return h(nums, arr1, arr2, 0, dp);\n    }\n};",
+    "submit_ts": "1723346039",
+    "subm_id": "1351568861"
+}

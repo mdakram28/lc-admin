@@ -1,0 +1,6 @@
+{
+    "username": "Aman_mangukiya",
+    "submission": "#define ll long long int\n#define mod 1000000007\nclass Solution {\npublic:\n\n    ll f(int i,int p1,int p2,vector<int>&nums,vector<vector<vector<ll>>>&dp){\n          \n          if(i!=0 && (p1<0 || p2<0)) return 0;\n          if(i>=nums.size()) return 1;\n\n          if(dp[i][p1+1][p2+1]!=-1) return dp[i][p1+1][p2+1];\n          int ans=0;\n\n          for(int j=0;j<=nums[i];j++){\n              if(p1==-1 &&  p2==-1){\n                ans =( ans + f(i+1,j,nums[i]-j,nums,dp))%mod;\n                //if(j!=nums[i]-j)ans = (ans + f(i+1,nums[i]-j,j,nums,dp))%mod;\n              }else{\n               if(p1<=j && p2>=nums[i]-j) ans = (ans +  f(i+1,j,nums[i]-j,nums,dp))%mod;\n                //if( j!=nums[i]-j &&  p1<=nums[i]-j && p2>=j) ans = (ans + f(i+1,nums[i]-j,j,nums,dp))%mod;\n              }\n          }\n\n          return dp[i][p1+1][p2+1]=ans%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n\n        vector<vector<vector<ll>>>dp(nums.size()+2,vector<vector<ll>>(60,vector<ll>(60,-1)));\n         return f(0,-1,-1,nums,dp);\n    }\n};",
+    "submit_ts": "1723345797",
+    "subm_id": "1351563530"
+}

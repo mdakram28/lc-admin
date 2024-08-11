@@ -1,0 +1,6 @@
+{
+    "username": "sourav_suku",
+    "submission": "const int M=(int)1e9+7;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        vector<long long> dp1(51);\n        int n=nums.size();\n        for(int i=0;i<=nums[0];++i){\n            dp1[i]=1;\n        }\n        for(int i=1;i<n;++i){\n            vector<long long> dp2(51);\n            for(int j=0;j<=50;++j){\n                int other=nums[i-1]-j;\n                if(other<0)break;\n                for(int k=0;k<=50;++k){\n                    int rem=nums[i]-k;\n                    if(rem<0)break;\n                    if(k>=j&&rem<=other){\n                        dp2[k]+=dp1[j];\n                        if(dp2[k]>=M)dp2[k]-=M;\n                    }\n                }\n            }\n            dp1=dp2;\n        }\n        int res=0;\n        for(int i=0;i<=50;++i){\n            res+=dp1[i];    if(res>=M)res-=M;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723345333",
+    "subm_id": "1351553507"
+}

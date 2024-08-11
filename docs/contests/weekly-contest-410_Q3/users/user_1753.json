@@ -1,0 +1,6 @@
+{
+    "username": "oversized",
+    "submission": "class Solution {\npublic:\n    int dp[2000][51], mod=1e9+7;\n    int util(vector<int> &nums, int i, int next){\n        if(i==-1) return 1;\n        if(dp[i][next]!=-1) return dp[i][next];\n        int ret=0;\n        for(int j=nums[i]; j>=0; j--){\n            if(i+1!=nums.size() && nums[i]-j<nums[i+1]-next) continue;\n            if(j>next) continue;\n            ret=(ret%mod+util(nums, i-1, j)%mod)%mod;\n        }\n        return dp[i][next]=ret;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return util(nums, nums.size()-1, 50);\n    }\n};",
+    "submit_ts": "1723346513",
+    "subm_id": "1351579242"
+}

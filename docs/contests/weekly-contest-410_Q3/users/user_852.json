@@ -1,0 +1,6 @@
+{
+    "username": "Shiva_3834",
+    "submission": "#include <vector>\nusing namespace std;\n\nclass Solution {\n    const int MOD = 1e9 + 7;\n    vector<vector<vector<int>>> dp;\n    int n;\n\n    int rec(int i, int x, int y, const vector<int>& nums) {\n        // base case\n        if (i == n) {\n            return 1;\n        }\n        // cache check\n        if (dp[i][x][y] != -1) {\n            return dp[i][x][y];\n        }\n        // Transition\n        int res = 0;\n        for (int x_next = x; x_next <= nums[i]; ++x_next) {\n            int y_next = nums[i] - x_next;\n            if (y_next <= y) {\n                res = (res + rec(i + 1, x_next, y_next, nums)) % MOD;\n            }\n        }\n        // save and return\n        return dp[i][x][y] = res;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        dp.assign(n, vector<vector<int>>(51, vector<int>(51, -1)));\n\n        int result = 0;\n        for (int x = 0; x <= nums[0]; ++x) {\n            result = (result + rec(1, x, nums[0] - x, nums)) % MOD;\n        }\n\n        return result;\n    }\n};\n",
+    "submit_ts": "1723345020",
+    "subm_id": "1351546933"
+}

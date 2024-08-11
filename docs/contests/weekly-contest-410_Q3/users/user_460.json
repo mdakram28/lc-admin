@@ -1,0 +1,6 @@
+{
+    "username": "kardeepakkumar",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        MOD = 10**9 + 7\n        minAhead = [float('inf') for _ in range(n)]\n        minimumValue = nums[-1]\n        for i in range(n-2, -1, -1):\n            minAhead[i] = minimumValue\n            minimumValue = min(minimumValue, nums[i])\n        \n        prevSplits = defaultdict(int)\n        prevSplits[0] = 1\n        prevValue = float('inf')\n\n        for i, num in enumerate(nums):\n            curSplits = defaultdict(int)\n            for prevSplitKey in prevSplits.keys():\n                for curSplitKey in range(max(prevSplitKey, num-(prevValue-prevSplitKey)), min(minAhead[i], num) + 1):\n                    curSplits[curSplitKey] += prevSplits[prevSplitKey] % MOD\n            prevSplits = curSplits\n            prevValue = num\n\n        return (sum(prevSplits.values()) % MOD)",
+    "submit_ts": "1723346545",
+    "subm_id": "1351579903"
+}

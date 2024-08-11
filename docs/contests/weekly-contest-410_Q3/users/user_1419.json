@@ -1,0 +1,6 @@
+{
+    "username": "SimpleSheep03",
+    "submission": "#define mod (int) (1e9 + 7)\nclass Solution {\npublic:\n    int f(int i , int prev_mn , int prev_mx , vector<int> & v , vector<vector<vector<int> > > & dp){\n        int n = v.size();\n        if(i >= n){\n            return 1;\n        }\n        if(dp[i][prev_mn][prev_mx] != - 1){\n            return dp[i][prev_mn][prev_mx];\n        }\n        int ans = 0;\n        for(int r = v[i] - prev_mx ; r <= v[i] ; r ++){\n            int x = r , y = v[i] - r;\n            if(x < prev_mn || y > prev_mx){\n                continue;\n            }\n            ans = (ans + f(i + 1 , x , y , v , dp)) % mod;\n        }\n        return dp[i][prev_mn][prev_mx] = ans;\n        \n    }\n    int countOfPairs(vector<int>& v) {\n        int n = v.size();\n        int mx = *max_element(v.begin() , v.end());\n        vector<vector<vector<int> > > dp(n , vector<vector<int> > (mx + 1 , vector<int> (mx + 1 , -1)));\n        return f(0 , 0 , v[0] , v , dp);\n    }\n};",
+    "submit_ts": "1723345725",
+    "subm_id": "1351562003"
+}

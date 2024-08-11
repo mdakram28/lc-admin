@@ -1,0 +1,6 @@
+{
+    "username": "shr_27",
+    "submission": "class Solution {\npublic:\n\n    int mod = 1e9+7;\n\n    int calc(int ind, int mini, vector<int>&nums, vector<vector<int>>&dp){\n        if(ind == nums.size()) return 1;\n\n        if(dp[ind][mini] != -1) return dp[ind][mini];\n\n        int start = max(mini,nums[ind]-nums[ind-1]+mini);\n\n        int temp = 0;\n        for(int i=start;nums[ind]-i >= 0;i++){\n            temp += calc(ind+1,i,nums,dp);\n            temp %= mod;\n        }\n        return dp[ind][mini] = temp;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = *max_element(nums.begin(),nums.end());\n        vector<vector<int>>dp(nums.size(),vector<int>(n+1,-1));\n        int ans=0;\n        for(int i=0;i<=nums[0];i++){\n            ans += calc(1,i,nums,dp);\n            ans %= mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723346597",
+    "subm_id": "1351581049"
+}

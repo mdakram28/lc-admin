@@ -1,0 +1,6 @@
+{
+    "username": "dwang33",
+    "submission": "from functools import cache\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10 ** 9 + 7\n        cummin = []\n        for n in reversed(nums):\n            if not cummin:\n                cummin.append(n)\n            else:\n                cummin.append(min(cummin[-1], n))\n        cummin = list(reversed(cummin))\n        # print(cummin)\n        @cache\n        def dp(start, lim, prevtake):\n            # print(start, lim, prevtake)\n            if start >= len(nums):\n                return 1\n            curr = nums[start]\n            must_take = curr - lim\n            ans = 0\n            for i in range(max(must_take, 0, prevtake), cummin[start] + 1):\n                ans += dp(start + 1, curr - i, i) % MOD\n                ans %= MOD\n            return ans % MOD\n        return dp(0, float('inf'), 0)",
+    "submit_ts": "1723346287",
+    "subm_id": "1351574260"
+}

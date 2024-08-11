@@ -1,0 +1,6 @@
+{
+    "username": "hrishavkmr",
+    "submission": "class Solution {\npublic:\n    long dp[2001][55][55];\n    int mod = 1000000007;\n    int solve(vector<int> &nums, int si, int prev1, int prev2){\n        if(si == nums.size()) return 1;\n        if(dp[si][prev1][prev2] != -1) return dp[si][prev1][prev2];\n        \n        long ans = 0;\n        for(int i=prev1;i<=nums[si];i++){\n            int s = i;\n            int e = nums[si]-s;\n            if(e > prev2) continue;\n            ans += solve(nums, si+1, s, e);\n            ans %= mod;\n        }\n        \n        dp[si][prev1][prev2] = ans;\n        return dp[si][prev1][prev2];\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        for(int i = 0;i<n;i++){\n            for(int j = 0;j<=50;j++){\n                for(int k = 0;k<=50;k++){\n                    dp[i][j][k] = -1;\n                }\n            }\n        }\n        return solve(nums, 0, 0, nums[0]);\n    }\n};",
+    "submit_ts": "1723346850",
+    "subm_id": "1351586490"
+}

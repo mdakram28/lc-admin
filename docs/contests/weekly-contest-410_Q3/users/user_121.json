@@ -1,0 +1,6 @@
+{
+    "username": "quyse",
+    "submission": "int const M = 50;\nint const L = 1000000007;\nusing ll = long long;\n\nclass Solution {\npublic:\n  int countOfPairs(vector<int>& nums) {\n    int n = nums.size();\n    vector<int> p1(M + 1, 0), p1s(M + 2, 0), p2(M + 1);\n    for(int i = 0; i <= nums[n - 1]; ++i)\n      p1[i] = 1;\n    for(int i = n - 2; i >= 0; --i)\n    {\n      p1s[0] = 0;\n      for(int j = 1; j <= M + 1; ++j)\n        p1s[j] = (p1s[j - 1] + p1[j - 1]) % L;\n      for(int j = 0; j <= M; ++j)\n      {\n        int l = j + max(nums[i + 1] - nums[i], 0);\n        int r = nums[i + 1];\n        p2[j] = l <= r ? (int)((p1s[r + 1] + 0LL + (L - p1s[l])) % L) : 0;\n      }\n      swap(p1, p2);\n      // cout << \"i=\" << i << \":\";\n      // for(int j = 0; j <= M; ++j)\n      //   cout << \" \" << p1[j];\n      // cout << \"\\n\";\n    }\n    ll res = 0;\n    for(int j = 0; j <= M; ++j)\n      res += p1[j];\n    return (int)(res % L);\n  }\n};",
+    "submit_ts": "1723345603",
+    "subm_id": "1351559312"
+}

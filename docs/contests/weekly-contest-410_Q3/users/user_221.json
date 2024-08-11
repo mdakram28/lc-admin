@@ -1,0 +1,6 @@
+{
+    "username": "Rishab01",
+    "submission": "class Solution {\npublic:\n    \n    #define ll long long\n    #define MOD ((ll) 1e9+7)\n    \n    ll dp[2001][1004];\n    \n    ll dfs(int i, int j, vector<int>& nums) {\n        \n        if(i == nums.size())\n            return 1;\n        \n        if(dp[i][j] != -1)\n            return dp[i][j];\n        \n        dp[i][j] = 0;\n        \n        int a = j, b = nums[i-1] - j;\n        \n        for(int k=a; k<=nums[i]; ++k)\n            if(nums[i]-k <= b && nums[i]-k >= 0) {\n                dp[i][j] += dfs(i+1, k, nums);\n                dp[i][j] %= MOD;    \n            }\n        \n        return dp[i][j];\n        \n    }\n    \n    \n    int countOfPairs(vector<int>& nums) {\n        \n        memset(dp, -1, sizeof(dp));\n        \n        ll res = 0;\n        \n        for(int i=0; i<=nums[0]; ++i) {\n            res += dfs(1, i, nums);\n            res %= MOD;   \n        }\n            \n        return res;\n        \n    }\n};",
+    "submit_ts": "1723344746",
+    "subm_id": "1351541141"
+}

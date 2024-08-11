@@ -1,0 +1,6 @@
+{
+    "username": "samarth_717",
+    "submission": "class Solution {\npublic:\n    int M = 1e9 + 7;\n    int dp[2001][55];\n    int find(vector<int>& nums, int i, int prev) {\n        if (i == nums.size()) return 1;\n        if(dp[i][prev+1]!=-1) return dp[i][prev+1];\n        int ans = 0;\n        for (int j = 0; j <= nums[i]; j++) {\n            int x = j, y = nums[i] - j;\n            if (prev == -1) {\n                ans += find(nums, i + 1, x);\n                ans %= M;\n            } else {\n                int x0 = prev, y0 = nums[i - 1] - prev;\n                if (x0 > x) continue;\n                if (y > y0) continue;\n                ans += find(nums, i + 1, x);\n                ans %= M;\n            }\n        }\n        return dp[i][prev+1]=ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        return find(nums, 0, -1);\n    }\n};\n",
+    "submit_ts": "1723344814",
+    "subm_id": "1351542598"
+}

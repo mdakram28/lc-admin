@@ -1,0 +1,6 @@
+{
+    "username": "asmitpapney",
+    "submission": "class Solution {\npublic:\n    \n    int t[2001][52][52];\n    int mod = 1e9 + 7;\n    \n    int Solve(vector<int>&A, int i, int lastInc, int lastDec){\n        if(i==A.size()) return 1;\n        \n        int Ans = 0 ;\n       \n        if(t[i][lastInc][lastDec]!=-1)\n            return t[i][lastInc][lastDec];\n        \n        for(int j=lastInc; j<=A[i]; j++){\n            int req = A[i]-j;\n            if(req <= lastDec)\n                Ans = (Ans%mod + Solve(A, i+1, j, req)%mod)%mod;\n        }\n        \n        return t[i][lastInc][lastDec] = Ans%mod; \n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        memset(t,-1,sizeof(t));\n        return Solve(nums, 0, 0, 51);\n    }\n};",
+    "submit_ts": "1723344672",
+    "subm_id": "1351539568"
+}

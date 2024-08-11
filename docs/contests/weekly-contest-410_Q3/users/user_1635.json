@@ -1,0 +1,6 @@
+{
+    "username": "sanuj21",
+    "submission": "class Solution {\npublic:\n\n    int t[2001][51][51];\n    int MOD = 1e9 + 7;\n\n    int helper(vector<int> &a, int i, int last1, int last2) {\n        if(a.size() == i) return 1;\n\n        if(t[i][last1][last2] != -1) return t[i][last1][last2];\n\n        int m = 0;\n        int res = 0;\n\n        for(int j = 0; j <= a[i]; j++) {\n            if(j < last1 || (a[i] - j) > last2) continue;\n            res += helper(a, i+1, j, a[i] - j);\n            res %= MOD;\n        }\n\n        return  t[i][last1][last2] = res;\n    }\n\n    int countOfPairs(vector<int>& a) {\n        memset(t, -1, sizeof(t));\n        return helper(a, 0, 0, 50);\n    }\n};",
+    "submit_ts": "1723346263",
+    "subm_id": "1351573729"
+}

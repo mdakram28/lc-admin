@@ -1,0 +1,6 @@
+{
+    "username": "Rishab01",
+    "submission": "class Solution {\npublic:\n    \n    #define ll long long\n    #define MOD ((ll) 1e9+7)\n    \n    ll dp[2001][1006];\n    \n    int countOfPairs(vector<int>& nums) {\n        \n        memset(dp, 0, sizeof(dp));\n        \n        for(int i=0; i<=nums[0]; ++i) \n            dp[0][i] = i+1;\n        \n        for(int i=1; i<nums.size(); ++i) \n            for(int j=0; j<=nums[i]; ++j) {\n\n                if(j) dp[i][j] = dp[i][j-1];\n                \n                int a = j, b = nums[i] - j;\n                \n                int l = 0, r = nums[i-1];\n                \n                while(l <= r) {\n                    \n                    int m = (l + r) / 2;\n                    \n                    if(m < a || nums[i-1]-m > b)\n                        l = m+1;\n                    else\n                        r = m-1;\n                    \n                }\n                \n                if(l == 0) \n                    dp[i][j] += dp[i-1][nums[i-1]];\n                else\n                    dp[i][j] += dp[i-1][nums[i-1]] - dp[i-1][l-1];\n                \n                dp[i][j] = (dp[i][j] + MOD) % MOD;\n                \n            }\n        \n        return dp[nums.size()-1][nums.back()];\n        \n        \n    }\n};",
+    "submit_ts": "1723346083",
+    "subm_id": "1351569811"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "mdee5",
+    "submission": "#define ll long long\n#define MOD 1000000007LL\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int r = *max_element(nums.begin(),nums.end());\n        vector<vector<ll>> dp(n,vector<ll>(r+1,0));\n        for (int x = 0; x <= nums[0]; ++x) dp[0][x] = 1;\n        for (ll i = 1; i < n; ++i) {\n            vector<ll> pfx = {dp[i-1][0]};\n            for (ll rv = 1; rv <= r; ++rv){\n                pfx.push_back((pfx.back() + dp[i-1][rv]) % MOD);\n            }\n            \n            for (ll rv = 0; rv <= nums[i]; ++rv) {\n                ll ext = nums[i] - rv;\n                if (ext >= 0) {\n                    ll nv = min(rv, (ll)nums[i-1] - ext);\n                    if (nv >= 0) {\n                        dp[i][rv] = pfx[nv];\n                    }\n                }\n            }\n        }\n        \n        int out = 0;\n        for(int rv = 0; rv <= nums[n-1]; ++ rv){\n            out += dp[n-1][rv];\n            out %= MOD;\n        }\n        return out;\n\n    }\n};",
+    "submit_ts": "1723346426",
+    "subm_id": "1351577322"
+}

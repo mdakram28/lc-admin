@@ -1,0 +1,6 @@
+{
+    "username": "skyler_",
+    "submission": "class Solution {\npublic:\n    const long long MOD = 1e9 + 7;\n    long long n;\n    vector<vector<int>> memo;\n\n    long long findPairs(int index, int k1, vector<int>& nums) {\n        if (index == n) return 1;\n        if (memo[index][k1] != -1) return memo[index][k1];\n\n        int prev1 = k1;\n        int prev2 = nums[index - 1] - prev1;\n        long long result = 0;\n\n        for (int i = prev1; i <= nums[index]; ++i) {\n            if (nums[index] - i <= prev2) {\n                result = (result + findPairs(index + 1, i, nums)) % MOD;\n            }\n        }\n\n        return memo[index][k1] = result;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        long long result = 0;\n        n = nums.size();\n        memo.assign(n + 1, vector<int>(51, -1));\n\n        for (int i = 0; i <= nums[0]; ++i) {\n            result = (result + findPairs(1, i, nums)) % MOD;\n        }\n\n        return result;\n    }\n};\n",
+    "submit_ts": "1723346754",
+    "subm_id": "1351584418"
+}

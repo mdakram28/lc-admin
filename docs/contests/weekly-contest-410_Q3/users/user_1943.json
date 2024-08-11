@@ -1,0 +1,6 @@
+{
+    "username": "vansh01",
+    "submission": "class Solution {\npublic:\n    int mod = 1000000007;\n    long long solve(int idx, int val1, int val2, vector<int>&nums, vector<vector<vector<long long>>> &dp){\n        int n = nums.size();\n        if(idx == n) return 1;\n        if(dp[idx][val1][val2]!=-1) return dp[idx][val1][val2];\n\n        int total = 0;\n        for(int i=val1; i<=nums[idx]; i++){\n            for(int j=nums[idx]; j>=0; j--){\n                if(j>val2) continue;\n                if(i+j == nums[idx]) total += solve(idx+1, i, j, nums, dp);\n                total = total%mod;\n            }\n        }\n        return dp[idx][val1][val2] = total%mod;\n\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int maxi = INT_MIN;\n        for(auto i : nums) maxi = max(i, maxi);\n\n        vector<vector<vector<long long>>> dp(n, vector<vector<long long>>(51, vector<long long>(51, -1)));\n\n        return solve(0, 0, 50, nums, dp);\n    }\n};",
+    "submit_ts": "1723346468",
+    "subm_id": "1351578234"
+}

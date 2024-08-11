@@ -1,0 +1,6 @@
+{
+    "username": "LarryNY",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        N = len(nums)\n        MOD = 10 ** 9 + 7\n        \n        @cache\n        def go(index, last_up):\n            if index == N:\n                return 1\n            last_down = nums[index - 1] - last_up\n            \n            total = 0\n            for i in range(nums[index] + 1):\n                if i >= last_up and nums[index] - i <= last_down:\n                    total += go(index + 1, i)\n            total %= MOD\n            return total\n\n        total = 0\n        for i in range(nums[0] + 1):\n            total += go(1, i)\n        total %= MOD\n        return total",
+    "submit_ts": "1723344017",
+    "subm_id": "1351524428"
+}

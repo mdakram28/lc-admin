@@ -1,0 +1,6 @@
+{
+    "username": "NICK_EL_03",
+    "submission": "#include <vector>\n#include <cstring>\n\nconst int MOD = 1000000007;\n\nclass Solution {\n    // Memoization table\n    int dp[2002][55][55];\n    \n    int f(int ind, int p1, int p2, std::vector<int>& nums) {\n        if (ind >= nums.size()) {\n            return 1;  \n        }\n    \n        if (dp[ind][p1+1][p2+1] != -1) {\n            return dp[ind][p1+1][p2+1];\n        }\n        \n        int s = 0;\n        for (int i = 0; i <= nums[ind]; i++) {\n            int new_p1 = i;\n            int new_p2 = nums[ind] - i;\n  \n            if (p1 == -1 || (new_p1 >= p1 && new_p2 <= p2)) {\n                s = (s + f(ind + 1, new_p1, new_p2, nums)) % MOD;\n            }\n        }\n        \n        return dp[ind][p1+1][p2+1] = s;\n    }\n    \npublic:\n    int countOfPairs(std::vector<int>& nums) {\n\n        memset(dp, -1, sizeof(dp));\n        return f(0, -1, 51, nums);\n    }\n};\n",
+    "submit_ts": "1723346767",
+    "subm_id": "1351584711"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "winterwarmth",
+    "submission": "#define ll long long \nconst ll MOD = 1e9 + 7;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& a) {\n        int n = a.size();\n        vector<vector<ll>> dp(n + 1, vector<ll>(55, -1));\n        function<ll(int, int)> f = [&](int i, int prev) {\n            if (i == n) return 1LL;\n            if (dp[i][prev] != -1) return dp[i][prev];\n            ll ans = 0;\n            ll prev2 = i ? a[i - 1] - prev : 2000;\n            for (int j = prev; j <= a[i]; j++) {\n                int k = a[i] - j;\n                if (prev2 < k) continue;\n                ans = (ans + f(i + 1, j)) % MOD;\n            }\n            return dp[i][prev] = ans;\n        };\n        \n        ll ans = f(0, 0);\n        return ans;\n    }\n};",
+    "submit_ts": "1723345275",
+    "subm_id": "1351552297"
+}

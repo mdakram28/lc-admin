@@ -1,0 +1,6 @@
+{
+    "username": "geekygirl76",
+    "submission": "class Solution {\n    long mod = 1000000007L;\n    int n;\n    Long[][] dp;\n    \n    public int countOfPairs(int[] nums) {\n        n = nums.length;\n        dp = new Long[n][51];\n        return (int)(helper(nums, 0, -1));\n    }\n    \n    private long helper(int[] nums, int idx, int preL){\n        if (idx == n) return 1L;\n        int preR = preL == -1 ? 100 : nums[idx - 1] - preL;\n        if (preL != -1 && dp[idx][preL] != null) return dp[idx][preL];\n        int val = nums[idx];\n        long result = 0;\n        for (int a = 0; a <= val; a++){\n            if (a < preL) continue;\n            int b = val - a;\n            if (b > preR) continue;\n            result += helper(nums, idx + 1, a);\n            result = getMod(result);\n        }\n        if (preL != -1) dp[idx][preL] = result;\n        return result;\n    }\n    \n    private long getMod(long x){\n        return (x % mod + mod) % mod;\n    }\n}",
+    "submit_ts": "1723346442",
+    "subm_id": "1351577673"
+}

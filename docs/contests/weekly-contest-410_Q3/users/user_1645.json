@@ -1,0 +1,6 @@
+{
+    "username": "thanhdonguyen01",
+    "submission": "#include <iostream>\n#include <vector>\n#include <map>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n        vector<map<pair<int, int>, long long>> dp(n);\n\n        for (int x = 0; x <= nums[0]; ++x) {\n            int y = nums[0] - x;\n            dp[0][{x, y}] = 1;\n        }\n\n        for (int i = 1; i < n; ++i) {\n            for (int x = 0; x <= nums[i]; ++x) {\n                int y = nums[i] - x;\n                dp[i][{x, y}] = 0;\n\n                for (auto& prev : dp[i-1]) {\n                    int prev_x = prev.first.first;\n                    int prev_y = prev.first.second;\n                    if (prev_x <= x && prev_y >= y) {\n                        dp[i][{x, y}] = (dp[i][{x, y}] + prev.second) % MOD;\n                    }\n                }\n            }\n        }\n\n        long long result = 0;\n        for (auto& pair : dp[n-1]) {\n            result = (result + pair.second) % MOD;\n        }\n        return result;\n    }\n};",
+    "submit_ts": "1723346369",
+    "subm_id": "1351576035"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "_srihari_",
+    "submission": "#define FR(i,a,b) for(int i=a;i<=b;i++)\n#define FRR(i,a,b) for(int i=a;i>=b;i--)\n#define fr(i,n) for(int i=0;i<n;i++)\n#define frr(i,n) for(int i=n-1;~i;i--)\nconst int MOD=1000000007;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int m = 0;\n        for(auto& i:nums)m = max(m, i);\n        vector<vector<int>> dp(n, vector<int>(55, -1));\n        auto DFS = [&](auto&& dfs, int idx, int prev)->int{\n            if(idx==n)return 1;\n            int& res = dp[idx][prev];\n            if(res!=-1)return res;\n            res = 0;\n            long long ret = 0;\n            for(int i=prev;i<=nums[idx];i++) {\n                for(int j=(idx?nums[idx-1]-prev:nums[idx]);j>=0;j--){\n                    if(i+j==nums[idx]){\n                        ret += dfs(dfs, idx+1, i);\n                        ret %= MOD;\n                    }\n                }\n            }\n            res = int(ret);\n            return res;\n        };\n        \n        return DFS(DFS, 0, 0);\n    }\n};",
+    "submit_ts": "1723345106",
+    "subm_id": "1351548722"
+}

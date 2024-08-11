@@ -1,0 +1,6 @@
+{
+    "username": "DCXiaoBing",
+    "submission": "class Solution {\n  // diff of Q3 VS Q4 is the range of nums[i]\n  // brute force?\n  // split each number and try? 2000^50\n  \n  // dp[i][a][b] at idx i, last value is a,b\n  // 2000 * 50 * 50 -> 5e6\n\n  private static final int MODULO = (int)1e9 + 7;\n  public int countOfPairs(int[] nums) {\n    int n = nums.length;\n    \n    long[][][] dp = new long[n][51][51];\n    for (long[][] mat : dp) for (long[] row : mat) Arrays.fill(row, -1L);\n\n    return (int)dfs(nums, dp, 0, 0, 50);\n  }\n\n  private long dfs(int[] nums, long[][][] dp, int idx, int a, int b) {\n    int n = nums.length;\n    \n    if (idx == n) return 1L;\n    if (dp[idx][a][b] != -1) return dp[idx][a][b];\n\n    long res = 0;\n    for (int na = a; na <= nums[idx]; na++) {\n      int nb = nums[idx] - na;\n      if (b < nb) continue;\n      \n      res += dfs(nums, dp, idx + 1, na, nb);\n      res %= MODULO;\n    }\n\n    dp[idx][a][b] = res;\n    return dp[idx][a][b];\n  }\n}",
+    "submit_ts": "1723344689",
+    "subm_id": "1351539920"
+}

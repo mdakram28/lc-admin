@@ -1,0 +1,6 @@
+{
+    "username": "gaoyf1235",
+    "submission": "class Solution {\n    using ll = long long;\n    using pii = pair<int, int>;\n    using pll = pair<ll, ll>;\n    // const ll mod = 998244353;\n    const ll mod = 1'000'000'007;\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int vmax = 50;\n        vector<vector<ll>> dp(n, vector<ll>(vmax + 1, 0));\n        for(int i = 0; i <= nums.front(); i++){\n            dp[0][i] = 1;\n        }\n        for(int i = 1; i < n; i++){\n            int x = nums[i];\n            int px = nums[i-1];\n            for(int v = 0; v <= x; v++){\n                int v2 = x - v;\n                for(int pv = 0; pv <= v; pv++){\n                    int pv2 = px - pv;\n                    if(pv2 >= v2){\n                        dp[i][v] = (dp[i][v] + dp[i-1][pv]) % mod;\n                    }\n                }\n            }\n        }\n        ll res = accumulate(dp.back().begin(), dp.back().end(), 0LL);\n        res %= mod;\n        return res;\n    }\n};",
+    "submit_ts": "1723344975",
+    "subm_id": "1351546005"
+}

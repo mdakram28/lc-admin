@@ -1,0 +1,6 @@
+{
+    "username": "pingchungchang",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9+7;\n    const int mxn = 2020;\n    // const int mxn = 6;\n    int mad(int a,int b){\n        a += b;\n        return a>=mod?a-mod:a;\n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<int> dp(mxn,0);\n        for(int i = 0;i<=nums[0];i++)dp[i] = 1;\n        for(int i = 1;i<dp.size();i++)dp[i] = mad(dp[i-1],dp[i]);\n        for(int i = 1;i<nums.size();i++){\n            vector<int> pre(mxn,0);\n            pre.swap(dp);\n            int now = nums[i];\n            for(int j = 0;j<=now;j++){\n                int able = min(j,nums[i-1]-(now-j));\n                if(able>=0)dp[j] = pre[able];\n            }\n            for(int j = 1;j<dp.size();j++)dp[j] = mad(dp[j-1],dp[j]);\n        }\n        int ans = 0;\n        return dp.back();\n    }\n};",
+    "submit_ts": "1723344527",
+    "subm_id": "1351536481"
+}

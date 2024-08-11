@@ -1,0 +1,6 @@
+{
+    "username": "Maruzensky",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        mod = 10**9 + 7\n        \n        dp = [1] * (nums[0] + 1) + [0] * (50 - nums[0])\n        \n        for x, prev in zip(nums[1:], nums):\n            temp = [0] * 1001\n            \n            right = min(x, prev)\n            \n            psum = sum(dp[:right + 1])\n            for idx in range(x, -1, -1):\n                temp[idx] = psum\n                if right >= 0:\n                    psum -= dp[right]\n                    right -= 1\n                    \n            dp = [v % mod for v in temp]\n            \n        return sum(dp) % mod\n",
+    "submit_ts": "1723345629",
+    "subm_id": "1351559870"
+}

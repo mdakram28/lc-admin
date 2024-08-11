@@ -1,0 +1,6 @@
+{
+    "username": "awesome-bug",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<int>> prev, curr;\n        for (int num1 = 0; num1 <= nums[0]; num1++) {\n            int num2 = nums[0] - num1;\n            prev.push_back({num1, num2, 1});\n        }\n\n        for (int i = 1; i < n; i++) {\n            curr.clear();\n            for (int num1 = 0; num1 <= nums[i]; num1++) {\n                int num2 = nums[i] - num1;\n                int count = 0;\n                for (auto& p : prev) {\n                    if (p[0] > num1) continue;\n                    if (p[1] < num2) continue;\n                    count = (count + p[2]) % MOD;\n                }\n                if (count > 0) curr.push_back({num1, num2, count});\n            }\n            swap(prev, curr);\n        }\n\n        int result = 0;\n        for (auto& p : prev) result = (result + p[2]) % MOD;\n        return result;\n    }\nprivate:\n    const int MOD = 1e9 + 7;\n};",
+    "submit_ts": "1723345445",
+    "subm_id": "1351555922"
+}

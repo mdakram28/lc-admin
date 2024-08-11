@@ -1,0 +1,6 @@
+{
+    "username": "adityaozha067",
+    "submission": "#define ll long long\nconst ll MOD = 1e9 + 7;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& a) {\n        int n = a.size();\n        int max_a = *max_element(a.begin(), a.end());\n        vector<vector<ll>> dp(n, vector<ll>(max_a + 1, -1));\n        \n        // dp[i][j] - total number of valid permutations that can be formed by assigning\n        // elements from [i...n] such that the last element of arr1 is j\n        \n        function<ll(int, int)> f = [&](int i, int j) {\n            if (i == n) return 1LL;\n            if (dp[i][j] != -1) return dp[i][j];\n            \n            ll ans = 0;\n            for (int k = j; k <= a[i]; k++) {\n                if ((a[i] - k) <= (a[i-1] - j)) {\n                    ans = (ans + f(i + 1, k)) % MOD;\n                }\n            }\n            \n            return dp[i][j] = ans;\n        };\n        \n        ll ans = 0LL;\n        for (int i = 0; i <= a[0]; i++) {\n            ans = (ans + f(1, i)) % MOD;\n        }\n        \n        return ans;\n    }\n};\n",
+    "submit_ts": "1723346170",
+    "subm_id": "1351571753"
+}

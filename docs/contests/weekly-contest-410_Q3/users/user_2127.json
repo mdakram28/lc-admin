@@ -1,0 +1,6 @@
+{
+    "username": "mayurkk7",
+    "submission": "class Solution {\npublic:\n    \n    const int M = 1e9 + 7;\n    \n    vector<vector<vector<int>>> dp;\n    \n    int solve(vector<int>& v, int ind, int MAX1, int MIN2){\n        if(ind == v.size()) return 1;\n        \n        if(dp[ind][MAX1 + 1][MIN2 + 1] != -1) return dp[ind][MAX1 + 1][MIN2 + 1];\n        \n        long long s = 0;\n        \n        if(MAX1 == -1){\n            for(int i = 0; i <= v[ind]; i++){\n                s += solve(v,ind + 1,i,v[ind] - i);\n                s %= M;\n            }\n        }\n        else{\n            for(int i = MAX1; i <= v[ind]; i++){\n                if((v[ind] - i) <= MIN2){\n                    s += solve(v,ind + 1,i, v[ind] - i);\n                    s %= M;\n                }\n            }\n        }\n        \n        return dp[ind][MAX1 + 1][MIN2 + 1] = s;\n    }\n    \n    int countOfPairs(vector<int>& v) {\n        int n = v.size();\n        dp.resize(n, vector<vector<int>> (55, vector<int> (55, -1)));\n        return solve(v,0,-1,-1);\n    }\n};",
+    "submit_ts": "1723346678",
+    "subm_id": "1351582831"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "gaoqiaoheimu",
+    "submission": "class Solution {\npublic:\n    long long dp[2001][51][51];\n    long long mod = 1e9 + 7;\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp[0][0][50] = 1;\n        for(int k=0;k<n;k++) {\n            for(int i=0;i<=nums[k];i++) {\n                int x = i, y = nums[k] - i;\n                for(int a=0;a<=x;a++) {\n                    int b;\n                    if (k == 0) b = 50 - a;\n                    else b = nums[k - 1] - a;\n                    if (b < y) continue;\n                    dp[k + 1][x][y] += dp[k][a][b];\n                    dp[k + 1][x][y] %= mod;\n                }\n            }\n        }\n        long long ans = 0;\n        for(int k=0;k<=50;k++) {\n            for(int i=0;i<=50;i++) {\n                ans += dp[n][k][i];\n                ans %= mod;\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345001",
+    "subm_id": "1351546536"
+}

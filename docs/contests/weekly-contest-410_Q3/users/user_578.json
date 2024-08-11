@@ -1,0 +1,6 @@
+{
+    "username": "YanJF",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int num0 = nums[0];\n        int len = nums.length;\n        long[][] inc = new long[len][51];\n        \n        int mod = 1_000_000_007;\n        for (int i = 0; i <=num0; i++) {\n            inc[0][i] = 1;\n        }\n        \n        for (int i = 1; i < len; i++) {\n            int preNum = nums[i - 1];\n            int curNum = nums[i];\n            for (int j = 0; j <= curNum; j++) {\n                for (int pre = 0; pre <= j; pre++) if(preNum - pre >= curNum - j) {\n                    inc[i][j] += inc[i - 1][pre];\n                    \n                    inc[i][j] %= mod;\n                }\n            }\n        }\n        \n        long res = 0;\n        for (int i = 0; i <= 50; i++) {\n            res += inc[len - 1][i];\n            res %= mod;\n        }\n        return (int)res;\n    }\n}",
+    "submit_ts": "1723347042",
+    "subm_id": "1351590633"
+}

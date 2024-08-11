@@ -1,0 +1,6 @@
+{
+    "username": "Chandi977",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    int dp[2001][51][51];\n    \n    int countPairs(vector<int>& nums, int i, int prev1, int prev2) {\n        if (i == nums.size()) return 1;\n        if (dp[i][prev1][prev2] != -1) return dp[i][prev1][prev2];\n    \n        int count = 0;\n        for (int x = prev1; x <= nums[i]; x++) {\n            int y = nums[i] - x;\n            if (y <= prev2) {\n                count = (count + countPairs(nums, i + 1, x, y)) % MOD;\n            }\n        }\n        return dp[i][prev1][prev2] = count;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return countPairs(nums, 0, 0, nums[0]);\n    }\n};",
+    "submit_ts": "1723346500",
+    "subm_id": "1351578941"
+}

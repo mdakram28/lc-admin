@@ -1,0 +1,6 @@
+{
+    "username": "Sayan_Ghorui",
+    "submission": "\nclass Solution {\n    int mod = (int) 1e9 + 7;\n    \n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        Integer dp[][][] = new Integer[n][101][101]; \n        return helper(0, -1, -1, nums, dp);\n    }\n    \n    private int helper(int ind, int prev1, int prev2, int[] nums, Integer dp[][][]) {\n        if (ind >= nums.length) {\n            return 1;\n        }\n        \n        if (dp[ind][prev1 + 1][prev2 + 1] != null) {\n            return dp[ind][prev1 + 1][prev2 + 1];\n        }\n        \n        int curr = nums[ind];\n        int ans = 0;\n        \n        for (int i = 0; i <= curr; i++) {\n            int curr1 = i;\n            int curr2 = curr - i;\n            \n            if ((prev1 == -1 && prev2 == -1) || (curr1 >= prev1 && prev2 >= curr2)) {\n                ans = (ans + helper(ind + 1, curr1, curr2, nums, dp)) % mod;\n            }\n        }\n        \n        return dp[ind][prev1 + 1][prev2 + 1] = ans;\n    }\n}\n",
+    "submit_ts": "1723346774",
+    "subm_id": "1351584875"
+}

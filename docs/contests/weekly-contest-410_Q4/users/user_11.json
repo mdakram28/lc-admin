@@ -1,0 +1,6 @@
+{
+    "username": "DylanSmith",
+    "submission": "typedef long long ll;\n \n#define pb push_back\n#define sz(x) (int)x.size()\n#define all(x) begin(x),end(x)\n#define lb(x,y) lower_bound(all(x),y)-begin(x)\nclass Solution {\npublic:\n    int mod = 1000000007;\n    int countOfPairs(vector<int>& nums) {\n        int N = sz(nums);\n        int prev = 3000;\n        vector<int> res(1001, 0), pre(1001, 0);\n        res[0] = 1;\n        for (int k : nums) {\n            pre = res;\n            for (int i = 1; i <= 1000; i++) {\n                pre[i] += pre[i - 1];\n                if (pre[i] >= mod) pre[i] -= mod;\n            }\n            fill(all(res), 0);\n            for (int i = 0; i <= k; i++) {\n                int j = k - i;\n                int mx = min(i, prev - j);\n                if (mx >= 0) res[i] = pre[mx];\n            }\n            prev = k;\n        }\n        int res2 = 0;\n        for (int i : res) {\n            res2 += i;\n            if (res2 >= mod) res2 -= mod;\n        }\n        return res2;\n    }\n};",
+    "submit_ts": "1723344368",
+    "subm_id": "1351532809"
+}

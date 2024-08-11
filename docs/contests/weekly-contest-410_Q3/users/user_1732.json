@@ -1,0 +1,6 @@
+{
+    "username": "Prog_Jacob",
+    "submission": "#define MOD ((int)1e9 + 7)\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<unordered_map<int, int>>> memo(nums.size(), vector<unordered_map<int, int>>(60));\n        return dp(0, nums[0], 0, nums, memo);\n    }\n\n    int dp(int l, int t, int i, vector<int>& nums, vector<vector<unordered_map<int, int>>> &memo) {\n        if (i == nums.size()) return 1;\n        if (memo[i][l].count(t)) return memo[i][l][t];\n\n        int &ans = memo[i][l][t] = 0;\n        for (int ll = l; ll <= nums[i]; ll++) {\n            if ((nums[i] - ll) > t) continue;\n            ans += dp(ll, nums[i] - ll, i + 1, nums, memo);\n            ans %= MOD;\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1723346195",
+    "subm_id": "1351572301"
+}

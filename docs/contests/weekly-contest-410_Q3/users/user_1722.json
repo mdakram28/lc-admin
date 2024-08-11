@@ -1,0 +1,6 @@
+{
+    "username": "bhavs_03",
+    "submission": "class Solution {\npublic:\n    int  mod=1e9+7;\n    int helper(vector<int>&nums,int i,int prev1,int prev2,vector<vector<vector<int>>>& dp){\n        if(i==nums.size()){\n            return 1;\n        }\n        if(dp[i][prev1][prev2] != -1){\n            return dp[i][prev1][prev2];\n        }\n        long long ways=0;\n        if(i==0){\n            for(int j=0;j<=nums[i];j++){\n                ways+=helper(nums,i+1,j,nums[i]-j,dp);\n                   \n            }\n        }\n        else{\n            for(int j=0;j<=nums[i];j++){\n                if(j>=prev1 and (nums[i]-j)<=prev2){\n                    ways+=helper(nums,i+1,j,nums[i]-j,dp);\n                }\n            }\n        }\n        \n        return dp[i][prev1][prev2]=ways%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<vector<int>>> dp(n+1,vector<vector<int>>(51,vector<int>(51,-1)));\n        return helper(nums,0,0,0,dp);\n        \n    }\n};",
+    "submit_ts": "1723346472",
+    "subm_id": "1351578313"
+}

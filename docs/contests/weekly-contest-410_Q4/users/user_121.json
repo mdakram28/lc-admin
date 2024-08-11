@@ -1,0 +1,6 @@
+{
+    "username": "carlostagosaku",
+    "submission": "from collections import *\nfrom functools import *\nfrom heapq import *\nfrom itertools import *\nmod = 10**9 + 7\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        M = nums[-1]\n        N = len(nums)\n        dp = [[0]*(M+2) for _ in range(N)]\n        S = nums[:]\n        for i in range(min(S[0],M)+1):\n            dp[0][i] = 1\n        for i in range(N-1):\n            si = S[i+1]\n            sj = S[i]\n            for k in range(min(sj,M)+1):\n                dp[i+1][min(max(k,si-sj+k),M+1)] += dp[i][k]\n            dp[i+1] = list(accumulate(dp[i+1],func = lambda x,y:(x+y)%mod))\n        # print(dp[0])\n        # print(dp[1])\n        return sum(dp[-1][:M+1])%mod\n        \n        ",
+    "submit_ts": "1723344385",
+    "subm_id": "1351533216"
+}

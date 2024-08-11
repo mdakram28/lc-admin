@@ -1,0 +1,6 @@
+{
+    "username": "CoderRohan003",
+    "submission": "#define ll long long int\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int size = nums.size();\n        vector<vector<vector<ll>>> memo(size, vector<vector<ll>>(51, vector<ll>(51, -1)));\n        \n        // Start the recursive function\n        return countWays(0, 0, nums[0], nums, memo);\n    }\n\nprivate:\n    const ll MOD = 1e9 + 7;\n\n    ll countWays(int index, int prev1, int prev2, const vector<int>& nums, vector<vector<vector<ll>>>& memo) {\n        if (index >= nums.size()) return 1;\n\n        if (memo[index][prev1][prev2] != -1) return memo[index][prev1][prev2];\n\n        ll result = 0;\n        for (int i = prev1; i <= nums[index]; i++) {\n            for (int j = prev2; j >= 0; j--) {\n                if (i + j == nums[index]) {\n                    result = (result + countWays(index + 1, i, j, nums, memo)) % MOD;\n                }\n            }\n        }\n\n        return memo[index][prev1][prev2] = result;\n    }\n};",
+    "submit_ts": "1723346739",
+    "subm_id": "1351584127"
+}

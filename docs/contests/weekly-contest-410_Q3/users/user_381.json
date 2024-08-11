@@ -1,0 +1,6 @@
+{
+    "username": "hgwalani81",
+    "submission": "#define mod 1000000007\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int MAX = 51;\n        int n = nums.size();\n        vector<vector<int> > dp(n+1, vector<int> (MAX+1, 0));\n        for(int i = 0; i<=nums[0]; i++) {\n            dp[1][i] = 1;\n        }\n        for(int i = 1; i<n; i++) {\n            for(int j = 0; j<=nums[i]; j++) {\n                int currentArr2 = nums[i] - j;\n                int preArr1 = min(j, nums[i-1] - currentArr2);\n                if(preArr1 < 0) continue;\n                for(int k = 0; k<=preArr1; k++) {\n                    dp[i+1][j] = (dp[i+1][j] + dp[i][k])%mod;\n                }\n            }\n        }\n        // for(int i = 0; i<=n; i++) {\n        //     for(int j = 0; j<MAX; j++) cout<<dp[i][j]<<\" \";\n        //     cout<<endl;\n        // }\n        int ans = 0;\n        for(int i = 0; i<MAX; i++) ans = (ans + dp[n][i])%mod;\n        return ans;\n    }\n};",
+    "submit_ts": "1723345027",
+    "subm_id": "1351547079"
+}

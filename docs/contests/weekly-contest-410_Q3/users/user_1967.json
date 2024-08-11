@@ -1,0 +1,6 @@
+{
+    "username": "kevinbu",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        res = 0\n        cache = {}\n        \n        # for i in range(nums[-1]):\n        #     cache[(len(nums)-1, i, nums[-1] - i)] = 1\n        def dfs(index, min_val, max_val):\n            if index == len(nums) - 1:\n                total = nums[-1]\n                count = 0\n                for i in range(max(min_val, total-max_val), total + 1):\n                    if total - i <= max_val:\n                        count += 1\n                cache[(index, min_val, max_val)] = count\n                return count\n            if (index, min_val, max_val) in cache:\n                return cache[(index, min_val, max_val)]\n            total = nums[index]\n            results = 0\n            for i in range(max(total - max_val, min_val), total + 1):\n                results += dfs(index + 1, i, total - i)\n            cache[(index, min_val, max_val)] = results\n            return results\n        \n        res = dfs(0, 0, nums[0])\n\n        return res % (10 **9 + 7)\n        ",
+    "submit_ts": "1723346191",
+    "subm_id": "1351572198"
+}

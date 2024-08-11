@@ -1,0 +1,6 @@
+{
+    "username": "mewadahariom2000",
+    "submission": "int mod = 1000000007;\nclass Solution {\npublic:\n    int dp[2001][51][51];\n    int helper(int idx,int firstVal,int secVal,int limit,int n,vector<int>&nums){\n        if(idx>=n){\n            return 1;\n        }\n         if(dp[idx][firstVal][secVal]!=-1) return dp[idx][firstVal][secVal];\n        int ans = 0;\n        for(int i = firstVal;i<=limit;i++){\n            for(int j = secVal;j>=0;j--){\n                if(i+j==nums[idx]){\n                int cur = helper(idx+1,i,j,limit,n,nums);\n                ans = (ans%mod + cur %mod) %mod;\n                }\n            }\n        }\n        // return ans;\n         return dp[idx][firstVal][secVal] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int mx = *max_element(nums.begin(),nums.end());\n        memset(dp,-1,sizeof(dp));\n        return helper(0,0,mx,mx,n,nums);\n    }\n};",
+    "submit_ts": "1723345952",
+    "subm_id": "1351566919"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "shimla_sinthia",
+    "submission": "#define ll long long\n#define mod 1000000007\nclass Solution {\n   public:\n    vector<ll> a;\n    ll n, dp[2001][51][51];\n\n    ll solve(ll pos, ll p1, ll p2) {\n        if (pos >= n) return 1;\n        if (dp[pos][p1][p2] != -1) return dp[pos][p1][p2];\n        ll ans = 0;\n\n        ll first = max(a[pos] - p1 + 1, 0ll);\n        ll second = min(p2, a[pos]);\n        if (first > second) {\n            for (int i = p1; i <= a[pos]; i++) {\n                int baki = a[pos] - i;\n                if (baki > p2) continue;\n                ans += solve(pos + 1, i, baki);\n                ans %= mod;\n            }\n        } else {\n            for(int i = p2; i >= 0; i--) {\n                int baki = a[pos] - i;\n                if(baki < p1) continue;\n                ans += solve(pos + 1, baki, i);\n                ans %= mod;\n            }\n        }\n        return dp[pos][p1][p2] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        for(auto x : nums) a.push_back(x);\n        memset(dp, -1, sizeof dp);\n        int ans = solve(0, 0, 50);\n        return ans;\n    }\n};\n",
+    "submit_ts": "1723345977",
+    "subm_id": "1351567450"
+}

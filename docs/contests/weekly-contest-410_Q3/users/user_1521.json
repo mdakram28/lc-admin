@@ -1,0 +1,6 @@
+{
+    "username": "ZephyrYau",
+    "submission": "class Solution {\n    int cnt = 0;\n    int mod = (int) 1e9 + 7;\n\n    public int countOfPairs(int[] nums) {\n        int max = 0;\n        for (int num : nums) max = Math.max(max, num);\n        Long[][][] dp = new Long[max + 1][max + 1][nums.length];\n        return (int) backtrack(nums, 0, 0, max, dp);\n    }\n\n    private long backtrack(int[] nums, int idx, int pre1, int pre2, Long[][][] dp) {\n        if (idx == nums.length) {\n            // cnt++;\n            return 1;\n        }\n        if (dp[pre1][pre2][idx] != null) {\n            return dp[pre1][pre2][idx];\n        }\n        long count = 0;\n        for (int i = 0; i <= nums[idx]; i++) {\n            if (pre1 <= i && pre2 >= nums[idx] - i) {\n                count = (count + backtrack(nums, idx + 1, i, nums[idx] - i, dp)) % mod;\n            }\n        }\n        return dp[pre1][pre2][idx] = count;\n    }\n}",
+    "submit_ts": "1723345873",
+    "subm_id": "1351565150"
+}

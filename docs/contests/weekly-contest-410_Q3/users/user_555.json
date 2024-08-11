@@ -1,0 +1,6 @@
+{
+    "username": "Mememtum",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        constexpr int modulo = 1e9 + 7;\n         int dp[2][51][51] {};\n         int n = nums.size();\n         std::fill(dp[n&1][0], dp[n&1][50]+51, 1);\n         for (int i = n-1; i >= 0; --i) {\n            int prev_num = i > 0 ? nums[i-1] : 50;\n            for (int pinc {0}; pinc <= prev_num; ++pinc) {\n               if (i == 0 && pinc > 0) continue;\n               int pdec = prev_num - pinc;\n               int& total = dp[i&1][pinc][pdec];\n               total = 0;\n               for (int x = max(pinc, nums[i]-pdec); x <= nums[i]; ++x) {\n                  total = (total + dp[(i+1)&1][x][nums[i]-x]) % modulo;\n               }\n            }\n         }\n         return dp[0][0][50];\n    }\n};",
+    "submit_ts": "1723346514",
+    "subm_id": "1351579275"
+}

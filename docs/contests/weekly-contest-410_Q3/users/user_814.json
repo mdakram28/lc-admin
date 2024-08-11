@@ -1,0 +1,6 @@
+{
+    "username": "sydneyb",
+    "submission": "import java.util.Arrays;\n\nclass Solution {\n    public static void main(String[] args) {\n        System.out.println(new Solution().countOfPairs(new int[]{2, 3, 2})); //4\n        System.out.println(new Solution().countOfPairs(new int[]{5, 5, 5, 5})); //126\n    }\n\n    public int countOfPairs(int[] nums) {\n\n        int[][][] mem = new int[nums.length][52][52];\n        for (var i : mem) {\n            for (var j : i) Arrays.fill(j, -1);\n        }\n        return helper(nums, 0, 0, 51, mem);\n    }\n\n    static int mod = 1_000_000_007;\n\n    int helper(int[] nums, int ptr, int preA, int preB, int[][][] mem) {\n        if (ptr == nums.length) {\n            return 1;\n        }\n        if (mem[ptr][preA][preB] != -1) return mem[ptr][preA][preB];\n\n        int ans = 0;\n        for (int i = 0; i <= nums[ptr]; i++) {\n            if (preA <= i && nums[ptr] - i <= preB) {\n                ans += helper(nums, ptr + 1, i, nums[ptr] - i, mem);\n                ans %= mod;\n            }\n        }\n        return mem[ptr][preA][preB] = ans;\n    }\n}",
+    "submit_ts": "1723344928",
+    "subm_id": "1351545019"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "orogtsm",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n\n    int recursive(int i, int a, int b, vector<int>& nums, vector<vector<vector<int>>>& dp) {\n        int n = nums.size();\n        if (i == n) return 1;\n        if (dp[i][a][b] != -1) return dp[i][a][b];\n\n        long long result = 0;\n        for (int j = max(a, nums[i] - b); j <= nums[i]; j++) {\n            result = (result + recursive(i + 1, j, nums[i] - j, nums, dp)) % mod;\n        }\n\n        return dp[i][a][b] = result;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        // Initialize DP table with a larger range if needed\n        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(51, vector<int>(51, -1)));\n        \n        // Start with some valid initial values for `a` and `b`\n        long long result=0;\n        for(int i=0;i<=nums[0];i++)\n        {\n            result= (result+recursive(1,i,nums[0]-i,nums,dp))%mod;\n        }\n        return result % mod;\n    }\n};\n",
+    "submit_ts": "1723347344",
+    "subm_id": "1351596927"
+}

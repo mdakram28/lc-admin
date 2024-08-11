@@ -1,0 +1,6 @@
+{
+    "username": "qq530271816",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int sz = nums.size();\n\t\t\tusing ll = long long;\n\t\t\tstatic constexpr int MOD = 1e9 + 7;\n\t\t\tint nb = nums.back();\n\t\t\tvector<vector<ll>> memo(sz + 1, vector<ll>(nb + 1, -1));\n\t\t\tauto dfs = [&](auto& self, int leftlen, int n1) {\n\t\t\t\tif (leftlen == 0) {\n\t\t\t\t\treturn (ll)1;\n\t\t\t\t}\n\t\t\t\tll& retv = memo[leftlen][n1];\n\t\t\t\tif (retv != -1) {\n\t\t\t\t\treturn retv;\n\t\t\t\t}\n\t\t\t\tretv = 0;\n\t\t\t\tint sumv = nums[leftlen - 1], lasts = nums[leftlen];\n\t\t\t\tfor (int j = n1; j >= 0; --j) {\n\t\t\t\t\tint n2 = sumv - j, lastn2 = lasts - n1;\n\t\t\t\t\t// if (n2 >= (lastn2)) {\n\t\t\t\t\tif (n2 >= (lastn2) && (n2 >= 0)) {\n\t\t\t\t\t\tretv += self(self, leftlen - 1, j);\n\t\t\t\t\t\t\tretv %= MOD;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\treturn retv;\n\t\t\t};\n\t\t\tll rlt = 0;\n\t\t\tfor (int i = nb; i >= 0; --i) {\n\t\t\t\trlt += dfs(dfs, sz - 1, i);\n\t\t\t\trlt %= MOD;\n\t\t\t}\n\t\t\treturn rlt;\n    }\n};",
+    "submit_ts": "1723346107",
+    "subm_id": "1351570329"
+}

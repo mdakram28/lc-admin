@@ -1,0 +1,6 @@
+{
+    "username": "zeningc",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int mod = (int)1e9 + 7;\n        long[] cnt = new long[1001];\n        for (int i = 0; i <= nums[0]; i++)\n            cnt[i] = 1;\n        int pre = 0;\n        for (int i = 1; i < nums.length; i++)   {\n            long[] curCnt = new long[1001];\n            int diff = nums[i] - nums[i - 1];\n            long accu = 0;\n            int k = 0;\n            for (int j = Math.max(0, pre + diff); j <= nums[i]; j++) {\n                while (j >= k && nums[i - 1] - k >= nums[i] - j)   {\n                    accu = (accu + cnt[k]) % mod;\n                    k++;\n                }\n                curCnt[j] = accu;\n            }\n            cnt = curCnt;\n        }\n\n        long ans = 0;\n        for (int i = 0; i < 1001; i++)\n            ans = (ans + cnt[i]) % mod;\n        return (int)(ans % mod);\n    }\n}",
+    "submit_ts": "1723347680",
+    "subm_id": "1351603468"
+}

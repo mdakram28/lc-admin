@@ -1,0 +1,6 @@
+{
+    "username": "azrallex",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n\n    int countOfPairs(vector<int>& v) {\n        int n = v.size();\n        vector<int> a, b;\n        vector<vector<vector<int>>> dp(\n            n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return sol(0, v, 0, 50, dp) % mod;\n    }\n    int sol(int id, vector<int>& v, int a, int b,\n            vector<vector<vector<int>>>& dp) {\n        if (id == v.size()) {\n            return 1;\n        }\n        long long ans = 0;\n        if (dp[id][a][b] != -1)\n            return dp[id][a][b];\n        for (int i = a; i <= v[id]; ++i) {\n            int j = v[id] - i;\n            if (j < 0)\n                continue;\n            if (i >= a && j <= b) {\n                // a.push_back(i);\n                // b.push_back(j);\n                ans = (ans + sol(id + 1, v, i, j, dp)) % mod;\n                // a.pop_back();\n                // b.pop_back();\n            }\n        }\n        return dp[id][a][b] = ans;\n    }\n};",
+    "submit_ts": "1723346210",
+    "subm_id": "1351572630"
+}

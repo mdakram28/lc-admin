@@ -1,0 +1,6 @@
+{
+    "username": "SandeepPatel0605",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n\n    int countMonotonicPairs(int i, int prevArr1, int prevArr2,\n                            const vector<int>& nums,\n                            vector<vector<vector<int>>>& dp) {\n        int n = nums.size();\n\n        if (i == n)\n            return 1;\n\n        if (dp[i][prevArr1][prevArr2] != -1)\n            return dp[i][prevArr1][prevArr2];\n\n        int totalCount = 0;\n\n        for (int arr1_i = prevArr1; arr1_i <= nums[i]; ++arr1_i) {\n            int arr2_i = nums[i] - arr1_i;\n\n            if (arr2_i <= prevArr2) {\n                totalCount =\n                    (totalCount +\n                     countMonotonicPairs(i + 1, arr1_i, arr2_i, nums, dp)) %\n                    MOD;\n            }\n        }\n\n        return dp[i][prevArr1][prevArr2] = totalCount;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n\n        vector<vector<vector<int>>> dp(\n            n, vector<vector<int>>(51, vector<int>(51, -1)));\n\n        return countMonotonicPairs(0, 0, 50, nums, dp);\n    }\n};",
+    "submit_ts": "1723346952",
+    "subm_id": "1351588735"
+}

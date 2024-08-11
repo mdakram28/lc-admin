@@ -1,0 +1,6 @@
+{
+    "username": "OneShhhhhh",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9+7;\n    \n    int fun(vector<int> &nums, int ind, int last1, vector<vector<int>> &dp){\n        if(ind==nums.size())\n            return 1;\n        if(dp[ind][last1]!=-1)\n            return dp[ind][last1];\n        \n        long long res = 0;\n        int last2 = 51;\n        if(ind-1>=0)\n            last2 = nums[ind-1]-last1;\n        \n        for(int l1=last1; l1<=nums[ind]; l1++){\n            int l2 = nums[ind]-l1;\n            if(l2>last2) continue;\n            res += fun(nums, ind+1, l1, dp);\n            res %= mod;\n        }\n        \n        return dp[ind][last1] = res;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        vector<vector<int>> dp(nums.size(), vector<int>(*max_element(nums.begin(), nums.end())+1, -1));\n        return fun(nums, 0, 0, dp);\n    }\n};",
+    "submit_ts": "1723345030",
+    "subm_id": "1351547153"
+}

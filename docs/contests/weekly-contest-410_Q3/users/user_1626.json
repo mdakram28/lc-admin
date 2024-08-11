@@ -1,0 +1,6 @@
+{
+    "username": "dhinesh1278",
+    "submission": "class Solution {\n    private static final long MOD = 1_000_000_007L;\n\n    public int countOfPairs(int[] values) {\n        int size = values.length;\n        long[][][] memo = new long[size][51][51]; \n        \n        for (long[][] layer : memo) {\n            for (long[] row : layer) {\n                Arrays.fill(row, -1L); \n            }\n        }\n        \n        return (int) solve(0, 0, values[0], values, memo);\n    }\n\n    private long solve(int index, int val1, int val2, int[] values, long[][][] memo) {\n        if (index >= values.length) return 1L; \n        if (memo[index][val1][val2] != -1L) return memo[index][val1][val2];\n        long result = 0L;\n\n        for (int i = val1; i <= values[index]; i++) {\n            for (int j = val2; j >= 0; j--) {\n                if (i + j == values[index]) {\n                    result = (result + solve(index + 1, i, j, values, memo)) % MOD;\n                }\n            }\n        }\n\n        return memo[index][val1][val2] = result; \n    }\n}\n",
+    "submit_ts": "1723346337",
+    "subm_id": "1351575354"
+}

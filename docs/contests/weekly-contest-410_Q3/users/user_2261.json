@@ -1,0 +1,6 @@
+{
+    "username": "THALA07",
+    "submission": "class Solution {\npublic:\n    const int MOD=1e9+7;\n    int dp[2001][51][51]={};\n    int find(int i,int prev1,int prev2,int&ans,vector<int>&nums){\n        if(i==nums.size()){\n            return 1;\n            // ans=(ans%MOD+1)%MOD;\n            // return;\n        }\n        if(dp[i][prev1][prev2]!=-1)return dp[i][prev1][prev2];\n        int curr_ans=0;\n        int x=nums[i];\n        for(int j=prev1;j<=x;j++){\n            if(x-j<=prev2){\n                curr_ans=(curr_ans%MOD+find(i+1,j,x-j,ans,nums)%MOD)%MOD;\n            }\n        }\n        return dp[i][prev1][prev2]=(curr_ans%MOD);\n    }\n    int countOfPairs(vector<int>& nums) {\n        int ans=0;\n        int n=nums.size();\n        memset(dp,-1,sizeof(dp));\n        int prev1=0;\n        int prev2=*max_element(nums.begin(),nums.end());\n        find(0,prev1,prev2,ans,nums);\n        return dp[0][prev1][prev2];\n    }\n};",
+    "submit_ts": "1723346827",
+    "subm_id": "1351585984"
+}

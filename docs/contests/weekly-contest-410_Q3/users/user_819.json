@@ -1,0 +1,6 @@
+{
+    "username": "kumar_23",
+    "submission": "class Solution {\npublic:\n\n    const int mod = 1e9 + 7;\n    int dp[2001][51][51];\n    long long solve(vector<int>& nums, int i, int last1, int last2){\n        if(i>=nums.size())return 1;\n        if(dp[i][last1][last2]!=-1)return dp[i][last1][last2];\n        long long cnt = 0;\n        for(int f = last1; f<=nums[i]; f++){\n            if(nums[i]-f<=last2 && nums[i]-f>=0){\n                cnt = (cnt + solve(nums, i+1, f, nums[i]-f))%mod;\n            }\n            else if(nums[i]-f<0)break;\n        }\n        // cout<<i<<' '<<last1<<' '<<last2<<\"=>\"<<cnt<<endl;\n        return dp[i][last1][last2] = cnt;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        long long ans = solve(nums, 0, 0, 50);\n        return ans;\n    }\n};",
+    "submit_ts": "1723344944",
+    "subm_id": "1351545339"
+}

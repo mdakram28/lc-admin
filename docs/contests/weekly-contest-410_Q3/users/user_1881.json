@@ -1,0 +1,6 @@
+{
+    "username": "adis176",
+    "submission": "class Solution {\npublic:\n    int MOD = 1000000007;\n    int findPairs(const vector<int>& nums, int temp, int prev1, int prev2, vector<vector<vector<int>>>& dp) {\n        if (temp>=nums.size()) {\n            return 1;\n        }\n        \n        if (dp[temp][prev1][prev2]!=-2) {\n            return dp[temp][prev1][prev2];\n        }\n        \n        int ans = 0;\n        for (int i = 0; i <= nums[temp]; ++i) {\n            int arr1 = i;\n            int arr2 = nums[temp] - i;\n            if (arr1>=prev1 && arr2<=prev2) {\n                ans =(ans+findPairs(nums,temp+ 1, arr1, arr2,  dp))%MOD;\n            }\n        }\n        \n        dp[temp][prev1][prev2] = ans;\n        return ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>>dp= vector<vector<vector<int>>>(n,vector<vector<int>>(51,vector<int>(51,-2))); \n        return findPairs(nums, 0, 0, 50, dp);\n    }\n};",
+    "submit_ts": "1723346693",
+    "subm_id": "1351583144"
+}

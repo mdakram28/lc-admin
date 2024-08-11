@@ -1,0 +1,6 @@
+{
+    "username": "deepikak13",
+    "submission": "import java.util.Arrays;\n\nclass Solution {\n    private static final int MOD = 1_000_000_007;\n    \n    public int countOfPairs(int[] values) {\n        int n = values.length;\n        long[][][] memo = new long[n][51][51];\n        for (long[][] matrix : memo) {\n            for (long[] row : matrix) {\n                Arrays.fill(row, -1);  \n            }\n        }\n        \n        return (int) countPairs(values, 0, 0, values[0], memo);\n    }\n\n    private long countPairs(int[] values, int currentIndex, int minVal1, int maxVal2, long[][][] memo) {\n        if (currentIndex >= values.length) return 1;  \n        if (memo[currentIndex][minVal1][maxVal2] != -1) return memo[currentIndex][minVal1][maxVal2];  \n        \n        long result = 0;\n        for (int val1 = minVal1; val1 <= values[currentIndex]; val1++) {\n            for (int val2 = 0; val2 <= maxVal2; val2++) {\n                if (val1 + val2 == values[currentIndex]) {\n                    result = (result + countPairs(values, currentIndex + 1, val1, val2, memo)) % MOD;\n                }\n            }\n        }\n        memo[currentIndex][minVal1][maxVal2] = result;  \n        return result;\n    }\n}\n",
+    "submit_ts": "1723346655",
+    "subm_id": "1351582277"
+}

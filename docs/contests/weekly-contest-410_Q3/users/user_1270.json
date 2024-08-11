@@ -1,0 +1,6 @@
+{
+    "username": "satyambansal183",
+    "submission": "int dp[2010][51];\nclass Solution {\npublic:\n    int mod = 1e9+7;\n    \n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        int ans = 0;\n        \n        for(int i = 0; i <= nums[0]; i++) {\n            int next = getans(1, i, nums);\n            ans = ((1LL*ans)%mod + next)%mod;\n        }\n        return ans;\n    }\n    \n    int getans(int curr, int lastVal, const vector<int> &arr) {\n        if(curr == arr.size())\n            return 1;\n        if(dp[curr][lastVal] != -1)\n            return dp[curr][lastVal];\n        \n        int remLast = arr[curr-1] - lastVal;\n        \n        int ans = 0;\n        for(int i = lastVal; i <= arr[curr]; i++) {\n            int j = arr[curr] - i;\n            if(j >= 0 && j <= remLast) {\n                ans = ((1LL*ans)%mod + getans(curr+1, i, arr)%mod)%mod;\n            } \n        }\n        dp[curr][lastVal] = ans;\n        return ans;\n    }\n};",
+    "submit_ts": "1723345778",
+    "subm_id": "1351563134"
+}

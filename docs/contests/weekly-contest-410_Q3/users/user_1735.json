@@ -1,0 +1,6 @@
+{
+    "username": "harshith_reddy_ms",
+    "submission": "class Solution {\n    long[][][] dp;\n    long mod = (long)1e9+7;\n    public long solve(int index, int ind1, int ind2, List<Integer> nums) {\n        if (index >= nums.size()) return 1;\n        if (dp[index][ind1][ind2] != -1) return dp[index][ind1][ind2];\n        long ans = 0;\n        for (int i=ind1; i <= nums.get(index); i++) {\n            for (int j = ind2; j >= 0;j--) {\n                if (i+j ==nums.get(index)) {\n                    ans += solve(index+1,i,j,nums);\n                    ans %= mod;\n                }\n            }\n        }\n        dp[index][ind1][ind2] = ans;\n        return ans;\n    }\n    public int countOfPairs(int[] nums) {\n        int n=nums.length;\n        dp =new long[n][51][51];\n        for (int i=0;i<n; i++) {\n            for (int j=0; j<51;j++) {\n                Arrays.fill(dp[i][j], -1);\n            }\n        }\n        List<Integer> numsl = new ArrayList<>();\n        for (int num:nums) {\n            numsl.add(num);\n        }\n        return (int)solve(0,0, nums[0],numsl);\n    }\n}",
+    "submit_ts": "1723346490",
+    "subm_id": "1351578724"
+}

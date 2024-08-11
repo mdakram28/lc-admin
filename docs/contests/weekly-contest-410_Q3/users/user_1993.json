@@ -1,0 +1,6 @@
+{
+    "username": "khushikapoor200313",
+    "submission": "\nimport java.util.*;\n\nclass Solution {\n    private static final int MOD = 1_000_000_007;\n    private int[][][] dp;\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        dp = new int[n][51][51];\n        for (int[][] a : dp) {\n            for (int[] b : a) {\n                Arrays.fill(b, -1);\n            }\n        }\n        return findPairs(nums, 0, 0, 50);\n    }\n\n    private int findPairs(int[] nums, int k, int p1, int p2) {\n        if (k >= nums.length) {\n            return 1;\n        }\n        \n        if (dp[k][p1][p2] != -1) {\n            return dp[k][p1][p2];\n        }\n        \n        int res = 0;\n        for (int i = 0; i <= nums[k]; i++) {\n            int v1 = i;\n            int v2 = nums[k] - i;\n            if (v1 >= p1 && v2 <= p2) {\n                res = (res + findPairs(nums, k + 1, v1, v2)) % MOD;\n            }\n        }\n        \n        dp[k][p1][p2] = res;\n        return res;\n    }\n}\n",
+    "submit_ts": "1723346525",
+    "subm_id": "1351579504"
+}

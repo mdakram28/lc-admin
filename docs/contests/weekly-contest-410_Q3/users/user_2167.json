@@ -1,0 +1,6 @@
+{
+    "username": "lucky_ducky1",
+    "submission": "class Solution {\npublic:\n    map<pair<long long, long long>, long long> nextStep(long long total, map<pair<long long, long long>, long long> prev) {\n        map<pair<long long, long long>, long long> curr;\n        for (auto& p : prev) {\n            long long left = p.first.first;\n            long long right = p.first.second;\n            for (long long i = left; i <= total; i++) {\n                long long j = total - i;\n                if (j <= right) {\n                    if (curr.find({i,j}) == curr.end()) {curr[{i,j}]=0;}\n                    curr[{i,j}] = (curr[{i,j}] + p.second) % 1000000007;\n                }\n            }\n        }\n        return curr;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        map<pair<long long, long long>, long long> curr;\n        curr[{0,51}]=1;\n        for (long long step : nums) {\n            curr = nextStep(step, curr);\n        }\n        long long sum = 0;\n        for (auto& p : curr) {\n            sum = (sum + p.second) % 1000000007;\n        }\n        return sum;\n    }\n};",
+    "submit_ts": "1723346722",
+    "subm_id": "1351583785"
+}

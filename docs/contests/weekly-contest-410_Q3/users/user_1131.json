@@ -1,0 +1,6 @@
+{
+    "username": "windhashira38",
+    "submission": "class Solution {\npublic:\n    long long int mx(int i,int prev,int prev2,vector<vector<vector<long long int>>>&dp,vector<int>&nums,int n,int mod){\n        if(i>=n){\n            return 1;\n        }\n        if(dp[i][prev+1][prev2+1]!=-1){\n            return dp[i][prev+1][prev2+1];\n        }\n       long long int ans=0;\n        for(int j=0;j<=nums[i];j++){\n            if(prev==-1 && prev2==-1){\n                ans+=mx(i+1,j,nums[i]-j,dp,nums,n,mod);\n                ans%=mod;\n            }\n            else{\n                if(j>=prev && nums[i]-j<=prev2){\n                    ans+=mx(i+1,j,nums[i]-j,dp,nums,n,mod);\n                    ans%=mod;\n                }\n            }\n        }\n        return dp[i][prev+1][prev2+1]=ans%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<vector<long long int>>>dp(n+1,vector<vector<long long int>>(52,vector<long long int>(52,-1)));\n        return mx(0,-1,-1,dp,nums,n,1e9+7);\n    }\n};",
+    "submit_ts": "1723345566",
+    "subm_id": "1351558541"
+}

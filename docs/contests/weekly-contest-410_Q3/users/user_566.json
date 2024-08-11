@@ -1,0 +1,6 @@
+{
+    "username": "sepehry",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        mod = ((10 ** 9) + 7)\n        n = len(nums)\n\n        @functools.lru_cache(None)\n        def dp(x1, x2, i):\n            if i == n:\n                return 1\n            t = nums[i]\n            v = 0\n            for y1 in range(x1, t + 1):\n                y2 = t - y1\n                if 0 <= y2 <= x2:\n                    v += dp(y1, y2, i + 1)\n                    v %= mod\n            return v\n\n        sol = dp(0, float('inf'), 0)\n        dp.cache_clear()\n        return sol % mod\n",
+    "submit_ts": "1723344829",
+    "subm_id": "1351542958"
+}

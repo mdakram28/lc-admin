@@ -1,0 +1,6 @@
+{
+    "username": "Adityamishra3648",
+    "submission": "class Solution {\n    int max;\n    private long helper(int[] nums,int curr,int n,int pre,long[][] dp){\n        if(curr>=n){\n            // System.out.println(\"returning\");\n            return 1;\n        }\n        if(dp[curr][pre]!=-1)return dp[curr][pre];\n        long ans = 0;\n        for(int i=pre;i<=max;i++){\n            int j = nums[curr] - i;\n            int prej = (curr==0?100000:nums[curr-1]-pre);\n            if(j>prej || j<0 || j>max || i>max)continue;\n            // System.out.println(\"sending ahead with pre = \"+i+\" currenly taken j = \"+(nums[curr] - i));\n            long temp =helper(nums,curr+1,n,i,dp);\n            ans = (temp+ans)%1000000007;\n        }\n        return dp[curr][pre] = ans;\n    }\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        this.max = 0;\n        for(int i:nums)this.max = Math.max(this.max,i);\n        long[][] dp = new long[n][max+1]; \n        for(long[] i:dp)\n        Arrays.fill(i,-1);\n        return (int)helper(nums,0,n,0,dp);\n        // return 0;\n    }\n}",
+    "submit_ts": "1723346598",
+    "subm_id": "1351581076"
+}

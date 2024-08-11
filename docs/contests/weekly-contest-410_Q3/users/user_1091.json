@@ -1,0 +1,6 @@
+{
+    "username": "binomanjesh",
+    "submission": "class Solution {\n\nusing ll = long long;\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        constexpr int MAX_NUM = 50;\n        constexpr int MOD = 1e9 + 7;\n        vector<vector<ll>> dp(n+1, vector<ll>(MAX_NUM+1, 1));\n        for (int i = n-1; i >= 0; --i) {\n            for (int prev_first = 0; prev_first <= MAX_NUM; ++prev_first) {\n                dp[i][prev_first] = 0;\n                int prev_second = i != 0 ? nums[i-1] - prev_first : MAX_NUM;\n                for (int first = 0; first <= nums[i]; ++first) {\n                    int second = nums[i] - first;\n                    if (prev_first > first || prev_second < second) {\n                        continue;\n                    }\n                    dp[i][prev_first] += dp[i+1][first];\n                    dp[i][prev_first] %= MOD;\n                }\n            }\n        }\n        return dp[0][0];\n    }\n};\n",
+    "submit_ts": "1723345476",
+    "subm_id": "1351556624"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "deepakcool2003",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9+7;\n    long long dp[2001][51][51];\n    long long solve(vector<int>& nums, int idx, int x, int y) {\n        if (idx >= nums.size()) {\n            return 1; \n        }\n        if (dp[idx][x][y] != -1){\n            return dp[idx][x][y]; \n        }\n        \n        long long ans = 0;\n        for (int i = x; i <= nums[idx]; i++) {\n            for (int j = y; j >= 0; j--) {\n                if (i + j == nums[idx]) {\n                    ans = (ans + solve(nums, idx + 1, i, j)) % mod;\n                }\n            }\n        }\n        dp[idx][x][y] = ans; \n        return ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        return solve(nums, 0, 0, nums[0]);\n    }\n    \n};",
+    "submit_ts": "1723347323",
+    "subm_id": "1351596512"
+}

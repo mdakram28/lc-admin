@@ -1,0 +1,6 @@
+{
+    "username": "ANI-IN",
+    "submission": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        int n = nums.size();\n        vector<vector<int>> memo(n, vector<int>(51, -1));\n\n        function<int(int, int)> countPairs = [&](int i, int prev) {\n            if (i == n) return 1;\n            if (memo[i][prev] != -1) return memo[i][prev];\n\n            int result = 0;\n            for (int arr1 = prev; arr1 <= nums[i]; ++arr1) {\n                int arr2 = nums[i] - arr1;\n                if (i == 0 || arr2 <= (nums[i-1] - prev)) {\n                    result = (result + countPairs(i + 1, arr1)) % MOD;\n                }\n            }\n            return memo[i][prev] = result;\n        };\n\n        return countPairs(0, 0);\n    }\n};\n",
+    "submit_ts": "1723344640",
+    "subm_id": "1351538874"
+}

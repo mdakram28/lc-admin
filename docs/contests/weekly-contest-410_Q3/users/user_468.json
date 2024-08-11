@@ -1,0 +1,6 @@
+{
+    "username": "anvith06",
+    "submission": "#define pii pair<int,pair<int,int>>\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<map<pair<int,int>,int>>mp(n);\n        for(int i=0;i<=nums[n-1];i++)\n            mp[n-1][{i,nums[n-1]-i}]=1;\n        int mod = 1e9+7,ans = 0;\n        for(int i=n-2;i>=0;i--){\n            for(int j=0;j<=nums[i];j++){\n                for(int k=j;k<=nums[i+1];k++){\n                    int l = k,h = nums[i+1]-k;\n                    if(l<j or h>nums[i]-j)continue;\n                    mp[i][{j,nums[i]-j}]=(mp[i][{j,nums[i]-j}]+mp[i+1][{l,h}])%mod;\n                }\n                //cout<<i<<\" \"<<j<<\" \"<<nums[i]-j<<\" \"<<mp[i][{j,nums[i]-j}]<<endl;\n            }\n        }\n        for(auto x:mp[0]){\n            ans = (ans+x.second)%mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345551",
+    "subm_id": "1351558254"
+}

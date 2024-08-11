@@ -1,0 +1,6 @@
+{
+    "username": "zywei86",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        # dp[i][j]: arr1[i] ends with j, arr2[i] ends with nums[i]-j\n        n = len(nums)\n        mod = int(1e9+7)\n        dp = [[0]*1001 for i in range(n)]\n        for j in range(nums[0]+1):\n            dp[0][j] = 1\n        for i in range(1,n):\n            # current sum(arr1[i],arr2[i]) is nums[i]\n            idx, cur = 0, 0\n            for j in range(nums[i]+1):\n                num1,num2 = j,nums[i]-j\n                while idx <= j and num2 <= nums[i-1]-idx:\n                    cur += dp[i-1][idx]\n                    idx += 1\n                dp[i][j] = (dp[i][j]+cur)%mod\n        # print(dp)\n        return sum(dp[n-1])%mod\n        ",
+    "submit_ts": "1723348354",
+    "subm_id": "1351616573"
+}

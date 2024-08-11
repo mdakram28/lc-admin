@@ -1,0 +1,6 @@
+{
+    "username": "san1201",
+    "submission": "func countOfPairs(nums []int) int {\n    var MOD = 1000000007\n    \n    var dp = make([][]int, len(nums))\n    for i := range dp {\n        dp[i] = make([]int, 51)\n    }\n    \n    for i := 0; i <= nums[0]; i++ {\n        dp[0][i] = 1\n    }\n    \n    for i := 1; i < len(nums); i++ {\n        for k := 0; k <= nums[i]; k++ {\n            for j := 0; j <= k; j++ {\n                if nums[i-1] - j >= nums[i] - k {\n                    dp[i][k] += dp[i-1][j]\n                    dp[i][k] %= MOD\n                }\n            }\n        }\n    }\n    \n    var res = 0\n    for i := 0; i <= nums[len(nums)-1]; i++ {\n        res += dp[len(nums)-1][i]\n        res %= MOD\n    }\n    \n    return res\n}",
+    "submit_ts": "1723345848",
+    "subm_id": "1351564607"
+}

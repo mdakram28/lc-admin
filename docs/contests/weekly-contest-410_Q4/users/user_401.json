@@ -1,0 +1,6 @@
+{
+    "username": "sumi_62",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int mod=1e9+7;\n        int n=nums.size();\n        vector<int>prev(1001,1);\n        vector<int>curr(1001,0);\n        vector<int>prevsuffixsum(1002,1);\n        vector<int>currsuffixsum(1002,0);\n        for(int j=1000;j>=0;j--){\n            prevsuffixsum[j]+=prevsuffixsum[j+1];\n        }\n        for(int i=n-1;i>=0;i--){\n            for(int j=1000;j>=0;j--){\n                int sl=(i==0)?1e9:nums[i-1]-j;\n                int l=max(j,nums[i]-sl);\n                int u=nums[i];\n                if(u<l)curr[j]=0;\n                else{\n                    curr[j]=(prevsuffixsum[l]-prevsuffixsum[u+1]+mod)%mod;\n                }\n                currsuffixsum[j]=(curr[j]+currsuffixsum[j+1])%mod;\n            }\n            prevsuffixsum=currsuffixsum;\n            prev=curr;\n        }\n        return prev[0];\n    }\n};",
+    "submit_ts": "1723347000",
+    "subm_id": "1351589764"
+}

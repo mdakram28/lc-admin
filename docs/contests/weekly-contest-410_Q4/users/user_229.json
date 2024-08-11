@@ -1,0 +1,6 @@
+{
+    "username": "WINGU0",
+    "submission": "#define rep(i, a) for (int i = 0; i < (int)(a); i++)\n#define all(a) a.begin(), a.end()\n#define rall(a) a.rbegin(), a.rend()\nusing ll = long long;\nconst int mod = 1e9 + 7;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        auto a = nums;\n        vector<int> dp(a[0] + 1, 1);\n        rep(i, n - 1) {\n            vector<int> p(a[i + 1] + 1);\n            swap(p, dp);\n            int l = -1, r = a[i + 1];\n            while (r - l > 1) {\n                int m = (l + r) / 2;\n                int x = a[i], y = a[i + 1] - m;\n                if (x >= y) r = m;\n                else l = m;\n            }\n            cout << r << endl;\n            int cur = p[0], cnt = 1;\n            for (int k = r; k <= a[i + 1]; k++) {\n                dp[k] += cur;\n                dp[k] %= mod;\n                cur += p[cnt];\n                if (cnt < a[i]) cnt++;\n                cur %= mod;\n            }\n        }\n        int ans = 0;\n        for (int i = 0; i <= a[n - 1]; i++) {\n            ans += dp[i];\n            ans %= mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345858",
+    "subm_id": "1351564819"
+}

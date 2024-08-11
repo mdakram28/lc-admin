@@ -1,0 +1,6 @@
+{
+    "username": "adithyag1",
+    "submission": "typedef long long ll;\n\nclass Solution {\npublic:\n    ll mod=(1e+9)+7;\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<ll>> dp(n+1,vector<ll>(1002,-1));\n        for(int j=0;j<=1001;j++){\n            dp[n][j]=1;\n        }\n        vector<int> pre(1002);\n        pre[0]=0;\n        for(ll j=1;j<=1001;j++){\n            pre[j]=(pre[j-1]+dp[n][j-1])%mod;\n        }\n        for(int i=n-1;i>=0;i--){\n            for(ll prev=0;prev<=(i>0?nums[i-1]:0);prev++){\n                ll prev2=(i>0?nums[i-1]-prev:1e+5);\n                ll from=max(prev,nums[i]-prev2),to=nums[i];\n                if(from<=to)\n                    dp[i][prev]=((pre[to+1]-pre[from])%mod+mod)%mod;\n                else\n                    dp[i][prev]=0;\n            }\n            pre[0]=0;\n            for(ll j=1;j<=1001;j++){\n                pre[j]=(pre[j-1]+dp[i][j-1])%mod;\n            }\n        }\n        return (int)dp[0][0];\n    }\n};",
+    "submit_ts": "1723346729",
+    "subm_id": "1351583900"
+}

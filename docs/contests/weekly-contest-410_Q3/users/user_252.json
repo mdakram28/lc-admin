@@ -1,0 +1,6 @@
+{
+    "username": "zanj0",
+    "submission": "/*\n\tJAI JAGANNATH!\n*/\n//@Author : zanj0\n\n#include<bits/stdc++.h>\nusing namespace std;\n\n#define ff              first\n#define ss              second\n#define pb              push_back\n#define MOD             1000000007\n\n\ntypedef long long int lli;\n\nclass Solution {\npublic:\n\tlli Add(lli a, lli b){\n\t\treturn ((a % MOD) + (b % MOD)) % MOD;\n\t}\n\tlli Dfs(int idx, int prev_number, vector<int>& nums, vector<vector<lli>>& dp){\n\t\tif(idx >= (int)nums.size()) return 1;\n\t\tif(dp[idx][prev_number] != -1) return dp[idx][prev_number];\n\t\tlli ret = 0;\n\t\tint other_prev_number = idx ? nums[idx - 1] - prev_number : INT_MAX;\n\t\tfor(int i = prev_number; i <= nums[idx]; i++){\n\t\t\tint other_number = nums[idx] - i;\n\n\t\t\tif(other_number <= other_prev_number) ret = Add(ret, Dfs(idx + 1, i, nums, dp));\n\n\t\t}\n\t\treturn dp[idx][prev_number] = ret;\n\t}\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<lli>> dp(n, vector<lli>(55, -1));\n\n        return Dfs(0, 0, nums, dp);\n    }\n};\n\n#ifdef LOCAL\nint main() {\n\tfreopen(\"output.txt\", \"w\", stdout);\n\tcout << \"Compiled!\" << endl;\n}\n#endif",
+    "submit_ts": "1723344482",
+    "subm_id": "1351535435"
+}

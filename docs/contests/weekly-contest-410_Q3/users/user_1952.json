@@ -1,0 +1,6 @@
+{
+    "username": "ASHIS_MISHRA",
+    "submission": "class Solution {\n    int[] values;\n    long[][][] dp;\n    int size ;\n    int MOD =(int)(1e9+7);\n    public long solve(int index, int val1, int val2) {\n        if (index >= size){\n            return 1;\n        }\n\n        if (dp[index][val1][val2] != -1){\n            return dp[index][val1][val2];\n        }\n\n        long result = 0;\n        for (int el1 = val2; el1 >= 0; el1--) {\n            for (int el2 = val1; el2 <= values[index]; el2++) {\n                if (el2 + el1 == values[index]) {\n                    result = (result % MOD + solve(index + 1, el2, el1) % MOD) % MOD;\n                }\n            }\n        }\n\n        return dp[index][val1][val2] = result;\n    }\n    public int countOfPairs(int[] values) {\n        this.values = values;\n        size = values.length;\n        dp = new long[size+1][51][51];\n\n        for (int i = 0; i < dp.length; i++) {\n            for (int j = 0; j < 51; j++) {\n                Arrays.fill(dp[i][j], -1);\n            }\n        }\n\n        return (int)solve(0, 0, values[0]);\n    }\n}\n",
+    "submit_ts": "1723346780",
+    "subm_id": "1351584997"
+}

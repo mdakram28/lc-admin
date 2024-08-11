@@ -1,0 +1,6 @@
+{
+    "username": "vishal_2304",
+    "submission": "public class Solution {\n    private const long MOD = 1_000_000_007;\n    \n    public int CountOfPairs(int[] values) {\n        int size = values.Length;\n        long[,,] rkkk = new long[size, 51, 51];\n        \n        for (int i = 0; i < size; i++) {\n            for (int j = 0; j <= 50; j++) {\n                for (int k = 0; k <= 50; k++) {\n                    rkkk[i, j, k] = -1;\n                }\n            }\n        }\n\n        long Solve(int index, int val1, int val2) {\n            if (index >= values.Length) return 1;\n            if (rkkk[index, val1, val2] != -1) return rkkk[index, val1, val2];\n            \n            long vishal = 0;\n            \n            for (int i = val1; i <= values[index]; i++) {\n                for (int j = val2; j >= 0; j--) {\n                    if (i + j == values[index]) {\n                        vishal += Solve(index + 1, i, j);\n                        vishal %= MOD;\n                    }\n                }\n            }\n            \n            rkkk[index, val1, val2] = vishal;\n            return vishal;\n        }\n\n        return (int)Solve(0, 0, values[0]);\n    }\n}",
+    "submit_ts": "1723346263",
+    "subm_id": "1351573741"
+}

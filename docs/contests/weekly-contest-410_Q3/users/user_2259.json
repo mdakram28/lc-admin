@@ -1,0 +1,6 @@
+{
+    "username": "raghavdalmia72",
+    "submission": "class Solution {\npublic:\n    int add(long long int a, long long int b) {\n        int mod = (1e9)+7;\n        return ((a%mod)+(b%mod))%mod;\n    }\n    int countOfPairs(const int pos, const int n, const int pu, const int pl, const vector<int>& nums, vector<vector<int> >&dp) {\n        if(pos==n) return 1;\n        int ans = 0, mod = (1e9)+7;\n        for(int u=0;u<=nums[pos];u++) {\n            int l = nums[pos]-u;\n            if(pu<=u && pl>=l){\n                if(dp[pos+1][u]==-1){\n                    dp[pos+1][u] = countOfPairs(pos+1, n, u, l, nums, dp);\n                }\n                ans = add(ans, dp[pos+1][u]);\n            }\n        }\n        return ans%mod;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<int> > dp(n+1, vector<int>(51, -1));\n\n        return countOfPairs(0, n, 0, 51, nums, dp);\n    }\n};",
+    "submit_ts": "1723345923",
+    "subm_id": "1351566245"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "jgaf",
+    "submission": "\nint dp[2005][55];\nclass Solution {\npublic:\n\n    typedef long long ll;\n    const ll MOD = 1e9+7;\n    ll solve(vector<int> &nums, int pos, int last){\n        if(nums.size() == pos){\n            return 1;\n        }\n\n        if(last != -1 && dp[pos][last] != -1) return dp[pos][last];\n        \n        ll res = 0;\n        for(int i = last ; i <= nums[pos]  ; ++i){\n            if( pos > 0 && nums[pos - 1] - last < nums[pos] - i){\n                continue;\n            }\n            res += solve(nums, pos + 1, i);\n            res %= MOD;\n        }\n        if( last == -1 ) return res;\n        return dp[pos][last] = res;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return solve(nums, 0, 0);\n    }\n};",
+    "submit_ts": "1723345385",
+    "subm_id": "1351554601"
+}

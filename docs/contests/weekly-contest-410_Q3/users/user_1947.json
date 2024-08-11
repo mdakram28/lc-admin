@@ -1,0 +1,6 @@
+{
+    "username": "abhijeetjadhav",
+    "submission": "class Solution {\npublic:\n    int m = 1e9+7;\n    vector<unordered_map<int,unordered_map<int,int>>> dp;\n    int countOfPairs(vector<int>& nums) {\n        dp.resize(2001);\n\n        return solve(nums, 0, 0, 51);\n    }\n    int solve(vector<int> &nums, int i, int l1, int l2){\n        if(i == nums.size()) return 1;\n        if(dp[i].find(l1) != dp[i].end() && dp[i][l1].find(l2) != dp[i][l1].end()) return dp[i][l1][l2];\n        \n        int res = 0;\n        for(int a1=l1; a1<=nums[i]; a1++){\n            int a2 = nums[i]-a1;\n            if(l2 >= a2){\n                int tmp = solve(nums, i+1, a1, a2);\n                res = (tmp + res)%m;\n            }\n        }\n\n        return dp[i][l1][l2] = res;\n    }\n};",
+    "submit_ts": "1723345573",
+    "subm_id": "1351558674"
+}

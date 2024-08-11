@@ -1,0 +1,6 @@
+{
+    "username": "shakibahmed01999",
+    "submission": "int dp[2002][52];\n\nclass Solution {\n    \n    const int M = 1e9 + 7;\n    \n    int solve(vector<int> &nums, int pos, int prev1){\n        if(pos == nums.size())\n            return 1;\n        \n        if(dp[pos][prev1] != -1)\n            return dp[pos][prev1];\n        \n        int prev2 = pos == 0 ? INT_MAX : nums[pos-1] - prev1;\n        \n        int count = 0;\n        \n        for(int first = prev1; first <= nums[pos]; first++){\n            int second = nums[pos] - first;\n            if(second <= prev2){\n                count = (count + (long long)solve(nums, pos + 1, first)) % M;\n            }\n        }\n        \n        dp[pos][prev1] = count;\n        return count;\n    }\n    \npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        \n        for(int i=0; i<=n; i++)\n            for(int j=0; j<=50; j++)\n                dp[i][j] = -1;\n        \n        return solve(nums, 0, 0);\n        \n    }\n};",
+    "submit_ts": "1723344460",
+    "subm_id": "1351534942"
+}

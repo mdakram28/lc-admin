@@ -1,0 +1,6 @@
+{
+    "username": "dongdozizi",
+    "submission": "class Solution {\npublic:\n    typedef long long ll;\n    ll mod=1e9+7;\n    ll dp[2][1055]={0};\n    int countOfPairs(vector<int>& numss) {\n        vector<ll> a;\n        for(int i=0;i<numss.size();i++){\n            a.push_back(numss[i]);\n        }\n        ll n=a.size();\n        for(ll j=0;j<=a[0];j++){\n            dp[0][j]=1;\n        }\n        ll cur=0,nxt=1;\n        for(ll i=1;i<a.size();i++){\n            for(ll j=0;j<=a[i];j++){\n                ll k=min(a[i-1]-a[i]+j,j);\n                if(k>=0) dp[nxt][j]=dp[cur][k];\n            }\n            for(int j=0;j<=1000;j++){\n                dp[cur][j]=0;\n            }\n            for(int j=1;j<=1000;j++){\n                dp[nxt][j]=(dp[nxt][j]+dp[nxt][j-1])%mod;\n            }\n            swap(cur,nxt);\n        }\n        ll ans=0;\n        for(ll i=0;i<=a[n-1];i++){\n            ans+=dp[cur][i];\n        }\n        return ans%mod;\n    }\n};",
+    "submit_ts": "1723344733",
+    "subm_id": "1351540859"
+}

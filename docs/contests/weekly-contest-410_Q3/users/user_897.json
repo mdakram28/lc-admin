@@ -1,0 +1,6 @@
+{
+    "username": "arihantmishra26",
+    "submission": "#include <vector>\nusing namespace std;\n\nconst int MOD = 1e9 + 7;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(51, vector<int>(51, -1)));\n        return countPairs(nums, 0, 0, 50, dp);\n    }\n\nprivate:\n    int countPairs(const vector<int>& nums, int index, int minVal, int maxVal, vector<vector<vector<int>>>& dp) {\n        if (index == nums.size()) {\n            return 1;  // Base case: valid pairing of all elements\n        }\n        \n        if (dp[index][minVal][maxVal] != -1) {\n            return dp[index][minVal][maxVal];  // Return cached result\n        }\n        \n        int result = 0;\n        for (int i = minVal; i <= nums[index]; ++i) {\n            int j = nums[index] - i;\n            if (j <= maxVal) {\n                result = (result + countPairs(nums, index + 1, i, j, dp)) % MOD;\n            }\n        }\n        \n        dp[index][minVal][maxVal] = result;  // Cache the result\n        return result;\n    }\n};\n",
+    "submit_ts": "1723344814",
+    "subm_id": "1351542591"
+}

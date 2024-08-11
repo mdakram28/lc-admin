@@ -1,0 +1,6 @@
+{
+    "username": "karpov_all",
+    "submission": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int max1 = 1000;\n        int n = nums.size();\n        vector<int> dp(max1 + 1, 0);\n        vector<int> min(n, 0);\n        for (int i = 1; i < n; i++){\n            min[i] = max(0,nums[i] - nums[i-1]);\n        }\n\n        for (int i = 0; i <= nums[0]; i++) {\n            dp[i] = 1;\n        }\n\n        for (int i = 1; i < n; i++) {\n            vector <int> p (max1+1,0);\n            for (int j = min[i]; j < max1+1; j++) {\n                p[j] = dp[j-min[i]] + (j > 0 ? p[j - 1] : 0);\n                p[j] %= 1000000007;\n            }\n\n            for (int j = 0; j <= nums[i]; j++) {\n                dp[j] = p[j];\n            }\n            for (int j = nums[i]+1; j < max1+1; j++) {\n                dp[j] = 0;\n            }\n        }\n\n        int res = 0;\n        for (int i = 0; i <= nums[n - 1]; i++) {\n            res = (res + dp[i]) % 1000000007;\n        }\n\n        return res;\n    }\n};\n",
+    "submit_ts": "1723347870",
+    "subm_id": "1351607143"
+}

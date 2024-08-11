@@ -1,0 +1,6 @@
+{
+    "username": "vsukhoy",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 1000000007\n        maxnum = max(nums)\n        lat = [([0] * (maxnum + 1)) for num in nums]\n        for x in range(nums[0] + 1):\n            lat[0][x] = 1\n        for ix in range(1, len(nums)):\n            x = nums[ix]\n            xx = nums[ix-1]\n            s = 0\n            for a in range(0, x+1):\n                b = x - a\n                aa = xx - b\n                if aa < 0 or aa > maxnum:\n                    continue\n                # if xx - b < 0:\n                #    continue\n                # bb = xx\n                aaa = min(a, aa)\n                if aaa < 0 or aaa > maxnum:\n                    continue\n                s += lat[ix-1][aaa]\n                s %= MOD\n                lat[ix][a] = s\n                \n        # print(lat)\n        \n        res = 0\n        for a in range(nums[-1] + 1):\n            res += lat[-1][a]\n        res %= MOD\n        return res",
+    "submit_ts": "1723347120",
+    "subm_id": "1351592306"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "SanjayGrover",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        \n        memo = {}\n\n        def dfs(index, prev_arr1):\n            if index == len(nums):\n                return 1\n            \n            if (index, prev_arr1) in memo:\n                return memo[(index, prev_arr1)]\n            \n            total_ways = 0\n            for arr1 in range(prev_arr1, nums[index] + 1):\n                arr2 = nums[index] - arr1\n                if arr2 >= 0:\n                    if index == 0 or arr2 <= nums[index - 1] - prev_arr1:\n                        total_ways = (total_ways + dfs(index + 1, arr1)) % MOD\n            \n            memo[(index, prev_arr1)] = total_ways\n            return total_ways\n        \n        return dfs(0, 0)",
+    "submit_ts": "1723346302",
+    "subm_id": "1351574569"
+}

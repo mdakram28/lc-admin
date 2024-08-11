@@ -1,0 +1,6 @@
+{
+    "username": "21r01a0520",
+    "submission": "\n#define MOD 1000000007\n\nint countOfPairs(int* nums, int n) {\n    int dp[n][51];\n    memset(dp, 0, sizeof(dp));  \n\n    for (int x = 0; x <= nums[0]; x++) {\n        dp[0][x] = 1; \n    }\n\n    for (int i = 1; i < n; i++) {\n        int dpNext[51] = {0};  \n        for (int x = 0; x <= nums[i]; x++) {\n            for (int y = 0; y <= x; y++) { \n                int arr2_i = nums[i] - x;\n                int arr2_y = nums[i-1] - y;\n                if (arr2_y >= arr2_i) {  \n                    dpNext[x] = (dpNext[x] + dp[i-1][y]) % MOD;\n                }\n            }\n        }\n        for (int x = 0; x <= nums[i]; x++) {\n            dp[i][x] = dpNext[x];\n        }\n    }\n    int result = 0;\n    for (int x = 0; x <= nums[n-1]; x++) {\n        result = (result + dp[n-1][x]) % MOD;\n    }\n\n    return result;\n}",
+    "submit_ts": "1723346480",
+    "subm_id": "1351578495"
+}

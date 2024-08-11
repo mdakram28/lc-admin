@@ -1,0 +1,6 @@
+{
+    "username": "Hrishikesh2004",
+    "submission": "class Solution {\n    int mod = 1e9 + 7;\n    long long check(vector<int>& nums , int ind , int last1 , vector<vector<int>>& dp){\n        int n = nums.size();\n        if(ind == n) return 1;\n        if(dp[ind][last1] != -1) return dp[ind][last1];\n        int last2 = 51;\n        if(ind > 0) last2 = nums[ind - 1] - last1;\n        \n        int cur = nums[ind];\n        long long tot = 0;\n        for(int i = 0 ; i <= cur ; i++){\n            if(i >= last1 && (cur - i) <= last2){\n                tot = (tot + check(nums , ind+1 , i , dp)) % mod;\n            }\n        }\n        return dp[ind][last1] = tot;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<int>> dp(n+1,vector<int>(52 , -1));\n        return (int)(check(nums , 0 , 0 , dp) % mod);\n    }\n};",
+    "submit_ts": "1723345157",
+    "subm_id": "1351549852"
+}

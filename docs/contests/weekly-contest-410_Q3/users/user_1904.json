@@ -1,0 +1,6 @@
+{
+    "username": "Rudransh_Srivastava_",
+    "submission": "class Solution {\n    private static final int MOD = 1_000_000_007;\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        int[][] dp = new int[n][];\n        \n        // Initialize the dp for the first element\n        dp[0] = new int[nums[0] + 1];\n        for (int x = 0; x <= nums[0]; x++) {\n            dp[0][x] = 1;  // There's one way to set arr1[0] = x and arr2[0] = nums[0] - x\n        }\n\n        // Fill the dp array for the rest of the elements\n        for (int i = 1; i < n; i++) {\n            dp[i] = new int[nums[i] + 1];\n            for (int x = 0; x <= nums[i]; x++) {\n                int arr2i = nums[i] - x;\n                for (int y = 0; y <= Math.min(x, nums[i - 1]); y++) {\n                    if (arr2i <= nums[i - 1] - y) {\n                        dp[i][x] = (dp[i][x] + dp[i - 1][y]) % MOD;\n                    }\n                }\n            }\n        }\n\n        // Sum up all dp[n-1][x] to get the final count of valid pairs\n        int result = 0;\n        for (int x = 0; x <= nums[n - 1]; x++) {\n            result = (result + dp[n - 1][x]) % MOD;\n        }\n\n        return result;\n    }\n}\n",
+    "submit_ts": "1723345310",
+    "subm_id": "1351553021"
+}

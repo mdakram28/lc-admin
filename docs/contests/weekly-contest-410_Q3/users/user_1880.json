@@ -1,0 +1,6 @@
+{
+    "username": "mohitraj31",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    const int MAX_NUM = 50;\n    vector<vector<vector<int>>> dp;\n    int countWays(int index, int lastX, int lastY, const vector<int>& nums) {\n        if (index == nums.size()) {\n            return 1;\n        }\n        if (dp[index][lastX][lastY] != -1) {\n            return dp[index][lastX][lastY];\n        }\n        int totalWays = 0;\n        int currentSum = nums[index];\n        for (int x = 0; x <= currentSum; ++x) {\n            int y = currentSum - x;\n            if (x >= lastX && y <= lastY) {\n                totalWays =\n                    (totalWays + countWays(index + 1, x, y, nums)) % MOD;\n            }\n        }\n        return dp[index][lastX][lastY] = totalWays;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp.assign(n + 1, vector<vector<int>>(MAX_NUM + 1,\n                                               vector<int>(MAX_NUM + 1, -1)));\n        return countWays(0, 0, MAX_NUM, nums);\n    }\n};\n",
+    "submit_ts": "1723346693",
+    "subm_id": "1351583140"
+}

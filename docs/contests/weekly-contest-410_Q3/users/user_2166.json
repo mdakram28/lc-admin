@@ -1,0 +1,6 @@
+{
+    "username": "muthuhariharan_sakthi",
+    "submission": "class Solution {\n    private static final long MOD = 1000000007;\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        long[][][] dp = new long[n][51][51];\n\n        for (long[][] layer1 : dp) {\n            for (long[] layer2 : layer1) {\n                Arrays.fill(layer2, -1);\n            }\n        }\n\n        return (int) solve(nums, 0, 0, nums[0], dp);\n    }\n\n    private long solve(int[] nums, int i, int val1, int val2, long[][][] dp) {\n        if (i >= nums.length) {\n            return 1;\n        }\n        if (dp[i][val1][val2] != -1) {\n            return dp[i][val1][val2];\n        }\n\n        long count = 0;\n        for (int x = val1; x <= nums[i]; x++) {\n            for (int y = val2; y >= 0; y--) {\n                if (x + y == nums[i]) {\n                    count = (count + solve(nums, i + 1, x, y, dp)) % MOD;\n                }\n            }\n        }\n\n        dp[i][val1][val2] = count;\n        return count;\n    }\n\n}",
+    "submit_ts": "1723347022",
+    "subm_id": "1351590238"
+}

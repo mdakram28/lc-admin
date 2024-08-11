@@ -1,0 +1,6 @@
+{
+    "username": "boxlesscat",
+    "submission": "using ll = long long;\nconstexpr ll mod = 1e9 + 7;\n\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int size = nums.size();\n        vector<vector<vector<ll>>> dp(size, vector<vector<ll>>(51, vector<ll>(51)));\n        for (int a = nums[0]; a >= 0; --a) {\n            if (nums[0] - a >= 0)\n                dp[0][a][nums[0] - a] = 1;\n        }\n        int num;\n        int num1;\n        int b, bb;\n        for (int i = 1; i < size; ++i) {\n            num = nums[i];\n            for (int a = 0; a <= 50; ++a) {\n                b = num - a;\n                if (b < 0)\n                    continue;\n                for (int aa = 0; aa <= a; ++aa) {\n                    num1 = nums[i - 1];\n                    bb = num1 - aa;\n                    if (bb < b)\n                        continue;\n                    dp[i][a][b] += dp[i - 1][aa][bb];\n                    dp[i][a][b] %= mod;\n                }\n            }\n        }\n        ll ans = 0;\n        num = nums.back();\n        for (int a = 0; a <= num; ++a) {\n            ans += dp[size - 1][a][num - a];\n            ans %= mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345841",
+    "subm_id": "1351564449"
+}

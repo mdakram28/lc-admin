@@ -1,0 +1,6 @@
+{
+    "username": "guesswhohas2cats",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    int countOfPairs(vector<int>& nums) {\n        // int memo[2001][51];\n        int n = nums.size();\n        vector<vector<int>>memo(n, vector<int>(51, -1));\n        function<int(int, int)>dfs = [&](int i, int lastVal1) -> int\n        {\n            if(i == n)return 1;\n            if(memo[i][lastVal1] != -1)return memo[i][lastVal1];\n            int ans = 0;\n            for(int j = lastVal1; j <= nums[i]; j ++)\n            {\n                int k = nums[i] - j;\n                if(i == 0 || k <= nums[i - 1] - lastVal1)\n                    ans = (ans + dfs(i + 1, j)) % MOD;\n            }\n            return memo[i][lastVal1] = ans;\n        };\n        int a = dfs(0, 0);\n        return a;\n    }\n};\nauto init = []()\n{\n    ios_base::sync_with_stdio(0);\n    cin.tie(0);\n    cout.tie(0);\n    return nullptr;\n}();",
+    "submit_ts": "1723347216",
+    "subm_id": "1351594349"
+}

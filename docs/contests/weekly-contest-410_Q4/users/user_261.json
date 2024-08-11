@@ -1,0 +1,6 @@
+{
+    "username": "runtime_tterror",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        int md=1e9+7;\n        \n        int dp[n+1][1001];memset(dp,0,sizeof(dp));\n        \n        for(int i=0;i<=nums[0];i++){dp[0][i]=1;if(i)dp[0][i]+=dp[0][i-1];}\n        \n        \n        for(int i=1;i<n;i++){\n            \n            \n            for(int j=nums[i];j>=0;j--){\n                \n                int mn = min(j,nums[i-1]);\n                if(mn < j)continue;\n                int mx = max(j,nums[i-1]);\n                mn = nums[i-1]-mn;\n                mx = nums[i-1]-mx;\n                \n                mn=min(mn,nums[i]-j);\n                dp[i][nums[i]-j] = dp[i-1][mn]%md;\n            }\n            \n            \n            for(int j=1;j<=nums[i];j++){\n                dp[i][j] = (dp[i][j-1]+dp[i][j])%md;\n            }\n            \n        }\n        int ans=dp[n-1][nums[n-1]];\n        return ans;\n    }\n};",
+    "submit_ts": "1723346344",
+    "subm_id": "1351575516"
+}

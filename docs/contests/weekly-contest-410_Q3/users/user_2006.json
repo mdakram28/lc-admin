@@ -1,0 +1,6 @@
+{
+    "username": "simply_arko",
+    "submission": "class Solution {\npublic:\n    using ll = long long;\n    int mod = 1e9+7;\n    int dp[2001][55][65];\n    ll solve(vector<int> &nums, int idx=0, int prevInc=-1, int prevDcr=60){\n        if(idx==nums.size())\n            return 1LL;\n        if(dp[idx][prevInc+1][prevDcr]!=-1)\n            return dp[idx][prevInc+1][prevDcr];\n\n        ll x = 0LL;\n        for(int num=0; num<=nums[idx]; num++){\n            if(num>=prevInc && (nums[idx]-num)<=prevDcr)\n                x = (x + solve(nums, idx+1, num, nums[idx]-num))%mod;\n        }\n\n        return dp[idx][prevInc+1][prevDcr] = x%mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return solve(nums);\n    }\n};",
+    "submit_ts": "1723346542",
+    "subm_id": "1351579852"
+}

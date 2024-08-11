@@ -1,0 +1,6 @@
+{
+    "username": "anmolahsaas",
+    "submission": "#define mod (int)(1e9 + 7)\nclass Solution {\npublic:\n    int solve(int idx, vector<int>& nums, int incPrev, int decPrev, vector<vector<vector<int>>> &dp){\n        if(idx == nums.size())\n            return 1;\n        \n        if(dp[idx][incPrev][decPrev] != -1) return dp[idx][incPrev][decPrev];\n\n        int inc, dec;\n        int ans = 0;\n        for(int i = 0; i <= nums[idx]; i++){\n            inc = i;\n            if(incPrev > inc) continue;\n            dec = nums[idx] - i;\n            if(decPrev < dec) continue;\n            ans = ((ans%mod) + (solve(idx + 1, nums, inc, dec, dp)%mod))%mod;\n        }\n        return dp[idx][incPrev][decPrev] = (ans%mod);\n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<vector<int>>> dp(nums.size() + 1, vector<vector<int>>(51, vector<int>(51, -1)));\n        return solve(0, nums, 0, 50, dp);\n    }\n};",
+    "submit_ts": "1723346193",
+    "subm_id": "1351572240"
+}

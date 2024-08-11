@@ -1,0 +1,6 @@
+{
+    "username": "suhaanbhandary1",
+    "submission": "class Solution {\npublic:\n  int mod = 1e9 + 7;\n  long long getPairs(int idx, int mini, int maxi, vector<int> &nums,\n                     vector<vector<vector<int>>> &memo) {\n    if (idx == nums.size())\n      return 1;\n\n    if (memo[idx][mini][maxi] != -1)\n      return memo[idx][mini][maxi];\n\n    int total = 0;\n    for (int i = mini; i <= nums[idx]; i++) {\n      if (nums[idx] - i <= maxi) {\n        total += getPairs(idx + 1, i, nums[idx] - i, nums, memo);\n        total %= mod;\n      }\n    }\n\n    return memo[idx][mini][maxi] = total % mod;\n  }\n\n  int countOfPairs(vector<int> &nums) {\n    vector<vector<vector<int>>> memo(\n        nums.size(), vector<vector<int>>(51, vector<int>(51, -1)));\n\n    return getPairs(0, 0, 50, nums, memo);\n  }\n};\n",
+    "submit_ts": "1723345062",
+    "subm_id": "1351547799"
+}

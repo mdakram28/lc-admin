@@ -1,0 +1,6 @@
+{
+    "username": "arignote",
+    "submission": "class Solution {\n    public int countOfPairs(int[] nums) {\n        int dp[][] = new int[nums.length][1002], result = 0, curr = 0;\n        dp[0][nums[0] + 1] = 1000000006;\n        for (int i = dp[0][0] = 1; i < nums.length; i++) {\n            for (int j = 0, k = 0; j <= nums[i - 1]; j++) {\n                k = (k + dp[i - 1][j]) % 1000000007;\n                if (j + Math.max(0, nums[i] - nums[i - 1]) <= nums[i]) {\n                    dp[i][j + Math.max(0, nums[i] - nums[i - 1])] = (dp[i][j + Math.max(0, nums[i] - nums[i - 1])] + k) % 1000000007;\n                    dp[i][nums[i] + 1] = (dp[i][nums[i] + 1] - k + 1000000007) % 1000000007;\n                }\n            }\n        }\n        for (int i : dp[nums.length - 1]) {\n            result = (result + (curr = (curr + i) % 1000000007)) % 1000000007;\n        }\n        return result;\n    }\n}",
+    "submit_ts": "1723344903",
+    "subm_id": "1351544487"
+}

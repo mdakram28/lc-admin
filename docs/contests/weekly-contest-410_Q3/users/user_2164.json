@@ -1,0 +1,6 @@
+{
+    "username": "priyanshujaiswal184",
+    "submission": "class Solution {\npublic:\n    const long long int MOD=1e9+7; \n    int solve(vector<int>& nums,int i,int j,int k,int n,vector<vector<vector<int>>>&dp){\n        if(i>=n){\n            return 1;\n        }\n        if(dp[i][j][k]!=-1) return dp[i][j][k];\n        int cnt=0;\n        for(int a1=j;a1<=nums[i];a1++){\n            int a2 = nums[i] - a1;\n            if (a2 <= k) {\n                cnt = (cnt + solve(nums,i+1,a1,a2,n,dp)) % MOD;\n            }\n        }\n        return dp[i][j][k]=cnt;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        int maxi = *std::max_element(nums.begin(), nums.end());\n        vector<vector<vector<int>>>dp(n,vector<vector<int>>(maxi+1,vector<int>(maxi+1,-1)));\n        int i=0,j=0,k=0;\n        return solve(nums,i,j,maxi,n,dp);\n    }\n};",
+    "submit_ts": "1723347020",
+    "subm_id": "1351590187"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Loukik_was_here",
+    "submission": "class Solution {\npublic:\n    int mod = (int)1e9 + 7;\n    vector<vector<vector<long long>>> memo;\n\n    long long dfs(vector<int>& a, int a1, int a2, int i) {\n        if (i == a.size()) return 1;  // Found a valid pair\n\n        if (memo[i][a1][a2] != -1) return memo[i][a1][a2];\n\n        long long ans = 0;\n        for (int x = a1; x <= a[i]; x++) {\n            int y = a[i] - x;\n            if (y <= a2) {\n                ans += dfs(a, x, y, i + 1);\n                ans %= mod;\n            }\n        }\n\n        return memo[i][a1][a2] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int maxNum = *max_element(nums.begin(), nums.end());\n\n        memo.resize(n, vector<vector<long long>>(maxNum + 1, vector<long long>(maxNum + 1, -1)));\n        return (int)dfs(nums, 0, maxNum, 0);\n    }\n};",
+    "submit_ts": "1723345686",
+    "subm_id": "1351561168"
+}

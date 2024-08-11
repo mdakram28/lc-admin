@@ -1,0 +1,6 @@
+{
+    "username": "PurpleCrayon",
+    "submission": "\nusing ll = long long;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9+7;\n\n        vector<ll> dp(nums[0] + 1, 1);\n        for (int i = 1; i < dp.size(); i++) dp[i] += dp[i-1], dp[i] %= MOD;\n        for (int i = 1; i < nums.size(); i++) {\n            vector<ll> cdp(nums[i] + 1, 0);\n            for (int x = 0; x <= nums[i]; x++) {\n                // y <= x\n                // (nums[i-1] - y) >= (nums[i] - x)\n                    // x + nums[i-1] - nums[i] >= y\n                int bound = min({x, x + nums[i-1] - nums[i], nums[i-1]});\n                if (bound < 0) continue;\n                cdp[x] += dp[bound];\n                if (cdp[x] >= MOD) cdp[x] -= MOD;\n            }\n\n            for (int i = 1; i < cdp.size(); i++) {\n                cdp[i] += cdp[i-1];\n                if (cdp[i] >= MOD) cdp[i] -= MOD;\n            }\n\n            swap(dp, cdp);\n        }\n\n        return dp.back();\n    }\n};",
+    "submit_ts": "1723343926",
+    "subm_id": "1351522024"
+}

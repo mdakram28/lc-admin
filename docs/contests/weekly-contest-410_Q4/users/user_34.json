@@ -1,0 +1,6 @@
+{
+    "username": "scanhex",
+    "submission": "#include <bits/stdc++.h>\n\nusing namespace std;\nusing nagai = long long;\n\n\nconst int mod=1e9+7;\nclass Solution {\npublic:\n    int countOfPairs(const vector<int>& nums) {\n        int n = nums.size();\n        int mx = *max_element(nums.begin(), nums.end());\n        vector<vector<int>>dp(n, vector<int>(mx + 1));\n        vector<vector<int>>pref(n, vector<int>(mx + 2));\n        for (int ft = 0; ft <= nums[0]; ++ft) {\n            dp[0][ft] = 1;\n            pref[0][ft + 1] = pref[0][ft] + dp[0][ft];\n        }\n        for (int i = 1; i < n; ++i) {\n            for (int val = 0; val <= nums[i]; ++val) {\n                int r = val; //incl\n                int val1 = nums[i] - val;\n                int rr = nums[i - 1] - val1;\n                r = min(r, rr);\n                if (r >= 0)\n                  dp[i][val] = pref[i - 1][r + 1];\n            }\n            for (int val = 0; val <= mx; ++val) {\n                pref[i][val + 1] = pref[i][val] + dp[i][val];\n                pref[i][val + 1] %= mod;\n            }\n        }\n        return pref[n - 1][mx + 1];\n    }\n};\n",
+    "submit_ts": "1723344325",
+    "subm_id": "1351531863"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "donavern",
+    "submission": "class Solution {\n    int mod = 1e9+7;\n    const int bt(vector<vector<vector<int>>>& memo,\n        vector<int>& nums, int index, int prevone, int prevtwo)\n    {\n        if(index >= nums.size())\n            return 1;\n\n        if(memo[index][prevone][prevtwo] != -1)\n            return memo[index][prevone][prevtwo];\n\n        memo[index][prevone][prevtwo] = 0;\n            \n        // fix arr 1 value\n        for(int v{prevone}; v <= nums[index]; ++v)\n        {\n            int one = v;\n            int two = nums[index]-one;\n\n            if(two > prevtwo)\n                continue;\n\n            memo[index][prevone][prevtwo] = \n                (memo[index][prevone][prevtwo] + bt(memo,nums,index+1,one,two)) % mod;\n        }\n\n        return memo[index][prevone][prevtwo];\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        // arr1 equal or more\n        // arr2 equal or lesser\n        // same index sum is nums index\n\n        vector<vector<vector<int>>> memo(nums.size(),vector<vector<int>>(51,vector<int>(51,-1)));\n        return bt(memo,nums,0,0,50);\n    }\n};",
+    "submit_ts": "1723344477",
+    "subm_id": "1351535340"
+}

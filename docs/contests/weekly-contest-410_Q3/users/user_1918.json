@@ -1,0 +1,6 @@
+{
+    "username": "kg_codex",
+    "submission": "class Solution {\npublic:\n\n     const int MOD = 1e9 + 7;\n    int memo[2001][51][51];\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(memo, -1, sizeof(memo));\n        \n     \n        function<int(int, int, int)> countPairs = [&](int index, int prevX, int prevY) -> int {\n            if (index >= nums.size()) return 1;\n\n            if (memo[index][prevX][prevY] != -1) return memo[index][prevX][prevY];\n\n            int count = 0;\n            for (int currentX = prevX; currentX <= nums[index]; ++currentX) {\n                int currentY = nums[index] - currentX;\n                if (currentY <= prevY) {\n                    count = (count + countPairs(index + 1, currentX, currentY)) % MOD;\n                }\n            }\n\n            return memo[index][prevX][prevY] = count;\n        };\n\n        return countPairs(0, 0, 50);\n    }\n};",
+    "submit_ts": "1723346440",
+    "subm_id": "1351577633"
+}

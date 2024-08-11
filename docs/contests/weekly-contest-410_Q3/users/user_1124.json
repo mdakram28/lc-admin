@@ -1,0 +1,6 @@
+{
+    "username": "jordan_jj",
+    "submission": "const MOD: i64 = 1_000_000_007;\n\nimpl Solution {\n    pub fn count_of_pairs(values: Vec<i32>) -> i32 {\n        let size = values.len();\n        let mut memo = vec![vec![vec![-1; 51]; 51]; size];\n\n        fn solve(index: usize, val1: usize, val2: usize, values: &Vec<i32>, memo: &mut Vec<Vec<Vec<i64>>>) -> i64 {\n            if index >= values.len() {\n                return 1;\n            }\n\n            if memo[index][val1][val2] != -1 {\n                return memo[index][val1][val2];\n            }\n\n            let mut result = 0;\n            let mod_val = MOD;\n\n            for i in val1..=values[index] as usize {\n                for j in (0..=val2).rev() {\n                    if i + j == values[index] as usize {\n                        result += solve(index + 1, i, j, values, memo);\n                        result %= mod_val;\n                    }\n                }\n            }\n\n            memo[index][val1][val2] = result;\n            result\n        }\n\n        solve(0, 0, values[0] as usize, &values, &mut memo) as i32\n    }\n}\n",
+    "submit_ts": "1723345537",
+    "subm_id": "1351557943"
+}

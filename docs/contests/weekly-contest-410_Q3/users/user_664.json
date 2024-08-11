@@ -1,0 +1,6 @@
+{
+    "username": "hiteshgup09",
+    "submission": "class Solution {\n    private static final int MOD = 1000000007;\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        long count = 0;\n\n        Long dp[][][] = new Long[n][51][51];\n\n        for (int i = 0; i <= nums[0]; i++) {\n            count = (count + findValidPairs(nums, 1, i, nums[0] - i, dp)) % MOD;\n        }\n\n        return (int) count;\n    }\n\n    private long findValidPairs(int[] nums, int idx, int lastArr1, int lastArr2, Long[][][] dp) {\n        if (idx == nums.length) {\n            return 1;\n        }\n\n        if (dp[idx][lastArr1][lastArr2] != null) {\n            return dp[idx][lastArr1][lastArr2];\n        }\n\n        long count = 0;\n\n\n        for (int arr1 = lastArr1; arr1 <= nums[idx]; arr1++) {\n            int arr2 = nums[idx] - arr1;\n            if (arr2 <= lastArr2) {\n                count = (count + findValidPairs(nums, idx + 1, arr1, arr2, dp)) % MOD;\n            }\n        }\n\n        dp[idx][lastArr1][lastArr2] = count;\n        return count;\n    }\n}\n",
+    "submit_ts": "1723344391",
+    "subm_id": "1351533366"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Sankalp2003",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n\n        n = len(nums)\n\n        mx = max(nums)\n\n        dp = [[[-1 for i in range(n+1)] for j in range(mx+1)] for w in range(mx+1)]\n\n        mod = 10**9 + 7\n        \n        def helper(ind, prev1, prev2):\n\n            if ind >= n:\n                return 1\n\n            if dp[prev2][prev1][ind] != -1:\n                return dp[prev2][prev1][ind]\n\n            take = 0\n\n            for i in range(nums[ind]+1):\n                if prev1 == -1 or (i >= prev1 and prev2 >= nums[ind] - i):\n                    take = (take + helper(ind+1, i, nums[ind] - i))%mod\n\n            dp[prev2][prev1][ind] = take\n\n            return dp[prev2][prev1][ind]\n\n            # print()\n\n            return take\n\n        return helper(0, -1, -1)",
+    "submit_ts": "1723346226",
+    "subm_id": "1351572956"
+}

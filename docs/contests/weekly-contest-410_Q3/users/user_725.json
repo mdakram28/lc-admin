@@ -1,0 +1,6 @@
+{
+    "username": "CoderVinit28",
+    "submission": "class Solution {\npublic:\n    int dp[2001][52][52];\n    int MOD = 1e9+7;\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return helper(nums, 0, 0, 51);\n    }\n\n    int helper(vector<int> &nums, int idx, int preva, int prevb){\n        if( idx >= nums.size() ){\n            return 1;\n        } else if( dp[idx][preva][prevb] == -1 ){\n            int ways = 0;\n            for(int a=nums[idx]; a>=0; a--){\n                int b = nums[idx]-a;\n                if( a >= preva && b <= prevb ){\n                    ways = (ways + helper(nums, idx+1, a, b))%MOD;\n                }\n            }\n            dp[idx][preva][prevb] = ways%MOD;\n        }\n        return dp[idx][preva][prevb];\n    }\n};",
+    "submit_ts": "1723344698",
+    "subm_id": "1351540114"
+}

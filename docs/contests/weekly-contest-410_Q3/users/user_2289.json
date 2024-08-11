@@ -1,0 +1,6 @@
+{
+    "username": "jay_7",
+    "submission": "public class Solution {\n    private const int MOD = 1000000007;\n    private Dictionary<string, int> memo = new();\n\n    public int CountOfPairs(int[] nums) {\n        return CountOfPairs(nums, 0, int.MaxValue, 0);\n    }\n\n    private int CountOfPairs(int[] nums, int prevA, int prevB, int index) {\n        if (index == nums.Length)\n            return 1;\n        \n        string key = $\"{prevA}:{prevB}:{index}\";\n        if (memo.ContainsKey(key))\n            return memo[key];\n\n        int count = 0;\n        for (int i = prevA; i <= nums[index]; ++i) {\n            int j = nums[index] - i;\n            if (j >= 0 && j <= prevB) {\n                count = (count + CountOfPairs(nums, i, j, index + 1)) % MOD;\n            }\n        }\n\n        memo.Add(key, count);\n        return count;\n    }\n}",
+    "submit_ts": "1723346854",
+    "subm_id": "1351586591"
+}

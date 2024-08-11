@@ -1,0 +1,6 @@
+{
+    "username": "drknzz",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        MOD = int(1e9) + 7\n        m = max(nums)\n        dp = [[0] * (n + 1) for _ in range(m + 1)]\n\n        up, down = [0], [nums[0]]\n        for i in range(1, n):\n            for j in range(nums[i] + 1):\n                u, d = j, nums[i] - j\n                if u >= up[-1] and d <= down[-1]:\n                    up.append(u)\n                    down.append(d)\n                    break\n            else:\n                return 0\n\n        nums = down\n\n        for i in range(m + 1):\n            dp[i][-1] = 1\n\n        for j in range(n - 1, -1, -1):\n            for i in range(m, -1, -1):\n                if i > nums[j] or dp[i][j+1] == 0:\n                    continue\n                if i == nums[j]:\n                    dp[i][j] = 1\n                    continue\n                dp[i][j] = dp[i+1][j] + dp[i][j+1]\n                dp[i][j] %= MOD\n\n        # for row in dp:\n        #     print(row)\n\n        return dp[0][0]",
+    "submit_ts": "1723347875",
+    "subm_id": "1351607245"
+}

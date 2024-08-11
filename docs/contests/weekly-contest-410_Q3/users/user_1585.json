@@ -1,0 +1,6 @@
+{
+    "username": "UnXjOgKHtg",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n    int func(int last,int i,vector<int> &nums,vector<vector<int>> &dp){\n        if(i==nums.size()){\n            return 1;\n        }\n        if(last>nums[i]){\n            return 0;\n        }\n        if(dp[last][i]!=-1){\n            return dp[last][i];\n        }\n        int ans=0;\n        if(i==0){\n            for(int k=0;k<=nums[i];k++){\n                ans=(ans+func(k,i+1,nums,dp)%mod)%mod;\n            }\n        }\n        else{\n            for(int k=last;k<=nums[i];k++){\n                if(i>0 && (nums[i]-k)<=(nums[i-1]-last)){\n                    ans=(ans+func(k,i+1,nums,dp)%mod)%mod;\n                }\n            }\n        }\n        return dp[last][i]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<int>> dp(51,vector<int>(n+1,-1));\n        return func(0,0,nums,dp);\n    }\n};",
+    "submit_ts": "1723345980",
+    "subm_id": "1351567519"
+}

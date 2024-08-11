@@ -1,0 +1,6 @@
+{
+    "username": "tenshi0x0",
+    "submission": "class Solution {\npublic:\n    int f[2020][1010];\n\n    const int mod=1e9+7;\n\n    int add(int x, int y){\n        return (x+y>=mod? x+y-mod: x+y<0? x+y+mod: x+y);\n    }\n\n    int countOfPairs(vector<int>& w) {\n        int n=w.size();\n        for(int i=0; i<=w[0]; i++) f[0][i]=1;\n\n        for(int i=1; i<n; i++){\n            for(int k=0; k<=w[i-1]; k++){\n                int x=max(k, k+w[i]-w[i-1]);\n                int val=f[i-1][k];\n                // for(int j=x; j<=w[i]; j++) f[i][j]=add(f[i][j], f[i-1][k]);\n                f[i][x]=add(f[i][x], val);\n                f[i][w[i]+1]=add(f[i][w[i]+1], -val);\n            }\n            for(int j=1; j<=w[i]; j++) f[i][j]=add(f[i][j], f[i][j-1]);\n        }\n\n        int res=0;\n        for(int i=0; i<=w[n-1]; i++) res=add(res, f[n-1][i]);\n        return res;\n    }\n};",
+    "submit_ts": "1723345128",
+    "subm_id": "1351549169"
+}

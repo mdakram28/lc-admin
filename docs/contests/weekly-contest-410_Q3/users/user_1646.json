@@ -1,0 +1,6 @@
+{
+    "username": "alienncheng",
+    "submission": "class Solution {\npublic:\n    long long mod = 1e9+7, mx;\n    vector<vector<long long>> dp;\n\n    long long helper(vector<int>& nums, int i, int prevA1, int prevA2) {\n        if (i == nums.size()) return 1;\n        if (dp[i][prevA1] >= 0) {\n            return dp[i][prevA1];\n        }\n\n        dp[i][prevA1] = 0;\n        for (int a1 = prevA1; a1 <= nums[i]; ++a1) {\n            int a2 = nums[i] - a1;\n            if (a2 > prevA2) continue;\n            dp[i][prevA1] = (dp[i][prevA1] + helper(nums, i+1, a1, a2)) % mod;\n        }\n        return dp[i][prevA1];\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        mx = *max_element(nums.begin(), nums.end());\n        dp.assign(2001, vector<long long>(51, -1));\n        return helper(nums, 0, 0, mx);\n    }\n};",
+    "submit_ts": "1723346370",
+    "subm_id": "1351576064"
+}

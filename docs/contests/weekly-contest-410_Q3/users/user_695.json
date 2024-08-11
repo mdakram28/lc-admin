@@ -1,0 +1,6 @@
+{
+    "username": "ninja_master2002",
+    "submission": "class Solution {\n    #define ll long long \n    #define mod (ll)(1e9+7)\n    ll dp[2000][51][51];\n    ll helper(int idx,vector<int>&nums,int a,int b){\n        if(idx==nums.size())return 1;\n        \n        if(dp[idx][a][b]!=-1)return dp[idx][a][b];\n        ll ans=0;\n        if(idx==0){\n            for(int i=0;i<=nums[idx];i++){\n                ans+=helper(idx+1,nums,i,nums[idx]-i);\n                ans%=mod;\n            }\n        }\n        else{\n            for(int i=0;i<=nums[idx];i++){\n                if(i>=a && nums[idx]-i<=b){\n                    ans+=helper(idx+1,nums,i,nums[idx]-i);\n                    ans%=mod;\n                }\n            }\n        }\n        return dp[idx][a][b]=ans;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        memset(dp,-1,sizeof(dp));\n        return helper(0,nums,0,0);\n    }\n};",
+    "submit_ts": "1723344594",
+    "subm_id": "1351537911"
+}

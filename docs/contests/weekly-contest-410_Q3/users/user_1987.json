@@ -1,0 +1,6 @@
+{
+    "username": "code_plasplas",
+    "submission": "class Solution {\npublic:\n    \n    int mod = 1e9+7;\n    vector<vector<int>>mem;\n    \n    int find(vector<int>& nums, int v1, int v2, int idx) {\n        if(idx == nums.size()) {\n            return 1;\n        }\n        if(mem[v1+1][idx] != -1)\n            return mem[v1+1][idx];\n        int num = nums[idx];\n        int ans = 0;\n        for(int k=0; k<=num; k++) {\n            if(k>=v1 && num-k<=v2) {\n                ans = (ans%mod + find(nums, k, num-k, idx+1)%mod) %mod;\n            }\n        }\n        return mem[v1+1][idx] = ans;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        /*\n        2 3 2\n        0 1,2 1\n        2 2,1 1\n        1 2\n        1 1\n        \n        2\n        \n        \n        <= <= <=\n        >= >= >=\n        n1\n        0 to n1/2\n        [i]\n        [n1 - i]\n        (i, j, ) {\n        \n        }\n        */\n        // cout<<nums.size()<<endl;\n        mem = vector<vector<int>>(52, vector<int>(nums.size(), -1));\n\n        // mem = vector<vector<vector<int>>>(52, vector<vector<int>>(51, vector<int>(nums.size(), -1)));\n        return find(nums, -1, nums[0], 0);\n    }\n};",
+    "submit_ts": "1723346214",
+    "subm_id": "1351572723"
+}

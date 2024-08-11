@@ -1,0 +1,6 @@
+{
+    "username": "michaelm12358",
+    "submission": "const MOD = 1e9+7;\n/**\n * @param {number[]} nums\n * @return {number}\n */\nvar countOfPairs = function(nums) {\n    let result = 0;\n\n    let dp = [];\n    for(let i = 0; i <= nums[0]; ++i) {\n        result += dfs(i, nums[0]-i, 1);\n        result = result % MOD;\n    }\n\n    return result % MOD;\n\n    function dfs(prev1, prev2, idx) {\n        let dpIdx = idx*51 + prev1;\n        if(dpIdx in dp) { return dp[dpIdx]; }\n\n        if(idx >= nums.length) { return 1; }\n        \n        //prev1 has to increase, prev2 has to decrease\n        let count = 0;\n        for(let newPrev1 = Math.max(prev1, nums[idx]-prev2); newPrev1 <= nums[idx]; ++newPrev1) {\n            let newPrev2 = nums[idx]-newPrev1;\n            if(newPrev2 <= prev2 && newPrev2 >= 0) {\n                count += dfs(newPrev1, newPrev2, idx+1);\n                count = count % MOD;\n            }\n        }\n\n        dp[dpIdx] = count;\n\n        return count;\n    }\n    \n};",
+    "submit_ts": "1723346743",
+    "subm_id": "1351584202"
+}

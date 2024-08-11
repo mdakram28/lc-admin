@@ -1,0 +1,6 @@
+{
+    "username": "tonyli00000",
+    "submission": "class Solution {\npublic:\n\tconst long long MOD = 1e9 + 7;\n\tvoid compute(vector<int>& sum, vector<int>& dp) {\n\t\tfor (int i = 0; i < dp.size(); i++)sum[i + 1] = (sum[i] + dp[i]) % MOD;\n\t}\n\tint countOfPairs(vector<int>& nums) {\n\t\tint n = nums.size();\n\t\tnums.insert(nums.begin(), 1000);\n\t\t// at index i, arr1[i] = j\n\t\tvector<vector<int>>dp(n+2);\n\t\tvector<vector<int>>sum(n + 2);\n\t\tfor (int i = 0; i <= n; i++)dp[i].resize(nums[i] + 1), sum[i].resize(nums[i] + 2);\n\t\tdp[0][0] = 1;\n\t\tcompute(sum[0], dp[0]);\n\t\tfor (int i = 1; i <= n; i++) {\n\t\t\tfor (int k = 0; k <= nums[i]; k++) {\n\t\t\t\tint arr2 = nums[i] - k;\n\t\t\t\tint l = 0, r = k;\n\t\t\t\tif (arr2 > nums[i - 1] - r)r -= (arr2 - (nums[i - 1] - r));\n\t\t\t\tif (l <= r)dp[i][k] = sum[i - 1][r + 1] - sum[i - 1][l];\n\t\t\t}\n\t\t\tcompute(sum[i], dp[i]);\n\t\t}\n\t\tlong long ret = 0;\n\t\tfor (int i = 0; i < min((int)dp[n].size(), 1001); i++)ret = (ret + dp[n][i]) % MOD;\n\t\treturn ret;\n\t}\n};",
+    "submit_ts": "1723344897",
+    "subm_id": "1351544373"
+}

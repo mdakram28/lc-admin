@@ -1,0 +1,6 @@
+{
+    "username": "amruteswar",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n    vector<vector<int>> dp;\n    int fun(int i,int pv1,vector<int> &nums){\n        if(i == nums.size()) return 1;\n        int ans = 0;\n        if(dp[i][pv1 + 1] != -1) return dp[i][pv1 + 1];\n        if(pv1 == -1){\n            for(int k = 0; k <= min(50,nums[i]);k++){\n                ans = (ans + fun(i + 1,k,nums)) % mod;\n            }\n        }\n        else{\n            for(int k = 0; k <=  min(50,nums[i]);k++){\n                int pv2 = nums[i - 1] - pv1;\n                if(pv1 <= k && pv2 >= (nums[i] - k) ){\n                    ans = (ans + fun(i + 1,k,nums)) % mod;\n                }\n            }\n        }\n        return dp[i][pv1 + 1] = ans;\n        \n    }\n    int countOfPairs(vector<int>& nums) {\n        dp.resize(nums.size() + 1,vector<int> (55 , -1));\n        int ans = fun(0,-1,nums);\n        return ans;\n    }\n};",
+    "submit_ts": "1723345464",
+    "subm_id": "1351556356"
+}

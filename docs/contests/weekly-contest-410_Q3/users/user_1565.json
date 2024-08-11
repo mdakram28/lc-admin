@@ -1,0 +1,6 @@
+{
+    "username": "Consistent_Contest",
+    "submission": "#define ll long long int\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& inputValues) {\n        int numberOfElements = inputValues.size();\n        vector<vector<vector<ll>>> memoization(numberOfElements, vector<vector<ll>>(51, vector<ll>(51, -1)));\n\n        function<ll(int, int, int)> computePairs = [&](int currentIndex, int firstValue, int secondValue) -> ll {\n            if (currentIndex >= inputValues.size()) return 1;\n            ll pairCount = 0;\n            ll moduloValue = 1e9+7; \n            if (memoization[currentIndex][firstValue][secondValue] != -1) return memoization[currentIndex][firstValue][secondValue];\n            \n            for (int i = firstValue; i <= inputValues[currentIndex]; i++) {\n                for (int j = secondValue; j >= 0; j--) {\n                    if (i + j == inputValues[currentIndex]) {\n                        pairCount += computePairs(currentIndex + 1, i, j);\n                        pairCount = pairCount % moduloValue;\n                    }\n                }\n            }\n            return memoization[currentIndex][firstValue][secondValue] = pairCount;\n        };\n\n        return computePairs(0, 0, inputValues[0]);\n    }\n};\n",
+    "submit_ts": "1723346249",
+    "subm_id": "1351573444"
+}

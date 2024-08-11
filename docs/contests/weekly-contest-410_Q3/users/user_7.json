@@ -1,0 +1,6 @@
+{
+    "username": "flashmt",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& a) {\n    int n = size(a);\n    int C = 1010;\n    int BASE = 1e9 + 7;\n    vector<int> f(C);\n    for (int i = 0; i < C; i++)\n    {\n      if (i <= a[0])\n        f[i] = 1;\n      if (i)  \n        f[i] += f[i - 1];\n    }\n\n    for (int i = 1; i < n; i++)\n    {\n      vector<int> newF(C);\n      for (int j = 0; j <= a[i]; j++)\n      {\n        if (a[i] <= a[i - 1]) newF[j] = f[j];\n        else if (j >= a[i] - a[i - 1]) newF[j] = f[j - (a[i] - a[i - 1])];\n\n        if (j)\n        {\n          newF[j] += newF[j - 1];\n          if (newF[j] >= BASE)\n            newF[j] -= BASE;\n        }\n      }\n      for (int j = a[i] + 1; j < C; j++)\n        newF[j] = newF[j - 1];\n      swap(f, newF);\n    }\n\n    return f[C - 1];\n  }\n};",
+    "submit_ts": "1723344301",
+    "subm_id": "1351531321"
+}

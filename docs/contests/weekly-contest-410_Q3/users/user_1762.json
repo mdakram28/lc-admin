@@ -1,0 +1,6 @@
+{
+    "username": "vishwas_7",
+    "submission": "#include <vector>\n#include <map>\n#include <utility>\n\nconst int MOD = 1e9 + 7;\n\nusing namespace std;\n\nclass Solution {\npublic:\n\n    int solve(int i, int inc, int dec, vector<int>& nums, map<pair<int, pair<int, int>>, int>& memo) {\n        if (i >= nums.size()) {\n            return 1;\n        }\n\n        \n        auto key = make_pair(i, make_pair(inc, dec));\n        \n   \n        if (memo.find(key) != memo.end()) {\n            return memo[key];\n        }\n\n        int count = 0;\n        for (int j = inc; j <= nums[i]; ++j) {\n            int arr1 = j;\n            int arr2 = nums[i] - j;\n\n            if (arr1 >= 0 && arr2 >= 0 && arr1 >= inc && arr2 <= dec) {\n                count = (count + solve(i + 1, arr1, arr2, nums, memo)) % MOD;\n            }\n        }\n\n        memo[key] = count;\n        return count;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        map<pair<int, pair<int, int>>, int> memo;\n        return solve(0, 0, nums[0], nums, memo);\n    }\n};\n",
+    "submit_ts": "1723346229",
+    "subm_id": "1351573026"
+}

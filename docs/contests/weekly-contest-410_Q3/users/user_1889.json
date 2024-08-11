@@ -1,0 +1,6 @@
+{
+    "username": "pintu2000",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n      unordered_map<long long, long long> dp;\n        return solve(nums, 0, 0ll, 50, dp);\n    }\n\nprivate:\n    long long hash(int i, long long mn, long long mx) const {\n        const long long base = 100000; \n        return i * base * base + mn * base + mx;\n    }\n\n    long long solve(vector<int>& nums, int i, long long mn, long long mx, unordered_map<long long, long long> &dp) {\n        if (i >= nums.size()) return 1;\n\n        long long key = hash(i, mn, mx);\n        if (dp.find(key) != dp.end()) return dp[key];\n\n        long long count = 0;\n        for (int j = 0; j <= nums[i]; ++j) {\n            if (j >= mn && nums[i] - j <= mx) {\n                count = (count + solve(nums, i + 1, j, nums[i] - j, dp)) % 1000000007;\n            }\n        }\n\n        dp[key] = count;\n        return count;\n    }\n};",
+    "submit_ts": "1723346700",
+    "subm_id": "1351583303"
+}

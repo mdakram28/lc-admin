@@ -1,0 +1,6 @@
+{
+    "username": "kartik_gupta03",
+    "submission": "class Solution {\n    private:\n    int rec(int i , int j ,vector<vector<int>>&dp , vector<int>&v , int n){\n        int mod=1e9+7;\n        if(i>=n){\n            return 1;\n        }\n        if(dp[i][j]==-1){\n            int cnt=0;\n            int x;\n            x=v[i]-v[i-1]+j;\n            x=max(x,j);\n            for(int j=x ; j<=v[i] ; j++){\n                int vl=rec(i+1,j,dp,v,n);\n                cnt=((cnt%mod)+(vl%mod))%mod;\n            }\n            return dp[i][j]=cnt;\n        }\n        else return dp[i][j];\n    }\npublic:\n    int countOfPairs(vector<int>&v) {\n        int mod=1e9+7;\n        int n=v.size();\n        vector<vector<int>>dp;\n        for(int i=0 ; i<n ; i++){\n            vector<int>tmp(51,-1);\n            dp.push_back(tmp);\n        }\n        int ans=0;\n        for(int i=0 ; i<=v[0] ; i++){\n            ans=((ans%mod)+(rec(1,(i),dp,v,n)%mod))%mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723347025",
+    "subm_id": "1351590286"
+}

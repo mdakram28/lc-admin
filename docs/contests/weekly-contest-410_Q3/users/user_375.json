@@ -1,0 +1,6 @@
+{
+    "username": "1abhi",
+    "submission": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        long long MOD = 1e9 + 7;\n        int n = nums.size();\n        vector<vector<long long>> dp(n, vector<long long>(51, 0));\n        \n        for (int i = 0; i <= nums[0]; i++) {\n            dp[0][i] = 1;\n        }\n\n        for (int i = 1; i < n; i++) {\n            for(int j=0;j<=nums[i];j++){\n                for(int s=0;s<=j;s++){\n                    if(nums[i-1]-s>=nums[i]-j){\n                        dp[i][j]+=dp[i-1][s]%MOD;\n                        dp[i][j]%=MOD;\n                    }\n                }\n            }\n        }\n\n        long long result = 0;\n        for (int i = 0; i <= nums[n-1]; i++) {\n            result = (result + dp[n - 1][i]) % MOD;\n        }\n\n        return result%MOD;\n    }\n};\n",
+    "submit_ts": "1723345749",
+    "subm_id": "1351562519"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "aypatrl04",
+    "submission": "class Solution {\n    private static final int MOD = 1_000_000_007;\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        int max = 0;\n        for (int num : nums) max = Math.max(max, num);\n        long[][] dp = new long[n][max + 1];\n        for (int i = 0; i <= nums[0]; i++) dp[0][i] = 1;\n        for (int i = 1; i < n; i++) {\n            long sum = 0;\n            int diff = nums[i - 1] - nums[i];\n            for (int j = 0; j <= nums[i]; j++) {\n                int arr2i = nums[i] - j;\n                if (diff < 0) {\n                    if (arr2i > nums[i - 1]) continue;\n                    sum += dp[i - 1][nums[i - 1] - arr2i];\n                    dp[i][j] = sum % MOD;\n                } else {\n                    sum += dp[i - 1][nums[i - 1] - arr2i - diff];\n                    dp[i][j] = sum % MOD;\n                }\n            }\n        }\n        long res = 0;\n        for (int i = 0; i <= nums[n - 1]; i++) {\n            res += dp[n - 1][i];\n            res %= MOD;\n        }\n        return (int) (res % MOD);\n    }\n}",
+    "submit_ts": "1723348398",
+    "subm_id": "1351617420"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "incognito123",
+    "submission": "#define ll long long\n\nclass Solution {\npublic:\n    ll mod=1e9+7;\n    ll dp[2001][1001];\n    \n    ll count(ll i,ll last,vector<int>& nums) {\n        if(i==nums.size()) return 1;\n        if (dp[i][last]!=-1) return dp[i][last];\n        \n        ll fk=0;\n        for (ll j=last;j<=nums[i];j++) {\n            ll tk=nums[i]-j;\n            if(i==0||tk<=nums[i-1]-last) fk=(fk+count(i+1,j,nums))%mod;\n        }\n        return dp[i][last]=fk;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        ll n=nums.size();\n        ll maxi=0;\n        for(auto p:nums) maxi=max(maxi,(ll)p);\n        for(ll i=0;i<=n;i++) for(ll j=0;j<=maxi;j++) dp[i][j]=-1;\n        memset(dp,-1,sizeof(dp));\n        return count(0,0,nums);\n    }\n};\n",
+    "submit_ts": "1723345967",
+    "subm_id": "1351567248"
+}

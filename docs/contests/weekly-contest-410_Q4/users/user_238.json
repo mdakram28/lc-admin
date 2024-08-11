@@ -1,0 +1,6 @@
+{
+    "username": "Cipher_07",
+    "submission": "int mod = 1e9 + 7;\nint dp[2002][1001];\nint pre[2002][1001];\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        nums.insert(nums.begin(), 1000);\n\n        for(int i = n + 1; i >= 1; i--) {\n            for(int j = 0; j <= nums[i - 1]; j++) {\n                if(i == n + 1)\n                    dp[i][j] = 1;\n                else {\n                    int k = nums[i - 1] - j;\n                    long long ans = 0;\n                    int t = max(j, nums[i] - k);\n                    if(t <= nums[i]) {\n                        ans = pre[i + 1][nums[i]];\n                        if(t > 0)\n                            ans = (ans - pre[i + 1][t - 1] + mod) % mod;\n                    }\n\n                    dp[i][j] = ans;\n                }\n            }\n\n            pre[i][0] = dp[i][0];\n            for(int j = 1; j <= nums[i - 1]; j++)\n                pre[i][j] = (pre[i][j - 1] + dp[i][j]) % mod;\n        }\n\n        return dp[1][0];\n    }\n};",
+    "submit_ts": "1723346513",
+    "subm_id": "1351579256"
+}

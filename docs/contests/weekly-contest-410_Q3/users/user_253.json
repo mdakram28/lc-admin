@@ -1,0 +1,6 @@
+{
+    "username": "Traveller_",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        int mod = 1000000007;\n\n        long long dp[n][1001];\n        long long pre[n][1001];\n\n        for(int i=0;i<n;i++){\n            for(int j=0;j<=1000;j++){\n                dp[i][j]=0;\n                pre[i][j]=0;\n            }\n        }\n\n        for(int j=0;j<=nums[0];j++){\n            dp[0][j] = 1;\n        }\n        for(int j=0;j<=1000;j++){\n            pre[0][j] = (j?pre[0][j-1]:0) + dp[0][j];\n        }\n\n        for(int i=1;i<n;i++){\n            for(int j=0;j<=nums[i];j++){\n                int l = nums[i-1]-nums[i]+j;\n                l = min(l,j);\n                if(l<0)continue;\n                dp[i][j] = pre[i-1][l];\n            }\n\n            for(int j=0;j<=1000;j++){\n                pre[i][j] = (j?pre[i][j-1]:0) + dp[i][j];\n                pre[i][j]%=mod;\n            }\n        }\n\n        // for(int i=0;i<n;i++){\n        //     for(int j=0;j<=nums[i];j++){\n        //         cout<<dp[i][j]<<\" \";\n        //     }\n        //     cout<<\"\\n\";\n        // }\n\n        long long ans = pre[n-1][1000];\n\n        return ans;\n    }\n};",
+    "submit_ts": "1723346600",
+    "subm_id": "1351581139"
+}

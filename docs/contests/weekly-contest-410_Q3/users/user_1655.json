@@ -1,0 +1,6 @@
+{
+    "username": "harshjainudr",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n    int f(int i, int left, int right, vector<int> &nums, vector<vector<vector<long>>> &dp){\n        if(i == nums.size())return 1;\n        if(dp[i][left][right]!=-1)return dp[i][left][right];\n        int val_l = left;\n        long ans = 0;\n        while(val_l<=nums[i]){\n            int val_r = nums[i]-val_l;\n            if(val_r<=right){\n                ans += (long)f(i+1, val_l, val_r, nums, dp);\n                ans %= mod;\n            }\n            val_l++;\n        }\n        return dp[i][left][right]=ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<long>>> dp(n, vector<vector<long>>(52, vector<long>(52, -1)));\n        return f(0, 0, 51, nums, dp);\n    }\n};",
+    "submit_ts": "1723346383",
+    "subm_id": "1351576385"
+}

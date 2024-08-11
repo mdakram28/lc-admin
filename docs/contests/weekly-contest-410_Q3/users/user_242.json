@@ -1,0 +1,6 @@
+{
+    "username": "Runqiu_Ye",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        dp0 = [0] * 55\n        dp1 = [0] * 55\n        mod = 10 ** 9 + 7\n        n = len(nums)\n        for j in range(nums[0] + 1):\n            dp0[j] = (j + 1) % mod\n\n        # print(dp0)\n        for i in range(1, n):\n            for j in range(nums[i] + 1):\n                idx = min(j, nums[i-1] - nums[i] + j)\n                dp1[j] = dp0[idx] % mod if idx >= 0 else 0\n                dp1[j] += dp1[j-1] % mod if j != 0 else 0\n                dp1[j] %= mod\n            dp0 = dp1\n            dp1 = [0] * 55\n            # print(dp0)\n        return dp0[nums[-1]] % mod\n\n        ",
+    "submit_ts": "1723345584",
+    "subm_id": "1351558915"
+}

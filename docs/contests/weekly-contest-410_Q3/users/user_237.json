@@ -1,0 +1,6 @@
+{
+    "username": "n2xiong",
+    "submission": "import collections\n\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        P = 10 ** 9 + 7\n        old = collections.defaultdict(int)\n        for a in range(nums[-1] + 1):\n            b = nums[-1] - a\n            if b >= 0:\n                old[(a,b)] = 1\n        for i in range(len(nums)-2, -1, -1):\n            new = collections.defaultdict(int)\n            for a in range(nums[i] + 1):\n                b = nums[i] - a\n                for x in range(a, nums[i+1] + 1):\n                    y = nums[i+1] - x\n                    if y >= 0 and y <= b:\n                        new[(a,b)] += old[(x,y)]\n                new[(a,b)] %= P\n            old = new\n        ans = 0\n        for v in old.values():\n            ans += v\n        return ans % P",
+    "submit_ts": "1723345420",
+    "subm_id": "1351555392"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "prabhxs",
+    "submission": "class Solution {\nprivate:\n    long long dp[2001][51];\n    const int mod = 1e9 + 7;\n    long long memo(int idx, int prevValOne, int prevValTwo, int n, vector<int> &nums){\n        if( idx == n ){\n            return 1 * 1ll;\n        }\n        long long &ans = dp[idx][prevValOne];\n        if( ans != -1 ) return ans;\n        long long cnt = 0;\n        for(int i = prevValOne;nums[idx] - i >= 0; i++){\n            if(nums[idx] - i <= prevValTwo){\n                cnt += memo(idx + 1, i, nums[idx] - i, n, nums);\n                cnt %= mod;\n            }\n        }\n        return ans = cnt;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        vector<int> t, s;\n        memset(dp, -1, sizeof(dp));\n        long long cntPairs = memo(0, 0, 1e9, nums.size(), nums);\n        return cntPairs;\n    }\n};",
+    "submit_ts": "1723345777",
+    "subm_id": "1351563089"
+}

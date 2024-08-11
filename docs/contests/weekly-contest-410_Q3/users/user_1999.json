@@ -1,0 +1,6 @@
+{
+    "username": "snooooopy",
+    "submission": "using ll = long long;\nclass Solution {\npublic:\n    ll dp[2005][1005];\n    int MOD = 1e9 + 7;\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return dfs(0, 0, nums);\n    }\n\n    ll dfs(int i, int pre1, vector<int>& nums) {\n        int n = nums.size();\n        if (n == i)\n            return 1;\n        if (~dp[i][pre1])\n            return dp[i][pre1];\n        int pre2 = i == 0 ? 1001 : nums[i-1] - pre1;\n        int val = 0;\n        for (int x = pre1; x <= nums[i]; x++) {\n            int y = nums[i] - x;\n            if (y > pre2)\n                continue;\n            if (y < 0)\n                break;\n            val = (val + dfs(i+1, x, nums)) % MOD;\n        }\n        return dp[i][pre1] = val;\n    }\n};",
+    "submit_ts": "1723346832",
+    "subm_id": "1351586113"
+}

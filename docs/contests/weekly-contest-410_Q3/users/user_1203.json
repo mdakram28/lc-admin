@@ -1,0 +1,6 @@
+{
+    "username": "zlwang",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        dec_upper = float('inf')\n        inc_lower = -float('inf')\n        mod = pow(10, 9) + 7\n        return self.count(0, nums, dec_upper, inc_lower, {}, mod)\n\n    def count(self, i, nums, dec_upper, inc_lower, visited, mod):\n        if i == len(nums):\n            return 1\n\n        if (i, dec_upper, inc_lower) in visited:\n            return visited[(i, dec_upper, inc_lower)]\n\n        state = (i, dec_upper, inc_lower)\n        visited[state] = 0\n        for new_dec_upper in range(0, min(nums[i], dec_upper) + 1 ):\n            if nums[i] - new_dec_upper < inc_lower:\n                break\n            visited[state] = (visited[state] + self.count(i + 1, nums, new_dec_upper, nums[i] - new_dec_upper, visited, mod)) % mod\n        return visited[state] \n        ",
+    "submit_ts": "1723345379",
+    "subm_id": "1351554468"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "MAINAK_DASGUPTA_2021",
+    "submission": "class Solution {\npublic:\n    static const int MOD = 1e9 + 7;\n    int dp[2001][51][51];  \n    \n    Solution() {\n        memset(dp, -1, sizeof(dp));\n    }\n\n    int findPairs(vector<int>& nums, int idx, int prev1, int prev2) {\n        if (idx >= nums.size()) {\n            return 1;\n        }\n        \n        if (dp[idx][prev1][prev2] != -1) {\n            return dp[idx][prev1][prev2];\n        }\n        \n        int ans = 0;\n        for (int i = 0; i <= nums[idx]; ++i) {\n            int arr1_val = i;\n            int arr2_val = nums[idx] - i;\n            if (arr1_val >= prev1 && arr2_val <= prev2) {\n                ans = (ans + findPairs(nums, idx + 1, arr1_val, arr2_val)) % MOD;\n            }\n        }\n        \n        dp[idx][prev1][prev2] = ans;\n        return ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        return findPairs(nums, 0, 0, 50);\n    }\n};\n\n\n",
+    "submit_ts": "1723346611",
+    "subm_id": "1351581368"
+}

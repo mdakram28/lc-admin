@@ -1,0 +1,6 @@
+{
+    "username": "WuWenChun",
+    "submission": "#define M(n)    ((n)%1000000007)\n// Since the answer may be very large, return it modulo 109 + 7.\nclass Solution {\npublic:\n    int bt(vector<int>& nums, vector<map<int,int>>&dp, \n            int ni, int prev1, int prev2)\n    {\n        if(ni == nums.size())return 1;\n        else if(dp[ni].count(prev1) != 0)return dp[ni][prev1];\n\n        long long res = 0;\n        for(int curv1 = prev1, curv2; curv1 < nums[ni]; ++curv1){\n            curv2 = nums[ni] - curv1;\n            if(prev2 < curv2)continue;\n            res = M(res + bt(nums, dp, ni+1, curv1, curv2));\n        }\n        return dp[ni][prev1] = M(res);\n    }\n    int countOfPairs(vector<int>& nums) {\n        /*\n        The lengths of both arrays are n.\n        arr1 is monotonically non-decreasing\n        arr2 is monotonically non-increasing\n        arr1[i] + arr2[i] == nums[i] for all 0 <= i <= n - 1.\n        */\n        int nlen = nums.size();\n        vector<map<int,int>> dp(nlen);\n        return bt(nums, dp, 0, -1, INT_MAX);\n    }\n};",
+    "submit_ts": "1723345968",
+    "subm_id": "1351567262"
+}

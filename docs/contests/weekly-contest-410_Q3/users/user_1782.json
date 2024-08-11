@@ -1,0 +1,6 @@
+{
+    "username": "snowfoxy",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        modulo = 10 ** 9 + 7\n        n = len(nums)\n        \n        @functools.cache\n        def count(index, prev_a1, prev_a2):\n            #print(index, prev_a1, prev_a2)\n            if index == -1:\n                return 1\n            \n            s = 0\n            for a1 in range(min(nums[index], prev_a1) + 1):\n                a2 = nums[index] - a1\n                #print(\"cand\", index, a1, a2)\n                if a2 < prev_a2:\n                    continue\n                s = (s + count(index - 1, a1, a2)) % modulo\n            return s\n        \n        return count(n - 1, 51, 0)\n        ",
+    "submit_ts": "1723346268",
+    "subm_id": "1351573846"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "lilphoenix",
+    "submission": "#include <vector>\n#include <cstring>\nusing namespace std;\n\nclass Solution {\npublic:\n    static const int MOD = 1e9 + 7;\n    int dp[2001][51][51];\n    \n    int solveRec(vector<int>& nums, int index, int prev1, int prev2) {\n        if (index == nums.size()) return 1; \n        \n        if (dp[index][prev1][prev2] != -1) {\n            return dp[index][prev1][prev2]; \n        }\n        \n        int count = 0; \n        for (int i = 0; i <= nums[index]; i++) {\n            int j = nums[index] - i; \n            \n            if (i >= prev1 && j <= prev2) {\n                count += solveRec(nums, index + 1, i, j);\n                count %= MOD; \n            }\n        }\n        \n        return dp[index][prev1][prev2] = count; \n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp)); \n        return solveRec(nums, 0, 0, 50); \n    }\n};\n",
+    "submit_ts": "1723346008",
+    "subm_id": "1351568125"
+}

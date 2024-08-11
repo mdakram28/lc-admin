@@ -1,0 +1,6 @@
+{
+    "username": "nitishrai57",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& arr) {\n                int mod = 1000000007;\n        int n = arr.size();\n        int dp[2][1002];\n        for(int i=0;i<=1001;i++)dp[1][i]=0,dp[0][i]=0;\n        for(int i=0;i<=arr[0];i++)dp[0][i]=1;\n        for(int i=1;i<=1000;i++)dp[0][i]+=dp[0][i-1];\n        for(int i=1;i<n;i++){\n            for(int j=0;j<=arr[i];j++){\n                int ind = min(arr[i-1]-arr[i]+j,j);\n                // cout<<i <<\" \" << j << ind <<\" \" << endl;\n                if(ind<0)continue;\n                dp[i%2][j] = dp[1-i%2][ind];\n            }\n            for(int j=1;j<=1000;j++){\n                dp[i%2][j]+=dp[i%2][j-1];\n                dp[i%2][j]%=mod;\n                dp[1-i%2][j]=0;\n            }\n            dp[1-i%2][0]=0;\n        }\n        return dp[(n-1)%2][1000];\n    }\n};",
+    "submit_ts": "1723344983",
+    "subm_id": "1351546177"
+}

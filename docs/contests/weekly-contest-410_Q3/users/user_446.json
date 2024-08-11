@@ -1,0 +1,6 @@
+{
+    "username": "u1904123",
+    "submission": "class Solution {\npublic:\n    int mod = 1e9 + 7;\n    int dp[2005][55];\n    int solve(int ind, int pre, vector<int>& nums)\n    {\n        //cout << ind << \" \" << pre << endl;\n        if(ind >= nums.size()){\n            return 1;\n        }\n        if(dp[ind][pre] != -1) return dp[ind][pre];\n        int ans = 0;\n        int pr1 = 0, pr2 = 1e9;\n        if(ind - 1>= 0){\n            pr1 = pre;\n            pr2 = nums[ind - 1] - pre;\n        }\n        for(int i = 0; i <= nums[ind]; i++){\n            int c = i;\n            int d = nums[ind] - c;\n            //cout << ind << \" \" << c << \" \" << d << \" \" << pr1 << \" \" << pr2 << endl;\n            if(c >= pr1 && d <= pr2){\n                int ans1 = solve(ind + 1, c, nums) % mod;\n                ans = (ans % mod + ans1 % mod) % mod;\n                if(ans <= 0){\n                    ans = (ans + mod) % mod;\n                }\n            }\n            //cout << \"ans \" << ans << endl;\n        }\n        return dp[ind][pre] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return solve(0, 0, nums);\n    }\n};",
+    "submit_ts": "1723345453",
+    "subm_id": "1351556086"
+}

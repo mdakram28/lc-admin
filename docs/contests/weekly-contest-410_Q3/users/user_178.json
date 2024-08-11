@@ -1,0 +1,6 @@
+{
+    "username": "dmlocdmloc",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int md = 1e9 + 7;\n        vector<vector<long long>> f(nums.size(), vector<long long>(51));\n        for(int i = 0; i <= nums[0]; ++i) f[0][i] = 1;\n        for(int i = 1; i < nums.size(); ++i) {\n            for(int j = 0; j <= nums[i]; ++j) \n                for(int k = 0; k <= nums[i - 1]; ++k) {\n                    if (k <= j && (nums[i - 1] - k >= nums[i] - j)) \n                        f[i][j] = (f[i][j] + f[i - 1][k]) % md;\n                }\n        }\n        \n        long long ret = 0;\n        for(int i = 0 ; i <= nums.back(); ++i) ret = (ret + f.back()[i]) % md;\n        return ret;\n    }\n};",
+    "submit_ts": "1723344987",
+    "subm_id": "1351546241"
+}

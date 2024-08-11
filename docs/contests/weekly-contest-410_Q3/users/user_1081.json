@@ -1,0 +1,6 @@
+{
+    "username": "SatAy_5k",
+    "submission": "class Solution {\n    int MOD = 1000000007;\n    Integer[][] memo;\n\n    public int help(int[] nums, int ind, int prev) {\n        if (ind == nums.length) {\n            return 1;\n        }\n        \n        if (memo[ind][prev + 1] != null) {\n            return memo[ind][prev + 1];\n        }\n\n        int count = 0;\n        for (int i = 0; i <= nums[ind]; i++) {\n            if (ind == 0 || i >= prev) {\n                int arr2_i = nums[ind] - i;\n                if (ind == 0 || arr2_i <= nums[ind - 1] - prev) {\n                    count = (count + help(nums, ind + 1, i)) % MOD;\n                }\n            }\n        }\n        \n        memo[ind][prev + 1] = count;\n        return count;\n    }\n\n    public int countOfPairs(int[] nums) {\n        \n        int maxNum = Arrays.stream(nums).max().getAsInt();\n        \n        memo = new Integer[nums.length][maxNum + 2];\n\n        return help(nums, 0, -1);\n    }\n}\n",
+    "submit_ts": "1723345463",
+    "subm_id": "1351556333"
+}

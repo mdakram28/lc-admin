@@ -1,0 +1,6 @@
+{
+    "username": "wangdh15",
+    "submission": "class Solution {\npublic:\n\n    int dp[2005][1005];\n    int pre[2005][1005];\n\n    int countOfPairs(vector<int>& nums) {\n        for (int i = 0; i <= nums[0]; ++i) {\n            dp[0][i] = 1;\n        }\n        pre[0][0] = dp[0][0];\n        for (int j = 1; j < 1005; ++j) {\n            pre[0][j] =  pre[0][j-1] + dp[0][j];\n            pre[0][j] %= 1000000007;\n        }\n        const int n = nums.size();\n        for (int i = 1; i < nums.size(); ++i) {\n            int diff = nums[i] - nums[i-1];\n            for (int j = nums[i]; j - diff >= 0; --j) {\n                int rr = min(j, j - diff);\n                // cout << i << ' ' << j << ' ' << rr << endl;\n                if (rr >= 0)\n                    dp[i][j] = pre[i-1][rr];\n            }\n            pre[i][0] = dp[i][0];\n            for (int j = 1; j < 1005; ++j) {\n                pre[i][j] =  pre[i][j-1] + dp[i][j];\n                pre[i][j] %= 1000000007;\n            }\n        }\n        // for (int i = 0; i < n; ++i) {\n        //     for (int j = 0; j < 5; ++j) {\n        //         cout << dp[i][j] << ' ';\n        //     }\n        //     cout << endl;\n        // }\n        return pre[n-1][1004];\n    }\n};",
+    "submit_ts": "1723345791",
+    "subm_id": "1351563385"
+}

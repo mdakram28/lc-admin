@@ -1,0 +1,6 @@
+{
+    "username": "ninja_deepak",
+    "submission": "#define MOD 1000000007\nclass Solution {\n    long long int solve(vector<int> &nums, int n, int i, int preva, int prevb, vector<vector<vector<long long int>>> &dp){\n        if(i >= n) return 1;\n        // cout<<i<<\" \"<<preva<<\" \"<<prevb<<endl;\n\n        if(dp[i][preva][prevb] != -1){\n            return dp[i][preva][prevb]%MOD;\n        }\n        long long int res = 0;\n        for(int k = preva; k<=nums[i]; k++){\n            int num1 = k;\n            int num2 = nums[i] - k;\n            if(prevb < num2 || num1<0 || num2<0){\n                continue;\n            }\n            res += solve(nums, n, i+1, num1, num2, dp)%MOD;\n            res = res%MOD;\n        }\n        return dp[i][preva][prevb] = res%MOD;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<long long int>>> dp(n+1, vector<vector<long long int>> (51, vector<long long int> (51, -1)));\n        long long int ans = solve(nums, n, 0, 0, 50, dp);\n\n        return ans;\n    }\n};",
+    "submit_ts": "1723345253",
+    "subm_id": "1351551841"
+}

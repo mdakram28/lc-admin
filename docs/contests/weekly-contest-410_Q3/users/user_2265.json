@@ -1,0 +1,6 @@
+{
+    "username": "user3460wU",
+    "submission": "class Solution {\n    final int MOD=1000000007;\n    public long solve(int[] values,int index,int val1,int val2,long[][][] memo){\n        if (index >= values.length) return 1;\n        if (memo[index][val1][val2] != -1) return memo[index][val1][val2];\n\n        long result = 0;\n        for (int i = val1; i <= values[index]; i++) {\n            for (int j = val2; j >= 0; j--) {\n                if (i + j == values[index]) {\n                    result = (result + solve(values, index + 1, i, j, memo)) % MOD;\n                }\n            }\n        }\n        memo[index][val1][val2] = result;\n        return result;\n    }\n    public int countOfPairs(int[] nums) {\n        long[][][] memo = new long[nums.length][51][51];\n        for (long[][] matrix : memo) {\n            for (long[] row : matrix) {\n                Arrays.fill(row, -1);\n            }\n        }\n        return (int) solve(nums, 0, 0, nums[0], memo);\n    }\n}",
+    "submit_ts": "1723346828",
+    "subm_id": "1351586017"
+}

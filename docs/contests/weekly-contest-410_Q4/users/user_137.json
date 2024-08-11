@@ -1,0 +1,6 @@
+{
+    "username": "chenreddy0207",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n         \n        int n=nums.size();\n        long long int prime=1e9+7;\n\n        //first value\n        vector<long long int> DP(1001,0);\n        \n        for(int val1=0;val1<=nums[n-1];val1++)\n        {\n            DP[val1]=nums[n-1]+1-val1;\n        }\n\n        for(int i=n-2;i>=0;i--)\n        {\n            vector<long long int> newDP(1001,0);\n            for(int val1=0;val1<=1000;val1++)\n            {\n                int a1=val1;\n                int a2=nums[i]-a1;\n\n                int minIdx=max(a1,nums[i+1]-a2);\n                if(minIdx<1001) newDP[val1]=DP[minIdx];\n            }\n            for(int j=1000;j>0;j--)\n            {\n                newDP[j-1]+=newDP[j];\n                newDP[j-1]%=prime;\n            }\n\n            DP=newDP;\n        }\n\n        long long int ans=DP[0];\n\n        return ans%prime;\n    }\n};",
+    "submit_ts": "1723345761",
+    "subm_id": "1351562759"
+}

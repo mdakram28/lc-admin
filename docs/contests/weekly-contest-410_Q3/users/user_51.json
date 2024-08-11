@@ -1,0 +1,6 @@
+{
+    "username": "lympanda",
+    "submission": "#define mo 1000000007\n\nint d[2][1100];\nint sum[1100];\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& a) {\n        int i,j,k,now,ans,x,y,ll,rr,ll1,rr1;\n        memset(d[0],0,sizeof(d[0]));\n        for (i=0;i<=a[0];i++)\n            d[0][i]++;\n        now=0;\n        for (i=1;i<a.size();i++)\n        {\n            sum[0]=0;\n            for (j=0;j<=1000;j++)\n            {\n                sum[j+1]=sum[j]+d[now][j];\n                sum[j+1]%=mo;\n            }\n            memset(d[1-now],0,sizeof(d[1-now]));\n            for (j=0;j<=a[i];j++)\n            {\n                x=j;\n                y=a[i]-j;\n                ll=0;rr=min(x,a[i-1]-y);\n                if (rr>=ll)\n                {\n                    d[1-now][j]=sum[rr+1]-sum[ll];\n                    if (d[1-now][j]<0) d[1-now][j]+=mo;\n                }\n            }\n        \n            now=1-now;\n        }\n        ans=0;\n        for (i=0;i<=a.back();i++)\n        {\n            ans+=d[now][i];\n            ans%=mo;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723344253",
+    "subm_id": "1351530170"
+}

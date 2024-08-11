@@ -1,0 +1,6 @@
+{
+    "username": "Pseudoproton",
+    "submission": "import java.util.*;\n\nclass Solution {\n    private long[][][] memo;\n    private final long MOD = 1_000_000_007;\n\n    private long solve(int idx, int a, int b, int[] nums) {\n        if (idx >= nums.length) return 1;\n        if (memo[idx][a][b] != -1) return memo[idx][a][b];\n\n        long ans = 0;\n        for (int i = a; i <= nums[idx]; i++) {\n            for (int j = b; j >= 0; j--) {\n                if (i + j == nums[idx]) {\n                    ans = (ans + solve(idx + 1, i, j, nums)) % MOD;\n                }\n            }\n        }\n\n        return memo[idx][a][b] = ans;\n    }\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        memo = new long[n][51][51];\n        for (long[][] mat : memo) {\n            for (long[] row : mat) {\n                Arrays.fill(row, -1);\n            }\n        }\n        return (int) solve(0, 0, nums[0], nums);\n    }\n}\n",
+    "submit_ts": "1723347037",
+    "subm_id": "1351590535"
+}

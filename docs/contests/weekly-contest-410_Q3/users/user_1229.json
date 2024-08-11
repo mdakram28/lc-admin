@@ -1,0 +1,6 @@
+{
+    "username": "ram0629",
+    "submission": "class Solution {\n    int MOD = 1000000007;\n    public int countOfPairs(int[] nums) {\n        \n        return (int)recur(-1,51, 0, nums, new HashMap<>());\n    }\n\n    long recur(int prev1, int prev2, int pos, int[] nums,Map<List<Integer>,Long> dp ) {\n\n        if(pos==nums.length){\n            return 1;\n        }\n        List<Integer> state = List.of(prev1, prev2, pos);\n\n        if(dp.containsKey(state)){\n            return dp.get(state);\n        }\n        long res = 0;\n        for(int i =0 ; i<=nums[pos]; i++){\n\n            int firstNum = i;\n            int secondNum = nums[pos]-i;\n\n\n            if(firstNum>=prev1 && secondNum<=prev2){\n                // System.out.println(pos);\n                res+=recur(firstNum, secondNum, pos+1, nums,dp)%MOD;\n                res%=MOD;\n            }\n        }\n\n        dp.put(state, res%MOD);\n\n        return res%MOD;\n    }\n}",
+    "submit_ts": "1723345720",
+    "subm_id": "1351561899"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Krish47",
+    "submission": "class Solution {\npublic:\n    int solveRec(int ind, vector<int> &nums,int last1, int last2,vector<vector<vector<int>>> &dp){\n        if(ind == nums.size())\n            return 1;\n        int ans = 0;\n        int m = 1e9 + 7;\n\n        if(dp[ind][last1][last2] != -1)\n            return dp[ind][last1][last2];\n        \n        for(int i = 0;i <= nums[ind]; i++){\n            int num1 = i;\n            int num2 = nums[ind] - i;\n            bool valid1 = last1 <= num1;\n            bool valid2 = last2 >= num2; \n            if(valid1 && valid2){\n                ans += solveRec(ind + 1,nums,num1,num2,dp);\n                ans %= m;\n            }\n        }\n\n        return dp[ind][last1][last2] = ans%m;\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<vector<int>>> dp(n + 1,vector<vector<int>> (51, vector<int> (53,-1)));\n        return solveRec(0,nums,0,52,dp);   \n    }\n};",
+    "submit_ts": "1723344741",
+    "subm_id": "1351541025"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "poset",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10 ** 9 + 7\n        n = len(nums)\n        dp = [[0] * 1001 for _ in range(n)] # dp[i][j] is # of pairs up to i with arr_1[i] = j\n        pf = [[0] * 1001 for _ in range(n)]\n        for i in range(nums[0] + 1):\n            dp[0][i] = 1\n            pf[0][i] = i + 1\n        for i in range(1, n):\n            cur_sum = 0\n            for j in range(nums[i] + 1):\n                max_k = min(j, nums[i - 1], nums[i - 1] - nums[i] + j)\n                dp[i][j] += pf[i - 1][max_k]\n                dp[i][j] %= MOD\n                cur_sum += dp[i][j]\n                pf[i][j] = cur_sum\n                pf[i][j] %= MOD\n        return sum(dp[-1]) % MOD",
+    "submit_ts": "1723345605",
+    "subm_id": "1351559353"
+}

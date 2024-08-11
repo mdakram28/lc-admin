@@ -1,0 +1,6 @@
+{
+    "username": "sonu037singh",
+    "submission": "#include <vector>\n#include <numeric>\n#include <cstring>  // For memset\nusing namespace std;\n\nclass Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    int dp[2001][51][51];  // DP table to memoize results\n\n    int solve(int i, int prev1, int prev2, vector<int>& nums) {\n        if (i == nums.size()) return 1;\n        \n        // Check if the result is already computed\n        if (dp[i][prev1][prev2] != -1) return dp[i][prev1][prev2];\n        \n        int ans = 0;\n        for (int n = 0; n <= nums[i]; n++) {\n            int val1 = n, val2 = nums[i] - n;\n            if ((prev1 == -1 && prev2 == -1) || (val1 >= prev1 && val2 <= prev2)) {\n                ans = (ans + solve(i + 1, val1, val2, nums)) % MOD;\n            }\n        }\n        \n        // Memoize the result before returning\n        return dp[i][prev1][prev2] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));  // Initialize DP table with -1\n        return solve(0, 0, 50, nums);\n    }\n};\n",
+    "submit_ts": "1723345625",
+    "subm_id": "1351559794"
+}

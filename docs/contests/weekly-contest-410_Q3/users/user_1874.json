@@ -1,0 +1,6 @@
+{
+    "username": "aryan_sinha",
+    "submission": "class Solution {\npublic:\n    #define ll long long int\n    ll MOD=1e9+7;\n    ll dp[2001][52][52];\n    ll mod_mul(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a * b) % m) + m) % m;}\nll mod_add(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a + b) % m) + m) % m;}\n    ll help(int i,int lst1,int lst2,vector<int>&vec){\n        ll ans=0;\n        if(i==vec.size())return 1;\n        if(dp[i][lst1+1][lst2+1]!=-1)return dp[i][lst1+1][lst2+1];\n        if(lst1==-1){\n            for(int j=0;j<=50;j++){\n                if(vec[i]-j>=0)\n                ans=mod_add(ans,help(i+1,j,vec[i]-j,vec),MOD);\n            }\n        }\n        else{\n            for(int j=lst1;j<=50;j++){\n                if(vec[i]-j>=0 && vec[i]-j<=lst2){\n                    // cout << j << endl;\n                    ans=mod_add(ans,help(i+1,j,vec[i]-j,vec),MOD);\n                }\n            }\n        }\n        return dp[i][lst1+1][lst2+1]=ans;\n    }\n    int countOfPairs(vector<int>& vec) {\n        int n=vec.size();\n        \n        memset(dp,-1,sizeof(dp));\n        ll ans=help(0,-1,-1,vec);\n        return ans;\n    }\n};",
+    "submit_ts": "1723346386",
+    "subm_id": "1351576444"
+}

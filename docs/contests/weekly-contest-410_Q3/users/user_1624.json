@@ -1,0 +1,6 @@
+{
+    "username": "Toptodown_Dp",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int M = 50;\n        int MOD = int(1e9) + 7;\n        vector<int> dp(M + 1);\n        for(int i = 0; i < nums.size(); i++){\n            vector<int> ndp(M + 1);\n            for(int j = 0; j <= nums[i]; j++){\n                if(i == 0){\n                    ndp[j] = 1;\n                    continue;\n                }\n                for(int k = 0; k <= j; k++){\n                    int prv = nums[i - 1] - k;\n                    if(prv < (nums[i] - j)) continue;\n                    ndp[j] += dp[k];\n                    ndp[j] %= MOD;\n                }\n            }            \n            swap(dp, ndp);\n        }\n        int ret = 0;\n        for(int i = 0; i < M + 1; i++) {\n            ret += dp[i];\n            ret %= MOD;\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1723346345",
+    "subm_id": "1351575526"
+}

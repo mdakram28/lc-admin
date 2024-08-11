@@ -1,0 +1,6 @@
+{
+    "username": "Believer2140",
+    "submission": "#include <vector>\n#include <cstring>\n\nclass Solution {\nprivate:\n    static const int MOD = 1e9+7;\n\npublic:\n    int countOfPairs(vector<int>& values) {\n        int n = values.size();\n        \n       \n        vector<vector<vector<long long>>> dp(n, vector<vector<long long>>(51, vector<long long>(51, -1)));\n\n       \n        return (countPairsRecursive(values, 0, 0, values[0], dp));\n    }\n\nprivate:\n    long long countPairsRecursive(vector<int>& values, int currentIndex, int firstValue, int secondValue, vector<vector<vector<long long>>>& dp) {\n        \n        if (currentIndex >= values.size()) return 1;\n\n        \n        if (dp[currentIndex][firstValue][secondValue] != -1) return dp[currentIndex][firstValue][secondValue];\n\n        long long count = 0;\n\n      \n        for (int i = firstValue; i <= values[currentIndex]; i++) {\n            for (int j = secondValue; j >= 0; j--) {\n                if (i + j == values[currentIndex]) {\n                    count = (count + countPairsRecursive(values, currentIndex + 1, i, j, dp)) % MOD;\n                }\n            }\n        }\n\n       \n        dp[currentIndex][firstValue][secondValue] = count;\n\n        return count;\n    }\n};\n",
+    "submit_ts": "1723347062",
+    "subm_id": "1351591090"
+}

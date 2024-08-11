@@ -1,0 +1,6 @@
+{
+    "username": "ykgupta2411",
+    "submission": "class Solution {\n    Long[][] dp;\n    int mod = (int)(1e9) + 7;\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n        dp = new Long[n][52];\n        return (int)func(0, 0, nums);\n    }\n    \n    private long func(int i, int prev, int[] ar)\n    {\n        if(i == ar.length)\n            return 1;\n        if(dp[i][prev] != null)\n            return dp[i][prev];\n        long res = 0;\n        for(int j = 0; j <= ar[i]; j++)\n        {\n            if(prev != 0)\n            {\n                if(j < prev - 1)\n                    continue;\n                if((ar[i] - j) > (ar[i-1] - (prev - 1)))\n                    continue;\n            }\n            res += func(i+1, j + 1, ar);\n            res %= mod;\n        }\n        return dp[i][prev] = res;\n    }\n}",
+    "submit_ts": "1723344737",
+    "subm_id": "1351540945"
+}

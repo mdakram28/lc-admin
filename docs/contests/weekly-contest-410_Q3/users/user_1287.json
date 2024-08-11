@@ -1,0 +1,6 @@
+{
+    "username": "saichandan68",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n    int dp[2005][55][55];\n    int help(int i, int preF, int preS, vector<int>& nums) {\n        if (i == nums.size())\n            return 1;\n        if (nums[i] < preF)\n            return 0;\n        // cout << i << ' ' << myF << ' ' << myS << endl;\n        if(dp[i][preF][preS]!=-1) return dp[i][preF][preS];\n        long long ans = 0;\n        for (int myF = preF; myF <= nums[i]; myF++) {\n            int myS = nums[i] - myF;\n            if (myS > preS)\n                continue;\n            ans += help(i + 1, myF, myS, nums) % mod;\n            ans %= mod;\n        }\n        return dp[i][preF][preS]=(ans % mod);\n    }\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        return help(0, 0, 54, nums);\n    }\n};",
+    "submit_ts": "1723345507",
+    "subm_id": "1351557277"
+}

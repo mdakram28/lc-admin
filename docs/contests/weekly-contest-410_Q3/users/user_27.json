@@ -1,0 +1,6 @@
+{
+    "username": "yangxm",
+    "submission": "constexpr int MAX = 1024;\nconstexpr int MOD = 1000000007;\n\nint dp[MAX];\n\nint Add(int a, int b, int p = MOD) {\n  int c = a + b;\n  return c < p ? c : c - p;\n}\n\nint Sub(int a, int b, int p = MOD) {\n  int c = a - b;\n  return c < 0 ? c + p : c;\n}\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n      int n = nums.size();\n      memset(dp, 0, sizeof(dp));\n      for (int i = 0; i <= nums[0]; ++i) {\n        dp[i] = i ? Add(dp[i - 1], 1) : 1;\n      }\n      for (int i = 1; i < n; ++i) {\n        for (int j = nums[i]; j >= 0; --j) {\n          int k = nums[i] - j;\n          int p = min(j, nums[i - 1] - k);\n          dp[j] = p < 0 ? 0 : dp[p];\n        }\n        for (int j = 1; j <= nums[i]; ++j) {\n          dp[j] = Add(dp[j - 1], dp[j]);\n        }\n      }\n      return dp[nums.back()];\n    }\n};",
+    "submit_ts": "1723344562",
+    "subm_id": "1351537238"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "mailtokartik",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        l = len(nums)\n        MOD = 10 ** 9 + 7\n\n        @cache\n        def dfs(index, a):\n            if index == l:\n                return 1\n            \n            res = 0\n            val = nums[index]\n\n            prev_a = a\n            prev_b = nums[index - 1] - prev_a if index else float('inf')\n            start = 0\n            if index:\n                start = (val + (prev_a - prev_b)) // 2\n            \n            for cand in range(start, val + 1):\n                c, d = cand, val - cand\n\n                if c >= prev_a and d <= prev_b:\n                    res += dfs(index + 1, c)\n        \n            return res\n\n        return dfs(0, 0) % MOD\n\n",
+    "submit_ts": "1723344795",
+    "subm_id": "1351542198"
+}

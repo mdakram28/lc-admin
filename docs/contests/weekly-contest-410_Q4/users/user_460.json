@@ -1,0 +1,6 @@
+{
+    "username": "Lewis0511",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        long long num = 0;\n        int MOD = 1e9 + 7;\n        int m = *max_element(nums.begin(), nums.end());\n        int n = nums.size();\n        vector<vector<long long>> DP(n, vector<long long>(m + 1));\n        for (int j = 0; j <= nums[0]; j++) DP[0][j] = 1;\n        for (int i = 1; i < n; i++) {\n            vector<long long> sums(m + 2);\n            for (int j = 0; j <= m; j++)\n                sums[j + 1] = (sums[j] + DP[i - 1][j]) % MOD;\n            for (int j = 0; j <= nums[i]; j++) {\n                int k = min(j, nums[i - 1] - nums[i] + j);\n                if (k >= 0) DP[i][j] = sums[k + 1];\n            }\n        }\n        for (int j = 0; j <= m; j++) num = (num + DP[n - 1][j]) % MOD;\n        return num;\n    }\n};",
+    "submit_ts": "1723347721",
+    "subm_id": "1351604283"
+}

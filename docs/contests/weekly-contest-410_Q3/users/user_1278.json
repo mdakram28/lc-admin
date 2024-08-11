@@ -1,0 +1,6 @@
+{
+    "username": "franky50616",
+    "submission": "class Solution \n{\nprivate:\n    long long mod = 1e9 + 7;\n    long long dp[2001][51][51];\n\npublic:\n    int countOfPairs(vector<int>& nums)\n    {\n        int n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        return dfs(nums, 0, 0, 50);\n    }\n\n    long long dfs(vector<int>& nums, int i, int pre1, int pre2)\n    {\n        //cout << i << \" \" << pre1 << \" \" << pre2 << endl;\n\n        int n = nums.size();\n        if (i >= n) return 1;\n        if (dp[i][pre1][pre2] != -1) return dp[i][pre1][pre2];\n        \n        long long res = 0;\n        for (int cur = pre1; cur <= nums[i]; ++cur)\n        {\n            int a = cur;\n            int b = nums[i] - cur;\n            //cout << i << \" | \" << a << \" \" << b << endl;\n            \n            if (pre2 >= b)\n            {\n                long long cnt = dfs(nums, i + 1, a, b);\n                res = (res + cnt) % mod;\n            }\n        }\n\n        return dp[i][pre1][pre2] = res;\n    }\n};\n\n\n/*\n2,3,2\n\n2 0\n\n\nf(i, j) = f(i+1, x), for x = 0 ~ nums[i] if possible\n\n3\n\n0 3\n1 2\n3 0\n\n\n*/",
+    "submit_ts": "1723345801",
+    "subm_id": "1351563609"
+}

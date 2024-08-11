@@ -1,0 +1,6 @@
+{
+    "username": "nikhil___454",
+    "submission": "class Solution {\npublic:\n    const int MOD = 1000000007;\n\n    unordered_map<int,unordered_map<int,int>>mp;\n    int check(int i, int prvl, int prvr, vector<int>& nums) {\n\n        if (i >= nums.size()) {\n            return 1;\n        }\n\n        if(mp[i].count(prvl))\n        {\n            return mp[i][prvl];\n        }\n\n        int ans = 0;\n        for (int num = nums[i]; num >= 0; num--) {\n            // cout<<i<<\" \";\n            // cout<<num<<\" \"<<prvl<<\" & \"<<nums[i]-num<<\" \"<<prvr<<endl;\n            if (num >= prvl && nums[i] - num <= prvr) {\n                int ans1 = check(i + 1, num, nums[i] - num, nums);\n                // cout << ans1 << \" for \" << i << \" \" << prvl << endl;\n                ans = (ans + ans1) % MOD;\n            } else {\n                // cout<<\"break \"<<nums[i]<<\" \"<<num<<\" \"<<prvl<<endl;\n                break;\n            }\n        }\n\n        return mp[i][prvl]=ans;\n    }\n\n    int countOfPairs(vector<int>& nums) { return check(0, -1, 51, nums); }\n};",
+    "submit_ts": "1723346084",
+    "subm_id": "1351569832"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "riteshthakare1191",
+    "submission": "class Solution {\npublic:\n   int MOD = 1e9 + 7;\n\n    int helper(vector<int>& nums, int index, int lastArr1, int lastArr2, vector<vector<vector<int>>>& dp) {\n        if (index == nums.size()) {\n            return 1;  // Found a valid pair\n        }\n        \n        if (dp[index][lastArr1][lastArr2] != -1) {\n            return dp[index][lastArr1][lastArr2];\n        }\n        \n        int count = 0;\n        \n        for (int x = lastArr1; x <= nums[index]; ++x) {\n            int y = nums[index] - x;\n            if (y <= lastArr2) {\n                count = (count + helper(nums, index + 1, x, y, dp)) % MOD;\n            }\n        }\n        \n        return dp[index][lastArr1][lastArr2] = count;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        // if(n==1) return 1;\n        vector<vector<vector<int>>> dp(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return helper(nums, 0, 0, 50, dp);\n    }\n};",
+    "submit_ts": "1723345205",
+    "subm_id": "1351550868"
+}

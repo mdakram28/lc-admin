@@ -1,0 +1,6 @@
+{
+    "username": "pi3rr0t",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9+7\n        if len(nums) == 1: return nums[0] + 1\n        current = [1] * (nums[0]+1)\n        for i in range(1, len(nums)):\n            num, prev = nums[i], nums[i-1]\n            newcurrent = [0] * (nums[0] + 1)\n            temp = [0] * (nums[0] + 2)\n            for small in range(len(current)):\n                if min(small + 1, num - (prev - small) + 1) > 0:\n                    temp[0] += current[small]\n                    if min(small + 1, num - (prev - small) + 1) < len(temp):\n                        temp[min(small + 1, num - (prev - small) + 1)] -= current[small]\n            running_sum = 0\n            for newsmall in range(len(newcurrent)):\n                running_sum += temp[newsmall]\n                newcurrent[newsmall] = running_sum\n            current = newcurrent\n        return sum(current)%MOD",
+    "submit_ts": "1723347449",
+    "subm_id": "1351599025"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "hyungzin",
+    "submission": "import 'dart:math';\nclass Solution {\n  final mod = 1000000007;\n  int countOfPairs(List<int> nums) {\n    final dp = List.generate(nums.length, (i) => List.filled(1001, 0));\n    dp[0][0] = 1;\n    for (int i = 1; i <= nums[0]; i++){\n      dp[0][i] = dp[0][i - 1] + 1;\n    }\n    // print(dp);\n    for (int i = 1; i < dp.length; i++){\n      for (int j = 0; j <= nums[i]; j++){\n        // print(j);\n        final cur1 = j;\n        final cur2 = nums[i] - j;\n        if (cur2 > nums[i - 1]) continue;\n        dp[i][j] = (dp[i - 1][min(cur1, nums[i - 1] - cur2)] + (j > 0 ? dp[i][j - 1] : 0)) % mod;\n      }\n    }\n    // print(dp);\n    // print(dp.last);\n    int res = 0;\n    for (final a in dp.last){\n      if (a > 0) res = a;\n    }\n    return res;\n  }\n}",
+    "submit_ts": "1723348374",
+    "subm_id": "1351616972"
+}

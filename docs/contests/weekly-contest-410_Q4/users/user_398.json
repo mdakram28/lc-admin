@@ -1,0 +1,6 @@
+{
+    "username": "rukt",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = int(1e9) + 7\n        n = len(nums)\n        m = max(nums) + 1\n\n        dp = [0] * m\n        next_dp = [0] * m\n\n        for i in range(m):\n            dp[i] = 1\n\n        for i in range(1, n):\n            next_dp = [0] * m\n            psum = [0] + list(accumulate(dp))\n            for small in range(nums[i] + 1):\n                big = nums[i] - small\n                \n                if nums[i - 1] - big + 1 <= 0:\n                    continue\n                next_dp[small] = (psum[min(small + 1, nums[i - 1] - big + 1)]) % MOD\n            dp = next_dp[:]\n        return sum(dp) % MOD\n    \n\n",
+    "submit_ts": "1723347266",
+    "subm_id": "1351595352"
+}

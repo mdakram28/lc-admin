@@ -1,0 +1,6 @@
+{
+    "username": "user3751Xt",
+    "submission": "class Solution {\npublic:\n    \n    int solve(int i, int j, vector<vector<int>> &dp, vector<int> &nums)\n    {\n        if(dp[i][j]!=-1) return dp[i][j];\n        if(j==0)\n        {\n            if(i<=nums[j]) return dp[i][j]=1;\n            else return dp[i][j]=0;\n        }\n        int sum = 0;\n        for(int x=i;x>=0;x--)\n        {\n            // consider using x and nums[j-1]-x as a duo, first satisfies x<=i\n            // and satisfies nums[j-1]-x >= nums[j]-i\n\n            if(i>nums[j]||nums[j]-i<0) continue;\n            if(nums[j-1]-x>=nums[j]-i)\n            {\n                sum = (sum + solve(x,j-1,dp,nums))%1000000007;\n            } \n        }\n        return dp[i][j]=sum;\n        \n    }\n    \n    int countOfPairs(vector<int>& nums) \n    {\n        vector<vector<int>> dp(51,vector<int>(nums.size(),-1));   \n        for(int i=0;i<=50;i++)\n        {\n            for(int j=0;j<nums.size();j++)\n            {\n                dp[i][j]=solve(i,j,dp,nums);\n            }\n        }\n        int ans = 0;\n        for(int i=0;i<=50;i++)\n        {\n            ans=(ans+dp[i][nums.size()-1])%1000000007;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345470",
+    "subm_id": "1351556498"
+}

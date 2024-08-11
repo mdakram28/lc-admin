@@ -1,0 +1,6 @@
+{
+    "username": "poset",
+    "submission": "# import numpy as np\nclass Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10 ** 9 + 7\n        n = len(nums)\n        dp = [[0] * 51 for _ in range(n)] # dp[i][j] is # of pairs up to i with arr_1[i] = j\n        for i in range(nums[0] + 1):\n            dp[0][i] = 1\n        for i in range(1, n):\n            for j in range(nums[i] + 1):\n                for k in range(min(j + 1, nums[i - 1] + 1)):\n                    if nums[i] - j <= nums[i - 1] - k:\n                        dp[i][j] += dp[i - 1][k]\n                        dp[i][j] %= MOD\n        return sum(dp[-1]) % MOD\n        \n",
+    "submit_ts": "1723344911",
+    "subm_id": "1351544667"
+}

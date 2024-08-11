@@ -1,0 +1,6 @@
+{
+    "username": "akshay_ak27",
+    "submission": "const int M = 1e9 + 7;\n#define it(i, n)    for (int i=0; i<n; i++)\nclass Solution {\npublic:\n    int dp[2001][51][51];  // Use a 3D array for memoization\n\n    int rec(int level, int v1, int v2, vector<int>& a) {\n        if (level >= a.size()) \n            return 1;\n\n        if (dp[level][v1][v2] != -1) \n            return dp[level][v1][v2];\n\n        int pairs = 0;\n\n        it (i, a[level]+1) {\n            if (i >= v1 && a[level] - i <= v2) \n                pairs = (pairs + 0LL + rec(level + 1, i, a[level] - i, a)) % M;\n        }\n\n        return dp[level][v1][v2] = pairs ;\n    }\n\n    int countOfPairs(vector<int>& a) {\n        memset(dp, -1, sizeof(dp));  // Reset dp array for each new test case\n        return rec(0, 0, 50, a);\n    }\n};",
+    "submit_ts": "1723347015",
+    "subm_id": "1351590073"
+}

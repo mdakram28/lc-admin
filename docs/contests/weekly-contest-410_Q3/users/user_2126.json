@@ -1,0 +1,6 @@
+{
+    "username": "kunalphalswal",
+    "submission": "class Solution {\npublic:\nint mod=1e9+7;\n#define ll long long\n    int helper(vector<int>&nums, int n,int ind, int prev,vector<vector<int>>&dp){\n        if(ind==n){\n            return 1;\n        }\n        if(dp[ind][prev]!=-1)return dp[ind][prev];\n        //nums1[ind] >= prevMin && nums2[ind]<=prevMax\n        ll ans=0;\n        int num2=nums[ind-1]-prev;\n        for(int i=prev;i<=nums[ind];i++){\n            if(nums[ind]-i<=num2){\n                // cout<<i<<\" \"<<nums[ind]-i<<\"\\n\";\n                ans+=helper(nums,n,ind+1,i,dp);\n                ans%=mod;\n            }\n        }\n        return dp[ind][prev]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        //pass from 1st index.\n        ll ans=0;\n        int n=nums.size();\n        vector<vector<int>>dp(n,vector<int>(51,-1));\n        for(int i=0;i<=nums[0];i++){\n            ans=(ans+helper(nums,n,1,i,dp))%mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723346679",
+    "subm_id": "1351582848"
+}

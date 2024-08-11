@@ -1,0 +1,6 @@
+{
+    "username": "jack81306",
+    "submission": "class Solution {\npublic:\n    vector<vector<vector<int>>> rec;\n    long dp(vector<int>& nums, int idx, int prev1, int prev2) {\n        if (idx == nums.size()) {\n            return 1;\n        }\n        if (rec[idx][prev1][prev2] != -1) return rec[idx][prev1][prev2];\n        \n        long sum = 0;\n        for (int i = prev1; i <= nums[idx]; ++i) {\n            if (nums[idx] - i > prev2) continue;\n            sum += dp(nums, idx + 1, i, nums[idx] - i);\n        }\n        rec[idx][prev1][prev2] = sum % long(1e9 + 7);\n        return sum;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        rec.resize(nums.size(), vector<vector<int>>(51, vector<int>(51, -1)));\n        auto ans = dp(nums, 0, 0, 50);\n        return ans % long(1e9 + 7);\n    }\n};",
+    "submit_ts": "1723346005",
+    "subm_id": "1351568056"
+}

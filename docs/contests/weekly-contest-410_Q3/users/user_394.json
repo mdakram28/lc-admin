@@ -1,0 +1,6 @@
+{
+    "username": "user5681ZB",
+    "submission": "class Solution {\npublic:\nstatic const int MODULO = 1e9 + 7;\n    vector<vector<int>> dp;\n    vector<int> num;\n\n    int rec(int ind, int sum) {\n        if (ind == num.size()) {\n            return 1; \n        }\n\n        if (dp[ind][sum] != -1) {\n            return dp[ind][sum]; \n        }\n\n        int ans = 0;\n        int k = (ind == 0) ? 50 : num[ind - 1] - sum;\n\n        for (int current_sum = sum; current_sum <= num[ind]; ++current_sum) {\n            int left = num[ind] - current_sum;\n            if (left <= k) {\n                ans = (ans + rec(ind + 1, current_sum)) % MODULO;\n            }\n        }\n\n        dp[ind][sum] = ans;\n        return ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        num = nums;\n        int n = nums.size();\n        dp.assign(n, vector<int>(2001, -1));\n\n        return rec(0, 0);\n    }\n};",
+    "submit_ts": "1723344885",
+    "subm_id": "1351544134"
+}

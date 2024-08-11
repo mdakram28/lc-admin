@@ -1,0 +1,6 @@
+{
+    "username": "ceetcode",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        const int max_num = 1000;\n        const int min_num = 0;\n        int n = nums.size();\n        \n        vector<vector<int>> dp(n + 1, vector<int>(max_num + 1, 0));\n        \n        for (int x = 0; x <= max_num; ++x) {\n            dp[n][x] = 1;\n        }\n        \n        for (int i = n - 1; i >= 0; --i) {\n            vector<int> prefix_sum(max_num + 2, 0);\n            for (int x = max_num; x >= 0; --x) {\n                prefix_sum[x] = (prefix_sum[x + 1] + dp[i + 1][x]) % MOD;\n            }\n            \n            for (int prev1_lb = max_num; prev1_lb >= 0; --prev1_lb) {\n                int prev2_up = (i > 0) ? nums[i - 1] - prev1_lb : max_num;\n                \n                int X = nums[i] - prev2_up;\n                int lb = max({X, 0, prev1_lb});\n                \n                if (lb <= nums[i]) {\n                    dp[i][prev1_lb] = (prefix_sum[lb] - prefix_sum[nums[i] + 1] + MOD) % MOD;\n                    dp[i][prev1_lb] = max(dp[i][prev1_lb], 0);\n                }\n            }\n        }\n        \n        return dp[0][min_num];\n    }\n};",
+    "submit_ts": "1723346058",
+    "subm_id": "1351569280"
+}

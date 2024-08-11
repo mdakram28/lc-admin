@@ -1,0 +1,6 @@
+{
+    "username": "burmananiket14",
+    "submission": "class Solution {\npublic: \n    int n;\n    int dp[2001][51][51];\n    int dfs(int level, int prev_a, int prev_b, vector<int>& nums,int& mod) {\n        if (level == n) return 1; \n        if(dp[level][prev_a][prev_b]!=-1) return dp[level][prev_a][prev_b];\n        long long ans = 0;\n        for (int i = prev_a; i <= nums[level]; i++) {\n            int k = nums[level] - i;\n            if (prev_b >= k) {\n                ans += dfs(level + 1, i, k, nums,mod);\n                ans=ans%mod;\n            }\n        }\n        return dp[level][prev_a][prev_b]=(int)ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        int mod=1e9+7;\n        memset(dp, -1, sizeof(dp));\n        return dfs(0, 0, 50, nums,mod);\n    }\n};\n",
+    "submit_ts": "1723345985",
+    "subm_id": "1351567627"
+}

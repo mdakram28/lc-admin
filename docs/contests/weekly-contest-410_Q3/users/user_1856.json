@@ -1,0 +1,6 @@
+{
+    "username": "faustaleonardo",
+    "submission": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar countOfPairs = function (nums) {\n  const MOD = Math.pow(10, 9) + 7;\n  const n = nums.length;\n  const max = Math.max(...nums);\n  const dp = new Array(n)\n    .fill()\n    .map(() => new Array(max + 1).fill().map(() => new Array(max + 1).fill()));\n    \n  let ans = 0;\n  for (let i = 0; i <= nums[0]; i++) {\n    const j = nums[0] - i;\n    const next = helper(i, j, nums, 1, dp, MOD, n);\n    ans = (ans + next) % MOD;\n  }\n\n  return ans;\n};\n\nfunction helper(oi, oj, nums, idx, dp, MOD, n) {\n  if (idx >= n) return 1;\n\n  if (dp[idx][oi][oj] !== undefined) return dp[idx][oi][oj];\n\n  let curr = 0;\n  for (let i = oi; i <= nums[idx]; i++) {\n    const j = nums[idx] - i;\n    if (j > oj) continue;\n\n    const next = helper(i, j, nums, idx + 1, dp, MOD, n);\n    curr = (curr + next) % MOD;\n  }\n\n  return (dp[idx][oi][oj] = curr);\n}\n",
+    "submit_ts": "1723346368",
+    "subm_id": "1351576004"
+}

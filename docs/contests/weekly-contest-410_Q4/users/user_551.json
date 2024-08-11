@@ -1,0 +1,6 @@
+{
+    "username": "boxlesscat",
+    "submission": "using ll = long long;\nconstexpr ll mod = 1e9 + 7;\n\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int size = nums.size();\n        vector<vector<ll>> dp(size + 1, vector<ll>(1002));\n        vector<vector<ll>> p(size + 1, vector<ll>(1002));\n        int num = nums[0];\n        for (int a = 0; a <= num; ++a) {\n            if (num - a >= 0)\n                dp[0][a] = 1;\n        }\n        for (int a = 0; a <= 1000; ++a)\n            p[0][a + 1] = p[0][a] + dp[0][a];\n        \n        int num0;\n        int num1;\n        int b;\n        int bb;\n        int mn;\n        for (int i = 1; i < size; ++i) {\n            num0 = nums[i];\n            num1 = nums[i - 1];\n            mn = min(num0, num1);\n            for (int a1 = 0, a0 = num0 - mn; mn >= 0; --mn, a1++, a0++) {\n                dp[i][a0] += p[i - 1][a1 + 1];\n                dp[i][a0] %= mod;\n            }\n            for (int a = 0; a <= 1000; ++a)\n                p[i][a + 1] = p[i][a] + dp[i][a];\n        }\n        ll ans = 0;\n        for (int a = 0; a <= 1000; ++a) {\n            ans += dp[size - 1][a];\n            ans %= mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723348409",
+    "subm_id": "1351617690"
+}

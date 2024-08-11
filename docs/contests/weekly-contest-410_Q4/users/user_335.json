@@ -1,0 +1,6 @@
+{
+    "username": "ibttf",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        max_num = max(nums)\n        \n        dp = [[0] * (max_num + 1) for _ in range(n)]\n        prefix_sums = [[0] * (max_num + 2) for _ in range(n)]\n        \n        for j in range(nums[0] + 1):\n            dp[0][j] = 1\n        \n        for j in range(1, max_num + 2):\n            prefix_sums[0][j] = prefix_sums[0][j-1] + dp[0][j-1]\n        \n        for i in range(1, n):\n            for j in range(nums[i] + 1):\n                left = max(j, nums[i-1] - nums[i] + j)\n                right = nums[i-1]\n                \n                if left <= right:\n                    dp[i][j] = (prefix_sums[i-1][right + 1] - prefix_sums[i-1][left]) % MOD\n            \n            for j in range(1, max_num + 2):\n                prefix_sums[i][j] = (prefix_sums[i][j-1] + dp[i][j-1]) % MOD\n        \n        return sum(dp[-1]) % MOD",
+    "submit_ts": "1723346490",
+    "subm_id": "1351578716"
+}

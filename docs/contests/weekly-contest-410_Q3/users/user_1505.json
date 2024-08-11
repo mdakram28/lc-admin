@@ -1,0 +1,6 @@
+{
+    "username": "ht468",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int M = 1e9+7;\n        function<int(int,int,int)> dfs, _dfs = [&](int cur, int p, int rp) {\n            if (cur == nums.size()) return 1;\n            int ret = 0;\n            for (int i=p; i<=nums[cur]; i++) {\n                if (nums[cur]-i <= rp) {\n                    ret = (ret+dfs(cur+1, i, nums[cur]-i))%M;\n                }\n            }\n            return ret;\n        };\n        vector<vector<int>> memo(2002, vector<int>(52, -1));\n        dfs = [&](int cur, int p, int rp) {\n            if (memo[cur][p] == -1) memo[cur][p] = _dfs(cur, p, rp);\n            return memo[cur][p];\n        };\n        return dfs(0, 0, INT_MAX);\n    }\n};\n",
+    "submit_ts": "1723346151",
+    "subm_id": "1351571356"
+}

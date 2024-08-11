@@ -1,0 +1,6 @@
+{
+    "username": "thakurAbhishek",
+    "submission": "#include <vector>\n#include <algorithm>\n\nclass Solution {\npublic:\n    const int MOD = 1e9 + 7;\n    std::vector<std::vector<int>> dp;\n    std::vector<int> nums;\n\n    int recurse(int idx, int p) {\n        if(p>nums[idx]) return 0;\n        if (idx+1 == nums.size()) return (nums[idx] - p + 1); \n        if(dp[idx][p]!=-1) return dp[idx][p];\n        long long int ans = 0;\n        ans=recurse(idx,p+1); \n        int nextp=nums[idx+1]-nums[idx]+p;\n        nextp=max(p,nextp);\n        ans+=recurse(idx+1,nextp);\n        ans%=MOD;\n        return dp[idx][p] = ans;\n    }\n\n    int countOfPairs(std::vector<int>& nums) {\n        this->nums = nums;\n        int n = nums.size();\n        dp = std::vector<std::vector<int>>(n, std::vector<int>(1001, -1));\n \n        return recurse(0, 0);\n    }\n};\n",
+    "submit_ts": "1723346869",
+    "subm_id": "1351586889"
+}

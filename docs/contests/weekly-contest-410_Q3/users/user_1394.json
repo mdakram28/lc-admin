@@ -1,0 +1,6 @@
+{
+    "username": "Ben10AF",
+    "submission": "class Solution {\npublic:\n    int mod=1e9+7;\n\n    int fun(int ind,int prev1,vector<int>& nums,vector<vector<int>>& dp){\n        if(ind==nums.size()) return 1;\n\n        if(dp[ind][prev1]!=-1) return dp[ind][prev1];\n\n        int ret=0;\n        int prev2=nums[ind-1]-prev1;\n        for(int val=0;val<=nums[ind];val++){\n            if(val>=prev1 && nums[ind]-val<=prev2){\n                ret=(ret+(fun(ind+1,val,nums,dp)%mod))%mod;\n            }\n        }\n        return dp[ind][prev1]=ret%mod;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        int n=nums.size();\n        vector<vector<int>> dp(n,vector<int>(51,-1));\n        int ret=0;\n        for(int i=0;i<=nums[0];i++){\n            ret=(ret+(fun(1,i,nums,dp)%mod))%mod;\n        }\n        return ret%mod;\n    }\n};",
+    "submit_ts": "1723345088",
+    "subm_id": "1351548346"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "koshmar_",
+    "submission": "class Solution {\npublic:\nint mod = 1e9+7;\nlong long dp(int i, int prev, vector<int>& nums, vector<vector<int>>& mem) {\n\n    if (i==nums.size()) return 1;\n    if (mem[i][prev] != -1) return mem[i][prev];\n\n    long long ans = 0;\n    for(int l=nums[i]; l>=prev; --l) {\n\n\n        int r = nums[i]-l;\n        if (i!=0 && r>nums[i-1]-prev) break;\n\n        ans = (ans + dp(i+1,l,nums,mem))%mod;\n    }\n    return mem[i][prev] = ans;\n\n}\n\nint countOfPairs(vector<int>& nums) {\n\n    int max_el = *max_element(begin(nums),end(nums));\n    vector<vector<int>> mem(nums.size(),vector<int>(max_el+1,-1));\n    \n    return dp(0,0,nums,mem);\n}\n};",
+    "submit_ts": "1723346955",
+    "subm_id": "1351588802"
+}

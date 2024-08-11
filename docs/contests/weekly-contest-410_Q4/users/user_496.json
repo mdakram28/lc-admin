@@ -1,0 +1,6 @@
+{
+    "username": "memphis24",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        n = len(nums)\n        dp = [[0 for i in range(max(nums)+1)] for j in range(n)]\n        cum = [[0 for i in range(max(nums)+1)] for j in range(n)]\n\n        MOD = 1000_000_000 + 7\n        for i in range(nums[0]+1):\n            dp[0][i] = 1\n            cum[0][i] = (cum[0][i-1]+dp[0][i]) % MOD if i!=0 else dp[0][0]\n        for i in range(1,n):\n            for k in range(nums[i]+1):\n                a, b = k, nums[i] - k\n                start = min(nums[i-1]-b,a)\n                if start<0:\n                    continue\n                dp[i][k] = (dp[i][k]+cum[i-1][start])%MOD\n                cum[i][k] = (cum[i][k-1]+dp[i][k]) % MOD if k!=0 else dp[i][0]\n        return sum(dp[n-1])%MOD",
+    "submit_ts": "1723347095",
+    "subm_id": "1351591764"
+}

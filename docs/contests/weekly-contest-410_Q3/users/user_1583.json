@@ -1,0 +1,6 @@
+{
+    "username": "spfaizali02",
+    "submission": "class Solution {\npublic:\n    int MOD = 1e9+7;\n    int dp[2001][51];\n    int helper(vector<int>& nums, int idx, int prev) {\n        if (idx >= nums.size()) {\n            return 1;\n        }\n        \n        if (dp[idx][prev] != -1) {\n            return dp[idx][prev];\n        }\n        \n        int ans = 0;\n        for (int i=prev; i<=nums[idx]; i++) {\n            if (idx == 0 || nums[idx - 1] - prev >= nums[idx] - i) {\n                ans += helper(nums, idx + 1, i);\n                ans %= MOD;\n            }\n        }\n        return dp[idx][prev] = ans;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return helper(nums, 0, 0);\n    }\n};",
+    "submit_ts": "1723345379",
+    "subm_id": "1351554470"
+}

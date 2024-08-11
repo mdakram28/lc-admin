@@ -1,0 +1,6 @@
+{
+    "username": "manvendra247",
+    "submission": "class Solution {\n    typedef long long ll;\n    const int M = 1e9 + 7;\n    typedef vector<ll> vi;\n    ll dp[2001][1001] = {0};\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        ll mindiff = 0;\n        vi v(n,0);\n        for(ll i=1;i<n;i++){\n            if(nums[i]>nums[i-1]){\n                mindiff+= nums[i]-nums[i-1];\n            }\n            v[i] = mindiff;\n        }\n        for(int i=0;i<=nums[n-1] - v[n-1];i++){\n            dp[n-1][i] = 1;  //6 ,5 4, 3, 2, 1, 0.\n        }\n        for(int i=n-2;i>=0;i--){\n            ll cs = 0;\n            for(int j=nums[i+1] - v[i+1];j>=0;j--){\n                cs = (cs+ dp[i+1][j])%M;\n                dp[i][j] = cs;\n            }\n        }\n        ll ans = 0;\n        for(int i=0;i<=nums[0]-v[0];i++){\n            ans = (ans + dp[0][i])%M;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723348252",
+    "subm_id": "1351614558"
+}

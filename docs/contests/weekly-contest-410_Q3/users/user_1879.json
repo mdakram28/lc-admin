@@ -1,0 +1,6 @@
+{
+    "username": "KTS-o7",
+    "submission": "class Solution {\nprivate:\n    const int MOD = 1e9 + 7;\n    vector<vector<vector<int>>> dp;\n\n    int backtrack(int i, int prev_a, int prev_b, vector<int>& nums) {\n\n        if (i == nums.size()) {\n            return 1;\n        }\n\n        if (dp[i][prev_a][prev_b] != -1) {\n            return dp[i][prev_a][prev_b];\n        }\n\n        int count = 0;\n\n        for (int a = prev_a; a <= nums[i]; ++a) {\n            int b = nums[i] - a;\n            if (b <= prev_b) { \n                count = (count + backtrack(i + 1, a, b, nums)) % MOD;\n            }\n        }\n\n        return dp[i][prev_a][prev_b] = count;\n    }\n\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        dp = vector<vector<vector<int>>>(n, vector<vector<int>>(51, vector<int>(51, -1)));\n        return backtrack(0, 0, 50, nums);\n    }\n};\n",
+    "submit_ts": "1723346692",
+    "subm_id": "1351583129"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "DarkDuel012",
+    "submission": "#include<iostream>\n#include<bits/stdc++.h>\nusing namespace std;\ntypedef long long ll;\ntypedef unsigned long long ull;\ntypedef double  dbl;\ntypedef float fl;\n#define minPq  priority_queue <vector<ll>, vector<vector<ll>>, greater<vector<ll>>> \nll mod=1e9+7;\nclass Solution {\npublic:\n    vector<vector<ll>>dp;\n    ll helper(ll prev1,ll prev2,ll ind,vector<int>&nums)\n    {\n        if(ind==nums.size())\n        {\n            return 1;\n        }\n        if(dp[prev1][ind]!=-1)return dp[prev1][ind];\n        ll ans=0;\n        for(int i=prev1;i<=nums[ind];i++)\n        {\n            ll crnt1=i;\n            ll crnt2=nums[ind]-i;\n            if(crnt1>=prev1 && crnt2<=prev2)\n            {\n                ans+=helper(crnt1,crnt2,ind+1,nums);\n                ans%=mod;\n            }\n        }\n        return dp[prev1][ind]=ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        dp=vector<vector<ll>>(51,vector<ll>(nums.size()+1,-1));\n        return helper(0,INT_MAX,0,nums);\n    }\n};",
+    "submit_ts": "1723345371",
+    "subm_id": "1351554324"
+}

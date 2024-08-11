@@ -1,0 +1,6 @@
+{
+    "username": "timothyleong97",
+    "submission": "class Solution:\n    def countOfPairs(self, nums: List[int]) -> int:\n        \"\"\"\n        Binary search the range of each number\n        \"\"\"\n        @cache\n        def dp(i: int, arr1_last: int, arr2_last: int) -> int:\n            if i == len(nums):\n                return 1\n            \n            # Range of possible values that arr1[i] can take\n            lower_bound = max(arr1_last, 0)\n            upper_bound = nums[i]\n            result = 0\n            \n            for arr1_candidate in range(lower_bound, upper_bound + 1):\n                arr2_candidate = nums[i] - arr1_candidate\n                if arr2_candidate <= arr2_last:\n                    result = (result + dp(i + 1, arr1_candidate, arr2_candidate)) % int(1e9 + 7)\n                else:\n                    continue\n            \n            return result\n        \n        return dp(0, 0, 50)",
+    "submit_ts": "1723345522",
+    "subm_id": "1351557624"
+}

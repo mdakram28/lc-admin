@@ -1,0 +1,6 @@
+{
+    "username": "prat-zzz",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        vector<vector<vector<int>>> memo(\n            nums.size() + 1, vector<vector<int>>(51, vector<int>(51, -1)));\n        return countPairs(0, 0, 50, nums, memo, MOD);\n    }\n\nprivate:\n    int countPairs(int idx, int prevX, int prevY, const vector<int>& nums,\n                   vector<vector<vector<int>>>& memo, int mod) {\n        if (idx == nums.size())\n            return 1;\n        if (memo[idx][prevX][prevY] != -1)\n            return memo[idx][prevX][prevY];\n\n        int sum = 0, a = 0;\n        while (a <= nums[idx]) {\n            int b = nums[idx] - a;\n            if (a >= prevX && b <= prevY) {\n                sum = (sum + countPairs(idx + 1, a, b, nums, memo, mod)) % mod;\n            }\n            a++;\n        }\n        return memo[idx][prevX][prevY] = sum;\n    }\n};\n",
+    "submit_ts": "1723347017",
+    "subm_id": "1351590114"
+}

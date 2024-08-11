@@ -1,0 +1,6 @@
+{
+    "username": "G00010100",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9 + 7;\n        vector<vector<int>> dp(nums.size(), vector<int>(51));\n        for (int i = 0; i <= nums[0]; i++)\n            dp[0][i] = 1;\n        for (int i = 0; i+1 < nums.size(); i++) {\n            for (int j = 0; j < 51; j++) {\n                int low = max(j, nums[i+1] - (nums[i] - j));\n                int high = nums[i+1];\n                for (int k = low; k <= high; k++)\n                    dp[i+1][k] = (dp[i+1][k] + dp[i][j]) % MOD;\n            }\n        }\n        int ans = 0;\n        for (int cnt : dp.back())\n            ans = (ans + cnt) % MOD;\n        return ans;\n    }\n};",
+    "submit_ts": "1723346002",
+    "subm_id": "1351568006"
+}

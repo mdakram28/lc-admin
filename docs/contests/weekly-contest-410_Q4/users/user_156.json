@@ -1,0 +1,6 @@
+{
+    "username": "raincoat911",
+    "submission": "class Solution {\npublic:\n    int M = 1e9 + 7;\n\n    int countOfPairs(vector<int>& nums) {\n        int l = nums.size();\n        vector<int> dp(1001);\n        dp[0] = 1;\n        for (int i = 0; i < l; i++) {\n            vector<int> dp2(1001);\n            int pre = i == 0 ? 1000 : nums[i - 1];\n            int cur = nums[i];\n            int pt = -1, t = 0;\n            for (int j = 0; j <= cur; j++) {\n                int nt = min({j, pre, pre - cur + j});\n                // cout << pt << \" \" << nt << endl;\n                if (pt < nt) {\n                    pt++;\n                    t += dp[nt];\n                    t %= M;\n                }\n                else if (pt > nt && pt >= 0) {\n                    pt--;\n                    t = (t + M - dp[pt]) % M;\n                }\n                dp2[j] = t;\n            }\n            swap(dp, dp2);\n        }\n        return accumulate(dp.begin(), dp.end(), 0l) % M; \n    }\n};",
+    "submit_ts": "1723345606",
+    "subm_id": "1351559389"
+}

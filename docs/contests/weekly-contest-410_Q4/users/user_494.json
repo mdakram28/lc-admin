@@ -1,0 +1,6 @@
+{
+    "username": "ragharao2001",
+    "submission": "class Solution(object):\n    def countOfPairs(self, nums):\n        \"\"\"\n        :type nums: List[int]\n        :rtype: int\n        \"\"\"\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Create a 2D dp array with size (n) x (max(nums) + 1)\n        max_num = max(nums)\n        dp = [[0] * (max_num + 1) for _ in range(n)]\n\n        # Initialize dp[0][j]\n        for j in range(nums[0] + 1):\n            dp[0][j] = 1\n\n        # Fill the dp table\n        for i in range(1, n):\n            prefix_sum = 0\n            diff = nums[i] - nums[i-1]\n\n            for j in range(max_num + 1):\n                # We accumulate the prefix sum to use in the next row\n                if j <= nums[i] and j >= diff:\n                    prefix_sum += dp[i - 1][min(j - diff, j)]\n                    prefix_sum %= MOD\n                    dp[i][j] = prefix_sum\n\n        # The result is the sum of the last row in dp\n        result = sum(dp[n - 1][j] for j in range(nums[n - 1] + 1)) % MOD\n        return result",
+    "submit_ts": "1723347999",
+    "subm_id": "1351609664"
+}

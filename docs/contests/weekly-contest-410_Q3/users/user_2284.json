@@ -1,0 +1,6 @@
+{
+    "username": "himanshu16113",
+    "submission": "class Solution {\npublic:\n    const int m = 1e9 + 7;\n    int dp[2001][51][51];\n    int solve(vector<int> &nums,int i,int prev1,int prev2){\n        if(i >= nums.size()) {return 1;}\n        \n        if(prev2 != INT_MAX && dp[i][prev1][prev2] != -1) return dp[i][prev1][prev2];\n        \n        \n        long long tempans = 0;\n        \n        for(int diff = 0;diff <= nums[i];diff++){\n            int x = nums[i]-diff;\n            int y = diff;\n            \n            if(x >= prev1 && y <= prev2){\n                // cout<<i<<\" \"<<x<<\" \"<<y<<\" \"<<prev1<<\" \"<<prev2<<endl;\n                tempans = (tempans%m + solve(nums,i+1,x,y)%m)%m;\n            }\n        }\n        if(prev2 != INT_MAX) dp[i][prev1][prev2] = tempans;\n        return tempans;\n        \n        \n    }\n    int countOfPairs(vector<int>& nums) {\n        memset(dp,-1,sizeof(dp));\n        return solve(nums,0,0,INT_MAX);\n    }\n};",
+    "submit_ts": "1723346849",
+    "subm_id": "1351586471"
+}

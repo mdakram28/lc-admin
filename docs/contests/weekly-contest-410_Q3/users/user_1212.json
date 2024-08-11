@@ -1,0 +1,6 @@
+{
+    "username": "debugger18",
+    "submission": "class Solution {\npublic:\n    int M = 1e9+7;\n    int help(vector<int> & nums , int curr , int k , int l , vector<vector<vector<int>>>& dp){\n        if(curr >= nums.size()) return 1;\n        if(dp[curr][k][l] != -1) return dp[curr][k][l];\n        int ans = 0;\n        for(int i = k ; i <= nums[curr] ; i++){\n            for(int j = l ; j >= 0 ; j--){\n                if(i+j == nums[curr]){\n                    ans = (ans%M + help(nums , curr+1 , i , j , dp)%M)%M;\n                }\n            }\n        }\n        return dp[curr][k][l] =  ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<vector<int>>> dp(nums.size() , vector<vector<int>>(51 , vector<int>(51 , -1)));\n        return help(nums , 0 , 0 , nums[0] , dp);\n    }\n};",
+    "submit_ts": "1723345093",
+    "subm_id": "1351548447"
+}

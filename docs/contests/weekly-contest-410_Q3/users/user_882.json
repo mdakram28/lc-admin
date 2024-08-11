@@ -1,0 +1,6 @@
+{
+    "username": "MountAim",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n\n    vector<vector<vector<ll>>> dp;\n    ll MOD = 1e9 + 7;\n    vector<int> a;\n    int cal(int idx, int mx,int mn)\n    {\n        if(idx == -1)\n            return 1;\n        if(dp[idx][mx][mn] != -1)\n            return dp[idx][mx][mn];\n\n        \n\n        dp[idx][mx][mn] = 0;\n        for(int j = mx; j >= 0; -- j)\n        {\n            if(a[idx] - j >= mn)\n            {\n                dp[idx][mx][mn] += cal(idx - 1, j, a[idx] - j);\n                dp[idx][mx][mn] %= MOD;\n            }\n        }\n\n        return dp[idx][mx][mn];\n    }\n\n    int countOfPairs(vector<int>& nums) \n    {\n        ll n = nums.size();\n        a = nums;\n        dp = vector<vector<vector<ll>>>(n,vector<vector<ll>>(51,vector<ll>(51,-1)));\n        return cal(n-1,50,0)%MOD;\n    }\n};",
+    "submit_ts": "1723344788",
+    "subm_id": "1351542047"
+}

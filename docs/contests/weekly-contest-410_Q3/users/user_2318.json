@@ -1,0 +1,6 @@
+{
+    "username": "VINOTH_D",
+    "submission": "public class Solution {\n    public int countOfPairs(int[] numbers) {\n        final int MOD = 1000000007;\n        int length = numbers.length;\n        int[][] dpTable = new int[length][51];\n\n        for (int value = 0; value <= numbers[0]; value++) {\n            dpTable[0][value] = 1;\n        }\n\n        for (int i = 1; i < length; i++) {\n            for (int x = 0; x <= numbers[i]; x++) {\n                int y = numbers[i] - x;\n\n                dpTable[i][x] = 0;\n                for (int k = 0; k <= x; k++) {\n                    if (y <= numbers[i - 1] - k) {\n                        dpTable[i][x] = (dpTable[i][x] + dpTable[i - 1][k]) % MOD;\n                    }\n                }\n            }\n        }\n\n        int result = 0;\n        for (int value : dpTable[length - 1]) {\n            result = (result + value) % MOD;\n        }\n\n        return result;\n    }\n}\n\n \n      \n    \n",
+    "submit_ts": "1723347184",
+    "subm_id": "1351593661"
+}

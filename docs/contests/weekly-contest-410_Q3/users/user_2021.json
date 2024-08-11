@@ -1,0 +1,6 @@
+{
+    "username": "NikhilP99",
+    "submission": "class Solution:\n\n    def __init__(self):\n        self.mod = 1e9 + 7\n\n    def countOfPairs(self, nums: List[int]) -> int:\n\n        dp = {}\n        def dfs(index, prevArr1):\n            if index == len(nums):\n                return 1\n\n            if (index, prevArr1) in dp:\n                return dp[(index,prevArr1)]\n\n            count = 0\n            for i in range(nums[index] + 1):\n                arr1, arr2 = i, nums[index] - i\n\n                if prevArr1 is not None:\n                    if arr1 < prevArr1:\n                        continue\n                    if arr2 > (nums[index - 1] - prevArr1):\n                        continue\n\n                count = (count + (dfs(index + 1, arr1) % self.mod)) % self.mod\n\n            dp[(index, prevArr1)] = int(count % self.mod)\n            return dp[(index, prevArr1)]\n        \n        return dfs(0, None)\n",
+    "submit_ts": "1723346552",
+    "subm_id": "1351580055"
+}

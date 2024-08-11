@@ -1,0 +1,6 @@
+{
+    "username": "sandipan72",
+    "submission": "class Solution {\npublic:\n    int func(int i, vector<int> &arr, int prevNum, vector<vector<int>> &dp) {\n        int mod = 1e9+7;\n        if(i >= arr.size()) return 1;\n        // cout<<i<<endl;\n        \n        if(dp[i][prevNum+1] != -1) return dp[i][prevNum+1];\n        // cout<<\"one\"<<endl;\n        \n        long long sum = 0;\n        if(prevNum == -1) {\n            for(int j = 0; j <= arr[i]; j++) {\n                sum =  (sum % mod + func(i+1, arr, j, dp)*1ll % mod) % mod;\n            }\n        } else {\n            for(int j = prevNum; j <= arr[i]; j++) {\n                int firstArrNum = j, secondArrNum = arr[i]-j;\n                if(secondArrNum <= arr[i-1]-prevNum)\n                    sum = ( sum % mod + func(i+1, arr, j, dp)*1ll % mod ) % mod;\n            }\n        }\n        // cout<<\"one\"<<endl;\n        \n        return dp[i][prevNum+1] = sum % mod;\n    }\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<int>> dp(2100, vector<int>(55, -1));\n        \n        return func(0, nums, -1, dp);\n    }\n};",
+    "submit_ts": "1723345701",
+    "subm_id": "1351561489"
+}

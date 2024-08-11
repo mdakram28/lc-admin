@@ -1,0 +1,6 @@
+{
+    "username": "l33tcod3r69",
+    "submission": "class Solution {\npublic:\n    \n    vector<int > DP[55];\n    int MOD = 1e9 + 7;\n    int solve(int last1, int curIdx, vector<int > &nums) {\n        int N = nums.size();\n        \n        if( curIdx >= N ) {\n            // cout<<\"here\"<<\"\\n\";\n            return 1;\n        }\n        \n        if( DP[last1][curIdx] != -1 ) {\n            return DP[last1][curIdx];\n        }\n        \n        int last2 = ( curIdx >= 1 ? nums[curIdx - 1] - last1 : 60 );\n        \n        // cout<<last1<<\", \"<<last2<<\"-\"<<curIdx<<\"\\n\";\n        int ans = 0;\n        for(int first=last1; first<=nums[curIdx]; first++) {    \n            int second = nums[curIdx] - first;\n            \n            if( second <= last2 ) {\n                ans = (ans + solve(first, curIdx + 1, nums)) % MOD;\n            }\n        }\n        \n        return DP[last1][curIdx] = ans % MOD;\n    }\n    \n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        for(int i=0; i<55; i++) {\n            DP[i].resize(n, -1);\n        }\n        \n        return solve(0, 0, nums);\n    }\n};",
+    "submit_ts": "1723345909",
+    "subm_id": "1351565946"
+}

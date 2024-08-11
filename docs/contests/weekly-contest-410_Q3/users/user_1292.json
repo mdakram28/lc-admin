@@ -1,0 +1,6 @@
+{
+    "username": "jayesh_yadav31",
+    "submission": "class Solution {\npublic:\n    const int mod = 1e9 + 7;\n    int dp[53][53][2002]; // Adjusted dimensions to avoid negative indexing\n\n    int solve(int prev1, int prev2, int curr, vector<int>& nums) {\n        if (curr == nums.size()) {\n            return 1;\n        }\n        if (dp[prev1 + 1][prev2][curr] != -1) { \n            return dp[prev1 + 1][prev2][curr];\n        }\n\n        int ans = 0;\n        for (int i = 0; i <= nums[curr]; i++) {\n            int temp1 = i;\n            int temp2 = nums[curr] - i;\n            if ((prev1 == -1 || prev1 <= temp1) && prev2 >= temp2) {\n                ans = (ans + solve(temp1, temp2, curr + 1, nums)) % mod;\n            }\n        }\n        return dp[prev1 + 1][prev2][curr] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        memset(dp, -1, sizeof(dp));\n        return solve(-1, 52, 0, nums);\n    }\n};\n",
+    "submit_ts": "1723345813",
+    "subm_id": "1351563884"
+}

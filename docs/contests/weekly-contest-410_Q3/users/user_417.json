@@ -1,0 +1,6 @@
+{
+    "username": "Ani_S",
+    "submission": "class Solution {\n    static int mod = 1000000007;\n    Long dp[][];\n    \n    public int countOfPairs(int[] nums) {\n        dp = new Long[nums.length][51];\n        return (int)possibleCases(nums, 0, 0);\n    }\n    \n    private long possibleCases(int nums[], int i, int prevFirst) {\n        \n        if(i == nums.length)\n            return 1l;\n        \n        if(dp[i][prevFirst] != null)\n            return dp[i][prevFirst];\n        \n        int prevA = 0;\n        int prevB = 51;\n        \n        if(i > 0) {\n            prevA = prevFirst;\n            prevB = nums[i - 1] - prevFirst;\n        }\n        \n        long ans = 0;\n        \n        for(int val = 0; val <= nums[i]; val++) {\n            if(val >= prevA && (nums[i] - val) <= prevB) {\n                ans = (ans + possibleCases(nums, i + 1, val)) % mod;\n            }\n        }\n        \n        return dp[i][prevFirst] = ans;\n        \n    }\n}",
+    "submit_ts": "1723344726",
+    "subm_id": "1351540711"
+}

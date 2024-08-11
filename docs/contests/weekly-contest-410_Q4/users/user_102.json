@@ -1,0 +1,6 @@
+{
+    "username": "dush1729",
+    "submission": "#include \"bits/stdc++.h\"\nusing namespace std;\n#define ll long long\nconst int MOD = 1e9 + 7;\n\nvoid add(int &x, int y) {\n\tx = (x + y) % MOD;\n}\n\nint add2(int x, int y) {\n\treturn (x + y) % MOD;\n}\n\nclass Solution {\npublic:\n\tint countOfPairs(vector<int>& a) {\n\t\tint n = a.size(), mx = *max_element(a.begin(), a.end());\n\t\tvector dp(n, vector (mx + 1, 0));\n\t\tfor(int j = 0; j <= min(a[0], mx); j++) dp[0][j] = 1;\n\t\tfor(int i = 1; i < n; i++) {\n\t\t\tvector pre(mx + 1, 0);\n\t\t\tpre[0] = dp[i - 1][0];\n\t\t\tfor(int j = 1; j <= a[i - 1]; j++) pre[j] = add2(pre[j - 1], dp[i - 1][j]);\n\n\t\t\tfor(int x = 0; x <= min(a[i], mx); x++) {\n\t\t\t\tint r = min(x, a[i - 1]);\n\t\t\t\tr = min(r, a[i - 1] - a[i] + x);\n\n\t\t\t\tif(r >= 0) add(dp[i][x], pre[r]);\n\t\t\t}\n\t\t}\n\t\tint ans = 0;\n\t\tfor(int j = 0; j <= mx; j++) add(ans, dp[n - 1][j]);\n\t\treturn ans;\n\t}\n};\n\n#ifdef DUSH1729\nint main(){cout << \"Compiled!\";}\n#endif",
+    "submit_ts": "1723345169",
+    "subm_id": "1351550111"
+}

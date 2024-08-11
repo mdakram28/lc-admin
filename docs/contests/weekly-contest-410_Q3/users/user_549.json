@@ -1,0 +1,6 @@
+{
+    "username": "harshit135",
+    "submission": "class Solution {\npublic:\n    #define ll long long int \n    const ll mod = 1e9 + 7;\n    ll dp[2005][1005];\n    \n    ll min(ll a, ll b) {\n        if(a <= b) return a;\n        else return b;\n    }\n    \n    ll add(ll a, ll b)\n    {\n        a %= mod; b %= mod;\n        ll ans = (a + b) % mod;\n        return ans % mod;\n    }\n    \n    ll find(vector<int> &nums, ll n, ll a, ll b, ll ind)\n    {\n        // cout<<a<<\" \"<<b<<\" \"<<ind<<endl;\n        if(ind == n) return 1;\n        \n        if(dp[ind][a] != -1) return dp[ind][a];\n        \n        ll ans = 0;\n        ll i = a;\n        while(i <= nums[ind]) {\n            ll x = i; ll y = nums[ind] - i;\n            if(a <= x && b >= y) {\n                ll d = find(nums, n, x, y, ind+1);\n                ans = add(ans , d) % mod;\n            }\n            i++;\n        }\n        dp[ind][a] = ans%mod;\n        return ans%mod;\n    }\n    \n    \n    int countOfPairs(vector<int>& nums) {\n        ll n = nums.size();\n        for(ll i=0; i<2005; i++) {\n            for(ll j=0; j<1005; j++) {\n                dp[i][j] = -1;\n            }\n        }\n        return find(nums, n, 0, 1000, 0);\n    }\n};",
+    "submit_ts": "1723346031",
+    "subm_id": "1351568680"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Ishit_dmg",
+    "submission": "class Solution {\npublic:\n\n    long long maxv=1e9+7;\n\n    long long solve(vector<int>& nums,int i,int prev,vector<vector<int>>& dp){\n        if(i==nums.size()){\n            return 1;\n        }\n        if(dp[i][prev+1]!=-1){\n            return dp[i][prev+1]%maxv;\n        }\n        int a=0;\n        for(int c=0;c<=nums[i];c++){\n            if(prev==-1){\n                a+=solve(nums,i+1,c,dp);\n                a=a%maxv;\n            }\n            else{\n                if(c>=prev && nums[i]-c<=nums[i-1]-prev){\n                    a+=solve(nums,i+1,c,dp);\n                    a=a%maxv;\n                }\n            }\n        }\n        return dp[i][prev+1]=a%maxv;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        vector<vector<int>> dp(nums.size()+1,vector<int>(52,-1));\n        return solve(nums,0,-1,dp);\n    }\n};",
+    "submit_ts": "1723345941",
+    "subm_id": "1351566647"
+}

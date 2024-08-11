@@ -1,0 +1,6 @@
+{
+    "username": "billy_tngo",
+    "submission": "#define MOD 1000000007\n\nclass Solution {\nprivate:\n    int A[2000][51];\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = (int)nums.size();\n        for(int i=0;i<n;i++){\n            fill(A[i],A[i]+51,0);\n        }\n        \n        for(int i=0;i<=nums[0];i++){\n            A[0][i] = 1;\n        }\n        \n        for(int i=1;i<n;i++){\n            for(int j=0;j<=nums[i];j++){\n                int j1 = nums[i] - j;\n                for(int k=0;k<=min(j,nums[i-1]);k++){\n                    int k1 = nums[i-1] - k;\n                    if(k1 >= j1){\n                        A[i][j] += A[i-1][k];    \n                        A[i][j] %= MOD;\n                    }\n                }\n            }\n        }\n        \n        int ret = 0;\n        for(int i=0;i<=nums[n-1];i++){\n            ret += A[n-1][i];\n            ret %= MOD;\n        }\n        \n        return ret;\n    }\n};",
+    "submit_ts": "1723345223",
+    "subm_id": "1351551222"
+}

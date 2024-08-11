@@ -1,0 +1,6 @@
+{
+    "username": "Sanat999",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<vector<long long int>>> dp;\n    int n;\n    long long int mod = 1e9 + 7;\n\n    long long int memo(int ind, int val1, int val2, vector<int>& vals) {\n        if (ind >= n) return 1;\n        if (dp[ind][val1][val2] != -1) return dp[ind][val1][val2];\n\n        long long int result = 0;\n        for (int i = val1; i <= vals[ind]; ++i) {\n            for (int j = val2; j >= 0; --j) {\n                if (i + j == vals[ind]) {\n                    result += memo(ind + 1, i, j, vals);\n                    result %= mod;\n                }\n            }\n        }\n        return dp[ind][val1][val2] = result;\n    }\n\n    int countOfPairs(vector<int>& vals) {\n        n = vals.size();\n        dp = vector<vector<vector<long long int>>>(n, vector<vector<long long int>>(51, vector<long long int>(51, -1)));\n        return memo(0, 0, vals[0], vals);\n    }\n};\n",
+    "submit_ts": "1723346453",
+    "subm_id": "1351577941"
+}

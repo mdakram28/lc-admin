@@ -1,0 +1,6 @@
+{
+    "username": "anishmajumdar_",
+    "submission": "class Solution(object):\n    MOD = 10**9 + 7\n\n    def __init__(self):\n        self.memo = []\n        self.elements = []\n\n    def find_pairs(self, index, previous_value):\n        if previous_value > self.elements[index]:\n            return 0\n        if index + 1 == len(self.elements):\n            return self.elements[index] - previous_value + 1\n        if self.memo[index][previous_value] != -1:\n            return self.memo[index][previous_value]\n\n        count = 0\n        count = self.find_pairs(index, previous_value + 1)\n        next_value = self.elements[index + 1] - self.elements[index] + previous_value\n        next_value = max(previous_value, next_value)\n        count += self.find_pairs(index + 1, next_value)\n        count %= self.MOD\n\n        self.memo[index][previous_value] = count\n        return count\n\n    def countOfPairs(self, nums):\n        self.elements = nums\n        n = len(self.elements)\n        self.memo = [[-1] * 1001 for _ in range(n)]\n\n        return self.find_pairs(0, 0)\n",
+    "submit_ts": "1723346964",
+    "subm_id": "1351588996"
+}

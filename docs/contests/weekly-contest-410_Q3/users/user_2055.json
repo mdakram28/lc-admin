@@ -1,0 +1,6 @@
+{
+    "username": "ridhi9",
+    "submission": "import java.util.*;\n\nclass Solution {\n    private static final int MOD = 1000000007;\n\n    public int countOfPairs(int[] nums) {\n        Map<String, Integer> memo = new HashMap<>();\n        return countPairs(nums, 0, -1, Integer.MAX_VALUE, memo);\n    }\n\n    private int countPairs(int[] nums, int index, int prevA, int prevB, Map<String, Integer> memo) {\n        if (index == nums.length) {\n            return 1;\n        }\n\n        String key = index + \",\" + prevA + \",\" + prevB;\n        if (memo.containsKey(key)) {\n            return memo.get(key);\n        }\n\n        int totalCount = 0;\n        for (int a = 0; a <= nums[index]; a++) {\n            int b = nums[index] - a;\n            if (prevA <= a && prevB >= b) {\n                totalCount += countPairs(nums, index + 1, a, b, memo);\n                totalCount %= MOD;\n            }\n        }\n\n        memo.put(key, totalCount);\n        return totalCount;\n    }\n}\n",
+    "submit_ts": "1723346901",
+    "subm_id": "1351587592"
+}

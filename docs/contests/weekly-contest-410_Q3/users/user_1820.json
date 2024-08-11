@@ -1,0 +1,6 @@
+{
+    "username": "Arjun_Sahoo8271",
+    "submission": "class Solution {\npublic:\n\n    const int MOD = 1e9 + 7;\n\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        vector<vector<int>> dp(n, vector<int>(101, 0));\n\n        // Initialize the first row of dp\n        for (int j = 0; j <= nums[0]; ++j) {\n            dp[0][j] = 1;  // arr1[0] can be j, arr2[0] = nums[0] - j\n        }\n\n        // Fill the dp table\n        for (int i = 1; i < n; ++i) {\n            vector<int> new_dp(101, 0);\n            for (int j = 0; j <= nums[i]; ++j) {\n                int arr2_val = nums[i] - j;\n                for (int k = 0; k <= j; ++k) {\n                    int prev_arr2_val = nums[i-1] - k;\n                    if (arr2_val <= prev_arr2_val) {\n                        new_dp[j] = (new_dp[j] + dp[i-1][k]) % MOD;\n                    }\n                }\n            }\n            dp[i] = new_dp;\n        }\n\n        // Calculate the final answer\n        int result = 0;\n        for (int j = 0; j <= nums[n-1]; ++j) {\n            result = (result + dp[n-1][j]) % MOD;\n        }\n\n        return result;\n    }\n};",
+    "submit_ts": "1723346608",
+    "subm_id": "1351581290"
+}

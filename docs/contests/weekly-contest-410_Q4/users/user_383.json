@@ -1,0 +1,6 @@
+{
+    "username": "hope_ma",
+    "submission": "class Solution:\n  def countOfPairs(self, nums: List[int]) -> int:\n    mod = 1000000007\n    n = len(nums)\n    max_num = max(nums)\n    dp_non_decreasing = [[0 for _ in range(max_num + 1)] for _ in range(n)]\n    dp_non_increasing = [[0 for _ in range(max_num + 1)] for _ in range(n)]\n    for i in range(nums[0] + 1):\n      dp_non_decreasing[0][i] = 1\n      dp_non_increasing[0][nums[0] - i] = 1\n\n    for i in range(1, n):\n      num = nums[i]\n      \n      sum_non_decreasing = 0\n      sum_non_increasing = 0\n      \n      for j in range(max_num, num, -1):\n        sum_non_increasing += dp_non_increasing[i - 1][j]\n      \n      for j in range(num + 1):\n        sum_non_decreasing += dp_non_decreasing[i - 1][j]\n        sum_non_increasing += dp_non_increasing[i - 1][num - j]\n        \n        dp_non_decreasing[i][j] = min(sum_non_decreasing, sum_non_increasing)\n        dp_non_increasing[i][num - j] = min(sum_non_decreasing, sum_non_increasing)\n    \n    ret = 0\n    for j in range(nums[-1] + 1):\n      ret = (ret + dp_non_decreasing[-1][j]) % mod\n    return ret        ",
+    "submit_ts": "1723347131",
+    "subm_id": "1351592573"
+}

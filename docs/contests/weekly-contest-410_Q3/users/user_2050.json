@@ -1,0 +1,6 @@
+{
+    "username": "dwrdius",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        const int MOD = 1e9+7;\n        vector<int> prev(51, 0);\n        for (int i = 0; i <= 50; i++) {\n            if (i <= nums[0]) prev[i] = 1;\n        }\n        \n        for (int i = 1; i < nums.size(); i++) {\n            vector<int> temp(51, 0);\n            for (int j = 0; j <= nums[i]; j++) {\n                int a = nums[i] - j;\n                for (int k = 0; k <= j; k++) {\n                    if (nums[i-1] - k >= a) {\n                        temp[j] += prev[k];\n                        temp[j] %= MOD;\n                    }\n                }\n            }\n            prev = temp;\n        }\n        int res = 0;\n        for (int i : prev) {\n            res += i;\n            res %= MOD;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723346591",
+    "subm_id": "1351580945"
+}

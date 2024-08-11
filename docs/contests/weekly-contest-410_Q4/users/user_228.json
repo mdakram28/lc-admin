@@ -1,0 +1,6 @@
+{
+    "username": "Time-limit-exceed",
+    "submission": "using ll = long long;\nclass Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        vector<ll> prev(nums[0]+1, 1);\n\n        partial_sum(prev.begin(), prev.end(), prev.begin());\n        for(int i=1;i<nums.size();i++){\n            vector<ll> pcurr(nums[i]+1);\n            for(int j=0;j<=nums[i];j++){\n                auto ind = max(min(nums[i-1], min(j, j+nums[i-1]-nums[i])), -1);\n                if(ind == -1) pcurr[j] = 0;\n                else{\n                    pcurr[j] = prev[ind];\n                }\n                pcurr[j] = (pcurr[j] + ((j > 0)?pcurr[j-1]:0))%1000000007;\n            }\n            prev = pcurr;\n        }\n\n        return prev.back();\n    }\n};",
+    "submit_ts": "1723346453",
+    "subm_id": "1351577922"
+}

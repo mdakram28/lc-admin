@@ -1,0 +1,6 @@
+{
+    "username": "nguyenducloc2",
+    "submission": "class Solution {\n   public:\n    const long long mod = (long long)1e9 + 7;\n    long long dp[2005][55];\n\n    int countOfPairs(vector<int>& nums) {\n        int n = (int)nums.size();\n        memset(dp, 0, sizeof(dp));\n        for (int i = 0; i <= nums[0]; i++) {\n            dp[0][i] = 1;\n        }\n        for (int i = 1; i < n; i++) {\n            for (int j = 0; j <= nums[i - 1]; j++) {\n                for (int k = j; k <= nums[i]; k++) {\n                    if (nums[i - 1] - j >= nums[i] - k) {\n                        dp[i][k] += dp[i - 1][j];\n                        dp[i][k] %= mod;\n                    }\n                }\n            }\n        }\n        long long ans = 0;\n        for (int i = 0; i <= nums[n - 1]; i++) {\n            ans += dp[n - 1][i];\n            ans %= mod;\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723345194",
+    "subm_id": "1351550649"
+}

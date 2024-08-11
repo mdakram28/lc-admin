@@ -1,0 +1,6 @@
+{
+    "username": "cslasher",
+    "submission": "/**\n * @param {number[]} nums\n * @return {number}\n */\nvar countOfPairs = function(nums) {\n  const MOD = 1e9 + 7; \n\n  const n = nums.length;\n  const dp = Array.from({length: n + 1}, () => Array(1001).fill(0)); // Init to constraint max, in trade of performance\n\n  for (let j = 0; j <= nums[0]; j++) {\n    dp[0][j] = 1;\n  }\n\n  for (let i = 1; i < n; i++) {\n    for (let j = 0; j <= nums[i]; j++) {  // arr1[i] = j\n      for (let k = 0; k <= j; k++) {  // arr1[i-1] = k <= j (to ensure arr1 is non-decreasing)\n        const arr2 = nums[i] - j;  // arr2[i]\n        if (arr2 >= 0 && arr2 <= nums[i-1] - k) {  // ensure arr2 is non-increasing\n          dp[i][j] = (dp[i][j] + dp[i-1][k]) % MOD;\n        }\n      }\n    }\n  }\n\n  let result = 0;\n  for (let j = 0; j <= 1000; j++) {\n    result = (result + dp[n - 1][j]) % MOD;\n  }\n\n  return result;\n};",
+    "submit_ts": "1723346062",
+    "subm_id": "1351569370"
+}

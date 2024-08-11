@@ -1,0 +1,6 @@
+{
+    "username": "k2Leet",
+    "submission": "class Solution {\n    static int MOD = 1_000_000_007;\n    static Long dp[][];\n    static long solve(int a[], int idx, int lastVal) {\n        int n = a.length;\n        if(idx >= n)    return 1;\n        if(dp[idx][lastVal] != null)    return dp[idx][lastVal];\n        int val = a[idx];\n        int first = lastVal;\n        int lastSecond = idx-1 < 0 ? Integer.MAX_VALUE : a[idx-1] - lastVal;\n        long ans = 0;\n        while(first <= val) {\n            int second = val - first;\n            if(second > lastSecond) {\n                first++;\n                continue;\n            }\n            long x = solve(a, idx+1, first);\n            ans = ans + x;\n            ans = ans % MOD;\n            first++;\n        }\n        return dp[idx][lastVal] = ans % MOD;\n    }\n\n\n    public int countOfPairs(int[] nums) {\n        int n = nums.length;\n\n        dp = new Long[n][51];\n        long ans = solve(nums, 0, 0);\n        return (int) ans;\n        \n    }\n}",
+    "submit_ts": "1723344827",
+    "subm_id": "1351542911"
+}

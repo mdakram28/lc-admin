@@ -1,0 +1,6 @@
+{
+    "username": "CowOpening",
+    "submission": "class Solution {\npublic:\n    vector<int> nums;\n    int n;\n    vector<vector<vector<int>>> dp;\n    const int MOD = 1000000007;\n    \n    int solve(int i, int a, int b) {\n        if (i == n) return 1;\n        if (dp[i][a][b] != -1) return dp[i][a][b];\n        \n        long res = 0;\n        for(int a_ = a; a_ <= nums[i]; a_++) {\n            int b_ = nums[i] - a_;\n            if (b_ >= 0 && b_ <= b) {\n                res = (res + solve(i + 1, a_, b_)) % MOD;\n            }\n        }\n        dp[i][a][b] = res;\n        return res;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        this->nums = nums;\n        n = nums.size();\n        int maxNum = *max_element(nums.begin(), nums.end());\n        dp.resize(n, vector<vector<int>>(maxNum + 1, vector<int>(maxNum + 1, -1)));\n        long res = 0;\n        for(int i = 0; i <= nums[0]; i++) {\n            int j = nums[0] - i;\n            if (j >= 0) {\n                res = (res + solve(1, i, j)) % MOD;\n            }\n        }\n\n        return (int)res;\n    }\n};",
+    "submit_ts": "1723346252",
+    "subm_id": "1351573494"
+}

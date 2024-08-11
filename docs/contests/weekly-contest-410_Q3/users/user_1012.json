@@ -1,0 +1,6 @@
+{
+    "username": "iamhariom0228",
+    "submission": "#define ll long long\nclass Solution {\npublic:\n    ll dp[2001][51], n;\n    int mod = 1e9+7;\n\n    ll rec(int i, int prev1, int prev2, vector<int>& nums) {\n        // Base case\n        if (i == n) return 1;\n\n        if (dp[i][prev1] != -1) return dp[i][prev1];\n\n        ll ans = 0;\n        for (int j = prev1; j <= nums[i]; j++) {\n            int arr2_i = nums[i] - j;\n            if (arr2_i <= prev2) {\n                ans += rec(i + 1, j, arr2_i, nums);\n                ans %= mod;\n            }\n        }\n        \n        return dp[i][prev1] = ans;\n    }\n\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        memset(dp, -1, sizeof(dp));\n        return rec(0, 0, nums[0], nums);\n    }\n};\n",
+    "submit_ts": "1723345358",
+    "subm_id": "1351554045"
+}

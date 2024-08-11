@@ -1,0 +1,6 @@
+{
+    "username": "louisfghbvc",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        // goal: find out the number of pairs such that\n        // arr1 is increase, arr2 is decreasing\n        \n        // idea:\n        // dp\n        \n        // dfs(i, x): starting from index i, the last number of arr1 is x, arr2 is nums[i]-x;\n        \n        int n = nums.size();\n        int mod = 1e9+7;\n        \n        vector dp(n, vector(55, -1));\n        auto dfs = [&](auto &self, int i, int last) -> int {\n            if (i >= n) return 1;\n            \n            int& res = dp[i][last];\n            if (res != -1) return res;\n            \n            res = 0;\n            for (int x = 0; x <= nums[i]; ++x) {\n                if (x >= last && nums[i] - x <= nums[i-1] - last)\n                res = (res + self(self, i+1, x)) % mod;\n            }\n            return res;\n        };\n        \n        long res = 0;\n        for (int x = 0; x <= nums[0]; ++x)\n            res = (res + dfs(dfs, 1, x)) % mod;\n        \n        return res;\n    }\n};",
+    "submit_ts": "1723344110",
+    "subm_id": "1351526692"
+}

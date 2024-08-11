@@ -1,0 +1,6 @@
+{
+    "username": "yzmyzm",
+    "submission": "class Solution {\npublic:\n    int countOfPairs(vector<int>& nums) {\n        using ll = long long;\n        ll MOD = 1e9 + 7;\n\n        int n = nums.size();\n        int m = *max_element(nums.begin(), nums.end());\n\n        ll dp[n][m + 1]; memset(dp, 0, sizeof(dp));\n        ll pre_sum[n][m + 2]; memset(pre_sum, 0, sizeof(pre_sum));\n        for (int j = 0; j <= nums[0]; ++ j) {\n            dp[0][j] = 1;\n            pre_sum[0][j] = j;\n        }\n        pre_sum[0][nums[0] + 1] = nums[0] + 1;\n        for (int i = 1; i < n; ++ i) {\n            for (int j = 0; j <= nums[i]; ++ j) {\n                int j2 = min(j, nums[i - 1] - nums[i] + j);\n                if (j2 < 0) continue;\n                dp[i][j] = pre_sum[i - 1][j2 + 1];\n                pre_sum[i][j] = ( j == 0? 0: pre_sum[i][j - 1] + dp[i][j - 1] ) % MOD;\n            }\n            pre_sum[i][nums[i] + 1] = ( pre_sum[i][nums[i]] + dp[i][nums[i]] ) % MOD;\n        }\n\n        ll res = 0;\n        for (int j = 0; j <= m; ++ j) res = (res + dp[n - 1][j]) % MOD;\n        return res;\n    }\n};",
+    "submit_ts": "1723346805",
+    "subm_id": "1351585548"
+}

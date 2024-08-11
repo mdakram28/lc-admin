@@ -1,0 +1,6 @@
+{
+    "username": "timetravel_",
+    "submission": "class Solution {\npublic:\n    int n;\n    vector<int>arr;\n    #define int long long\n    int dp[2010][51][51];\n    int mod = 1e9 + 7;\n    \n    int rec(int level, int last1, int last2){\n        if(level == n)return 1;\n        if(dp[level][last1][last2]!=-1) return dp[level][last1][last2];\n        int ans = 0;\n        for(int i = arr[level]; i>=last1; i--){\n            int j = arr[level] - i;\n            if(i >= last1 && j<= last2){\n                ans += rec(level+1, i, j)%mod;\n                ans %= mod;\n            }\n        }\n        return dp[level][last1][last2]=ans%mod;\n    }\n    #undef int\n    int countOfPairs(vector<int>& nums) {\n        n = nums.size();\n        arr = nums;\n        memset(dp,-1,sizeof(dp));\n        return rec(0,0,50);\n    }\n};",
+    "submit_ts": "1723344573",
+    "subm_id": "1351537489"
+}

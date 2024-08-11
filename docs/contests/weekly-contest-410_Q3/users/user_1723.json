@@ -1,0 +1,6 @@
+{
+    "username": "Vishesh_Paliwal",
+    "submission": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    private static final int MOD = 1_000_000_007;\n\n    Map<String, Integer> memo = new HashMap<>();\n\n    private int ways(int[] nums, int idx, int pri, int prd) {\n        if (idx == nums.length) return 1;\n\n        String key = idx + \",\" + pri + \",\" + prd;\n        if (memo.containsKey(key)) return memo.get(key);\n\n        int res = 0;\n        for (int i = pri; i <= nums[idx]; i++) {\n            if (nums[idx] - i <= prd) {\n                res += ways(nums, idx + 1, i, nums[idx] - i);\n                res %= MOD;\n            }\n        }\n\n        memo.put(key, res);\n        return res;\n    }\n\n    public int countOfPairs(int[] nums) {\n        return ways(nums, 0, 0, 100);\n    }\n}\n",
+    "submit_ts": "1723346473",
+    "subm_id": "1351578333"
+}

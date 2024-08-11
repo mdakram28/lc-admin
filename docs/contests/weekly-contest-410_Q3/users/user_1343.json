@@ -1,0 +1,6 @@
+{
+    "username": "Ravish_108_CODER",
+    "submission": "int dp[2001][52][52];\n\nclass Solution {\n    const int mod = 1e9+7;\n    vector<int> v;\n    int solve(int ind, int n, int inc, int prev){\n        if(ind == n) return 1;\n        if(dp[ind][inc][prev] != -1) return dp[ind][inc][prev];\n        long long tot = 0;\n        for(int i=inc; i<=v[ind]; i++){\n            if(v[ind] - i <= prev){\n                tot += solve(ind+1, n, i, v[ind]-i);\n                tot %= mod;\n            }\n        }\n        return dp[ind][inc][prev] = (int)tot;\n    }\npublic:\n    int countOfPairs(vector<int>& nums) {\n        int n = nums.size();\n        this->v = nums;\n        memset(dp, -1, sizeof(dp));\n        return solve(0, n, 0, 51);\n    }\n};",
+    "submit_ts": "1723345901",
+    "subm_id": "1351565767"
+}

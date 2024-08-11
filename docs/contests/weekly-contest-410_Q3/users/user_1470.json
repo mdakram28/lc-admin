@@ -1,0 +1,6 @@
+{
+    "username": "c1phani1simha",
+    "submission": "class Solution {\n    #define ll long long\n    \npublic:\n     ll mod = 1e9+7;\n\n    int solveMem(int idx,int a,int b,vector<vector<vector<long long>>>&dp,vector<int>& nums){\n     //base cases\n     if(idx>=nums.size())\n     return 1;\n\n     if(dp[idx][a][b]!=-1)\n     return dp[idx][a][b];\n     ll ans(0);\n     for(int i=a;i<=nums[idx];++i){\n        for(int j=b;j>=0;--j){\n          if(i+j == nums[idx])\n          {\n            ans+=(solveMem(idx+1,i,j,dp,nums));\n            ans = ans%mod;\n          }\n        }\n     }\n\n     return dp[idx][a][b] = ans;\n    }\n    int countOfPairs(vector<int>& nums) {\n         int n = nums.size();\n         vector<vector<vector<long long>>>dp(n+1,vector<vector<long long>>(51,vector<long long>(51,-1)));\n         return solveMem(0,0,nums[0],dp,nums);\n         \n    }\n};",
+    "submit_ts": "1723346104",
+    "subm_id": "1351570277"
+}

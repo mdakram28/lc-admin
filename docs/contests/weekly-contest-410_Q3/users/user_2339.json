@@ -1,0 +1,6 @@
+{
+    "username": "wswartworth",
+    "submission": "from functools import cache\nclass Solution:\n\n    @cache\n    def doCount(self, pos, low):  #from pos onward, using numbers from low to high inclusive for inc\n\n        #print(f\"pos:{pos}\")\n\n        MOD = 10**9 + 7\n\n        N = len(self.nums)\n\n        if pos == N-1:\n            ret = max(self.nums[N-1] - low + 1, 0)\n            #print(f\"pos:{pos}, low:{low}, ret:{ret}\")\n            return ret % MOD\n        \n        total = 0\n        for p in range(low, self.nums[pos] + 1):\n            new_low = max(p , self.nums[pos + 1] - self.nums[pos] + p)\n            total += self.doCount(pos + 1, new_low)\n            total %= MOD\n\n        #print(f\"pos:{pos}, low:{low}, ret:{total}\")\n        return total\n\n    def countOfPairs(self, nums: List[int]) -> int:\n        self.nums = nums\n\n        return self.doCount(0, 0)",
+    "submit_ts": "1723347197",
+    "subm_id": "1351593936"
+}
