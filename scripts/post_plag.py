@@ -112,13 +112,16 @@ class ReportProcessor:
             for row in csv_reader:
                 if csv_reader.line_num == 0:
                     continue
-                ret[row["id"]] = DolosFile(
-                    row["id"], 
-                    row["path"], 
-                    row["content"], 
-                    subm_info[row["path"]]["subm_ts"],
-                    subm_info[row["path"]]["subm_id"],
-                )
+                try:
+                    ret[row["id"]] = DolosFile(
+                        row["id"], 
+                        row["path"], 
+                        row["content"], 
+                        subm_info[row["path"]]["subm_ts"],
+                        subm_info[row["path"]]["subm_id"],
+                    )
+                except:
+                    pass
         return ret
 
     def get_groups(self, sim_thres: int):

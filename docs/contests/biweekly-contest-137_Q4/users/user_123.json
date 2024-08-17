@@ -1,0 +1,6 @@
+{
+    "username": "drunkenButterfly",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        ROWS, COLS = len(board), len(board[0])\n        pos = []\n        for r in range(ROWS):\n            for c in range(COLS):\n                pos.append((r, c))\n        pos.sort(key = lambda p: board[p[0]][p[1]], reverse = True)\n        res = float('-inf')\n        for i in range(ROWS*COLS):\n            if res > board[pos[i][0]][pos[i][1]] * 3:\n                    break\n            for j in range(i+1, ROWS*COLS):\n                if res > board[pos[i][0]][pos[i][1]] + board[pos[j][0]][pos[j][1]] * 2:\n                    break\n                if (pos[i][0] == pos[j][0] or pos[i][1] == pos[j][1]):\n                    continue\n                for k in range(j+1, ROWS*COLS):\n                    if (pos[j][0] == pos[k][0] or pos[i][0] == pos[k][0] or\n                        pos[j][1] == pos[k][1] or pos[i][1] == pos[k][1]):\n                        continue\n                    total = board[pos[i][0]][pos[i][1]] + board[pos[j][0]][pos[j][1]] + board[pos[k][0]][pos[k][1]]\n                    if total > res: res = total\n                    else: break\n        return res",
+    "submit_ts": "1723908320",
+    "subm_id": "1359147658"
+}

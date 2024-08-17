@@ -1,0 +1,6 @@
+{
+    "username": "Ryan Cook",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n,m = len(board), len(board[0])\n        pq = []\n\n        mv = -float('inf')\n\n        for i in range(n):\n            for j in range(m):\n                heapq.heappush(pq, (-board[i][j], i, j))\n\n        \n        tiles = []\n        rows = set()\n        cols = set()\n        while pq and (len(rows) <= 5 or len(cols) <= 5):\n            v, i, j = heapq.heappop(pq)\n            tiles.append((i,j))\n            rows.add(i)\n            cols.add(j)\n            mv = max(mv,-v)\n        pq = []\n        for i,j in tiles:\n            heapq.heappush(pq, (-board[i][j]-(mv*2), [i], [j]))\n        while pq:\n            v, r, c = heapq.heappop(pq)\n            if len(r) == 3:\n                return -v\n            v += mv\n            for i,j in tiles:\n                if i not in r and j not in c:\n                    heapq.heappush(pq,(v-board[i][j], r+[i], c+[j]))",
+    "submit_ts": "1723908441",
+    "subm_id": "1359152813"
+}

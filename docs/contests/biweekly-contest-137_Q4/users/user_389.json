@@ -1,0 +1,6 @@
+{
+    "username": "Yash Srivastava",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m , n = len(board), len(board[0]) \n\n        arr= []\n        for i in range(m):\n            for j in range(n):\n                arr.append((board[i][j], i, j))\n        \n        arr.sort(reverse= True)\n\n        def recur(i, count, rows, cols, rejected):\n            if count == 0:\n                return 0\n            if i== len(arr) or rejected>40:\n                return float(\"-inf\")\n            \n            val, x, y = arr[i]\n            if x in rows or y in cols:\n                return recur(i+1, count, rows, cols, rejected)\n            \n            choose = val + recur(i+1, count-1, rows+[x], cols+ [y], rejected )\n            \n            if count==1:\n                ans = choose\n            else:\n                ans = max(choose, recur(i+1, count, rows, cols, rejected+1))\n            \n            return ans\n            \n        return recur(0, 3, [], [], 0)\n",
+    "submit_ts": "1723910055",
+    "subm_id": "1359215622"
+}

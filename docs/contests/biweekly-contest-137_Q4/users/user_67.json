@@ -1,0 +1,6 @@
+{
+    "username": "Yuva Prasad",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        l = []\n        n, m = len(board), len(board[0])\n        \n        for i in range(n):\n            for j in range(m):\n                l.append((board[i][j], i, j))\n        \n        l.sort(key=lambda x: (-x[0], x[1], x[2]))\n        \n        # 2 rocks\n        rock2 = []\n        nm = len(l)\n        for i in range(nm):\n            val, x, y = l[i]\n            c = 0\n            for j in range(i+1, nm):\n                tval, tx, ty = l[j]\n                if tx != x and ty != y:\n                    rock2.append((val+tval, x, y, tx, ty))\n                    c+=1\n                    if c==4:\n                        break\n        rock3 = []\n        r = len(rock2)\n        rock2.sort(key=lambda x: -x[0])\n        for i in range(r):\n            val, x, y , tx, ty = rock2[i]\n            for j in range(nm):\n                tval, xx, yy = l[j]\n                if xx != x and xx!=tx and yy!=y and yy!=ty:\n                    rock3.append(val+tval)\n                    break    \n                    \n        return max(rock3)\n        ",
+    "submit_ts": "1723907779",
+    "subm_id": "1359123897"
+}

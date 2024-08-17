@@ -1,0 +1,6 @@
+{
+    "username": "Nika Doghonadze",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        # import random\n        # board = [[random.randint(-10**9, 10**9) for i in range(500)] for _ in range(500)]\n        # board = [[-1 for i in range(500)] for _ in range(500)]\n\n        m, n = len(board), len(board[0])\n        sorted_indices = sorted(list(itertools.product(range(m), range(n))), key=(lambda x: board[x[0]][x[1]]), reverse=True)\n        \n        top_3_indices = []\n        for row in board:\n            top_3_indices.append(sorted(range(n), key=lambda j: row[j])[-3:])\n\n        res = -math.inf\n        for i1 in range(m):\n            for i2 in range(i1 + 1, m):\n                for j1 in top_3_indices[i1]:\n                    for j2 in top_3_indices[i2]:\n                        if j1 == j2:\n                            continue\n                        for i3, j3 in sorted_indices:\n                            if i3 == i1 or i3 == i2 or j3 == j1 or j3 == j2:\n                                continue\n                            cur_res = board[i1][j1] + board[i2][j2] + board[i3][j3]\n                            res = max(res, cur_res)\n                            break\n        return res\n",
+    "submit_ts": "1723907463",
+    "subm_id": "1359108813"
+}
