@@ -1,0 +1,6 @@
+{
+    "username": "sh1nje",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m = len(board)\n        n = len(board[0])\n        cells = []\n\n        # Collect all cells with their values and coordinates\n        for i in range(m):\n            for j in range(n):\n                cells.append((board[i][j], i, j))\n        \n        # Sort cells by value in descending order\n        cells.sort(reverse=True, key=lambda x: x[0])\n        \n        # Limit the number of cells considered to the top 50\n        top_k_cells = cells[:min(len(cells), 50)]\n        \n        max_sum = float('-inf')\n\n        # Generate all combinations of 3 cells from the top_k_cells\n        for comb in combinations(top_k_cells, 3):\n            values, rows, cols = zip(*comb)\n            if len(set(rows)) == 3 and len(set(cols)) == 3:  # Ensure no two cells share the same row or column\n                max_sum = max(max_sum, sum(values))\n\n        return max_sum",
+    "submit_ts": "1723908962",
+    "subm_id": "1359174124"
+}

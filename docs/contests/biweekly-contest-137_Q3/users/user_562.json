@@ -1,0 +1,6 @@
+{
+    "username": "Akshat Awasthi",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n = len(board)\n        m = len(board[0])\n        v = []\n        for i in range(n):\n            for j in range(m):\n                v.append([board[i][j],i,j])\n        v.sort(reverse=True)\n        ans = -3*10**9\n        #print(v)\n        for i in range(n*m):\n            sm = v[i][0]\n            r = {v[i][1]}\n            c = {v[i][2]}\n            for j in range(n+m):\n                if i==j: continue\n                x,f,l = v[j]\n                if f in r or l in c:\n                    continue\n                sm += x\n                r.add(f)\n                c.add(l)\n                for k in range(n*m):\n                    if k==i or k==j:\n                        continue\n                    y,a,b = v[k]\n                    if a in r or b in c:\n                        continue\n                    ans = max(ans, sm+y)\n                    break\n                r.remove(f)\n                c.remove(l)\n                sm -=x\n        return ans",
+    "submit_ts": "1723907647",
+    "subm_id": "1359117763"
+}

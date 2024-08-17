@@ -1,0 +1,6 @@
+{
+    "username": "Tarun Chandak",
+    "submission": "class Solution {\n    #define ll long long\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        int n = board.size(), m = board[0].size();  \n        vector<vector<vector<ll>>> dp(m, vector<vector<ll>> (m, vector<ll> (5, -4e9)));\n        ll ans = -4e9;\n        for(int i = 0; i < n; i ++) {\n            multiset<int> st;\n            for(int j = 0; j < m; j ++) st.insert(board[i][j]);\n            for(int j = 0; j < m; j ++) {\n                st.erase(st.find(board[i][j]));\n                for(int k = 0; k < m; k ++) {\n                    if(j == k) continue;\n                    st.erase(st.find(board[i][k]));\n                    ans = max(ans, dp[j][k][2] + (*st.rbegin()));\n                    st.insert(board[i][k]);\n                    dp[j][k][2] = max(dp[j][k][2], dp[j][k][1] + board[i][k]);\n                    dp[j][k][1] = max(dp[j][k][1], 0ll + board[i][j]);\n                }\n                st.insert(board[i][j]);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723910120",
+    "subm_id": "1359218157"
+}

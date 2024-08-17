@@ -1,0 +1,6 @@
+{
+    "username": "lazybearfiringrockets",
+    "submission": "import heapq, itertools\n\nclass Solution:\n    def maximumValueSum(self, board: list[list[int]]) -> int:\n        m, n = len(board), len(board[0])\n\n        # row_heap[i] := column indices of the 3 largest values in the row\n        row_heap = []\n        for row in board:\n            indices = heapq.nlargest(3, range(n), key=lambda x: row[x])\n            row_heap.append(indices)\n\n        # choose 3 rows\n        # for each chosen row, choose one (column, value) pair\n        # if the combo is valid, update result\n\n        result = float('-inf')\n        for (r1, _), (r2, _), (r3, _) in itertools.combinations(enumerate(row_heap), 3):\n            for j1, j2, j3 in itertools.product(row_heap[r1], row_heap[r2], row_heap[r3]):\n                if j1 != j2 and j1 != j3 and j2 != j3:\n                    result = max(result, board[r1][j1] + board[r2][j2] + board[r3][j3])\n        \n        return result",
+    "submit_ts": "1723909178",
+    "subm_id": "1359182580"
+}

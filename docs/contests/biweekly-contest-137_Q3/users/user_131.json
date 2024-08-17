@@ -1,0 +1,6 @@
+{
+    "username": "Ketan Raut",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m,n=len(board),len(board[0])\n        mmax=[[] for _ in range(m)]\n        for i in range(m):\n            for j in range(n):\n                if len(mmax[i])>=3 and mmax[i][0][0]<board[i][j]:\n                    heappop(mmax[i])\n                    heappush(mmax[i],(board[i][j],j))\n                    continue\n                if len(mmax[i])<3:heappush(mmax[i],(board[i][j],j))\n        ans=-sys.maxsize\n        def solve(r1,r2,r3):\n            res=-sys.maxsize\n            for val1,j1 in mmax[r1]:\n                for val2,j2 in mmax[r2]:\n                    for val3,j3 in mmax[r3]:\n                        if j1==j2 or j2==j3 or j1==j3: continue\n                        res=max(res,val1+val2+val3)\n            return res\n        for r1 in range(m):\n            for r2 in range(r1+1,m):\n                for r3 in range(r2+1,m):\n                    ans=max(ans,solve(r1,r2,r3))\n        # print(mmax)\n        return ans\n        ",
+    "submit_ts": "1723906762",
+    "subm_id": "1359071089"
+}

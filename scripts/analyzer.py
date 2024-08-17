@@ -87,7 +87,7 @@ class LcAnalyzer:
 
     def process(self, sim_thres):
         contest_info_path = join(self.contests_dir, "contest-info.json")
-        with open(contest_info_path) as f:
+        with open(contest_info_path, encoding="utf8") as f:
             reports = json.load(f)["reports"]
         
         rmtree(self.users_dir)
@@ -115,7 +115,7 @@ class LcAnalyzer:
                 users_cont[user1.get_username()].add(report_id)
                 users_cont[user2.get_username()].add(report_id)
         
-        with open(self.users_json_path, 'w') as f:
+        with open(self.users_json_path, 'w', encoding="utf8") as f:
             json.dump({
                 "num_contests": {
                     name: len(cont) for name, cont in users_cont.items()

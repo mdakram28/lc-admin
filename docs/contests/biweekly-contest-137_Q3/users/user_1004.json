@@ -1,0 +1,6 @@
+{
+    "username": "VENNU SHYAM KUMAR",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        # n = len(board)  \n        # m = len(board[0])  \n        # res = -sys.maxsize\n        # for r in combinations(range(n), 3):\n        #     for c in permutations(range(m), 3):\n        #         total = 0\n        #         for i in range(3):\n        #             total += board[r[i]][c[i]]\n        #         res = max(res, total)\n        # return res\n\n        n = len(board)\n        m = len(board[0]) \n        res = float('-inf')\n        rows_arr = []\n        for i in range(n):\n            top_3_in_row = heapq.nlargest(3, [(board[i][j], j) for j in range(m)])\n            rows_arr.append(top_3_in_row)\n        for rows in combinations(range(n), 3):\n            for (v1, c1) in rows_arr[rows[0]]:\n                for (v2, c2) in rows_arr[rows[1]]:\n                    if c2 == c1:\n                        continue\n                    for (v3, c3) in rows_arr[rows[2]]:\n                        if c3 == c1 or c3 == c2:\n                            continue\n                        total = v1 + v2 + v3\n                        res = max(res, total)\n\n        return res\n        \n        ",
+    "submit_ts": "1723910222",
+    "subm_id": "1359221933"
+}

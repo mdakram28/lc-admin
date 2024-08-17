@@ -60,7 +60,7 @@ class LcClient:
         Path(cache_dir).mkdir(exist_ok=True, parents=True)
         cache_file = join(cache_dir, hashlib.md5(url.encode('utf-8')).hexdigest() + ".json")
         if exists(cache_file):
-            with open(cache_file) as f:
+            with open(cache_file, encoding="utf8") as f:
                 return json.load(f)
 
         try:
@@ -86,7 +86,7 @@ class LcClient:
         self._driver_queue.put_nowait(driver)
 
         time.sleep(0.1)
-        with open(cache_file, 'w') as f:
+        with open(cache_file, 'w', encoding="utf8") as f:
             json.dump(resp, f, indent=4)
         
         return resp

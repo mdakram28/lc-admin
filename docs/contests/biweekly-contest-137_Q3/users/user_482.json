@@ -1,0 +1,6 @@
+{
+    "username": "Akay",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        ans = -float(\"inf\")\n\n        d = {}\n\n        for i in range(len(board)):\n            row = []\n            for j in range(len(board[0])):\n                heappush(row, (board[i][j], j))\n                if len(row) > 3:\n                    heappop(row)\n            d[i] = row\n\n        def calculate(startRow, usedCol, curVal, count):\n            nonlocal ans\n            if count == 3:\n                ans = max(ans, curVal)\n                return\n\n            for i in range(startRow, len(board)):\n                h = d[i]\n                for val, col in h:\n                    if col not in usedCol:\n                        cpy = usedCol.copy()\n                        cpy.add(col)\n                        calculate(i + 1, cpy, curVal + val, count + 1)\n\n        for i in range(len(board) - 2):\n            h = d[i]\n            for val, col in h:\n                s = set()\n                s.add(col)\n                calculate(i + 1, s, val, 1)\n\n        return ans\n\n",
+    "submit_ts": "1723906954",
+    "subm_id": "1359081489"
+}

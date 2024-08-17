@@ -1,0 +1,6 @@
+{
+    "username": "sohailkasmani007",
+    "submission": "long long dp[102][102][102];\nclass Solution {\npublic:\n    long long rec(int ind,int a,int b,vector<vector<int>> &board){\n        if(ind>=board.size()) return -1e12;\n        if(dp[ind][a][b]!=-1) return dp[ind][a][b];\n        long long ans=rec(ind+1,a,b,board);\n        for(int i=0;i<board[0].size();i++){\n            if(a==0){\n                ans=max(ans,board[ind][i]+rec(ind+1,i+1,b,board));\n            }\n            else if(b==0){\n                if(a!=(i+1)) ans=max(ans,board[ind][i]+rec(ind+1,a,i+1,board));\n            }\n            else if(a!=(i+1) && b!=(i+1) && a!=0 && b!=0){\n                ans=max(ans,board[ind][i]+0ll);\n            }\n        }\n        return dp[ind][a][b]=ans;\n    }\n    long long maximumValueSum(vector<vector<int>>& board) {\n        for(int i=0;i<board.size()+1;i++){\n            for(int j=0;j<=board[0].size()+1;j++){\n                for(int k=0;k<=board[0].size()+1;k++){\n                    dp[i][j][k]=-1;\n                }\n            }\n        }\n        return rec(0,0,0,board);\n    }\n};",
+    "submit_ts": "1723909847",
+    "subm_id": "1359207992"
+}

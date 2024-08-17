@@ -1,0 +1,6 @@
+{
+    "username": "Shinya Sato",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m = len(board)\n        n = len(board[0])\n\n        for r in range(m):\n            cells = []\n            for c, cell in enumerate(board[r]):\n                if len(cells) < 3:\n                    heappush(cells, (cell, c))\n                else:\n                    heappush(cells, (cell, c))\n                    heappop(cells)\n            board[r] = cells\n\n        def backtrack(r, taken_cs):\n            if len(taken_cs) == 3:\n                return 0\n\n            ans = -inf\n            if m - r > 3 - len(taken_cs):\n                ans = backtrack(r + 1, taken_cs)\n\n            for cell, c in board[r]:\n                if c not in taken_cs:\n                    taken_cs.add(c)\n                    ans = max(ans, cell + backtrack(r + 1, taken_cs))\n                    taken_cs.remove(c)\n            return ans\n        \n        ans = -inf\n        for r in range(m - 2):\n            for cell, c in board[r]:\n                ans = max(ans, cell + backtrack(r + 1, {c}))\n        return ans",
+    "submit_ts": "1723910224",
+    "subm_id": "1359221991"
+}

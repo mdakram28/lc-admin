@@ -1,0 +1,6 @@
+{
+    "username": "Vladislav",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n, m = map(len, (board, board[0]))\n        h = []\n        for i in range(n):\n            for j in range(m):\n                heappush(h, (- board[i][j], i, j))\n        top = []\n        for _ in range(min(20, m * n)):\n            top.append(heappop(h)[1:])\n        ret = - inf\n        for comb in itertools.combinations(top, 3):\n            if all(comb[i1][j] != comb[i2][j] for i1 in range(3) for i2 in range(i1 + 1, 3) for j in range(2)):\n                ret = max(ret, sum(board[i][j] for i, j in comb))\n        return ret\n        \n        ",
+    "submit_ts": "1723906297",
+    "subm_id": "1359045685"
+}

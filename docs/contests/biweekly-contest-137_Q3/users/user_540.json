@@ -1,0 +1,6 @@
+{
+    "username": "yead",
+    "submission": "class Solution {\npublic:\n    long long dp[101][102][102];\n    bool calculated[101][102][102];\n\n    long long getMaxValue(int r, int c1 ,int c2 ,vector<vector<int>>& board) {\n        int row = board.size();\n        int col = board[0].size();\n\n        if(r >= row) return -1e12L;\n\n        if(calculated[r][c1][c2]) return dp[r][c1][c2];\n        \n\n        long long mx = -1e12;\n\n        for(int i = 0; i < col; i++)  {\n            if(c1 == i + 1 || c2 == i + 1) continue;\n\n            if (c1 == 0)\n             mx = max(mx , board[r][i] + getMaxValue(r + 1, i + 1 , c2, board));\n            else if (c2 == 0) \n             mx = max(mx , board[r][i] + getMaxValue(r + 1, c1 , i + 1, board));\n            else \n             mx = max(mx , (long long)board[r][i]);\n        }\n\n        mx = max(mx , getMaxValue(r + 1, c1, c2, board));\n\n        calculated[r][c1][c2] = true;\n\n\n        return dp[r][c1][c2] = mx;\n\n    }\n\n\n    long long maximumValueSum(vector<vector<int>>& board) {\n        memset(calculated, false , sizeof(calculated));\n\n\n        long long res =  getMaxValue(0, 0, 0, board);\n    \n\n        return res;\n    }\n};",
+    "submit_ts": "1723908282",
+    "subm_id": "1359145979"
+}

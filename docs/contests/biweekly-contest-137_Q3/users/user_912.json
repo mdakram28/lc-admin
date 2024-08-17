@@ -1,0 +1,6 @@
+{
+    "username": "ALESTA1",
+    "submission": "class Solution {\npublic:\n    long long dp[102][102][102]; \n\n    long long rec(int row, int i, int j,vector<vector<int>>& mat) {\n        int n = mat.size();\n        int m = mat[0].size();\n\n        if (row == n) return -1e10; \n        if (dp[row][i][j] != -1e13) return dp[row][i][j]; \n\n        long long ans = -1e10;\n\n        ans = max(ans, rec(row + 1, i, j,mat)); \n\n        for (int col = 0; col < m; col++) {\n            if (j == col || i == col) continue; \n\n            if (i == m) {\n                ans = max(ans, mat[row][col] + rec(row + 1, col, j, mat));\n            } else if (j == m) {\n                ans = max(ans, mat[row][col] + rec(row + 1, i, col,mat));\n            } else {                \n                ans  = max(ans,1ll*mat[row][col]);\n            }\n        }\n\n        return dp[row][i][j] = ans;\n    }\n\n    long long maximumValueSum(vector<vector<int>>& board) {\n        int n = board.size();\n        int m = board[0].size();\n        \n        for(int i=0;i<board.size();i++)for(int j=0;j<=m;j++)for(int k=0;k<=m;k++)dp[i][j][k] = -1e13;\n\n        return rec(0, m, m, board); \n    }\n};\n",
+    "submit_ts": "1723907691",
+    "subm_id": "1359119898"
+}

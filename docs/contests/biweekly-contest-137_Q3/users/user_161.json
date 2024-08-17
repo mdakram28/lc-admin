@@ -1,0 +1,6 @@
+{
+    "username": "ybbb",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        new = []\n        \n        for col in board:\n            t = [None] * len(col)\n            for i in range(len(col)):\n                t[i] = (col[i], i)\n            t.sort(reverse=True)\n            new.append(t[:3])\n        \n        # n * 3\n        ans = board[0][0] + board[1][1] + board[2][2]\n        for i1 in range(len(board)-2):\n            for j1 in range(3):\n                # first is new[i1][j1]\n                r1 = new[i1][j1][1]\n                for i2 in range(i1 + 1, len(board)-1):\n                    for j2 in range(3):\n                        r2 = new[i2][j2][1]\n                        if r2 == r1:\n                            continue\n                        for i3 in range(i2 + 1, len(board)):\n                            for j3 in range(3):\n                                r3 = new[i3][j3][1]\n                                if r3 == r1 or r3 == r2:\n                                    continue\n                                ans = max(ans, new[i1][j1][0] + new[i2][j2][0] + new[i3][j3][0])\n        return ans\n        \n",
+    "submit_ts": "1723906895",
+    "subm_id": "1359078565"
+}

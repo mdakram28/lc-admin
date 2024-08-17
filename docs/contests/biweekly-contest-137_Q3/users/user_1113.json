@@ -1,0 +1,6 @@
+{
+    "username": "Pothuri Vishnu Viswanath",
+    "submission": "from typing import List\nfrom itertools import combinations\n\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m, n = len(board), len(board[0])\n        \n        # Step 1: For each row, select up to 3 best columns\n        best_per_row = []\n        for i in range(m):\n            best_per_row.append(sorted([(board[i][j], j) for j in range(n)], reverse=True)[:3])\n\n        # Step 2: Try every combination of 3 rows\n        max_sum = float('-inf')\n        for r1, r2, r3 in combinations(range(m), 3):\n            for (v1, c1) in best_per_row[r1]:\n                for (v2, c2) in best_per_row[r2]:\n                    if c2 == c1:\n                        continue\n                    for (v3, c3) in best_per_row[r3]:\n                        if c3 == c1 or c3 == c2:\n                            continue\n                        max_sum = max(max_sum, v1 + v2 + v3)\n        \n        return max_sum\n",
+    "submit_ts": "1723908495",
+    "subm_id": "1359155058"
+}

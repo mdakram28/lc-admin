@@ -1,0 +1,6 @@
+{
+    "username": "siraj_786",
+    "submission": "from itertools import combinations\nfrom typing import List\n\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        rows_count, cols_count = len(board), len(board[0])\n        \n        row_top_values = []\n        for i in range(rows_count):\n            top_entries = sorted([(board[i][j], j) for j in range(cols_count)], reverse=True)[:3]\n            row_top_values.append(top_entries)\n        \n        max_total = -float('inf')\n        \n        for row_indices in combinations(range(rows_count), 3):\n            r1, r2, r3 = row_indices\n            top_r1 = row_top_values[r1]\n            top_r3 = row_top_values[r3]\n            top_r2 = row_top_values[r2]\n            \n            \n            for entry1 in top_r1:\n                for entry2 in top_r2:\n                    if entry2[1] == entry1[1]:  \n                        continue\n                    for entry3 in top_r3:\n                        if entry3[1] == entry1[1] or entry3[1] == entry2[1]:  # Same column, skip\n                            continue\n                        current_total =  entry3[0]+entry1[0] + entry2[0] \n                        max_total = max( current_total,max_total)\n        \n        return max_total\n",
+    "submit_ts": "1723908747",
+    "subm_id": "1359165521"
+}

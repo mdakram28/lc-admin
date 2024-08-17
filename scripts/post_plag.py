@@ -86,7 +86,7 @@ class ReportProcessor:
     def get_pairs(self) -> List[DolosPair]:
         pairs_path = join(self.report_dir, "pairs.csv")
         ret = []
-        with open(pairs_path) as pairs_csv:
+        with open(pairs_path, encoding="utf8") as pairs_csv:
             csv_reader = csv.DictReader(pairs_csv)
             for row in csv_reader:
                 if csv_reader.line_num == 0:
@@ -98,7 +98,7 @@ class ReportProcessor:
     def get_files(self) -> Dict[str, DolosFile]:
         dolos_info_path = join(self.base_dir, "info.csv")
         subm_info = {}
-        with open(dolos_info_path) as f:
+        with open(dolos_info_path, encoding="utf8") as f:
             csv_reader = csv.DictReader(f)
             for row in csv_reader:
                 if csv_reader.line_num == 0:
@@ -178,7 +178,7 @@ class ReportProcessor:
 
         for file in files.values():
             user_file = join(out_dir, f"user_{file.id}.json")
-            with open(user_file, 'w') as f:
+            with open(user_file, 'w', encoding="utf8") as f:
                 json.dump({
                     "username": file.get_username(),
                     "submission": file.content,
@@ -196,7 +196,7 @@ class ReportProcessor:
             "reports": {}
         }
         if exists(info_path):
-            with open(info_path) as f:
+            with open(info_path, encoding="utf8") as f:
                 info = json.load(f)
         lc_info = self.client.fetch_contest_info()
         sim80 = self.get_groups(80)
@@ -218,7 +218,7 @@ class ReportProcessor:
             "contest_start_ts": int(lc_info["contest"]["start_time"])
         }
 
-        with open(info_path, 'w') as f:
+        with open(info_path, 'w', encoding="utf8") as f:
             json.dump(info, f, indent=4)
 
 def main():

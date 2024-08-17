@@ -1,0 +1,6 @@
+{
+    "username": "Alexander Zabluda",
+    "submission": "class Solution:\n    def maximumValueSum(self, A: List[List[int]]) -> int:\n        B = [nlargest(3, ((x, i) for i, x in enumerate(row))) for row in A]\n        @cache\n        def dp(i, cc):\n            if len(cc) == 3:\n                return 0\n            if i == len(B):\n                return -inf\n            res = dp(i + 1, cc)\n            for b, j in B[i]:\n                if j not in cc:\n                    res = max(res, b + dp(i + 1, cc | {j}))\n            return res\n        return dp(0, frozenset())",
+    "submit_ts": "1723906464",
+    "subm_id": "1359054685"
+}
