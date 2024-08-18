@@ -1,0 +1,6 @@
+{
+    "username": "Kaushik Shah",
+    "submission": "class Solution {\npublic:\n    // string ans;\n    bool found;\n    void solve(vector<int> &rem,int s, int i, int j, int r, int k, string & ans, vector<vector<int>> &dp){\n        if(i > j){\n            if(r== 0)\n                found = true;\n            return;\n        }\n        if(dp[i][r] != -1)\n            return;\n        for(int a=9; a>=s && !found; a--){\n            ans[i] = '0' + a;\n            ans[j] = '0' + a;\n            int rt = r;\n            rt = (rt + rem[i]*a)%k;\n            if(i != j) rt = (rt + rem[j]*a)%k;\n            solve(rem, 0, i+1, j-1, rt, k, ans, dp);\n        }\n        dp[i][r] = false;\n    }\n    string largestPalindrome(int n, int k) {\n        vector<int> rem(n);\n        vector<vector<int>> dp(n, vector<int>(k, -1));\n        rem[0] = 1;\n        string ans(n, '0');\n        for(int i=1; i<n;i++){\n            rem[i] = (rem[i-1]*10)%k;\n            // cout<<rem[i];\n        }\n        solve(rem, 1, 0, n-1, 0, k, ans, dp);\n        return ans;\n    }\n};",
+    "submit_ts": "1723950070",
+    "subm_id": "1359736371"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "tiger2005",
+    "submission": "class Solution {\npublic:\n  string largestPalindrome(int n, int k) {\n    if (k == 1)\n      return string(n, '9');\n    string ans(n, '0');\n    vector<int> pw(n + 1, 1);\n    for (int i = 1; i <= n; i ++)\n      pw[i] = pw[i - 1] * 10 % k;\n    \n    int z = n - 1, y = 1;\n    int U = 0, D = 0;\n    for (int l = 0, r = n - 1; l <= r; l ++, r --, z --, y ++) {\n      if (l == r) {\n        for (int ch = '9'; ch >= '0'; ch --) {\n          int d = U;\n          d = (d * 10 + ch - '0') % k;\n          d = (d * pw[n / 2] + D) % k;\n          if (d == 0) {\n            ans[l] = ch;\n            break;\n          }\n        }\n        break;\n      }\n      for (char ch = '9'; ch >= (l == 0 ? '1' : '0'); ch --) {\n        int UU = (U * 10 + ch - '0') % k;\n        int DD = (D + pw[y - 1] * (ch - '0')) % k;\n        bool flg = false;\n        for (int j = 0; j <= 9; j ++) if ((r != l + 1) || (j == 0))\n          if ((j * pw[y] + UU * pw[z] + DD) % k == 0)\n            flg = true;\n        if (flg) {\n          U = UU; D = DD;\n          ans[l] = ans[r] = ch;\n          break;\n        }\n      }\n    }\n    return ans;\n  }\n};",
+    "submit_ts": "1723950105",
+    "subm_id": "556396943"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "lxhgww",
+    "submission": "class Solution {\npublic:\n    int f[100001];\n    long long g[100001];\n    vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& q) {\n        int n=s.size();\n        int j=0;\n        int s0=0;\n        int s1=0;\n        for (int i=0;i<n;i++) {\n            while (j<n&&(s0<=k||s1<=k)) {\n                if (s[j]=='0') s0++;\n                else s1++;\n                j++;\n            }\n            if (s0<=k||s1<=k) f[i]=j;\n            else f[i]=j-1;\n            if (s[i]=='0') s0--;\n            else s1--;\n        }\n        g[0]=f[0]-0;\n        for (int i=1;i<n;i++)\n            g[i]=g[i-1]+(f[i]-i);\n        vector<long long> res(q.size());\n        for (int j=0;j<q.size();j++) {\n            int low=q[j][0];\n            int high=q[j][1];\n            while (low<high) {\n                int mid=(low+high)/2;\n                if (f[mid]<=q[j][1]) low=mid+1;\n                else high=mid;\n            }\n            long long w=(q[j][1]-low+1)*(long long)(q[j][1]-low+2)/2;\n            if (q[j][0]>0) w+=g[low-1]-g[q[j][0]-1];\n            else w+=g[low-1];\n            res[j]=w;\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723951253",
+    "subm_id": "556404221"
+}

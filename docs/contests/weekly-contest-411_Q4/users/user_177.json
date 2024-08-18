@@ -1,0 +1,6 @@
+{
+    "username": "ggstddu",
+    "submission": "class Solution {\n public:\n  using LL = long long;\n  vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& queries) {\n    int N = s.size();\n    vector<int> lp(N);\n    vector<LL> sums(N + 1);\n    int z = 0, o = 0;\n    for (int l = 0, r = 0; r < N; ++r) {\n      if (s[r] == '0')\n        z++;\n      else\n        o++;\n      while (z > k && o > k) {\n        if (s[l] == '0')\n          z--;\n        else\n          o--;\n        l++;\n      }\n      lp[r]       = l;\n      sums[r + 1] = sums[r] + r - l + 1;\n    }\n    auto f = [&](int l, int r) -> LL {\n      int b = lower_bound(lp.begin(), lp.end(), l) - lp.begin();\n      if (b > r) {\n        return (1LL + r - l + 1) * (r - l + 1) / 2;\n      }\n      return sums[r + 1] - sums[b] + (1LL + b - l) * (b - l) / 2;\n    };\n    vector<LL> ret;\n    for (auto& q : queries) {\n      ret.push_back(f(q[0], q[1]));\n    }\n    return ret;\n  }\n};",
+    "submit_ts": "1723953413",
+    "subm_id": "556417442"
+}

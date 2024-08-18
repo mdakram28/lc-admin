@@ -1,0 +1,6 @@
+{
+    "username": "Ruotian_Zhang",
+    "submission": "class Solution {\n    int a[100005];\n    char s[100005];\n    bool check(int n, int m,int k){\n        int now = 0;\n        for(int i=0;i<m;i++){\n            now = (now*10+a[i])%k;\n        }\n        for(int i=m-1-(n%2); i>=0;i--){\n            now = (now*10+a[i])%k;\n        }\n        return now==0;\n    }\n    void dec(int m){\n        a[m-1]--;\n        for(int i=m-1;i>0;i--){\n            if(a[i]<0){\n                a[i]+=10;\n                a[i-1]--;\n            }\n        }\n    }\npublic:\n    string largestPalindrome(int n, int k) {\n        int m = (n+1)/2;\n        for(int i=0;i<m;i++) a[i] = 9;\n        if(k%2==0){\n            a[0] = 8;\n        }\n        if(k%4==0){\n            // 88\n            a[0] = 8;\n            a[1] = 8;\n        }\n        if(k%8==0 ){\n            // 875\n            a[0] = 8;\n            a[1] = 8;\n            a[2] = 8;\n        }\n        if(k%5==0){\n            a[0] = 5;\n        }\n        while(!check(n,m,k)){\n            dec(m);\n        }\n        for(int i=0;i<m;i++){\n            s[i]=a[i]+'0';\n        }\n        for(int i=m-1;i>=0;i--){\n            s[n-i-1] = a[i]+'0';\n        }\n        return string(s, s+n);\n    }\n};",
+    "submit_ts": "1723949779",
+    "subm_id": "556394894"
+}

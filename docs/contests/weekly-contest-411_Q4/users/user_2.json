@@ -1,0 +1,6 @@
+{
+    "username": "rvrty5",
+    "submission": "class Solution:\n    def countKConstraintSubstrings(self, s: str, k: int, query: List[List[int]]) -> List[int]:\n        n, m = len(s), len(query)\n        pre_sum = [0] * (n + 1)\n        \n        def viable(l, r):\n            ln = r - l + 1\n            ones = pre_sum[r + 1] - pre_sum[l]\n            return ones <= k or ln - ones <= k\n\n        for i in range(n):\n            pre_sum[i + 1] = pre_sum[i] + int(s[i])\n\n        lo, rp, cnt = [0] * n, 0, [0] * (n+1)\n        for i in range(n):\n            while rp < n and viable(i, rp):\n                rp += 1\n            lo[i] = rp - 1\n\n        for i in range(n):\n            cnt[i + 1] = cnt[i] + lo[i] - i + 1\n\n        ret = []\n        for q in query:\n            L, R = q[0], q[1]\n            l, r = L - 1, R + 1\n            while l + 1 < r:\n                mid = (l + r) // 2\n                if lo[mid] <= R:\n                    l = mid\n                else:\n                    r = mid\n\n            ans = cnt[l + 1] - cnt[L]\n            if r <= R:\n                ans += (R - r + 2) * (R - r + 1) // 2\n\n            ret.append(ans)\n\n        return ret",
+    "submit_ts": "1723949468",
+    "subm_id": "1359720298"
+}

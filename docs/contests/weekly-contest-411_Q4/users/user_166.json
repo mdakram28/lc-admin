@@ -1,0 +1,6 @@
+{
+    "username": "twitch_tv_qiqi_impact",
+    "submission": "\n\nclass Solution:\n    def countKConstraintSubstrings(self, s: str, k: int, queries: List[List[int]]) -> List[int]:\n        s = [int(x) for x in s]\n        l = []\n        pf = [0]\n        n = len(s)\n        j = 0\n        ct = [0, 0]\n        for i in range(n):\n            while j < n and (ct[0] + (s[j] == 0) <= k or ct[1] + (s[j] == 1) <= k):\n                ct[s[j]] += 1\n                j += 1\n            l.append(j - 1)\n            pf.append(pf[-1] + l[-1])\n            ct[s[i]] -= 1\n        \n        # lst = LazySegtree(l)\n        # print(l)\n        pt = n\n        \n        ans = {}\n        qs = sorted(queries, key=lambda x:-x[1])\n        for x, y in qs:\n            while pt != 0 and l[pt-1] >= y:\n                pt -= 1\n            sub = -((x - 2) * (y - x + 1) + (y - x + 1) * (y - x + 2) // 2)\n            if pt <= x:\n                sub += y * (y - x + 1)\n            elif pt > y:\n                sub += pf[y+1] - pf[x]\n            else:\n                sub += pf[pt] - pf[x] + (y - pt + 1) * y\n            ans[x, y] = sub\n        ret = []\n        for x, y in queries:\n            ret.append(ans[x, y])\n        return ret\n        \n        \n        \n        ",
+    "submit_ts": "1723953154",
+    "subm_id": "1359813811"
+}

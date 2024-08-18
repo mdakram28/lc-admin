@@ -1,0 +1,6 @@
+{
+    "username": "\u4e00\u5f20\u5f88\u539a\u7684\u819c",
+    "submission": "class Solution {\npublic:\n    vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& q) {\n        \n        int n=s.size();\n        vector<long long >ans;\n        ans.clear();\n        int cnt0=0,cnt1=0;\n        int mx[n+1];\n        long long sum[n+1];\n        for(int i=0,j=-1;i<n;++i)\n        {\n            while(j+1<n)\n            {\n                if(s[j+1]=='0'&&(cnt0<k||cnt1<=k)) cnt0++,j++;\n                else if(s[j+1]=='1'&&(cnt1<k||cnt0<=k))    cnt1++,j++;\n                else    break;\n            }\n            mx[i]=j;\n            sum[i]=j-i+1;\n            if(i)   sum[i]+=sum[i-1];\n            if(s[i]=='0')   cnt0--;\n            else    cnt1--;\n        }\n        for(auto w:q)\n        {\n            int a=w[0]; int b=w[1];\n            int l=a-1;    int r=b;\n            while(l<r)\n            {\n                int mid=(l+r+1)>>1;\n                if(mx[mid]<=b)  l=mid;\n                else    r=mid-1;\n            }\n            long long tot=0;\n            if(l>=0)   tot+=sum[l];\n            if(a)   tot-=sum[a-1];\n            tot+=(long long)(b-l)*(1+b-l)/2;\n            ans.push_back(tot);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723951321",
+    "subm_id": "556404685"
+}

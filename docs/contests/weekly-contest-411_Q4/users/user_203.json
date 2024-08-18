@@ -1,0 +1,6 @@
+{
+    "username": "\u84dd\u6749",
+    "submission": "\nfunc countKConstraintSubstrings(s string, k int, queries [][]int) []int64 {\n\tn := len(s)\n\tfp := make([]int, n+1)\n\tpref := make([]int, n+1)\n\tcnt := make([]int, 2)\n\tfor l, r := 0, 0; r < n; r++ {\n\t\tcnt[int(s[r]-'0')]++\n\t\tfor cnt[0] > k && cnt[1] > k {\n\t\t\tcnt[int(s[l]-'0')]--\n\t\t\tl++\n\t\t}\n\t\tfp[r+1] = r + 1 - l + fp[r]\n\t\tpref[r+1] = pref[r] + l\n\t}\n\tdp := make([]int, n+1)\n\tnext := make([]int, n+1)\n\tcnt[0] = 0\n\tcnt[1] = 0\n\tfor l, r := n-1, n-1; l >= 0; l-- {\n\t\tcnt[int(s[l]-'0')]++\n\t\tfor cnt[0] > k && cnt[1] > k {\n\t\t\tcnt[int(s[r]-'0')]--\n\t\t\tr--\n\t\t}\n\t\tnext[l] = r\n\t\t// dp[l] = \u533a\u95f4l1...r \u4e14 l1 < l \u7684\u90e8\u5206\n\t\tdp[l] = (r-l+1)*l - (pref[r+1] - pref[l])\n\t}\n\n\tres := make([]int64, len(queries))\n\n\tfor i, cur := range queries {\n\t\tl, r := cur[0], cur[1]\n\t\tif next[l] >= r {\n\t\t\tres[i] = int64(r-l+1+1) * int64(r-l+1) / 2\n\t\t} else {\n\t\t\ttmp := fp[r+1] - fp[l]\n\t\t\ttmp -= dp[l]\n\t\t\tres[i] = int64(tmp)\n\t\t}\n\t}\n\n\treturn res\n}\n",
+    "submit_ts": "1723950106",
+    "subm_id": "556396950"
+}

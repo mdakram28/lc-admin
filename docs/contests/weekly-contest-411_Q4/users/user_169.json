@@ -1,0 +1,6 @@
+{
+    "username": "xlx2",
+    "submission": "class Solution:\n    def countKConstraintSubstrings(self, s: str, k: int, queries: List[List[int]]) -> List[int]:\n        n = len(s)\n        l0 = [0] * n\n        i = c = 0\n        for j,v in enumerate(s):\n            c += (v == '0')\n            while c > k:\n                c -= (s[i] == '0')\n                i += 1\n            l0[j] = i\n        l1 = [0] * n\n        i = c = 0\n        for j,v in enumerate(s):\n            c += (v == '1')\n            while c > k:\n                c -= (s[i] == '1')\n                i += 1\n            l1[j] = i\n        l = [min(l0[i], l1[i]) for i in range(n)]\n        pl = list(itertools.accumulate(l, initial=0))\n        def f(a, b):\n            if a > b: return 0\n            return (a+b) * (b-a+1) // 2\n        res = []\n        for a,b in queries:\n            p = bisect.bisect_left(l, a)\n            if p > b:\n                res.append(f(1, b-a+1))\n            else:\n                x = f(1, p-1-a+1)\n                x += f(p+1, b+1) - (pl[b+1] - pl[p])\n                res.append(x)\n        return res",
+    "submit_ts": "1723953519",
+    "subm_id": "1359823476"
+}

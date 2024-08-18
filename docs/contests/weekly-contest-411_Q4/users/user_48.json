@@ -1,0 +1,6 @@
+{
+    "username": "lee0560",
+    "submission": "class Solution:\n    def countKConstraintSubstrings(self, s: str, K: int, queries: List[List[int]]) -> List[int]:\n\n        def solve(l, r):\n            mid = bisect_left(a, [l, 0])\n            if mid > r + 1:\n                mid = r + 1\n            #print(l, r, ':', mid, pre[r + 1] - pre[mid], (sum_right[mid] - sum_right[l]) - (mid - l) * l)\n            res = pre[r + 1] - pre[mid]\n            res += (sum_right[mid] - sum_right[l]) - (mid - l) * l\n            return res\n\n        n = len(s)\n        d = [0] * n\n        left = [0] * n\n        pos = 0\n        c = [0, 0]\n        for i,ch in enumerate(s):\n            d[i] = int(ch)\n            c[d[i]] += 1\n            while c[0] > K and c[1] > K:\n                c[d[pos]] -= 1\n                pos += 1\n            left[i] = pos\n        a = [[left[i], i] for i in range(n)]\n        pre = [0] * (n + 1)\n        sum_right = [0] * (n + 1)\n        for i in range(n):\n            pre[i+1] = pre[i] + (i - left[i] + 1)\n            sum_right[i+1] = sum_right[i] + i + 1\n        res = []\n        for l,r in queries:\n            res.append(solve(l, r))\n        return res",
+    "submit_ts": "1723951535",
+    "subm_id": "556406060"
+}

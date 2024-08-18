@@ -1,0 +1,6 @@
+{
+    "username": "I3eautiful Wo2niakOwy",
+    "submission": "class Solution {\npublic:\n    vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& queries) {\n        using LL = long long;\n        int n = s.size();\n        LL a = 0, b = 0, num = 0;\n        LL aa[100010], bb[100010];\n        aa[0] = 0, bb[0] = 0;\n        vector<LL> v;\n        for (int i = 0; i < n; i ++ ) {\n            if (s[i] == '0') a ++;\n            else b ++;\n            while (a > k && b > k) {\n                if (s[i - num] == '0') a --;\n                else b --;\n                num --;\n            }\n            num ++;\n            aa[i + 1] = num;\n            bb[i + 1] = bb[i] + aa[i + 1];\n        }\n        for (int i = 0; i < queries.size(); i ++ ) {\n            a = queries[i][0], b = queries[i][1];\n            int l = a - 1, r = b;\n            while (l < r) {\n                int mid = l + r + 1 >> 1;\n                if (aa[mid + 1] > mid - a + 1) l = mid;\n                else r = mid - 1;\n            }\n            num = (1 + l - a + 1) * (l - a + 1) / 2 - bb[l + 1] + bb[a];\n            num += (bb[b + 1] - bb[a]);\n            v.push_back(num);\n        }\n        return v; \n    }\n};",
+    "submit_ts": "1723951983",
+    "subm_id": "556408871"
+}

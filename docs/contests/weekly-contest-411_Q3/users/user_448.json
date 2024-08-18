@@ -1,0 +1,6 @@
+{
+    "username": "wyf",
+    "submission": "from functools import cache\n\n\nclass Solution:\n    def largestPalindrome(self, n: int, k: int) -> str:\n        def po(ind, x):\n            # \u5f53ind\u7b49\u4e8ex\u65f6,\u9700\u8981\u52a0\u4e0a\u7684\u503c\n            one = pow(10, n - 1 - ind, k) * x\n            two = pow(10, ind, k) * x\n            one %= k\n            two %= k\n            if ind == n - 1 - ind:\n                return one\n            return (one + two) % k\n\n        res = [0] * n\n\n        @cache\n        def solve(ind, v):\n            if ind >= n - ind:\n                return v % k == 0\n            # print(ind, v)\n            ans = -1\n            for i in range(9, -1, -1):\n                now = (v + po(ind, i)) % k\n                # print(f\"{ind}\u91c7\u53d6{i},now={now}\")\n                if solve(ind + 1, now):\n                    ans = i\n                    break\n            if ans == -1:\n                return False\n            res[ind] = res[n - 1 - ind] = ans\n            return True\n\n        solve(0, 0)\n        solve.cache_clear()\n        # print(po(0, 9), \"po(0,9)=\", 909 % 5)\n        return \"\".join(str(i) for i in res)\n",
+    "submit_ts": "1723952507",
+    "subm_id": "556412011"
+}

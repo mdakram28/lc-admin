@@ -1,0 +1,6 @@
+{
+    "username": "Fangrui Song",
+    "submission": "\n#define FOR(i, a, b) for (int i = (a); i < (b); i++)\n#define REP(i, n) for (int i = 0; i < (n); i++)\n\nclass Solution {\npublic:\n  string largestPalindrome(int n, int k) {\n    vector<int> ten(n), c(n);\n    string a(n, '9');\n    int m = (n+1)/2, s = 0;\n    ten[0] = 1;\n    FOR(i, 1, n)\n      ten[i] = ten[i-1]*10%k;\n    if (k%2==0)\n      a[0] = '8';\n    if (k==5)\n      a[0] = '5';\n    else if (k==4&&m>=2)\n      a[0] = '8', a[1] = '8';\n    else if (k==8&&m>=3)\n      a[0] = '8', a[1] = '8', a[2]='8';\n    REP(i, m) {\n      c[i] = (ten[i] + (2*i+1 < n ? ten[n-1-i] : 0))%k;\n      s = (s+c[i]*(a[i]-'0'))%k;\n    }\n    while (s) {\n      int i = m-1;\n      for(;;i--) {\n        if (a[i] == '0') {\n          a[i] = '9';\n          s += 9*c[i];\n          continue;\n        }\n        a[i]--;\n        s -= c[i];\n        break;\n      }\n      s %= k;\n    }\n    REP(i, m)\n      a[n-1-i] = a[i];\n    return a;\n  }\n};\n\n",
+    "submit_ts": "1723949844",
+    "subm_id": "1359730412"
+}

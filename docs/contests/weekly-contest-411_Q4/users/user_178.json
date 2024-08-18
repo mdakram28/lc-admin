@@ -1,0 +1,6 @@
+{
+    "username": "superj6",
+    "submission": "class Solution {\nprivate:\n    long long tri(long long x){\n        return x * (x + 1) / 2;\n    }\n\npublic:\n    vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& queries) {\n        int n = s.size();\n        vector<int> a(n);\n        \n        for(int i = 0, j[2] = {0}, jj[2] = {0}; i < n; i++){\n            int x = s[i] - '0';\n            jj[x]++;\n            if(jj[x] > k){\n                jj[x]--;\n                while((s[j[x]] - '0') != x) j[x]++;\n                j[x]++;\n            }\n            a[i] = i - min(j[0], j[1]) + 1;\n        }\n\n        vector<int> b(n);\n        vector<long long> d(n);\n        for(int i = 0; i < n; i++){\n            b[i] = i - a[i] + 1;\n            d[i] = a[i] + (i ? d[i - 1] : 0);\n        }\n\n        vector<long long> ans;\n        for(vector<int> &qr : queries){\n            int x = qr[0], y = qr[1];\n\n            int z = min(y + 1, (int)(lower_bound(b.begin(), b.end(), x) - b.begin()));\n            //cout << x << \" \" << z << \" \" << y << endl;\n\n            long long ret = tri(z - x) + (d[y] - (z ? d[z - 1] : 0));\n\n            ans.push_back(ret);\n        }\n\n        return ans;\n    }\n};",
+    "submit_ts": "1723952819",
+    "subm_id": "1359805401"
+}

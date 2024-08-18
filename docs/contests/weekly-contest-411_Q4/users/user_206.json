@@ -1,0 +1,6 @@
+{
+    "username": "onlyblues",
+    "submission": "class Solution {\npublic:\n    vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& queries) {\n        int n = s.size();\n        vector<int> f(n + 1);\n        for (int i = n, j = n, c0 = 0, c1 = 0; i; i--) {\n            if (s[i - 1] & 1) c1++;\n            else c0++;\n            while (c0 > k && c1 > k) {\n                if (s[j - 1] & 1) c1--;\n                else c0--;\n                j--;\n            }\n            f[i] = j;\n        }\n        vector<long long> s1(n + 1), s2(n + 1);\n        for (int i = 1; i <= n; i++) {\n            s1[i] = s1[i - 1] + f[i];\n            s2[i] = s2[i - 1] + i;\n        }\n        vector<long long> ans;\n        for (auto &p : queries) {\n            p[0]++, p[1]++;\n            int l = p[0], r = p[1];\n            while (l < r) {\n                int mid = l + r + 1 >> 1;\n                if (f[mid] <= p[1]) l = mid;\n                else r = mid - 1;\n            }\n            if (f[l] <= p[1]) ans.push_back(s1[l] - s1[p[0] - 1] - s2[l - 1] + s2[max(0, p[0] - 2)] + 1ll * p[1] * (p[1] - l) - s2[p[1] - 1] + s2[l - 1]);\n            else ans.push_back(p[1] * (p[1] - p[0] + 1ll) - s2[p[1] - 1] + s2[max(0, p[0] - 2)]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723951212",
+    "subm_id": "556403966"
+}

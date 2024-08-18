@@ -1,0 +1,6 @@
+{
+    "username": "Mohammad Ibraheem Qureshi",
+    "submission": "class Solution:\n    def countKConstraintSubstrings(self, s: str, k: int, queries: List[List[int]]) -> List[int]:\n        N = len(s)\n        l = 0\n        rs = [0]*N\n        sm = 0\n        for r in range(N):\n            sm += int(s[r])\n            while sm > k and r - l +1 - sm > k:\n                sm -= int(s[l])\n                l += 1\n            rs[r] = l\n        print(rs)\n        ans = []\n        px = [r-rs[r]+1 for r in range(N)]\n        for i in range(1,N): px[i] += px[i-1]\n        print(px)\n        for l,r in queries:\n            i = bisect_left(rs,l,lo = l , hi = r+1)\n            print(i)\n            bad = i - l\n            a = px[r] - (px[i-1] if 0 <= i - 1 else 0)\n            a += i*(i-1)//2 - l*(l-1)//2 - bad*l + bad\n            ans.append(a)\n        return ans",
+    "submit_ts": "1723953064",
+    "subm_id": "1359811452"
+}

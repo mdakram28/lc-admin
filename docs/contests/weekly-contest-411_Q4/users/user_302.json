@@ -1,0 +1,6 @@
+{
+    "username": "Great Ellistba",
+    "submission": "class Solution {\npublic:\n    vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& queries) {\n        int left = 0, right = 0, n = s.size();\n        int cnt_0 = 0;\n        vector<long long> pre_sum(n+1, 0);\n        vector<int> index(n+1, 0);\n        while(right < n){\n            cnt_0 += (s[right] == '0');\n            while(cnt_0 > k && (right - left + 1) - cnt_0 > k){\n                cnt_0 -= (s[left++] == '0');\n            }\n            pre_sum[right+1] = pre_sum[right] + right - left + 1;\n            index[right+1] = left + 1;\n            right++;\n        }\n        vector<long long> ans;\n        for(auto & q : queries){\n            int begin = q[0] + 1, end = q[1] + 1;\n            auto mid = lower_bound(index.begin() + begin, index.begin() + end + 1, begin) - index.begin();\n            long long later = (mid == (end + 1) ? 0 : pre_sum[end] - pre_sum[mid - 1]);\n            long long former = (mid - begin) * (1ll + mid - begin)/2;\n            ans.emplace_back(later + former);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723952741",
+    "subm_id": "556413381"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "liujg3",
+    "submission": "class Solution:\n    def countKConstraintSubstrings(self, s: str, k: int, queries: List[List[int]]) -> List[int]:#\u524d\u7f00\u548c\uff1f\u8bb0\u5f55\u957f\u5ea6\u548c\u524d\u7f00\u548c\n        ct=[0]*2\n        n=len(s)\n        ps=[0]*(n+1)\n        lenarr=[0]*n\n        l=0\n        for idx,c in enumerate(s):\n            ct[int(c)]+=1\n            while min(ct)>k:\n                ct[int(s[l])]-=1\n                l+=1\n            lenarr[idx]=(idx-l+1)\n            ps[idx+1]=ps[idx]+(idx-l+1)\n        res=[]\n        for l,r in queries:\n            tp=0\n            for i in range(l,r+1):\n                if i-lenarr[i]>=l-1:\n                    tp+=ps[r+1]-ps[i]\n                    break\n                tp+=min(lenarr[i],i-l+1)\n            res.append(tp)\n        return res\n",
+    "submit_ts": "1723949461",
+    "subm_id": "556392906"
+}

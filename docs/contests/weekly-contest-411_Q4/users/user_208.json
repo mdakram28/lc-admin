@@ -1,0 +1,6 @@
+{
+    "username": "Rahul Saini",
+    "submission": "class Solution {\npublic:\n    vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& q) {\n        int  m = q.size();\n\n        vector<long long> ans;\n        int n = s.size();\n        vector<long long> dp(n+1,0);\n        int j=0;\n        long long cz=0,co = 0;\n        vector<int> mrange(n,0);\n        for(int i=0;i<n;i++){\n            if(s[i]=='0')cz++;\n            else co++;\n            while(cz>k&&co>k){\n                if(s[j]=='0')cz--;\n                else co--;\n                j++;\n            }\n            mrange[i] = j;/// iclusive\n            dp[i+1] = dp[i]+i-j+1;\n        }\n        //cout<<dp[n]<<endl;\n        for(auto it:q){\n            int u = it[0], v= it[1];\n            long long len = v-u+1;\n            if(mrange[v]<=u)ans.push_back(len*(len+1)/2);\n            else{\n                auto it = upper_bound(mrange.begin(),mrange.end(), u)-mrange.begin()-1;\n                len = it-u+1;\n                ans.push_back(dp[v+1]-dp[it+1]+(len*(len+1)/2));\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723951232",
+    "subm_id": "1359766575"
+}

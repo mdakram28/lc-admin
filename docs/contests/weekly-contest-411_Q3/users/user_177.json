@@ -1,0 +1,6 @@
+{
+    "username": "superj6",
+    "submission": "class Solution {\npublic:\n    string largestPalindrome(int n, int k) {\n        vector<int> v(n, 9), p(n);\n        if(n > 2 && !(k % 5)) v[0] = v[n - 1] = 5;\n        if(n > 6 && !(k % 8)) v[2] = v[n - 3] = 8;\n        if(n > 4 && !(k % 4)) v[1] = v[n - 2] = 8;\n        if(n > 2 && !(k % 2)) v[0] = v[n - 1] = 8;\n\n        int md = 0;\n        for(int i = 0, j = 1; i < n; i++, (j *= 10) %= k){\n            p[i] = j;\n            (md += p[i] * v[i]) %= k;\n        } \n\n        while(md){\n            for(int i = 0; i < 2 - (n & 1); i++){\n                int x = n / 2 - i;\n                v[x]--;\n                (md += k - p[x]) %= k;\n            }\n            if(!v[n / 2]) break;\n        }\n\n        string s;\n        for(int i = n - 1; ~i; i--) s += to_string(v[i]);\n        return s;\n    }\n};",
+    "submit_ts": "1723951884",
+    "subm_id": "1359782441"
+}

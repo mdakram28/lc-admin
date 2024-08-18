@@ -1,0 +1,6 @@
+{
+    "username": "\u542c\u542c",
+    "submission": "class Solution:\n    def countKConstraintSubstrings(self, s: str, k: int, queries: List[List[int]]) -> List[int]:\n        a = [0]+list(accumulate([int(i == \"0\") for i in s]))\n        b = [0]+list(accumulate([int(i == \"1\") for i in s]))\n        t = []\n        for i in range(len(s)):\n            t.append(bisect_right(range(i, len(s)), 0, key=lambda j: not (a[j+1]-a[i] <= k or b[j+1]-b[i] <= k)))\n        t2 = [0]+list(accumulate(t))\n        res = []\n        for i, j in queries:\n            v = bisect_right(range(i, j+1), 0, key=lambda k: t[k]-(j-k+1))\n            a = t2[j+1]-t2[i]\n            b = t2[j+1]-t2[v+i]\n            c = (j+1)*(j+1-v-i)-(j+1-v-i)*(v+i+j)/2\n            res.append(int(a-b+c))\n        return res",
+    "submit_ts": "1723952468",
+    "subm_id": "556411803"
+}

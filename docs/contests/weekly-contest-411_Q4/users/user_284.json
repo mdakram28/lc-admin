@@ -1,0 +1,6 @@
+{
+    "username": "fxf111",
+    "submission": "function countKConstraintSubstrings(s: string, k: number, queries: number[][]): number[] {\n    let len = s.length, count: number[] = new Array(len).fill(0);\n    let startIdx = new Array(len).fill(0);\n    let i = 0, zero = 0, one = 0;\n    for(let j = 0; j < len; j++) {\n        s[j] === '0' ? zero++ : one++;\n        while(zero > k && one > k) {\n            s[i++] === '0' ? zero-- : one--;\n        }\n        count[j] = (count[j-1] || 0) + j - i + 1;\n        startIdx[j] = i;\n    }\n   \n    let ans: number[] = new Array(queries.length).fill(0);\n    for(let i = 0; i < queries.length; i++) {\n        let [x, y] = queries[i]\n        ans[i] = count[y] - (count[x-1] || 0);\n        let k = x;\n        while(k <= y && startIdx[k] < x) {\n            ans[i] -= x - startIdx[k++];\n        }\n    }\n    return ans;\n};",
+    "submit_ts": "1723952989",
+    "subm_id": "556414813"
+}

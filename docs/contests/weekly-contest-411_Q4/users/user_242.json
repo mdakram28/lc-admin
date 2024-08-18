@@ -1,0 +1,6 @@
+{
+    "username": "Xianjie Deng",
+    "submission": "class Solution {\npublic:\n    vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& queries) {\n        int n = s.size();\n        vector<long long> res;\n        vector<int> one, zero;\n        vector<long long> dp(n + 1);\n        long long temp = 0;\n        for (int i = 0; i < n; ++i) {\n            if (s[i] == '0') {\n                zero.push_back(i);\n            } else {\n                one.push_back(i);\n            }\n            int t1 = zero.size() > k ? zero[zero.size() - k - 1] : -1;\n            int t2 = one.size() > k ? one[one.size() - k - 1] : -1;\n            temp += i - min(t1, t2);\n            dp[i + 1] = temp;\n        }\n        for (const auto& q: queries) {\n            int lf = q[0], rt = q[1];\n            int a = lower_bound(zero.begin(), zero.end(), lf) - zero.begin();\n            int b = lower_bound(one.begin(), one.end(), lf) - one.begin();\n            int t1 = a + k >= zero.size() ? n : zero[a + k];\n            int t2 = b + k >= one.size() ? n : one[b + k];\n            int m = min(rt + 1, max(t1, t2));\n            long long r = (1LL + m - lf) * (m - lf) / 2;\n            r += dp[rt + 1] - dp[m];\n            res.push_back(r);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723952099",
+    "subm_id": "1359787878"
+}

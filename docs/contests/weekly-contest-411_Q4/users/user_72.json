@@ -1,0 +1,6 @@
+{
+    "username": "Fangrui Song",
+    "submission": "\n#define ALL(x) (x).begin(), (x).end()\n#define REP(i, n) for (int i = 0; i < (n); i++)\n\nclass Solution {\npublic:\n  vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& qu) {\n    int n = s.size(), zero = 0, one = 0;\n    vector<long> a(n), b(n+1);\n    vector<long long> ans;\n    for (int i = 0, j = 0; i < n; i++) {\n      for (; j < n && min(zero,one) <= k; j++)\n        (s[j]=='0'?zero:one)++;\n      a[i] = min(zero,one) <= k ? n+1 : j;\n      (s[i]=='0'?zero:one)--;\n    }\n    REP(i, n)\n      b[i+1] = b[i] + a[i];\n    for (auto &q : qu) {\n      long l = q[0], r = q[1]+1;\n      long long s = (r-l+1)*(r-l)/2;\n      long x = lower_bound(ALL(a), r+1) - a.begin();\n      if (x > l)\n        s -= (x-l)*(r+1)-(b[x]-b[l]);\n      ans.push_back(s);\n    }\n    return ans;\n  }\n};\n\n",
+    "submit_ts": "1723952239",
+    "subm_id": "1359791416"
+}

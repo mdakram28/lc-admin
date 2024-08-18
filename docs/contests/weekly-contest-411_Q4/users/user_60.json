@@ -1,0 +1,6 @@
+{
+    "username": "SHHK",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\n   public:\n    vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& queries) {\n        int n = s.size();\n        vector<int> left(n);\n        array<int, 2> cnt{0, 0};\n        for (int l = n, r = n; r > 0;) {\n            while (l > 0 && (cnt[s[l - 1] - '0'] + 1 <= k || cnt[int(s[l - 1] - '0') ^ 1] <= k)) {\n                cnt[s[l - 1] - '0'] += 1;\n                l -= 1;\n            }\n            left[r - 1] = l;\n            cnt[s[r - 1] - '0'] -= 1;\n            r -= 1;\n        }\n        vector<int> d(n);\n        for (int i = 0; i < n; ++i) {\n            d[i] = i - left[i] + 1;\n        }\n        vector<long long> sum(n + 1);\n        for (int i = 0; i < n; ++i) {\n            sum[i + 1] = sum[i] + d[i];\n        }\n        vector<long long> res;\n        for (auto& q : queries) {\n            int l = q[0], r = q[1];\n            int p = upper_bound(left.begin() + l, left.begin() + r + 1, l) - left.begin();\n            int d = p - l;\n            long long t = (long long)(1 + d) * d / 2;\n            t += sum[r + 1] - sum[p];\n            res.push_back(t);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723951284",
+    "subm_id": "556404419"
+}

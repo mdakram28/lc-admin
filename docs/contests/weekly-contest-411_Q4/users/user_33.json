@@ -1,0 +1,6 @@
+{
+    "username": "\u7075\u8336\u5c71\u827e\u5e9c",
+    "submission": "package main\n\nimport \"sort\"\n\n// https://space.bilibili.com/206214\nfunc countKConstraintSubstrings(s string, k int, qs [][]int) (ans []int64) {\n\tn := len(s)\n\tf := make([]int, n)\n\tlastOk := make([]int, n)\n\tcnt := [2]int{}\n\tleft := 0\n\tfor i, in := range s {\n\t\tcnt[in&1]++\n\t\tfor ; cnt[0] > k && cnt[1] > k; left++ {\n\t\t\tout := s[left]\n\t\t\tcnt[out&1]--\n\t\t}\n\t\tf[i] = i - left + 1\n\t\tlastOk[i] = left\n\t}\n\n\tsum := make([]int, len(f)+1)\n\tfor i, v := range f {\n\t\tsum[i+1] = sum[i] + v\n\t}\n\n\tcalc := func(l, r int) int {\n\t\trr := lastOk[r]\n\t\tif rr <= l {\n\t\t\tsz := r-l+1\n\t\t\tres := sz * (sz + 1) / 2\n\t\t\treturn res\n\t\t}\n\n\t\ti := sort.SearchInts(lastOk, l)\n\t\tres := sum[r+1] - sum[i]\n\n\t\tsz := i - l\n\t\tres += sz * (sz + 1) / 2\n\n\t\treturn res\n\t}\n\n\tfor _, q := range qs {\n\t\tl, r := q[0], q[1]\n\t\tres := calc(l, r)\n\t\tans = append(ans, int64(res))\n\t}\n\treturn\n}\n",
+    "submit_ts": "1723951316",
+    "subm_id": "556404646"
+}

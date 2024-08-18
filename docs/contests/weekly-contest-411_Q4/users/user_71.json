@@ -1,0 +1,6 @@
+{
+    "username": "FatalError",
+    "submission": "class Solution:\n    def countKConstraintSubstrings(self, s: str, k: int, queries: List[List[int]]) -> List[int]:\n        n = len(s)\n        s = list(map(int, s))\n        lefts = [0] * n\n        cnt = [0, 0]\n        j = 0\n        for i, x in enumerate(s):\n            cnt[x] += 1\n            while cnt[0] > k and cnt[1] > k:\n                cnt[s[j]] -= 1\n                j += 1\n            lefts[i] = j\n        # print(lefts)\n        pres = list(accumulate(lefts, initial=0))\n        ans = []\n        for l, r in queries:\n            res = (r-l+1) * (r-l+2) // 2\n            idx = bisect_right(lefts, l)\n            # print(idx)\n            if r >= idx > l:\n                # idx = min(idx, r)\n                res -= (pres[r+1] - pres[idx]) - (r+1-idx) * l             \n            ans.append(res)\n        return ans",
+    "submit_ts": "1723951749",
+    "subm_id": "556407424"
+}

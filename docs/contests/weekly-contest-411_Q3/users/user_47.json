@@ -1,0 +1,6 @@
+{
+    "username": "lee0560",
+    "submission": "class Solution:\n    def largestPalindrome(self, n: int, k: int) -> str:\n        r = [0] * n\n        t = 1\n        for i in range(n):\n            r[i] = t\n            t = t * 10 % k\n        rel = [[-1] * k for _ in range(n)]\n        mid = n >> 1\n        if n & 1:\n            for j in range(10):\n                rel[mid][j * r[mid] % k] = j\n        else:\n            for j in range(10):\n                delta = j * (r[mid] + r[n-1-mid]) % k\n                rel[mid][delta] = j\n        for i in range(mid+1, n):\n            for j in range(10):\n                delta = j * (r[i] + r[n-1-i]) % k\n                for x in range(k):\n                    if rel[i-1][x] >= 0:\n                        rel[i][(x + delta) % k] = j\n        res = [0] * n\n        x = 0\n        for i in range(n-1, mid-1, -1):\n            digit = rel[i][x]\n            res[i] = res[n - 1 - i] = digit\n            delta = digit * (r[i] + r[n-1-i]) % k\n            x = (x + k - delta) % k\n        return ''.join([str(digit) for digit in res[::-1]])\n",
+    "submit_ts": "1723949992",
+    "subm_id": "556396272"
+}

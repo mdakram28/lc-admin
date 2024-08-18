@@ -1,0 +1,6 @@
+{
+    "username": "ggstddu",
+    "submission": "class Solution {\n public:\n  vector<vector<int>> rec, vis;\n  int n, k;\n  string ret;\n  bool f(int i, int v) {\n    if (i == n / 2) {\n      if (n % 2) {\n        for (int j = 9; j >= 0; --j) {\n          if ((v + rec[i][j]) % k == 0) {\n            ret.push_back(j + '0');\n            return true;\n          }\n        }\n        return false;\n      }\n      return v == 0;\n    }\n    if (vis[i][v] != -1) return vis[i][v];\n    bool res = false;\n    for (int j = 9; j >= 0; --j) {\n      ret.push_back(j + '0');\n      if (f(i + 1, (v + rec[i][j] + rec[n - 1 - i][j]) % k)) {\n        res = true;\n        break;\n      }\n      ret.pop_back();\n    }\n    return vis[i][v] = res;\n  }\n\n  string largestPalindrome(int n, int k) {\n    this->n = n, this->k = k;\n    // \u7b2ci\u4f4d\u4e3aj\u65f6 %k\u7684\u4f59\u6570\n    rec = vector(n, vector<int>(10));\n    for (int j = 0; j < 10; ++j) {\n      int v = j;\n      for (int i = 0; i < n; ++i) {\n        rec[i][j] = v % k;\n        v         = rec[i][j] * 10;\n      }\n    }\n    vis = vector(n, vector<int>(10, -1));\n\n    f(0, 0);\n    string r = ret.substr(0, n / 2);\n    reverse(r.begin(), r.end());\n    ret += r;\n    return ret;\n  }\n};",
+    "submit_ts": "1723952412",
+    "subm_id": "556411467"
+}

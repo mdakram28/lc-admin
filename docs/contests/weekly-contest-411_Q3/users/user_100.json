@@ -1,0 +1,6 @@
+{
+    "username": "NOne",
+    "submission": "func largestPalindrome(n int, k int) string {\n\tmo := getMod(n, k)\n\t//fmt.Println(mo)\n\tans := make([]byte, n)\n\tvar dfs func(i int, km int) bool\n\tdfsCache := twoDimensionArrayShape(n, k, false)\n\tdfs = func(i int, km int) bool {\n\t\tif i == (n+1)/2 {\n\t\t\treturn km == 0\n\t\t}\n\t\tif dfsCache[i][km] {\n\t\t\treturn false\n\t\t}\n\t\tfor j := 9; j >= 0; j-- {\n\t\t\tf1 := j * mo[i] % k\n\t\t\tf2 := 0\n\t\t\tans[i] = byte('0' + j)\n\t\t\tmirror := n - 1 - i\n\t\t\tif mirror != i {\n\t\t\t\tans[mirror] = ans[i]\n\t\t\t\tf2 = j * mo[n-1-i] % k\n\t\t\t}\n\t\t\tt := dfs(i+1, (km+f1+f2)%k)\n\n\t\t\tif t {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t\tdfsCache[i][km] = true\n\t\treturn false\n\t}\n\tdfs(0, 0)\n\treturn string(ans)\n}\n\nfunc getMod(n int, k int) []int {\n\tmo := make([]int, n)\n\tj := 1\n\tfor i := n - 1; i >= 0; i-- {\n\t\tmo[i] = j % k\n\t\tj = j * 10 % k\n\t}\n\treturn mo\n}\n\nfunc twoDimensionArrayShape[T int | int32 | int64 | byte | uint | bool](m, n int, defaultValue T) [][]T {\n\tarr := make([][]T, m)\n\tfor i := range arr {\n\t\tarr[i] = make([]T, n)\n\t\tfor j := range arr[i] {\n\t\t\tarr[i][j] = defaultValue\n\t\t}\n\t}\n\treturn arr\n}",
+    "submit_ts": "1723953048",
+    "subm_id": "556415198"
+}

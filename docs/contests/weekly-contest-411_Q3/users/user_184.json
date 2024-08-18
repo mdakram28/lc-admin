@@ -1,0 +1,6 @@
+{
+    "username": "jwpassion1",
+    "submission": "class Solution {\npublic:\n    string largestPalindrome(int n, int k) {\n        vector<int> modba(n);\n        modba[n - 1] = 1;\n        for (int i = n - 2; i >= 0; i--){\n            modba[i] = modba[i + 1] * 10 % k;\n        }\n        for (int i = 0; i < n / 2; i++){\n            modba[i] = (modba[i] + modba[n - 1 - i]) % k;\n        }\n        vector<vector<int>> dp(n / 2 + n % 2, vector<int>(k, -1));\n        for (int i = (int)dp.size() - 1; i >= 0; i--){\n            for (int j1 = 0; j1 < 10; j1++){\n                if (i + 1 == dp.size()) dp[i][modba[i] * j1 % k] = max(dp[i][modba[i] * j1 % k], j1);\n                else{\n                    for (int j2 = 0; j2 < k; j2++){\n                        if (dp[i + 1][j2] != -1) dp[i][(j2 + modba[i] * j1) % k] = max(dp[i][(j2 + modba[i] * j1) % k], j1);\n                    }\n                }\n            }\n        }\n        string ans;\n        int x = 0;\n        for (int i = 0; i < dp.size(); i++){\n            ans.push_back('0' + dp[i][x]);\n            x = (x + k - modba[i] * dp[i][x] % k) % k;\n        }\n        for (int i = n / 2 - 1; i >= 0; i--){\n            ans.push_back(ans[i]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723949840",
+    "subm_id": "1359730282"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "\u7ec6\u83cc\u5c0f\u5b50",
+    "submission": "import bisect\nfrom typing import List\nclass Solution:\n    def countKConstraintSubstrings(self, s: str, k: int, queries: List[List[int]]) -> List[int]:\n        end = 0\n        n = len(s)\n        ans = []\n        cnt0 = cnt1 = 0\n        for start in range(n):\n            while end < n:\n                c = s[end]\n                if c == '0' and cnt0 == k < cnt1 or c == '1' and cnt1 == k < cnt0:\n                    ans.append(end)\n                    if s[start] == '0':\n                        cnt0 -= 1\n                    else:\n                        cnt1 -= 1\n                    break\n                if c == '0':\n                    cnt0 += 1\n                else:\n                    cnt1 += 1\n                end += 1\n            else:\n                ans.append(n)\n        add = [0]\n        # print(ans)\n        for a in ans:\n            add.append(add[-1] + a)\n        res = []\n        for a, b in queries:\n            b += 1\n            idx = max(bisect.bisect_left(ans, b), a)\n            res.append(add[idx] - add[a] + (b - idx) * b - (a + b - 1) * (b - a) // 2)\n            \n        return res\n            \n\n",
+    "submit_ts": "1723949778",
+    "subm_id": "556394890"
+}

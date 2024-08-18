@@ -1,0 +1,6 @@
+{
+    "username": "Jy_Tan",
+    "submission": "class Solution:\n    def largestPalindrome(self, n: int, k: int) -> str:\n        if k == 1:\n            return '9' * n\n\n        L = (n - 1) // 2\n        m = [1] * (n)\n        d = 1\n        for i in range(n):\n            m[i] = d\n            d = (d * 10) % k\n        m = m[::-1]\n        # print(L, m)\n\n        dp = [-1] * n\n        @lru_cache(None)\n        def dfs(i, c):\n            if i > L:\n                return c == 0\n            for d in range(9, 0, -1):\n                c1 = (d * m[i]) % k\n                if not(i == L and n % 2 == 1):\n                    c1 += (d * m[n - 1 - i]) % k\n                c1 = (c + c1) % k\n                # print(c, c1)\n                res = dfs(i + 1, c1)\n                if res:\n                    dp[i] = d\n                    return True\n            return False\n        \n        arr = dfs(0, 0)\n        for i in range(n - 1, -1, -1):\n            if dp[i] != -1:\n                break\n            dp[i] = dp[n - 1 - i]\n        return ''.join(str(c) for c in dp)\n\n\n            \n\n",
+    "submit_ts": "1723951783",
+    "subm_id": "1359779944"
+}

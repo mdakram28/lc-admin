@@ -1,0 +1,6 @@
+{
+    "username": "\u7267\u702c \u7d05\u8389\u6816",
+    "submission": "class Solution {\npublic:\n  vector<long long> countKConstraintSubstrings(string s, int k,\n                                               vector<vector<int>> &queries) {\n    int n = s.size();\n    vector<int> start(n);\n    int l = 0;\n    vector<int> cnt(2);\n    for (int r = 0; r < n; ++r) {\n      cnt[s[r] - '0']++;\n      while (min(cnt[0], cnt[1]) > k) {\n        cnt[s[l++] - '0']--;\n      }\n      start[r] = l;\n    }\n\n    vector<long long> ans;\n    vector<long long> start_psum(n + 1), val_psum(n + 1);\n    for (int i = 0; i < n; ++i) {\n      start_psum[i + 1] = start_psum[i] + start[i];\n      val_psum[i + 1] = val_psum[i] + i - start[i] + 1;\n    }\n\n    for (auto &q : queries) {\n      int li = q[0], ri = q[1];\n      long long val = val_psum[ri + 1] - val_psum[li];\n\n      int lo = li, hi = ri;\n      while (lo <= hi) {\n        int mid = (lo + hi) / 2;\n        if (start[mid] >= li)\n          hi = mid - 1;\n        else\n          lo = mid + 1;\n      }\n\n      if (hi >= li) {\n        val -= (hi - li + 1) * li - (start_psum[hi + 1] - start_psum[li]);\n      }\n\n      ans.push_back(val);\n    }\n\n    return ans;\n  }\n};",
+    "submit_ts": "1723950890",
+    "subm_id": "556401919"
+}

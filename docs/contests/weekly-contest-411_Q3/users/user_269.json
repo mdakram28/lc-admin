@@ -1,0 +1,6 @@
+{
+    "username": "varous",
+    "submission": "const int N=1e5+5;\nlong long dp[N][10];\nlong long mod[N];\nclass Solution {\npublic:\n    bool rec(string& res,int rem,int ind,int n,int k){\n        // cerr<<ind<<\" \"<<rem<<endl;\n        if(dp[ind][rem]!=-1)return dp[ind][rem];\n        if(ind>=(n+1)/2){\n            // cout<<res<<\" \"<<rem<<endl;\n            if(rem==0)return dp[ind][rem]=1;\n            else return dp[ind][rem]=0;\n        }\n        int ind2=n-1-ind;\n        char end=(ind==0?'1':'0');\n        for(char x='9';x>=end;--x){\n            long long tmp=x-'0';\n            long long cur=tmp*mod[ind]; cur%=k;\n            if(ind!=ind2){cur+=tmp*mod[ind2];     cur%=k;}\n            res.push_back(x);\n            if(rec(res,(rem+cur)%k,ind+1,n,k))return dp[ind][rem]=1;\n            res.pop_back();\n        }\n        return dp[ind][rem]=0;\n    }\n    string largestPalindrome(int n, int k) {\n        for(int i=0;i<=n;++i)for(int j=0;j<k;++j)dp[i][j]=-1;\n        long long pro=1;\n        for(int i=0;i<n;++i){\n            mod[i]=pro;\n            pro*=10;    pro%=k;\n        }\n        string res=\"\";\n        rec(res,0,0,n,k);\n        // cerr<<\"hi\"<<endl;\n        for(int i=(n+1)/2;i<n;++i){\n            res.push_back(res[n-1-i]);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723951100",
+    "subm_id": "1359763242"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "dong97",
+    "submission": "func countKConstraintSubstrings(s string, k int, queries [][]int) []int64 {\n    n := len(s)\n    cnt := make([]int, n)\n    l, r := 0, 0\n    a, b := 0, 0\n    for r < n {\n        if s[r] == '1' {\n            a++\n        } else {\n            b++\n        }\n        for a > k && b > k {\n           if s[l] == '1' {\n                a--\n            } else {\n                b--\n            }\n            l++\n        }\n        cnt[r] = r - l + 1\n        r++\n    }\n    // fmt.Println(cnt)\n    sum := make([]int64, n)\n    sum[0] = int64(cnt[0])\n    for i := 1; i < n; i++ {\n        sum[i] = sum[i - 1] + int64(cnt[i])\n    }\n    res := make([]int64, len(queries))\n    for i := 0; i < len(queries); i++ {\n        s, e := queries[i][0], queries[i][1]\n        l, r = queries[i][0], queries[i][1]\n        for l < r {\n            m := (l + r + 1) / 2\n            if cnt[m] >= m - s + 1 {\n                l = m\n            } else {\n                r = m - 1\n            }\n        }\n        // fmt.Println(queries , \",\" , l)\n        res[i] += int64(1 + l - s + 1) * int64(l - s + 1) / 2\n        if l < e {\n            res[i] += sum[e] - sum[l]\n        }\n    }\n    return res\n}",
+    "submit_ts": "1723952963",
+    "subm_id": "556414662"
+}

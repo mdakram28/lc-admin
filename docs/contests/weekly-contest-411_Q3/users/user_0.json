@@ -1,0 +1,6 @@
+{
+    "username": "uwi",
+    "submission": "\tclass Solution {\n\t\tpublic String largestPalindrome(int n, int k) {\n\t\t\tlong[] a = new long[100005];\n\t\t\ta[0] = 1;\n\t\t\tfor(int i = 1;i < 100005;i++){\n\t\t\t\ta[i] = a[i-1] * 10 % k;\n\t\t\t}\n\t\t\tboolean[][] dp = new boolean[k][(n-1)/2+1];\n\t\t\tdp[0][0] = true;\n\t\t\tfor(int i = 0;i < (n-1)/2;i++){\n\t\t\t\tint t = (int)(i == 0 && n/2*2 != n ? a[n/2] : ((a[(n-1)/2-i] + a[n/2+i]) % k));\n\t\t\t\tfor(int u = 0;u < k;u++) {\n\t\t\t\t\tif(dp[u][i]){\n\t\t\t\t\t\tfor(int j = 0;j <= 9;j++) {\n\t\t\t\t\t\t\tdp[(u + t * j) % k][i + 1] = true;\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\tint kk = 0;\n\t\t\tchar[] ret = new char[n];\n\t\t\tfor(int i = (n-1)/2;i >= 0;i--){\n\t\t\t\tint t = (int)(i == 0 && n/2*2 != n ? a[n/2] : ((a[(n-1)/2-i] + a[n/2+i]) % k));\n\t\t\t\tfor(int j = 9;j >= 0;j--) {\n\t\t\t\t\tint u = (kk-t*j) % k;\n\t\t\t\t\tif(u < 0)u += k;\n\t\t\t\t\tif (dp[u][i]){\n\t\t\t\t\t\tret[n/2+i] = ret[(n-1)/2-i] = (char)('0'+j);\n\t\t\t\t\t\tkk = u;\n\t\t\t\t\t\tbreak;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn new String(ret);\n\t\t}\n\t}\n",
+    "submit_ts": "1723949120",
+    "subm_id": "1359710938"
+}

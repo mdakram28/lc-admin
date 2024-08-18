@@ -1,0 +1,6 @@
+{
+    "username": "Gaurav",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    int bound(int l, int r, vector<ll> &a) {\n        if(a[l]>r) return l-1;\n        int val=r, mid;\n        while(r-l>1) {\n            mid=(l+r)/2;\n            if(a[mid]<=val) l=mid; else r=mid-1;\n        }\n        if(a[r]<=val) return r; return l;\n    }\n    vector<long long> countKConstraintSubstrings(string s, int k, vector<vector<int>>& queries) {\n        int n=s.size();\n        vector<ll> b{0}, ans;\n        int r=-1, z=0, o=0;\n        for(int l=0;l<n;l++) {\n            while(r+1<n && (z<=k || o<=k)) {\n                r++; if(s[r]=='0') z++; else o++;\n            }\n            if(z<=k || o<=k) b.push_back(n+1);\n            else b.push_back(r+1);\n            if(s[l]=='0') z--; else o--;\n        }\n        auto p=b; for(int i=1;i<=n;i++) p[i]+=p[i-1];\n        for(auto &query: queries) {\n            int l=query[0]+1, r=query[1]+1;\n            ll num=r-l+1;\n            ll pos=bound(l, r, b);\n            ans.push_back(num*(num+1)/2 - (pos-l+1)*(r+1) + p[pos]-p[l-1]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723951706",
+    "subm_id": "1359778128"
+}
