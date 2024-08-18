@@ -61,7 +61,7 @@ class DolosFile:
     subm_ts: float
     subm_id: float
 
-    def split_name():
+    def split_name(self):
         name, ext = basename(self.path).rsplit(".", 1)
         if "____" in name:
             return name.split("____", 1)
