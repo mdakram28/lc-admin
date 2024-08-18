@@ -40,7 +40,7 @@ LANG_EXT = {
 }
 
 class LcClient:
-    def __init__(self, contest: str, ques_num: int) -> None:
+    def __init__(self, contest: str, ques_num: int, use_cache: bool = True) -> None:
         self.contest = contest
         self.ques_num = ques_num
         self.out_path = join(CONTESTS_OUT_PATH, f"{contest}_Q{ques_num}")
@@ -54,12 +54,13 @@ class LcClient:
         Path(self.out_path).mkdir(exist_ok=True, parents=True)
         self._driver_queue: queue = queue.Queue(4)
         self.thread_pool = ThreadPoolExecutor(max_workers=4)
+        self.use_cache = use_cache
 
     def json_request(self, url):
         cache_dir = join("tmp", "cache2")
         Path(cache_dir).mkdir(exist_ok=True, parents=True)
         cache_file = join(cache_dir, hashlib.md5(url.encode('utf-8')).hexdigest() + ".json")
-        if exists(cache_file):
+        if self.use_cache and exists(cache_file):
             with open(cache_file, encoding="utf8") as f:
                 return json.load(f)
 

@@ -45,7 +45,7 @@ for LC_CONTEST,LC_QUESNUM in contests:
 
     print(f"Processing : {REPORT}")
 
-    client = LcClient(LC_CONTEST, LC_QUESNUM)
+    client = LcClient(LC_CONTEST, LC_QUESNUM, False)
     client.fetch_submissions(range(1, 100))
 
     system(f"""
