@@ -1,6 +1,0 @@
-{
-    "username": "bofeng07",
-    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        save, m, n, ans = [], len(board), len(board[0]), -inf\n        for index, row in enumerate(board):\n            array = sorted(enumerate(row), key=lambda x: [-x[1], x[0]])\n            save.extend([[index] + list(item) for item in array[:3]])\n        save.sort(key=lambda x: [-x[2], x[0], x[1]])\n        length = len(save)\n        \n        @cache\n        def dfs(index=0, group=1, row=0, col=0):\n            res = -inf\n            if group == 1:\n                for index in range(5):\n                    res = max(res, save[index][2] + dfs(index + 1, 2, 1 << save[index][0], 1 << save[index][1]))\n            elif group < 4:\n                new, count = index, 0\n                while new < length and count < 3:\n                    if not (1 << save[new][0]) & row and not (1 << save[new][1]) & col:\n                        res = max(res, save[new][2] + dfs(new + 1, group + 1, row | (1 << save[new][0]), col | (1 << save[new][1])))\n                        count += 1\n                    new += 1\n            else:\n                res = 0\n            return res\n\n        return dfs()",
-    "submit_ts": "1723907571",
-    "subm_id": "1359114069"
-}

@@ -1,6 +1,0 @@
-{
-    "username": "MrSup1998",
-    "submission": "package main\n\nimport (\n\t\"math\"\n\t\"sort\"\n)\n\nfunc maximumValueSum(v [][]int) int64 {\n\tm := len(v)\n\tn := len(v[0])\n\n\ttype c struct {\n\t\tv int64\n\t\tr int\n\t\tl int\n\t}\n\n\tvar cs []c\n\n\tfor i := 0; i < m; i++ {\n\t\tfor j := 0; j < n; j++ {\n\t\t\tcs = append(cs, c{v: int64(v[i][j]), r: i, l: j})\n\t\t}\n\t}\n\n\tsort.Slice(cs, func(i, j int) bool {\n\t\treturn cs[i].v > cs[j].v\n\t})\n\n\tms := int64(math.MinInt64)\n    \n\tfor i := 0; i < len(cs); i++ {\n\t\tr1, l1 := cs[i].r, cs[i].l\n\t\ts1 := cs[i].v\n\n\t\tfor j := i + 1; j < len(cs); j++ {\n\t\t\tr2, l2 := cs[j].r, cs[j].l\n\t\t\tif r1 == r2 || l1 == l2 {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\ts2 := s1 + cs[j].v\n\n\t\t\tfor k := j + 1; k < len(cs); k++ {\n\t\t\t\tr3, l3 := cs[k].r, cs[k].l\n\t\t\t\tif r1 == r3 || l1 == l3 || r2 == r3 || l2 == l3 {\n\t\t\t\t\tcontinue\n\t\t\t\t} else {\n\t\t\t\t\ts3 := s2 + cs[k].v\n\t\t\t\t\tif s3 > ms {\n\t\t\t\t\t\tms = s3\n\t\t\t\t\t}\n\t\t\t\t\tbreak\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\treturn ms\n}\n",
-    "submit_ts": "1723909676",
-    "subm_id": "1359201566"
-}

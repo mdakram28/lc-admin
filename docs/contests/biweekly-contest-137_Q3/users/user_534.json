@@ -1,6 +1,0 @@
-{
-    "username": "Suraj Gaur",
-    "submission": "long long dp[101][101][101][4];\n\nlong long fun(int i, int j, int k, int t,vector<vector<int>>& g){\n    int n=g.size();\n    int m=g[0].size();\n    if(t<=0) return 0;\n    if(i>=n ) return -5000000000;\n    if(dp[i][j][k][t]!=-1e17) return dp[i][j][k][t];\n    \n    long long ans=fun(i+1,j,k,t,g);\n    \n    for(int l=0;l<m;l++){\n        if(l!=j && l!=k){\n           if(t==3)  ans=max(ans,g[i][l]+fun(i+1,l,k,2,g));\n           else if(t==2)  ans=max(ans,g[i][l]+fun(i+1,j,l,1,g));\n            else ans=max(ans,g[i][l]+0LL);\n        }\n    }\n    \n    return dp[i][j][k][t]=ans;\n}\n\nclass Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& g) {\n        int n=g.size(),m=g[0].size();\n        \n        for(int i=0;i<n;i++){\n            for(int j=0;j<=m;j++){\n                for(int k=0;k<=m;k++){\n                    for(int t=0;t<4;t++) dp[i][j][k][t]=-1e17;\n                }\n            }\n        }\n        \n        long long ans=fun(0,m,m,3,g);\n        \n        return ans;\n    }\n};",
-    "submit_ts": "1723908522",
-    "subm_id": "1359156142"
-}

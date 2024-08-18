@@ -11,6 +11,7 @@ from os.path import join, basename, exists
 from functools import cache
 from dataclasses import dataclass
 from pre_plag import LcClient
+import base64
 
 class DisjSet: 
     def __init__(self): 
@@ -60,16 +61,26 @@ class DolosFile:
     subm_ts: float
     subm_id: float
 
+    def split_name():
+        name, ext = basename(self.path).rsplit(".", 1)
+        if "____" in name:
+            return name.split("____", 1)
+        elif "__b_" in name:
+            rank, name = name.split("__b_", 1)
+            return rank, base64.urlsafe_b64decode(name)
+        else:
+            raise Exception(f"Unknown filename format {name=}")
+
     # Computed fields
     def get_username(self):
         name, ext = basename(self.path).rsplit(".", 1)
-        rank, name = name.split("____", 1)
+        rank, name = self.split_name()
         assert rank.isnumeric(), "Invalid rank"
         return name
     
     def get_rank(self):
         name, ext = basename(self.path).rsplit(".", 1)
-        rank, name = name.split("____", 1)
+        rank, name = self.split_name()
         assert rank.isnumeric(), "Invalid rank"
         return rank
 

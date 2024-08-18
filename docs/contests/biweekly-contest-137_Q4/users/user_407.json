@@ -1,6 +1,0 @@
-{
-    "username": "ShikiNatsume",
-    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m, n = len(board), len(board[0])\n        cells = []\n\n        for i in range(m):\n            for j in range(n):\n                cells.append((board[i][j], i, j))\n\n        cells.sort(reverse=True, key=lambda x: x[0])\n        cells = cells[:500]\n\n        max_sum = -int(1e9) * 100\n\n        def backtrack(used_rows, used_cols, index, current_sum, rooks_placed):\n            nonlocal max_sum\n            if rooks_placed == 3:\n                max_sum = max(max_sum, current_sum)\n                return\n\n            for k in range(index, len(cells)):\n                value, r, c = cells[k]\n                if r not in used_rows and c not in used_cols:\n                    used_rows.add(r)\n                    used_cols.add(c)\n                    backtrack(used_rows, used_cols, k + 1, current_sum + value, rooks_placed + 1)\n                    used_rows.remove(r)\n                    used_cols.remove(c)\n\n        for i in range(min(4, len(cells))):\n            value, r, c = cells[i]\n            used_rows = {r}\n            used_cols = {c}\n            backtrack(used_rows, used_cols, i + 1, value, 1)\n\n        return max_sum\n",
-    "submit_ts": "1723909224",
-    "subm_id": "1359184314"
-}

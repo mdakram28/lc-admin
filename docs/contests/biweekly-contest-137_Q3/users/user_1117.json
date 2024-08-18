@@ -1,6 +1,0 @@
-{
-    "username": "AshPikachuu",
-    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m = len(board)\n        n = len(board[0])\n\n        top_values = []\n        for i in range(m):\n            row_values = []\n            for j in range(n):\n                row_values.append((-board[i][j], j)) \n            heapq.heapify(row_values)\n            best_three = heapq.nsmallest(3, row_values)\n            top_values.append([(val, col) for val, col in best_three])\n\n        \n        max_sum = float('-inf')\n        for i in range(m):\n            for j in range(i + 1, m):\n                for k in range(j + 1, m):\n                    for x in top_values[i]:\n                        for y in top_values[j]:\n                            for z in top_values[k]:\n                                if len({x[1], y[1], z[1]}) == 3:\n                                    current_sum = -x[0] - y[0] - z[0] \n                                    max_sum = max(max_sum, current_sum)\n\n        return max_sum\n        ",
-    "submit_ts": "1723909528",
-    "subm_id": "1359195981"
-}

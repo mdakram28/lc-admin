@@ -1,6 +1,0 @@
-{
-    "username": "samliu12",
-    "submission": "#include <bits/stdc++.h>\n#ifdef DEBUG\n#include \"debug.h\"\n#else\n#define dbg(x...)\n#endif\nusing namespace std;\nusing ll = long long;\n\nclass Solution {\npublic:\n    ll maximumValueSum(vector<vector<int>>& a) {\n\t\tint n = a.size(), m = a[0].size();\n\t\tvector<vector<pair<int, int>>> dp(n, vector<pair<int, int>>(3));\n\t\tvector<vector<int>> idx(n, vector<int>(3, -1));\n\t\tfor (int i = 0; i < n; ++i) {\n\t\t\tvector<pair<int, int>> b;\n\t\t\tfor (int j = 0; j < m; ++j) {\n\t\t\t\tb.push_back({a[i][j], j});\n\t\t\t}\n\t\t\tsort(b.begin(), b.end(), greater<pair<int, int>>());\n\t\t\tfor (int j = 0; j < 3; ++j) dp[i][j] = b[j];\n\t\t}\n\t\tll ans = -3e9;\n\t\tfor (int i = 0; i < n; ++i) {\n\t\t\tfor (int j = i + 1; j < n; ++j) {\n\t\t\t\tfor (int k = j + 1; k < n; ++k) {\n\t\t\t\t\tfor (int x = 0; x < 3; ++x) {\n\t\t\t\t\t\tfor (int y = 0; y < 3; ++y) {\n\t\t\t\t\t\t\tfor (int z = 0; z < 3; ++z) {\n\t\t\t\t\t\t\t\tif (dp[i][x].second != dp[j][y].second && dp[i][x].second != dp[k][z].second && dp[j][y].second != dp[k][z].second) {\n\t\t\t\t\t\t\t\t\tans = max(ans, (ll)dp[i][x].first + dp[j][y].first + dp[k][z].first);\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn ans;\n    }\n};",
-    "submit_ts": "1723906111",
-    "subm_id": "1359035859"
-}

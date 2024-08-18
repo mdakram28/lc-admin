@@ -1,6 +1,0 @@
-{
-    "username": "arsread",
-    "submission": "class Solution {\n    public long maximumValueSum(int[][] board) {\n        int m = board.length, n = board[0].length;\n        PriorityQueue<int[]>[] pqs = new PriorityQueue[m];\n        for (int i = 0; i < m; i++) {\n            pqs[i] = new PriorityQueue<>((a, b)->board[a[0]][a[1]] - board[b[0]][b[1]]);\n            for (int j = 0; j < n; j++) {\n                pqs[i].add(new int[]{i, j});\n                if (pqs[i].size() > 3) pqs[i].remove();\n            }\n        }\n        long mx = Long.MIN_VALUE;\n        for (int i = 0; i < m; i++) {\n            for (int j = i + 1; j < m; j++) {\n                for (int k = j + 1; k < m; k++) {\n                    for (int[] a: pqs[i]) {\n                        for (int[] b: pqs[j]) {\n                            for (int[] c: pqs[k]) {\n                                if (a[0] != b[0] && b[0] != c[0] && a[0] != c[0] && a[1] != b[1] && b[1] != c[1] && a[1] != c[1]) {\n                                    mx = Math.max(mx, (long)board[a[0]][a[1]] + (long)board[b[0]][b[1]] + (long)board[c[0]][c[1]]);\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        return mx;\n    }\n}",
-    "submit_ts": "1723906698",
-    "subm_id": "1359067395"
-}

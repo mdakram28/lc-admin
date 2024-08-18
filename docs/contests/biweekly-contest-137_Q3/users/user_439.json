@@ -1,6 +1,0 @@
-{
-    "username": "vijaykatta3094",
-    "submission": "class Solution:\n    def __init__(self):\n        self.board = None\n\n    @cache\n    def top3(self, row):\n        return sorted([(val, i) for i, val in enumerate(self.board[row])], reverse = True)[:3]\n\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        self.board = board\n        rows, cols = len(board), len(board[0])\n        res = -inf\n        for perms in permutations(list(range(rows)), 3):\n            forbidden = set()\n            curr = 0\n            for row_id in perms:\n                for val, col in self.top3(row_id):\n                    if col not in forbidden:\n                        curr += val\n                        forbidden.add(col)\n                        break\n            res = max(res, curr)\n        self.board = None\n        return res",
-    "submit_ts": "1723906943",
-    "subm_id": "1359080867"
-}

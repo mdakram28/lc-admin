@@ -1,6 +1,0 @@
-{
-    "username": "Kushagra Agarwal",
-    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        # for row in board: print(*row)\n\n        n, m = len(board), len(board[0])\n\n        positions = set()\n\n        nums = []\n        for i in range(n):\n            for j in range(m):\n                nums.append([board[i][j], i, j])\n\n        nums.sort(reverse = True)\n\n        def best_two(l, r, x, y):\n            res = []\n            for i in range(l, r):\n                a, b, c = nums[i]\n                if b!=x and y!=c: res.append([a, b, c])\n                if len(res) == 50: return res\n            return res\n\n        mn = min(m, n)\n        res = float('-inf')\n\n        for i in range(1, 3*mn-1):\n\n            num, x, y = nums[i]\n            a = b = float('-inf')\n\n            left = best_two(0, i, x, y)\n            right = best_two(i+1, len(nums), x, y)\n\n            for p1, p2, p3 in left:\n                for q1, q2, q3 in right:\n                    # print(p1, q1, num)\n                    if p2 == x or q2 == x or p2 == q2: continue\n                    if p3 == y or q3 == y or p3 == q3: continue\n                    res = max(res, num + p1 + q1)\n\n        return res",
-    "submit_ts": "1723909179",
-    "subm_id": "1359182615"
-}

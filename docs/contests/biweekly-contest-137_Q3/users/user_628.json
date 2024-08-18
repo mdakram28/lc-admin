@@ -1,6 +1,0 @@
-{
-    "username": "Abhijit Karmakar",
-    "submission": "class Solution:\n    def maximumValueSum(self, G: List[List[int]]) -> int:\n        m, n = len(G), len(G[0])\n        fast = []\n        for row in G:\n            fast.append(sorted(range(n), key=lambda i: (row[i]), reverse=True))\n        # print(fast)\n\n        @lru_cache(None)\n        def dp(i, rook, pos):\n            if rook == 3:\n                return 0\n            elif i == m:\n                return -inf\n            res = dp(i + 1, rook, pos)\n            pos = list(pos)\n\n            for j in range(3):\n                if fast[i][j] not in pos:\n                    k, pos[rook] = pos[rook], fast[i][j]\n                    res = max(res, G[i][pos[rook]] + dp(i + 1, rook + 1, tuple(pos)))\n                    pos[rook] = k\n            return res\n\n        return dp(0, 0, (-1, -1, -1))",
-    "submit_ts": "1723908125",
-    "subm_id": "1359139266"
-}

@@ -1,3 +1,4 @@
+import base64
 from concurrent.futures import ThreadPoolExecutor
 from functools import cached_property
 import os
@@ -149,7 +150,9 @@ class LcClient:
                 api_base = self.api_base_base.get(cont_subm['data_region'], self.api_base_base['US'])
                 submission = submission_future.result()
                 
-                filename = f"{user['rank']}____{user['username']}.{LANG_EXT[submission['lang']]}"
+                # filename = f"{user['rank']}____{user['username']}.{LANG_EXT[submission['lang']]}"
+                uname_encoded = base64.urlsafe_b64encode(user['username'].encode('utf-8')).decode()
+                filename = f"{user['rank']}__b_{uname_encoded}.{LANG_EXT[submission['lang']]}"
                 print(filename)
                 subm_path = join(self.out_path, "submissions", filename)
                 content = submission['code'].encode('utf-8')

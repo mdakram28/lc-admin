@@ -1,6 +1,0 @@
-{
-    "username": "Wibo",
-    "submission": "class Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        int n = board.size(), m = board[0].size();\n        const int magic = 3 * max(n, m);\n        \n        vector<pair<int, int>> cells(n*m);\n        for (int i=0; i<n; i++) {\n            for (int j=0; j<m; j++) {\n                cells[m*i+j] = {i, j};\n            }\n        }\n        sort(cells.begin(), cells.end(), [&](pair<int, int> &pa, pair<int, int> &pb) {\n            return board[pa.first][pa.second] > board[pb.first][pb.second];\n        });\n        cells.resize(magic);\n\n        long long ans = -1e18-3;\n        for (int i=0; i<magic; i++) {\n            for (int j=i+1; j<magic; j++) {\n                for (int k=j+1; k<magic; k++) {\n                    auto &[ri, ci] = cells[i];\n                    auto &[rj, cj] = cells[j];\n                    auto &[rk, ck] = cells[k];\n                    if (ri != rj && ri != rk && rj != rk && ci != cj && ci != ck && cj != ck) {\n                        ans = max(ans, 1LL * board[ri][ci] + board[rj][cj] + board[rk][ck]);\n                    }\n                }\n            }\n        }\n\n        return ans;\n    }\n};",
-    "submit_ts": "1723905657",
-    "subm_id": "1359012314"
-}

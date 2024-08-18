@@ -1,6 +1,0 @@
-{
-    "username": "MinHsuanYu",
-    "submission": "struct X{\n        int v = 0;\n        int x = 0;\n        int y = 0;\n    };\nbool cmp(X &l, X &r){return l.v > r.v;};\nclass Solution {\npublic:\n    long long ans = LONG_MIN;\n    void dfs(int index, int cnt, long long tmp, vector<bool> &visX, vector<bool> &visY, vector<X> &q){\n        if(cnt == 3) {\n            ans = max(ans, tmp);\n            return;\n        }\n        if(index >= q.size()) return;\n        int v = q[index].v;\n        if(ans > tmp + (3-(long long)cnt) * v) return;\n        int x = q[index].x;\n        int y = q[index].y;\n\n        if(cnt < 3 && !visX[x] && !visY[y]){\n            visX[x] = visY[y] = true;\n            dfs(index+1, cnt+1, tmp+v, visX, visY, q);\n            visX[x] = visY[y] = false;\n        }\n        dfs(index+1, cnt, tmp, visX, visY, q);\n    }\n    long long maximumValueSum(vector<vector<int>>& board) {\n        long long tmp = 0;\n        int n = board.size(), m = board[0].size();\n        vector<X> q(n*m);\n        vector<bool> visX(n), visY(m);\n        int cnt = 0;\n        for(int i=0;i<n;i++)\n            for(int j=0;j<m;j++)\n                q[cnt++] = {board[i][j], i, j};\n        sort(q.begin(), q.end(), cmp);\n        dfs(0, 0, 0, visX, visY, q);\n        return ans;\n    }\n};",
-    "submit_ts": "1723908753",
-    "subm_id": "1359165769"
-}

@@ -1,6 +1,0 @@
-{
-    "username": "Mikko",
-    "submission": "impl Solution {\n    fn has_conflict(squares: &[(i64, usize, usize)], a: usize, b: usize) -> bool {\n        let (_, ai, aj) = squares[a];\n        let (_, bi, bj) = squares[b];\n        ai == bi || aj == bj\n    }\n\n    pub fn maximum_value_sum(board: Vec<Vec<i32>>) -> i64 {\n        let mut squares = vec![];\n        let height = board.len();\n        let width = board[0].len();\n        for (i, row) in board.iter().enumerate() {\n            for (j, &val) in row.iter().enumerate() {\n                squares.push((val as i64, i, j));\n            }\n        }\n        squares.sort();\n        squares.reverse();\n        let n = squares.len();\n\n        let mut best = i64::MIN;\n        for a in 0 .. width + height {\n            for b in a+1 .. n.min(2 * (width + height)) {\n                if Self::has_conflict(&squares, a, b) {\n                    continue\n                }\n                for c in b+1..n.min(2 * (width + height)) {\n                    if !Self::has_conflict(&squares, a, c) && !Self::has_conflict(&squares, b, c) {\n                        best = best.max(squares[a].0 + squares[b].0 + squares[c].0);\n                    }\n                }\n            }\n        }\n        best\n    }\n}",
-    "submit_ts": "1723909890",
-    "subm_id": "1359209511"
-}

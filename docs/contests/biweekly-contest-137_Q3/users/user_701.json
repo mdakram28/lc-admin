@@ -1,6 +1,0 @@
-{
-    "username": "Sarthak Jain",
-    "submission": "from itertools import combinations,product\n\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        r, c = len(board), len(board[0])\n        top = [sorted([(board[i][j], j) for j in range(c)], reverse=True)[:3]   for i in range(r)]\n        max_sum = -float('inf')\n\n        for r1, r2 in combinations(range(r), 2):\n            for (v1, c1), (v2, c2) in product(top[r1], top[r2]):\n                if c1 == c2:\n                    continue\n\n                avail_c = set(range(c)) - {c1, c2}\n                best_third = max(\n                    board[r3][c3]\n                    for r3 in range(r)\n                    if r3 != r1 and r3 != r2\n                    for _, c3 in top[r3]\n                    if c3 in avail_c\n                )\n\n                max_sum = max(max_sum, v1 + v2 + best_third)\n\n        return max_sum\n",
-    "submit_ts": "1723909550",
-    "subm_id": "1359196800"
-}

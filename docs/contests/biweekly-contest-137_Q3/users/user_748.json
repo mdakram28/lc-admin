@@ -1,6 +1,0 @@
-{
-    "username": "Parthiv__reddy",
-    "submission": "class Solution {\npublic:\n    int n,m;\n    long long inf=1e18;\n    vector<vector<vector<long long>>> dp;\n    long long rec(int i,int c1,int c2,vector<vector<int>>& board){\n        if(i==n)return -inf;\n        if(dp[i][c1+1][c2+1]!=-inf)return dp[i][c1+1][c2+1];\n        long long val=0;\n        long long ans = rec(i+1,c1,c2,board);\n        for(int j=0;j<m;j++){\n            if(j==c1 || j==c2)continue;\n            val=board[i][j];\n            if(c1==-1){\n                ans=max(ans,val+rec(i+1,j,c2,board));\n            }\n            else if(c2==-1){\n                ans=max(ans,val+rec(i+1,c1,j,board));\n            }\n            else{\n                ans=max(ans,val);\n            }\n        }\n        return dp[i][c1+1][c2+1]=ans;\n    }\n\n    long long maximumValueSum(vector<vector<int>>& board) {\n        n=board.size();\n        m=board[0].size();\n        dp.resize(n,vector<vector<long long>>(m+1,vector<long long>(m+1,-inf)));\n        long long ans = rec(0,-1,-1,board);\n        return ans;\n    }\n};\n",
-    "submit_ts": "1723909256",
-    "subm_id": "1359185544"
-}

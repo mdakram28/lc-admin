@@ -1,6 +1,0 @@
-{
-    "username": "Larry",
-    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        R = len(board)\n        C = len(board[0])\n        INF = 10 ** 20\n        \n        new_board = []\n        for row in board:\n            new_board.append(list(sorted(((x, index) for index, x in enumerate(row))))[-4:])\n        #print(new_board)        \n        \n        @cache\n        def go(row, count, c1, c2):\n            if count == 3:\n                return 0\n            \n            if row == R:\n                return -INF\n            \n            best = -INF\n            for x, index in new_board[row]:\n                if index != c1 and index != c2:\n                    if c1 == -1:\n                        best = max(best, go(row + 1, count + 1, index, -1) + x)\n                    elif c2 == -1:\n                        best = max(best, go(row + 1, count + 1, c1, index) + x)\n                    else:\n                        best = max(best, go(row + 1, count + 1, c1, c2) + x)\n            best = max(best, go(row + 1, count, c1, c2))\n            return best\n        \n        return go(0, 0, -1, -1)",
-    "submit_ts": "1723906121",
-    "subm_id": "1359036432"
-}

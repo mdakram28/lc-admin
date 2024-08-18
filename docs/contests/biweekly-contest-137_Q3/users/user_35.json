@@ -1,6 +1,0 @@
-{
-    "username": "VILLANOVA_ECON",
-    "submission": "class Solution:\n    def maximumValueSum(self, board1: List[List[int]]) -> int:\n        if len(board1) > len(board1[0]):\n            board1 = list([list(row) for row in zip(*board1)])\n            \n        board = []\n        for row in board1:\n            new_arr = sorted(list(enumerate(row)),key=lambda x:x[1])\n            temp_arr = []\n            for _ in range(3):\n                if new_arr:\n                    temp_arr.append(new_arr.pop())\n            board.append(list(temp_arr))\n        \n        @lru_cache(None)\n        def recur_fn(i,used):\n            if i == len(board):\n                if len(used) == 3:\n                    return 0\n                else:\n                    return -math.inf\n            elif len(used) == 3:\n                return 0\n            else:\n                res = -math.inf\n                res = max(res,recur_fn(i+1,used))\n                for j,y in board[i]:\n                    if j not in used:\n                        new_used = tuple(sorted(used  + (j,)))\n                        res = max(res,y + recur_fn(i+1,new_used))\n                return res\n        \n        return recur_fn(0,tuple())\n                    ",
-    "submit_ts": "1723906242",
-    "subm_id": "1359042651"
-}

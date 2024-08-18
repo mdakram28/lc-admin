@@ -1,6 +1,0 @@
-{
-    "username": "unknown",
-    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        \n        from sortedcontainers import SortedList\n        sl = SortedList()\n        \n        R = len(board)\n        C = len(board[0]) if R else 0\n        \n        A = []\n        \n        for r in range(R):\n            temp = []\n            for c in range(C):\n                temp.append((board[r][c], c))\n            temp.sort()\n            A.append(temp[-3:])\n        \n        @cache\n        def recurse(r, used_cols, remaining=3):\n            if r==R:\n                return 0 if not remaining else -math.inf\n            if not remaining:\n                return 0\n            \n            res = recurse(r+1, used_cols, remaining)\n            \n            for score,c in A[r]:\n                if not (1<<c)&used_cols:\n                    res = max(res, score+recurse(r+1, (1<<c)|used_cols, remaining-1))\n            return res\n        \n        return recurse(0,0)\n            \n        \n        ",
-    "submit_ts": "1723909695",
-    "subm_id": "1359202300"
-}

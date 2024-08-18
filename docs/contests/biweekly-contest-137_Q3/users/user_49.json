@@ -1,6 +1,0 @@
-{
-    "username": "dirigibility",
-    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m,n = len(board),len(board[0])\n        @cache\n        def above(i):\n            if i == 0:\n                return {}\n            prev = above(i-1)\n            return {j:a for a,j in nlargest(3,((max(board[i-1][j],prev.get(j,-inf)),j) for j in range(n)))}\n        @cache\n        def below(i):\n            if i == m-1:\n                return {}\n            prev = below(i+1)\n            return {j:a for a,j in nlargest(3,((max(board[i+1][j],prev.get(j,-inf)),j) for j in range(n)))}\n        result = -inf\n        for i in range(1,m-1):\n            da = above(i)\n            db = below(i)\n            for j in range(n):\n                result = max(result,board[i][j]+max(a+b for ja,a in da.items() for jb,b in db.items() if ja != jb and ja != j and jb != j))\n        above.cache_clear()\n        below.cache_clear()\n        return result",
-    "submit_ts": "1723907619",
-    "subm_id": "1359116419"
-}

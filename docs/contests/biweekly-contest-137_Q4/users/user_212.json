@@ -1,6 +1,0 @@
-{
-    "username": "Ygao",
-    "submission": "class Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        set<array<int,3>> s;\n        for (int i = 0; i<board.size(); ++i)\n            for (int j=0; j<board[0].size(); ++j)\n                s.insert({board[i][j], i, j});\n        vector<array<int,3>> sv(s.rbegin(), s.rend());\n        long long ans = -1e9*3, tmp = 0LL;\n        set<int> is, js;\n        int n = sv.size();\n        function<void(int, int)> dfs = [&](int i, int c){\n            if (c == 3){ ans = max(ans, tmp); return; }\n            if (i == n || (ans-tmp) / (3-c) >= sv[i][0]) return;\n            while (i < sv.size()){\n                if (is.find(sv[i][1]) == is.end() && js.find(sv[i][2]) == js.end()){\n                    tmp += sv[i][0];\n                    is.insert(sv[i][1]);\n                    js.insert(sv[i][2]);\n                    dfs(i+1, c+1);\n                    tmp -= sv[i][0];\n                    is.erase(sv[i][1]);\n                    js.erase(sv[i][2]);\n                }\n                ++i;\n            }\n        };\n        dfs(0,0);\n        return ans;\n    }\n};",
-    "submit_ts": "1723909108",
-    "subm_id": "1359179877"
-}

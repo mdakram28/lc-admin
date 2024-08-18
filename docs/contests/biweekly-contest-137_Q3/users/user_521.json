@@ -1,6 +1,0 @@
-{
-    "username": "wanderlust312",
-    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        rows=len(board)\n        cols=len(board[0])\n\n        upDown=[[0 for j in range(cols)] for i in range(rows)]\n        upDown[0]=board[0]\n        for i in range(1,rows):\n            for j in range(cols):\n                upDown[i][j]=max(board[i][j],upDown[i-1][j])\n        \n        downUp=[[0 for j in range(cols)] for i in range(rows)]\n        downUp[-1]=board[-1]\n        for i in range(rows-2,-1,-1):\n            for j in range(cols):\n                downUp[i][j]=max(board[i][j],downUp[i+1][j])\n        \n        ans=-sys.maxsize\n        for i in range(1,rows-1):\n            for j in range(cols):\n                up = [[upDown[i-1][k],k] for k in range(cols) if k!=j]\n                down = [[downUp[i+1][k],k] for k in range(cols) if k!=j]\n                \n                up.sort(reverse=True)\n                down.sort(reverse=True)\n\n                if up[0][1]!=down[0][1]:\n                    ans=max(ans,up[0][0]+down[0][0]+board[i][j])\n                else:\n                    ans=max(ans,up[0][0]+down[1][0]+board[i][j],up[1][0]+down[0][0]+board[i][j])\n\n        return ans\n\n",
-    "submit_ts": "1723908120",
-    "subm_id": "1359139009"
-}

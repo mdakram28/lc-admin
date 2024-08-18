@@ -1,6 +1,0 @@
-{
-    "username": "lthroy",
-    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m,n = len(board),len(board[0])\n        rows = [sorted([(x,j) for j,x in enumerate(r)],key=lambda y:-y[0])[:3] for r in board]\n        @functools.lru_cache(None)\n        def dp(i,cols):\n            if len(cols) == 3:\n                return 0\n            if i == m:\n                return -float(\"inf\")\n            res = dp(i+1,cols)\n            for x,j in rows[i]:\n                if j not in cols:\n                    res = max(res,x+dp(i+1,tuple(list(cols)+[j])))\n            return res\n        return dp(0,tuple())",
-    "submit_ts": "1723909390",
-    "subm_id": "1359190735"
-}

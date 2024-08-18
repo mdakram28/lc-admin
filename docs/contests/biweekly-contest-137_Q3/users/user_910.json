@@ -1,6 +1,0 @@
-{
-    "username": "Shriyanshusinh",
-    "submission": "#define ll long long\nclass Solution {\npublic:\n    \n    ll dp[101][101][101];\n    ll rec(int lev, int prevr1,int prevr2,vector<vector<int>> &board){\n        int m=board[0].size();\n        if(lev==0)return -1e18;\n\n        if(dp[lev][prevr1][prevr2]!=-1)return dp[lev][prevr1][prevr2];\n\n        ll ans=rec(lev-1,prevr1,prevr2,board);\n        if(prevr1==0 && prevr2==0){\n            for(int i=1;i<=m;i++){\n                 ans=max(ans,board[lev-1][i-1]+rec(lev-1,i,0,board));\n            }\n        }else if(prevr2==0 && prevr1!=0){\n             for(int i=1;i<=m;i++){\n                 if(i!=prevr1)ans=max(ans,board[lev-1][i-1]+rec(lev-1,prevr1,i,board));\n            }\n        }else{\n            for(int i=1;i<=m;i++){\n                 if(i!=prevr1 && i!=prevr2)ans=max(ans,(ll)board[lev-1][i-1]);\n            }\n        }\n\n        return dp[lev][prevr1][prevr2]=ans;\n    }\n    long long maximumValueSum(vector<vector<int>>& board) {\n         memset(dp,-1,sizeof(dp));\n         return rec(board.size(),0,0,board);\n    }\n};",
-    "submit_ts": "1723907428",
-    "subm_id": "1359107128"
-}

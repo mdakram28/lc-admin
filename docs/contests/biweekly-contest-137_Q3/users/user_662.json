@@ -1,6 +1,0 @@
-{
-    "username": "he zhong miao",
-    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m = len(board)\n        n = len(board[0])\n\n        row_max = [[] for _ in range(m)]\n\n        for ind, row in enumerate(board) :\n            row_max[ind] = sorted([(v, j) for j, v in enumerate(row)], reverse = True)[:3]\n        \n\n        @cache\n        def dfs(i, p1, p2) :\n            if i == m :\n                return -inf\n            res = -inf\n            for value, col_ind in row_max[i] :\n                if col_ind != p1 and col_ind != p2 :\n                    if p1 == -1 :\n                        k = dfs(i+1, col_ind, p2)\n                        res = max(res, k + value)\n                    elif p2 == -1 :\n                        k = dfs(i+1, p1, col_ind)\n                        res = max(res, k + value)\n                    else :\n                        res = max(res, value)\n\n            res = max(res, dfs(i+1, p1, p2))\n            return res\n\n        ans = dfs(0, -1, -1)\n\n        dfs.cache_clear()\n\n        return ans",
-    "submit_ts": "1723908405",
-    "subm_id": "1359151192"
-}

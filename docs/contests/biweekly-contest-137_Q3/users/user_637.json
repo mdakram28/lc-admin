@@ -1,6 +1,0 @@
-{
-    "username": "pikapika",
-    "submission": "from typing import List\nimport heapq\n\n\nclass Solution:\n    def maximumValueSum(self, a: List[List[int]]) -> int:\n        n, m = len(a), len(a[0])\n        inf = float(\"inf\")\n\n        def solve(r):\n            c1, c2, c3 = [-inf] * m, [-inf] * m, [-inf] * m\n            for j in range(m):\n                c1[j] = max(a[i][j] for i in range(r))\n                c2[j] = a[r][j]\n                c3[j] = max(a[i][j] for i in range(r + 1, n))\n            ans = -inf\n            c3_sorted = sorted(c3)\n            for i in range(m):\n                for j in range(m):\n                    if i == j:\n                        continue\n                    v12 = c1[i] + c2[j]\n                    mi, ma = min(c3[i], c3[j]), max(c3[i], c3[j])\n                    x = -inf\n                    if ma == c3_sorted[-1]:\n                        if mi == c3_sorted[-2]:\n                            x = c3_sorted[-3]\n                        else:\n                            x = c3_sorted[-2]\n                    else:\n                        x = c3_sorted[-1]\n\n                    ans = max(ans, v12 + x)\n            return ans\n\n        return max([solve(i) for i in range(1, n - 1)])",
-    "submit_ts": "1723909097",
-    "subm_id": "1359179466"
-}

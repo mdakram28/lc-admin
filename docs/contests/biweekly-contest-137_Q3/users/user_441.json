@@ -1,6 +1,0 @@
-{
-    "username": "Jay Todawat",
-    "submission": "class Solution {\n    int[][] arr;\n    int n;\n    int m;\n    Long[][][] dp;\n    public long maximumValueSum(int[][] board) {\n        arr = board;\n        n = arr.length;\n        m = arr[0].length;\n        dp = new Long[n][m+1][m+1];\n        return rec(0, -1, -1);\n    }\n\n    public long rec(int i, int p1, int p2){\n        if(i == n){\n            return -((long)1e15);\n        }\n        if(dp[i][p1+1][p2+1] != null){\n            return dp[i][p1+1][p2+1];\n        }\n        long max = -((long)1e15);\n        max = Math.max(max, rec(i+1, p1, p2));\n        for(int col = 0; col < m; col++){\n            if(col != p1 && col != p2){\n                if(p1 == -1 || p2 == -1){\n                    long a = rec(i+1, col, p1) + arr[i][col];\n                    max = Math.max(max, a);\n                } else {\n                    max = Math.max(max, arr[i][col]);\n                }\n            }\n        }\n        return dp[i][p1+1][p2+1]=max;\n\n    }\n}",
-    "submit_ts": "1723906583",
-    "subm_id": "1359060994"
-}

@@ -1,6 +1,0 @@
-{
-    "username": "Jeremy Do",
-    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m = len(board)\n        n = len(board[0])\n        max_sum = float('-inf')\n\n        max_row_vals = [max(row) for row in board]\n        \n        def backtrack(row, rooks_placed, curr_sum, columns):\n            nonlocal max_sum\n            \n            if rooks_placed == 3:\n                max_sum = max(max_sum, curr_sum)\n                return\n            \n            if row >= m:\n                return\n            \n            remaining_possible_sum = curr_sum + sum(sorted(max_row_vals[row:m])[-(3-rooks_placed):])\n            if remaining_possible_sum <= max_sum:\n                return\n            \n            for col in range(n):\n                if col not in columns:\n                    columns.add(col)\n                    backtrack(row + 1, rooks_placed + 1, curr_sum + board[row][col], columns)\n                    columns.remove(col)\n            \n            backtrack(row + 1, rooks_placed, curr_sum, columns)\n\n        backtrack(0, 0, 0, set())\n        \n        return max_sum",
-    "submit_ts": "1723907425",
-    "subm_id": "1359106960"
-}
