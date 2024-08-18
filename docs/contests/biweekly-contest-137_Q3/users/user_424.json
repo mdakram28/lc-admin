@@ -1,0 +1,6 @@
+{
+    "username": "\u5c0f\u5361\u62c9\u7c73",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m,n=len(board),len(board[0])\n        s=tuple(sorted([(board[i][j],i,j) for i in range(m) for j in range(n)],reverse=True))\n        @cache\n        def check(t,k):\n            r=-99999999999\n            if k==1:return t[0][0] if t else r\n            x=0\n            while x+k-1<len(t) and r<sum(t[x+i][0] for i in range(k)):\n                r=max(r,t[x][0]+check(tuple(t[i] for i in range(x+1,len(t)) if t[i][1]!=t[x][1] and t[i][2]!=t[x][2]),k-1))\n                x+=1\n            #print(t,k,r)\n            return r\n        return check(s,3)\n        \n",
+    "submit_ts": "1723909048",
+    "subm_id": "556334240"
+}

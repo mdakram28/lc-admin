@@ -1,0 +1,6 @@
+{
+    "username": "\u9a6c\u897f\u661f",
+    "submission": "class Solution {\n   public long maximumValueSum(int[][] board) {\n    int m = board.length;\n    int n = board[0].length;\n    List<int[]> positions = new ArrayList<>();\n\n    for (int i = 0; i < m; i++) {\n        for (int j = 0; j < n; j++) {\n            positions.add(new int[]{board[i][j], i, j});\n        }\n    }\n\n    Collections.sort(positions, (a, b) -> b[0] - a[0]);\n\n    long maxSum = Long.MIN_VALUE;\n    for (int i = 0; i < positions.size(); i++) {\n        int[] first = positions.get(i);\n        if ((long)first[0] * 3 <= maxSum) break; \n        for (int j = i + 1; j < positions.size(); j++) {\n            int[] second = positions.get(j);\n            if (first[1] == second[1] || first[2] == second[2]) continue;\n            if ((long)first[0] + (long)second[0] * 2 <= maxSum) break;\n            for (int k = j + 1; k < positions.size(); k++) {\n                int[] third = positions.get(k);\n                if (first[1] == third[1] || first[2] == third[2] || second[1] == third[1] || second[2] == third[2])\n                    continue;\n                maxSum = Math.max(maxSum,(long)first[0] + second[0] + third[0]);\n            }\n        }\n    }\n\n    return maxSum;\n}\n}",
+    "submit_ts": "1723908320",
+    "subm_id": "556330345"
+}

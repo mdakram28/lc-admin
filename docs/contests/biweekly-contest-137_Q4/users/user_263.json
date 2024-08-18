@@ -1,0 +1,6 @@
+{
+    "username": "Dyxuki",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m, n = len(board), len(board[0])\n        nums = []\n        for r in range(m):\n            for c in range(n):\n                nums.append((board[r][c], r, c))\n        nums.sort(reverse=True)\n        maxx = nums[0][0]\n        #print(nums)\n        best = -float(\"inf\")\n        def dfs(i, s, path, rows, cols):\n            nonlocal best\n            if i == 3:\n                best = max(best, path)\n                return \n            if s >= len(nums):\n                return\n            if path+(3-i)*maxx <= best:\n                return\n            left_to_do = 3-i\n            if s+left_to_do > len(nums):\n                return\n            optimal = path\n            for j in range(left_to_do):\n                optimal += nums[s+j][0]\n            if optimal <= best:\n                return\n            val, r, c = nums[s]\n            if r not in rows and c not in cols:\n                dfs(i+1, s+1, path+val, rows|set([r]), cols|set([c]))  # take s\n            dfs(i, s+1, path, rows, cols)  # take s+1\n\n        dfs(0, 0, 0, set(), set())\n\n        return best",
+    "submit_ts": "1723908246",
+    "subm_id": "1359144474"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "timowendner",
+    "submission": "def threebest(row):\n    ans = sorted(list(enumerate(row)), key=lambda x: x[1])[-3:]\n    return ans\n\ndef calcuate(v1, v2, v3):\n    ans = float('-inf')\n    for i, a in v1:\n        for j, b in v2:\n            if i == j:\n                continue\n            for k, c in v3:\n                if k != j and k!=i:\n                    ans = max(ans, a + b + c)\n    return ans\n\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n, m = len(board[0]), len(board)\n        best = []\n        for row in board:\n            best.append(threebest(row))\n        \n        pre = []\n        cur = [float('-inf')]*n\n        for tbest in reversed(best):\n            pre.append(threebest(cur))\n            for i, val in tbest:\n                cur[i] = max(cur[i], val)\n        pre = pre[::-1]\n\n        ans = float('-inf')\n        for i in range(m):\n            for j in range(i+1, m):\n                v1 = best[i]\n                v2 = best[j]\n                v3 = pre[j]\n                cur = calcuate(v1, v2, v3)\n                ans = max(ans, cur)\n        return ans",
+    "submit_ts": "1723909905",
+    "subm_id": "1359210075"
+}

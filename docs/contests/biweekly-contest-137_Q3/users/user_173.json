@@ -1,0 +1,6 @@
+{
+    "username": "\u82e5\u8bb7",
+    "submission": "class Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        long long n = board.size(), m = board[0].size();\n        vector<pair<long long, long long>> tot;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < m; j++) {\n                tot.emplace_back(make_pair(board[i][j], i * m + j));\n            }\n        }\n        long long sz = n * m;\n        sort(tot.begin(), tot.end());\n        long long ans = -3e9;\n        for (int i = sz - 1, ci = 0; i >= 0 && ci <= 201; i--, ci++) {\n            for (int j = i - 1, cj = 0; j >= 0 && cj <= 201; j--, cj++) {\n                for (int k = j - 1, ck = 0; k >= 0 && ck <= 201; k--, ck++) {\n                    long long x1 = tot[i].second / m, y1 = tot[i].second % m;\n                    long long x2 = tot[j].second / m, y2 = tot[j].second % m;\n                    long long x3 = tot[k].second / m, y3 = tot[k].second % m;\n                    if (x1 != x2 && x2 != x3 && x1 != x3 && y1 != y2 && y2 != y3 && y1 != y3) {\n                        ans = max(ans,tot[i].first + tot[j].first + tot[k].first);\n                    }\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723906776",
+    "subm_id": "556321673"
+}

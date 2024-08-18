@@ -1,0 +1,6 @@
+{
+    "username": "RrrrLi",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m = len(board)\n        n = len(board[0])\n        if m > n:\n            # transpose\n            board = [[board[j][i] for j in range(m)] for i in range(n)]\n            m, n = n, m\n        \n        ans = float('-inf')\n\n        candidates = [None for _ in range(m)]\n        for i in range(m):\n            candidates[i] = sorted(zip(board[i], list(range(n))), reverse=True)[:3]\n\n        # the first rock\n        for i1 in range(m-2):\n            for v1, c1 in candidates[i1]:\n                for i2 in range(i1+1, m-1):\n                    for v2, c2 in candidates[i2]:\n                        if c2 == c1:\n                            continue                    \n                        for i3 in range(i2+1, m):\n                            for v3, c3 in candidates[i3]:\n                                if c3 == c2 or c3 == c1:\n                                    continue\n                                \n                                ans = max(v1+v2+v3, ans)\n\n        return ans",
+    "submit_ts": "1723907197",
+    "subm_id": "1359095295"
+}

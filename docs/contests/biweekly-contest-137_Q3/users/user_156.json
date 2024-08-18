@@ -1,0 +1,6 @@
+{
+    "username": "lee0560",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n\n        def solve(a, b, c):\n            f, g = [-inf] * 8, [-inf] * 8\n            f[0] = 0\n            for i in range(m):\n                g[0] = 0\n                g[1] = max(f[1], f[0] + a[i])\n                g[2] = max(f[2], f[0] + b[i])\n                g[4] = max(f[4], f[0] + c[i])\n                g[3] = max(f[3], f[2] + a[i], f[1] + b[i])\n                g[5] = max(f[5], f[4] + a[i], f[1] + c[i])\n                g[6] = max(f[6], f[4] + b[i], f[2] + c[i])\n                g[7] = max(f[7], f[6] + a[i], f[5] + b[i], f[3] + c[i])\n                f, g = g, f\n            return f[7]\n\n        n, m = len(board), len(board[0])\n        res = -inf\n        for i in range(n):\n            ar = board[-1][:]\n            for j in range(n-2, i, -1):\n                val = solve(board[i], board[j], ar)\n                res = max(res, val)\n                for k in range(m):\n                    ar[k] = max(ar[k], board[j][k])\n        return res",
+    "submit_ts": "1723906887",
+    "subm_id": "556322330"
+}

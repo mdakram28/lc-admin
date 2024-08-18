@@ -1,0 +1,6 @@
+{
+    "username": "myl",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:  \n        Mi,Mj,Mv=-1,-1,-float('inf')\n        top3=[]        \n        for i in range(len(board)):\n            tmp=sorted(list(zip(range(len(board[0])),board[i])),key=lambda x:-x[1])[:3]\n            if Mv<tmp[0][1]:\n                Mi,Mj=i,tmp[0][0]\n                Mv=tmp[0][1]\n            top3.append(tmp)\n        # print(top3,Mi,Mj,Mv)\n        def f(i,j,k):\n            res=-float('inf')\n            for i1,v1 in top3[i]:\n                for i2,v2 in top3[j]:\n                    for i3,v3 in top3[k]:\n                        if i1!=i2 and i1!=i3 and i2!=i3:\n                            res=max(res,v1+v2+v3)\n            return res \n                \n        out=-float('inf')\n        for j in range(len(board)-1):\n            if j==Mi:\n                continue\n            for k in range(j+1,len(board)):\n                if k==Mi:\n                    continue\n                out=max(out,f(Mi,j,k))\n        return out ",
+    "submit_ts": "1723910308",
+    "subm_id": "556340645"
+}

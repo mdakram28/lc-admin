@@ -1,0 +1,6 @@
+{
+    "username": "Dmitrii Shulaikin",
+    "submission": "use std::{cmp::Reverse, collections::BinaryHeap};\n\nimpl Solution {\n    pub fn maximum_value_sum(board: Vec<Vec<i32>>) -> i64 {\n        let mut pos = vec!();\n\n        \n\n        for i in 0..board.len() {\n            let mut bh = BinaryHeap::new();\n\n            for j in 0..board[0].len() {\n                bh.push((Reverse(board[i][j]), i, j));\n\n                if bh.len() > 3 {\n                    bh.pop();\n                }\n            }\n\n            for (rev, i, j) in bh {\n                pos.push((rev.0, i, j));\n            }\n        }\n\n        let mut ans = i64::MIN;\n\n        for i in 0..pos.len() {\n            let a = pos[i];\n            for j in 0..pos.len() {\n                let b = pos[j];\n                for k in 0..pos.len() {\n                    let c = pos[k];\n\n                    if a.1 != b.1 && a.1 != c.1 && b.1 != c.1 && a.2 != b.2 && c.2 != a.2 && c.2 != b.2 {\n                        ans = ans.max(a.0 as i64 + b.0  as i64 + c.0  as i64);\n                    }\n\n                }\n            }\n        }\n\n        ans\n    }\n\n}",
+    "submit_ts": "1723910322",
+    "subm_id": "1359225836"
+}

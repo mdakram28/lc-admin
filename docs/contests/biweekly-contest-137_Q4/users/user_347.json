@@ -1,0 +1,6 @@
+{
+    "username": "\u5927\u82f1\u6743\u76f8\u5409\u59c6\u54c8\u514b",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m,n = len(board),len(board[0])\n        rows = []\n        for row in board:\n            h = []\n            for i,v in enumerate(row):\n                heappush(h,[v,i])\n                if len(h) == 4:\n                    heappop(h)\n            rows.append(sorted(h))\n        one = {}\n        two = {}\n        out = -10**11\n        for ri,row in enumerate(rows):\n            if ri > 1:\n                for key,pv in two.items():\n                    j0,j1 = key//n,key%n\n                    for v,i in row:\n                        if i!=j0 and i!=j1:\n                            out = max(out,v+pv)\n            if ri:\n                for pi,pv in one.items():\n                    for v,i in row:\n                        if i!=pi:\n                            key = min(i,pi)*n+max(i,pi)\n                            two[key] = max(two.get(key,-10**11),v+pv)\n            for v,i in row:\n                one[i] = max(one.get(i,-10**11),v)\n        return out",
+    "submit_ts": "1723909211",
+    "subm_id": "556335056"
+}

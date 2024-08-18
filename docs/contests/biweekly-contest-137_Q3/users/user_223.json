@@ -1,0 +1,6 @@
+{
+    "username": "ggstddu",
+    "submission": "class Solution {\n public:\n  using LL = long long;\n  long long maximumValueSum(vector<vector<int>>& board) {\n    int M = board.size(), N = board[0].size();\n    function<LL(int, vector<int>, vector<int>)> f = [&](int n, vector<int> rs, vector<int> cs) -> LL {\n      if (n == 3) return 0;\n      using T = tuple<int, int, int>;\n      priority_queue<T, vector<T>, greater<>> q;\n      for (int i = 0; i < M; ++i) {\n        if (find(rs.begin(), rs.end(), i) != rs.end()) continue;\n        for (int j = 0; j < N; ++j) {\n          if (find(cs.begin(), cs.end(), j) != cs.end()) continue;\n          q.emplace(board[i][j], i, j);\n          if (q.size() > 4) q.pop();\n        }\n      }\n      LL res = LLONG_MIN;\n      while (q.size()) {\n        auto [v, i, j] = q.top();\n        rs.push_back(i);\n        cs.push_back(j);\n        res = max(res, v + f(n + 1, rs, cs));\n        rs.pop_back();\n        cs.pop_back();\n        q.pop();\n      }\n      return res;\n    };\n    return f(0, {}, {});\n  }\n};",
+    "submit_ts": "1723907941",
+    "subm_id": "556328335"
+}

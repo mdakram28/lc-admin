@@ -1,0 +1,6 @@
+{
+    "username": "\u6211\u6ef4\u4e2a\u9f9f\u9f9f",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n,m = len(board),len(board[0])\n\n        # dp[t] = heap\uff0c\u6700\u5c0f\u5806\u3002\u9009\u4e86t\u4e2a\u7684\u6700\u5927\u503c\n        dp = [[] for _ in range(4)]\n        # \u4e00\u4e2a\u6570\u6ca1\u9009\n        dp[0].append((0,[]))\n\n        from copy import deepcopy\n        MAX_NUM = [1,9,12,1]\n        for i in range(n):\n            ndp = deepcopy(dp)\n            for j in range(m):\n                num = board[i][j]\n                for t in range(1,4):\n                    for lnum,ban in dp[t-1]:\n                        if j in ban:\n                            continue\n                        heappush(ndp[t],(lnum+num,ban+[j]))\n                        if len(ndp[t]) > MAX_NUM[t]:\n                            heappop(ndp[t])\n            \n            \n            dp = ndp\n            # for t in range(4):\n            #     print(i,t,dp[t])\n        \n        return dp[3][0][0]\n\n\n\n        \n",
+    "submit_ts": "1723909458",
+    "subm_id": "556336364"
+}

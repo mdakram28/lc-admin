@@ -1,0 +1,6 @@
+{
+    "username": "metaphysicalist",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        def top3(arr):\n            return sorted([(v, i) for i, v in enumerate(arr)])[-3:]\n        \n        def update(left, mid, right):\n            r = -inf\n            for (v1, i1) in left:\n                for (v2, i2) in mid:\n                    for (v3, i3) in right:\n                        if len(set([i1, i2, i3])) == 3:\n                            r = max(r, v1+v2+v3)\n            return r\n\n        ans = -inf\n        n, m = len(board), len(board[0])\n        left = [-inf] * m\n        right = [-inf] * m\n        backward = [[] for _ in range(n)]\n        forward = [] \n        for i in range(n-1, 0, -1):\n            for j in range(m):\n                right[j] = max(right[j], board[i][j])\n            backward[i] = top3(right)\n        for i in range(n-1):\n            if i > 0:\n                ans = max(ans, update(forward, top3(board[i]), backward[i+1]))\n            for j in range(m):\n                left[j] = max(left[j], board[i][j])\n            forward = top3(left)\n        return ans\n",
+    "submit_ts": "1723906519",
+    "subm_id": "1359057556"
+}

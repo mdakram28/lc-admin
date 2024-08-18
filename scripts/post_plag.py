@@ -67,7 +67,7 @@ class DolosFile:
             return name.split("____", 1)
         elif "__b_" in name:
             rank, name = name.split("__b_", 1)
-            return rank, base64.urlsafe_b64decode(name)
+            return rank, base64.urlsafe_b64decode(name).decode('utf-8')
         else:
             raise Exception(f"Unknown filename format {name=}")
 

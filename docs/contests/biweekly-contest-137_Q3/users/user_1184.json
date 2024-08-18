@@ -1,0 +1,6 @@
+{
+    "username": "Amane",
+    "submission": "#include <bits/stdc++.h>\nusing namespace std;\n#define fi first\n#define se second\n#define sz(x) (int)x.size()\n#define all(x) (x).begin(),(x).end()\ntypedef pair<int,int> PII;\nconst int inf = 0x3f3f3f3f;\n\nclass Solution {\n    vector<vector<int>> g;\n    int n,m,mx;\n    vector<PII> p;\n    long long ans = -3e9 - 1;\n\n    void dfs(int i,long long sum) {\n    \tif (1LL * sum + 1LL * mx * (3 - sz(p)) < ans) {\n    \t\treturn;\n    \t}\n        if (sz(p) >= 3) {\n        \tans = max(ans,sum);\n        \treturn;\n        }\n        if (i >= n) return;\n        auto check = [&](int j) -> bool {\n        \tfor (auto & e : p) {\n        \t\tif (e.se == j) return false;\n        \t}\n        \treturn true;\n        };\n        for (int j = 0; j < m; j++) {\n        \tif (check(j)) {\n        \t\tp.push_back({i,j});\n        \t\tdfs(i + 1,sum + g[i][j]);\n        \t\tp.pop_back();\n        \t}\n        }\n        dfs(i + 1,sum);\n    }\npublic:\n    long long maximumValueSum(vector<vector<int>>& g) {\n        this -> g = g;\n        n = g.size();\n        m = g[0].size();\n        for (auto & e : g) {\n        \tmx = max(mx,*max_element(all(e)));\n        }\n        dfs(0,0LL);\n        return ans;\n    }\n};",
+    "submit_ts": "1723908261",
+    "subm_id": "556330065"
+}

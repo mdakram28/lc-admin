@@ -1,0 +1,6 @@
+{
+    "username": "\u6c5f\u6708\u4f55\u5e74\u521d\u7167\u4eba",
+    "submission": "class Solution {\npublic:\n    long long ans = LLONG_MIN;\n    int nr, nc;\n    int vis_x[301] = {0};\n    int vis_y[301] = {0};\n    long long mx = INT_MIN;\n\n    void dfs(vector<vector<int>>& board, long long path, int start) {\n        if (start == 3) {\n            ans = max(ans, path);\n            return;\n        }\n\n        for (int i = 0; i < nr; i++) {\n            if (vis_x[i]) continue;\n            for (int j = 0; j < nc; j++) {\n                if (vis_y[j]) continue;\n\n                long long x = path + board[i][j];\n\n            \n                if (x + (2 - start) * mx <= ans) continue;\n\n                vis_x[i] = 1;\n                vis_y[j] = 1;\n                dfs(board, x, start + 1);\n                vis_x[i] = 0;\n                vis_y[j] = 0;\n            }\n        }\n    }\n\n    long long maximumValueSum(vector<vector<int>>& board) {\n        nr = board.size();\n        nc = board[0].size();\n\n        for (const auto& row : board) {\n            for (int val : row) {\n                mx = max(mx, (long long)val);\n            }\n        }\n\n        dfs(board, 0, 0);\n\n        return ans;\n    }\n};",
+    "submit_ts": "1723909205",
+    "subm_id": "556335015"
+}

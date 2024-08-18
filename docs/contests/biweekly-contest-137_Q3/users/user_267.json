@@ -1,0 +1,6 @@
+{
+    "username": "\u5c0f\u54a9\u8096\u6069",
+    "submission": "fmax = lambda x, y: x if x > y else y\n\ninf = 4 * 10 ** 9\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n, m = len(board), len(board[0])\n        dp1 = [-inf] * m\n        dp2 = [-inf] * (m * m)\n        \n        ans = -inf\n        for ar in board:\n            tmp = nlargest(3, ((v, i) for i, v in enumerate(ar)))\n            ndp1 = dp1[:]\n            ndp2 = dp2[:]\n            for v, i in tmp:\n                ndp1[i] = fmax(ndp1[i], v)\n                for j in range(m):\n                    if i != j:\n                        ndp2[i * m + j] = ndp2[j * m + i] = fmax(ndp2[i * m + j], dp1[j] + v)\n                for x in range(m * m):\n                    a, b = divmod(x, m)\n                    if i != a and i != b:\n                        ans = fmax(ans, dp2[x] + v)\n            dp1 = ndp1\n            dp2 = ndp2\n        return ans",
+    "submit_ts": "1723906631",
+    "subm_id": "556320840"
+}

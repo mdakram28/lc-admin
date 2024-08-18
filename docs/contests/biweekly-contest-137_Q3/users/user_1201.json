@@ -1,0 +1,6 @@
+{
+    "username": "Sohan Kumar",
+    "submission": "class Solution {\npublic:\n long long maximumValueSum(vector<vector<int>>& board) {\n    vector<tuple<int, int, int>> v;\n    for (int i = 0; i < board.size(); i++) {\n        for (int j = 0; j < board[i].size(); j++) {\n            v.push_back({board[i][j], i, j});\n        }\n    }\n\n    sort(v.begin(), v.end(), [](const auto& a, const auto& b) {\n        return get<0>(a) > get<0>(b);\n    });\n\n    long long maxSum = LLONG_MIN;\n\n    for (int i = 0; i < v.size(); ++i) {\n        int r1 = get<1>(v[i]);\n        int c1 = get<2>(v[i]);\n        long long sum = get<0>(v[i]);\n\n        for (int j = i + 1; j < v.size(); ++j) {\n            int r2 = get<1>(v[j]);\n            int c2 = get<2>(v[j]);\n            if (r2 == r1 || c2 == c1) continue;\n\n            sum += get<0>(v[j]);\n\n            for (int k = j + 1; k < v.size(); ++k) {\n                int r3 = get<1>(v[k]);\n                int c3 = get<2>(v[k]);\n                if (r3 == r1 || r3 == r2 || c3 == c1 || c3 == c2) continue;\n\n                maxSum = max(maxSum, sum + get<0>(v[k]));\n                break;\n            }\n            sum -= get<0>(v[j]);\n        }\n    }\n\n    return maxSum;\n}\n};",
+    "submit_ts": "1723909833",
+    "subm_id": "1359207466"
+}

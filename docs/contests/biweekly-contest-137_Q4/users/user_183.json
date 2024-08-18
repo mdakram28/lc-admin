@@ -1,0 +1,6 @@
+{
+    "username": "Lastprism",
+    "submission": "class Solution {\npublic:\n    using L = long long;\n    using TLL = tuple<L,L,L>;\n    long long maximumValueSum(vector<vector<int>>& g) {\n        int m = g.size();\n        int n = g.front().size();\n        vector<TLL> v;\n        for(int i = 0; i < m; i ++){\n            for(int j = 0; j < n; j ++)\n                v.push_back(make_tuple(g[i][j], i, j));\n        }\n        sort(begin(v), end(v), greater<TLL>());\n        L ans = static_cast<L>(g[0][0]) + static_cast<L>(g[1][1]) + static_cast<L>(g[2][2]);\n        const int factor = 3;\n        int kmax = (m+n)*factor;\n        for(int i = 0; i < (m+n) && i < v.size(); i ++){\n            for(int j = i + 1; j < (m+n)*2 && j < v.size(); j ++){\n                for(int k = j + 1; k < kmax && k < v.size(); k ++){\n                    auto [x1, y1, z1] = v[i];\n                    auto [x2, y2, z2] = v[j];\n                    auto [x3, y3, z3] = v[k];\n                    if(y1 != y2 && y2 != y3 && y3 != y1 && z1 != z2 && z2 != z3 && z3 != z1){\n                        ans = max(ans, x1 + x2 + x3);\n                        // kmax = min(kmax, k);\n                        break;\n                    }\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723906982",
+    "subm_id": "556322862"
+}

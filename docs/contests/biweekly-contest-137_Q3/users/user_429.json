@@ -1,0 +1,6 @@
+{
+    "username": "13579",
+    "submission": "class Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        long long d1[105];\n        long long d2[105][105];\n        long long res=-1e12;\n        int n=board.size(),m=board[0].size();\n        for(int i=0;i<m;++i)\n        {\n            d1[i]=board[0][i];\n            for(int j=0;j<m;++j)\n                d2[i][j]=-1e12;\n        }\n        long long x;\n        for(int i=1;i<n;++i)\n        {\n            for(int j=0;j<m;++j)\n            {\n                x=board[i][j];\n                for(int t1=0;t1<m;++t1)\n                    for(int t2=t1+1;t2<m;++t2)\n                        if(j!=t1&&j!=t2){\n                            res=max(res,x+d2[t1][t2]);\n                        }\n            }\n            for(int j=0;j<m;++j)\n                for(int t2=0;t2<m;++t2)\n                    if(j!=t2){\n                        d2[t2][j]=d2[j][t2]=max(d2[j][t2],board[i][j]+d1[t2]);\n                    }\n            for(int j=0;j<m;++j)\n                d1[j]=max(d1[j],(long long)board[i][j]);\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723908258",
+    "subm_id": "556330043"
+}

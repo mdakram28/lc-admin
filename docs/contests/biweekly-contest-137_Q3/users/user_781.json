@@ -1,0 +1,6 @@
+{
+    "username": "Navin Kumar",
+    "submission": "class Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& b) {\n      int n = b.size();\n      int m = b[0].size();\n\n      vector <array <int, 3>> maxi (n);\n      for (int i = 0; i < n; i++) {\n        vector <int> ord (m);\n        iota(ord.begin(), ord.end(), 0);\n        sort(ord.begin(), ord.end(), [&] (int x, int y) {\n            return b[i][x] > b[i][y];\n        });\n        for (int j = 0; j < 3; j++) {\n          maxi[i][j] = ord[j];\n        }\n      }\n\n      long long ans = -3e9;\n      for (int r1 = 0; r1 < n; r1++) for (int r2 = r1 + 1; r2 < n; r2++) for (int r3 = r2 + 1; r3 < n; r3++) {\n        for (int i1 = 0; i1 < 3; i1++) {\n            for (int i2 = 0; i2 < 3; i2++) {\n                for (int i3 = 0; i3 < 3; i3++) {\n                    if (maxi[r1][i1] == maxi[r2][i2] || maxi[r2][i2] == maxi[r3][i3] || maxi[r1][i1] == maxi[r3][i3]) continue;\n                    long long cur = (long long) b[r1][maxi[r1][i1]] + b[r2][maxi[r2][i2]] + b[r3][maxi[r3][i3]];\n                    ans = max(ans, cur);\n                }\n            }\n        }\n      }\n      return ans;\n    }\n};",
+    "submit_ts": "1723907526",
+    "subm_id": "1359111873"
+}

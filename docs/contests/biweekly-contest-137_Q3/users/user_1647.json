@@ -1,0 +1,6 @@
+{
+    "username": "Gallant SwansonPec",
+    "submission": "class Solution {\npublic:\n    long long ret = LLONG_MIN;\n    int nr, nc;\n    int vis_x[301] = {0};\n    int vis_y[301] = {0};\n    long long max_value = INT_MIN;\n\n    void backtrack(vector<vector<int>>& board, long long path, int start) {\n        if (start == 3) {\n            ret = max(ret, path);\n            return;\n        }\n\n        for (int i = 0; i < nr; i++) {\n            if (vis_x[i]) continue;\n            for (int j = 0; j < nc; j++) {\n                if (vis_y[j]) continue;\n\n                long long new_path = path + board[i][j];\n\n            \n                if (new_path + (2 - start) * max_value <= ret) continue;\n\n                vis_x[i] = 1;\n                vis_y[j] = 1;\n                backtrack(board, new_path, start + 1);\n                vis_x[i] = 0;\n                vis_y[j] = 0;\n            }\n        }\n    }\n\n    long long maximumValueSum(vector<vector<int>>& board) {\n        nr = board.size();\n        nc = board[0].size();\n\n        for (const auto& row : board) {\n            for (int val : row) {\n                max_value = max(max_value, (long long)val);\n            }\n        }\n\n        backtrack(board, 0, 0);\n\n        return ret;\n    }\n};\n",
+    "submit_ts": "1723908451",
+    "subm_id": "556331024"
+}

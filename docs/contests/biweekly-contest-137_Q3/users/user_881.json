@@ -1,0 +1,6 @@
+{
+    "username": "leesin5202",
+    "submission": "class Solution {\npublic:\n    using pii = pair<int, int>;\n    long long maximumValueSum(vector<vector<int>>& board) {\n        int n = board.size();\n        int m = board[0].size();\n        vector<multiset<pii>> mx(n);\n\n        for(int i = 0;i < n;i ++){\n            for(int j = 0;j < m;j ++){\n                mx[i].emplace(board[i][j], j);\n                while(mx[i].size() > 3)\n                    mx[i].erase(mx[i].begin());\n            }\n        }\n        long long ans = -1e10;\n        for(int i = 0;i < n;i ++){\n            for(int j = i+1;j < n;j ++){\n                for(int k = j + 1;k < n;k ++){\n                    for(auto it1 : mx[i]){\n                        for(auto it2 : mx[j]){\n                            for(auto it3 : mx[k]){\n                                if(it1.second != it2.second && it1.second != it3.second && it2.second != it3.second){\n                                    ans = max(ans, (long long)it1.first + it2.first + it3.first);\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        return ans;\n        \n    }\n};",
+    "submit_ts": "1723908487",
+    "subm_id": "1359154716"
+}

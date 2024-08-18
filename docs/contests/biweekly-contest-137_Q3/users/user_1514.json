@@ -1,0 +1,6 @@
+{
+    "username": "noirt",
+    "submission": "class Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        vector<vector<long long>> cells;\n        for(int i = 0; i < board.size(); i++) {\n            for (int j =0; j < board[i].size(); j++) {\n                cells.push_back({board[i][j], i, j});\n            }\n        }\n        sort(cells.begin(), cells.end(), greater<vector<long long>>());\n        int n = cells.size();\n        long long sub = LLONG_MIN;\n        for(int i = 0; i < min(n, 25); i++) {\n            for (int j = i+1; j < min(n, 25); j++) {\n                for (int k = j+1; k < min(n, 25); k++) {\n                    unordered_set<int> xcoords;\n                    unordered_set<int> ycoords;\n                    xcoords.insert(cells[i][1]);\n                    xcoords.insert(cells[j][1]);\n                    xcoords.insert(cells[k][1]);\n                    ycoords.insert(cells[i][2]);\n                    ycoords.insert(cells[j][2]);\n                    ycoords.insert(cells[k][2]);\n                    if (xcoords.size() == 3 && ycoords.size() == 3) {\n                        sub = max(sub, cells[i][0] + cells[j][0] + cells[k][0]);\n                    }\n                }\n            }\n        }\n        return sub;\n    }\n};",
+    "submit_ts": "1723910136",
+    "subm_id": "1359218733"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "cheng-liang-yu",
+    "submission": "class Solution:\n    def maximumValueSum(self, a: List[List[int]]) -> int:\n        m, n = len(a), len(a[0])\n        s = sorted(((a[i][j], i, j) for i in range(m) for j in range(n)), key=lambda t: -t[0])\n        ns = len(s)\n        res = a[0][0] + a[1][1] + a[2][2]\n        for t1 in range(ns - 2):\n            x1, i1, j1 = s[t1]\n            if x1 + s[t1 + 1][0] + s[t1 + 2][0] <= res: break\n            for t2 in range(t1 + 1, ns - 1):\n                x2, i2, j2 = s[t2]\n                x12 = x1 + x2\n                if x12 + s[t2 + 1][0] <= res: break\n                if i2 == i1 or j2 == j1: continue\n                for t3 in range(t2 + 1, ns):\n                    x3, i3, j3 = s[t3]\n                    x123 = x12 + x3\n                    if x123 <= res: break\n                    if i3 == i1 or j3 == j1 or i3 == i2 or j3 == j2: continue\n                    res = x123\n                    break\n        return res",
+    "submit_ts": "1723908474",
+    "subm_id": "556331143"
+}

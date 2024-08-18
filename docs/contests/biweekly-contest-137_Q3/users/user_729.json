@@ -1,0 +1,6 @@
+{
+    "username": "Himanshu Yadav",
+    "submission": "class Solution {\n  public:\n  long long maximumValueSum(vector<vector<int>>& board) {\n    int n = board.size(), m = board[0].size();\n    vector row(n, vector<int>(m));\n    for(int i = 0; i < n; i++) {\n      iota(row[i].begin(), row[i].end(), 0);\n      sort(row[i].begin(), row[i].end(), [&](int x, int y) {\n        return board[i][x] > board[i][y];\n      });\n      while(row[i].size() > 3) {\n        row[i].pop_back();\n      }\n    }\n    long long ans = -1E18;\n    for(int i = 0; i < n; i++) {\n      for(int j = i + 1; j < n; j++) {\n        for(int k = j + 1; k < n; k++) {\n          for(auto a : row[i]) {\n            for(auto b : row[j]) {\n              for(auto c : row[k]) {\n                if(a != b && a != c && b != c) {\n                  ans = max(ans, 1ll * board[i][a] + board[j][b] + board[k][c]);\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n    return ans;\n  }\n};",
+    "submit_ts": "1723907561",
+    "subm_id": "1359113551"
+}

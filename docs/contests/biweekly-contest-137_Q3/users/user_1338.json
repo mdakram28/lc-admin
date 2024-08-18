@@ -1,0 +1,6 @@
+{
+    "username": "Saijayavinoth T V S",
+    "submission": "from itertools import permutations\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        ROWS, COLS = len(board), len(board[0])\n        size = 3*COLS + 3\n        cands = []\n        for i in range(ROWS):\n            for j in range(COLS):\n                heappush(cands, (board[i][j], (i,j)))\n                if len(cands) > size:\n                    heappop(cands)\n        B = [[] for _ in range(ROWS)]\n        for val, (i,j) in cands:\n            B[i].append((val, j))\n        \n        @cache\n        def solve(row, cols):\n            if row == ROWS:\n                return -inf\n            ret = solve(row+1, cols)\n            for val, col in B[row]:\n                if col in cols:\n                    continue\n                if len(cols) == 2:\n                    ret = max(ret, val)\n                    continue\n                n_cols = tuple(sorted(list(cols) + [col]))\n                ret = max(ret, val + solve(row+1, n_cols))\n            return ret\n        return solve(0, ())",
+    "submit_ts": "1723910295",
+    "subm_id": "1359224738"
+}

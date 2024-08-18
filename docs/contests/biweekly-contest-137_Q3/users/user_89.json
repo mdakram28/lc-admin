@@ -1,0 +1,6 @@
+{
+    "username": "Turkhuu Batbayar",
+    "submission": "class Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& a) {\n        using ll = long long;\n        int n = a.size();\n        int m = a[0].size();\n        long long ans = -1e18;\n        vector s(n, vector<ll>(m + 1, -1e18));\n        for (int i = 0; i < n; i++) {\n            for (int j = m - 1; j >= 0; j--) {\n                s[i][j] = max(s[i][j + 1], (ll)a[i][j]);\n            }\n        }\n        vector<ll> mx(n, -1e18);\n        for (int j = 0; j < m; j++) {\n            vector<ll> b(n);\n            for (int i = 0; i < n; i++) b[i] = s[i][j + 1];\n            sort(b.rbegin(), b.rend());\n            for (int i = 0; i < n; i++) {\n                for (int k = 0; k < n; k++) {\n                    if (i == k) continue;\n                    int t = 0;\n                    if (b[t] == max(s[i][j + 1], s[k][j + 1])) t++;\n                    if (b[t] == min(s[i][j + 1], s[k][j + 1])) t++;\n                    ans = max(ans, a[i][j] + mx[k] + b[t]);\n                }\n            }\n            for (int i = 0; i < n; i++) mx[i] = max(mx[i], (ll)a[i][j]);\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723906151",
+    "subm_id": "1359037931"
+}

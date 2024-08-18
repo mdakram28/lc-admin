@@ -1,0 +1,6 @@
+{
+    "username": "Vlad",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m = len(board)\n        n = len(board[0])\n        tiles = []\n        for i in range(m):\n            for j in range(n):\n                tiles.append((board[i][j], i, j))\n        tiles.sort(reverse=True)\n        current_x = []\n        current_y = []\n        if len(tiles) > 1000:\n            tiles = tiles[:len(tiles) // 10]\n        if len(tiles) > 100:\n            tiles = tiles[:len(tiles) // 5]\n        def search(idx, rooks):\n            if rooks == 0:\n                return 0\n            if idx == len(tiles):\n                return float('-inf')\n            val, i, j = tiles[idx]\n            if not (i in current_x or j in current_y):\n                current_x.append(i)\n                current_y.append(j)\n                option1 = val + search(idx+1, rooks-1)\n                current_x.pop()\n                current_y.pop()\n                option2 = search(idx+1, rooks)\n                return max(option1, option2)\n            return search(idx+1, rooks)\n        return search(0, 3)",
+    "submit_ts": "1723910343",
+    "subm_id": "1359226645"
+}

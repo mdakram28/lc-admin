@@ -1,0 +1,6 @@
+{
+    "username": "Han3000",
+    "submission": "class Solution:\n    def maximumValueSum(self, A: List[List[int]]) -> int:\n        m, n = len(A), len(A[0])\n        vote = Counter()\n        r = []\n        for i in range(m):\n            rr = nlargest(3, [[A[i][j], j] for j in range(n)])\n            for a, j in rr:\n                vote[i, j] += 1\n\n        for j in range(n):\n            rr = nlargest(3, [[A[i][j], i] for i in range(m)])\n            for a, i in rr:\n                vote[i, j] += 1\n\n        a = [[A[i][j], i, j] for i,j in vote if vote[i,j] == 2]\n        a.sort(reverse = 1)\n\n        h = [[-a[0][0] - a[1][0] - a[2][0], 0, 1, 2]]\n        seen = set((0,1,2))\n        while h:\n            v,a0,a1,a2 = heappop(h)\n            aa = [a0,a1,a2]\n            if len({a[ai][1] for ai in aa}) == 3:\n                if len({a[ai][2] for ai in aa}) == 3:\n                    return -v\n            for c in [(a0, a1, a2 + 1), (a0, a1 + 1, a1 + 2), (a0 + 1, a0 + 2, a0 + 3)]:\n                if c[-1] < len(a) and c not in seen:\n                    seen.add(c)\n                    heappush(h, [-a[c[0]][0] - a[c[1]][0] - a[c[2]][0]] + list(c))\n        return res",
+    "submit_ts": "1723908541",
+    "subm_id": "556331461"
+}

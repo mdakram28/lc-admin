@@ -1,0 +1,6 @@
+{
+    "username": "\u65d6\u65ce ecstAsy",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        # \u6bcf\u4e00\u884c\u5c31\u4e09\u4e2a\u6700\u5927\u7684\u503c \u4e0d\u662f\u9009\u5b83\u5c31\u662f\u9009\u5b83\n        path = []\n        n, m = len(board), len(board[0])\n        for i in range(n):\n            val = 0\n            k = 0\n            p = []\n            for x, idx in sorted([[x, i] for i,x in enumerate(board[i])], reverse=True):\n                # print(x)\n                if k >= 3:\n                    break\n                p += [idx]\n                k += 1\n            path.append(p)\n        # print(path)\n        \n        @cache\n        def dfs(i, vis):\n            if vis.bit_count() == 3: return 0\n            if i == n: return -inf\n            ans = dfs(i+1, vis)\n            for j in path[i]:\n                if vis >> j & 1 == 0:\n                    ans = max(ans, dfs(i+1, vis | 1<<j) + board[i][j])\n            return ans\n        \n        t = dfs(0, 0)\n        dfs.cache_clear()\n        return t",
+    "submit_ts": "1723907122",
+    "subm_id": "556323697"
+}

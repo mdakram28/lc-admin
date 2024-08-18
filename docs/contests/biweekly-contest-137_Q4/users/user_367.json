@@ -1,0 +1,6 @@
+{
+    "username": "\u5c0f\u7231\u4ed9\u5c0a",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n, m = len(board), len(board[0])\n        d = defaultdict(lambda: -inf)\n        p = [-1] * m\n        for i, row in enumerate(board):\n            for j, x in enumerate(row):\n                if x > d[j]:\n                    d[j] = x\n                    p[j] = i\n        b = sorted([(x, y, z) for x, y, z in zip(d.values(), d.keys(), p)], reverse=True)\n        board = [sorted([(x, i) for i, x in enumerate(row)], reverse=True)[: 3] for row in board]\n        ans = -inf\n        for a in combinations(range(n), 2):\n            for x, i in board[a[0]]:\n                for y, j in board[a[1]]:\n                    if i == j: continue\n                    for z, k, p in b:\n                        if k == i or k == j or p == a[0] or p == a[1]:\n                            continue\n                        ans = max(ans, x + y + z)\n                        break\n        return ans",
+    "submit_ts": "1723909029",
+    "subm_id": "556334138"
+}

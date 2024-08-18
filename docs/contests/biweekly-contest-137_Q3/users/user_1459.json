@@ -1,0 +1,6 @@
+{
+    "username": "Sravan Kolluri",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\nunordered_map<ll,ll>col;\nmap<pair<ll,vector<ll>>,ll>mp;\nvector<vector<pair<ll,ll>>>m;\nlong long solve(int i,vector<vector<int>>&v,vector<ll>&v1){\nif(v1.size()==3)return 0;\nif(i>=v.size())return (1e18)*(-1);\nif(mp[{i,v1}]!=0)return mp[{i,v1}];\nlong long ans=(1e18)*(-1);\nfor(int j=i;j<v.size();j++){\n        for(int k=0;k<3;k++){\n           if(col[m[j][k].second]==0) {\n            col[m[j][k].second]++; v1.push_back(m[j][k].second);\n            ans=max(ans,m[j][k].first+solve(j+1,v,v1));\n            col[m[j][k].second]--;v1.pop_back();}\n        }\n    }\nreturn mp[{i,v1}]=ans;\n}\n\n    long long maximumValueSum(vector<vector<int>>& v) {\n        int n=v.size();\n        m.resize(n);\n        for(int i=0;i<n;i++){\n            vector<pair<ll,ll>>maxi;\n    for(int k=0;k<v[0].size();k++){\n        maxi.push_back({v[i][k],k});\n        }\n        sort(maxi.begin(),maxi.end());\n        reverse(maxi.begin(),maxi.end());\n        for(int j=0;j<3;j++){\n            m[i].push_back(maxi[j]);\n        }\n\n        }\n        //cout<<m.size();\n        vector<ll>v1;\n        return solve(0,v,v1);\n    }\n};",
+    "submit_ts": "1723910313",
+    "subm_id": "1359225500"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "charlesyjp",
+    "submission": "/**\n * @param {number[][]} board\n * @return {number}\n */\nvar maximumValueSum = function(board) {\n    const cells = []\n    for (let i = 0; i < board.length; i++) {\n        for (let j = 0; j < board[0].length; j++) {\n            cells.push([i, j])\n        }\n    }\n\n    cells.sort((a, b) => board[b[0]][b[1]] - board[a[0]][a[1]]);\n\n    const pickedRows = new Set(); \n    const pickedColumns = new Set();\n    let searchEnd = cells.length;\n\n    const search = (index, count) => {\n        if (index === searchEnd) {\n            return -Infinity;\n        }\n\n        const [r, c] = cells[index];\n        if (pickedRows.has(r) || pickedColumns.has(c)) {\n            return search(index + 1, count);\n        }\n\n        if (count === 1) {\n            searchEnd = Math.min(index + 2, cells.length);\n            return board[r][c];\n        }\n\n        // pick\n        pickedRows.add(r);\n        pickedColumns.add(c);\n        const pick = board[r][c] + search(index + 1, count - 1);\n        pickedRows.delete(r);\n        pickedColumns.delete(c);\n\n        const notPick = search(index + 1, count);\n\n        return Math.max(pick, notPick);\n    }\n\n    return search(0, 3)\n};",
+    "submit_ts": "1723910164",
+    "subm_id": "556339872"
+}

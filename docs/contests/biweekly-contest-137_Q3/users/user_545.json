@@ -1,0 +1,6 @@
+{
+    "username": "kelly",
+    "submission": "struct s{\n    int i;\n    int j;\n    long long v;\n    s(int i,int j,int v):i(i),j(j),v(v){}\n    bool operator<(const s& n){return this->v>n.v;}\n    bool operator>(const s& n){return this->v<n.v;}\n};\nclass Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        long long max=-4e9,temp;\n        int i,j,k;\n        int m=board.size();\n        int n=board[0].size();\n        int l=m>n?m:n;\n        vector<s> t;\n        for (i=0;i<m;i++){\n            for (j=0;j<n;j++)\n                t.push_back(s(i,j,board[i][j]));\n        }\n        sort(t.begin(),t.end());\n        for (int i=0;i<=3*l;i++){\n            for (int j=i+1;j<=3*l+1;j++){\n                if (t[i].i!=t[j].i&&t[i].j!=t[j].j)\n                    for (k=j+1;k<=3*l+2;k++){\n                        if (t[k].i!=t[i].i && t[k].i!=t[j].i && t[k].j!=t[i].j && t[k].j!=t[j].j){\n                            temp=t[i].v+t[j].v+t[k].v;\n                            if (temp>max) max=temp;\n                        }\n                    }\n            }\n        }\n        return max;\n    }\n};",
+    "submit_ts": "1723908295",
+    "subm_id": "556330222"
+}

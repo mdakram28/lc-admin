@@ -1,0 +1,6 @@
+{
+    "username": "Zen Machine",
+    "submission": "from cmath import inf\nimport heapq\nfrom typing import List\n# print(500*500*500*27)\n# print(100*100*100*27)\n\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n,m = len(board), len(board[0])\n\n        col_max = [[] for _ in range(m)]\n\n        def addColMax(i:int, j:int, x: int)->None:\n            if len(col_max[j]) < 3:\n                heapq.heappush(col_max[j], (x,i))\n            elif x > col_max[j][0][0]:\n                heapq.heapreplace(col_max[j], (x,i))\n\n        for i, row in enumerate(board):\n            for j, x in enumerate(row):\n                addColMax(i,j,x)\n\n        # print(col_max)\n\n        ans = -inf\n        for i in range(m):\n            for j in range(i+1,m):\n                for k in range(j+1,m):\n                    for v1,r1 in col_max[i]:\n                        for v2,r2 in col_max[j]:\n                            for v3,r3 in col_max[k]:\n                                if r1!=r2 and r2!=r3 and r1!=r3:\n                                    ans = max(ans, v1+v2+v3)\n        return ans",
+    "submit_ts": "1723908055",
+    "subm_id": "556328986"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "MaZehua",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        def max_one(ex_i, ex_js):\n            return max(max(num for num, j in top3 if j not in ex_js) for top3 in line_top3[ex_i + 1:])\n\n        def max_two(ex_i, ex_j):\n            two_max = -sys.maxsize\n            for i, top3 in enumerate(line_top3[:-1]):\n                if i <= ex_i:\n                    continue\n                for num, j in top3:\n                    if j == ex_j:\n                        continue\n                    two_max = max(two_max, num + max_one(i, [ex_j, j]))\n            return two_max\n\n        line_top3 = []\n        for line in board:\n            line_top3.append(heapq.nlargest(3, [(v, i) for i, v in enumerate(line)], key=lambda v: v[0]))\n\n        two_three = -sys.maxsize\n        for i, top3 in enumerate(line_top3[:-2]):\n            for num, j in top3:\n                two_three = max(two_three, num + max_two(i, j))\n                # print(i, j, two_three)\n\n        return two_three\n",
+    "submit_ts": "1723909204",
+    "subm_id": "556335006"
+}

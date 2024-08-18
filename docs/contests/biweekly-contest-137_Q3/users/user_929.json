@@ -1,0 +1,6 @@
+{
+    "username": "\u4e0d\u9020\u8f6e\u5b50",
+    "submission": "max2 = lambda x, y: x if x > y else y\nmin2 = lambda x, y: x if x < y else y\ninf = 1000000007 * 3\n\n\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m, n = len(board), len(board[0])\n        res = -inf\n        G = [nlargest(3, ((x, i) for i, x in enumerate(row))) for row in board]\n\n        dp = defaultdict(lambda: -inf)\n        dp[tuple()] = 0\n        for row in G:\n            np = defaultdict(lambda: -inf)\n            for st, v in dp.items():\n                np[st] = max2(np[st], v)\n                if len(st) < 3:\n                    for x, i in row:\n                        if i not in st:\n                            nt = st + (i,)\n                            if len(nt) == 3:\n                                res = max2(res, v + x)\n                            else:\n                                np[nt] = max2(np[nt], v + x)\n            dp = np\n\n        return res",
+    "submit_ts": "1723907584",
+    "subm_id": "556326373"
+}

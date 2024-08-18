@@ -1,0 +1,6 @@
+{
+    "username": "yongjielc",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        l = []\n        for i, r in enumerate(board):\n            for j, v in enumerate(r):\n                l.append((v,i,j))\n        l.sort(reverse=True)\n        nl = []\n        si = Counter()\n        sj = Counter()\n        for v, i, j in l:\n            if (len(si) < 6 and i not in si) or (i in si and si[i] < 3):\n                nl.append((v, i, j))\n                si[i] += 1\n                sj[j] += 1\n            elif (len(sj) < 6 and j not in sj) or (j in sj and sj[j] < 3):\n                nl.append((v, i, j))\n                si[i] += 1\n                sj[j] += 1\n\n        res = -int(5e9)\n        tl = nl\n        # print(len(tl))\n        # print(tl)\n        for i in range(len(tl)):\n            a, ai, aj = tl[i]\n            for j in range(i + 1, len(tl)):\n                b, bi, bj = tl[j]\n                if bi == ai or bj == aj:\n                    continue\n                for k in range(j + 1, len(tl)):\n                    c, ci, cj = tl[k]\n                    if ai != ci and bi != ci and cj != aj and cj != bj:\n                        res = max(res, a + b + c)\n\n        return res",
+    "submit_ts": "1723910008",
+    "subm_id": "1359213869"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "yolo12345",
+    "submission": "using ll = long long;\nclass Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        long long ans=-1e10;\n        ll n=board.size(),m=board[0].size();\n        vector<vector<pair<ll,ll>>> top3(n);\n        for(int i=0;i<n;i++){\n            priority_queue<pair<ll,ll>> pq;\n            for(int j=0;j<m;j++) pq.push({board[i][j],j});\n            for(int j=0;j<3;j++){\n                top3[i].push_back(pq.top()); pq.pop();\n            }\n        }\n        for(int i=0;i<n;i++){\n            for(int j=i+1;j<n;j++){\n                for(int k=j+1;k<n;k++){\n                    for(int i1=0;i1<3;i1++){\n                        for(int j1=0;j1<3;j1++){\n                            if(top3[i][i1].second==top3[j][j1].second) continue;\n                            for(int k1=0;k1<3;k1++){\n                                if(top3[i][i1].second!=top3[k][k1].second && (top3[k][k1].second!=top3[j][j1].second)) ans=max(ans,top3[i][i1].first+top3[j][j1].first+top3[k][k1].first);\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723906532",
+    "subm_id": "1359058184"
+}

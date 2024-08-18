@@ -1,0 +1,6 @@
+{
+    "username": "ijasonchao",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        \n        m = len(board)\n        n = len(board[0])        \n        top_k = 3  \n        best_per_row = []\n\n        for i in range(m):\n            row_values = [(board[i][j], j) for j in range(n)]\n            row_values.sort(reverse=True, key=lambda x: x[0])\n            best_per_row.append(row_values[:top_k])\n\n        best_pairs = []\n        for i in range(m):\n            cur_i = best_per_row[i]\n            for j in range(i+1, m):                \n                cur_j = best_per_row[j]\n                for v1, c1 in cur_i:\n                    for v2, c2 in cur_j:\n                        if c1 != c2: \n                            best_pairs.append((v1+v2, i, j, c1, c2))\n\n        best_pairs.sort(reverse=True)\n        res = -inf\n        for v, i, j, c1, c2 in best_pairs[:10]:\n            for k in range(m):            \n                if k != i and k != j:\n                    cur_k = best_per_row[k]\n                    for v3, c in cur_k:\n                        if c != c1 and c!= c2:\n                            res = max(res, v + v3)\n        return res",
+    "submit_ts": "1723910341",
+    "subm_id": "1359226597"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "CherishEveryBreath",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m,n = len(board),len(board[0])\n        def gongji(cr1,cr2):\n            x1,y1=cr1\n            x2,y2=cr2\n            if x1==x2 or y1==y2:\n                return True\n            return False\n        \n        MAX_VAL = [[x,y,board[x][y]] for x in range(m) for y in range(n)]\n        # print(MAX_VAL)\n        MAX_VAL.sort(key=lambda p:-p[2])\n        # print(MAX_VAL)\n        \n        res = -inf\n        limit = min(2*(m+n-1)+1,m*n)\n        for t in range(m+n-1):\n            x1,y1,ans = MAX_VAL[t]\n            for i in range(t+1,limit-1):\n                x2,y2,v2 = MAX_VAL[i]\n                if not gongji([x1,y1],[x2,y2]):\n                    ans += v2\n                    for j in range(i+1,limit):\n                        x3,y3,v3 = MAX_VAL[j]\n                        if not gongji([x3,y3],[x2,y2]) and not gongji([x1,y1],[x3,y3]):\n                            ans += v3\n                            res = max(res,ans)\n                            ans -= v3\n                            break\n                    ans -= v2\n        \n        return res\n        ",
+    "submit_ts": "1723910352",
+    "subm_id": "556340889"
+}

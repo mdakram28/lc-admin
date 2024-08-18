@@ -1,0 +1,6 @@
+{
+    "username": "Justin",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m = len(board)\n        n = len(board[0])\n\n        all_vals = []\n        for i in range(m):\n            for j in range(n):\n                all_vals.append((board[i][j], i, j))\n\n        all_vals.sort(reverse=True)\n\n        fres = float(\"-inf\")\n        for i in range(min(len(all_vals), m+n+5)):\n            first_val = all_vals[i]\n            for j in range(i+1, min(len(all_vals), i+m+n+5)):\n                if all_vals[j][1] == first_val[1] or all_vals[j][2] == first_val[2]:\n                    continue\n                else:\n                    second_val = all_vals[j]\n                    cpred = False\n                    for k in range(j+1, min(len(all_vals), j+m+n+2)):\n                        if all_vals[k][1] in (first_val[1], second_val[1]) or all_vals[k][2] in (first_val[2], second_val[2]):\n                            continue\n                        else:\n                            third_val = all_vals[k]\n                            cpred = True\n                            break\n\n                    if cpred:\n                        fres = max(fres, first_val[0] + second_val[0] + third_val[0])\n\n        return fres",
+    "submit_ts": "1723910345",
+    "subm_id": "1359226736"
+}

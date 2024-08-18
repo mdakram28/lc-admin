@@ -1,0 +1,6 @@
+{
+    "username": "Vaibhav Vadadoriya",
+    "submission": "class Solution {\npublic:\n#define ff                      first\n#define ss                      second\nint M;\n    bool cmp(int &a, int &b) {\n        int I = a / M, J = a % M;\n        int I1 = b / M, J1 = b % M;\n        if(I == I1 || J == J1) return false;\n        return true;\n    }\n    long long maximumValueSum(vector<vector<int>>& ar) {\n        vector<pair<long long,int>> tmp;\n        int n = ar.size(), m = ar[0].size();\n        M = m;\n        for(int i = 0; i < n; i++) {\n            for(int j = 0; j < m; j++) {\n                tmp.push_back({ar[i][j], i * m + j});\n            }\n        }\n        sort(tmp.rbegin(), tmp.rend());\n        long long res = -1e15;\n        int N = tmp.size();\n        int cnt = 0;\n        for(int i = 0; i < min(4, N); i++) {\n            for(int j = i + 1; j < N; j++) if(cmp(tmp[i].ss, tmp[j].ss)) {\n                for(int k = j + 1; k < N; k++) if(cmp(tmp[i].ss, tmp[k].ss) && cmp(tmp[j].ss, tmp[k].ss)) {\n                    res = max(res, tmp[i].ff + tmp[j].ff + tmp[k].ff);\n                    break;\n                }\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723908804",
+    "subm_id": "1359167781"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "huiget",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n = len(board)\n        a = []\n        for row in board:\n            r = [(v, i) for i, v in enumerate(row)]\n            r.sort(reverse=True)\n            a.append(r[:3])\n        # for row in a:\n        #     print(row)\n        ans = -10 ** 10\n\n        def remove(x, idx):\n            return [(v, i) for v, i in x if i != idx]\n\n        for i in range(n):\n            first = a[i][0][0]\n            b = [remove(a[j], a[i][0][1]) for j in range(n) if j != i]\n            b.sort(key=lambda x: -x[0][0])\n            # print(b)\n            second = b[0][0][0]\n            third = max(max(v for v, j in row if j != b[0][0][1]) for row in b[1:])\n            # print(i, first + second + third, first + b[0][1][0] + b[1][0][0] )\n            ans = max(ans, first + second + third, first + b[0][1][0] + b[1][0][0])\n            # print(ans)\n        return ans\n            ",
+    "submit_ts": "1723907071",
+    "subm_id": "556323390"
+}

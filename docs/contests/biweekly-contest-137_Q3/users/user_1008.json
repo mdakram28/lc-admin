@@ -1,0 +1,6 @@
+{
+    "username": "\u6708\u8011",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n,m=len(board),len(board[0])\n        x=[]\n        for i in range(n):\n            a=[(board[i][j],j) for j in range(m)]\n            a.sort(reverse=True)\n            x.append(a[0:3])\n        @cache\n        def dfs(i,mask):\n            if mask.bit_count()==3:\n                return 0\n            if i>=n:\n                return -inf\n            res=dfs(i+1,mask)\n            for j in range(3):\n                 if ((mask>>x[i][j][1])&1)==0:\n                        res=max(res,dfs(i+1,mask|(1<<x[i][j][1]))+x[i][j][0])\n            return res\n        ans=dfs(0,0)\n        dfs.cache_clear()\n        return ans",
+    "submit_ts": "1723907465",
+    "subm_id": "556325678"
+}

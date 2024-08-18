@@ -1,0 +1,6 @@
+{
+    "username": "DIVYAMMISHRA0918",
+    "submission": "class Solution {\npublic:\n      long long maximumValueSum(vector<vector<int>>& grid) {\n     int r = grid.size();\nint c = grid[0].size();\nlong long m = LLONG_MIN;\nvector<vector<long long>> v(r, vector<long long>(3, m));\nvector<vector<int>> p(r, vector<int>(3, -1));\n\nfor (int i = 0; i < r; ++i) {\n    vector<pair<long long, int>> q;\n    for (int j = 0; j < c; ++j) {\n        q.emplace_back(grid[i][j], j);\n    }\n    sort(q.rbegin(), q.rend()); \n\n    for (int k = 0; k < 3 && k < c; ++k) {\n        v[i][k] = q[k].first;\n        p[i][k] = q[k].second;\n    }\n}\n\n\nfor (int x = 0; x < r; ++x) {\n    for (int y = x + 1; y < r; ++y) {\n        for (int z = y + 1; z < r; ++z) {\n            for (int a = 0; a < 3; ++a) {\n                for (int b = 0; b < 3; ++b) {\n                    if (p[y][b] == p[x][a]) continue;\n                    for (int d = 0; d < 3; ++d) {\n                        if (p[z][d] == p[x][a] || p[z][d] == p[y][b]) continue;\n\n                        long long s = v[x][a] + v[y][b] + v[z][d];\n                        m = max(m, s);\n                    }\n                }\n            }\n        }\n    }\n}\n\n        int count=0;\nfor(auto x:grid){\n   count++;\n}\nreturn m;\n    }\n};",
+    "submit_ts": "1723910361",
+    "subm_id": "1359227464"
+}

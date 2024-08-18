@@ -1,0 +1,6 @@
+{
+    "username": "Chen Xiaoyan",
+    "submission": "class Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        int n = board.size(), m = board[0].size();\n        auto f = board;\n        auto g = board;\n        for (int i = 1; i < n; i++)\n            for (int j = 0; j < m; j++) f[i][j] = max(f[i][j], f[i-1][j]);\n        for (int i = n - 2; i >= 0; i--)\n            for (int j = 0; j < m; j++) g[i][j] = max(g[i][j], g[i+1][j]);\n        long long ret = -1e18;\n        for (int i = 1; i < n - 1; i++) {\n            set<pair<int, int>> up, dw;\n            for (int j = 0; j < m; j++) {\n                up.emplace(f[i-1][j], j);\n                if (up.size() > 3) up.erase(up.begin());\n                dw.emplace(g[i+1][j], j);\n                if (dw.size() > 3) dw.erase(dw.begin());\n            }\n            for (int j = 0; j < m; j++)\n                for (auto [x, j1]: up)\n                    for (auto [y, j2]: dw) {\n                        if (j == j1 || j == j2 || j1 == j2) continue;\n                        ret = max(ret, (long long)x + board[i][j] + y);\n                    }\n        }\n        return ret;\n    }\n};",
+    "submit_ts": "1723905604",
+    "subm_id": "556312605"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Zephyroo",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m = len(board)\n        n = len(board[0])\n\n        vals = []\n        for i in range(m):\n            for j in range(n):\n                vals.append((board[i][j], 1 << i, 1 << j))\n\n        vals.sort(key=lambda x: x[0], reverse=True)\n        tuple_scores = []\n        max_tuple_score = vals[0][0] + vals[1][0]\n        max_score = -math.inf\n        for i in range(len(vals)):\n            if vals[i][0] + max_tuple_score <= max_score:\n                break\n\n            tuple_scores_len = len(tuple_scores)\n            for j in range(tuple_scores_len):\n                if vals[i][1] & tuple_scores[j][1] == 0 and vals[i][2] & tuple_scores[j][2] == 0:\n                    score = vals[i][0] + tuple_scores[j][0]\n                    if score > max_score:\n                        max_score = score\n            \n            for j in range(i):\n                if vals[i][1] & vals[j][1] == 0 and vals[i][2] & vals[j][2] == 0:\n                    tuple_scores.append((vals[i][0] + vals[j][0], vals[i][1] | vals[j][1], vals[i][2] | vals[j][2]))\n\n        return max_score",
+    "submit_ts": "1723907931",
+    "subm_id": "1359130763"
+}

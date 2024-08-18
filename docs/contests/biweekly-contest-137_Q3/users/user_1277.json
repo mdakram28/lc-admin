@@ -1,0 +1,6 @@
+{
+    "username": "yugu",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        arr = []\n        for i in range(0, len(board)):\n            for j in range(0, len(board[0])):\n                arr.append([board[i][j], i, j])\n        \n        arr.sort(key=lambda x:-x[0])\n\n        res = -inf \n        \n\n        def dfs(i, rows, cols, tmp):\n            nonlocal res \n            if len(rows) == 3:\n                res = max(res, tmp)\n                return \n            if i >= len(arr):\n                return \n\n            s, r, c = arr[i][0], arr[i][1], arr[i][2]\n            if len(rows) == 0 and s * 3 <= res:\n                return \n            if len(rows) == 1 and tmp + s*2 <= res:\n                return \n            if len(rows) == 2 and tmp + s <= res:\n                return \n\n            dfs(i+1, rows, cols, tmp)\n            if r not in rows and c not in cols:\n                cr = {_ for _ in rows}\n                cc = {_ for _ in cols}\n                cr.add(r)\n                cc.add(c)\n                dfs(i+1, cr, cc, tmp+s)\n        rows = set()\n        cols = set()\n        dfs(0, rows, cols, 0)\n        return res ",
+    "submit_ts": "1723909639",
+    "subm_id": "556337275"
+}

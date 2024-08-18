@@ -1,0 +1,6 @@
+{
+    "username": "silvertint10",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m, n = len(board), len(board[0])\n        hp = [[] for _ in range(m)]\n        for i in range(m):\n            for j in range(n):\n                a = board[i][j]\n                if len(hp[i]) < 3:\n                    heappush(hp[i], (a, i, j))\n                elif hp[i][0][0] < a:\n                    heappop(hp[i])\n                    heappush(hp[i], (a, i, j))\n        A = []\n        for h in hp:\n            A += h\n        A.sort(reverse=True)\n        \n        ans = -inf\n        for i in range(m):\n            for j in range(i + 1, m):\n                for a, _, x in hp[i]:\n                    for b, _, y in hp[j]:\n                        if y == x: continue\n                        cur = a + b\n                        for c, zx, zy in A:\n                            if zx in (i, j) or zy in (x, y): continue\n                            cur += c\n                            if cur > ans: ans = cur\n                            break\n        return ans\n                ",
+    "submit_ts": "1723908628",
+    "subm_id": "556331937"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "Linn",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        # \u7ef4\u62a4\u524d\u4e09\u5927\n        m,n = len(board),len(board[0])\n        li = []\n        for i in range(m):\n            li.append(sorted(zip(board[i],range(n)),reverse=True)[:3])\n        one = [-inf] * n\n        two = [-inf] * (n * n)\n        ans = -inf\n        for i in range(m):\n            for x,idx in li[i]:\n                for j in range(n * n):\n                    if j // n != idx and j % n != idx:\n                        ans = max(ans,two[j] + x)\n            for x,idx in li[i]:\n                for j in range(n):\n                    if j != idx:\n                        two[j * n + idx] = max(two[j * n + idx],one[j] + x)\n            for x,idx in li[i]:\n                one[idx] = max(one[idx],x)\n        return ans",
+    "submit_ts": "1723908117",
+    "subm_id": "556329322"
+}

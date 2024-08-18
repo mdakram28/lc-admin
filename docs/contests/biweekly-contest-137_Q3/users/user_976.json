@@ -1,0 +1,6 @@
+{
+    "username": "mnm373",
+    "submission": "import (\n\t\"slices\"\n)\n\nfunc maximumValueSum(board [][]int) int64 {\n\tmaxes := make([][]int, len(board))\n\tfor i, arr := range board {\n\t\tmaxes[i] = max3(arr)\n\t}\n\n\tvar mx int64 = -101010101010\n\tfor i := 0; i < len(board); i++ {\n\t\tfor j := i + 1; j < len(board); j++ {\n\t\t\tfor k := j + 1; k < len(board); k++ {\n\t\t\t\tfor ri := 0; ri < 3; ri++ {\n\t\t\t\t\tfor rj := 0; rj < 3; rj++ {\n\t\t\t\t\t\tfor rk := 0; rk < 3; rk++ {\n\t\t\t\t\t\t\tif mi, mj, mk := maxes[i][ri], maxes[j][rj], maxes[k][rk]; mi != mj && mj != mk && mi != mk {\n\t\t\t\t\t\t\t\tmx = max(mx, int64(board[i][mi])+int64(board[j][mj])+int64(board[k][mk]))\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\treturn mx\n}\n\nfunc max3(arr []int) []int {\n\tinc := []int{0, 1, 2}\n\tslices.SortFunc(inc, func(i, j int) int { return arr[j] - arr[i] })\n\n\tfor i := 3; i < len(arr); i++ {\n\t\titem := arr[i]\n\t\tif arr[inc[0]] < item {\n\t\t\tinc[0], inc[1], inc[2] = i, inc[0], inc[1]\n\t\t} else if arr[inc[1]] < item {\n\t\t\tinc[1], inc[2] = i, inc[1]\n\t\t} else if arr[inc[2]] < item {\n\t\t\tinc[2] = i\n\t\t}\n\t}\n\n\treturn inc\n}\n",
+    "submit_ts": "1723909079",
+    "subm_id": "1359178762"
+}

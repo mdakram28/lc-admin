@@ -1,0 +1,6 @@
+{
+    "username": "zsq007",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m, n = len(board), len(board[0])\n        cands = sorted((-board[i][j], i, j) for i,j in product(range(m), range(n)))[:2*(m+n)-3]\n        l = 2*(m+n)-3\n        heap = [(cands[0][0]+cands[1][0]+cands[2][0], 0, 1, 2)]\n\n        while heap:\n            res, r,s,t = heappop(heap)\n\n            (_, i1, j1), (_, i2, j2), (_, i3, j3) = cands[r], cands[s], cands[t]\n\n            if len(set([i1,i2,i3])) == len(set([j1,j2,j3])) == 3:\n                return -res\n            \n            if r+1 < s:\n                heappush(heap, (cands[r+1][0]+cands[s][0]+cands[t][0], r+1,s,t))\n            if s+1 < t:\n                heappush(heap, (cands[r][0]+cands[s+1][0]+cands[t][0], r,s+1,t))\n            if t+1 < l:\n                heappush(heap, (cands[r][0]+cands[s][0]+cands[t+1][0], r,s,t+1))\n        return -1\n",
+    "submit_ts": "1723906915",
+    "subm_id": "1359079518"
+}

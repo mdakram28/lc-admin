@@ -1,0 +1,6 @@
+{
+    "username": "\u843d\u65e5\u4f59\u6656",
+    "submission": "typedef long long ll;\nclass Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        ll inf=LLONG_MIN/2;\n        ll ans=inf;\n        vector<tuple<ll,int,int>>v;\n        int n=board.size(),m=board[0].size();\n        for(int i=0;i<n;i++){\n            for(int j=0;j<m;j++){\n                v.emplace_back(board[i][j],i,j);\n            }\n        }\n        sort(v.begin(),v.end());\n        int si=v.size(),i1,j1,i2,j2,i3,j3;\n        ll t1=0,t2=0,t3=0;\n        for(int i=v.size()-1;i>=0;i--){\n            if(v.size()-i>=200)break;\n            tie(t1,i1,j1)=v[i];\n            for(int j=i-1;j>=0;j--){\n                if(i-j>=200)break;\n                tie(t2,i2,j2)=v[j];\n                if(i2==i1||j2==j1)continue;                \n                for(int k=j-1;k>=0;k--){\n                    if(j-k>=200)break;\n                    tie(t3,i3,j3)=v[k];\n                    if(i3==i1||i3==i2||j3==j1||j3==j2)continue;\n                    ans=max(ans,t1+t2+t3);\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723908867",
+    "subm_id": "556333282"
+}

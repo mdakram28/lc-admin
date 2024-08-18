@@ -1,0 +1,6 @@
+{
+    "username": "Jeremy Do",
+    "submission": "class Solution:\n    def maximumValueSum(self, board):\n        m, n = len(board), len(board[0])\n        max_sum = [float('-inf')]\n        \n        cells = sorted([(board[i][j], i, j) for i in range(m) for j in range(n)], reverse=True)\n        \n        def backtrack(index, r_count, r_sum, rows, cols):\n            if r_count == 3:\n                max_sum[0] = max(max_sum[0], r_sum)\n                return\n            \n            if index >= len(cells) or r_sum + sum(cell[0] for cell in cells[index:index + 3 - r_count]) <= max_sum[0]:\n                return\n            \n            for k in range(index, len(cells)):\n                value, i, j = cells[k]\n                if i not in rows and j not in cols:\n                    rows.add(i)\n                    cols.add(j)\n                    \n                    backtrack(k + 1, r_count + 1, r_sum + value, rows, cols)\n                    \n                    rows.remove(i)\n                    cols.remove(j)\n        \n        backtrack(0, 0, 0, set(), set())\n        return max_sum[0]\n\n",
+    "submit_ts": "1723908647",
+    "subm_id": "1359161370"
+}

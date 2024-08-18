@@ -1,0 +1,6 @@
+{
+    "username": "surpass-w",
+    "submission": "typedef long long LL;\ntypedef pair<LL, LL> PII;\n#define x first\n#define y second\n\nclass Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& a) {\n        int n = a.size();\n        int m = a[0].size();\n\n        vector<pair<LL, PII>> w;\n\n        for (int i = 0; i < n; i ++ )\n            for (int j = 0; j < m; j ++ )\n                w.push_back({a[i][j], {i, j}});\n\n        sort(w.rbegin(), w.rend());\n        while (w.size() > 100)  w.pop_back();\n        \n        LL res = -2e18;\n        for (int i = 0; i < w.size(); i ++ ) {\n            for (int j = i + 1; j < w.size(); j ++ ) {\n                if (w[i].y.x == w[j].y.x || w[i].y.y == w[j].y.y)\n                    continue;\n                \n                for (int k = j + 1; k < w.size(); k ++ ) {\n                    if (w[i].y.x == w[k].y.x || w[i].y.y == w[k].y.y || w[j].y.x == w[k].y.x || w[j].y.y == w[k].y.y)\n                        continue;\n                    \n                    res = max(res, w[i].x + w[j].x + w[k].x);\n                }\n            }\n        }\n        return res;\n    }\n};",
+    "submit_ts": "1723906940",
+    "subm_id": "556322622"
+}

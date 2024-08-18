@@ -1,0 +1,6 @@
+{
+    "username": "\u6211\u554a",
+    "submission": "const(\n    M = 3\n    MIN = -3000000000\n)\n\nfunc check(i, j int, f [][][]int) bool {\n    x0, y0 := f[i/M][i%M][1], f[i/M][i%M][2]\n    x1, y1 := f[j/M][j%M][1], f[j/M][j%M][2]\n    if x0 != x1 && y0 != y1 { return true }\n    return false\n}\n\nfunc maximumValueSum(board [][]int) int64 {\n    n, m := len(board), len(board[0])\n    f := make([][][]int, n)\n    for i := 0; i < n; i++ { f[i] = make([][]int, M) }\n    for i := 0; i < n; i++ {\n        tmp := make([][]int, m)\n        for j := 0; j < m; j++ { tmp[j] = []int{board[i][j], i, j} }\n        sort.Slice(tmp, func(i, j int)bool{ return tmp[i][0] > tmp[j][0] })\n        f[i] = tmp[:M]\n    }\n    N := n * M\n    res := MIN \n    for i := 0; i < N; i++ {\n        for j := 0; j < N; j++ {\n            if check(i, j, f) {\n                for k := 0; k < N; k++ {\n                    if check(i, k, f) && check(j, k, f) {\n                        res = max(res, f[i/M][i%M][0]+f[j/M][j%M][0]+f[k/M][k%M][0])\n                    }\n                }                \n            }\n        }\n    }\n    return int64(res)\n}",
+    "submit_ts": "1723908566",
+    "subm_id": "556331586"
+}

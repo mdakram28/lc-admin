@@ -1,0 +1,6 @@
+{
+    "username": "mortihoo",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        rows, cols = len(board), len(board[0])\n        B = []\n        hor = [0] * rows\n        ver = [0] * cols\n\n\n        for i in range(rows):\n            for k in range(cols):\n                B.append([board[i][k], i, k])\n        \n        B.sort(reverse=True)\n        N = len(B)\n        self.ans = -math.inf\n        \n        def dfs(i=0,h=0, ans=0):\n            if h == 3:\n                self.ans = max(self.ans, ans)\n                return \n\n            for k in range(i, N):\n                v,x,y = B[k]\n\n                if (3 - h) * v + ans <= self.ans:\n                    return\n\n                if hor[x] == 0 and ver[y] == 0:\n                    hor[x] = 1\n                    ver[y] = 1\n                    dfs(k, h+1, ans+v)\n                    hor[x] = 0\n                    ver[y] = 0\n\n        dfs()\n        return self.ans",
+    "submit_ts": "1723907119",
+    "subm_id": "1359091038"
+}

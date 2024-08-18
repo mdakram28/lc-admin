@@ -1,0 +1,6 @@
+{
+    "username": "Suwarna Shukla",
+    "submission": "import numpy as np\nfrom scipy.optimize import linear_sum_assignment\nfrom typing import List\nfrom itertools import combinations\n\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m, n = len(board), len(board[0])\n        \n        max_sum = float('-inf')\n        \n        # Precompute row values as negatives\n        neg_board = np.array(board) * -1\n        \n        # Iterate over all combinations of 3 rows\n        for row1, row2, row3 in combinations(range(m), 3):\n            # Create the cost matrix for the selected rows\n            cost_matrix = neg_board[[row1, row2, row3]]\n            \n            # Solve the assignment problem using the Hungarian algorithm\n            row_ind, col_ind = linear_sum_assignment(cost_matrix)\n            \n            # Calculate the total sum for this assignment\n            current_sum = -cost_matrix[row_ind, col_ind].sum()\n            \n            # Update max_sum if necessary\n            max_sum = max(max_sum, current_sum)\n        \n        return int(max_sum)\n",
+    "submit_ts": "1723907696",
+    "subm_id": "1359120107"
+}

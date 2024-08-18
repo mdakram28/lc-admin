@@ -1,0 +1,6 @@
+{
+    "username": "YiXia",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        import numpy as np\n        from scipy.optimize import linear_sum_assignment\n        m = len(board)\n        n = len(board[0])\n        if n > m:\n            another_board = [[board[j][i] for j in range(m)] for i in range(n)]\n            return self.maximumValueSum(another_board)\n        result = -inf\n        first = second = -inf\n        pos1 = pos2 = (-1, -1)\n        for i in range(m):\n            for j in range(n):\n                if board[i][j] > first:\n                    first = board[i][j]\n                    pos1 = (i, j)\n        for i in range(m):\n            for j in range(n):\n                if i == pos1[0] or j == pos1[1]:\n                    continue\n                if board[i][j] <= first and board[i][j] > second:\n                    second = board[i][j]\n                    pos2 = (i, j)\n        k = pos1[0]\n        j = pos2[0]\n        for i in range(m):\n            if i != k and i != j:\n                cost = np.array([board[i], board[j], board[k]])\n                r, c = linear_sum_assignment(cost, maximize=True)\n                result = max(result, board[i][c[0]] + board[j][c[1]] + board[k][c[2]])\n        return result",
+    "submit_ts": "1723910231",
+    "subm_id": "556340242"
+}

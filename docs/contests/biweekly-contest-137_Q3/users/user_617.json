@@ -1,0 +1,6 @@
+{
+    "username": "ffs",
+    "submission": "import heapq\nimport math\n\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        r, c = len(board), len(board[0])\n        squares = r*c\n        hq = []\n        for i in range(r):\n            for j in range(c):\n                heapq.heappush(hq, (-1*board[i][j], (i, j)))\n        best = -math.inf\n        besttop = []\n        for i in range(3*r+3*c-9):\n            besttop.append(heapq.heappop(hq))\n        for k in range(len(besttop)):\n            first, (r1, c1) = besttop[k]\n            first *= -1\n            for j in range(r+c):\n                second, (r2, c2) = besttop[j]\n                second *= -1\n                if r1 == r2 or c1 == c2:\n                    continue\n\n                for i in range(2*r+2*c-4+1):\n                    tval, (tr,tc) = besttop[i]\n                    if tr != r1 and tc != c1 and tr != r2 and tc != c2:\n                        total = tval*-1 + first + second\n                        if total > best:\n                            best = total\n                        break\n        return best",
+    "submit_ts": "1723910308",
+    "subm_id": "1359225288"
+}

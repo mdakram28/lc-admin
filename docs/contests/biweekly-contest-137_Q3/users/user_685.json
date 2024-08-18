@@ -1,0 +1,6 @@
+{
+    "username": "Shaik Sameer",
+    "submission": "class Solution {\npublic:\n    long long calc(vector<vector<int>>&board,int index,int j1,int j2,vector<vector<vector<long long>>>&dp){\n        int n=board.size();\n        if(index==n){\n            return -1e15;\n        }\n        int m=board[0].size();\n        if(dp[index][j1+1][j2+1]!=-1e16)return dp[index][j1+1][j2+1];\n        long long maxi=-1e15;\n        for(int j=0;j<m;j++){\n            if(j==j1||j==j2)continue;\n            long long p1;\n            if(j1==-1)p1=1ll*board[index][j]+1ll*calc(board,index+1,j,j2,dp);\n            else if(j2==-1)p1=1ll*board[index][j]+1ll*calc(board,index+1,j1,j,dp);\n            else p1=board[index][j];\n            maxi=max(maxi,p1);\n        }\n        maxi=max(maxi,calc(board,index+1,j1,j2,dp));\n        // if(j1==2&&j2==3)cout<<maxi<<endl;\n        return dp[index][j1+1][j2+1]=maxi;\n    }\n    long long maximumValueSum(vector<vector<int>>& board) {\n        int n=board.size();\n        int m=board[0].size();\n        vector<vector<vector<long long>>>dp(n,vector<vector<long long>>(m+1,vector<long long>(m+1,-1e16)));\n        return calc(board,0,-1,-1,dp);\n    }\n};",
+    "submit_ts": "1723906726",
+    "subm_id": "1359068969"
+}

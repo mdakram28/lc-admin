@@ -1,0 +1,6 @@
+{
+    "username": "\u7ea2\u8336\u5c71\u827e\u5e9c",
+    "submission": "package main\n\nimport (\n\t\"sort\"\n)\n\ntype cell struct {\n\ti, j, value int\n}\n\nfunc maximumValueSum(board [][]int) int64 {\n\tm, n := len(board), len(board[0])\n\ta := make([]cell, 0, m*n)\n\n\tfor i := 0; i < m; i++ {\n\t\tfor j := 0; j < n; j++ {\n\t\t\ta = append(a, cell{i, j, board[i][j]})\n\t\t}\n\t}\n\n\tsort.Slice(a, func(x, y int) bool {\n\t\treturn a[x].value > a[y].value\n\t})\n\n\ta = a[:min(m*n, (m+n)*3)]\n\n\tcheck := func(i, j int) bool {\n\t\tx1, y1, _ := a[i].i, a[i].j, a[i].value\n\t\tx2, y2, _ := a[j].i, a[j].j, a[j].value\n\t\treturn x1 != x2 && y1 != y2\n\t}\n\tans := -int(1e18)\n\tfor i := 0; i < len(a); i++ {\n\t\tfor j := i + 1; j < len(a); j++ {\n\t\t\tfor k := j + 1; k < len(a); k++ {\n\t\t\t\tif check(i, j) && check(i, k) && check(j, k) {\n\t\t\t\t\tsum := a[i].value + a[j].value + a[k].value\n\t\t\t\t\tif sum > ans {\n\t\t\t\t\t\tans = sum\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\treturn int64(ans)\n}\n",
+    "submit_ts": "1723906866",
+    "subm_id": "556322205"
+}

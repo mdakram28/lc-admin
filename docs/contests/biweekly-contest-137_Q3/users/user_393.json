@@ -1,0 +1,6 @@
+{
+    "username": "\u6728\u6c50i",
+    "submission": "class Solution {\npublic:\n  long long maximumValueSum(vector<vector<int>>& board) {\n    int n = board.size(), m = board.front().size();\n    vector<array<int, 3>> index;\n    for (int i = 0; i < n; i++) {\n      vector<int> idx(m);\n      iota(idx.begin(), idx.end(), 0);\n      ranges::sort(idx, {}, [&](int x) {return -board[i][x];});\n      index.push_back({idx[0], idx[1], idx[2]});\n    }\n    long long ans = -1e18;\n    for (int i = 0; i < n; i++) {\n      for (int j = i + 1; j < n; j++) {\n        for (int k = j + 1; k < n; k++) {\n          for (auto x : index[i]) {\n            for (auto y : index[j]) {\n              for (auto z : index[k]) {\n                if (x != y && x != z && y != z) {\n                  long long got = 1LL * board[i][x] + board[j][y] + board[k][z];\n                  ans = max(ans, got);\n                }\n              }\n            }\n          }      \n        }\n      }\n    }\n    return ans;\n  }\n};",
+    "submit_ts": "1723906119",
+    "subm_id": "556316285"
+}

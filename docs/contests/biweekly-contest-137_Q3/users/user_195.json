@@ -1,0 +1,6 @@
+{
+    "username": "ZCode",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n, m = len(board), len(board[0])\n        mx = [[] * 3 for _ in range(n)]\n        for i, r in enumerate(board):\n            cur = sorted([(x, idx) for idx, x in enumerate(r)], key=lambda x:-x[0])\n            mx[i] = cur[:3]\n        \n        def cal(a, b, c):\n            ans = -inf\n            for i in range(3):\n                for j in range(3):\n                    for k in range(3):\n                        if a[i][1] == b[j][1] or a[i][1] == c[k][1] or b[j][1] == c[k][1]:\n                            continue\n                        ans = max(ans, a[i][0]+b[j][0]+c[k][0])\n            return ans\n\n        ans = -inf\n        for i in range(n):\n            for j in range(i+1, n):\n                for k in range(j+1, n):\n                    ans = max(ans, cal(mx[i], mx[j], mx[k]))\n        return ans\n\n",
+    "submit_ts": "1723906377",
+    "subm_id": "556318063"
+}

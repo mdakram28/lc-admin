@@ -1,0 +1,6 @@
+{
+    "username": "dyegral",
+    "submission": "class Solution:\n  def maximumValueSum(self, board: List[List[int]]) -> int:\n    rows = []\n    for row in board:\n      rows.append(sorted([(x, j) for j, x in enumerate(row)], reverse=True)[:3])\n    n = len(rows)\n    ans = -inf\n    res = []\n    vis = set()\n    def f(i):\n      if i == n:\n        return\n      nonlocal ans\n      for x, j in rows[i]:\n        if j not in vis:\n          if len(vis) == 2:\n            ans = max(ans, sum(res) + x)\n            continue\n          res.append(x)\n          vis.add(j)\n          f(i + 1)\n          res.pop()\n          vis.remove(j)\n      f(i + 1)\n    f(0)\n    return ans\n      \n      ",
+    "submit_ts": "1723907891",
+    "subm_id": "556328044"
+}

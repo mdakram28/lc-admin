@@ -1,0 +1,6 @@
+{
+    "username": "\u8fdc\u65e5\u70b9",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m, n = len(board), len(board[0])\n        a = []\n        for row in board:\n            a.append(sorted([(x, i) for i, x in enumerate(row)])[-3:])\n        # print(a)\n        st = []\n        ans = -inf\n        def dfs(i: int, s: int) -> None:\n            if len(st) == 3:\n                nonlocal ans\n                ans = max(ans, s)\n                return\n            if i == m:\n                return\n            \n            dfs(i + 1, s)\n            for x, idx in a[i]:\n                if idx not in st:\n                    st.append(idx)\n                    dfs(i + 1, s + x)\n                    st.pop()\n\n        dfs(0, 0)\n        return ans\n",
+    "submit_ts": "1723908241",
+    "subm_id": "556329953"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "\u542c\u4e0d\u61c2\u4f60\u8bf4\u4ec0\u4e48",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        nums = [sorted(list(range(len(i))), key = lambda x: -i[x])[:3] for i in board]\n        @cache\n        def dfs(cur, k, state):\n            if k == 0: return 0\n            res = -inf\n            for i in range(cur, len(board)):\n                for j in range(3):\n                    if state >> nums[i][j] & 1 == 0:\n                        res = max(res, dfs(i+1, k-1, state | 1 << nums[i][j]) + board[i][nums[i][j]])\n            return res\n        return dfs(0, 3, 1 << len(board[0]))",
+    "submit_ts": "1723909426",
+    "subm_id": "556336194"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "seaofnonsense52",
+    "submission": "import heapq as pq\n\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        nr = len(board)\n        nc = len(board[0])\n        best_3=[None for _ in range(nr)] # row_idx -> [indices of 3 largest elems. If same value, randomly tie broken]\n        \n        # precompute\n        for r in range(nr):\n            shit=pq.nlargest(3, [(e,i) for i,e in enumerate(board[r])])\n            best_3[r] = shit\n        \n        def check_3_rows(i,j,k):\n            besticles=-1e10\n            for e1,i1 in best_3[i]:\n                for e2,i2 in best_3[j]:\n                    for e3,i3 in best_3[k]:\n                        val = e1+e2+e3\n                        valid=len(set([i1,i2,i3]))==3\n                        if valid:\n                            besticles=max(besticles, val)\n            return besticles\n\n        best_score=-1e10\n        for i in range(nr):\n            for j in range(i+1,nr):\n                for k in range(j+1,nr):\n                    cur_score = check_3_rows(i,j,k)\n                    if cur_score > best_score:\n                        best_score=cur_score\n        return best_score",
+    "submit_ts": "1723909652",
+    "subm_id": "1359200647"
+}

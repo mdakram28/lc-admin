@@ -1,0 +1,6 @@
+{
+    "username": "\u77e5\u540d\u7528\u6237",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n = len(board)\n        m = len(board[0])\n        row = [[] for _ in range(n)]\n        for i in range(n):\n            for j in range(m):\n                row[i].append(j)\n                row[i].sort(key=lambda x: board[i][x], reverse=True)\n                if len(row[i]) > 3:\n                    row[i] = row[i][:3]\n        ans = -math.inf\n        index = [i for i in range(n)]\n        index.sort(key=lambda x: max(board[x][row[x][0]], board[x][row[x][1]], board[x][row[x][2]]), reverse=True)\n        index = index[:100]\n        for i in range(len(index)):\n            for j in range(i + 1, len(index)):\n                for k in range(j + 1, len(index)):\n                    x = index[i]\n                    y = index[j]\n                    z = index[k]\n                    for a in row[x]:\n                        for b in row[y]:\n                            for c in row[z]:\n                                if a != b and a != c and b != c:\n                                    ans = max(ans, board[x][a] + board[y][b] + board[z][c])\n        return ans",
+    "submit_ts": "1723909026",
+    "subm_id": "556334124"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "abhishek vaish",
+    "submission": "from functools import cache\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n,m = len(board),len(board[0])\n        index = [0]*n\n        for i in range(n):\n            idx = [j for j in range(m)]\n            index[i] = sorted(idx, key=lambda x:board[i][x])[-3:]\n        \n        @cache\n        def DP(i,j1,j2,j3):\n            if j1 != -1 and j2 != -1 and j3 != -1:\n                    return 0\n            if i == n:\n                return -float('inf')\n            \n            res = DP(i+1,j1,j2,j3) \n            if j1 == -1 and j2 == -1:\n                mx = max([ board[i][j] + DP(i+1,j,-1,-1) for j in index[i] ])\n                res = max(res , mx)\n            elif j1 != -1 and j2 == -1:\n                mx = max([ board[i][j] + DP(i+1,j1,j,-1) for j in index[i] if j != j1 ])\n                res = max(res, mx)\n            else:\n                mx = max([ board[i][j] + + DP(i+1,j1,j2,j) for j in index[i] if j != j1  and j != j2  ])\n                res = max(res, mx)\n            return res \n        \n        return DP(0,-1,-1,-1)\n            ",
+    "submit_ts": "1723907350",
+    "subm_id": "1359103256"
+}

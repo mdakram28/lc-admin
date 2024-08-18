@@ -1,0 +1,6 @@
+{
+    "username": "liang sheng",
+    "submission": "using i64 = long long;\n\nconst i64 INF = 4000000000LL;\n\nclass Solution {\npublic:\n    i64 maximumValueSum(vector<vector<int>>& g) {\n        int n = g.size(), m = g[0].size();\n        auto gao = [&](int id) {\n            vector<int> d(3, -1);\n            for (int j = 0; j < m; j++) {\n                int x = g[id][j];\n                if (d[0] == -1 || x > g[id][d[0]]) d[2] = d[1], d[1] = d[0], d[0] = j;\n                else if (d[1] == -1 || x > g[id][d[1]]) d[2] = d[1], d[1] = j;\n                else if (d[2] == -1 || x > g[id][d[2]]) d[2] = j;\n            }\n            return d;\n        };\n        vector<vector<int>> a(n);\n        for (int i = 0; i < n; i++) a[i] = gao(i);\n        i64 ans = -INF;\n        for (int i = 0; i < n; i++) for (int j = i + 1; j < n; j++) for (int k = j + 1; k < n; k++) {\n            for (int x = 0; x < 3; x++) for (int y = 0; y < 3; y++) for (int z = 0; z < 3; z++) {\n                if (a[i][x] == a[j][y] || a[i][x] == a[k][z] || a[j][y] == a[k][z]) continue;\n                i64 tmp = (i64) g[i][a[i][x]] + g[j][a[j][y]] + g[k][a[k][z]];\n                ans = max(ans, tmp);\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723908181",
+    "subm_id": "556329663"
+}

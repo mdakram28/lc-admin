@@ -1,0 +1,6 @@
+{
+    "username": "Admiring ShockleyZns",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m, n = len(board), len(board[0])\n        \n        mat = []\n        for i in range(m):\n            L = []\n            for j, num in enumerate(board[i]):\n                L.append((j, num))\n            L.sort(key=lambda x:-x[1])\n            mat.append(L[:3])\n        \n        @cache\n        def f(row, a, b, c):\n            if c != -1:\n                return 0\n            if row == m:\n                return -float(\"inf\")\n            res = -float(\"inf\")\n            for j, num in mat[row]:\n                if j == a or j == b:\n                    continue\n                if a == -1:\n                    res = max(res, f(row + 1, j, b, c) + num)\n                elif b == -1:\n                    res = max(res, f(row + 1, a, j, c) + num)\n                else:\n                    res = max(res, f(row + 1, a, b, j) + num)\n            \n            return max(res, f(row + 1, a, b, c))\n            \n        ans = f(0, -1, -1, -1)\n        f.cache_clear()\n        return ans",
+    "submit_ts": "1723907718",
+    "subm_id": "556327091"
+}

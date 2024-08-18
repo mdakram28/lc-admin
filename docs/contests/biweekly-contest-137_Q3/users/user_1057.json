@@ -1,0 +1,6 @@
+{
+    "username": "lyj617",
+    "submission": "class Solution {\n public:\n  long long maximumValueSum(vector<vector<int>>& board) {\n    const long long inf = 0xcfcfcfcfcfcfcfcf;\n    int m = board.size(), n = board[0].size();\n    long long memo[m][n + 1][n + 1];\n    memset(memo, 0xcf, sizeof(memo));\n    auto dfs = [&](auto&& dfs, int i, int fi, int se) -> long long {\n      if (i == m) return inf;\n      if (memo[i][fi][se] > inf) return memo[i][fi][se];\n      long long ans = dfs(dfs, i + 1, fi, se);\n      if (fi == n) {\n        for (int j = 0; j < n; j++) {\n          ans = max(ans, 0ll + board[i][j] + dfs(dfs, i + 1, j, n));\n        }\n      } else if (se == n) {\n        for (int j = 0; j < n; j++) {\n          if (j == fi) continue;\n          ans = max(\n              ans, 0ll + board[i][j] + dfs(dfs, i + 1, min(fi, j), max(fi, j)));\n        }\n      } else {\n        for (int j = 0; j < n; j++) {\n          if (j == fi || j == se) continue;\n          ans = max(ans, 0ll + board[i][j]);\n        }\n      }\n      return memo[i][fi][se] = ans;\n    };\n    return dfs(dfs, 0, n, n);\n  }\n};",
+    "submit_ts": "1723908943",
+    "subm_id": "556333674"
+}

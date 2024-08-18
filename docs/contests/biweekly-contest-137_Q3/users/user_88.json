@@ -1,0 +1,6 @@
+{
+    "username": "DDD",
+    "submission": "class Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        int n = board.size(),m = board[0].size();\n        long long dp1[510];\n        long long dp2[510][510];\n        long long mx[510];\n        memset(dp2,-0x3f,sizeof dp2);\n        memset(dp1,-0x3f,sizeof dp1);\n        memset(mx,-0x3f,sizeof mx);\n        long long ans = -1e18;\n        for(int i = 0;i<n;++i){\n            for(int j = 0;j<m;++j){\n                ans = max(ans,mx[j] + board[i][j]);\n                for(int k = 0;k<m;++k)dp2[k][j] = max(dp2[k][j],dp1[k] + board[i][j]);\n            }\n            for(int j = 0;j<m;++j){\n                dp1[j] = max(dp1[j],1ll*board[i][j]);\n            }\n            for(int j = 0;j<m;++j){\n                long long res = -1e18;\n                for(int k = 0;k<m;++k){\n                    if(j == k)continue;\n                    mx[k] = max(mx[k],res);\n                    res = max(res,dp2[j][k]);\n                }\n                res = -1e18;\n                for(int k = m-1;k>=0;--k){\n                    if(j == k)continue;\n                    mx[k] = max(mx[k],res);\n                    res = max(res,dp2[j][k]);\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723907247",
+    "subm_id": "556324408"
+}

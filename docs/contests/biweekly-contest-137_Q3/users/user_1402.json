@@ -1,0 +1,6 @@
+{
+    "username": "Anshul kumar singh",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m, n = len(board), len(board[0])\n    \n        pq = []\n        for row in board:\n            pq.append(heapq.nlargest(3, enumerate(row), key=lambda x: x[1]))\n        \n        max_sum = -10**10\n        for r1 in range(m):\n            for r2 in range(r1 + 1, m):\n                for r3 in range(r2 + 1, m):\n                    rows = [pq[r1], pq[r2], pq[r3]]\n                    for c1 in range(3):\n                        for c2 in range(3):\n                            if pq[r1][c1][0] == pq[r2][c2][0]:\n                                continue\n                            for c3 in range(3):\n                                if (pq[r1][c1][0] != pq[r3][c3][0] and \n                                    pq[r2][c2][0] != pq[r3][c3][0]):\n                                    cur_sum = (pq[r1][c1][1] +\n                                                pq[r2][c2][1] +\n                                                pq[r3][c3][1])\n                                    max_sum = max(max_sum, cur_sum)\n        \n        return max_sum\n",
+    "submit_ts": "1723909806",
+    "subm_id": "1359206463"
+}

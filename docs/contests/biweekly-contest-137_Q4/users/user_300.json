@@ -1,0 +1,6 @@
+{
+    "username": "Only My Railgun",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        nrow = len(board)\n        ncol = len(board[0])\n        \n        nums = sorted(((board[ir][ic], ir, ic) for ir in range(nrow) for ic in range(ncol)), reverse=True)\n        n = len(nums)\n        \n        ret = -inf\n        \n        sr, sc = [0] * nrow, [0] * ncol\n        acc = 0\n        cnt = 0\n        \n        def dfs(i):\n            nonlocal acc, cnt, ret\n            \n            if i >= n:\n                return\n            \n            x, ir, ic = nums[i]\n            if sr[ir] == 0 and sc[ic] == 0: \n                acc += x\n                sr[ir] = 1\n                sc[ic] = 1\n                cnt += 1\n                if cnt == 3:\n                    ret = max(ret, acc)\n                elif acc + (3 - cnt) * x > ret:                    \n                    dfs(i + 1)\n                acc -= x\n                sr[ir] = 0\n                sc[ic] = 0\n                cnt -= 1\n            \n            if acc + (3 - cnt) * x > ret:\n                dfs(i + 1)\n            \n        \n        dfs(0)\n        \n        return ret        ",
+    "submit_ts": "1723908540",
+    "subm_id": "1359156906"
+}

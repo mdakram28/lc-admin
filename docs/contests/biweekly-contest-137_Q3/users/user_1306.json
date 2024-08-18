@@ -1,0 +1,6 @@
+{
+    "username": "Manas Jain",
+    "submission": "class Solution {\n    int r;\n    int c;\n    int[] rows = new int[3];\n    int[] cols = new int[3];\n\n    public long maximumValueSum(int[][] board) {\n        r = board.length;\n        c = board[0].length;\n\n        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> b[2]-a[2]);\n        for (int i = 0; i < r; i++) {\n            for (int j = 0; j < c; j++) {\n                pq.add(new int[] {i,j,board[i][j]});\n            }\n        }\n\n        int max = 2*Math.max(r,c) + 3;\n\n        int[][] arr = new int[max][3];\n        for (int i = 0; i < max; i++) {\n            arr[i] = pq.poll();\n        }\n\n        return helper(0,0,arr);\n    }\n\n    long helper(int i, int n, int[][] arr) {\n        if(n==3) return 0;\n        if(i == arr.length) {\n            return Long.MIN_VALUE + Integer.MAX_VALUE*100L;\n        }\n        int[] nums = arr[i];\n\n        long temp = helper(i+1 , n , arr);\n\n        for(int j=0; j<n; j++) {\n            if(rows[j] == nums[0] || cols[j]==nums[1]) {\n                return temp;\n            }\n        }\n        rows[n]=nums[0];\n        cols[n]=nums[1];\n        long t = nums[2] + helper(i+1,n+1,arr);\n\n        return Math.max(t, temp);\n    }\n\n}",
+    "submit_ts": "1723909769",
+    "subm_id": "1359205085"
+}

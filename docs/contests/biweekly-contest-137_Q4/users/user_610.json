@@ -1,0 +1,6 @@
+{
+    "username": "Aayush Gupta",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m, n = len(board), len(board[0])\n        mat = []\n        for i in range(m):\n            maxs = sorted([(board[i][j], j) for j in range(n)], reverse = True)[:3]\n            mat.append(maxs)\n        mat.sort(reverse=True)\n        mat = mat[:10]\n        \n        cols = []\n        memo = {}\n        def backtrack(index: int, k: int) -> int:\n            key = (index, tuple(sorted(cols)))\n            if key in memo:\n                return memo[key]\n            if k == 0:\n                return 0\n            if index == min(m, 10):\n                return -inf\n\n            res = backtrack(index + 1, k)\n            for i in range(3):\n                val, j = mat[index][i]\n                if j in cols:\n                    continue\n                cols.append(j)\n                res = max(res, val + backtrack(index + 1, k - 1))\n                cols.remove(j)\n                \n            memo[key] = res\n            return res\n\n        res = backtrack(0, 3)\n        memo.clear()\n        return res",
+    "submit_ts": "1723910371",
+    "subm_id": "1359227988"
+}

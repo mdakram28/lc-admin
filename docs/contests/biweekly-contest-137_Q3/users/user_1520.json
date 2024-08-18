@@ -1,0 +1,6 @@
+{
+    "username": "Priyanshu Sinha",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m = len(board)\n        n = len(board[0])\n        maxi = float('-inf')\n        \n       \n        bv = [[float('-inf')] * 3 for _ in range(m)]\n        bc = [[-1] * 3 for _ in range(m)]\n\n       \n        for i in range(m):\n            cv = [(board[i][j], j) for j in range(n)]\n            cv.sort(reverse=True, key=lambda x: x[0])\n            \n            for k in range(min(3, n)):\n                bv[i][k] = cv[k][0]\n                bc[i][k] = cv[k][1]\n\n       \n        for r1 in range(m):\n            for r2 in range(r1 + 1, m):\n                for r3 in range(r2 + 1, m):\n                    for i in range(3):\n                        for j in range(3):\n                            if bc[r2][j] == bc[r1][i]:\n                                continue\n                            for k in range(3):\n                                if bc[r3][k] == bc[r1][i] or bc[r3][k] == bc[r2][j]:\n                                    continue\n\n                                cs = bv[r1][i] + bv[r2][j] + bv[r3][k]\n                                maxi = max(maxi, cs)\n\n        return maxi\n",
+    "submit_ts": "1723910349",
+    "subm_id": "1359226917"
+}

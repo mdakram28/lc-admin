@@ -1,0 +1,6 @@
+{
+    "username": "Khloe Ramdhan",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n, m = len(board), len(board[0])\n        heap = []\n\n        def findSpots(leftover, rows, cols, limit):\n            best = float('-inf')\n            for i in range(limit + 1, len(heap)):\n                score, x, y = heap[i]\n                if x not in rows and y not in cols:\n                    if leftover > 1:\n                        r = set(rows)\n                        r.add(x)\n                        c = set(cols)\n                        c.add(y)\n                        tmp = score + findSpots(leftover - 1, r, c, i)\n                        if tmp < best:\n                            return best\n                        else:\n                            best = tmp\n                    else:\n                        return score\n\n            return best\n\n\n        best = float('-inf')\n        for i in range(n):\n            for j in range(m):\n                heap.append((board[i][j], i, j))\n\n        heap.sort(key=lambda x: (-x[0]))\n                \n        for i in range(len(heap)):\n            best = max(best, heap[i][0] + findSpots(2, {heap[i][1]}, {heap[i][2]}, i))\n\n        return best ",
+    "submit_ts": "1723907976",
+    "subm_id": "1359132865"
+}

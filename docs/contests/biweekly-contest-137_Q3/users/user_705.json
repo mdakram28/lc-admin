@@ -1,0 +1,6 @@
+{
+    "username": "ZeldaHuang",
+    "submission": "class Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        vector<pair<int,int> > vec;\n        int n=board.size();\n        int m=board[0].size();\n        for(int i=0;i<board.size();++i){\n            for(int j=0;j<board[0].size();++j){\n                vec.push_back({i,j});\n            }\n        }\n        ranges::sort(vec.begin(),vec.end(),[&](pair<int,int> &x,pair<int,int> &y){\n            return board[x.first][x.second]<board[y.first][y.second];\n        });\n        reverse(vec.begin(),vec.end());\n        int maxx=min(2*(n+m+1)+3,(int)vec.size());\n        long long ans=-1e17;\n        for(int i=0;i<maxx;++i){\n            for(int j=i+1;j<maxx;++j){\n                if(vec[i].first==vec[j].first||vec[i].second==vec[j].second) continue;\n                for(int k=j+1;k<maxx;++k){\n                    if(vec[k].first==vec[i].first||vec[k].first==vec[j].first||vec[k].second==vec[i].second||vec[k].second==vec[j].second) continue;\n                    ans=max(ans,(long long)board[vec[i].first][vec[i].second]+board[vec[j].first][vec[j].second]+board[vec[k].first][vec[k].second]);\n                }\n            }\n        }\n        return ans;\n    }\n};",
+    "submit_ts": "1723906963",
+    "subm_id": "556322760"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "B-52405",
+    "submission": "class Solution:\n    def maximumValueSum(self, board) -> int:\n        m, n = len(board), len(board[0])\n        lines = [heapq.nlargest(n, heapq.nlargest(3, ((num, index) for index, num in enumerate(line)))) for line in board]\n        steps = [[i,j,k] for i in range(3) for j in range(3) for k in range(3)]\n        def max_three(i, j, k):\n            counts = []\n            for n1, n2, n3 in steps:\n                if lines[i][n1][1] != lines[j][n2][1] and lines[i][n1][1] != lines[k][n3][1] and lines[j][n2][1] != lines[k][n3][1]:\n                    counts.append(lines[i][n1][0] + lines[j][n2][0] + lines[k][n3][0])\n            return max(counts)\n        result = -3000000000\n        for i in range(m - 2):\n            for j in range(i + 1, m - 1):\n                for k in range(j + 1, m):\n                    result = max(result, max_three(i, j, k))\n        return result",
+    "submit_ts": "1723908449",
+    "subm_id": "556331018"
+}

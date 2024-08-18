@@ -1,0 +1,6 @@
+{
+    "username": "\u4e00\u5835\u5899\u4e00\u6247\u7a97",
+    "submission": "ma = lambda x,y : x if x > y else y\n\nclass Node:\n    def __init__(self,r,c,val):\n        self.r = r\n        self.c = c\n        self.val = val\n\n\n\nclass Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        m,n = len(board),len(board[0])\n        \n        nodes = [[None] * 3 for _ in range(m)]\n        \n        for i in range(m):\n            temp = []\n            for j in range(n):\n                temp.append(Node(i,j,board[i][j]))\n            temp.sort(key=lambda node:-node.val)\n        \n            for k in range(3):\n                nodes[i][k] = temp[k]\n            \n        \n        @cache\n        def dfs(i,col,cnt):\n            if cnt == 0: return 0\n            if i == m: return -inf\n            res = -inf\n            res = ma(res,dfs(i + 1,col,cnt))\n            for node in nodes[i]:\n                k = node.c\n                if (col >>k & 1):\n                    continue\n                res = ma(res,dfs(i + 1,col | 1 << k,cnt-1) + node.val)\n            return res\n        ans = dfs(0,0,3)\n        dfs.cache_clear()\n        return ans",
+    "submit_ts": "1723909840",
+    "subm_id": "556338217"
+}

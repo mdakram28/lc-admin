@@ -1,0 +1,6 @@
+{
+    "username": "lihaicoder",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        n = len(board)\n        m = len(board[0])\n        f1 = [-float(\"inf\")]*m\n        f2 = [-float(\"inf\")]*m\n        ans = -float(\"inf\")\n        for x in range(n):\n            cands1 = sorted(((f1[i], i) for i in range(m)), reverse = True)\n            cands2 = sorted(((board[x][i], i) for i in range(m)), reverse = True)\n            for y in range(m):\n                ans = max(ans, f2[y] + board[x][y])\n                f2cand = -float(\"inf\")\n                for i1 in range(min(6, m)):\n                    if cands1[i1][1] == y:\n                        continue\n                    for i2 in range(min(6, m)):\n                        if cands2[i2][1] == y or cands1[i1][1] == cands2[i2][1]:\n                            continue\n                        f2cand = max(f2cand, cands1[i1][0] + cands2[i2][0])\n                f2[y] = max(f2[y], f2cand)\n                f1[y] = max(f1[y], board[x][y])\n        return ans",
+    "submit_ts": "1723906626",
+    "subm_id": "1359063455"
+}

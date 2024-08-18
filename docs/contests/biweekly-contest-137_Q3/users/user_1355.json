@@ -1,0 +1,6 @@
+{
+    "username": "dhruveel_gajipara",
+    "submission": "class Solution {\npublic:\n    vector<vector<vector<long long>>> dp;\n    long long put(vector<vector<int>>& board,int i,int r1,int r2)\n    {\n        int m=board.size(),n=board[0].size();\n        if(i==m)\n            return LLONG_MIN+(4*1e9);\n        if(dp[i][r1][r2]!=-1)\n            return dp[i][r1][r2];\n        long long ans=put(board,i+1,r1,r2);\n        for(int j=0;j<n;j++)\n        {\n            if(r1==n)\n            {\n                ans=max(ans,board[i][j]+put(board,i+1,j,r2));\n            }\n            else if(r2==n && r1!=j)\n            {\n                ans=max(ans,board[i][j]+put(board,i+1,r1,j));\n            }\n            else if(!(r1==j || r2==j))\n            {\n                ans=max(ans,(long long)board[i][j]);\n            }\n        }\n        // cout<<ans<<\" \"<<i<<\" \"<<r1<<\" \"<<r2<<endl;\n        return dp[i][r1][r2]=ans;\n    }\n    long long maximumValueSum(vector<vector<int>>& board) {\n        int m=board.size(),n=board[0].size();\n        dp.resize(m,vector<vector<long long>>(n+1,vector<long long>(n+1,-1)));\n        return put(board,0,board[0].size(),board[0].size());\n    }\n};",
+    "submit_ts": "1723909484",
+    "subm_id": "1359194302"
+}

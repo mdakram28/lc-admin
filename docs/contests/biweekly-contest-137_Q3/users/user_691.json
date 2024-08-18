@@ -1,0 +1,6 @@
+{
+    "username": "Soez",
+    "submission": "class Solution {\npublic:\n    long long maximumValueSum(vector<vector<int>>& board) {\n        int n = board.size(), m = board[0].size();\n        std::vector<std::vector<std::pair<int,int>>> g(n);\n        for(int i = 0; i < n; i++){\n            for(int j = 0; j < m; j++){\n                g[i].emplace_back(board[i][j], j );\n            }\n        }\n        for(int i = 0; i < n; i++){\n            std::sort(g[i].rbegin(), g[i].rend());\n        }\n        long long ans = -3 * 1e9;\n        std::vector<int> vis(m);\n        std::function<void(int, int, long long)> dfs = [&dfs, &g, &n, &m, &vis, &ans](int i, int cnt, long long sum){\n            if(cnt == 3){\n                ans = std::max(ans, sum);\n                return;\n            }\n            for(int row = i; row < n; row++){\n                for(int col = 0; col < 3; col++){\n                    if(vis[g[row][col].second]){\n                        continue;\n                    }\n                    vis[g[row][col].second] = 1;\n                    dfs(row + 1, cnt + 1, sum + g[row][col].first);\n                    vis[g[row][col].second] = 0;\n                }    \n            }\n        };\n        dfs(0, 0, 0);\n        return ans;\n    }\n};",
+    "submit_ts": "1723907146",
+    "subm_id": "556323842"
+}

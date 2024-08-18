@@ -1,0 +1,6 @@
+{
+    "username": "\u98ce\u75d5\u4f9d\u65e7",
+    "submission": "class Solution:\n    def maximumValueSum(self, mat: List[List[int]]) -> int:\n        m , n = len(mat) , len(mat[0])\n        points = []\n        for i in range(m):\n            for j in range(n):\n                points.append((mat[i][j],i,j))\n        \n        points.sort(reverse=True)\n        N = len(points)\n        ans = -inf\n\n        def dfs(i,mask_r,mask_c,ret):\n            nonlocal ans\n            if len(mask_r) == 3:\n                ans = ret\n                return\n            if i == N or ret + (3-len(mask_r)) * points[i][0] <= ans:return\n            val , r , c = points[i]\n            dfs(i+1,mask_r,mask_c,ret)\n            if r not in mask_r and c not in mask_c:\n                dfs(i+1,mask_r+(r,),mask_c+(c,),ret+val)\n            return\n\n        dfs(0,tuple(),tuple(),0)\n        return ans",
+    "submit_ts": "1723907475",
+    "subm_id": "556325747"
+}

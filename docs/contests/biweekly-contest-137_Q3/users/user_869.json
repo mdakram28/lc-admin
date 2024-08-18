@@ -1,0 +1,6 @@
+{
+    "username": "Marat Shaydulin",
+    "submission": "class Solution:\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        cells = [\n            nlargest(3, (i for i in range(len(row))), key=lambda i: row[i])\n            for row in board\n        ]\n\n        def constant_factory(value):\n            return lambda: value\n\n        dp = [\n            defaultdict(constant_factory(float(\"-inf\"))) for _ in range(4)\n        ]\n        dp[0][0] = 0\n        for i, row in enumerate(cells):\n            for rooks_cnt in range(2, -1, -1):\n                for state, points in dp[rooks_cnt].items():\n                    for j in row:\n                        if state & 1 << j:\n                            continue\n                        new_state = state | 1 << j\n                        dp[rooks_cnt + 1][new_state] = max(\n                            dp[rooks_cnt + 1][new_state],\n                            points + board[i][j]\n                        )\n        return max(dp[3].values())\n",
+    "submit_ts": "1723907842",
+    "subm_id": "1359126742"
+}

@@ -1,0 +1,6 @@
+{
+    "username": "tiger2005",
+    "submission": "class Solution {\npublic:\n  long long maximumValueSum(vector<vector<int>>& board) {\n    auto U = board, D = board;\n    int n = board.size(), m = board[0].size();\n    for (int i = 1; i < n; i ++)\n      for (int j = 0; j < m; j ++)\n        U[i][j] = max(U[i][j], U[i - 1][j]);\n    for (int i = n - 2; i >= 0; i --)\n      for (int j = 0; j < m; j ++)\n        D[i][j] = max(D[i][j], D[i + 1][j]);\n    auto max3 = [&] (vector<int> &v) {\n      vector<pair<int, int>> res(3, {1e9 + 10, -1});\n      for (int i = 0; i < m; i ++) {\n        pair<int, int> p{- v[i], i};\n        res.insert(lower_bound(res.begin(), res.end(), p), p);\n        res.pop_back();\n      }\n      return res;\n    };\n    long long ans = -1e18;\n    for (int i = 1; i < n - 1; i ++) {\n      auto A = max3(board[i]), B = max3(U[i - 1]), C = max3(D[i + 1]);\n      for (auto [a1, b1]: A)\n        for (auto [a2, b2]: B) if (b1 != b2)\n          for (auto [a3, b3]: C) if (b3 != b1 && b3 != b2)\n            ans = max(ans, 0ll - a1 - a2 - a3);\n    }\n    return ans;\n  }\n};",
+    "submit_ts": "1723905554",
+    "subm_id": "556312210"
+}

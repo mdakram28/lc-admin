@@ -1,0 +1,6 @@
+{
+    "username": "1knock",
+    "submission": "class Solution:\n    MIN = -(10**10)\n\n    def maximumValueSum(self, board: List[List[int]]) -> int:\n        max_r, max_c = len(board), len(board[0])\n\n        @cache\n        def find_max_val_sum(cols, rows_used, rooks_rem):\n            if rooks_rem == 0:\n                return 0\n            if cols == max_c:\n                return Solution.MIN\n\n            max_val_sum = find_max_val_sum(cols + 1, rows_used, rooks_rem)\n\n            for value, r in best_3_val[cols]:\n                if r not in rows_used:\n                    n_rows_used = list(rows_used)\n                    n_rows_used.append(r)\n                    sub_sum = find_max_val_sum(\n                        cols + 1, tuple(n_rows_used), rooks_rem - 1\n                    )\n                    if sub_sum != Solution.MIN:\n                        max_val_sum = max(max_val_sum, value + sub_sum)\n\n            return max_val_sum\n\n        best_3_val = [\n            sorted([(board[i][j], i) for i in range(max_r)], reverse=True)[:3]\n            for j in range(max_c)\n        ]\n\n        sol = find_max_val_sum(0, (), 3)\n        # print(sol)\n        return sol",
+    "submit_ts": "1723910359",
+    "subm_id": "1359227396"
+}
